@@ -1,6 +1,11 @@
 # Logs
 logs
 *.log
+dist
+example/focus-components.js
+example/focus-components.css
+.idea
+
 
 # Runtime data
 pids
