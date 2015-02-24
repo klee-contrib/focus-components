@@ -35,9 +35,9 @@ var gulp = require('gulp');
 });
 
 //Each component build
-var components = [];
+var components =  require('./package.json').components|| [];
 return components.forEach(function(component){
-  return jsBuild(component.directory, {entryFile: "index.js", generatedFile: component.name+".js"});
+  return jsBuild(component.path, {entryFile: "index.js", generatedFile: component.name+".js"});
 });
 
 
