@@ -1,6 +1,10 @@
 # focus-components
 Components for focus application.
 
+## spec
+
+Component example structure, with all the directories.
+
 ## form
 
 All the components dealing with forms:
