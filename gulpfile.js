@@ -6,6 +6,11 @@ var gulp = require('gulp');
 var babelify = require("babelify"); //es6
 var browserify = require('browserify'); //build the source
 var source = require('vinyl-source-stream');
+
+/****************************
+  JS BUILD
+**********************/
+
 /**
  * Build a js file from a given source.
  * @param {string} directory - directory name
@@ -14,24 +19,23 @@ var source = require('vinyl-source-stream');
 function jsBuild(directory, options) {
 	options = options || {};
 	var entryFile = './' + directory + '/' + (options.entryFile || 'index.js');
-	var generatedFile = './' + directory + '/' + (options.generatedFile ||
-		"generated.js");
+	var generatedFile = (options.generatedFile || "generated.js");
 	return browserify(({
 			entries: [entryFile],
-			extensions: ['.jsx']
+			extensions: ['.jsx'],
+      standalone: "focus.components." + directory.replace('/', '.')
 		}))
 		.transform(babelify)
 		.bundle()
 		//Pass desired output filename to vinyl-source-stream
 		.pipe(source(generatedFile))
-		.pipe(gulp.dest('./' + directory + '/example/js'));
+		.pipe(gulp.dest('./' + directory + '/example/js/'));
 }
 gulp.task('browserify', function() {
-
-
 	return browserify(({
 			entries: ['./index.js'],
-			extensions: ['.jsx']
+			extensions: ['.jsx'],
+      standalone: "focus.components"
 		}))
 		.transform(babelify)
 		.bundle()
@@ -50,6 +54,12 @@ gulp.task('componentify', function() {
 		});
 	});
 });
+
+/*************************************
+  STYLE BUILD
+*********************************/
+
+
 
 
 
