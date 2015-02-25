@@ -20,8 +20,8 @@
     "url": "https://github.com/KleeGroup/focus-components/issues"
   },
   "components": [{
-    "name": "quick-search"
-    "path" "search/quick-search"
+    "name": "quick-search",
+    "path": "search/quick-search"
   }],
   "homepage": "https://github.com/KleeGroup/focus-components",
   "dependencies": {
