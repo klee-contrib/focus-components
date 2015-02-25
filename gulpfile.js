@@ -20,11 +20,13 @@ function jsBuild(directory, options) {
 	options = options || {};
 	var entryFile = './' + directory + '/' + (options.entryFile || 'index.js');
 	var generatedFile = (options.generatedFile || "generated.js");
+	var literalify = require('literalify');
 	return browserify(({
 			entries: [entryFile],
 			extensions: ['.jsx'],
       standalone: "focus.components." + directory.replace('/', '.')
 		}))
+		.transform({global:true},literalify.configure({react: 'window.React'}))
 		.transform(babelify)
 		.bundle()
 		//Pass desired output filename to vinyl-source-stream
