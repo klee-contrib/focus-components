@@ -33,3 +33,12 @@ All the components for the list
 ## Build
 
 In order to build and test each component alone, there is a build task called `componentify` which performs a build for each component describe under the `components` flag in the `package.json` file.
+
+```javascript
+"components": [
+    {
+      "name": "componentName",
+      "path": "componentPath"
+    }
+  ]
+```
