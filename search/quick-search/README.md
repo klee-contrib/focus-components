@@ -41,6 +41,11 @@ Event         | Description
 ```jsx
 <QuickSearch placeholder="Veuillez taper au moins 3 caractères..."/>
 ```
+```javascript
+React.createElement(React.createClass(focus.components.search.quickSearch)),
+  document.querySelector("#quick-search-container")
+);
+```
 
 
 ## Test
