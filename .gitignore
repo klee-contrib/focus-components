@@ -31,3 +31,9 @@ node_modules
 
 # Users Environment Variables
 .lock-wscript
+
+#Exclude component builds
+
+*/**/example/js/*.js
+*/**/example/css/*.css
+*/**/example/img/*.svg

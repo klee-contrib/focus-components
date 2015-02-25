@@ -91,10 +91,23 @@ gulp.task('style', function() {
 });
 
 
-gulp.task('componentify',['componentify-js', 'componentify-style']);
+gulp.task('componentify',['componentify-js', 'componentify-style', 'componentify-img']);
 
+/****************************
+  IMAGE BUILD
+****************************/
+function imgBuild(directory, options){
+	options = options || {};
+	return gulp.src([directory+'/assets/img/*.svg'])
+		.pipe(gulp.dest(directory + '/example/img/'));
+}
+gulp.task('componentify-img', function() {
+	var components = require('./package.json').components || [];
+	return components.forEach(function(component) {
+		return imgBuild(component.path);
+	});
 
-
+});
 
 
 //Build the style woth sass.
