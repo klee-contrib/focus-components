@@ -33,6 +33,7 @@
     "uuid": "^2.0.1"
   },
   "devDependencies": {
+    "babel-jest": "^4.0.0",
     "babelify": "^5.0.3",
     "browser-sync": "^2.2.1",
     "browserify": "^9.0.3",
@@ -46,5 +47,12 @@
     "react-tools": "^0.12.2",
     "reactify": "^1.0.0",
     "vinyl-source-stream": "^1.0.0"
+  },
+  "jest": {
+    "scriptPreprocessor": "tests/preprocessor.js",
+    "unmockedModulePathPatterns": [
+      "react",
+      "lodash"
+    ]
   }
 }
