@@ -44,7 +44,7 @@ gulp.task('browserify', function() {
 		.pipe(gulp.dest('./dist/'))
 		.pipe(gulp.dest('./example/js'));
 });
-gulp.task('componentify', function() {
+gulp.task('componentify-js', function() {
 	//Each component build
 	var components = require('./package.json').components || [];
 	return components.forEach(function(component) {
@@ -58,6 +58,38 @@ gulp.task('componentify', function() {
 /*************************************
   STYLE BUILD
 *********************************/
+function styleBuild(directory, options){
+	options = options || {};
+	var sass = require('gulp-sass');
+	var concat = require('gulp-concat');
+	var generatedFile = (options.generatedFile || "component.css");
+  return gulp.src([directory+'/**/*.scss'])
+		.pipe(sass())
+		.pipe(concat(generatedFile))
+		.pipe(gulp.dest(directory + '/example/css/'));
+}
+
+gulp.task('componentify-style', function() {
+	//Each component build
+	var components = require('./package.json').components || [];
+	return components.forEach(function(component) {
+		return styleBuild(component.path, {
+			generatedFile: component.name + ".css"
+		});
+	});
+});
+
+gulp.task('style', function() {
+	var sass = require('gulp-sass');
+	var concat = require('gulp-concat');
+	gulp.src(['app/**/*.scss'])
+		.pipe(sass())
+		.pipe(concat('custom.css'))
+		.pipe(gulp.dest('./example/css/'));
+});
+
+
+gulp.task('componentify',['componentify-js', 'componentify-style']);
 
 
 
