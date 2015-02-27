@@ -2,13 +2,12 @@
 /*global jest*/
 
 // __tests__/qs-scope-test.js
-
-jest.dontMock('../scope.js');
-jest.dontMock('../../common/icon.js');
+var React = require('react/addons');
+//jest.dontMock('../scope.js');
 describe('## QS-Scope', function() {
   it('The initialize state should not have a list', function() {
-    var React = require('react/addons');
-    var Scope = require('../scope.js').component;
+    //
+    //var Scope = require('../scope.js').component;
     expect(1).toEqual(1);
   /*  var TestUtils = React.addons.TestUtils;
     var scopes =  [

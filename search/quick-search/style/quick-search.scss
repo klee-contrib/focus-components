@@ -78,11 +78,19 @@ div.qs-quick-search{
       background-color: rgb(89, 89, 89);
       padding-right: 20%;
       padding-top: 20%;
+      padding-left:20px;
 
       li{
+        background-position: left;
         list-style-type: none;
         color: white;
         height: 30px;
+        min-width: 120px;
+        &.qs-scope-1{
+          background: url('../img/earth.svg') no-repeat left center;
+          background-size: 100% 100%;
+        }
+        //text-align: right;
         &.active{
           font-weight: bold;
           //background-color: blue;
@@ -128,5 +136,9 @@ div.qs-quick-search{
 }
 .qs-scope-3{
   background: url('../img/rocket.svg') no-repeat center center;
+  background-size: 100% 100%;
+}
+.qs-scope-none{
+  background: url('../img/qs-none.svg') no-repeat center center;
   background-size: 100% 100%;
 }
