@@ -4,7 +4,8 @@
 	"description": "Focus component repository.",
 	"main": "index.js",
 	"scripts": {
-		"test": "jest"
+		"test": "jest",
+		"example": "node static-server.js"
 	},
 	"repository": {
 		"type": "git",
