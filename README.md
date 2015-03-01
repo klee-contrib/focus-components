@@ -8,6 +8,11 @@ Components for focus application.
 ### spec
 
 Component example structure, with all the directories.
+- `index.js` : the component entry point.
+- `style`: the style of the component should be written in **sass**.
+- `assets`: all the components assets
+- `example`: a example directory for your component, should have an `index.html` file. (see build section for more informations).
+- `__tests__` : components unit tests
 
 ### form
 
@@ -42,3 +47,5 @@ In order to build and test each component alone, there is a build task called `c
     }
   ]
 ```
+
+When your component has been added to this list, it will automatically be deployed as a single component and testable through the url: [http://localhost:3000](http://localhost:3000) using the `static-server.js` file.
