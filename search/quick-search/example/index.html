@@ -10,15 +10,17 @@
   <!-- Place favicon.ico in the root directory -->
   <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
   <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css" />
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/react/0.12.2/react.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/react/0.12.2/react.js"></script>
   <link rel="stylesheet" href="css/quick-search.css"/>
 </head>
 <body>
   <div id="quick-search-container"></div>
   <script src="js/quick-search.js"></script>
   <script type="text/javascript">
+  var Detail =
+
   React.render(
-  React.createElement(React.createClass(focus.components.search.quickSearch)),
+  React.createElement(focus.components.search.quickSearch.component),
     document.querySelector("#quick-search-container")
   );
   </script>
