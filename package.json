@@ -38,6 +38,9 @@
   }, {
     "name": "form",
     "path": "form/form"
+  }, {
+    "name": "live-filter",
+    "path": "search/live-filter"
   }],
   "homepage": "https://github.com/KleeGroup/focus-components",
   "dependencies": {
