@@ -111,7 +111,12 @@ gulp.task('componentify-img', function() {
 
 //Copy the focus-components directory into another repository.
 gulp.task('focus-app', function(){
-  return gulp.src(['package.json','index.js','{spec,search,list,form}/**/*'])
+	var react = require('gulp-react');
+	var babel = require('gulp-babel');
+	var gulpif = require('gulp-if');
+  return gulp.src(['package.json', 'index.js','{spec,search,list,form}/**/*.js'])
+				.pipe(gulpif(/[.]js$/, react({harmony: true})))
+				.pipe(gulpif(/[.]js$/, babel()))
 	.pipe(gulp.dest('../rodolphe/app/node_modules/focus-components/'));
 });
 
