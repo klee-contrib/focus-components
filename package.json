@@ -41,7 +41,10 @@
   }, {
     "name": "live-filter",
     "path": "search/live-filter"
-  }],
+  }, {
+      "name": "selection-list",
+      "path": "list/selection"
+    }],
   "homepage": "https://github.com/KleeGroup/focus-components",
   "dependencies": {
     "lodash": "^3.3.1",

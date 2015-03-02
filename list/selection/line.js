@@ -50,7 +50,9 @@ var lineMixin = {
      * @param event
      */
     _handleSelectionClick: function handleSelectionClick(event){
-        this.props.onSelection(this.props.data);
+        if(this.props.onSelection){
+            this.props.onSelection(this.props.data);
+        }
         var select = !this.state.isSelected;
         this.setState({isSelected:select});
     },
@@ -81,7 +83,7 @@ var lineMixin = {
      */
     _renderLineContent: function renderLineContent(){
         if(this.renderLineContent){
-            return this.renderLineContent;
+            return this.renderLineContent(this.props.data);
         }else{
             return (
                 <div>
@@ -112,4 +114,4 @@ var lineMixin = {
     }
 };
 
-module.exports = builder(lineMixin);
+module.exports = {mixin : lineMixin};
