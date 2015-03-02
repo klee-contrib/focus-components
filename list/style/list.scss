@@ -1,0 +1,59 @@
+/* Style for the list component*/
+
+/*variables*/
+$icon-size:32px;
+
+/*styles*/
+ul.selection-list {
+  list-style: none;
+  padding: 0;
+  margin:0;
+
+  li {
+    padding: 10px;
+    background-color: #FFF;
+    margin: 10px 0;
+  }
+
+  li.sl-line {
+    cursor: pointer;
+    padding-left: 60px;
+    position: relative;
+
+    div.sl-selection {
+      width: $icon-size;
+      height: $icon-size;
+      top: 0;
+      left: 0;
+      position: absolute;
+
+      img {
+        width: $icon-size;
+        height: $icon-size;
+        /*display: none;*/
+      }
+    }
+
+    div.sl-selection {
+      background-color: #FFF;
+      z-index: 1;
+      color:red;
+      height: 100%;
+      width: 50px;
+    }
+
+    &:hover {
+      div.sl-selection.no-selection {
+        background: #FFF url("../img/line-unselected.svg") no-repeat center center;
+        background-size: $icon-size $icon-size;
+        border-left:3px solid green;
+      }
+    }
+
+    div.sl-selection.selected {
+      background: #FFF url("../img/line-selected.svg") no-repeat center center;
+      background-size: $icon-size $icon-size;
+      border-left:3px solid red;
+    }
+  }
+}
