@@ -1,7 +1,7 @@
 /**@jsx*/
 var builder =  require('focus/component/builder');
 var React = require('react');
-var Line = require('./line').component;
+var Line = require('./line').mixin;
 var uuid= require('uuid');
 var type = require('focus/component/types');
 
@@ -50,12 +50,21 @@ var listMixin = {
      */
     renderLines: function renderLines(){
         var lineCount = 1;
+        var LineComponent = this.props.lineComponent || React.createClass(Line);
         return this.props.data.map((line)=>{
-            return <Line key={line.id || uuid.v4()}
-                            data={line} ref={"line" + lineCount++}
-                            isSelected={this.props.isAllSelected}
-                            onSelection={this.props.onSelection}
-                            onLineClick={this.props.onLineClick}/>;
+            return React.createElement(LineComponent,{
+                key : line.id || uuid.v4(),
+                data: line,
+                ref: "line" + lineCount++,
+                isSelected: this.props.isAllSelected,
+                onSelection: this.props.onSelection,
+                onLineClick: this.props.onLineClick
+            });
+            /*<Line key={line.id || uuid.v4()}
+             data={line} ref={"line" + lineCount++}
+             isSelected={this.props.isAllSelected}
+             onSelection={this.props.onSelection}
+             onLineClick={this.props.onLineClick}/>;*/
         });
     },
 
@@ -65,9 +74,9 @@ var listMixin = {
      */
     render: function renderList(){
         return(
-          <ul className="selection-list">
+            <ul className="selection-list">
               {this.renderLines()}
-          </ul>
+            </ul>
         );
     }
 }
