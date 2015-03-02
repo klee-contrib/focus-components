@@ -3,15 +3,25 @@ var React = require('react');
 var Field =  require('../field').component;
 var Button =  require('../button/action').component;
 var assign = require('object-assign');
+/**
+ * Mixin to create a block for the rendering.
+ * @type {Object}
+ */
 var formMixin = {
-  getDefaultProps: ()=>{
+  /**
+   * [getDefaultProps description]
+   */
+  getDefaultProps: function getFormDefaultProps(){
     return {
       hasEdit: true,
       isEdit: false
     };
   },
+  /**
+   * Create a field for the given property metadata.
+   * @param {string} name - property name.
+   */
   fieldFor: function(name){
-
     return React.createElement(Field, {
       name: name,
       ref: name,
@@ -19,10 +29,17 @@ var formMixin = {
       error: this.state.error ? this.state.error[name] : undefined
     });
   },
+  /**
+   * Creates select field.
+   * @param {[type]} name [description]
+   */
   selectFor: function(name){
     //Todo: implement it
     return React.createElement(Select, {name: name});
   },
+  /**
+   * Save button/
+   */
   buttonSave: function(){
     return React.createElement(Button, {
       label: "save",

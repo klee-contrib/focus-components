@@ -59,3 +59,6 @@ In order to launch unit test: `npm run test`
 ## Dependencies
 
 In order to install all your dependencies: `npm install --no-optional`
+
+## Lint
+`gulp eslint` in order to see your errors.

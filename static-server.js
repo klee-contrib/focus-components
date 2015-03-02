@@ -41,4 +41,4 @@ app.use(function(req, res, next) {
 });
 
 //Start the application.
-app.listen(port);
+app.listen(port, function(){console.log('application started on port: ' , port)});
