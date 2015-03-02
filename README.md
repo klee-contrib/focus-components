@@ -1,6 +1,8 @@
 focus-components
 ========================
 
+[![Build Status](https://travis-ci.org/KleeGroup/focus-components.svg)
+
 Components for focus application.
 
 ## Components
