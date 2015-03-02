@@ -4,16 +4,26 @@ var React = require('react');
 var Data = require('./live-filter-data').component;
 
 var liveFilterFacetMixin = {
+
+    /**
+     * Display name.
+     */
     displayName: "live-filter-facet",
+
     /**
      * Init the component state.
-     * @returns {{isExpanded: boolean)}}
+     * @returns {{isShowAll: true if all the facets must be displayed or just be limited to this.props.nbDefaultDataList }}
      */
     getInitialState: function(){
         return {
             isShowAll: false
         };
     },
+
+    /**
+     * Init the default props.
+     * @returns {{nbDefaultDataList: default number of data facets displayed.}}
+     */
     getDefaultProps: function getLiveFilterFacetDefaultProperties(){
         return {
             nbDefaultDataList: 6
@@ -49,7 +59,7 @@ var liveFilterFacetMixin = {
     },
 
     /**
-     * Action on facte title click.
+     * Action on facet title click.
      */
     liveFilterFacetTitleClick: function liveFilterFacetTitleClick() {
         this.props.expandHandler(this.props.facetKey, !this.props.isExpanded);
@@ -87,12 +97,19 @@ var liveFilterFacetMixin = {
         this.props.selectHandler(this.props.facetKey, dataKey, data);
     },
 
+    /**
+     * Render all the data facets.
+     * @returns Html component code.
+     */
     renderShowAllDataList: function renderShowAllDataList() {
         if(!this.state.isShowAll && Object.keys(this.props.facet).length > this.props.nbDefaultDataList) {
             return (<div className="show-all" onClick={this.showAllHandler}> show.alls </div>) ;
         }
     },
 
+    /**
+     * Action on "show all" action.
+     */
     showAllHandler: function showAllHandler() {
         this.setState({isShowAll: !this.state.isShowAll});
     }
