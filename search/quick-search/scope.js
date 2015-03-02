@@ -1,4 +1,5 @@
-//var builder = require('../../core/componentBuilder');
+var builder = require('focus/component/builder');
+var type = require('focus/component/types');
 var React = require('react');
 
 //var type = require('../../core/validation/types');
@@ -24,11 +25,11 @@ var scopeMixin = {
 	 * Scope property validation.
 	 * @type {Object}
 	 */
-	/*  propTypes:{
+	 propTypes:{
 	    list: type('array'),
 	    isDeployed: type('bool'),
 	    value: type(['string', 'number'])
-	  },*/
+	  },
 	/**
 	 * Get the initial state from the data.
 	 */
@@ -119,15 +120,12 @@ var scopeMixin = {
 			 * @return {object} - The jsx element.
 			 */
 			render: function renderScopeComponent() {
+        var cssClass = `qs-icon qs-scope-deploy-${this.state.isDeployed ? "up": "down"}`;
 				return ( < div className = {
 						this.props.className + " qs-scope"
 					} >
-					< div className = {
-						`qs-icon qs-scope-deploy-${(this.state.isDeployed ? "up": "down")}`
-					}
-					onClick = {
-						this.handleDeployClick
-					} >
+					< div className={cssClass}
+					onClick={this.handleDeployClick} >
 					< div className = {
 						this.scopeStyle()
 					} > {
@@ -141,5 +139,4 @@ var scopeMixin = {
 	}
 };
 
-module.exports = scopeMixin;
-//module.exports = builder(scopeMixin);
+module.exports = builder(scopeMixin);
