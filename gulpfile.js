@@ -109,5 +109,11 @@ gulp.task('componentify-img', function() {
 
 });
 
+//Copy the focus-components directory into another repository.
+gulp.task('focus-app', function(){
+  return gulp.src(['package.json','index.js','{spec,search,list,form}/**/*'])
+	.pipe(gulp.dest('../rodolphe/app/node_modules/focus-components/'));
+});
+
 
 //Build the style woth sass.
