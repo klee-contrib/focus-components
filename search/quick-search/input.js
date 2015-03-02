@@ -1,6 +1,7 @@
-//var builder = require('../../core/componentBuilder');
+var builder = require('focus/component/builder');
+var type = require('focus/component/types');
 var React = require('react');
-var Scope = React.createClass(require('./scope'));
+var Scope = require('./scope').component;
 //var Icon = require('../common/icon').component;
 var words = require('lodash/string/words');
 var SearchInputMixin = {
@@ -19,6 +20,14 @@ var SearchInputMixin = {
       minChar: 0,
       loading: false
     };
+  },
+  propTypes: {
+    placeholder: type('string'),
+    value: type('string'),
+    scope: type(['string', 'number']),
+    scopes: type('array'),
+    minChar: type('number'),
+    loading: type('bool')
   },
   getInitialState: function(){
     return {
@@ -76,5 +85,4 @@ var SearchInputMixin = {
   }
 };
 
-//module.exports = builder(SearchInputMixin);
-module.exports = SearchInputMixin;
+module.exports = builder(SearchInputMixin);
