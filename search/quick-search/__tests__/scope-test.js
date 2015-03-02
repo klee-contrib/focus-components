@@ -24,19 +24,11 @@ describe('## QS-Scope', function() {
     var scopeDown = TestUtils.findRenderedDOMComponentWithClass(
       scope, 'qs-scope-deploy-down');
     expect(scopeDown).toBeDefined();
-    // var scopeUpArray = TestUtils.scryRenderedDOMComponentsWithClass(
-    //   scope, 'qs-scope-deploy-up');
-    // expect(scopeUpArray).toBe([]);
-    // // Simulate a click and verify that it is now On
-    /*var input = TestUtils.findRenderedDOMComponentWithTag(
-      checkbox, 'input');
-    TestUtils.Simulate.change(input);
-    expect(label.getDOMNode().textContent).toEqual('On');*/
   });
   it('the clicked state should have a list', function(){
-    var node = TestUtils.findRenderedDOMComponentWithClass(scope, 'qs-scope');
-    console.log(node);
-    React.addons.TestUtils.Simulate.click(node.getDOMNode());
+    var node = TestUtils.findRenderedDOMComponentWithClass(
+      scope, 'qs-scope-deploy-down');
+    React.addons.TestUtils.Simulate.click(node);
     var scopeUp = TestUtils.findRenderedDOMComponentWithClass(
       scope, 'qs-scope-deploy-up');
     expect(scopeUp).toBeDefined();
