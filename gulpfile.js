@@ -84,9 +84,9 @@ gulp.task('componentify-style', function() {
 gulp.task('style', function() {
 	var sass = require('gulp-sass');
 	var concat = require('gulp-concat');
-	gulp.src(['app/**/*.scss'])
+	gulp.src(['{spec,search,list,form}/**/*.scss'])
 		.pipe(sass())
-		.pipe(concat('custom.css'))
+		.pipe(concat('focus-components.css'))
 		.pipe(gulp.dest('./example/css/'));
 });
 
@@ -110,11 +110,11 @@ gulp.task('componentify-img', function() {
 });
 
 //Copy the focus-components directory into another repository.
-gulp.task('focus-app', function(){
+gulp.task('focus-components-npm',['style', 'browserify'], function(){
 	var react = require('gulp-react');
 	var babel = require('gulp-babel');
 	var gulpif = require('gulp-if');
-  return gulp.src(['package.json', 'index.js','{spec,search,list,form}/**/*.js'])
+  return gulp.src(['package.json', 'index.js','{spec,search,list,form,example}/**/*.{js,css}'])
 				.pipe(gulpif(/[.]js$/, react({harmony: true})))
 				.pipe(gulpif(/[.]js$/, babel()))
 	.pipe(gulp.dest('../rodolphe/app/node_modules/focus-components/'));

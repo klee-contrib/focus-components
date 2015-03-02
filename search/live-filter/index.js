@@ -2,6 +2,7 @@
 var builder = require('focus/component/builder');
 var React = require('react');
 var LiveFilterFacet = require('./live-filter-facet').component;
+var type = require('focus/component/types');
 
 var liveFilterMixin = {
 
@@ -9,6 +10,31 @@ var liveFilterMixin = {
      * Display name.
      */
     displayName: "live-filter",
+
+    /**
+     * Init the default properties
+     * @returns {{facetList: {}, selectedFacetList: {}, openedFacetList: {}, config: {}, dataSelectionHandler: undefined}}
+     */
+    getDefaultProps: function() {
+        return {
+            facetList: {},
+            selectedFacetList: {},
+            openedFacetList: {},
+            config: {},
+            dataSelectionHandler: undefined,
+        }
+    },
+
+    /**
+     * List property validation.
+     */
+    propTypes:{
+        facetList: type('object'),
+        selectedFacetList: type('object'),
+        openedFacetList: type('bool'),
+        config: type('object'),
+        dataSelectionHandler: type('func')
+    },
 
     /**
      * Init the state of the component.

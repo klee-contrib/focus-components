@@ -2,8 +2,8 @@
 logs
 *.log
 dist
-example/focus-components.js
-example/focus-components.css
+example/js/focus-components.js
+example/css/focus-components.css
 .idea
 
 
