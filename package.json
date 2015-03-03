@@ -44,6 +44,12 @@
   }, {
     "name": "selection-list",
     "path": "list/selection"
+  }, {
+    "name": "list-action-bar",
+    "path": "list/action-bar"
+  }, {
+    "name": "list-contextual-action",
+    "path": "list/contextual-action"
   }],
   "homepage": "https://github.com/KleeGroup/focus-components",
   "dependencies": {
