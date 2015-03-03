@@ -20,40 +20,37 @@
   "bugs": {
     "url": "https://github.com/KleeGroup/focus-components/issues"
   },
-  "components": [
-    {
-      "name": "quick-search",
-      "path": "search/quick-search"
-    },
-    {
-      "name": "block",
-      "path": "form/block"
-    },
-    {
-      "name": "field",
-      "path": "form/field"
-    },
-    {
-      "name": "input-text",
-      "path": "form/input/text"
-    },
-    {
-      "name": "label",
-      "path": "form/label"
-    },
-    {
-      "name": "form",
-      "path": "form/form"
-    },
-    {
-      "name": "live-filter",
-      "path": "search/live-filter"
-    },
-    {
-      "name": "selection-list",
-      "path": "list/selection"
-    }
-  ],
+  "components": [{
+    "name": "quick-search",
+    "path": "search/quick-search"
+  }, {
+    "name": "block",
+    "path": "form/block"
+  }, {
+    "name": "field",
+    "path": "form/field"
+  }, {
+    "name": "input-text",
+    "path": "form/input/text"
+  }, {
+    "name": "label",
+    "path": "form/label"
+  }, {
+    "name": "form",
+    "path": "form/form"
+  }, {
+    "name": "live-filter",
+    "path": "search/live-filter"
+  }, {
+    "name": "selection-list",
+    "path": "list/selection"
+  }, {
+    "name": "list-action-bar",
+    "path": "list/action-bar"
+  }, {
+    "name": "list-contextual-action",
+    "path": "list/contextual-action"
+  }],
   "homepage": "https://github.com/KleeGroup/focus-components",
   "dependencies": {
     "focus": "https://github.com/KleeGroup/focus/tarball/master",
