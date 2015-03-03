@@ -12,6 +12,8 @@ Attribute       | Options           | Possible              | Default       | De
 `lineComponent` | *React-component* |                       |               | Définie le composant permettant d'afficher une ligne de la liste.
 `isSelection`   | *boolean*         |                       | `true`        | Définie si le composant permet la selection des lignes.
 `onLineClick`   | *function*        |                       |               | Définie la fonction déclenchée sur le click d'une ligne.
+`onSelection`   | *function*        |                       |               | Définie la fonction déclenchée sur la selection d'une ligne.
+`isAllSelected` | *function*        |                       |               | Définie si toutes les lignes sont sélectionnées.
 
 ## Methods
 
@@ -31,7 +33,7 @@ Event           | Description
 
 ## Example
 ```jsx
-<List data={list}/>
+<List data={list} onLineClick={function}/>
 ```
 
 
