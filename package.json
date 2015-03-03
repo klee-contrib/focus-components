@@ -20,42 +20,34 @@
   "bugs": {
     "url": "https://github.com/KleeGroup/focus-components/issues"
   },
-  "components": [
-    {
-      "name": "quick-search",
-      "path": "search/quick-search"
-    },
-    {
-      "name": "block",
-      "path": "form/block"
-    },
-    {
-      "name": "field",
-      "path": "form/field"
-    },
-    {
-      "name": "input-text",
-      "path": "form/input/text"
-    },
-    {
-      "name": "label",
-      "path": "form/label"
-    },
-    {
-      "name": "form",
-      "path": "form/form"
-    },
-    {
-      "name": "live-filter",
-      "path": "search/live-filter"
-    },
-    {
-      "name": "selection-list",
-      "path": "list/selection"
-    }
-  ],
+  "components": [{
+    "name": "quick-search",
+    "path": "search/quick-search"
+  }, {
+    "name": "block",
+    "path": "form/block"
+  }, {
+    "name": "field",
+    "path": "form/field"
+  }, {
+    "name": "input-text",
+    "path": "form/input/text"
+  }, {
+    "name": "label",
+    "path": "form/label"
+  }, {
+    "name": "form",
+    "path": "form/form"
+  }, {
+    "name": "live-filter",
+    "path": "search/live-filter"
+  }, {
+    "name": "selection-list",
+    "path": "list/selection"
+  }],
   "homepage": "https://github.com/KleeGroup/focus-components",
   "dependencies": {
+    "focus": "https://github.com/KleeGroup/focus/tarball/master",
     "gulp-eslint": "^0.5.0",
     "lodash": "^3.3.1",
     "object-assign": "^2.0.0",
