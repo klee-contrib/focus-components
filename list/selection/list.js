@@ -7,6 +7,11 @@ var type = require('focus/component/types');
 
 var listMixin = {
     /**
+     * Display name.
+     */
+    displayName: "selection-list",
+
+    /**
      * Default properties for the list.
      * @returns {{isSelection: boolean}}
      */
@@ -56,6 +61,7 @@ var listMixin = {
                 key : line.id || uuid.v4(),
                 data: line,
                 ref: "line" + lineCount++,
+                isSelection: this.props.isSelection,
                 isSelected: this.props.isAllSelected,
                 onSelection: this.props.onSelection,
                 onLineClick: this.props.onLineClick
