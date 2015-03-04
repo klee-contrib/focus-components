@@ -1,0 +1,18 @@
+.dots-three-vertical {
+  background: url("../img/dots-three-vertical.svg") no-repeat right center;
+  float: left;
+  width: 30px;
+  cursor: pointer;
+}
+
+.select-action {
+  position: absolute;
+  ul {
+    list-style-type: none;
+    position: absolute;
+  }
+  li:hover {
+    background-color: #E6E6E6;
+    cursor: pointer;
+  }
+}

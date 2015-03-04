@@ -39,6 +39,9 @@
 		"name": "form",
 		"path": "common/form"
 	}, {
+      "name": "select-action",
+      "path": "common/select-action"
+    },{
 		"name": "live-filter",
 		"path": "search/live-filter"
 	}, {
