@@ -8,6 +8,7 @@ ul.selection-list {
   list-style: none;
   padding: 0;
   margin:0;
+  overflow-y: scroll;
 
   li {
     padding: 10px;
