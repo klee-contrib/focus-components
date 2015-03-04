@@ -5,12 +5,12 @@ var PrimaryAction = require('./primary-action').component;
 var SecondaryAction = require('./secondary-action').component;
 var type = require('focus/component/types');
 
-var contextualActionMixin = {
+var actionContextualMixin = {
 
     /**
      * Display name.
      */
-    displayName: "list-contextual-action",
+    displayName: "list-action-contextual",
 
     getDefaultProps: function() {
         return {
@@ -38,7 +38,7 @@ var contextualActionMixin = {
         if(!this.state.isSecondaryActionListDisplayed) {
             secondaryActionList.push(<button onClick={this.expandSecondaryActionListHandler} class="todo">Secondary actin list</button>);
         }
-        return (<div className="list-contextual-action" ><div>{primaryActionList}</div><ul>{secondaryActionList}</ul></div>);
+        return (<div className="list-action-contextual" ><div>{primaryActionList}</div><ul>{secondaryActionList}</ul></div>);
     },
     expandSecondaryActionListHandler: function expandSecondaryActionListHandler() {
         this.setState({isSecondaryActionListDisplayed: !this.state.isSecondaryActionListDisplayed});
@@ -46,4 +46,4 @@ var contextualActionMixin = {
 }
 
 
-module.exports = builder(contextualActionMixin);
+module.exports = builder(actionContextualMixin);

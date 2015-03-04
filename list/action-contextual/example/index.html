@@ -11,14 +11,14 @@
     <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css" />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/react/0.12.2/react.js"></script>
-    <link rel="stylesheet" href="css/list-contextual-action.css"/>
+    <link rel="stylesheet" href="css/list-action-contextual.css"/>
 </head>
 <body>
-<div id="list-contextual-action-container"></div>
-<script src="js/list-contextual-action.js"></script>
+<div id="list-action-contextual-container"></div>
+<script src="js/list-action-contextual.js"></script>
 <script type="text/javascript">
     React.render(
-            React.createElement(React.createClass(focus.components.list.contextualAction.mixin),
+            React.createElement(React.createClass(focus.components.list.actionContextual.mixin),
                     {operationList:[
                         {
                             label: "Button1_a",
@@ -46,7 +46,7 @@
 
                     ]}
             ),
-            document.querySelector("#list-contextual-action-container")
+            document.querySelector("#list-action-contextual-container")
     );
 </script>
 

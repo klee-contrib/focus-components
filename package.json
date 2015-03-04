@@ -25,7 +25,7 @@
 		"path": "search/quick-search"
 	}, {
 		"name": "block",
-		"path": "form/block"
+		"path": "common/block"
 	}, {
 		"name": "field",
 		"path": "common/field"
@@ -48,8 +48,8 @@
 		"name": "list-action-bar",
 		"path": "list/action-bar"
 	}, {
-		"name": "list-contextual-action",
-		"path": "list/contextual-action"
+		"name": "list-action-contextual",
+		"path": "list/action-contextual"
 	}],
 	"homepage": "https://github.com/KleeGroup/focus-components",
 	"dependencies": {
