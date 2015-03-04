@@ -3,6 +3,9 @@ var React = require('react');
 var Input = require('../input/text').component;
 var Label = require('../label').component;
 var FieldMixin = {
+  /**
+   * Get field default properties.
+   */
   getDefaultProps: function getFieldDefaultProps(){
     return {
       hasLabel: true,
@@ -12,6 +15,9 @@ var FieldMixin = {
       name: undefined
     };
   },
+  /**
+   * Get the css class of the field component.
+   */
   _className: function(){
     var stateClass =  this.props.error ?   "has-feedback has-error" : "";
     return "form-group " + stateClass;
