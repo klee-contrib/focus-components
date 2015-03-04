@@ -20,6 +20,7 @@ var lineMixin = {
     propTypes:{
         data: type('object'),
         isSelection: type('bool'),
+        isSelected: type('bool'),
         onLineClick: type('func'),
         onSelection: type('func')
     },
@@ -70,11 +71,14 @@ var lineMixin = {
      * @returns {XML}
      */
     _renderSelectionBox: function renderSelectionBox(){
-        var selectionClass = this.state.isSelected? "selected" : "no-selection";
-        //var image = this.state.isSelected? undefined : <img src={this.state.lineItem[this.props.iconfield]}/>
-        return(
-            <div className={`sl-selection ${selectionClass}`} onClick={this._handleSelectionClick}></div>
-        );
+        if(this.props.isSelection){
+            var selectionClass = this.state.isSelected? "selected" : "no-selection";
+            //var image = this.state.isSelected? undefined : <img src={this.state.lineItem[this.props.iconfield]}/>
+            return(
+                <div className={`sl-selection ${selectionClass}`} onClick={this._handleSelectionClick}></div>
+            );
+        }
+        return null;
     },
 
     /**
