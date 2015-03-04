@@ -12,18 +12,28 @@ var actionContextualMixin = {
      */
     displayName: "list-action-contextual",
 
+    /**
+     * Init default props.
+     * @returns {{operationList: List of operations.}}
+     */
     getDefaultProps: function() {
         return {
             operationList: []
         }
     },
-
+    /**
+     * Init default state.
+     * @returns {{isSecondaryActionListExpanded: true if secondary actionList is expanded.}}
+     */
     getInitialState: function(){
         return {
-            isSecondaryActionListDisplayed: false
+            isSecondaryActionListExpanded: false
         };
     },
-
+    /**
+     * render the component.
+     * @returns Html code.
+     */
     render: function renderContextualAction(){
         var primaryActionList = [];
         var secondaryActionList = [];
@@ -35,12 +45,8 @@ var actionContextualMixin = {
                 secondaryActionList.push(operation);
             }
         }
-        return (<div className="list-action-contextual" ><span>{primaryActionList}</span><SelectAction operationList={secondaryActionList} isExpanded={this.state.isSecondaryActionListDisplayed}/></div>);
-    },
-    expandSecondaryActionListHandler: function expandSecondaryActionListHandler() {
-        this.setState({isSecondaryActionListDisplayed: !this.state.isSecondaryActionListDisplayed});
+        return (<div className="list-action-contextual" ><span>{primaryActionList}</span><SelectAction operationList={secondaryActionList} isExpanded={this.state.isSecondaryActionListExpanded}/></div>);
     }
 }
-
 
 module.exports = builder(actionContextualMixin);
