@@ -24,7 +24,7 @@ var buttonMixin = {
     };
   },
   _className: function(){
-    return "btn "+ "btn-" + this.props.css;
+    return "btn "+ (this.props.style ? "btn-" + this.props.style : "");
   },
   renderPressedButton: function(){
     return (
@@ -41,7 +41,7 @@ var buttonMixin = {
     }
     return(
         <button
-          onClick={this.onClick}
+          onClick={this.handleOnClick}
           type={this.props.type}
           className={this._className()}
         >

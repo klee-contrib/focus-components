@@ -1,7 +1,7 @@
 /**@jsx*/
 var builder = require('focus/component/builder');
 var React = require('react');
-var PrimaryAction = require('./primary-action').component;
+var Button = require('../../common/button/action').component;
 var SecondaryAction = require('./secondary-action').component;
 var type = require('focus/component/types');
 
@@ -30,9 +30,9 @@ var actionContextualMixin = {
         for(var key in this.props.operationList) {
             var operation = this.props.operationList[key];
             if(operation.priority == 1) {
-                primaryActionList.push(<PrimaryAction label={operation.label} action={operation.action} class={operation.class} />);
+                primaryActionList.push(<Button style={operation.class}  handleOnClick={operation.action} label={operation.label} /> );
             } else if(this.state.isSecondaryActionListDisplayed) {
-                secondaryActionList.push(<SecondaryAction label={operation.label} action={operation.action} class={operation.class} />);
+                secondaryActionList.push(<SecondaryAction label={operation.label} action={operation.action} class={operation.class} /> );
             }
         }
         if(!this.state.isSecondaryActionListDisplayed) {
