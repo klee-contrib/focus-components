@@ -4,6 +4,8 @@ logs
 dist
 example/js/focus-components.js
 example/css/focus-components.css
+example/css/focus.css
+example/js/focus.js
 .idea
 
 
