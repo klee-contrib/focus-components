@@ -19,7 +19,8 @@ var actionBarMixin = {
             orderableColumnList:{}, // [{key:"columnKey", label:"columnLabel"}]
             orderAction: function(key, order) {},
             groupableColumnList: {},
-            groupAction: function(key) {}
+            groupAction: function(key) {},
+            groupSelectedKey:undefined
         }
     },
 
@@ -44,21 +45,27 @@ var actionBarMixin = {
 
         var groupList = [];
         for(var key in this.props.groupableColumnList) {
-            groupList.push({action: this.groupFunction(this.props.groupAction, key), label: this.props.groupableColumnList[key] });
+            groupList.push({action: this.groupFunction(this.props.groupAction, key), label: this.props.groupableColumnList[key],
+                style: this._getSelectedStyle(key,this.props.groupSelectedKey)});
         }
         var groupOperationList = [
             { label: "action.group",  childOperationList: groupList },
             { label: "action.ungroup",  action: this.groupFunction(this.props.groupAction, null) }];
-
+        var groupStyle = this.props.groupSelectedKey ? "controller-record" : "dots-three-vertical";
         return (<div >
                     <SelectAction style={this._getSelectionStyle()} operationList={selectionOperationList} />
                     <SelectAction style="circle-down" operationList={orderDescOperationList} />
                     <SelectAction style="circle-up" operationList={orderAscOperationList} />
-                    <SelectAction operationList={groupOperationList} />
+                    <SelectAction style={groupStyle} operationList={groupOperationList} />
                 </div>);
     },
 
-
+    _getSelectedStyle: function(currentKey, selectedKey) {
+        if(currentKey == selectedKey) {
+            return " selected ";
+        }
+        return undefined;
+    },
     _getSelectionStyle: function() {
         if(this.props.selectionStatus == 0) {
             return "checkbox-unchecked";

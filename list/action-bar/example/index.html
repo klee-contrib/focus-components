@@ -19,17 +19,18 @@
 <div id="action-bar-container"></div>
 <script src="js/list-action-bar.js"></script>
 <script type="text/javascript">
-    var render = function(selectionStatus, selectionClick) {
+    var render = function() {
         React.render(
                 React.createElement(React.createClass(focus.components.list.actionBar.mixin),
                         {
-                            selectionStatus: selectionStatus,
-                            selectionAllAction: function () { selectionClick(1); },
-                            selectionNoneAction: function () { selectionClick(0); },
+                            selectionStatus: this.selectionStatus,
+                            selectionAllAction: function () { this.selectionClick(1); },
+                            selectionNoneAction: function () { this.selectionClick(0); },
                             orderableColumnList:{col1: "Colonne 1", col2: "Colonne 2", col3: "Colonne 3"},
                             orderAction: function(key, order) {alert("key : " + key + " - order : " + order)},
                             groupableColumnList:{col1: "Colonne 1", col2: "Colonne 2"},
-                            groupAction:function(key) { alert("group : " + key)}
+                            groupAction: this.groupClick,
+                            groupSelectedKey: this.groupSelectedKey
                         }
                 ),
                 document.querySelector("#action-bar-container")
@@ -38,10 +39,19 @@
 
     var selectionClick = function(status) {
         alert("Status (0 : none, 1  all) : " + status);
-        this.render(status, selectionClick)
+        this.selectionStatus = status;
+        this.render();
     };
 
-    render(0, selectionClick);
+    var groupClick = function(key) {
+        alert("group : " + key);
+        this.groupSelectedKey = key;
+        this.render();
+    }
+
+    var groupSelectedKey = undefined;
+    var selectionStatus = undefined;
+    render();
 </script>
 
 </body>
