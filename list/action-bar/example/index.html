@@ -30,7 +30,9 @@
                             orderSelected: this.orderSelected,
                             groupableColumnList:{col1: "Colonne 1", col2: "Colonne 2"},
                             groupAction: this.groupClick,
-                            groupSelectedKey: this.groupSelectedKey
+                            groupSelectedKey: this.groupSelectedKey,
+
+                            operationList: this.operationList
                         }
                 ),
                 document.querySelector("#action-bar-container")
@@ -52,9 +54,38 @@
     var groupClick = function(key) {
         console.log("(GROUPING) Group : " + key);
         this.groupSelectedKey = key;
+        if(key != undefined) {
+            this.orderSelected = undefined;
+        }
         this.render();
     }
 
+    var operationList = [
+        {
+            label: "Button1_a",
+            action: function() {alert("Button1a");},
+            class: "classBtn1",
+            priority: 1
+        },
+        {
+            label: "Button1_b",
+            action: function() {alert("Button1b");},
+            class: undefined,
+            priority: 1
+        },{
+            label: "Button2_a",
+            action: function() {alert("Button2a");},
+            class: "class",
+            priority: 2
+        },
+        {
+            label: "Button2_b",
+            action: function() {alert("Button2b");},
+            class: undefined,
+            priority: 2
+        }
+
+    ]
     var groupSelectedKey = undefined;
     var selectionStatus = 2;
     var orderSelected = undefined;

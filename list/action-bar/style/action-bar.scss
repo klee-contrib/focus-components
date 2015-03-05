@@ -30,3 +30,10 @@
     }
   }
 }
+
+.action-bar {
+  .general-action, .contextual-action {
+    display: inline-block;
+    padding-right: 50px;
+  }
+}

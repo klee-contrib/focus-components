@@ -3,6 +3,7 @@ var builder = require('focus/component/builder');
 var React = require('react');
 var type = require('focus/component/types');
 var SelectAction = require('../../common/select-action').component;
+var ActionContextual = require('../action-contextual').component;
 
 var actionBarMixin = {
 
@@ -26,7 +27,9 @@ var actionBarMixin = {
 
             groupableColumnList: {}, // {col1: "Label1", col2: "Label2"}
             groupAction: function(key) {}, // Action on group function
-            groupSelectedKey:undefined // Defautl grouped key.
+            groupSelectedKey:undefined, // Defautl grouped key.
+
+            operationList: [] // List of contextual operations
         }
     },
 
@@ -35,7 +38,12 @@ var actionBarMixin = {
      * @returns {XML}
      */
     render: function renderActionBar(){
-        return (<div >{this._getSelectionObject()}{this._getOrderObject()}{this._getGroupObject()}</div>);
+        return (
+            <div className="action-bar">
+                <div className="general-action">{this._getSelectionObject()}{this._getOrderObject()}{this._getGroupObject()}</div>
+                <div className="contextual-action"><ActionContextual operationList={this.props.operationList} /></div>
+            </div>
+        );
     },
 
     /**
