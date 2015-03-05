@@ -27,7 +27,9 @@
                             selectionAllAction: function () { selectionClick(1); },
                             selectionNoneAction: function () { selectionClick(0); },
                             orderableColumnList:{col1: "Colonne 1", col2: "Colonne 2", col3: "Colonne 3"},
-                            orderAction: function(key, order) {alert("key : " + key + " - order : " + order)}
+                            orderAction: function(key, order) {alert("key : " + key + " - order : " + order)},
+                            groupableColumnList:{col1: "Colonne 1", col2: "Colonne 2"},
+                            groupAction:function(key) { alert("group : " + key)}
                         }
                 ),
                 document.querySelector("#action-bar-container")
@@ -35,6 +37,7 @@
     }
 
     var selectionClick = function(status) {
+        alert("Status (0 : none, 1  all) : " + status);
         this.render(status, selectionClick)
     };
 

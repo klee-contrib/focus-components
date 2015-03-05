@@ -36,15 +36,24 @@ var selectActionMixin = {
      * @returns Htm code.
      */
     render: function renderSelectAcion(){
-        var liList = [];
-        if(this.state.isExpanded) {
-            for (var key in this.props.operationList) {
-                var operation = this.props.operationList[key];
-                liList.push(<li onClick={operation.action} className={operation.style} >{operation.label}</li>);
-            }
-        }
+        var liList = this._getList(this.props.operationList);
         return (<div className="select-action"><Img onClick={this.expandHandler} src={this.props.style} /><br/><ul>{liList}</ul></div>);
     },
+
+    _getList: function(operationList) {
+        var liList = []
+        if(this.state.isExpanded) {
+            for (var key in operationList) {
+                var operation = operationList[key];
+                liList.push(<li onClick={operation.action} className={operation.style} >{operation.label}</li>);
+                if(operation.childOperationList) {
+                    liList.push(<li><ul>{this._getList(operation.childOperationList)}</ul></li>);
+                }
+            }
+        }
+        return liList;
+    },
+
     /**
      * Action on the root click.
      */
