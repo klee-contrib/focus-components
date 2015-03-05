@@ -24,10 +24,10 @@
                 React.createElement(React.createClass(focusComponents.list.actionBar.mixin),
                         {
                             selectionStatus: this.selectionStatus,
-                            selectionAllAction: function () { this.selectionClick(1); },
-                            selectionNoneAction: function () { this.selectionClick(0); },
+                            selectionAction: this.selectionClick,
                             orderableColumnList:{col1: "Colonne 1", col2: "Colonne 2", col3: "Colonne 3"},
-                            orderAction: function(key, order) {alert("key : " + key + " - order : " + order)},
+                            orderAction: this.orderClick,
+                            orderSelected: this.orderSelected,
                             groupableColumnList:{col1: "Colonne 1", col2: "Colonne 2"},
                             groupAction: this.groupClick,
                             groupSelectedKey: this.groupSelectedKey
@@ -37,20 +37,27 @@
         );
     }
 
+    var orderClick = function(key, order) {
+        console.log("(ORDER) key : " + key + " - order : " + order);
+        this.orderSelected = {key:key, order:order};
+        this.render();
+    }
+
     var selectionClick = function(status) {
-        alert("Status (0 : none, 1  all) : " + status);
+        console.log("(SELECTION) Status : " + status + " (0 : none, 1  all) ");
         this.selectionStatus = status;
         this.render();
     };
 
     var groupClick = function(key) {
-        alert("group : " + key);
+        console.log("(GROUPING) Group : " + key);
         this.groupSelectedKey = key;
         this.render();
     }
 
     var groupSelectedKey = undefined;
-    var selectionStatus = undefined;
+    var selectionStatus = 2;
+    var orderSelected = undefined;
     render();
 </script>
 

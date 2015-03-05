@@ -11,68 +11,125 @@ var actionBarMixin = {
      */
     displayName: "list-action-bar",
 
+    /**
+     * INit default props
+     * @returns Defautkl props.
+     */
     getDefaultProps: function() {
         return {
             selectionStatus: 0, // 0=> None, 1 => All, other value =>  some
-            selectionAllAction: undefined, // Action on select all click
-            selectionNoneAction: undefined, // Action on select none click
+            selectionAction: function(selectionStatus) {}, // Action on selection click
+
             orderableColumnList:{}, // [{key:"columnKey", label:"columnLabel"}]
-            orderAction: function(key, order) {},
-            groupableColumnList: {},
-            groupAction: function(key) {},
-            groupSelectedKey:undefined
+            orderAction: function(key, order) {}, // Action on click on order function
+            orderSelected: {},
+
+            groupableColumnList: {}, // {col1: "Label1", col2: "Label2"}
+            groupAction: function(key) {}, // Action on group function
+            groupSelectedKey:undefined // Defautl grouped key.
         }
     },
 
-    orderFunction: function(func, key, order) {
-        return function() { func(key, order); };
-    },
-    groupFunction(func, key) {
-        return function() { func(key)};
+    /**
+     * Render the html
+     * @returns {XML}
+     */
+    render: function renderActionBar(){
+        return (<div >{this._getSelectionObject()}{this._getOrderObject()}{this._getGroupObject()}</div>);
     },
 
-    render: function renderActionBar(){
+    /**
+     * @returns Selection component.
+     * @private
+     */
+    _getSelectionObject: function() {
+        // Selection datas
         var selectionOperationList = [
-            {action: this.props.selectionAllAction, label: "all" },
-            {action: this.props.selectionNoneAction, label: "none" }
+            {action: this._selectionFunction(this.props.selectionAction, 1) , label: "all" },
+            {action: this._selectionFunction(this.props.selectionAction, 0), label: "none" }
         ];
+        return <SelectAction style={this._getSelectionObjectStyle()} operationList={selectionOperationList} />;
+    },
+
+    /**
+     * @returns Order component.
+     * @private
+     */
+    _getOrderObject: function() {
+        // Order
         var orderDescOperationList = [];
         var orderAscOperationList = [];
+        var orderSelectedParsedKey = this.props.orderSelected.key + this.props.orderSelected.order;
         for(var key in this.props.orderableColumnList) {
-            orderDescOperationList.push({action: this.orderFunction(this.props.orderAction, key, "desc"), label: this.props.orderableColumnList[key] });
-            orderAscOperationList.push({action: this.orderFunction(this.props.orderAction, key, "asc"), label: this.props.orderableColumnList[key] });
+            orderDescOperationList.push({action: this._orderFunction(this.props.orderAction, key, "desc"), label: this.props.orderableColumnList[key], style: this._getSelectedStyle(key+"desc", orderSelectedParsedKey)});
+            orderAscOperationList.push({action: this._orderFunction(this.props.orderAction, key, "asc"), label: this.props.orderableColumnList[key], style: this._getSelectedStyle(key+"asc", orderSelectedParsedKey) });
         }
+        var downStyle = this.props.orderSelected.order == "desc" ? "circle-down" : "chevron-down";
+        var upStyle = this.props.orderSelected.order == "asc" ? "circle-up" : "chevron-up";
+        return [   <SelectAction style={downStyle} operationList={orderDescOperationList} />,
+                    <SelectAction style={upStyle} operationList={orderAscOperationList} />];
+    },
 
+    /**
+     * @returns Grouping component.
+     * @private
+     */
+    _getGroupObject: function() {
         var groupList = [];
         for(var key in this.props.groupableColumnList) {
-            groupList.push({action: this.groupFunction(this.props.groupAction, key), label: this.props.groupableColumnList[key],
+            groupList.push({action: this._groupFunction(this.props.groupAction, key), label: this.props.groupableColumnList[key],
                 style: this._getSelectedStyle(key,this.props.groupSelectedKey)});
         }
         var groupOperationList = [
             { label: "action.group",  childOperationList: groupList },
-            { label: "action.ungroup",  action: this.groupFunction(this.props.groupAction, null) }];
+            { label: "action.ungroup",  action: this._groupFunction(this.props.groupAction, null) }];
         var groupStyle = this.props.groupSelectedKey ? "controller-record" : "dots-three-vertical";
-        return (<div >
-                    <SelectAction style={this._getSelectionStyle()} operationList={selectionOperationList} />
-                    <SelectAction style="circle-down" operationList={orderDescOperationList} />
-                    <SelectAction style="circle-up" operationList={orderAscOperationList} />
-                    <SelectAction style={groupStyle} operationList={groupOperationList} />
-                </div>);
+        return <SelectAction style={groupStyle} operationList={groupOperationList} />;
     },
 
+    /**
+     * @param currentKey
+     * @param selectedKey
+     * @returns Class selected if currentKey corresponds to the selectedKey.
+     * @private
+     */
     _getSelectedStyle: function(currentKey, selectedKey) {
         if(currentKey == selectedKey) {
             return " selected ";
         }
         return undefined;
     },
-    _getSelectionStyle: function() {
+
+    /**
+     * @returns Style of the selection compoent icon.
+     * @private
+     */
+    _getSelectionObjectStyle: function() {
         if(this.props.selectionStatus == 0) {
             return "checkbox-unchecked";
         } else if(this.props.selectionStatus == 1) {
             return "checkbox-checked";
         }
-        return undefined;
+        return "notification";
+    },
+
+    /**
+     * Created to avoid closure problems.
+     */
+    _selectionFunction(func, selectionStatus) {
+        return function() { func(selectionStatus)};
+    },
+    /**
+     * Created to avoid closure problems.
+     */
+    _orderFunction: function(func, key, order) {
+        return function() { func(key, order); };
+    },
+    /**
+     * Created to avoid closure problems.
+     */
+    _groupFunction(func, key) {
+        return function() { func(key)};
     }
 }
 
