@@ -39,6 +39,9 @@
 		"name": "form",
 		"path": "common/form"
 	}, {
+      "name": "img",
+      "path": "common/img"
+    }, {
       "name": "select-action",
       "path": "common/select-action"
     },{

@@ -1,15 +1,14 @@
 .dots-three-vertical {
   background: url("../img/dots-three-vertical.svg") no-repeat right center;
-  float: left;
-  width: 30px;
-  cursor: pointer;
 }
 
 .select-action {
-  position: absolute;
+  display: inline-block;
+  padding-left: 20px;
   ul {
     list-style-type: none;
     position: absolute;
+    padding: 0;
   }
   li:hover {
     background-color: #E6E6E6;

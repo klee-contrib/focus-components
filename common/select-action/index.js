@@ -43,7 +43,7 @@ var selectActionMixin = {
                 liList.push(<li onClick={operation.action} className={operation.style} >{operation.label}</li>);
             }
         }
-        return (<span className="select-action"><Img onClick={this.expandHandler} src={this.props.style} /><br/><ul>{liList}</ul></span>);
+        return (<div className="select-action"><Img onClick={this.expandHandler} src={this.props.style} /><br/><ul>{liList}</ul></div>);
     },
     /**
      * Action on the root click.

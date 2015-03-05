@@ -12,18 +12,33 @@
     <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css" />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/react/0.12.2/react.js"></script>
     <link rel="stylesheet" href="css/list-action-bar.css"/>
+    <link rel="stylesheet" href="../select-action/css/select-action.css"/>
+    <link rel="stylesheet" href="../img/css/img.css"/>
 </head>
 <body>
 <div id="action-bar-container"></div>
 <script src="js/list-action-bar.js"></script>
 <script type="text/javascript">
-    React.render(
-            React.createElement(React.createClass(focus.components.list.actionBar.mixin),
-                    {
-                    }
-            ),
-            document.querySelector("#action-bar-container")
-    );
+    var render = function(selectionStatus, selectionClick) {
+        React.render(
+                React.createElement(React.createClass(focus.components.list.actionBar.mixin),
+                        {
+                            selectionStatus: selectionStatus,
+                            selectionAllAction: function () { selectionClick(1); },
+                            selectionNoneAction: function () { selectionClick(0); },
+                            orderableColumnList:{col1: "Colonne 1", col2: "Colonne 2", col3: "Colonne 3"},
+                            orderAction: function(key, order) {alert("key : " + key + " - order : " + order)}
+                        }
+                ),
+                document.querySelector("#action-bar-container")
+        );
+    }
+
+    var selectionClick = function(status) {
+        this.render(status, selectionClick)
+    };
+
+    render(0, selectionClick);
 </script>
 
 </body>
