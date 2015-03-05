@@ -5,22 +5,26 @@ var React = require('react');
  * @type {Object}
  */
 var labelMixin = {
-  getDefaultProps: function(){
-    return {
-      name: undefined,
-      key: undefined
-    };
-  },
-  i18n: function(prop){
-    return prop;
-  },
-  render: function(){
-    return (
-      <label className={this.props.css}  htmlFor={this.props.name}>
-        {this.i18n(this.props.key)}
-      </label>
-    )
-  }
+	getDefaultProps: function() {
+		return {
+			name: undefined,
+			key: undefined
+		};
+	},
+	i18n: function(prop) {
+		return prop;
+	},
+	render: function() {
+		return ( < label className = {
+				this.props.css
+			}
+			htmlFor = {
+				this.props.name
+			} > {
+				this.i18n(this.props.value)
+			} < /label>
+		)
+	}
 };
 
-module.exports =  builder(labelMixin);
+module.exports = builder(labelMixin);
