@@ -16,13 +16,18 @@ var actionBarMixin = {
             selectionStatus: 0, // 0=> None, 1 => All, other value =>  some
             selectionAllAction: undefined, // Action on select all click
             selectionNoneAction: undefined, // Action on select none click
-            orderableColumnList:[], // [{key:"columnKey", label:"columnLabel"}]
-            orderAction: function(key, order) {}
+            orderableColumnList:{}, // [{key:"columnKey", label:"columnLabel"}]
+            orderAction: function(key, order) {},
+            groupableColumnList: {},
+            groupAction: function(key) {}
         }
     },
 
     orderFunction: function(func, key, order) {
         return function() { func(key, order); };
+    },
+    groupFunction(func, key) {
+        return function() { func(key)};
     },
 
     render: function renderActionBar(){
@@ -37,10 +42,19 @@ var actionBarMixin = {
             orderAscOperationList.push({action: this.orderFunction(this.props.orderAction, key, "asc"), label: this.props.orderableColumnList[key] });
         }
 
-        return (<div>
+        var groupList = [];
+        for(var key in this.props.groupableColumnList) {
+            groupList.push({action: this.groupFunction(this.props.groupAction, key), label: this.props.groupableColumnList[key] });
+        }
+        var groupOperationList = [
+            { label: "action.group",  childOperationList: groupList },
+            { label: "action.ungroup",  action: this.groupFunction(this.props.groupAction, null) }];
+
+        return (<div >
                     <SelectAction style={this._getSelectionStyle()} operationList={selectionOperationList} />
                     <SelectAction style="circle-down" operationList={orderDescOperationList} />
                     <SelectAction style="circle-up" operationList={orderAscOperationList} />
+                    <SelectAction operationList={groupOperationList} />
                 </div>);
     },
 
