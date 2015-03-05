@@ -32,7 +32,7 @@ gulp.task('eslint', function() {
 		},
 		rules: {
 			"valid-jsdoc": [2, {
-			/*  "prefer": {
+				/*  "prefer": {
 					"return": "return"
 				},*/
 				"requireParamDescription": true
@@ -44,9 +44,9 @@ gulp.task('eslint', function() {
 	gulp
 		.src(sources)
 		.pipe(eslint(options))
-	//.pipe(eslint.format(undefined, process.stdout))
-	//.pipe(eslint.failOnError())
-	.pipe(eslint.formatEach(format, process.stderr));
+		//.pipe(eslint.format(undefined, process.stdout))
+		//.pipe(eslint.failOnError())
+		.pipe(eslint.formatEach(format, process.stderr));
 	//.on('error', gutil.log);
 });
 
@@ -67,9 +67,13 @@ function jsBuild(directory, options) {
 	return browserify(({
 			entries: [entryFile],
 			extensions: ['.jsx'],
-      standalone: "focus.components." + directory.replace('/', '.')
+			standalone: "focus-components." + directory.replace('/', '.')
 		}))
-		.transform({global:true},literalify.configure({react: 'window.React'}))
+		.transform({
+			global: true
+		}, literalify.configure({
+			react: 'window.React'
+		}))
 		.transform(babelify)
 		.bundle()
 		//Pass desired output filename to vinyl-source-stream
@@ -77,10 +81,16 @@ function jsBuild(directory, options) {
 		.pipe(gulp.dest('./' + directory + '/example/js/'));
 }
 gulp.task('browserify', function() {
+	var literalify = require('literalify');
 	return browserify(({
 			entries: ['./index.js'],
 			extensions: ['.jsx'],
-      standalone: "focus.components"
+			standalone: "focus-components"
+		}))
+		.transform({
+			global: true
+		}, literalify.configure({
+			react: 'window.React'
 		}))
 		.transform(babelify)
 		.bundle()
@@ -103,12 +113,12 @@ gulp.task('componentify-js', function() {
 /*************************************
   STYLE BUILD
 *********************************/
-function styleBuild(directory, options){
+function styleBuild(directory, options) {
 	options = options || {};
 	var sass = require('gulp-sass');
 	var concat = require('gulp-concat');
 	var generatedFile = (options.generatedFile || "component.css");
-  return gulp.src([directory+'/**/*.scss'])
+	return gulp.src([directory + '/**/*.scss'])
 		.pipe(sass())
 		.pipe(concat(generatedFile))
 		.pipe(gulp.dest(directory + '/example/css/'));
@@ -134,14 +144,16 @@ gulp.task('style', function() {
 });
 
 
-gulp.task('componentify',['componentify-js', 'componentify-style', 'componentify-img']);
+gulp.task('componentify', ['componentify-js', 'componentify-style',
+	'componentify-img'
+]);
 
 /****************************
   IMAGE BUILD
 ****************************/
-function imgBuild(directory, options){
+function imgBuild(directory, options) {
 	options = options || {};
-	return gulp.src([directory+'/assets/img/*.svg'])
+	return gulp.src([directory + '/assets/img/*.svg'])
 		.pipe(gulp.dest(directory + '/example/img/'));
 }
 gulp.task('componentify-img', function() {
@@ -153,14 +165,18 @@ gulp.task('componentify-img', function() {
 });
 
 //Copy the focus-components directory into another repository.
-gulp.task('focus-components-npm',['style', 'browserify'], function(){
+gulp.task('focus-components-npm', ['style', 'browserify'], function() {
 	var react = require('gulp-react');
 	var babel = require('gulp-babel');
 	var gulpif = require('gulp-if');
-  return gulp.src(['package.json', 'index.js','{spec,search,list,form,example}/**/*.{js,css}'])
-				.pipe(gulpif(/[.]js$/, react({harmony: true})))
-				.pipe(gulpif(/[.]js$/, babel()))
-	.pipe(gulp.dest('../rodolphe/app/node_modules/focus-components/'));
+	return gulp.src(['package.json', 'index.js',
+			'{spec,search,list,form,example}/**/*.{js,css}'
+		])
+		.pipe(gulpif(/[.]js$/, react({
+			harmony: true
+		})))
+		.pipe(gulpif(/[.]js$/, babel()))
+		.pipe(gulp.dest('../rodolphe/app/node_modules/focus-components/'));
 });
 
 

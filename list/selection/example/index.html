@@ -18,7 +18,7 @@
 <script src="js/selection-list.js"></script>
 <script type="text/javascript">
     var Line = React.createClass({
-                mixins: [focus.components.list.selection.line.mixin],
+                mixins: [focusComponents.list.selection.line.mixin],
                 renderLineContent: function(data){
                     var title = React.createElement('div',null,data.title);
                     var body = React.createElement('div',null,data.body);
@@ -27,7 +27,7 @@
                 }
             });
 
-    var List = React.createElement(focus.components.list.selection.list.component,{
+    var List = React.createElement(focusComponents.list.selection.list.component,{
         data: [{id:1, title : "toto", body:"ceci est un test"},{id:2, title:"tata",body:"deuxieme test"}],
         lineComponent: Line,
         onLineClick : function onLineClick(line){

@@ -19,21 +19,8 @@
   <div id="form-container"></div>
   <script type="text/javascript">
   focus.components = focusComponents;
-  var Block = focus.components.common.block.component;
-  var form = React.createClass({
-    mixins: [focus.components.common.form.mixin],
-    actions: {
-      load: function(){}
-    },
-    renderContent: function(){
-      React.createElement(Block, {title: "Fiche de l'utilisateur"},
-            this.fieldFor("login"),
-            this.fieldFor("password"),
-            this.buttonSave()
-       );
-    }
-});
-  var Form = React.createElement(form);
+  var Input = focus.components.common.input.text.component;
+  var Form = React.createElement(Input, {value: "pierre", style: {class: "papaSinge"}, onChange: function(evt){console.log('input:change', evt);}})
   React.render(
     Form,
     document.querySelector("#form-container")

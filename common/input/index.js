@@ -1,4 +1,5 @@
 module.exports = {
-  text: require('./text'),
-  date: require('./date')
+	text: require('./text')
+		/*,
+		  date: require('./date')*/
 }

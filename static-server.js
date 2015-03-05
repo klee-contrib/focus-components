@@ -32,6 +32,8 @@ for (var componentName in componentServers) {
 		express.static(__dirname + componentServers[componentName])
 	);
 }
+app.use('/example', express.static(__dirname + "/example"));
+app.use('/dist', express.static(__dirname + "/dist"));
 //Add a special 404 with all existing components and their urls.
 app.use(function(req, res, next) {
 	res.status(404)
@@ -41,4 +43,6 @@ app.use(function(req, res, next) {
 });
 
 //Start the application.
-app.listen(port, function(){console.log('application started on port: ' , port)});
+app.listen(port, function() {
+	console.log('application started on port: ', port)
+});
