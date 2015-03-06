@@ -19,26 +19,26 @@
   <div id="form-container"></div>
   <script type="text/javascript">
   focus.components = focusComponents;
+  var formMixin = focus.components.common.form.mixin;
   var Block = focus.components.common.block.component;
-  var form = React.createClass({
-    mixins: [focus.components.common.form.mixin],
-    actions: {
-      load: function(){}
-    },
-    renderContent: function(){
-      React.createElement(Block, {title: "Fiche de l'utilisateur"},
-            this.fieldFor("login"),
-            this.fieldFor("password"),
-            this.buttonSave()
-       );
+  var Form = React.createClass({displayName: "Form",
+    mixins: [formMixin],
+    stores: [{name: "user", value: {addChangeListener: function(){
+      console.log('user store listener added.');
+    }}}],
+    actions: {load: function(){return true;}},
+    renderContent:function renderUserDetail(){
+      return(
+          React.createElement(Block, {title: "Fiche de l'utilisateur"},
+              this.fieldFor("login"),
+              this.fieldFor("password"),
+              this.buttonSave()
+         )
+      );
     }
-});
-  var Form = React.createElement(form);
-  React.render(
-    Form,
-    document.querySelector("#form-container")
-  );
-  </script>
+  });
+  React.render(React.createElement(Form, null), document.querySelector("#form-container"));
+</script>
 
 </body>
 
