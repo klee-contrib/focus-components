@@ -12,18 +12,84 @@
     <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css" />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/react/0.12.2/react.js"></script>
     <link rel="stylesheet" href="css/list-action-bar.css"/>
+    <link rel="stylesheet" href="../select-action/css/select-action.css"/>
+    <link rel="stylesheet" href="../img/css/img.css"/>
 </head>
 <body>
 <div id="action-bar-container"></div>
 <script src="js/list-action-bar.js"></script>
 <script type="text/javascript">
-    React.render(
-            React.createElement(React.createClass(focus.components.list.actionBar.mixin),
-                    {
-                    }
-            ),
-            document.querySelector("#action-bar-container")
-    );
+    var render = function() {
+        React.render(
+                React.createElement(React.createClass(focusComponents.list.actionBar.mixin),
+                        {
+                            selectionStatus: this.selectionStatus,
+                            selectionAction: this.selectionClick,
+                            orderableColumnList:{col1: "Colonne 1", col2: "Colonne 2", col3: "Colonne 3"},
+                            orderAction: this.orderClick,
+                            orderSelected: this.orderSelected,
+                            groupableColumnList:{col1: "Colonne 1", col2: "Colonne 2"},
+                            groupAction: this.groupClick,
+                            groupSelectedKey: this.groupSelectedKey,
+
+                            operationList: this.operationList
+                        }
+                ),
+                document.querySelector("#action-bar-container")
+        );
+    }
+
+    var orderClick = function(key, order) {
+        console.log("(ORDER) key : " + key + " - order : " + order);
+        this.orderSelected = {key:key, order:order};
+        this.render();
+    }
+
+    var selectionClick = function(status) {
+        console.log("(SELECTION) Status : " + status + " (0 : none, 1  all) ");
+        this.selectionStatus = status;
+        this.render();
+    };
+
+    var groupClick = function(key) {
+        console.log("(GROUPING) Group : " + key);
+        this.groupSelectedKey = key;
+        if(key != undefined) {
+            this.orderSelected = undefined;
+        }
+        this.render();
+    }
+
+    var operationList = [
+        {
+            label: "Button1_a",
+            action: function() {alert("Button1a");},
+            class: "classBtn1",
+            priority: 1
+        },
+        {
+            label: "Button1_b",
+            action: function() {alert("Button1b");},
+            class: undefined,
+            priority: 1
+        },{
+            label: "Button2_a",
+            action: function() {alert("Button2a");},
+            class: "class",
+            priority: 2
+        },
+        {
+            label: "Button2_b",
+            action: function() {alert("Button2b");},
+            class: undefined,
+            priority: 2
+        }
+
+    ]
+    var groupSelectedKey = undefined;
+    var selectionStatus = 2;
+    var orderSelected = undefined;
+    render();
 </script>
 
 </body>

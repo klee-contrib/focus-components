@@ -11,18 +11,32 @@
   <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
   <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css" />
   <script src="https://cdnjs.cloudflare.com/ajax/libs/react/0.12.2/react.js"></script>
-  <script src="js/focus-0.5.1.js"></script>
-  <link rel="stylesheet" href="css/quick-search.css"/>
+  <script src="/dist/focus.js"></script>
+  <script src="/dist/focus-components.js"></script>
+  <link rel="stylesheet" href="css/form.css"/>
 </head>
 <body>
-  <div id="quick-search-container"></div>
-  <script src="js/quick-search.js"></script>
+  <div id="form-container"></div>
   <script type="text/javascript">
-  var Detail =
-
+  focus.components = focusComponents;
+  var Block = focus.components.common.block.component;
+  var form = React.createClass({
+    mixins: [focus.components.common.form.mixin],
+    actions: {
+      load: function(){}
+    },
+    renderContent: function(){
+      React.createElement(Block, {title: "Fiche de l'utilisateur"},
+            this.fieldFor("login"),
+            this.fieldFor("password"),
+            this.buttonSave()
+       );
+    }
+});
+  var Form = React.createElement(form);
   React.render(
-  React.createElement(focusComponents.search.quickSearch.component),
-    document.querySelector("#quick-search-container")
+    Form,
+    document.querySelector("#form-container")
   );
   </script>
 

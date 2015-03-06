@@ -1,0 +1,39 @@
+.checkbox-unchecked {
+  background: url("../img/checkbox-unchecked.svg") no-repeat right center;
+}
+.checkbox-checked {
+  background: url("../img/checkbox-checked.svg") no-repeat right center;
+}
+.notification {
+  background: url("../img/notification.svg") no-repeat right center;
+}
+.circle-down {
+  background: url("../img/circle-down.svg") no-repeat right center;
+}
+.circle-up {
+  background: url("../img/circle-up.svg") no-repeat right center;
+}
+.chevron-down {
+  background: url("../img/chevron-down.svg") no-repeat right center;
+}
+.chevron-up {
+  background: url("../img/chevron-up.svg") no-repeat right center;
+}
+.controller-record {
+  background: url("../img/controller-record.svg") no-repeat right center;
+}
+
+.select-action {
+  ul {
+    li.selected {
+
+    }
+  }
+}
+
+.action-bar {
+  .general-action, .contextual-action {
+    display: inline-block;
+    padding-right: 50px;
+  }
+}

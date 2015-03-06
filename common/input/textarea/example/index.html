@@ -11,18 +11,21 @@
   <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
   <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css" />
   <script src="https://cdnjs.cloudflare.com/ajax/libs/react/0.12.2/react.js"></script>
-  <script src="js/focus-0.5.1.js"></script>
-  <link rel="stylesheet" href="css/quick-search.css"/>
+  <script src="/dist/focus.js"></script>
+  <script src="/dist/focus-components.js"></script>
+  <link rel="stylesheet" href="css/form.css"/>
 </head>
-<body>
-  <div id="quick-search-container"></div>
-  <script src="js/quick-search.js"></script>
-  <script type="text/javascript">
-  var Detail =
 
+<body>
+
+  <div id="form-container" class="container"></div>
+  <script type="text/javascript">
+  focus.components = focusComponents;
+  var TextArea = focus.components.common.input.textarea.component;
+  var Form = React.createElement(TextArea, {value: "Super long texte sur plusieurs ligner", style: {class: "papaSinge"}})
   React.render(
-  React.createElement(focusComponents.search.quickSearch.component),
-    document.querySelector("#quick-search-container")
+    Form,
+    document.querySelector("#form-container")
   );
   </script>
 
