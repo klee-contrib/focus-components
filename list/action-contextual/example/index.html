@@ -13,6 +13,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/react/0.12.2/react.js"></script>
     <link rel="stylesheet" href="css/list-action-contextual.css"/>
     <link rel="stylesheet" href="../select-action/css/select-action.css"/>
+    <link rel="stylesheet" href="../img/css/img.css"/>
 </head>
 <body>
 <div id="list-action-contextual-container"></div>
@@ -21,30 +22,10 @@
     React.render(
             React.createElement(React.createClass(focusComponents.list.actionContextual.mixin),
                     {operationList:[
-                        {
-                            label: "Button1_a",
-                            action: function() {alert("Button1a");},
-                            class: "classBtn1",
-                            priority: 1
-                        },
-                        {
-                            label: "Button1_b",
-                            action: function() {alert("Button1b");},
-                            class: undefined,
-                            priority: 1
-                        },{
-                            label: "Button2_a",
-                            action: function() {alert("Button2a");},
-                            class: "class",
-                            priority: 2
-                        },
-                        {
-                            label: "Button2_b",
-                            action: function() {alert("Button2b");},
-                            class: undefined,
-                            priority: 2
-                        }
-
+                        {label: "Button1_a",action: function() {alert("Button1a");},style: "classBtn1",priority: 1},
+                        {label: "Button1_b",action: function() {alert("Button1b");},style: undefined,priority: 1},
+                        {label: "Button2_a",action: function() {alert("Button2a");},style: "class",priority: 2},
+                        {label: "Button2_b",action: function() {alert("Button2b");},style: undefined,priority: 2}
                     ]}
             ),
             document.querySelector("#list-action-contextual-container")

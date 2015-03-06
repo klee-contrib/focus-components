@@ -32,8 +32,13 @@
 }
 
 .action-bar {
-  .general-action, .contextual-action, .facet-container {
+  .general-action, .facet-container, .contextual-action {
     display: inline-block;
-    padding-right: 50px;
+    padding: 0 25px 0 25px;
+    height:30px;
+  }
+  .facet-container {
+    border-left: solid 2px;
+    border-right: solid 2px;
   }
 }
