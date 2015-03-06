@@ -19,7 +19,8 @@ var searchResultMixin = {
             facetList: {},
             facetConfig:{},
             orderableColumnList:{},
-            groupableColumnList:{}
+            groupableColumnList:{},
+            operationList:{}
         }
     },
     /**
@@ -60,7 +61,8 @@ var searchResultMixin = {
                                 groupAction={this.groupAction}
                                 groupSelectedKey={this.state.groupSelectedKey}
                                 facetList={this._getFacetListForBar()}
-                                facetClickAction={this.facetClickAction}/>
+                                facetClickAction={this.facetClickAction}
+                                operationList={this.props.operationList} />
                 </div>
             </div>
         );
@@ -73,9 +75,6 @@ var searchResultMixin = {
         }
         return facetList;
     },
-    /*
-     operationList: this.operationList
-     */
     facetClickAction: function(key) {
         var keyLength = key.split("_")[0];
         var indexLength = keyLength.length + 1;
