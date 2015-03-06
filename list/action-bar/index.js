@@ -4,6 +4,7 @@ var React = require('react');
 var type = require('focus/component/types');
 var SelectAction = require('../../common/select-action').component;
 var ActionContextual = require('../action-contextual').component;
+var TopicDisplayer = require('../../common/topic-displayer').component;
 
 var actionBarMixin = {
 
@@ -25,6 +26,9 @@ var actionBarMixin = {
             orderAction: function(key, order) {}, // Action on click on order function
             orderSelected: {},
 
+            facetClickAction: function(key) {}, // Action when click on facet
+            facetList:{}, // {facet1: "Label of facet one", facet2:"Label of facet 2"} List of facets
+
             groupableColumnList: {}, // {col1: "Label1", col2: "Label2"}
             groupAction: function(key) {}, // Action on group function
             groupSelectedKey:undefined, // Defautl grouped key.
@@ -41,6 +45,7 @@ var actionBarMixin = {
         return (
             <div className="action-bar">
                 <div className="general-action">{this._getSelectionObject()}{this._getOrderObject()}{this._getGroupObject()}</div>
+                <div className="facet-container"><TopicDisplayer topicList={this.props.facetList} topicClickAction={this.props.facetClickAction}  /></div>
                 <div className="contextual-action"><ActionContextual operationList={this.props.operationList} /></div>
             </div>
         );
