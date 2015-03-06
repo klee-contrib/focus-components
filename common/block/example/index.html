@@ -31,15 +31,13 @@
   <link rel="stylesheet" href="css/form.css"/>
 </head>
 <body>
-  <h1>Button test</h1>
+  <h1>Block test</h1>
   <div id="form-container"></div>
   <script type="text/javascript">
   focus.components = focusComponents;
-  var Button = focus.components.common.button.action.component;
-  React.render(
-    React.createElement(Button, {action: "papaSinge", type: "submit", isPressed: false, handleOnClick: function(d){console.info('click', d);}, label: "bouton de test", style:{className: "primary"}}),
-    document.querySelector("#form-container")
-  );
+  var Block = focus.components.common.block.component;
+
+  React.render(React.createElement(Block, null, "Hello I'm a block"), document.querySelector('#form-container'));
   </script>
 
 </body>
