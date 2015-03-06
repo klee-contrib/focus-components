@@ -64,8 +64,11 @@
 		"path": "list/action-contextual"
 	}, {
 		"name": "button-action",
-		"path": "common/button/action "
-	}],
+		"path": "common/button/action"
+	}, {
+      "name": "search-result",
+      "path": "page/search-result"
+    }],
 	"homepage": "https://github.com/KleeGroup/focus-components",
 	"dependencies": {
 		"focus": "https://github.com/KleeGroup/focus/tarball/master",
