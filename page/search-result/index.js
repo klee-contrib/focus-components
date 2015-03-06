@@ -47,10 +47,9 @@ var searchResultMixin = {
         );
     },
 
-    facetSelectionHandler: function() {
-        var facetComponentDate = this.refs.liveFilter.getValue();
-        var selectedFacetList= facetComponentDate.selectedFacetList;
-        var openedFacetList=facetComponentDate.openedFacetList;
+    facetSelectionHandler: function(facetComponentData) {
+        var selectedFacetList= facetComponentData.selectedFacetList;
+        var openedFacetList=facetComponentData.openedFacetList;
 
         // Todo call the service
         console.warn("TODO : implement the search service ");
