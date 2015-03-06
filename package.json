@@ -36,6 +36,9 @@
     "name": "input-checkbox",
     "path": "common/input/checkbox"
   }, {
+    "name": "topic-displayer",
+    "path": "common/topic-displayer"
+  }, {
     "name": "label",
     "path": "common/label"
   }, {
