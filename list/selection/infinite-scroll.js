@@ -18,11 +18,17 @@ var InfiniteScrollMixin = {
         };
     },
 
+    /**
+     * Before component mount
+     */
     componentWillMount: function() {
         this.nextPage = this.props.initialPage;
         this.parentNode = this.props.parentSelector? document.querySelector(this.props.parentSelector) : window;
     },
 
+    /**
+     * Before component unmount.
+     */
     componentWillUnmount: function() {
         this.detachScrollListener();
     },
@@ -46,7 +52,8 @@ var InfiniteScrollMixin = {
         var pageHeight = topHeader+el.offsetHeight;
         var scrollHeader = (topHeader / pageHeight)*window.innerHeight;
         //console.log((scrollTop - (topHeader / pageHeight) / (el.offsetHeight - topHeader) * this.state.data.length);
-        console.log((scrollTop - topHeader) / (el.offsetHeight) * this.state.data.length);
+        var visibleIndex = (scrollTop - topHeader) / (el.offsetHeight) * this.state.data.length;
+        console.log(visibleIndex);
     },
 
     attachScrollListener: function () {
