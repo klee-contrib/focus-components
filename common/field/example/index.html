@@ -33,13 +33,12 @@
   var Field = focus.components.common.field.component;
     React.render(
       React.createElement("form", {className: "form-horizontal"},
-    React.createElement("h2", null, "Champ 1"),
-    React.createElement(Field, {name: "field1", value: "field1value"}),
-    React.createElement("h2", null, "Champ 2 (erreur)"),
-    React.createElement(Field, {name: "field2", value: "field2value", type: "text", error: "error on field2"}),
-    React.createElement("h2", null, "Champ 3 type number"),
-    React.createElement(Field, {name: "field3", value: 3, type: "number"}),
-    React.createElement(Field, {name: "field4", value: "popop", type: "text", help: "Here to help ..."})
+      React.createElement("h2", null, "Champ 1"),
+      React.createElement(Field, {name: "field1", value: "field1value"}),
+      React.createElement("h2", null, "Champ 2 (erreur)"),
+      React.createElement(Field, {name: "field2", value: "field2value", type: "text", error: "error on field2"}),    React.createElement("h2", null, "Champ 3 type number"),
+      React.createElement(Field, {name: "field3", value: 3, type: "number"}),
+      React.createElement(Field, {name: "field4", value: "popop", type: "text", help: "Here to help ..."})
   ),
     document.querySelector("#form-container")
   );
