@@ -14,6 +14,7 @@
     <link rel="stylesheet" href="css/list-action-bar.css"/>
     <link rel="stylesheet" href="../select-action/css/select-action.css"/>
     <link rel="stylesheet" href="../img/css/img.css"/>
+    <link rel="stylesheet" href="../topic-displayer/css/topic-displayer.css"/>
 </head>
 <body>
 <div id="action-bar-container"></div>
@@ -28,6 +29,10 @@
                             orderableColumnList:{col1: "Colonne 1", col2: "Colonne 2", col3: "Colonne 3"},
                             orderAction: this.orderClick,
                             orderSelected: this.orderSelected,
+
+                            facetList: this.facetList,
+                            facetClickAction:this.facetClickAction,
+
                             groupableColumnList:{col1: "Colonne 1", col2: "Colonne 2"},
                             groupAction: this.groupClick,
                             groupSelectedKey: this.groupSelectedKey,
@@ -89,6 +94,14 @@
     var groupSelectedKey = undefined;
     var selectionStatus = 2;
     var orderSelected = undefined;
+
+    var facetList = {fa1:"Facette 1", fa2: "Facette 2", fa3: "Facette 3"};
+    var facetClickAction= function(key) {
+        delete this.facetList[key];
+        this.render();
+    }
+
+
     render();
 </script>
 
