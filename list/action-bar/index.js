@@ -58,8 +58,8 @@ var actionBarMixin = {
     _getSelectionObject: function() {
         // Selection datas
         var selectionOperationList = [
-            {action: this._selectionFunction(this.props.selectionAction, 1) , label: "all" },
-            {action: this._selectionFunction(this.props.selectionAction, 0), label: "none" }
+            {action: this._selectionFunction(this.props.selectionAction, 1) , label: "all",  style: this._getSelectedStyle(this.props.selectionStatus, 1) },
+            {action: this._selectionFunction(this.props.selectionAction, 0), label: "none",  style: this._getSelectedStyle(this.props.selectionStatus, 0)  }
         ];
         return <SelectAction style={this._getSelectionObjectStyle()} operationList={selectionOperationList} />;
     },
