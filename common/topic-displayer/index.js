@@ -25,15 +25,16 @@ var topicDisplayerMixin = {
      * @returns Htm code.
      */
     render: function renderSelectAcion(){
-        var liList = [];
+        var topicList = [];
+        var className = "btn btn-primary btn-raised topic";
         for(var key in this.props.topicList) {
-            liList.push(<li className="topic"><span  onClick={this.topicClickHandler(this.props.topicClickAction, key)}>{this.props.topicList[key]}</span></li>);
+            topicList.push(<a href="javascript:void(0)"  onClick={this.topicClickHandler(this.props.topicClickAction, key)} className={className}>{this.props.topicList[key]}</a>);
         }
-        var style = "topic-displayer ";
+        var style = "topic-displayer bs-component ";
         if(this.props.style) {
             style+= this.props.style;
         }
-        return (<div className={style}>{liList}</div>);
+        return (<p className={style}>{topicList}</p>);
     },
 
     /**
