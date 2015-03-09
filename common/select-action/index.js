@@ -36,6 +36,9 @@ var selectActionMixin = {
      * @returns Htm code.
      */
     render: function renderSelectAcion(){
+        if(this.props.operationList.length == 0) {
+            return <div/>;
+        }
         var liList = this._getList(this.props.operationList);
         return (<div className="select-action"><Img onClick={this.expandHandler} src={this.props.style} /><br/><ul>{liList}</ul></div>);
     },

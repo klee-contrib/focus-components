@@ -11,7 +11,6 @@
   <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
   <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css" />
   <script src="https://cdnjs.cloudflare.com/ajax/libs/react/0.12.2/react.js"></script>
-
   <!-- Material degign-->
   <script src="//code.jquery.com/jquery-1.10.2.min.js"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-material-design/0.2.2/css/material-wfont.css">
@@ -26,20 +25,19 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-material-design/0.2.2/js/material.js"/>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-material-design/0.2.2/js/ripples.min.js"></script>
   <!-- Material degign-->
+
   <script src="/dist/focus.js"></script>
   <script src="/dist/focus-components.js"></script>
   <link rel="stylesheet" href="css/form.css"/>
 </head>
-
 <body>
-
-  <div id="form-container" class="container"></div>
+  <h1>Button test</h1>
+  <div id="form-container"></div>
   <script type="text/javascript">
   focus.components = focusComponents;
-  var Checkbox = focus.components.common.input.checkbox.component;
-  var Form = React.createElement(Checkbox, {value: true, style: {class: "papaSinge"}, label :"Ma super checkbox"})
+  var Button = focus.components.common.button.action.component;
   React.render(
-    Form,
+    React.createElement(Button, {action: "papaSinge", type: "submit", isPressed: false, handleOnClick: function(d){console.info('click', d);}, label: "bouton de test", style:{className: "primary"}}),
     document.querySelector("#form-container")
   );
   </script>

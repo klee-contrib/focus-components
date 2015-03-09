@@ -66,6 +66,9 @@
 		"name": "button-action",
 		"path": "common/button/action"
 	}, {
+		"name": "block",
+		"path": "common/block"
+	}, {
       "name": "search-result",
       "path": "page/search-result"
     }],

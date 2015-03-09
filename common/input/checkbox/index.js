@@ -1,10 +1,8 @@
 //Target
 /*
-<div class="checkbox">
-  <label>
-    <input type="checkbox"> Checkbox
-  </label>
-</div>
+<label>
+  <input type="checkbox"><span class="ripple"></span><span class="check"></span> Checkbox
+</label>
  */
 var builder = require('focus/component/builder');
 var React = require('react');
@@ -54,18 +52,16 @@ var checkBoxMixin = {
 	 * @return {VirtualDOM} - The virtual DOM of the checkbox.
 	 */
 	render: function renderCheckBox() {
-		return ( < div class = "checkbox" >
-			< label >
-			< input ref = 'checkbox'
-			checked = {
-				this.state.isChecked
-			}
-			onChange = {
-				this._onChange
-			}
-			type = "checkbox" / > {
-				this.props.label
-			} < /label> < /div > );
+		return (
+			<div className="checkbox">
+			  <label>
+					<input ref='checkbox'checked={this.state.isChecked} onChange={this._onChange} type="checkbox" />
+					<span className="ripple"></span>
+					<span className="check"></span>
+					{this.props.label}
+				</label>
+			</div>
+		 );
 	}
 };
 

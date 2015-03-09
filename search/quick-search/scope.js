@@ -95,25 +95,17 @@ var scopeMixin = {
 		}
 		var scopes = this.props.list.map((scope) => {
 			var selectedValue = this.state.value === scope.code ? "active" : "";
-			return ( < li key = {
-					scope.code || uuid.v4()
-				}
-				value = {
-					scope.code
-				}
-				className = {
-					`${selectedValue} ${scope.style}`
-				}
-				onClick = {
-					this._handleOnClick
-				} > {
-					scope.label
-				} < /li>
+			return ( <li key={scope.code || uuid.v4()}
+			  value={scope.code}
+				className={`${selectedValue} ${scope.style}`}
+				onClick = {this._handleOnClick}>
+				{scope.label}
+				</li>
 			);
 		});
-		return ( < ul className = "qs-scope-list" > {
+		return ( <ul className="qs-scope-list"> {
 					scopes
-				} < /ul>);
+				} </ul>);
 			},
 			/**
 			 * Render the complete scope element.
@@ -121,20 +113,20 @@ var scopeMixin = {
 			 */
 			render: function renderScopeComponent() {
         var cssClass = `qs-icon qs-scope-deploy-${this.state.isDeployed ? "up": "down"}`;
-				return ( < div className = {
+				return ( <div className = {
 						this.props.className + " qs-scope"
-					} >
-					< div className={cssClass}
-					onClick={this.handleDeployClick} >
-					< div className = {
+					}>
+					<div className={cssClass}
+					onClick={this.handleDeployClick}>
+					<div className = {
 						this.scopeStyle()
-					} > {
+					}> {
 						this.scopeLabel()
-					} < /div>
+					} </div>
 
-					< /div> {
+					</div> {
 					this.renderScopeList()
-				} < /div>
+				} </div>
 			);
 	}
 };
