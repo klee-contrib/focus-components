@@ -4,15 +4,18 @@ var topOfElement = function(element) {
     }
     return element.offsetTop + topOfElement(element.offsetParent);
 };
-
 /**
- * @extends ReactCompositeComponentInterface
  *
- * @mixin InfiniteScrollMixin
+ * Mixin which add infinite scroll behavior.
  */
 var InfiniteScrollMixin = {
+    /**
+     * defaults props for the mixin.
+     * @returns {{isInfiniteScroll: boolean, initialPage: number, offset: number}}
+     */
     getDefaultProps: function() {
         return {
+            isInfiniteScroll: true,
             initialPage: 1,
             offset: 250
         };
@@ -33,14 +36,25 @@ var InfiniteScrollMixin = {
         this.detachScrollListener();
     },
 
+    /**
+     * After component Mount.
+     */
     componentDidMount: function() {
         this.attachScrollListener();
     },
 
+    /**
+     * after component update.
+     */
     componentDidUpdate: function() {
-        this.attachScrollListener();
+        if(!this.props.isLoading){
+            this.attachScrollListener();
+        }
     },
 
+    /**
+     * Handler for the scroll event.
+     */
     scrollListener: function () {
         var el = this.getDOMNode();
         var scrollTop = (this.parentNode.pageYOffset !== undefined) ? this.parentNode.pageYOffset : this.parentNode.scrollTop;
@@ -48,14 +62,19 @@ var InfiniteScrollMixin = {
             this.detachScrollListener();
             this.fetchNextPage(this.nextPage++);
         }
-        var topHeader = topOfElement(el);
+
+        //calculate visible index in the list
+        /*var topHeader = topOfElement(el);
         var pageHeight = topHeader+el.offsetHeight;
         var scrollHeader = (topHeader / pageHeight)*window.innerHeight;
         //console.log((scrollTop - (topHeader / pageHeight) / (el.offsetHeight - topHeader) * this.state.data.length);
         var visibleIndex = (scrollTop - topHeader) / (el.offsetHeight) * this.state.data.length;
-        console.log(visibleIndex);
+        console.log(visibleIndex);*/
     },
 
+    /**
+     * Attach scroll listener on the component.
+     */
     attachScrollListener: function () {
         if(!this.props.hasMoreData){
             return;
@@ -65,11 +84,14 @@ var InfiniteScrollMixin = {
         this.scrollListener();
     },
 
+    /**
+     * detach scroll listener on the component
+     */
     detachScrollListener: function () {
         this.parentNode.removeEventListener('scroll', this.scrollListener);
         this.parentNode.removeEventListener('resize', this.scrollListener);
     }
 };
 
-module.exports = InfiniteScrollMixin;
+module.exports = {mixin : InfiniteScrollMixin};
 
