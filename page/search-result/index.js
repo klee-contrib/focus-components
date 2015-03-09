@@ -51,18 +51,20 @@ var searchResultMixin = {
                                                     config={this.props.facetConfig}
                                                     dataSelectionHandler={this.facetSelectionHandler}/>
                 </div>
-                <div className="listActionBarContainer">
-                    <ListActionBar selectionStatus={this.state.selectionStatus}
-                                selectionAction={this.selectionAction}
-                                orderableColumnList={this.props.orderableColumnList}
-                                orderAction={this.orderAction}
-                                orderSelected={this.state.orderSelected}
-                                groupableColumnList={this.props.groupableColumnList}
-                                groupAction={this.groupAction}
-                                groupSelectedKey={this.state.groupSelectedKey}
-                                facetList={this._getFacetListForBar()}
-                                facetClickAction={this.facetClickAction}
-                                operationList={this.props.operationList} />
+                <div className="resultContainer">
+                    <div className="listActionBarContainer">
+                        <ListActionBar selectionStatus={this.state.selectionStatus}
+                                    selectionAction={this.selectionAction}
+                                    orderableColumnList={this.props.orderableColumnList}
+                                    orderAction={this.orderAction}
+                                    orderSelected={this.state.orderSelected}
+                                    groupableColumnList={this.props.groupableColumnList}
+                                    groupAction={this.groupAction}
+                                    groupSelectedKey={this.state.groupSelectedKey}
+                                    facetList={this._getFacetListForBar()}
+                                    facetClickAction={this.facetClickAction}
+                                    operationList={this.props.operationList} />
+                    </div>
                 </div>
             </div>
         );

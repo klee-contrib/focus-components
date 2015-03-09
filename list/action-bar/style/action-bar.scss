@@ -23,14 +23,6 @@
   background: url("../img/controller-record.svg") no-repeat center;
 }
 
-.select-action {
-  ul {
-    li.selected {
-
-    }
-  }
-}
-
 .action-bar {
   .general-action, .facet-container, .contextual-action {
     display: inline-block;
@@ -41,5 +33,8 @@
   }
   .contextual-action {
     border-left: solid 2px;
+  }
+  .facet-container {
+    width: 400px;
   }
 }
