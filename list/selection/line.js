@@ -2,6 +2,7 @@
 var React = require('react');
 var builder = require('focus/component/builder');
 var type = require('focus/component/types');
+var ContextualActions = require('../action-contextual').component;
 var lineMixin = {
     /**
      * Default properties for the line.
@@ -9,7 +10,8 @@ var lineMixin = {
      */
     getDefaultProps: function getLineDefaultProps(){
         return {
-            isSelection: true
+            isSelection: true,
+            operationList: []
         };
     },
 
@@ -22,7 +24,8 @@ var lineMixin = {
         isSelection: type('bool'),
         isSelected: type('bool'),
         onLineClick: type('func'),
-        onSelection: type('func')
+        onSelection: type('func'),
+        operationList: type('array')
     },
 
     /**
@@ -101,6 +104,19 @@ var lineMixin = {
     },
 
     /**
+     * Render actions wich can be applied on the line
+     */
+    _renderActions: function renderLineActions(){
+        if(this.props.operationList.length > 0){
+            return (
+                <div className="sl-actions">
+                    <ContextualActions operationList={this.props.operationList}/>
+                </div>
+            );
+        }
+    },
+
+    /**
      * Render line in list.
      * @returns {*}
      */
@@ -114,6 +130,7 @@ var lineMixin = {
                     <div className="sl-content" onClick={this._handleLineClick}>
                         {this._renderLineContent()}
                     </div>
+                    {this._renderActions()}
                 </li>
             );
         }

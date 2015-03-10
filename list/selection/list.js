@@ -22,7 +22,8 @@ var listMixin = {
             isSelection : true,
             isAllSelected : false,
             isLoading: false,
-            hasMoreData: false
+            hasMoreData: false,
+            operationList: []
         };
     },
 
@@ -36,7 +37,9 @@ var listMixin = {
         isAllSelected: type('bool'),
         onSelection: type('func'),
         onLineClick: type('func'),
-        isLoading: type('bool')
+        isLoading: type('bool'),
+        FetchNextPage: type('func'),
+        operationList: type('array')
     },
 
     /**
@@ -77,14 +80,15 @@ var listMixin = {
                 isSelection: this.props.isSelection,
                 isSelected: this.props.isAllSelected,
                 onSelection: this.props.onSelection,
-                onLineClick: this.props.onLineClick
+                onLineClick: this.props.onLineClick,
+                operationList: this.props.operationList
             });
         });
     },
     renderLoading: function(){
         if(this.props.isLoading){
             return (
-                <li className="loading">Loading ...</li>
+                <li className="sl-loading">Loading ...</li>
             );
         }
     },

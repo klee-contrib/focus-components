@@ -42,11 +42,22 @@ ul.selection-list {
       width: 50px;
     }
 
+    div.sl-actions {
+      position: absolute;
+      top : 0px;
+      right : 0px;
+      display: none;
+    }
+
     &:hover {
       div.sl-selection.no-selection {
         background: #FFF url("../img/line-unselected.svg") no-repeat center center;
         background-size: $icon-size $icon-size;
         border-left:3px solid green;
+      }
+
+      div.sl-actions{
+        display: inline;
       }
     }
 
