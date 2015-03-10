@@ -63,7 +63,9 @@ var lineMixin = {
      * @param event
      */
     _handleLineClick: function handleLineClick(event){
-        this.props.onLineClick(this.props.data);
+        if(this.props.onLineClick){
+            this.props.onLineClick(this.props.data);
+        }
     },
 
     /**

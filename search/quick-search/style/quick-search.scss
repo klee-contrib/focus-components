@@ -31,7 +31,11 @@ div.qs-quick-search{
     &>div{
       padding: 4px 25px 4px 2px;
     }
+
     div {
+      &.qs-icon>div{
+        background-size:22px;
+      }
       //position: relative;
       color: white;
       &.qs-scope-deploy-up{
@@ -74,26 +78,25 @@ div.qs-quick-search{
     ul{
       position: absolute;
       font-size: 12pt;
-      border: $border-size solid white;
       background-color: rgb(89, 89, 89);
-      padding-right: 20%;
-      padding-top: 20%;
-      padding-left:20px;
-
+      padding:10px;
       li{
-        background-position: left;
+        background-position: center left 5px;
         list-style-type: none;
         color: white;
-        height: 30px;
+        height: 32px;
+        line-height:32px;
         min-width: 120px;
-        &.qs-scope-1{
-          background: url('../img/earth.svg') no-repeat left center;
-          background-size: 100% 100%;
+        padding-left: 40px;
+        background-size:22px;
+        font-size:14px;
+        cursor:pointer;
+
+        &:hover {
+          background-color:rgba(141, 134, 134, 0.62);
         }
-        //text-align: right;
         &.active{
           font-weight: bold;
-          //background-color: blue;
         }
       }
     }
@@ -119,26 +122,21 @@ div.qs-quick-search{
     z-index:2;
     position:relative;
     top:40px;
-    left: $qs-scope-width;
-    i{
-      transform: rotate(205deg);
-    }
+    padding-left: 45px;
+    left: 50px; //$qs-scope-width - 20;
+    background: url('../img/help-arrow.svg') no-repeat center left;
   }
 }
 
-.qs-scope-1{
+.qs-scope-1 {
   background: url('../img/earth.svg') no-repeat center center;
-  background-size: 100% 100%;
 }
-.qs-scope-2{
+.qs-scope-2 {
   background: url('../img/user.svg') no-repeat center center;
-  background-size: 100% 100%;
 }
-.qs-scope-3{
+.qs-scope-3 {
   background: url('../img/rocket.svg') no-repeat center center;
-  background-size: 100% 100%;
 }
-.qs-scope-none{
+.qs-scope-none {
   background: url('../img/qs-none.svg') no-repeat center center;
-  background-size: 100% 100%;
 }

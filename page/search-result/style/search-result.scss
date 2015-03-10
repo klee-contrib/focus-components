@@ -1,5 +1,6 @@
 .search-result {
-  .listActionBarContainer, .liveFilterContainer {
-    display: inline;
+  .liveFilterContainer, .resultContainer {
+    vertical-align:top;
+    float:left;
   }
 }

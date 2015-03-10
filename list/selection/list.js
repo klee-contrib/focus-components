@@ -4,8 +4,10 @@ var React = require('react');
 var Line = require('./line').mixin;
 var uuid= require('uuid');
 var type = require('focus/component/types');
+var InfiniteScrollMixin = require('./infinite-scroll').mixin;
 
 var listMixin = {
+    mixins: [InfiniteScrollMixin],
     /**
      * Display name.
      */
@@ -18,7 +20,9 @@ var listMixin = {
     getDefaultProps: function getLineDefaultProps(){
         return {
             isSelection : true,
-            isAllSelected : false
+            isAllSelected : false,
+            isLoading: false,
+            hasMoreData: false
         };
     },
 
@@ -31,7 +35,8 @@ var listMixin = {
         isSelection: type('bool'),
         isAllSelected: type('bool'),
         onSelection: type('func'),
-        onLineClick: type('func')
+        onLineClick: type('func'),
+        isLoading: type('bool')
     },
 
     /**
@@ -47,6 +52,14 @@ var listMixin = {
             }
         }
         return selected;
+    },
+    fetchNextPage: function fetchNextPage(page){
+        if(!this.props.hasMoreData){
+            return;
+        }
+        if(this.props.fetchNextPage){
+            return this.props.fetchNextPage(page);
+        }
     },
 
     /**
@@ -66,14 +79,15 @@ var listMixin = {
                 onSelection: this.props.onSelection,
                 onLineClick: this.props.onLineClick
             });
-            /*<Line key={line.id || uuid.v4()}
-             data={line} ref={"line" + lineCount++}
-             isSelected={this.props.isAllSelected}
-             onSelection={this.props.onSelection}
-             onLineClick={this.props.onLineClick}/>;*/
         });
     },
-
+    renderLoading: function(){
+        if(this.props.isLoading){
+            return (
+                <li className="loading">Loading ...</li>
+            );
+        }
+    },
     /**
      * Render the list.
      * @returns {XML}
@@ -82,6 +96,7 @@ var listMixin = {
         return(
             <ul className="selection-list">
               {this.renderLines()}
+              {this.renderLoading()}
             </ul>
         );
     }

@@ -61,7 +61,7 @@ var SearchInputMixin = {
     }*/
     return (
       <div className="qs-help" ref="help">
-        <span name="share"  />
+        <span name="share" />
         <span>{"Define the scope of research"}</span>
       </div>
 

@@ -22,11 +22,7 @@
   <script type="text/javascript">
   focus.components = focusComponents;
   var Input = focus.components.common.input.text.component;
-  var Form = React.createElement(Input, {value: "pierre", style: {class: "papaSinge"}, onChange: function(evt){console.log('input:change', evt);}})
-  React.render(
-    Form,
-    document.querySelector("#form-container")
-  );
+  React.render(React.createElement(Input, {name: "John", value: "papa", style: {className: "papa"}, onChange: function(evt){console.log(evt)}}), document.querySelector("#form-container"));
   </script>
 
 </body>

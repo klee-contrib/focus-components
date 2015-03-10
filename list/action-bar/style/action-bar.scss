@@ -1,44 +1,40 @@
 .checkbox-unchecked {
-  background: url("../img/checkbox-unchecked.svg") no-repeat right center;
+  background: url("../img/checkbox-unchecked.svg") no-repeat center;
 }
 .checkbox-checked {
-  background: url("../img/checkbox-checked.svg") no-repeat right center;
+  background: url("../img/checkbox-checked.svg") no-repeat center;
 }
 .notification {
-  background: url("../img/notification.svg") no-repeat right center;
+  background: url("../img/notification.svg") no-repeat center;
 }
 .circle-down {
-  background: url("../img/circle-down.svg") no-repeat right center;
+  background: url("../img/circle-down.svg") no-repeat center;
 }
 .circle-up {
-  background: url("../img/circle-up.svg") no-repeat right center;
+  background: url("../img/circle-up.svg") no-repeat center;
 }
 .chevron-down {
-  background: url("../img/chevron-down.svg") no-repeat right center;
+  background: url("../img/chevron-down.svg") no-repeat center;
 }
 .chevron-up {
-  background: url("../img/chevron-up.svg") no-repeat right center;
+  background: url("../img/chevron-up.svg") no-repeat center;
 }
 .controller-record {
-  background: url("../img/controller-record.svg") no-repeat right center;
-}
-
-.select-action {
-  ul {
-    li.selected {
-
-    }
-  }
+  background: url("../img/controller-record.svg") no-repeat center;
 }
 
 .action-bar {
   .general-action, .facet-container, .contextual-action {
     display: inline-block;
     padding: 0 25px 0 25px;
-    height:30px;
+  }
+  .general-action {
+    border-right: solid 2px;
+  }
+  .contextual-action {
+    border-left: solid 2px;
   }
   .facet-container {
-    border-left: solid 2px;
-    border-right: solid 2px;
+    width: 400px;
   }
 }

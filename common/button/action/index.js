@@ -26,33 +26,21 @@ var buttonMixin = {
 			};
 		},
 		_className: function buttonClassName () {
-			return "btn " + (this.props.style.className ? "btn-" + this.props.style.className : "");
+			return "btn btn-raised " + (this.props.style.className ? "btn-" + this.props.style.className : "");
 		},
 		renderPressedButton: function () {
 			return ( <button> Loading... < /button>);
-				},
-				/**
-				 * Render the button.
-				 * @return {[type]} [description]
-				 */
-				render: function renderInput() {
-					if (this.state.isPressed) {
-						return this.renderPressedButton();
-					}
-					return ( < button onClick = {
-							this.handleOnClick
-						}
-						type = {
-							this.props.type
-						}
-						className = {
-							this._className()
-						} > {
-							this.props.label
-						} < /button>
-					);
-				}
-		};
+        },
+        /**
+         * Render the button.
+         * @return {[type]} [description]
+         */
+        render: function renderInput() {
+            if (this.state.isPressed) {
+                return this.renderPressedButton();
+            }
+            return ( <a href="javascript:void(0)" onClick={this.handleOnClick} type={this.props.type} className={this._className()} >{this.props.label}</a>);
+        }
+};
 
-
-		module.exports = builder(buttonMixin);
+module.exports = builder(buttonMixin);
