@@ -53,6 +53,7 @@ var checkBoxMixin = {
 	 */
 	render: function renderCheckBox() {
 		return (
+
 			<div className="checkbox">
 			  <label>
 					<input ref='checkbox'checked={this.state.isChecked} onChange={this._onChange} type="checkbox" />
