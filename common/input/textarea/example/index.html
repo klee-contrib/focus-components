@@ -11,20 +11,28 @@
   <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
   <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css" />
   <script src="https://cdnjs.cloudflare.com/ajax/libs/react/0.12.2/react.js"></script>
-  <script src="/dist/focus.js"></script>
   <script src="/dist/focus-components.js"></script>
-  <link rel="stylesheet" href="css/form.css"/>
+  <!-- <link rel="stylesheet" href="css/form.css"/> -->
 </head>
 
 <body>
 
-  <div id="form-container" class="container"></div>
+  <div id="form-container" class="container" style='display:block;width:30%'></div>
+  <div id="text-container" class="container" style='display:relative;width:30%'></div>
   <script type="text/javascript">
   focus.components = focusComponents;
   var TextArea = focus.components.common.input.textarea.component;
-  var Form = React.createElement(TextArea, {value: "Super long texte sur plusieurs ligner", style: {class: "papaSinge"}})
+
+  var TA = React.createElement(TextArea, {
+    value: "Super long texte sur plusieurs lignes",
+    style: {className: "papaSinge"},
+    onChange: function(event){
+      document.querySelector('#text-container').innerHTML = event.target.value;
+      console.log("textarea changed: ",event.target.value);
+    }
+  });
   React.render(
-    Form,
+    TA,
     document.querySelector("#form-container")
   );
   </script>

@@ -35,6 +35,9 @@
 	}, {
 		"name": "input-checkbox",
 		"path": "common/input/checkbox"
+	},{
+		"name": "input-textarea",
+		"path": "common/input/textarea"
 	}, {
 		"name": "topic-displayer",
 		"path": "common/topic-displayer"
