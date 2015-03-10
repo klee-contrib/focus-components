@@ -10,7 +10,7 @@
   var React = require('react');
   var type = require('focus/component/types');
 
-  var checkBoxMixin = {
+  var textAreaMixin = {
   		/**
   		 * Get the checkbox default attributes.
   		 */
@@ -84,4 +84,4 @@
   			}
   		};
 
-  		module.exports = builder(checkBoxMixin);
+  		module.exports = builder(textAreaMixin);
