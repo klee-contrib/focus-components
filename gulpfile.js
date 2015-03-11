@@ -170,7 +170,7 @@ gulp.task('focus-components-npm', ['style', 'browserify'], function() {
 	var babel = require('gulp-babel');
 	var gulpif = require('gulp-if');
 	return gulp.src(['package.json', 'index.js',
-			'{spec,search,list,form,example}/**/*.{js,css}'
+			'{spec,search,list,form,common,example}/**/*.{js,css}'
 		])
 		.pipe(gulpif(/[.]js$/, react({
 			harmony: true

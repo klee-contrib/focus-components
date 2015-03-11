@@ -20,6 +20,34 @@ var selectActionMixin = {
             style: "dots-three-vertical"
         };
     },
+
+    /**
+     * Handle action on selected item.
+     * @param key
+     * @returns {Function}
+     */
+    _handleAction: function handleSelectAction(key){
+        return (event)=>{
+            if(this.props.operationParam){
+                this.props.operationList[key].action(this.props.operationParam);
+            }else{
+                this.props.operationList[key].action();
+            }
+        };
+    },
+
+    _getList: function(operationList) {
+        var liList = []
+        for (var key in operationList) {
+            var operation = operationList[key];
+            liList.push(<li key={key} onClick={this._handleAction(key)} className={operation.style} ><a href="javascript:void(0)">{operation.label}</a></li>);
+            if(operation.childOperationList) {
+                liList.push(<li><ul>{this._getList(operation.childOperationList)}</ul></li>);
+            }
+        }
+        return liList;
+    },
+
     /**
      * Render the component.
      * @returns Htm code.
@@ -36,19 +64,9 @@ var selectActionMixin = {
 
                 <ul className="dropdown-menu">{liList}</ul>
             </div>);
-    },
-
-    _getList: function(operationList) {
-        var liList = []
-        for (var key in operationList) {
-            var operation = operationList[key];
-            liList.push(<li onClick={operation.action} className={operation.style} ><a href="javascript:void(0)">{operation.label}</a></li>);
-            if(operation.childOperationList) {
-                liList.push(<li><ul>{this._getList(operation.childOperationList)}</ul></li>);
-            }
-        }
-        return liList;
     }
+
+
 };
 
 module.exports =  builder(selectActionMixin);

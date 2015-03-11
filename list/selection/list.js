@@ -32,7 +32,7 @@ var listMixin = {
      * @type {Object}
      */
     propTypes:{
-        data: type('object'),
+        data: type('array'),
         isSelection: type('bool'),
         isAllSelected: type('bool'),
         onSelection: type('func'),

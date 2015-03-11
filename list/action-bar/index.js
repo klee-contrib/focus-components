@@ -73,8 +73,13 @@ var actionBarMixin = {
         var orderDescOperationList = [];
         var orderAscOperationList = [];
         var orderSelectedParsedKey = this.props.orderSelected.key + this.props.orderSelected.order;
+
         for(var key in this.props.orderableColumnList) {
-            orderDescOperationList.push({action: this._orderFunction(this.props.orderAction, key, "desc"), label: this.props.orderableColumnList[key], style: this._getSelectedStyle(key+"desc", orderSelectedParsedKey)});
+            orderDescOperationList.push({
+                action: this._orderFunction(this.props.orderAction, key, "desc"),
+                label: this.props.orderableColumnList[key],
+                style: this._getSelectedStyle(key+"desc", orderSelectedParsedKey)
+            });
             orderAscOperationList.push({action: this._orderFunction(this.props.orderAction, key, "asc"), label: this.props.orderableColumnList[key], style: this._getSelectedStyle(key+"asc", orderSelectedParsedKey) });
         }
         var downStyle = this.props.orderSelected.order == "desc" ? "circle-down" : "chevron-down";
@@ -114,7 +119,7 @@ var actionBarMixin = {
     },
 
     /**
-     * @returns Style of the selection compoent icon.
+     * @return Style of the selection compoent icon.
      * @private
      */
     _getSelectionObjectStyle: function() {

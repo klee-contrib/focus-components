@@ -18,7 +18,8 @@ var actionContextualMixin = {
      */
     getDefaultProps: function() {
         return {
-            operationList: []
+            operationList: [],
+            operationParam: undefined
         }
     },
     /**
@@ -30,6 +31,21 @@ var actionContextualMixin = {
             isSecondaryActionListExpanded: false
         };
     },
+
+    /**
+     * handle contextual action on click.
+     */
+    _handleAction: function handleContextualAction(key){
+        return (event)=> {
+            if (this.props.operationParam) {
+                this.props.operationList[key].action(this.props.operationParam);
+            } else {
+                this.props.operationList[key].action();
+            }
+        }
+    },
+
+
     /**
      * render the component.
      * @returns Html code.
@@ -40,14 +56,14 @@ var actionContextualMixin = {
         for (var key in this.props.operationList) {
             var operation = this.props.operationList[key];
             if (operation.priority === 1) {
-                primaryActionList.push( <Button style = {operation.style} handleOnClick = {operation.action} label = {operation.label}/> );
+                primaryActionList.push( <Button key={key} style={operation.style} handleOnClick={this._handleAction(key)} label={operation.label}/> );
             } else {
                 secondaryActionList.push(operation);
             }
         }
         return ( <div className = "list-action-contextual" >
                         <span> {primaryActionList}</span>
-                        <SelectAction operationList={secondaryActionList} isExpanded={this.state.isSecondaryActionListExpanded} />
+                        <SelectAction operationList={secondaryActionList} operationParam={this.props.operationParam} isExpanded={this.state.isSecondaryActionListExpanded} />
                 </div>);
     }
 }

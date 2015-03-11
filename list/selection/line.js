@@ -110,7 +110,7 @@ var lineMixin = {
         if(this.props.operationList.length > 0){
             return (
                 <div className="sl-actions">
-                    <ContextualActions operationList={this.props.operationList}/>
+                    <ContextualActions operationList={this.props.operationList} operationParam={this.props.data}/>
                 </div>
             );
         }
