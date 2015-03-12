@@ -1,8 +1,7 @@
 /* Style for the list component*/
 
 /*variables*/
-$icon-size:32px;
-
+$boxSize:50px;
 /*styles*/
 ul.selection-list {
   list-style: none;
@@ -17,29 +16,17 @@ ul.selection-list {
 
   li.sl-line {
     cursor: pointer;
-    padding-left: 60px;
+    padding-left: $boxSize + 10px;
     position: relative;
 
     div.sl-selection {
-      width: $icon-size;
-      height: $icon-size;
       top: 0;
       left: 0;
       position: absolute;
-
-      img {
-        width: $icon-size;
-        height: $icon-size;
-        /*display: none;*/
-      }
-    }
-
-    div.sl-selection {
-      background-color: #FFF;
       z-index: 1;
-      color:red;
       height: 100%;
-      width: 50px;
+      width: $boxSize;
+      display:none;
     }
 
     div.sl-actions {
@@ -50,10 +37,13 @@ ul.selection-list {
     }
 
     &:hover {
+      div.sl-selection {
+        display: block;
+      }
+
       div.sl-selection.no-selection {
-        background: #FFF url("../img/line-unselected.svg") no-repeat center center;
-        background-size: $icon-size $icon-size;
-        border-left:3px solid green;
+        //background-size: $icon-size $icon-size;
+        border-left:3px solid red;
       }
 
       div.sl-actions{
@@ -62,9 +52,9 @@ ul.selection-list {
     }
 
     div.sl-selection.selected {
-      background: #FFF url("../img/line-selected.svg") no-repeat center center;
-      background-size: $icon-size $icon-size;
-      border-left:3px solid red;
+      //background-size: $icon-size $icon-size;
+      display: block;
+      border-left:3px solid green;
     }
   }
 }

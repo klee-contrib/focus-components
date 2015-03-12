@@ -3,6 +3,7 @@ var React = require('react');
 var builder = require('focus/component/builder');
 var type = require('focus/component/types');
 var ContextualActions = require('../action-contextual').component;
+var CheckBox = require('../../common/input/checkbox').component;
 var lineMixin = {
     /**
      * Default properties for the line.
@@ -80,7 +81,9 @@ var lineMixin = {
             var selectionClass = this.state.isSelected? "selected" : "no-selection";
             //var image = this.state.isSelected? undefined : <img src={this.state.lineItem[this.props.iconfield]}/>
             return(
-                <div className={`sl-selection ${selectionClass}`} onClick={this._handleSelectionClick}></div>
+                <div className={`sl-selection ${selectionClass}`}>
+                    <CheckBox value={this.state.isSelected} onChange={this._handleSelectionClick}/>
+                </div>
             );
         }
         return null;
