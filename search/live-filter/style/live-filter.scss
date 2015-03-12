@@ -1,70 +1,46 @@
-
+.live-filter.expanded {
+  width: 250px;
+}
 
 .live-filter {
-  background-color:#FFFFFF;
-  ul {
-    list-style-type: none;
-  }
-  .header {
-    padding: 10px;
-    background-color: #9B9B9B;
-    height:45px;
-  }
-  .title {
-    font-size: 18px;
-    font-weight: bold;
-  }
+  min-height: 400px;
   .icon {
-    background: url("../img/chevron-thin-left.svg") no-repeat right center;
     float: right;
-    width: 30px;
-    cursor: pointer;
+    height: inherit;
   }
-  .lf-facet {
-    border-top-color: gray;
-    border-top-style: solid;
-    border-top-width: 1px;
-    padding: 10px;
-    .title {
-      background: url("../img/chevron-thin-up.svg") no-repeat right center;
-      font-size: 14px;
-      padding-right: 50px;
+  .facet.selected {
+    .panel-heading {
+      background-image: url("../img/cross.svg");
+      background-repeat: no-repeat;
+      background-position: right center;
     }
-    .title:hover {
-      cursor: pointer;
-    }
-    .lf-data:hover {
-        background-color: #E6E6E6;
-        cursor: pointer;
-    }
-    .show-all {
-      cursor: pointer;
-      text-align: right;
-    }
-    .show-all:hover {
-      text-decoration: underline;
-    }
-
   }
-  .lf-facet.collapsed {
-    background-color: #C8C8C8;
-    .title {
-      background: url("../img/chevron-thin-down.svg") no-repeat right center;
-      font-size: 14px;
+  .facet.unselected {
+    .panel-heading {
+      background-image: url("../img/chevron-thin-up.svg");
+      background-repeat: no-repeat;
+      background-position: right center;
     }
   }
 
-  .lf-facet.selected {
-    .title {
-      background: url("../img/cross.svg") no-repeat right center;
-      font-size: 14px;
+  .facet {
+    .panel-heading {
+      cursor: pointer;
+    }
+    ul {
+      list-style-type: none;
+    }
+    li {
+      cursor: pointer;
+    }
+    li:hover {
+      color: #E6E6E6;
     }
   }
 }
-
-.live-filter.collapsed {
-  width: 50px;
-  .icon {
-    background: url("../img/chevron-thin-right.svg") no-repeat right center;
-  }
+.chevron-thin-left {
+  background: url("../img/chevron-thin-left.svg") no-repeat right center;
+}
+.chevron-thin-right {
+  background: url("../img/chevron-thin-right.svg") no-repeat right center;
 }

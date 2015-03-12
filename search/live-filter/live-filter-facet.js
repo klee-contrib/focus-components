@@ -35,9 +35,16 @@ var liveFilterFacetMixin = {
      * @returns Html component code.
      */
     render: function renderLiverFilterFacet(){
+        /*
         var className = this.props.isExpanded ? "lf-facet" : "lf-facet collapsed";
         if(this.props.selectedDataKey) {
             className = "lf-facet selected";
+        }*/
+        var className = "panel panel-primary facet";
+        if(this.props.selectedDataKey) {
+            className += "-selected";
+        } else {
+            className += " unselected";
         }
         return (
             <div className={className}>
@@ -55,7 +62,10 @@ var liveFilterFacetMixin = {
         if(this.props.selectedDataKey) {
             title += " : " + this.props.facet[this.props.selectedDataKey].label
         }
-        return <div className="title"  onClick={this.liveFilterFacetTitleClick}>{title}</div>
+        // return <div className="title"  onClick={this.liveFilterFacetTitleClick}>{title}</div>
+        var className = "panel-heading";
+        // if(this.props.selectedDataKey || this.props.isExpanded)
+        return <div className={className}  onClick={this.liveFilterFacetTitleClick}>{title}</div>
     },
 
     /**
@@ -86,7 +96,7 @@ var liveFilterFacetMixin = {
             facetDetailList.push(<li><Data dataKey={key} data={this.props.facet[key]} selectHandler={this.selectHandler} type={this.props.type} /></li>);
             i++;
         }
-        return (<div><ul>{facetDetailList}</ul> {this.renderShowAllDataList()}</div>);
+        return (<div className="panel-body"><ul>{facetDetailList}</ul> {this.renderShowAllDataList()}</div>);
     },
 
     /**
@@ -103,7 +113,7 @@ var liveFilterFacetMixin = {
      */
     renderShowAllDataList: function renderShowAllDataList() {
         if(!this.state.isShowAll && Object.keys(this.props.facet).length > this.props.nbDefaultDataList) {
-            return (<div className="show-all" onClick={this.showAllHandler}> show.alls </div>) ;
+            return (<a href="javascript:void(0)" onClick={this.showAllHandler}> show.alls </a>) ;
         }
     },
 
@@ -112,7 +122,7 @@ var liveFilterFacetMixin = {
      */
     showAllHandler: function showAllHandler() {
         this.setState({isShowAll: !this.state.isShowAll});
-    }
+    },
 }
 
 module.exports = builder(liveFilterFacetMixin);

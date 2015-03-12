@@ -52,7 +52,7 @@ var searchResultMixin = {
                                                     dataSelectionHandler={this.facetSelectionHandler}/>
                 </div>
                 <div className="resultContainer">
-                    <div className="listActionBarContainer">
+                    <div className="listActionBarContainer panel">
                         <ListActionBar selectionStatus={this.state.selectionStatus}
                                     selectionAction={this.selectionAction}
                                     orderableColumnList={this.props.orderableColumnList}

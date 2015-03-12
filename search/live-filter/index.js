@@ -5,6 +5,7 @@ var LiveFilterFacet = require('./live-filter-facet').component;
 var type = require('focus/component/types');
 var assign = require('object-assign');
 var omit = require('lodash/object/omit');
+var Img = require('../../common/img').component;
 
 var liveFilterMixin = {
 
@@ -63,7 +64,11 @@ var liveFilterMixin = {
      * @returns Html component code.
      */
     render: function renderLiverFilter(){
-        var className = this.state.isExpanded ? "live-filter" : "live-filter collapsed";
+        // var className = this.state.isExpanded ? "live-filter" : "live-filter collapsed";
+        var className = "panel live-filter";
+        if(this.state.isExpanded) {
+            className += " expanded";
+        }
         return(
             <div className={className}  >
                 {this.renderLiveFacetTitle()}
@@ -78,9 +83,10 @@ var liveFilterMixin = {
      */
     renderLiveFacetTitle: function renderLiveFacetTitle() {
         var title = this.state.isExpanded ? "live.filter.title" : "";
-        return <div className="header">
-                    <span className="title" >{title}</span>
-                    <span className="icon" onClick={this.liveFilterTitleClick} >&nbsp;</span>
+        var img = this.state.isExpanded ? "chevron-thin-left" : "chevron-thin-right";
+        return <div className="panel-heading">
+                    <span>{title}</span>
+                    <Img src={img} onClick={this.liveFilterTitleClick} />
                 </div>;
     },
 
@@ -103,7 +109,7 @@ var liveFilterMixin = {
                                                 selectHandler={this.selectHandler}
                                                 type={this.props.config[key]}/>);
         }
-        return <div>{facets}</div>;
+        return <div className="panel-body">{facets}</div>;
     },
 
     /**
