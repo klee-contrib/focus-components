@@ -1,7 +1,6 @@
 
 
 .live-filter {
-  width: 300px;
   background-color:#FFFFFF;
   ul {
     list-style-type: none;
@@ -29,6 +28,7 @@
     .title {
       background: url("../img/chevron-thin-up.svg") no-repeat right center;
       font-size: 14px;
+      padding-right: 50px;
     }
     .title:hover {
       cursor: pointer;

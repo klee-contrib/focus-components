@@ -28,7 +28,7 @@ var topicDisplayerMixin = {
         var topicList = [];
         var className = "btn btn-primary btn-raised topic";
         for(var key in this.props.topicList) {
-            topicList.push(<a href="javascript:void(0)"  onClick={this.topicClickHandler(this.props.topicClickAction, key)} className={className}>{this.props.topicList[key]}</a>);
+            topicList.push(<a href="javascript:void(0)"  onClick={this.topicClickHandler(key)} className={className}>{this.props.topicList[key]}</a>);
         }
         var style = "topic-displayer bs-component ";
         if(this.props.style) {
@@ -40,8 +40,10 @@ var topicDisplayerMixin = {
     /**
      * Action on the topic click.
      */
-    topicClickHandler: function topicClickHandler(func, key) {
-        return function() { func(key); };
+    topicClickHandler: function topicClickHandler(key) {
+        return (event)=> {
+            this.props.topicClickAction(key);
+        }
     }
 };
 
