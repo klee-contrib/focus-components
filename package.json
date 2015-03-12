@@ -72,8 +72,8 @@
 		"name": "block",
 		"path": "common/block"
 	}, {
-      "name": "search-result",
-      "path": "page/search-result"
+      "name": "search-filter-result",
+      "path": "page/search/filter-result"
     }],
 	"homepage": "https://github.com/KleeGroup/focus-components",
 	"dependencies": {

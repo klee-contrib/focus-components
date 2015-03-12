@@ -1,8 +1,8 @@
 /**@jsx*/
 var builder = require('focus/component/builder');
 var React = require('react');
-var LiveFilter = require('../../search/live-filter').component;
-var ListActionBar = require('../../list/action-bar').component;
+var LiveFilter = require('../../../search/live-filter/index').component;
+var ListActionBar = require('../../../list/action-bar/index').component;
 
 var searchResultMixin = {
 
