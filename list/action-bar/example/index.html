@@ -7,8 +7,9 @@
     <meta name="description" content="Example of the component.">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <!-- Place favicon.ico in the root directory -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/react/0.12.2/react.js"></script>
+    <script src="/dist/focus.js"></script>
+
     <!-- Material degign-->
     <script src="//code.jquery.com/jquery-1.10.2.min.js"></script>
     <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
@@ -42,20 +43,20 @@
         React.render(
                 React.createElement(React.createClass(focusComponents.list.actionBar.mixin),
                         {
-                            selectionStatus: this.selectionStatus,
-                            selectionAction: this.selectionClick,
+                            selectionStatus: selectionStatus,
+                            selectionAction: selectionClick,
                             orderableColumnList:{col1: "Colonne 1", col2: "Colonne 2", col3: "Colonne 3"},
-                            orderAction: this.orderClick,
-                            orderSelected: this.orderSelected,
+                            orderAction: orderClick,
+                            orderSelected: orderSelected,
 
-                            facetList: this.facetList,
-                            facetClickAction:this.facetClickAction,
+                            facetList: facetList,
+                            facetClickAction:facetClickAction,
 
-                            groupableColumnList:{col1: "Colonne 1", col2: "Colonne 2"},
-                            groupAction: this.groupClick,
-                            groupSelectedKey: this.groupSelectedKey,
+                            groupableColumnList:{col1: "Colonne 1", col2: "Colonne 2", col3: "Colonne3"},
+                            groupAction: groupClick,
+                            groupSelectedKey: groupSelectedKey,
 
-                            operationList: this.operationList
+                            operationList: operationList
                         }
                 ),
                 document.querySelector("#action-bar-container")
@@ -64,23 +65,23 @@
 
     var orderClick = function(key, order) {
         console.log("(ORDER) key : " + key + " - order : " + order);
-        this.orderSelected = {key:key, order:order};
-        this.render();
+        orderSelected = {key:key, order:order};
+        render();
     }
 
     var selectionClick = function(status) {
         console.log("(SELECTION) Status : " + status + " (0 : none, 1  all) ");
-        this.selectionStatus = status;
-        this.render();
+        selectionStatus = status;
+        render();
     };
 
     var groupClick = function(key) {
         console.log("(GROUPING) Group : " + key);
-        this.groupSelectedKey = key;
+        groupSelectedKey = key;
         if(key != undefined) {
-            this.orderSelected = undefined;
+            orderSelected = undefined;
         }
-        this.render();
+        render();
     }
 
     var operationList = [
@@ -95,8 +96,8 @@
 
     var facetList = {fa1:"Facette 1", fa2: "Facette 2", fa3: "Facette 3"};
     var facetClickAction= function(key) {
-        delete this.facetList[key];
-        this.render();
+        delete facetList[key];
+        render();
     }
 
 

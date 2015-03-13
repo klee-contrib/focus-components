@@ -26,12 +26,12 @@ var selectActionMixin = {
      * @param key
      * @returns {Function}
      */
-    _handleAction: function handleSelectAction(key){
+    _handleAction: function handleSelectAction(action){
         return (event)=>{
             if(this.props.operationParam){
-                this.props.operationList[key].action(this.props.operationParam);
+                action(this.props.operationParam);
             }else{
-                this.props.operationList[key].action();
+                action();
             }
         };
     },
@@ -40,7 +40,8 @@ var selectActionMixin = {
         var liList = []
         for (var key in operationList) {
             var operation = operationList[key];
-            liList.push(<li key={key} onClick={this._handleAction(key)} className={operation.style} ><a href="javascript:void(0)">{operation.label}</a></li>);
+
+            liList.push(<li key={key} onClick={this._handleAction(operation.action)} className={operation.style} ><a href="javascript:void(0)">{operation.label}</a></li>);
             if(operation.childOperationList) {
                 liList.push(<li><ul>{this._getList(operation.childOperationList)}</ul></li>);
             }

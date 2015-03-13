@@ -9,6 +9,7 @@
 
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/react/0.12.2/react.js"></script>
+    <script src="/dist/focus.js"></script>
 
     <!-- Material degign-->
     <script src="//code.jquery.com/jquery-1.10.2.min.js"></script>
@@ -30,42 +31,66 @@
 
 
     <link rel="stylesheet" href="../live-filter/css/live-filter.css"/>
-    <link rel="stylesheet" href="css/search-result.css"/>
     <link rel="stylesheet" href="../list-action-bar/css/list-action-bar.css"/>
     <link rel="stylesheet" href="../select-action/css/select-action.css"/>
     <link rel="stylesheet" href="../img/css/img.css"/>
     <link rel="stylesheet" href="../topic-displayer/css/topic-displayer.css"/>
+
+
+    <link rel="stylesheet" href="css/search-filter-result.css"/>
 </head>
 <body>
 <div id="search-result-container"></div>
-<script src="js/search-result.js"></script>
+<script src="js/search-filter-result.js"></script>
 <script type="text/javascript">
+
+    var returnedData =  {
+            facet: {
+                FCT_PAYS: {
+                    "FRA": {label: "France", count: 5},
+                    "GER": {label: "Germany", count: 8}
+                },
+                FCT_STATUS: {
+                    "OPE": {label: "Open", count: 7},
+                    "CLO": {label: "Closed", count: 2},
+                    "ST1": {label: "Status 1", count: 2},
+                    "ST2": {label: "Status 2", count: 2},
+                    "ST3": {label: "Status 3", count: 2},
+                    "ST4": {label: "Status 4", count: 2},
+                    "ST5": {label: "Status 5", count: 2}
+                },
+                FCT_REGION: {
+                    "IDF": {label: "Ile de France", count: 11},
+                    "NPC": {label: "Nord - Pas de Calais", count: 6}
+                }
+            },
+            list: [],
+            pageInfos: {},
+            searchContext: {}
+    };
+
+    var action = {
+        search: function(criteria) {
+            window.setTimeout(
+                    function() {
+                        var data = {
+                                facet: returnedData.facet,
+                                list: returnedData.list,
+                                pageInfos:returnedData.pageInfos,
+                                searchContext: returnedData.searchContext
+                        };
+
+                        focus.dispatcher.handleServerAction({
+                            data: data, type: "update"
+                        })
+                    },
+                    1000);
+        }
+    };
+
     React.render(
-            React.createElement(React.createClass(focusComponents.page.searchResult.mixin),
+            React.createElement(React.createClass(focusComponents.page.searchfilterResult.mixin),
                     {
-                        facetList: {
-                            FCT_PAYS: {
-                                "FRA": {label: "France", count: 5},
-                                "GER": {label: "Germany", count: 8}
-                            },
-                            FCT_STATUS: {
-                                "OPE": {label: "Open", count: 7},
-                                "CLO": {label: "Closed", count: 2},
-                                "ST1": {label: "Status 1", count: 2},
-                                "ST2": {label: "Status 2", count: 2},
-                                "ST3": {label: "Status 3", count: 2},
-                                "ST4": {label: "Status 4", count: 2},
-                                "ST5": {label: "Status 5", count: 2},
-                                "ST6": {label: "Status 6", count: 2},
-                                "ST7": {label: "Status 7", count: 2},
-                                "ST8": {label: "Status 8", count: 2},
-                                "ST9": {label: "Status 9", count: 2}
-                            },
-                            FCT_REGION: {
-                                "IDF": {label: "Ile de France", count: 11},
-                                "NPC": {label: "Nord - Pas de Calais", count: 6}
-                            }
-                        },
                         facetConfig: {
                             FCT_PAYS: "text",
                             FCT_STATUS: "text",
@@ -78,7 +103,8 @@
                             {label: "Button1_b",action: function() {alert("Button1b");},style:undefined,priority: 1},
                             {label: "Button2_a",action: function() {alert("Button2a");},style:undefined,priority: 2},
                             {label: "Button2_b",action: function() {alert("Button2b");},style: undefined,priority: 2},
-                        ]
+                        ],
+                        action: action
                     }
             ),
             document.querySelector("#search-result-container")

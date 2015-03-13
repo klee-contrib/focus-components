@@ -1,7 +1,7 @@
 /**@jsx*/
-var builder = require('focus/component/builder');
+var builder = require('focus').component.builder;
 var React = require('react');
-var type = require('focus/component/types');
+var type = require('focus').component.types;
 var SelectAction = require('../../common/select-action').component;
 var ActionContextual = require('../action-contextual').component;
 var TopicDisplayer = require('../../common/topic-displayer').component;
@@ -95,11 +95,14 @@ var actionBarMixin = {
     _getGroupObject: function() {
         var groupList = [];
         for(var key in this.props.groupableColumnList) {
-            groupList.push({action: this._groupFunction(key), label: this.props.groupableColumnList[key],
-                style: this._getSelectedStyle(key,this.props.groupSelectedKey)});
+            groupList.push({
+                action: this._groupFunction(key),
+                label: this.props.groupableColumnList[key],
+                style: this._getSelectedStyle(key,this.props.groupSelectedKey)
+            });
         }
         var groupOperationList = [
-            { label: "action.group",  childOperationList: groupList },
+            { label: "action.group", childOperationList: groupList },
             { label: "action.ungroup",  action: this._groupFunction(null) }];
         var groupStyle = this.props.groupSelectedKey ? "controller-record" : "dots-three-vertical";
         return <SelectAction style={groupStyle} operationList={groupOperationList} />;
@@ -131,7 +134,7 @@ var actionBarMixin = {
         return "notification";
     },
 
-    _selectionFunction(selectionStatus) {
+    _selectionFunction: function(selectionStatus) {
         return (event)=> {
             this.props.selectionAction(selectionStatus)
         };
@@ -141,7 +144,7 @@ var actionBarMixin = {
             this.props.orderAction(key, order);
         };
     },
-    _groupFunction(key) {
+    _groupFunction: function(key) {
         return (event)=> {
             this.props.groupAction(key)
         };
