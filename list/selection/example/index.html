@@ -38,10 +38,12 @@
     <div id="list-container" style="width: 600px; height: auto; margin:100px auto 100px auto; border: 1px solid red; background-color: #777777;padding: 10px"></div>
 </div>-->
 <div id="list-container" style="width: 600px; height: auto; margin:100px auto 100px auto;"></div>
-<script src="js/selection-list.js"></script>
-<script src="js/focus.js"></script>
+<script src="/dist/focus.js"></script>
+<script src="/dist/focus-components.js"></script>
+
 
 <script type="text/javascript">
+  focus.components = focusComponents;
     var Line = React.createClass({
                 mixins: [focusComponents.list.selection.line.mixin],
                 renderLineContent: function(data){
@@ -67,7 +69,8 @@
             alert('click sur la ligne ' + line.title);
         },
         isSelection: true,
-        operationList: operationList
+        operationList: operationList,
+        isManualFetch:true
     });
 
     React.render(

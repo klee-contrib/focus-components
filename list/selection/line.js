@@ -5,6 +5,7 @@ var type = require('focus').component.types;
 var ContextualActions = require('../action-contextual').component;
 var CheckBox = require('../../common/input/checkbox').component;
 var lineMixin = {
+    displayName: "selection-line",
     /**
      * Default properties for the line.
      * @returns {{isSelection: boolean}}

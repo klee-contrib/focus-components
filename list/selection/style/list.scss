@@ -57,4 +57,15 @@ ul.selection-list {
       border-left:3px solid green;
     }
   }
+
+  li.sl-button{
+    background-color: transparent;
+    position: relative;
+
+    a{
+      position: absolute;
+      right: 0px;
+    }
+  }
+
 }
