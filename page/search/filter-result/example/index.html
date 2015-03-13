@@ -10,6 +10,7 @@
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/react/0.12.2/react.js"></script>
     <script src="/dist/focus.js"></script>
+    <script src="/dist/focus-components.js"></script>
 
     <!-- Material degign-->
     <script src="//code.jquery.com/jquery-1.10.2.min.js"></script>
@@ -37,11 +38,15 @@
     <link rel="stylesheet" href="../topic-displayer/css/topic-displayer.css"/>
 
 
+    <link rel="stylesheet" href="../selection-list/css/selection-list.css"/>
+
+
     <link rel="stylesheet" href="css/search-filter-result.css"/>
 </head>
 <body>
 <div id="search-result-container"></div>
 <script src="js/search-filter-result.js"></script>
+<script src="../selection-list/js/selection-list.js"></script>
 <script type="text/javascript">
 
     var returnedData =  {
@@ -64,7 +69,7 @@
                     "NPC": {label: "Nord - Pas de Calais", count: 6}
                 }
             },
-            list: [],
+            list: [{id:1, title : "toto", body:"ceci est un test"},{id:2, title:"tata",body:"deuxieme test"}, {id:3, title:"titi",body:"troisième test"}],
             pageInfos: {},
             searchContext: {}
     };
@@ -87,6 +92,15 @@
                     1000);
         }
     };
+    var Line = React.createClass({
+        mixins: [focusComponents.list.selection.line.mixin],
+        renderLineContent: function(data){
+            var title = React.createElement('div',null,data.title);
+            var body = React.createElement('div',null,data.body);
+            var root = React.createElement('div',null,title,body);
+            return root;
+        }
+    });
 
     React.render(
             React.createElement(React.createClass(focusComponents.page.searchfilterResult.mixin),
@@ -104,7 +118,19 @@
                             {label: "Button2_a",action: function() {alert("Button2a");},style:undefined,priority: 2},
                             {label: "Button2_b",action: function() {alert("Button2b");},style: undefined,priority: 2},
                         ],
-                        action: action
+                        action: action,
+                        lineComponent: Line,
+                        onLineClick : function onLineClick(line){
+                            alert('click sur la ligne ' + line.title);
+                        },
+                        isSelection:true,
+                        lineOperationList:[
+                            {label: "Button1_a",action: function(data) {alert(data.title);},style: undefined,priority: 1},
+                            {label: "Button1_b",action: function(data) {alert(data.title);},style: undefined,priority: 1},
+                            {label: "Button2_a",action: function(data) {alert(data.title);},style: undefined,priority: 2},
+                            {label: "Button2_b",action: function(data) {alert(data.title);},style: undefined,priority: 2}
+                        ]
+
                     }
             ),
             document.querySelector("#search-result-container")

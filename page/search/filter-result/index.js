@@ -4,6 +4,7 @@ var dispatcher = require('focus').dispatcher;
 var React = require('react');
 var LiveFilter = require('../../../search/live-filter/index').component;
 var ListActionBar = require('../../../list/action-bar/index').component;
+var ListSelection = require('../../../list/selection').list.component;
 var SearchStore = require('focus').store.SearchStore;
 
 var searchFilterResultMixin = {
@@ -22,7 +23,10 @@ var searchFilterResultMixin = {
             orderableColumnList:{},
             groupableColumnList:{},
             operationList:{},
-            searchStore: new SearchStore()
+            searchStore: new SearchStore(),
+            lineComponent:undefined,
+            isSelection:true,
+            lineOperationList:{}
         }
     },
     /**
@@ -36,7 +40,9 @@ var searchFilterResultMixin = {
 
             selectionStatus: 0,
             orderSelected:undefined,
-            groupSelectedKey: undefined
+            groupSelectedKey: undefined,
+
+            list:[]
         };
     },
     /**
@@ -67,6 +73,14 @@ var searchFilterResultMixin = {
                                     facetClickAction={this._facetBarClick}
                                     operationList={this.props.operationList} />
                     </div>
+                    <div className="listResultContainer panel">
+                        <ListSelection data={this.state.list}
+                                hasMoreData={true}
+                                lineComponent={this.props.lineComponent}
+                                onLineClick={this.props.onLineClick}
+                                isSelection={this.props.isSelection}
+                                operationList={this.props.lineOperationList} />
+                    </div>
                 </div>
             </div>
         );
@@ -94,7 +108,8 @@ var searchFilterResultMixin = {
     _getToUpdateState: function getToUpdateState() {
         var data = this.props.searchStore.get('search');
         return {
-            facetList: data.facet
+            facetList: data.facet,
+            list: data.list
         }
     },
 
