@@ -29,7 +29,7 @@ var buttonMixin = {
 			return "btn btn-raised " + (this.props.style.className ? "btn-" + this.props.style.className : "");
 		},
 		renderPressedButton: function () {
-			return ( <button> Loading... < /button>);
+			return ( <button>Loading...</button>);
         },
         /**
          * Render the button.

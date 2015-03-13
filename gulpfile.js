@@ -5,6 +5,7 @@ var gulp = require('gulp');
 
 var babelify = require("babelify"); //es6
 var browserify = require('browserify'); //build the source
+var watchify = require('watchify'); //build the source
 var source = require('vinyl-source-stream');
 
 
@@ -81,7 +82,7 @@ function jsBuild(directory, options) {
 		.pipe(source(generatedFile))
 		.pipe(gulp.dest('./' + directory + '/example/js/'));
 }
-gulp.task('browserify', function() {
+/*gulp.task('browserify', function() {
 	var literalify = require('literalify');
 	return browserify(({
 			entries: ['./index.js'],
@@ -101,6 +102,32 @@ gulp.task('browserify', function() {
 		.pipe(gulp.dest('./dist/'))
 		.pipe(gulp.dest('./example/js'));
 });
+*/
+function build(name){
+	gulp.task(name, function() {
+		var literalify = require('literalify');
+		var build = name === "browserify" ? browserify : watchify;
+		return build(({
+				entries: ['./index.js'],
+				extensions: ['.jsx'],
+				standalone: "focus-components"
+			}))
+			.transform({
+				global: true
+			}, literalify.configure({
+				react: 'window.React',
+				focus: 'window.focus'
+			}))
+			.transform(babelify)
+			.bundle()
+			//Pass desired output filename to vinyl-source-stream
+			.pipe(source('focus-components.js'))
+			.pipe(gulp.dest('./dist/'))
+			.pipe(gulp.dest('./example/js'));
+	});
+}
+build("browserify");
+build("watchify");
 gulp.task('componentify-js', function() {
 	//Each component build
 	var components = require('./package.json').components || [];

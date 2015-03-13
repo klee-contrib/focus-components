@@ -42,7 +42,7 @@ var checkBoxMixin = {
 		}
 	},
 	/**
-	 * Get the value from the input in the DOM.
+	 * Get the value from the input in  the DOM.
 	 */
 	getValue: function getValue() {
 		return this.getDOMNode().value;
