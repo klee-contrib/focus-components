@@ -72,7 +72,8 @@ function jsBuild(directory, options) {
 		.transform({
 			global: true
 		}, literalify.configure({
-			react: 'window.React'
+			react: 'window.React',
+			focus: 'window.focus'
 		}))
 		.transform(babelify)
 		.bundle()
@@ -90,7 +91,8 @@ gulp.task('browserify', function() {
 		.transform({
 			global: true
 		}, literalify.configure({
-			react: 'window.React'
+			react: 'window.React',
+			focus: 'window.focus'
 		}))
 		.transform(babelify)
 		.bundle()
