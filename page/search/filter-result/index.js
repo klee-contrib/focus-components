@@ -1,27 +1,32 @@
 /**@jsx*/
 var builder = require('focus').component.builder;
-var dispatcher = require('focus/dispatcher');
+var dispatcher = require('focus').dispatcher;
 var React = require('react');
 var LiveFilter = require('../../../search/live-filter/index').component;
 var ListActionBar = require('../../../list/action-bar/index').component;
+var ListSelection = require('../../../list/selection').list.component;
+var SearchStore = require('focus').store.SearchStore;
 
-var searchResultMixin = {
+var searchFilterResultMixin = {
 
     /**
      * Display name.
      */
-    displayName: "search-result",
+    displayName: "search-filter-result",
 
     /**
      * Init default props.
      */
     getDefaultProps: function() {
         return {
-            facetList: {},
             facetConfig:{},
             orderableColumnList:{},
             groupableColumnList:{},
-            operationList:{}
+            operationList:{},
+            searchStore: new SearchStore(),
+            lineComponent:undefined,
+            isSelection:true,
+            lineOperationList:{}
         }
     },
     /**
@@ -29,13 +34,15 @@ var searchResultMixin = {
      */
     getInitialState: function() {
         return {
-            facetList: this.props.facetList,
+            facetList: {},
             selectedFacetList: {},
             openedFacetList: {},
 
             selectionStatus: 0,
             orderSelected:undefined,
-            groupSelectedKey: undefined
+            groupSelectedKey: undefined,
+
+            list:[]
         };
     },
     /**
@@ -50,26 +57,62 @@ var searchResultMixin = {
                                                     selectedFacetList={this.state.selectedFacetList}
                                                     openedFacetList={this.state.openedFacetList}
                                                     config={this.props.facetConfig}
-                                                    dataSelectionHandler={this.facetSelectionHandler}/>
+                                                    dataSelectionHandler={this._facetSelectionClick}/>
                 </div>
                 <div className="resultContainer">
                     <div className="listActionBarContainer panel">
                         <ListActionBar selectionStatus={this.state.selectionStatus}
-                                    selectionAction={this.selectionAction}
+                                    selectionAction={this._selectionGroupLineClick}
                                     orderableColumnList={this.props.orderableColumnList}
-                                    orderAction={this.orderAction}
+                                    orderAction={this._orderClick}
                                     orderSelected={this.state.orderSelected}
                                     groupableColumnList={this.props.groupableColumnList}
-                                    groupAction={this.groupAction}
+                                    groupAction={this._groupClick}
                                     groupSelectedKey={this.state.groupSelectedKey}
                                     facetList={this._getFacetListForBar()}
-                                    facetClickAction={this.facetClickAction}
+                                    facetClickAction={this._facetBarClick}
                                     operationList={this.props.operationList} />
+                    </div>
+                    <div className="listResultContainer panel">
+                        <ListSelection data={this.state.list}
+                                hasMoreData={true}
+                                lineComponent={this.props.lineComponent}
+                                onLineClick={this.props.onLineClick}
+                                isSelection={this.props.isSelection}
+                                operationList={this.props.lineOperationList} />
                     </div>
                 </div>
             </div>
         );
     },
+    componentDidMount: function() {
+        this._registerEventList();
+        this._doSearch();
+    },
+    _registerEventList: function registerEventList() {
+        this.props.searchStore.addSearchChangeListener(this._searchSuccessEvent);
+    },
+
+    _doSearch: function doSearch() {
+        this.props.action.search({
+            selectedFacetList: this.state.selectedFacetList,
+            groupSelectedKey: this.state.groupSelectedKey,
+            orderSelected: this.state.orderSelected
+        });
+    },
+    _searchSuccessEvent: function searchSuccessEvent() {
+        console.log("Search success");
+        this.setState(this._getToUpdateState());
+
+    },
+    _getToUpdateState: function getToUpdateState() {
+        var data = this.props.searchStore.get('search');
+        return {
+            facetList: data.facet,
+            list: data.list
+        }
+    },
+
     _getFacetListForBar: function() {
         var facetList = {};
         for(var key in this.state.selectedFacetList) {
@@ -78,47 +121,40 @@ var searchResultMixin = {
         }
         return facetList;
     },
-    facetClickAction: function(key) {
-        var keyLength = key.split("_")[0];
-        var indexLength = keyLength.length + 1;
-        keyLength = parseInt(keyLength);
 
+    _facetBarClick: function(key) {
         var selectedFacetList = this.state.selectedFacetList;
         delete selectedFacetList[key];
 
-        console.warn("TODO : implement the search service ");
-
-        this.setState({
-            facetList: this.state.facetList,
-            selectedFacetList: selectedFacetList,
-            openedFacetList: this.state.openedFacetList
-        });
+        // TODO : do we do it now ?
+        this.setState({selectedFacetList: selectedFacetList});
+        this._doSearch();
     },
-    groupAction: function(key) {
-        console.warn("TODO : implement the search service ");
+    _groupClick: function(key) {
+        console.log("Group by : " + key);
+        // TODO : do we do it now ?
         this.setState({
             groupSelectedKey: key,
             orderSelected: (key != undefined ? undefined : this.state.orderSelected)
         });
 
-        console.log("(GROUPING) Group : " + key);
+        this._doSearch();
     },
 
-    orderAction: function(key, order) {
-        // Todo call the service
-        console.warn("TODO : implement the search service ");
+    _orderClick: function(key, order) {
         console.log("Order : " + key + " - " + order);
-
+        // TODO : do we do it now ?
         this.setState({orderSelected: {key:key, order:order}});
+        this._doSearch();
     },
 
     /**
      * Seelction action handler.
      * @param selectionStatus (0 => nonde, 1= > all, 2=> some).
      */
-    selectionAction: function(selectionStatus) {
-        console.warn("TODO : implement check/uncheck on the list rows (it shoudl be working like this, but need to be checked)");
+    _selectionGroupLineClick: function(selectionStatus) {
         console.log("Selection status : " + selectionStatus);
+        console.warn("TODO : implement check/uncheck on the list rows (it shoudl be working like this, but need to be checked)");
         this.setState({selectionStatus: selectionStatus});
     },
 
@@ -126,26 +162,21 @@ var searchResultMixin = {
      * Handler called when facet is selected.
      * @param facetComponentData Data of facet.
      */
-    facetSelectionHandler: function(facetComponentData) {
+    _facetSelectionClick: function(facetComponentData) {
         var selectedFacetList= facetComponentData.selectedFacetList;
         var openedFacetList=facetComponentData.openedFacetList;
 
-        // Todo call the service
-        console.warn("TODO : implement the search service ");
+        console.warn("Facet selection ");
         console.log(selectedFacetList);
 
-        // On search returns, we are waiting for a field "facetList". For the moment we keep the current facetList
-        var facetList = this.state.facetList;
-
-        // We update state with :
-        // - Data from server : list of facets
-        // - Data from client : list of opened facets, list of selected facets
+        // TODO : Do we do it now ?
         this.setState({
-            facetList: facetList,
             selectedFacetList: selectedFacetList,
             openedFacetList: openedFacetList
         });
+
+        this._doSearch();
     }
 }
 
-module.exports = builder(searchResultMixin);
+module.exports = builder(searchFilterResultMixin);
