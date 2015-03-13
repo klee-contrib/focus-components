@@ -1,8 +1,8 @@
 /**@jsx*/
-var builder = require('focus/component/builder');
+var builder = require('focus').component.builder;
 var React = require('react');
 var LiveFilterFacet = require('./live-filter-facet').component;
-var type = require('focus/component/types');
+var type = require('focus').component.types;
 var assign = require('object-assign');
 var omit = require('lodash/object/omit');
 var Img = require('../../common/img').component;

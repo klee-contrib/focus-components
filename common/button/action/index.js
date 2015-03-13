@@ -1,5 +1,5 @@
 var React = require('react');
-var builder = require('focus/component/builder');
+var builder = require('focus').component.builder;
 /**/
 var buttonMixin = {
 		getDefaultProps: function getInputDefaultProps() {

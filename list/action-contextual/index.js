@@ -1,9 +1,9 @@
 /**@jsx*/
-var builder = require('focus/component/builder');
+var builder = require('focus').component.builder;
 var React = require('react');
 var Button = require('../../common/button/action').component;
 var SelectAction = require('../../common/select-action').component;
-var type = require('focus/component/types');
+var type = require('focus').component.types;
 
 var actionContextualMixin = {
 

@@ -1,4 +1,4 @@
-var builder = require('focus/component/builder');
+var builder = require('focus').component.builder;
 var React = require('react');
 var Input = require('../input/text').component;
 var Label = require('../label').component;

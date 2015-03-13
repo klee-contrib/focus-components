@@ -1,4 +1,4 @@
-var builder = require('focus/component/builder');
+var builder = require('focus').component.builder;
 var React = require('react');
 /**
  * Label mixin for form.

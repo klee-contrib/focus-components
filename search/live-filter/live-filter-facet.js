@@ -1,5 +1,5 @@
 /**@jsx*/
-var builder = require('focus/component/builder');
+var builder = require('focus').component.builder;
 var React = require('react');
 var Data = require('./live-filter-data').component;
 

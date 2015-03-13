@@ -6,9 +6,9 @@
     </label>
   </div>
    */
-  var builder = require('focus/component/builder');
+  var builder = require('focus').component.builder;
   var React = require('react');
-  var type = require('focus/component/types');
+  var type = require('focus').component.types;
  /**
  *
  * @type {Object}

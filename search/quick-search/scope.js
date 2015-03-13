@@ -1,5 +1,5 @@
-var builder = require('focus/component/builder');
-var type = require('focus/component/types');
+var builder = require('focus').component.builder;
+var type = require('focus').component.types;
 var React = require('react');
 
 //var type = require('../../core/validation/types');

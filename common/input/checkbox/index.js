@@ -4,9 +4,9 @@
   <input type="checkbox"><span class="ripple"></span><span class="check"></span> Checkbox
 </label>
  */
-var builder = require('focus/component/builder');
+var builder = require('focus').component.builder;
 var React = require('react');
-var type = require('focus/component/types');
+var type = require('focus').component.types;
 
 var checkBoxMixin = {
 	/**
@@ -59,7 +59,7 @@ var checkBoxMixin = {
 					<input ref='checkbox'checked={this.state.isChecked} onChange={this._onChange} type="checkbox" />
 					<span className="ripple"></span>
 					<span className="check"></span>
-					{this.props.label}
+					{this.props.label ? this.props.label : ""}
 				</label>
 			</div>
 		 );

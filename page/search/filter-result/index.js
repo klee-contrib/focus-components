@@ -1,5 +1,6 @@
 /**@jsx*/
-var builder = require('focus/component/builder');
+var builder = require('focus').component.builder;
+var dispatcher = require('focus/dispatcher');
 var React = require('react');
 var LiveFilter = require('../../../search/live-filter/index').component;
 var ListActionBar = require('../../../list/action-bar/index').component;

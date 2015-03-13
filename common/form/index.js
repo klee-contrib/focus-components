@@ -1,4 +1,4 @@
-var builder = require('focus/component/builder');
+var builder = require('focus').component.builder;
 var React = require('react');
 var Field = require('../field').component;
 var Button = require('../button/action').component;

@@ -1,7 +1,7 @@
 /**@jsx*/
 var React = require('react');
-var builder = require('focus/component/builder');
-var type = require('focus/component/types');
+var builder = require('focus').component.builder;
+var type = require('focus').component.types;
 var ContextualActions = require('../action-contextual').component;
 var CheckBox = require('../../common/input/checkbox').component;
 var lineMixin = {
