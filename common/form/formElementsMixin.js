@@ -11,7 +11,8 @@ fieldFor: function(name) {
     name: name,
     ref: name,
     value: this.state[name],
-    error: this.state.error ? this.state.error[name] : undefined
+    error: this.state.error ? this.state.error[name] : undefined,
+    validator: this.definition[name].validator ? this.definition[name].validator : undefined
   });
 },
 /**

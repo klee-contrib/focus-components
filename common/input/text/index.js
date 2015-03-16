@@ -43,7 +43,7 @@ var inputTextMixin = {
    */
   validate: function validateInputText() {
     var value = this.getValue();
-    if (value === undefined || value === "") {
+    if (this.props.isRequired && (value === undefined || value === "")) {
       return `Le champ ${this.props.name} est requis`;
     }
     if (this.props.validator) {

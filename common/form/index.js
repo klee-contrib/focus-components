@@ -4,6 +4,7 @@ var assign = require('object-assign');
 var getEntityDefinition = require('focus').definition.entity.builder.getEntityInformations;
 var formElementsMixin = require('./formElementsMixin');
 var capitalize = require('lodash/string/capitalize');
+var isEmpty = require('lodash/lang/isEmpty');
 /**
  * Mixin to create a block for the rendering.
  * @type {Object}
@@ -25,20 +26,23 @@ var formMixin = {
        * @type {Boolean}
        */
       isEdit: false,
-			/**
-			 * Style of the component.
-			 * @type {Object}
-			 */
-			style: {}
+      /**
+       * Style of the component.
+       * @type {Object}
+       */
+      style: {}
     };
   },
   /**
    * Build the entity definition givent the path of the definition.
    */
   _buildDefinition: function buildFormDefinition(){
+    if(!this.definitionPath){
+      throw new Error('the definition path should be defined to know the domain of your entity property.');
+    }
     this.definition = getEntityDefinition(this.definitionPath, this.additionalDefinition);
   },
-	/** @inheritdoc */
+  /** @inheritdoc */
   getInitialState: function getFormInitialState() {
     return {
       id: this.props.id
@@ -93,10 +97,13 @@ var formMixin = {
     }
   },
   /** @inheritdoc */
+  componentWillMount : function formWillMount(){
+    this._buildDefinition();
+  },
+  /** @inheritdoc */
   componentDidMount: function formDidMount() {
-		//Build the definitions.
-		//this._buildDefinition();
-		this._registerListeners();
+    //Build the definitions.
+    this._registerListeners();
     if (this.registerListeners) {
       this.registerListeners();
     }
@@ -155,9 +162,10 @@ var formMixin = {
    */
   _handleSubmitForm: function handleSumbitForm(e) {
     e.preventDefault();
-    this.validate();
-    this.action.save(this._getEntity());
-    return false;
+    if(this.validate()){
+      this.action.save(this._getEntity());
+    }
+    //return false;
   },
   /**
    * Validate the form information by information.
@@ -171,9 +179,11 @@ var formMixin = {
         [inptKey]: this.refs[inptKey].validate()
       });
     }
-    this.setState({
-      error: validationMap
-    });
+    if(isEmpty(validationMap)){
+      return true;
+    }
+
+    return false;
   },
   /** @inheritdoc */
   render: function renderForm() {

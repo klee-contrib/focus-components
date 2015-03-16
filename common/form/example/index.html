@@ -50,6 +50,7 @@
       store: contactStore,
       properties: ["contact"]
     }],
+    definitionPath: "contact",
     action: {
       load: function(){
         Promise.resolve({contact: {firstName: "pierre", lastName: "besson"}}).then(

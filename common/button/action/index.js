@@ -39,7 +39,7 @@ var buttonMixin = {
             if (this.state.isPressed) {
                 return this.renderPressedButton();
             }
-            return ( <a href="javascript:void(0)" onClick={this.handleOnClick} type={this.props.type} className={this._className()} >{this.props.label}</a>);
+            return ( <button href="javascript:void(0)" onClick={this.handleOnClick} type={this.props.type} className={this._className()} >{this.props.label}</button>);
         }
 };
 

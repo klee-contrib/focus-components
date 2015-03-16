@@ -3,7 +3,10 @@ var entities ={
   "contact": {
     "firstName": {
       "domain": "DO_TEXT",
-      "required": false
+      "required": false,
+      "validator": function(data){
+        return data.length <= 3 ? "le champ doit dépasser la taille de 3" : true;
+      }
     },
     "lastName": {
       "domain": "DO_TEXT",
