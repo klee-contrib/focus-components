@@ -74,7 +74,10 @@
 	}, {
       "name": "search-filter-result",
       "path": "page/search/filter-result"
-    }],
+    },{
+	  "name": "search-result",
+	  "path": "page/search/search-result"
+	}],
 	"homepage": "https://github.com/KleeGroup/focus-components",
 	"dependencies": {
 		"focus": "https://github.com/KleeGroup/focus/tarball/master",

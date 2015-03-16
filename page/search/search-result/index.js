@@ -1,12 +1,15 @@
-var builder = require('../../core/componentBuilder');
+var builder = require('focus').component.builder;
 var React = require('react');
 var QuickSearch  = require('../../../search/quick-search').component;
 var List = require('../../../list/selection').list.component;
+var SearchStore = require('focus').store.SearchStore;
+var assign = require('object-assign');
 
 var searchMixin = {
     displayName: "search-panel",
+
+    store: new SearchStore(),
     count:0,
-    countId:3,
     /**
      * Component intialization
      */
@@ -22,18 +25,27 @@ var searchMixin = {
         this._unRegisterListeners();
     },
 
+    getDefaultProps: function getDefaultProps(){
+        return {
+            lineComponent: undefined,
+            isSelection: true,
+            lineOperationList: {}
+        }
+    },
+
     /**
      * Initial state of the list component.
      * @returns {{list: (*|Array)}}
      */
     getInitialState: function(){
-        return {
-            list: this._getStateFromStore(),
+        var data = this.store.get();
+
+        return assign({
             isAllSelected: false,
             selected: [],
             hasMoreData: false,
             isLoading:false
-        };
+        }, this._getStateFromStore());
     },
 
     /**
@@ -42,21 +54,27 @@ var searchMixin = {
      */
     _getStateFromStore: function getSearchStateFromStore(){
         if(this.store){
-            return this.store.getList();
+            var data = this.store.get();
+            return {
+                list: data.list || []
+            }
         }
-        return [];
+        return {};
     },
 
     /**
      * Handler when store emit a change event.
      */
-    _onChange: function onSearchStoreChange(){
+    _onSearchChange: function onSearchStoreChange(){
         this.count ++;
-        this.setState({
-            list: this._getStateFromStore(),
-            hasMoreData:this.count<100,
-            isLoading:false
-        });
+        var searchStoreState = this._getStateFromStore();
+        if(searchStoreState.list){
+            this.setState({
+                list: searchStoreState.list,
+                hasMoreData:this.count<100,
+                isLoading:false
+            });
+        }
     },
 
     /**
@@ -65,7 +83,7 @@ var searchMixin = {
      */
     _registerListeners: function registerSearchListeners(){
         if(this.store){
-            this.store.addListener(this.store.events.data.change,this._onChange);
+            this.store.addSearchChangeListener(this._onSearchChange);
         }
     },
 
@@ -75,7 +93,7 @@ var searchMixin = {
      */
     _unRegisterListeners: function unRegisterSearchListeners(){
         if(this.store){
-            this.store.removeListener(this.store.events.data.change,this._onChange);
+            this.store.removeSearchChangeListener(this._onSearchChange);
         }
     },
 
@@ -97,8 +115,8 @@ var searchMixin = {
      * @param item
      */
     _lineClick: function lineClick(item){
-        if(this.lineClick){
-            this.lineClick(item);
+        if(this.props.lineClick){
+            this.props.lineClick(item);
         }
     },
 
@@ -109,7 +127,11 @@ var searchMixin = {
     _search: function search(event){
         event.preventDefault();
         var searchValues = this.refs.quickSearch.getValue();
-        this.actions.search(searchValues.scope,searchValues.query);
+        this.actions.search({
+            scope:searchValues.scope,
+            query:searchValues.query,
+            page: 1
+        });
     },
 
     /**
@@ -117,9 +139,15 @@ var searchMixin = {
      * @param page
      */
     _fetchNextPage: function fetchNextPage(page){
-        this.setState({isLoading:true});
+        this.setState({
+            isLoading:true
+        });
         var searchValues = this.refs.quickSearch.getValue();
-        this.actions.search(searchValues.scope,searchValues.query);
+        this.actions.search({
+            scope: searchValues.scope,
+            query: searchValues.query,
+            page:page
+        });
     },
 
     /**
@@ -130,7 +158,9 @@ var searchMixin = {
             <div className="search-panel">
                 <QuickSearch handleKeyUp={this._search} ref="quickSearch"/>
                 <List data={this.state.list}
-                    ref="list" onSelection={this._selectItem}
+                    ref="list"
+                    isSelection={this.props.isSelection}
+                    onSelection={this._selectItem}
                     onLineClick={this._lineClick}
                     fetchNextPage={this._fetchNextPage}
                     hasMoreData={this.state.hasMoreData}
