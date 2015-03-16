@@ -42,7 +42,9 @@ var searchFilterResultMixin = {
             orderSelected:undefined,
             groupSelectedKey: undefined,
 
-            list:[]
+            list:[],
+
+            isAllSelected:true
         };
     },
     /**
@@ -79,7 +81,8 @@ var searchFilterResultMixin = {
                                 lineComponent={this.props.lineComponent}
                                 onLineClick={this.props.onLineClick}
                                 isSelection={this.props.isSelection}
-                                operationList={this.props.lineOperationList} />
+                                operationList={this.props.lineOperationList}
+                                isAllSelected={this.state.isAllSelected}/>
                     </div>
                 </div>
             </div>
@@ -162,7 +165,10 @@ var searchFilterResultMixin = {
     _selectionGroupLineClick: function(selectionStatus) {
         console.log("Selection status : " + selectionStatus);
         console.warn("TODO : implement check/uncheck on the list rows (it shoudl be working like this, but need to be checked)");
-        this.setState({selectionStatus: selectionStatus});
+        this.setState({
+            selectionStatus: selectionStatus,
+            isAllSelected: selectionStatus == 1
+        });
     },
 
     /**
