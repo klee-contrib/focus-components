@@ -47,15 +47,16 @@
   var Form = React.createClass({displayName: "Form",
     mixins: [formMixin],
     stores: [{
-      store: contactStore
+      store: contactStore,
       properties: ["contact"]
     }],
     action: {
       load: function(){
-        Promise.resolve({firstName: "pierre", lastName: "besson"}).then(
+        Promise.resolve({contact: {firstName: "pierre", lastName: "besson"}}).then(
           function(data){
           focus.dispatcher.handleServerAction({
-            data: data
+            data: data,
+            type: "update"
           });
         });
     }},

@@ -31,6 +31,13 @@ var inputTextMixin = {
     };
   },
   /**
+   * Update the component.
+   * @param {object} newProps - The new props to update.
+   */
+  componentWillReceiveProps: function inputWillReceiveProps(newProps){
+    this.setState({value: newProps.value});
+  },
+  /**
    * Validate the input.
    * @return {object}
    */
