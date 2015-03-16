@@ -12,7 +12,7 @@ var source = require('vinyl-source-stream');
 /**
  * LINT
  */
-var sources = ['{spec,search,list,form}/**/*.js'];
+var sources = ['{spec,search,list,form,page}/**/*.js'];
 gulp.task('eslint', function() {
 	//gulp eslint 2>lint/lintErrors.txt
 	var eslint = require('gulp-eslint');
@@ -166,7 +166,7 @@ gulp.task('componentify-style', function() {
 gulp.task('style', function() {
 	var sass = require('gulp-sass');
 	var concat = require('gulp-concat');
-	gulp.src(['{spec,search,list,form}/**/*.scss'])
+	gulp.src(['{spec,search,list,form,page}/**/*.scss'])
 		.pipe(sass())
 		.pipe(concat('focus-components.css'))
 		.pipe(gulp.dest('./example/css/'));
@@ -199,7 +199,7 @@ gulp.task('focus-components-npm', ['style', 'browserify'], function() {
 	var babel = require('gulp-babel');
 	var gulpif = require('gulp-if');
 	return gulp.src(['package.json', 'index.js',
-			'{spec,search,list,form,common,example}/**/*.{js,css}'
+			'{spec,search,list,form,common,example,page}/**/*.{js,css}'
 		])
 		.pipe(gulpif(/[.]js$/, react({
 			harmony: true
