@@ -29,6 +29,7 @@
 
   <script src="/dist/focus.js"></script>
   <script src="/dist/focus-components.js"></script>
+  <script src="/example/js/initFocus.js"></script>
   <link rel="stylesheet" href="css/form.css"/>
 </head>
 <body>
@@ -38,19 +39,31 @@
   </script>
   <script type="text/javascript">
   focus.components = focusComponents;
+  var contactStore = new focus.store.CoreStore({
+    definition : {'contact': 'contact', 'commande': 'commande'}
+  });
   var formMixin = focus.components.common.form.mixin;
   var Block = focus.components.common.block.component;
   var Form = React.createClass({displayName: "Form",
     mixins: [formMixin],
-    stores: [{name: "user", value: {addChangeListener: function(){
-      console.log('user store listener added.');
-    }}}],
-    actions: {load: function(){return true;}},
+    stores: [{
+      store: contactStore
+      properties: ["contact"]
+    }],
+    action: {
+      load: function(){
+        Promise.resolve({firstName: "pierre", lastName: "besson"}).then(
+          function(data){
+          focus.dispatcher.handleServerAction({
+            data: data
+          });
+        });
+    }},
     renderContent:function renderUserDetail(){
       return(
           React.createElement(Block, {title: "Fiche de l'utilisateur"},
-              this.fieldFor("login"),
-              this.fieldFor("password"),
+              this.fieldFor("firstName"),
+              this.fieldFor("lastName"),
               this.buttonSave()
          )
       );

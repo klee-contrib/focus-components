@@ -42,7 +42,9 @@ var searchFilterResultMixin = {
             orderSelected:undefined,
             groupSelectedKey: undefined,
 
-            list:[]
+            list:[],
+
+            isAllSelected:true
         };
     },
     /**
@@ -79,7 +81,8 @@ var searchFilterResultMixin = {
                                 lineComponent={this.props.lineComponent}
                                 onLineClick={this.props.onLineClick}
                                 isSelection={this.props.isSelection}
-                                operationList={this.props.lineOperationList} />
+                                operationList={this.props.lineOperationList}
+                                isAllSelected={this.state.isAllSelected}/>
                     </div>
                 </div>
             </div>
@@ -94,10 +97,17 @@ var searchFilterResultMixin = {
     },
 
     _doSearch: function doSearch() {
+        var facets = [];
+        for(var selectedFacet in this.state.selectedFacetList) {
+            facets.push({key:selectedFacet, value:this.state.selectedFacetList[selectedFacet].key});
+           // facets[selectedFacet] = this.state.selectedFacetList[selectedFacet].key;
+        }
+
         this.props.action.search({
-            selectedFacetList: this.state.selectedFacetList,
-            groupSelectedKey: this.state.groupSelectedKey,
-            orderSelected: this.state.orderSelected
+            facets: facets,
+            criteria:{},
+            groupKey: this.state.groupSelectedKey,
+            order: this.state.orderSelected
         });
     },
     _searchSuccessEvent: function searchSuccessEvent() {
@@ -149,13 +159,16 @@ var searchFilterResultMixin = {
     },
 
     /**
-     * Seelction action handler.
+     * Selection action handler.
      * @param selectionStatus (0 => nonde, 1= > all, 2=> some).
      */
     _selectionGroupLineClick: function(selectionStatus) {
         console.log("Selection status : " + selectionStatus);
         console.warn("TODO : implement check/uncheck on the list rows (it shoudl be working like this, but need to be checked)");
-        this.setState({selectionStatus: selectionStatus});
+        this.setState({
+            selectionStatus: selectionStatus,
+            isAllSelected: selectionStatus == 1
+        });
     },
 
     /**

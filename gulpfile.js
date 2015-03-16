@@ -5,13 +5,14 @@ var gulp = require('gulp');
 
 var babelify = require("babelify"); //es6
 var browserify = require('browserify'); //build the source
+var watchify = require('watchify'); //build the source
 var source = require('vinyl-source-stream');
 
 
 /**
  * LINT
  */
-var sources = ['{spec,search,list,form}/**/*.js'];
+var sources = ['{spec,search,list,form,page}/**/*.js'];
 gulp.task('eslint', function() {
 	//gulp eslint 2>lint/lintErrors.txt
 	var eslint = require('gulp-eslint');
@@ -81,7 +82,7 @@ function jsBuild(directory, options) {
 		.pipe(source(generatedFile))
 		.pipe(gulp.dest('./' + directory + '/example/js/'));
 }
-gulp.task('browserify', function() {
+/*gulp.task('browserify', function() {
 	var literalify = require('literalify');
 	return browserify(({
 			entries: ['./index.js'],
@@ -101,6 +102,32 @@ gulp.task('browserify', function() {
 		.pipe(gulp.dest('./dist/'))
 		.pipe(gulp.dest('./example/js'));
 });
+*/
+function build(name){
+	gulp.task(name, function() {
+		var literalify = require('literalify');
+		var build = name === "browserify" ? browserify : watchify;
+		return build(({
+				entries: ['./index.js'],
+				extensions: ['.jsx'],
+				standalone: "focus-components"
+			}))
+			.transform({
+				global: true
+			}, literalify.configure({
+				react: 'window.React',
+				focus: 'window.focus'
+			}))
+			.transform(babelify)
+			.bundle()
+			//Pass desired output filename to vinyl-source-stream
+			.pipe(source('focus-components.js'))
+			.pipe(gulp.dest('./dist/'))
+			.pipe(gulp.dest('./example/js'));
+	});
+}
+build("browserify");
+build("watchify");
 gulp.task('componentify-js', function() {
 	//Each component build
 	var components = require('./package.json').components || [];
@@ -139,7 +166,7 @@ gulp.task('componentify-style', function() {
 gulp.task('style', function() {
 	var sass = require('gulp-sass');
 	var concat = require('gulp-concat');
-	gulp.src(['{spec,search,list,form}/**/*.scss'])
+	gulp.src(['{spec,search,list,form,page}/**/*.scss'])
 		.pipe(sass())
 		.pipe(concat('focus-components.css'))
 		.pipe(gulp.dest('./example/css/'));
@@ -172,7 +199,7 @@ gulp.task('focus-components-npm', ['style', 'browserify'], function() {
 	var babel = require('gulp-babel');
 	var gulpif = require('gulp-if');
 	return gulp.src(['package.json', 'index.js',
-			'{spec,search,list,form,common,example}/**/*.{js,css}'
+			'{spec,search,list,form,common,example,page}/**/*.{js,css}'
 		])
 		.pipe(gulpif(/[.]js$/, react({
 			harmony: true

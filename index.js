@@ -13,5 +13,6 @@ console.log(
 module.exports = {
 	common: require('./common'),
 	list: require('./list'),
-	search: require('./search')
-}
+	search: require('./search'),
+	page: require('./page')
+};
