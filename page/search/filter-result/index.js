@@ -94,10 +94,17 @@ var searchFilterResultMixin = {
     },
 
     _doSearch: function doSearch() {
+        var facets = [];
+        for(var selectedFacet in this.state.selectedFacetList) {
+            facets.push({key:selectedFacet, value:this.state.selectedFacetList[selectedFacet].key});
+           // facets[selectedFacet] = this.state.selectedFacetList[selectedFacet].key;
+        }
+
         this.props.action.search({
-            selectedFacetList: this.state.selectedFacetList,
-            groupSelectedKey: this.state.groupSelectedKey,
-            orderSelected: this.state.orderSelected
+            facets: facets,
+            criteria:{},
+            groupKey: this.state.groupSelectedKey,
+            order: this.state.orderSelected
         });
     },
     _searchSuccessEvent: function searchSuccessEvent() {
@@ -149,7 +156,7 @@ var searchFilterResultMixin = {
     },
 
     /**
-     * Seelction action handler.
+     * Selection action handler.
      * @param selectionStatus (0 => nonde, 1= > all, 2=> some).
      */
     _selectionGroupLineClick: function(selectionStatus) {
