@@ -1,0 +1,104 @@
+<!doctype html>
+<html class="no-js" lang="">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Test search-result mixin</title>
+    <meta name="description" content="Example of the component.">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/react/0.12.2/react.js"></script>
+    <script src="/dist/focus.js"></script>
+    <script src="/dist/focus-components.js"></script>
+
+    <!-- Material degign-->
+    <script src="//code.jquery.com/jquery-1.10.2.min.js"></script>
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css" />
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js" ></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-material-design/0.2.2/css/material-wfont.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-material-design/0.2.2/css/material.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-material-design/0.2.2/css/ripples.css">
+
+    <link rel="font" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-material-design/0.2.2/fonts/Material-Design-Icons.eot">
+    <link rel="font" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-material-design/0.2.2/fonts/Material-Design-Icons.svg">
+    <link rel="font" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-material-design/0.2.2/fonts/Material-Design-Icons.ttf">
+    <link rel="font" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-material-design/0.2.2/fonts/Material-Design-Icons.woff">
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-material-design/0.2.2/js/material.js"/>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-material-design/0.2.2/js/ripples.min.js"></script>
+    <!-- Material degign-->
+
+    <link rel="stylesheet" href="../selection-list/css/selection-list.css"/>
+    <link rel="stylesheet" href="../quick-search/css/quick-search.css"/>
+    <link rel="stylesheet" href="../select-action/css/select-action.css"/>
+
+</head>
+<body>
+<div id="search-result-container" style=" width:70%;margin: auto;"></div>
+<script src="js/search-result.js"></script>
+<script src="../selection-list/js/selection-list.js"></script>
+<script type="text/javascript">
+
+    var countId = 0;
+    var action = {
+        search: function(criteria) {
+            window.setTimeout(
+                    function() {
+                        var list = [{id:countId++, title : "toto", body:"ceci est un test"},{id:countId++, title:"tata",body:"deuxieme test"}]
+                        var data = {
+                            facet: {},
+                            list: list,
+                            pageInfos: {
+                                currentPage: criteria.page,
+                                perPage: 2,
+                                totalRecords : 18
+                            },
+                            searchContext: {
+                                scope: criteria.scope,
+                                query: criteria.query
+                            }
+                        };
+
+                        focus.dispatcher.handleServerAction({
+                            data: data, type: "update"
+                        })
+                    },
+                    1000);
+        }
+    };
+    var Line = React.createClass({
+        mixins: [focusComponents.list.selection.line.mixin],
+        renderLineContent: function(data){
+            var id = React.createElement('div',null,data.id);
+            var title = React.createElement('div',null,data.title);
+            var body = React.createElement('div',null,data.body);
+            var root = React.createElement('div',null,id,title,body);
+            return root;
+        }
+    });
+
+    React.render(
+            React.createElement(React.createClass({mixins:[focusComponents.page.searchsearchResult.mixin],actions: action}),
+                    {
+                        lineComponent: Line,
+                        onLineClick : function onLineClick(line){
+                            alert('click sur la ligne ' + line.title);
+                        },
+                        operationList:[
+                            {label: "Button1_a",action: function(data) {alert(data.title);},style: undefined,priority: 1},
+                            {label: "Button1_b",action: function(data) {alert(data.title);},style: undefined,priority: 1},
+                            {label: "Button2_a",action: function(data) {alert(data.title);},style: undefined,priority: 2},
+                            {label: "Button2_b",action: function(data) {alert(data.title);},style: undefined,priority: 2}
+                        ]
+
+                    }
+            ),
+            document.querySelector("#search-result-container")
+    );
+</script>
+
+</body>
+
+</html>
