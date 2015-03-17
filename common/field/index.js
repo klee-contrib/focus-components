@@ -60,6 +60,9 @@ var FieldMixin = {
   getValue: function() {
     return this.refs['input'].getValue();
   },
+  clearError: function(e){
+    this.setState({error: undefined});
+  },
   input: function() {
     var inputClassName = "form-control col-sm-" + (12 - this.props.labelSize);
     return ( < div className = "input-group" >
@@ -70,7 +73,7 @@ var FieldMixin = {
         value={this.props.value}
         type={this.props.type}
         validator={this.props.validator}
-        onChange={function(e){this.setState({error: undefined});}}
+        onChange={this.clearError}
         ref="input"
       />
       < /div>
