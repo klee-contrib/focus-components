@@ -169,10 +169,11 @@ gulp.task('style', function() {
 	gulp.src(['{spec,search,list,form,page}/**/*.scss'])
 		.pipe(sass())
 		.pipe(concat('focus-components.css'))
-		.pipe(gulp.dest('./example/css/'));
+		.pipe(gulp.dest('./example/css/'))
+		.pipe(gulp.dest('./dist/'));
 });
 
-
+gulp.task('build', ['browserify', 'style'])
 gulp.task('componentify', ['componentify-js', 'componentify-style',
 	'componentify-img'
 ]);
