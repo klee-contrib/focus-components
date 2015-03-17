@@ -6,10 +6,16 @@ var SearchStore = require('focus').store.SearchStore;
 var assign = require('object-assign');
 
 var searchMixin = {
+    /**
+     * Tag name.
+     */
     displayName: "search-panel",
 
+    /**
+     * Search store.
+     */
     store: new SearchStore(),
-    count:0,
+
     /**
      * Component intialization
      */
@@ -28,7 +34,7 @@ var searchMixin = {
     getDefaultProps: function getDefaultProps(){
         return {
             lineComponent: undefined,
-            isSelection: true,
+            isSelection: false,
             lineOperationList: {}
         }
     },
@@ -44,7 +50,8 @@ var searchMixin = {
             isAllSelected: false,
             selected: [],
             hasMoreData: false,
-            isLoading:false
+            isLoading:false,
+            currentPage:1
         }, this._getStateFromStore());
     },
 
@@ -55,8 +62,10 @@ var searchMixin = {
     _getStateFromStore: function getSearchStateFromStore(){
         if(this.store){
             var data = this.store.get();
+            var hasMoreData = data.pageInfos && data.pageInfos.totalPages? data.pageInfos.currentPage < data.pageInfos.totalPages : false;
             return {
-                list: data.list || []
+                list: data.list || [],
+                hasMoreData: hasMoreData
             }
         }
         return {};
@@ -66,15 +75,9 @@ var searchMixin = {
      * Handler when store emit a change event.
      */
     _onSearchChange: function onSearchStoreChange(){
-        this.count ++;
-        var searchStoreState = this._getStateFromStore();
-        if(searchStoreState.list){
-            this.setState({
-                list: searchStoreState.list,
-                hasMoreData:this.count<100,
-                isLoading:false
-            });
-        }
+        this.setState(assign({
+            isLoading:false
+        },this._getStateFromStore()));
     },
 
     /**
@@ -115,8 +118,8 @@ var searchMixin = {
      * @param item
      */
     _lineClick: function lineClick(item){
-        if(this.props.lineClick){
-            this.props.lineClick(item);
+        if(this.props.onLineClick){
+            this.props.onLineClick(item);
         }
     },
 
@@ -130,7 +133,7 @@ var searchMixin = {
         this.actions.search({
             scope:searchValues.scope,
             query:searchValues.query,
-            page: 1
+            page: this.state.currentPage
         });
     },
 
@@ -138,15 +141,17 @@ var searchMixin = {
      * Get the next page of the list.
      * @param page
      */
-    _fetchNextPage: function fetchNextPage(page){
+    _fetchNextPage: function fetchNextPage(){
+        var currentPage = this.state.currentPage + 1;
         this.setState({
-            isLoading:true
+            isLoading:true,
+            currentPage: currentPage
         });
         var searchValues = this.refs.quickSearch.getValue();
         this.actions.search({
             scope: searchValues.scope,
             query: searchValues.query,
-            page:page
+            page: currentPage
         });
     },
 
@@ -164,7 +169,10 @@ var searchMixin = {
                     onLineClick={this._lineClick}
                     fetchNextPage={this._fetchNextPage}
                     hasMoreData={this.state.hasMoreData}
-                    isLoading={this.state.isLoading}/>
+                    isLoading={this.state.isLoading}
+                    operationList={this.props.operationList}
+                    lineComponent={this.props.lineComponent}
+                />
             </div>
         );
     }
