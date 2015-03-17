@@ -6,10 +6,16 @@ var SearchStore = require('focus').store.SearchStore;
 var assign = require('object-assign');
 
 var searchMixin = {
+    /**
+     * Tag name.
+     */
     displayName: "search-panel",
 
+    /**
+     * Search store.
+     */
     store: new SearchStore(),
-    count:0,
+
     /**
      * Component intialization
      */
@@ -28,7 +34,7 @@ var searchMixin = {
     getDefaultProps: function getDefaultProps(){
         return {
             lineComponent: undefined,
-            isSelection: true,
+            isSelection: false,
             lineOperationList: {}
         }
     },
@@ -55,8 +61,10 @@ var searchMixin = {
     _getStateFromStore: function getSearchStateFromStore(){
         if(this.store){
             var data = this.store.get();
+            var hasMoreData = data.pageInfos && data.pageInfos.totalPages? data.pageInfos.currentPage < data.pageInfos.totalPages : false;
             return {
-                list: data.list || []
+                list: data.list || [],
+                hasMoreData: hasMoreData
             }
         }
         return {};
@@ -66,15 +74,9 @@ var searchMixin = {
      * Handler when store emit a change event.
      */
     _onSearchChange: function onSearchStoreChange(){
-        this.count ++;
-        var searchStoreState = this._getStateFromStore();
-        if(searchStoreState.list){
-            this.setState({
-                list: searchStoreState.list,
-                hasMoreData:this.count<100,
-                isLoading:false
-            });
-        }
+        this.setState(assign({
+            isLoading:false
+        },this._getStateFromStore()));
     },
 
     /**
@@ -164,7 +166,10 @@ var searchMixin = {
                     onLineClick={this._lineClick}
                     fetchNextPage={this._fetchNextPage}
                     hasMoreData={this.state.hasMoreData}
-                    isLoading={this.state.isLoading}/>
+                    isLoading={this.state.isLoading}
+                    operationList={this.props.operationList}
+                    lineComponent={this.props.lineComponent}
+                />
             </div>
         );
     }
