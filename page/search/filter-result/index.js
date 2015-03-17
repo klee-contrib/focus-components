@@ -13,6 +13,7 @@ var searchFilterResultMixin = {
      * Display name.
      */
     displayName: "search-filter-result",
+    searchStore: new SearchStore(),
 
     /**
      * Init default props.
@@ -23,10 +24,13 @@ var searchFilterResultMixin = {
             orderableColumnList:{},
             groupableColumnList:{},
             operationList:{},
-            searchStore: new SearchStore(),
             lineComponent:undefined,
             isSelection:true,
-            lineOperationList:{}
+            lineOperationList:{},
+            criteria:  {
+                scope: undefined,
+                searchText : undefined
+            }
         }
     },
     /**
@@ -93,7 +97,7 @@ var searchFilterResultMixin = {
         this._doSearch();
     },
     _registerEventList: function registerEventList() {
-        this.props.searchStore.addSearchChangeListener(this._searchSuccessEvent);
+        this.searchStore.addSearchChangeListener(this._searchSuccessEvent);
     },
 
     _doSearch: function doSearch() {
@@ -105,7 +109,7 @@ var searchFilterResultMixin = {
 
         this.props.action.search({
             facets: facets,
-            criteria:{},
+            criteria: this.props.criteria,
             groupKey: this.state.groupSelectedKey,
             order: this.state.orderSelected
         });
@@ -116,7 +120,7 @@ var searchFilterResultMixin = {
 
     },
     _getToUpdateState: function getToUpdateState() {
-        var data = this.props.searchStore.get('search');
+        var data = this.searchStore.get('search');
         return {
             facetList: data.facet,
             list: data.list
