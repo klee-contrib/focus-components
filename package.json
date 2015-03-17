@@ -68,6 +68,10 @@
       "path": "common/select-action"
     },
     {
+      "name": "sticky-navigation",
+      "path": "common/sticky-navigation"
+    },
+    {
       "name": "live-filter",
       "path": "search/live-filter"
     },
