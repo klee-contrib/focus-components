@@ -50,7 +50,8 @@ var searchMixin = {
             isAllSelected: false,
             selected: [],
             hasMoreData: false,
-            isLoading:false
+            isLoading:false,
+            currentPage:1
         }, this._getStateFromStore());
     },
 
@@ -132,7 +133,7 @@ var searchMixin = {
         this.actions.search({
             scope:searchValues.scope,
             query:searchValues.query,
-            page: 1
+            page: this.state.currentPage
         });
     },
 
@@ -140,15 +141,17 @@ var searchMixin = {
      * Get the next page of the list.
      * @param page
      */
-    _fetchNextPage: function fetchNextPage(page){
+    _fetchNextPage: function fetchNextPage(){
+        var currentPage = this.state.currentPage + 1;
         this.setState({
-            isLoading:true
+            isLoading:true,
+            currentPage: currentPage
         });
         var searchValues = this.refs.quickSearch.getValue();
         this.actions.search({
             scope: searchValues.scope,
             query: searchValues.query,
-            page:page
+            page: currentPage
         });
     },
 
