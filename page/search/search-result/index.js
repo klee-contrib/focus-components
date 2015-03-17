@@ -118,8 +118,8 @@ var searchMixin = {
      * @param item
      */
     _lineClick: function lineClick(item){
-        if(this.props.lineClick){
-            this.props.lineClick(item);
+        if(this.props.onLineClick){
+            this.props.onLineClick(item);
         }
     },
 
