@@ -61,10 +61,12 @@ var inputTextMixin = {
    * @param {object} event - The sanitize event of input.
    */
   _handleOnChange: function inputOnChange(event){
-    this.setState({value: event.target.value});
-    if(this.props.onChange){
+    //On change handler.
+    function onChg(){if(this.props.onChange){
       return this.props.onChange(event);
-    }
+    }}
+    //Set the state then call the change handler.
+    this.setState({value: event.target.value}, onChg);
   },
   /**
    * Render an input.
