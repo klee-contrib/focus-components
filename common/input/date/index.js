@@ -3,7 +3,6 @@ var jQuery = require('jquery');
 var builder = require('focus').component.builder;
 var React = require('react');
 var inputTextMixin = require('../text').mixin;
-var type = require('focus').component.types;
 
 /**
  * Input text mixin.
@@ -15,7 +14,11 @@ var inputDateMixin = {
   componentDidMount: function inputDateDidMount(){
     var component = this;
     jQuery(this.getDOMNode()).pickadate({
-      onSet: function(context) {
+      /**
+       * Handler called when the date change its value.
+       * @param {object} context - The event triggered by the plugin.
+       */
+      onSet: function onSetDate(context) {
         component._handleOnChange(context);
       }
     });
