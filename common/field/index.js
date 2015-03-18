@@ -17,10 +17,13 @@ var FieldMixin = {
   },
   getInitialState: function(){
     return {
-      error: this.props.error
+      error: this.props.error,
+      value: this.props.value
     };
   },
-
+  componentWillReceiveProps: function fieldWillReceiveProps(newProps){
+    this.setState({value: newProps.value});
+  },
   /**
   * Get the css class of the field component.
   */
@@ -60,8 +63,8 @@ var FieldMixin = {
   getValue: function() {
     return this.refs['input'].getValue();
   },
-  clearError: function(e){
-    this.setState({error: undefined});
+  onInputChange: function(event){
+    this.setState({error: undefined, value: event.target.value});
   },
   input: function() {
     var inputClassName = "form-control col-sm-" + (12 - this.props.labelSize);
@@ -70,10 +73,10 @@ var FieldMixin = {
         style={{class: inputClassName}}
         id={this.props.name}
         name={this.props.name}
-        value={this.props.value}
+        value={this.state.value}
         type={this.props.type}
         validator={this.props.validator}
-        onChange={this.clearError}
+        onChange={this.onInputChange}
         ref="input"
       />
       < /div>

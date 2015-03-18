@@ -62,11 +62,13 @@ var inputTextMixin = {
    */
   _handleOnChange: function inputOnChange(event){
     //On change handler.
-    function onChg(){if(this.props.onChange){
+    if(this.props.onChange){
       return this.props.onChange(event);
-    }}
-    //Set the state then call the change handler.
-    this.setState({value: event.target.value}, onChg);
+    }else {
+      //Set the state then call the change handler.
+      this.setState({value: event.target.value});      
+    }
+
   },
   /**
    * Render an input.
