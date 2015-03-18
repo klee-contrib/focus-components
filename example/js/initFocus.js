@@ -39,11 +39,16 @@ var entities ={
     },
     "age": {
       "domain": "DO_NUMBER",
-      "required": false
+      "required": false,
+      "type": "number"
     },
     "email": {
       "domain": "DO_EMAIL",
       "required": false
+    },
+    "bio": {
+      "domain": "DO_EMAIL",
+      "InputComponent": focusComponents.common.input.textarea.component
     },
     "isCool":{
       "domain": "DO_BOOLEAN",
