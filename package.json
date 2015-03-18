@@ -48,6 +48,10 @@
       "path": "common/input/textarea"
     },
     {
+      "name": "title",
+      "path": "common/title"
+    },
+    {
       "name": "topic-displayer",
       "path": "common/topic-displayer"
     },
