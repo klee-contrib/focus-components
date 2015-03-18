@@ -38,19 +38,6 @@ var inputTextMixin = {
     this.setState({value: newProps.value});
   },
   /**
-   * Validate the input.
-   * @return {object}
-   */
-  validate: function validateInputText() {
-    var value = this.getValue();
-    if (this.props.isRequired && (value === undefined || value === "")) {
-      return `Le champ ${this.props.name} est requis`;
-    }
-    if (this.props.validator) {
-      return this.props.validator(value);
-    }
-  },
-  /**
    * Get the value from the input in the DOM.
    */
   getValue: function getInputTextValue() {
@@ -66,7 +53,7 @@ var inputTextMixin = {
       return this.props.onChange(event);
     }else {
       //Set the state then call the change handler.
-      this.setState({value: event.target.value});      
+      this.setState({value: event.target.value});
     }
 
   },
