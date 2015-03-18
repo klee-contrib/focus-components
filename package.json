@@ -46,6 +46,9 @@
     {
       "name": "input-toggle",
       "path": "common/input/toggle"
+    },{
+      "name": "input-date",
+      "path": "common/input/date"
     },
     {
       "name": "input-textarea",
