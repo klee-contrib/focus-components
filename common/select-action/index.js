@@ -61,7 +61,7 @@ var selectActionMixin = {
         var style = "btn btn-primary ";
         return (
             <div className="select-action btn-group">
-                <a href="#" data-target="#" class="btn btn-primary dropdown-toggle" data-toggle="dropdown"><Img src={this.props.style} /></a>
+                <a href={window.location.pathname} data-target="#" class="btn btn-primary dropdown-toggle" data-toggle="dropdown"><Img src={this.props.style} /></a>
 
                 <ul className="dropdown-menu">{liList}</ul>
             </div>);
