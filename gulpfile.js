@@ -12,7 +12,8 @@ var source = require('vinyl-source-stream');
 /**
  * LINT
  */
-var sources = ['{spec,search,list,form,page}/**/*.js'];
+var src = '{spec,search,list,form,page,common}/**/*.js';
+var sources = [src];
 gulp.task('eslint', function() {
 	//gulp eslint 2>lint/lintErrors.txt
 	var eslint = require('gulp-eslint');
@@ -208,6 +209,9 @@ gulp.task('focus-components-npm', ['style', 'browserify'], function() {
 		.pipe(gulpif(/[.]js$/, babel()))
 		.pipe(gulp.dest('../rodolphe/app/node_modules/focus-components/'));
 });
-
+gulp.task('watch', function(){
+	gulp.watch(['package.json','index.js',src],['browserify']);
+  gulp.watch(['app/**/*.scss'], ['style']);
+});
 
 //Build the style woth sass.
