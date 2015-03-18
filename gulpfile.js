@@ -166,7 +166,7 @@ gulp.task('componentify-style', function() {
 gulp.task('style', function() {
 	var sass = require('gulp-sass');
 	var concat = require('gulp-concat');
-	gulp.src(['{spec,search,list,form,page}/**/*.scss'])
+	gulp.src(['{spec,search,list,form,page,common}/**/*.scss'])
 		.pipe(sass())
 		.pipe(concat('focus-components.css'))
 		.pipe(gulp.dest('./example/css/'))
