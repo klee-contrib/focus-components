@@ -55,6 +55,10 @@
       "path": "common/input/textarea"
     },
     {
+      "name": "select-classic",
+      "path": "common/select/classic"
+    },
+    {
       "name": "title",
       "path": "common/title"
     },

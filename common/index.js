@@ -6,5 +6,6 @@ module.exports = {
 	img: require('./img'),
 	input: require('./input'),
 	label: require('./label'),
+	select: require('./select'),
 	selectAction: require('./select-action')
 };
