@@ -23,7 +23,7 @@
     focus.components = focusComponents;
     var Select = focus.components.common.select.classic.component;
     React.render(React.createElement(Select,
-      {
+      { multiple: false,
         value: "B",
         values: [{code: "A", label: "aaaa"},{code: "B", label: "bbbbb"}, {code: "C", label: "ccccc"}],
         style: {className: "papa"},
