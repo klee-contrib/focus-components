@@ -10,7 +10,7 @@ var type = require('focus').component.types;
 var inputTextMixin = {
   /** @inheritdoc */
   getDefaultProps: function getInputDefaultProps() {
-    return {
+    return { 
       type: 'text',
       value: undefined,
       name: undefined,

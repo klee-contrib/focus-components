@@ -13,7 +13,11 @@ var FieldMixin = {
       labelSize: 3,
       type: 'text',
       value: undefined,
-      name: undefined
+      name: undefined,
+      style:{},
+      FieldComponent: undefined,
+      InputLabelComponent: undefined,
+      InputComponent: Input
     };
   },
   /** @inheritdoc */
@@ -43,6 +47,9 @@ var FieldMixin = {
   return "form-group " + stateClass;
   },
   label: function fieldLabel() {
+    if(this.props.FieldComponent || this.props.InputLabelComponent){
+      return;
+    }
     if (this.props.hasLabel) {
       var labelClassName = "control-label col-sm-" + this.props.labelSize;
       return (
@@ -89,14 +96,36 @@ var FieldMixin = {
   getValue: function() {
     return this.refs['input'].getValue();
   },
-  onInputChange: function(event){
+  /**
+   * Handler called when the input Change its value.
+   * @param {event} event - The event to set.
+   */
+  onInputChange: function fieldOnInputChanges(event){
     this.setState({error: undefined, value: this.getValue()});
   },
+  renderFieldComponent: function (){
+    var Component = this.props.FieldComponent || this.props.InputLabelComponent;
+    return React.createElement(Component, {
+      id: this.props.name,
+      name: this.props.name,
+      label: this.props.name,
+      value: this.state.value,
+      type: this.props.type,
+      style: this.props.style.input,
+      error: this.state.error,
+      help: this.props.help,
+      onChange: this.onInputChange,
+      ref: "input"
+      });
+  },
   input: function renderInput() {
+    if(this.props.FieldComponent || this.props.InputLabelComponent){
+      return this.renderFieldComponent();
+    }
     var inputClassName = "form-control col-sm-" + (12 - this.props.labelSize);
     return (
       <div className = "input-group" >
-        <Input
+        <this.props.InputComponent
           style={{class: inputClassName}}
           id={this.props.name}
           name={this.props.name}
@@ -108,8 +137,11 @@ var FieldMixin = {
       < /div>
   );
   },
-  error: function() {
+  error: function renderError() {
   if (this.state.error) {
+    if(this.props.FieldComponent){
+      return;
+    }
     return (
       /*<span class="glyphicon glyphicon-remove form-control-feedback" aria-hidden="true"></span>*/
       <span className="help-block">
@@ -120,6 +152,9 @@ var FieldMixin = {
   },
   help: function() {
   if (this.props.help) {
+    if(this.props.FieldComponent){
+      return;
+    }
     return (
       <span className="help-block">
         {this.props.help}

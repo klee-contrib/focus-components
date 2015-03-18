@@ -44,6 +44,10 @@ var entities ={
     "email": {
       "domain": "DO_EMAIL",
       "required": false
+    },
+    "isCool":{
+      "domain": "DO_BOOLEAN",
+      "FieldComponent": focusComponents.common.input.checkbox.component
     }
   }};
 focus.definition.entity.container.setEntityConfiguration(entities);
