@@ -33,6 +33,17 @@ var checkBoxMixin = {
 			isChecked: this.props.value
 		};
 	},
+
+	/**
+	 * Update properties on component.
+	 * @param nextProps next properties
+	 */
+	componentWillReceiveProps: function(nextProps) {
+		if(nextProps.value !== undefined){
+			this.setState({isChecked : nextProps.value});
+		}
+	},
+
 	_onChange: function onChange(event) {
 		this.setState({
 			isChecked: !this.state.isChecked

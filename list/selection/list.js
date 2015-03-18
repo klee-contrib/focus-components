@@ -22,6 +22,7 @@ var listMixin = {
         return {
             isSelection : true,
             isAllSelected : false,
+            selectionStatus: "partial",
             isLoading: false,
             hasMoreData: false,
             operationList: [],
@@ -86,12 +87,26 @@ var listMixin = {
         var lineCount = 1;
         var LineComponent = this.props.lineComponent || React.createClass(Line);
         return this.props.data.map((line)=>{
+            var isSelected
+            switch(this.props.selectionStatus){
+                case "none":
+                    isSelected = false;
+                    break;
+                case "selected":
+                    isSelected = true;
+                    break;
+                case "partial":
+                    isSelected = undefined;
+                    break;
+                default:
+                    isSelected = false;
+            }
             return React.createElement(LineComponent,{
                 key : line.id || uuid.v4(),
                 data: line,
                 ref: "line" + lineCount++,
                 isSelection: this.props.isSelection,
-                isSelected: this.props.isAllSelected,
+                isSelected: isSelected,
                 onSelection: this.props.onSelection,
                 onLineClick: this.props.onLineClick,
                 operationList: this.props.operationList
