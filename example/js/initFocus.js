@@ -48,6 +48,10 @@ var entities ={
     "isCool":{
       "domain": "DO_BOOLEAN",
       "FieldComponent": focusComponents.common.input.checkbox.component
+    },
+    "isNice":{
+      "domain": "DO_BOOLEAN",
+      "FieldComponent": focusComponents.common.input.toggle.component
     }
   }};
 focus.definition.entity.container.setEntityConfiguration(entities);

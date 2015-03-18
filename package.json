@@ -44,6 +44,10 @@
       "path": "common/input/checkbox"
     },
     {
+      "name": "input-toggle",
+      "path": "common/input/toggle"
+    },
+    {
       "name": "input-textarea",
       "path": "common/input/textarea"
     },
