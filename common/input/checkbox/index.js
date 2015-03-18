@@ -60,6 +60,12 @@ var checkBoxMixin = {
         </label>
       </div>
      );
+  },
+  /** @inheritedDoc*/
+  componentWillReceiveProps: function checkBoxWillreceiveProps(nextProps) {
+    if(nextProps.value !== undefined){
+      this.setState({isChecked : nextProps.value});
+    }
   }
 };
 

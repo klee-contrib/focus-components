@@ -41,6 +41,16 @@ var lineMixin = {
     },
 
     /**
+     * Update properties on component.
+     * @param nextProps next properties
+     */
+    componentWillReceiveProps: function(nextProps) {
+        if(nextProps.isSelected !== undefined){
+            this.setState({isSelected : nextProps.isSelected});
+        }
+    },
+
+    /**
      * Get the line value.
      * @returns {{item: *, isSelected: (*|isSelected|boolean)}}
      */
@@ -56,11 +66,11 @@ var lineMixin = {
      * @param event
      */
     _handleSelectionClick: function handleSelectionClick(event){
-        if(this.props.onSelection){
-            this.props.onSelection(this.props.data);
-        }
         var select = !this.state.isSelected;
         this.setState({isSelected:select});
+        if(this.props.onSelection){
+            this.props.onSelection(this.props.data,select);
+        }
     },
 
     /**

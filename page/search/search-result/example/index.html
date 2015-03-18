@@ -37,8 +37,7 @@
 </head>
 <body>
 <div id="search-result-container" style=" width:70%;margin: auto;"></div>
-<script src="js/search-result.js"></script>
-<script src="../selection-list/js/selection-list.js"></script>
+
 <script type="text/javascript">
 
     var countId = 0;
@@ -80,7 +79,7 @@
     });
 
     React.render(
-            React.createElement(React.createClass({mixins:[focusComponents.page.searchsearchResult.mixin],actions: action}),
+            React.createElement(React.createClass({mixins:[focusComponents.page.search.searchResult.mixin],actions: action}),
                     {
                         lineComponent: Line,
                         onLineClick : function onLineClick(line){

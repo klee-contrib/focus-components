@@ -6,6 +6,8 @@ var LiveFilter = require('../../../search/live-filter/index').component;
 var ListActionBar = require('../../../list/action-bar/index').component;
 var ListSelection = require('../../../list/selection').list.component;
 var SearchStore = require('focus').store.SearchStore;
+var assign = require('object-assign');
+
 
 var searchFilterResultMixin = {
 
@@ -13,7 +15,25 @@ var searchFilterResultMixin = {
      * Display name.
      */
     displayName: "search-filter-result",
-    searchStore: new SearchStore(),
+    /**
+     * Search store.
+     */
+    store: new SearchStore(),
+
+    /**
+     * Component intialization
+     */
+    componentDidMount: function componentDidMount() {
+        this._registerListeners();
+        this._search();
+    },
+    /**
+     * Actions before component will unmount.
+     * @constructor
+     */
+    componentWillUnmount: function SearchComponentWillUnmount(){
+        this._unRegisterListeners();
+    },
 
     /**
      * Init default props.
@@ -31,13 +51,13 @@ var searchFilterResultMixin = {
                 scope: undefined,
                 searchText : undefined
             }
-        }
+        };
     },
     /**
      * Init default state.
      */
     getInitialState: function() {
-        return {
+        return assign({
             facetList: {},
             selectedFacetList: {},
             openedFacetList: {},
@@ -49,82 +69,56 @@ var searchFilterResultMixin = {
             list:[],
 
             isAllSelected:true
-        };
-    },
-    /**
-     * render the component.
-     * @returns Html code.
-     */
-    render: function renderSearchResult() {
-        return (
-            <div className="search-result">
-                <div className="liveFilterContainer">
-                    <LiveFilter ref="liveFilter"    facetList={this.state.facetList}
-                                                    selectedFacetList={this.state.selectedFacetList}
-                                                    openedFacetList={this.state.openedFacetList}
-                                                    config={this.props.facetConfig}
-                                                    dataSelectionHandler={this._facetSelectionClick}/>
-                </div>
-                <div className="resultContainer">
-                    <div className="listActionBarContainer panel">
-                        <ListActionBar selectionStatus={this.state.selectionStatus}
-                                    selectionAction={this._selectionGroupLineClick}
-                                    orderableColumnList={this.props.orderableColumnList}
-                                    orderAction={this._orderClick}
-                                    orderSelected={this.state.orderSelected}
-                                    groupableColumnList={this.props.groupableColumnList}
-                                    groupAction={this._groupClick}
-                                    groupSelectedKey={this.state.groupSelectedKey}
-                                    facetList={this._getFacetListForBar()}
-                                    facetClickAction={this._facetBarClick}
-                                    operationList={this.props.operationList} />
-                    </div>
-                    <div className="listResultContainer panel">
-                        <ListSelection data={this.state.list}
-                                hasMoreData={true}
-                                lineComponent={this.props.lineComponent}
-                                onLineClick={this.props.onLineClick}
-                                isSelection={this.props.isSelection}
-                                operationList={this.props.lineOperationList}
-                                isAllSelected={this.state.isAllSelected}/>
-                    </div>
-                </div>
-            </div>
-        );
-    },
-    componentDidMount: function() {
-        this._registerEventList();
-        this._doSearch();
-    },
-    _registerEventList: function registerEventList() {
-        this.searchStore.addSearchChangeListener(this._searchSuccessEvent);
+        },
+        this.getInfiniteScrollInitialState(),
+        this._getStateFromStore());
     },
 
-    _doSearch: function doSearch() {
+    /**
+     * Get liste from current store.
+     * @returns {*}
+     */
+    _getStateFromStore: function getToUpdateState() {
+        if(this.store) {
+            var data = this.store.get();
+            return assign({
+                facetList: data.facet || {},
+                list: data.list || []
+            }, this.getInfiniteScrollStateFromStore())
+        }
+    },
+
+    /**
+     * Register a listener on the store.
+     * @private
+     */
+    _registerListeners: function registerListeners() {
+        if(this.store) {
+            this.store.addSearchChangeListener(this._onSearchChange);
+        }
+    },
+    /**
+     * Unregister a listener on the store.
+     * @private
+     */
+    _unRegisterListeners: function unRegisterSearchListeners(){
+        if(this.store){
+            this.store.removeSearchChangeListener(this._onSearchChange);
+        }
+    },
+
+    /**
+     * Search function.
+     */
+    _search: function search() {
         var facets = [];
         for(var selectedFacet in this.state.selectedFacetList) {
             facets.push({key:selectedFacet, value:this.state.selectedFacetList[selectedFacet].key});
-           // facets[selectedFacet] = this.state.selectedFacetList[selectedFacet].key;
         }
 
-        this.props.action.search({
-            facets: facets,
-            criteria: this.props.criteria,
-            groupKey: this.state.groupSelectedKey,
-            order: this.state.orderSelected
-        });
-    },
-    _searchSuccessEvent: function searchSuccessEvent() {
-        console.log("Search success");
-        this.setState(this._getToUpdateState());
-
-    },
-    _getToUpdateState: function getToUpdateState() {
-        var data = this.searchStore.get('search');
-        return {
-            facetList: data.facet,
-            list: data.list
-        }
+        this.props.action.search(
+            this.getSearchCriteria(this.props.criteria.scope,  this.props.criteria.searchText, this.state.currentPage, this.state.orderSelected, this.state.groupSelectedKey, facets)
+        );
     },
 
     _getFacetListForBar: function() {
@@ -142,7 +136,7 @@ var searchFilterResultMixin = {
 
         // TODO : do we do it now ?
         this.setState({selectedFacetList: selectedFacetList});
-        this._doSearch();
+        this._search();
     },
     _groupClick: function(key) {
         console.log("Group by : " + key);
@@ -152,14 +146,14 @@ var searchFilterResultMixin = {
             orderSelected: (key != undefined ? undefined : this.state.orderSelected)
         });
 
-        this._doSearch();
+        this._search();
     },
 
     _orderClick: function(key, order) {
         console.log("Order : " + key + " - " + order);
         // TODO : do we do it now ?
         this.setState({orderSelected: {key:key, order:order}});
-        this._doSearch();
+        this._search();
     },
 
     /**
@@ -192,7 +186,101 @@ var searchFilterResultMixin = {
             openedFacetList: openedFacetList
         });
 
-        this._doSearch();
+        this._search();
+    },
+
+    /**
+     * render the component.
+     * @returns Html code.
+     */
+    render: function renderSearchResult() {
+        return (
+            <div className="search-result">
+                <div className="liveFilterContainer">
+                    <LiveFilter ref="liveFilter"    facetList={this.state.facetList}
+                        selectedFacetList={this.state.selectedFacetList}
+                        openedFacetList={this.state.openedFacetList}
+                        config={this.props.facetConfig}
+                        dataSelectionHandler={this._facetSelectionClick}/>
+                </div>
+                <div className="resultContainer">
+                    <div className="listActionBarContainer panel">
+                        <ListActionBar selectionStatus={this.state.selectionStatus}
+                            selectionAction={this._selectionGroupLineClick}
+                            orderableColumnList={this.props.orderableColumnList}
+                            orderAction={this._orderClick}
+                            orderSelected={this.state.orderSelected}
+                            groupableColumnList={this.props.groupableColumnList}
+                            groupAction={this._groupClick}
+                            groupSelectedKey={this.state.groupSelectedKey}
+                            facetList={this._getFacetListForBar()}
+                            facetClickAction={this._facetBarClick}
+                            operationList={this.props.operationList} />
+                    </div>
+                    <div className="listResultContainer panel">
+                        <ListSelection data={this.state.list}
+                            ref="list"
+                            isSelection={this.props.isSelection}
+                            onSelection={this._selectItem}
+                            onLineClick={this.props.onLineClick}
+                            fetchNextPage={this.fetchNextPage}
+                            operationList={this.props.lineOperationList}
+                            hasMoreData={this.state.hasMoreData}
+                            isLoading={this.state.isLoading}
+                            lineComponent={this.props.lineComponent} />
+                    </div>
+                </div>
+            </div>
+        );
+    },
+
+    ////////////////////////////////////////////////////////////////////////////////////////////
+    // COMMON METHODS FOR INFINITE SCROLL
+    /**
+     * Handler when store emit a change event.
+     */
+    _onSearchChange: function onSearchChange() {
+        console.log("Search success");
+        this.setState(assign({isLoading:false}, this._getStateFromStore()));
+
+    },
+    getInfiniteScrollInitialState: function getInfiniteScrollInitialState() {
+        return {
+            hasMoreData: false,
+            isLoading:false,
+            currentPage:1
+        }
+    },
+    getInfiniteScrollStateFromStore: function getSearchStateFromStore(){
+        if(this.store){
+            var data = this.store.get();
+            var hasMoreData = data.pageInfos && data.pageInfos.totalPages? data.pageInfos.currentPage < data.pageInfos.totalPages : false;
+            return {
+                hasMoreData: hasMoreData
+            }
+        }
+        return {};
+    },
+    getSearchCriteria: function getSearchCriteria(scope, query, currentPage, order, group, facets) {
+        return {
+            criteria: {
+                scope: scope,
+                query: query
+            },
+            pageInfos: {
+                page: currentPage,
+                order: order,
+                group: group
+            },
+            facets: facets
+        }
+    },
+    fetchNextPage: function fetchNextPage(){
+        this.setState({
+            isLoading:true,
+            currentPage: this.state.currentPage + 1
+        });
+        this._search();
     }
 }
 
