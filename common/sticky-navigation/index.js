@@ -15,7 +15,6 @@ var stickyNavigationMixin = {
      * Title data attribute.
      */
     titleAttribute: "[data-menu]",
-
     /**
      * Default props.
      * @returns {{contentId: Html id of the content to spy.}}
@@ -25,7 +24,6 @@ var stickyNavigationMixin = {
             contentId: undefined
         };
     },
-
     /**
      * Render the component.
      * @returns Htm code.
@@ -36,9 +34,14 @@ var stickyNavigationMixin = {
         for(var key in titleList) {
             menuList.push(this._renderLink(titleList[key]));
         }
-        return <nav className="sticky-navigation bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id={this.navBarId} ><ul className="nav bs-docs-sidenav" role="tablist">{menuList}</ul></nav>;
+        return(
+          <nav className="sticky-navigation bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id={this.navBarId}>
+            <ul className="nav bs-docs-sidenav" role="tablist">
+              {menuList}
+            </ul>
+          </nav>
+        );
     },
-
     /**
      * Add the ttribute to iit the spy.
      */
@@ -47,7 +50,6 @@ var stickyNavigationMixin = {
         content.setAttribute("data-spy", "scroll");
         content.setAttribute("data-target", '#' + this.navBarId);
     },
-
     /**
      * Render the list of links.
      * @param anchor
@@ -59,8 +61,6 @@ var stickyNavigationMixin = {
             return (<li><a href={link}>{title.innerText}</a></li>);
         }
     }
-
-
 };
 
 module.exports =  builder(stickyNavigationMixin);
