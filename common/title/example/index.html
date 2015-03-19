@@ -8,7 +8,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/react/0.12.2/react.js"></script>
-    <script src="/dist/focus.js"></script>
+    <script src="/dist/js/focus.js"></script>
+    <script src="/dist/js/focus-components.js"></script>
+    <link rel="stylesheet" href="/dist/css/focus-components.css">
+
 
 
     <!-- Material degign-->
@@ -31,13 +34,10 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-material-design/0.2.2/js/ripples.min.js"></script>
     <!-- Material degign-->
 
-
-    <script src="js/title.js"></script>
-
 </head>
 <body>
 
-<div id="title-container" style="float:left;"></div>
+<div id="title-container" ></div>
 
 <script type="text/javascript">
 
@@ -45,6 +45,7 @@
             React.createElement(React.createClass(focusComponents.common.title.mixin), {id:"content", title: "Test title" }),
             document.querySelector("#title-container")
     );
+
 </script>
 
 </body>

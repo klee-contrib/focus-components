@@ -11,7 +11,9 @@
     <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css" />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/react/0.12.2/react.js"></script>
-    <link rel="stylesheet" href="css/topic-displayer.css"/>
+    <script src="/dist/js/focus.js"></script>
+    <script src="/dist/js/focus-components.js"></script>
+    <link rel="stylesheet" href="/dist/css/focus-components.css">
 </head>
 <body>
 <div id="topic-displayer-container"></div>
@@ -22,7 +24,7 @@
     var topicClickAction= function(topicKey) {
         console.log(topicKey);
         delete topicList[topicKey];
-        this.render();
+        render();
     };
     var render = function() {
         React.render(

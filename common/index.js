@@ -7,5 +7,8 @@ module.exports = {
 	input: require('./input'),
 	label: require('./label'),
 	select: require('./select'),
-	selectAction: require('./select-action')
+	selectAction: require('./select-action'),
+    stickyNavigation: require('./sticky-navigation'),
+    title: require('./title'),
+    topicDisplayer: require('./topic-displayer')
 };

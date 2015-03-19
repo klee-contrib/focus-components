@@ -39,10 +39,10 @@ div.qs-quick-search{
       //position: relative;
       color: white;
       &.qs-scope-deploy-up{
-        background: url('./img/arrow-up.svg') no-repeat center right;
+        background: url('../img/arrow-up.svg') no-repeat center right;
       }
       &.qs-scope-deploy-down{
-        background: url('./img/arrow-down.svg') no-repeat center right;
+        background: url('../img/arrow-down.svg') no-repeat center right;
       }
 
       text-align: center;
@@ -62,7 +62,7 @@ div.qs-quick-search{
 
         }
         &.qs-scope-none{
-          background: url('./img/qs-none.svg') no-repeat center center;
+          background: url('../img/qs-none.svg') no-repeat center center;
           background-size: 100% 100%;
         }
 
@@ -124,19 +124,19 @@ div.qs-quick-search{
     top:40px;
     padding-left: 45px;
     left: 50px; //$qs-scope-width - 20;
-    background: url('./img/help-arrow.svg') no-repeat center left;
+    background: url('../img/help-arrow.svg') no-repeat center left;
   }
 }
 
 .qs-scope-1 {
-  background: url('./img/earth.svg') no-repeat center center;
+  background: url('../img/earth.svg') no-repeat center center;
 }
 .qs-scope-2 {
-  background: url('./img/user.svg') no-repeat center center;
+  background: url('../img/user.svg') no-repeat center center;
 }
 .qs-scope-3 {
-  background: url('./img/rocket.svg') no-repeat center center;
+  background: url('../img/rocket.svg') no-repeat center center;
 }
 .qs-scope-none {
-  background: url('./img/qs-none.svg') no-repeat center center;
+  background: url('../img/qs-none.svg') no-repeat center center;
 }
