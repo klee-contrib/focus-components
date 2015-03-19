@@ -103,6 +103,10 @@
       "path": "list/action-contextual"
     },
     {
+      "name": "list-summary",
+      "path": "list/summary"
+    },
+    {
       "name": "button-action",
       "path": "common/button/action"
     },

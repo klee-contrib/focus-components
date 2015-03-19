@@ -1,0 +1,9 @@
+.print {
+  background: url("../img/print.svg") no-repeat center;
+}
+
+.list-summary {
+  .nb-result, .scope, .print {
+    float:left;
+  }
+}
