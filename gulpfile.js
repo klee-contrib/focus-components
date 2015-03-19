@@ -176,7 +176,7 @@ gulp.task('style', function() {
 		.pipe(gulp.dest('./dist/'));
 });
 
-gulp.task('build', ['browserify', 'style'])
+gulp.task('build', ['browserify', 'style', 'componentify-img'])
 gulp.task('componentify', ['componentify-js', 'componentify-style',
 	'componentify-img'
 ]);
@@ -187,7 +187,8 @@ gulp.task('componentify', ['componentify-js', 'componentify-style',
 function imgBuild(directory, options) {
 	options = options || {};
 	return gulp.src([directory + '/assets/img/*.svg'])
-		.pipe(gulp.dest(directory + '/example/img/'));
+		.pipe(gulp.dest(directory + '/example/img/'))
+        .pipe(gulp.dest('./dist/img/'));
 }
 gulp.task('componentify-img', function() {
 	var components = require('./package.json').components || [];
