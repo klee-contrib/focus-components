@@ -62,13 +62,11 @@ var searchFilterResultMixin = {
             selectedFacetList: {},
             openedFacetList: {},
 
-            selectionStatus: 0,
+            selectionStatus: "none",
             orderSelected:undefined,
             groupSelectedKey: undefined,
 
-            list:[],
-
-            isAllSelected:true
+            list:[]
         },
         this.getInfiniteScrollInitialState(),
         this._getStateFromStore());
@@ -162,10 +160,8 @@ var searchFilterResultMixin = {
      */
     _selectionGroupLineClick: function(selectionStatus) {
         console.log("Selection status : " + selectionStatus);
-        console.warn("TODO : implement check/uncheck on the list rows (it shoudl be working like this, but need to be checked)");
         this.setState({
-            selectionStatus: selectionStatus,
-            isAllSelected: selectionStatus == 1
+            selectionStatus: selectionStatus
         });
     },
 
@@ -187,6 +183,10 @@ var searchFilterResultMixin = {
         });
 
         this._search();
+    },
+
+    _selectItem: function selectItem(item) {
+        this.setState({selectionStatus: "partial"});
     },
 
     /**
@@ -227,7 +227,8 @@ var searchFilterResultMixin = {
                             operationList={this.props.lineOperationList}
                             hasMoreData={this.state.hasMoreData}
                             isLoading={this.state.isLoading}
-                            lineComponent={this.props.lineComponent} />
+                            lineComponent={this.props.lineComponent}
+                            selectionStatus={this.state.selectionStatus} />
                     </div>
                 </div>
             </div>

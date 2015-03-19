@@ -19,7 +19,7 @@ var actionBarMixin = {
      */
     getDefaultProps: function() {
         return {
-            selectionStatus: 0, // 0=> None, 1 => All, other value =>  some
+            selectionStatus: "none", // none, selected, partial
             selectionAction: function(selectionStatus) {}, // Action on selection click
 
             orderableColumnList:{}, // [{key:"columnKey", label:"columnLabel"}]
@@ -58,8 +58,8 @@ var actionBarMixin = {
     _getSelectionObject: function() {
         // Selection datas
         var selectionOperationList = [
-            {action: this._selectionFunction(1) , label: "all",  style: this._getSelectedStyle(this.props.selectionStatus, 1) },
-            {action: this._selectionFunction(0), label: "none",  style: this._getSelectedStyle(this.props.selectionStatus, 0)  }
+            {action: this._selectionFunction("selected") , label: "all",  style: this._getSelectedStyle(this.props.selectionStatus, "selected") },
+            {action: this._selectionFunction("none"), label: "none",  style: this._getSelectedStyle(this.props.selectionStatus, "none")  }
         ];
         return <SelectAction style={this._getSelectionObjectStyle()} operationList={selectionOperationList} />;
     },
@@ -126,9 +126,9 @@ var actionBarMixin = {
      * @private
      */
     _getSelectionObjectStyle: function() {
-        if(this.props.selectionStatus == 0) {
+        if(this.props.selectionStatus == "none") {
             return "checkbox-unchecked";
-        } else if(this.props.selectionStatus == 1) {
+        } else if(this.props.selectionStatus == "selected") {
             return "checkbox-checked";
         }
         return "notification";

@@ -1,5 +1,7 @@
 var React = require('react');
 var builder = require('focus').component.builder;
+var Img = require('../../img').component;
+
 /**/
 var buttonMixin = {
 		getDefaultProps: function getInputDefaultProps() {
@@ -7,7 +9,9 @@ var buttonMixin = {
 				type: 'submit',
 				action: undefined,
 				isPressed: false,
-				style: {}
+				style: {},
+                label: undefined,
+                imgSrc: undefined
 			};
 		},
 		handleOnClick: function handleButtonOnclick() {
@@ -38,6 +42,9 @@ var buttonMixin = {
         render: function renderInput() {
             if (this.state.isPressed) {
                 return this.renderPressedButton();
+            }
+            if(this.props.imgSrc) {
+                return <Img src={this.props.imgSrc} onClick={this.handleOnClick} />;
             }
             return ( <button href="javascript:void(0)" onClick={this.handleOnClick} type={this.props.type} className={this._className()} >{this.props.label}</button>);
         }

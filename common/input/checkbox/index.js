@@ -52,14 +52,17 @@ var checkBoxMixin = {
    * @return {VirtualDOM} - The virtual DOM of the checkbox.
    */
   render: function renderCheckBox() {
-    return (
-      <div className="checkbox">
-        <label>
-          <input ref='checkbox' checked={this.state.isChecked} onChange={this._onChange} type="checkbox" />
-          {this.props.label ? this.props.label : ""}
-        </label>
-      </div>
-     );
+      return (
+
+          <div className="checkbox">
+              <label>
+                  <input ref='checkbox'checked={this.state.isChecked} onChange={this._onChange} type="checkbox" />
+                  <span className="ripple"></span>
+                  <span className="check"></span>
+					{this.props.label ? this.props.label : ""}
+              </label>
+          </div>
+      );
   },
   /** @inheritedDoc*/
   componentWillReceiveProps: function checkBoxWillreceiveProps(nextProps) {
