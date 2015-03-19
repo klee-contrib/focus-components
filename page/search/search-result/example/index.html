@@ -48,13 +48,13 @@
                             facet: {},
                             list: list,
                             pageInfos: {
-                                currentPage: criteria.page,
+                                currentPage: criteria.pageInfos.page,
                                 perPage: 2,
                                 totalRecords : 18
                             },
                             searchContext: {
-                                scope: criteria.scope,
-                                query: criteria.query
+                                scope: criteria.criteria.scope,
+                                query: criteria.criteria.query
                             }
                         };
 

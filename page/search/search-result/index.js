@@ -4,8 +4,11 @@ var QuickSearch  = require('../../../search/quick-search').component;
 var List = require('../../../list/selection').list.component;
 var SearchStore = require('focus').store.SearchStore;
 var assign = require('object-assign');
+var InfiniteScrollPageMixin = require("../common-mixin/infinite-scroll-page-mixin").mixin;
 
 var searchMixin = {
+    mixins: [InfiniteScrollPageMixin],
+
     /**
      * Tag name.
      */
@@ -48,11 +51,10 @@ var searchMixin = {
 
         return assign({
             isAllSelected: false,
-            selected: [],
-            hasMoreData: false,
-            isLoading:false,
-            currentPage:1
-        }, this._getStateFromStore());
+            selected: []
+        },
+        this.getInfiniteScrollInitialState(),
+        this._getStateFromStore());
     },
 
     /**
@@ -60,24 +62,7 @@ var searchMixin = {
      * @returns {*}
      */
     _getStateFromStore: function getSearchStateFromStore(){
-        if(this.store){
-            var data = this.store.get();
-            var hasMoreData = data.pageInfos && data.pageInfos.totalPages? data.pageInfos.currentPage < data.pageInfos.totalPages : false;
-            return {
-                list: data.list || [],
-                hasMoreData: hasMoreData
-            }
-        }
-        return {};
-    },
-
-    /**
-     * Handler when store emit a change event.
-     */
-    _onSearchChange: function onSearchStoreChange(){
-        this.setState(assign({
-            isLoading:false
-        },this._getStateFromStore()));
+        return assign({}, this.getInfiniteScrollStateFromStore());
     },
 
     /**
@@ -86,7 +71,7 @@ var searchMixin = {
      */
     _registerListeners: function registerSearchListeners(){
         if(this.store){
-            this.store.addSearchChangeListener(this._onSearchChange);
+            this.store.addSearchChangeListener(this.onSearchChange);
         }
     },
 
@@ -96,7 +81,7 @@ var searchMixin = {
      */
     _unRegisterListeners: function unRegisterSearchListeners(){
         if(this.store){
-            this.store.removeSearchChangeListener(this._onSearchChange);
+            this.store.removeSearchChangeListener(this.onSearchChange);
         }
     },
 
@@ -127,32 +112,14 @@ var searchMixin = {
      * Run search action.
      * @param event
      */
-    _search: function search(event){
-        event.preventDefault();
+    search: function search(event){
+        if(event) {
+            event.preventDefault();
+        }
         var searchValues = this.refs.quickSearch.getValue();
-        this.actions.search({
-            scope:searchValues.scope,
-            query:searchValues.query,
-            page: this.state.currentPage
-        });
-    },
-
-    /**
-     * Get the next page of the list.
-     * @param page
-     */
-    _fetchNextPage: function fetchNextPage(){
-        var currentPage = this.state.currentPage + 1;
-        this.setState({
-            isLoading:true,
-            currentPage: currentPage
-        });
-        var searchValues = this.refs.quickSearch.getValue();
-        this.actions.search({
-            scope: searchValues.scope,
-            query: searchValues.query,
-            page: currentPage
-        });
+        this.actions.search(
+            this.getSearchCriteria(searchValues.scope,  searchValues.query)
+        );
     },
 
     /**
@@ -161,13 +128,13 @@ var searchMixin = {
     render: function renderSearchComponent(){
         return(
             <div className="search-panel">
-                <QuickSearch handleKeyUp={this._search} ref="quickSearch"/>
+                <QuickSearch handleKeyUp={this.search} ref="quickSearch"/>
                 <List data={this.state.list}
                     ref="list"
                     isSelection={this.props.isSelection}
                     onSelection={this._selectItem}
                     onLineClick={this._lineClick}
-                    fetchNextPage={this._fetchNextPage}
+                    fetchNextPage={this.fetchNextPage}
                     hasMoreData={this.state.hasMoreData}
                     isLoading={this.state.isLoading}
                     operationList={this.props.operationList}

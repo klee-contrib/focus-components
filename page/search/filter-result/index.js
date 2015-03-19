@@ -7,9 +7,10 @@ var ListActionBar = require('../../../list/action-bar/index').component;
 var ListSelection = require('../../../list/selection').list.component;
 var SearchStore = require('focus').store.SearchStore;
 var assign = require('object-assign');
-
+var InfiniteScrollPageMixin = require("../common-mixin/infinite-scroll-page-mixin").mixin;
 
 var searchFilterResultMixin = {
+    mixins: [InfiniteScrollPageMixin],
 
     /**
      * Display name.
@@ -25,7 +26,7 @@ var searchFilterResultMixin = {
      */
     componentDidMount: function componentDidMount() {
         this._registerListeners();
-        this._search();
+        this.search();
     },
     /**
      * Actions before component will unmount.
@@ -80,8 +81,7 @@ var searchFilterResultMixin = {
         if(this.store) {
             var data = this.store.get();
             return assign({
-                facetList: data.facet || {},
-                list: data.list || []
+                facetList: data.facet || {}
             }, this.getInfiniteScrollStateFromStore())
         }
     },
@@ -92,7 +92,7 @@ var searchFilterResultMixin = {
      */
     _registerListeners: function registerListeners() {
         if(this.store) {
-            this.store.addSearchChangeListener(this._onSearchChange);
+            this.store.addSearchChangeListener(this.onSearchChange);
         }
     },
     /**
@@ -101,21 +101,21 @@ var searchFilterResultMixin = {
      */
     _unRegisterListeners: function unRegisterSearchListeners(){
         if(this.store){
-            this.store.removeSearchChangeListener(this._onSearchChange);
+            this.store.removeSearchChangeListener(this.onSearchChange);
         }
     },
 
     /**
      * Search function.
      */
-    _search: function search() {
+    search: function search() {
         var facets = [];
         for(var selectedFacet in this.state.selectedFacetList) {
             facets.push({key:selectedFacet, value:this.state.selectedFacetList[selectedFacet].key});
         }
 
         this.props.action.search(
-            this.getSearchCriteria(this.props.criteria.scope,  this.props.criteria.searchText, this.state.currentPage, this.state.orderSelected, this.state.groupSelectedKey, facets)
+            this.getSearchCriteria(this.props.criteria.scope,  this.props.criteria.searchText, facets)
         );
     },
 
@@ -134,7 +134,7 @@ var searchFilterResultMixin = {
 
         // TODO : do we do it now ?
         this.setState({selectedFacetList: selectedFacetList});
-        this._search();
+        this.search();
     },
     _groupClick: function(key) {
         console.log("Group by : " + key);
@@ -144,14 +144,14 @@ var searchFilterResultMixin = {
             orderSelected: (key != undefined ? undefined : this.state.orderSelected)
         });
 
-        this._search();
+        this.search();
     },
 
     _orderClick: function(key, order) {
         console.log("Order : " + key + " - " + order);
         // TODO : do we do it now ?
         this.setState({orderSelected: {key:key, order:order}});
-        this._search();
+        this.search();
     },
 
     /**
@@ -182,7 +182,7 @@ var searchFilterResultMixin = {
             openedFacetList: openedFacetList
         });
 
-        this._search();
+        this.search();
     },
 
     _selectItem: function selectItem(item) {
@@ -233,55 +233,6 @@ var searchFilterResultMixin = {
                 </div>
             </div>
         );
-    },
-
-    ////////////////////////////////////////////////////////////////////////////////////////////
-    // COMMON METHODS FOR INFINITE SCROLL
-    /**
-     * Handler when store emit a change event.
-     */
-    _onSearchChange: function onSearchChange() {
-        console.log("Search success");
-        this.setState(assign({isLoading:false}, this._getStateFromStore()));
-
-    },
-    getInfiniteScrollInitialState: function getInfiniteScrollInitialState() {
-        return {
-            hasMoreData: false,
-            isLoading:false,
-            currentPage:1
-        }
-    },
-    getInfiniteScrollStateFromStore: function getSearchStateFromStore(){
-        if(this.store){
-            var data = this.store.get();
-            var hasMoreData = data.pageInfos && data.pageInfos.totalPages? data.pageInfos.currentPage < data.pageInfos.totalPages : false;
-            return {
-                hasMoreData: hasMoreData
-            }
-        }
-        return {};
-    },
-    getSearchCriteria: function getSearchCriteria(scope, query, currentPage, order, group, facets) {
-        return {
-            criteria: {
-                scope: scope,
-                query: query
-            },
-            pageInfos: {
-                page: currentPage,
-                order: order,
-                group: group
-            },
-            facets: facets
-        }
-    },
-    fetchNextPage: function fetchNextPage(){
-        this.setState({
-            isLoading:true,
-            currentPage: this.state.currentPage + 1
-        });
-        this._search();
     }
 }
 
