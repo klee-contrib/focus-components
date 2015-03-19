@@ -4,6 +4,7 @@ var dispatcher = require('focus').dispatcher;
 var React = require('react');
 var LiveFilter = require('../../../search/live-filter/index').component;
 var ListActionBar = require('../../../list/action-bar/index').component;
+var ListSummary = require('../../../list/summary/index').component;
 var ListSelection = require('../../../list/selection').list.component;
 var SearchStore = require('focus').store.SearchStore;
 var assign = require('object-assign');
@@ -189,21 +190,41 @@ var searchFilterResultMixin = {
         this.setState({selectionStatus: "partial"});
     },
 
+    _exportHandler: function exportHandler() {
+      console.log("EXPORT TODO");
+    },
+    _scopeClick: function scopeClick() {
+      console.log("TODO SCOPE CLICK REDIRECTION");
+    },
+
     /**
      * render the component.
      * @returns Html code.
      */
     render: function renderSearchResult() {
+        var nResult = 5;
+        var scopeList = {scope: this.props.criteria.scope};
         return (
             <div className="search-result">
                 <div className="liveFilterContainer">
-                    <LiveFilter ref="liveFilter"    facetList={this.state.facetList}
+                    <LiveFilter ref="liveFilter"
+                        facetList={this.state.facetList}
                         selectedFacetList={this.state.selectedFacetList}
                         openedFacetList={this.state.openedFacetList}
                         config={this.props.facetConfig}
                         dataSelectionHandler={this._facetSelectionClick}/>
                 </div>
                 <div className="resultContainer">
+                    <div className="listSummaryContainer panel">
+                        <ListSummary
+                                nb={nResult}
+                                queryText={this.props.criteria.searchText}
+                                scopeList={scopeList}
+                                scopeClickAction={this._scopeClick}
+                                exportAction={this._exportHandler}
+                        />
+
+                    </div>
                     <div className="listActionBarContainer panel">
                         <ListActionBar selectionStatus={this.state.selectionStatus}
                             selectionAction={this._selectionGroupLineClick}
