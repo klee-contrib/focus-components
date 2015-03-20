@@ -1,6 +1,9 @@
 var builder = require('focus').component.builder;
 
-
+/**
+ * Mixin component for the sticky navigation.
+ * @type {Object}
+ */
 var stickyNavigationMixin = {
 
     /**
@@ -8,36 +11,42 @@ var stickyNavigationMixin = {
      */
     displayName: "sticky-navigation",
     /**
-     * Id of the navbar.
-     */
-    navBarId: "navbar",
-    /**
-     * Title data attribute.
-     */
-    titleAttribute: "[data-menu]",
-    /**
      * Default props.
      * @returns {{contentId: Html id of the content to spy.}}
      */
     getDefaultProps: function(){
         return {
-            contentId: undefined
+            contentSelector: undefined,
+            contentId: undefined,
+            navBarId: "navbar",
+            titleSelector: "[data-menu]",
+            style: {}
         };
+    },
+    getInitialState: function getStickyNavigationInitialState(){
+      return {menuList: []};
+    },
+    /**
+     * Build the menu list from the title attributes.
+     */
+    _buildMenuList: function buildMenuList(){
+      var titleListElements = document.querySelectorAll(this.props.titleSelector);
+      var menuList = [];
+      for(var key in titleListElements) {
+          menuList.push(this._renderLink(titleListElements[key]));
+      }
+      this.setState({menuList: menuList});
     },
     /**
      * Render the component.
      * @returns Htm code.
      */
     render: function renderStickyNavigation(){
-        var titleList = document.querySelectorAll(this.titleAttribute);
-        var menuList = [];
-        for(var key in titleList) {
-            menuList.push(this._renderLink(titleList[key]));
-        }
+        var className = `sticky-navigation bs-docs-sidebar hidden-print hidden-xs hidden-sm affix ${this.props.style.className}`;
         return(
-          <nav className="sticky-navigation bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id={this.navBarId}>
+          <nav className={className} id={this.props.navBarId}>
             <ul className="nav bs-docs-sidenav" role="tablist">
-              {menuList}
+              {this.state.menuList}
             </ul>
           </nav>
         );
@@ -46,9 +55,10 @@ var stickyNavigationMixin = {
      * Add the ttribute to iit the spy.
      */
     componentDidMount: function stickyNavigationDidMount() {
-        var content = document.getElementById(this.props.contentId);
+        this._buildMenuList();
+        var content = document.querySelector(this.props.contentSelector);
         content.setAttribute("data-spy", "scroll");
-        content.setAttribute("data-target", '#' + this.navBarId);
+        content.setAttribute("data-target", '#' + this.props.navBarId);
     },
     /**
      * Render the list of links.
