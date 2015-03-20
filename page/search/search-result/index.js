@@ -128,7 +128,11 @@ var searchMixin = {
     render: function renderSearchComponent(){
         return(
             <div className="search-panel">
-                <QuickSearch handleKeyUp={this.search} ref="quickSearch"/>
+                <QuickSearch handleKeyUp={this.search}
+                    ref="quickSearch"
+                    scope={this.props.scope}
+                    scopes={this.props.scopeList}
+                />
                 <List data={this.state.list}
                     ref="list"
                     isSelection={this.props.isSelection}
