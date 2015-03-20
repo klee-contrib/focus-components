@@ -1,7 +1,7 @@
 var React = require('react');
-var Field = require('../field').component;
-var Field = require('../field').component;
-var Button = require('../button/action').component;
+var Field = require('../../field').component;
+var Field = require('../../field').component;
+var Button = require('../../button/action').component;
 module.exports = {
 /**
  * Create a field for the given property metadata.

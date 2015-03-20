@@ -2,9 +2,9 @@ var builder = require('focus').component.builder;
 var React = require('react');
 var assign = require('object-assign');
 var getEntityDefinition = require('focus').definition.entity.builder.getEntityInformations;
-var formElementsMixin = require('./formElementsMixin');
-var storeBehaviourMixin = require('./storeBehaviourMixin');
-var actionMixin = require('./actionMixin');
+var builtInComponents = require('./mixin/built-in-components');
+var storeBehaviour = require('./mixin/store-behaviour');
+var actionBehaviour = require('./mixin/action-behaviour');
 
 var isEmpty = require('lodash/lang/isEmpty');
 /**
@@ -12,7 +12,7 @@ var isEmpty = require('lodash/lang/isEmpty');
  * @type {Object}
  */
 var formMixin = {
-  mixins: [formElementsMixin, storeBehaviourMixin, actionMixin],
+  mixins: [builtInComponents, storeBehaviour, actionBehaviour],
   /** @inheritdoc */
   getDefaultProps: function getFormDefaultProps() {
     return {
