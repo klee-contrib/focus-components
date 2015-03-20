@@ -122,6 +122,10 @@
     {
       "name": "search-result",
       "path": "page/search/search-result"
+    },
+    {
+      "name": "timeline",
+      "path": "list/timeline"
     }
   ],
   "homepage": "https://github.com/KleeGroup/focus-components",
