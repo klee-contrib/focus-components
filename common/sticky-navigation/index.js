@@ -12,7 +12,7 @@ var stickyNavigationMixin = {
         return {
             /**
              * Selector for the content to be watched.
-             * @type {[type]}
+             * @type {String}
              */
             contentSelector: undefined,
             /**
