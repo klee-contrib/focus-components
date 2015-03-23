@@ -140,8 +140,7 @@ var searchFilterResultMixin = {
 
         // TODO : do we do it now ?
         this.state.selectedFacetList = selectedFacetList;
-        this.setState({selectedFacetList: this.state.selectedFacetList});
-        this.search();
+        this.setState({selectedFacetList: this.state.selectedFacetList}, this.search);
     },
     /**
      * Group action click handler.
@@ -156,9 +155,7 @@ var searchFilterResultMixin = {
         this.setState({
             groupSelectedKey: this.state.groupSelectedKey,
             orderSelected: this.state.orderSelected
-        });
-
-        this.search();
+        }, this.search);
     },
     /**
      * Order action click handler.
@@ -170,8 +167,7 @@ var searchFilterResultMixin = {
         console.log('Order : ' + key + ' - ' + order);
         // TODO : do we do it now ?
         this.state.orderSelected = {key: key, order: order};
-        this.setState({orderSelected: this.state.orderSelected});
-        this.search();
+        this.setState({orderSelected: this.state.orderSelected}, this.search);
     },
     /**
      * Selection action handler.
@@ -201,9 +197,7 @@ var searchFilterResultMixin = {
         this.setState({
             selectedFacetList: this.state.selectedFacetList,
             openedFacetList: this.state.openedFacetList
-        });
-
-        this.search();
+        }, this.search);
     },
     /**
      * Line selection handler.
