@@ -139,7 +139,8 @@ var searchFilterResultMixin = {
         delete selectedFacetList[key];
 
         // TODO : do we do it now ?
-        this.setState({selectedFacetList: selectedFacetList});
+        this.state.selectedFacetList = selectedFacetList;
+        this.setState({selectedFacetList: this.state.selectedFacetList});
         this.search();
     },
     /**
@@ -150,9 +151,11 @@ var searchFilterResultMixin = {
     _groupClick: function(key) {
         console.log('Group by : ' + key);
         // TODO : do we do it now ?
+        this.state.groupSelectedKey = key
+        this.state.orderSelected = (key != undefined ? undefined : this.state.orderSelected);
         this.setState({
-            groupSelectedKey: key,
-            orderSelected: (key != undefined ? undefined : this.state.orderSelected)
+            groupSelectedKey: this.state.groupSelectedKey,
+            orderSelected: this.state.orderSelected
         });
 
         this.search();
@@ -166,7 +169,7 @@ var searchFilterResultMixin = {
     _orderClick: function(key, order) {
         console.log('Order : ' + key + ' - ' + order);
         // TODO : do we do it now ?
-        this.state.orderSelected = {key:key, order:order};
+        this.state.orderSelected = {key: key, order: order};
         this.setState({orderSelected: this.state.orderSelected});
         this.search();
     },
@@ -193,9 +196,11 @@ var searchFilterResultMixin = {
         console.log(selectedFacetList);
 
         // TODO : Do we do it now ?
+        this.state.selectedFacetList = selectedFacetList;
+        this.state.openedFacetList = openedFacetList;
         this.setState({
-            selectedFacetList: selectedFacetList,
-            openedFacetList: openedFacetList
+            selectedFacetList: this.state.selectedFacetList,
+            openedFacetList: this.state.openedFacetList
         });
 
         this.search();
