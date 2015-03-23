@@ -6,8 +6,8 @@
   "scripts": {
     "test": "jest",
     "example": "node static-server.js",
-		"build": "gulp browserify",
-		"watch": "gulp watchify"
+    "build": "gulp browserify",
+    "watch": "gulp watchify"
   },
   "repository": {
     "type": "git",
@@ -46,7 +46,8 @@
     {
       "name": "input-toggle",
       "path": "common/input/toggle"
-    },{
+    },
+    {
       "name": "input-date",
       "path": "common/input/date"
     },
@@ -115,22 +116,24 @@
       "path": "common/block"
     },
     {
-	  "name": "search-filter-result",
-	  "path": "page/search/filter-result"
-	},
-	{
-	  "name": "search-result",
-	  "path": "page/search/search-result"
-	}
+      "name": "search-filter-result",
+      "path": "page/search/filter-result"
+    },
+    {
+      "name": "search-result",
+      "path": "page/search/search-result"
+    },
+    {
+      "name": "timeline",
+      "path": "list/timeline"
+    }
   ],
   "homepage": "https://github.com/KleeGroup/focus-components",
   "dependencies": {
-    "focus": "https://github.com/KleeGroup/focus/tarball/master",
     "immutable": "^3.6.2",
     "lodash": "^3.3.1",
     "object-assign": "^2.0.0",
-    "react": "^0.12.2",
-    "react-tap-event-plugin": "^0.1.4",
+    "react": "^0.13.1",
     "uuid": "^2.0.1"
   },
   "devDependencies": {
@@ -139,7 +142,7 @@
     "bootstrap-material": "^0.1.5",
     "browser-sync": "^2.2.1",
     "browserify": "^9.0.3",
-    "eslint": "^0.5.0",
+    "eslint": "^0.17.1",
     "express": "^4.12.0",
     "gulp": "^3.8.11",
     "gulp-babel": "^4.0.0",

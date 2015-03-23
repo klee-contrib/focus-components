@@ -1,5 +1,6 @@
 var jQuery = require('jquery');
 //Dependencies.
+////http://www.daterangepicker.com/#ex2
 var builder = require('focus').component.builder;
 var React = require('react');
 var inputTextMixin = require('../text').mixin;
@@ -9,6 +10,7 @@ var inputTextMixin = require('../text').mixin;
  * @type {Object}
  */
 var inputDateMixin = {
+  /** @inheritdoc */
   mixins:[inputTextMixin],
   /** @inheritdoc */
   componentDidMount: function inputDateDidMount(){

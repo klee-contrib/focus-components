@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Test react and backbone</title>
+    <title>Test timeline list</title>
     <meta name="description" content="Example of the component.">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -31,20 +31,25 @@
     <!-- Material degign-->
 
 </head>
-<body>
-  <div class="container" style="margin:20px auto;">
-    <div id="quick-search-container"></div>
-  </div>
-  <script src="js/quick-search.js"></script>
-  <script type="text/javascript">
-  var Detail =
+<body style="background-color:#fff">
+<div id="list-container" style="width: 600px; height: auto; margin:100px auto 100px auto;"></div>
 
-  React.render(
-  React.createElement(focusComponents.search.quickSearch.component),
-    document.querySelector("#quick-search-container")
-  );
-  </script>
+<script type="text/javascript">
+    focus.components = focusComponents;
 
+    var List = React.createElement(focusComponents.list.timeline.list.component,{
+        data: [{id:1, title : "toto", body:"ceci est un test"},{id:2, title:"tata",body:"deuxieme test"}, {id:3, title:"titi",body:"troisième test"}],
+        hasMoreData: true,
+        onLineClick : function onLineClick(line){
+            alert('click sur la ligne ' + line.title);
+        },
+        isManualFetch:true
+    });
+
+    React.render(
+            List,
+            document.querySelector("#list-container")
+    );
+</script>
 </body>
-
 </html>
