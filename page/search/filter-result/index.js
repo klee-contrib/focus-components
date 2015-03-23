@@ -150,7 +150,8 @@ var searchFilterResultMixin = {
     _orderClick: function(key, order) {
         console.log("Order : " + key + " - " + order);
         // TODO : do we do it now ?
-        this.setState({orderSelected: {key:key, order:order}});
+        this.state.orderSelected = {key:key, order:order};
+        this.setState({orderSelected: this.state.orderSelected});
         this.search();
     },
 
