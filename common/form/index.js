@@ -3,6 +3,7 @@ var React = require('react');
 var assign = require('object-assign');
 var getEntityDefinition = require('focus').definition.entity.builder.getEntityInformations;
 var builtInComponents = require('./mixin/built-in-components');
+var referenceBehaviour = require('./mixin/reference-behaviour');
 var storeBehaviour = require('./mixin/store-behaviour');
 var actionBehaviour = require('./mixin/action-behaviour');
 
@@ -12,7 +13,7 @@ var isEmpty = require('lodash/lang/isEmpty');
  * @type {Object}
  */
 var formMixin = {
-  mixins: [builtInComponents, storeBehaviour, actionBehaviour],
+  mixins: [referenceBehaviour, storeBehaviour, actionBehaviour, builtInComponents],
   /** @inheritdoc */
   getDefaultProps: function getFormDefaultProps() {
     return {
@@ -36,6 +37,10 @@ var formMixin = {
   /** @inheritdoc */
   getInitialState: function getFormInitialState() {
     return {
+      /**
+       * Identifier of the entity.
+       * @type {[type]}
+       */
       id: this.props.id
     };
   },
@@ -45,10 +50,15 @@ var formMixin = {
   _onChange: function onFormStoreChangeHandler() {
     this.setState(this._getStateFromStores());
   },
-
+  /** @inheritdoc */
+  callMountedActions: function formCallMountedActions() {
+    this._loadData();
+    this._loadReference();
+  },
   /** @inheritdoc */
   componentWillMount: function formWillMount(){
     this._buildDefinition();
+    this._buildReference();
   },
   /** @inheritdoc */
   componentDidMount: function formDidMount() {
