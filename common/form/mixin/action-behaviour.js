@@ -1,7 +1,4 @@
 var actionMixin = {
-  callMountedActions: function() {
-    this._loadData();
-  },
 
 /**
    * Get the entity identifier for the form loading.
