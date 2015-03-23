@@ -12,11 +12,10 @@ var liveFilterMixin = {
     /**
      * Display name.
      */
-    displayName: "live-filter",
-
+    displayName: 'live-filter',
     /**
      * Init the default properties
-     * @returns {{facetList: {}, selectedFacetList: {}, openedFacetList: {}, config: {}, dataSelectionHandler: undefined}}
+     * @returns {object} Initial properties.
      */
     getDefaultProps: function() {
         return {
@@ -25,26 +24,21 @@ var liveFilterMixin = {
             openedFacetList: {},
             config: {},
             dataSelectionHandler: undefined
-        }
+        };
     },
-
     /**
      * List property validation.
      */
-    propTypes:{
+    propTypes: {
         facetList: type('object'),
         selectedFacetList: type('object'),
         openedFacetList: type('object'),
         config: type('object'),
         dataSelectionHandler: type('func')
     },
-
     /**
      * Init the state of the component.
-     * @returns {
-     *  {isExpanded: boolean True if the component is expanded, false if collapsed,
-     *   openedFacetList: Map (key : facetKey, value : true if facet expanded)}
-     *   }
+     * @returns {object} Iitial state.
      */
     getInitialState: function(){
         var openedFacetList = this.props.openedFacetList;
@@ -56,47 +50,43 @@ var liveFilterMixin = {
         }
         return {
             isExpanded: true,
-            openedFacetList:  openedFacetList
+            openedFacetList: openedFacetList
         };
     },
     /**
      * Render the component.
-     * @returns Html component code.
+     * @returns {XML} Html code.
      */
     render: function renderLiverFilter(){
         // var className = this.state.isExpanded ? "live-filter" : "live-filter collapsed";
-        var className = "panel live-filter";
+        var className = 'panel live-filter';
         if(this.state.isExpanded) {
-            className += " expanded";
+            className += ' expanded';
         }
-        return(
-            <div className={className}  >
+        return (<div className={className} >
                 {this.renderLiveFacetTitle()}
                 {this.renderFilterFacetList()}
-            </div>
-        );
+            </div>);
     },
-
     /**
      * Render the div title of the component.
-     * @Returns Html title code.
+     * @returns {XML} Hatml content.
      */
     renderLiveFacetTitle: function renderLiveFacetTitle() {
-        var title = this.state.isExpanded ? "live.filter.title" : "";
-        var img = this.state.isExpanded ? "chevron-thin-left" : "chevron-thin-right";
-        return <div className="panel-heading">
+        var title = this.state.isExpanded ? 'live.filter.title' : '';
+        var img = this.state.isExpanded ? 'chevron-thin-left' : 'chevron-thin-right';
+        return (<div className="panel-heading">
                     <span>{title}</span>
                     <Img src={img} onClick={this.liveFilterTitleClick} />
-                </div>;
+                </div>);
     },
-
     /**
      * Render the list of the facets.
-     * @Returns Html facets code.
+     * @returns {XML} Html content.
      */
     renderFilterFacetList: function renderFilterFacetList(){
         if(!this.state.isExpanded) {
-            return
+            return '';
         }
         var facets = [];
         for(var key in this.props.facetList) {
@@ -109,7 +99,7 @@ var liveFilterMixin = {
                                                 selectHandler={this.selectHandler}
                                                 type={this.props.config[key]}/>);
         }
-        return <div className="panel-body">{facets}</div>;
+        return (<div className="panel-body">{facets}</div>);
     },
 
     /**
@@ -121,22 +111,25 @@ var liveFilterMixin = {
     },
 
     /**
-     * Action on facet selection.
+     * Facet selection action handler.
+     * @param {string} facetKey Key of the selected facet.
+     * @param {string} dataKey Key of the selceted data.
+     * @param {object} data Content of the selected data facet.
      */
-    selectHandler : function selectLiverFilterHandler(facetKey, dataKey, data) {
+    selectHandler: function selectLiverFilterHandler(facetKey, dataKey, data) {
         var result = {openedFacetList: this.state.openedFacetList};
         if(dataKey == undefined) {
-            result["selectedFacetList"] = omit(this.props.selectedFacetList, facetKey);
+            result.selectedFacetList = omit(this.props.selectedFacetList, facetKey);
         } else {
-            result["selectedFacetList"] = assign(this.props.selectedFacetList,  {[facetKey] : {key: dataKey, data: data}});
+            result.selectedFacetList = assign(this.props.selectedFacetList, {[facetKey] : {key: dataKey, data: data}});
         }
         this.props.dataSelectionHandler(result);
     },
 
     /**
-     * Expand facet action.
-     * @param facetKey Key of the facet.
-     * @param isExpanded true if expand action, false if collapse action.
+     * Expand facet action handler.
+     * @param {string} facetKey Key of the facet.
+     * @param {string} isExpanded true if expand action, false if collapse action.
      */
     expandFacetHandler: function expandFacetHandler(facetKey, isExpanded) {
         var openedFacetList = this.state.openedFacetList;

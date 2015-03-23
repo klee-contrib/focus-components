@@ -8,11 +8,11 @@ var liveFilterFacetMixin = {
     /**
      * Display name.
      */
-    displayName: "live-filter-facet",
+    displayName: 'live-filter-facet',
 
     /**
      * Init the component state.
-     * @returns {{isShowAll: true if all the facets must be displayed or just be limited to this.props.nbDefaultDataList }}
+     * @returns {object} Initial state.
      */
     getInitialState: function(){
         return {
@@ -22,7 +22,7 @@ var liveFilterFacetMixin = {
 
     /**
      * Init the default props.
-     * @returns {{nbDefaultDataList: default number of data facets displayed.}}
+     * @returns {object} Initial state.
      */
     getDefaultProps: function getLiveFilterFacetDefaultProperties(){
         return {
@@ -32,7 +32,7 @@ var liveFilterFacetMixin = {
 
     /**
      * Render the component.
-     * @returns Html component code.
+     * @returns {XML} Html component code.
      */
     render: function renderLiverFilterFacet(){
         /*
@@ -40,11 +40,11 @@ var liveFilterFacetMixin = {
         if(this.props.selectedDataKey) {
             className = "lf-facet selected";
         }*/
-        var className = "panel panel-primary facet";
+        var className = 'panel panel-primary facet';
         if(this.props.selectedDataKey) {
-            className += "-selected";
+            className += '-selected';
         } else {
-            className += " unselected";
+            className += ' unselected';
         }
         return (
             <div className={className}>
@@ -55,17 +55,17 @@ var liveFilterFacetMixin = {
 
     /**
      * Render the component title.
-     * @returns Html component code.
+     * @returns {XML} Html component code.
      */
     renderLiveFilterFacetTitle: function renderLiveFilterFacetTitle() {
         var title = this.props.facetKey;
         if(this.props.selectedDataKey) {
-            title += " : " + this.props.facet[this.props.selectedDataKey].label
+            title += ' : ' + this.props.facet[this.props.selectedDataKey].label;
         }
         // return <div className="title"  onClick={this.liveFilterFacetTitleClick}>{title}</div>
-        var className = "panel-heading";
+        var className = 'panel-heading';
         // if(this.props.selectedDataKey || this.props.isExpanded)
-        return <div className={className}  onClick={this.liveFilterFacetTitleClick}>{title}</div>
+        return (<div className={className} onClick={this.liveFilterFacetTitleClick}>{title}</div>);
     },
 
     /**
@@ -81,11 +81,11 @@ var liveFilterFacetMixin = {
 
     /**
      * Render the list of data of the facet.
-     * @returns Html component code.
+     * @returns {XML} Html component code.
      */
     renderLiveFilterDataList: function renderLiveFilterDataList() {
         if(!this.props.isExpanded || this.props.selectedDataKey) {
-            return
+            return '';
         }
         var facetDetailList = [];
         var i = 0;
@@ -101,6 +101,8 @@ var liveFilterFacetMixin = {
 
     /**
      * Action on facet data selection.
+     * @param {string} dataKey Key of the selected data.
+     * @param {string} data Selected data.
      */
     selectHandler: function selectHandler(dataKey, data) {
         this.props.expandHandler(this.props.facetKey, false);
@@ -109,11 +111,11 @@ var liveFilterFacetMixin = {
 
     /**
      * Render all the data facets.
-     * @returns Html component code.
+     * @returns {XML} Html component code.
      */
     renderShowAllDataList: function renderShowAllDataList() {
         if(!this.state.isShowAll && Object.keys(this.props.facet).length > this.props.nbDefaultDataList) {
-            return (<a href="javascript:void(0)" onClick={this.showAllHandler}> show.alls </a>) ;
+            return (<a href="javascript:void(0);" onClick={this.showAllHandler}> show.alls </a>);
         }
     },
 
@@ -122,7 +124,7 @@ var liveFilterFacetMixin = {
      */
     showAllHandler: function showAllHandler() {
         this.setState({isShowAll: !this.state.isShowAll});
-    },
+    }
 }
 
 module.exports = builder(liveFilterFacetMixin);

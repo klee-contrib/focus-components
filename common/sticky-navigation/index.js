@@ -5,8 +5,10 @@ var type = require('focus').component.types;
  * @type {Object}
  */
 var stickyNavigationMixin = {
+
     /** @inheritedDoc */
-    displayName: "sticky-navigation",
+    displayName: 'sticky-navigation',
+
     /** @inheritedDoc */
     getDefaultProps: function(){
         return {
