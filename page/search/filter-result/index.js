@@ -223,7 +223,6 @@ var searchFilterResultMixin = {
      * @returns {XML} Html code.
      */
     render: function renderSearchResult() {
-        var nResult = 5;
         var scopeList = {scope: this.props.criteria.scope};
         return (
             <div className="search-result">
@@ -238,7 +237,7 @@ var searchFilterResultMixin = {
                 <div className="resultContainer">
                     <div className="listSummaryContainer panel">
                         <ListSummary
-                                nb={nResult}
+                                nb={this.state.totalRecords}
                                 queryText={this.props.criteria.searchText}
                                 scopeList={scopeList}
                                 scopeClickAction={this._scopeClick}

@@ -14,7 +14,8 @@ var InfiniteScrollPageMixin = {
         return {
             hasMoreData: false,
             isLoading: false,
-            currentPage: 1
+            currentPage: 1,
+            totalRecords: undefined
         };
     },
     /**
@@ -25,9 +26,11 @@ var InfiniteScrollPageMixin = {
         if(this.store){
             var data = this.store.get();
             var hasMoreData = data.pageInfos && data.pageInfos.totalPages ? data.pageInfos.currentPage < data.pageInfos.totalPages : false;
+            var totalRecords = data.pageInfos && data.pageInfos.totalRecords ? data.pageInfos.totalRecords : undefined;
             return {
                 list: data.list || [],
-                hasMoreData: hasMoreData
+                hasMoreData: hasMoreData,
+                totalRecords: totalRecords
             };
         }
         return {};
