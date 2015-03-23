@@ -21,12 +21,12 @@ var stickyNavigationMixin = {
              * Identifier of the Navbar created for the sticky navigation.
              * @type {String}
              */
-            navBarId: "navbar",
+            navBarId: 'navbar',
             /**
              * Selector for the title elements to display in the sticky navigation.
              * @type {String}
              */
-            titleSelector: "[data-menu]",
+            titleSelector: '[data-menu]',
             /**
              * Style informations such as the className.
              * @type {Object}
@@ -67,8 +67,8 @@ var stickyNavigationMixin = {
     },
     _registerScrollSpyAttributes: function registerScrollSpyAttributes(){
       var content = document.querySelector(this.props.contentSelector);
-      content.setAttribute("data-spy", "scroll");
-      content.setAttribute("data-target", '#' + this.props.navBarId);
+      content.setAttribute('data-spy', 'scroll');
+      content.setAttribute('data-target', '#' + this.props.navBarId);
     },
     /** @inheritedDoc */
     render: function renderStickyNavigation(){
