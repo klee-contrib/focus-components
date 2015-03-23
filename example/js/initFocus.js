@@ -60,3 +60,18 @@ var entities ={
     }
   }};
 focus.definition.entity.container.setEntityConfiguration(entities);
+
+function loadRedList(name){
+    return function loadRef(){
+      var refLst = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9].map(function(cd){
+        return {
+          code: cd,
+          label: ('' + cd + ' ' + name)
+        };
+      });
+    return Promise.resolve(refLst);
+  };
+}
+
+  focus.reference.config.set({'papas': loadRedList('papas'), 'singe': loadRedList('singe')});
+  focus.definition.entity.container.setEntityConfiguration(entities);
