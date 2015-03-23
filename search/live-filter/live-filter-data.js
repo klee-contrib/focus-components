@@ -7,11 +7,11 @@ var liveFilterDataMixin = {
     /**
      * Display name.
      */
-    displayName: "live-filter-data",
+    displayName: 'live-filter-data',
 
     /**
      * Render the component.
-     * @returns Html code of the component.
+     * @returns {XML} Html code of the component.
      */
     render: function renderFacet(){
         return(<div className="lf-data" onClick={this.selectFacetData}>{this.renderData()} </div>);
@@ -19,17 +19,17 @@ var liveFilterDataMixin = {
 
     /**
      * Render the data.
-     * @returns Html generated code.
+     * @returns {string} Html generated code.
      */
     renderData: function renderData() {
-        if(this.props.type == "text") {
-            return this.props.data.label + " (" + this.props.data.count + ")";
+        if(this.props.type == 'text') {
+            return this.props.data.label + ' (' + this.props.data.count + ')';
         }
-        throw new Error("Unknown property type : " + this.props.type);
+        throw new Error('Unknown property type : ' + this.props.type);
     },
-
     /**
-     * Action of selection.
+     * Facet selection action handler.
+     * @returns {object} Fsfssd.
      */
     selectFacetData: function selectFacetDetail() {
         return this.props.selectHandler(this.props.dataKey, this.props.data);

@@ -1,4 +1,3 @@
-
 var assign = require('object-assign');
 
 /**
@@ -7,21 +6,29 @@ var assign = require('object-assign');
  */
 var InfiniteScrollPageMixin = {
 
+    /**
+     * Default state.
+     * @returns {object} Default state values.
+     */
     getInfiniteScrollInitialState: function getInfiniteScrollInitialState() {
         return {
             hasMoreData: false,
-            isLoading:false,
-            currentPage:1
-        }
+            isLoading: false,
+            currentPage: 1
+        };
     },
+    /**
+     * Default state.
+     * @returns {object} Defautl state values.
+     */
     getInfiniteScrollStateFromStore: function getSearchStateFromStore(){
         if(this.store){
             var data = this.store.get();
-            var hasMoreData = data.pageInfos && data.pageInfos.totalPages? data.pageInfos.currentPage < data.pageInfos.totalPages : false;
+            var hasMoreData = data.pageInfos && data.pageInfos.totalPages ? data.pageInfos.currentPage < data.pageInfos.totalPages : false;
             return {
                 list: data.list || [],
                 hasMoreData: hasMoreData
-            }
+            };
         }
         return {};
     },
@@ -29,18 +36,27 @@ var InfiniteScrollPageMixin = {
      * Handler when store emit a change event.
      */
     onSearchChange: function onSearchChange() {
-        console.log("Search success on mixin change");
-        this.setState(assign({isLoading:false}, this._getStateFromStore()));
+        console.log('Search success on mixin change');
+        this.setState(assign({isLoading: false}, this._getStateFromStore()));
 
     },
+    /**
+     * Next page fetch action handler.
+     */
     fetchNextPage: function fetchNextPage(){
         this.setState({
-            isLoading:true,
+            isLoading: true,
             currentPage: this.state.currentPage + 1
         });
         this.search();
     },
-
+    /**
+     * Returns the search criteria sended to the store.
+     * @param {string} scope Current scope.
+     * @param {string} query Current query.
+     * @param {object} facets Selected facets.
+     * @returns {object} Formatted criteria {criteria:{}, pagesInfos:{}, facets:{}}.
+     */
     getSearchCriteria: function getSearchCriteria(scope, query, facets) {
         return {
             criteria: {
@@ -53,8 +69,8 @@ var InfiniteScrollPageMixin = {
                 group: this.state.groupSelectedKey
             },
             facets: facets
-        }
+        };
     }
+};
 
-}
-module.exports = {mixin : InfiniteScrollPageMixin};
+module.exports = { mixin: InfiniteScrollPageMixin };

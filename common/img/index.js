@@ -6,10 +6,10 @@ var imgMixin = {
     /**
      * Display name.
      */
-    displayName: "img",
+    displayName: 'img',
     /**
      * Default props.
-     * @returns {{src: name of the picture, onClick: action handler on click.}}
+     * @returns {object} Initial props.
      */
     getDefaultProps: function(){
         return {
@@ -19,10 +19,10 @@ var imgMixin = {
     },
     /**
      * Render the img.
-     * @returns Html code.
+     * @returns {XML} Html code.
      */
     render: function renderImg(){
-        var className = "icon " + this.props.src;
+        var className = 'icon ' + this.props.src;
         return <span className={className} onClick={this.props.onClick}>&nbsp;</span>;
     }
 };

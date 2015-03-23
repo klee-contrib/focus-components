@@ -10,7 +10,7 @@ var titleMixin = {
 
     /**
      * Default propos.
-     * @returns {{id: i of the title, title: Title}}
+     * @returns {object} Default props.
      */
     getDefaultProps: function(){
         return {
@@ -21,7 +21,7 @@ var titleMixin = {
 
     /**
      * Render the component.
-     * @returns Htm code.
+     * @returns {JSX} Htm code.
      */
     render: function renderStickyNavigation(){
         return <h3 id={this.props.id} data-menu>{this.props.title}</h3>

@@ -8,26 +8,29 @@ var selectActionMixin = {
     /**
      * Display name.
      */
-    displayName: "select-action",
+    displayName: 'select-action',
     /**
      * Default props.
-     * @returns {{ operationList: list of operations,
-     *              style: css class of the selector.}}
+     * @returns {object} Defauilt props.
      */
     getDefaultProps: function(){
         return {
-            operationList:[],
-            style: "dots-three-vertical"
+            operationList: [],
+            style: 'dots-three-vertical'
         };
     },
 
     /**
      * Handle action on selected item.
-     * @param key
-     * @returns {Function}
+     * @param {function} action Action to call
+     * @returns {function} Function called when item is selected.
+     * @private
      */
-    _handleAction: function handleSelectAction(action){
+    _handleAction: function (action){
         return (event)=>{
+            if(event) {
+                event.preventDefault();
+            }
             if(this.props.operationParam){
                 action(this.props.operationParam);
             }else{
@@ -36,8 +39,14 @@ var selectActionMixin = {
         };
     },
 
+    /**
+     * Generate the list of actions.
+     * @param {object} operationList List of operations.
+     * @returns {Array} List of action in li component.
+     * @private
+     */
     _getList: function(operationList) {
-        var liList = []
+        var liList = [];
         for (var key in operationList) {
             var operation = operationList[key];
 
@@ -51,18 +60,16 @@ var selectActionMixin = {
 
     /**
      * Render the component.
-     * @returns Htm code.
+     * @returns  {XML} Htm code.
      */
     render: function renderSelectAcion(){
         if(this.props.operationList.length == 0) {
             return <div/>;
         }
         var liList = this._getList(this.props.operationList);
-        var style = "btn btn-primary ";
         return (
             <div className="select-action btn-group">
                 <a href={window.location.pathname} data-target="#" class="btn btn-primary dropdown-toggle" data-toggle="dropdown"><Img src={this.props.style} /></a>
-
                 <ul className="dropdown-menu">{liList}</ul>
             </div>);
     }
