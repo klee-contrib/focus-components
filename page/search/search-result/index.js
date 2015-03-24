@@ -2,10 +2,9 @@ var builder = require('focus').component.builder;
 var React = require('react');
 var QuickSearch  = require('../../../search/quick-search').component;
 var List = require('../../../list/selection').list.component;
-var SearchStore = require('focus').store.SearchStore;
 var assign = require('object-assign');
 var type = require('focus').component.types;
-var InfiniteScrollPageMixin = require("../common-mixin/infinite-scroll-page-mixin").mixin;
+var InfiniteScrollPageMixin = require('../common-mixin/infinite-scroll-page-mixin').mixin;
 
 var searchMixin = {
     mixins: [InfiniteScrollPageMixin],
@@ -13,7 +12,7 @@ var searchMixin = {
     /**
      * Tag name.
      */
-    displayName: "search-panel",
+    displayName: 'search-panel',
 
     /**
      * Component intialization
@@ -35,14 +34,14 @@ var searchMixin = {
             lineComponent: undefined,
             isSelection: false,
             lineOperationList: {},
-            idField: "id"
-        }
+            idField: 'id'
+        };
     },
 
     /**
      * properties validation
      */
-    propTypes:{
+    propTypes: {
         lineComponent: type('object'),
         isSelection: type('bool'),
         lineOperationList: type('array'),
@@ -51,13 +50,13 @@ var searchMixin = {
 
     /**
      * Initial state of the list component.
-     * @returns {{list: (*|Array)}}
+     * @returns {{list: (*|Array)}} the state
      */
     getInitialState: function(){
         return {
             isAllSelected: false,
             selected: []
-        }
+        };
     },
 
     /**
@@ -84,18 +83,18 @@ var searchMixin = {
      * Handler when store emit a change event.
      */
     onSearchChange: function onSearchChange() {
-        this.setState(this.getScrollState());
+        this.setState(assign({isLoadingSearch: false}, this.getScrollState()));
 
     },
 
     /**
      * Action on item selection.
-     * @param item
+     * @param {object} item selected
      */
     _selectItem: function selectItem(item){
         var index = this.state.selected.indexOf(item);
         if(index){
-            this.state.selected.splice(index,index);
+            this.state.selected.splice(index, index);
         }else{
             this.state.selected.push(item);
         }
@@ -103,7 +102,7 @@ var searchMixin = {
 
     /**
      * Action on line click.
-     * @param item
+     * @param {object} item  the item clicked
      */
     _lineClick: function lineClick(item){
         if(this.props.onLineClick){
@@ -113,36 +112,42 @@ var searchMixin = {
 
     /**
      * Run search action.
-     * @param event
      */
-    search: function search(event){
-        if(event) {
-            event.preventDefault();
-        }
+    search: function search(){
         var searchValues = this.refs.quickSearch.getValue();
         this.actions.search(
-            this.getSearchCriteria(searchValues.scope,  searchValues.query)
+            this.getSearchCriteria(searchValues.scope, searchValues.query)
         );
     },
 
+    _quickSearch: function quickSearch(event){
+        event.preventDefault();
+        this.setState({isLoadingSearch: true});
+        this.search();
+    },
+
+
     /**
      * return a quickSearchComponent
+     * @returns {XML} the component
      */
     quickSearchComponent: function quickSearchComponent(){
-        return(
-            <QuickSearch handleKeyUp={this.search}
+        return (
+            <QuickSearch handleKeyUp={this._quickSearch}
                 ref="quickSearch"
                 scope={this.props.scope}
                 scopes={this.props.scopeList}
+                loading={this.state.isLoadingSearch}
             />
         );
     },
 
     /**
      * return a list component
+     * @returns {XML} the list component
      */
     listComponent: function listComponent(){
-        return(
+        return (
             <List data={this.state.list}
                 ref="list"
                 idField={this.props.idField}
@@ -159,4 +164,4 @@ var searchMixin = {
     }
 };
 
-module.exports = builder(searchMixin,true);
+module.exports = builder(searchMixin, true);
