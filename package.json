@@ -124,6 +124,10 @@
       "path": "page/search/search-result"
     },
     {
+      "name": "popin",
+      "path": "page/popin"
+    },
+    {
       "name": "timeline",
       "path": "list/timeline"
     }
