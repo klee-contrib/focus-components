@@ -40,14 +40,23 @@ var InfiniteScrollPageMixin = {
     },
 
     /**
+     * State for a no fetch search.
+     * @returns {object} currentpage set to 1.
+     */
+    getNoFetchState: function getNoFetchState() {
+        return {
+            currentPage: 1
+        };
+    },
+
+    /**
      * Next page fetch action handler.
      */
     fetchNextPage: function fetchNextPage() {
         this.setState({
             isLoading: true,
             currentPage: this.state.currentPage + 1
-        });
-        this.search();
+        }, this.search);
     },
     /**
      * Returns the search criteria sended to the store.

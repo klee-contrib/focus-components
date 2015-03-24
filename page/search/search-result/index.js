@@ -121,8 +121,12 @@ var searchMixin = {
         }
         var searchValues = this.refs.quickSearch.getValue();
         this.actions.search(
-            this.getSearchCriteria(searchValues.scope,  searchValues.query)
+            this.getSearchCriteria(searchValues.scope, searchValues.query)
         );
+    },
+
+    _searchNoFetch: function() {
+        this.setState(this.getNoFetchState(), this.search);
     },
 
     /**
@@ -130,7 +134,7 @@ var searchMixin = {
      */
     quickSearchComponent: function quickSearchComponent(){
         return(
-            <QuickSearch handleKeyUp={this.search}
+            <QuickSearch handleKeyUp={this._searchNoFetch}
                 ref="quickSearch"
                 scope={this.props.scope}
                 scopes={this.props.scopeList}
