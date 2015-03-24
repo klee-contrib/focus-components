@@ -126,9 +126,42 @@ var searchMixin = {
     },
 
     /**
+     * return a quickSearchComponent
+     */
+    quickSearchComponent: function quickSearchComponent(){
+        return(
+            <QuickSearch handleKeyUp={this.search}
+                ref="quickSearch"
+                scope={this.props.scope}
+                scopes={this.props.scopeList}
+            />
+        );
+    },
+
+    /**
+     * return a list component
+     */
+    listComponent: function listComponent(){
+        return(
+            <List data={this.state.list}
+                ref="list"
+                idField={this.props.idField}
+                isSelection={this.props.isSelection}
+                onSelection={this._selectItem}
+                onLineClick={this._lineClick}
+                fetchNextPage={this.fetchNextPage}
+                hasMoreData={this.state.hasMoreData}
+                isLoading={this.state.isLoading}
+                operationList={this.props.operationList}
+                lineComponent={this.props.lineComponent}
+            />
+        );
+    }
+
+    /**
      * render the searchComponent.
      */
-    render: function renderSearchComponent(){
+    /*render: function renderSearchComponent(){
         return(
             <div className="search-panel">
                 <QuickSearch handleKeyUp={this.search}
@@ -150,7 +183,7 @@ var searchMixin = {
                 />
             </div>
         );
-    }
+    }*/
 };
 
-module.exports = builder(searchMixin);
+module.exports = builder(searchMixin,true);

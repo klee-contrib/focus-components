@@ -77,7 +77,18 @@
     });
 
     React.render(
-            React.createElement(React.createClass({mixins:[focusComponents.page.search.searchResult.mixin],actions: action}),
+            React.createElement(
+                    React.createClass({
+                        mixins:[focusComponents.page.search.searchResult.mixin],
+                        actions: action,
+                        store: new focus.store.SearchStore(),
+                        render: function render(){
+                            var qs = this.quickSearchComponent();
+                            var list = this.listComponent();
+                            var root = React.createElement('div',{className: "search-panel"},qs,list);
+                            return root;
+                        }
+                    }),
                     {
                         lineComponent: Line,
                         onLineClick : function onLineClick(line){
