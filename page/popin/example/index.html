@@ -38,12 +38,15 @@
 </head>
 <body>
 
-<div style="float:left;">
-    Page content
-    <button id="button1">Open popin</button>
-</div>
-<div id="popin-container" style="float:left; height: auto"></div>
+<button id="buttonLeft">Open popin left</button>
+<button id="buttonUp">Open popin up</button>
+<button id="buttonDown">Open popin down</button>
+<button id="buttonRight">Open popin right</button>
 
+<div id="popin-container-left" style="float:right;"></div>
+<div id="popin-container-up" style="float:right;"></div>
+<div id="popin-container-down" style="float:right;"></div>
+<div id="popin-container-right" style="float:right;"></div>
 
 
 <script type="text/javascript">
@@ -55,10 +58,33 @@
     React.render(
             React.createElement(React.createClass(focusComponents.page.popin.mixin), {
                 animation: 'right',
-                displaySelector: '#button1',
+                displaySelector: '#buttonRight',
                 contentLoadingFunction: content
             }),
-            document.querySelector("#popin-container"));
+            document.querySelector("#popin-container-right"));
+
+    React.render(
+            React.createElement(React.createClass(focusComponents.page.popin.mixin), {
+                animation: 'left',
+                displaySelector: '#buttonLeft',
+                contentLoadingFunction: content
+            }),
+            document.querySelector("#popin-container-left"));
+    React.render(
+            React.createElement(React.createClass(focusComponents.page.popin.mixin), {
+                animation: 'up',
+                displaySelector: '#buttonUp',
+                contentLoadingFunction: content
+            }),
+            document.querySelector("#popin-container-up"));
+    React.render(
+            React.createElement(React.createClass(focusComponents.page.popin.mixin), {
+                animation: 'down',
+                displaySelector: '#buttonDown',
+                contentLoadingFunction: content
+            }),
+            document.querySelector("#popin-container-down"));
+
 
 </script>
 
