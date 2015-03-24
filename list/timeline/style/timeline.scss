@@ -14,7 +14,7 @@
   /*margin-left: -1.5px;*/
 }
 .timeline > li {
-  margin-bottom: 20px;
+  margin-bottom: 10px;
   margin-left : 38px;
   position: relative;
 }
@@ -38,7 +38,7 @@
   float: left;
   border: 1px solid #d4d4d4;
   border-radius: 2px;
-  padding: 20px;
+  padding: 10px 20px 10px 20px;
   position: relative;
   -webkit-box-shadow: 0 1px 6px rgba(0, 0, 0, 0.175);
   box-shadow: 0 1px 6px rgba(0, 0, 0, 0.175);
@@ -46,7 +46,7 @@
 }
 .timeline > li > .timeline-panel:before {
   position: absolute;
-  top: 26px;
+  top: 16px;
   left: -15px;
   display: inline-block;
   border-top: 15px solid transparent;
@@ -57,12 +57,12 @@
 }
 .timeline > li > .timeline-panel:after {
   position: absolute;
-  top: 27px;
+  top: 17px;
   left: -14px;
   display: inline-block;
   border-top: 14px solid transparent;
   border-left: 0 solid #fff;
-  border-right: 14px solid #fff;
+  border-right: 15px solid #fff;
   border-bottom: 14px solid transparent;
   content: " ";
 }
@@ -71,14 +71,14 @@
 }
 .timeline > li > .timeline-badge {
   color: #fff;
-  width: 20px;
-  height: 20px;
+  width: 15px;
+  height: 15px;
   line-height: 50px;
   font-size: 1.4em;
   text-align: center;
   position: absolute;
-  top: 33px;
-  margin-left: -47px;
+  top: 25px;
+  margin-left: -45px;
   background-color: #999999;
   z-index: 100;
   border-top-right-radius: 50%;
@@ -88,9 +88,9 @@
 }
 .timeline > li > .timeline-date {
   position: absolute;
-  top: 31px;
-  margin-left: -140px;
-  font-size: 1.1em;
+  top: 23px;
+  margin-left: -130px;
+  font-size: 1em;
 }
 .timeline > .timeline-panel {
   float: right;
