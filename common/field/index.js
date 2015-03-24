@@ -1,7 +1,8 @@
 var builder = require('focus').component.builder;
 var type = require('focus').component.types;
 var React = require('react');
-var Input = require('../input/text').component;
+var InputText = require('../input/text').component;
+var SelectClassic = require('../select/classic').component;
 var Label = require('../label').component;
 var FieldMixin = {
   /**
@@ -17,7 +18,8 @@ var FieldMixin = {
       style:{},
       FieldComponent: undefined,
       InputLabelComponent: undefined,
-      InputComponent: Input
+      InputComponent: InputText,
+      SelectComponent: SelectClassic
     };
   },
   /** @inheritdoc */
@@ -115,14 +117,14 @@ var FieldMixin = {
       error: this.state.error,
       help: this.props.help,
       onChange: this.onInputChange,
-      ref: "input"
+      ref: 'input'
       });
   },
   input: function renderInput() {
     if(this.props.FieldComponent || this.props.InputLabelComponent){
       return this.renderFieldComponent();
     }
-    var inputClassName = "form-control col-sm-" + (12 - this.props.labelSize);
+    var inputClassName = `form-control col-sm-${(12 - this.props.labelSize)}`;
     return (
       <div className = "input-group" >
         <this.props.InputComponent
@@ -135,7 +137,30 @@ var FieldMixin = {
           ref="input"
       />
       < /div>
-  );
+    );
+  },
+  /**
+   * [select description]
+   * @return {[type]} [description]
+   */
+  select: function renderSelect(){
+    if(this.props.FieldComponent || this.props.InputLabelComponent){
+      return this.renderFieldComponent();
+    }
+    var selectClassName = `form-control col-sm-${(12 - this.props.labelSize)}`;
+    return (
+      <div className = "input-group" >
+        <this.props.SelectComponent
+          style={{class: selectClassName}}
+          id={this.props.name}
+          name={this.props.name}
+          value={this.state.value}
+          type={this.props.type}
+          onChange={this.onInputChange}
+          ref="input"
+      />
+      < /div>
+    );
   },
   error: function renderError() {
   if (this.state.error) {
