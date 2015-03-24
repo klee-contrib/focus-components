@@ -16,11 +16,6 @@ var searchMixin = {
     displayName: "search-panel",
 
     /**
-     * Search store.
-     */
-    store: new SearchStore(),
-
-    /**
      * Component intialization
      */
     componentDidMount: function searchComponentDidMount(){
@@ -59,22 +54,10 @@ var searchMixin = {
      * @returns {{list: (*|Array)}}
      */
     getInitialState: function(){
-        var data = this.store.get();
-
-        return assign({
+        return {
             isAllSelected: false,
             selected: []
-        },
-        this.getInfiniteScrollInitialState(),
-        this._getStateFromStore());
-    },
-
-    /**
-     * Get liste from current store.
-     * @returns {*}
-     */
-    _getStateFromStore: function getSearchStateFromStore(){
-        return assign({}, this.getInfiniteScrollStateFromStore());
+        }
     },
 
     /**
@@ -95,6 +78,14 @@ var searchMixin = {
         if(this.store){
             this.store.removeSearchChangeListener(this.onSearchChange);
         }
+    },
+
+    /**
+     * Handler when store emit a change event.
+     */
+    onSearchChange: function onSearchChange() {
+        this.setState(this.getScrollState());
+
     },
 
     /**

@@ -7,46 +7,42 @@ var assign = require('object-assign');
 var InfiniteScrollPageMixin = {
 
     /**
-     * Default state.
-     * @returns {object} Default state values.
+     * intial state for a scrolling page.
+     * @returns {*}
      */
-    getInfiniteScrollInitialState: function getInfiniteScrollInitialState() {
-        return {
-            hasMoreData: false,
-            isLoading: false,
-            currentPage: 1,
-            totalRecords: undefined
-        };
+    getInitialState: function getInfiniteScrollInitialState() {
+        //var additionalStateData = this.getAdditionalStateData ? this.getAdditionalStateData() : {};
+        return assign({
+                hasMoreData: false,
+                currentPage: 1
+            },
+            this.getScrollState()
+        );
     },
+
     /**
-     * Default state.
-     * @returns {object} Defautl state values.
+     * current state of the scrolling list.
+     * @returns {*}
      */
-    getInfiniteScrollStateFromStore: function getSearchStateFromStore(){
-        if(this.store){
+    getScrollState: function _getScrollState() {
+        if (this.store) {
             var data = this.store.get();
-            var hasMoreData = data.pageInfos && data.pageInfos.totalPages ? data.pageInfos.currentPage < data.pageInfos.totalPages : false;
+            var hasMoreData = data.pageInfos && data.pageInfos.totalPages && data.pageInfos.currentPage < data.pageInfos.totalPages;
             var totalRecords = data.pageInfos && data.pageInfos.totalRecords ? data.pageInfos.totalRecords : undefined;
             return {
                 list: data.list || [],
                 hasMoreData: hasMoreData,
-                totalRecords: totalRecords
+                totalRecords: totalRecords,
+                isLoading: false
             };
         }
         return {};
     },
-    /**
-     * Handler when store emit a change event.
-     */
-    onSearchChange: function onSearchChange() {
-        console.log('Search success on mixin change');
-        this.setState(assign({isLoading: false}, this._getStateFromStore()));
 
-    },
     /**
      * Next page fetch action handler.
      */
-    fetchNextPage: function fetchNextPage(){
+    fetchNextPage: function fetchNextPage() {
         this.setState({
             isLoading: true,
             currentPage: this.state.currentPage + 1
@@ -76,4 +72,4 @@ var InfiniteScrollPageMixin = {
     }
 };
 
-module.exports = { mixin: InfiniteScrollPageMixin };
+module.exports = {mixin: InfiniteScrollPageMixin};
