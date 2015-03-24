@@ -65,7 +65,7 @@ var inputTextMixin = {
    */
   renderOptions: function renderOptions(){
     return this.props.values.map((val)=>{
-      var value= val[this.props.valueKey];
+      var value = val[this.props.valueKey];
       return(
         <option key={value} value={value}>
           {val[this.props.labelKey]}
