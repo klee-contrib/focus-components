@@ -1,3 +1,4 @@
+/** css from : http://codepen.io/betdream/details/Ifvbi**/
 .timeline {
   list-style: none;
   padding: 20px 0 20px;
@@ -83,6 +84,12 @@
   border-top-left-radius: 50%;
   border-bottom-right-radius: 50%;
   border-bottom-left-radius: 50%;
+}
+.timeline > li > .timeline-date {
+  position: absolute;
+  top: 29px;
+  margin-left: -160px;
+  font-size: 1.3em;
 }
 .timeline > .timeline-panel {
   float: right;

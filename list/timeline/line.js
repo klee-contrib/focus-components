@@ -11,6 +11,8 @@ var lineMixin = {
      */
     propTypes:{
         data: type('object'),
+        dateField: type('string'),
+        dateComponent: type('object'),
         onLineClick: type('func')
     },
 
@@ -66,6 +68,7 @@ var lineMixin = {
         }else{
             return (
                 <li>
+                    <div className="timeline-date">02/06/1982</div>
                     <div className="timeline-badge"></div>
                     <div className="timeline-panel" onClick={this._handleLineClick}>
                         {this._renderLineContent()}

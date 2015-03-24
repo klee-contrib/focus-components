@@ -14,7 +14,10 @@ var listMixin = {
      * Default properties for the list.
      */
     getDefaultProps: function getDefaultProps(){
-        idField : "id"
+        return{
+            idField : "id",
+            dateField : "date"
+        }
     },
 
     /**
@@ -22,6 +25,9 @@ var listMixin = {
      */
     propTypes:{
         date: type('array'),
+        idField: type('string'),
+        dateField: type('string'),
+        dateComponent: type('object'),
         lineComponent: type('object')
     },
 
@@ -37,6 +43,7 @@ var listMixin = {
                 key: line[this.props.idField] || uuid.v4(),
                 data: line,
                 ref: "line" + lineCount++,
+                dateField: this.props.dateField,
                 onLineClick: this.props.onLineClick
             });
         });
