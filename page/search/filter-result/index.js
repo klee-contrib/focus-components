@@ -16,10 +16,6 @@ var searchFilterResultMixin = {
      * Display name.
      */
     displayName: 'search-filter-result',
-    /**
-     * Search store.
-     */
-    store: new SearchStore(),
 
     /**
      * Component intialization
@@ -47,7 +43,7 @@ var searchFilterResultMixin = {
             operationList: {},
             lineComponent: undefined,
             isSelection: true,
-            lineOperationList: {},
+            lineOperationList: [],
             criteria: {
                 scope: undefined,
                 searchText: undefined
@@ -65,22 +61,19 @@ var searchFilterResultMixin = {
             openedFacetList: {},
             selectionStatus: 'none',
             orderSelected: undefined,
-            groupSelectedKey: undefined,
-            list: []
-        },
-        this.getInfiniteScrollInitialState(),
-        this._getStateFromStore());
+            groupSelectedKey: undefined
+        });
     },
     /**
      * Get the state from store.
      * @returns {object} Dtat to update store.
      */
-    _getStateFromStore: function getToUpdateState() {
+    _getStateFromStore: function() {
         if(this.store) {
             var data = this.store.get();
             return assign({
-                facetList: data.facet || {}
-            }, this.getInfiniteScrollStateFromStore());
+                facetList: data.facet
+            }, this.getScrollState());
         }
     },
 
@@ -104,15 +97,26 @@ var searchFilterResultMixin = {
     },
 
     /**
+     * Handler when store emit a change event.
+     */
+    onSearchChange: function onSearchChange() {
+        this.setState(this._getStateFromStore());
+    },
+
+    /**
      * Search function.
      */
-    search: function search() {
+    search: function search(event) {
+        if(event) {
+            event.preventDefault();
+        }
+
         var facets = [];
         for(var selectedFacet in this.state.selectedFacetList) {
             facets.push({key: selectedFacet, value: this.state.selectedFacetList[selectedFacet].key});
         }
 
-        this.props.action.search(
+        this.actions.search(
             this.getSearchCriteria(this.props.criteria.scope,  this.props.criteria.searchText, facets)
         );
     },
@@ -138,9 +142,12 @@ var searchFilterResultMixin = {
         var selectedFacetList = this.state.selectedFacetList;
         delete selectedFacetList[key];
 
-        // TODO : do we do it now ?
         this.state.selectedFacetList = selectedFacetList;
-        this.setState({selectedFacetList: this.state.selectedFacetList}, this.search);
+        this.setState(
+            assign(
+                {selectedFacetList: selectedFacetList},
+                this.getNoFetchState())
+            , this.search);
     },
     /**
      * Group action click handler.
@@ -149,13 +156,12 @@ var searchFilterResultMixin = {
      */
     _groupClick: function(key) {
         console.log('Group by : ' + key);
-        // TODO : do we do it now ?
-        this.state.groupSelectedKey = key
-        this.state.orderSelected = (key != undefined ? undefined : this.state.orderSelected);
-        this.setState({
-            groupSelectedKey: this.state.groupSelectedKey,
-            orderSelected: this.state.orderSelected
-        }, this.search);
+
+        this.setState(
+            assign(
+                {groupSelectedKey: key, orderSelected: (key != undefined ? undefined : this.state.orderSelected)},
+                this.getNoFetchState()
+            ), this.search);
     },
     /**
      * Order action click handler.
@@ -165,9 +171,11 @@ var searchFilterResultMixin = {
      */
     _orderClick: function(key, order) {
         console.log('Order : ' + key + ' - ' + order);
-        // TODO : do we do it now ?
-        this.state.orderSelected = {key: key, order: order};
-        this.setState({orderSelected: this.state.orderSelected}, this.search);
+        this.setState(
+            assign(
+                {orderSelected:  {key: key, order: order}},
+                this.getNoFetchState()
+        ), this.search);
     },
     /**
      * Selection action handler.
@@ -191,13 +199,11 @@ var searchFilterResultMixin = {
         console.warn("Facet selection ");
         console.log(selectedFacetList);
 
-        // TODO : Do we do it now ?
-        this.state.selectedFacetList = selectedFacetList;
-        this.state.openedFacetList = openedFacetList;
-        this.setState({
-            selectedFacetList: this.state.selectedFacetList,
-            openedFacetList: this.state.openedFacetList
-        }, this.search);
+        this.setState(
+            assign(
+                {selectedFacetList: selectedFacetList, openedFacetList: openedFacetList},
+                this.getNoFetchState()
+            ), this.search);
     },
     /**
      * Line selection handler.

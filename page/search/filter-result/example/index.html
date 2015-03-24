@@ -68,13 +68,7 @@
                                 pageInfos:{
                                     currentPage: criteria.pageInfos.page,
                                     perPage: 3,
-                                    totalRecords: 18,
-                                    order: criteria.pageInfos.order,
-                                    group: criteria.pageInfos.group
-                                },
-                                searchContext: {
-                                    scope: criteria.scope,
-                                    query: criteria.query
+                                    totalRecords: 18
                                 }
                         };
 
@@ -97,39 +91,45 @@
         }
     });
 
+    var config =  {
+        facetConfig: {
+            FCT_PAYS: "text",
+            FCT_STATUS: "text",
+            FCT_REGION: "text"
+        },
+        orderableColumnList:{col1: "Colonne 1", col2: "Colonne 2", col3: "Colonne 3"},
+        groupableColumnList:{col1: "Colonne 1", col2: "Colonne 2"},
+        operationList: [
+            {label: "Button1_a", action: function() {alert("Button1a");}, style:undefined, priority: 1},
+            {label: "Button1_b",action: function() {alert("Button1b");},style:undefined,priority: 1},
+            {label: "Button2_a",action: function() {alert("Button2a");},style:undefined,priority: 2},
+            {label: "Button2_b",action: function() {alert("Button2b");},style: undefined,priority: 2},
+        ],
+        lineComponent: Line,
+        onLineClick : function onLineClick(line){
+            alert('click sur la ligne ' + line.title);
+        },
+        isSelection:true,
+        lineOperationList:[
+            {label: "Button1_a",action: function(data) {alert(data.title);},style: undefined,priority: 1},
+            {label: "Button1_b",action: function(data) {alert(data.title);},style: undefined,priority: 1},
+            {label: "Button2_a",action: function(data) {alert(data.title);},style: undefined,priority: 2},
+            {label: "Button2_b",action: function(data) {alert(data.title);},style: undefined,priority: 2}
+        ],
+        criteria: {
+            scope: "Scope",
+            searchText: "value"
+        }
+    }
+
     React.render(
-            React.createElement(React.createClass(focusComponents.page.search.filterResult.mixin),
-                    {
-                        facetConfig: {
-                            FCT_PAYS: "text",
-                            FCT_STATUS: "text",
-                            FCT_REGION: "text"
-                        },
-                        orderableColumnList:{col1: "Colonne 1", col2: "Colonne 2", col3: "Colonne 3"},
-                        groupableColumnList:{col1: "Colonne 1", col2: "Colonne 2"},
-                        operationList: [
-                            {label: "Button1_a", action: function() {alert("Button1a");}, style:undefined, priority: 1},
-                            {label: "Button1_b",action: function() {alert("Button1b");},style:undefined,priority: 1},
-                            {label: "Button2_a",action: function() {alert("Button2a");},style:undefined,priority: 2},
-                            {label: "Button2_b",action: function() {alert("Button2b");},style: undefined,priority: 2},
-                        ],
-                        action: action,
-                        lineComponent: Line,
-                        onLineClick : function onLineClick(line){
-                            alert('click sur la ligne ' + line.title);
-                        },
-                        isSelection:true,
-                        lineOperationList:[
-                            {label: "Button1_a",action: function(data) {alert(data.title);},style: undefined,priority: 1},
-                            {label: "Button1_b",action: function(data) {alert(data.title);},style: undefined,priority: 1},
-                            {label: "Button2_a",action: function(data) {alert(data.title);},style: undefined,priority: 2},
-                            {label: "Button2_b",action: function(data) {alert(data.title);},style: undefined,priority: 2}
-                        ],
-                        criteria: {
-                            scope: "Scope",
-                            searchText: "value"
-                        }
-                    }
+            React.createElement(
+                    React.createClass({
+                        mixins:[focusComponents.page.search.filterResult.mixin],
+                        actions: action,
+                        store: new focus.store.SearchStore()
+                    }),
+                    config
             ),
             document.querySelector("#search-result-container")
     );

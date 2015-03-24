@@ -122,8 +122,7 @@ var searchMixin = {
 
     _quickSearch: function quickSearch(event){
         event.preventDefault();
-        this.setState({isLoadingSearch: true});
-        this.search();
+        this.setState(assign({isLoadingSearch: true}, this.getNoFetchState()), this.search());
     },
 
 
