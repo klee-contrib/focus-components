@@ -4,6 +4,7 @@ var QuickSearch  = require('../../../search/quick-search').component;
 var List = require('../../../list/selection').list.component;
 var SearchStore = require('focus').store.SearchStore;
 var assign = require('object-assign');
+var type = require('focus').component.types;
 var InfiniteScrollPageMixin = require("../common-mixin/infinite-scroll-page-mixin").mixin;
 
 var searchMixin = {
@@ -38,8 +39,19 @@ var searchMixin = {
         return {
             lineComponent: undefined,
             isSelection: false,
-            lineOperationList: {}
+            lineOperationList: {},
+            idField: "id"
         }
+    },
+
+    /**
+     * properties validation
+     */
+    propTypes:{
+        lineComponent: type('object'),
+        isSelection: type('bool'),
+        lineOperationList: type('array'),
+        idField: type('string')
     },
 
     /**
@@ -135,6 +147,7 @@ var searchMixin = {
                 />
                 <List data={this.state.list}
                     ref="list"
+                    idField={this.props.idField}
                     isSelection={this.props.isSelection}
                     onSelection={this._selectItem}
                     onLineClick={this._lineClick}

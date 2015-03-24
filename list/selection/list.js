@@ -3,7 +3,6 @@ var builder =  require('focus').component.builder;
 var React = require('react');
 var Line = require('./line').mixin;
 var Button = require('../../common/button/action').component;
-var uuid= require('uuid');
 var type = require('focus').component.types;
 var InfiniteScrollMixin = require('./infinite-scroll').mixin;
 
@@ -26,7 +25,8 @@ var listMixin = {
             isLoading: false,
             hasMoreData: false,
             operationList: [],
-            isManualFetch: false
+            isManualFetch: false,
+            idField: "id"
         };
     },
 
@@ -44,7 +44,8 @@ var listMixin = {
         loader: type('func'),
         FetchNextPage: type('func'),
         operationList: type('array'),
-        isManualFetch: type('bool')
+        isManualFetch: type('bool'),
+        idField: type('bool')
     },
 
     /**
@@ -102,7 +103,7 @@ var listMixin = {
                     isSelected = false;
             }
             return React.createElement(LineComponent,{
-                key : line.id || uuid.v4(),
+                key : line[this.props.idField],
                 data: line,
                 ref: "line" + lineCount++,
                 isSelection: this.props.isSelection,
