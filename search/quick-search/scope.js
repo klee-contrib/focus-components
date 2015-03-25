@@ -87,7 +87,10 @@ var scopeMixin = {
    * Return the css class for the scope.
    */
   scopeStyle: function scopeStyle() {
-    var activeScope = activeScope;
+    var activeScope = this.getActiveScope();
+		if(!activeScope){
+			return "qs-scope-none";
+		}
     return activeScope.style || `qs-scope-${activeScope.value}`;
   },
   renderScopeList: function renderScopeList() {
