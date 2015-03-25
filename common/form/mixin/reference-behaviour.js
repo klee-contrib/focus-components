@@ -15,6 +15,9 @@ var referenceMixin = {
     /*  referenceNames: this.referenceNames || []
     };
   },*/
+  getInitialState: function(){
+    return {reference: {}};
+  },
   /**
    * Build actions associated to the reference.
    */

@@ -27,9 +27,13 @@ var storeMixin = {
     if(this.computeEntityFromStoresData){
       return this.computeEntityFromStoresData(data);
     }
-    var entity = {};
+    var entity = {reference:{}};
     for(var key in data){
-      assign(entity, data[key]);
+      if(this.referenceNames.indexOf(key) !== -1){
+        entity.reference[key] = data[key];
+      }else {
+        assign(entity, data[key]);
+      }
     }
     return entity;
   },

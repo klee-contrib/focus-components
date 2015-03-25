@@ -39,7 +39,7 @@ var FieldMixin = {
   },
   /** @inheritdoc */
   componentWillReceiveProps: function fieldWillReceiveProps(newProps){
-    this.setState({value: newProps.value});
+    this.setState({value: newProps.value, values: newProps.values});
   },
   /**
   * Get the css class of the field component.
@@ -155,6 +155,7 @@ var FieldMixin = {
           id={this.props.name}
           name={this.props.name}
           value={this.state.value}
+          values={this.state.values}
           type={this.props.type}
           onChange={this.onInputChange}
           ref="input"
@@ -191,7 +192,7 @@ var FieldMixin = {
     return (
       <div className={this._className()}>
        {this.label()}
-       {this.input()}
+       {this.props.values ? this.select() : this.input()}
        {this.help()}
        {this.error()}
       </div>);

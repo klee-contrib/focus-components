@@ -33,12 +33,15 @@
       $(document).ready(function() {$.material.init();});
   </script>
   <script type="text/javascript">
+  //Load dependencies.
   focus.components = focusComponents;
   var contactStore = new focus.store.CoreStore({
     definition : {'contact': 'contact', 'commande': 'commande'}
   });
   var formMixin = focus.components.common.form.mixin;
   var Block = focus.components.common.block.component;
+
+  //Create the view.
   var Form = React.createClass({displayName: "Form",
     mixins: [formMixin],
     stores: [{
@@ -65,11 +68,13 @@
               this.fieldFor("bio"),
               this.fieldFor("isCool"),
               this.fieldFor("isNice"),
+              this.selectFor('papaCode', 'papas'),
               this.buttonSave()
          )
       );
     }
   });
+  //Render the created View.
   React.render(React.createElement(Form, null), document.querySelector("#form-container"));
 </script>
 

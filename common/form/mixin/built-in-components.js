@@ -41,7 +41,7 @@ selectFor: function(name, listName, options){
     value: this.state[name],
     error: this.state.error ? this.state.error[name] : undefined,
     validator: def.validator,
-    values: this.state[listName], //Options to be rendered.
+    values: this.state.reference[listName], //Options to be rendered.
     FieldComponent: def.FieldComponent,
     InputLabelComponent: def.InputLabelComponent
   });
