@@ -22,7 +22,7 @@ var actionBarMixin = {
             selectionStatus: "none", // none, selected, partial
             selectionAction: function(selectionStatus) {}, // Action on selection click
 
-            orderableColumnList:{}, // [{key:"columnKey", label:"columnLabel"}]
+            orderableColumnList: undefined, // [{key:"columnKey", label:"columnLabel"}]
             orderAction: function(key, order) {}, // Action on click on order function
             orderSelected: {},
 
@@ -69,23 +69,30 @@ var actionBarMixin = {
      * @private
      */
     _getOrderObject: function() {
-        // Order
-        var orderDescOperationList = [];
-        var orderAscOperationList = [];
-        var orderSelectedParsedKey = this.props.orderSelected.key + this.props.orderSelected.order;
+        if(this.props.orderableColumnList) {
+            // Order
+            var orderDescOperationList = [];
+            var orderAscOperationList = [];
+            var orderSelectedParsedKey = this.props.orderSelected.key + this.props.orderSelected.order;
 
-        for(var key in this.props.orderableColumnList) {
-            orderDescOperationList.push({
-                action: this._orderFunction(key, "desc"),
-                label: this.props.orderableColumnList[key],
-                style: this._getSelectedStyle(key+"desc", orderSelectedParsedKey)
-            });
-            orderAscOperationList.push({action: this._orderFunction(key, "asc"), label: this.props.orderableColumnList[key], style: this._getSelectedStyle(key+"asc", orderSelectedParsedKey) });
+            for (var key in this.props.orderableColumnList) {
+                orderDescOperationList.push({
+                    action: this._orderFunction(key, "desc"),
+                    label: this.props.orderableColumnList[key],
+                    style: this._getSelectedStyle(key + "desc", orderSelectedParsedKey)
+                });
+                orderAscOperationList.push({
+                    action: this._orderFunction(key, "asc"),
+                    label: this.props.orderableColumnList[key],
+                    style: this._getSelectedStyle(key + "asc", orderSelectedParsedKey)
+                });
+            }
+            var downStyle = this.props.orderSelected.order == "desc" ? "circle-down" : "chevron-down";
+            var upStyle = this.props.orderSelected.order == "asc" ? "circle-up" : "chevron-up";
+            return [<SelectAction style={downStyle} operationList={orderDescOperationList} />,
+                <SelectAction style={upStyle} operationList={orderAscOperationList} />];
         }
-        var downStyle = this.props.orderSelected.order == "desc" ? "circle-down" : "chevron-down";
-        var upStyle = this.props.orderSelected.order == "asc" ? "circle-up" : "chevron-up";
-        return [   <SelectAction style={downStyle} operationList={orderDescOperationList} />,
-                    <SelectAction style={upStyle} operationList={orderAscOperationList} />];
+        return '';
     },
 
     /**

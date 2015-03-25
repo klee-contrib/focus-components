@@ -62,20 +62,28 @@
         search: function(criteria) {
             window.setTimeout(
                     function() {
-                        var data = {
+                        if(criteria.pageInfos.group) {
+                            var newFacet = {};
+                            newFacet[criteria.pageInfos.group] = facets[criteria.pageInfos.group];
+                            var data = {
+                                facet: newFacet,
+                                list:{
+                                    'FRA': [{id:countId++, title : "toto", body:"ceci est un test"},{id:countId++, title:"tata",body:"deuxieme test"}, {id:countId++, title:"titi",body:"troisième test"}],
+                                    'GER': [{id:countId++, title : "toto", body:"ceci est un test"},{id:countId++, title:"tata",body:"deuxieme test"}],
+                                },
+                                pageInfos:{}
+                            };
+                        } else {
+                            var data = {
                                 facet: facets,
                                 list: [{id:countId++, title : "toto", body:"ceci est un test"},{id:countId++, title:"tata",body:"deuxieme test"}, {id:countId++, title:"titi",body:"troisième test"}],
-                                /*list:{
-                                  FACET_VALUE1: [{id:countId++, title : "toto", body:"ceci est un test"},{id:countId++, title:"tata",body:"deuxieme test"}, {id:countId++, title:"titi",body:"troisième test"}],
-                                  FACET_VALUE2: [{id:countId++, title : "toto", body:"ceci est un test"},{id:countId++, title:"tata",body:"deuxieme test"}, {id:countId++, title:"titi",body:"troisième test"}],
-                                },*/
                                 pageInfos:{
                                     currentPage: criteria.pageInfos.page,
                                     perPage: 3,
                                     totalRecords: 18
                                 }
-                        };
-
+                            };
+                        }
 
                         focus.dispatcher.handleServerAction({
                             data: data, type: "update"
