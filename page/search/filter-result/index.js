@@ -250,22 +250,6 @@ var searchFilterResultMixin = {
     },
 
     /**
-     * Render the resutl list.
-     * @returns {*}
-     * @private
-     */
-    _renderList: function() {
-        if(this._isSimpleList()) {
-            return <div className="listResultContainer panel">{this._renderSimpleList("list", this.state.list)}</div>;
-        }
-        var groupList = [];
-        for(var groupKey in this.state.list) {
-            groupList.push(this._renderGroupList(groupKey));
-        }
-        return groupList;
-    },
-
-    /**
      * Render a group list.
      * @param groupKey Key of the group.
      * @returns {JSX} Rendu html.
@@ -320,57 +304,71 @@ var searchFilterResultMixin = {
         return isArray(this.state.list);
     },
 
-
     /**
-     * Render the component.
-     * @returns {XML} Html code.
+     * Render the liveFilter.
+     * @returns {JSX} Render the liveFilter.
      */
-    render: function renderSearchResult() {
-        var groupableColumnList = {};
-        for(var facetKey in this.state.facetList) {
-            groupableColumnList[facetKey] = facetKey;
-        }
-        var scopeList = {scope: this.props.criteria.scope};
-
-        return (
-            <div className="search-result">
-                <div className="liveFilterContainer">
+    liveFilterComponent: function liveFilterComponent() {
+        return <div className="liveFilterContainer">
                     <LiveFilter ref="liveFilter"
                         facetList={this.state.facetList}
                         selectedFacetList={this.state.selectedFacetList}
                         openedFacetList={this.state.openedFacetList}
                         config={this.props.facetConfig}
                         dataSelectionHandler={this._facetSelectionClick}/>
-                </div>
-                <div className="resultContainer">
-                    <div className="listSummaryContainer panel">
-                        <ListSummary
-                                nb={this.state.totalRecords}
-                                queryText={this.props.criteria.searchText}
-                                scopeList={scopeList}
-                                scopeClickAction={this._scopeClick}
-                                exportAction={this._exportHandler}
-                        />
+                </div>;
+    },
 
-                    </div>
-                    <div className="listActionBarContainer panel">
-                        <ListActionBar selectionStatus={this.state.selectionStatus}
-                            selectionAction={this._selectionGroupLineClick}
-                            orderableColumnList={this._getOrderableColumnList()}
-                            orderAction={this._orderClick}
-                            orderSelected={this.state.orderSelected}
-                            groupableColumnList={groupableColumnList}
-                            groupAction={this._groupClick}
-                            groupSelectedKey={this.state.groupSelectedKey}
-                            facetList={this._getFacetListForBar()}
-                            facetClickAction={this._facetBarClick}
-                            operationList={this.props.operationList} />
-                    </div>
-                    {this._renderList()}
-                </div>
-            </div>
-        );
+    listSummary: function listSummary() {
+        var scopeList = {scope: this.props.criteria.scope};
+        return <div className="listSummaryContainer panel">
+                    <ListSummary
+                        nb={this.state.totalRecords}
+                        queryText={this.props.criteria.searchText}
+                        scopeList={scopeList}
+                        scopeClickAction={this._scopeClick}
+                        exportAction={this._exportHandler} />
+                </div>;
+    },
+    /**
+     * Render the action bar.
+     * @returns {JSX} Rendering of the action bar.
+     */
+    actionBar: function actionBar() {
+        var groupableColumnList = {};
+        for(var facetKey in this.state.facetList) {
+            groupableColumnList[facetKey] = facetKey;
+        }
+        return <div className="listActionBarContainer panel">
+                    <ListActionBar selectionStatus={this.state.selectionStatus}
+                        selectionAction={this._selectionGroupLineClick}
+                        orderableColumnList={this._getOrderableColumnList()}
+                        orderAction={this._orderClick}
+                        orderSelected={this.state.orderSelected}
+                        groupableColumnList={groupableColumnList}
+                        groupAction={this._groupClick}
+                        groupSelectedKey={this.state.groupSelectedKey}
+                        facetList={this._getFacetListForBar()}
+                        facetClickAction={this._facetBarClick}
+                        operationList={this.props.operationList} />
+                </div>;
+    },
+
+    /**
+     * Render the resutl list.
+     * @returns {JSX} The rendering of the list.
+     * @private
+     */
+    resultList: function resultList() {
+        if(this._isSimpleList()) {
+            return <div className="listResultContainer panel">{this._renderSimpleList("list", this.state.list)}</div>;
+        }
+        var groupList = [];
+        for(var groupKey in this.state.list) {
+            groupList.push(this._renderGroupList(groupKey));
+        }
+        return groupList;
     }
-}
+};
 
-module.exports = builder(searchFilterResultMixin);
+module.exports = builder(searchFilterResultMixin, true);

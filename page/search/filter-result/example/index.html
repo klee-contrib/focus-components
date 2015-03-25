@@ -69,7 +69,7 @@
                                 facet: newFacet,
                                 list:{
                                     'FRA': [{id:countId++, title : "toto", body:"ceci est un test"},{id:countId++, title:"tata",body:"deuxieme test"}, {id:countId++, title:"titi",body:"troisième test"}],
-                                    'GER': [{id:countId++, title : "toto", body:"ceci est un test"},{id:countId++, title:"tata",body:"deuxieme test"}],
+                                    'GER': [{id:countId++, title : "toto", body:"ceci est un test"},{id:countId++, title:"tata",body:"deuxieme test"}]
                                 },
                                 pageInfos:{}
                             };
@@ -138,7 +138,20 @@
                     React.createClass({
                         mixins:[focusComponents.page.search.filterResult.mixin],
                         actions: action,
-                        store: new focus.store.SearchStore()
+                        store: new focus.store.SearchStore(),
+                        render: function render() {
+                            var root = React.createElement('div', { className: "search-result" },
+                                    this.liveFilterComponent(),
+                                    React.createElement(
+                                            "div",
+                                            { className: "resultContainer" },
+                                            this.listSummary(),
+                                            this.actionBar(),
+                                            this.resultList()
+                                    )
+                            );
+                            return root;
+                        }
                     }),
                     config
             ),
