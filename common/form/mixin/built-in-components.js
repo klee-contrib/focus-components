@@ -47,6 +47,16 @@ selectFor: function(name, listName, options){
   });
 },
 /**
+ * Display a field.
+ * @param {string} name - property name.
+ * @param {object} options - options object.
+ * @returns {object} - A React Field.
+ */
+displayFor: function(name, options){
+  options = options || {};
+  return this.state[name];
+},
+/**
  * Button delete generation.
  * @returns {object} - A Reacte button.
  */
