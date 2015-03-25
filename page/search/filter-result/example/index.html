@@ -62,7 +62,19 @@
         search: function(criteria) {
             window.setTimeout(
                     function() {
-                        var data = {
+                        if(criteria.pageInfos.group) {
+                            var newFacet = {};
+                            newFacet[criteria.pageInfos.group] = facets[criteria.pageInfos.group];
+                            var data = {
+                                facet: newFacet,
+                                list:{
+                                    'FRA': [{id:countId++, title : "toto", body:"ceci est un test"},{id:countId++, title:"tata",body:"deuxieme test"}, {id:countId++, title:"titi",body:"troisième test"}],
+                                    'GER': [{id:countId++, title : "toto", body:"ceci est un test"},{id:countId++, title:"tata",body:"deuxieme test"}]
+                                },
+                                pageInfos:{}
+                            };
+                        } else {
+                            var data = {
                                 facet: facets,
                                 list: [{id:countId++, title : "toto", body:"ceci est un test"},{id:countId++, title:"tata",body:"deuxieme test"}, {id:countId++, title:"titi",body:"troisième test"}],
                                 pageInfos:{
@@ -70,8 +82,8 @@
                                     perPage: 3,
                                     totalRecords: 18
                                 }
-                        };
-
+                            };
+                        }
 
                         focus.dispatcher.handleServerAction({
                             data: data, type: "update"
@@ -98,7 +110,6 @@
             FCT_REGION: "text"
         },
         orderableColumnList:{col1: "Colonne 1", col2: "Colonne 2", col3: "Colonne 3"},
-        groupableColumnList:{col1: "Colonne 1", col2: "Colonne 2"},
         operationList: [
             {label: "Button1_a", action: function() {alert("Button1a");}, style:undefined, priority: 1},
             {label: "Button1_b",action: function() {alert("Button1b");},style:undefined,priority: 1},
@@ -127,7 +138,20 @@
                     React.createClass({
                         mixins:[focusComponents.page.search.filterResult.mixin],
                         actions: action,
-                        store: new focus.store.SearchStore()
+                        store: new focus.store.SearchStore(),
+                        render: function render() {
+                            var root = React.createElement('div', { className: "search-result" },
+                                    this.liveFilterComponent(),
+                                    React.createElement(
+                                            "div",
+                                            { className: "resultContainer" },
+                                            this.listSummary(),
+                                            this.actionBar(),
+                                            this.resultList()
+                                    )
+                            );
+                            return root;
+                        }
                     }),
                     config
             ),

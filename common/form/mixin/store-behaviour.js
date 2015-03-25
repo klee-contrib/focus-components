@@ -29,7 +29,7 @@ var storeMixin = {
     }
     var entity = {reference:{}};
     for(var key in data){
-      if(this.referenceNames.indexOf(key) !== -1){
+      if(this.referenceNames && this.referenceNames.indexOf(key) !== -1){
         entity.reference[key] = data[key];
       }else {
         assign(entity, data[key]);

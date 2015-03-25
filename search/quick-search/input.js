@@ -9,14 +9,9 @@ var SearchInputMixin = {
   getDefaultProps: function(){
     return {
       placeholder: "",
-      value:"defaultValue",
-      scope:2,
-      scopes: [
-        {code: undefined, label: "None", style: "qs-scope-none"},
-        {code: 1, label: "Scope1", style: "qs-scope-1"},
-        {code: 2, label: "Scope2", style: "qs-scope-2"},
-        {code: 3, label: "Scope3", style: "qs-scope-3"}
-      ],
+      value: 'defaultValue',
+      scope: undefined,
+      scopes: [],
       minChar: 0,
       loading: false
     };
@@ -36,7 +31,7 @@ var SearchInputMixin = {
       loading: this.props.loading
     };
   },
-  getValue: function(){
+  getValue: function getQuickSearchValue(){
     return {
       scope: this.refs.scope.getValue(),
       query: this.refs.query.getDOMNode().value
@@ -45,14 +40,12 @@ var SearchInputMixin = {
   handleKeyUp: function handleKeyUpInputSearch(event){
     var val = event.target.value;
     if(val.length >= this.props.minChar){
-      console.log("keyUp", words(val));
       if(this.props.handleKeyUp){
         this.props.handleKeyUp(event);
       }
     }
   },
   handleOnClickScope: function handleOnClickScope(){
-    console.log('Search value', this.getValue());
     this.setState({scope: this.refs.scope.getValue()}, this.focusQuery);
   },
   renderHelp: function renderHelp(){
@@ -67,17 +60,24 @@ var SearchInputMixin = {
 
     );
   },
+  /** @inheritdoc */
+  componentWillReceiveProps: function fieldWillReceiveProps(newProps){
+    if(newProps && newProps.loading !== undefined){
+      this.setState({loading: newProps.loading});
+    }
+  },
   focusQuery: function(){
     this.refs.query.getDOMNode().focus();
   },
   setStateFromSubComponent: function(){
     return this.setState(this.getValue(), this.focusQuery);
   },
-  render:function renderSearchInput(){
+  render: function renderSearchInput(){
+    var loadingClassName = this.props.loading ? 'qs-loading' : '';
     return (
       <div className="qs-quick-search">
         <Scope ref="scope" list={this.props.scopes} value={this.state.scope} handleOnClick={this.handleOnClickScope}/>
-        <input ref="query" onKeyUp={this.handleKeyUp} type="search" />
+        <input ref="query" onKeyUp={this.handleKeyUp} type="search" className={loadingClassName}/>
         {this.renderHelp()}
 
       </div>

@@ -113,8 +113,8 @@ div.qs-quick-search{
     top:0;
     left:0;
     //Loading gif when the search is active.
-    &.qs-searching{
-      background:#FFF url(./img/loading.gif) no-repeat right center;
+    &.qs-loading{
+      background:#FFF url(../img/loading.gif) no-repeat right center;
     }
   }
   /* Help block.*/
