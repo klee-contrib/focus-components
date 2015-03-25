@@ -8,7 +8,7 @@ var InfiniteScrollPageMixin = {
 
     /**
      * intial state for a scrolling page.
-     * @returns {*}
+     * @returns {*} the initial state
      */
     getInitialState: function getInfiniteScrollInitialState() {
         //var additionalStateData = this.getAdditionalStateData ? this.getAdditionalStateData() : {};
@@ -22,13 +22,13 @@ var InfiniteScrollPageMixin = {
 
     /**
      * current state of the scrolling list.
-     * @returns {*}
+     * @returns {*} the scroll state
      */
     getScrollState: function _getScrollState() {
         if (this.store) {
             var data = this.store.get();
             var hasMoreData = data.pageInfos && data.pageInfos.totalPages && data.pageInfos.currentPage < data.pageInfos.totalPages;
-            var totalRecords = data.pageInfos && data.pageInfos.totalRecords ? data.pageInfos.totalRecords : undefined;
+            var totalRecords = data.pageInfos && data.pageInfos.totalRecords !== undefined ? data.pageInfos.totalRecords : undefined;
             return {
                 list: data.list || [],
                 hasMoreData: hasMoreData,

@@ -125,7 +125,6 @@ var searchMixin = {
         this.setState(assign({isLoadingSearch: true}, this.getNoFetchState()), this.search());
     },
 
-
     /**
      * return a quickSearchComponent
      * @returns {XML} the component
