@@ -2,6 +2,7 @@ var builder = require('focus').component.builder;
 var type = require('focus').component.types;
 var React = require('react');
 var InputText = require('../input/text').component;
+var DisplayText = require('../display/text').component;
 var SelectClassic = require('../select/classic').component;
 var Label = require('../label').component;
 var FieldMixin = {
@@ -11,6 +12,7 @@ var FieldMixin = {
   getDefaultProps: function getFieldDefaultProps() {
     return {
       hasLabel: true,
+      isEdit: true,
       labelSize: 3,
       type: 'text',
       value: undefined,
@@ -19,7 +21,8 @@ var FieldMixin = {
       FieldComponent: undefined,
       InputLabelComponent: undefined,
       InputComponent: InputText,
-      SelectComponent: SelectClassic
+      SelectComponent: SelectClassic,
+      DisplayComponent: DisplayText
     };
   },
   /** @inheritdoc */
@@ -163,6 +166,25 @@ var FieldMixin = {
       < /div>
     );
   },
+  display: function renderDisplay(){
+    if(this.props.FieldComponent || this.props.InputLabelComponent){
+      return this.renderFieldComponent();
+    }
+    var selectClassName = `form-control col-sm-${(12 - this.props.labelSize)}`;
+    return (
+      <div className = "input-group" >
+        <this.props.DisplayComponent
+          style={{class: selectClassName}}
+          id={this.props.name}
+          name={this.props.name}
+          value={this.state.value}
+          type={this.props.type}
+          ref="display"
+          formatter={this.props.formatter}
+      />
+      < /div>
+    );
+  },
   error: function renderError() {
   if (this.state.error) {
     if(this.props.FieldComponent){
@@ -192,7 +214,7 @@ var FieldMixin = {
     return (
       <div className={this._className()}>
        {this.label()}
-       {this.props.values ? this.select() : this.input()}
+       {this.props.isEdit ? (this.props.values ? this.select() : this.input()) : this.display()}
        {this.help()}
        {this.error()}
       </div>);

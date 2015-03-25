@@ -50,7 +50,10 @@
     React.render(
       React.createElement("form", {className: "form-horizontal"},
       React.createElement("h2", null, "Champ 1"),
-      React.createElement(Field, {name: "field1", value: "field1value"}),
+      React.createElement(Field, {name: "field1", value: "field1value", isEdit: true}),
+      React.createElement("h2", null, "Consultation"),
+      React.createElement(Field, {name: "field Consult", value: "fieldConsultValue", isEdit: false}),
+      React.createElement(Field, {name: "field Consult", value: "fieldConsultValue", isEdit: false,formatter: function(data){return data + " formatter applied";}}),
       React.createElement("h2", null, "Champ 2 (erreur)"),
       React.createElement(Field, {name: "field2", value: "field2value", type: "text", error: "error on field2"}),    React.createElement("h2", null, "Champ 3 type number"),
       React.createElement(Field, {name: "field3", value: 3, type: "number"}),
