@@ -39,7 +39,6 @@ var searchFilterResultMixin = {
         return {
             facetConfig: {},
             orderableColumnList: {},
-            groupableColumnList: {},
             operationList: {},
             lineComponent: undefined,
             isSelection: true,
@@ -229,6 +228,10 @@ var searchFilterResultMixin = {
      * @returns {XML} Html code.
      */
     render: function renderSearchResult() {
+        var groupableColumnList = {};
+        for(var facetKey in this.state.facetList) {
+            groupableColumnList[facetKey] = facetKey;
+        }
         var scopeList = {scope: this.props.criteria.scope};
         return (
             <div className="search-result">
@@ -257,7 +260,7 @@ var searchFilterResultMixin = {
                             orderableColumnList={this.props.orderableColumnList}
                             orderAction={this._orderClick}
                             orderSelected={this.state.orderSelected}
-                            groupableColumnList={this.props.groupableColumnList}
+                            groupableColumnList={groupableColumnList}
                             groupAction={this._groupClick}
                             groupSelectedKey={this.state.groupSelectedKey}
                             facetList={this._getFacetListForBar()}

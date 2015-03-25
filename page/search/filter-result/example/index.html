@@ -65,6 +65,10 @@
                         var data = {
                                 facet: facets,
                                 list: [{id:countId++, title : "toto", body:"ceci est un test"},{id:countId++, title:"tata",body:"deuxieme test"}, {id:countId++, title:"titi",body:"troisième test"}],
+                                /*list:{
+                                  FACET_VALUE1: [{id:countId++, title : "toto", body:"ceci est un test"},{id:countId++, title:"tata",body:"deuxieme test"}, {id:countId++, title:"titi",body:"troisième test"}],
+                                  FACET_VALUE2: [{id:countId++, title : "toto", body:"ceci est un test"},{id:countId++, title:"tata",body:"deuxieme test"}, {id:countId++, title:"titi",body:"troisième test"}],
+                                },*/
                                 pageInfos:{
                                     currentPage: criteria.pageInfos.page,
                                     perPage: 3,
@@ -98,7 +102,6 @@
             FCT_REGION: "text"
         },
         orderableColumnList:{col1: "Colonne 1", col2: "Colonne 2", col3: "Colonne 3"},
-        groupableColumnList:{col1: "Colonne 1", col2: "Colonne 2"},
         operationList: [
             {label: "Button1_a", action: function() {alert("Button1a");}, style:undefined, priority: 1},
             {label: "Button1_b",action: function() {alert("Button1b");},style:undefined,priority: 1},
