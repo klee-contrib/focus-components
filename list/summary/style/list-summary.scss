@@ -3,7 +3,13 @@
 }
 
 .list-summary {
-  .nb-result, .scope, .print {
-    float:left;
+  .nb-result, .scope {
+    display: inline-block;
+    padding: 0 25px 0 25px;
+  }
+  .print {
+    display: inline-block;
+    float: right;
+    padding: 0 25px 0 25px;
   }
 }

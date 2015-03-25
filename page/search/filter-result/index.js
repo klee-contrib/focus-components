@@ -161,7 +161,7 @@ var searchFilterResultMixin = {
 
         this.setState(
             assign(
-                {groupSelectedKey: key, orderSelected: (key != undefined ? undefined : this.state.orderSelected)},
+                { groupSelectedKey: key },
                 this.getNoFetchState()
             ), this.search);
     },
@@ -285,18 +285,6 @@ var searchFilterResultMixin = {
      },
 
     /**
-     * Get the list of the orderable columns.
-     * @returns {object} list of orderable columns.
-     * @private
-     */
-    _getOrderableColumnList: function() {
-        if(this._isSimpleList()) {
-            return this.props.orderableColumnList
-        }
-        return undefined;
-    },
-
-    /**
      * @returns {boolean} Returns true if list is a simple list, false if grouped.
      * @private
      */
@@ -342,7 +330,7 @@ var searchFilterResultMixin = {
         return <div className="listActionBarContainer panel">
                     <ListActionBar selectionStatus={this.state.selectionStatus}
                         selectionAction={this._selectionGroupLineClick}
-                        orderableColumnList={this._getOrderableColumnList()}
+                        orderableColumnList={this.props.orderableColumnList}
                         orderAction={this._orderClick}
                         orderSelected={this.state.orderSelected}
                         groupableColumnList={groupableColumnList}

@@ -8,11 +8,11 @@ var listSummaryMixin = {
     /**
      * Display name.
      */
-    displayName: "list-summary",
+    displayName: 'list-summary',
 
     /**
-     * INit default props
-     * @returns Defautkl props.
+     * Init the default props.
+     * @returns {objet} default props.
      */
     getDefaultProps: function() {
         return {
@@ -21,22 +21,24 @@ var listSummaryMixin = {
             scopeList: {},
             scopeClickAction: function(scopeKey) {},
             exportAction: function() {}
-        }
+        };
     },
 
     /**
-     * Render the html
-     * @returns {XML}
+     * Render the html.
+     * @returns {JSX} Html rendering.
      */
     render: function renderActionBar(){
+        if(this.props.nb) {
+            var nbResult = <div className="nb-result">{this.props.nb} result.for "{this.props.queryText}"</div>;
+        }
         return (
             <div className="list-summary">
-                <div className="nb-result">{this.props.nb} result.for "{this.props.queryText}"</div>
                 <div className="scope"><TopicDisplayer topicList={this.props.scopeList} topicClickAction={this.props.scopeClickAction}  /></div>
+                {nbResult}
                 <div className="print"><Button imgSrc="print" handleOnClick={this.props.exportAction} /></div>
             </div>);
     }
-}
-
+};
 
 module.exports = builder(listSummaryMixin);
