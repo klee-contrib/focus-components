@@ -19,7 +19,8 @@ fieldFor: function(name, options) {
     error: this.state.error ? this.state.error[name] : undefined,
     validator: def.validator,
     FieldComponent: def.FieldComponent,
-    InputLabelComponent: def.InputLabelComponent
+    InputLabelComponent: def.InputLabelComponent,
+    isEdit: true
   });
 },
 /**
@@ -43,7 +44,8 @@ selectFor: function(name, listName, options){
     validator: def.validator,
     values: this.state.reference[listName], //Options to be rendered.
     FieldComponent: def.FieldComponent,
-    InputLabelComponent: def.InputLabelComponent
+    InputLabelComponent: def.InputLabelComponent,
+    isEdit: true
   });
 },
 /**
@@ -54,7 +56,17 @@ selectFor: function(name, listName, options){
  */
 displayFor: function(name, options){
   options = options || {};
-  return this.state[name];
+  var def = (this.definition && this.definition[name]) ? this.definition[name] : {};
+  var listName = listName || def.listName;
+  return React.createElement(Field, {
+    name: name,
+    ref: name,
+    value: this.state[name],
+    values: this.state.reference ? this.state.reference[listName]: unefined, //Options to be rendered.
+    FieldComponent: def.FieldComponent,
+    InputLabelComponent: def.InputLabelComponent,
+    isEdit: false
+  });
 },
 /**
  * Button delete generation.
