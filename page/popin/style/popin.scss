@@ -1,8 +1,9 @@
 .popin {
   display: block;
-
+  float:right;
   .full {
-    height: 100vh;
+    min-height: 100vh;
+    min-width: 50vw;
   }
   .centered {
     height: 80vh;

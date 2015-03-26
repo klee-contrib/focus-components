@@ -35,7 +35,7 @@ var popinMixin = {
     },
 
     _getModalCss: function() {
-        var cssClass = 'popin animated';
+        var cssClass = 'popin animated float:right;';
         switch (this.props.animation) {
             case 'right':
                 cssClass += ' bounceInRight';
@@ -50,9 +50,10 @@ var popinMixin = {
                 cssClass += ' bounceInUp';
                 break;
         }
+        return cssClass;
     },
     _getModalContentCss: function() {
-        var cssClass = 'modal-content'
+        var cssClass = 'modal-content';
         switch (this.props.type) {
             case 'full':
                 cssClass += ' full';
@@ -64,6 +65,13 @@ var popinMixin = {
         return cssClass;
     },
 
+    openModal: function openModal() {
+        this.setState({isDisplayed: true});
+    },
+    closeModal: function closeModal() {
+        this.setState({isDisplayed: false});
+    },
+
     /**
      * Render the component.
      * @returns {JSX} Htm code.
@@ -73,6 +81,12 @@ var popinMixin = {
         var currentView = this;
         source.onclick = function () {
             currentView.setState({isDisplayed: !currentView.state.isDisplayed});
+            /*
+            if(currentView.state.isDisplayed) {
+                currentView.closeModal();
+            } else {
+                currentView.openModal();
+            }*/
         };
 
         if(!this.state.isDisplayed) {
@@ -87,7 +101,6 @@ var popinMixin = {
             </span>
         );
     }
-
 };
 
-module.exports =  builder(popinMixin);
+module.exports = builder(popinMixin);
