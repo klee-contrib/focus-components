@@ -91,7 +91,7 @@ var liveFilterMixin = {
         var facets = [];
         for(var key in this.props.facetList) {
             var selectedDataKey = this.props.selectedFacetList[key] ? this.props.selectedFacetList[key].key : undefined;
-            facets.push(<LiveFilterFacet facetKey={key}
+            facets.push(<LiveFilterFacet facetKey={key} key={key}
                                                 facet={this.props.facetList[key]}
                                                 selectedDataKey = {selectedDataKey}
                                                 isExpanded={this.state.openedFacetList[key]}

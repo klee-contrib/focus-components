@@ -1,54 +1,54 @@
 /**@jsx*/
 var builder = require('focus').component.builder;
-var React = require('react');
 var Button = require('../../common/button/action').component;
 var SelectAction = require('../../common/select-action').component;
-var type = require('focus').component.types;
 
 var actionContextualMixin = {
 
     /**
      * Display name.
      */
-    displayName: "list-action-contextual",
+    displayName: 'list-action-contextual',
 
     /**
      * Init default props.
-     * @returns {{operationList: List of operations.}}
+     * @returns {object} Default props.
      */
     getDefaultProps: function() {
         return {
             operationList: [],
             operationParam: undefined
-        }
+        };
     },
     /**
      * Init default state.
-     * @returns {{isSecondaryActionListExpanded: true if secondary actionList is expanded.}}
+     * @returns {oject} Initial state.
      */
     getInitialState: function() {
         return {
-            isSecondaryActionListExpanded: false
+            isSecondaryActionListExpanded: false // true if secondary actionList is expanded.
         };
     },
 
     /**
      * handle contextual action on click.
+     * @param {string} key Action key.
      */
     _handleAction: function handleContextualAction(key){
         return (event)=> {
+            event.preventDefault();
             if (this.props.operationParam) {
                 this.props.operationList[key].action(this.props.operationParam);
             } else {
                 this.props.operationList[key].action();
             }
-        }
+        };
     },
 
 
     /**
      * render the component.
-     * @returns Html code.
+     * @returns {JSX} Html code.
      */
     render: function renderContextualAction() {
         var primaryActionList = [];
@@ -66,6 +66,6 @@ var actionContextualMixin = {
                         <SelectAction operationList={secondaryActionList} operationParam={this.props.operationParam} isExpanded={this.state.isSecondaryActionListExpanded} />
                 </div>);
     }
-}
+};
 
 module.exports = builder(actionContextualMixin);

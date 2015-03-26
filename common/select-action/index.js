@@ -52,7 +52,8 @@ var selectActionMixin = {
 
             liList.push(<li key={key} onClick={this._handleAction(operation.action)} className={operation.style} ><a href="javascript:void(0)">{operation.label}</a></li>);
             if(operation.childOperationList) {
-                liList.push(<li><ul>{this._getList(operation.childOperationList)}</ul></li>);
+                var subKey = 'sub_' + key;
+                liList.push(<li key={subKey}><ul>{this._getList(operation.childOperationList)}</ul></li>);
             }
         }
         return liList;
@@ -69,7 +70,7 @@ var selectActionMixin = {
         var liList = this._getList(this.props.operationList);
         return (
             <div className="select-action btn-group">
-                <a href={window.location.pathname} data-target="#" class="btn btn-primary dropdown-toggle" data-toggle="dropdown"><Img src={this.props.style} /></a>
+                <a href={window.location.pathname} data-target="#" className="dropdown-toggle" data-toggle="dropdown"><Img src={this.props.style} /></a>
                 <ul className="dropdown-menu">{liList}</ul>
             </div>);
     }

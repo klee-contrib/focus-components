@@ -18,6 +18,7 @@ var popinMixin = {
     getDefaultProps: function(){
         return {
             animation: 'right', // right, left, up, down
+            type: 'full', // full, centered
             displaySelector: undefined, // Html selector of the element wich open/close the modal when click on it.
             contentLoadingFunction: undefined // Function wich returns the content of the modal.
         };
@@ -49,6 +50,17 @@ var popinMixin = {
                 cssClass += ' bounceInUp';
                 break;
         }
+    },
+    _getModalContentCss: function() {
+        var cssClass = 'modal-content'
+        switch (this.props.type) {
+            case 'full':
+                cssClass += ' full';
+                break;
+            case 'centered':
+                cssClass += ' centered';
+                break;
+        }
         return cssClass;
     },
 
@@ -69,7 +81,7 @@ var popinMixin = {
 
         return (
             <span className={this._getModalCss()}>
-                <div className="modal-content">
+                <div className={this._getModalContentCss()}>
                 {this.props.contentLoadingFunction()}
                 </div>
             </span>

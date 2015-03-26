@@ -45,7 +45,7 @@ var listMixin = {
         FetchNextPage: type('func'),
         operationList: type('array'),
         isManualFetch: type('bool'),
-        idField: type('bool')
+        idField: type('string')
     },
 
     /**

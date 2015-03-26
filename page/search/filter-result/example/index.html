@@ -130,7 +130,10 @@
         criteria: {
             scope: "Scope",
             searchText: "value"
-        }
+        },
+        idField: "id",
+        unselectedScopeAction: function() { alert("unselect scope")},
+        exportAction: function() { alert("export")}
     }
 
     React.render(

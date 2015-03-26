@@ -49,7 +49,10 @@ var searchFilterResultMixin = {
             criteria: {
                 scope: undefined,
                 searchText: undefined
-            }
+            },
+            idField: undefined,
+            exportAction: function() {},
+            unselectedScopeAction: function() {}
         };
     },
     /**
@@ -219,13 +222,13 @@ var searchFilterResultMixin = {
      * Export action handler.
      */
     _exportHandler: function exportHandler() {
-      console.log("EXPORT TODO");
+        this.props.exportAction();
     },
     /**
      * Click on scope action handler.
      */
     _scopeClick: function scopeClick() {
-      console.log("TODO SCOPE CLICK REDIRECTION");
+        this.props.unselectedScopeAction();
     },
     /**
      * Render the show all button  seect the group corresponding facet.
@@ -273,6 +276,7 @@ var searchFilterResultMixin = {
      _renderSimpleList: function(id, list) {
          return <ListSelection data={list}
              ref={id}
+             idField={this.props.idField}
              isSelection={this.props.isSelection}
              onSelection={this._selectItem}
              onLineClick={this.props.onLineClick}
