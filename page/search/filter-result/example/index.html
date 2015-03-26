@@ -154,6 +154,14 @@
                                     )
                             );
                             return root;
+                        },
+                        groupList: function groupList(groupKey) {
+                            return React.createElement( "div", { className: "listResultContainer panel" },
+                                        React.createElement(focusComponents.common.title.component, { title: groupKey }),
+                                        this._renderSimpleList({ groupKey: groupKey }, this.state.list[groupKey]),
+                                        React.createElement(focusComponents.common.button.action.component, { handleOnClick: this.showAllGroupListHandler(groupKey), label: "Show all" })
+                            );
+
                         }
                     }),
                     config

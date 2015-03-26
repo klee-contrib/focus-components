@@ -5,8 +5,6 @@ var LiveFilter = require('../../../search/live-filter/index').component;
 var ListActionBar = require('../../../list/action-bar/index').component;
 var ListSummary = require('../../../list/summary/index').component;
 var ListSelection = require('../../../list/selection').list.component;
-var Title = require('../../../common/title').component;
-var Button = require('../../../common/button/action').component;
 var SearchStore = require('focus').store.SearchStore;
 var assign = require('object-assign');
 var InfiniteScrollPageMixin = require('../common-mixin/infinite-scroll-page-mixin').mixin;
@@ -234,9 +232,8 @@ var searchFilterResultMixin = {
      * Render the show all button  seect the group corresponding facet.
      * @param groupKey Group key.
      * @returns {Function} Function to select the facet.
-     * @private
      */
-    _showAllGroupListHandler: function(groupKey) {
+    showAllGroupListHandler: function showAllGroupListHandler(groupKey) {
         return (event)=> {
             var selectedFacetList = this.state.selectedFacetList;
 
@@ -250,20 +247,6 @@ var searchFilterResultMixin = {
                 facetComponentData: this.state.openedFacetList
             }, true);
         };
-    },
-
-    /**
-     * Render a group list.
-     * @param groupKey Key of the group.
-     * @returns {JSX} Rendu html.
-     * @private
-     */
-    _renderGroupList: function(groupKey) {
-        return (<div className="listResultContainer panel">
-                <Title title={groupKey} />
-                    {this._renderSimpleList({groupKey}, this.state.list[groupKey])}
-                    <Button  handleOnClick={this._showAllGroupListHandler(groupKey)} label= "Show all"/>
-            </div>);
     },
 
     /**
@@ -357,7 +340,7 @@ var searchFilterResultMixin = {
         }
         var groupList = [];
         for(var groupKey in this.state.list) {
-            groupList.push(this._renderGroupList(groupKey));
+            groupList.push(this.groupList(groupKey));
         }
         return groupList;
     }
