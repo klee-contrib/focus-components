@@ -11,22 +11,22 @@ var listMixin = {
     /**
      * Display name.
      */
-    displayName: "selection-list",
+    displayName: 'selection-list',
 
     /**
      * Default properties for the list.
-     * @returns {{isSelection: boolean}}
+     * @returns {{isSelection: boolean}} the default properties
      */
     getDefaultProps: function getLineDefaultProps(){
         return {
-            isSelection : true,
-            isAllSelected : false,
-            selectionStatus: "partial",
+            isSelection: true,
+            isAllSelected: false,
+            selectionStatus: 'partial',
             isLoading: false,
             hasMoreData: false,
             operationList: [],
             isManualFetch: false,
-            idField: "id"
+            idField: 'id'
         };
     },
 
@@ -34,7 +34,7 @@ var listMixin = {
      * list property validation.
      * @type {Object}
      */
-    propTypes:{
+    propTypes: {
         data: type('array'),
         isSelection: type('bool'),
         isAllSelected: type('bool'),
@@ -50,11 +50,12 @@ var listMixin = {
 
     /**
      * Return selected items in the list.
+     * @return {Array} selected items
      */
     getSelectedItems: function getListSelectedItems(){
         var selected = [];
-        for(var i= 1; i< this.props.data.length + 1;i++){
-            var lineName = "line" + i;
+        for(var i = 1; i < this.props.data.length + 1; i++){
+            var lineName = 'line' + i;
             var lineValue = this.refs[lineName].getValue();
             if(lineValue.isSelected){
                 selected.push(lineValue.item);
@@ -62,6 +63,12 @@ var listMixin = {
         }
         return selected;
     },
+
+    /**
+     * Fetch the next page.
+     * @param {number} page the page to fetch
+     * @return {*}
+     */
     fetchNextPage: function fetchNextPage(page){
         if(!this.props.hasMoreData){
             return;
@@ -73,7 +80,7 @@ var listMixin = {
 
     /**
      * handle manual fetch.
-     * @param event
+     * @param {object} event event received
      */
     _handleShowMore: function handleShowMore(event){
         this.nextPage++;
@@ -82,30 +89,30 @@ var listMixin = {
 
     /**
      * Render lines of the list.
-     * @returns {*}
+     * @returns {*} DOM for lines
      */
     _renderLines: function renderLines(){
         var lineCount = 1;
         var LineComponent = this.props.lineComponent || React.createClass(Line);
         return this.props.data.map((line)=>{
-            var isSelected
+            var isSelected;
             switch(this.props.selectionStatus){
-                case "none":
+                case 'none':
                     isSelected = false;
                     break;
-                case "selected":
+                case 'selected':
                     isSelected = true;
                     break;
-                case "partial":
+                case 'partial':
                     isSelected = undefined;
                     break;
                 default:
                     isSelected = false;
             }
-            return React.createElement(LineComponent,{
-                key : line[this.props.idField],
+            return React.createElement(LineComponent, {
+                key: line[this.props.idField],
                 data: line,
-                ref: "line" + lineCount++,
+                ref: 'line' + lineCount++,
                 isSelection: this.props.isSelection,
                 isSelected: isSelected,
                 onSelection: this.props.onSelection,
@@ -127,7 +134,7 @@ var listMixin = {
 
     _renderManualFetch: function renderManualFetch(){
         if(this.props.isManualFetch && this.props.hasMoreData){
-            var style = {className: "primary"};
+            var style = {className: 'primary'};
             return (
                 <li className="sl-button">
                     <Button label="list.selection.button.showMore"
@@ -141,10 +148,10 @@ var listMixin = {
 
     /**
      * Render the list.
-     * @returns {XML}
+     * @returns {XML} DOM of the component
      */
     render: function renderList(){
-        return(
+        return (
             <ul className="selection-list">
               {this._renderLines()}
               {this._renderLoading()}
@@ -152,6 +159,6 @@ var listMixin = {
             </ul>
         );
     }
-}
+};
 
 module.exports = builder(listMixin);
