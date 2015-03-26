@@ -50,7 +50,8 @@ var searchFilterResultMixin = {
             },
             idField: undefined,
             exportAction: function() {},
-            unselectedScopeAction: function() {}
+            unselectedScopeAction: function() {},
+            groupMaxRows: undefined
         };
     },
     /**
@@ -257,6 +258,9 @@ var searchFilterResultMixin = {
      * @private
      */
      _renderSimpleList: function(id, list) {
+        if(!this._isSimpleList()) {
+            list.splice(this.props.groupMaxRows);
+        }
          return <ListSelection data={list}
              ref={id}
              idField={this.props.idField}

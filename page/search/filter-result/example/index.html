@@ -133,7 +133,8 @@
         },
         idField: "id",
         unselectedScopeAction: function() { alert("unselect scope")},
-        exportAction: function() { alert("export")}
+        exportAction: function() { alert("export")},
+        groupMaxRows: 1
     }
 
     React.render(
@@ -168,6 +169,8 @@
             ),
             document.querySelector("#search-result-container")
     );
+
+
 </script>
 
 </body>
