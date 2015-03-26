@@ -149,9 +149,9 @@
                                     React.createElement(
                                             "div",
                                             { className: "resultContainer" },
-                                            this.listSummary(),
-                                            this.actionBar(),
-                                            this.resultList()
+                                            this.listSummaryComponent(),
+                                            this.actionBarComponent(),
+                                            this.resultListComponent()
                                     )
                             );
                             return root;
@@ -159,7 +159,7 @@
                         renderGroupBy: function renderGroupBy(groupKey) {
                             return React.createElement( "div", { className: "listResultContainer panel" },
                                         React.createElement(focusComponents.common.title.component, { title: groupKey }),
-                                        this._renderSimpleList({ groupKey: groupKey }, this.state.list[groupKey]),
+                                        this.renderSimpleList({ groupKey: groupKey }, this.state.list[groupKey]),
                                         React.createElement(focusComponents.common.button.action.component, { handleOnClick: this.showAllGroupListHandler(groupKey), label: "Show all" })
                             );
 

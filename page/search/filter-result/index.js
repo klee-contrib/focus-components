@@ -257,7 +257,7 @@ var searchFilterResultMixin = {
      * @returns {JSX} Html rendering.
      * @private
      */
-     _renderSimpleList: function(id, list) {
+     renderSimpleList: function renderSimpleList(id, list) {
         if(!this._isSimpleList()) {
             list.splice(this.props.groupMaxRows);
         }
@@ -297,8 +297,11 @@ var searchFilterResultMixin = {
                         dataSelectionHandler={this._facetSelectionClick}/>
                 </div>;
     },
-
-    listSummary: function listSummary() {
+    /**
+     * Render the list summary component.
+     * @returns {JSX} Htm code.
+     */
+    listSummaryComponent: function listSummaryComponent() {
         var scopeList = {scope: this.props.criteria.scope};
         return <div className="listSummaryContainer panel">
                     <ListSummary
@@ -313,7 +316,7 @@ var searchFilterResultMixin = {
      * Render the action bar.
      * @returns {JSX} Rendering of the action bar.
      */
-    actionBar: function actionBar() {
+    actionBarComponent: function actionBarComponent() {
         var groupableColumnList = {};
         for(var facetKey in this.state.facetList) {
             groupableColumnList[facetKey] = facetKey;
@@ -334,13 +337,13 @@ var searchFilterResultMixin = {
     },
 
     /**
-     * Render the resutl list.
+     * Render the result list.
      * @returns {JSX} The rendering of the list.
      * @private
      */
-    resultList: function resultList() {
+    resultListComponent: function resultListComponent() {
         if(this._isSimpleList()) {
-            return <div className="listResultContainer panel">{this._renderSimpleList("list", this.state.list)}</div>;
+            return <div className="listResultContainer panel">{this.renderSimpleList("list", this.state.list)}</div>;
         }
         var groupList = [];
         for(var groupKey in this.state.list) {
