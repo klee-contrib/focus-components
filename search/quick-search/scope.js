@@ -60,8 +60,8 @@ var scopeMixin = {
    * @param {object} event - Event trigger by the search.
    */
   _handleOnClick: function(event) {
-    var val = event.target.hasAttribute("value") ? event.target.value :
-      undefined;
+    //TODO var val = event.target.hasAttribute("value") ? event.target.value : undefined;
+    var val = event.target.hasAttribute("value") ? event.target.getAttribute('value') : undefined;
     this.setState({
       value: val,
       isDeployed: false
@@ -99,6 +99,13 @@ var scopeMixin = {
     }
     var scopes = this.props.list.map((scope) => {
       var selectedValue = this.state.value === scope.code ? "active" : "";
+      //Add defaut Style to scope if not define
+      var scopeCss = scope.style;
+      if(!scopeCss){
+        scopeCss = 'qs-scope-'+scope.code;
+      }
+      scope.style=scopeCss;
+
       return ( <li key={scope.code || uuid.v4()}
         value={scope.code}
         className={`${selectedValue} ${scope.style}`}
