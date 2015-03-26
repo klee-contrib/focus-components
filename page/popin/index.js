@@ -72,22 +72,20 @@ var popinMixin = {
         this.setState({isDisplayed: false});
     },
 
+    componentDidMount: function popinDidMount() {
+        var source = document.querySelector(this.props.displaySelector);
+        var currentView = this;
+        source.onclick = function () {
+            currentView.setState({isDisplayed: !currentView.state.isDisplayed});
+        };
+    },
+
     /**
      * Render the component.
      * @returns {JSX} Htm code.
      */
     render: function renderPopin(){
-        var source = document.querySelector(this.props.displaySelector);
-        var currentView = this;
-        source.onclick = function () {
-            currentView.setState({isDisplayed: !currentView.state.isDisplayed});
-            /*
-            if(currentView.state.isDisplayed) {
-                currentView.closeModal();
-            } else {
-                currentView.openModal();
-            }*/
-        };
+
 
         if(!this.state.isDisplayed) {
             return <div />;

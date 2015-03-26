@@ -156,7 +156,7 @@
                             );
                             return root;
                         },
-                        groupList: function groupList(groupKey) {
+                        renderGroupBy: function renderGroupBy(groupKey) {
                             return React.createElement( "div", { className: "listResultContainer panel" },
                                         React.createElement(focusComponents.common.title.component, { title: groupKey }),
                                         this._renderSimpleList({ groupKey: groupKey }, this.state.list[groupKey]),

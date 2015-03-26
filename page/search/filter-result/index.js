@@ -344,7 +344,7 @@ var searchFilterResultMixin = {
         }
         var groupList = [];
         for(var groupKey in this.state.list) {
-            groupList.push(this.groupList(groupKey));
+            groupList.push(this.renderGroupBy(groupKey));
         }
         return groupList;
     }
