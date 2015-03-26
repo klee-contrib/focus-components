@@ -60,7 +60,6 @@ var scopeMixin = {
    * @param {object} event - Event trigger by the search.
    */
   _handleOnClick: function(event) {
-    //TODO var val = event.target.hasAttribute("value") ? event.target.value : undefined;
     var val = event.target.hasAttribute("value") ? event.target.getAttribute('value') : undefined;
     this.setState({
       value: val,
