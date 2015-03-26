@@ -91,7 +91,7 @@ var scopeMixin = {
 		if(!activeScope){
 			return "qs-scope-none";
 		}
-    return activeScope.style || `qs-scope-${activeScope.value}`;
+    return activeScope.style || `qs-scope-${activeScope.code}`;
   },
   renderScopeList: function renderScopeList() {
     if (!this.state.isDeployed) {
