@@ -14,5 +14,6 @@ module.exports = {
 	common: require('./common'),
 	list: require('./list'),
 	search: require('./search'),
-	page: require('./page')
+	page: require('./page'),
+	message: require('./message')
 };
