@@ -39,6 +39,8 @@ node_modules
 */**/example/js/*.js
 */**/example/css/*.css
 */**/example/img/*.svg
+*/**/example/img/*.png
+*/**/example/img/*.gif
 */example/js/*.js
 */*/example/js/*.js
 */*/*/example/js/*.js
@@ -49,10 +51,21 @@ node_modules
 */*/*/example/css/*.css
 */*/*/*/example/css/*.css
 */*/*/*/*/*/example/css/*.css
-*/example/svg/*.svg
-*/*/example/svg/*.svg
-*/*/*/example/svg/*.svg
-*/*/*/*/example/svg/*.svg
-*/*/*/*/*/*/example/svg/*.svg
+*/example/img/*.svg
+*/*/example/img/*.svg
+*/*/*/example/img/*.svg
+*/*/*/*/example/img/*.svg
+*/*/*/*/*/*/example/img/*.svg
+*/example/img/*.png
+*/*/example/img/*.png
+*/*/*/example/img/*.png
+*/*/*/*/example/img/*.png
+*/*/*/*/*/*/example/img/*.png
+*/example/img/*.gif
+*/*/example/img/*.gif
+*/*/*/example/img/*.gif
+*/*/*/*/example/img/*.gif
+*/*/*/*/*/*/example/img/*.gif
+
 
 npm-debug.log
