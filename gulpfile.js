@@ -186,7 +186,7 @@ gulp.task('componentify', ['componentify-js', 'componentify-style',
 ****************************/
 function imgBuild(directory, options) {
 	options = options || {};
-	return gulp.src([directory + '/assets/img/*.svg'])
+	return gulp.src([directory + '/assets/img/*.{svg,gif,png}'])
 		.pipe(gulp.dest(directory + '/example/img/'))
         .pipe(gulp.dest('./dist/img/'));
 }

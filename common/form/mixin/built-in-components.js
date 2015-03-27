@@ -62,7 +62,7 @@ displayFor: function(name, options){
     name: name,
     ref: name,
     value: this.state[name],
-    values: this.state.reference ? this.state.reference[listName]: unefined, //Options to be rendered.
+    values: this.state.reference ? this.state.reference[listName]: undefined, //Options to be rendered.
     FieldComponent: def.FieldComponent,
     InputLabelComponent: def.InputLabelComponent,
     isEdit: false
@@ -79,14 +79,45 @@ buttonDelete: function() {
     css: 'delete'
   });
 },
+buttonEdit: function() {
+  var form = this;
+  return React.createElement(Button, {
+    label: 'edit',
+    type: 'button',
+    css: 'edit',
+    handleOnClick: function handleOnClickEdit(){
+      form.setState({isEdit: !form.state.isEdit});
+    }
+  });
+},
+buttonCancel: function() {
+  var form = this;
+  return React.createElement(Button, {
+    label: 'cancel',
+    type: 'button',
+    css: 'cancel',
+    handleOnClick: function handleOnClickCancel(){
+      console.log('cancel');
+      form.setState({isEdit: !form.state.isEdit});
+    }
+  });
+},
 /**
  * Button save generation.
- * @returns {object} - A Reacte button.
+ * @returns {object} - A React button.
  */
 buttonSave: function() {
+  var form = this;
+
   return React.createElement(Button, {
     label: 'save',
     type: 'submit',
-    css: 'primary'
+    css: 'primary',
+    /*handleOnClick: function(e){
+      if(form.validate()){
+        form.action.save(form._getEntity());
+      }
+      return;
+    }*/
   });
 }};

@@ -95,9 +95,12 @@ var formMixin = {
   validate: function validateForm() {
     var validationMap = {};
     for (var inptKey in this.refs) {
-      assign(validationMap, {
-        [inptKey]: this.refs[inptKey].validate()
-      });
+      var validationRes = this.refs[inptKey].validate();
+      if(validationRes !== undefined){
+        assign(validationMap, {
+          [inptKey]: validationRes
+        });
+      }
     }
     if(isEmpty(validationMap)){
       return true;
@@ -109,7 +112,24 @@ var formMixin = {
   _className: function formClassName() {
     return `form-horizontal ${this.props.style.className}`;
   },
-
+  _renderActions: function renderActions(){
+    if(this.renderActions){return this.renderActions();}
+    if(this.state.isEdit){
+      return this._renderEditActions();
+    }
+    return this._renderConsultActions();
+  },
+  _renderEditActions: function _renderEditActions(){
+    return(
+      <div className="btn-bar">
+        {this.buttonCancel()}
+        {this.buttonSave()}
+      </div>
+    );
+  },
+  _renderConsultActions: function _renderConsultActions(){
+    return this.buttonEdit();
+  },
   /**
    * Handle the form submission.
    * @param {Event} e - React sanityze event from the form submit.
@@ -129,6 +149,7 @@ var formMixin = {
         className={this._className()}
       >
         <fieldset>
+          {this._renderActions()}
           {this.renderContent()}
         </fieldset>
       </form>

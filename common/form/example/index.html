@@ -61,18 +61,28 @@
     }},
     referenceNames: ['papas'],
     renderContent:function renderUserDetail(){
-      return(
-          React.createElement(Block, {title: "Fiche de l'utilisateur"},
-              this.fieldFor("firstName"),
-              this.fieldFor("lastName"),
-              this.displayFor("lastName"),
-              this.fieldFor("bio"),
-              this.fieldFor("isCool"),
-              this.fieldFor("isNice"),
-              this.selectFor('papaCode', 'papas'),
-              this.buttonSave()
-         )
-      );
+      if(this.state.isEdit){
+        return(
+            React.createElement(Block, {title: "Fiche de l'utilisateur"},
+                this.fieldFor("firstName"),
+                this.fieldFor("lastName"),
+                this.fieldFor("bio"),
+                this.fieldFor("isCool"),
+                this.fieldFor("isNice"),
+                this.selectFor('papaCode', 'papas')
+           )
+        );
+      }      return(
+                React.createElement(Block, {title: "Fiche de l'utilisateur"},
+                    this.displayFor("firstName"),
+                    this.displayFor("lastName"),
+                    this.displayFor("bio"),
+                    this.displayFor("isCool"),
+                    this.displayFor("isNice"),
+                    this.selectFor('papaCode', 'papas')
+              )
+            );
+
     }
   });
   //Render the created View.
