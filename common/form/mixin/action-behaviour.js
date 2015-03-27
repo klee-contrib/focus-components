@@ -5,8 +5,8 @@ var actionMixin = {
    * @returns {object} - The identifier of the entity.
    */
   _getId: function formGetId() {
-    if(this.getEntity){
-      return this.getEntity();
+    if(this.getId){
+      return this.getId();
     }
     return this.state.id;
   },

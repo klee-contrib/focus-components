@@ -95,9 +95,12 @@ var formMixin = {
   validate: function validateForm() {
     var validationMap = {};
     for (var inptKey in this.refs) {
-      assign(validationMap, {
-        [inptKey]: this.refs[inptKey].validate()
-      });
+      var validationRes = this.refs[inptKey].validate();
+      if(validationRes !== undefined){
+        assign(validationMap, {
+          [inptKey]: validationRes
+        });
+      }
     }
     if(isEmpty(validationMap)){
       return true;

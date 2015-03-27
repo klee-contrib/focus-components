@@ -107,9 +107,17 @@ buttonCancel: function() {
  * @returns {object} - A React button.
  */
 buttonSave: function() {
+  var form = this;
+
   return React.createElement(Button, {
     label: 'save',
     type: 'submit',
-    css: 'primary'
+    css: 'primary',
+    /*handleOnClick: function(e){
+      if(form.validate()){
+        form.action.save(form._getEntity());
+      }
+      return;
+    }*/
   });
 }};

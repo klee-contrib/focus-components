@@ -19,7 +19,8 @@ var buttonMixin = {
 				return this.props.handleOnClick.apply(this, arguments);
 			}
 			if (!this.props.action || !this.action[this.props.action]) {
-				return console.warn('Your button action is not implemented');
+				 console.warn('Your button action is not implemented');
+				return;
 			}
 			return this.action[this.props.action].apply(this, arguments);
 
