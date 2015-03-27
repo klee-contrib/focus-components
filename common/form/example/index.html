@@ -58,6 +58,11 @@
             type: "update"
           });
         });
+    }, save: function(data){
+      return Promise.resolve(data).then(function(d){focus.dispatcher.handleServerAction({
+        data: data,
+        type: "update"
+      });})
     }},
     referenceNames: ['papas'],
     renderContent:function renderUserDetail(){
