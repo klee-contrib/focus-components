@@ -33,25 +33,58 @@ var popinMixin = {
             isDisplayed: false // True if modal is displayed
         };
     },
+    /**
+     * Declare the open action.
+     */
+    componentDidMount: function popinDidMount() {
+        var source = document.querySelector(this.props.displaySelector);
+        var currentView = this;
+        source.onclick = function () {
+            currentView.setState({isDisplayed: !currentView.state.isDisplayed});
+        };
+    },
 
+    /**
+     * Open the modal.
+     */
+    openModal: function openModal() {
+        this.setState({isDisplayed: true});
+    },
+    /**
+     * Close the modal.
+     */
+    closeModal: function closeModal() {
+        this.setState({isDisplayed: false});
+    },
+
+    /**
+     * Css class of modal.
+     * @returns {string} css classes.
+     * @private
+     */
     _getModalCss: function() {
         var cssClass = 'popin animated float:right;';
         switch (this.props.animation) {
             case 'right':
-                cssClass += ' bounceInRight';
+                cssClass += ' bounceInRight right';
                 break;
             case 'left':
-                cssClass += ' bounceInLeft';
+                cssClass += ' bounceInLeft left';
                 break;
             case 'down':
-                cssClass += ' bounceInDown';
+                cssClass += ' bounceInDown down';
                 break;
             case 'up':
-                cssClass += ' bounceInUp';
+                cssClass += ' bounceInUp up';
                 break;
         }
         return cssClass;
     },
+    /**
+     * Content css class.
+     * @returns {string} css classes.
+     * @private
+     */
     _getModalContentCss: function() {
         var cssClass = 'modal-content';
         switch (this.props.type) {
@@ -65,36 +98,22 @@ var popinMixin = {
         return cssClass;
     },
 
-    openModal: function openModal() {
-        this.setState({isDisplayed: true});
-    },
-    closeModal: function closeModal() {
-        this.setState({isDisplayed: false});
-    },
-
-    componentDidMount: function popinDidMount() {
-        var source = document.querySelector(this.props.displaySelector);
-        var currentView = this;
-        source.onclick = function () {
-            currentView.setState({isDisplayed: !currentView.state.isDisplayed});
-        };
-    },
-
     /**
      * Render the component.
-     * @returns {JSX} Htm code.
+     * @returns {JSX} Html code.
      */
     render: function renderPopin(){
-
-
         if(!this.state.isDisplayed) {
             return <div />;
         }
-
         return (
             <span className={this._getModalCss()}>
                 <div className={this._getModalContentCss()}>
-                {this.props.contentLoadingFunction()}
+                    {this.renderPopinHeader(this)}
+                    <div className="modal-body" >
+                        {this.renderContent(this)}
+                    </div>
+                    {this.renderPopinFooter(this)}
                 </div>
             </span>
         );

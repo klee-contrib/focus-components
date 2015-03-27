@@ -136,6 +136,6 @@ var liveFilterMixin = {
         openedFacetList[facetKey] = isExpanded;
         this.setState({openedFacetList: openedFacetList});
     }
-}
+};
 
 module.exports = builder(liveFilterMixin);
