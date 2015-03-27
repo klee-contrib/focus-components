@@ -18,7 +18,12 @@ var actionMixin = {
     if(this.getEntity){
       return this.getEntity();
     }
-    return this.state;
+    //Build the entity value from the ref getVaue.
+    var data = {};
+    for(var r in this.refs){
+      data[r] = this.refs[r].getValue();
+    }
+    return data;
   },
   /**
    * Load data action call.
