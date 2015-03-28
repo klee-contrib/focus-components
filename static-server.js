@@ -12,12 +12,16 @@ components.map(function(component) {
 /**
  * Render the existing components list with links.
  */
-function componentsUrl() {
+function componentsUrl(opts) {
+	opts = opts || {};
+	var isGhPage = opts.isGhPage || false,
+	urlRoot = 'http://' + (opts.urlRoot || 'localhost'),
+	prt = opts.port || (':' + port);
 	var sb = "";
 	for (var component in componentServers) {
 		sb = sb +
-			"<li><a href='http://localhost:" +
-			port + "/" + component + "'>" +
+			"<li><a href='" + urlRoot +
+			prt  + (isGhPage ? componentServers[component]: component) + "'>" +
 			component +
 			"</a></li>";
 	}
@@ -32,18 +36,32 @@ for (var componentName in componentServers) {
 		express.static(__dirname + componentServers[componentName])
 	);
 }
+function buildPage(opts){
+	return '<p>The component you requested does not exists</p>' +
+		'<h1>Components available</h1><ul>' + componentsUrl(opts) +
+		'</ul>';
+}
+var page =buildPage();
+var ghPage =buildPage({isGhPage: true, urlRoot: 'kleegroup.github.io/focus-components', port: ':80'});
+
 app.use('/example', express.static(__dirname + "/example"));
 app.use('/dist', express.static(__dirname + "/dist"));
 //Add a special 404 with all existing components and their urls.
 app.use(function(req, res, next) {
 	res.status(404)
-		.send('<p>The component you requested does not exists</p>' +
-			'<h1>Components available</h1><ul>' + componentsUrl() +
-			'</ul>');
+		.send(page);
 });
 
 //Start the application.
 app.listen(port, function() {
 	console.log('application started on port: ', port)
 });
- 
+//Save the ghPagefile.
+//
+var fs = require('fs');
+fs.writeFile(__dirname + '/index.html', ghPage, function(err) {
+    if(err) {
+        return console.log(err);
+    }
+    console.log("The file was saved!");
+});
