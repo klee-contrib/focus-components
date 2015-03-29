@@ -24,6 +24,10 @@
   },
   "components": [
     {
+      "name": "menu",
+      "path": "application/menu"
+    },
+    {
       "name": "quick-search",
       "path": "search/quick-search"
     },

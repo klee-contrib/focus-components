@@ -1,0 +1,167 @@
+/* General styles for all menus */
+.menu {
+	background: #47a3da;
+	position: fixed;
+}
+
+.menu h3 {
+	color: #afdefa;
+	font-size: 1.9em;
+	padding: 20px;
+	margin: 0;
+	font-weight: 300;
+	background: #0d77b6;
+}
+
+.menu a {
+	display: block;
+	color: #fff;
+	font-size: 1.1em;
+	font-weight: 300;
+}
+
+.menu a:hover {
+	background: #258ecd;
+}
+
+.menu a:active {
+	background: #afdefa;
+	color: #47a3da;
+}
+
+/* Orientation-dependent styles for the content of the menu */
+
+.menu-vertical {
+	width: 240px;
+	height: 100%;
+	top: 0;
+	z-index: 1000;
+}
+
+.menu-vertical a {
+	border-bottom: 1px solid #258ecd;
+	padding: 1em;
+}
+
+.menu-horizontal {
+	width: 100%;
+	height: 150px;
+	left: 0;
+	z-index: 1000;
+	overflow: hidden;
+}
+
+.menu-horizontal h3 {
+	height: 100%;
+	width: 20%;
+	float: left;
+}
+
+.menu-horizontal a {
+	float: left;
+	width: 20%;
+	padding: 0.8em;
+	border-left: 1px solid #258ecd;
+}
+
+/* Vertical menu that slides from the left or right */
+
+.menu-left {
+	left: -240px;
+}
+
+.menu-right {
+	right: -240px;
+}
+
+.menu-left.menu-open {
+	left: 0px;
+}
+
+.menu-right.menu-open {
+	right: 0px;
+}
+
+/* Horizontal menu that slides from the top or bottom */
+
+
+.menu-top {
+	top: -150px;
+}
+
+.menu-bottom {
+	bottom: -150px;
+}
+
+.menu-top.menu-open {
+	top: 0px;
+}
+
+.menu-bottom.menu-open {
+	bottom: 0px;
+}
+
+/* Push classes applied to the body */
+
+.menu-push {
+	overflow-x: hidden;
+	position: relative;
+	left: 0;
+}
+
+.menu-push-toright {
+	left: 240px;
+}
+
+.menu-push-toleft {
+	left: -240px;
+}
+
+/* Transitions */
+
+.menu,
+.menu-push {
+	-webkit-transition: all 0.3s ease;
+	-moz-transition: all 0.3s ease;
+	transition: all 0.3s ease;
+}
+
+/* Example media queries */
+
+@media screen and (max-width: 55.1875em){
+
+	.menu-horizontal {
+		font-size: 75%;
+		height: 110px;
+	}
+
+	.menu-top {
+		top: -110px;
+	}
+
+	.menu-bottom {
+		bottom: -110px;
+	}
+
+}
+
+@media screen and (max-height: 26.375em){
+
+	.menu-vertical {
+		font-size: 90%;
+		width: 190px;
+	}
+
+	.menu-left,
+	.menu-push-toleft {
+		left: -190px;
+	}
+
+	.menu-right {
+		right: -190px;
+	}
+
+	.menu-push-toright {
+		left: 190px;
+	}
+}

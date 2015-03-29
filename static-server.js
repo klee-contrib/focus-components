@@ -16,7 +16,7 @@ function componentsUrl(opts) {
 	opts = opts || {};
 	var isGhPage = opts.isGhPage || false,
 	urlRoot = 'http://' + (opts.urlRoot || 'localhost'),
-	prt = opts.port || (':' + port);
+	prt = opts.port || (':' + port + '/');
 	var sb = "";
 	for (var component in componentServers) {
 		sb = sb +
