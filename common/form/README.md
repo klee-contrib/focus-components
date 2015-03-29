@@ -6,7 +6,7 @@ Le mixin de form n'est pas un composant autosuffisant, il faut nécessairement r
 
 ## Properties
 
-Le composant de formulaire a
+Le composant de formulaire a plusieurs propriétés.
 
 ## Attributs
 
@@ -33,3 +33,9 @@ Afin de fonctionner il est nécessaire de définir certains attributs, en voici 
   }]
 }
 ```
+
+## Code avancé
+
+Le mixin de formulaire est divisé en sous mixin afin de clarifier les responsabilités et éventuellement de pouvoir surcharger une partie dans le cadre d'un projet. Les mixins sont dans le répertoire `mixin`.
+La composition est la suivante:
+- `action-behaviour`: Le mixin regroupant l'appel aux différentes actions de la page.
