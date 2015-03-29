@@ -15,15 +15,21 @@ Afin de fonctionner il est nécessaire de définir certains attributs, en voici 
 ### Actions
 
 ```javascript
-action: {
-  save: yoursaveFunction,
-  load: yourLoadFunction,
-  delete: yourDeleteFunction
+{
+  action: {
+    save: yoursaveFunction,
+    load: yourLoadFunction,
+    delete: yourDeleteFunction
+  }
 }
 ```
 
 ### Stores
 
 ```javascript
-stores: [{store: yourStoreInstance, properties: ['propertyOne']}]
+{
+  stores: [{
+    store: yourStoreInstance, properties: ['propertyOne']
+  }]
+}
 ```
