@@ -66,5 +66,5 @@ node_modules
 */*/*/example/img/*.gif
 */*/*/*/example/img/*.gif
 */*/*/*/*/*/example/img/*.gif
-
+components.html
 npm-debug.log

@@ -59,7 +59,7 @@ app.listen(port, function() {
 //Save the ghPagefile.
 //
 var fs = require('fs');
-fs.writeFile(__dirname + '/index.html', ghPage, function(err) {
+fs.writeFile(__dirname + '/components.html', ghPage, function(err) {
     if(err) {
         return console.log(err);
     }
