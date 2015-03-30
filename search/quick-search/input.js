@@ -45,8 +45,14 @@ var SearchInputMixin = {
       }
     }
   },
+  _handleChangeScope: function handleChangeScope(){
+    this.focusQuery();
+    if(this.props.handleChangeScope){
+      this.props.handleChangeScope(this.state.scope);
+    }
+  },
   handleOnClickScope: function handleOnClickScope(){
-    this.setState({scope: this.refs.scope.getValue()}, this.focusQuery);
+    this.setState({scope: this.refs.scope.getValue()}, this._handleChangeScope);
   },
   renderHelp: function renderHelp(){
     /*if(this.state.scope){
