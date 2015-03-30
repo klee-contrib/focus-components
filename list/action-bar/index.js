@@ -50,27 +50,18 @@ var actionBarMixin = {
      */
     _getOrderObject: function() {
         if(this.props.orderableColumnList) {
-            // Order
-            var orderDescOperationList = [];
-            var orderAscOperationList = [];
             var orderSelectedParsedKey = this.props.orderSelected.key + this.props.orderSelected.order;
-
+            var orderOperationList = []; // [{key:"columnKey", order:"asc", label:"columnLabel"}]
             for (var key in this.props.orderableColumnList) {
-                orderDescOperationList.push({
-                    action: this._orderFunction(key, 'desc'),
-                    label: this.props.orderableColumnList[key],
-                    style: this._getSelectedStyle(key + 'desc', orderSelectedParsedKey)
-                });
-                orderAscOperationList.push({
-                    action: this._orderFunction(key, 'asc'),
-                    label: this.props.orderableColumnList[key],
-                    style: this._getSelectedStyle(key + 'asc', orderSelectedParsedKey)
+                var description = this.props.orderableColumnList[key];
+                orderOperationList.push({
+                    action: this._orderFunction(description.key, description.order),
+                    label: description.label,
+                    style: this._getSelectedStyle(description.key + description.order, orderSelectedParsedKey)
                 });
             }
-            var downStyle = this.props.orderSelected.order == 'desc' ? 'circle-down' : 'chevron-down';
-            var upStyle = this.props.orderSelected.order == 'asc' ? 'circle-up' : 'chevron-up';
-            return [<SelectAction key='down' style={downStyle} operationList={orderDescOperationList} />,
-                <SelectAction key='up' style={upStyle} operationList={orderAscOperationList} />];
+            var orderStyle = this.props.orderSelected.order ? 'circle-up' : 'chevron-up';
+            return <SelectAction key='down' style={orderStyle} operationList={orderOperationList} />;
         }
         return '';
     },
