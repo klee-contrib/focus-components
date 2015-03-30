@@ -43,8 +43,10 @@ var liveFilterFacetMixin = {
         var className = 'panel panel-primary facet';
         if(this.props.selectedDataKey) {
             className += '-selected';
+        } else if(this.props.isExpanded) {
+            className += '-expanded';
         } else {
-            className += ' unselected';
+            className += '-collapsed';
         }
         return (
             <div className={className}>
@@ -59,12 +61,10 @@ var liveFilterFacetMixin = {
      */
     renderLiveFilterFacetTitle: function renderLiveFilterFacetTitle() {
         var title = this.props.facetKey;
+        var className = 'panel-heading';
         if(this.props.selectedDataKey) {
             title += ' : ' + this.props.facet[this.props.selectedDataKey].label;
         }
-        // return <div className="title"  onClick={this.liveFilterFacetTitleClick}>{title}</div>
-        var className = 'panel-heading';
-        // if(this.props.selectedDataKey || this.props.isExpanded)
         return (<div className={className} onClick={this.liveFilterFacetTitleClick}>{title}</div>);
     },
 
