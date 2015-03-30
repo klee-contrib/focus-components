@@ -11,6 +11,7 @@ module.exports = {
 fieldFor: function(name, options) {
   var def = (this.definition && this.definition[name]) ? this.definition[name] : {};
   options = options || {};
+  var isEdit = options.idEdit || true;
   //Maybe allow to overrife fieldFor here such as def.fieldFor?.
   return React.createElement(Field, {
     name: name,
@@ -20,7 +21,7 @@ fieldFor: function(name, options) {
     validator: def.validator,
     FieldComponent: def.FieldComponent,
     InputLabelComponent: def.InputLabelComponent,
-    isEdit: true
+    isEdit: isEdit
   });
 },
 /**
@@ -34,6 +35,7 @@ selectFor: function(name, listName, options){
   options = options || {};
   var def = (this.definition && this.definition[name]) ? this.definition[name] : {};
   listName = listName || def.listName;
+  var isEdit = options.idEdit || true;
   //Check listName
 
   return React.createElement(Field, {
@@ -45,7 +47,7 @@ selectFor: function(name, listName, options){
     values: this.state.reference[listName], //Options to be rendered.
     FieldComponent: def.FieldComponent,
     InputLabelComponent: def.InputLabelComponent,
-    isEdit: true
+    isEdit: isEdit
   });
 },
 /**

@@ -113,21 +113,23 @@ var formMixin = {
     return `form-horizontal ${this.props.style.className}`;
   },
   _renderActions: function renderActions(){
-    if(this.renderActions){return this.renderActions();}
+    if(this.renderActions){return this.renderActions(); }
     if(this.state.isEdit){
       return this._renderEditActions();
     }
     return this._renderConsultActions();
   },
   _renderEditActions: function _renderEditActions(){
-    return(
-      <div className="btn-bar">
+    if(this.renderEditActions){return this.renderEditActions(); }
+    return (
+      <div className="button-bar">
         {this.buttonCancel()}
         {this.buttonSave()}
       </div>
     );
   },
   _renderConsultActions: function _renderConsultActions(){
+    if(this.renderConsultActions){return this.renderConsultActions(); }
     return this.buttonEdit();
   },
   /**
@@ -141,7 +143,7 @@ var formMixin = {
     }
     //return false;
   },
-    /** @inheritdoc */
+  /** @inheritdoc */
   render: function renderForm() {
     return (
       <form
