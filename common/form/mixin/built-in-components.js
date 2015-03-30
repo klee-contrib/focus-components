@@ -11,7 +11,7 @@ module.exports = {
 fieldFor: function(name, options) {
   var def = (this.definition && this.definition[name]) ? this.definition[name] : {};
   options = options || {};
-  var isEdit = options.idEdit || true;
+  var isEdit = options.isEdit || this.state.isEdit;
   //Maybe allow to overrife fieldFor here such as def.fieldFor?.
   return React.createElement(Field, {
     name: name,
@@ -59,7 +59,7 @@ selectFor: function(name, listName, options){
 displayFor: function(name, options){
   options = options || {};
   var def = (this.definition && this.definition[name]) ? this.definition[name] : {};
-  var listName = listName || def.listName;
+  var listName = options.listName || def.listName;
   return React.createElement(Field, {
     name: name,
     ref: name,

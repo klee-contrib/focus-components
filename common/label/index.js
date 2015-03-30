@@ -12,7 +12,7 @@ var labelMixin = {
 		};
 	},
 	i18n: function(prop) {
-		return prop;
+		return (window.i18n && window.i18n.t) ? window.i18n.t(prop) : prop;
 	},
 	render: function() {
 		return ( < label className = {

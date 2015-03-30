@@ -41,7 +41,8 @@ var formMixin = {
        * Identifier of the entity.
        * @type {[type]}
        */
-      id: this.props.id
+      id: this.props.id,
+      isEdit: this.props.isEdit
     };
   },
   /**
