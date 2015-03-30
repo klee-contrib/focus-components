@@ -62,7 +62,10 @@ var liveFilterMixin = {
         var className = 'panel live-filter';
         if(this.state.isExpanded) {
             className += ' expanded';
+        } else {
+            className += ' collapsed';
         }
+
         return (<div className={className} >
                 {this.renderLiveFacetTitle()}
                 {this.renderFilterFacetList()}
@@ -90,14 +93,17 @@ var liveFilterMixin = {
         }
         var facets = [];
         for(var key in this.props.facetList) {
+            var facet = this.props.facetList[key];
             var selectedDataKey = this.props.selectedFacetList[key] ? this.props.selectedFacetList[key].key : undefined;
-            facets.push(<LiveFilterFacet facetKey={key} key={key}
-                                                facet={this.props.facetList[key]}
-                                                selectedDataKey = {selectedDataKey}
-                                                isExpanded={this.state.openedFacetList[key]}
-                                                expandHandler={this.expandFacetHandler}
-                                                selectHandler={this.selectHandler}
-                                                type={this.props.config[key]}/>);
+            if(selectedDataKey || Object.keys(facet).length > 1) {
+                facets.push(<LiveFilterFacet facetKey={key} key={key}
+                    facet={facet}
+                    selectedDataKey = {selectedDataKey}
+                    isExpanded={this.state.openedFacetList[key]}
+                    expandHandler={this.expandFacetHandler}
+                    selectHandler={this.selectHandler}
+                    type={this.props.config[key]}/>);
+            }
         }
         return (<div className="panel-body">{facets}</div>);
     },

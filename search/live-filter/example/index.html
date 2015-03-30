@@ -56,6 +56,9 @@
                 FCT_REGION: {
                     "IDF": {label: "Ile de France", count: 11},
                     "NPC": {label: "Nord - Pas de Calais", count: 6}
+                },
+                FCT_ONLY_ONE: {
+                    "IDF": {label: "Ile de France", count: 11}
                 }
             };
     var selectedFacetList = {};
@@ -67,9 +70,10 @@
         this.render();
     };
     var config =  {
-        FCT_PAYS: "text",
-                FCT_STATUS: "text",
-                FCT_REGION: "text"
+            FCT_PAYS: "text",
+            FCT_STATUS: "text",
+            FCT_REGION: "text",
+            FCT_ONLY_ONE: "text"
     };
 
 

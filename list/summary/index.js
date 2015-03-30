@@ -31,11 +31,13 @@ var listSummaryMixin = {
     render: function renderActionBar(){
         if(this.props.nb) {
             var nbResult = <div className="nb-result"><b>{this.props.nb}</b> result.for "{this.props.queryText}"</div>;
+        } else {
+            var nbResult = <div className="nb-result" />;
         }
         return (
             <div className="list-summary">
-                <div className="scope"><TopicDisplayer topicList={this.props.scopeList} topicClickAction={this.props.scopeClickAction}  /></div>
                 {nbResult}
+                <div className="scope"><TopicDisplayer topicList={this.props.scopeList} topicClickAction={this.props.scopeClickAction}  /></div>
                 <div className="print"><Button imgSrc="print" handleOnClick={this.props.exportAction} /></div>
             </div>);
     }
