@@ -121,7 +121,7 @@ var listMixin = {
             });
         });
     },
-    _renderLoading: function(){
+    _renderLoading: function renderLoading(){
         if(this.props.isLoading){
             if(this.props.loader){
                 return this.props.loader();
