@@ -109,7 +109,10 @@
             FCT_STATUS: "text",
             FCT_REGION: "text"
         },
-        orderableColumnList:{col1: "Colonne 1", col2: "Colonne 2", col3: "Colonne 3"},
+        orderableColumnList:[{key:"col1", order:"desc", label:"Colonne 1 desc"},
+            {key:"col1", order:"asc", label:"Colonne 1 asc"},
+            {key:"col2", order:"desc", label:"Colonne 2 desc"},
+            {key:"col2", order:"asc", label:"Colonne 2 asc"}],
         operationList: [
             {label: "Button1_a", action: function() {alert("Button1a");}, style:undefined, priority: 1},
             {label: "Button1_b",action: function() {alert("Button1b");},style:undefined,priority: 1},
