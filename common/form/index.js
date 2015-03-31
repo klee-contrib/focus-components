@@ -152,7 +152,6 @@ var formMixin = {
         className={this._className()}
       >
         <fieldset>
-          {this._renderActions()}
           {this.renderContent()}
         </fieldset>
       </form>
