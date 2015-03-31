@@ -19,7 +19,6 @@ Afin de fonctionner il est nécessaire de définir certains attributs, en voici 
 ### referenceNames
 
 `referenceNames` est un tableau contenant l'ensemble des listes de référence à charger dans l'application.
--
 
 ### Actions
 
