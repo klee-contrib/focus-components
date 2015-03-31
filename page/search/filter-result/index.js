@@ -40,6 +40,7 @@ var searchFilterResultMixin = {
     getDefaultProps: function() {
         return {
             facetConfig: {},
+            openedFacetList: {},
             orderableColumnList: {},
             operationList: {},
             lineComponent: undefined,
@@ -63,7 +64,7 @@ var searchFilterResultMixin = {
         return assign({
             facetList: {},
             selectedFacetList: {},
-            openedFacetList: {},
+            openedFacetList: this.props.openedFacetList,
             selectionStatus: 'none',
             orderSelected: undefined,
             groupSelectedKey: undefined
