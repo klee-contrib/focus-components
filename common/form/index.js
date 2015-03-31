@@ -109,9 +109,12 @@ var formMixin = {
 
     return false;
   },
-
+  _editClass: function(){
+    if(this.editClass){return this.editClass(); }
+    return `form-${this.state.isEdit ? 'edit' : 'consult'}`;
+  },
   _className: function formClassName() {
-    return `form-horizontal ${this.props.style.className}`;
+    return `form-horizontal ${this.props.style.className} ${this._editClass()}`;
   },
   _renderActions: function renderActions(){
     if(this.renderActions){return this.renderActions(); }
