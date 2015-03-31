@@ -1,3 +1,4 @@
+var assign = require('object-assign');
 var actionMixin = {
 
 /**
@@ -19,11 +20,11 @@ var actionMixin = {
       return this.getEntity();
     }
     //Build the entity value from the ref getVaue.
-    var data = {};
+    var htmlData = {};
     for(var r in this.refs){
-      data[r] = this.refs[r].getValue();
+      htmlData[r] = this.refs[r].getValue();
     }
-    return data;
+    return assign({}, this.state, htmlData);
   },
   /**
    * Load data action call.

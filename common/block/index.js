@@ -5,6 +5,11 @@ var builder = require('focus').component.builder
  * @type {Object}
  */
 var blockMixin = {
+  getDefaultProps: function(){
+    return {
+      style: {}
+    }
+  },
   /**
    * Header of theblock function.
    * @return {[type]} [description]
@@ -24,7 +29,7 @@ var blockMixin = {
    */
   render: function renderBlock(){
     return(
-      <div className="panel panel-default">
+      <div className={`panel panel-default ${this.props.style.className}`}>
         {this.heading()}
         <div className="panel-body">
             {this.props.children}

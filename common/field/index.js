@@ -58,13 +58,11 @@ var FieldMixin = {
     if (this.props.hasLabel) {
       var labelClassName = "control-label col-sm-" + this.props.labelSize;
       return (
-        <label
-          className={labelClassName}
+        <Label
+          style={{className: labelClassName }}
           name={this.props.name}
           key={this.props.name}
-        >
-          {this.props.name}
-        </label>
+        />
     );
   }
   },

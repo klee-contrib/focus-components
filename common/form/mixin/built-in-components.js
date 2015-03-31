@@ -11,10 +11,10 @@ module.exports = {
 fieldFor: function(name, options) {
   var def = (this.definition && this.definition[name]) ? this.definition[name] : {};
   options = options || {};
-  var isEdit = options.isEdit || this.state.isEdit;
+  var isEdit = options.isEdit !== undefined ? options.isEdit : this.state.isEdit;
   //Maybe allow to overrife fieldFor here such as def.fieldFor?.
   return React.createElement(Field, {
-    name: name,
+    name: `${this.definitionPath}.${name}`,
     ref: name,
     value: this.state[name],
     error: this.state.error ? this.state.error[name] : undefined,

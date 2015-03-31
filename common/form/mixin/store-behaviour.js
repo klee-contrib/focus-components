@@ -1,5 +1,6 @@
 var capitalize = require('lodash/string/capitalize');
 var assign = require('object-assign');
+var isArray = require('lodash/lang/isArray');
 
 var storeMixin = {
   /**
@@ -32,7 +33,11 @@ var storeMixin = {
       if(this.referenceNames && this.referenceNames.indexOf(key) !== -1){
         entity.reference[key] = data[key];
       }else {
-        assign(entity, data[key]);
+        var d = data[key];
+        if(isArray(d)){
+          d = {[key] : d};
+        }
+        assign(entity, d);
       }
     }
     return entity;
