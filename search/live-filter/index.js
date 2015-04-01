@@ -58,7 +58,7 @@ var liveFilterMixin = {
      * @returns {XML} Html code.
      */
     render: function renderLiverFilter(){
-        var className = this.state.isExpanded ? "live-filter" : "live-filter collapsed";
+        var className = 'panel live-filter';
         if(this.state.isExpanded) {
             className += ' expanded';
         } else {
