@@ -20,6 +20,23 @@ var domain =  {
         return true;
       }
     }]
+  },
+  'DO_DATE': {
+    'InputComponent': focusComponents.common.input.date.component,
+    'formatter': function(date){
+      var monthNames = [
+      'January', "February", "March",
+      "April", "May", "June", "July",
+      "August", "September", "October",
+      "November", "December"
+        ];
+        date = new Date(date);
+        var day = date.getDate();
+        var monthIndex = date.getMonth();
+        var year = date.getFullYear();
+        return "" + day +" "+ monthNames[monthIndex] +" "+ year;
+    }
+
   }
 };
 focus.definition.domain.container.setAll(domain);
@@ -60,20 +77,6 @@ var entities ={
     },
     "birthDate":{
       "domain": "DO_DATE",
-      "InputComponent": focusComponents.common.input.date.component,
-      "formatter": function(date){
-        var monthNames = [
-        "January", "February", "March",
-        "April", "May", "June", "July",
-        "August", "September", "October",
-        "November", "December"
-          ];
-          date = new Date(date);
-          var day = date.getDate();
-          var monthIndex = date.getMonth();
-          var year = date.getFullYear();
-          return "" + day +" "+ monthNames[monthIndex] +" "+ year;
-      }
     }
   }};
 focus.definition.entity.container.setEntityConfiguration(entities);
