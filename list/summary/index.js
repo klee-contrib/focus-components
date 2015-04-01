@@ -4,7 +4,7 @@ var TopicDisplayer = require('../../common/topic-displayer').component;
 var Button = require('../../common/button/action').component;
 
 var listSummaryMixin = {
-
+    mixins: [require('../../common/i18n/mixin')],
     /**
      * Display name.
      */
@@ -30,7 +30,7 @@ var listSummaryMixin = {
      */
     render: function renderActionBar(){
         if(this.props.nb) {
-            var nbResult = <div className="nb-result"><b>{this.props.nb}</b> {i18n.t('result.for')} "{this.props.queryText}"</div>;
+            var nbResult = <div className="nb-result"><b>{this.props.nb}</b> {this.i18n('result.for')} "{this.props.queryText}"</div>;
         } else {
             var nbResult = <div className="nb-result" />;
         }

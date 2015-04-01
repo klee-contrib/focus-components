@@ -8,7 +8,7 @@ var omit = require('lodash/object/omit');
 var Img = require('../../common/img').component;
 
 var liveFilterMixin = {
-
+    mixins: [require('../../common/i18n/mixin')],
     /**
      * Display name.
      */
@@ -58,8 +58,7 @@ var liveFilterMixin = {
      * @returns {XML} Html code.
      */
     render: function renderLiverFilter(){
-        // var className = this.state.isExpanded ? "live-filter" : "live-filter collapsed";
-        var className = 'panel live-filter';
+        var className = this.state.isExpanded ? "live-filter" : "live-filter collapsed";
         if(this.state.isExpanded) {
             className += ' expanded';
         } else {
@@ -76,7 +75,7 @@ var liveFilterMixin = {
      * @returns {XML} Hatml content.
      */
     renderLiveFacetTitle: function renderLiveFacetTitle() {
-        var title = this.state.isExpanded ? i18n.t('live.filter.title') : '';
+        var title = this.state.isExpanded ? this.i18n('live.filter.title') : '';
         var img = this.state.isExpanded ? 'chevron-thin-left' : 'chevron-thin-right';
         return (<div className="panel-heading">
                     <span>{title}</span>

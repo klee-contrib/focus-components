@@ -5,6 +5,7 @@ var React = require('react');
  * @type {Object}
  */
 var labelMixin = {
+    mixins: [require('../i18n/mixin')],
   getDefaultProps: function() {
     return {
       name: undefined,
@@ -12,10 +13,7 @@ var labelMixin = {
 			style: {className: ''}
     };
   },
-  i18n: function translateLabel(prop) {
-    return (window.i18n && window.i18n.t) ? window.i18n.t(prop) : prop;
-  },
-  render: function() {
+   render: function() {
     return (
       <label className={this.props.style.className} htmlFor={this.props.name}>
         {this.i18n(this.props.name)}
