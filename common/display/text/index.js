@@ -25,7 +25,7 @@ var displayTextMixin = {
     style: type('object')
   },
   renderValue: function renderValueDisplayText(){
-    return this.props.formatter(this.props.value);
+      return this.props.formatter(this.props.value);
   },
   /**
    * Render a display field.
