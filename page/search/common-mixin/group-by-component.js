@@ -1,14 +1,5 @@
 /**@jsx*/
 var builder = require('focus').component.builder;
-var React = require('react');
-var LiveFilter = require('../../../search/live-filter/index').component;
-var ListActionBar = require('../../../list/action-bar/index').component;
-var ListSummary = require('../../../list/summary/index').component;
-var ListSelection = require('../../../list/selection').list.component;
-var SearchStore = require('focus').store.SearchStore;
-var assign = require('object-assign');
-var InfiniteScrollPageMixin = require('../common-mixin/infinite-scroll-page-mixin').mixin;
-var isArray = require('lodash/lang/isArray');
 
 var groupByComponent = {
 

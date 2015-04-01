@@ -5,14 +5,13 @@ var LiveFilter = require('../../../search/live-filter/index').component;
 var ListActionBar = require('../../../list/action-bar/index').component;
 var ListSummary = require('../../../list/summary/index').component;
 var ListSelection = require('../../../list/selection').list.component;
-var GroupBy =  require('./group-by').component;
 var SearchStore = require('focus').store.SearchStore;
 var assign = require('object-assign');
 var InfiniteScrollPageMixin = require('../common-mixin/infinite-scroll-page-mixin').mixin;
-var isArray = require('lodash/lang/isArray');
+var GroupByMixin= require('../common-mixin/group-by-mixin').mixin;
 
 var searchFilterResultMixin = {
-    mixins: [InfiniteScrollPageMixin],
+    mixins: [InfiniteScrollPageMixin, GroupByMixin],
 
     /**
      * Display name.
@@ -280,14 +279,6 @@ var searchFilterResultMixin = {
      },
 
     /**
-     * @returns {boolean} Returns true if list is a simple list, false if grouped.
-     * @private
-     */
-    _isSimpleList: function() {
-        return isArray(this.state.list);
-    },
-
-    /**
      * Render the liveFilter.
      * @returns {JSX} Render the liveFilter.
      */
@@ -341,32 +332,15 @@ var searchFilterResultMixin = {
     },
 
     /**
-     * Change the max rows of a group.
-     * @param groupKey Key of the group.
-     * @param maxRows Number of needed rows.
-     * @returns {Function} The function wich will change the max rows of the group.
-     */
-    changeGroupByMaxRows: function changeGroupByMaxRows(groupKey, maxRows) {
-        return (event)=> {
-            this.refs[groupKey].changeGroupByMaxRows(maxRows);
-        }
-    },
-
-    /**
      * Render the result list.
      * @returns {JSX} The rendering of the list.
      * @private
      */
     resultListComponent: function resultListComponent() {
-        if(this._isSimpleList()) {
+        if(this.isSimpleList()) {
             return <div className="listResultContainer panel">{this.renderSimpleList("list", this.state.list)}</div>;
         }
-        var groupList = [];
-        for(var groupKey in this.state.list) {
-            // groupList.push(this.renderGroupBy(groupKey));
-            groupList.push(<GroupBy key={groupKey} ref={groupKey} renderGroupBy={this.renderGroupBy} list={this.state.list[groupKey]} groupKey={groupKey} maxRows={this.props.groupMaxRows} />);
-        }
-        return groupList;
+        return this.renderGroupByList();
     }
 };
 
