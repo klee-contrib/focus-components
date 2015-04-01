@@ -21,13 +21,14 @@
   <script src="//cdn.jsdelivr.net/bootstrap.material-design/0.3.0/js/ripples.min.js"></script>
 
   <!-- Material degign-->
-
   <script src="/dist/js/focus.js"></script>
   <script src="/dist/js/focus-components.js"></script>
   <script src="/example/js/initFocus.js"></script>
   <link rel="stylesheet" href="css/form.css"/>
+  <link rel="stylesheet" href="/example/js/picker.css"/>
 </head>
 <body>
+  <script src="/example/js/picker.js"></script>
   <div id="form-container" class="container"></div>
   <script type="text/javascript">
       $(document).ready(function() {$.material.init();});
@@ -51,7 +52,7 @@
     definitionPath: "contact",
     action: {
       load: function(){
-        Promise.resolve({contact: {firstName: "pierre", lastName: "besson"}}).then(
+        Promise.resolve({contact: {firstName: "pierre", lastName: "besson", isCool: true, birthDate: new Date().toISOString()}}).then(
           function(data){
           focus.dispatcher.handleServerAction({
             data: data,
@@ -74,6 +75,7 @@
               this.fieldFor("bio"),
               this.fieldFor("isCool"),
               this.fieldFor("isNice"),
+              this.fieldFor("birthDate"),
               this.selectFor('papaCode', 'papas')
          )
       );

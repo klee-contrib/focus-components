@@ -57,6 +57,23 @@ var entities ={
     "isNice":{
       "domain": "DO_BOOLEAN",
       "FieldComponent": focusComponents.common.input.toggle.component
+    },
+    "birthDate":{
+      "domain": "DO_DATE",
+      "InputComponent": focusComponents.common.input.date.component,
+      "formatter": function(date){
+        var monthNames = [
+        "January", "February", "March",
+        "April", "May", "June", "July",
+        "August", "September", "October",
+        "November", "December"
+          ];
+          date = new Date(date);
+          var day = date.getDate();
+          var monthIndex = date.getMonth();
+          var year = date.getFullYear();
+          return "" + day +" "+ monthNames[monthIndex] +" "+ year;
+      }
     }
   }};
 focus.definition.entity.container.setEntityConfiguration(entities);

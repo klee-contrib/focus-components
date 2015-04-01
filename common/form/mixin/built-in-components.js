@@ -21,7 +21,9 @@ fieldFor: function(name, options) {
     validator: def.validator,
     FieldComponent: def.FieldComponent,
     InputLabelComponent: def.InputLabelComponent,
-    isEdit: isEdit
+    InputComponent: def.InputComponent,
+    isEdit: isEdit,
+    formatter: def.formatter
   });
 },
 /**
