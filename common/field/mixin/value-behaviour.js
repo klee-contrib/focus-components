@@ -1,4 +1,5 @@
 var valueBehaviourMixin = {
+  /** @inheritdoc */
   getDefaultProps: function getDefaultValueBehaviourProps(){
     return {
       error: undefined,

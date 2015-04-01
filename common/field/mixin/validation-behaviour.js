@@ -1,4 +1,5 @@
 var validationMixin ={
+  /** @inheritdoc */
   getDefaultProps: function getDefaultProps(){
     return {
       isRequired: false,
