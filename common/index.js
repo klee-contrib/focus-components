@@ -6,6 +6,7 @@ module.exports = {
   img: require('./img'),
   input: require('./input'),
   label: require('./label'),
+  panel: require('./panel'),
   select: require('./select'),
   selectAction: require('./select-action'),
   stickyNavigation: require('./sticky-navigation'),

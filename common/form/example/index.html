@@ -40,7 +40,7 @@
     definition : {'contact': 'contact', 'commande': 'commande'}
   });
   var formMixin = focus.components.common.form.mixin;
-  var Block = focus.components.common.block.component;
+  var Panel = focus.components.common.panel.component;
 
   //Create the view.
   var Form = React.createClass({displayName: "Form",
@@ -68,7 +68,7 @@
     referenceNames: ['papas'],
     renderContent:function renderUserDetail(){
       return(
-          React.createElement(Block, {title: "Fiche de l'utilisateur"},
+          React.createElement(Panel, {title: "Fiche de l'utilisateur"},
               this._renderActions(),
               this.fieldFor("firstName"),
               this.fieldFor("lastName"),

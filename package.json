@@ -36,6 +36,10 @@
       "path": "common/block"
     },
     {
+      "name": "panel",
+      "path": "common/panel"
+    },
+    {
       "name": "field",
       "path": "common/field"
     },
