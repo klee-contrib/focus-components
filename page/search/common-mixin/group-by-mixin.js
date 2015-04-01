@@ -7,6 +7,12 @@ var GroupBy =  require('./group-by-component').component;
  */
 var GroupByMixin = {
 
+    getDefaultProps: function getDefaultProps(){
+        return {
+            groupMaxRows: undefined
+        };
+    },
+
     /**
      * @returns {boolean} Returns true if list is a simple list, false if grouped.
      * @private
@@ -17,8 +23,8 @@ var GroupByMixin = {
 
     /**
      * Change the max rows of a group.
-     * @param groupKey Key of the group.
-     * @param maxRows Number of needed rows.
+     * @param {string} groupKey Key of the group.
+     * @param {int} maxRows Number of needed rows.
      * @returns {Function} The function wich will change the max rows of the group.
      */
     changeGroupByMaxRows: function changeGroupByMaxRows(groupKey, maxRows) {
@@ -30,7 +36,6 @@ var GroupByMixin = {
     renderGroupByList: function renderGroupByList() {
         var groupList = [];
         for (var groupKey in this.state.list) {
-            // groupList.push(this.renderGroupBy(groupKey));
             groupList.push(<GroupBy key={groupKey} ref={groupKey}
                                     renderGroupBy={this.renderGroupBy}
                                     list={this.state.list[groupKey]}

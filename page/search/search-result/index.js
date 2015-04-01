@@ -5,9 +5,10 @@ var List = require('../../../list/selection').list.component;
 var assign = require('object-assign');
 var type = require('focus').component.types;
 var InfiniteScrollPageMixin = require('../common-mixin/infinite-scroll-page-mixin').mixin;
+var GroupByMixin= require('../common-mixin/group-by-mixin').mixin;
 
 var searchMixin = {
-    mixins: [InfiniteScrollPageMixin],
+    mixins: [InfiniteScrollPageMixin, GroupByMixin],
 
     /**
      * Tag name.
@@ -141,14 +142,14 @@ var searchMixin = {
         );
     },
 
-    /**
-     * return a list component
-     * @returns {XML} the list component
-     */
-    listComponent: function listComponent(){
+    renderSimpleList: function renderSimpleList(id, list, maxRows) {
+        var newList = list;
+        if(maxRows) {
+            newList = list.slice(0, maxRows);
+        }
         return (
-            <List data={this.state.list}
-                ref="list"
+            <List data={newList}
+                ref={id}
                 idField={this.props.idField}
                 isSelection={this.props.isSelection}
                 onSelection={this._selectItem}
@@ -158,8 +159,18 @@ var searchMixin = {
                 isLoading={this.state.isLoading}
                 operationList={this.props.operationList}
                 lineComponent={this.props.lineComponent}
-            />
-        );
+            />);
+    },
+
+    /**
+     * return a list component
+     * @returns {XML} the list component
+     */
+    listComponent: function listComponent(id, list, maxRows){
+        if(this.isSimpleList()) {
+            return this.renderSimpleList('list', this.state.list);
+        }
+        return this.renderGroupByList();
     }
 };
 

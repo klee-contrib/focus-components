@@ -51,8 +51,7 @@ var searchFilterResultMixin = {
             },
             idField: undefined,
             exportAction: function() {},
-            unselectedScopeAction: function() {},
-            groupMaxRows: undefined
+            unselectedScopeAction: function() {}
         };
     },
     /**
@@ -252,33 +251,6 @@ var searchFilterResultMixin = {
     },
 
     /**
-     * Render a simple list.
-     * @param id Technical id of the list.
-     * @param list Content of the list.
-     * @param maxRows Number max of rows in the list (optional).
-     * @returns {JSX} Html rendering.
-     * @private
-     */
-     renderSimpleList: function renderSimpleList(id, list, maxRows) {
-        var newList = list;
-        if(maxRows) {
-            newList = list.slice(0, maxRows);
-        }
-         return <ListSelection data={newList}
-             ref={id}
-             idField={this.props.idField}
-             isSelection={this.props.isSelection}
-             onSelection={this._selectItem}
-             onLineClick={this.props.onLineClick}
-             fetchNextPage={this.fetchNextPage}
-             operationList={this.props.lineOperationList}
-             hasMoreData={this.state.hasMoreData}
-             isLoading={this.state.isLoading}
-             lineComponent={this.props.lineComponent}
-             selectionStatus={this.state.selectionStatus} />
-     },
-
-    /**
      * Render the liveFilter.
      * @returns {JSX} Render the liveFilter.
      */
@@ -332,11 +304,38 @@ var searchFilterResultMixin = {
     },
 
     /**
+     * Render a simple list.
+     * @param id Technical id of the list.
+     * @param list Content of the list.
+     * @param maxRows Number max of rows in the list (optional).
+     * @returns {JSX} Html rendering.
+     * @private
+     */
+    renderSimpleList: function renderSimpleList(id, list, maxRows) {
+        var newList = list;
+        if(maxRows) {
+            newList = list.slice(0, maxRows);
+        }
+        return <ListSelection data={newList}
+            ref={id}
+            idField={this.props.idField}
+            isSelection={this.props.isSelection}
+            onSelection={this._selectItem}
+            onLineClick={this.props.onLineClick}
+            fetchNextPage={this.fetchNextPage}
+            operationList={this.props.lineOperationList}
+            hasMoreData={this.state.hasMoreData}
+            isLoading={this.state.isLoading}
+            lineComponent={this.props.lineComponent}
+            selectionStatus={this.state.selectionStatus} />
+    },
+
+    /**
      * Render the result list.
      * @returns {JSX} The rendering of the list.
      * @private
      */
-    resultListComponent: function resultListComponent() {
+    listComponent: function listComponent() {
         if(this.isSimpleList()) {
             return <div className="listResultContainer panel">{this.renderSimpleList("list", this.state.list)}</div>;
         }

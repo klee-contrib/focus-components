@@ -15,7 +15,7 @@ var groupByComponent = {
      */
     getDefaultProps: function() {
         return {
-            renderGroupBy: function(groupKey, list, maxRows) { console.log(groupKey); },
+            renderGroupBy: function(groupKey, list, maxRows) { console.error('Implement renderGroupBy() function'); },
             list: undefined,
             groupKey: undefined,
             maxRows: 3
