@@ -1,6 +1,7 @@
 var React = require('react');
 var Field = require('../../field').component;
 var Button = require('../../button/action').component;
+var List = require('../../list');
 module.exports = {
 /**
  * Create a field for the given property metadata.
@@ -73,17 +74,31 @@ displayFor: function(name, options){
   });
 },
 /**
+ * Display a list component.
+ * @param {string} name - Property name.
+ * @param {object} options - Options object.
+ * @returns {object} - The react component for the line.
+ */
+listFor: function listFor(name, options){
+  options = options || {};
+  return React.createElement( List, {
+    data: this.state[name],
+    line: options.LineComponent || this.props.LineComponent || this.LineComponent,
+    perPage: options.perPage || 5
+  });
+},
+/**
  * Button delete generation.
  * @returns {object} - A Reacte button.
  */
-buttonDelete: function() {
+buttonDelete: function buttonDelete() {
   return React.createElement(Button, {
     label: 'delete',
     type: 'button',
     css: 'delete'
   });
 },
-buttonEdit: function() {
+buttonEdit: function buttonEdit() {
   var form = this;
   return React.createElement(Button, {
     label: 'edit',
@@ -94,7 +109,7 @@ buttonEdit: function() {
     }
   });
 },
-buttonCancel: function() {
+buttonCancel: function buttonCancel() {
   var form = this;
   return React.createElement(Button, {
     label: 'cancel',
