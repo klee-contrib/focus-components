@@ -30,7 +30,7 @@ var listSummaryMixin = {
      */
     render: function renderActionBar(){
         if(this.props.nb) {
-            var nbResult = <div className="nb-result"><b>{this.props.nb}</b> result.for "{this.props.queryText}"</div>;
+            var nbResult = <div className="nb-result"><b>{this.props.nb}</b> {i18n.t('result.for')} "{this.props.queryText}"</div>;
         } else {
             var nbResult = <div className="nb-result" />;
         }

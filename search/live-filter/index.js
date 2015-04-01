@@ -76,7 +76,7 @@ var liveFilterMixin = {
      * @returns {XML} Hatml content.
      */
     renderLiveFacetTitle: function renderLiveFacetTitle() {
-        var title = this.state.isExpanded ? 'live.filter.title' : '';
+        var title = this.state.isExpanded ? i18n.t('live.filter.title') : '';
         var img = this.state.isExpanded ? 'chevron-thin-left' : 'chevron-thin-right';
         return (<div className="panel-heading">
                     <span>{title}</span>
