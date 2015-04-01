@@ -45,14 +45,19 @@ var SearchInputMixin = {
       }
     }
   },
-  _handleChangeScope: function handleChangeScope(){
+  _handleChangeScope: function handleChangeScope(event){
     this.focusQuery();
+    //If query not empty
+    var query = this.getValue().query;
+    if( !query || 0 === query.length){
+      return;
+    }
     if(this.props.handleChangeScope){
-      this.props.handleChangeScope(this.state.scope);
+      this.props.handleChangeScope(event);
     }
   },
   handleOnClickScope: function handleOnClickScope(){
-    this.setState({scope: this.refs.scope.getValue()}, this._handleChangeScope);
+    this.setState({scope: this.refs.scope.getValue()}, this._handleChangeScope(event));
   },
   renderHelp: function renderHelp(){
     /*if(this.state.scope){

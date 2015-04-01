@@ -136,6 +136,7 @@ var searchMixin = {
                 scope={this.props.scope}
                 scopes={this.props.scopeList}
                 loading={this.state.isLoadingSearch}
+                handleChangeScope={this._quickSearch}
             />
         );
     },
