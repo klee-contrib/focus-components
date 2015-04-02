@@ -44,8 +44,8 @@ function buildPage(opts){
 var page =buildPage();
 var ghPage =buildPage({isGhPage: true, urlRoot: 'kleegroup.github.io/focus-components', port: ':80'});
 
-app.use('/example', express.static(__dirname + "/example"));
-app.use('/dist', express.static(__dirname + "/dist"));
+app.use('/focus-components/example', express.static(__dirname + "/example"));
+app.use('/focus-components/dist', express.static(__dirname + "/dist"));
 //Add a special 404 with all existing components and their urls.
 app.use(function(req, res, next) {
 	res.status(404)
