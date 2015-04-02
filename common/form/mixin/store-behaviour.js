@@ -61,7 +61,7 @@ var storeMixin = {
     if (this.stores) {
       this.stores.map((storeConf) => {
         storeConf.properties.map((property)=>{
-          storeConf.store[`remove${capitalize(property)}ChangeListener`]();
+          storeConf.store[`remove${capitalize(property)}ChangeListener`](this._onChange);
         });
       });
     }
