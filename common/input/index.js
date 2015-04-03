@@ -3,5 +3,6 @@ module.exports = {
   date: require('./date'),
   text: require('./text'),
   textarea: require('./textarea'),
-  toggle: require('./toggle')
+  toggle: require('./toggle'),
+  markdown: require('./markdown')
 };

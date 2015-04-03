@@ -52,6 +52,10 @@
       "path": "common/input/checkbox"
     },
     {
+      "name": "input-markdown",
+      "path": "common/input/markdown"
+    },
+    {
       "name": "input-toggle",
       "path": "common/input/toggle"
     },
