@@ -11,5 +11,6 @@ module.exports = {
   selectAction: require('./select-action'),
   stickyNavigation: require('./sticky-navigation'),
   title: require('./title'),
-  topicDisplayer: require('./topic-displayer')
+  topicDisplayer: require('./topic-displayer'),
+  list: require('./list')
 };
