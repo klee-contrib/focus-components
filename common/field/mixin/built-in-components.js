@@ -161,7 +161,7 @@ var fieldBuiltInComponentsMixin = {
       );
     }
   },
-  /**
+  /** 
    * Render the field component if it is overriden in the component definition.
    */
   renderFieldComponent: function renderFieldComponent(){
