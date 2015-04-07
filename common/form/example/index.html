@@ -73,6 +73,7 @@
               this._renderActions(),
               this.fieldFor("firstName"),
               this.fieldFor("lastName"),
+              this.textFor("birthDate", {formatter: function(date){return "formatted date" + date}}),
               this.fieldFor("bio"),
               this.fieldFor("isCool"),
               this.fieldFor("isNice"),

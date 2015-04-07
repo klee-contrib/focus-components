@@ -1,5 +1,6 @@
 var React = require('react');
 var Field = require('../field').component;
+var Text = require('../display/text').component;
 var Button = require('../button/action').component;
 var List = require('../list');
 module.exports = {
@@ -59,7 +60,7 @@ selectFor: function(name, listName, options){
  * @param {object} options - options object.
  * @returns {object} - A React Field.
  */
-displayFor: function(name, options){
+displayFor: function displayFor(name, options){
   options = options || {};
   var def = (this.definition && this.definition[name]) ? this.definition[name] : {};
   var listName = options.listName || def.listName;
@@ -71,6 +72,23 @@ displayFor: function(name, options){
     FieldComponent: def.FieldComponent,
     InputLabelComponent: def.InputLabelComponent,
     isEdit: false
+  });
+},
+/**
+ * Display the text for a given property.
+ * @param {string} name  - property name.
+ * @param {object} options - Option object
+ * @returns {object} - A React component.
+ */
+textFor: function textFor(name, options){
+  options = options || {};
+  var def = (this.definition && this.definition[name]) ? this.definition[name] : {};
+  return React.createElement(Text, {
+    name: options.name || `${this.definitionPath}.${name}`,
+    style: options.style,
+    FieldComponent: def.FieldComponent,
+    formatter: options.formatter || def.formatter,
+    value: this.state[name]
   });
 },
 /**
