@@ -4,16 +4,17 @@ var type = require('focus').component.types;
 
 var menuMixin = {
   /** @inheritedProps*/
-  getDefaultProps: function getMenuDefaultProps(){
+  getDefaultProps: function getMenuDefaultProps() {
     return {
       direction: 'vertical',//horizontal
       position: 'left', // top, bottom, right, left
       links: [],
-      open: false
+      open: false,
+      style: {}
     };
   },
   /** @inheritedProps*/
-  getInitialState: function getMenuDefaultState(){
+  getInitialState: function getMenuDefaultState() {
     return {
       open: this.props.open
     };
@@ -21,29 +22,32 @@ var menuMixin = {
   /**
    * Toggle the state of the menu.
    */
-  toggle: function toggleOpenMenu(){
+  toggle: function toggleOpenMenu() {
     this.setState({open: !this.state.open});
   },
   /**
    * Render the links of the menu
    */
- renderLinks: function(){
-  return this.props.links.map((link)=>{
+  renderLinks: function () {
+    return this.props.links.map((link)=> {
+      return (
+        <a href={link.url}>{link.name}</a>
+      );
+    });
+  },
+  renderTitle: function(){
+    return <h3>{this.props.title}</h3>;
+  },
+  /** @inheriteddoc */
+  render: function () {
+    var className = `menu menu-${this.props.direction} menu-${this.props.position} menu-${this.state.open ? 'open' : ''}`;
     return (
-      <a href={link.url}>{link.name}</a>
+      <nav className={className}>
+      {this.renderTitle()}
+      {this.renderContent()}
+      </nav>
     );
-  });
- },
- /** @inheriteddoc */
- render: function(){
-   var className = `menu menu-${this.props.direction} menu-${this.props.position} menu-${this.state.open ? 'open' : ''}`;
-   return (
-     <nav className={className}>
-      <h3>{this.props.title}</h3>
-      {this.renderLinks()}
-    </nav>
-  );
- }
+  }
 };
 
 module.exports = builder(menuMixin);

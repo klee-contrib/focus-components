@@ -1,4 +1,5 @@
 module.exports = {
   bar: require('./bar'),
-  menu: require('./menu')
+  menu: require('./menu'),
+  popin: require('./popin')
 };
