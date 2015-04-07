@@ -1,7 +1,7 @@
 var React = require('react');
-var Field = require('../../field').component;
-var Button = require('../../button/action').component;
-var List = require('../../list');
+var Field = require('../field').component;
+var Button = require('../button/action').component;
+var List = require('../list');
 module.exports = {
 /**
  * Create a field for the given property metadata.
@@ -67,7 +67,7 @@ displayFor: function(name, options){
     name: name,
     ref: name,
     value: this.state[name],
-    values: this.state.reference ? this.state.reference[listName]: undefined, //Options to be rendered.
+    values: this.state.reference ? this.state.reference[listName] : undefined, //Options to be rendered.
     FieldComponent: def.FieldComponent,
     InputLabelComponent: def.InputLabelComponent,
     isEdit: false
@@ -126,13 +126,12 @@ buttonCancel: function buttonCancel() {
  * @returns {object} - A React button.
  */
 buttonSave: function() {
-  var form = this;
-
+  //var form = this;
   return React.createElement(Button, {
     label: 'save',
     type: 'submit',
-    css: 'primary',
-    /*handleOnClick: function(e){
+    css: 'primary'
+    /*,handleOnClick: function(e){
       if(form.validate()){
         form.action.save(form._getEntity());
       }

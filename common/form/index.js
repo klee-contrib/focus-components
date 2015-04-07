@@ -1,13 +1,17 @@
 var builder = require('focus').component.builder;
 var React = require('react');
 var assign = require('object-assign');
+var isEmpty = require('lodash/lang/isEmpty');
+
+// Common mixins.
 var definitionMixin = require('../mixin/definition');
-var builtInComponents = require('./mixin/built-in-components');
+var builtInComponents = require('../mixin/built-in-components');
+
+//Form mixins.
 var referenceBehaviour = require('./mixin/reference-behaviour');
 var storeBehaviour = require('./mixin/store-behaviour');
 var actionBehaviour = require('./mixin/action-behaviour');
 
-var isEmpty = require('lodash/lang/isEmpty');
 /**
  * Mixin to create a block for the rendering.
  * @type {Object}
