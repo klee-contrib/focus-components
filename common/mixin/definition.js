@@ -14,6 +14,10 @@ var definitionMixin = {
       throw new Error('the definition path should be defined to know the domain of your entity property.');
     }
     this.definition = getEntityDefinition(this.definitionPath, this.additionalDefinition);
+  },
+  /** @inheritdoc */
+  componentWillMount: function definitionWillMount(){
+    this._buildDefinition();
   }
 };
 

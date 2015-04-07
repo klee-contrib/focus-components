@@ -64,11 +64,12 @@ displayFor: function displayFor(name, options){
   options = options || {};
   var def = (this.definition && this.definition[name]) ? this.definition[name] : {};
   var listName = options.listName || def.listName;
+  var refContainer = options.refContainer || this.state.reference;
   return React.createElement(Field, {
     name: name,
     ref: name,
     value: this.state[name],
-    values: this.state.reference ? this.state.reference[listName] : undefined, //Options to be rendered.
+    values: refContainer ? refContainer[listName] : undefined, //Options to be rendered.
     FieldComponent: def.FieldComponent,
     InputLabelComponent: def.InputLabelComponent,
     isEdit: false
@@ -102,7 +103,8 @@ listFor: function listFor(name, options){
   return React.createElement( List, {
     data: this.state[name],
     line: options.LineComponent || this.props.LineComponent || this.LineComponent,
-    perPage: options.perPage || 5
+    perPage: options.perPage || 5,
+    reference: options.reference
   });
 },
 /**

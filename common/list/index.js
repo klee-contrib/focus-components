@@ -31,7 +31,8 @@ module.exports = React.createClass({
   /** @inheritdoc */
   getDefaultProps: function() {
     return {
-      data: []
+      data: [],
+      reference: {}
     };
   },
   /** @inheritdoc */
@@ -54,7 +55,7 @@ module.exports = React.createClass({
     var data =  this.props.data || [];
     var hasMoreData = data.length > (this.state.maxElements ? this.state.maxElements : this.props.perPage);
     return (
-      <MySelectionList data={this.getDataToUse()} hasMoreData={hasMoreData} lineComponent={this.props.line} isSelection={false} isManualFetch={true} fetchNextPage={this.fetchNextPage}/>
+      <MySelectionList data={this.getDataToUse()} hasMoreData={hasMoreData} reference={this.props.reference} lineComponent={this.props.line} isSelection={false} isManualFetch={true} fetchNextPage={this.fetchNextPage}/>
     );
   }
 });

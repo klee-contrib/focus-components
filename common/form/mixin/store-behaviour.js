@@ -57,7 +57,7 @@ var storeMixin = {
   /**
   * Unregister all the listeners related to the page.
   */
-  _unRegisterListeners: function() {
+  _unRegisterListeners: function unregisterListener() {
     if (this.stores) {
       this.stores.map((storeConf) => {
         storeConf.properties.map((property)=>{
@@ -65,6 +65,15 @@ var storeMixin = {
         });
       });
     }
+  },
+  /** @inheritdoc */
+  componentDidMount: function storeBehaviourDidMount() {
+    //Build the definitions.
+    this._registerListeners();
+  },
+  /** @inheritdoc */
+  componentWillUnmount: function storeBehaviourWillUnmount() {
+    this._unRegisterListeners();
   }
 };
 

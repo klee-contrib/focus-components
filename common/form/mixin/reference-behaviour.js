@@ -52,6 +52,10 @@ var referenceMixin = {
   _buildReference: function buildReference(){
     this._buildReferenceStoreConfig();
     this._buildReferenceActions();
+  },
+  /** @inheritdoc */
+  componentWillMount: function formWillMount(){
+    this._buildReference();
   }
 };
 

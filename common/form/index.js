@@ -61,14 +61,8 @@ var formMixin = {
     this._loadReference();
   },
   /** @inheritdoc */
-  componentWillMount: function formWillMount(){
-    this._buildDefinition();
-    this._buildReference();
-  },
-  /** @inheritdoc */
   componentDidMount: function formDidMount() {
     //Build the definitions.
-    this._registerListeners();
     if (this.registerListeners) {
       this.registerListeners();
     }
@@ -78,7 +72,6 @@ var formMixin = {
   },
   /** @inheritdoc */
   componentWillUnmount: function formWillMount() {
-    this._unRegisterListeners();
     if (this.unregisterListeners) {
       this.unregisterListeners();
     }
