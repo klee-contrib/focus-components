@@ -7,8 +7,10 @@
 var builder = require('focus').component.builder;
 var React = require('react');
 var type = require('focus').component.types;
+var fieldGridBehaviourMixin = require('../../mixin/field-grid-behaviour');
 
 var checkBoxMixin = {
+  mixins: [fieldGridBehaviourMixin],
   /**
    * Get the checkbox default attributes.
    */
@@ -43,9 +45,17 @@ var checkBoxMixin = {
   },
   /**
    * Get the value from the input in  the DOM.
+   * @returns The DOM node value.
    */
   getValue: function getValue() {
     return this.getDOMNode().value;
+  },
+  /**
+   * Build the label class name.
+   * @returns The label classame with the grid informations.
+   */
+  _labelClassName: function labelClassName(){
+    return `${this._getContentOffsetClassName()} ${this._getContentGridClassName()}`;
   },
   /**
    * Render the Checkbox HTML.
@@ -55,11 +65,11 @@ var checkBoxMixin = {
       return (
 
           <div className="checkbox">
-              <label>
-                  <input ref='checkbox'checked={this.state.isChecked} onChange={this._onChange} type="checkbox" />
+              <label className={this._labelClassName()}>
+                  <input ref='checkbox'checked={this.state.isChecked} onChange={this._onChange} type='checkbox' />
                   <span className="ripple"></span>
                   <span className="check"></span>
-					{this.props.label ? this.props.label : ""}
+                  {this.props.label ? this.props.label : ''}
               </label>
           </div>
       );

@@ -7,8 +7,10 @@
 var builder = require('focus').component.builder;
 var React = require('react');
 var type = require('focus').component.types;
+var fieldGridBehaviourMixin = require('../../mixin/field-grid-behaviour');
 
 var toggleMixin = {
+  mixins: [fieldGridBehaviourMixin],
   /**
    * Get the checkbox default attributes.
    */
@@ -41,6 +43,9 @@ var toggleMixin = {
       this.props.onChange(event);
     }
   },
+  _labelClassName: function labelClassName(){
+    return `${this._getContentOffsetClassName()} ${this._getContentGridClassName()}`;
+  },
   /**
    * Get the value from the input in  the DOM.
    */
@@ -54,7 +59,7 @@ var toggleMixin = {
   render: function renderToggle() {
     return (
       <div className="togglebutton">
-        <label>
+        <label className={this._labelClassName()}>
           {this.props.label ? this.props.label : ""}
           <input ref='checkbox' checked={this.state.isChecked} onChange={this._onChange} type="checkbox" />
         </label>

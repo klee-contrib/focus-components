@@ -2,8 +2,11 @@ var InputText = require('../../input/text').component;
 var DisplayText = require('../../display/text').component;
 var SelectClassic = require('../../select/classic').component;
 var Label = require('../../label').component;
+var fieldGridBehaviourMixin = require('../../mixin/field-grid-behaviour');
+var type = require('focus').component.types;
 
 var fieldBuiltInComponentsMixin = {
+  mixins: [fieldGridBehaviourMixin],
   /** @inheriteDoc */
   getDefaultProps: function getDefaultPropsBuiltInComponents(){
     return {
@@ -39,16 +42,26 @@ var fieldBuiltInComponentsMixin = {
       DisplayComponent: DisplayText
     };
   },
+  /** @inheriteDoc */
+  propTypes: {
+    hasLabel: type('bool'),
+    labelSize: type('number'),
+    FieldComponent: type('object'),
+    InputLabelComponent: type('object'),
+    InputComponent: type('object'),
+    SelectComponent: type('object'),
+    DisplayComponent: type('object')
+  },
   /**
    * Render the label part of the component.
-   * @return {[type]} [description]
+   * @returns {[type]} [description]
    */
   label: function fieldLabel() {
     if(this.props.FieldComponent || this.props.InputLabelComponent){
-      return;
+      return undefined;
     }
     if (this.props.hasLabel) {
-      var labelClassName = `control-label col-sm-${this.props.labelSize}`;
+      var labelClassName = this._getLabelGridClassName();
       return (
         <Label
           style={{className: labelClassName }}
@@ -66,7 +79,7 @@ var fieldBuiltInComponentsMixin = {
     if(this.props.FieldComponent || this.props.InputLabelComponent){
       return this.renderFieldComponent();
     }
-    var inputClassName = `form-control col-sm-${(12 - this.props.labelSize)}`;
+    var inputClassName = `form-control ${this._getContentGridClassName()}`;
     return (
       <div className = "input-group" >
         <this.props.InputComponent
@@ -89,7 +102,7 @@ var fieldBuiltInComponentsMixin = {
     if(this.props.FieldComponent || this.props.InputLabelComponent){
       return this.renderFieldComponent();
     }
-    var selectClassName = `form-control col-sm-${(12 - this.props.labelSize)}`;
+    var selectClassName = `form-control ${this._getContentGridClassName()}`;
     return (
       <div className = "input-group" >
         <this.props.SelectComponent
@@ -113,7 +126,7 @@ var fieldBuiltInComponentsMixin = {
     if(this.props.FieldComponent || this.props.InputLabelComponent){
       return this.renderFieldComponent();
     }
-    var selectClassName = `form-control col-sm-${(12 - this.props.labelSize)}`;
+    var selectClassName = `form-control ${this._getContentGridClassName()}`;
     return (
       <div className = "input-group" >
         <this.props.DisplayComponent
@@ -161,7 +174,7 @@ var fieldBuiltInComponentsMixin = {
       );
     }
   },
-  /** 
+  /**
    * Render the field component if it is overriden in the component definition.
    */
   renderFieldComponent: function renderFieldComponent(){
@@ -173,6 +186,7 @@ var fieldBuiltInComponentsMixin = {
       value: this.state.value,
       type: this.props.type,
       style: this.props.style.input,
+      labelSize: this.props.labelSize,
       error: this.state.error,
       help: this.props.help,
       onChange: this.onInputChange,
