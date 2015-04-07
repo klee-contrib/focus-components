@@ -2,7 +2,6 @@
 var builder = require('focus').component.builder;
 var React = require('react');
 
-var converter = new window.Showdown.converter();
 
 var markdownEditorMixin = {
   getInitialState: function() {
@@ -12,6 +11,7 @@ var markdownEditorMixin = {
     this.setState({value: this.refs.textarea.getDOMNode().value});
   },
   render: function() {
+    var converter = window.Showdown ? function(data){ console.warn('showdown should be imported/'); return data; } : new window.Showdown.converter();
     return (
       <div className="MarkdownEditor">
         <textarea
