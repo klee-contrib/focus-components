@@ -67,8 +67,6 @@ var checkBoxMixin = {
           <div className="checkbox">
               <label className={this._labelClassName()}>
                   <input ref='checkbox'checked={this.state.isChecked} onChange={this._onChange} type='checkbox' />
-                  <span className="ripple"></span>
-                  <span className="check"></span>
                   {this.props.label ? this.props.label : ''}
               </label>
           </div>

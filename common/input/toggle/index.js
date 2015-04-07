@@ -44,7 +44,7 @@ var toggleMixin = {
     }
   },
   _labelClassName: function labelClassName(){
-    return `${this._getContentOffsetClassName()} ${this._getContentGridClassName()}`;
+    return `${this._getContentGridClassName()}`;
   },
   /**
    * Get the value from the input in  the DOM.
@@ -58,9 +58,9 @@ var toggleMixin = {
    */
   render: function renderToggle() {
     return (
-      <div className="togglebutton">
+      <div className="togglebutton form-group">
+        <label className={this._getLabelGridClassName()}>{this.props.label ? this.props.label : ''}</label>
         <label className={this._labelClassName()}>
-          {this.props.label ? this.props.label : ""}
           <input ref='checkbox' checked={this.state.isChecked} onChange={this._onChange} type="checkbox" />
         </label>
       </div>
