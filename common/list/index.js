@@ -52,7 +52,7 @@ module.exports = React.createClass({
   },
   /** @inheritdoc */
   render: function renderFormList() {
-    var data =  this.props.data || [];
+    var data = this.props.data || [];
     var hasMoreData = data.length > (this.state.maxElements ? this.state.maxElements : this.props.perPage);
     return (
       <MySelectionList data={this.getDataToUse()} hasMoreData={hasMoreData} reference={this.props.reference} lineComponent={this.props.line} isSelection={false} isManualFetch={true} fetchNextPage={this.fetchNextPage}/>

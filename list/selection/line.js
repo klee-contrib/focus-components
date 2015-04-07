@@ -4,8 +4,20 @@ var builder = require('focus').component.builder;
 var type = require('focus').component.types;
 var ContextualActions = require('../action-contextual').component;
 var CheckBox = require('../../common/input/checkbox').component;
+var translationMixin = require('../../common/i18n').mixin;
+var referenceMixin = require('../../common/mixin/reference-property');
+
 var lineMixin = {
+    /**
+     * React component name.
+     */
     displayName: "selection-line",
+
+    /**
+     * Mixin dependancies.
+     */
+    mixins: [translationMixin, referenceMixin],
+
     /**
      * Default properties for the line.
      * @returns {{isSelection: boolean}}
