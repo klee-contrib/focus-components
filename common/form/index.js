@@ -1,7 +1,7 @@
 var builder = require('focus').component.builder;
 var React = require('react');
 var assign = require('object-assign');
-var getEntityDefinition = require('focus').definition.entity.builder.getEntityInformations;
+var definitionMixin = require('../mixin/definition');
 var builtInComponents = require('./mixin/built-in-components');
 var referenceBehaviour = require('./mixin/reference-behaviour');
 var storeBehaviour = require('./mixin/store-behaviour');
@@ -13,7 +13,7 @@ var isEmpty = require('lodash/lang/isEmpty');
  * @type {Object}
  */
 var formMixin = {
-  mixins: [referenceBehaviour, storeBehaviour, actionBehaviour, builtInComponents],
+  mixins: [definitionMixin, referenceBehaviour, storeBehaviour, actionBehaviour, builtInComponents],
   /** @inheritdoc */
   getDefaultProps: function getFormDefaultProps() {
     return {
@@ -79,15 +79,7 @@ var formMixin = {
       this.unregisterListeners();
     }
   },
-  /**
-   * Build the entity definition givent the path of the definition.
-   */
-  _buildDefinition: function buildFormDefinition(){
-    if(!this.definitionPath){
-      throw new Error('the definition path should be defined to know the domain of your entity property.');
-    }
-    this.definition = getEntityDefinition(this.definitionPath, this.additionalDefinition);
-  },
+
   /**
    * Validate the form information by information.
    * In case of errors the state is modified.

@@ -12,5 +12,6 @@ module.exports = {
   stickyNavigation: require('./sticky-navigation'),
   title: require('./title'),
   topicDisplayer: require('./topic-displayer'),
-  list: require('./list')
+  list: require('./list'),
+  mixin: require('./mixin')
 };

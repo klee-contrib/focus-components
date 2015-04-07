@@ -36,7 +36,7 @@ Event         | Description
 
 ## Example
 ```html
-<input type='date'/>
+<input type='text'/>
 ```
 
 
