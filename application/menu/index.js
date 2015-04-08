@@ -1,22 +1,15 @@
 var builder = require('focus').component.builder;
 var React = require('react');
 var type = require('focus').component.types;
+var PopinProperties = require('../mixin/popin-behaviour').mixin;
 
 var menuMixin = {
+  mixins: [PopinProperties],
+
   /** @inheritedProps*/
   getDefaultProps: function getMenuDefaultProps() {
     return {
-      direction: 'vertical',//horizontal
-      position: 'left', // top, bottom, right, left
-      links: [],
-      open: false,
-      style: {}
-    };
-  },
-  /** @inheritedProps*/
-  getInitialState: function getMenuDefaultState() {
-    return {
-      open: this.props.open
+      links: []
     };
   },
   /**
