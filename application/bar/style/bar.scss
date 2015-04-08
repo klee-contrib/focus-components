@@ -1,0 +1,13 @@
+nav.bar{
+  width: 100%;
+  min-height: 64px;
+  background-color: #00bcd4;
+  z-index: 5;
+  position: fixed;
+  height: 64px;
+  &.open{
+    height: 128px;
+    background-color: white;
+    color: black;
+  }
+}

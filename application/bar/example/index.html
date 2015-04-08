@@ -1,0 +1,117 @@
+<!doctype html>
+<html class="no-js" lang="">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Test react and backbone</title>
+  <meta name="description" content="Example of the component.">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- Place favicon.ico in the root directory -->
+  <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css" />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/react/0.13.1/react.js"></script>
+
+  <!-- Material degign-->
+  <script src="//code.jquery.com/jquery-1.10.2.min.js"></script>
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/bootstrap.material-design/0.3.0/css/material-wfont.min.css">
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/bootstrap.material-design/0.3.0/css/material.min.css">
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/bootstrap.material-design/0.3.0/css/ripples.min.css">
+  <script src="//cdn.jsdelivr.net/bootstrap.material-design/0.3.0/js/material.min.js"></script>
+  <script src="//cdn.jsdelivr.net/bootstrap.material-design/0.3.0/js/ripples.min.js"></script>
+
+  <!-- Material degign-->
+
+  <script src="/focus-components/dist/js/focus.js"></script>
+  <script src="/focus-components/dist/js/focus-components.js"></script>
+  <script src="/focus-components/example/js/initFocus.js"></script>
+  <link rel="stylesheet" href="css/menu.css"/>
+</head>
+<body>
+  <div id="appBar-container"></div>
+  <script type="text/javascript">
+      $(document).ready(function() {$.material.init();});
+  </script>
+  <script type="text/javascript">
+  //Load dependencies.
+  focus.components = focusComponents;
+  //Component for the application bar.
+  var AppBar =  React.createClass({
+    mixins: [focus.components.application.bar.mixin],
+    _renderLargeContent: function(){
+      return React.createElement("div", null,
+       React.createElement("a", {href: "http://google.com"}, "google"),
+       React.createElement("a", {href: "http://google.com"}, "google"),
+       React.createElement("a", {href: "http://google.com"}, "google"),
+       React.createElement("a", {href: "http://google.com"}, "google"),
+       React.createElement("a", {href: "http://google.com"}, "google"),
+       React.createElement("a", {href: "http://google.com"}, "google"),
+       React.createElement("a", {href: "http://google.com"}, "google"),
+       React.createElement("a", {href: "http://google.com"}, "google"),
+       React.createElement("a", {href: "http://google.com"}, "google"),
+       React.createElement("a", {href: "http://google.com"}, "google"),
+       React.createElement("a", {href: "http://google.com"}, "google"),
+       React.createElement("a", {href: "http://google.com"}, "google"),
+       React.createElement("a", {href: "http://google.com"}, "google")
+       );
+    },
+    _renderMinimalContent: function(){
+      return React.createElement("div", null,
+       React.createElement("a", {href: "http://github.com"}, "github"),
+       React.createElement("a", {href: "http://github.com"}, "github"),
+       React.createElement("a", {href: "http://github.com"}, "github")
+
+       );
+    }
+  });
+
+  //Create the view.
+  var TestApp = React.createClass({displayName: "TestApp",
+    handleToggleBar: function(e){
+     this.refs.appBar.toggle()
+    },
+    render: function() {
+      return React.createElement(
+        "div",
+        null,
+       'Menu test, you can try any of these menu',
+       React.createElement(AppBar, {open: false,title: "Menu left", ref: "appBar"}),
+        React.createElement("br", null),
+        React.createElement("br", null),
+        React.createElement("br", null),
+        React.createElement("br", null),
+        React.createElement("br", null),
+        React.createElement("br", null),
+        React.createElement("br", null),
+        React.createElement("br", null),
+        React.createElement("br", null),
+        React.createElement("br", null),
+        React.createElement("br", null),
+        React.createElement("br", null),
+        React.createElement("br", null),
+        React.createElement("br", null),
+        React.createElement("br", null),
+        React.createElement("br", null),
+        React.createElement("br", null),
+        React.createElement("br", null),
+        React.createElement("br", null),
+        React.createElement("br", null),
+        React.createElement("br", null),
+        React.createElement("br", null),
+        React.createElement("br", null),
+        React.createElement("br", null),
+        React.createElement("br", null),
+        React.createElement("br", null),
+        React.createElement("br", null),
+        React.createElement("br", null),
+        React.createElement("br", null),
+        React.createElement("button", {onClick: this.handleToggleBar, className: "btn btn-primary"}, "Toggle app bar")
+      );
+    }
+  });
+  React.render(React.createElement(TestApp, null), document.querySelector("#appBar-container"));
+</script>
+
+</body>
+
+</html>

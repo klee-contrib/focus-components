@@ -28,6 +28,10 @@
       "path": "application/menu"
     },
     {
+      "name": "bar",
+      "path": "application/bar"
+    },
+    {
       "name": "quick-search",
       "path": "search/quick-search"
     },

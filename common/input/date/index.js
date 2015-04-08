@@ -11,7 +11,7 @@ var inputTextMixin = require('../text').mixin;
  */
 var inputDateMixin = {
   /** @inheritdoc */
-  mixins:[inputTextMixin],
+  mixins: [inputTextMixin],
   /** @inheritdoc */
   componentDidMount: function inputDateDidMount(){
     var component = this;
