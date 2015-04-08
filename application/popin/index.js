@@ -1,11 +1,12 @@
 var builder = require('focus').component.builder;
+var PopinProperties = require('../mixin/popin-behaviour').mixin;
 
 /**
  * Popin mixin
  * @type {object}
  */
 var popinMixin = {
-
+   mixins: [PopinProperties],
     /**
      * Display name.
      */
@@ -17,20 +18,10 @@ var popinMixin = {
      */
     getDefaultProps: function(){
         return {
-            animation: 'right', // right, left, up, down
+            //animation: 'right', // right, left, up, down
             type: 'full', // full, centered
-            displaySelector: undefined, // Html selector of the element wich open/close the modal when click on it.
+            //  displaySelector: undefined, // Html selector of the element wich open/close the modal when click on it.
             contentLoadingFunction: undefined // Function wich returns the content of the modal.
-        };
-    },
-
-    /**
-     * Initial state.
-     * @returns {object} Initial state values
-     */
-    getInitialState: function(){
-        return {
-            isDisplayed: false // True if modal is displayed
         };
     },
     /**
@@ -40,7 +31,7 @@ var popinMixin = {
         var source = document.querySelector(this.props.displaySelector);
         var currentView = this;
         source.onclick = function () {
-            currentView.setState({isDisplayed: !currentView.state.isDisplayed});
+            currentView.setState({open: !currentView.state.open});
         };
     },
 
@@ -48,13 +39,13 @@ var popinMixin = {
      * Open the modal.
      */
     openModal: function openModal() {
-        this.setState({isDisplayed: true});
+        this.setState({open: true});
     },
     /**
      * Close the modal.
      */
     closeModal: function closeModal() {
-        this.setState({isDisplayed: false});
+        this.setState({open: false});
     },
 
     /**
@@ -64,7 +55,7 @@ var popinMixin = {
      */
     _getModalCss: function() {
         var cssClass = 'popin animated float:right;';
-        switch (this.props.animation) {
+        switch (this.props.position) {
             case 'right':
                 cssClass += ' bounceInRight right';
                 break;
@@ -103,16 +94,18 @@ var popinMixin = {
      * @returns {JSX} Html code.
      */
     render: function renderPopin(){
-        if(!this.state.isDisplayed) {
+        if(!this.state.open) {
             return <div />;
         }
         return (
             <span className={this._getModalCss()}>
                 <div className={this._getModalContentCss()}>
+
                     {this.renderPopinHeader(this)}
                     <div className="modal-body" >
                         {this.renderContent(this)}
                     </div>
+
                     {this.renderPopinFooter(this)}
                 </div>
             </span>

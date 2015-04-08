@@ -60,6 +60,10 @@ var searchMixin = {
         };
     },
 
+    getCriteria: function getCriteria() {
+      return this.refs.quickSearch.getValue();
+    },
+
     /**
      * Register a listener on the store.
      * @private

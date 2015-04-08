@@ -7,6 +7,8 @@
     <meta name="description" content="Example of the component.">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/showdown/0.4.0/Showdown.js"></script>
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/react/0.13.1/react.js"></script>
     <script src="/focus-components/dist/js/focus.js"></script>
     <script src="/focus-components/dist/js/focus-components.js"></script>
@@ -64,7 +66,7 @@
 <script type="text/javascript">
 
     var mixinDefinition = {
-        mixins: [focusComponents.page.popin.mixin],
+        mixins: [focusComponents.application.popin.mixin],
         renderPopinHeader: function(popin) {
                 return React.createElement('div', null,
                         React.createElement('div', {
@@ -84,19 +86,19 @@
     }
 
     React.render(React.createElement(React.createClass(mixinDefinition), {
-                        animation: 'right',
+                        position: 'right',
                         displaySelector: '#buttonRight'
              }), document.querySelector("#popin-container-right"));
     React.render(React.createElement(React.createClass(mixinDefinition), {
-                animation: 'left',
+                position: 'left',
                 displaySelector: '#buttonLeft'
             }), document.querySelector("#popin-container-left"));
     React.render(React.createElement(React.createClass(mixinDefinition), {
-                animation: 'up',
+                position: 'up',
                 displaySelector: '#buttonUp'
             }), document.querySelector("#popin-container-up"));
     React.render(React.createElement(React.createClass(mixinDefinition),{
-                        animation: 'down',
+                        position: 'down',
                         displaySelector: '#buttonDown'
             }), document.querySelector("#popin-container-down"));
 

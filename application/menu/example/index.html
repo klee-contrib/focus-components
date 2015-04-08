@@ -22,10 +22,13 @@
 
   <!-- Material degign-->
 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/showdown/0.4.0/Showdown.js"></script>
+
   <script src="/focus-components/dist/js/focus.js"></script>
   <script src="/focus-components/dist/js/focus-components.js"></script>
   <script src="/focus-components/example/js/initFocus.js"></script>
   <link rel="stylesheet" href="css/menu.css"/>
+
 </head>
 <body>
   <div id="menu-container" class="container"></div>
@@ -35,7 +38,14 @@
   <script type="text/javascript">
   //Load dependencies.
   focus.components = focusComponents;
-  var Menu = focus.components.application.menu.component;
+
+  var menuMixin = focusComponents.application.menu.mixin;
+  var Menu = React.createClass({
+      mixins: [menuMixin],
+      renderContent: function renderMenuContent() {
+          return this.renderLinks();
+      }
+  });
 
   //Create the view.
   var TestApp = React.createClass({displayName: "TestApp",
@@ -74,7 +84,6 @@
       );
     }
   });
-
   //Render the created View.
   React.render(React.createElement(TestApp, null), document.querySelector("#menu-container"));
 </script>
