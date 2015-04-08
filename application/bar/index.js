@@ -1,6 +1,7 @@
 var builder = require('focus').component.builder;
 var React = require('react');
 var type = require('focus').component.types;
+var {pluck, sortBy} = require('lodash/collection');
 
 var barMixin = {
   /** @inheriteddoc */
@@ -40,9 +41,9 @@ var barMixin = {
   _processSizes: function processSizes(){
     var sizes = [];
     for(var sz in this.props.sizeMap){
-
+     sizes.push({name: sz, visibility: this.props.sizeMap[sz].visibility});
     }
-    this.sizes = sizes;
+    this.sizes = pluck(sortBy(sizes, 'visibility'), 'name');
   },
   /** @inheriteddoc */
   componentWillMount: function barWillMount() {
