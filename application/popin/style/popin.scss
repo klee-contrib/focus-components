@@ -1,8 +1,8 @@
 .popin {
   position: fixed;
   .full {
-    min-height: 500px;
-    min-width: 800px;
+    min-height: 600px;
+    min-width: 900px;
 
   }
   .centered {
@@ -24,8 +24,18 @@
   top: 0px;
   right: 0px;
   margin: 10px 10px 0 0;
-
 }
+
+.popin.down {
+  right: 25%;
+  margin: 10px 10px 0 0;
+}
+
+.popin.up {
+  right: 25%;
+  margin: 10px 10px 0 0;
+}
+
 .popin-close-btn {
   background-image:  url("../img/cross-popin.svg");
   background-repeat: no-repeat;
