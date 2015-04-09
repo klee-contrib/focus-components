@@ -13,6 +13,7 @@ var fieldBehaviourMixin = {
     context = context || this;
     //Properties.
     var isEdit = options.isEdit !== undefined ? options.isEdit : context.state.isEdit;
+    var value = options.value !== undefined ? options.value : context.state[name];
     var def = (context.definition && context.definition[name]) ? context.definition[name] : {};
     var listName = options.listName || def.listName;
     //hasLabel
@@ -28,7 +29,7 @@ var fieldBehaviourMixin = {
     var propsContainer = {
       name: `${this.definitionPath}.${name}`,
       ref: name,
-      value: context.state[name],
+      value: value,
       error: context.state.error ? context.state.error[name] : undefined,
       //Mode
       isEdit: isEdit,
