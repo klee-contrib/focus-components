@@ -4,14 +4,19 @@ var React = require('react');
 var Line = require('./line').mixin;
 var Button = require('../../common/button/action').component;
 var type = require('focus').component.types;
-var InfiniteScrollMixin = require('./infinite-scroll').mixin;
+var InfiniteScrollMixin = require('../mixin/infinite-scroll').mixin;
+var referenceMixin = require('../../common/mixin/reference-property');
 
 var listMixin = {
-    mixins: [InfiniteScrollMixin],
     /**
      * Display name.
      */
     displayName: 'selection-list',
+
+    /**
+     * Mixin dependancies.
+     */
+    mixins: [InfiniteScrollMixin, referenceMixin],
 
     /**
      * Default properties for the list.
@@ -117,7 +122,8 @@ var listMixin = {
                 isSelected: isSelected,
                 onSelection: this.props.onSelection,
                 onLineClick: this.props.onLineClick,
-                operationList: this.props.operationList
+                operationList: this.props.operationList,
+                reference: this._getReference()
             });
         });
     },

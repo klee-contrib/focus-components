@@ -1,6 +1,5 @@
 var type = require('focus').component.types;
 var referenceMixin = {
-  
   /** @inheritdoc */
   getDefaultProps: function getDefaultProps(){
       return {
@@ -11,10 +10,12 @@ var referenceMixin = {
         reference: {}
       };
   },
+
   /** @inheritdoc */
   propTypes: {
     reference: type('object')
   },
+
   /**
    * @returns {object} -
    */
