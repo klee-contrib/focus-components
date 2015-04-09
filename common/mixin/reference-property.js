@@ -20,7 +20,7 @@ var referenceMixin = {
    * @returns {object} -
    */
   _getReference: function getReference(){
-    return this.reference;
+    return this.props.reference;
   }
 };
 module.exports = referenceMixin;

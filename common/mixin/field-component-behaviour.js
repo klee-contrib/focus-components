@@ -47,9 +47,9 @@ var fieldBehaviourMixin = {
       DisplayComponent: def.DisplayComponent
     };
     // Values list.
-    var refContainer = options.refContainer || this.state;
-    if(context[refContainer].reference && context[refContainer].reference[listName]){
-      assign(propsContainer, {values: context[refContainer].reference[listName]});
+    var refContainer = options.refContainer || context.state.reference;
+    if(refContainer && refContainer[listName]){
+      assign(propsContainer, {values: refContainer[listName]});
     }
     return propsContainer;
   }
