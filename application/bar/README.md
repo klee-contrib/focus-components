@@ -31,7 +31,7 @@ Attribute                     | Options     | Possible               | Default  
 
 ## Structure
 
-Le schéma.pdf présent dans les sources du composant a pour but d'expliquer les éléments de la page.
+Le [schéma.pdf](https://github.com/KleeGroup/focus-components/blob/master/application/bar/schema.pdf) présent dans les sources du composant a pour but d'expliquer les éléments de la page.
 
 
 ## Example
