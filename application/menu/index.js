@@ -1,10 +1,10 @@
 var builder = require('focus').component.builder;
 var React = require('react');
 var type = require('focus').component.types;
-var PopinProperties = require('../mixin/popin-behaviour').mixin;
+var popinProperties = require('../mixin/popin-behaviour').mixin;
 
 var menuMixin = {
-  mixins: [PopinProperties],
+  mixins: [popinProperties],
 
   /** @inheritedProps*/
   getDefaultProps: function getMenuDefaultProps() {
