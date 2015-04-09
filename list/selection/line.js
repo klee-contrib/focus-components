@@ -6,6 +6,7 @@ var ContextualActions = require('../action-contextual').component;
 var CheckBox = require('../../common/input/checkbox').component;
 var translationMixin = require('../../common/i18n').mixin;
 var referenceMixin = require('../../common/mixin/reference-property');
+var definitionMixin = require('../../common/mixin/definition');
 
 var lineMixin = {
     /**
@@ -16,7 +17,7 @@ var lineMixin = {
     /**
      * Mixin dependancies.
      */
-    mixins: [translationMixin, referenceMixin],
+    mixins: [translationMixin, definitionMixin,referenceMixin],
 
     /**
      * Default properties for the line.
