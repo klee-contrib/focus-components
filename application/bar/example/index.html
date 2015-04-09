@@ -42,13 +42,25 @@
     render: function() {
       return React.createElement("div", null,
         React.createElement(AppBar, null,
-          React.createElement("a", {href: "http://github.com/KleeGroup"}, "Kleegroup"),
-          React.createElement("a", {href: "http://github.com/KleeGroup"}, "Kleegroup"),
-          React.createElement("a", {href: "http://github.com/KleeGroup"}, "Kleegroup"),
-          React.createElement("a", {href: "http://github.com/KleeGroup"}, "Kleegroup"),
-          React.createElement("a", {href: "http://github.com/KleeGroup"}, "Kleegroup"),
-          React.createElement("a", {href: "http://github.com/KleeGroup"}, "Kleegroup"),
-          React.createElement("a", {href: "http://github.com/KleeGroup"}, "Kleegroup")
+         React.createElement("div", {className: 'actions-left'},
+           React.createElement("button", {className: "btn btn-raise btn-default"}, "Back")
+         ),
+         React.createElement("div", {className: "entete"},
+           "Super film vraiment top...",
+           React.createElement("button", {className: "btn btn-info btn-raise"}, "Context"),
+           React.createElement("button", {className: "btn btn-info btn-raise"}, "Context"),
+           React.createElement("button", {className: "btn btn-info btn-raise"}, "Context")
+         ),
+
+         React.createElement("div", {className: 'user-infos'},
+           React.createElement("button", {className: "btn btn-success btn-fab btn-raised mdi-action-language"}),
+           React.createElement("button", {className: "btn btn-danger btn-fab btn-raised mdi-social-notifications"}),
+           React.createElement("button", {className: "btn btn-primary btn-fab btn-raised mdi-action-account-circle"})
+         ),
+         React.createElement("div", {className: "entete"},
+           "Entete superLonguezzeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeexxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee..."
+          )
+
         ),
         React.createElement("div", null,
           React.createElement("h1", null, " Title"),

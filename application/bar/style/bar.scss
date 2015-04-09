@@ -13,6 +13,11 @@ nav.bar{
   z-index: 5;
   position: fixed;
   height: 64px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-content: stretch;
+  flex-wrap: wrap;
   &.bar-tall{
     min-height: 250px;
     background-color: #2600D4;
