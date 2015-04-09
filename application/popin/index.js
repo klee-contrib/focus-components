@@ -54,23 +54,23 @@ var popinMixin = {
    * @private
    */
   _getModalCss: function () {
-    var cssClass = 'popin animated float:right;';
+    var cssClass = 'popin animated ';
     switch (this.props.position) {
       case 'right':
-        cssClass += ' bounceInRight right btn-close-left';
+        cssClass = `${cssClass} bounceInRight right btn-close-left`;
         break;
       case 'left':
-        cssClass += ' bounceInLeft left btn-close-right';
+        cssClass = `${cssClass} bounceInLeft left btn-close-right`;
         break;
       case 'down':
-        cssClass += ' bounceInDown down btn-close-left';
+        cssClass = `${cssClass} bounceInDown down btn-close-left`;
         break;
       case 'up':
-        cssClass += ' bounceInUp up btn-close-left';
+        cssClass = `${cssClass} bounceInUp up btn-close-left`;
         break;
     }
     if (this.props.style.className !== undefined && this.props.style.className !== null) {
-      cssClass = cssClass + ' ' + this.props.style.className;
+      cssClass = `${cssClass}  ${this.props.style.className}`;
     }
     return cssClass;
   },
@@ -119,7 +119,7 @@ var popinMixin = {
     }
     return (
       <div>
-        <div id='modal-layer' className='layer' onClick={this.closeModal}></div>
+        <div id='modal-layer' className='popin-layer' onClick={this.closeModal}></div>
         <span className={this._getModalCss()}>
           <div className = {this._getCloseBtnCss()} onClick={this.closeModal}></div>
           <div className={this._getModalContentCss()}>
