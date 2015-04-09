@@ -6,7 +6,8 @@
 
   }
   .centered {
-    height: 80vh;
+    min-height: 500px;
+    min-width: 800px;
   }
 
   .header {
@@ -17,10 +18,12 @@
 .popin.left {
   top: 0px;
   left: 0px;
+  margin: 10px 0 0 10px;
 }
 .popin.right {
   top: 0px;
   right: 0px;
+  margin: 10px 10px 0 0;
 
 }
 .popin-close-btn {
@@ -48,23 +51,12 @@
   margin-right: -10px;
 }
 
-.btn-close-right{
-  min-height: 500px;
-  min-width: 800px;
-  margin-left: 20px;
-  margin-top: 15px;
-  z-index: 1001;
-}
-
+.btn-close-right,
 .btn-close-left{
-  min-height: 500px;
-  min-width: 800px;
-  margin-left: 20px;
-  margin-top: 15px;
   z-index: 1001;
 }
 
-#modal-layer.layer {
+.popin-layer {
   overflow: auto;
   overflow-y: auto;
   z-index: 1000;
