@@ -16,7 +16,7 @@ var fieldBehaviourMixin = {
     var def = (context.definition && context.definition[name]) ? context.definition[name] : {};
     var listName = options.listName || def.listName;
     //hasLabel
-    var hasLabel = function(){
+    var hasLabel = function hasLabel(){
       if(options.hasLabel !== undefined){
         return options.hasLabel;
       }
@@ -38,7 +38,7 @@ var fieldBehaviourMixin = {
       //Methods
       validator: def.validator,
       formatter: def.formatter,
-      //component: {Field: def.FieldComponent, LabelAndInput: def.LabelAndInputComponent, Input: def.InputComponent, Display: def.DisplayComponent, Text: def.TextComponent}
+      //Component
       FieldComponent: def.FieldComponent,
       InputLabelComponent: def.InputLabelComponent,
       InputComponent: def.InputComponent,
