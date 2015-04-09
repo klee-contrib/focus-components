@@ -10,24 +10,22 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/react/0.13.1/react.js"></script>
     <script src="/focus-components/dist/js/focus.js"></script>
     <script src="/focus-components/dist/js/focus-components.js"></script>
+    <script src="/focus-components/example/js/initFocus.js"></script>
     <link rel="stylesheet" href="/focus-components/dist/css/focus-components.css"/>
+
+    <!-- Place favicon.ico in the root directory -->
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/react/0.13.1/react.js"></script>
 
     <!-- Material degign-->
     <script src="//code.jquery.com/jquery-1.10.2.min.js"></script>
-    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
-    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css" />
-    <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js" ></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-material-design/0.2.2/css/material-wfont.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-material-design/0.2.2/css/material.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-material-design/0.2.2/css/ripples.css">
-
-    <link rel="font" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-material-design/0.2.2/fonts/Material-Design-Icons.eot">
-    <link rel="font" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-material-design/0.2.2/fonts/Material-Design-Icons.svg">
-    <link rel="font" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-material-design/0.2.2/fonts/Material-Design-Icons.ttf">
-    <link rel="font" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-material-design/0.2.2/fonts/Material-Design-Icons.woff">
-
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-material-design/0.2.2/js/material.js"/>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-material-design/0.2.2/js/ripples.min.js"></script>
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/bootstrap.material-design/0.3.0/css/material-wfont.min.css">
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/bootstrap.material-design/0.3.0/css/material.min.css">
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/bootstrap.material-design/0.3.0/css/ripples.min.css">
+    <script src="//cdn.jsdelivr.net/bootstrap.material-design/0.3.0/js/material.min.js"></script>
+    <script src="//cdn.jsdelivr.net/bootstrap.material-design/0.3.0/js/ripples.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/showdown/0.4.0/Showdown.js"></script>
     <!-- Material degign-->
 
 </head>
@@ -38,13 +36,20 @@
 <div id="list-container" style="width: 600px; height: auto; margin:100px auto 100px auto;"></div>
 
 <script type="text/javascript">
-  focus.components = focusComponents;
+    $(document).ready(function() {$.material.init();});
+</script>
+
+<script type="text/javascript">
+    focus.components = focusComponents;
     var Line = React.createClass({
                 mixins: [focusComponents.list.selection.line.mixin],
+                definitionPath: "contact",
                 renderLineContent: function(data){
-                    var title = React.createElement('div',null,data.title);
-                    var body = React.createElement('div',null,data.body);
-                    var root = React.createElement('div',null,title,body);
+                    var firstName = this.displayFor("firstName", {});
+                    var lastName = this.displayFor("lastName", {});
+                    //var firstName = React.createElement('div',null,data.firstName);
+                    //var lastName = React.createElement('div',null,data.lastName);
+                    var root = React.createElement('div',null,firstName,lastName);
                     return root;
                 }
             });
@@ -57,7 +62,7 @@
     ];
 
     var List = React.createElement(focusComponents.list.selection.list.component,{
-        data: [{id:1, title : "toto", body:"ceci est un test"},{id:2, title:"tata",body:"deuxieme test"}, {id:3, title:"titi",body:"troisième test"}],
+        data: [{id:1, firstName: "Olivier", lastName: "Boitel"},{id:2, firstName: "pierre", lastName: "besson"}, {id:3, firstName: "Remi", lastName: "Grange"}],
         hasMoreData: true,
         lineComponent: Line,
         onLineClick : function onLineClick(line){

@@ -15,7 +15,8 @@ var builtInComponentsMixin = {
     fieldFor: function fieldFor(name, options){
         options = assign({}, {
             isEdit: this.props.isEdit,
-            hasLabel: false
+            hasLabel: false,
+            value: this.props.data[name]
         }, options);
 
         var fieldProps = this._buildFieldProps(name, options, this);
@@ -31,7 +32,8 @@ var builtInComponentsMixin = {
     displayFor: function displayFor(name, options){
         options = assign({}, {
             isEdit: false,
-            hasLabel: false
+            hasLabel: false,
+            value: this.props.data[name]
         }, options);
 
         var fieldProps = this._buildFieldProps(name, options, this);

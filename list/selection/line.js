@@ -7,6 +7,7 @@ var CheckBox = require('../../common/input/checkbox').component;
 var translationMixin = require('../../common/i18n').mixin;
 var referenceMixin = require('../../common/mixin/reference-property');
 var definitionMixin = require('../../common/mixin/definition');
+var builtInComponentsMixin = require('../mixin/built-in-components');
 
 var lineMixin = {
     /**
@@ -17,7 +18,7 @@ var lineMixin = {
     /**
      * Mixin dependancies.
      */
-    mixins: [translationMixin, definitionMixin,referenceMixin],
+    mixins: [translationMixin, definitionMixin,referenceMixin, builtInComponentsMixin],
 
     /**
      * Default properties for the line.
