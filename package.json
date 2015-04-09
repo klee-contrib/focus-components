@@ -144,6 +144,10 @@
       "path": "application/popin"
     },
     {
+      "name": "confirmation-popin",
+      "path": "application/confirmation-popin"
+    },
+    {
       "name": "message",
       "path": "message"
     },
