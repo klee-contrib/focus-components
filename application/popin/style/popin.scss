@@ -1,8 +1,8 @@
 .popin {
   position: fixed;
   .full {
-    min-height: 100vh;
-    min-width: 50vw;
+    min-height: 500px;
+    min-width: 800px;
 
   }
   .centered {
@@ -22,4 +22,42 @@
   top: 0px;
   right: 0px;
 
+}
+.popin-close-btn {
+  background-image:  url("../img/cross-popin.svg");
+  background-repeat: no-repeat;
+  width: 27px;
+  height: 27px;
+  background-position: left 3px top 3px;
+  background-color: #606060;
+  border-radius: 15px;
+  cursor: pointer;
+  z-index: 1050;
+  position: relative;
+}
+
+.popin-close-btn.left {
+  float: left;
+  margin-top: -10px;
+  margin-left: -10px;
+}
+
+.popin-close-btn.right {
+  float: right;
+  margin-top: -10px;
+  margin-right: -10px;
+}
+
+.btn-close-right{
+  min-height: 500px;
+  min-width: 800px;
+  margin-left: 20px;
+  margin-top: 15px;
+}
+
+.btn-close-left{
+  min-height: 500px;
+  min-width: 800px;
+  margin-left: 20px;
+  margin-top: 15px;
 }

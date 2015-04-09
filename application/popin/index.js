@@ -18,7 +18,6 @@ var popinMixin = {
      */
     getDefaultProps: function(){
         return {
-            //animation: 'right', // right, left, up, down
             type: 'full', // full, centered
             //  displaySelector: undefined, // Html selector of the element wich open/close the modal when click on it.
             contentLoadingFunction: undefined // Function wich returns the content of the modal.
@@ -57,20 +56,40 @@ var popinMixin = {
         var cssClass = 'popin animated float:right;';
         switch (this.props.position) {
             case 'right':
-                cssClass += ' bounceInRight right';
+                cssClass += ' bounceInRight right btn-close-left';
                 break;
             case 'left':
-                cssClass += ' bounceInLeft left';
+                cssClass += ' bounceInLeft left btn-close-right';
                 break;
             case 'down':
-                cssClass += ' bounceInDown down';
+                cssClass += ' bounceInDown down btn-close-left';
                 break;
             case 'up':
-                cssClass += ' bounceInUp up';
+                cssClass += ' bounceInUp up btn-close-left';
                 break;
         }
+      if(this.props.style.className !== undefined && this.props.style.className !== null){
+        cssClass = cssClass + ' ' + this.props.style.className;
+      }
         return cssClass;
     },
+
+  /**
+   * Css class of close btn.
+   * @returns {string} css classes.
+   * @private
+   */
+  _getCloseBtnCss: function() {
+    var cssClass = 'popin-close-btn';
+    switch (this.props.position) {
+      case 'left':
+        cssClass += ' right';
+        break;
+      default :
+        cssClass += ' left';
+    }
+    return cssClass;
+  },
     /**
      * Content css class.
      * @returns {string} css classes.
@@ -99,13 +118,12 @@ var popinMixin = {
         }
         return (
             <span className={this._getModalCss()}>
+              <div className = {this._getCloseBtnCss()} onClick={this.closeModal}></div>
                 <div className={this._getModalContentCss()}>
-
                     {this.renderPopinHeader(this)}
                     <div className="modal-body" >
                         {this.renderContent(this)}
                     </div>
-
                     {this.renderPopinFooter(this)}
                 </div>
             </span>
