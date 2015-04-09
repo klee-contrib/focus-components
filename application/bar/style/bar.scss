@@ -1,3 +1,11 @@
+@mixin transition($transition-property, $transition-time) {
+    -webkit-transition: $transition-property $transition-time;
+    -moz-transition: $transition-property $transition-time;
+    -ms-transition: $transition-property $transition-time;
+    -o-transition: $transition-property $transition-time;
+    transition: $transition-property $transition-time;
+}
+$duration: 0.5s;
 nav.bar{
   width: 100%;
   min-height: 64px;
@@ -6,16 +14,19 @@ nav.bar{
   position: fixed;
   height: 64px;
   &.bar-tall{
-    height: 250px;
+    min-height: 250px;
     background-color: #2600D4;
     color: white;
+    @include transition(min-height, $duration);
   }
   &.bar-medium{
-    height: 150px;
+    min-height: 150px;
     background-color: #0073D4;
     color: white;
+    @include transition(min-height, $duration);
   }
   &.bar-small{
-    height: 64px;
+    min-height: 64px;
+    @include transition(min-height, $duration);
   }
 }

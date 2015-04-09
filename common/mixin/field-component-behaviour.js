@@ -15,6 +15,15 @@ var fieldBehaviourMixin = {
     var isEdit = options.isEdit !== undefined ? options.isEdit : context.state.isEdit;
     var def = (context.definition && context.definition[name]) ? context.definition[name] : {};
     var listName = options.listName || def.listName;
+    //hasLabel
+    var hasLabel = function hasLabel(){
+      if(options.hasLabel !== undefined){
+        return options.hasLabel;
+      }
+      if(def.hasLabel !== undefined){
+        return options.hasLabel;
+      } return true;
+    }();
     //Build a container for the props.
     var propsContainer = {
       name: `${this.definitionPath}.${name}`,
@@ -23,12 +32,13 @@ var fieldBehaviourMixin = {
       error: context.state.error ? context.state.error[name] : undefined,
       //Mode
       isEdit: isEdit,
+      hasLabel: hasLabel,
       //Style
       style: options.style,
       //Methods
       validator: def.validator,
       formatter: def.formatter,
-      //component: {Field: def.FieldComponent, LabelAndInput: def.LabelAndInputComponent, Input: def.InputComponent, Display: def.DisplayComponent, Text: def.TextComponent}
+      //Component
       FieldComponent: def.FieldComponent,
       InputLabelComponent: def.InputLabelComponent,
       InputComponent: def.InputComponent,
