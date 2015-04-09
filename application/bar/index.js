@@ -149,10 +149,9 @@ var barMixin = {
   },
   /**
    * Handle the scroll event in order to resize the page.
-   * @param {[type]} event [description]
+   * @param {object} event [description]
    */
   handleScroll: function handleScrollEvent(event){
-    console.log('scroll', event);
     this._processSize();
   },
 
