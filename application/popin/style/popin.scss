@@ -53,6 +53,7 @@
   min-width: 800px;
   margin-left: 20px;
   margin-top: 15px;
+  z-index: 1001;
 }
 
 .btn-close-left{
@@ -60,4 +61,17 @@
   min-width: 800px;
   margin-left: 20px;
   margin-top: 15px;
+  z-index: 1001;
+}
+
+#modal-layer.layer {
+  overflow: auto;
+  overflow-y: auto;
+  z-index: 1000;
+  background-color: rgba(0, 0, 0, 0.3);
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  position: absolute;
 }
