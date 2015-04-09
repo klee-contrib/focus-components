@@ -1,12 +1,12 @@
 var builder = require('focus').component.builder;
-var PopinProperties = require('../mixin/popin-behaviour').mixin;
+var popinProperties = require('../mixin/popin-behaviour').mixin;
 
 /**
  * Popin mixin
  * @type {object}
  */
 var popinMixin = {
-  mixins: [PopinProperties],
+  mixins: [popinProperties],
   /**
    * Display name.
    */
