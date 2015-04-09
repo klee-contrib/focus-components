@@ -1,0 +1,21 @@
+nav.bar{
+  width: 100%;
+  min-height: 64px;
+  background-color: #00bcd4;
+  z-index: 5;
+  position: fixed;
+  height: 64px;
+  &.bar-tall{
+    height: 250px;
+    background-color: #2600D4;
+    color: white;
+  }
+  &.bar-medium{
+    height: 150px;
+    background-color: #0073D4;
+    color: white;
+  }
+  &.bar-small{
+    height: 64px;
+  }
+}

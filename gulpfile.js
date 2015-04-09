@@ -12,7 +12,7 @@ var source = require('vinyl-source-stream');
 /**
  * LINT
  */
-var src = '{spec,search,list,form,page,common}/**/*.js';
+var src = '{spec,search,list,form,page,common,application}/**/*.js';
 var sources = [src];
 gulp.task('eslint', function() {
 	//gulp eslint 2>lint/lintErrors.txt
@@ -204,7 +204,7 @@ gulp.task('focus-components-npm', ['style', 'browserify'], function() {
 	var babel = require('gulp-babel');
 	var gulpif = require('gulp-if');
 	return gulp.src(['package.json', 'index.js',
-			'{spec,search,list,form,common,example,page}/**/*.{js,css}'
+			'{spec,search,list,form,common,example,page,application}/**/*.{js,css}'
 		])
 		.pipe(gulpif(/[.]js$/, react({
 			harmony: true
