@@ -45,7 +45,7 @@ var popinMixin = {
    */
   closeModal: function closeModal() {
     this.setState({open: false});
-    document.querySelector('#modal-layer').removeClass('popin-layer');
+    document.querySelector('#modal-layer').classList.remove('popin-layer');
   },
 
   /**
