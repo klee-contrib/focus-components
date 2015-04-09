@@ -7,9 +7,25 @@ var barMixin = {
   /** @inheriteddoc */
   getDefaultProps: function getMenuDefaultProps() {
     return {
+      /**
+       * Selector for the domNode on which the scroll is attached.
+       * @type {string}
+       */
       scrollTargetSelector: undefined,
+      /**
+       * Default style of the component.s
+       * @type {Object}
+       */
       style: {},
+      /**
+       * Default size of the bar. Should be present in sizeMap.
+       * @type {String}
+       */
       size: 'tall',
+      /**
+       * Map which defines sizes exists for the components and their border.
+       * @type {Object}
+       */
       sizeMap: {
         'small': {
           'sizeBorder': 800
@@ -20,7 +36,17 @@ var barMixin = {
         'tall': {
           'sizeBorder': 300
         }
-      }
+      },
+      /**
+       * A way to redefine the process size of the element.
+       * @type {function}
+       */
+      processSize: undefined,
+      /**
+       * A handler to notify other elements that the size has changed.
+       * @type {[type]}
+       */
+      notifySizeChange: undefined
     };
   },
   /** @inheritdoc */
@@ -28,7 +54,9 @@ var barMixin = {
     size: type('string'),
     scrollTargetSelector: type('string'),
     style: type('object'),
-    sizeMap: type('object')
+    sizeMap: type('object'),
+    notifySizeChange: type('function'),
+    processSize: type('function')
   },
   getInitialState: function getMenuDefaultState() {
   /** @inheriteddoc */
@@ -77,24 +105,45 @@ var barMixin = {
     return this.scrollTargetNode.pageYOffset ? this.scrollTargetNode.pageYOffset : this.scrollTargetNode.scrollTop;
   },
   /**
+   * Notify other elements that the size has changed.
+   */
+  _notifySizeChange: function notifySizeChanged(){
+    if(this.props.notifySizeChange){
+      this.props.notifySizeChange(this.state.size);
+    }
+  },
+  /**
+   * Change the size of the bar.
+   * @param {string} newSize - The new size.
+   * @returns {undefined} -  A way to stop the propagation.
+   */
+  _changeSize: function changeSize(newSize){
+    // Todo: see if the notification of the changed size can be called before.
+    return this.setState({size: newSize}, this._notifySizeChange);
+  },
+  /**
    * Process the size in order to know if the size should be changed depending on the scroll position and the border of each zone.
    * @returns {object} - The return is used to stop the treatement.
    */
   _processSize: function _processSize(){
+    //Allow the user to redefine the process size function.
+    if(this.props.processSize){
+      return this.props.processSize();
+    }
     var currentIndex = this.sizes.indexOf(this.state.size);
     var currentScrollPosition = this._getScrollPosition();
     //Process increase treatement.
     if(currentIndex < (this.sizes.length - 1)){
       var increaseBorder = this.props.sizeMap[this.sizes[currentIndex + 1]].sizeBorder;
       if(currentScrollPosition > increaseBorder){
-        return this.setState({size: this.sizes[currentIndex + 1]});
+        return this._changeSize(this.sizes[currentIndex + 1]);
       }
     }
     //Process decrease treatement.
     if(currentIndex > 0){
       var decreaseBorder = this.props.sizeMap[this.sizes[currentIndex - 1]].sizeBorder;
       if(currentScrollPosition < decreaseBorder){
-        return this.setState({size: this.sizes[currentIndex - 1]});
+        return this._changeSize(this.sizes[currentIndex - 1]);
       }
     }
   },
