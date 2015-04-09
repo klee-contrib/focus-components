@@ -12,7 +12,7 @@ var source = require('vinyl-source-stream');
 /**
  * LINT
  */
-var src = '{spec,search,list,form,page,common}/**/*.js';
+var src = '{spec,search,list,form,page,common,application}/**/*.js';
 var sources = [src];
 gulp.task('eslint', function() {
 	//gulp eslint 2>lint/lintErrors.txt

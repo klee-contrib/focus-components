@@ -25,7 +25,7 @@
   <script src="/focus-components/dist/js/focus.js"></script>
   <script src="/focus-components/dist/js/focus-components.js"></script>
   <script src="/focus-components/example/js/initFocus.js"></script>
-  <link rel="stylesheet" href="css/menu.css"/>
+  <link rel="stylesheet" href="/focus-components/dist/css/focus-components.css"/>
 </head>
 <body>
   <div id="appBar-container"></div>
@@ -36,76 +36,60 @@
   //Load dependencies.
   focus.components = focusComponents;
   //Component for the application bar.
-  var AppBar =  React.createClass({
-    mixins: [focus.components.application.bar.mixin],
-    _renderLargeContent: function(){
-      return React.createElement("div", null,
-       React.createElement("a", {href: "http://google.com"}, "google"),
-       React.createElement("a", {href: "http://google.com"}, "google"),
-       React.createElement("a", {href: "http://google.com"}, "google"),
-       React.createElement("a", {href: "http://google.com"}, "google"),
-       React.createElement("a", {href: "http://google.com"}, "google"),
-       React.createElement("a", {href: "http://google.com"}, "google"),
-       React.createElement("a", {href: "http://google.com"}, "google"),
-       React.createElement("a", {href: "http://google.com"}, "google"),
-       React.createElement("a", {href: "http://google.com"}, "google"),
-       React.createElement("a", {href: "http://google.com"}, "google"),
-       React.createElement("a", {href: "http://google.com"}, "google"),
-       React.createElement("a", {href: "http://google.com"}, "google"),
-       React.createElement("a", {href: "http://google.com"}, "google")
-       );
-    },
-    _renderMinimalContent: function(){
-      return React.createElement("div", null,
-       React.createElement("a", {href: "http://github.com"}, "github"),
-       React.createElement("a", {href: "http://github.com"}, "github"),
-       React.createElement("a", {href: "http://github.com"}, "github")
-
-       );
-    }
-  });
-
+  var AppBar = focus.components.application.bar.component;
   //Create the view.
   var TestApp = React.createClass({displayName: "TestApp",
-    handleToggleBar: function(e){
-     this.refs.appBar.toggle()
-    },
     render: function() {
-      return React.createElement(
-        "div",
-        null,
-       'Menu test, you can try any of these menu',
-       React.createElement(AppBar, {open: false,title: "Menu left", ref: "appBar"}),
-        React.createElement("br", null),
-        React.createElement("br", null),
-        React.createElement("br", null),
-        React.createElement("br", null),
-        React.createElement("br", null),
-        React.createElement("br", null),
-        React.createElement("br", null),
-        React.createElement("br", null),
-        React.createElement("br", null),
-        React.createElement("br", null),
-        React.createElement("br", null),
-        React.createElement("br", null),
-        React.createElement("br", null),
-        React.createElement("br", null),
-        React.createElement("br", null),
-        React.createElement("br", null),
-        React.createElement("br", null),
-        React.createElement("br", null),
-        React.createElement("br", null),
-        React.createElement("br", null),
-        React.createElement("br", null),
-        React.createElement("br", null),
-        React.createElement("br", null),
-        React.createElement("br", null),
-        React.createElement("br", null),
-        React.createElement("br", null),
-        React.createElement("br", null),
-        React.createElement("br", null),
-        React.createElement("br", null),
-        React.createElement("button", {onClick: this.handleToggleBar, className: "btn btn-primary"}, "Toggle app bar")
+      return React.createElement("div", null,
+        React.createElement(AppBar, null,
+          React.createElement("a", {href: "http://github.com/KleeGroup"}, "Kleegroup"),
+          React.createElement("a", {href: "http://github.com/KleeGroup"}, "Kleegroup"),
+          React.createElement("a", {href: "http://github.com/KleeGroup"}, "Kleegroup"),
+          React.createElement("a", {href: "http://github.com/KleeGroup"}, "Kleegroup"),
+          React.createElement("a", {href: "http://github.com/KleeGroup"}, "Kleegroup"),
+          React.createElement("a", {href: "http://github.com/KleeGroup"}, "Kleegroup"),
+          React.createElement("a", {href: "http://github.com/KleeGroup"}, "Kleegroup")
+        ),
+        React.createElement("div", null,
+          React.createElement("h1", null, " Title"),
+          React.createElement("p", null, "papapapapapapapapap", React.createElement("br", null), "papapapapapapapa"),
+          React.createElement("p", null, "papapapapapapapapap", React.createElement("br", null), "papapapapapapapa"),
+          React.createElement("p", null, "papapapapapapapapap", React.createElement("br", null), "papapapapapapapa"),
+          React.createElement("p", null, "papapapapapapapapap", React.createElement("br", null), "papapapapapapapa"),
+          React.createElement("p", null, "papapapapapapapapap", React.createElement("br", null), "papapapapapapapa"),
+          React.createElement("p", null, "papapapapapapapapap", React.createElement("br", null), "papapapapapapapa"),
+          React.createElement("p", null, "papapapapapapapapap", React.createElement("br", null), "papapapapapapapa"),
+          React.createElement("p", null, "papapapapapapapapap", React.createElement("br", null), "papapapapapapapa"),
+          React.createElement("p", null, "papapapapapapapapap", React.createElement("br", null), "papapapapapapapa"),
+          React.createElement("p", null, "papapapapapapapapap", React.createElement("br", null), "papapapapapapapa"),
+          React.createElement("p", null, "papapapapapapapapap", React.createElement("br", null), "papapapapapapapa"),
+          React.createElement("p", null, "papapapapapapapapap", React.createElement("br", null), "papapapapapapapa"),
+          React.createElement("p", null, "papapapapapapapapap", React.createElement("br", null), "papapapapapapapa"),
+          React.createElement("p", null, "papapapapapapapapap", React.createElement("br", null), "papapapapapapapa"),
+          React.createElement("p", null, "papapapapapapapapap", React.createElement("br", null), "papapapapapapapa"),
+          React.createElement("p", null, "papapapapapapapapap", React.createElement("br", null), "papapapapapapapa"),
+          React.createElement("p", null, "papapapapapapapapap", React.createElement("br", null), "papapapapapapapa"),
+          React.createElement("p", null, "papapapapapapapapap", React.createElement("br", null), "papapapapapapapa"),
+          React.createElement("h2", null, " SubTitle"),
+          React.createElement("p", null, "papapapapapapapapap", React.createElement("br", null), "papapapapapapapa"),
+          React.createElement("p", null, "papapapapapapapapap", React.createElement("br", null), "papapapapapapapa"),
+          React.createElement("p", null, "papapapapapapapapap", React.createElement("br", null), "papapapapapapapa"),
+          React.createElement("p", null, "papapapapapapapapap", React.createElement("br", null), "papapapapapapapa"),
+          React.createElement("p", null, "papapapapapapapapap", React.createElement("br", null), "papapapapapapapa"),
+          React.createElement("p", null, "papapapapapapapapap", React.createElement("br", null), "papapapapapapapa"),
+          React.createElement("p", null, "papapapapapapapapap", React.createElement("br", null), "papapapapapapapa"),
+          React.createElement("p", null, "papapapapapapapapap", React.createElement("br", null), "papapapapapapapa"),
+          React.createElement("p", null, "papapapapapapapapap", React.createElement("br", null), "papapapapapapapa"),
+          React.createElement("p", null, "papapapapapapapapap", React.createElement("br", null), "papapapapapapapa"),
+          React.createElement("p", null, "papapapapapapapapap", React.createElement("br", null), "papapapapapapapa"),
+          React.createElement("p", null, "papapapapapapapapap", React.createElement("br", null), "papapapapapapapa"),
+          React.createElement("p", null, "papapapapapapapapap", React.createElement("br", null), "papapapapapapapa"),
+          React.createElement("p", null, "papapapapapapapapap", React.createElement("br", null), "papapapapapapapa"),
+          React.createElement("p", null, "papapapapapapapapap", React.createElement("br", null), "papapapapapapapa"),
+          React.createElement("p", null, "papapapapapapapapap", React.createElement("br", null), "papapapapapapapa"),
+          React.createElement("p", null, "papapapapapapapapap", React.createElement("br", null), "papapapapapapapa"),
+          React.createElement("p", null, "papapapapapapapapap", React.createElement("br", null), "papapapapapapapa")
+        )
       );
     }
   });

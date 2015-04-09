@@ -5,9 +5,17 @@ nav.bar{
   z-index: 5;
   position: fixed;
   height: 64px;
-  &.open{
-    height: 128px;
-    background-color: white;
+  &.bar-tall{
+    height: 250px;
+    background-color: grey;
     color: black;
+  }
+  &.bar-medium{
+    height: 150px;
+    background-color: red;
+    color: yellow;
+  }
+  &.bar-small{
+    height: 64px;
   }
 }
