@@ -1,11 +1,11 @@
 # Bar d'application
 
 La bar d'application doit être utilisé comme conteneur pour le menu, le titre, les infos utilisateur et l'entête.
+En fonction de la position de la scroll bar dans l'écran, la barre peut s'afficher de différente manière.
 Trois états par défaut
 - tall
 - medium
 - small
-En fonction de la position de la scroll bar dans l'écran, la barre peut s'afficher de différente manière.
 
 
 
