@@ -9,29 +9,52 @@ $duration: 0.5s;
 nav.bar{
   width: 100%;
   min-height: 64px;
-  background-color: #00bcd4;
+  background-color: white;
   z-index: 5;
   position: fixed;
   height: 64px;
-  display: flex;
+  border: 1px solid red;
+
+/*  display: flex;
   flex-direction: row;
   justify-content: space-between;
   align-content: stretch;
-  flex-wrap: wrap;
+  flex-wrap: wrap;*/
+  top:0;
+  div.content-bar{
+    div.real-bar{
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      align-content: stretch;
+      flex-wrap: wrap;
+      border: 1px solid red;
+    }
+
+  }
+
   &.bar-tall{
-    min-height: 250px;
-    background-color: #2600D4;
-    color: white;
+    div.content-bar{
+      min-height: 250px;
+      background-color: #2600D4;
+      color: white;
+    }
     @include transition(min-height, $duration);
   }
   &.bar-medium{
-    min-height: 150px;
-    background-color: #0073D4;
-    color: white;
+    div.content-bar{
+      min-height: 150px;
+      background-color: #0073D4;
+      color: white;
+    }
     @include transition(min-height, $duration);
   }
   &.bar-small{
-    min-height: 64px;
+    div.content-bar{
+      min-height: 64px;
+      color: white;
+      background-color: #00bcd4;
+    }
     @include transition(min-height, $duration);
   }
 }
