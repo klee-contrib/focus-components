@@ -12,6 +12,9 @@
   box-shadow: 0px 4px 5px 0px #9b9b9b;
   filter:progid:DXImageTransform.Microsoft.Shadow(color=#9b9b9b, Direction=180, Strength=5);
 }
+@mixin redBar(){
+  border: 1px solid red;
+}
 $duration: 0.5s;
 $action-bar-height: 56px;
 nav.bar{
@@ -19,9 +22,8 @@ nav.bar{
   min-height: 64px;
   background-color: white;
   z-index: 5;
-  position: fixed;
   height: 64px;
-  border: 1px solid red;
+  position: fixed;
 
 /*  display: flex;
   flex-direction: row;
@@ -48,7 +50,6 @@ nav.bar{
       justify-content: space-between;
       align-content: stretch;
       flex-wrap: wrap;
-      border: 1px solid red;
     }
 
   }

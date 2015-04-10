@@ -26,17 +26,17 @@ var barMixin = {
        * Map which defines sizes exists for the components and their border.
        * @type {Object}
        */
-      sizeMap: {
-        'small': {
-          'sizeBorder': 800
-        },
-        'medium': {
-          'sizeBorder': 500
-        },
-        'tall': {
-          'sizeBorder': 300
-        }
-      },
+       sizeMap: {
+         'small': {
+           'sizeBorder': 800
+         },
+         'medium': {
+           'sizeBorder': 500
+         },
+         'tall': {
+           'sizeBorder': 300
+         }
+       },
       /**
        * A way to redefine the process size of the element.
        * @type {function}
