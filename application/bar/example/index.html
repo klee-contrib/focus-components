@@ -29,10 +29,60 @@
 </head>
 <body>
   <style>
+  body
   .content {
     border: 1px solid red;
     padding: 280px 20px 20px 20px;
    }
+
+   nav .cartouche {
+     display: flex;
+     flex-direction: row;
+     flex-wrap: wrap;
+   }
+
+   nav .cartouche .infos div {
+    height:40px;
+    line-height:40px;
+    padding:5px 20px;
+   }
+
+   nav .entete-tall .cartouche {
+      padding:15px;
+   }
+
+   nav .entete-tall .cartouche .picture {
+
+   }
+
+   nav .entete-tall .cartouche img {
+     border-radius:50%;
+     width:150px;
+   }
+
+   nav .entete-tall .cartouche .infos .titre1 {
+     font-size:32px;
+     font-weight:bold;
+   }
+   nav .entete-tall .cartouche .infos .titre2 {
+     font-size:22px;
+   }
+   nav .entete-tall .cartouche .infos .titre3 {
+     font-size:14px;
+   }
+
+   nav.bar-medium .cartouche img {
+     width:60px;
+   }
+
+   nav.bar-medium  .entete-tall .cartouche .infos .titre1 {
+     font-size:26px;
+   }
+
+   nav.bar-medium  .entete-tall .cartouche .infos .titre2, nav.bar-medium  .entete-tall .cartouche .infos .titre3 {
+     display:none;
+   }
+
   </style>
   <div id="appBar-container"></div>
   <script type="text/javascript">
@@ -41,6 +91,22 @@
   <script type="text/javascript">
   //Load dependencies.
   focus.components = focusComponents;
+  var UserCartouche = React.createClass({displayName: "UserCartouche",
+  render: function() {
+    return (
+    React.createElement("div", {className: "cartouche"},
+        React.createElement("div", {className: "picture"},
+          React.createElement("img", {src: "https://avatars1.githubusercontent.com/u/286966?v=3&s=460", alt: "Pierre Besson de chez Kleegroup"})
+      ),
+      React.createElement("div", {className: "infos"},
+        React.createElement("div", {className: "titre1"}, "Pierre Besson"),
+        React.createElement("div", {className: "titre2"}, "Impasse des freesias"),
+        React.createElement("div", {className: "titre3"}, "Villebon-sur-totoche")
+      )
+  )
+    );
+  }
+});
   //Component for the application bar.
   var AppBar = focus.components.application.bar.component;
   //Create the view.
@@ -61,9 +127,9 @@
                React.createElement("button", {className: "btn btn-info btn-raise"}, "Context")
              ),
              React.createElement("div", {className: 'user-infos'},
-               React.createElement("button", {className: "btn btn-success btn-fab btn-raised mdi-action-language"}),
-               React.createElement("button", {className: "btn btn-danger btn-fab btn-raised mdi-social-notifications"}),
-               React.createElement("button", {className: "btn btn-primary btn-fab btn-raised mdi-action-account-circle"})
+               React.createElement("i", {className: "mdi-action-language"}),
+               React.createElement("i", {className: "mdi-social-notifications"}),
+               React.createElement("i", {className: "mdi-action-account-circle"})
              )
           ),
 
@@ -71,7 +137,7 @@
             React.createElement("p", null, "This is a simple hero unit, a simple jumbotron-style component for calling extra attention to featured content or information.ddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd")
          ),*/
            React.createElement("div", {className: "entete-tall"},
-             "Entete superLonguezzeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeehjjjjjjjjjjjjjjjjjjjjjjjjjeeebb ejjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjeeeeeexxxxxxxxxjjjjjjjjjjhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjeee..."
+             React.createElement(UserCartouche, null)
            )
          ),
          React.createElement("div", {className: 'entete-actions'},

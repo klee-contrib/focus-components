@@ -5,7 +5,15 @@
     -o-transition: $transition-property $transition-time;
     transition: $transition-property $transition-time;
 }
+@mixin shadow() {
+  -moz-box-shadow: 0px 4px 5px 0px #9b9b9b;
+  -webkit-box-shadow: 0px 4px 5px 0px #9b9b9b;
+  -o-box-shadow: 0px 4px 5px 0px #9b9b9b;
+  box-shadow: 0px 4px 5px 0px #9b9b9b;
+  filter:progid:DXImageTransform.Microsoft.Shadow(color=#9b9b9b, Direction=180, Strength=5);
+}
 $duration: 0.5s;
+$action-bar-height: 56px;
 nav.bar{
   width: 100%;
   min-height: 64px;
@@ -21,7 +29,19 @@ nav.bar{
   align-content: stretch;
   flex-wrap: wrap;*/
   top:0;
+  div.entete-actions{
+    position:relative;
+    top: -$action-bar-height/2;
+    float: right;
+    height: $action-bar-height;
+    i{
+
+    }
+  }
   div.content-bar{
+    background-color: white;
+    color: black;
+    @include shadow();
     div.real-bar{
       display: flex;
       flex-direction: row;
@@ -36,25 +56,31 @@ nav.bar{
   &.bar-tall{
     div.content-bar{
       min-height: 250px;
-      background-color: #2600D4;
-      color: white;
+      //background-color: #2600D4;
+      //color: white;
+      @include transition(min-height, $duration);
     }
-    @include transition(min-height, $duration);
+
   }
   &.bar-medium{
     div.content-bar{
       min-height: 150px;
-      background-color: #0073D4;
-      color: white;
+      //background-color: #0073D4;
+      //color: white;
+      @include transition(min-height, $duration);
     }
-    @include transition(min-height, $duration);
+
   }
   &.bar-small{
-    div.content-bar{
-      min-height: 64px;
-      color: white;
-      background-color: #00bcd4;
+    div.entete-tall{
+      display: none;
     }
-    @include transition(min-height, $duration);
+    div.content-bar{
+      min-height: 60px;
+      //color: white;
+      //background-color: #00bcd4;
+      @include transition(min-height, $duration);
+    }
+
   }
 }
