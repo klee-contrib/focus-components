@@ -32,9 +32,12 @@ var popinMixin = {
   componentDidMount: function popinDidMount() {
     var source = document.querySelector(this.props.displaySelector);
     var currentView = this;
-    source.onclick = function () {
-      currentView.setState({open: !currentView.state.open});
-    };
+    if(source !== undefined && source !== null){
+      source.onclick = function () {
+        currentView.setState({open: !currentView.state.open});
+      };
+    }
+
   },
 
   /**
