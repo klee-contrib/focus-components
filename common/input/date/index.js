@@ -15,14 +15,11 @@ var inputDateMixin = {
   /** @inheritdoc */
   componentDidMount: function inputDateDidMount(){
     var component = this;
-    jQuery(this.getDOMNode()).pickadate({
-      /**
-       * Handler called when the date change its value.
-       * @param {object} context - The event triggered by the plugin.
-       */
-      onSet: function onSetDate(context) {
-        component._handleOnChange(context);
-      }
+    jQuery(React.findDOMNode(this)).daterangepicker({
+      singleDatePicker: true,
+      showDropdowns: true
+    }, function(start){ ///*, end, label*/
+      component.setState({value: start.format('L')});
     });
   }
 };
