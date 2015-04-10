@@ -1,13 +1,9 @@
 /**
  * Mixin used in order to create a popin or a menu.
- * @type {Object}
+ * @type {Object} - popin behavour mixin
  */
 var PopinProperties = {
-
-  /** @inheritedProps
-   *  Default properties.
-   * @returns {{direction: string, position: string, links: Array, open: boolean, style: {}}} properties
-   */
+  /** @inheritdoc */
   getDefaultProps: function getMenuDefaultProps() {
     return {
       direction: 'vertical',//horizontal
@@ -16,10 +12,7 @@ var PopinProperties = {
       style: {}
     };
   },
-  /** @inheritedProps
-   * Initial state.
-   * @returns {{open: *}} initial state
-   */
+  /** @inheritdoc */
   getInitialState: function getDefaultState() {
     return {
       open: this.props.open
