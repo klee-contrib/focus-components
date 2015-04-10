@@ -50,8 +50,8 @@ var FieldMixin = {
   * Get the css class of the field component.
   */
   _className: function() {
-  var stateClass = this.state.error ? "has-feedback has-error" : "";
-  return `form-group ${stateClass} ${this.props.style.className}`;
+    var stateClass = this.state.error ? "has-feedback has-error" : "";
+    return `form-group ${stateClass} ${this.props.style.className}`;
   },
 
   render: function renderField() {
