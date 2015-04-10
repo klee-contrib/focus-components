@@ -31,7 +31,7 @@ var FieldMixin = {
        * Css properties of the component.
        * @type {Object}
        */
-      style:{}
+      style: {}
     };
   },
   /** @inheritdoc */
@@ -51,7 +51,7 @@ var FieldMixin = {
   */
   _className: function() {
   var stateClass = this.state.error ? "has-feedback has-error" : "";
-  return "form-group " + stateClass;
+  return `form-group ${stateClass} ${this.props.style.className}`;
   },
 
   render: function renderField() {
