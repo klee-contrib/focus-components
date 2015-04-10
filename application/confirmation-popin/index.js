@@ -1,6 +1,7 @@
 var builder = require('focus').component.builder;
 var popin = require('../popin').mixin;
 var Button = require('../../common/button/action').component;
+var type = require('focus').component.types;
 
 /**
  * Popin mixin
@@ -13,10 +14,7 @@ var popinMixin = {
    */
   displayName: 'confirmation-popin',
 
-  /**
-   * Default propos.
-   * @returns {object} Default props.
-   */
+  /** @inheritdoc */
   getDefaultProps: function () {
     return {
       btnClose: 'Cancel',
@@ -24,21 +22,30 @@ var popinMixin = {
     };
   },
 
+  /** @inheritdoc */
+  propTypes: {
+    btnClose: type('string'),
+    btnConfirm: type('string')
+  },
+
   /**
-   * Open the modal.
+   * Confirmation action
    */
   _handleConfirm: function openModal() {
     this.closeModal();
     this.handleClikOnOk();
   },
   /**
-   * Close the modal.
+   * Cancel action
    */
   _handleCancel: function closeModal() {
     this.closeModal();
     this.handleClikOnCancel();
   },
-
+  /**
+   * Render the footer content.
+   * @returns {XML} - footer content
+   */
   renderPopinFooter: function renderPopinFooter(){
     var closeStyle = {
       className: 'confirmation-popin-close'

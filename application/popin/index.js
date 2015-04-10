@@ -1,5 +1,6 @@
 var builder = require('focus').component.builder;
 var popinProperties = require('../mixin/popin-behaviour').mixin;
+var type = require('focus').component.types;
 
 /**
  * Popin mixin
@@ -12,10 +13,7 @@ var popinMixin = {
    */
   displayName: 'popin',
 
-  /**
-   * Default propos.
-   * @returns {object} Default props.
-   */
+  /** @inheritdoc */
   getDefaultProps: function () {
     return {
       type: 'full', // full, centered
@@ -23,9 +21,14 @@ var popinMixin = {
       contentLoadingFunction: undefined // Function wich returns the content of the modal.
     };
   },
-  /**
-   * Declare the open action.
-   */
+
+  /** @inheritdoc */
+  propTypes: {
+    type: type('string'),
+    contentLoadingFunction: type('string')
+  },
+
+  /** @inheritdoc */
   componentDidMount: function popinDidMount() {
     var source = document.querySelector(this.props.displaySelector);
     var currentView = this;
@@ -41,7 +44,7 @@ var popinMixin = {
     this.setState({open: true});
   },
   /**
-   * Close the modal.
+   * Close the modal
    */
   closeModal: function closeModal() {
     this.setState({open: false});
@@ -77,7 +80,7 @@ var popinMixin = {
 
   /**
    * Css class of close btn.
-   * @returns {string} css classes.
+   * @returns {string} - css classes.
    * @private
    */
   _getCloseBtnCss: function () {
@@ -93,7 +96,7 @@ var popinMixin = {
   },
   /**
    * Content css class.
-   * @returns {string} css classes.
+   * @returns {string} - css classes.
    * @private
    */
   _getModalContentCss: function () {
@@ -111,7 +114,7 @@ var popinMixin = {
 
   /**
    * Render the component.
-   * @returns {JSX} Html code.
+   * @returns {JSX} - Html code.
    */
   render: function renderPopin() {
     if (!this.state.open) {
