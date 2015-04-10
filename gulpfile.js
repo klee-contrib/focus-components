@@ -13,6 +13,7 @@ var source = require('vinyl-source-stream');
  * LINT
  */
 var src = '{spec,search,list,form,page,common,application}/**/*.js';
+var srcCSS = '{spec,search,list,form,page,common,application}/**/*.scss';
 var sources = [src];
 gulp.task('eslint', function() {
 	//gulp eslint 2>lint/lintErrors.txt
@@ -214,7 +215,7 @@ gulp.task('focus-components-npm', ['style', 'browserify'], function() {
 });
 gulp.task('watch', function(){
 	gulp.watch(['package.json','index.js',src],['build']);
-  gulp.watch(['app/**/*.scss'], ['style']);
+  gulp.watch([srcCSS], ['style']);
 });
 
 //Build the style woth sass.
