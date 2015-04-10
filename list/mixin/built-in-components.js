@@ -17,7 +17,8 @@ var builtInComponentsMixin = {
             isEdit: this.props.isEdit,
             hasLabel: false,
             value: this.props.data[name],
-            refContainer: this.props.reference
+            refContainer: this.props.reference,
+            style: {className: 'form-list'}
         }, options);
 
         var fieldProps = this._buildFieldProps(name, options, this);
@@ -35,7 +36,8 @@ var builtInComponentsMixin = {
             isEdit: false,
             hasLabel: false,
             value: this.props.data[name],
-            refContainer: this.props.reference
+            refContainer: this.props.reference,
+            style: {className: 'form-list'}
         }, options);
 
         var fieldProps = this._buildFieldProps(name, options, this);
