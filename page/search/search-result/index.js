@@ -61,6 +61,9 @@ var searchMixin = {
     },
 
     getCriteria: function getCriteria() {
+      if(!this.refs.quickSearch){
+        return {};
+      }
       return this.refs.quickSearch.getValue();
     },
 
