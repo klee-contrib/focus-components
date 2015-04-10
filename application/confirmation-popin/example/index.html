@@ -70,6 +70,12 @@ Duis fringilla arcu vitae sollicitudin facilisis. Interdum et malesuada fames ac
         },
         renderContent: function(confirmationPopin) {
             return React.createElement("div", {}, "Are you sure?");
+        },
+        handleClikOnOk: function(){
+            console.info('Click on OK');
+        },
+        handleClikOnCancel: function(){
+            console.info('Click on cancel');
         }
     }
 

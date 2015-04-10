@@ -28,15 +28,15 @@ var popinMixin = {
    * Open the modal.
    */
   _handleConfirm: function openModal() {
-    console.info('handle confirm');
     this.closeModal();
+    this.handleClikOnOk();
   },
   /**
    * Close the modal.
    */
   _handleCancel: function closeModal() {
-    console.info('handle close');
     this.closeModal();
+    this.handleClikOnCancel();
   },
 
   renderPopinFooter: function renderPopinFooter(){
