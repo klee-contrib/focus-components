@@ -2,7 +2,7 @@ var React = require('react');
 var fielBehaviourMixin = require('../../common/mixin/field-component-behaviour');
 var assign = require('object-assign');
 var Field = require('../../common/field').component;
-//TODO gestion du refContainer a passer au buildFieldProps
+
 var builtInComponentsMixin = {
     mixins: [fielBehaviourMixin],
 
@@ -16,7 +16,8 @@ var builtInComponentsMixin = {
         options = assign({}, {
             isEdit: this.props.isEdit,
             hasLabel: false,
-            value: this.props.data[name]
+            value: this.props.data[name],
+            refContainer: this.props.reference
         }, options);
 
         var fieldProps = this._buildFieldProps(name, options, this);
@@ -33,7 +34,8 @@ var builtInComponentsMixin = {
         options = assign({}, {
             isEdit: false,
             hasLabel: false,
-            value: this.props.data[name]
+            value: this.props.data[name],
+            refContainer: this.props.reference
         }, options);
 
         var fieldProps = this._buildFieldProps(name, options, this);
