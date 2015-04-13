@@ -1,4 +1,5 @@
 //Target
+//http://codepen.io/Sambego/pen/zDLxe
 /*
 <label>
   <input type="checkbox"><span class="ripple"></span><span class="check"></span> Checkbox
@@ -8,6 +9,7 @@ var builder = require('focus').component.builder;
 var React = require('react');
 var type = require('focus').component.types;
 var fieldGridBehaviourMixin = require('../../mixin/field-grid-behaviour');
+var jQuery = require('jquery');
 
 var checkBoxMixin = {
   mixins: [fieldGridBehaviourMixin],
@@ -48,7 +50,7 @@ var checkBoxMixin = {
    * @returns The DOM node value.
    */
   getValue: function getValue() {
-    return this.getDOMNode().value;
+    return React.findDOMNode(this).value;
   },
   /**
    * Build the label class name.
@@ -56,6 +58,16 @@ var checkBoxMixin = {
    */
   _labelClassName: function labelClassName(){
     return `${this._getContentOffsetClassName()} ${this._getContentGridClassName()}`;
+  },
+  componentDidMount: function(){
+    if(jQuery.material && jQuery.material.init){
+      jQuery.material.init();
+    }
+  },
+  componentDidUpdate: function(){
+    if(jQuery.material && jQuery.material.init){
+      jQuery.material.init();
+    }
   },
   /**
    * Render the Checkbox HTML.
