@@ -57,9 +57,9 @@ var checkBoxMixin = {
    * @returns The label classame with the grid informations.
    */
   _labelClassName: function labelClassName(){
-    return `${this._getContentOffsetClassName()} ${this._getContentGridClassName()}`;
+    return `paper-cb-label ${this._getContentOffsetClassName()} ${this._getContentGridClassName()}`;
   },
-  componentDidMount: function(){
+/*  componentDidMount: function(){
     if(jQuery.material && jQuery.material.init){
       jQuery.material.init();
     }
@@ -68,7 +68,7 @@ var checkBoxMixin = {
     if(jQuery.material && jQuery.material.init){
       jQuery.material.init();
     }
-  },
+  },*/
   /**
    * Render the Checkbox HTML.
    * @return {VirtualDOM} - The virtual DOM of the checkbox.
@@ -76,9 +76,9 @@ var checkBoxMixin = {
   render: function renderCheckBox() {
       return (
 
-          <div className="checkbox">
+          <div className="paper-cb">
               <label className={this._labelClassName()}>
-                  <input ref='checkbox'checked={this.state.isChecked} onChange={this._onChange} type='checkbox' />
+                  <input ref='checkbox'checked={this.state.isChecked} onChange={this._onChange} type='checkbox' className='paper-cbx' />
                   {this.props.label ? this.props.label : ''}
               </label>
           </div>
