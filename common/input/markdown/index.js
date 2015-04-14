@@ -4,13 +4,24 @@ var React = require('react');
 
 
 var markdownEditorMixin = {
-  getInitialState: function() {
+  /** @inherideddoc */
+  getInitialState: function getMarkdownInitialState() {
     return {value: this.props.value};
   },
-  handleChange: function() {
-    this.setState({value: this.refs.textarea.getDOMNode().value});
+  /** @inherideddoc */
+  componentDidMount: function markdownComponentDidMount(){
+    if(!window.Showdown){
+      console.warn('The showdown library should be imported. See https://github.com/showdownjs/showdown');
+    }
   },
-  render: function() {
+  /**
+   * Handle the change of the value.
+   */
+  handleChange: function handleMarkdownChange() {
+    this.setState({value: React.findDOMNode(this.refs.textarea).value});
+  },
+  /** @inherideddoc */
+  render: function renderMarkdownComponent() {
     var converter = window.Showdown ? function(data){ console.warn('showdown should be imported/'); return data; } : new window.Showdown.converter();
     return (
       <div className="MarkdownEditor">
