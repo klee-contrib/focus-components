@@ -14,6 +14,9 @@ var inputDateMixin = {
   mixins: [inputTextMixin],
   /** @inheritdoc */
   componentDidMount: function inputDateDidMount(){
+    if(!jQuery.fn.daterangepicker){
+      console.warn('The jquery daterangepicker plugin should be loaded: see https://github.com/dangrossman/bootstrap-daterangepicker.');
+    }
     var component = this;
     jQuery(React.findDOMNode(this)).daterangepicker({
       singleDatePicker: true,
