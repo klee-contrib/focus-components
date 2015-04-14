@@ -22,6 +22,8 @@
 
   <!-- Material degign-->
 
+    <script src="http://fb.me/JSXTransformer-0.13.1.js"></script>
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/showdown/0.4.0/Showdown.js"></script>
 
   <script src="/focus-components/dist/js/focus.js"></script>
@@ -35,7 +37,7 @@
   <script type="text/javascript">
       $(document).ready(function() {$.material.init();});
   </script>
-  <script type="text/javascript">
+  <script type="text/jsx">
   //Load dependencies.
   focus.components = focusComponents;
 
@@ -44,6 +46,9 @@
       mixins: [menuMixin],
       renderContent: function renderMenuContent() {
           return this.renderLinks();
+      },
+      renderTitle: function () {
+          return <h3>{this.props.title}</h3>;
       }
   });
 
