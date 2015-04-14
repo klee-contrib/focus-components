@@ -3,7 +3,10 @@ var Field = require('../field').component;
 var Text = require('../display/text').component;
 var Button = require('../button/action').component;
 var List = require('../list');
+var fieldComponentBehaviour = require('./field-component-behaviour');
+var assign = require('object-assign');
 module.exports = {
+  mixins: [fieldComponentBehaviour],
 /**
  * Create a field for the given property metadata.
  * @param {string} name - property name.
@@ -11,22 +14,12 @@ module.exports = {
  * @returns {object} - A React Field.
  */
 fieldFor: function(name, options) {
-  var def = (this.definition && this.definition[name]) ? this.definition[name] : {};
-  options = options || {};
-  var isEdit = options.isEdit !== undefined ? options.isEdit : this.state.isEdit;
-  //Maybe allow to overrife fieldFor here such as def.fieldFor?.
-  return React.createElement(Field, {
-    name: `${this.definitionPath}.${name}`,
-    ref: name,
-    value: this.state[name],
-    error: this.state.error ? this.state.error[name] : undefined,
-    validator: def.validator,
-    FieldComponent: def.FieldComponent,
-    InputLabelComponent: def.InputLabelComponent,
-    InputComponent: def.InputComponent,
-    isEdit: isEdit,
-    formatter: def.formatter
-  });
+  options = assign({}, {
+      style: {className: 'form-detail'}
+  }, options);
+
+  var fieldProps = this._buildFieldProps(name, options, this);
+  return React.createElement(Field, fieldProps);
 },
 /**
  * Select component for the component.
@@ -37,22 +30,9 @@ fieldFor: function(name, options) {
  */
 selectFor: function(name, listName, options){
   options = options || {};
-  var def = (this.definition && this.definition[name]) ? this.definition[name] : {};
-  listName = listName || def.listName;
-  var isEdit = options.idEdit || true;
-  //Check listName
-
-  return React.createElement(Field, {
-    name: name,
-    ref: name,
-    value: this.state[name],
-    error: this.state.error ? this.state.error[name] : undefined,
-    validator: def.validator,
-    values: this.state.reference[listName], //Options to be rendered.
-    FieldComponent: def.FieldComponent,
-    InputLabelComponent: def.InputLabelComponent,
-    isEdit: isEdit
-  });
+  options.listName = listName || options.listName;
+  var fieldProps = this._buildFieldProps(name, options, this);
+  return React.createElement(Field, fieldProps);
 },
 /**
  * Display a field.
@@ -62,18 +42,9 @@ selectFor: function(name, listName, options){
  */
 displayFor: function displayFor(name, options){
   options = options || {};
-  var def = (this.definition && this.definition[name]) ? this.definition[name] : {};
-  var listName = options.listName || def.listName;
-  var refContainer = options.refContainer || this.state.reference;
-  return React.createElement(Field, {
-    name: name,
-    ref: name,
-    value: this.state[name],
-    values: refContainer ? refContainer[listName] : undefined, //Options to be rendered.
-    FieldComponent: def.FieldComponent,
-    InputLabelComponent: def.InputLabelComponent,
-    isEdit: false
-  });
+  options.isEdit = false;
+  var fieldProps = this._buildFieldProps(name, options, this);
+  return React.createElement(Field, fieldProps);
 },
 /**
  * Display the text for a given property.

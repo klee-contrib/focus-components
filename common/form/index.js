@@ -5,6 +5,7 @@ var isEmpty = require('lodash/lang/isEmpty');
 
 // Common mixins.
 var definitionMixin = require('../mixin/definition');
+//var fieldComponentBehaviour = require('../mixin/field-component-behaviour');
 var builtInComponents = require('../mixin/built-in-components');
 
 //Form mixins.

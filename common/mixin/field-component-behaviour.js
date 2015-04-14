@@ -27,7 +27,7 @@ var fieldBehaviourMixin = {
     }();
     //Build a container for the props.
     var propsContainer = {
-      name: `${this.definitionPath}.${name}`,
+      name: options.name || `${this.definitionPath}.${name}`,
       ref: name,
       value: value,
       error: context.state.error ? context.state.error[name] : undefined,
