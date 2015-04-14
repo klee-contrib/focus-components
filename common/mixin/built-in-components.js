@@ -100,6 +100,7 @@ textFor: function textFor(name, options){
  */
 listFor: function listFor(name, options){
   options = options || {};
+  options.reference = options.reference || this.state.reference;
   return React.createElement( List, {
     data: this.state[name],
     line: options.LineComponent || this.props.LineComponent || this.LineComponent,
