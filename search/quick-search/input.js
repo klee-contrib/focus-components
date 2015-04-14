@@ -37,12 +37,18 @@ var SearchInputMixin = {
       query: this.refs.query.getDOMNode().value
     };
   },
+  _handleChange: function(){
+    if(this.props.handleChange){
+      return this.props.handleChange(this.getValue());
+    }
+  },
   handleKeyUp: function handleKeyUpInputSearch(event){
     var val = event.target.value;
     if(val.length >= this.props.minChar){
       if(this.props.handleKeyUp){
         this.props.handleKeyUp(event);
       }
+      this._handleChange();
     }
   },
   _handleChangeScope: function handleChangeScope(event){
@@ -55,6 +61,7 @@ var SearchInputMixin = {
     if(this.props.handleChangeScope){
       this.props.handleChangeScope(event);
     }
+    this._handleChange();
   },
   handleOnClickScope: function handleOnClickScope(){
     this.setState({scope: this.refs.scope.getValue()}, this._handleChangeScope(event));

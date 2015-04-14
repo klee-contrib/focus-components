@@ -160,7 +160,7 @@
                             );
                             return root;
                         },
-                        renderGroupBy: function renderGroupBy(groupKey, list, maxRows) {
+                        renderGroupByBlock: function renderGroupByBlock(groupKey, list, maxRows) {
                             return React.createElement( "div", { className: "listResultContainer panel" },
                                         React.createElement(focusComponents.common.title.component, { title: groupKey }),
                                         this.renderSimpleList(groupKey, list, maxRows),

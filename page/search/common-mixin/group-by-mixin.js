@@ -37,7 +37,7 @@ var GroupByMixin = {
         var groupList = [];
         for (var groupKey in this.state.list) {
             groupList.push(<GroupBy key={groupKey} ref={groupKey}
-                                    renderGroupBy={this.renderGroupBy}
+                                    renderGroupBy={this.renderGroupByBlock}
                                     list={this.state.list[groupKey]}
                                     groupKey={groupKey}
                                     maxRows={this.props.groupMaxRows} />);
