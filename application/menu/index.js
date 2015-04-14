@@ -28,13 +28,6 @@ var menuMixin = {
       );
     });
   },
-  /**
-   * Render the title content
-   * @returns {XML} - title content
-   */
-  renderTitle: function () {
-    return <h3>{this.props.title}</h3>;
-  },
   /** @inheriteddoc */
   render: function () {
     var className = `menu menu-${this.props.direction} menu-${this.props.position} menu-${this.state.open ? 'open' : ''}`;
