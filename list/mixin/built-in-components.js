@@ -12,7 +12,7 @@ var builtInComponentsMixin = {
      * @param {object} options - An object which contains all options for the built of the field.
      * @returns {object} - A React Field.
      */
-    fieldFor: function fieldFor(name, options){
+    fieldFor: function fieldForInLine(name, options){
         options = assign({}, {
             isEdit: this.props.isEdit,
             hasLabel: false,
@@ -24,14 +24,25 @@ var builtInComponentsMixin = {
         var fieldProps = this._buildFieldProps(name, options, this);
         return React.createElement(Field, fieldProps);
     },
-
+    /**
+     * Add a select with a list name component It is a shortcut for the fieldComponent.
+     * @param {string} name         - The property name.
+     * @param {string} referenceKey - The list name in the references.
+     * @param {object} options - An object which contains all options for the built of the field.
+     * @returns {object} - A React Field.
+     */
+    selectFor: function selectForInLine(name, referenceKey, options){
+      options = options || {};
+      options.listName = referenceKey;
+      return this.fieldFor(name, options);
+    },
     /**
      * Display a field.
      * @param {string} name - property name.
      * @param {object} options - options object.
      * @returns {object} - A React Field in display mode.
      */
-    displayFor: function displayFor(name, options){
+    displayFor: function displayForInLine(name, options){
         options = assign({}, {
             isEdit: false,
             hasLabel: false,

@@ -50,12 +50,23 @@ module.exports = React.createClass({
     }
     return this.props.data.slice(0, this.state.maxElements ? this.state.maxElements : this.props.perPage);
   },
+  getReference: function(){
+    return this.state.reference || this.props.reference;
+  },
   /** @inheritdoc */
   render: function renderFormList() {
     var data = this.props.data || [];
     var hasMoreData = data.length > (this.state.maxElements ? this.state.maxElements : this.props.perPage);
     return (
-      <MySelectionList data={this.getDataToUse()} hasMoreData={hasMoreData} reference={this.props.reference} lineComponent={this.props.line} isSelection={false} isManualFetch={true} fetchNextPage={this.fetchNextPage}/>
+      <MySelectionList
+        data={this.getDataToUse()}
+        hasMoreData={hasMoreData}
+        lineComponent={this.props.line}
+        isSelection={false}
+        isManualFetch={true}
+        fetchNextPage={this.fetchNextPage}
+        reference={this.getReference()}
+        />
     );
   }
 });
