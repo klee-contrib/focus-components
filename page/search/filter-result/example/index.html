@@ -165,10 +165,10 @@
                             return React.createElement( "div", { className: "listResultContainer panel" },
                                         React.createElement(focusComponents.common.title.component, { title: groupKey }),
                                         this.renderSimpleList({
-                                            type: "test",
-                                            list: list,
-                                            maxrows: maxRows
-                                        }),
+                                        type: "test",
+                                        list: list,
+                                        maxRows: maxRows
+                                    }),
                                         React.createElement(focusComponents.common.button.action.component, { handleOnClick: this.changeGroupByMaxRows(groupKey, 5), label: "Show more" }),
                                         React.createElement(focusComponents.common.button.action.component, { handleOnClick: this.showAllGroupListHandler(groupKey), label: "Show all" })
                             );
