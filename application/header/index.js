@@ -3,7 +3,7 @@ var React = require('react');
 var type = require('focus').component.types;
 var {pluck, sortBy} = require('lodash/collection');
 
-var barMixin = {
+var headerMixin = {
   /** @inheriteddoc */
   getDefaultProps: function getMenuDefaultProps() {
     return {
@@ -172,13 +172,13 @@ var barMixin = {
   },
   /** @inheriteddoc */
   render: function renderBar() {
-    var className = `bar bar-${this.state.size} ${this.props.style.className}`;
+    var className = `header header-${this.state.size} ${this.props.style.className}`;
     return (
-      <nav className={className}>
+      <header className={className} data-focus-header>
         {this.props.children}
-      </nav>
+      </header>
     );
   }
 };
 
-module.exports = builder(barMixin);
+module.exports = builder(headerMixin);

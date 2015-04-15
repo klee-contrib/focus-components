@@ -35,51 +35,51 @@
     padding: 280px 20px 20px 20px;
    }
 
-   nav .cartouche {
+   header .cartouche {
      display: flex;
      flex-direction: row;
      flex-wrap: wrap;
    }
 
-   nav .cartouche .infos div {
+   header .cartouche .infos div {
     height:40px;
     line-height:40px;
     padding:5px 20px;
    }
 
-   nav .entete-tall .cartouche {
+   header .entete-tall .cartouche {
       padding:15px;
    }
 
-   nav .entete-tall .cartouche .picture {
+   header .entete-tall .cartouche .picture {
 
    }
 
-   nav .entete-tall .cartouche img {
+   header .entete-tall .cartouche img {
      border-radius:50%;
      width:150px;
    }
 
-   nav .entete-tall .cartouche .infos .titre1 {
+   header .entete-tall .cartouche .infos .titre1 {
      font-size:32px;
      font-weight:bold;
    }
-   nav .entete-tall .cartouche .infos .titre2 {
+   header .entete-tall .cartouche .infos .titre2 {
      font-size:22px;
    }
-   nav .entete-tall .cartouche .infos .titre3 {
+   header .entete-tall .cartouche .infos .titre3 {
      font-size:14px;
    }
 
-   nav.bar-medium .cartouche img {
+   header.bar-medium .cartouche img {
      width:60px;
    }
 
-   nav.bar-medium  .entete-tall .cartouche .infos .titre1 {
+   header.bar-medium  .entete-tall .cartouche .infos .titre1 {
      font-size:26px;
    }
 
-   nav.bar-medium  .entete-tall .cartouche .infos .titre2, nav.bar-medium  .entete-tall .cartouche .infos .titre3 {
+   header.bar-medium  .entete-tall .cartouche .infos .titre2, header.bar-medium  .entete-tall .cartouche .infos .titre3 {
      display:none;
    }
 
@@ -108,12 +108,12 @@
   }
 });
   //Component for the application bar.
-  var AppBar = focus.components.application.bar.component;
+  var AppHeader = focus.components.application.header.component;
   //Create the view.
   var TestApp = React.createClass({displayName: "TestApp",
     render: function() {
       return React.createElement("div", null,
-        React.createElement(AppBar, null,
+        React.createElement(AppHeader, null,
 
          React.createElement("div", {className:"content-bar"},
            React.createElement("div", {className:"real-bar"},
