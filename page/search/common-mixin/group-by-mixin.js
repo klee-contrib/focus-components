@@ -33,7 +33,7 @@ var GroupByMixin = {
         };
     },
 
-    renderGroupByList: function renderGroupByList() {
+    groupByListComponent: function groupByListComponent() {
         var groupList = [];
         for (var groupKey in this.state.list) {
             groupList.push(<GroupBy key={groupKey} ref={groupKey}
