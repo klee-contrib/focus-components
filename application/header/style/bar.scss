@@ -17,7 +17,7 @@
 }
 $duration: 0.5s;
 $action-bar-height: 56px;
-nav.bar{
+header[data-focus-header]{
   width: 100%;
   min-height: 64px;
   background-color: white;
@@ -54,7 +54,7 @@ nav.bar{
 
   }
 
-  &.bar-tall{
+  &.header-tall{
     div.content-bar{
       min-height: 250px;
       //background-color: #2600D4;
@@ -63,7 +63,7 @@ nav.bar{
     }
 
   }
-  &.bar-medium{
+  &.header-medium{
     div.content-bar{
       min-height: 150px;
       //background-color: #0073D4;
@@ -72,7 +72,7 @@ nav.bar{
     }
 
   }
-  &.bar-small{
+  &.header-small{
     div.entete-tall{
       display: none;
     }

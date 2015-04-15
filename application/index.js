@@ -1,5 +1,5 @@
 module.exports = {
-  bar: require('./bar'),
+  header: require('./header'),
   menu: require('./menu'),
   popin: require('./popin'),
   confirmationPopin: require('./confirmation-popin')

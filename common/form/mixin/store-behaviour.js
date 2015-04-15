@@ -67,7 +67,8 @@ var storeMixin = {
     }
   },
   /** @inheritdoc */
-  componentDidMount: function storeBehaviourDidMount() {
+  componentWillMount: function storeBehaviourWillMount() {
+    //These listeners are registered before the mounting because they are not correlated to the DOM.
     //Build the definitions.
     this._registerListeners();
   },

@@ -32,6 +32,14 @@
       "path": "application/bar"
     },
     {
+      "name": "header",
+      "path": "application/header"
+    },
+    {
+      "name": "cartridge",
+      "path": "application/cartridge"
+    },
+    {
       "name": "quick-search",
       "path": "search/quick-search"
     },
