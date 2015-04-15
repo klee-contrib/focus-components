@@ -85,26 +85,28 @@
    }
 
   </style>
-  <div id="appBar-container"></div>
+  <div id="cartridge-container"></div>
   <script type="text/javascript">
       $(document).ready(function() {$.material.init();});
   </script>
-  <script ="text/jsx">
+  <script type="text/jsx">
   //Load dependencies.
   focus.components = focusComponents;
-  var UserCartouche = React.createClass({displayName: "UserCartouche",
+  var Cartouche = focus.components.application.cartridge.component;
+  var UserCartouche = React.createClass({
+    displayName: "UserCartouche",
   render: function() {
     return (
-    React.createElement("div", {className: "cartouche"},
-        React.createElement("div", {className: "picture"},
-          React.createElement("img", {src: "https://avatars1.githubusercontent.com/u/286966?v=3&s=460", alt: "Pierre Besson de chez Kleegroup"})
-      ),
-      React.createElement("div", {className: "infos"},
-        React.createElement("div", {className: "titre1"}, "Pierre Besson"),
-        React.createElement("div", {className: "titre2"}, "Impasse des freesias"),
-        React.createElement("div", {className: "titre3"}, "Villebon-sur-totoche")
-      )
-  )
+    <div className="cartouche">
+      <div className='picture'>
+        <img src="https://avatars1.githubusercontent.com/u/286966?v=3&s=460" alt='Pierre Besson' />
+      </div>
+      <div className="infos">
+        <div className="titre1">Pierre Besson</div>
+        <div className="titre2">Villa des freesias</div>
+        <div className="titre3">Villebon sur Yvette</div>
+      </div>
+    </div>
     );
   }
 });
@@ -137,9 +139,7 @@
          /*React.createElement("div", {className: "high-content"},
             React.createElement("p", null, "This is a simple hero unit, a simple jumbotron-style component for calling extra attention to featured content or information.ddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd")
          ),*/
-           React.createElement("div", {className: "entete-tall"},
-             React.createElement(UserCartouche, null)
-           )
+           React.createElement(Cartouche, {className: "entete-tall"})
          ),
          React.createElement("div", {className: 'entete-actions'},
            React.createElement("button", {className: "btn btn-success btn-fab btn-raised mdi-action-language"}),
@@ -191,7 +191,9 @@
       );
     }
   });
-  React.render(React.createElement(TestApp, null), document.querySelector("#appBar-container"));
+  React.render(React.createElement(TestApp, null), document.querySelector("#cartridge-container"));
+
+  focus.dispatcher.handleServerAction({data: {cartridgeComponent: UserCartouche}})
 </script>
 
 </body>

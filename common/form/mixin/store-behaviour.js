@@ -28,7 +28,7 @@ var storeMixin = {
     if(this.computeEntityFromStoresData){
       return this.computeEntityFromStoresData(data);
     }
-    var entity = {reference:{}};
+    var entity = {reference: {}};
     for(var key in data){
       if(this.referenceNames && this.referenceNames.indexOf(key) !== -1){
         entity.reference[key] = data[key];
@@ -45,7 +45,7 @@ var storeMixin = {
   /**
    * Register all the listeners related to the page.
    */
-  _registerListeners: function() {
+  _registerListeners: function registerStoreListeners() {
     if (this.stores) {
       this.stores.map((storeConf) => {
         storeConf.properties.map((property)=>{
