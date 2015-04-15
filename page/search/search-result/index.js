@@ -159,7 +159,7 @@ var searchMixin = {
      * @param {object} options - map of parameters
      * @return {XML} the List component.
      */
-    renderSimpleList: function renderSimpleList(options) {
+    simpleListComponent: function simpleListComponent(options) {
         checkIsNotNull('options', options);
         checkIsNotNull('options.type', options.type);
         var newList = options.list || this.state.list;
@@ -191,7 +191,7 @@ var searchMixin = {
         if(this.isSimpleList()) {
             return this.renderSimpleList({type: id, list: this.state.list});
         }
-        return this.renderGroupByList();
+        return this.groupByListComponent();
     }
 };
 

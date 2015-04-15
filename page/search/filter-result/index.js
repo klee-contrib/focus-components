@@ -309,7 +309,7 @@ var searchFilterResultMixin = {
      * @param {object} options - map of parameters.
      * @returns {XML} Html rendering.
      */
-    renderSimpleList: function renderSimpleList(options) {
+    simpleListComponent: function simpleListComponent(options) {
         checkIsNotNull('options', options);
         checkIsNotNull('options.type', options.type);
         var newList = options.list || this.state.list;
@@ -339,7 +339,7 @@ var searchFilterResultMixin = {
         if(this.isSimpleList()) {
             return <div className="listResultContainer panel">{this.renderSimpleList("list", this.state.list)}</div>;
         }
-        return this.renderGroupByList();
+        return this.groupByListComponent();
     }
 };
 
