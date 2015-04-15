@@ -164,7 +164,7 @@ var searchMixin = {
         checkIsNotNull('options.type', options.type);
         var newList = options.list || this.state.list;
         if(options.maxRows) {
-            newList = options.list.slice(0, options.maxRows);
+            newList = newList.slice(0, options.maxRows);
         }
         return (
             <List data={newList}
@@ -189,7 +189,7 @@ var searchMixin = {
      */
     listComponent: function listComponent(id){
         if(this.isSimpleList()) {
-            return this.renderSimpleList({id: id, list: this.state.list});
+            return this.renderSimpleList({type: id, list: this.state.list});
         }
         return this.renderGroupByList();
     }

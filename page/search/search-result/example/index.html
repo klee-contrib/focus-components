@@ -105,7 +105,7 @@
                         store: new focus.store.SearchStore(),
                         render: function render(){
                             var qs = this.quickSearchComponent();
-                            var list = this.isSimpleList() ? this.renderSimpleList({type:"test"}) : renderGroupByList();
+                            var list = this.isSimpleList() ? this.renderSimpleList({type:"test"}) : this.renderGroupByList();
                             var root = React.createElement('div',{className: "search-panel"},qs,list);
                             return root;
                         },
