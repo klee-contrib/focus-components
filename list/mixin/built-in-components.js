@@ -7,6 +7,15 @@ var builtInComponentsMixin = {
     mixins: [fielBehaviourMixin],
 
     /**
+     * @inheritDoc
+     */
+    getDefaultProps: function getbuiltInComponentsMixinDefaultProps(){
+        return {
+            isEdit: false
+        };
+    },
+
+    /**
      * create an edit field for the given property metadata.
      * @param {string} name - name of the field.
      * @param {object} options - An object which contains all options for the built of the field.
