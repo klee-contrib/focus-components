@@ -134,7 +134,7 @@ var searchMixin = {
                 searchValues,
                 this.getNoFetchState()
             ),
-            this.search()
+            this.search
         );
     },
 
