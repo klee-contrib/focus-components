@@ -328,18 +328,6 @@ var searchFilterResultMixin = {
             isLoading={this.state.isLoading}
             lineComponent={this.props.lineMap[options.type]}
             selectionStatus={this.state.selectionStatus} />
-    },
-
-    /**
-     * Render the result list.
-     * @returns {JSX} The rendering of the list.
-     * @private
-     */
-    listComponent: function listComponent() {
-        if(this.isSimpleList()) {
-            return <div className="listResultContainer panel">{this.renderSimpleList("list", this.state.list)}</div>;
-        }
-        return this.groupByListComponent();
     }
 };
 

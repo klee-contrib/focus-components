@@ -35,7 +35,7 @@ var searchMixin = {
         return {
             lineMap: undefined,
             isSelection: false,
-            lineOperationList: {},
+            lineOperationList: [],
             idField: 'id'
         };
     },
@@ -180,18 +180,6 @@ var searchMixin = {
                 lineComponent={this.props.lineMap[options.type]}
             />
         );
-    },
-
-    /**
-     * return a list component
-     * @param {string} id - id of the list to display
-     * @returns {XML} the list component
-     */
-    listComponent: function listComponent(id){
-        if(this.isSimpleList()) {
-            return this.renderSimpleList({type: id, list: this.state.list});
-        }
-        return this.groupByListComponent();
     }
 };
 

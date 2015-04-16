@@ -6,6 +6,7 @@ var Button = require('../../common/button/action').component;
 var type = require('focus').component.types;
 var InfiniteScrollMixin = require('../mixin/infinite-scroll').mixin;
 var referenceMixin = require('../../common/mixin/reference-property');
+var checkIsNotNull = require('focus').util.object.checkIsNotNull;
 
 var listMixin = {
     /**
@@ -50,7 +51,12 @@ var listMixin = {
         FetchNextPage: type('func'),
         operationList: type('array'),
         isManualFetch: type('bool'),
-        idField: type('string')
+        idField: type('string'),
+        lineComponent: type('func', true)
+    },
+
+    componentWillMount: function componentWillMount(){
+      checkIsNotNull('lineComponent', this.props.lineComponent);
     },
 
     /**
@@ -98,7 +104,7 @@ var listMixin = {
      */
     _renderLines: function renderLines(){
         var lineCount = 1;
-        var LineComponent = this.props.lineComponent || React.createClass(Line);
+        var LineComponent = this.props.lineComponent;
         return this.props.data.map((line)=>{
             var isSelected;
             switch(this.props.selectionStatus){
