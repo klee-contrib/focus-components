@@ -76,7 +76,8 @@ listFor: function listFor(name, options){
     data: this.state[name],
     line: options.LineComponent || this.props.LineComponent || this.LineComponent,
     perPage: options.perPage || 5,
-    reference: options.reference
+    reference: options.reference,
+    isEdit: options.isEdit !== undefined ? options.isEdit : false
   });
 },
 /**
