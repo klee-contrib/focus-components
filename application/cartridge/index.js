@@ -21,7 +21,7 @@ var cartridgeMixin = {
     applicationStore.removeCartridgeComponentChangeListener(this._onComponentChange);
   },
   _getStateFromStore: function getCartridgeStateFromStore(){
-    return {cartridgeComponent: applicationStore.getCartridgeComponent() || React.DOM.div};
+    return {cartridgeComponent: applicationStore.getCartridgeComponent() || {component: 'div', props: {}}};
   },
   _handleComponentChange: function _handleComponentChange(){
     this.setState(this._getStateFromStore());
@@ -31,7 +31,7 @@ var cartridgeMixin = {
     var className = `cartridge ${this.props.style.className}`;
     return (
       <div className={className} data-focus-cartridge>
-        <this.state.cartridgeComponent />
+        <this.state.cartridgeComponent.component {...this.state.cartridgeComponent.props}/>
       </div>
     );
   }
