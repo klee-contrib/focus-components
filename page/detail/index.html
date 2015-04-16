@@ -1,0 +1,199 @@
+<!doctype html>
+<html class="no-js" lang="">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Test react and backbone</title>
+  <meta name="description" content="Example of the component.">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- Place favicon.ico in the root directory -->
+  <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css" />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/react/0.13.1/react.js"></script>
+  <script src="http://fb.me/JSXTransformer-0.13.1.js"></script>
+
+  <!-- Material degign-->
+  <script src="//code.jquery.com/jquery-1.10.2.min.js"></script>
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/bootstrap.material-design/0.3.0/css/material-wfont.min.css">
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/bootstrap.material-design/0.3.0/css/material.min.css">
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/bootstrap.material-design/0.3.0/css/ripples.min.css">
+  <script src="//cdn.jsdelivr.net/bootstrap.material-design/0.3.0/js/material.min.js"></script>
+  <script src="//cdn.jsdelivr.net/bootstrap.material-design/0.3.0/js/ripples.min.js"></script>
+
+  <!-- Material degign-->
+
+  <script src="/focus-components/dist/js/focus.js"></script>
+  <script src="/focus-components/dist/js/focus-components.js"></script>
+  <script src="/focus-components/example/js/initFocus.js"></script>
+  <link rel="stylesheet" href="/focus-components/dist/css/focus-components.css"/>
+</head>
+<body>
+  <style>
+  body
+  .content {
+    border: 1px solid red;
+    padding: 280px 20px 20px 20px;
+   }
+
+   header .cartouche {
+     display: flex;
+     flex-direction: row;
+     flex-wrap: wrap;
+   }
+
+   header .cartouche .infos div {
+    height:40px;
+    line-height:40px;
+    padding:5px 20px;
+   }
+
+   header .entete-tall .cartouche {
+      padding:15px;
+   }
+
+   header .entete-tall .cartouche .picture {
+
+   }
+
+   header .entete-tall .cartouche img {
+     border-radius:50%;
+     width:150px;
+   }
+
+   header .entete-tall .cartouche .infos .titre1 {
+     font-size:32px;
+     font-weight:bold;
+   }
+   header .entete-tall .cartouche .infos .titre2 {
+     font-size:22px;
+   }
+   header .entete-tall .cartouche .infos .titre3 {
+     font-size:14px;
+   }
+
+   header.header-medium .cartouche img {
+     width:60px;
+   }
+
+   header.header-medium  .entete-tall .cartouche .infos .titre1 {
+     font-size:26px;
+   }
+
+   header.header-medium  .entete-tall .cartouche .infos .titre2, header.header-medium  .entete-tall .cartouche .infos .titre3 {
+     display:none;
+   }
+
+  </style>
+  <div id="appBar-container"></div>
+  <script type="text/javascript">
+      $(document).ready(function() {$.material.init();});
+  </script>
+  <script ="text/jsx">
+  //Load dependencies.
+  focus.components = focusComponents;
+  var UserCartouche = React.createClass({displayName: "UserCartouche",
+  render: function() {
+    return (
+    React.createElement("div", {className: "cartouche"},
+        React.createElement("div", {className: "picture"},
+          React.createElement("img", {src: "https://avatars1.githubusercontent.com/u/286966?v=3&s=460", alt: "Pierre Besson de chez Kleegroup"})
+      ),
+      React.createElement("div", {className: "infos"},
+        React.createElement("div", {className: "titre1"}, "Pierre Besson"),
+        React.createElement("div", {className: "titre2"}, "Impasse des freesias"),
+        React.createElement("div", {className: "titre3"}, "Villebon-sur-totoche")
+      )
+  )
+    );
+  }
+});
+  //Component for the application header.
+  var AppHeader = focus.components.application.header.component;
+  //Create the view.
+  var TestApp = React.createClass({displayName: "TestApp",
+    render: function() {
+      return React.createElement("div", null,
+        React.createElement(AppHeader, null,
+
+         React.createElement("div", {className:"content-bar"},
+           React.createElement("div", {className:"real-bar"},
+             React.createElement("div", {className: 'actions-left'},
+               React.createElement("button", {className: "btn btn-raise btn-default"}, "Back")
+             ),
+             React.createElement("div", {className: "entete"},
+               "Super film vraiment top...",
+               React.createElement("button", {className: "btn btn-info btn-raise"}, "Context"),
+               React.createElement("button", {className: "btn btn-info btn-raise"}, "Context"),
+               React.createElement("button", {className: "btn btn-info btn-raise"}, "Context")
+             ),
+             React.createElement("div", {className: 'user-infos'},
+               React.createElement("i", {className: "mdi-action-language"}),
+               React.createElement("i", {className: "mdi-social-notifications"}),
+               React.createElement("i", {className: "mdi-action-account-circle"})
+             )
+          ),
+
+         /*React.createElement("div", {className: "high-content"},
+            React.createElement("p", null, "This is a simple hero unit, a simple jumbotron-style component for calling extra attention to featured content or information.ddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd")
+         ),*/
+           React.createElement("div", {className: "entete-tall"},
+             React.createElement(UserCartouche, null)
+           )
+         ),
+         React.createElement("div", {className: 'entete-actions'},
+           React.createElement("button", {className: "btn btn-success btn-fab btn-raised mdi-action-language"}),
+           React.createElement("button", {className: "btn btn-danger btn-fab btn-raised mdi-social-notifications"}),
+           React.createElement("button", {className: "btn btn-primary btn-fab btn-raised mdi-action-account-circle"})
+         )
+
+        ),
+        React.createElement("div", {className: "content"},
+          React.createElement("h1", null, " Title"),
+          React.createElement("p", null, "papapapapapapapapap", React.createElement("br", null), "papapapapapapapa"),
+          React.createElement("p", null, "papapapapapapapapap", React.createElement("br", null), "papapapapapapapa"),
+          React.createElement("p", null, "papapapapapapapapap", React.createElement("br", null), "papapapapapapapa"),
+          React.createElement("p", null, "papapapapapapapapap", React.createElement("br", null), "papapapapapapapa"),
+          React.createElement("p", null, "papapapapapapapapap", React.createElement("br", null), "papapapapapapapa"),
+          React.createElement("p", null, "papapapapapapapapap", React.createElement("br", null), "papapapapapapapa"),
+          React.createElement("p", null, "papapapapapapapapap", React.createElement("br", null), "papapapapapapapa"),
+          React.createElement("p", null, "papapapapapapapapap", React.createElement("br", null), "papapapapapapapa"),
+          React.createElement("p", null, "papapapapapapapapap", React.createElement("br", null), "papapapapapapapa"),
+          React.createElement("p", null, "papapapapapapapapap", React.createElement("br", null), "papapapapapapapa"),
+          React.createElement("p", null, "papapapapapapapapap", React.createElement("br", null), "papapapapapapapa"),
+          React.createElement("p", null, "papapapapapapapapap", React.createElement("br", null), "papapapapapapapa"),
+          React.createElement("p", null, "papapapapapapapapap", React.createElement("br", null), "papapapapapapapa"),
+          React.createElement("p", null, "papapapapapapapapap", React.createElement("br", null), "papapapapapapapa"),
+          React.createElement("p", null, "papapapapapapapapap", React.createElement("br", null), "papapapapapapapa"),
+          React.createElement("p", null, "papapapapapapapapap", React.createElement("br", null), "papapapapapapapa"),
+          React.createElement("p", null, "papapapapapapapapap", React.createElement("br", null), "papapapapapapapa"),
+          React.createElement("p", null, "papapapapapapapapap", React.createElement("br", null), "papapapapapapapa"),
+          React.createElement("h2", null, " SubTitle"),
+          React.createElement("p", null, "papapapapapapapapap", React.createElement("br", null), "papapapapapapapa"),
+          React.createElement("p", null, "papapapapapapapapap", React.createElement("br", null), "papapapapapapapa"),
+          React.createElement("p", null, "papapapapapapapapap", React.createElement("br", null), "papapapapapapapa"),
+          React.createElement("p", null, "papapapapapapapapap", React.createElement("br", null), "papapapapapapapa"),
+          React.createElement("p", null, "papapapapapapapapap", React.createElement("br", null), "papapapapapapapa"),
+          React.createElement("p", null, "papapapapapapapapap", React.createElement("br", null), "papapapapapapapa"),
+          React.createElement("p", null, "papapapapapapapapap", React.createElement("br", null), "papapapapapapapa"),
+          React.createElement("p", null, "papapapapapapapapap", React.createElement("br", null), "papapapapapapapa"),
+          React.createElement("p", null, "papapapapapapapapap", React.createElement("br", null), "papapapapapapapa"),
+          React.createElement("p", null, "papapapapapapapapap", React.createElement("br", null), "papapapapapapapa"),
+          React.createElement("p", null, "papapapapapapapapap", React.createElement("br", null), "papapapapapapapa"),
+          React.createElement("p", null, "papapapapapapapapap", React.createElement("br", null), "papapapapapapapa"),
+          React.createElement("p", null, "papapapapapapapapap", React.createElement("br", null), "papapapapapapapa"),
+          React.createElement("p", null, "papapapapapapapapap", React.createElement("br", null), "papapapapapapapa"),
+          React.createElement("p", null, "papapapapapapapapap", React.createElement("br", null), "papapapapapapapa"),
+          React.createElement("p", null, "papapapapapapapapap", React.createElement("br", null), "papapapapapapapa"),
+          React.createElement("p", null, "papapapapapapapapap", React.createElement("br", null), "papapapapapapapa"),
+          React.createElement("p", null, "papapapapapapapapap", React.createElement("br", null), "papapapapapapapa")
+        )
+      );
+    }
+  });
+  React.render(React.createElement(TestApp, null), document.querySelector("#appBar-container"));
+</script>
+
+</body>
+
+</html>
