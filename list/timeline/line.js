@@ -2,14 +2,27 @@
 var React = require('react');
 var builder = require('focus').component.builder;
 var type = require('focus').component.types;
+var translationMixin = require('../../common/i18n').mixin;
+var referenceMixin = require('../../common/mixin/reference-property');
+var definitionMixin = require('../../common/mixin/definition');
+var builtInComponentsMixin = require('../mixin/built-in-components');
+
 var lineMixin = {
-    displayName: "timeline-line",
+    /**
+     * React component name.
+     */
+    displayName: 'timeline-line',
+
+    /**
+     * Mixin dependancies.
+     */
+    mixins: [translationMixin, definitionMixin, referenceMixin, builtInComponentsMixin],
 
     /**
      * line property validation.
      * @type {Object}
      */
-    propTypes:{
+    propTypes: {
         data: type('object'),
         dateField: type('string'),
         dateComponent: type('object'),
@@ -18,17 +31,17 @@ var lineMixin = {
 
     /**
      * Get the line value.
-     * @returns {{item: *}}
+     * @returns {object} - the data od the line.
      */
     getValue: function getLineValue(){
         return {
-            item : this.props.data
+            item: this.props.data
         };
     },
 
     /**
      * Line Click handler.
-     * @param event
+     * @param {object} event - the event
      */
     _handleLineClick: function handleLineClick(event){
         if(this.props.onLineClick){
@@ -38,7 +51,7 @@ var lineMixin = {
 
     /**
      * render content for a line.
-     * @returns {*}
+     * @returns {XML} the line content
      */
     _renderLineContent: function renderLineContent(){
         if(this.renderLineContent){
@@ -60,7 +73,7 @@ var lineMixin = {
 
     /**
      * Render line in list.
-     * @returns {*}
+     * @returns {XML} - the render of the line
      */
     render: function renderLine(){
         if(this.renderLine){
@@ -68,7 +81,7 @@ var lineMixin = {
         }else{
             return (
                 <li>
-                    <div className="timeline-date">02/06/1982</div>
+                    <div className="timeline-date">{this.textFor(this.props.dateField, {})}</div>
                     <div className="timeline-badge"></div>
                     <div className="timeline-panel" onClick={this._handleLineClick}>
                         {this._renderLineContent()}

@@ -11,7 +11,7 @@ var topOfElement = function(element) {
 var InfiniteScrollMixin = {
     /**
      * defaults props for the mixin.
-     * @returns {{isInfiniteScroll: boolean, initialPage: number, offset: number}}
+     * @returns {object} - the default props
      */
     getDefaultProps: function() {
         return {
@@ -26,7 +26,7 @@ var InfiniteScrollMixin = {
      */
     componentWillMount: function() {
         this.nextPage = this.props.initialPage;
-        this.parentNode = this.props.parentSelector? document.querySelector(this.props.parentSelector) : window;
+        this.parentNode = this.props.parentSelector ? document.querySelector(this.props.parentSelector) : window;
     },
 
     /**
@@ -97,5 +97,5 @@ var InfiniteScrollMixin = {
     }
 };
 
-module.exports = {mixin : InfiniteScrollMixin};
+module.exports = {mixin: InfiniteScrollMixin};
 

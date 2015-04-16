@@ -2,8 +2,12 @@ var React = require('react');
 var fielBehaviourMixin = require('../../common/mixin/field-component-behaviour');
 var assign = require('object-assign');
 var Field = require('../../common/field').component;
+var Text = require('../../common/display/text').component;
 
 var builtInComponentsMixin = {
+    /**
+     * inherited minxins
+     */
     mixins: [fielBehaviourMixin],
 
     /**
@@ -62,6 +66,24 @@ var builtInComponentsMixin = {
 
         var fieldProps = this._buildFieldProps(name, options, this);
         return React.createElement(Field, fieldProps);
+    },
+
+    /**
+     * Display the text for a given property.
+     * @param {string} name  - property name.
+     * @param {object} options - Option object
+     * @returns {object} - A React component.
+     */
+    textFor: function textFor(name, options){
+        options = options || {};
+        var def = (this.definition && this.definition[name]) ? this.definition[name] : {};
+        return React.createElement(Text, {
+            name: options.name || `${this.definitionPath}.${name}`,
+            style: options.style,
+            FieldComponent: def.FieldComponent,
+            formatter: options.formatter || def.formatter,
+            value: this.state[name]
+        });
     }
 };
 

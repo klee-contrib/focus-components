@@ -55,6 +55,9 @@ var listMixin = {
         lineComponent: type('func', true)
     },
 
+    /**
+     * called before component mount
+     */
     componentWillMount: function componentWillMount(){
       checkIsNotNull('lineComponent', this.props.lineComponent);
     },
