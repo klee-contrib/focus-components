@@ -58,6 +58,7 @@ var headerMixin = {
     notifySizeChange: type(['function', 'object']),
     processSize: type(['function', 'object'])
   },
+  /** @inheritdoc */
   getInitialState: function getMenuDefaultState() {
   /** @inheriteddoc */
     return {
