@@ -36,7 +36,8 @@ var searchMixin = {
             lineMap: undefined,
             isSelection: false,
             lineOperationList: [],
-            idField: 'id'
+            idField: 'id',
+            SearchComponent: QuickSearch
         };
     },
 
@@ -47,7 +48,8 @@ var searchMixin = {
         lineMap: type('object'),
         isSelection: type('bool'),
         lineOperationList: type('array'),
-        idField: type('string')
+        idField: type('string'),
+        SearchComponent: type('func')
     },
 
     /**
@@ -144,12 +146,11 @@ var searchMixin = {
      */
     quickSearchComponent: function quickSearchComponent(){
         return (
-            <QuickSearch handleChange={this._quickSearch}
+            <this.props.SearchComponent handleChange={this._quickSearch}
                 ref="quickSearch"
                 scope={this.props.scope}
                 scopes={this.props.scopeList}
                 loading={this.state.isLoadingSearch}
-                handleChangeScope={this._quickSearch}
             />
         );
     },
