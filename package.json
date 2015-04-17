@@ -32,6 +32,10 @@
       "path": "application/bar"
     },
     {
+      "name": "message-center",
+      "path": "application/message-center"
+    },
+    {
       "name": "header",
       "path": "application/header"
     },
