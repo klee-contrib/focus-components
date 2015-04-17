@@ -42,15 +42,13 @@
   width: 27px;
   height: 27px;
   background-position: left 3px top 3px;
-  background-color: #606060;
-  //border-radius: 15px;
   cursor: pointer;
   z-index: 1050;
   position: relative;
 }
 
 .popin-close-btn:hover {
-  background-color: rgba(0, 0, 0, 0.7);
+  background-color: rgba(244, 244, 244, 0.70);
 }
 
 .popin-close-btn.left {
