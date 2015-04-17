@@ -63,16 +63,16 @@ var popinMixin = {
     var cssClass = 'popin animated ';
     switch (this.props.position) {
       case 'right':
-        cssClass = `${cssClass} bounceInRight right btn-close-left`;
+        cssClass = `${cssClass} fadeInRight right btn-close-left`;
         break;
       case 'left':
-        cssClass = `${cssClass} bounceInLeft left btn-close-right`;
+        cssClass = `${cssClass} fadeInLeft left btn-close-right`;
         break;
       case 'down':
-        cssClass = `${cssClass} bounceInDown down btn-close-left`;
+        cssClass = `${cssClass} fadeInDown down btn-close-left`;
         break;
       case 'up':
-        cssClass = `${cssClass} bounceInUp up btn-close-left`;
+        cssClass = `${cssClass} fadeInUp up btn-close-left`;
         break;
     }
     if (this.props.style.className !== undefined && this.props.style.className !== null) {
