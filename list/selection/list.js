@@ -4,8 +4,9 @@ var React = require('react');
 var Line = require('./line').mixin;
 var Button = require('../../common/button/action').component;
 var type = require('focus').component.types;
-var InfiniteScrollMixin = require('../mixin/infinite-scroll').mixin;
+var infiniteScrollMixin = require('../mixin/infinite-scroll').mixin;
 var referenceMixin = require('../../common/mixin/reference-property');
+var paginationMixin = require('../mixin/pagination');
 var checkIsNotNull = require('focus').util.object.checkIsNotNull;
 
 var listMixin = {
@@ -17,7 +18,7 @@ var listMixin = {
     /**
      * Mixin dependancies.
      */
-    mixins: [InfiniteScrollMixin, referenceMixin],
+    mixins: [infiniteScrollMixin, referenceMixin],
 
     /**
      * Default properties for the list.
@@ -29,9 +30,7 @@ var listMixin = {
             isAllSelected: false,
             selectionStatus: 'partial',
             isLoading: false,
-            hasMoreData: false,
             operationList: [],
-            isManualFetch: false,
             idField: 'id'
         };
     },
@@ -76,20 +75,6 @@ var listMixin = {
             }
         }
         return selected;
-    },
-
-    /**
-     * Fetch the next page.
-     * @param {number} page the page to fetch
-     * @return {*}
-     */
-    fetchNextPage: function fetchNextPage(page){
-        if(!this.props.hasMoreData){
-            return;
-        }
-        if(this.props.fetchNextPage){
-            return this.props.fetchNextPage(page);
-        }
     },
 
     /**

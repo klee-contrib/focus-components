@@ -4,7 +4,8 @@ var paginationMixin = {
      */
     getDefaultProps: function getPaginationDefaultProps(){
         return {
-            hasMoreData: false
+            hasMoreData: false,
+            isManualFetch: false
         };
     },
 
