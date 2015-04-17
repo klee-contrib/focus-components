@@ -82,7 +82,7 @@ var builtInComponentsMixin = {
             style: options.style,
             FieldComponent: def.FieldComponent,
             formatter: options.formatter || def.formatter,
-            value: this.state[name]
+            value: this.props.data[name]
         });
     }
 };

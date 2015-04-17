@@ -21,6 +21,6 @@ var paginationMixin = {
             return this.props.fetchNextPage(page);
         }
     }
-}
+};
 
-module.exports = {mixin: paginationMixin}
+module.exports = {mixin: paginationMixin};

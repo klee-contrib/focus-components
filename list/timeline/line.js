@@ -18,6 +18,10 @@ var lineMixin = {
      */
     mixins: [translationMixin, definitionMixin, referenceMixin, builtInComponentsMixin],
 
+    getInitialState: function getInitialSate(){
+        return {};
+    },
+
     /**
      * line property validation.
      * @type {Object}
