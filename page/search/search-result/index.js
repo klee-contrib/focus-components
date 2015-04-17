@@ -179,6 +179,7 @@ var searchMixin = {
                 isLoading={this.state.isLoading}
                 operationList={this.props.operationList}
                 lineComponent={this.props.lineMap[options.type]}
+                parentSelector= {this.props.parentSelector}
             />
         );
     }
