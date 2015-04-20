@@ -1,7 +1,7 @@
 var builder = require('focus').component.builder;
 var React = require('react');
 var assign = require('object-assign');
-var isEmpty = require('lodash/lang/isEmpty');
+var {isEmpty, isFunction} = require('lodash/lang');
 
 // Common mixins.
 var definitionMixin = require('../mixin/definition');
@@ -86,12 +86,17 @@ var formMixin = {
   validate: function validateForm() {
     var validationMap = {};
     for (var inptKey in this.refs) {
-      var validationRes = this.refs[inptKey].validate();
-      if(validationRes !== undefined){
-        assign(validationMap, {
-          [inptKey]: validationRes
-        });
+      //validate only the reference elements which have valide function
+      // todo: @pierr see if it is sufficient
+      if(isFunction(this.refs[inptKey].validate)){
+        var validationRes = this.refs[inptKey].validate();
+        if(validationRes !== undefined){
+          assign(validationMap, {
+            [inptKey]: validationRes
+          });
+        }
       }
+
     }
     if(isEmpty(validationMap)){
       return true;
