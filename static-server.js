@@ -16,7 +16,7 @@ function componentsUrl(opts) {
 	opts = opts || {};
 	var isGhPage = opts.isGhPage || false,
 	urlRoot = 'http://' + (opts.urlRoot || 'localhost'),
-	prt = opts.port || (':' + port + '/');
+	prt = (opts.port !== undefined && opts.port !== '') ? (':' + port + '/') : '';
 	var sb = "";
 	for (var component in componentServers) {
 		sb = sb +
@@ -41,8 +41,8 @@ function buildPage(opts){
 		'<h1>Components available</h1><ul>' + componentsUrl(opts) +
 		'</ul>';
 }
-var page =buildPage();
-var ghPage =buildPage({isGhPage: true, urlRoot: 'kleegroup.github.io/focus-components', port: ':80'});
+var page =buildPage({port: port});
+var ghPage =buildPage({isGhPage: true, urlRoot: 'kleegroup.github.io/focus-components', port: ''});
 
 app.use('/focus-components/example', express.static(__dirname + "/example"));
 app.use('/focus-components/dist', express.static(__dirname + "/dist"));
