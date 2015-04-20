@@ -38,13 +38,13 @@
   //Load dependencies.
   focus.components = focusComponents;
   var MessageCenter = focus.components.application.messageCenter.component;
-
   React.render(React.createElement(MessageCenter, null), document.querySelector("#message-cennter-container"));
-  focus.message.builtInStore().pushMessage({title: "pierre", type: "info"});
-  focus.message.builtInStore().pushMessage({title: "paul", type: "warning"});
-  focus.message.builtInStore().pushMessage({title: "jacques", type: "success"});
-  focus.message.builtInStore().pushMessage({title: "robert", type: "error"});
-</script>
+  //Push messages in the message center.
+  focus.message.addErrorMessage({title: "error message", content: "content"});
+  focus.message.addInformationMessage({title: "information message", content: "content"});
+  focus.message.addWarningMessage({title: "warning message", content: "content"});
+  focus.message.addSuccessMessage({title: "Success message", content: "content"});  
+  </script>
 
 </body>
 

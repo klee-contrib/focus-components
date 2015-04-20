@@ -18,10 +18,12 @@ var messageCenterMixin = {
   /** @inheriteddoc */
   componentWillMount: function cartridgeWillMount() {
     messageStore.addPushedMessageListener(this._handlePushMessage);
+    messageStore.addClearMessagesListener(this._handleClearMessage);
   },
   /** @inheriteddoc */
   componentWillUnMount: function cartridgeWillUnMount(){
     messageStore.removePushedMessageListener(this._handlePushMessage);
+    messageStore.removeClearMessagesListener(this._handleClearMessage);
   },
   _getStateFromStore: function getCartridgeStateFromStore(){
     return {messages: messageStore.getMessages() || {} };
@@ -30,6 +32,9 @@ var messageCenterMixin = {
     var messages = this.state.messages;
     messages[messageId] = messageStore.getMessage(messageId);
     this.setState({messages: messages});
+  },
+  _handleClearMessage: function _handleClearMessage(){
+    this.setState({messages: {}});
   },
   _handleRemoveMessage: function _handleRemoveMessage(messageId){
     var msgs = this.state.messages;
