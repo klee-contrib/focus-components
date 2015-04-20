@@ -7,10 +7,10 @@ var {isEmpty, isFunction} = require('lodash/lang');
 var definitionMixin = require('../mixin/definition');
 //var fieldComponentBehaviour = require('../mixin/field-component-behaviour');
 var builtInComponents = require('../mixin/built-in-components');
+var storeBehaviour = require('../mixin/store-behaviour');
 
 //Form mixins.
 var referenceBehaviour = require('./mixin/reference-behaviour');
-var storeBehaviour = require('./mixin/store-behaviour');
 var actionBehaviour = require('./mixin/action-behaviour');
 
 /**
