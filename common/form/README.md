@@ -136,3 +136,5 @@ La composition est la suivante:
 - `reference-behavious` : Le mixin automatisant l'appel aux éléments du store.
 - `built-in-components` : Regroupe l'ensemble des composant générables automatiquement par le formulaire. `fieldFor`, ...
 - `store-behaviour` : regroupe l'automatisation de l'enregistrement aux callBack de modification du store.
+
+Afin de pouvoir changer la valeur des composants de type input, select, il faut que ces derniers aient la value dans leur state propre: voir [doc react form](https://facebook.github.io/react/docs/forms.html).
