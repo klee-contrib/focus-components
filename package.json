@@ -173,7 +173,7 @@
     "immutable": "^3.6.2",
     "lodash": "^3.3.1",
     "object-assign": "^2.0.0",
-    "react": "^0.13.1",
+    "react": "^0.13.2",
     "uuid": "^2.0.1"
   },
   "devDependencies": {
