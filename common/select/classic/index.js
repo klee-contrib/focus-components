@@ -44,7 +44,7 @@ var inputTextMixin = {
    * Get the value from the select in the DOM.
    */
   getValue: function getSelectTextValue() {
-    return this.getDOMNode().value;
+    return React.findDOMNode(this).value;
   },
   /**
    * Handle the change value of the input.
@@ -82,7 +82,10 @@ var inputTextMixin = {
       <select
         multiple={this.props.multiple}
         value={this.state.value}
-        onChange={this._handleOnChange}>
+        className={this.style.className}
+        name={this.props.name}
+        onChange={this._handleOnChange}
+        >
         {this.renderOptions()}
       </select>
     );
