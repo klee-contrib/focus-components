@@ -1,4 +1,5 @@
 var assign = require('object-assign');
+var isFunction = require('lodash/lang/isFunction');
 var actionMixin = {
 
 /**
@@ -22,7 +23,10 @@ var actionMixin = {
     //Build the entity value from the ref getVaue.
     var htmlData = {};
     for(var r in this.refs){
-      htmlData[r] = this.refs[r].getValue();
+      //todo @pierr see if this is sufficient.
+      if(this.refs[r] && isFunction(this.refs[r].getValue)){
+        htmlData[r] = this.refs[r].getValue();
+      }
     }
     return assign({}, this.state, htmlData);
   },
