@@ -88,6 +88,10 @@
       "path": "common/select/classic"
     },
     {
+      "name": "select-radio",
+      "path": "common/select/radio"
+    },
+    {
       "name": "title",
       "path": "common/title"
     },

@@ -53,7 +53,7 @@ var inputTextMixin = {
   _handleOnChange: function selectOnChange(event){
     //On change handler.
     if(this.props.onChange){
-      return this.props.onChange(event);
+      this.props.onChange(event);
     }else {
       //Set the state then call the change handler.
       this.setState({value: event.target.value});
@@ -82,7 +82,7 @@ var inputTextMixin = {
       <select
         multiple={this.props.multiple}
         value={this.state.value}
-        className={this.style.className}
+        className={this.props.style.className}
         name={this.props.name}
         onChange={this._handleOnChange}
         >
