@@ -1,14 +1,14 @@
-## Technical Configuration
+## Configuration Technique
 Affichage d'une liste de selection en mode radio bouton.
 
-## Attributes
+## Attributs
 <table>
 	<thead>
         <tr>
-            <th>Attribute</th>
-            <th>Options</th>
-            <th>Possible</th>
-            <th>Default</th>
+            <th>Attribut</th>
+            <th>Type</th>
+            <th>Valeurs possibles</th>
+            <th>Valeur par default</th>
             <th>Description</th>
         </tr>
     </thead>
@@ -65,13 +65,13 @@ Affichage d'une liste de selection en mode radio bouton.
    </tbody>
 </table>
 
-## Methods
+## Méthodes
 <table>
 	<thead>
 		<tr>
-          <th>Method</th>
-          <th>Parameters</th>
-          <th>Returns</th>
+          <th>Méthode</th>
+          <th>Paramètres</th>
+          <th>Retour</th>
           <th>Description</th>
       </tr>
     </thead>
@@ -85,7 +85,7 @@ Affichage d'une liste de selection en mode radio bouton.
    </tbody>
 </table>
 
-## Events
+## Evènements
 <table>
 	<thead>
 		<tr>
@@ -106,9 +106,9 @@ Affichage d'une liste de selection en mode radio bouton.
 - label
 - input radio
 
-## Example
+## Exemple
 [Exemple de select-radio](https://github.com/KleeGroup/focus-components/blob/master/common/select/radio/example/index.html)
 ## Test
 todo
-## Demo
+## Démo
 [Démo de select-radio](http://kleegroup.github.io/focus-components/common/select/radio/example/)
