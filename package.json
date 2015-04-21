@@ -96,6 +96,10 @@
       "path": "common/select/radio"
     },
     {
+      "name": "select-checkbox",
+      "path": "common/select/checkbox"
+    },
+    {
       "name": "title",
       "path": "common/title"
     },

@@ -10,6 +10,7 @@ var React = require('react');
 var type = require('focus').component.types;
 var fieldGridBehaviourMixin = require('../../mixin/field-grid-behaviour');
 var jQuery = require('jquery');
+var isBoolean = require('lodash/lang/isBoolean');
 
 var checkBoxMixin = {
   mixins: [fieldGridBehaviourMixin],
@@ -34,7 +35,7 @@ var checkBoxMixin = {
   },
   getInitialState: function() {
     return {
-      isChecked: this.props.value
+      isChecked: this.props.isChecked  ?  this.props.isChecked : this.props.value
     };
   },
   _onChange: function onChange(event) {
@@ -50,7 +51,10 @@ var checkBoxMixin = {
    * @returns The DOM node value.
    */
   getValue: function getValue() {
-    return this.state.isChecked;
+    if(isBoolean(this.props.value)){
+      return this.state.isChecked;
+    }
+    return this.state.isChecked ? this.props.value : undefined;
   },
   /**
    * Build the label class name.
@@ -68,7 +72,7 @@ var checkBoxMixin = {
 
           <div className="paper-cb">
               <label className={this._labelClassName()}>
-                  <input ref='checkbox'checked={this.state.isChecked} onChange={this._onChange} type='checkbox' className='paper-cbx' />
+                  <input ref='checkbox' checked={this.state.isChecked} onChange={this._onChange} type='checkbox' className='paper-cbx' value={this.props.value}/>
                   {this.props.label ? this.props.label : ''}
               </label>
           </div>
