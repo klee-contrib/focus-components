@@ -1,4 +1,5 @@
 /*global window*/
+/*todo check the library presence*/
 module.exports = {
     /**
      * Compute the translated label.
