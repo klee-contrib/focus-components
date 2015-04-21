@@ -59,16 +59,6 @@ var checkBoxMixin = {
   _labelClassName: function labelClassName(){
     return `paper-cb-label ${this._getContentOffsetClassName()} ${this._getContentGridClassName()}`;
   },
-/*  componentDidMount: function(){
-    if(jQuery.material && jQuery.material.init){
-      jQuery.material.init();
-    }
-  },
-  componentDidUpdate: function(){
-    if(jQuery.material && jQuery.material.init){
-      jQuery.material.init();
-    }
-  },*/
   /**
    * Render the Checkbox HTML.
    * @return {VirtualDOM} - The virtual DOM of the checkbox.
