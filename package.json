@@ -60,6 +60,10 @@
       "path": "common/field"
     },
     {
+      "name": "display-checkbox",
+      "path": "common/display/checkbox"
+    },
+    {
       "name": "input-text",
       "path": "common/input/text"
     },
