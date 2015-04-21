@@ -22,10 +22,10 @@ var popinMixin = {
   },
   /** @inheritdoc */
   propTypes: {
+    open: type('bool'),
     type: type('string'),
     contentLoadingFunction: type('string')
   },
-
   /** @inheritdoc */
   componentDidMount: function popinDidMount() {
     var source = document.querySelector(this.props.displaySelector);
@@ -37,7 +37,6 @@ var popinMixin = {
         currentView._toggleOpen();
       };
     }
-
   },
   /**
    * Toggle the open state on the modal.
@@ -56,8 +55,9 @@ var popinMixin = {
    */
   closeModal: function closeModal() {
     this.setState({open: false});
-    //replace with a this.ref
-    //And add a popin-layer in the state
+    //todo: joanna / remy
+    //replaced with a this.ref
+    //And add a popin-layer in the state and do a getLayerClassName which returns popin layer if open.
     React.findDOMNode(this.refs.layer).classList.remove('popin-layer');
   },
   /**
@@ -67,7 +67,7 @@ var popinMixin = {
    */
   _getModalCss: function () {
     var position = this.props.position;
-    var cssClass = `popin animated ${position} fadeIn${capitalize(position)Big}`;
+    var cssClass = `popin animated ${position} fadeIn${capitalize(position)}Big`;
     switch (this.props.position) {
       case 'right':
       case 'down':

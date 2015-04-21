@@ -1,3 +1,4 @@
+var type = require('focus').component.types;
 /**
  * Mixin used in order to create a popin or a menu.
  * @type {Object} - popin behavour mixin
@@ -11,6 +12,10 @@ var PopinProperties = {
       open: false,
       style: {}
     };
+  },
+  /** @inheritdoc */
+  propTypes: {
+    open: type('bool')
   },
   /** @inheritdoc */
   getInitialState: function getDefaultState() {
