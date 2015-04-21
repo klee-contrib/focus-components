@@ -52,9 +52,9 @@ var radioMixin = {
      * handle click on radio
      * @param {object} event - the click event
      */
-    _handleClick: function selectOnChange(event){
-        if(this.props.onClick){
-            this.props.onClick(event);
+    _handleChange: function selectOnChange(event){
+        if(this.props.onChange){
+            this.props.onChange(event);
         }else {
             //Set the state then call the change handler.
             this.setState({value: event.target.value});
@@ -66,14 +66,23 @@ var radioMixin = {
      * @return {XML} the different radio values
      */
     renderRadios: function renderRadio(){
+        var key = 0;
         return this.props.values.map((val)=>{
             var value = val[this.props.valueKey];
+            var label = val[this.props.labelKey];
             var isChecked = value == this.state.value;
             return (
-                <div className="radio radio-primary">
+                <div className="radio radio-primary" key={key++}>
                     <label>
-                        <input type="radio" name={this.props.name} value={value} checked={isChecked} onClick={this._handleClick}/>
-                    {val[this.props.labelKey]}
+                        <input type="radio"
+                            name={this.props.name}
+                            value={value}
+                            checked={isChecked}
+                            onChange={this._handleChange}
+                        />
+                        <span className="circle"></span>
+                        <span className="check"></span>
+                        <div>{label}</div>
                     </label>
                 </div>
             );
