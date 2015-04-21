@@ -1,16 +1,18 @@
 var builder = require('focus').component.builder;
 var React = require('react');
 var type = require('focus').component.types;
+var Checkbox = require('../../input/checkbox');
 
-var radioMixin = {
+var checkboxMixin = {
     /**
      * Tag name.
      */
-    displayName: 'select-radio',
+    displayName: 'select-checkbox',
 
     /** @inheritdoc */
     getDefaultProps: function getDefaultProps(){
         return {
+            value: [],
             values: [],
             valueKey: 'value',
             labelKey: 'label'
@@ -20,7 +22,7 @@ var radioMixin = {
     /** @inheritdoc */
     propTypes: function propTypes(){
         return {
-            value: type(['number', 'string']),
+            value: type('array'),
             values: type('array'),
             valueKey: type('string'),
             labelKey: type('string'),
@@ -48,40 +50,41 @@ var radioMixin = {
         return this.state.value;
     },
 
-    /**
-     * handle click on radio
-     * @param {object} event - the click event
-     */
-    _handleChange: function selectOnChange(event){
+    _handleChange: function handleChange(event){
         if(this.props.onChange){
             this.props.onChange(event);
         }else {
-            //Set the state then call the change handler.
-            this.setState({value: event.target.value});
+            var currentValue = this.state.value;
+            var selectedValue = event.target.value;
+            var idx = currentValue.indexOf(event.target.value);
+            if(idx >= 0){
+                currentValue.splice(idx, 1);
+            }else{
+                currentValue.push(selectedValue);
+            }
+            this.setState({value: currentValue});
         }
     },
 
     /**
-     * Render radio for each values
-     * @return {XML} the different radio values
+     * Render all selection checkbox.
      */
-    renderRadios: function renderRadio(){
+    renderCheckbox: function renderCheckbox(){
         var key = 0;
         return this.props.values.map((val)=>{
             var value = val[this.props.valueKey];
             var label = val[this.props.labelKey];
-            var isChecked = value == this.state.value;
+            var isChecked = this.state.value.indexOf(value) >= 0;
             return (
-                <div className="radio radio-primary" key={key++}>
-                    <label>
-                        <input type="radio"
+                <div className="paper-cb" key={key++}>
+                    <label className="paper-cb-label">
+                        <input type="checkbox"
                             name={this.props.name}
                             value={value}
                             checked={isChecked}
                             onChange={this._handleChange}
+                            className='paper-cbx'
                         />
-                        <span className="circle"></span>
-                        <span className="check"></span>
                         <div>{label}</div>
                     </label>
                 </div>
@@ -90,16 +93,16 @@ var radioMixin = {
     },
 
     /** @inheritdoc */
-    render: function renderRadio(){
+    render: function render(){
         return (
             <div
                 className={this.props.style.className}
                 name={this.props.name}
             >
-            {this.renderRadios()}
+            {this.renderCheckbox()}
             </div>
         );
     }
-};
+}
 
-module.exports = builder(radioMixin);
+module.exports = builder(checkboxMixin);
