@@ -90,7 +90,7 @@ var popinMixin = {
    * @private
    */
   _getCloseBtnCss: function getCloseButtonCss() {
-    return `popin-close-btn ${this.props.position === 'right' ? 'right': 'left'}`;
+    return `popin-close-btn ${this.props.position === 'right' ? 'left': 'right'}`;
   },
   /**
    * Content css class.
