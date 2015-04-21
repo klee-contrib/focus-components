@@ -182,7 +182,7 @@ var fieldBuiltInComponentsMixin = {
     return React.createElement(Component, {
       id: this.props.name,
       name: this.props.name,
-      label: this.props.name,
+      label: this.props.label,
       value: this.state.value,
       type: this.props.type,
       style: this.props.style.input,

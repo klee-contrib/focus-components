@@ -19,6 +19,23 @@ var storeMixin = {
     });
     return this._computeEntityFromStoresData(newState);
   },
+    /**
+     * Get the error state informations from the store.
+     * @returns {object} - The js error object constructed from the store data.
+     */
+  _getErrorStateFromStores: function formGetErrorStateFromStore() {
+      if (this.getErrorStateFromStore) {
+          return this.getErrorStateFromStore();
+      }
+      var newState = {};
+      this.stores.map((storeConf) => {
+          storeConf.properties.map((property)=>{
+              newState[property] = storeConf.store[`getError${capitalize(property)}`]() ;
+          });
+      });
+      return this._computeEntityFromStoresData(newState);
+  },
+
   /**
    * Compute the data given from the stores.
    * @param {object} data -  The data ordered by store.
@@ -50,6 +67,7 @@ var storeMixin = {
       this.stores.map((storeConf) => {
         storeConf.properties.map((property)=>{
           storeConf.store[`add${capitalize(property)}ChangeListener`](this._onChange);
+          storeConf.store[`add${capitalize(property)}ErrorListener`](this._onError);
         });
       });
     }
@@ -62,6 +80,7 @@ var storeMixin = {
       this.stores.map((storeConf) => {
         storeConf.properties.map((property)=>{
           storeConf.store[`remove${capitalize(property)}ChangeListener`](this._onChange);
+          storeConf.store[`remove${capitalize(property)}ErrorListener`](this._onError);
         });
       });
     }

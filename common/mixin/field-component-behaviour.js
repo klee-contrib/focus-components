@@ -26,14 +26,17 @@ var fieldBehaviourMixin = {
       } return true;
     }();
     //Build a container for the props.
+      var name = options.name || `${this.definitionPath}.${name}`;
     var propsContainer = {
-      name: options.name || `${this.definitionPath}.${name}`,
+      name: name,
+      label: def.label || name,
       ref: name,
       value: value,
       error: context.state.error ? context.state.error[name] : undefined,
       //Mode
       isEdit: isEdit,
       hasLabel: hasLabel,
+      isRequired: def.isRequired,
       //Style
       style: options.style,
       //Methods

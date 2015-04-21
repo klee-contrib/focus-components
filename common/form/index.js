@@ -56,6 +56,20 @@ var formMixin = {
   _onChange: function onFormStoreChangeHandler() {
     this.setState(this._getStateFromStores());
   },
+
+    /**
+     * Event handler for 'error' events coming from the stores.
+      */
+  _onError: function onFormErrorHandler() {
+      var errorState = this._getErrorStateFromStores();
+      for(var key in errorState) {
+          if(this.refs[key]) {
+              this.refs[key].setError(errorState[key]);
+          }
+      }
+  },
+
+
   /** @inheritdoc */
   callMountedActions: function formCallMountedActions() {
     this._loadData();
