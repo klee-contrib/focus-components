@@ -11,6 +11,7 @@
     <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css" />
     <script src="//code.jquery.com/jquery-1.10.2.min.js"></script>
     <script src="http://fb.me/react-0.13.2.js"></script>
+    <script src="http://fb.me/JSXTransformer-0.13.1.js"></script>
     <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
 
     <!-- Material degign-->
@@ -34,15 +35,14 @@
     $(document).ready(function() {$.material.init();});
 </script>
 
-<script type="text/javascript">
+<script type="text/jsx">
     focus.components = focusComponents;
     var Radio = focus.components.common.select.radio.component;
-    React.render(React.createElement(Radio,
-            {
-                value: "B",
-                values: [{value: "A", label: "toto"},{value: "B", label: "tata"}, {value: "C", label: "titi"}],
-                style: {className: "test"}
-            }), document.querySelector("#radio-container"));
+    React.render(<Radio
+                    value="B"
+                    values={[{value: "A", label: "toto"},{value: "B", label: "tata"}, {value: "C", label: "titi"}]}
+                    style={{className: "test"}}
+            />, document.querySelector("#radio-container"));
 </script>
 
 </body>
