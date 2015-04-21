@@ -22,7 +22,9 @@ var actionMixin = {
     //Build the entity value from the ref getVaue.
     var htmlData = {};
     for(var r in this.refs){
-      htmlData[r] = this.refs[r].getValue();
+        if(this.refs[r].getValue) {
+            htmlData[r] = this.refs[r].getValue();
+        }
     }
     return assign({}, this.state, htmlData);
   },

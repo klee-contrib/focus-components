@@ -30,6 +30,12 @@ var messageMixin = {
     //Maybe it is not the best way to do it.
     //React.unmountComponentAtNode(this.getDOMNode().parentNode);
   },
+  _renderTitle: function renderMessageTitle() {
+      if(this.props.title) {
+          return <h4>{this.props.title}</h4>
+      }
+      return undefined;
+  },
   /**
    * Render an alert.
    * @return {JSX} The jsx.
@@ -39,7 +45,7 @@ var messageMixin = {
     return(
       <div className={cssClass} data-id={this.props.id}>
         <button type='button' className='close' data-dismiss='alert' onClick={this._handleOnClick}>×</button>
-        <h4>{this.props.title}</h4>
+        {this._renderTitle()}
         <p>{this.props.content}</p>
       </div>
     );
