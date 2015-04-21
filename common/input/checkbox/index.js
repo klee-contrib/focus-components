@@ -50,7 +50,7 @@ var checkBoxMixin = {
    * @returns The DOM node value.
    */
   getValue: function getValue() {
-    return React.findDOMNode(this).value;
+    return this.state.isChecked;
   },
   /**
    * Build the label class name.
