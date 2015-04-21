@@ -13,5 +13,6 @@ module.exports = {
   title: require('./title'),
   topicDisplayer: require('./topic-displayer'),
   list: require('./list'),
-  mixin: require('./mixin')
+  mixin: require('./mixin'),
+  display: require('./display')
 };

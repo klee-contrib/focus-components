@@ -60,6 +60,10 @@
       "path": "common/field"
     },
     {
+      "name": "display-checkbox",
+      "path": "common/display/checkbox"
+    },
+    {
       "name": "input-text",
       "path": "common/input/text"
     },
@@ -86,6 +90,10 @@
     {
       "name": "select-classic",
       "path": "common/select/classic"
+    },
+    {
+      "name": "select-radio",
+      "path": "common/select/radio"
     },
     {
       "name": "title",

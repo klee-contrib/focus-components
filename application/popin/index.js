@@ -1,45 +1,49 @@
+/*global document*/
 var builder = require('focus').component.builder;
 var popinProperties = require('../mixin/popin-behaviour').mixin;
 var type = require('focus').component.types;
-
+var capitalize = require('lodash/string/capitalize');
 /**
  * Popin mixin
  * @type {object}
  */
 var popinMixin = {
-  mixins: [popinProperties],
-  /**
-   * Display name.
-   */
-  displayName: 'popin',
-
   /** @inheritdoc */
-  getDefaultProps: function () {
+  mixins: [popinProperties],
+  /** @inheritdoc */
+  displayName: 'popin',
+  /** @inheritdoc */
+  getDefaultProps: function getPopinDefaultProps() {
     return {
       type: 'full', // full, centered
       //  displaySelector: undefined, // Html selector of the element wich open/close the modal when click on it.
       contentLoadingFunction: undefined // Function wich returns the content of the modal.
     };
   },
-
   /** @inheritdoc */
   propTypes: {
+    open: type('bool'),
     type: type('string'),
     contentLoadingFunction: type('string')
   },
-
   /** @inheritdoc */
   componentDidMount: function popinDidMount() {
     var source = document.querySelector(this.props.displaySelector);
     var currentView = this;
+    //todo @joanna / remy
+    //J'aurais plutôt exposé une méthode open sur la modale et ajouté un handler sur l'élément appellant.
     if(source !== undefined && source !== null){
       source.onclick = function () {
-        currentView.setState({open: !currentView.state.open});
+        currentView._toggleOpen();
       };
     }
-
   },
-
+  /**
+   * Toggle the open state on the modal.
+   */
+  _toggleOpen: function modalToggleOpen(){
+    this.setState({open: !this.state.open});
+  },
   /**
    * Open the modal.
    */
@@ -51,28 +55,27 @@ var popinMixin = {
    */
   closeModal: function closeModal() {
     this.setState({open: false});
-    document.querySelector('#modal-layer').classList.remove('popin-layer');
+    //todo: joanna / remy
+    //replaced with a this.ref
+    //And add a popin-layer in the state and do a getLayerClassName which returns popin layer if open.
+    React.findDOMNode(this.refs.layer).classList.remove('popin-layer');
   },
-
   /**
    * Css class of modal.
    * @returns {string} css classes.
    * @private
    */
   _getModalCss: function () {
-    var cssClass = 'popin animated ';
+    var position = this.props.position;
+    var cssClass = `popin animated ${position} fadeIn${capitalize(position)}Big`;
     switch (this.props.position) {
       case 'right':
-        cssClass = `${cssClass} fadeInRightBig right btn-close-left`;
+      case 'down':
+      case 'up':
+        cssClass = `${cssClass} btn-close-left`;
         break;
       case 'left':
         cssClass = `${cssClass} fadeInLeftBig left btn-close-right`;
-        break;
-      case 'down':
-        cssClass = `${cssClass} fadeInDownBig down btn-close-left`;
-        break;
-      case 'up':
-        cssClass = `${cssClass} fadeInUpBig up btn-close-left`;
         break;
     }
     if (this.props.style.className !== undefined && this.props.style.className !== null) {
@@ -86,16 +89,8 @@ var popinMixin = {
    * @returns {string} - css classes.
    * @private
    */
-  _getCloseBtnCss: function () {
-    var cssClass = 'popin-close-btn';
-    switch (this.props.position) {
-      case 'right':
-        cssClass += ' left';
-        break;
-      default :
-        cssClass += ' right';
-    }
-    return cssClass;
+  _getCloseBtnCss: function getCloseButtonCss() {
+    return `popin-close-btn ${this.props.position === 'right' ? 'left': 'right'}`;
   },
   /**
    * Content css class.
@@ -124,20 +119,19 @@ var popinMixin = {
       return <div />;
     }
     return (
-      <div>
-        <div id='modal-layer' className='popin-layer' onClick={this.closeModal}></div>
+      <div ref='modal'>
+        <div ref='layer' className='popin-layer' onClick={this.closeModal}></div>
         <span className={this._getModalCss()}>
           <div className = {this._getCloseBtnCss()} onClick={this.closeModal}></div>
           <div className={this._getModalContentCss()}>
-                    {this.renderPopinHeader(this)}
+            {this.renderPopinHeader(this)}
             <div className="modal-body" >
-                        {this.renderContent(this)}
+              {this.renderContent(this)}
             </div>
-                    {this.renderPopinFooter(this)}
+            {this.renderPopinFooter(this)}
           </div>
         </span>
       </div>
-
     );
   }
 };
