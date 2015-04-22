@@ -14,13 +14,6 @@ Affichage d'une liste de selection en mode radio bouton.
     </thead>
     <tbody>
         <tr>
-            <td><code>type</code></td>
-            <td><i>string</i></td>
-            <td><code>text</code>,<code>date</code>, <code>hour</code></td>
-            <td><code>text</code></td>
-            <td>Desription of the attribute.</td>
-        </tr>
-        <tr>
             <td><code>value</code></td>
             <td><i>string</i>,<i>number</i></td>
             <td><code>texte</code></td>
