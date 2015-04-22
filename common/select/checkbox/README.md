@@ -100,8 +100,8 @@ Affichage d'une liste de selection multiple en mode checkbox.
 - input checkbox
 
 ## Exemple
-[Exemple de select-radio](https://github.com/KleeGroup/focus-components/blob/master/common/select/checkbox/example/index.html)
+[Exemple de select-checkbox](https://github.com/KleeGroup/focus-components/blob/master/common/select/checkbox/example/index.html)
 ## Test
 todo
 ## Démo
-[Démo de select-radio](http://kleegroup.github.io/focus-components/common/select/checkbox/example/)
+[Démo de select-checkbox](http://kleegroup.github.io/focus-components/common/select/checkbox/example/)
