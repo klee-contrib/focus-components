@@ -17,7 +17,7 @@ Affichage d'une liste de selection multiple en mode checkbox.
             <td><code>value</code></td>
             <td><i>array</i></td>
             <td></td>
-            <td>[]</td>
+            <td><code>[]</code></td>
             <td>La liste des valeurs sélectionnées.</td>
         </tr>
         <tr>

@@ -1,3 +1,5 @@
+var type = require('focus').component.types;
+
 var paginationMixin = {
     /**
      * @inheritDoc
@@ -7,6 +9,12 @@ var paginationMixin = {
             hasMoreData: false,
             isManualFetch: false
         };
+    },
+
+    propTypes: {
+        hasMoreData: type('bool'),
+        fetchNextPage: type('func'),
+        isManualFetch: type('bool')
     },
 
     /**

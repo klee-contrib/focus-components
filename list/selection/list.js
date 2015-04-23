@@ -24,7 +24,7 @@ var listMixin = {
      * Default properties for the list.
      * @returns {{isSelection: boolean}} the default properties
      */
-    getDefaultProps: function getLineDefaultProps(){
+    getDefaultProps: function getListDefaultProps(){
         return {
             isSelection: true,
             isAllSelected: false,
@@ -47,9 +47,7 @@ var listMixin = {
         onLineClick: type('func'),
         isLoading: type('bool'),
         loader: type('func'),
-        FetchNextPage: type('func'),
         operationList: type('array'),
-        isManualFetch: type('bool'),
         idField: type('string'),
         lineComponent: type('func', true)
     },
