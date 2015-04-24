@@ -16,6 +16,7 @@ var lineMixin = {
      */
     mixins: [translationMixin, definitionMixin, referenceMixin, builtInComponentsMixin],
 
+    /**@inheritDoc**/
     getDefaultProps: function getLineDefaultProps(){
         return {
 
@@ -32,12 +33,15 @@ var lineMixin = {
         onLineClick: type('func')
     },
 
+    /**
+     * Render line Actions.
+     */
     renderActions: function renderLineActions(){
 
     },
 
     render: function renderLine(){
-
+        this.renderLineContent();
     }
 };
 
