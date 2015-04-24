@@ -13,12 +13,12 @@ var lineMixin = {
     /**
      * React component name.
      */
-    displayName: "selection-line",
+    displayName: 'selection-line',
 
     /**
      * Mixin dependancies.
      */
-    mixins: [translationMixin, definitionMixin,referenceMixin, builtInComponentsMixin],
+    mixins: [translationMixin, definitionMixin, referenceMixin, builtInComponentsMixin],
 
     /**
      * Default properties for the line.
@@ -35,7 +35,7 @@ var lineMixin = {
      * line property validation.
      * @type {Object}
      */
-    propTypes:{
+    propTypes: {
         data: type('object'),
         isSelection: type('bool'),
         isSelected: type('bool'),
