@@ -1,14 +1,20 @@
 $tableBackgroundColor: #FFF;
 $table-highlight-color: #EAF3F3;
+$fontColor: black;
 
 table.table-list {
   background-color: $tableBackgroundColor;
   width: 100%;
   margin: 1em 0;
+  color: $fontColor;
+
   th {
     padding: 1em 0 0 0.5em;
     font-weight: bold;
     border-bottom: 1px solid;
+    a.sort {
+      margin-left: 0.5em;
+    }
   }
 
   td {
@@ -21,7 +27,7 @@ table.table-list {
         background-color: $table-highlight-color;
       }
     }
-  }
 
+  }
 }
 

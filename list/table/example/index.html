@@ -41,6 +41,7 @@
                     <tr>
                             <td>{this.textFor("firstName", {})}</td>
                             <td>{this.textFor("lastName", {})}</td>
+                            <td>{this.textFor("birthDate", {})}</td>
                     </tr>
             );
         }
@@ -51,10 +52,15 @@
         lineComponent: Line,
         columns: {
             firstName: {label: "Prénom", sort:"asc"},
-            lastName: {label: "Nom", noSort: true}
+            lastName: {label: "Nom", sort: 'desc'},
+            birthDate: {label: "date", noSort: true}
+
         },
         onLineClick : function onLineClick(line){
             alert('click sur la ligne ' + line.title);
+        },
+        sortColumn: function sortColumn(event){
+            alert(event.target.getAttribute('data-name'));
         }
     });
 

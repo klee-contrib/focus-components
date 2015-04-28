@@ -42,7 +42,6 @@ var lineMixin = {
      * Render line Actions.
      */
     renderActions: function renderLineActions(){
-
     },
 
     render: function renderLine(){

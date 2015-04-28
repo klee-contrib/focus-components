@@ -41,18 +41,35 @@ var tableMixin = {
     },
 
     _renderTableHeader: function renderTableHeader(){
-        var headerRows = [];
+        var headerCols = [];
         for(var field in this.props.columns){
-            headerRows.push(
-                <th>
-                {this.i18n(this.props.columns[field].label)}
-                </th>
+            headerCols.push(
+                this._renderColumnHeader(field)
             );
         }
         return (
           <thead>
-          {headerRows}
+              <tr>
+              {headerCols}
+              </tr>
           </thead>
+        );
+    },
+
+    _renderColumnHeader: function(name){
+        var colProperties = this.props.columns[name];
+        var sort;
+        if(!this.props.isEdit && !colProperties.noSort ){
+            var order = colProperties.sort ? colProperties.sort : 'asc';
+            var iconClass = 'fa fa-sort-' + order;
+            var icon = <i className={iconClass}/>;
+            sort = <a className='sort' href='#' data-name={name} onClick={this.props.sortColumn}>{icon}</a>;
+        }
+        return (
+            <th>
+                {this.i18n(colProperties.label)}
+                {sort}
+            </th>
         );
     },
 
