@@ -23,6 +23,11 @@ var lineMixin = {
         };
     },
 
+    /**@inheritDoc**/
+    getInitialState: function getInitialSate(){
+        return {};
+    },
+
     /**
      * line property validation.
      * @type {Object}
@@ -41,7 +46,7 @@ var lineMixin = {
     },
 
     render: function renderLine(){
-        this.renderLineContent();
+        return this.renderLineContent();
     }
 };
 

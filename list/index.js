@@ -3,5 +3,6 @@ module.exports = {
 	actionContextual: require('./action-contextual'),
 	selection: require('./selection'),
     summary: require('./summary'),
-	timeline: require('./timeline')
+	timeline: require('./timeline'),
+	table: require('./table')
 };

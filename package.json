@@ -178,6 +178,10 @@
     {
       "name": "timeline",
       "path": "list/timeline"
+    },
+    {
+      "name": "table",
+      "path": "list/table"
     }
   ],
   "homepage": "https://github.com/KleeGroup/focus-components",

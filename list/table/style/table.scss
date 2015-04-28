@@ -1,0 +1,27 @@
+$tableBackgroundColor: #FFF;
+$table-highlight-color: #EAF3F3;
+
+table.table-list {
+  background-color: $tableBackgroundColor;
+  width: 100%;
+  margin: 1em 0;
+  th {
+    padding: 1em 0 0 0.5em;
+    font-weight: bold;
+    border-bottom: 1px solid;
+  }
+
+  td {
+    padding: 1em 0.5em;
+  }
+
+  tbody{
+    tr {
+      &:nth-child(even) {
+        background-color: $table-highlight-color;
+      }
+    }
+  }
+
+}
+
