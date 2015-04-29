@@ -98,7 +98,7 @@ var tableMixin = {
             return (
                 <tbody className="timeline-loading">
                     <tr>
-                        <td>Loading ...</td>
+                        <td>{this.i18n('list.loading')} ...</td>
                     </tr>
                 </tbody>
             );

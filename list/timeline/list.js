@@ -3,7 +3,8 @@ var React = require('react');
 var type = require('focus').component.types;
 var Line = require('./line').mixin;
 var uuid= require('uuid');
-var InfiniteScrollMixin = require('../mixin/infinite-scroll').mixin;
+var translationMixin = require('../../common/i18n').mixin;
+var infiniteScrollMixin = require('../mixin/infinite-scroll').mixin;
 var referenceMixin = require('../../common/mixin/reference-property');
 var checkIsNotNull = require('focus').util.object.checkIsNotNull;
 var Button = require('../../common/button/action').component;
@@ -17,7 +18,7 @@ var listMixin = {
     /**
      * Mixin dependancies.
      */
-    mixins: [InfiniteScrollMixin, referenceMixin],
+    mixins: [translationMixin, infiniteScrollMixin, referenceMixin],
 
     /**
      * Default properties for the list.
@@ -77,7 +78,7 @@ var listMixin = {
                 return this.props.loader();
             }
             return (
-                <li className="timeline-loading">Loading ...</li>
+                <li className="timeline-loading">{this.i18n('list.loading')} ...</li>
             );
         }
     },
