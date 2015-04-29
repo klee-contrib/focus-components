@@ -5,6 +5,7 @@ var infiniteScrollMixin = require('../mixin/infinite-scroll').mixin;
 var translationMixin = require('../../common/i18n').mixin;
 var referenceMixin = require('../../common/mixin/reference-property');
 var checkIsNotNull = require('focus').util.object.checkIsNotNull;
+var Button = require('../../common/button/action').component;
 
 var tableMixin = {
     /**
@@ -104,6 +105,24 @@ var tableMixin = {
         }
     },
 
+    _renderManualFetch: function renderManualFetch(){
+        if(this.props.isManualFetch && this.props.hasMoreData){
+            var style = {className: 'primary'};
+            return (
+                <tbody className="timeline-manualFetch">
+                    <tr>
+                        <td>
+                            <Button label="list.button.showMore"
+                                    type="button"
+                                    handleOnClick={this.handleShowMore}
+                                    style={style}/>
+                        </td>
+                    </tr>
+                </tbody>
+            );
+        }
+    },
+
     /**
      * Render the list.
      * @return {XML} the render of the table list.
@@ -111,9 +130,10 @@ var tableMixin = {
     render: function render(){
         return (
             <table className="table-list">
-            {this._renderTableHeader()}
-            {this._renderTableBody()}
-            {this._renderLoading()}
+                {this._renderTableHeader()}
+                {this._renderTableBody()}
+                {this._renderLoading()}
+                {this._renderManualFetch()}
             </table>
         );
     }

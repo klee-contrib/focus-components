@@ -75,15 +75,6 @@ var listMixin = {
     },
 
     /**
-     * handle manual fetch.
-     * @param {object} event event received
-     */
-    _handleShowMore: function handleShowMore(event){
-        this.nextPage++;
-        this.fetchNextPage(this.nextPage);
-    },
-
-    /**
      * Render lines of the list.
      * @returns {*} DOM for lines
      */
@@ -134,9 +125,9 @@ var listMixin = {
             var style = {className: 'primary'};
             return (
                 <li className="sl-button">
-                    <Button label="list.selection.button.showMore"
+                    <Button label="list.button.showMore"
                         type="button"
-                        handleOnClick={this._handleShowMore}
+                        handleOnClick={this.handleShowMore}
                         style={style}/>
                 </li>
             );

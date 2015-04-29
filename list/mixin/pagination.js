@@ -29,6 +29,15 @@ var paginationMixin = {
         if(this.props.fetchNextPage){
             return this.props.fetchNextPage(page);
         }
+    },
+
+    /**
+     * handle manual fetch.
+     * @param {object} event event received
+     */
+    handleShowMore: function handleShowMore(event){
+        this.nextPage++;
+        this.fetchNextPage(this.nextPage);
     }
 };
 

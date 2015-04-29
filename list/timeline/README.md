@@ -1,6 +1,6 @@
 ## Configuration technique
 Cas d'utilisation :
-affichage d'une liste en tableau avec la possibilit√© de trier par colonnes.
+affichage d'une liste sous forme de timeline.
 
 ## Attributs
 <table>
@@ -9,7 +9,7 @@ affichage d'une liste en tableau avec la possibilit√© de trier par colonnes.
             <th>Attribut</th>
             <th>Type</th>
             <th>valeurs possibles</th>
-            <th>valeur par d√©fault</th>
+            <th>valeur par dÈfault</th>
             <th>Description</th>
         </tr>
     </thead>
@@ -19,101 +19,82 @@ affichage d'une liste en tableau avec la possibilit√© de trier par colonnes.
             <td><i>array</i></td>
             <td><code>[{firstname: "test", lastname: "test"}]</code></td>
             <td><code>[]</code></td>
-            <td>D√©finit le tableau des donn√©es √† afficher.</td>
-        </tr>
-        <tr>
-            <td><code>columns</code></td>
-            <td><i>array</i></td>
-            <td></td>
-            <td><code>[]</code></td>
-            <td>D√©finit la liste des colonnes √† afficher dans le tableau.</td>
+            <td>DÈfinit le tableau des donnÈes ‡ afficher.</td>
         </tr>
         <tr>
             <td><code>lineComponent</code></td>
             <td><i>React-component</i></td>
             <td></td>
             <td>aucune.</td>
-            <td>D√©finit le composant pour afficher les lignes du tableau.</td>
-        </tr>
-        <tr>
-            <td><code>sortColumn</code></td>
-            <td><i>function</i></td>
-            <td></td>
-            <td>aucune.</td>
-            <td>D√©finit la fonction permettant de trier sur une colonne</td>
+            <td>DÈfinit le composant pour afficher les lignes du tableau.</td>
         </tr>
         <tr>
             <td><code>isLoading</code></td>
             <td><i>boolean</i></td>
             <td></td>
             <td><code>false</code></td>
-            <td>D√©finit si le tableau est en cours de chargement des donn√©es.</td>
+            <td>DÈfinit si le tableau est en cours de chargement des donnÈes.</td>
         </tr>
         <tr>
             <td><code>loader</code></td>
             <td><i>function</i></td>
             <td></td>
             <td>une fonction qui affiche : Loading...</td>
-            <td>D√©finit la fonction affichant l'etat de chargement dans la liste</td>
+            <td>DÈfinit la fonction affichant l'etat de chargement dans la liste</td>
         </tr>
         <tr>
             <td><code>idField</code></td>
             <td><i>string</i></td>
             <td></td>
             <td>id</td>
-            <td>D√©finit le nom de l'attribut portant l'id sur une ligne.</td>
+            <td>DÈfinit le nom de l'attribut portant l'id sur une ligne.</td>
+        </tr>
+        <tr>
+            <td><code>dateField</code></td>
+            <td><i>string</i></td>
+            <td></td>
+            <td><code>date</code></td>
+            <td>DÈfinit le nom de l'attribut portant la date sur une ligne.</td>
         </tr>
         <tr>
             <td><code>onLineClick</code></td>
             <td><i>function</i></td>
             <td></td>
             <td>aucune.</td>
-            <td>D√©finit la fonction √† ex√©cuter lors du clic sur une ligne.</td>
+            <td>DÈfinit la fonction ‡ exÈcuter lors du clic sur une ligne.</td>
         </tr>
         <tr>
             <td><code>hasMoreData</code></td>
             <td><i>boolean</i></td>
             <td></td>
             <td><code>false</code></td>
-            <td>D√©finit si la liste a encore des donn√©es √† charger</td>
+            <td>DÈfinit si la liste a encore des donnÈes ‡ charger</td>
         </tr>
         <tr>
             <td><code>fetchNextPage</code></td>
             <td><i>function</i></td>
             <td></td>
             <td>aucune.</td>
-            <td>D√©finit la fonction permettant de charger la page suivante de donn√©es.</td>
+            <td>DÈfinit la fonction permettant de charger la page suivante de donnÈes.</td>
         </tr>
         <tr>
             <td><code>isManualFetch</code></td>
             <td><i>boolean</i></td>
             <td></td>
             <td><code>false</code></td>
-            <td>D√©finit si la liste utilise le comportement de scroll infini ou non.</td>
+            <td>DÈfinit si la liste utilise le comportement de scroll infini ou non.</td>
         </tr>
    </tbody>
 </table>
 
-**Exemple d'utilisation de la propri√©t√© columns:**
-
-```javascript
-columns = {
-    firstName: {label: "Pr√©nom", sort:"asc"},
-    lastName: {label: "Nom", sort: 'desc'},
-    birthDate: {label: "date", noSort: true}
-}
-
-// valeurs possibles pour sort : asc et desc
-```
-
 ## Methodes
-pas de m√©thodes.
+pas de mÈthodes.
 
-## Ev√®nements
+## EvËnements
 <table>
 	<thead>
 		<tr>
-          <th>Ev√®nement</th>
+          <th>EvËnement</th>
           <th>Description</th>
       </tr>
     </thead>
@@ -126,28 +107,28 @@ pas de m√©thodes.
 </table>
 
 ## Structure
-- conteneur du tableau : table
-- conteneur de ligne : tr
+- conteneur du tableau : ul
+- conteneur de ligne : li
 
 ## Exemple
-[Exemple de table](https://github.com/KleeGroup/focus-components/blob/master/list/table/example/index.html)
+[Exemple de timeline](https://github.com/KleeGroup/focus-components/blob/master/list/timeline/example/index.html)
 ## Test
 todo
-## D√©mo
-[D√©mo de table](http://kleegroup.github.io/focus-components/list/table/example/)
+## DÈmo
+[DÈmo de timeline](http://kleegroup.github.io/focus-components/list/timeline/example/)
 
-## d√©finition de la ligne d'un tableau
-Un mixin de ligne est d√©finit dans focus afin de rendre la ligne d'une table : **focus.components.list.table.line.mixin**
+## dÈfinition de la ligne d'un tableau
+Un mixin de ligne est dÈfinit dans focus afin de rendre la ligne d'une table : **focus.components.list.table.line.mixin**
 
 ```javascript
 var Line = React.createClass({
-        mixins: [focus.components.list.table.line.mixin],
+        mixins: [focus.components.list.timeline.line.mixin],
         definitionPath: [entityDefinition de votre objet],
         renderLineContent: function(data){
             return (
-                    <tr>
+                    <div className="timeline-body">
                           ...
-                    </tr>
+                    </div>
             );
         }
     });

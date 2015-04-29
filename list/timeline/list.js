@@ -6,6 +6,7 @@ var uuid= require('uuid');
 var InfiniteScrollMixin = require('../mixin/infinite-scroll').mixin;
 var referenceMixin = require('../../common/mixin/reference-property');
 var checkIsNotNull = require('focus').util.object.checkIsNotNull;
+var Button = require('../../common/button/action').component;
 
 var listMixin = {
     /**
@@ -41,7 +42,8 @@ var listMixin = {
         dateComponent: type('object'),
         lineComponent: type('func', true),
         isloading: type('bool'),
-        loader: type('func')
+        loader: type('func'),
+        onLineClick: type('func')
     },
 
     /**
@@ -80,6 +82,20 @@ var listMixin = {
         }
     },
 
+    _renderManualFetch: function renderManualFetch(){
+        if(this.props.isManualFetch && this.props.hasMoreData){
+            var style = {className: 'primary'};
+            return (
+                <li className="timeline-button">
+                    <Button label="list.button.showMore"
+                            type="button"
+                            handleOnClick={this.handleShowMore}
+                            style={style}/>
+                </li>
+            );
+        }
+    },
+
     /**
      * Render the list.
      * @returns {XML} the list component
@@ -89,6 +105,7 @@ var listMixin = {
             <ul className="timeline">
               {this._renderLines()}
               {this._renderLoading()}
+              {this._renderManualFetch()}
             </ul>
         );
     }

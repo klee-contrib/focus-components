@@ -46,6 +46,13 @@ Affichage d'une liste par block avec la capacité de selectionner une ou plusieu
             <td>Définit si la liste est cours de chargement des données.</td>
         </tr>
         <tr>
+            <td><code>loader</code></td>
+            <td><i>function</i></td>
+            <td></td>
+            <td>une fonction qui affiche : Loading...</td>
+            <td>Définit la fonction affichant l'etat de chargement dans la liste</td>
+        </tr>
+        <tr>
             <td><code>selectionStatus</code></td>
             <td><i>string</i></td>
             <td><code>none</code>, <code>selected</code>, <code>partial</code></td>
@@ -80,10 +87,33 @@ Affichage d'une liste par block avec la capacité de selectionner une ou plusieu
             <td>aucune.</td>
             <td>Définit la fonction à exécuter lors de la sélection d'une ligne dans la liste.</td>
         </tr>
+        <tr>
+            <td><code>hasMoreData</code></td>
+            <td><i>boolean</i></td>
+            <td></td>
+            <td><code>false</code></td>
+            <td>Définit si la liste a encore des données à charger</td>
+        </tr>
+        <tr>
+            <td><code>fetchNextPage</code></td>
+            <td><i>function</i></td>
+            <td></td>
+            <td>aucune.</td>
+            <td>Définit la fonction permettant de charger la page suivante de données.</td>
+        </tr>
+        <tr>
+            <td><code>isManualFetch</code></td>
+            <td><i>boolean</i></td>
+            <td></td>
+            <td><code>false</code></td>
+            <td>Définit si la liste utilise le comportement de scroll infini ou non.</td>
+        </tr>
+        
    </tbody>
 </table>
 
 **example d'utilisation de l'attribut operationList**
+
 ```javascript
 var operationList = [
         {label: "Button1_a",action: function(data) {alert(data.title);},style: undefined,priority: 1},
@@ -104,9 +134,24 @@ Pas de méthodes.
 
 Evènement à définir par l'utilisateur.
 
-Event           | Description
----             | ---
-`line:onClick`  | action sur le click d'une ligne.
+<table>
+	<thead>
+		<tr>
+          <th>Evènement</th>
+          <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+          <td><code>`line:onClick`</code></td>
+          <td>action sur le click d'une ligne.</td>
+      </tr>
+       <tr>
+            <td><code>`line:selection`</code></td>
+            <td>action la selection d'une d'une ligne.</td>
+        </tr>
+   </tbody>
+</table>
 
 ## Structure
 - conteneur du tableau : ul
