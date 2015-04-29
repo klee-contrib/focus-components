@@ -6,7 +6,6 @@ var Button = require('../../common/button/action').component;
 var type = require('focus').component.types;
 var infiniteScrollMixin = require('../mixin/infinite-scroll').mixin;
 var referenceMixin = require('../../common/mixin/reference-property');
-var paginationMixin = require('../mixin/pagination');
 var checkIsNotNull = require('focus').util.object.checkIsNotNull;
 
 var listMixin = {
@@ -26,8 +25,8 @@ var listMixin = {
      */
     getDefaultProps: function getListDefaultProps(){
         return {
+            data: [],
             isSelection: true,
-            isAllSelected: false,
             selectionStatus: 'partial',
             isLoading: false,
             operationList: [],
@@ -42,14 +41,14 @@ var listMixin = {
     propTypes: {
         data: type('array'),
         isSelection: type('bool'),
-        isAllSelected: type('bool'),
         onSelection: type('func'),
         onLineClick: type('func'),
         isLoading: type('bool'),
         loader: type('func'),
         operationList: type('array'),
         idField: type('string'),
-        lineComponent: type('func', true)
+        lineComponent: type('func', true),
+        selectionStatus: type('string')
     },
 
     /**

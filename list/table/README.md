@@ -1,47 +1,77 @@
 ## Configuration technique
-Todo
+Cas d'utilisation :
+affichage d'une liste en tableau avec la possibilité de trier par colonnes.
 
 ## Attributs
 <table>
 	<thead>
-		<tr>
-          <th>Attribut</th>
-          <th>Type</th>
-          <th>valeurs possibles</th>
-          <th>valeur par défault</th>
-          <th>Description</th>
-      </tr>
+        <tr>
+            <th>Attribut</th>
+            <th>Type</th>
+            <th>valeurs possibles</th>
+            <th>valeur par défault</th>
+            <th>Description</th>
+        </tr>
     </thead>
     <tbody>
-      <tr>
-          <td><code>type</code></td>
-          <td><i>string</i></td>
-          <td><code>text</code>,<code>date</code>, <code>hour</code></td>
-          <td><code>text</code></td>
-          <td>Desription of the attribute.</td>
-      </tr>
+        <tr>
+            <td><code>data</code></td>
+            <td><i>array</i></td>
+            <td><code>[{firstname: "test", lastname: "test"}]</code></td>
+            <td><code>[]</code></td>
+            <td>Définit le tableau des données à afficher.</td>
+        </tr>
+        <tr>
+            <td><code>columns</code></td>
+            <td><i>array</i></td>
+            <td></td>
+            <td><code>[]</code></td>
+            <td>Définit la liste des colonnes à afficher dans le tableau.</td>
+        </tr>
+        <tr>
+            <td><code>lineComponent</code></td>
+            <td><i>React-component</i></td>
+            <td></td>
+            <td>aucune.</td>
+            <td>Définit le composant pour afficher les lignes du tableau.</td>
+        </tr>
+        <tr>
+            <td><code>sortColumn</code></td>
+            <td><i>function</i></td>
+            <td></td>
+            <td>aucune.</td>
+            <td>Définit la fonction permettant de trier sur une colonne</td>
+        </tr>
+        <tr>
+            <td><code>idField</code></td>
+            <td><i>string</i></td>
+            <td></td>
+            <td>id</td>
+            <td>Définit le nom de l'attribut portant l'id sur une ligne.</td>
+        </tr>
+        <tr>
+            <td><code>onLineClick</code></td>
+            <td><i>function</i></td>
+            <td></td>
+            <td>aucune.</td>
+            <td>Définit la fonction à exécuter lors du clic sur une ligne.</td>
+        </tr>
    </tbody>
 </table>
 
+**Exemple d'utilisation de la propriété columns:**
+```javascript
+columns = {
+    firstName: {label: "Prénom", sort:"asc"},
+    lastName: {label: "Nom", sort: 'desc'},
+    birthDate: {label: "date", noSort: true}
+}
+
+// valeurs possibles pour sort : asc et desc
+```
+
 ## Methodes
-<table>
-	<thead>
-		<tr>
-          <th>Methode</th>
-          <th>Parametres</th>
-          <th>Retour</th>
-          <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-          <td><code>method()</code></td>
-          <td>None.</td>
-          <td><i>bool</i></td>
-          <td>Desription of the method</td>
-      </tr>
-   </tbody>
-</table>
+pas de méthodes.
 
 ## Evènements
 <table>
@@ -53,20 +83,36 @@ Todo
     </thead>
     <tbody>
       <tr>
-          <td><code>eventName</code></td>
-          <td>Desription of the event</td>
+          <td><code>`line:onClick`</code></td>
+          <td>action sur le click d'une ligne.</td>
       </tr>
    </tbody>
 </table>
 
 ## Structure
-- bloc 1
-- bloc 2
-- bloc 3
+- conteneur du tableau : table
+- conteneur de ligne : tr
 
 ## Exemple
-todo
+[Exemple de table](https://github.com/KleeGroup/focus-components/blob/master/list/table/example/index.html)
 ## Test
 todo
 ## Démo
-todo
+[Démo de table](http://kleegroup.github.io/focus-components/list/table/example/)
+
+## définition de la ligne d'un tableau
+Un mixin de ligne est définit dans focus afin de rendre la ligne d'une table : **focus.components.list.table.line.mixin**
+
+```javascript
+var Line = React.createClass({
+        mixins: [focus.components.list.table.line.mixin],
+        definitionPath: [entityDefinition de votre objet],
+        renderLineContent: function(data){
+            return (
+                    <tr>
+                          ...
+                    </tr>
+            );
+        }
+    });
+```

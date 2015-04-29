@@ -18,9 +18,7 @@ var lineMixin = {
 
     /**@inheritDoc**/
     getDefaultProps: function getLineDefaultProps(){
-        return {
-
-        };
+        return {};
     },
 
     /**@inheritDoc**/
@@ -42,6 +40,7 @@ var lineMixin = {
      * Render line Actions.
      */
     renderActions: function renderLineActions(){
+        //TODO ajouter les actions sur une ligne : edit save et delete
     },
 
     render: function renderLine(){

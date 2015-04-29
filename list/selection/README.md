@@ -6,14 +6,95 @@ Affichage d'une liste par block avec la capacité de selectionner une ou plusieu
 
 ## Attributes
 
-Attribute       | Options           | Possible              | Default       | Description
----             | ---               | ---                   | ---           | ---
-`data`          | *Array*           |                       |               | Définie le tableau à afficher.
-`lineComponent` | *React-component* |                       |               | Définie le composant permettant d'afficher une ligne de la liste.
-`isSelection`   | *boolean*         |                       | `true`        | Définie si le composant permet la selection des lignes.
-`onLineClick`   | *function*        |                       |               | Définie la fonction déclenchée sur le click d'une ligne.
-`onSelection`   | *function*        |                       |               | Définie la fonction déclenchée sur la selection d'une ligne.
-`isAllSelected` | *function*        |                       |               | Définie si toutes les lignes sont sélectionnées.
+<table>
+	<thead>
+        <tr>
+            <th>Attribut</th>
+            <th>Type</th>
+            <th>valeurs possibles</th>
+            <th>valeur par défault</th>
+            <th>Description</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td><code>data</code></td>
+            <td><i>array</i></td>
+            <td><code>[{firstname: "test", lastname: "test"}]</code></td>
+            <td><code>[]</code></td>
+            <td>Définit le tableau des données à afficher.</td>
+        </tr>
+        <tr>
+            <td><code>isSelection</code></td>
+            <td><i>boolean</i></td>
+            <td></td>
+            <td><code>true</code></td>
+            <td>Définit si la liste offre la possibilité de sélectionner les lignes.</td>
+        </tr>
+        <tr>
+            <td><code>lineComponent</code></td>
+            <td><i>React-component</i></td>
+            <td></td>
+            <td>aucune.</td>
+            <td>Définit le composant pour afficher les lignes de la liste.</td>
+        </tr>
+        <tr>
+            <td><code>isLoading</code></td>
+            <td><i>boolean</i></td>
+            <td></td>
+            <td><code>false</code></td>
+            <td>Définit si la liste est cours de chargement des données.</td>
+        </tr>
+        <tr>
+            <td><code>selectionStatus</code></td>
+            <td><i>string</i></td>
+            <td><code>none</code>, <code>selected</code>, <code>partial</code></td>
+            <td><code>partial</code></td>
+            <td>Définit l'état de selection de la liste.</td>
+        </tr>
+        <tr>
+            <td><code>idField</code></td>
+            <td><i>string</i></td>
+            <td></td>
+            <td>id</td>
+            <td>Définit le nom de l'attribut portant l'id sur une ligne.</td>
+        </tr>
+        <tr>
+            <td><code>operationList</code></td>
+            <td><i>array</i></td>
+            <td></td>
+            <td><code>[]</code></td>
+            <td>Définit la liste des opérations applicable sur une ligne.</td>
+        </tr>
+        <tr>
+            <td><code>onLineClick</code></td>
+            <td><i>function</i></td>
+            <td></td>
+            <td>aucune.</td>
+            <td>Définit la fonction à exécuter lors du clic sur une ligne.</td>
+        </tr>
+        <tr>
+            <td><code>onSelection</code></td>
+            <td><i>function</i></td>
+            <td></td>
+            <td>aucune.</td>
+            <td>Définit la fonction à exécuter lors de la sélection d'une ligne dans la liste.</td>
+        </tr>
+   </tbody>
+</table>
+
+**example d'utilisation de l'attribut operationList**
+```javascript
+var operationList = [
+        {label: "Button1_a",action: function(data) {alert(data.title);},style: undefined,priority: 1},
+        {label: "Button1_b",action: function(data) {alert(data.title);},style: undefined,priority: 1},
+        {label: "Button2_a",action: function(data) {alert(data.title);},style: undefined,priority: 2},
+        {label: "Button2_b",action: function(data) {alert(data.title);},style: undefined,priority: 2}
+    ];
+   // l'attribut priority définit si l'action est primaire ou secondaire
+   // action primaire = bouton
+   // action secondaire = liste deroulante en fin de ligne
+```
 
 ## Methods
 
@@ -28,16 +109,33 @@ Event           | Description
 `line:onClick`  | action sur le click d'une ligne.
 
 ## Structure
-- conteneur du tableau : <ul>
-- conteneur de ligne : <li>
+- conteneur du tableau : ul
+- conteneur de ligne : li
 
 ## Example
 ```jsx
 <List data={list} onLineClick={function}/>
 ```
 
-
+[Exemple de liste selection](https://github.com/KleeGroup/focus-components/blob/master/list/selection/example/index.html)
 ## Test
-
+Todo.
 ## Demo
-![Input](http://images.ientrymail.com/webpronews/article_pics/html-speech-input.jpg)
+[Démo de table](http://kleegroup.github.io/focus-components/list/selection/example/)
+
+## définition de la ligne d'un tableau
+Un mixin de ligne est définit dans focus afin de rendre la ligne d'une table : **focus.components.list.selection.line.mixin**
+
+```javascript
+var Line = React.createClass({
+        mixins: [focus.components.list.selection.line.mixin],
+        definitionPath: [entityDefinition de votre objet],
+        renderLineContent: function(data){
+            return (
+                    <div>
+                          ...
+                    </div>
+            );
+        }
+    });
+```

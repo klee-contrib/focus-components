@@ -1,10 +1,9 @@
-var builder =  require('focus').component.builder;
+var builder = require('focus').component.builder;
 var React = require('react');
 var type = require('focus').component.types;
 var infiniteScrollMixin = require('../mixin/infinite-scroll').mixin;
 var translationMixin = require('../../common/i18n').mixin;
 var referenceMixin = require('../../common/mixin/reference-property');
-var paginationMixin = require('../mixin/pagination');
 var checkIsNotNull = require('focus').util.object.checkIsNotNull;
 
 var tableMixin = {
@@ -20,6 +19,7 @@ var tableMixin = {
 
     getDefaultProps: function getListDefaultProps(){
         return {
+            data: [],
             idField: 'id'
         };
     },
