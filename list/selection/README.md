@@ -168,7 +168,7 @@ Todo.
 ## Demo
 [Démo de table](http://kleegroup.github.io/focus-components/list/selection/example/)
 
-## définition de la ligne d'un tableau
+## Définition de la ligne d'un tableau
 Un mixin de ligne est définit dans focus afin de rendre la ligne d'une table : **focus.components.list.selection.line.mixin**
 
 ```javascript

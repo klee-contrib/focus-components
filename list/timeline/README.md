@@ -117,7 +117,7 @@ todo
 ## Démo
 [Démo de timeline](http://kleegroup.github.io/focus-components/list/timeline/example/)
 
-## définition de la ligne d'un tableau
+## Définition de la ligne d'un tableau
 Un mixin de ligne est définit dans focus afin de rendre la ligne d'une table : **focus.components.list.table.line.mixin**
 
 ```javascript
