@@ -24,8 +24,10 @@ var listMixin = {
      */
     getDefaultProps: function getDefaultProps(){
         return {
+            data: [],
             idField: 'id',
-            dateField: 'date'
+            dateField: 'date',
+            isLoading: false
         };
     },
 
@@ -37,7 +39,9 @@ var listMixin = {
         idField: type('string'),
         dateField: type('string'),
         dateComponent: type('object'),
-        lineComponent: type('func', true)
+        lineComponent: type('func', true),
+        isloading: type('bool'),
+        loader: type('func')
     },
 
     /**
@@ -65,6 +69,17 @@ var listMixin = {
         });
     },
 
+    _renderLoading: function renderLoading(){
+        if(this.props.isLoading){
+            if(this.props.loader){
+                return this.props.loader();
+            }
+            return (
+                <li className="timeline-loading">Loading ...</li>
+            );
+        }
+    },
+
     /**
      * Render the list.
      * @returns {XML} the list component
@@ -73,6 +88,7 @@ var listMixin = {
         return (
             <ul className="timeline">
               {this._renderLines()}
+              {this._renderLoading()}
             </ul>
         );
     }

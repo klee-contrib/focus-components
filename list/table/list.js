@@ -20,7 +20,8 @@ var tableMixin = {
     getDefaultProps: function getListDefaultProps(){
         return {
             data: [],
-            idField: 'id'
+            idField: 'id',
+            isLoading: false
         };
     },
 
@@ -30,7 +31,9 @@ var tableMixin = {
         idField: type('string'),
         lineComponent: type('func', true),
         columns: type('object'),
-        sortColumn: type('func')
+        sortColumn: type('func'),
+        isloading: type('bool'),
+        loader: type('func')
     },
 
     /**
@@ -86,6 +89,21 @@ var tableMixin = {
         });
     },
 
+    _renderLoading: function renderLoading(){
+        if(this.props.isLoading){
+            if(this.props.loader){
+                return this.props.loader();
+            }
+            return (
+                <tbody className="timeline-loading">
+                    <tr>
+                        <td>Loading ...</td>
+                    </tr>
+                </tbody>
+            );
+        }
+    },
+
     /**
      * Render the list.
      * @return {XML} the render of the table list.
@@ -95,6 +113,7 @@ var tableMixin = {
             <table className="table-list">
             {this._renderTableHeader()}
             {this._renderTableBody()}
+            {this._renderLoading()}
             </table>
         );
     }
