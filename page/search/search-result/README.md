@@ -174,9 +174,9 @@ _searchResult
 - un champs de recherche
 - une liste de résultat
 
-## Example
-todo
+## Exemple
+[Exemple de recherche-résultat](https://github.com/KleeGroup/focus-components/blob/master/page/search/search-result/example/index.html)
 ## Test
 todo
-## Demo
-todo
+## Démo
+[Démo de recherche-résultat](http://kleegroup.github.io/focus-components/page/search/search-result/example/)
