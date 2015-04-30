@@ -73,7 +73,7 @@ var input = {
     }
 ```
 
-```jsx :
+```jsx
 <LiverFilter ref="liveFilterRef" facetList={input.facetList} selectedFacetList={input.selectedFacetList} openedFacetList={input.openedFacetList} config={input.config} dataSelectionHandler={input.dataSelectionHandler} />
 ```
 
