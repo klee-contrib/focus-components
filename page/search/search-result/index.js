@@ -37,7 +37,8 @@ var searchMixin = {
             isSelection: false,
             lineOperationList: [],
             idField: 'id',
-            SearchComponent: QuickSearch
+            SearchComponent: QuickSearch,
+            groupMaxRows: 3
         };
     },
 
@@ -49,7 +50,8 @@ var searchMixin = {
         isSelection: type('bool'),
         lineOperationList: type('array'),
         idField: type('string'),
-        SearchComponent: type('func')
+        SearchComponent: type('func'),
+        groupMaxRows: type('number')
     },
 
     /**
