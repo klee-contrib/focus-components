@@ -91,6 +91,10 @@ buttonDelete: function buttonDelete() {
     css: 'delete'
   });
 },
+/**
+ * Edition button.
+ * @returns {object} - The React component for the button.
+ */
 buttonEdit: function buttonEdit() {
   var form = this;
   return React.createElement(Button, {
@@ -102,6 +106,10 @@ buttonEdit: function buttonEdit() {
     }
   });
 },
+/**
+ * Cancel button.
+ * @returns {object} - The React component for the button.
+ */
 buttonCancel: function buttonCancel() {
   var form = this;
   return React.createElement(Button, {
@@ -116,7 +124,7 @@ buttonCancel: function buttonCancel() {
 },
 /**
  * Button save generation.
- * @returns {object} - A React button.
+ * @returns {object} - A React  save button.
  */
 buttonSave: function() {
   //var form = this;
