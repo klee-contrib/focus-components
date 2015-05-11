@@ -9,7 +9,7 @@ affichage d'une liste sous forme de timeline.
             <th>Attribut</th>
             <th>Type</th>
             <th>valeurs possibles</th>
-            <th>valeur par défault</th>
+            <th>valeur par dï¿½fault</th>
             <th>Description</th>
         </tr>
     </thead>
@@ -19,82 +19,82 @@ affichage d'une liste sous forme de timeline.
             <td><i>array</i></td>
             <td><code>[{firstname: "test", lastname: "test"}]</code></td>
             <td><code>[]</code></td>
-            <td>Définit le tableau des données à afficher.</td>
+            <td>Dï¿½finit le tableau des donnï¿½es ï¿½ afficher.</td>
         </tr>
         <tr>
             <td><code>lineComponent</code></td>
             <td><i>React-component</i></td>
             <td></td>
             <td>aucune.</td>
-            <td>Définit le composant pour afficher les lignes du tableau.</td>
+            <td>Dï¿½finit le composant pour afficher les lignes du tableau.</td>
         </tr>
         <tr>
             <td><code>isLoading</code></td>
             <td><i>boolean</i></td>
             <td></td>
             <td><code>false</code></td>
-            <td>Définit si le tableau est en cours de chargement des données.</td>
+            <td>Dï¿½finit si le tableau est en cours de chargement des donnï¿½es.</td>
         </tr>
         <tr>
             <td><code>loader</code></td>
             <td><i>function</i></td>
             <td></td>
             <td>une fonction qui affiche : Loading...</td>
-            <td>Définit la fonction affichant l'etat de chargement dans la liste</td>
+            <td>Dï¿½finit la fonction affichant l'etat de chargement dans la liste</td>
         </tr>
         <tr>
             <td><code>idField</code></td>
             <td><i>string</i></td>
             <td></td>
             <td>id</td>
-            <td>Définit le nom de l'attribut portant l'id sur une ligne.</td>
+            <td>Dï¿½finit le nom de l'attribut portant l'id sur une ligne.</td>
         </tr>
         <tr>
             <td><code>dateField</code></td>
             <td><i>string</i></td>
             <td></td>
             <td><code>date</code></td>
-            <td>Définit le nom de l'attribut portant la date sur une ligne.</td>
+            <td>Dï¿½finit le nom de l'attribut portant la date sur une ligne.</td>
         </tr>
         <tr>
             <td><code>onLineClick</code></td>
             <td><i>function</i></td>
             <td></td>
             <td>aucune.</td>
-            <td>Définit la fonction à exécuter lors du clic sur une ligne.</td>
+            <td>Dï¿½finit la fonction ï¿½ exï¿½cuter lors du clic sur une ligne.</td>
         </tr>
         <tr>
             <td><code>hasMoreData</code></td>
             <td><i>boolean</i></td>
             <td></td>
             <td><code>false</code></td>
-            <td>Définit si la liste a encore des données à charger</td>
+            <td>Dï¿½finit si la liste a encore des donnï¿½es ï¿½ charger</td>
         </tr>
         <tr>
             <td><code>fetchNextPage</code></td>
             <td><i>function</i></td>
             <td></td>
             <td>aucune.</td>
-            <td>Définit la fonction permettant de charger la page suivante de données.</td>
+            <td>Dï¿½finit la fonction permettant de charger la page suivante de donnï¿½es.</td>
         </tr>
         <tr>
             <td><code>isManualFetch</code></td>
             <td><i>boolean</i></td>
             <td></td>
             <td><code>false</code></td>
-            <td>Définit si la liste utilise le comportement de scroll infini ou non.</td>
+            <td>Dï¿½finit si la liste utilise le comportement de scroll infini ou non.</td>
         </tr>
    </tbody>
 </table>
 
 ## Methodes
-pas de méthodes.
+pas de mï¿½thodes.
 
-## Evènements
+## Evï¿½nements
 <table>
 	<thead>
 		<tr>
-          <th>Evènement</th>
+          <th>Evï¿½nement</th>
           <th>Description</th>
       </tr>
     </thead>
@@ -114,15 +114,15 @@ pas de méthodes.
 [Exemple de timeline](https://github.com/KleeGroup/focus-components/blob/master/list/timeline/example/index.html)
 ## Test
 todo
-## Démo
-[Démo de timeline](http://kleegroup.github.io/focus-components/list/timeline/example/)
+## Dï¿½mo
+[Dï¿½mo de timeline](http://kleegroup.github.io/focus-components/list/timeline/example/)
 
-## Définition de la ligne d'un tableau
-Un mixin de ligne est définit dans focus afin de rendre la ligne d'une table : **focus.components.list.table.line.mixin**
+## Dï¿½finition de la ligne d'un tableau
+Un mixin de ligne est dï¿½finit dans focus afin de rendre la ligne d'une table : **Focus.components.list.table.line.mixin**
 
 ```javascript
 var Line = React.createClass({
-        mixins: [focus.components.list.timeline.line.mixin],
+        mixins: [Focus.components.list.timeline.line.mixin],
         definitionPath: [entityDefinition de votre objet],
         renderLineContent: function(data){
             return (

@@ -42,7 +42,7 @@ Event         | Description
 <QuickSearch placeholder="Veuillez taper au moins 3 caractères..."/>
 ```
 ```javascript
-React.createElement(React.createClass(focusComponents.search.quickSearch)),
+React.createElement(React.createClass(FocusComponents.search.quickSearch)),
   document.querySelector("#quick-search-container")
 );
 ```

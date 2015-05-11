@@ -43,7 +43,7 @@
 
 <script type="text/javascript">
     var Popin = React.createClass({
-        mixins: [focusComponents.application.popin.mixin],
+        mixins: [FocusComponents.application.popin.mixin],
         renderPopinHeader: function(popin) {
                 return React.createElement('div', null,
                         React.createElement('div', {
@@ -61,7 +61,7 @@
                 return React.createElement("div", {}, "Content of the modal 3");
         }
     });
-    var Button = focusComponents.common.button.action.component;
+    var Button = FocusComponents.common.button.action.component;
     var Content = React.createClass({
         displayName: 'TestPopin',
         render: function () {

@@ -74,13 +74,13 @@ var MaSousVue = React.createClass({displayName: "Form",
     load: function(){
       Promise.resolve({contact: {firstName: "pierre", lastName: "besson"}}).then(
         function(data){
-        focus.dispatcher.handleServerAction({
+        Focus.dispatcher.handleServerAction({
           data: data,
           type: "update"
         });
       });
   }, save: function(data){
-    return Promise.resolve(data).then(function(d){focus.dispatcher.handleServerAction({
+    return Promise.resolve(data).then(function(d){Focus.dispatcher.handleServerAction({
       data: data,
       type: "update"
     });})
@@ -113,7 +113,7 @@ Le fichier `index.jsx` doit ressembler à ça:
 var SousVue1 = require('./sousVue1');
 var SousVue2 = require('./sousVue2');
 
-var StickyNavigation = focus.components.common.stickyNavigation.component;
+var StickyNavigation = Focus.components.common.stickyNavigation.component;
 
 module.exports = React.createClass({
     render: function renderMovieView() {

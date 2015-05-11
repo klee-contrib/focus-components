@@ -58,7 +58,7 @@
                             }
                         };
 
-                        focus.dispatcher.handleServerAction({
+                        Focus.dispatcher.handleServerAction({
                             data: data, type: "update"
                         })
                     },
@@ -66,7 +66,7 @@
         }
     };
     var Line = React.createClass({
-        mixins: [focusComponents.list.selection.line.mixin],
+        mixins: [FocusComponents.list.selection.line.mixin],
         definitionPath: "contact",
         renderLineContent: function(data){
             var id = React.createElement('div',null,data.id);
@@ -100,9 +100,9 @@
     React.render(
             React.createElement(
                     React.createClass({
-                        mixins:[focusComponents.page.search.searchResult.mixin],
+                        mixins:[FocusComponents.page.search.searchResult.mixin],
                         actions: action,
-                        store: new focus.store.SearchStore(),
+                        store: new Focus.store.SearchStore(),
                         render: function render(){
                             var qs = this.quickSearchComponent();
                             var list = this.isSimpleList() ? this.simpleListComponent({type:"test"}) : this.groupByListComponent();
@@ -110,8 +110,8 @@
                             return root;
                         },
                         renderGroupByBlock: function renderGroupByBlock(groupKey, list, maxRows) {
-                            var title = React.createElement(focusComponents.common.title.component, { title: groupKey });
-                            var showMoreButton = React.createElement(focusComponents.common.button.action.component, { handleOnClick: this.changeGroupByMaxRows(groupKey, 5), label: "Show more" });
+                            var title = React.createElement(FocusComponents.common.title.component, { title: groupKey });
+                            var showMoreButton = React.createElement(FocusComponents.common.button.action.component, { handleOnClick: this.changeGroupByMaxRows(groupKey, 5), label: "Show more" });
                             return React.createElement( "div", { className: "listResultContainer panel" },
                                     title,
                                     this.simpleListComponent({

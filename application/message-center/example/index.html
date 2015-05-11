@@ -36,14 +36,14 @@
   </script>
   <script type="text/jsx">
   //Load dependencies.
-  focus.components = focusComponents;
-  var MessageCenter = focus.components.application.messageCenter.component;
+  focus.components = FocusComponents;
+  var MessageCenter = Focus.components.application.messageCenter.component;
   React.render(<MessageCenter/>, document.querySelector("#message-cennter-container"));
   //Push messages in the message center.
-  focus.message.addErrorMessage({title: "error message", content: "content"});
-  focus.message.addInformationMessage({title: "information message", content: "content"});
-  focus.message.addWarningMessage({title: "warning message", content: "content"});
-  focus.message.addSuccessMessage({title: "Success message", content: "content"});
+  Focus.message.addErrorMessage({title: "error message", content: "content"});
+  Focus.message.addInformationMessage({title: "information message", content: "content"});
+  Focus.message.addWarningMessage({title: "warning message", content: "content"});
+  Focus.message.addSuccessMessage({title: "Success message", content: "content"});
   </script>
 
 </body>

@@ -31,10 +31,10 @@
 <div id="list-container" style="width: 600px; height: auto; margin:100px auto 100px auto;"></div>
 
 <script type="text/jsx">
-    focus.components = focusComponents;
+    focus.components = FocusComponents;
 
     var Line = React.createClass({
-        mixins: [focusComponents.list.table.line.mixin],
+        mixins: [FocusComponents.list.table.line.mixin],
         definitionPath: "contact",
         renderLineContent: function(data){
             return (
@@ -47,7 +47,7 @@
         }
     });
 
-    var List = React.createElement(focusComponents.list.table.list.component,{
+    var List = React.createElement(FocusComponents.list.table.list.component,{
         data: [{id:1, firstName : "Olivier", lastName:"Boitel", birthDate: Date.now()},{id:2, firstName:"Pierre",lastName:"Besson", birthDate: Date.now()}, {id:3, firstName:"Thomas",lastName:"Gallon", birthDate: Date.now()}],
         lineComponent: Line,
         columns: {

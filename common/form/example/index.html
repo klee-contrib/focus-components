@@ -36,12 +36,12 @@
   </script>
   <script type="text/javascript">
   //Load dependencies.
-  focus.components = focusComponents;
-  var contactStore = new focus.store.CoreStore({
+  focus.components = FocusComponents;
+  var contactStore = new Focus.store.CoreStore({
     definition : {'contact': 'contact', 'commande': 'commande'}
   });
-  var formMixin = focus.components.common.form.mixin;
-  var Panel = focus.components.common.panel.component;
+  var formMixin = Focus.components.common.form.mixin;
+  var Panel = Focus.components.common.panel.component;
 
   //Create the view.
   var Form = React.createClass({displayName: "Form",
@@ -55,13 +55,13 @@
       load: function(){
         Promise.resolve({contact: {firstName: "pierre", lastName: "besson", isCool: true, birthDate: new Date().toISOString()}}).then(
           function(data){
-          focus.dispatcher.handleServerAction({
+          Focus.dispatcher.handleServerAction({
             data: data,
             type: "update"
           });
         });
     }, save: function(data){
-      return Promise.resolve(data).then(function(d){focus.dispatcher.handleServerAction({
+      return Promise.resolve(data).then(function(d){Focus.dispatcher.handleServerAction({
         data: data,
         type: "update"
       });})
