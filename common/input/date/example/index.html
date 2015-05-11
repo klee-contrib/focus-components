@@ -29,7 +29,7 @@
   <div id="form-container"></div>
   <script type="text/javascript">
   $(function(){
-    focus.components = FocusComponents;
+    Focus.components = FocusComponents;
     var DateInput = Focus.components.common.input.date.component;
     React.render(React.createElement(DateInput, {name: "John", value: "01/01/2010", style: {className: "papa"}, onChange: function(evt){console.log("date changed", evt)}}), document.querySelector("#form-container"));
   });

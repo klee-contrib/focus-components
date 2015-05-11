@@ -36,7 +36,7 @@
   </script>
   <script type="text/javascript">
   //Load dependencies.
-  focus.components = FocusComponents;
+  Focus.components = FocusComponents;
   var contactStore = new Focus.store.CoreStore({
     definition : {'contact': 'contact', 'commande': 'commande'}
   });
@@ -53,16 +53,28 @@
     definitionPath: "contact",
     action: {
       load: function(){
+        Focus.dispatcher.handleViewAction({
+          data: {contact: {}},
+          status: {contact: {isLoading: true ,name:'loading'}},
+          type: "update"
+        });
         Promise.resolve({contact: {firstName: "pierre", lastName: "besson", isCool: true, birthDate: new Date().toISOString()}}).then(
           function(data){
           Focus.dispatcher.handleServerAction({
             data: data,
+            status: {contact:{isLoading: false, name:'loaded'}},
             type: "update"
           });
         });
     }, save: function(data){
+      Focus.dispatcher.handleViewAction({
+        data: data,
+        status: {contact: {isLoading: true,  name:'saving'}},
+        type: "update"
+      });
       return Promise.resolve(data).then(function(d){Focus.dispatcher.handleServerAction({
         data: data,
+        status: {contact:{isLoading: false, name:'saved'}},
         type: "update"
       });})
     }},
