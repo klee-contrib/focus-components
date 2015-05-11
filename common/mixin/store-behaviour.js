@@ -14,9 +14,10 @@ var storeMixin = {
     var newState = {};
     this.stores.map((storeConf) => {
       storeConf.properties.map((property)=>{
-        newState[property] = storeConf.store[`get${capitalize(property)}`]() ;
+        newState[property] = storeConf.store[`get${capitalize(property)}`]();
       });
     });
+    assign(newState, this._getLoadingStateFromStores());
     return this._computeEntityFromStoresData(newState);
   },
     /**
@@ -30,12 +31,31 @@ var storeMixin = {
       var newState = {};
       this.stores.map((storeConf) => {
           storeConf.properties.map((property)=>{
-              newState[property] = storeConf.store[`getError${capitalize(property)}`]() ;
+              newState[property] = storeConf.store[`getError${capitalize(property)}`]();
           });
       });
       return this._computeEntityFromStoresData(newState);
   },
-
+  /**
+   * Get the isLoading state from  all the store.
+   */
+  _getLoadingStateFromStores: function getLoadingStateFromStores(){
+    if (this.getLoadingStateFromStores) {
+        return this.getLoadingStateFromStores();
+    }
+    var isLoading = false;
+    this.stores.map((storeConf) => {
+        if(!isLoading){
+          storeConf.properties.map((property)=>{
+            if(!isLoading){
+              var propStatus = storeConf.store.getStatus(property) || {};
+               isLoading = propStatus.isLoading;
+            }
+          });
+        }
+    });
+    return {isLoading: isLoading};
+  },
   /**
    * Compute the data given from the stores.
    * @param {object} data -  The data ordered by store.

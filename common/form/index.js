@@ -53,7 +53,8 @@ var formMixin = {
   /**
    * Event handler for 'change' events coming from the stores
    */
-  _onChange: function onFormStoreChangeHandler() {
+  _onChange: function onFormStoreChangeHandler(changeInfos) {
+    console.log('change infos', changeInfos, arguments);
     this.setState(this._getStateFromStores());
   },
 
