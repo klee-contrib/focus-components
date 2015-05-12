@@ -56,7 +56,7 @@ var formMixin = {
   _displayMessageOnChange: function displayMessageOnChange(changeInfos){
     if(changeInfos && changeInfos.status && changeInfos.status.name){
       console.log('status', changeInfos.status.name);
-/*      switch(changeInfos.status.name){
+      switch(changeInfos.status.name){
         case 'loading':
           Focus.message.addInformationMessage('loading');
           break;
@@ -69,7 +69,7 @@ var formMixin = {
         case 'saved':
           Focus.message.addSuccessMessage('saved');
           break;
-      }*/
+      }
     }
   },
   /**
