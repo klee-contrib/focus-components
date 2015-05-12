@@ -10,7 +10,6 @@
     "watch": "gulp watchify",
     "prepublish":"gulp build"
   },
-  },
   "repository": {
     "type": "git",
     "url": "https://github.com/KleeGroup/focus-components.git"
