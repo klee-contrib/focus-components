@@ -60,9 +60,11 @@
           data: {contact: {}},
           status: {contact: {isLoading: true ,name:'loading'}},
           type: "update"
-        });
+          });
+          //console.break();
         Promise.resolve({contact: {firstName: "pierre", lastName: "besson", isCool: true, birthDate: new Date().toISOString()}}).then(
           function(data){
+
           Focus.dispatcher.handleServerAction({
             data: data,
             status: {contact:{isLoading: false, name:'loaded'}},
