@@ -1,7 +1,6 @@
 # Logs
 logs
 *.log
-dist
 example/js/focus-components.js
 example/css/focus-components.css
 example/css/focus.css
