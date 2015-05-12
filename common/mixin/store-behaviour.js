@@ -17,8 +17,7 @@ var storeMixin = {
         newState[property] = storeConf.store[`get${capitalize(property)}`]();
       });
     });
-    assign(newState, this._getLoadingStateFromStores());
-    return this._computeEntityFromStoresData(newState);
+    return assign(this._computeEntityFromStoresData(newState), this._getLoadingStateFromStores());
   },
     /**
      * Get the error state informations from the store.

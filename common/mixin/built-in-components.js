@@ -132,7 +132,7 @@ buttonSave: function() {
     label: 'save',
     type: 'submit',
     css: 'primary'
-    /*,handleOnClick: function(e){
+    /*handleOnClick: function handleClickOnSave(e){
       if(form.validate()){
         form.action.save(form._getEntity());
       }
