@@ -31,7 +31,8 @@ var checkBoxMixin = {
   propTypes: {
     value: type('bool'),
     label: type('string'),
-    style: type('object')
+    style: type('object'),
+    onChange: type('function')
   },
   getInitialState: function() {
     return {
@@ -41,10 +42,7 @@ var checkBoxMixin = {
   _onChange: function onChange(event) {
     this.setState({
       isChecked: !this.state.isChecked
-    });
-    if (this.props.onChange) {
-      this.props.onChange(event);
-    }
+    }, this.props.onChange);
   },
   /**
    * Get the value from the input in  the DOM.
