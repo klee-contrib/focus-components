@@ -1,4 +1,13 @@
-var components = require('./package.json').components;
+
+var components = require('./package.json').components.sort(function(a, b){
+	if(a.name > b.name){
+		return 1;
+	}
+	if (a.name < b.name){
+		return -1;
+	}
+	return 0;
+});
 var componentServers = {};
 var port = "3000";
 /**
