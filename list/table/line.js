@@ -33,7 +33,8 @@ var lineMixin = {
     propTypes: {
         saveAction: type('func'),
         deleteAction: type('func'),
-        onLineClick: type('func')
+        onLineClick: type('func'),
+        onSelection: type('func')
     },
 
     /**
