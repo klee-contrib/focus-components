@@ -70,13 +70,13 @@ function jsBuild(directory, options) {
 	return browserify(({
 			entries: [entryFile],
 			extensions: ['.jsx'],
-			standalone: "focus-components." + directory.replace('/', '.')
+			standalone: "FocusComponents." + directory.replace('/', '.')
 		}))
 		.transform({
 			global: true
 		}, literalify.configure({
 			react: 'window.React',
-			focus: 'window.focus',
+			focus: 'window.Focus',
 			jquery: 'window.jQuery'
 		}))
 		.transform(babelify)
@@ -113,13 +113,13 @@ function build(name){
 		return build(({
 				entries: ['./index.js'],
 				extensions: ['.jsx'],
-				standalone: "focus-components"
+				standalone: 'FocusComponents'
 			}))
 			.transform({
 				global: true
 			}, literalify.configure({
 				react: 'window.React',
-				focus: 'window.focus',
+				focus: 'window.Focus',
 				jquery: 'window.jQuery'
 			}))
 			.transform(babelify)

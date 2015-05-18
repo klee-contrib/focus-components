@@ -20,7 +20,7 @@
   <link rel="stylesheet" href="//cdn.jsdelivr.net/bootstrap.material-design/0.3.0/css/ripples.min.css">
   <script src="//cdn.jsdelivr.net/bootstrap.material-design/0.3.0/js/material.min.js"></script>
   <script src="//cdn.jsdelivr.net/bootstrap.material-design/0.3.0/js/ripples.min.js"></script>
-
+  <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
   <!-- Material degign-->
 
   <script src="/focus-components/dist/js/focus.js"></script>
@@ -30,20 +30,15 @@
 </head>
 <body>
 
-  <div id="message-cennter-container"></div>
+  <div id="icon-container"></div>
   <script type="text/javascript">
       $(document).ready(function() {$.material.init();});
   </script>
   <script type="text/jsx">
   //Load dependencies.
   Focus.components = FocusComponents;
-  var MessageCenter = Focus.components.application.messageCenter.component;
-  React.render(<MessageCenter/>, document.querySelector("#message-cennter-container"));
-  //Push messages in the message center.
-  Focus.message.addErrorMessage({title: "error message", content: "content"});
-  Focus.message.addInformationMessage({title: "information message", content: "content"});
-  Focus.message.addWarningMessage({title: "warning message", content: "content"});
-  Focus.message.addSuccessMessage({title: "Success message", content: "content"});
+  var Icon = Focus.components.common.icon.component;
+  React.render(<Icon name="camera-retro"/>, document.querySelector("#icon-container"));
   </script>
 
 </body>

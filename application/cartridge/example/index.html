@@ -91,8 +91,8 @@
   </script>
   <script type="text/jsx">
   //Load dependencies.
-  focus.components = focusComponents;
-  var Cartouche = focus.components.application.cartridge.component;
+  Focus.components = FocusComponents;
+  var Cartouche = Focus.components.application.cartridge.component;
   var UserCartouche = React.createClass({
     displayName: "UserCartouche",
   render: function() {
@@ -111,7 +111,7 @@
   }
 });
   //Component for the application header.
-  var AppHeader = focus.components.application.header.component;
+  var AppHeader = Focus.components.application.header.component;
   //Create the view.
   var TestApp = React.createClass({displayName: "TestApp",
     render: function() {
@@ -193,8 +193,8 @@
   });
   React.render(React.createElement(TestApp, null), document.querySelector("#cartridge-container"));
 
-  focus.dispatcher.handleServerAction({data: {cartridgeComponent: {component: UserCartouche , props: {firstName: "pierre"} }}, type: "update"});
-  setTimeout(function(){ focus.dispatcher.handleServerAction({data: {cartridgeComponent: {component: UserCartouche , props: {firstName: "pierre", lastName: "besson"} }}, type: "update"}); }, 3000);
+  Focus.dispatcher.handleServerAction({data: {cartridgeComponent: {component: UserCartouche , props: {firstName: "pierre"} }}, type: "update"});
+  setTimeout(function(){ Focus.dispatcher.handleServerAction({data: {cartridgeComponent: {component: UserCartouche , props: {firstName: "pierre", lastName: "besson"} }}, type: "update"}); }, 3000);
 </script>
 
 </body>

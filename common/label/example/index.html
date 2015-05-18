@@ -20,8 +20,8 @@
   <script type="text/javascript">
 
   window.i18n = function i18n(data){ return "FR-"+data;};
-  focus.components = focusComponents;
-  var Label = focus.components.common.label.component;
+  Focus.components = FocusComponents;
+  var Label = Focus.components.common.label.component;
   var Form = React.createElement(Label, {name: "labelTest", value: "labelKeyValue"})
   React.render(
     Form,

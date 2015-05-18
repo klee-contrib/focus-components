@@ -11,9 +11,9 @@ A chaque message ajouté via le `helper` de message de focus ce dernier sera ajo
 
 
 ```javascript
-focus.message.addErrorMessage({title: "error message", content: "content"});
-focus.message.addInformationMessage({title: "information message", content: "content"});
-focus.message.addWarningMessage({title: "warning message", content: "content"});
+Focus.message.addErrorMessage({title: "error message", content: "content"});
+Focus.message.addInformationMessage({title: "information message", content: "content"});
+Focus.message.addWarningMessage({title: "warning message", content: "content"});
 //Ajoute un message en précisant son type
-focus.message.addMessage({title: "Success message", content: "content", type: "success"});
+Focus.message.addMessage({title: "Success message", content: "content", type: "success"});
 ```

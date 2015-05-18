@@ -1,5 +1,5 @@
 
-//var SelectionList = focus.components.list.selection.list.component;
+//var SelectionList = Focus.components.list.selection.list.component;
 var builder = require('focus').component.builder;
 var React = require('react');
 var Button = require('../button/action').component;

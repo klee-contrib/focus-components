@@ -85,10 +85,14 @@ listFor: function listFor(name, options){
  * @returns {object} - A Reacte button.
  */
 buttonDelete: function buttonDelete() {
+  var form = this;
   return React.createElement(Button, {
     label: 'delete',
     type: 'button',
-    css: 'delete'
+    css: 'delete',
+    handleOnClick: function handleOnClickEdit(){
+      form.action.delete(form._getId());
+    }
   });
 },
 /**
@@ -132,7 +136,7 @@ buttonSave: function() {
     label: 'save',
     type: 'submit',
     css: 'primary'
-    /*,handleOnClick: function(e){
+    /*handleOnClick: function handleClickOnSave(e){
       if(form.validate()){
         form.action.save(form._getEntity());
       }

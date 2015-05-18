@@ -51,10 +51,34 @@ var formMixin = {
     };
   },
   /**
-   * Event handler for 'change' events coming from the stores
+   * Display a message on change.
    */
-  _onChange: function onFormStoreChangeHandler() {
-    this.setState(this._getStateFromStores());
+  _displayMessageOnChange: function displayMessageOnChange(changeInfos){
+    if(changeInfos && changeInfos.status && changeInfos.status.name){
+      console.log('status', changeInfos.status.name);
+      switch(changeInfos.status.name){
+        case 'loading':
+          Focus.message.addInformationMessage('loading');
+          break;
+        case 'loaded':
+          Focus.message.addSuccessMessage('loaded');
+          break;
+        case 'saving':
+          Focus.message.addInformationMessage('saving');
+          break;
+        case 'saved':
+          Focus.message.addSuccessMessage('saved');
+          break;
+      }
+    }
+  },
+  /**
+   * Event handler for 'change' events coming from the stores
+   * @param {object} changeInfos - The changing informations.
+   */
+  _onChange: function onFormStoreChangeHandler(changeInfos) {
+    console.log('change infos', changeInfos, this._getStateFromStores());
+    this.setState(this._getStateFromStores(), this._displayMessageOnChange(changeInfos));
   },
 
     /**
@@ -158,6 +182,7 @@ var formMixin = {
   },
   /** @inheritdoc */
   render: function renderForm() {
+    console.log('state form', this.state);
     return (
       <form
         onSubmit={this._handleSubmitForm}

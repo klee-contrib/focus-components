@@ -1,13 +1,14 @@
 {
-  "name": "focus-components",
-  "version": "0.1.0",
+  "name": "focusjs-components",
+  "version": "0.1.4",
   "description": "Focus component repository.",
   "main": "index.js",
   "scripts": {
-    "test": "jest",
+    "test": "iojs jest",
     "example": "node static-server.js",
     "build": "gulp browserify",
-    "watch": "gulp watchify"
+    "watch": "gulp watchify",
+    "prepublish":"gulp build"
   },
   "repository": {
     "type": "git",
@@ -58,6 +59,10 @@
     {
       "name": "field",
       "path": "common/field"
+    },
+    {
+      "name": "icon",
+      "path": "common/icon"
     },
     {
       "name": "display-checkbox",
@@ -186,6 +191,7 @@
   ],
   "homepage": "https://github.com/KleeGroup/focus-components",
   "dependencies": {
+    "focusjs": "^0.5.5",
     "immutable": "^3.6.2",
     "lodash": "^3.3.1",
     "object-assign": "^2.0.0",

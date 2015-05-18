@@ -38,9 +38,9 @@
 </script>
 
 <script type="text/javascript">
-    focus.components = focusComponents;
+    Focus.components = FocusComponents;
     var Line = React.createClass({
-                mixins: [focusComponents.list.selection.line.mixin],
+                mixins: [FocusComponents.list.selection.line.mixin],
                 definitionPath: "contact",
                 renderLineContent: function(data){
                     var firstName = this.displayFor("firstName", {});
@@ -59,7 +59,7 @@
         {label: "Button2_b",action: function(data) {alert(data.title);},style: undefined,priority: 2}
     ];
 
-    var List = React.createElement(focusComponents.list.selection.list.component,{
+    var List = React.createElement(FocusComponents.list.selection.list.component,{
         data: [{id:1, firstName: "Olivier", lastName: "Boitel"},{id:2, firstName: "pierre", lastName: "besson"}, {id:3, firstName: "Remi", lastName: "Grange"}],
         hasMoreData: true,
         lineComponent: Line,

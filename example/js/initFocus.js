@@ -22,7 +22,7 @@ var domain =  {
     }]
   },
   'DO_DATE': {
-    'InputComponent': focusComponents.common.input.date.component,
+    'InputComponent': FocusComponents.common.input.date.component,
     'formatter': function(date){
       var monthNames = [
       'January', "February", "March",
@@ -39,7 +39,7 @@ var domain =  {
 
   }
 };
-focus.definition.domain.container.setAll(domain);
+Focus.definition.domain.container.setAll(domain);
 /*global focus*/
 var entities ={
   "contact": {
@@ -65,21 +65,21 @@ var entities ={
     },
     "bio": {
       "domain": "DO_EMAIL",
-      "InputComponent": focusComponents.common.input.textarea.component
+      "InputComponent": FocusComponents.common.input.textarea.component
     },
     "isCool":{
       "domain": "DO_BOOLEAN",
-      "FieldComponent": focusComponents.common.input.checkbox.component
+      "FieldComponent": FocusComponents.common.input.checkbox.component
     },
     "isNice":{
       "domain": "DO_BOOLEAN",
-      "FieldComponent": focusComponents.common.input.toggle.component
+      "FieldComponent": FocusComponents.common.input.toggle.component
     },
     "birthDate":{
       "domain": "DO_DATE",
     }
   }};
-focus.definition.entity.container.setEntityConfiguration(entities);
+Focus.definition.entity.container.setEntityConfiguration(entities);
 
 function loadRedList(name){
     return function loadRef(){
@@ -93,5 +93,5 @@ function loadRedList(name){
   };
 }
 
-  focus.reference.config.set({'papas': loadRedList('papas'), 'singe': loadRedList('singe')});
-  focus.definition.entity.container.setEntityConfiguration(entities);
+  Focus.reference.config.set({'papas': loadRedList('papas'), 'singe': loadRedList('singe')});
+  Focus.definition.entity.container.setEntityConfiguration(entities);

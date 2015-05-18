@@ -1,4 +1,4 @@
-//focus.reference.builder.loadListByName('papas').then(function(data){focus.dispatcher.dispatch({action: {type: "update",data: {papas: data}}})})
+//Focus.reference.builder.loadListByName('papas').then(function(data){Focus.dispatcher.dispatch({action: {type: "update",data: {papas: data}}})})
 
 var builtInRefStoreAccessor = require('focus').reference.builtInStore;
 var builtInActionReferenceLoader = require('focus').reference.builtInAction;

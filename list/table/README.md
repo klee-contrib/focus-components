@@ -137,11 +137,11 @@ todo
 [Démo de table](http://kleegroup.github.io/focus-components/list/table/example/)
 
 ## Définition de la ligne d'un tableau
-Un mixin de ligne est définit dans focus afin de rendre la ligne d'une table : **focus.components.list.table.line.mixin**
+Un mixin de ligne est définit dans focus afin de rendre la ligne d'une table : **Focus.components.list.table.line.mixin**
 
 ```javascript
 var Line = React.createClass({
-        mixins: [focus.components.list.table.line.mixin],
+        mixins: [Focus.components.list.table.line.mixin],
         definitionPath: [entityDefinition de votre objet],
         renderLineContent: function(data){
             return (

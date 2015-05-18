@@ -11,6 +11,7 @@
   <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
   <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css" />
   <script src="http://fb.me/react-0.13.2.js"></script>
+  <script src="http://fb.me/JSXTransformer-0.13.2.js"></script>
 
   <!-- Material degign-->
   <script src="//code.jquery.com/jquery-1.10.2.min.js"></script>
@@ -31,18 +32,20 @@
 <body>
   <script src="/focus-components/example/js/picker.js"></script>
   <div id="form-container" class="container"></div>
+  <div id='message-cennter-container'></div>
   <script type="text/javascript">
       $(document).ready(function() {$.material.init();});
   </script>
-  <script type="text/javascript">
+  <script type="text/jsx">
   //Load dependencies.
-  focus.components = focusComponents;
-  var contactStore = new focus.store.CoreStore({
+  Focus.components = FocusComponents;
+  var contactStore = new Focus.store.CoreStore({
     definition : {'contact': 'contact', 'commande': 'commande'}
   });
-  var formMixin = focus.components.common.form.mixin;
-  var Panel = focus.components.common.panel.component;
-
+  var formMixin = Focus.components.common.form.mixin;
+  var Panel = Focus.components.common.panel.component;
+  var MessageCenter = Focus.components.application.messageCenter.component;
+  React.render(<MessageCenter/>, document.querySelector("#message-cennter-container"));
   //Create the view.
   var Form = React.createClass({displayName: "Form",
     mixins: [formMixin],
@@ -53,16 +56,30 @@
     definitionPath: "contact",
     action: {
       load: function(){
+        Focus.dispatcher.handleViewAction({
+          data: {contact: {}},
+          status: {contact: {isLoading: true ,name:'loading'}},
+          type: "update"
+          });
+          //console.break();
         Promise.resolve({contact: {firstName: "pierre", lastName: "besson", isCool: true, birthDate: new Date().toISOString()}}).then(
           function(data){
-          focus.dispatcher.handleServerAction({
+
+          Focus.dispatcher.handleServerAction({
             data: data,
+            status: {contact:{isLoading: false, name:'loaded'}},
             type: "update"
           });
         });
-    }, save: function(data){
-      return Promise.resolve(data).then(function(d){focus.dispatcher.handleServerAction({
-        data: data,
+    }, save: function saveContact(data){
+      Focus.dispatcher.handleViewAction({
+        data: {contact: {}},
+        status: {contact: {isLoading: true,  name:'saving'}},
+        type: "update"
+      });
+      return Promise.resolve(data).then(function(d){Focus.dispatcher.handleServerAction({
+        data: {contact: data},
+        status: {contact:{isLoading: false, name:'saved'}},
         type: "update"
       });})
     }},
@@ -76,9 +93,9 @@
               this.textFor("birthDate", {formatter: function(date){return "formatted date" + date}}),
               this.fieldFor("bio"),
               this.fieldFor("isCool"),
-              this.fieldFor("isNice"),
-              this.fieldFor("birthDate"),
-              this.selectFor('papaCode', 'papas')
+              this.fieldFor("isNice")
+              /*this.fieldFor("birthDate"),
+              this.selectFor('papaCode', 'papas')*/
          )
       );
     }
