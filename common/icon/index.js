@@ -14,8 +14,8 @@ var iconMixin = {
      */
     getDefaultProps: function(){
         return {
-            prefix: 'fa fa-',
-            name: ''
+          prefix: 'fa fa-',
+          name: ''
         };
     },
     propTypes: {
