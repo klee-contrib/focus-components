@@ -8,7 +8,7 @@
     "example": "node static-server.js",
     "build": "gulp browserify",
     "watch": "gulp watchify",
-    "prepublish":"gulp build"
+    "prepublish": "gulp build"
   },
   "repository": {
     "type": "git",
