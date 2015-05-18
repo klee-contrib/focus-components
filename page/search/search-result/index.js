@@ -105,6 +105,7 @@ var searchMixin = {
      */
     _selectItem: function selectItem(item){
         var index = this.state.selected.indexOf(item);
+        console.warn('There is  a state mutation without calling setState');
         if(index){
             this.state.selected.splice(index, index); //@todo: don't mutate the state
         }else{
