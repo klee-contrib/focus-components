@@ -56,7 +56,7 @@ header[data-focus-header]{
 
   &.header-tall{
     div.content-bar{
-      min-height: 250px;
+      //min-height: 250px;
       //background-color: #2600D4;
       //color: white;
       @include transition(min-height, $duration);
@@ -65,7 +65,7 @@ header[data-focus-header]{
   }
   &.header-medium{
     div.content-bar{
-      min-height: 150px;
+      //min-height: 150px;
       //background-color: #0073D4;
       //color: white;
       @include transition(min-height, $duration);
