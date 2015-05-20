@@ -104,13 +104,14 @@ var searchMixin = {
      * @param {object} item selected
      */
     _selectItem: function selectItem(item){
-        var index = this.state.selected.indexOf(item);
-        console.warn('There is  a state mutation without calling setState');
+        var selected = this.state.selected
+        var index = selected.indexOf(item);
         if(index){
-            this.state.selected.splice(index, index); //@todo: don't mutate the state
+            selected.splice(index, index);
         }else{
-            this.state.selected.push(item);//@todo: don't mutate the state
+            selected.push(item);
         }
+        this.setState({selected: selected});
     },
 
     /**

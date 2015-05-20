@@ -152,31 +152,33 @@ afin d'uitliser le mixin il est nécessaire de définir deux attributs et deux mét
 });
 ```
 
-## Dépendance à implémenter
+## Dépendances à implémenter
 - la structure du répertoire de développement doit être la suivante :
 
 ```javascript
 _actions
-    _search
+    _advancedSearch
         index.js
-_searchResult
+_filterResult
     * line1.jsx
     * line2.jsx
     * preview1.jsx
     * preview2.jsx
-    * searchResult.jsx
+    * filterResult.jsx
 ```
 
 - la recherche nécessite également la création d'un store de type **Focus.store.SearchStore**
 - les lignes doivent implémenter le mixin de ligne **Focus.components.list.selection.line.mixin**
 
 ## Structure
-- un champs de recherche
+- un menu de facettes
+- une barre de résumé
+- une barre d'actions
 - une liste de résultat
 
 ## Exemple
-[Exemple de recherche-résultat](https://github.com/KleeGroup/focus-components/blob/master/page/search/search-result/example/index.html)
+[Exemple de recherche-résultat](https://github.com/KleeGroup/focus-components/blob/master/page/search/filter-result/example/index.html)
 ## Test
 todo
 ## Démo
-[Démo de recherche-résultat](http://kleegroup.github.io/focus-components/page/search/search-result/example/)
+[Démo de recherche-résultat](http://kleegroup.github.io/focus-components/page/search/filter-result/example/)
