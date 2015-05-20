@@ -43,15 +43,31 @@ var liveFilterMixin = {
     getInitialState: function(){
         var openedFacetList = this.props.openedFacetList;
         if(Object.keys(openedFacetList).length == 0) {
-            for (var key in this.props.facetList) {
-                openedFacetList[key] = true;
-                break;
-            }
+            Object.keys(this.props.facetList).reduce(function(list, facetKey) {
+                list[facetKey] = true;
+                return list;
+            }, {});
         }
         return {
             isExpanded: true,
             openedFacetList: openedFacetList
         };
+    },
+    /**
+     * New properties set event handle
+     * @param {Object} nextProps
+     */
+    componentWillReceiveProps: function(nextProps) {
+        var openedFacetList = nextProps.openedFacetList;
+        if(Object.keys(openedFacetList).length == 0) {
+            openedFacetList = Object.keys(nextProps.facetList).reduce(function(list, facetKey) {
+                list[facetKey] = true;
+                return list;
+            }, {});
+        }
+        this.setState({
+            openedFacetList: openedFacetList
+        });
     },
     /**
      * Render the component.
@@ -95,13 +111,17 @@ var liveFilterMixin = {
             var facet = this.props.facetList[key];
             var selectedDataKey = this.props.selectedFacetList[key] ? this.props.selectedFacetList[key].key : undefined;
             if(selectedDataKey || Object.keys(facet).length > 1) {
-                facets.push(<LiveFilterFacet facetKey={key} key={key}
-                    facet={facet}
-                    selectedDataKey = {selectedDataKey}
-                    isExpanded={this.state.openedFacetList[key]}
-                    expandHandler={this.expandFacetHandler}
-                    selectHandler={this.selectHandler}
-                    type={this.props.config[key]}/>);
+                facets.push(
+                    <LiveFilterFacet facetKey={key} key={key}
+                        facet={facet}
+                        selectedDataKey = {selectedDataKey}
+                        isExpanded={this.state.openedFacetList[key]}
+                        expandHandler={this.expandFacetHandler}
+                        selectHandler={this.selectHandler}
+                        type={this.props.config[key]}
+                        i18n={this.i18n}
+                    />
+                );
             }
         }
         return (<div className="panel-body">{facets}</div>);

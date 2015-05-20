@@ -60,7 +60,7 @@ var liveFilterFacetMixin = {
      * @returns {XML} Html component code.
      */
     renderLiveFilterFacetTitle: function renderLiveFilterFacetTitle() {
-        var title = this.props.facetKey;
+        var title = this.props.i18n('live.filter.facets.' + this.props.facetKey); // Default facet translation path is live.filter.facets.
         var className = 'panel-heading';
         if(this.props.selectedDataKey) {
             title += ' : ' + this.props.facet[this.props.selectedDataKey].label;
