@@ -4,6 +4,7 @@ module.exports = {
   field: require('./field'),
   form: require('./form'),
   img: require('./img'),
+  i18n: require('./i18n'),
   icon: require('./icon'),
   input: require('./input'),
   label: require('./label'),
