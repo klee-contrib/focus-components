@@ -8,6 +8,9 @@ var omit = require('lodash/object/omit');
 var Img = require('../../common/img').component;
 
 var liveFilterMixin = {
+    /**
+     * Component's mixins
+     */
     mixins: [require('../../common/i18n/mixin')],
     /**
      * Display name.
@@ -119,7 +122,6 @@ var liveFilterMixin = {
                         expandHandler={this.expandFacetHandler}
                         selectHandler={this.selectHandler}
                         type={this.props.config[key]}
-                        i18n={this.i18n}
                     />
                 );
             }
