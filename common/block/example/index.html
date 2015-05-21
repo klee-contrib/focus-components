@@ -28,7 +28,7 @@
 
   <script src="/focus-components/dist/js/focus.js"></script>
   <script src="/focus-components/dist/js/focus-components.js"></script>
-  <link rel="stylesheet" href="css/form.css"/>
+  <link rel="stylesheet" href="/focus-components/dist/css/focus-components.css">
 </head>
 <body>
   <h1>Block test</h1>
@@ -37,7 +37,7 @@
   Focus.components = FocusComponents;
   var Block = Focus.components.common.block.component;
 
-  React.render(React.createElement(Block, null, "Hello I'm a block"), document.querySelector('#form-container'));
+  React.render(React.createElement(Block, { title: 'Here is the title' }, "Here is the content."), document.querySelector('#form-container'));
   </script>
 
 </body>

@@ -127,7 +127,8 @@ function build(name){
 			//Pass desired output filename to vinyl-source-stream
 			.pipe(source('focus-components.js'))
 			.pipe(gulp.dest('./dist/js'))
-			.pipe(gulp.dest('./example/js'));
+			.pipe(gulp.dest('./example/js'))
+			.pipe(gulp.dest('../rodolphe-demo/ui/vendor'));
 	});
 }
 build("browserify");
@@ -174,7 +175,8 @@ gulp.task('style', function() {
 		.pipe(sass())
 		.pipe(concat('focus-components.css'))
 		.pipe(gulp.dest('./example/css/'))
-		.pipe(gulp.dest('./dist/css'));
+		.pipe(gulp.dest('./dist/css'))
+		.pipe(gulp.dest('../rodolphe-demo/ui/vendor'));
 });
 
 gulp.task('build', ['browserify', 'style', 'componentify-img'])
@@ -214,8 +216,7 @@ gulp.task('focus-components-npm', ['style', 'browserify'], function() {
 		.pipe(gulp.dest('../rodolphe/app/node_modules/focus-components/'));
 });
 gulp.task('watch', function(){
-	gulp.watch(['package.json','index.js',src],['build']);
-  gulp.watch([srcCSS], ['style']);
+	gulp.watch(['package.json','index.js',src, srcCSS],['build', 'style']);
 });
 
 //Build the style woth sass.
