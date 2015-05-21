@@ -36,7 +36,7 @@ var detailMixin = {
   /** @inheritedDoc */
   render: function renderDetail(){
     return(
-      <div data-name={`${this.displayName} ${this._getStyleClassName()}`}  data-focus='detail'>
+      <div className={`${this._getStyleClassName()}`}  data-focus='detail'>
         {this.renderNavigation()}
         <div data-focus='detail-content'>
           {this.props.children}
