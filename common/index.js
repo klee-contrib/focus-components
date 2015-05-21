@@ -16,5 +16,6 @@ module.exports = {
   topicDisplayer: require('./topic-displayer'),
   list: require('./list'),
   mixin: require('./mixin'),
-  display: require('./display')
+  display: require('./display'),
+  detail: require('./detail')
 };
