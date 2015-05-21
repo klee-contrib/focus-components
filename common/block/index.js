@@ -10,7 +10,10 @@ var blockMixin = {
   mixins: [i18nMixin],
   getDefaultProps: function(){
     return {
-      style: {}
+      style: {},
+      renderActions: function(){
+        return ; // override this to add actions.
+      }
     }
   },
   /**
@@ -28,9 +31,14 @@ var blockMixin = {
    */
   render: function renderBlock(){
     return(
-      <div className={`block ${this.props.style.className}`}>
-        <Title id={this.props.style.titleId} title={this.heading()} />
-        {this.props.children}
+      <div className={`${this.props.style.className}`} data-focus='block'>
+        <header>
+          <Title id={this.props.style.titleId} title={this.heading()} />
+          <!-- actions -->
+        </header>
+        <content>
+          {this.props.children}
+        </content>
       </div>
     );
   }
