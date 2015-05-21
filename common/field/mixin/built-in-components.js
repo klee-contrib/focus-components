@@ -79,9 +79,9 @@ var fieldBuiltInComponentsMixin = {
     if(this.props.FieldComponent || this.props.InputLabelComponent){
       return this.renderFieldComponent();
     }
-    var inputClassName = `form-control ${this._getContentGridClassName()}`;
+    var inputClassName = `form-control }`;
     return (
-      <div className = "input-group" >
+      <div className ={`${this._getContentGridClassName()} input-group`}>
         <this.props.InputComponent
           style={{class: inputClassName}}
           id={this.props.name}

@@ -15,7 +15,7 @@ module.exports = {
  */
 fieldFor: function(name, options) {
   options = assign({}, {
-      style: {className: 'form-detail'}
+      style: {className: ''}
   }, options);
 
   var fieldProps = this._buildFieldProps(name, options, this);
