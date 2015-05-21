@@ -1,0 +1,29 @@
+
+.btn {
+  &.icon {
+    margin: 0;
+    margin-right: 20px;
+    padding: 5px;
+    padding-left: 20px;
+    &.btn-raised {
+      box-shadow: 0 0 0;
+      width: auto;
+      height: auto;
+    }
+    &:before {
+      font-family: FontAwesome;
+      position: absolute;
+      left: 0;
+      top: 3px;
+    }
+    &.btn-edit:before {
+      content: '\f040';
+    }
+    &.btn-save:before {
+      content: '\f0c7';
+    }
+    &.btn-cancel:before {
+      content: '\f0e2';
+    }
+  }
+}

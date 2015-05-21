@@ -172,8 +172,8 @@ var formMixin = {
     if(this.renderEditActions){return this.renderEditActions(); }
     return (
       <div className="button-bar">
-        {this.buttonCancel()}
         {this.buttonSave()}
+        {this.buttonCancel()}
       </div>
     );
   },
