@@ -11,7 +11,7 @@ var blockMixin = {
   getDefaultProps: function(){
     return {
       style: {},
-      renderActions: function(){
+      actions: function(){
         return ; // override this to add actions.
       }
     }
@@ -34,6 +34,7 @@ var blockMixin = {
       <div className={`${this.props.style.className}`} data-focus='block'>
         <header>
           <Title id={this.props.style.titleId} title={this.heading()} />
+          {this.props.actions()}
           <!-- actions -->
         </header>
         <content>
