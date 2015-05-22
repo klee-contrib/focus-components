@@ -30,7 +30,7 @@ var cartridgeMixin = {
   render: function renderCartridge() {
     var className = `cartridge ${this.props.style.className}`;
     return (
-      <div className={className} data-focus-cartridge>
+      <div className={className} data-focus='cartridge'>
         <this.state.cartridgeComponent.component {...this.state.cartridgeComponent.props}/>
       </div>
     );

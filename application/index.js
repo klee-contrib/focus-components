@@ -1,5 +1,6 @@
 module.exports = {
   header: require('./header'),
+  bar: require('./bar'),
   cartridge: require('./cartridge'),
   menu: require('./menu'),
   popin: require('./popin'),
