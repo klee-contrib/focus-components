@@ -172,7 +172,7 @@ var headerMixin = {
   render: function renderBar() {
     var className = `header header-${this.state.size} ${this.props.style.className}`;
     return (
-      <header className={className} data-focus-header>
+      <header className={className} data-focus='header'>
         {this.props.children}
       </header>
     );

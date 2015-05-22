@@ -17,7 +17,7 @@
 }
 $duration: 0.5s;
 $action-bar-height: 56px;
-header[data-focus-header]{
+header[data-focus='header']{
   width: 100%;
   min-height: 64px;
   background-color: white;
