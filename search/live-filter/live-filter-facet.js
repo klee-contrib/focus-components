@@ -91,7 +91,7 @@ var liveFilterFacetMixin = {
             if(!this.state.isShowAll && i >= this.props.nbDefaultDataList) {
                 break;
             }
-            facetDetailList.push(<li><Data dataKey={key} data={this.props.facet[key]} selectHandler={this.selectHandler} type={this.props.type} /></li>);
+            facetDetailList.push(<li key={key}><Data dataKey={key} data={this.props.facet[key]} selectHandler={this.selectHandler} type={this.props.type} /></li>);
             i++;
         }
         return (<div className="panel-body"><ul>{facetDetailList}</ul> {this.renderShowAllDataList()}</div>);
