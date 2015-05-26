@@ -72,13 +72,14 @@ textFor: function textFor(name, options){
 listFor: function listFor(name, options){
   options = options || {};
   options.reference = options.reference || this.state.reference;
-  return React.createElement( List, {
+  var listForProps = assign({}, options, {
     data: this.state[name],
     line: options.LineComponent || this.props.LineComponent || this.LineComponent,
     perPage: options.perPage || 5,
     reference: options.reference,
     isEdit: options.isEdit !== undefined ? options.isEdit : false
   });
+  return React.createElement(List, listForProps);
 },
 /**
  * Button delete generation.
