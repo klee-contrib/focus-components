@@ -1,3 +1,5 @@
+var {isObject, isFunction} = require('lodash/lang');
+
 var valueBehaviourMixin = {
   /** @inheritdoc */
   getDefaultProps: function getDefaultValueBehaviourProps(){
@@ -17,7 +19,16 @@ var valueBehaviourMixin = {
   * Get the value from the field.
   */
   getValue: function() {
-    return this.refs.input.getValue();
+    if(isObject(this.refs) && isObject(this.refs.input) && isFunction(this.refs.input.getValue)){
+      return this.refs.input.getValue();
+    }
+    else if(this.state && this.state.value !== undefined ){
+      return this.state.value;
+    }
+    else if(this.props && this.props.value !== undefined ){
+      return this.props.value;
+    }
+
   },
   /**
    * Handler called when the input Change its value.
