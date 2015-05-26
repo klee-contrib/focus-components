@@ -6,7 +6,7 @@ Trois états par défaut
 - tall
 - medium
 - small
-
+Attribut data-size
 
 
 ## Inspiration

@@ -1,0 +1,47 @@
+$bloc-background: #fff;         //normal
+$bloc-background-hover: #fff;   //on mouse over
+$bloc-background-active: #CBCBCB;  //in edit mode
+$bloc-border-color: #e7e7e7;
+$bloc-title-color:#36b7b9;
+
+[data-focus='block'] {
+  background-color: $bloc-background;
+  border: solid 1px #e7e7e7;
+  box-shadow: 1px 1px 3px 0px $bloc-border-color;
+  margin-bottom: 15px;
+  header{
+    padding: 16px;
+    border-bottom:1px solid $bloc-border-color;
+    h1,h2,h3,h4 {
+      margin: 0;
+      margin-right: 20px;
+      padding: 2px 0;
+      font-size: 16pt;
+      color:$bloc-title-color;
+      display: inline-block;
+    }
+    .actions {
+      display: none;
+      margin-left: 20px;
+      height: 16pt;
+      line-height: 16pt;
+    }
+  }
+  &:hover {
+    border:1px solid #36b7b9;
+    .actions {
+      display: inline-block;
+    }
+  }
+  .block-content {
+    display:block;
+    width: 100%;
+    padding: 16px;
+  }
+}
+
+.form-edit {
+  [data-focus='block'] {
+    background-color: $bloc-background-active;
+  }
+}

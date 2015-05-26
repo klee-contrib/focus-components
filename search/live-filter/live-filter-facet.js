@@ -4,7 +4,10 @@ var React = require('react');
 var Data = require('./live-filter-data').component;
 
 var liveFilterFacetMixin = {
-
+    /**
+     * Component's mixins
+     */
+    mixins: [require('../../common/i18n/mixin')],
     /**
      * Display name.
      */
@@ -35,11 +38,6 @@ var liveFilterFacetMixin = {
      * @returns {XML} Html component code.
      */
     render: function renderLiverFilterFacet(){
-        /*
-        var className = this.props.isExpanded ? "lf-facet" : "lf-facet collapsed";
-        if(this.props.selectedDataKey) {
-            className = "lf-facet selected";
-        }*/
         var className = 'panel panel-primary facet';
         if(this.props.selectedDataKey) {
             className += '-selected';
@@ -60,7 +58,7 @@ var liveFilterFacetMixin = {
      * @returns {XML} Html component code.
      */
     renderLiveFilterFacetTitle: function renderLiveFilterFacetTitle() {
-        var title = this.props.facetKey;
+        var title = this.i18n('live.filter.facets.' + this.props.facetKey); // Default facet translation path is live.filter.facets.
         var className = 'panel-heading';
         if(this.props.selectedDataKey) {
             title += ' : ' + this.props.facet[this.props.selectedDataKey].label;

@@ -16,13 +16,16 @@ var detailMixin = {
         };
       `);
     }
-    dispatcher.handleServerAction({
+    dispatcher.handleViewAction({
       data: {
         cartridgeComponent: this.cartridgeConfiguration.cartridge,
         summaryComponent: this.cartridgeConfiguration.summary
       },
       type: 'update'
     });
+  },
+  componentWillMount: function pageMixinWillMount(){
+    this._registerCartridge();
   }
 
 };

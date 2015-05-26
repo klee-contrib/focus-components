@@ -1,3 +1,4 @@
+//Header.css
 @mixin transition($transition-property, $transition-time) {
     -webkit-transition: $transition-property $transition-time;
     -moz-transition: $transition-property $transition-time;
@@ -17,7 +18,30 @@
 }
 $duration: 0.5s;
 $action-bar-height: 56px;
-header[data-focus-header]{
+header[data-focus='header']{
+  //When the size is medium, the summary-bar is not visible.
+  &[data-size="medium"]{
+    [data-focus="content-bar"]{
+      div[data-focus="bar"]{
+          div[data-focus="bar-summary"]{
+            display:none;
+          }
+      }
+
+    }
+  }
+  //When the size is min  don't show the cartridge
+  &[data-size="small"]{
+    [data-focus="content-bar"]{
+      div[data-focus="cartridge"]{
+        display: none;
+      }
+    }
+  }
+  //When the size is small, the cartridge is not visible.
+
+
+
   width: 100%;
   min-height: 64px;
   background-color: white;
@@ -40,7 +64,7 @@ header[data-focus-header]{
 
     }
   }
-  div.content-bar{
+  div[data-focus="content-bar"]{
     background-color: white;
     color: black;
     @include shadow();
@@ -53,10 +77,16 @@ header[data-focus-header]{
     }
 
   }
+  div[data-focus="bar"]{
+    @include transition(min-height, $duration);
+  }
+
+
+
 
   &.header-tall{
     div.content-bar{
-      min-height: 250px;
+      //min-height: 250px;
       //background-color: #2600D4;
       //color: white;
       @include transition(min-height, $duration);
@@ -65,7 +95,7 @@ header[data-focus-header]{
   }
   &.header-medium{
     div.content-bar{
-      min-height: 150px;
+      //min-height: 150px;
       //background-color: #0073D4;
       //color: white;
       @include transition(min-height, $duration);

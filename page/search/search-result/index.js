@@ -104,12 +104,14 @@ var searchMixin = {
      * @param {object} item selected
      */
     _selectItem: function selectItem(item){
-        var index = this.state.selected.indexOf(item);
+        var selected = this.state.selected
+        var index = selected.indexOf(item);
         if(index){
-            this.state.selected.splice(index, index);
+            selected.splice(index, index);
         }else{
-            this.state.selected.push(item);
+            selected.push(item);
         }
+        this.setState({selected: selected});
     },
 
     /**

@@ -21,20 +21,17 @@ var headerMixin = {
        * Default size of the bar. Should be present in sizeMap.
        * @type {String}
        */
-      size: 'tall',
+      size: 'medium',
       /**
        * Map which defines sizes exists for the components and their border.
        * @type {Object}
        */
        sizeMap: {
          'small': {
-           'sizeBorder': 800
+           'sizeBorder': 200
          },
          'medium': {
-           'sizeBorder': 500
-         },
-         'tall': {
-           'sizeBorder': 300
+           'sizeBorder': 0
          }
        },
       /**
@@ -103,7 +100,7 @@ var headerMixin = {
   _getScrollPosition: function getScrollPosition(){
     //The pageYOffset is done in order to deal with the window case. Another possibility would have been to use window.docment.body as a node for scrollTop.
     //But the scrollListener on the page is only on the window element.
-    return this.scrollTargetNode.pageYOffset ? this.scrollTargetNode.pageYOffset : this.scrollTargetNode.scrollTop;
+    return this.scrollTargetNode.pageYOffset !== undefined ? this.scrollTargetNode.pageYOffset : this.scrollTargetNode.scrollTop;
   },
   /**
    * Notify other elements that the size has changed.
@@ -143,7 +140,7 @@ var headerMixin = {
     //Process decrease treatement.
     if(currentIndex > 0){
       var decreaseBorder = this.props.sizeMap[this.sizes[currentIndex - 1]].sizeBorder;
-      if(currentScrollPosition < decreaseBorder){
+      if(currentScrollPosition <= decreaseBorder){
         return this._changeSize(this.sizes[currentIndex - 1]);
       }
     }
@@ -175,7 +172,7 @@ var headerMixin = {
   render: function renderBar() {
     var className = `header header-${this.state.size} ${this.props.style.className}`;
     return (
-      <header className={className} data-focus-header>
+      <header className={className} data-focus='header' data-size={this.state.size}>
         {this.props.children}
       </header>
     );

@@ -69,7 +69,8 @@ var entities ={
     },
     "isCool":{
       "domain": "DO_BOOLEAN",
-      "FieldComponent": FocusComponents.common.input.checkbox.component
+      "InputComponent": FocusComponents.common.input.checkbox.component,
+      "DisplayComponent": FocusComponents.common.display.checkbox.component
     },
     "isNice":{
       "domain": "DO_BOOLEAN",

@@ -4,6 +4,8 @@ module.exports = {
   field: require('./field'),
   form: require('./form'),
   img: require('./img'),
+  i18n: require('./i18n'),
+  icon: require('./icon'),
   input: require('./input'),
   label: require('./label'),
   panel: require('./panel'),
@@ -14,5 +16,6 @@ module.exports = {
   topicDisplayer: require('./topic-displayer'),
   list: require('./list'),
   mixin: require('./mixin'),
-  display: require('./display')
+  display: require('./display'),
+  detail: require('./detail')
 };

@@ -54,8 +54,10 @@ var formMixin = {
    * Display a message on change.
    */
   _displayMessageOnChange: function displayMessageOnChange(changeInfos){
+    if(this.displayMessageOnChange){
+      return this.displayMessageOnChange(changeInfos);
+    }
     if(changeInfos && changeInfos.status && changeInfos.status.name){
-      console.log('status', changeInfos.status.name);
       switch(changeInfos.status.name){
         case 'loading':
           Focus.message.addInformationMessage('loading');
@@ -73,15 +75,25 @@ var formMixin = {
     }
   },
   /**
+   * After change informations.
+   * You can override this method using afterChange function.
+   * @param {object} changeInfos - All informations relative to the change.
+   * @returns {undefined} -  The return value is the callback.
+   */
+  _afterChange: function afterChangeForm(changeInfos){
+    if(this.afterChange){
+      return this.afterChange(changeInfos);
+    }
+    return this._displayMessageOnChange(changeInfos);
+  },
+  /**
    * Event handler for 'change' events coming from the stores
    * @param {object} changeInfos - The changing informations.
    */
   _onChange: function onFormStoreChangeHandler(changeInfos) {
-    console.log('change infos', changeInfos, this._getStateFromStores());
-    this.setState(this._getStateFromStores(), this._displayMessageOnChange(changeInfos));
+    this.setState(this._getStateFromStores(), this._afterChange(changeInfos));
   },
-
-    /**
+  /**
      * Event handler for 'error' events coming from the stores.
       */
   _onError: function onFormErrorHandler() {
@@ -160,8 +172,8 @@ var formMixin = {
     if(this.renderEditActions){return this.renderEditActions(); }
     return (
       <div className="button-bar">
-        {this.buttonCancel()}
         {this.buttonSave()}
+        {this.buttonCancel()}
       </div>
     );
   },

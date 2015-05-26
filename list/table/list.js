@@ -60,6 +60,14 @@ var tableMixin = {
         );
     },
 
+    _sortColumnAction: function sortColumnAction(column, order) {
+        var currentComponent = this;
+        return function(event) {
+            event.preventDefault();
+            currentComponent.props.sortColumn(column, order);
+        };
+    },
+
     _renderColumnHeader: function(name){
         var colProperties = this.props.columns[name];
         var sort;
@@ -67,7 +75,7 @@ var tableMixin = {
             var order = colProperties.sort ? colProperties.sort : 'asc';
             var iconClass = 'fa fa-sort-' + order;
             var icon = <i className={iconClass}/>;
-            sort = <a className='sort' href='#' data-name={name} onClick={this.props.sortColumn}>{icon}</a>;
+            sort = <a className='sort' href='#' data-name={name} onClick={this._sortColumnAction(name, (order == 'asc' ? 'desc' : 'asc' ))}>{icon}</a>;
         }
         return (
             <th>
@@ -85,7 +93,8 @@ var tableMixin = {
                 key: line[this.props.idField],
                 data: line,
                 ref: 'line' + lineCount++,
-                reference: this._getReference()
+                reference: this._getReference(),
+                onSelection: this.props.onSelection
             });
         });
     },
