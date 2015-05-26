@@ -34,12 +34,12 @@ var blockMixin = {
       <div className={`${this.props.style.className}`} data-focus='block'>
         <header>
           <Title id={this.props.style.titleId} title={this.heading()} />
-          {this.props.actions()}
+          <div className="actions">{this.props.actions()}</div>
           <!-- actions -->
         </header>
-        <content>
+        <div className="block-content">
           {this.props.children}
-        </content>
+        </div>
       </div>
     );
   }
