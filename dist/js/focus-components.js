@@ -1370,6 +1370,11 @@ module.exports = validationMixin;
 },{"../../i18n":26}],22:[function(require,module,exports){
 "use strict";
 
+var _require = require("lodash/lang");
+
+var isObject = _require.isObject;
+var isFunction = _require.isFunction;
+
 var valueBehaviourMixin = {
   /** @inheritdoc */
   getDefaultProps: function getDefaultValueBehaviourProps() {
@@ -1389,7 +1394,13 @@ var valueBehaviourMixin = {
   * Get the value from the field.
   */
   getValue: function getValue() {
-    return this.refs.input.getValue();
+    if (isObject(this.refs) && isObject(this.refs.input) && isFunction(this.refs.input.getValue)) {
+      return this.refs.input.getValue();
+    } else if (this.state && this.state.value !== undefined) {
+      return this.state.value;
+    } else if (this.props && this.props.value !== undefined) {
+      return this.props.value;
+    }
   },
   /**
    * Handler called when the input Change its value.
@@ -1402,7 +1413,7 @@ var valueBehaviourMixin = {
 
 module.exports = valueBehaviourMixin;
 
-},{}],23:[function(require,module,exports){
+},{"lodash/lang":207}],23:[function(require,module,exports){
 "use strict";
 
 var _defineProperty = function (obj, key, value) { return Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); };
@@ -11535,7 +11546,7 @@ module.exports = uuid;
 },{"./rng":254}],256:[function(require,module,exports){
 module.exports={
   "name": "focusjs-components",
-  "version": "0.1.8",
+  "version": "0.1.9",
   "description": "Focus component repository.",
   "main": "index.js",
   "scripts": {
