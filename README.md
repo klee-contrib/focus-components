@@ -1,5 +1,6 @@
 focus-components
 ========================
+[![NPM](https://nodei.co/npm/focusjs-components.png?downloads=true&downloadRank=true&stars=true)](https://nodei.co/npm/focusjs-components/)
 
 ![Build Status](https://travis-ci.org/KleeGroup/focus-components.svg)
 
