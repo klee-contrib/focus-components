@@ -154,12 +154,11 @@ var formMixin = {
 
     return false;
   },
-  _editClass: function(){
-    if(this.editClass){return this.editClass(); }
-    return `form-${this.state.isEdit ? 'edit' : 'consult'}`;
+  _mode: function(){
+    return `${this.state.isEdit ? 'edit' : 'consult'}`;
   },
   _className: function formClassName() {
-    return `form-horizontal ${this.props.style.className} ${this._editClass()}`;
+    return `form-horizontal ${this.props.style.className}`;
   },
   _renderActions: function renderActions(){
     if(this.renderActions){return this.renderActions(); }
@@ -199,6 +198,7 @@ var formMixin = {
       <form
         onSubmit={this._handleSubmitForm}
         className={this._className()}
+          data-mode={this._mode()}
       >
         <fieldset>
           {this.renderContent()}
