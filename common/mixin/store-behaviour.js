@@ -1,7 +1,7 @@
 var capitalize = require('lodash/string/capitalize');
 var assign = require('object-assign');
 var isArray = require('lodash/lang/isArray');
-var keys = require('object/keys');
+var keys = require('lodash/object/keys');
 
 var storeMixin = {
   /**
