@@ -6,7 +6,7 @@ $bloc-title-color:#36b7b9;
 
 [data-focus='block'] {
   background-color: $bloc-background;
-  border: solid 1px #e7e7e7;
+  /*border: solid 1px #e7e7e7;*/
   box-shadow: 1px 1px 3px 0px $bloc-border-color;
   margin-bottom: 15px;
   header{
@@ -37,6 +37,7 @@ $bloc-title-color:#36b7b9;
     display:block;
     width: 100%;
     padding: 16px;
+    display: inline-block;
   }
 }
 
