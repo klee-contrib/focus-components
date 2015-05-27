@@ -1,6 +1,7 @@
 var capitalize = require('lodash/string/capitalize');
 var assign = require('object-assign');
 var isArray = require('lodash/lang/isArray');
+var keys = require('object/keys');
 
 var storeMixin = {
   /**
@@ -85,6 +86,9 @@ var storeMixin = {
     if (this.stores) {
       this.stores.map((storeConf) => {
         storeConf.properties.map((property)=>{
+          if(!storeConf.store || !storeConf.store.definition || !storeConf.store.definition[property]){
+            console.warn(`You add a property : ${property} in your store which is not in your definition : ${keys(storeConf.store.definition)}`);
+          }
           storeConf.store[`add${capitalize(property)}ChangeListener`](this._onChange);
           storeConf.store[`add${capitalize(property)}ErrorListener`](this._onError);
         });
