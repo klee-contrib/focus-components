@@ -1,6 +1,14 @@
+$sticky-nav-size:200px;
+$sticky-nav-font-size:13pt;
+$sticky-nav-active-font-size:16pt;
 
-.sticky-navigation {
-  li.active {
-    font-weight: bold;
-  }
+[data-focus='sticky-navigation'] {
+  background-color: transparent;
+  border: 1px solid red;
+  width: $sticky-nav-size;
+  float: left;
+  font-size: $sticky-nav-font-size;
+  /*ul.selection-list li.sl-line:hover {
+
+  }*/
 }

@@ -72,9 +72,9 @@ var stickyNavigationMixin = {
     },
     /** @inheritedDoc */
     render: function renderStickyNavigation(){
-        var className = `sticky-navigation bs-docs-sidebar hidden-print hidden-xs hidden-sm affix ${this.props.style.className}`;
+        var className = `bs-docs-sidebar hidden-print affix ${this.props.style.className}`;
         return(
-          <nav className={className} id={this.props.navBarId}>
+          <nav className={className} id={this.props.navBarId} data-focus="sticky-navigation">
             <ul className="nav bs-docs-sidenav" role="tablist">
               {this.state.menuList}
             </ul>
