@@ -159,12 +159,12 @@ afin d'uitliser le mixin il est nécessaire de définir deux attributs et deux mét
 _actions
     _advancedSearch
         index.js
-_filterResult
+_searchResult
     * line1.jsx
     * line2.jsx
     * preview1.jsx
     * preview2.jsx
-    * filterResult.jsx
+    * searchResult.jsx
 ```
 
 - la recherche nécessite également la création d'un store de type **Focus.store.SearchStore**
