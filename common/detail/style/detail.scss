@@ -1,0 +1,9 @@
+$detail-nav-size:200px;
+
+[data-focus='detail'] {
+  margin-top: 120px; //todo ca dépend de la taille du header. qu'est-ce qu'on fait ?
+  [data-focus="detail-content"] {
+    margin-left: $detail-nav-size;
+  }
+}
+
