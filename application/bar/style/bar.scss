@@ -1,0 +1,38 @@
+$bar-menu-size:60px;
+
+[data-focus='bar'] {
+  height:$bar-menu-size;
+  line-height: $bar-menu-size;
+  position: relative;
+
+  [data-focus='bar-app-name'] {
+    position: absolute;
+    top:0;
+    left:0;
+    height:$bar-menu-size;
+    line-height: $bar-menu-size;
+    background: transparent;
+    padding: 0 10px;
+  }
+  [data-focus='bar-actions-left'] {
+    border: 1px solid green;
+    height:$bar-menu-size;
+    line-height: $bar-menu-size;
+    background: transparent;
+  }
+  [data-focus='bar-summary'] {
+    height:$bar-menu-size;
+    line-height: $bar-menu-size;
+    background: transparent;
+    margin: 0 100px 0 100px;
+  }
+  [data-focus='bar-user-infos'] {
+    position: absolute;
+    top:0;
+    right:0;
+    height:$bar-menu-size;
+    line-height: $bar-menu-size;
+    background: transparent;
+    border: 1px solid orange;
+  }
+}
