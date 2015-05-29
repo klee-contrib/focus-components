@@ -1,139 +1,82 @@
-/*global document*/
-var builder = require('focus').component.builder;
-var popinProperties = require('../mixin/popin-behaviour').mixin;
-var type = require('focus').component.types;
-var capitalize = require('lodash/string/capitalize');
+// Dependencies
+let React = require('react');
+let builder = require('focus').component.builder;
+
 /**
- * Popin mixin
- * @type {object}
+ * The popin component configuration
+ * @type {Object}
  */
-var popinMixin = {
-  /** @inheritdoc */
-  mixins: [popinProperties],
-  /** @inheritdoc */
-  displayName: 'popin',
-  /** @inheritdoc */
-  getDefaultProps: function getPopinDefaultProps() {
-    return {
-      type: 'full', // full, centered
-      //  displaySelector: undefined, // Html selector of the element wich open/close the modal when click on it.
-      contentLoadingFunction: undefined // Function wich returns the content of the modal.
-    };
+let popin = {
+  /**
+   * Init the component.
+   * The popin is closed by default.
+   * @return {Object} the initial state
+   */
+  getInitialState() {
+    return ({
+      opened: false
+    });
   },
-  /** @inheritdoc */
+  /**
+   * Init the props if not provided.
+   * By default, a popin is full, medium and modal.
+   * @return {Object} the default props
+   */
+  getDefaultProps() {
+    return ({
+      modal: true,
+      size: 'medium',
+      type: 'full'
+    });
+  },
+  /**
+   * Helper attribute, for React debugging
+   */
+  displayName: 'Popin',
+  /**
+   * Properties validation
+   */
   propTypes: {
-    open: type('bool'),
-    type: type('string'),
-    contentLoadingFunction: type('string')
-  },
-  /** @inheritdoc */
-  componentDidMount: function popinDidMount() {
-    var source = document.querySelector(this.props.displaySelector);
-    var currentView = this;
-    //todo @joanna / remy
-    //J'aurais plutôt exposé une méthode open sur la modale et ajouté un handler sur l'élément appellant.
-    if(source !== undefined && source !== null){
-      source.onclick = function () {
-        currentView._toggleOpen();
-      };
-    }
+    modal: React.PropTypes.boolean,
+    size: React.PropTypes.string,
+    type: React.PropTypes.string
   },
   /**
-   * Toggle the open state on the modal.
+   * Toggle the popin's open state
    */
-  _toggleOpen: function modalToggleOpen(){
-    this.setState({open: !this.state.open});
+  toggleOpen() {
+    this.setState({
+      opened: !this.state.opened
+    });
   },
   /**
-   * Open the modal.
+   * Render the component
+   * @return {XML} the rendered HTML
    */
-  openModal: function openModal() {
-    this.setState({open: true});
-  },
-  /**
-   * Close the modal
-   */
-  closeModal: function closeModal() {
-    this.setState({open: false});
-    //todo: joanna / remy
-    //replaced with a this.ref
-    //And add a popin-layer in the state and do a getLayerClassName which returns popin layer if open.
-    React.findDOMNode(this.refs.layer).classList.remove('popin-layer');
-  },
-  /**
-   * Css class of modal.
-   * @returns {string} css classes.
-   * @private
-   */
-  _getModalCss: function () {
-    var position = this.props.position;
-    var cssClass = `popin animated ${position} fadeIn${capitalize(position)}Big`;
-    switch (this.props.position) {
-      case 'right':
-      case 'down':
-      case 'up':
-        cssClass = `${cssClass} btn-close-left`;
-        break;
-      case 'left':
-        cssClass = `${cssClass} fadeInLeftBig left btn-close-right`;
-        break;
-    }
-    if (this.props.style.className !== undefined && this.props.style.className !== null) {
-      cssClass = `${cssClass}  ${this.props.style.className}`;
-    }
-    return cssClass;
-  },
-
-  /**
-   * Css class of close btn.
-   * @returns {string} - css classes.
-   * @private
-   */
-  _getCloseBtnCss: function getCloseButtonCss() {
-    return `popin-close-btn ${this.props.position === 'right' ? 'left': 'right'}`;
-  },
-  /**
-   * Content css class.
-   * @returns {string} - css classes.
-   * @private
-   */
-  _getModalContentCss: function () {
-    var cssClass = 'modal-content';
-    switch (this.props.type) {
-      case 'full':
-        cssClass += ' full';
-        break;
-      case 'centered':
-        cssClass += ' centered';
-        break;
-    }
-    return cssClass;
-  },
-
-  /**
-   * Render the component.
-   * @returns {JSX} - Html code.
-   */
-  render: function renderPopin() {
-    if (!this.state.open) {
-      return <div />;
-    }
+  render() {
     return (
-      <div ref='modal'>
-        <div ref='layer' className='popin-layer' onClick={this.closeModal}></div>
-        <span className={this._getModalCss()}>
-          <div className = {this._getCloseBtnCss()} onClick={this.closeModal}></div>
-          <div className={this._getModalContentCss()}>
-            {this.renderPopinHeader(this)}
-            <div className="modal-body" >
-              {this.renderContent(this)}
+        <div data-focus='popin' data-size={this._validateSize()} data-type={this.props.type}>
+          {this.state.opened &&
+            <div className='popin-overlay' onClick={this.props.modal && this.toggleOpen}>
+              <div className='popin-window'>
+                {this.props.children}
+              </div>
             </div>
-            {this.renderPopinFooter(this)}
-          </div>
-        </span>
-      </div>
-    );
+          }
+        </div>
+    )
+  },
+  /**
+   * Validate the optional given size
+   * @return {string} the validated size
+   * @private
+   */
+  _validateSize() {
+    if (['small', 'medium', 'large'].indexOf(this.props.size) === -1) {
+      throw new Error('Please provide a valid popin size among small, medium and large. Provided ' + this.props.size);
+    }
+    return this.props.size;
   }
 };
 
-module.exports = builder(popinMixin);
+module.exports = builder(popin);
