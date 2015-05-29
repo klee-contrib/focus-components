@@ -1,6 +1,8 @@
 var React = require('react');
 var builder = require('focus').component.builder;
 var Img = require('../../img').component;
+var i18nMixin = require('../../i18n/mixin');
+var stylableMixin = require('../../../mixin/stylable');
 
 /**
  * Mixin button.
@@ -8,12 +10,13 @@ var Img = require('../../img').component;
  */
 var buttonMixin = {
     /** inheritedDoc */
+    mixins: [i18nMixin, stylableMixin],
+    /** inheritedDoc */
     getDefaultProps: function getInputDefaultProps() {
       return {
         type: 'submit',
         action: undefined,
         isPressed: false,
-        style: {},
         label: undefined,
         imgSrc: undefined
       };
@@ -41,7 +44,7 @@ var buttonMixin = {
      * ClassName of the button.
      */
     _className: function buttonClassName () {
-      return "btn btn-raised " + (this.props.style.className ? "btn-" + this.props.style.className : "");
+      return `btn btn-raised ${this.getStyleClassName}`;
     },
     /**
     * Render the pressed state of the button.
@@ -57,7 +60,7 @@ var buttonMixin = {
         if(this.props.imgSrc) {
             return <Img src={this.props.imgSrc} onClick={this.handleOnClick} />;
         }
-        return ( <button href="javascript:void(0)" onClick={this.handleOnClick} type={this.props.type} className={this._className()} >{this.props.label}</button>);
+        return ( <button href="javascript:void(0)" onClick={this.handleOnClick} type={this.props.type} className={this._className()} >{this.i18n(this.props.label)}</button>);
     }
 };
 

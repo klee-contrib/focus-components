@@ -4,6 +4,7 @@ var Text = require('../display/text').component;
 var Button = require('../button/action').component;
 var List = require('../list');
 var fieldComponentBehaviour = require('./field-component-behaviour');
+
 var assign = require('object-assign');
 module.exports = {
   mixins: [fieldComponentBehaviour],
@@ -14,10 +15,7 @@ module.exports = {
  * @returns {object} - A React Field.
  */
 fieldFor: function(name, options) {
-  options = assign({}, {
-      style: {className: ''}
-  }, options);
-
+  options = assign({}, options);
   var fieldProps = this._buildFieldProps(name, options, this);
   return React.createElement(Field, fieldProps);
 },
@@ -88,7 +86,7 @@ listFor: function listFor(name, options){
 buttonDelete: function buttonDelete() {
   var form = this;
   return React.createElement(Button, {
-    label: 'delete',
+    label: 'button.delete',
     type: 'button',
     style: {className: 'delete'},
     handleOnClick: function handleOnClickEdit(){
@@ -103,7 +101,7 @@ buttonDelete: function buttonDelete() {
 buttonEdit: function buttonEdit() {
   var form = this;
   return React.createElement(Button, {
-    label: 'edit',
+    label: 'button.edit',
     type: 'button',
     style: {className: 'edit icon'},
     handleOnClick: function handleOnClickEdit(){
@@ -118,7 +116,7 @@ buttonEdit: function buttonEdit() {
 buttonCancel: function buttonCancel() {
   var form = this;
   return React.createElement(Button, {
-    label: 'cancel',
+    label: 'button.cancel',
     type: 'button',
     style: {className: 'cancel icon'},
     handleOnClick: function handleOnClickCancel(){
@@ -134,7 +132,7 @@ buttonCancel: function buttonCancel() {
 buttonSave: function() {
   //var form = this;
   return React.createElement(Button, {
-    label: 'save',
+    label: 'button.save',
     type: 'submit',
     style: {className: 'save icon primary'},
     /*handleOnClick: function handleClickOnSave(e){
