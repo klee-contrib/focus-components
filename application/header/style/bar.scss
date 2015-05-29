@@ -16,9 +16,12 @@
 @mixin redBar(){
   border: 1px solid red;
 }
+
+/*---------------------------------------------------------------*/
 $duration: 0.5s;
 $action-bar-height: 56px;
 header[data-focus='header']{
+
   //When the size is medium, the summary-bar is not visible.
   &[data-size="medium"]{
     [data-focus="content-bar"]{
@@ -40,12 +43,10 @@ header[data-focus='header']{
   }
   //When the size is small, the cartridge is not visible.
 
-
-
   width: 100%;
   min-height: 64px;
   background-color: white;
-  z-index: 5;
+  z-index: 1001;
   height: 64px;
   position: fixed;
 
@@ -74,6 +75,10 @@ header[data-focus='header']{
       justify-content: space-between;
       align-content: stretch;
       flex-wrap: wrap;
+    }
+
+    div[data-focus="cartridge"]{
+      padding: 10px 10px 35px 10px;
     }
 
   }
@@ -114,4 +119,14 @@ header[data-focus='header']{
     }
 
   }
+
+
+  [data-focus="content-actions"]{
+    margin: 0 0 0 60px;
+    position: relative;
+    top: -29px;
+    text-align: right;
+    padding-right: 200px;
+  }
 }
+

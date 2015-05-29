@@ -14,8 +14,8 @@ var selectTextMixin = {
       multiple: false,
       value: undefined,
       values: [],
-      valueKey: 'value',
-      labelKey: 'code',
+      valueKey: 'code',
+      labelKey: 'label',
       name: undefined,
       style: {}
     };
