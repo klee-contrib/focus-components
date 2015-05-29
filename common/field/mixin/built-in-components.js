@@ -46,11 +46,11 @@ var fieldBuiltInComponentsMixin = {
   propTypes: {
     hasLabel: type('bool'),
     labelSize: type('number'),
-    FieldComponent: type('object'),
-    InputLabelComponent: type('object'),
-    InputComponent: type('object'),
-    SelectComponent: type('object'),
-    DisplayComponent: type('object')
+    FieldComponent: type(['object', 'function']),
+    InputLabelComponent: type(['object', 'function']),
+    InputComponent: type(['object', 'function']),
+    SelectComponent: type(['object', 'function']),
+    DisplayComponent: type(['object', 'function'])
   },
   /**
    * Render the label part of the component.
