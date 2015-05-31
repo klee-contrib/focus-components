@@ -26,7 +26,13 @@
     var valuesExample = [
       {code: "A", label: "aaaa"},
       {code: "B", label: "bbbbb"},
-      {code: "C", label: "ccccc"}
+      {code: "C", label: "ccccc"},
+      {code: "D", label: "DDDD"}
+    ];
+    var valuesCustomExample = [
+      {id: "custom", name: "aaaaCustom"},
+      {id: "BCustom", name: "bbbbbCustom"},
+      {id: "CCustom", name: "cccccCustom"}
     ];
     React.render(
       <ul>
@@ -37,6 +43,14 @@
         <li>
           Liste simple avec valeur préselectionnée:
           <Select values={valuesExample}/>
+        </li>
+        <li>
+          Liste simple avec redéfinition des code /value:
+          <Select values={valuesCustomExample} valueKey='id' labelKey='name'/>
+        </li>
+        <li>
+          Liste simple sans valeur préselectionnée:
+          <Select value={['B','C']} multiple={true} values={valuesExample}/>
         </li>
       </ul>,
       document.querySelector("#select-container")

@@ -27,7 +27,7 @@ var selectTextMixin = {
   /** @inheritdoc */
   propTypes: {
     multiple: type('bool'),
-    value: type(['number', 'string']),
+    value: type(['number', 'string', 'array']),
     values: type('array'),
     valueKey: type('string'),
     labelKey: type('string'),
@@ -61,7 +61,12 @@ var selectTextMixin = {
       this.props.onChange(event);
     }else {
       //Set the state then call the change handler.
-      this.setState({value: event.target.value});
+      if(this.props.multiple){
+        var vals = this.state.value;
+        vals.push(event.target.value);
+        return this.setState({value: vals});
+      }
+      return this.setState({value: event.target.value});
     }
   },
   /**
