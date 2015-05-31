@@ -2,12 +2,16 @@
 var builder = require('focus').component.builder;
 var React = require('react');
 var type = require('focus').component.types;
+var i18nMixin = require('../../i18n/mixin');
+var stylableMixin = require('../../../mixin/stylable');
+var union = require('lodash/array/union')
 
 /**
  * Input text mixin.
  * @type {Object}
  */
 var selectTextMixin = {
+  mixins: [i18nMixin, stylableMixin],
   /** @inheritdoc */
   getDefaultProps: function getSelectDefaultProps() {
     return {
@@ -16,8 +20,7 @@ var selectTextMixin = {
       values: [],
       valueKey: 'code',
       labelKey: 'label',
-      name: undefined,
-      style: {}
+      name: undefined
     };
   },
   /** @inheritdoc */
@@ -27,13 +30,13 @@ var selectTextMixin = {
     values: type('array'),
     valueKey: type('string'),
     labelKey: type('string'),
-    name: type('string'),
-    style: type('object')
+    name: type('string')
   },
   /** @inheritdoc */
   getInitialState: function getInitialStateSelect() {
     return {
-      value: this.props.value
+      value: this.props.value,
+      hasUndefined : this.props.hasUndefined === false ? false : !this.props.value
     };
   },
   /** @inheritdoc */
@@ -63,11 +66,20 @@ var selectTextMixin = {
    * Render options.
    */
   renderOptions: function renderOptions(){
-    return this.props.values.map((val)=>{
+    let values;
+    if(this.state.hasUndefined){
+      values = union(
+        [{[this.props.labelKey]: 'select.unSelected', [this.props.valueKey]: undefined}],
+        this.props.values
+      );
+    }else{
+      values = this.props.values;
+    }
+    return values.map((val)=>{
       var value = val[this.props.valueKey];
       return(
         <option key={value} value={value}>
-          {val[this.props.labelKey]}
+          {this.i18n(val[this.props.labelKey])}
         </option>
     );
     });
@@ -81,7 +93,7 @@ var selectTextMixin = {
       <select
         multiple={this.props.multiple}
         value={this.state.value}
-        className={this.props.style.className}
+        className={this._getStyleClassName()}
         name={this.props.name}
         onChange={this._handleOnChange}
       >

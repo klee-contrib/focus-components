@@ -18,18 +18,29 @@
 <body>
   <script src="/focus-components/dist/js/focus.js"></script>
   <script src="/focus-components/dist/js/focus-components.js"></script>
-  <div id="form-container"></div>
-  <script type="text/javascript">
+  <div id="select-container"></div>
+  <script type="text/jsx">
   $(function(){
     Focus.components = FocusComponents;
     var Select = Focus.components.common.select.classic.component;
-    React.render(React.createElement(Select,
-      { multiple: false,
-        value: "B",
-        values: [{code: "A", label: "aaaa"},{code: "B", label: "bbbbb"}, {code: "C", label: "ccccc"}],
-        style: {className: "papa"},
-      //  onChange: function(evt){console.log("date changed", evt)}
-      }), document.querySelector("#form-container"));
+    var valuesExample = [
+      {code: "A", label: "aaaa"},
+      {code: "B", label: "bbbbb"},
+      {code: "C", label: "ccccc"}
+    ];
+    React.render(
+      <ul>
+        <li>
+          Liste simple sans valeur préselectionnée:
+          <Select value='B' values={valuesExample}/>
+        </li>
+        <li>
+          Liste simple avec valeur préselectionnée:
+          <Select values={valuesExample}/>
+        </li>
+      </ul>,
+      document.querySelector("#select-container")
+    );
   });
   </script>
 
