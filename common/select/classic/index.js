@@ -4,8 +4,8 @@ var React = require('react');
 var type = require('focus').component.types;
 var i18nMixin = require('../../i18n/mixin');
 var stylableMixin = require('../../../mixin/stylable');
-var union = require('lodash/array/union')
-
+var union = require('lodash/array/union');
+var uuid = require('uuid');
 /**
  * Input text mixin.
  * @type {Object}
@@ -20,7 +20,8 @@ var selectTextMixin = {
       values: [],
       valueKey: 'code',
       labelKey: 'label',
-      name: undefined
+      name: undefined,
+      onChange: undefined
     };
   },
   /** @inheritdoc */
@@ -30,7 +31,8 @@ var selectTextMixin = {
     values: type('array'),
     valueKey: type('string'),
     labelKey: type('string'),
-    name: type('string')
+    name: type('string'),
+    onChange: type(['function','object'])
   },
   /** @inheritdoc */
   getInitialState: function getInitialStateSelect() {
@@ -78,7 +80,7 @@ var selectTextMixin = {
     return values.map((val)=>{
       var value = val[this.props.valueKey];
       return(
-        <option key={value} value={value}>
+        <option key={value || uuid.v4() } value={value}>
           {this.i18n(val[this.props.labelKey])}
         </option>
     );
