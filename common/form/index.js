@@ -60,16 +60,18 @@ var formMixin = {
     if(changeInfos && changeInfos.status && changeInfos.status.name){
       switch(changeInfos.status.name){
         case 'loading':
-          Focus.message.addInformationMessage('loading');
+          Focus.message.addInformationMessage('detail.loading');
           break;
         case 'loaded':
-          Focus.message.addSuccessMessage('loaded');
+          Focus.message.addSuccessMessage('detail.loaded');
           break;
         case 'saving':
-          Focus.message.addInformationMessage('saving');
+          Focus.message.addInformationMessage('detail.saving');
           break;
         case 'saved':
-          Focus.message.addSuccessMessage('saved');
+          Focus.message.addSuccessMessage('detail.saved');
+          //Change the page mode as edit
+          this.setState({isEdit: false});
           break;
       }
     }
