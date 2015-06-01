@@ -54,26 +54,20 @@
             return React.createElement('div', null,
                     React.createElement(Button, {
                         isPressed: false,
-                        handleOnClick: this.popinOpener('left'),
-                        label: 'Open popin left',
+                        handleOnClick: this.popinOpener('full'),
+                        label: 'Open full popin',
                         style: {className: 'primary'}
                     }),
                     React.createElement(Button, {
                         isPressed: false,
-                        handleOnClick: this.popinOpener('up'),
-                        label: 'Open popin up',
+                        handleOnClick: this.popinOpener('from-menu'),
+                        label: 'Open from-menu popin',
                         style: {className: 'primary'}
                     }),
                     React.createElement(Button, {
                         isPressed: false,
-                        handleOnClick: this.popinOpener('down'),
-                        label: 'Open popin down',
-                        style: {className: 'primary'}
-                    }),
-                    React.createElement(Button, {
-                        isPressed: false,
-                        handleOnClick: this.popinOpener('right'),
-                        label: 'Open popin right',
+                        handleOnClick: this.popinOpener('fill-height'),
+                        label: 'Open fill-height popin',
                         style: {className: 'primary'}
                     }),
                     React.createElement('div', null, 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis condimentum, turpis non aliquam bibendum, ligula ex convallis dui, vel tincidunt ipsum risus et lacus. Vivamus quam lectus, finibus in gravida id, auctor semper libero. Cras lacinia dapibus erat facilisis vestibulum. Suspendisse aliquam sollicitudin lorem, eu ultricies velit malesuada in. Nunc at eros id erat gravida tincidunt. Nulla id ornare sem, nec mattis lacus. In ex libero, pulvinar semper nisl ut, pulvinar facilisis nisl. ' +
@@ -81,10 +75,9 @@
                     'Vestibulum est est, fermentum sed vestibulum ut, ultrices eu velit. Vivamus consequat auctor dui, at pulvinar nunc suscipit ut. Nulla porta tincidunt ipsum ut euismod. Donec ante lacus, mollis at vehicula a, sagittis at eros. Fusce fringilla erat sit amet ex vestibulum, et dignissim tellus rhoncus. Nullam eu suscipit tellus. Quisque hendrerit leo laoreet ligula dignissim malesuada. Duis consectetur nisl et tellus accumsan dignissim. Sed ultricies luctus tortor. Nam molestie convallis mauris dictum rutrum. Praesent ligula urna, tempus vitae auctor sed, condimentum a eros. Aliquam ante lacus, convallis vitae scelerisque ornare, tristique quis orci. Integer volutpat, erat at porta finibus, quam lectus ornare tortor, et lacinia leo purus eget ligula. Maecenas elementum semper pulvinar.' +
                     'Nulla nec neque maximus, sollicitudin mauris sit amet, mollis urna. Duis pellentesque non nunc sed cursus. Nunc sed ullamcorper purus. Morbi erat nulla, congue at urna tincidunt, rhoncus imperdiet eros. Vivamus interdum mattis risus, ut mollis orci convallis et. Maecenas a nulla quam. Maecenas sit amet eros a tortor lacinia accumsan eu non sapien.' +
                     'Duis fringilla arcu vitae sollicitudin facilisis. Interdum et malesuada fames ac ante ipsum primis in faucibus. Aenean at cursus ipsum, ac sollicitudin orci. Nam ultricies augue mi, eu interdum neque venenatis et. Duis euismod a massa et vestibulum. Quisque et lacinia nunc, eget vulputate orci. Nulla scelerisque rhoncus erat nec maximus. Nullam tincidunt mauris erat, non tempor nunc blandit vitae. Mauris non arcu sit amet turpis euismod elementum in nec magna. Donec id purus sodales erat auctor pharetra sit amet at orci. Nam dignissim vitae ligula at dictum.'),
-                    React.createElement(Popin, {position: 'left', ref: 'left'}, PopinContent),
-                    React.createElement(Popin, {position: 'up', ref: 'up'}, PopinContent),
-                    React.createElement(Popin, {position: 'down', ref: 'down'}, PopinContent),
-                    React.createElement(Popin, {position: 'right', ref: 'right'}, PopinContent)
+                    React.createElement(Popin, {ref: 'full', type: 'full'}, PopinContent),
+                    React.createElement(Popin, {ref: 'from-menu', type: 'from-menu'}, PopinContent),
+                    React.createElement(Popin, {ref: 'fill-height', type: 'fill-height'}, PopinContent)
             );
         },
         popinOpener: function (ref) {
