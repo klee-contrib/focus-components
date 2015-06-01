@@ -2,13 +2,29 @@
 let React = require('react');
 let builder = require('focus').component.builder;
 
+/**
+ * Small overlay component used to listen to scroll and prevent it to leave the Popin component
+ */
 let Overlay = React.createClass({
+  /**
+   * Component did mount event handler.
+   * Add a listener to the mouse wheel, to spy the scroll.
+   */
   componentDidMount: function() {
     React.findDOMNode(this.refs.overlay).addEventListener('mousewheel', this._onScroll);
   },
+  /**
+   * Component will unmount event handler.
+   * Remove the mouse wheel listener.
+   */
   componentWillUnmount: function() {
     React.findDOMNode(this.refs.overlay).removeEventListener('mousewheel', this._onScroll);
   },
+  /**
+   * Mouse wheel event handler.
+   * @param {Object} event - raised by the mouse wheel.
+   * @private
+   */
   _onScroll(event) {
     let target = event.target;
     let direction = event.wheelDeltaY < 0 ? 'down' : 'up';
@@ -21,6 +37,10 @@ let Overlay = React.createClass({
       event.preventDefault();
     }
   },
+  /**
+   * Render the component
+   * @return {XML} the rendered HTML
+   */
   render() {
     return (
         <div data-focus='popin-overlay' ref='overlay' onClick={this.props.clickHandler}>
@@ -83,7 +103,7 @@ let popin = {
    * Render the component
    * @return {XML} the rendered HTML
    */
-  render() {
+  render() { // test for this.state.opened and return an Overlay component if true
     return (
         <div data-focus='popin' data-size={this._validateSize()} data-type={this.props.type} data-level={this.props.level}>
           {this.state.opened &&
