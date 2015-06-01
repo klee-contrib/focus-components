@@ -1,8 +1,8 @@
 // Parameters
 
-$small-size: 33%;
-$medium-size: 50%;
-$large-size: 67%;
+$small-size: 400px;
+$medium-size: 600px;
+$large-size: 800px;
 
 $overlay-background-color: rgba(0, 0, 0, 0.4);
 $full-margin-top: 80px;
@@ -11,7 +11,7 @@ $full-margin-top: 80px;
 
 @mixin set-min-height-width($width) {
   width: $width;
-  min-height: 3/4 * $width;
+  min-height: 4/3 * $width;
 }
 
 @mixin set-popin-window-width($min-width) {
