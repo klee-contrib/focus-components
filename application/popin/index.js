@@ -59,6 +59,7 @@ let popin = {
           {this.state.opened &&
             <div className='popin-overlay' onClick={this.props.modal && this.toggleOpen}>
               <div className='popin-window'>
+                <i className='fa fa-close' onClick={this.toggleOpen}></i>
                 {this.props.children}
               </div>
             </div>
