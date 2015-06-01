@@ -57,6 +57,7 @@ $fill-height-popin-margin: 200px;
     @include all-popin-sizes();
 
     [data-focus='popin-overlay'] {
+      z-index: 999;
       display: block;
       text-align: center;
       overflow-y: auto;
@@ -91,6 +92,7 @@ $fill-height-popin-margin: 200px;
     }
 
     [data-focus='popin-overlay'] {
+      z-index: 999;
       position: fixed;
       top: 0;
       left: 0;
@@ -109,6 +111,7 @@ $fill-height-popin-margin: 200px;
     @include all-popin-sizes('true');
 
     [data-focus='popin-overlay'] {
+      z-index: 1001;
       position: fixed;
       top: 0;
       left: 0;
@@ -124,7 +127,6 @@ $fill-height-popin-margin: 200px;
   }
 
   [data-focus='popin-overlay'] {
-    z-index: 999;
     background-color: $overlay-background-color;
 
     [data-focus='popin-window'] {
