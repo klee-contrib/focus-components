@@ -37,7 +37,7 @@ let popin = {
    * Properties validation
    */
   propTypes: {
-    modal: React.PropTypes.boolean,
+    modal: React.PropTypes.bool,
     size: React.PropTypes.string,
     type: React.PropTypes.string
   },

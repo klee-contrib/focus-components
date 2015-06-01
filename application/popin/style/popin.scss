@@ -7,48 +7,47 @@ $large-size: 800px;
 $overlay-background-color: rgba(0, 0, 0, 0.4);
 $full-margin-top: 80px;
 
+$menu-width: 100px;
+
+
 // Mixins
 
-@mixin set-min-height-width($width) {
-  width: $width;
-  min-height: 4/3 * $width;
-}
-
-@mixin set-popin-window-width($min-width) {
+@mixin set-popin-window-size($width, $height:'3/4 * $size') {
   .popin-window {
-    width: $min-width;
+    width: $width;
+    height: #{$height};
   }
 }
 
-@mixin full-popin-size($size) {
-  .popin-window {
-    @extend %full-#{$size};
+@mixin fill-height-popin {
+  &[data-size='small'] {
+    @include set-popin-window-size($small-size, '100vh');
+  }
+
+  &[data-size='medium'] {
+    @include set-popin-window-size($medium-size, '100vh');
+  }
+
+  &[data-size='large'] {
+    @include set-popin-window-size($large-size, '100vh');
   }
 }
 
-// Placeholders
-
-%full-small {
-  @include set-min-height-width($small-size);
-}
-
-%full-medium {
-  @include set-min-height-width($medium-size);
-}
-
-%full-large {
-  @include set-min-height-width($large-size);
-}
 
 // Style
 
 [data-focus='popin'] {
   &[data-type='full'] {
+    &[data-size='small'] {
+      @include set-popin-window-size($small-size);
+    }
 
-    @each $size in small, medium, large {
-      &[data-size=#{$size}] {
-        @include full-popin-size($size);
-      }
+    &[data-size='medium'] {
+      @include set-popin-window-size($medium-size);
+    }
+
+    &[data-size='large'] {
+      @include set-popin-window-size($large-size);
     }
 
     .popin-window {
@@ -57,26 +56,19 @@ $full-margin-top: 80px;
   }
 
   &[data-type='from-menu'] {
+    @include fill-height-popin;
 
+    .popin-window {
+      display: inline-block;
+      margin-left: $menu-width;
+    }
   }
 
   &[data-type='fill-height'] {
+    @include fill-height-popin;
+
     .popin-window {
-      height: 100vh;
       margin-left: 100px;
-    }
-
-
-    &[data-size='small'] {
-      @include set-popin-window-width($small-size);
-    }
-
-    &[data-size='medium'] {
-      @include set-popin-window-width($medium-size);
-    }
-
-    &[data-size='large'] {
-      @include set-popin-window-width($large-size);
     }
   }
 
