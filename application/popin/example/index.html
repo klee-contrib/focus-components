@@ -86,7 +86,7 @@
                             <div className="buttons">
                                 <Button handleOnClick={this.popinOpener('full')} label='Open full popin' style={{className: 'btn-primary'}}/>
                                 <Button handleOnClick={this.popinOpener('from-menu')} label='Open from-menu popin' style={{className: 'btn-primary'}}/>
-                                <Button handleOnClick={this.popinOpener('fill-height')} label='Open fill-height popin' style={{className: 'btn-primary'}}/>
+                                <Button handleOnClick={this.popinOpener('from-right')} label='Open from-right popin' style={{className: 'btn-primary'}}/>
                             </div>
                             <div className="content">
                                 <h3>Some content to fill the page</h3>
@@ -100,9 +100,10 @@
                                     {PopinContent}
                                 </Popin>
                                 <Popin ref="from-menu" type="from-menu">
+                                    <Button handleOnClick={this.popinOpener('from-right')} label='Open from-right popin' style={{className: 'btn-primary'}}/>
                                     {PopinContent}
                                 </Popin>
-                                <Popin ref="fill-height" type="fill-height">
+                                <Popin ref="from-right" type="from-right">
                                     {PopinContent}
                                 </Popin>
                             </div>

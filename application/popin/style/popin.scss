@@ -68,11 +68,9 @@ $fill-height-popin-margin: 200px;
       height: 100vh;
 
       [data-focus='popin-window'] {
-        margin-top: $full-margin-top;
-        margin-bottom: $full-margin-top;
         display: inline-block;
-        margin-left: auto;
-        margin-right: auto;
+        margin: $full-margin-top auto;
+        text-align: left;
       }
     }
   }
@@ -106,7 +104,7 @@ $fill-height-popin-margin: 200px;
     }
   }
 
-  &[data-type='fill-height'] {
+  &[data-type='from-right'] {
 
     @include all-popin-sizes('true');
 
@@ -121,7 +119,7 @@ $fill-height-popin-margin: 200px;
       [data-focus='popin-window'] {
         position: fixed;
         top:0;
-        left: $fill-height-popin-margin;
+        right: 0;
       }
     }
   }
@@ -135,6 +133,7 @@ $fill-height-popin-margin: 200px;
       padding: 10px;
 
       .fa-close {
+        padding: 5px;
         float: right;
         cursor: pointer;
       }
