@@ -1,50 +1,44 @@
+// Parameters
+
+$small-size: 33%;
+$medium-size: 50%;
+$large-size: 67%;
+
+$overlay-background-color: rgba(0, 0, 0, 0.4);
+$full-margin-top: 80px;
+
 // Mixins
 
 @mixin set-min-height-width($width) {
   width: $width;
-  height: 4/3 * $width;
+  min-height: 3/4 * $width;
+}
+
+@mixin set-popin-window-width($min-width) {
+  .popin-window {
+    width: $min-width;
+  }
 }
 
 @mixin full-popin-size($size) {
   .popin-window {
     @extend %full-#{$size};
-    margin-left: auto;
-    margin-right: auto;
-    margin-top: $full-margin-top;
-    margin-bottom: $full-margin-top;
   }
 }
 
-@mixin overlay-fill-screen {
-  .popin-overlay {
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    min-height: 100%;
-    background-color: $overlay-background-color;
-    z-index: 999;
-  }
-}
-
-// Parameters
-
-$overlay-background-color: rgba(0, 0, 0, 0.4);
+// Placeholders
 
 %full-small {
-  @include set-min-height-width(300px);
+  @include set-min-height-width($small-size);
 }
 
 %full-medium {
-  @include set-min-height-width(500px);
+  @include set-min-height-width($medium-size);
 }
 
 %full-large {
-  @include set-min-height-width(700px);
+  @include set-min-height-width($large-size);
 }
-
-$full-margin-top: 80px;
-
 
 // Style
 
@@ -57,7 +51,43 @@ $full-margin-top: 80px;
       }
     }
 
-    @include overlay-fill-screen;
+    .popin-window {
+      margin: $full-margin-top auto;
+    }
+  }
+
+  &[data-type='from-menu'] {
+
+  }
+
+  &[data-type='fill-height'] {
+    .popin-window {
+      height: 100vh;
+      margin-left: 100px;
+    }
+
+
+    &[data-size='small'] {
+      @include set-popin-window-width($small-size);
+    }
+
+    &[data-size='medium'] {
+      @include set-popin-window-width($medium-size);
+    }
+
+    &[data-size='large'] {
+      @include set-popin-window-width($large-size);
+    }
+  }
+
+  .popin-overlay {
+    z-index: 999;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    min-height: 100%;
+    background-color: $overlay-background-color;
 
     .popin-window {
       background-color: white;
