@@ -12,7 +12,7 @@ module.exports = {
    */
   _getStyleClassName: function getStyleClassName(){
     if(this.props.style && this.props.style.className){
-      return this.props.className;
+      return this.props.style.className;
     }
     return '';
   }
