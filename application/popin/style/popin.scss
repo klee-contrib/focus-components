@@ -1,0 +1,59 @@
+// Mixins
+
+@mixin set-min-height-width($width) {
+  width: $width;
+  height: 4/3 * $width;
+}
+
+@mixin full-popin-size($size) {
+  .popin-window {
+    @extend %full-#{$size};
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: $full-margin-top;
+  }
+}
+
+@mixin overlay-fill-screen {
+  .popin-overlay {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background-color: $overlay-background-color;
+  }
+}
+
+// Parameters
+
+$overlay-background-color: rgba(0, 0, 0, 0.4);
+
+%full-small {
+  @include set-min-height-width(300px);
+}
+
+%full-medium {
+  @include set-min-height-width(500px);
+}
+
+%full-large {
+  @include set-min-height-width(700px);
+}
+
+$full-margin-top: 80px;
+
+
+// Style
+
+[data-focus='popin'] {
+  &[data-type='full'] {
+    @each $size in small, medium, large {
+      &[data-size=#{$size}] {
+        @include full-popin-size($size);
+      }
+    }
+
+    @include overlay-fill-screen;
+  }
+}
