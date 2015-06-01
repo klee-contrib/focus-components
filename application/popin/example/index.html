@@ -29,6 +29,30 @@
 <body>
 <div id="container"></div>
 
+<style>
+    .menu {
+        width: 100px;
+    }
+    .popins-container {
+        position: absolute;
+        top: 200px;
+        left: 200px;
+        width: 200px;
+        height: 200px;
+    }
+
+    .popin-content {
+        width: 250px;
+        margin: 0;
+    }
+    .buttons {
+        margin-left: 150px;
+    }
+    .content {
+        margin-left: 150px;
+    }
+</style>
+
 <script type='text/jsx'>
     $(function() {
         var Popin = FocusComponents.application.popin.component;
@@ -60,9 +84,16 @@
                         <div>
                             <Menu open={true} position="left" title="Menu"/>
                             <div className="buttons">
-                                <Button handleOnClick={this.popinOpener('full')} label='Open full popin' style={{className: 'primary'}}/>
-                                <Button handleOnClick={this.popinOpener('from-menu')} label='Open from-menu popin' style={{className: 'primary'}}/>
-                                <Button handleOnClick={this.popinOpener('fill-height')} label='Open fill-height popin' style={{className: 'primary'}}/>
+                                <Button handleOnClick={this.popinOpener('full')} label='Open full popin' style={{className: 'btn-primary'}}/>
+                                <Button handleOnClick={this.popinOpener('from-menu')} label='Open from-menu popin' style={{className: 'btn-primary'}}/>
+                                <Button handleOnClick={this.popinOpener('fill-height')} label='Open fill-height popin' style={{className: 'btn-primary'}}/>
+                            </div>
+                            <div className="content">
+                                <h3>Some content to fill the page</h3>
+                                <img src="http://lorempixel.com/g/800/600/sports/"/>
+                                <img src="http://lorempixel.com/g/800/600/abstract/"/>
+                                <img src="http://lorempixel.com/g/800/600/city/"/>
+                                <img src="http://lorempixel.com/g/800/600/technics/"/>
                             </div>
                             <div className="popins-container">
                                 <Popin ref="full" type="full">
@@ -83,25 +114,5 @@
         React.render(<Demo/>, document.querySelector("#container"));
     });
 </script>
-<style>
-	.menu {
-		width: 100px;
-	}
-    .popins-container {
-        position: absolute;
-        top: 200px;
-        left: 200px;
-        width: 200px;
-        height: 200px;
-    }
-
-    .popin-content {
-        width: 250px;
-        margin: 0;
-    }
-    .buttons {
-        margin-left: 500px;;
-    }
-</style>
 </body>
 </html>
