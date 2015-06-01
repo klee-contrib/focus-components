@@ -4,10 +4,22 @@ let builder = require('focus').component.builder;
 
 let Overlay = React.createClass({
   componentDidMount: function() {
-    React.findDOMNode(this.refs.overlay).addEventListener('scroll', this._onScroll);
+    React.findDOMNode(this.refs.overlay).addEventListener('mousewheel', this._onScroll);
+  },
+  componentWillUnmount: function() {
+    React.findDOMNode(this.refs.overlay).removeEventListener('mousewheel', this._onScroll);
   },
   _onScroll(event) {
-    console.log(event);
+    let target = event.target;
+    let direction = event.wheelDeltaY < 0 ? 'down' : 'up';
+    // Test if scrolling down the lower limit
+    if (target.clientHeight + target.scrollTop === target.scrollHeight && direction === 'down') {
+      event.preventDefault();
+    }
+    // Test if scrolling up the upper limit
+    if (target.scrollTop === 0 && direction === 'up') {
+      event.preventDefault();
+    }
   },
   render() {
     return (
