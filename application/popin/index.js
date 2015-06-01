@@ -58,7 +58,7 @@ let popin = {
         <div data-focus='popin' data-size={this._validateSize()} data-type={this.props.type}>
           {this.state.opened &&
             <div className='popin-overlay' onClick={this.props.modal && this.toggleOpen}>
-              <div className='popin-window'>
+              <div className='popin-window' onClick={this._preventPopinClose}>
                 <i className='fa fa-close' onClick={this.toggleOpen}></i>
                 {this.props.children}
               </div>
@@ -77,6 +77,14 @@ let popin = {
       throw new Error('Please provide a valid popin size among small, medium and large. Provided ' + this.props.size);
     }
     return this.props.size;
+  },
+  /**
+   * Prevent popin close when there's a click on the popin window
+   * @param {Object} event - raised by the click
+   * @private
+   */
+  _preventPopinClose(event) {
+    event.stopPropagation();
   }
 };
 
