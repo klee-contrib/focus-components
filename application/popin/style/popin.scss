@@ -1,8 +1,8 @@
 // Parameters
 
-$small-size: 400px;
-$medium-size: 600px;
-$large-size: 800px;
+$small-size: 33;
+$medium-size: 50;
+$large-size: 67;
 
 $overlay-background-color: rgba(0, 0, 0, 0.4);
 $full-margin-top: 80px;
@@ -12,24 +12,32 @@ $menu-width: 100px;
 
 // Mixins
 
-@mixin set-popin-window-size($width, $height:'3/4 * $size') {
+@mixin set-popin-window-size($width, $full_height, $menu-offset) {
   .popin-window {
-    width: $width;
-    height: #{$height};
+    @if $menu-offset == 'true' {
+      min-width: calc(#{$width}vw - #{$menu-width});
+    } @else {
+      min-width: #{$width}vw;
+    }
+    @if $full_height == 'true' {
+      min-height: 100vh;
+    } @else {
+      min-height: #{$width}vh;
+    }
   }
 }
 
-@mixin fill-height-popin {
+@mixin all-popin-sizes ($fill-height:'false', $menu-offset:'false') {
   &[data-size='small'] {
-    @include set-popin-window-size($small-size, '100vh');
+    @include set-popin-window-size($small-size, #{$fill-height}, #{$menu-offset});
   }
 
   &[data-size='medium'] {
-    @include set-popin-window-size($medium-size, '100vh');
+    @include set-popin-window-size($medium-size, #{$fill-height}, #{$menu-offset});
   }
 
   &[data-size='large'] {
-    @include set-popin-window-size($large-size, '100vh');
+    @include set-popin-window-size($large-size, #{$fill-height}, #{$menu-offset});
   }
 }
 
@@ -38,43 +46,45 @@ $menu-width: 100px;
 
 [data-focus='popin'] {
   &[data-type='full'] {
-    &[data-size='small'] {
-      @include set-popin-window-size($small-size);
-    }
+    @include all-popin-sizes();
 
-    &[data-size='medium'] {
-      @include set-popin-window-size($medium-size);
-    }
+    .popin-overlay {
+      display: block;
+      text-align: center;
 
-    &[data-size='large'] {
-      @include set-popin-window-size($large-size);
-    }
-
-    .popin-window {
-      margin: $full-margin-top auto;
+      .popin-window {
+        margin-top: $full-margin-top;
+        margin-bottom: $full-margin-top;
+        display: inline-block;
+        margin-left: auto;
+        margin-right: auto;
+      }
     }
   }
 
   &[data-type='from-menu'] {
-    @include fill-height-popin;
+    @include all-popin-sizes('true', 'true');
 
     .popin-window {
-      display: inline-block;
-      margin-left: $menu-width;
+      position: fixed;
+      top:0;
+      left: $menu-width;
     }
   }
 
   &[data-type='fill-height'] {
-    @include fill-height-popin;
+    @include all-popin-sizes('true');
 
     .popin-window {
-      margin-left: 100px;
+      position: fixed;
+      top:0;
+      left: 100px;
     }
   }
 
   .popin-overlay {
     z-index: 999;
-    position: absolute;
+    position: fixed;
     top: 0;
     left: 0;
     right: 0;
@@ -84,6 +94,8 @@ $menu-width: 100px;
     .popin-window {
       background-color: white;
       z-index: 1000;
+      padding: 10px;
+      position: fixed;
 
       .fa-close {
         float: right;
