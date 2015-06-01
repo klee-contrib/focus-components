@@ -2,8 +2,10 @@ var capitalize = require('lodash/string/capitalize');
 var assign = require('object-assign');
 var isArray = require('lodash/lang/isArray');
 var keys = require('lodash/object/keys');
+var storeChangeBehaviour = require('./store-change-behaviour');
 
 var storeMixin = {
+  mixins: [storeChangeBehaviour],
   /**
    * Get the state informations from the store.
    * @returns {object} - The js object constructed from store data.

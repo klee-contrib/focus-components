@@ -22,6 +22,7 @@ var formMixin = {
   /** @inheritdoc */
   getDefaultProps: function getFormDefaultProps() {
     return {
+      hasForm: true,
       /**
        * Defines it the form can have  an edit mode.
        * @type {Boolean}
@@ -50,64 +51,6 @@ var formMixin = {
       isEdit: this.props.isEdit
     };
   },
-  /**
-   * Display a message on change.
-   */
-  _displayMessageOnChange: function displayMessageOnChange(changeInfos){
-    if(this.displayMessageOnChange){
-      return this.displayMessageOnChange(changeInfos);
-    }
-    if(changeInfos && changeInfos.status && changeInfos.status.name){
-      switch(changeInfos.status.name){
-        case 'loading':
-          Focus.message.addInformationMessage('detail.loading');
-          break;
-        case 'loaded':
-          Focus.message.addSuccessMessage('detail.loaded');
-          break;
-        case 'saving':
-          Focus.message.addInformationMessage('detail.saving');
-          break;
-        case 'saved':
-          Focus.message.addSuccessMessage('detail.saved');
-          //Change the page mode as edit
-          this.setState({isEdit: false});
-          break;
-      }
-    }
-  },
-  /**
-   * After change informations.
-   * You can override this method using afterChange function.
-   * @param {object} changeInfos - All informations relative to the change.
-   * @returns {undefined} -  The return value is the callback.
-   */
-  _afterChange: function afterChangeForm(changeInfos){
-    if(this.afterChange){
-      return this.afterChange(changeInfos);
-    }
-    return this._displayMessageOnChange(changeInfos);
-  },
-  /**
-   * Event handler for 'change' events coming from the stores
-   * @param {object} changeInfos - The changing informations.
-   */
-  _onChange: function onFormStoreChangeHandler(changeInfos) {
-    this.setState(this._getStateFromStores(), this._afterChange(changeInfos));
-  },
-  /**
-     * Event handler for 'error' events coming from the stores.
-      */
-  _onError: function onFormErrorHandler() {
-      var errorState = this._getErrorStateFromStores();
-      for(var key in errorState) {
-          if(this.refs[key]) {
-              this.refs[key].setError(errorState[key]);
-          }
-      }
-  },
-
-
   /** @inheritdoc */
   callMountedActions: function formCallMountedActions() {
     this._loadData();
@@ -196,17 +139,20 @@ var formMixin = {
   /** @inheritdoc */
   render: function renderForm() {
     console.log('state form', this.state);
-    return (
-      <form
-        onSubmit={this._handleSubmitForm}
-        className={this._className()}
-          data-mode={this._mode()}
-      >
-        <fieldset>
-          {this.renderContent()}
-        </fieldset>
-      </form>
-    );
+    if(this.props.hasForm){
+      return (
+        <form
+          onSubmit={this._handleSubmitForm}
+          className={this._className()}
+            data-mode={this._mode()}
+        >
+          <fieldset>
+            {this.renderContent()}
+          </fieldset>
+        </form>
+      );
+    }
+    return this.renderContent();
   }
 };
 
