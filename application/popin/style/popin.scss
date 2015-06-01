@@ -57,7 +57,7 @@ $fill-height-popin-margin: 200px;
     @include all-popin-sizes();
 
     [data-focus='popin-overlay'] {
-      z-index: 999;
+      z-index: 1001;
       display: block;
       text-align: center;
       overflow-y: auto;
