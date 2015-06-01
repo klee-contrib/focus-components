@@ -1,8 +1,8 @@
 // Parameters
 
-$small-size: 33;
-$medium-size: 50;
-$large-size: 67;
+$small-size: 100/3;
+$medium-size: 100/2;
+$large-size: 200/3;
 
 $overlay-background-color: rgba(0, 0, 0, 0.4);
 $full-margin-top: 80px;
@@ -12,10 +12,16 @@ $menu-width: 100px;
 
 // Mixins
 
-@mixin set-popin-window-size($width, $full_height, $menu-offset) {
+@mixin set-popin-window-size($width, $full_height, $menu-offset, $level) {
   .popin-window {
     @if $menu-offset == 'true' {
-      min-width: calc(#{$width}vw - #{$menu-width});
+      @if $level == '0' {
+        min-width: calc(#{$width}vw - #{$menu-width});
+        left: calc(#{$menu-width} + #{$level} * #{$width}vw);
+      } @else {
+        min-width: #{$width}vw;
+        left: calc(#{$level} * #{$width}vw);
+      }
     } @else {
       min-width: #{$width}vw;
     }
@@ -27,17 +33,17 @@ $menu-width: 100px;
   }
 }
 
-@mixin all-popin-sizes ($fill-height:'false', $menu-offset:'false') {
+@mixin all-popin-sizes ($fill-height:'false', $menu-offset:'false', $level:'0') {
   &[data-size='small'] {
-    @include set-popin-window-size($small-size, #{$fill-height}, #{$menu-offset});
+    @include set-popin-window-size($small-size, #{$fill-height}, #{$menu-offset}, #{$level});
   }
 
   &[data-size='medium'] {
-    @include set-popin-window-size($medium-size, #{$fill-height}, #{$menu-offset});
+    @include set-popin-window-size($medium-size, #{$fill-height}, #{$menu-offset}, #{$level});
   }
 
   &[data-size='large'] {
-    @include set-popin-window-size($large-size, #{$fill-height}, #{$menu-offset});
+    @include set-popin-window-size($large-size, #{$fill-height}, #{$menu-offset}, #{$level});
   }
 }
 
@@ -63,12 +69,21 @@ $menu-width: 100px;
   }
 
   &[data-type='from-menu'] {
-    @include all-popin-sizes('true', 'true');
+    &[data-level='0'] {
+      @include all-popin-sizes('true', 'true', '0');
+    }
+
+    &[data-level='1'] {
+      @include all-popin-sizes('true', 'true', '1');
+    }
+
+    &[data-level='2'] {
+      @include all-popin-sizes('true', 'true', '2');
+    }
 
     .popin-window {
       position: fixed;
       top:0;
-      left: $menu-width;
     }
   }
 

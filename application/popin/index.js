@@ -26,7 +26,8 @@ let popin = {
     return ({
       modal: true,
       size: 'medium',
-      type: 'full'
+      type: 'full',
+      level: 0
     });
   },
   /**
@@ -39,7 +40,8 @@ let popin = {
   propTypes: {
     modal: React.PropTypes.bool,
     size: React.PropTypes.string,
-    type: React.PropTypes.string
+    type: React.PropTypes.string,
+    level: React.PropTypes.number
   },
   /**
    * Toggle the popin's open state
@@ -55,7 +57,7 @@ let popin = {
    */
   render() {
     return (
-        <div data-focus='popin' data-size={this._validateSize()} data-type={this.props.type}>
+        <div data-focus='popin' data-size={this._validateSize()} data-type={this.props.type} data-level={this.props.level}>
           {this.state.opened &&
             <div className='popin-overlay' onClick={this.props.modal && this.toggleOpen}>
               <div className='popin-window' onClick={this._preventPopinClose}>
