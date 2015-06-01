@@ -13,7 +13,7 @@ $fill-height-popin-margin: 200px;
 // Mixins
 
 @mixin set-popin-window-size($width, $full_height, $menu-offset, $level) {
-  .popin-window {
+  [data-focus='popin-window'] {
     @if $menu-offset == 'true' {
       @if $level == '0' {
         min-width: calc(#{$width}vw - #{$menu-width});
@@ -56,7 +56,7 @@ $fill-height-popin-margin: 200px;
 
     @include all-popin-sizes();
 
-    .popin-overlay {
+    [data-focus='popin-overlay'] {
       display: block;
       text-align: center;
       overflow-y: auto;
@@ -66,7 +66,7 @@ $fill-height-popin-margin: 200px;
       right: 0;
       height: 100vh;
 
-      .popin-window {
+      [data-focus='popin-window'] {
         margin-top: $full-margin-top;
         margin-bottom: $full-margin-top;
         display: inline-block;
@@ -90,14 +90,14 @@ $fill-height-popin-margin: 200px;
       @include all-popin-sizes('true', 'true', '2');
     }
 
-    .popin-overlay {
+    [data-focus='popin-overlay'] {
       position: fixed;
       top: 0;
       left: 0;
       right: 0;
       bottom: 0;
 
-      .popin-window {
+      [data-focus='popin-window'] {
         position: fixed;
         top:0;
       }
@@ -108,14 +108,14 @@ $fill-height-popin-margin: 200px;
 
     @include all-popin-sizes('true');
 
-    .popin-overlay {
+    [data-focus='popin-overlay'] {
       position: fixed;
       top: 0;
       left: 0;
       right: 0;
       bottom: 0;
 
-      .popin-window {
+      [data-focus='popin-window'] {
         position: fixed;
         top:0;
         left: $fill-height-popin-margin;
@@ -123,11 +123,11 @@ $fill-height-popin-margin: 200px;
     }
   }
 
-  .popin-overlay {
+  [data-focus='popin-overlay'] {
     z-index: 999;
     background-color: $overlay-background-color;
 
-    .popin-window {
+    [data-focus='popin-window'] {
       background-color: white;
       z-index: 1000;
       padding: 10px;

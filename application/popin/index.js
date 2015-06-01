@@ -3,15 +3,6 @@ let React = require('react');
 let builder = require('focus').component.builder;
 
 let Overlay = React.createClass({
-  //getInitialState() {
-  //  return ({
-  //    position: 'fixed',
-  //    top: '0',
-  //    left: '0',
-  //    right: '0',
-  //    height: '100vh'
-  //  });
-  //},
   componentDidMount: function() {
     React.findDOMNode(this.refs.overlay).addEventListener('scroll', this._onScroll);
   },
@@ -19,12 +10,11 @@ let Overlay = React.createClass({
     console.log(event);
   },
   render() {
-    //let style = this.props.resize ? this.state : null;
     return (
-        <div className='popin-overlay' ref='overlay' onClick={this.props.clickHandler}>
+        <div data-focus='popin-overlay' ref='overlay' onClick={this.props.clickHandler}>
           {this.props.children}
         </div>
-    )
+    );
   }
 });
 
@@ -86,7 +76,7 @@ let popin = {
         <div data-focus='popin' data-size={this._validateSize()} data-type={this.props.type} data-level={this.props.level}>
           {this.state.opened &&
             <Overlay clickHandler={this.props.modal && this.toggleOpen} resize={this.props.type=='full'}>
-              <div className='popin-window' onClick={this._preventPopinClose}>
+              <div data-focus='popin-window' onClick={this._preventPopinClose}>
                 <i className='fa fa-close' onClick={this.toggleOpen}></i>
                 {this.props.children}
               </div>
@@ -102,8 +92,7 @@ let popin = {
    */
   _validateSize() {
     if (['small', 'medium', 'large'].indexOf(this.props.size) === -1) {
-      // focus exc
-      throw new Error('Please provide a valid popin size among small, medium and large. Provided ' + this.props.size);
+      throw new Focus.exception.ArgumentInvalidException('Please provide a valid popin size among small, medium and large. Provided ' + this.props.size);
     }
     return this.props.size;
   },
