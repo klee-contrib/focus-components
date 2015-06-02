@@ -44,7 +44,7 @@ var buttonMixin = {
      * ClassName of the button.
      */
     _className: function buttonClassName () {
-      return `btn btn-raised ${this.getStyleClassName}`;
+      return `btn btn-raised ${this._getStyleClassName()}`;
     },
     /**
     * Render the pressed state of the button.
