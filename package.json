@@ -45,6 +45,14 @@
       "path": "application/cartridge"
     },
     {
+      "name": "content-actions",
+      "path": "application/content-actions"
+    },
+    {
+      "name": "content-bar",
+      "path": "application/content-bar"
+    },
+    {
       "name": "quick-search",
       "path": "search/quick-search"
     },
