@@ -21,7 +21,11 @@ var validationMixin ={
       return this.i18n('field.required', {name: this.i18n(this.props.label)});
     }
     if (this.props.validator) {
-      return this.props.validator(value);
+      var validStat = this.props.validator(value);
+      if(validStat !== true){
+        validStat = this.i18n(validStat);
+      }
+      return validStat;
     }
     return true;
   },
@@ -42,7 +46,6 @@ var validationMixin ={
    * @param error Error to set.
    */
   setError: function setErrorOnField(error) {
-    console.log('VALUEs : ' + this.getValue());
     this.setState({ error: error });
   }
 };

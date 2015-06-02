@@ -1,6 +1,9 @@
 var dispatcher = require('focus').dispatcher;
+var saveBehaviour = require('./mixin/save-behaviour');
+var validateBehaviour = require('./mixin/validate-behaviour');
 
 var detailMixin = {
+  mixins: [validateBehaviour, saveBehaviour],
   /**
    * Register the cartridge.
    */
