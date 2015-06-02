@@ -137,8 +137,8 @@ let popin = {
         );
     },
     /**
-     *
-     * @return {*}
+     * Compute the animation classes
+     * @return {Object} the props to attach to the component
      * @private
      */
     _getAnimationProps() {
