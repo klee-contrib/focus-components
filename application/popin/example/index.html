@@ -31,7 +31,7 @@
 
 <style>
     .menu {
-        width: 100px;
+        width: 60px;
     }
     .popins-container {
         position: absolute;
@@ -82,7 +82,7 @@
             render: function() {
                 return (
                         <div>
-                            <Menu open={true} position="left" title="Menu"/>
+                            <Menu open={true} position="left" title="M"/>
                             <div className="buttons">
                                 <Button handleOnClick={this.popinOpener('full')} label='Open full popin' style={{className: 'btn-primary'}}/>
                                 <Button handleOnClick={this.popinOpener('from-menu')} label='Open from-menu popin' style={{className: 'btn-primary'}}/>
