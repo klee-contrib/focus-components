@@ -100,8 +100,12 @@
                                     {PopinContent}
                                 </Popin>
                                 <Popin ref="from-menu" type="from-menu">
-                                    <Button handleOnClick={this.popinOpener('from-right-no-overlay')} label='Open from-right popin' style={{className: 'btn-primary'}}/>
+                                    <Button handleOnClick={this.popinOpener('from-right-no-overlay')} label='Open from-right popin' style={{className:'btn-primary'}}/>
+                                    <Button handleOnClick={this.popinOpener('from-menu-second')} label='Open sub-menu popin' style={{className:'btn-primary'}}/>
                                     <Button handleOnClick={this.popinOpener('full')} label='Open full popin' style={{className: 'btn-primary'}}/>
+                                    {PopinContent}
+                                </Popin>
+                                <Popin ref="from-menu-second" overlay={false} level={1} type="from-menu">
                                     {PopinContent}
                                 </Popin>
                                 <Popin ref="from-right" type="from-right">
