@@ -47,7 +47,7 @@ let Overlay = React.createClass({
      */
     render() {
         return (
-            <div className='animated fadeIn' data-animation='fadeIn' data-focus='popin-overlay' data-visible={this.props.show} ref='overlay' onClick={this.props.clickHandler}>
+            <div className='animated fadeIn' data-animation='fadeIn' data-closing-animation='fadeOut' data-focus='popin-overlay' data-visible={this.props.show} ref='overlay' onClick={this.props.clickHandler}>
                 {this.props.children}
             </div>
         );
@@ -101,9 +101,21 @@ let popin = {
      * Toggle the popin's open state
      */
     toggleOpen() {
-        this.setState({
-            opened: !this.state.opened
-        });
+        let timeout = 0;
+        if (this.state.opened) {
+            let popinWindow = React.findDOMNode(this.refs['popin-window']);
+            let popinOverlay = React.findDOMNode(this.refs['popin-overlay']);
+            popinWindow.classList.remove(popinWindow.getAttribute('data-animation'));
+            popinWindow.classList.add(popinWindow.getAttribute('data-closing-animation'));
+            popinOverlay.classList.remove(popinOverlay.getAttribute('data-animation'));
+            popinOverlay.classList.add(popinOverlay.getAttribute('data-closing-animation'));
+            timeout = 200;
+        }
+        setTimeout(() => {
+            this.setState({
+                opened: !this.state.opened
+            });
+        }, timeout);
     },
     /**
      * Render the component
@@ -114,10 +126,8 @@ let popin = {
             <div data-focus='popin' data-size={this._validateSize()} data-type={this.props.type}
                  data-level={this.props.level}>
                 {this.state.opened &&
-                <Overlay clickHandler={this.props.modal && this.toggleOpen} resize={this.props.type=='full'}
-                         show={this.props.overlay}>
-                    <div className={this._getAnimationClasses()} data-animation='animation' data-focus='popin-window'
-                         onClick={this._preventPopinClose}>
+                <Overlay clickHandler={this.props.modal && this.toggleOpen} ref='popin-overlay' resize={this.props.type=='full'} show={this.props.overlay}>
+                    <div {...this._getAnimationProps()} data-focus='popin-window' onClick={this._preventPopinClose} ref='popin-window'>
                         <i className='fa fa-close' onClick={this.toggleOpen}></i>
                         {this.props.children}
                     </div>
@@ -131,15 +141,28 @@ let popin = {
      * @return {*}
      * @private
      */
-    _getAnimationClasses() {
+    _getAnimationProps() {
+        let openingAnimation;
+        let closingAnimation;
         switch (this.props.type) {
             case 'from-menu':
-                return 'animated slideInLeft';
+                openingAnimation =  'slideInLeft';
+                closingAnimation = 'slideOutLeft';
+                break;
             case 'from-right':
-                return 'animated slideInRight';
+                openingAnimation = 'slideInRight';
+                closingAnimation = 'slideOutRight';
+                break;
             default:
-                return 'animated zoomIn';
+                openingAnimation = 'zoomIn';
+                closingAnimation = 'zoomOut';
+                break;
         }
+        return ({
+            className: `animated ${openingAnimation}`,
+            'data-animation': openingAnimation,
+            'data-closing-animation': closingAnimation
+        });
     },
     /**
      * Validate the optional given size
