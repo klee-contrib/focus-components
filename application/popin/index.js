@@ -12,6 +12,7 @@ let Overlay = React.createClass({
    */
   componentDidMount: function() {
     React.findDOMNode(this.refs.overlay).addEventListener('mousewheel', this._onScroll);
+    this._oldScroll = document.getElementsByTagName('body')[0].style['overflow-y'];
     document.getElementsByTagName('body')[0].style['overflow-y'] = 'hidden';
   },
   /**
@@ -20,7 +21,7 @@ let Overlay = React.createClass({
    */
   componentWillUnmount: function() {
     React.findDOMNode(this.refs.overlay).removeEventListener('mousewheel', this._onScroll);
-    document.getElementsByTagName('body')[0].style['overflow-y'] = 'auto';
+    document.getElementsByTagName('body')[0].style['overflow-y'] = this._oldScroll;
   },
   /**
    * Mouse wheel event handler.
