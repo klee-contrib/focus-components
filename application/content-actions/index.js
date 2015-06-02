@@ -3,7 +3,7 @@ var React = require('react');
 var applicationStore = require('focus').application.builtInStore();
 var stylableBehaviour = require('../../mixin/stylable');
 var Button = require('../../common/button/action').component;
-
+var SelectButtons = require('../../common/select-action').component;
 var contentActionsMixin = {
   mixins: [stylableBehaviour],
   /** @inheriteddoc */
@@ -29,13 +29,9 @@ var contentActionsMixin = {
     return (
       <div className={this._getStyleClassName()} data-focus='content-actions'>
         {this.state.actions.primary.map((primary)=>{
-          return <Button style={{className: primary.className}} handleOnClick={primary.onClick} label={primary.label} type='button'/>;
+          return <Button style={{className: primary.className}} handleOnClick={primary.action} label={primary.label} type='button'/>;
         })}
-        <ul className='secondary'>
-          {this.state.actions.secondary.map((secondary)=>{
-            return <li><Button style={{className: secondary.className}} handleOnClick={secondary.onClick} label={secondary.label} type='button'/></li>;
-          })}
-        </ul>
+        <SelectButtons operationList={this.state.actions.secondary} />
       </div>
     );
   }
