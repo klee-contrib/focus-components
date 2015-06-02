@@ -1,4 +1,5 @@
 // Dependencies
+
 let React = require('react');
 let builder = require('focus').component.builder;
 
@@ -46,8 +47,7 @@ let Overlay = React.createClass({
      */
     render() {
         return (
-            <div data-focus='popin-overlay' data-visible={this.props.show} ref='overlay'
-                 onClick={this.props.clickHandler}>
+            <div className='animated fadeIn' data-animation='fadeIn' data-focus='popin-overlay' data-visible={this.props.show} ref='overlay' onClick={this.props.clickHandler}>
                 {this.props.children}
             </div>
         );
@@ -134,9 +134,9 @@ let popin = {
     _getAnimationClasses() {
         switch (this.props.type) {
             case 'from-menu':
-                return 'animated fadeInLeftBig';
+                return 'animated slideInLeft';
             case 'from-right':
-                return 'animated fadeInRightBig';
+                return 'animated slideInRight';
             default:
                 return 'animated zoomIn';
         }

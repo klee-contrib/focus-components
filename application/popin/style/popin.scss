@@ -47,6 +47,11 @@ $fill-height-popin-margin: 200px;
   }
 }
 
+@mixin animation-duration($duration) {
+  -webkit-animation-duration: $duration;
+  animation-duration: $duration;
+}
+
 
 // Style
 
@@ -126,6 +131,7 @@ $fill-height-popin-margin: 200px;
 
   [data-focus='popin-overlay'] {
     background-color: $overlay-background-color;
+    @include animation-duration(0.2s);
     &[data-visible='false'] {
       visibility: collapse;
       [data-focus='popin-window'] {
@@ -136,6 +142,7 @@ $fill-height-popin-margin: 200px;
     [data-focus='popin-window'] {
       background-color: white;
       padding: 10px;
+      @include animation-duration(0.2s);
 
       .fa-close {
         padding: 5px;
