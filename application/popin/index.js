@@ -2,6 +2,9 @@
 
 let React = require('react');
 let builder = require('focus').component.builder;
+let type = require('focus').component.types;
+let ArgumentInvalidException = require('focus').exception.ArgumentInvalidException;
+let includes = require('lodash').includes;
 
 /**
  * Small overlay component used to listen to scroll and prevent it to leave the Popin component
@@ -13,8 +16,8 @@ let Overlay = React.createClass({
      */
     componentDidMount: function () {
         React.findDOMNode(this.refs.overlay).addEventListener('mousewheel', this._onScroll);
-        this._oldScroll = document.getElementsByTagName('body')[0].style['overflow-y'];
-        document.getElementsByTagName('body')[0].style['overflow-y'] = 'hidden';
+        this._oldScroll = document.body.style['overflow-y'];
+        document.body.style['overflow-y'] = 'hidden';
     },
     /**
      * Component will unmount event handler.
@@ -22,7 +25,7 @@ let Overlay = React.createClass({
      */
     componentWillUnmount: function () {
         React.findDOMNode(this.refs.overlay).removeEventListener('mousewheel', this._onScroll);
-        document.getElementsByTagName('body')[0].style['overflow-y'] = this._oldScroll;
+        document.body.style['overflow-y'] = this._oldScroll;
     },
     /**
      * Mouse wheel event handler.
@@ -91,11 +94,11 @@ let popin = {
      * Properties validation
      */
     propTypes: {
-        modal: React.PropTypes.bool,
-        size: React.PropTypes.string,
-        type: React.PropTypes.string,
-        level: React.PropTypes.number,
-        overlay: React.PropTypes.bool
+        modal: type('bool'),
+        size: type('string'),
+        type: type('string'),
+        level: type('number'),
+        overlay: type('bool')
     },
     /**
      * Toggle the popin's open state
@@ -170,8 +173,8 @@ let popin = {
      * @private
      */
     _validateSize() {
-        if (['small', 'medium', 'large'].indexOf(this.props.size) === -1) {
-            throw new Focus.exception.ArgumentInvalidException('Please provide a valid popin size among small, medium and large. Provided ' + this.props.size);
+        if (!includes(['small', 'medium', 'large'], this.props.size)) {
+            throw new ArgumentInvalidException('Please provide a valid popin size among small, medium and large. Provided ' + this.props.size);
         }
         return this.props.size;
     },
