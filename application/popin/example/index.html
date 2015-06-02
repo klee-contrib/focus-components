@@ -90,20 +90,24 @@
                             </div>
                             <div className="content">
                                 <h3>Some content to fill the page</h3>
-                                <img src="http://lorempixel.com/g/800/600/sports/"/>
-                                <img src="http://lorempixel.com/g/800/600/abstract/"/>
-                                <img src="http://lorempixel.com/g/800/600/city/"/>
-                                <img src="http://lorempixel.com/g/800/600/technics/"/>
+                                <img src="http://lorempixel.com/800/600/sports/"/>
+                                <img src="http://lorempixel.com/800/600/abstract/"/>
+                                <img src="http://lorempixel.com/800/600/city/"/>
+                                <img src="http://lorempixel.com/800/600/technics/"/>
                             </div>
                             <div className="popins-container">
                                 <Popin ref="full" type="full">
                                     {PopinContent}
                                 </Popin>
                                 <Popin ref="from-menu" type="from-menu">
-                                    <Button handleOnClick={this.popinOpener('from-right')} label='Open from-right popin' style={{className: 'btn-primary'}}/>
+                                    <Button handleOnClick={this.popinOpener('from-right-no-overlay')} label='Open from-right popin' style={{className: 'btn-primary'}}/>
+                                    <Button handleOnClick={this.popinOpener('full')} label='Open full popin' style={{className: 'btn-primary'}}/>
                                     {PopinContent}
                                 </Popin>
                                 <Popin ref="from-right" type="from-right">
+                                    {PopinContent}
+                                </Popin>
+                                <Popin ref="from-right-no-overlay" overlay={false} type="from-right">
                                     {PopinContent}
                                 </Popin>
                             </div>

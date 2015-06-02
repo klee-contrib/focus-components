@@ -45,7 +45,7 @@ let Overlay = React.createClass({
    */
   render() {
     return (
-        <div data-focus='popin-overlay' ref='overlay' onClick={this.props.clickHandler}>
+        <div data-focus='popin-overlay' data-visible={this.props.show} ref='overlay' onClick={this.props.clickHandler}>
           {this.props.children}
         </div>
     );
@@ -77,7 +77,8 @@ let popin = {
       modal: true,
       size: 'medium',
       type: 'full',
-      level: 0
+      level: 0,
+      overlay: true
     });
   },
   /**
@@ -91,7 +92,8 @@ let popin = {
     modal: React.PropTypes.bool,
     size: React.PropTypes.string,
     type: React.PropTypes.string,
-    level: React.PropTypes.number
+    level: React.PropTypes.number,
+    overlay: React.PropTypes.bool
   },
   /**
    * Toggle the popin's open state
@@ -109,7 +111,7 @@ let popin = {
     return (
         <div data-focus='popin' data-size={this._validateSize()} data-type={this.props.type} data-level={this.props.level}>
           {this.state.opened &&
-            <Overlay clickHandler={this.props.modal && this.toggleOpen} resize={this.props.type=='full'}>
+            <Overlay clickHandler={this.props.modal && this.toggleOpen} resize={this.props.type=='full'} show={this.props.overlay}>
               <div data-focus='popin-window' onClick={this._preventPopinClose}>
                 <i className='fa fa-close' onClick={this.toggleOpen}></i>
                 {this.props.children}

@@ -57,7 +57,7 @@ $fill-height-popin-margin: 200px;
     @include all-popin-sizes();
 
     [data-focus='popin-overlay'] {
-      z-index: 1001;
+      z-index: 1002;
       display: block;
       text-align: center;
       overflow-y: auto;
@@ -117,7 +117,7 @@ $fill-height-popin-margin: 200px;
       bottom: 0;
 
       [data-focus='popin-window'] {
-        position: fixed;
+        position: absolute;
         top:0;
         right: 0;
       }
@@ -126,10 +126,15 @@ $fill-height-popin-margin: 200px;
 
   [data-focus='popin-overlay'] {
     background-color: $overlay-background-color;
+    &[data-visible='false'] {
+      visibility: collapse;
+      [data-focus='popin-window'] {
+        visibility: visible;
+      }
+    }
 
     [data-focus='popin-window'] {
       background-color: white;
-      z-index: 1000;
       padding: 10px;
 
       .fa-close {
