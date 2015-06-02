@@ -69,7 +69,7 @@ let popin = {
      */
     getInitialState() {
         return ({
-            opened: false
+            opened: this.props.open
         });
     },
     /**
@@ -83,7 +83,8 @@ let popin = {
             size: 'medium',
             type: 'full',
             level: 0,
-            overlay: true
+            overlay: true,
+            open: false
         });
     },
     /**
@@ -98,7 +99,8 @@ let popin = {
         size: type('string'),
         type: type('string'),
         level: type('number'),
-        overlay: type('bool')
+        overlay: type('bool'),
+        open: type('bool')
     },
     /**
      * Toggle the popin's open state
