@@ -30,7 +30,8 @@ var detailMixin = {
     dispatcher.handleViewAction({
       data: {
         cartridgeComponent: cartridgeConf.cartridge,
-        summaryComponent: cartridgeConf.summary
+        summaryComponent: cartridgeConf.summary,
+        actions: cartridgeConf.actions
       },
       type: 'update'
     });
