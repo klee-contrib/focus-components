@@ -27,7 +27,7 @@ var buttonMixin = {
       return {
         icon: 'arrow-circle-up',
         scrollTarget: 'body',
-        duration: 300
+        duration: 100
       };
     },
     /**
