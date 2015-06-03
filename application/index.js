@@ -7,5 +7,6 @@ module.exports = {
   confirmationPopin: require('./confirmation-popin'),
   messageCenter: require('./message-center'),
   contentBar: require('./content-bar'),
-  contentActions: require('./content-actions')
+  contentActions: require('./content-actions'),
+  layout: 'layout'
 };
