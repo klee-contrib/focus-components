@@ -1,4 +1,4 @@
 module.exports = {
-  liveFilter: require('./live-filter'),
-  quickSearch: require('./quick-search')
+  facetBox: require('./facet-box'),
+  searchBar: require('./search-bar')
 };

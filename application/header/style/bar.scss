@@ -20,13 +20,14 @@
 /*---------------------------------------------------------------*/
 $duration: 0.5s;
 $action-bar-height: 56px;
+$menu-bar-size:60px;
 header[data-focus='header']{
 
   //When the size is medium, the summary-bar is not visible.
   &[data-size="medium"]{
     [data-focus="content-bar"]{
       div[data-focus="bar"]{
-          div[data-focus="bar-summary"]{
+          div[data-focus="bar-content-middle"]{
             display:none;
           }
       }
@@ -41,21 +42,23 @@ header[data-focus='header']{
       }
     }
   }
-  //When the size is small, the cartridge is not visible.
 
+
+  //When the size is small, the cartridge is not visible.
   width: 100%;
-  min-height: 64px;
-  background-color: white;
-  z-index: 1001;
-  height: 64px;
-  position: fixed;
+
+    /*min-height: 64px;*/
+  /*background-color: white;*/
+  /*z-index: 1001;*/
+  /*height: 64px;*/
+
 
 /*  display: flex;
   flex-direction: row;
   justify-content: space-between;
   align-content: stretch;
   flex-wrap: wrap;*/
-  top:0;
+
   div.entete-actions{
     position:relative;
     top: -$action-bar-height/2;
@@ -78,16 +81,18 @@ header[data-focus='header']{
     }
 
     div[data-focus="cartridge"]{
-      padding: 10px 10px 35px 10px;
+      padding: 70px 10px 35px $menu-bar-size+10;
     }
 
   }
   div[data-focus="bar"]{
     @include transition(min-height, $duration);
+    position: fixed;
+    width: 100%;
+    padding-left: $menu-bar-size+10;
+    z-index: 1001;
+    background-color: rgba(255, 255, 255, 0.95);
   }
-
-
-
 
   &.header-tall{
     div.content-bar{
