@@ -2,6 +2,8 @@ var React = require('react');
 var builder = require('focus').component.builder
 var Title = require('../title').component;
 var i18nMixin = require('../i18n').mixin;
+var uuid = require('uuid').v4;
+var trim = require('lodash/string/trim');
 /**
  * Mixin used in order to create a block.
  * @type {Object}
@@ -25,6 +27,9 @@ var blockMixin = {
       return this.i18n(this.props.title);
     }
   },
+  _buildId: function(){
+    return `${window.location.hash.slice(1)}/${trim(this.heading().toLowerCase())}`;//.replace('/', '_');
+  },
   /**
    * Render the a block container and the cild content of the block.
    * @return {DOM}
@@ -33,7 +38,7 @@ var blockMixin = {
     return(
       <div className={`${this.props.style.className}`} data-focus='block'>
         <header>
-          <Title id={this.props.style.titleId} title={this.heading()} />
+          <Title id={this._buildId()} title={this.heading()} />
           <div className="actions">{this.props.actions()}</div>
           <!-- actions -->
         </header>

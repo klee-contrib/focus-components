@@ -89,7 +89,7 @@ var stickyNavigationMixin = {
     _renderLink: function renderLink(title) {
         if(title.getAttribute) {
             var link = '#' + title.getAttribute("id");
-            return (<li><a href={link}>{title.innerText}</a></li>);
+            return (<li><a href={link} data-bypass >{title.innerText}</a></li>);
         }
     }
 };
