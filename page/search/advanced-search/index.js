@@ -18,9 +18,9 @@ let SearchStore = require('focus').store.SearchStore;
 
 // Mixins
 
-let ScrollInfoMixin = require('../common-mixin/scroll-info-mixin').mixin;
-let GroupByMixin = require('../common-mixin/group-by-mixin').mixin;
-let SearchMixin = require('../common-mixin/search-mixin').mixin;
+let ScrollInfoMixin = require('../common/scroll-info-mixin').mixin;
+let GroupByMixin = require('../common/group-by-mixin').mixin;
+let SearchMixin = require('../common/search-mixin').mixin;
 
 let searchFilterResultMixin = {
     mixins: [ScrollInfoMixin, GroupByMixin, SearchMixin],
