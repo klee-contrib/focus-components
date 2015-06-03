@@ -1,17 +1,15 @@
-var assign = require('object-assign');
+let assign = require('object-assign');
 
 /**
- * Mixin used in order to create a block.
+ * Infinite scroll mixin.
  * @type {Object}
  */
-var InfiniteScrollPageMixin = {
-
+let InfiniteScrollPageMixin = {
     /**
-     * intial state for a scrolling page.
+     * Initial state for a scrolling page.
      * @returns {*} the initial state
      */
-    getInitialState: function getInfiniteScrollInitialState() {
-        //var additionalStateData = this.getAdditionalStateData ? this.getAdditionalStateData() : {};
+    getInitialState() {
         return assign({
                 hasMoreData: false,
                 currentPage: 1
@@ -24,35 +22,34 @@ var InfiniteScrollPageMixin = {
      * current state of the scrolling list.
      * @returns {*} the scroll state
      */
-    getScrollState: function _getScrollState() {
+    getScrollState() {
         if (this.store) {
-            var data = this.store.get();
-            var hasMoreData = data.pageInfos && data.pageInfos.totalPages && data.pageInfos.currentPage < data.pageInfos.totalPages;
-            var totalRecords = data.pageInfos && data.pageInfos.totalRecords !== undefined ? data.pageInfos.totalRecords : undefined;
+            let data = this.store.get();
+            let hasMoreData = data.pageInfos && data.pageInfos.totalPages && data.pageInfos.currentPage < data.pageInfos.totalPages;
+            let totalRecords = data.pageInfos ? data.pageInfos.totalRecords : undefined;
             return {
                 list: data.list || [],
-                hasMoreData: hasMoreData,
-                totalRecords: totalRecords,
+                hasMoreData,
+                totalRecords,
                 isLoading: false
             };
+        } else {
+            return {};
         }
-        return {};
     },
-
     /**
      * State for a no fetch search.
      * @returns {object} currentpage set to 1.
      */
-    getNoFetchState: function getNoFetchState() {
+    getNoFetchState() {
         return {
             currentPage: 1
         };
     },
-
     /**
      * Next page fetch action handler.
      */
-    fetchNextPage: function fetchNextPage() {
+    fetchNextPage() {
         this.setState({
             isLoading: true,
             currentPage: this.state.currentPage + 1
@@ -65,18 +62,15 @@ var InfiniteScrollPageMixin = {
      * @param {object} facets Selected facets.
      * @returns {object} Formatted criteria {criteria:{}, pagesInfos:{}, facets:{}}.
      */
-    getSearchCriteria: function getSearchCriteria(scope, query, facets) {
+    getSearchCriteria(scope, query, facets) {
         return {
-            criteria: {
-                scope: scope,
-                query: query
-            },
+            criteria: {scope, query},
             pageInfos: {
                 page: this.state.currentPage,
                 order: this.state.orderSelected,
                 group: this.state.groupSelectedKey
             },
-            facets: facets
+            facets
         };
     }
 };
