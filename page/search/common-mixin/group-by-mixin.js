@@ -1,46 +1,47 @@
 var isArray = require('lodash/lang/isArray');
-var GroupBy =  require('./group-by-component').component;
+var GroupBy = require('./group-by-component').component;
 
 /**
  * Mixin used in order to create a block.
  * @type {Object}
  */
 var GroupByMixin = {
-
-    getDefaultProps: function getDefaultProps(){
+    getDefaultProps: function getDefaultProps() {
         return {
             groupMaxRows: undefined
         };
     },
-
     /**
      * @returns {boolean} Returns true if list is a simple list, false if grouped.
      * @private
      */
-    isSimpleList: function() {
+    isSimpleList() {
         return isArray(this.state.list);
     },
-
     /**
      * Change the max rows of a group.
      * @param {string} groupKey Key of the group.
      * @param {int} maxRows Number of needed rows.
      * @returns {Function} The function wich will change the max rows of the group.
      */
-    changeGroupByMaxRows: function changeGroupByMaxRows(groupKey, maxRows) {
-        return (event)=> {
+    changeGroupByMaxRows(groupKey, maxRows) {
+        return (event) => {
             this.refs[groupKey].changeGroupByMaxRows(maxRows);
         };
     },
 
-    groupByListComponent: function groupByListComponent() {
+    groupByListComponent() {
         var groupList = [];
         for (var groupKey in this.state.list) {
-            groupList.push(<GroupBy key={groupKey} ref={groupKey}
-                                    renderGroupBy={this.renderGroupByBlock}
-                                    list={this.state.list[groupKey]}
-                                    groupKey={groupKey}
-                                    maxRows={this.props.groupMaxRows} />);
+            groupList.push(
+                <GroupBy key={groupKey}
+                         ref={groupKey}
+                         renderGroupBy={this.renderGroupByBlock}
+                         list={this.state.list[groupKey]}
+                         groupKey={groupKey}
+                         maxRows={this.props.groupMaxRows}
+                />
+            );
         }
         return groupList;
     }

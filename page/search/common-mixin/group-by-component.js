@@ -1,21 +1,24 @@
-/**@jsx*/
-var builder = require('focus').component.builder;
+// Dependencies
 
-var groupByComponent = {
+let builder = require('focus').component.builder;
+let ArgumentNullException = require('focus').exception.ArgumentNullException;
 
+/**
+ * Component of a single group, used in the group-by-mixin.
+ * @type {Object}
+ */
+let groupByComponent = {
     /**
      * Display name.
      */
     displayName: 'group-by',
-
-
     /**
      * Init default props.
      * @returns {object} Default props.
      */
-    getDefaultProps: function() {
+    getDefaultProps() {
         return {
-            renderGroupBy: function(groupKey, list, maxRows) { console.error('Implement renderGroupBy() function'); },
+            renderGroupBy: function(groupKey, list, maxRows) { throw new ArgumentNullException('Please implement renderGroupBy() function.');},
             list: undefined,
             groupKey: undefined,
             maxRows: 3
@@ -25,23 +28,23 @@ var groupByComponent = {
      * Init default state.
      * @returns {object} Initialized state.
      */
-    getInitialState: function() {
+    getInitialState() {
         return {
             maxRows: this.props.maxRows
         };
     },
     /**
-     * Change the number of maxRows dispalyed.
+     * Change the number of maxRows displayed.
      * @param {int} maxRows New value.
      */
-    changeGroupByMaxRows: function changeGroupByMaxRows(maxRows) {
-        this.setState({maxRows: maxRows});
+    changeGroupByMaxRows(maxRows) {
+        this.setState({maxRows});
     },
     /**
      * Render the group by block.
-     * @returns {JSX} Content.
+     * @returns {XML} Content.
      */
-    render: function renderGroupBy() {
+    render() {
         return this.props.renderGroupBy(this.props.groupKey, this.props.list, this.state.maxRows);
     }
 };
