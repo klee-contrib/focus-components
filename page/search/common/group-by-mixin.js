@@ -41,7 +41,7 @@ let GroupByMixin = {
             this.refs[groupKey].changeGroupByMaxRows(maxRows);
         };
     },
-    groupByListComponent() {
+    getGroupByListComponent() {
         let groupList = Object.keys(this.state.list).map((groupKey) => {
             return (
                 <SingleGroupComponent key={groupKey}
@@ -55,7 +55,7 @@ let GroupByMixin = {
         });
         return groupList;
     },
-    simpleListComponent(options) {
+    getSimpleListComponent(options) {
         checkIsNotNull('options', options);
         checkIsNotNull('options.type', options.type);
         let newList = options.list || this.state.list;

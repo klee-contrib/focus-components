@@ -249,7 +249,7 @@ let searchFilterResultMixin = {
      * Render the liveFilter.
      * @returns {XML} Render the liveFilter.
      */
-    liveFilterComponent() {
+    getLiveFilterComponent() {
         return (
             <div className='liveFilterContainer'>
                 <LiveFilter ref='liveFilter'
@@ -265,7 +265,7 @@ let searchFilterResultMixin = {
      * Render the list summary component.
      * @returns {XML} Htm code.
      */
-    listSummaryComponent() {
+    getListSummaryComponent() {
         let scopeList = {scope: this.props.criteria.scope};
         return (
             <div className='listSummaryContainer panel'>
@@ -282,7 +282,7 @@ let searchFilterResultMixin = {
      * Render the action bar.
      * @returns {XML} Rendering of the action bar.
      */
-    actionBarComponent() {
+    getActionBarComponent() {
         let groupableColumnList = Object.keys(this.state.facetList).reduce((result, facetKey) => {
             result[facetKey] = facetKey;
             return result;

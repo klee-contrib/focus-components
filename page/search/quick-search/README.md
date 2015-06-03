@@ -90,13 +90,13 @@ Le panneau se compose d'une barre de recherche, ainsi que d'une liste de résult
                 <td>Retourne <code>true</code> si la propriété <code>list</code> du <code>store</code> est une liste simple (un <code>Array</code>), <code>false</code> si la propriété <code>list</code> du <code>store</code> est une liste typée (un <code>Object</code>)</td>
             </tr>
             <tr>
-                <td><code>simpleListComponent()</code></td>
+                <td><code>getSimpleListComponent()</code></td>
                 <td>Aucun.</td>
                 <td><i>React-component</i></td>
                 <td>Retourne une liste de résultats simple. Doit être utilisée lorsque la recherche est effectuée sur un scope.</td>
             </tr>
             <tr>
-                <td><code>groupByListComponent()</code></td>
+                <td><code>getGroupByListComponent()</code></td>
                 <td>Aucun.</td>
                 <td><i>React-component</i></td>
                 <td>Retourne le composant de liste de résultats en mode groupé. Doit être utilisé dans le cas d'une recherche globale.</td>
@@ -122,20 +122,20 @@ Evénement à définir par l'utilisateur.
    </tbody>
 </table>
 
-## Utilisation du mixin de recherche-résultats
-afin d'uitliser le mixin il est nécessaire de définir deux attributs et deux méthodes :
+## Utilisation du mixin de quick-search
+Afin d'utiliser le mixin il est nécessaire de définir deux attributs et deux méthodes :
 - attributs : actions et store
 - méthodes : render et renderGroupByBlock
 
 ```javascript
  var searchResult = React.createClass({
-    mixins:[Focus.components.page.search.searchResult.mixin],
-    actions: {[objet contenant les actions de recherche]},
+    mixins:[Focus.components.page.search.quickSearch.mixin],
+    actions: {search: function() {// fonction de recherche}},
     store: {[store de recherche]},
     render: function render(){
-        var qs = this.quickSearchComponent();
-        var list = this.isSimpleList() ? this.simpleListComponent({type:"test"}) : this.groupByListComponent();
-        var root = React.createElement('div',{className: "search-panel"},qs,list);
+        var searchBar = this.getSearchBarComponent();
+        var list = this.isSimpleList() ? this.getSimpleListComponent({type:"test"}) : this.getGroupByListComponent();
+        var root = React.createElement('div',{className: "search-panel"},searchBar,list);
         return root;
     },
     renderGroupByBlock: function renderGroupByBlock(groupKey, list, maxRows) {
