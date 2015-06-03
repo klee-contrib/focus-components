@@ -169,6 +169,10 @@
       "path": "common/button/action"
     },
     {
+      "name": "button-back-to-top",
+      "path": "common/button/back-to-top"
+    },
+    {
       "name": "block",
       "path": "common/block"
     },
