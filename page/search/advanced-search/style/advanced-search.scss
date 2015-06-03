@@ -1,16 +1,14 @@
+[data-focus='advanced-search'] {
+  .liveFilterContainer {
+    padding-right: 10px;
+  }
 
-.liveFilterContainer {
-  padding-right: 10px;
-}
+  .listSummaryContainer {
+    height:50px;
+  }
 
-
-.advanced-search {
   .liveFilterContainer, .resultContainer {
     vertical-align:top;
     float:left;
   }
-}
-
-.listSummaryContainer {
-  height:50px;
 }

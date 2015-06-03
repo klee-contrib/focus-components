@@ -20,7 +20,7 @@ let ScrollInfoMixin = require('../common/scroll-info-mixin').mixin;
 let GroupByMixin = require('../common/group-by-mixin').mixin;
 let SearchMixin = require('../common/search-mixin').mixin;
 
-let searchFilterResultMixin = {
+let AdvancedSearchMixin = {
     mixins: [ScrollInfoMixin, GroupByMixin, SearchMixin],
     /**
      * Display name.
@@ -305,4 +305,4 @@ let searchFilterResultMixin = {
     }
 };
 
-module.exports = builder(searchFilterResultMixin, true);
+module.exports = builder(AdvancedSearchMixin, true);

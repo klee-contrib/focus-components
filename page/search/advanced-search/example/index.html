@@ -205,7 +205,7 @@
 			var facets = this.getLiveFilterComponent();
 			var resultsList = this.isSimpleList() ? this.getSimpleListComponent({type: "test"}) : this.getGroupByListComponent();
 			return (
-					<div className="advanced-search">
+					<div className="advanced-search" data-focus="advanced-search">
 						{facets}
 						<div className="resultContainer">
 							{this.getListSummaryComponent()}
@@ -219,7 +219,7 @@
 			var Title = FocusComponents.common.title.component;
 			var Button = FocusComponents.common.button.action.component;
 			return (
-					<div className="listResultContainer panel">
+					<div className="listResultContainer panel" data-focus="group-result-container">
 						<Title title={groupKey}/>
 						{this.getSimpleListComponent({
 							type: "test",

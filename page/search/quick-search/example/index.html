@@ -119,7 +119,7 @@
 			var searchBar = this.getSearchBarComponent();
 			var resultsList = this.isSimpleList() ? this.getSimpleListComponent({type: "test"}) : this.getGroupByListComponent();
 			return (
-				<div className="search-panel">
+				<div className="search-panel" data-focus="quick-search">
 					{searchBar}
 					{resultsList}
 				</div>
@@ -129,7 +129,7 @@
 			var Title = FocusComponents.common.title.component;
 			var Button = FocusComponents.common.button.action.component;
 			return (
-					<div className="listResultContainer panel">
+					<div className="listResultContainer panel" fata-focus="group-result-container">
 						<Title tilte={groupKey}/>
 						{this.getSimpleListComponent({
 							type: "test",
