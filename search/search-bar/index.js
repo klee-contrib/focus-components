@@ -7,15 +7,19 @@ let words = require('lodash/string/words');
 
 // Components
 
-let i18nMixin = require('../../common/i18n/mixin');
 let Scope = require('./scope').component;
+
+// Mixins
+
+let stylable = require('../../mixin/stylable');
+let i18n = require('../../common/i18n/mixin');
 
 /**
  * SearchBar component
  * @type {Object}
  */
 let SearchBar = {
-    mixins: [i18nMixin],
+    mixins: [i18n, stylable],
     displayName: 'SearchBar',
     getDefaultProps() {
         return {
@@ -101,7 +105,7 @@ let SearchBar = {
     render() {
         let loadingClassName = this.props.loading ? 'sb-loading' : '';
         return (
-            <div data-focus='search-bar'>
+            <div className={`${this._getStyleClassName()}`} data-focus='search-bar'>
                 <Scope handleOnClick={this._handleOnClickScope} list={this.props.scopes} ref='scope' value={this.state.scope}/>
                 <input className={loadingClassName} onKeyUp={this._handleKeyUp} ref='query'  type='search' />
                 {this._renderHelp()}

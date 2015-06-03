@@ -11,11 +11,16 @@ let omit = require('lodash/object/omit');
 let Facet = require('./facet').component;
 let Img = require('../../common/img').component;
 
+// Mixins
+
+let stylable = require('../../mixin/stylable');
+let i18n = require('../../common/i18n/mixin');
+
 let FacetBox = {
     /**
      * Component's mixins
      */
-    mixins: [require('../../common/i18n/mixin')],
+    mixins: [stylable, i18n],
     /**
      * Display name.
      */
@@ -78,14 +83,14 @@ let FacetBox = {
      * @returns {XML} Html code.
      */
     render() {
-        let className = 'panel';
+        let className = ' panel';
         if (this.state.isExpanded) {
             className += ' expanded';
         } else {
             className += ' collapsed';
         }
         return (
-            <div className={className} data-focus='facet-box'>
+            <div className={`${this._getStyleClassName() + className}`} data-focus='facet-box'>
                 {this._renderFacetBoxTitle()}
                 {this._renderFacetList()}
             </div>
