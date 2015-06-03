@@ -1,5 +1,5 @@
 ## Technical Configuration
-Mixin permettant d'implémenter un panneau de recherche.
+Mixin permettant d'implÃ©menter un panneau de recherche.
 
 ## Attributs
 <table>
@@ -8,7 +8,7 @@ Mixin permettant d'implémenter un panneau de recherche.
           <th>Attribut</th>
           <th>Options</th>
           <th>valeurs possibles</th>
-          <th>valeur par défault</th>
+          <th>valeur par dÃ©fault</th>
           <th>Description</th>
         </tr>
     </thead>
@@ -18,98 +18,98 @@ Mixin permettant d'implémenter un panneau de recherche.
             <td><i>object</i></td>
             <td><code>{scope1: line}</code></td>
             <td><code>text</code></td>
-            <td>Définit la map des différents type de ligne à afficher dans résultats de recherche.</td>
+            <td>DÃ©finit la map des diffÃ©rents type de ligne Ã  afficher dans rÃ©sultats de recherche.</td>
         </tr>
         <tr>
             <td><code>operationList</code></td>
             <td><i>array</i></td>
             <td></td>
             <td><code>[]</code></td>
-            <td>Définit la liste des opérations applicable sur une ligne.</td>
+            <td>DÃ©finit la liste des opÃ©rations applicables sur une ligne.</td>
         </tr>
         <tr>
             <td><code>scopeList</code></td>
             <td><i>array</i></td>
             <td></td>
             <td><code>[]</code></td>
-            <td>Définit la liste des scopes selectionnable pour restreindre l'étendue de la recherche.</td>
+            <td>DÃ©finit la liste des scopes selectionnables pour restreindre l'Ã©tendue de la recherche.</td>
         </tr>
         <tr>
             <td><code>groupMaxRows</code></td>
             <td><i>number</i></td>
             <td></td>
             <td><code>3</code></td>
-            <td>Définit le nombre de ligne à afficher par groupe lorsque la recherche est globale.</td>
+            <td>DÃ©finit le nombre de ligne Ã  afficher par groupe lorsque la recherche est globale.</td>
         </tr>
         <tr>
             <td><code>idField</code></td>
             <td><i>string</i></td>
             <td></td>
             <td>id</td>
-            <td>Définit le nom de l'attribut portant l'id sur une ligne.</td>
+            <td>DÃ©finit le nom de l'attribut portant l'id sur une ligne.</td>
         </tr>
         <tr>
             <td><code>isSelection</code></td>
             <td><i>boolean</i></td>
             <td></td>
             <td><code>true</code></td>
-            <td>Définit si la liste offre la possibilité de sélectionner les lignes de résultat.</td>
+            <td>DÃ©finit si la liste offre la possibilitÃ© de sÃ©lectionner les lignes de rÃ©sultat.</td>
         </tr>
         <tr>
             <td><code>onLineClick</code></td>
             <td><i>function</i></td>
             <td></td>
             <td>aucune.</td>
-            <td>Définit la fonction à exécuter lors du clic sur une ligne de résultat.</td>
+            <td>DÃ©finit la fonction Ã  exÃ©cuter lors du clic sur une ligne de rÃ©sultat.</td>
         </tr>
    </tbody>
 </table>
 
-## Méthodes
+## MÃ©thodes
 <table>
     <thead>
         <tr>
-            <th>Méthode</th>
-            <th>Paramètres</th>
+            <th>MÃ©thode</th>
+            <th>ParamÃ¨tres</th>
             <th>Retour</th>
             <th>Description</th>
         </tr>
     </thead>
         <tbody>
             <tr>
-                <td><code>quickSearchComponent()</code></td>
+                <td><code>getSearchBarComponent()</code></td>
                 <td>Aucun.</td>
                 <td><i>React-component</i></td>
-                <td>Retourne le composant de champs de recherche par scope.</td>
+                <td>Retourne le composant de barre de recherche avec sÃ©lecteur de scope.</td>
             </tr>
             <tr>
                 <td><code>isSimpleList()</code></td>
                 <td>Aucun.</td>
                 <td><i>boolean</i></td>
-                <td>Retourne <code>true</code> si la propriété <code>list</code> du <code>store</code> est une liste simple (un <code>Array</code>), <code>false</code> si la propriété <code>list</code> du <code>store</code> est une liste typée (un <code>Object</code>)</td>
+                <td>Retourne <code>true</code> si la propriÃ©tÃ© <code>list</code> du <code>store</code> est une liste simple (un <code>Array</code>), <code>false</code> si la propriÃ©tÃ© <code>list</code> du <code>store</code> est une liste typÃ©e (un <code>Object</code>)</td>
             </tr>
             <tr>
                 <td><code>simpleListComponent()</code></td>
                 <td>Aucun.</td>
                 <td><i>React-component</i></td>
-                <td>Retourne une liste de résultats simple. Doit être utilisée lorsque la recherche est effectuée sur un scope.</td>
+                <td>Retourne une liste de rÃ©sultats simple. Doit Ãªtre utilisÃ©e lorsque la recherche est effectuÃ©e sur un scope.</td>
             </tr>
             <tr>
                 <td><code>groupByListComponent()</code></td>
                 <td>Aucun.</td>
                 <td><i>React-component</i></td>
-                <td>Retourne le composant de liste de résultats en mode groupé.Doit être utilisé dans le cas d'une recherche globale.</td>
+                <td>Retourne le composant de liste de rÃ©sultats en mode groupÃ©. Doit Ãªtre utilisÃ© dans le cas d'une recherche globale.</td>
             </tr>
     </tbody>
 </table>
 
-## Evènements
-Evènement à définir par l'utilisateur.
+## EvÃ©nements
+EvÃ©nement Ã  dÃ©finir par l'utilisateur.
 
 <table>
 	<thead>
 		<tr>
-          <th>Evènement</th>
+          <th>EvÃ©nement</th>
           <th>Description</th>
       </tr>
     </thead>
@@ -121,10 +121,10 @@ Evènement à définir par l'utilisateur.
    </tbody>
 </table>
 
-## Utilisation du mixin de recherche-résultats
-afin d'uitliser le mixin il est nécessaire de définir deux attributs et deux méthodes :
+## Utilisation du mixin de recherche-rÃ©sultats
+afin d'uitliser le mixin il est nÃ©cessaire de dÃ©finir deux attributs et deux mÃ©thodes :
 - attributs : actions et store
-- méthodes : render et renderGroupByBlock
+- mÃ©thodes : render et renderGroupByBlock
 
 ```javascript
  var searchResult = React.createClass({
@@ -152,8 +152,8 @@ afin d'uitliser le mixin il est nécessaire de définir deux attributs et deux mét
 });
 ```
 
-## Dépendances à implémenter
-- la structure du répertoire de développement doit être la suivante :
+## DÃ©pendances Ã  implÃ©menter
+- la structure du rÃ©pertoire de dÃ©veloppement doit Ãªtre la suivante :
 
 ```javascript
 _actions
@@ -167,18 +167,18 @@ _searchResult
     * searchResult.jsx
 ```
 
-- la recherche nécessite également la création d'un store de type **Focus.store.SearchStore**
-- les lignes doivent implémenter le mixin de ligne **Focus.components.list.selection.line.mixin**
+- la recherche nÃ©cessite Ã©galement la crÃ©ation d'un store de type **Focus.store.SearchStore**
+- les lignes doivent implÃ©menter le mixin de ligne **Focus.components.list.selection.line.mixin**
 
 ## Structure
 - un menu de facettes
-- une barre de résumé
+- une barre de rÃ©sumÃ©
 - une barre d'actions
-- une liste de résultat
+- une liste de rÃ©sultat
 
 ## Exemple
-[Exemple de recherche-résultat](https://github.com/KleeGroup/focus-components/blob/master/page/search/filter-result/example/index.html)
+[Exemple de recherche-rÃ©sultat](https://github.com/KleeGroup/focus-components/blob/master/page/search/filter-result/example/index.html)
 ## Test
 todo
-## Démo
-[Démo de recherche-résultat](http://kleegroup.github.io/focus-components/page/search/filter-result/example/)
+## DÃ©mo
+[DÃ©mo de recherche-rÃ©sultat](http://kleegroup.github.io/focus-components/page/search/filter-result/example/)

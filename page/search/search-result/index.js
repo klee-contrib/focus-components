@@ -1,14 +1,27 @@
-var builder = require('focus').component.builder;
-var React = require('react');
-var SearchBar  = require('../../../search/search-bar').component;
-var List = require('../../../list/selection').list.component;
+// Dependencies
+
 var assign = require('object-assign');
 var type = require('focus').component.types;
+var checkIsNotNull = require('focus').util.object.checkIsNotNull;
+var builder = require('focus').component.builder;
+var React = require('react');
+
+// Components
+
+var SearchBar  = require('../../../search/search-bar').component;
+var List = require('../../../list/selection').list.component;
+
+// Mixins
+
 var InfiniteScrollPageMixin = require('../common-mixin/infinite-scroll-page-mixin').mixin;
 var GroupByMixin= require('../common-mixin/group-by-mixin').mixin;
-var checkIsNotNull = require('focus').util.object.checkIsNotNull;
 
-var SearchResultMixin = {
+/**
+ * General search mixin.
+ * Contains a search bar, and a results list.
+ * @type {Object}
+ */
+var GeneralSearchMixin = {
     mixins: [InfiniteScrollPageMixin, GroupByMixin],
     /**
      * Tag name.
@@ -176,4 +189,4 @@ var SearchResultMixin = {
     }
 };
 
-module.exports = builder(SearchResultMixin, true);
+module.exports = builder(GeneralSearchMixin, true);
