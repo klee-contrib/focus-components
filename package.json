@@ -41,6 +41,10 @@
       "path": "application/header"
     },
     {
+      "name": "layout",
+      "path": "application/layout"
+    },
+    {
       "name": "cartridge",
       "path": "application/cartridge"
     },
@@ -167,6 +171,10 @@
     {
       "name": "button-action",
       "path": "common/button/action"
+    },
+    {
+      "name": "button-back-to-top",
+      "path": "common/button/back-to-top"
     },
     {
       "name": "block",

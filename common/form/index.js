@@ -138,7 +138,7 @@ var formMixin = {
   },
   /** @inheritdoc */
   render: function renderForm() {
-    console.log('state form', this.state);
+    //console.log('state form', this.state);
     if(this.props.hasForm){
       return (
         <form

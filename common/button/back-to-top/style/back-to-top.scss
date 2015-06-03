@@ -1,0 +1,17 @@
+[data-focus='back-to-top'] {
+  background: none;
+  margin: 0;
+  position: fixed;
+  bottom: 0;
+  right: 0;
+  width: 70px;
+  height: 70px;
+  z-index: 100;
+  //display: none;
+  text-decoration: none;
+  color: #ffffff;
+  background-color: #026aa7;
+  i{
+    font-size: 60px;
+  }
+}
