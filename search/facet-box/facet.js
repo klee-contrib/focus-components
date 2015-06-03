@@ -1,6 +1,11 @@
+// Dependencies
+
 let builder = require('focus').component.builder;
 let React = require('react');
-let Data = require('./live-filter-data').component;
+
+// Components
+
+let FacetData = require('./facet-data').component;
 
 let Facet = {
     /**
@@ -59,7 +64,7 @@ let Facet = {
             title += ' : ' + this.props.facet[this.props.selectedDataKey].label;
         }
         return (
-            <div className={className} onClick={this._facetTitleClickHandler}>
+            <div className={className} data-focus='facet-title' onClick={this._facetTitleClickHandler}>
                 {title}
             </div>
         );
@@ -86,12 +91,12 @@ let Facet = {
             return '';
         }
         return (
-            <div className="panel-body">
+            <div className='panel-body' data-focus='facet-data-list'>
                 <ul>
                     {Object.keys(this.props.facet).slice(0, this.props.nbDefaultDataList).map((key) => {
                         return (
                             <li key={key}>
-                                <Data dataKey={key} data={this.props.facet[key]} selectHandler={this._facetDataSelectionHandler}
+                                <FacetData dataKey={key} data={this.props.facet[key]} selectHandler={this._facetDataSelectionHandler}
                                       type={this.props.type}/>
                             </li>
                         );
@@ -116,14 +121,14 @@ let Facet = {
     _renderShowAllDataList() {
         if (!this.state.isShowAll && Object.keys(this.props.facet).length > this.props.nbDefaultDataList) {
             return (
-                <a href="javascript:void(0);" onClick={this._showAllHandler}>
+                <a href='javascript:void(0);' data-focus='facet-show-all' onClick={this._showAllHandler}>
                     {this.i18n('show.all')}
                 </a>
             );
         }
     },
     /**
-     * Action on "show all" action.
+     * Action on 'show all' action.
      */
     _showAllHandler() {
         this.setState({isShowAll: !this.state.isShowAll});
