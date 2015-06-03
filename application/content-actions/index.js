@@ -29,7 +29,8 @@ var contentActionsMixin = {
     return (
       <div className={this._getStyleClassName()} data-focus='content-actions'>
         {this.state.actions.primary.map((primary)=>{
-          return <Button style={{className: primary.className}} handleOnClick={primary.action} label={primary.label} type='button'/>;
+          //<button class="btn btn-fab"><i class="mdi-action-open-in-new"></i></button>
+          return <Button shape='fab' style={{className: primary.className}} handleOnClick={primary.action} label={primary.label} type='button' icon={primary.icon} />;
         })}
         <SelectButtons operationList={this.state.actions.secondary} />
       </div>

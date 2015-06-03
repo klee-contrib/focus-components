@@ -1,7 +1,7 @@
 var builder = require('focus').component.builder;
 var React = require('react');
 var Img = require('../img').component;
-
+var Icon = require('../icon').component;
 
 var selectActionMixin = {
 
@@ -69,13 +69,12 @@ var selectActionMixin = {
         }
         var liList = this._getList(this.props.operationList);
         return (
-            <div className="select-action btn-group">
+            <div className="btn btn-fab btn-default">
+                <Icon name='navigation-more-vert'  prefix='mdi-' />
                 <a href={window.location.pathname} data-target="#" className="dropdown-toggle" data-toggle="dropdown"><Img src={this.props.style} /></a>
                 <ul className="dropdown-menu">{liList}</ul>
             </div>);
     }
-
-
 };
 
 module.exports =  builder(selectActionMixin);
