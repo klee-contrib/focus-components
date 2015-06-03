@@ -1,0 +1,14 @@
+[data-focus='advanced-search'] {
+  .facetBoxContainer {
+    padding-right: 10px;
+  }
+
+  .listSummaryContainer {
+    height:50px;
+  }
+
+  .facetBoxContainer, .resultContainer {
+    vertical-align:top;
+    float:left;
+  }
+}
