@@ -1,6 +1,6 @@
 var builder = require('focus').component.builder;
 var React = require('react');
-var QuickSearch  = require('../../../search/quick-search').component;
+var QuickSearch  = require('../../../search/search-bar').component;
 var List = require('../../../list/selection').list.component;
 var assign = require('object-assign');
 var type = require('focus').component.types;

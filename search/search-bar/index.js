@@ -3,8 +3,10 @@ let type = require('focus').component.types;
 let React = require('react');
 let Scope = require('./scope').component;
 let words = require('lodash/string/words');
+let i18nMixin = require('../../common/i18n/mixin');
 
 let SearchBar = {
+    mixins: [i18nMixin],
     displayName: 'SearchInput',
     getDefaultProps: function () {
         return {
@@ -13,7 +15,8 @@ let SearchBar = {
             scope: undefined,
             scopes: [],
             minChar: 0,
-            loading: false
+            loading: false,
+            helpTranslationPath: 'search.bar.help'
         };
     },
     propTypes: {
@@ -70,7 +73,7 @@ let SearchBar = {
         return (
             <div className='sb-help' ref='help'>
                 <span name='share'/>
-                <span>{'Define the scope of research'}</span>
+                <span>{this.i18n(this.props.helpTranslationPath)}</span>
             </div>
         );
     },
