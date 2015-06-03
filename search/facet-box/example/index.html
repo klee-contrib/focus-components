@@ -28,13 +28,13 @@
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-material-design/0.2.2/js/material.js"/>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-material-design/0.2.2/js/ripples.min.js"></script>
+    <script src="https://fb.me/JSXTransformer-0.13.3.js"></script>
     <!-- Material degign-->
 
 </head>
 <body>
-<div id="live-filter-container"></div>
-<script type="text/javascript">
-
+<div id="facet-box-container"></div>
+<script type="text/jsx">
     var facetList = {
                 FCT_PAYS: {
                     "FRA": {label: "France", count: 5},
@@ -76,23 +76,17 @@
             FCT_ONLY_ONE: "text"
     };
 
+    var FacetBox = FocusComponents.search.facetBox.component;
 
-    var render = function() {
-        React.render(
-                React.createElement(React.createClass(FocusComponents.search.liveFilter.mixin),
-                        {
-                                facetList: this.facetList,
-                                selectedFacetList: this.selectedFacetList,
-                                openedFacetList: this.openedFacetList,
-                                config: this.config,
-                                dataSelectionHandler: this.dataSelectionHandler
-                        }
-                ),
-                document.querySelector("#live-filter-container")
-        );
-    };
-
-    this.render();
+    React.render(<FacetBox
+            facetList={facetList}
+            selectedFacetList={selectedFacetList}
+            openedFacetList={openedFacetList}
+            config={config}
+            dataSelectionHandler={dataSelectionHandler}
+        />,
+        document.querySelector("#facet-box-container")
+    );
 </script>
 
 </body>

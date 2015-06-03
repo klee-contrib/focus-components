@@ -6,7 +6,7 @@ let assign = require('object-assign');
 
 // Components
 
-let LiveFilter = require('../../../search/live-filter/index').component;
+let FacetBox = require('../../../search/facet-box').component;
 let ListActionBar = require('../../../list/action-bar/index').component;
 let ListSummary = require('../../../list/summary/index').component;
 
@@ -219,8 +219,8 @@ let AdvancedSearchMixin = {
      * Action on line click.
      * @param {object} item  the item clicked
      */
-    _lineClick(item){
-        if(this.props.onLineClick){
+    _lineClick(item) {
+        if (this.props.onLineClick) {
             this.props.onLineClick(item);
         }
     },
@@ -246,18 +246,18 @@ let AdvancedSearchMixin = {
     },
 
     /**
-     * Render the liveFilter.
-     * @returns {XML} Render the liveFilter.
+     * Render the facet box.
+     * @returns {XML} Render the facetBox.
      */
-    getLiveFilterComponent() {
+    getFacetBoxComponent() {
         return (
-            <div className='liveFilterContainer'>
-                <LiveFilter ref='liveFilter'
-                            facetList={this.state.facetList}
-                            selectedFacetList={this.state.selectedFacetList}
-                            openedFacetList={this.state.openedFacetList}
-                            config={this.props.facetConfig}
-                            dataSelectionHandler={this._facetSelectionClick}/>
+            <div className='facetBoxContainer'>
+                <FacetBox
+                    facetList={this.state.facetList}
+                    selectedFacetList={this.state.selectedFacetList}
+                    openedFacetList={this.state.openedFacetList}
+                    config={this.props.facetConfig}
+                    dataSelectionHandler={this._facetSelectionClick}/>
             </div>
         );
     },

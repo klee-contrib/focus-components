@@ -202,7 +202,7 @@
 		actions: action,
 		store: new Focus.store.SearchStore(),
 		render: function render() {
-			var facets = this.getLiveFilterComponent();
+			var facets = this.getFacetBoxComponent();
 			var resultsList = this.isSimpleList() ? this.getSimpleListComponent({type: "test"}) : this.getGroupByListComponent();
 			return (
 					<div className="advanced-search" data-focus="advanced-search">

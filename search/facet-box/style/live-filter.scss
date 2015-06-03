@@ -1,11 +1,12 @@
-.live-filter.collapsed {
-  width: 30px;
-}
-.live-filter.expanded {
-  width: 250px;
-}
+[data-focus='facet'] {
+  .collapsed {
+    width: 30px;
+  }
 
-.live-filter {
+  .expanded {
+    width: 250px;
+  }
+
   min-height: 400px;
   .icon {
     float: right;
@@ -46,6 +47,7 @@
     color: #E6E6E6;
   }
 }
+
 .chevron-thin-left {
   background: url("../img/chevron-thin-left.svg") no-repeat right center;
 }

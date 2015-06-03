@@ -112,7 +112,7 @@ Mixin permettant d'implémenter un écran de recherche avancée.
     </thead>
         <tbody>
             <tr>
-                <td><code>getLiveFilterComponent()</code></td>
+                <td><code>getFacetBoxComponent()</code></td>
                 <td>Aucun.</td>
                 <td><i>React-component</i></td>
                 <td>Retourne le composant filtre par facettes.</td>
@@ -179,12 +179,12 @@ Afin d'utiliser le mixin il est nécessaire de définir deux attributs et deux m
     actions: {search: function() {// fonction de recherche}},
     store: {[store de recherche]},
     render: function render(){
-        var liveFilters = this.getLiveFilterComponent();
+        var facets = this.getFacetBoxComponent();
         var summaryList = this.getListSummaryComponent();
         var actionBar = this.getActionBarComponent();
         var resultsList = this.isSimpleList() ? this.getSimpleListComponent({type:"test"}) : this.getGroupByListComponent();
         var root = React.createElement('div', {className: "advanced-search"},
-            liveFilters,
+            facets,
             React.createElement('div', {},
                 summaryList,
                 actionBar,
