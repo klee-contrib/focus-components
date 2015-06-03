@@ -128,7 +128,7 @@ Afin d'utiliser le mixin il est nécessaire de définir deux attributs et deux m
 - méthodes : render et renderGroupByBlock
 
 ```javascript
- var searchResult = React.createClass({
+ var quickSearch = React.createClass({
     mixins:[Focus.components.page.search.quickSearch.mixin],
     actions: {search: function() {// fonction de recherche}},
     store: {[store de recherche]},
@@ -143,7 +143,7 @@ Afin d'utiliser le mixin il est nécessaire de définir deux attributs et deux m
         var showMoreButton = React.createElement(FocusComponents.common.button.action.component, { handleOnClick: this.changeGroupByMaxRows(groupKey, 5), label: "Show more" });
         return React.createElement( "div", { className: "listResultContainer panel" },
                 title,
-                this.simpleListComponent({
+                this.getSimpleListComponent({
                     type: "test",
                     list: list,
                     maxRows: maxRows
@@ -178,8 +178,8 @@ _searchResult
 - une liste de résultat
 
 ## Exemple
-[Exemple de recherche-résultat](https://github.com/KleeGroup/focus-components/blob/master/page/search/filter-result/example/index.html)
+[Exemple de quick-search](https://github.com/KleeGroup/focus-components/blob/master/page/search/quick-search/example/index.html)
 ## Test
 todo
 ## Démo
-[Démo de recherche-résultat](http://kleegroup.github.io/focus-components/page/search/filter-result/example/)
+[Démo de quick-search](http://kleegroup.github.io/focus-components/page/search/quick-search/example/)

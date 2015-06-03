@@ -1,5 +1,5 @@
 ## Technical Configuration
-Mixin permettant d'implémenter un panneau de recherche avancée.
+Mixin permettant d'implÃ©menter un Ã©cran de recherche avancÃ©e.
 
 ## Attributs
 <table>
@@ -8,7 +8,7 @@ Mixin permettant d'implémenter un panneau de recherche avancée.
           <th>Attribut</th>
           <th>Options</th>
           <th>valeurs possibles</th>
-          <th>valeur par défault</th>
+          <th>valeur par dÃ©fault</th>
           <th>Description</th>
         </tr>
     </thead>
@@ -18,101 +18,101 @@ Mixin permettant d'implémenter un panneau de recherche avancée.
             <td><i>object</i></td>
             <td><code>{scope: "Scope", searchText: "value"}</code></td>
             <td></td>
-            <td>Définit le critère de recherche saisi dans la recherche rapide.</td>
+            <td>DÃ©finit le critÃ¨re de recherche saisi dans la recherche rapide.</td>
         </tr>
         <tr>
             <td><code>lineMap</code></td>
             <td><i>object</i></td>
             <td><code>{scope1: line}</code></td>
             <td><code>text</code></td>
-            <td>Définit la map des différents type de ligne à afficher dans résultats de recherche.</td>
+            <td>DÃ©finit la map des diffÃ©rents type de ligne Ã  afficher dans rÃ©sultats de recherche.</td>
         </tr>
         <tr>
             <td><code>operationList</code></td>
             <td><i>array</i></td>
             <td></td>
             <td><code>[]</code></td>
-            <td>Définit la liste des opérations applicable sur un groupe de lignes.</td>
+            <td>DÃ©finit la liste des opÃ©rations applicable sur un groupe de lignes.</td>
         </tr>
          <tr>
             <td><code>lineOperationList</code></td>
             <td><i>array</i></td>
             <td></td>
             <td><code>[]</code></td>
-            <td>Définit la liste des opérations applicable sur une ligne.</td>
+            <td>DÃ©finit la liste des opÃ©rations applicable sur une ligne.</td>
         </tr>
         <tr>
             <td><code>facetConfig</code></td>
             <td><i>object</i></td>
             <td><code>{FCT_PAYS: "text", FCT_STATUS: "text"}</code></td>
             <td><code>{}</code></td>
-            <td>Définit la liste des facettes disponible pour la recherche avancée.</td>
+            <td>DÃ©finit la liste des facettes disponible pour la recherche avancÃ©e.</td>
         </tr>
         <tr>
             <td><code>orderableColumnList</code></td>
             <td><i>array</i></td>
             <td><code>[{key:"col1", order:"desc", label:"Colonne 1 desc"}]</code></td>
             <td><code>{}</code></td>
-            <td>Définit la liste des colonnes triables.</td>
+            <td>DÃ©finit la liste des colonnes triables.</td>
         </tr>
         <tr>
             <td><code>groupMaxRows</code></td>
             <td><i>number</i></td>
             <td></td>
             <td><code>3</code></td>
-            <td>Définit le nombre de ligne à afficher par groupe pour un grouby sur une colonne.</td>
+            <td>DÃ©finit le nombre de ligne Ã  afficher par groupe pour un grouby sur une colonne.</td>
         </tr>
         <tr>
             <td><code>idField</code></td>
             <td><i>string</i></td>
             <td></td>
             <td>id</td>
-            <td>Définit le nom de l'attribut portant l'id sur une ligne.</td>
+            <td>DÃ©finit le nom de l'attribut portant l'id sur une ligne.</td>
         </tr>
         <tr>
             <td><code>isSelection</code></td>
             <td><i>boolean</i></td>
             <td></td>
             <td><code>true</code></td>
-            <td>Définit si la liste offre la possibilité de sélectionner les lignes de résultat.</td>
+            <td>DÃ©finit si la liste offre la possibilitÃ© de sÃ©lectionner les lignes de rÃ©sultat.</td>
         </tr>
         <tr>
             <td><code>onLineClick</code></td>
             <td><i>function</i></td>
             <td></td>
             <td>aucune.</td>
-            <td>Définit la fonction à exécuter lors du clic sur une ligne de résultat.</td>
+            <td>DÃ©finit la fonction Ã  exÃ©cuter lors du clic sur une ligne de rÃ©sultat.</td>
         </tr>
         <tr>
             <td><code>unselectedScopeAction</code></td>
             <td><i>function</i></td>
             <td></td>
             <td>aucune.</td>
-            <td>Définit la fonction à exécuter lors du clic sur la suppression du scope de la recherche avancée.</td>
+            <td>DÃ©finit la fonction Ã  exÃ©cuter lors du clic sur la suppression du scope de la recherche avancÃ©e.</td>
         </tr>
         <tr>
             <td><code>exportAction</code></td>
             <td><i>function</i></td>
             <td></td>
             <td>aucune.</td>
-            <td>Définit la fonction à exécuter lors du clic sur le bouton exporter.</td>
+            <td>DÃ©finit la fonction Ã  exÃ©cuter lors du clic sur le bouton exporter.</td>
         </tr>
    </tbody>
 </table>
 
-## Méthodes
+## MÃ©thodes
 <table>
     <thead>
         <tr>
-            <th>Méthode</th>
-            <th>Paramètres</th>
+            <th>MÃ©thode</th>
+            <th>ParamÃ¨tres</th>
             <th>Retour</th>
             <th>Description</th>
         </tr>
     </thead>
         <tbody>
             <tr>
-                <td><code>liveFilterComponent()</code></td>
+                <td><code>getLiveFilterComponent()</code></td>
                 <td>Aucun.</td>
                 <td><i>React-component</i></td>
                 <td>Retourne le composant filtre par facettes.</td>
@@ -121,42 +121,42 @@ Mixin permettant d'implémenter un panneau de recherche avancée.
                 <td><code>isSimpleList()</code></td>
                 <td>Aucun.</td>
                 <td><i>boolean</i></td>
-                <td>Retourne true si le resultat de la recherche est une liste simple et non une liste groupée.</td>
+                <td>Retourne true si le resultat de la recherche est une liste simple et non une liste groupÃ©e.</td>
             </tr>
             <tr>
-                <td><code>simpleListComponent()</code></td>
+                <td><code>getSimpleListComponent()</code></td>
                 <td>Aucun.</td>
                 <td><i>React-component</i></td>
-                <td>Retourne une liste de résultats simple. Doit être utilisée lorsque la recherche est effectuée sur un scope.</td>
+                <td>Retourne une liste de rÃ©sultats simple. Doit Ãªtre utilisÃ©e lorsque la recherche est effectuÃ©e sur un scope.</td>
             </tr>
             <tr>
-                <td><code>groupByListComponent()</code></td>
+                <td><code>getGroupByListComponent()</code></td>
                 <td>Aucun.</td>
                 <td><i>React-component</i></td>
-                <td>Retourne le composant de liste de résultats en mode groupé.Doit être utilisé dans le cas d'une recherche globale.</td>
+                <td>Retourne le composant de liste de rÃ©sultats en mode groupÃ©.Doit Ãªtre utilisÃ© dans le cas d'une recherche globale.</td>
             </tr>
             <tr>
-                <td><code>listSummaryComponent()</code></td>
+                <td><code>getListSummaryComponent()</code></td>
                 <td>Aucun.</td>
                 <td><i>React-component</i></td>
-                <td>Retourne le composant de liste de résultats en mode groupé.Doit être utilisé dans le cas d'une recherche globale.</td>
+                <td>Retourne le composant de liste de rÃ©sultats en mode groupÃ©.Doit Ãªtre utilisÃ© dans le cas d'une recherche globale.</td>
             </tr>
             <tr>
-                <td><code>actionBarComponent()</code></td>
+                <td><code>getActionBarComponent()</code></td>
                 <td>Aucun.</td>
                 <td><i>React-component</i></td>
-                <td>Retourne le composant de barre d'action applicable à la liste.</td>
+                <td>Retourne le composant de barre d'action applicable Ã  la liste.</td>
             </tr>
     </tbody>
 </table>
 
-## Evènements
-Evènement à définir par l'utilisateur.
+## EvÃ©nements
+EvÃ©nement Ã  dÃ©finir par l'utilisateur.
 
 <table>
 	<thead>
 		<tr>
-          <th>Evènement</th>
+          <th>EvÃ©nement</th>
           <th>Description</th>
       </tr>
     </thead>
@@ -168,48 +168,51 @@ Evènement à définir par l'utilisateur.
    </tbody>
 </table>
 
-## Utilisation du mixin de recherche-résultats
-afin d'uitliser le mixin il est nécessaire de définir deux attributs et deux méthodes :
+## Utilisation du mixin de recherche-rÃ©sultats
+Afin d'utiliser le mixin il est nÃ©cessaire de dÃ©finir deux attributs et deux mÃ©thodes :
 - attributs : actions et store
-- méthodes : render et renderGroupByBlock
+- mÃ©thodes : render et renderGroupByBlock
 
 ```javascript
- React.createClass({
-     mixins:[FocusComponents.page.search.filterResult.mixin],
-     actions: action,
-     store: {[store de recherche]},
-     render: function render() {
-         var list = this.isSimpleList() ? this.simpleListComponent({type:"test"}) : this.groupByListComponent();
-         var root = React.createElement('div', { className: "search-result" },
-                 this.liveFilterComponent(),
-                 React.createElement(
-                         "div",
-                         { className: "resultContainer" },
-                         this.listSummaryComponent(),
-                         this.actionBarComponent(),
-                         list
-                 )
-         );
-         return root;
-     },
-     renderGroupByBlock: function renderGroupByBlock(groupKey, list, maxRows) {
-         return React.createElement( "div", { className: "listResultContainer panel" },
-                     React.createElement(FocusComponents.common.title.component, { title: groupKey }),
-                     this.simpleListComponent({
-                         type: "test",
-                         list: list,
-                         maxRows: maxRows
-                     }),
-                     React.createElement(FocusComponents.common.button.action.component, { handleOnClick: this.changeGroupByMaxRows(groupKey, 5), label: "Show more" }),
-                     React.createElement(FocusComponents.common.button.action.component, { handleOnClick: this.showAllGroupListHandler(groupKey), label: "Show all" })
-         );
-
-     }
- })
+ var advancedSearch = React.createClass({
+    mixins:[Focus.components.page.search.advancedSearch.mixin],
+    actions: {search: function() {// fonction de recherche}},
+    store: {[store de recherche]},
+    render: function render(){
+        var liveFilters = this.getLiveFilterComponent();
+        var summaryList = this.getListSummaryComponent();
+        var actionBar = this.getActionBarComponent();
+        var resultsList = this.isSimpleList() ? this.getSimpleListComponent({type:"test"}) : this.getGroupByListComponent();
+        var root = React.createElement('div', {className: "advanced-search"},
+            liveFilters,
+            React.createElement('div', {},
+                summaryList,
+                actionBar,
+                resultsList
+            )
+        );
+        return root;
+    },
+    renderGroupByBlock: function renderGroupByBlock(groupKey, list, maxRows) {
+        var title = React.createElement(FocusComponents.common.title.component, { title: groupKey });
+        var showMoreButton = React.createElement(FocusComponents.common.button.action.component, { handleOnClick: this.changeGroupByMaxRows(groupKey, 5), label: "Show more" });
+        var showAllButton = React.createElement(FocusComponents.common.button.action.component, { handleOnClick: this.showAllGroupListHandler(groupKey), label: "Show all" });
+        return React.createElement( "div", { className: "listResultContainer panel" },
+            title,
+            this.getSimpleListComponent({
+                type: "test",
+                list: list,
+                maxRows: maxRows
+            }),
+            showMoreButton,
+            showAllButton
+        );
+    }
+});
 ```
 
-## Dépendances à implémenter
-- la structure du répertoire de développement doit être la suivante :
+## DÃ©pendances Ã  implÃ©menter
+- la structure du rÃ©pertoire de dÃ©veloppement doit Ãªtre la suivante :
 
 ```javascript
 _actions
@@ -223,16 +226,16 @@ _searchResult
     * searchResult.jsx
 ```
 
-- la recherche nécessite également la création d'un store de type **Focus.store.SearchStore**
-- les lignes doivent implémenter le mixin de ligne **Focus.components.list.selection.line.mixin**
+- la recherche nÃ©cessite Ã©galement la crÃ©ation d'un store de type **Focus.store.SearchStore**
+- les lignes doivent implÃ©menter le mixin de ligne **Focus.components.list.selection.line.mixin**
 
 ## Structure
 - un champs de recherche
-- une liste de résultat
+- une liste de rÃ©sultat
 
 ## Exemple
-[Exemple de recherche-résultat](https://github.com/KleeGroup/focus-components/blob/master/page/search/search-result/example/index.html)
+[Exemple de advanced-search](https://github.com/KleeGroup/focus-components/blob/master/page/search/advanced-search/example/index.html)
 ## Test
 todo
-## Démo
-[Démo de recherche-résultat](http://kleegroup.github.io/focus-components/page/search/search-result/example/)
+## DÃ©mo
+[DÃ©mo de advanced-search](http://kleegroup.github.io/focus-components/page/search/advanced-search/example/)
