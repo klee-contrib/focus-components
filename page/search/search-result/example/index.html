@@ -104,9 +104,9 @@
                         actions: action,
                         store: new Focus.store.SearchStore(),
                         render: function render(){
-                            var qs = this.quickSearchComponent();
-                            var list = this.isSimpleList() ? this.simpleListComponent({type:"test"}) : this.groupByListComponent();
-                            var root = React.createElement('div',{className: "search-panel"},qs,list);
+                            var searchBar = this.getSearchBarComponent();
+                            var resultsList = this.isSimpleList() ? this.simpleListComponent({type:"test"}) : this.groupByListComponent();
+                            var root = React.createElement('div',{className: "search-panel"},searchBar,resultsList);
                             return root;
                         },
                         renderGroupByBlock: function renderGroupByBlock(groupKey, list, maxRows) {

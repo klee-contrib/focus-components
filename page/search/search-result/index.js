@@ -1,6 +1,6 @@
 var builder = require('focus').component.builder;
 var React = require('react');
-var QuickSearch  = require('../../../search/search-bar').component;
+var SearchBar  = require('../../../search/search-bar').component;
 var List = require('../../../list/selection').list.component;
 var assign = require('object-assign');
 var type = require('focus').component.types;
@@ -8,18 +8,16 @@ var InfiniteScrollPageMixin = require('../common-mixin/infinite-scroll-page-mixi
 var GroupByMixin= require('../common-mixin/group-by-mixin').mixin;
 var checkIsNotNull = require('focus').util.object.checkIsNotNull;
 
-var searchMixin = {
+var SearchResultMixin = {
     mixins: [InfiniteScrollPageMixin, GroupByMixin],
-
     /**
      * Tag name.
      */
-    displayName: 'search-panel',
-
+    displayName: 'SearchPanel',
     /**
      * Component intialization
      */
-    componentDidMount: function searchComponentDidMount(){
+    componentDidMount(){
         this._registerListeners();
     },
 
@@ -27,21 +25,19 @@ var searchMixin = {
      * Actions before component will unmount.
      * @constructor
      */
-    componentWillUnmount: function SearchComponentWillUnmount(){
+    componentWillUnmount(){
         this._unRegisterListeners();
     },
-
-    getDefaultProps: function getDefaultProps(){
+    getDefaultProps(){
         return {
             lineMap: undefined,
             isSelection: false,
             lineOperationList: [],
             idField: 'id',
-            SearchComponent: QuickSearch,
+            SearchBar: SearchBar,
             groupMaxRows: 3
         };
     },
-
     /**
      * properties validation
      */
@@ -50,90 +46,83 @@ var searchMixin = {
         isSelection: type('bool'),
         lineOperationList: type('array'),
         idField: type('string'),
-        SearchComponent: type('func'),
+        SearchBar: type('func'),
         groupMaxRows: type('number')
     },
-
     /**
      * Initial state of the list component.
      * @returns {{list: (*|Array)}} the state
      */
-    getInitialState: function(){
+    getInitialState() {
         return {
             isAllSelected: false,
             selected: []
         };
     },
-
-    getCriteria: function getCriteria() {
-      if(!this.refs.quickSearch){
+    getCriteria() {
+      if(!this.refs.searchBar){
         return {};
       }
-      return this.refs.quickSearch.getValue();
+      return this.refs.searchBar.getValue();
     },
-
     /**
      * Register a listener on the store.
      * @private
      */
-    _registerListeners: function registerSearchListeners(){
+    _registerListeners(){
         if(this.store){
             this.store.addSearchChangeListener(this.onSearchChange);
+        } else {
+            console.warn('Search result has no store to listen to. Please provide one as a "store" property.');
         }
     },
-
     /**
      * Unregister a listener on the store.
      * @private
      */
-    _unRegisterListeners: function unRegisterSearchListeners(){
+    _unRegisterListeners(){
         if(this.store){
             this.store.removeSearchChangeListener(this.onSearchChange);
         }
     },
-
     /**
      * Handler when store emit a change event.
      */
-    onSearchChange: function onSearchChange() {
+    onSearchChange() {
         this.setState(assign({isLoadingSearch: false}, this.getScrollState()));
     },
-
     /**
      * Action on item selection.
      * @param {object} item selected
      */
-    _selectItem: function selectItem(item){
-        var selected = this.state.selected
+    _selectItem(item){
+        var selected = this.state.selected;
         var index = selected.indexOf(item);
         if(index){
             selected.splice(index, index);
         }else{
             selected.push(item);
         }
-        this.setState({selected: selected});
+        this.setState({selected});
     },
-
     /**
      * Action on line click.
      * @param {object} item  the item clicked
      */
-    _lineClick: function lineClick(item){
+    _lineClick(item){
         if(this.props.onLineClick){
             this.props.onLineClick(item);
         }
     },
-
     /**
      * Run search action.
      */
-    search: function search(){
+    search(){
         this.actions.search(
             this.getSearchCriteria(this.state.scope, this.state.query)
         );
     },
-
-    _quickSearch: function quickSearch(searchValues){
+    _prepareSearch(searchValues){
         this.setState(
             assign(
                 {isLoadingSearch: true},
@@ -143,28 +132,26 @@ var searchMixin = {
             this.search
         );
     },
-
     /**
-     * return a quickSearchComponent
+     * return a SearchBar
      * @returns {XML} the component
      */
-    quickSearchComponent: function quickSearchComponent(){
+    getSearchBarComponent() {
         return (
-            <this.props.SearchComponent handleChange={this._quickSearch}
-                ref="quickSearch"
+            <this.props.SearchBar handleChange={this._prepareSearch}
+                ref='searchBar'
                 scope={this.props.scope}
                 scopes={this.props.scopeList}
                 loading={this.state.isLoadingSearch}
             />
         );
     },
-
     /**
      * Render a list based on a single entity.
      * @param {object} options - map of parameters
      * @return {XML} the List component.
      */
-    simpleListComponent: function simpleListComponent(options) {
+    simpleListComponent(options) {
         checkIsNotNull('options', options);
         checkIsNotNull('options.type', options.type);
         var newList = options.list || this.state.list;
@@ -189,4 +176,4 @@ var searchMixin = {
     }
 };
 
-module.exports = builder(searchMixin, true);
+module.exports = builder(SearchResultMixin, true);
