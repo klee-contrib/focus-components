@@ -1,14 +1,23 @@
+// Dependencies
+
 let builder = require('focus').component.builder;
 let type = require('focus').component.types;
 let React = require('react');
-let Scope = require('./scope').component;
 let words = require('lodash/string/words');
-let i18nMixin = require('../../common/i18n/mixin');
 
+// Components
+
+let i18nMixin = require('../../common/i18n/mixin');
+let Scope = require('./scope').component;
+
+/**
+ * SearchBar component
+ * @type {Object}
+ */
 let SearchBar = {
     mixins: [i18nMixin],
-    displayName: 'SearchInput',
-    getDefaultProps: function () {
+    displayName: 'SearchBar',
+    getDefaultProps() {
         return {
             placeholder: '',
             value: 'defaultValue',
@@ -25,27 +34,33 @@ let SearchBar = {
         scope: type(['string', 'number']),
         scopes: type('array'),
         minChar: type('number'),
-        loading: type('bool')
+        loading: type('bool'),
+        helpTranslationPath: type('string')
     },
-    getInitialState: function () {
+    getInitialState() {
         return {
             value: this.props.value,
             scope: this.props.scope,
             loading: this.props.loading
         };
     },
-    getValue: function getQuickSearchValue() {
+    componentWillReceiveProps(newProps) {
+        if (newProps && newProps.loading !== undefined) {
+            this.setState({loading: newProps.loading});
+        }
+    },
+    getValue() {
         return {
             scope: this.refs.scope.getValue(),
-            query: this.refs.query.getDOMNode().value
+            query: React.findDOMNode(this.refs.query).value
         };
     },
-    _handleChange: function () {
+    _handleChange() {
         if (this.props.handleChange) {
             return this.props.handleChange(this.getValue());
         }
     },
-    handleKeyUp: function handleKeyUpInputSearch(event) {
+    _handleKeyUp(event) {
         let val = event.target.value;
         if (val.length >= this.props.minChar) {
             if (this.props.handleKeyUp) {
@@ -54,8 +69,8 @@ let SearchBar = {
             this._handleChange();
         }
     },
-    _handleChangeScope: function handleChangeScope(event) {
-        this.focusQuery();
+    _handleChangeScope(event) {
+        this._focusQuery();
         //If query not empty
         let query = this.getValue().query;
         if (!query || 0 === query.length) {
@@ -66,10 +81,10 @@ let SearchBar = {
         }
         this._handleChange();
     },
-    handleOnClickScope: function handleOnClickScope() {
+    _handleOnClickScope() {
         this.setState({scope: this.refs.scope.getValue()}, this._handleChangeScope(event));
     },
-    renderHelp: function renderHelp() {
+    _renderHelp() {
         return (
             <div className='sb-help' ref='help'>
                 <span name='share'/>
@@ -77,25 +92,19 @@ let SearchBar = {
             </div>
         );
     },
-    /** @inheritdoc */
-    componentWillReceiveProps: function fieldWillReceiveProps(newProps) {
-        if (newProps && newProps.loading !== undefined) {
-            this.setState({loading: newProps.loading});
-        }
+    _focusQuery() {
+        React.findDOMNode(this.refs.query).focus();
     },
-    focusQuery: function () {
-        this.refs.query.getDOMNode().focus();
+    setStateFromSubComponent() {
+        return this.setState(this.getValue(), this._focusQuery);
     },
-    setStateFromSubComponent: function () {
-        return this.setState(this.getValue(), this.focusQuery);
-    },
-    render: function renderSearchInput() {
+    render() {
         let loadingClassName = this.props.loading ? 'sb-loading' : '';
         return (
             <div data-focus='search-bar'>
-                <Scope ref='scope' list={this.props.scopes} value={this.state.scope} handleOnClick={this.handleOnClickScope}/>
-                <input ref='query' onKeyUp={this.handleKeyUp} type='search' className={loadingClassName}/>
-                {this.renderHelp()}
+                <Scope handleOnClick={this._handleOnClickScope} list={this.props.scopes} ref='scope' value={this.state.scope}/>
+                <input className={loadingClassName} onKeyUp={this._handleKeyUp} ref='query'  type='search' />
+                {this._renderHelp()}
             </div>
         );
     }
