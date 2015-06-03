@@ -8,7 +8,7 @@ let omit = require('lodash/object/omit');
 
 // Components
 
-let LiveFilterFacet = require('./live-filter-facet').component;
+let Facet = require('./facet').component;
 let Img = require('../../common/img').component;
 
 let FacetBox = {
@@ -120,7 +120,7 @@ let FacetBox = {
                     let selectedDataKey = this.props.selectedFacetList[facetKey] ? this.props.selectedFacetList[facetKey].key : undefined;
                     if (selectedDataKey || Object.keys(facet).length > 1) {
                         return (
-                            <LiveFilterFacet facetKey={facetKey} key={facetKey}
+                            <Facet facetKey={facetKey} key={facetKey}
                                              facet={facet}
                                              selectedDataKey={selectedDataKey}
                                              isExpanded={this.state.openedFacetList[facetKey]}
