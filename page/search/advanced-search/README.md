@@ -212,20 +212,6 @@ Afin d'utiliser le mixin il est nécessaire de définir deux attributs et deux m
 ```
 
 ## Dépendances à implémenter
-- la structure du répertoire de développement doit être la suivante :
-
-```javascript
-_actions
-    _search
-        index.js
-_searchResult
-    * line1.jsx
-    * line2.jsx
-    * preview1.jsx
-    * preview2.jsx
-    * searchResult.jsx
-```
-
 - la recherche nécessite également la création d'un store de type **Focus.store.SearchStore**
 - les lignes doivent implémenter le mixin de ligne **Focus.components.list.selection.line.mixin**
 
