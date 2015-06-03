@@ -29,22 +29,14 @@ If the component exposes methods in order to be able to interact with it.
 </tr>
 </table>
 
-## Events
-
-Which events are triggered by the user.
-
-Event         | Description
----           | ---
-
-
 ## Structure
-- live-filter-facet (composant fils)
-- live-filter-data (composant petit-fils)
+- facet (composant fils)
+- facet-data (composant petit-fils)
 
 ## Example
 
 ```
-var input = {
+var config = {
         facetList: {
             FCT_PAYS: {
                 "FRA": {label: "France", count: 5},
@@ -71,19 +63,16 @@ var input = {
             ...
         }
     }
-```
-
-```jsx
-<LiverFilter ref="liveFilterRef" facetList={input.facetList} selectedFacetList={input.selectedFacetList} openedFacetList={input.openedFacetList} config={input.config} dataSelectionHandler={input.dataSelectionHandler} />
-```
-
-```javascript
+    
 React.render(
-    React.createElement(React.createClass(FocusComponents.search.liveFilter.mixin), input),
-    document.querySelector("#live-filter-container"))
+    React.createElement(FocusComponents.search.facetBox.component, config),
+    document.querySelector("#facet-box-container"))
 );
 ```
 
+## Exemple
+[Exemple de facet-box](https://github.com/KleeGroup/focus-components/blob/master/search/facet-box/example/index.html)
 ## Test
-
-## Demo
+todo
+## Démo
+[Démo de facet-box]](http://kleegroup.github.io/focus-components/search/facet-box/example/)
