@@ -134,7 +134,7 @@ var actionBarMixin = {
      */
     render: function renderActionBar(){
         return (
-            <div className="action-bar">
+            <div className="action-bar panel">
                 <div className="general-action">{this._getSelectionObject()} {this._getOrderObject()} {this._getGroupObject()}</div>
                 <div className="facet-container"><TopicDisplayer topicList={this.props.facetList} topicClickAction={this.props.facetClickAction} /></div>
                 <div className="contextual-action"><ActionContextual operationList={this.props.operationList} /></div>
