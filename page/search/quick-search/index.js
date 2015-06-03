@@ -23,11 +23,11 @@ let SearchMixin = require('../common-mixin/search-mixin').mixin;
  * @type {Object}
  */
 let QuickSearchMixin = {
-    mixins: [ScrollInfoMixin, GroupByMixin],
+    mixins: [ScrollInfoMixin, GroupByMixin, SearchMixin],
     /**
      * Tag name.
      */
-    displayName: 'SearchPanel',
+    displayName: 'quick-search',
     /**
      * Component initialization
      */

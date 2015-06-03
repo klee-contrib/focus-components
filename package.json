@@ -173,12 +173,12 @@
       "path": "common/block"
     },
     {
-      "name": "search-filter-result",
-      "path": "page/search/filter-result"
+      "name": "quick-search",
+      "path": "page/search/quick-search"
     },
     {
-      "name": "search-result",
-      "path": "page/search/search-result"
+      "name": "advanced-search",
+      "path": "page/search/advanced-search"
     },
     {
       "name": "popin",

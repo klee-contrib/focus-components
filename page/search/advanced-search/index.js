@@ -1,28 +1,37 @@
-/**@jsx*/
-var builder = require('focus').component.builder;
-var React = require('react');
-var LiveFilter = require('../../../search/live-filter/index').component;
-var ListActionBar = require('../../../list/action-bar/index').component;
-var ListSummary = require('../../../list/summary/index').component;
-var ListSelection = require('../../../list/selection').list.component;
-var SearchStore = require('focus').store.SearchStore;
-var assign = require('object-assign');
-var InfiniteScrollPageMixin = require('../common-mixin/infinite-scroll-page-mixin').mixin;
-var GroupByMixin= require('../common-mixin/group-by-mixin').mixin;
-var checkIsNotNull = require('focus').util.object.checkIsNotNull;
+// Dependencies
 
-var searchFilterResultMixin = {
-    mixins: [InfiniteScrollPageMixin, GroupByMixin],
+let builder = require('focus').component.builder;
+let React = require('react');
+let assign = require('object-assign');
+let checkIsNotNull = require('focus').util.object.checkIsNotNull;
 
+// Components
+
+let LiveFilter = require('../../../search/live-filter/index').component;
+let ListActionBar = require('../../../list/action-bar/index').component;
+let ListSummary = require('../../../list/summary/index').component;
+let ListSelection = require('../../../list/selection').list.component;
+
+// Store
+
+let SearchStore = require('focus').store.SearchStore;
+
+// Mixins
+
+let ScrollInfoMixin = require('../common-mixin/scroll-info-mixin').mixin;
+let GroupByMixin = require('../common-mixin/group-by-mixin').mixin;
+let SearchMixin = require('../common-mixin/search-mixin').mixin;
+
+let searchFilterResultMixin = {
+    mixins: [ScrollInfoMixin, GroupByMixin, SearchMixin],
     /**
      * Display name.
      */
-    displayName: 'search-filter-result',
-
+    displayName: 'advanced-search',
     /**
-     * Component intialization
+     * Component initialisation
      */
-    componentDidMount: function componentDidMount() {
+    componentDidMount() {
         this._registerListeners();
         this.search();
     },
@@ -30,14 +39,14 @@ var searchFilterResultMixin = {
      * Actions before component will unmount.
      * @constructor
      */
-    componentWillUnmount: function SearchComponentWillUnmount(){
+    componentWillUnmount() {
         this._unRegisterListeners();
     },
     /**
      * Init default props.
      * @returns {object} Default props.
      */
-    getDefaultProps: function() {
+    getDefaultProps() {
         return {
             facetConfig: {},
             openedFacetList: {},
@@ -51,15 +60,17 @@ var searchFilterResultMixin = {
                 searchText: undefined
             },
             idField: undefined,
-            exportAction: function() {},
-            unselectedScopeAction: function() {}
+            exportAction: function () {
+            },
+            unselectedScopeAction: function () {
+            }
         };
     },
     /**
      * Init default state.
      * @returns {object} Initialized state.
      */
-    getInitialState: function() {
+    getInitialState() {
         return assign({
             facetList: {},
             selectedFacetList: {},
@@ -73,9 +84,9 @@ var searchFilterResultMixin = {
      * Get the state from store.
      * @returns {object} Dtat to update store.
      */
-    _getStateFromStore: function() {
-        if(this.store) {
-            var data = this.store.get();
+    _getStateFromStore() {
+        if (this.store) {
+            let data = this.store.get();
             return assign({
                 facetList: data.facet
             }, this.getScrollState());
@@ -86,25 +97,25 @@ var searchFilterResultMixin = {
      * Register a listener on the store.
      * @private
      */
-    _registerListeners: function registerListeners() {
-        if(this.store) {
-            this.store.addSearchChangeListener(this.onSearchChange);
+    _registerListeners() {
+        if (this.store) {
+            this.store.addSearchChangeListener(this._onSearchChange);
         }
     },
     /**
      * Unregister a listener on the store.
      * @private
      */
-    _unRegisterListeners: function unRegisterSearchListeners(){
-        if(this.store){
-            this.store.removeSearchChangeListener(this.onSearchChange);
+    _unRegisterListeners() {
+        if (this.store) {
+            this.store.removeSearchChangeListener(this._onSearchChange);
         }
     },
 
     /**
      * Handler when store emit a change event.
      */
-    onSearchChange: function onSearchChange() {
+    _onSearchChange() {
         this.setState(this._getStateFromStore());
     },
     /**
@@ -112,10 +123,10 @@ var searchFilterResultMixin = {
      * @returns {{}} Facets object : [facet1: 'Label of facet1', facet2: 'Label of facet2'}.
      * @private
      */
-    _getFacetListForBar: function() {
-        var facetList = {};
-        for(var key in this.state.selectedFacetList) {
-            var facet = this.state.selectedFacetList[key];
+    _getFacetListForBar() {
+        let facetList = {};
+        for (let key in this.state.selectedFacetList) {
+            let facet = this.state.selectedFacetList[key];
             facetList[key] = facet.data.label;
         }
         return facetList;
@@ -125,8 +136,8 @@ var searchFilterResultMixin = {
      * @param key [string}  Key of the clicked facet.
      * @private
      */
-    _facetBarClick: function(key) {
-        var selectedFacetList = this.state.selectedFacetList;
+    _facetBarClick(key) {
+        let selectedFacetList = this.state.selectedFacetList;
         delete selectedFacetList[key];
 
         this.state.selectedFacetList = selectedFacetList;
@@ -141,12 +152,11 @@ var searchFilterResultMixin = {
      * @param {string} key Name of the column to group (if null => ungroup action).
      * @private
      */
-    _groupClick: function(key) {
+    _groupClick(key) {
         console.log('Group by : ' + key);
-
         this.setState(
             assign(
-                { groupSelectedKey: key },
+                {groupSelectedKey: key},
                 this.getNoFetchState()
             ), this.search);
     },
@@ -156,38 +166,38 @@ var searchFilterResultMixin = {
      * @param {string} order Order  asc/desc
      * @private
      */
-    _orderClick: function(key, order) {
+    _orderClick(key, order) {
         console.log('Order : ' + key + ' - ' + order);
         this.setState(
             assign(
-                {orderSelected:  {key: key, order: order}},
+                {orderSelected: {key: key, order: order}},
                 this.getNoFetchState()
-        ), this.search);
+            ), this.search);
     },
     /**
      * Selection action handler.
      * @param selectionStatus Current selection status.
      * @private
      */
-    _selectionGroupLineClick: function(selectionStatus) {
-        console.log("Selection status : " + selectionStatus);
+    _selectionGroupLineClick(selectionStatus) {
+        console.log('Selection status : ' + selectionStatus);
         this.setState({
-            selectionStatus: selectionStatus
+            selectionStatus
         });
     },
     /**
      * Handler called when facet is selected.
      * @param facetComponentData Data of facet.
      */
-    _facetSelectionClick: function(facetComponentData, isDisableGroup) {
-        console.warn("Facet selection ");
+    _facetSelectionClick(facetComponentData, isDisableGroup) {
+        console.warn('Facet selection ');
         console.log(facetComponentData.selectedFacetList);
 
-        var newState = {
+        let newState = {
             selectedFacetList: facetComponentData.selectedFacetList,
             openedFacetList: facetComponentData.openedFacetList
         };
-        if(isDisableGroup) {
+        if (isDisableGroup) {
             newState.groupSelectedKey = undefined;
         }
 
@@ -197,19 +207,19 @@ var searchFilterResultMixin = {
      * Line selection handler.
      * @param item Line checked/unchecked.
      */
-    _selectItem: function selectItem(item) {
-        this.setState({selectionStatus: "partial"});
+    _selectItem(item) {
+        this.setState({selectionStatus: 'partial'});
     },
     /**
      * Export action handler.
      */
-    _exportHandler: function exportHandler() {
+    _exportHandler() {
         this.props.exportAction();
     },
     /**
      * Click on scope action handler.
      */
-    _scopeClick: function scopeClick() {
+    _scopeClick() {
         this.props.unselectedScopeAction();
     },
     /**
@@ -217,13 +227,13 @@ var searchFilterResultMixin = {
      * @param groupKey Group key.
      * @returns {Function} Function to select the facet.
      */
-    showAllGroupListHandler: function showAllGroupListHandler(groupKey) {
+    showAllGroupListHandler(groupKey) {
         return (event)=> {
-            var selectedFacetList = this.state.selectedFacetList;
+            let selectedFacetList = this.state.selectedFacetList;
 
-            var facet = this.store.getFacet();
+            let facet = this.store.getFacet();
             selectedFacetList[this.state.groupSelectedKey] = {
-                data : facet[this.state.groupSelectedKey][groupKey],
+                data: facet[this.state.groupSelectedKey][groupKey],
                 key: groupKey
             };
             this._facetSelectionClick({
@@ -235,55 +245,61 @@ var searchFilterResultMixin = {
 
     /**
      * Render the liveFilter.
-     * @returns {JSX} Render the liveFilter.
+     * @returns {XML} Render the liveFilter.
      */
-    liveFilterComponent: function liveFilterComponent() {
-        return <div className="liveFilterContainer">
-                    <LiveFilter ref="liveFilter"
-                        facetList={this.state.facetList}
-                        selectedFacetList={this.state.selectedFacetList}
-                        openedFacetList={this.state.openedFacetList}
-                        config={this.props.facetConfig}
-                        dataSelectionHandler={this._facetSelectionClick}/>
-                </div>;
+    liveFilterComponent() {
+        return (
+            <div className='liveFilterContainer'>
+                <LiveFilter ref='liveFilter'
+                            facetList={this.state.facetList}
+                            selectedFacetList={this.state.selectedFacetList}
+                            openedFacetList={this.state.openedFacetList}
+                            config={this.props.facetConfig}
+                            dataSelectionHandler={this._facetSelectionClick}/>
+            </div>
+        );
     },
     /**
      * Render the list summary component.
-     * @returns {JSX} Htm code.
+     * @returns {XML} Htm code.
      */
-    listSummaryComponent: function listSummaryComponent() {
-        var scopeList = {scope: this.props.criteria.scope};
-        return <div className="listSummaryContainer panel">
-                    <ListSummary
-                        nb={this.state.totalRecords}
-                        queryText={this.props.criteria.searchText}
-                        scopeList={scopeList}
-                        scopeClickAction={this._scopeClick}
-                        exportAction={this._exportHandler} />
-                </div>;
+    listSummaryComponent() {
+        let scopeList = {scope: this.props.criteria.scope};
+        return (
+            <div className='listSummaryContainer panel'>
+                <ListSummary
+                    nb={this.state.totalRecords}
+                    queryText={this.props.criteria.searchText}
+                    scopeList={scopeList}
+                    scopeClickAction={this._scopeClick}
+                    exportAction={this._exportHandler}/>
+            </div>
+        );
     },
     /**
      * Render the action bar.
-     * @returns {JSX} Rendering of the action bar.
+     * @returns {XML} Rendering of the action bar.
      */
-    actionBarComponent: function actionBarComponent() {
-        var groupableColumnList = {};
-        for(var facetKey in this.state.facetList) {
+    actionBarComponent() {
+        let groupableColumnList = {};
+        for (let facetKey in this.state.facetList) {
             groupableColumnList[facetKey] = facetKey;
         }
-        return <div className="listActionBarContainer panel">
-                    <ListActionBar selectionStatus={this.state.selectionStatus}
-                        selectionAction={this._selectionGroupLineClick}
-                        orderableColumnList={this.props.orderableColumnList}
-                        orderAction={this._orderClick}
-                        orderSelected={this.state.orderSelected}
-                        groupableColumnList={groupableColumnList}
-                        groupAction={this._groupClick}
-                        groupSelectedKey={this.state.groupSelectedKey}
-                        facetList={this._getFacetListForBar()}
-                        facetClickAction={this._facetBarClick}
-                        operationList={this.props.operationList} />
-                </div>;
+        return (
+            <div className='listActionBarContainer panel'>
+                <ListActionBar selectionStatus={this.state.selectionStatus}
+                               selectionAction={this._selectionGroupLineClick}
+                               orderableColumnList={this.props.orderableColumnList}
+                               orderAction={this._orderClick}
+                               orderSelected={this.state.orderSelected}
+                               groupableColumnList={groupableColumnList}
+                               groupAction={this._groupClick}
+                               groupSelectedKey={this.state.groupSelectedKey}
+                               facetList={this._getFacetListForBar()}
+                               facetClickAction={this._facetBarClick}
+                               operationList={this.props.operationList}/>
+            </div>
+        );
     },
 
     /**
@@ -291,25 +307,27 @@ var searchFilterResultMixin = {
      * @param {object} options - map of parameters.
      * @returns {XML} Html rendering.
      */
-    simpleListComponent: function simpleListComponent(options) {
+    simpleListComponent(options) {
         checkIsNotNull('options', options);
         checkIsNotNull('options.type', options.type);
-        var newList = options.list || this.state.list;
-        if(options.maxRows) {
+        let newList = options.list || this.state.list;
+        if (options.maxRows) {
             newList = newList.slice(0, options.maxRows);
         }
-        return <ListSelection data={newList}
-            ref={options.type}
-            idField={this.props.idField}
-            isSelection={this.props.isSelection}
-            onSelection={this._selectItem}
-            onLineClick={this.props.onLineClick}
-            fetchNextPage={this.fetchNextPage}
-            operationList={this.props.lineOperationList}
-            hasMoreData={this.state.hasMoreData}
-            isLoading={this.state.isLoading}
-            lineComponent={this.props.lineMap[options.type]}
-            selectionStatus={this.state.selectionStatus} />
+        return (
+            <ListSelection data={newList}
+                           ref={options.type}
+                           idField={this.props.idField}
+                           isSelection={this.props.isSelection}
+                           onSelection={this._selectItem}
+                           onLineClick={this.props.onLineClick}
+                           fetchNextPage={this.fetchNextPage}
+                           operationList={this.props.lineOperationList}
+                           hasMoreData={this.state.hasMoreData}
+                           isLoading={this.state.isLoading}
+                           lineComponent={this.props.lineMap[options.type]}
+                           selectionStatus={this.state.selectionStatus}/>
+        );
     }
 };
 
