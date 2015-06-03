@@ -32,9 +32,9 @@ var barMixin = {
     var className = `bar ${this.props.style.className}`;
     return (
       <div className={className} data-focus='bar'>
-        <div data-focus='bar-app-name'>{this.props.appName}</div>
-        <div data-focus='bar-summary'><this.state.summaryComponent.component {...this.state.summaryComponent.props}/></div>
-        <div data-focus='bar-user-infos'>
+        <div data-focus='bar-content-left'>{this.props.appName}</div>
+        <div data-focus='bar-content-middle'><this.state.summaryComponent.component {...this.state.summaryComponent.props}/></div>
+        <div data-focus='bar-content-right'>
           <i className="mdi-action-language"></i>
           <i className="mdi-social-notifications"></i>
           <i className="mdi-action-account-circle"></i>
