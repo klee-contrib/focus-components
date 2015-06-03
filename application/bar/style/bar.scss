@@ -1,38 +1,36 @@
 $bar-menu-size:60px;
+$bar-padding:10px;
+$bar-element-height:($bar-menu-size) - ($bar-padding * 2);
+
+$bar-summary-left:200px;
+$bar-summary-right:200px;
 
 [data-focus='bar'] {
   height:$bar-menu-size;
-  line-height: $bar-menu-size;
+  line-height: $bar-element-height;
   position: relative;
+  padding:$bar-padding;
+  padding-left: $bar-menu-size + $bar-padding;
 
-  [data-focus='bar-app-name'] {
-    position: absolute;
-    top:0;
-    left:0;
-    height:$bar-menu-size;
-    line-height: $bar-menu-size;
-    background: transparent;
-    padding: 0 10px;
+  [data-focus='bar-content-left'] {
+    float:left;
+    height:$bar-element-height;
+    line-height: $bar-element-height;
+    width:$bar-summary-left;
   }
-  [data-focus='bar-actions-left'] {
-    border: 1px solid green;
-    height:$bar-menu-size;
-    line-height: $bar-menu-size;
+  [data-focus='bar-content-right'] {
+    float:right;
+    height:$bar-element-height;
+    line-height: $bar-element-height;
     background: transparent;
+    width:$bar-summary-right;
+    text-align: right;
   }
-  [data-focus='bar-summary'] {
-    height:$bar-menu-size;
-    line-height: $bar-menu-size;
+  [data-focus='bar-content-middle'] {
+    height:$bar-element-height;
+    line-height: $bar-element-height;
     background: transparent;
-    margin: 0 100px 0 100px;
-  }
-  [data-focus='bar-user-infos'] {
-    position: absolute;
-    top:0;
-    right:0;
-    height:$bar-menu-size;
-    line-height: $bar-menu-size;
-    background: transparent;
+    margin: 0 $bar-summary-left 0 $bar-summary-right;
     border: 1px solid orange;
   }
 }
