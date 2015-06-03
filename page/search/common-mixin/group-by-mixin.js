@@ -25,7 +25,7 @@ let GroupByMixin = {
         };
     },
     groupByListComponent() {
-        let groupList = this.state.list.map((groupKey) => {
+        let groupList = Object.keys(this.state.list).map((groupKey) => {
             return (
                 <SingleGroupComponent key={groupKey}
                                       ref={groupKey}
