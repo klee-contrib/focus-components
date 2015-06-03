@@ -4,7 +4,7 @@ let React = require('react');
 let Scope = require('./scope').component;
 let words = require('lodash/string/words');
 
-let SearchInputMixin = {
+let SearchBar = {
     displayName: 'SearchInput',
     getDefaultProps: function () {
         return {
@@ -68,7 +68,7 @@ let SearchInputMixin = {
     },
     renderHelp: function renderHelp() {
         return (
-            <div className='qs-help' ref='help'>
+            <div className='sb-help' ref='help'>
                 <span name='share'/>
                 <span>{'Define the scope of research'}</span>
             </div>
@@ -87,9 +87,9 @@ let SearchInputMixin = {
         return this.setState(this.getValue(), this.focusQuery);
     },
     render: function renderSearchInput() {
-        let loadingClassName = this.props.loading ? 'qs-loading' : '';
+        let loadingClassName = this.props.loading ? 'sb-loading' : '';
         return (
-            <div className='qs-quick-search'>
+            <div data-focus='search-bar'>
                 <Scope ref='scope' list={this.props.scopes} value={this.state.scope} handleOnClick={this.handleOnClickScope}/>
                 <input ref='query' onKeyUp={this.handleKeyUp} type='search' className={loadingClassName}/>
                 {this.renderHelp()}
@@ -98,4 +98,4 @@ let SearchInputMixin = {
     }
 };
 
-module.exports = builder(SearchInputMixin);
+module.exports = builder(SearchBar);

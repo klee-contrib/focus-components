@@ -88,9 +88,9 @@ let scopeMixin = {
     scopeStyle() {
         let activeScope = this.getActiveScope();
         if (!activeScope) {
-            return 'qs-scope-none';
+            return 'sb-scope-none';
         }
-        return activeScope.style || `qs-scope-${activeScope.code}`;
+        return activeScope.style || `sb-scope-${activeScope.code}`;
     },
     renderScopeList() {
         if (!this.state.isDeployed) {
@@ -101,7 +101,7 @@ let scopeMixin = {
             //Add defaut Style to scope if not define
             let scopeCss = scope.style;
             if (!scopeCss) {
-                scopeCss = 'qs-scope-' + scope.code;
+                scopeCss = 'sb-scope-' + scope.code;
             }
             scope.style = scopeCss;
 
@@ -112,7 +112,7 @@ let scopeMixin = {
             );
         });
         return (
-            <ul className='qs-scope-list'>
+            <ul className='sb-scope-list'>
                 {scopes}
             </ul>);
     },
@@ -121,9 +121,9 @@ let scopeMixin = {
      * @return {object} - The jsx element.
      */
     render() {
-        let cssClass = `qs-icon qs-scope-deploy-${this.state.isDeployed ? 'up' : 'down'}`;
+        let cssClass = `sb-icon sb-scope-deploy-${this.state.isDeployed ? 'up' : 'down'}`;
         return (
-            <div className={this.props.className + ' qs-scope'}>
+            <div className={this.props.className} data-focus='scope'>
                 <div className={cssClass} onClick={this.handleDeployClick}>
                     <div className={this.scopeStyle()}>
                         {this.scopeLabel()}

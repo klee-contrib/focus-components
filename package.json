@@ -53,8 +53,8 @@
       "path": "application/content-bar"
     },
     {
-      "name": "quick-search",
-      "path": "search/quick-search"
+      "name": "search-bar",
+      "path": "search/search-bar"
     },
     {
       "name": "block",
