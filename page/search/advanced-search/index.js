@@ -3,14 +3,12 @@
 let builder = require('focus').component.builder;
 let React = require('react');
 let assign = require('object-assign');
-let checkIsNotNull = require('focus').util.object.checkIsNotNull;
 
 // Components
 
 let LiveFilter = require('../../../search/live-filter/index').component;
 let ListActionBar = require('../../../list/action-bar/index').component;
 let ListSummary = require('../../../list/summary/index').component;
-let ListSelection = require('../../../list/selection').list.component;
 
 // Store
 
@@ -49,17 +47,12 @@ let searchFilterResultMixin = {
     getDefaultProps() {
         return {
             facetConfig: {},
-            openedFacetList: {},
-            orderableColumnList: {},
-            operationList: {},
-            lineComponent: undefined,
+            idField: 'id',
             isSelection: true,
-            lineOperationList: [],
             criteria: {
                 scope: undefined,
                 searchText: undefined
             },
-            idField: undefined,
             exportAction: function () {
             },
             unselectedScopeAction: function () {
@@ -223,6 +216,15 @@ let searchFilterResultMixin = {
         this.props.unselectedScopeAction();
     },
     /**
+     * Action on line click.
+     * @param {object} item  the item clicked
+     */
+    _lineClick(item){
+        if(this.props.onLineClick){
+            this.props.onLineClick(item);
+        }
+    },
+    /**
      * Render the show all button  seect the group corresponding facet.
      * @param groupKey Group key.
      * @returns {Function} Function to select the facet.
@@ -281,10 +283,10 @@ let searchFilterResultMixin = {
      * @returns {XML} Rendering of the action bar.
      */
     actionBarComponent() {
-        let groupableColumnList = {};
-        for (let facetKey in this.state.facetList) {
-            groupableColumnList[facetKey] = facetKey;
-        }
+        let groupableColumnList = Object.keys(this.state.facetList).reduce((result, facetKey) => {
+            result[facetKey] = facetKey;
+            return result;
+        }, {});
         return (
             <div className='listActionBarContainer panel'>
                 <ListActionBar selectionStatus={this.state.selectionStatus}
@@ -297,36 +299,8 @@ let searchFilterResultMixin = {
                                groupSelectedKey={this.state.groupSelectedKey}
                                facetList={this._getFacetListForBar()}
                                facetClickAction={this._facetBarClick}
-                               operationList={this.props.operationList}/>
+                               operationList={this.props.lineOperationList}/>
             </div>
-        );
-    },
-
-    /**
-     * Render a simple list.
-     * @param {object} options - map of parameters.
-     * @returns {XML} Html rendering.
-     */
-    simpleListComponent(options) {
-        checkIsNotNull('options', options);
-        checkIsNotNull('options.type', options.type);
-        let newList = options.list || this.state.list;
-        if (options.maxRows) {
-            newList = newList.slice(0, options.maxRows);
-        }
-        return (
-            <ListSelection data={newList}
-                           ref={options.type}
-                           idField={this.props.idField}
-                           isSelection={this.props.isSelection}
-                           onSelection={this._selectItem}
-                           onLineClick={this.props.onLineClick}
-                           fetchNextPage={this.fetchNextPage}
-                           operationList={this.props.lineOperationList}
-                           hasMoreData={this.state.hasMoreData}
-                           isLoading={this.state.isLoading}
-                           lineComponent={this.props.lineMap[options.type]}
-                           selectionStatus={this.state.selectionStatus}/>
         );
     }
 };

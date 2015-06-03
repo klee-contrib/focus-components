@@ -2,14 +2,12 @@
 
 let assign = require('object-assign');
 let type = require('focus').component.types;
-let checkIsNotNull = require('focus').util.object.checkIsNotNull;
 let builder = require('focus').component.builder;
 let React = require('react');
 
 // Components
 
 let SearchBar  = require('../../../search/search-bar').component;
-let List = require('../../../list/selection').list.component;
 
 // Mixins
 
@@ -44,9 +42,7 @@ let QuickSearchMixin = {
     },
     getDefaultProps(){
         return {
-            lineMap: undefined,
             isSelection: false,
-            lineOperationList: [],
             idField: 'id',
             SearchBar: SearchBar,
             groupMaxRows: 3
@@ -149,34 +145,6 @@ let QuickSearchMixin = {
                 scope={this.props.scope}
                 scopes={this.props.scopeList}
                 loading={this.state.isLoadingSearch}
-            />
-        );
-    },
-    /**
-     * Render a list based on a single entity.
-     * @param {object} options - map of parameters
-     * @return {XML} the List component.
-     */
-    simpleListComponent(options) {
-        checkIsNotNull('options', options);
-        checkIsNotNull('options.type', options.type);
-        let newList = options.list || this.state.list;
-        if(options.maxRows) {
-            newList = newList.slice(0, options.maxRows);
-        }
-        return (
-            <List data={newList}
-                ref={options.type}
-                idField={this.props.idField}
-                isSelection={this.props.isSelection}
-                onSelection={this._selectItem}
-                onLineClick={this._lineClick}
-                fetchNextPage={this.fetchNextPage}
-                hasMoreData={this.state.hasMoreData}
-                isLoading={this.state.isLoading}
-                operationList={this.props.operationList}
-                lineComponent={this.props.lineMap[options.type]}
-                parentSelector= {this.props.parentSelector}
             />
         );
     }

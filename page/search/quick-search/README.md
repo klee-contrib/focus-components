@@ -1,5 +1,6 @@
-## Technical Configuration
-Mixin permettant d'implémenter un panneau de recherche.
+## Configuration technique
+Mixin permettant d'implémenter un panneau de recherche rapide.
+Le panneau se compose d'une barre de recherche, ainsi que d'une liste de résultats.
 
 ## Attributs
 <table>
@@ -52,7 +53,7 @@ Mixin permettant d'implémenter un panneau de recherche.
             <td><code>isSelection</code></td>
             <td><i>boolean</i></td>
             <td></td>
-            <td><code>true</code></td>
+            <td><code>false</code></td>
             <td>Définit si la liste offre la possibilité de sélectionner les lignes de résultat.</td>
         </tr>
         <tr>
