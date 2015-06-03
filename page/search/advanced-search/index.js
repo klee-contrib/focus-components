@@ -107,26 +107,8 @@ var searchFilterResultMixin = {
     onSearchChange: function onSearchChange() {
         this.setState(this._getStateFromStore());
     },
-
     /**
-     * Search function.
-     */
-    search: function search(event) {
-        if(event) {
-            event.preventDefault();
-        }
-
-        var facets = [];
-        for(var selectedFacet in this.state.selectedFacetList) {
-            facets.push({key: selectedFacet, value: this.state.selectedFacetList[selectedFacet].key});
-        }
-
-        this.actions.search(
-            this.getSearchCriteria(this.props.criteria.scope,  this.props.criteria.searchText, facets)
-        );
-    },
-    /**
-     * Get the list of facet to print into the top bar..
+     * Get the list of facet to print into the top bar.
      * @returns {{}} Facets object : [facet1: 'Label of facet1', facet2: 'Label of facet2'}.
      * @private
      */

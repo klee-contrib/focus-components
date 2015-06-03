@@ -1,34 +1,35 @@
 // Dependencies
 
-var assign = require('object-assign');
-var type = require('focus').component.types;
-var checkIsNotNull = require('focus').util.object.checkIsNotNull;
-var builder = require('focus').component.builder;
-var React = require('react');
+let assign = require('object-assign');
+let type = require('focus').component.types;
+let checkIsNotNull = require('focus').util.object.checkIsNotNull;
+let builder = require('focus').component.builder;
+let React = require('react');
 
 // Components
 
-var SearchBar  = require('../../../search/search-bar').component;
-var List = require('../../../list/selection').list.component;
+let SearchBar  = require('../../../search/search-bar').component;
+let List = require('../../../list/selection').list.component;
 
 // Mixins
 
-var InfiniteScrollPageMixin = require('../common-mixin/infinite-scroll-page-mixin').mixin;
-var GroupByMixin= require('../common-mixin/group-by-mixin').mixin;
+let ScrollInfoMixin = require('../common-mixin/scroll-info-mixin').mixin;
+let GroupByMixin= require('../common-mixin/group-by-mixin').mixin;
+let SearchMixin = require('../common-mixin/search-mixin').mixin;
 
 /**
  * General search mixin.
  * Contains a search bar, and a results list.
  * @type {Object}
  */
-var GeneralSearchMixin = {
-    mixins: [InfiniteScrollPageMixin, GroupByMixin],
+let QuickSearchMixin = {
+    mixins: [ScrollInfoMixin, GroupByMixin],
     /**
      * Tag name.
      */
     displayName: 'SearchPanel',
     /**
-     * Component intialization
+     * Component initialization
      */
     componentDidMount(){
         this._registerListeners();
@@ -109,8 +110,8 @@ var GeneralSearchMixin = {
      * @param {object} item selected
      */
     _selectItem(item){
-        var selected = this.state.selected;
-        var index = selected.indexOf(item);
+        let selected = this.state.selected;
+        let index = selected.indexOf(item);
         if(index){
             selected.splice(index, index);
         }else{
@@ -126,14 +127,6 @@ var GeneralSearchMixin = {
         if(this.props.onLineClick){
             this.props.onLineClick(item);
         }
-    },
-    /**
-     * Run search action.
-     */
-    search(){
-        this.actions.search(
-            this.getSearchCriteria(this.state.scope, this.state.query)
-        );
     },
     _prepareSearch(searchValues){
         this.setState(
@@ -167,7 +160,7 @@ var GeneralSearchMixin = {
     simpleListComponent(options) {
         checkIsNotNull('options', options);
         checkIsNotNull('options.type', options.type);
-        var newList = options.list || this.state.list;
+        let newList = options.list || this.state.list;
         if(options.maxRows) {
             newList = newList.slice(0, options.maxRows);
         }
@@ -189,4 +182,4 @@ var GeneralSearchMixin = {
     }
 };
 
-module.exports = builder(GeneralSearchMixin, true);
+module.exports = builder(QuickSearchMixin, true);

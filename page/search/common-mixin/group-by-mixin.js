@@ -1,16 +1,11 @@
-var isArray = require('lodash/lang/isArray');
-var GroupBy = require('./group-by-component').component;
+let isArray = require('lodash/lang/isArray');
+let SingleGroupComponent = require('./single-group-component').component;
 
 /**
  * Mixin used in order to create a block.
  * @type {Object}
  */
-var GroupByMixin = {
-    getDefaultProps: function getDefaultProps() {
-        return {
-            groupMaxRows: undefined
-        };
-    },
+let GroupByMixin = {
     /**
      * @returns {boolean} Returns true if list is a simple list, false if grouped.
      * @private
@@ -29,20 +24,18 @@ var GroupByMixin = {
             this.refs[groupKey].changeGroupByMaxRows(maxRows);
         };
     },
-
     groupByListComponent() {
-        var groupList = [];
-        for (var groupKey in this.state.list) {
-            groupList.push(
-                <GroupBy key={groupKey}
-                         ref={groupKey}
-                         renderGroupBy={this.renderGroupByBlock}
-                         list={this.state.list[groupKey]}
-                         groupKey={groupKey}
-                         maxRows={this.props.groupMaxRows}
+        let groupList = this.state.list.map((groupKey) => {
+            return (
+                <SingleGroupComponent key={groupKey}
+                                      ref={groupKey}
+                                      renderGroupBy={this.renderGroupByBlock}
+                                      list={this.state.list[groupKey]}
+                                      groupKey={groupKey}
+                                      maxRows={this.props.groupMaxRows}
                 />
             );
-        }
+        });
         return groupList;
     }
 };
