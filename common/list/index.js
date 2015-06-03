@@ -37,7 +37,7 @@ module.exports = React.createClass({
   },
   /** @inheritdoc */
   getInitialState: function(){
-    return { maxElements:  this.props.perPage * page};
+    return { maxElements:  this.props.perPage * this.props.page};
   },
   fetchNextPage: function fetchNextPage(page) {
   /** @inheritdoc */
