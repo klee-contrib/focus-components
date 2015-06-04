@@ -69,7 +69,7 @@ var selectActionMixin = {
         }
         var liList = this._getList(this.props.operationList);
         return (
-            <div className="btn btn-fab btn-default">
+            <div className="select-action btn btn-fab btn-default">
                 <Icon name='navigation-more-vert'  prefix='mdi-' />
                 <a href={window.location.pathname} data-target="#" className="dropdown-toggle" data-toggle="dropdown"><Img src={this.props.style} /></a>
                 <ul className="dropdown-menu">{liList}</ul>
