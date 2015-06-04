@@ -22,7 +22,8 @@ var buttonMixin = {
                 isPressed: false,
                 label: undefined,
                 icon: undefined,
-                imgSrc: undefined //todo to remove
+                imgSrc: undefined,
+                iconPrefix: 'fa fa-' //todo to remove
             };
         },
         /**
@@ -58,7 +59,7 @@ var buttonMixin = {
         },
         _renderIcon: function renderIcon() {
             if (this.props.icon) {
-                return <Icon name={this.props.icon}  prefix='mdi-'/>
+                return <Icon name={this.props.icon} prefix={this.props.iconPrefix} />
             }
             return '';
         },
