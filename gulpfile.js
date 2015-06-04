@@ -77,7 +77,8 @@ function jsBuild(directory, options) {
 		}, literalify.configure({
 			react: 'window.React',
 			focus: 'window.Focus',
-			jquery: 'window.jQuery'
+			jquery: 'window.jQuery',
+			backbone: 'window.Backbone'
 		}))
 		.transform(babelify)
 		.bundle()
@@ -120,7 +121,8 @@ function build(name){
 			}, literalify.configure({
 				react: 'window.React',
 				focus: 'window.Focus',
-				jquery: 'window.jQuery'
+				jquery: 'window.jQuery',
+				backbone: 'window.Backbone'
 			}))
 			.transform(babelify)
 			.bundle()
