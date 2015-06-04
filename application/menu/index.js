@@ -37,7 +37,7 @@ var menuMixin = {
         clickHandler = link.onClick;
       }
       return (
-        <li><Button  handleOnClick={clickHandler} icon={link.icon} label={link.name}/></li>
+        <li><Button handleOnClick={clickHandler} icon={link.icon} label={link.name} option="link" shape="flat" /></li>
       );
     });
   },
