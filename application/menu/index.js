@@ -4,7 +4,8 @@ var type = require('focus').component.types;
 var popinProperties = require('../mixin/popin-behaviour').mixin;
 var stylabe =  require('../../mixin/stylable');
 var Icon = require('../../common/icon').component;
-var Backbone = require
+var Backbone = require('backbone');
+var Button = require('../../common/button/action').component;
 var menuMixin = {
   mixins: [stylabe, popinProperties],
 
@@ -36,7 +37,7 @@ var menuMixin = {
         clickHandler = link.onClick;
       }
       return (
-        <li><button  onClick={clickHandler} >{link.icon && <Icon name={link.icon}/>}{link.name}</button></li>
+        <li><Button  handleOnClick={clickHandler} icon={link.icon} label={link.name}/></li>
       );
     });
   },
