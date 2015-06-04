@@ -9,8 +9,7 @@ var PopinProperties = {
     return {
       direction: 'vertical',//horizontal
       position: 'left', // top, bottom, right, left
-      open: false,
-      style: {}
+      open: false
     };
   },
   /** @inheritdoc */

@@ -25,7 +25,8 @@
     <script src="https://fb.me/JSXTransformer-0.13.3.js"></script>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/showdown/0.4.0/Showdown.js"></script>
-
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/3.9.3/lodash.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/backbone.js/1.2.0/backbone-min.js"></script>
   <script src="/focus-components/dist/js/focus.js"></script>
   <script src="/focus-components/dist/js/focus-components.js"></script>
   <script src="/focus-components/example/js/initFocus.js"></script>
@@ -40,17 +41,8 @@
   <script type="text/jsx">
   //Load dependencies.
   Focus.components = FocusComponents;
-
-  var menuMixin = FocusComponents.application.menu.mixin;
-  var Menu = React.createClass({
-      mixins: [menuMixin],
-      renderContent: function renderMenuContent() {
-          return this.renderLinks();
-      },
-      renderTitle: function () {
-          return <h3>{this.props.title}</h3>;
-      }
-  });
+  var items = [{icon:'circle', route: 'papa', onClick:function(){console.log('I click here......')}, name: '1'}];
+  var Menu = FocusComponents.application.menu.component;
 
   //Create the view.
   var TestApp = React.createClass({displayName: "TestApp",
@@ -79,13 +71,13 @@
         React.createElement("br", null),
         React.createElement("br", null),
         React.createElement("button", {onClick: this.handleOnClickLeft, className: "btn btn-primary"}, "Toggle menu left"),
-        React.createElement(Menu, {open: false,title: "Menu left", ref: "menuLeft"}),
+        React.createElement(Menu, {open: false,title: "Menu left", ref: "menuLeft", items: items}),
         React.createElement("button", {onClick: this.handleOnClickTop, className: "btn btn-success"}, "Toggle menu top"),
-        React.createElement(Menu, {open: false,position: "top", direction: "horizontal",title: "Menu top", ref: "menuTop"}),
+        React.createElement(Menu, {open: false,position: "top", direction: "horizontal",title: "Menu top", ref: "menuTop", items: items}),
         React.createElement("button", {onClick: this.handleOnClickRight, className: "btn btn-danger"}, "Toggle menu right"),
-        React.createElement(Menu, {open: false,position: "right", direction: "vertical",title: "Menu right", ref: "menuRight"}),
+        React.createElement(Menu, {open: false,position: "right", direction: "vertical",title: "Menu right", ref: "menuRight", items: items}),
         React.createElement("button", {onClick: this.handleOnClickBottom, className: "btn"}, "Toggle menu bottom"),
-        React.createElement(Menu, {open: false,position: "bottom", direction: "horizontal",title: "Menu bottom", ref: "menuBottom"})
+        React.createElement(Menu, {open: false,position: "bottom", direction: "horizontal",title: "Menu bottom", ref: "menuBottom",  items: items})
       );
     }
   });
