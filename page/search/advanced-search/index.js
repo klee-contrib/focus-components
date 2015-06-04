@@ -288,19 +288,17 @@ let AdvancedSearchMixin = {
             return result;
         }, {});
         return (
-            <div className='listActionBarContainer panel'>
-                <ListActionBar selectionStatus={this.state.selectionStatus}
-                               selectionAction={this._selectionGroupLineClick}
-                               orderableColumnList={this.props.orderableColumnList}
-                               orderAction={this._orderClick}
-                               orderSelected={this.state.orderSelected}
-                               groupableColumnList={groupableColumnList}
-                               groupAction={this._groupClick}
-                               groupSelectedKey={this.state.groupSelectedKey}
-                               facetList={this._getFacetListForBar()}
-                               facetClickAction={this._facetBarClick}
-                               operationList={this.props.lineOperationList}/>
-            </div>
+            <ListActionBar selectionStatus={this.state.selectionStatus}
+                           selectionAction={this._selectionGroupLineClick}
+                           orderableColumnList={this.props.orderableColumnList}
+                           orderAction={this._orderClick}
+                           orderSelected={this.state.orderSelected}
+                           groupableColumnList={groupableColumnList}
+                           groupAction={this._groupClick}
+                           groupSelectedKey={this.state.groupSelectedKey}
+                           facetList={this._getFacetListForBar()}
+                           facetClickAction={this._facetBarClick}
+                           operationList={this.props.lineOperationList}/>
         );
     }
 };
