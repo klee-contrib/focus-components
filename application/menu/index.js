@@ -4,7 +4,7 @@ var type = require('focus').component.types;
 var popinProperties = require('../mixin/popin-behaviour').mixin;
 var stylabe =  require('../../mixin/stylable');
 var Icon = require('../../common/icon').component;
-var Backbone = require
+var Backbone = require('backbone');
 var menuMixin = {
   mixins: [stylabe, popinProperties],
 

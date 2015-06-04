@@ -41,7 +41,10 @@
   <script type="text/jsx">
   //Load dependencies.
   Focus.components = FocusComponents;
-  var items = [{icon:'circle', route: 'papa', onClick:function(){console.log('I click here......')}, name: '1'}];
+  var items = [
+    {icon:'circle', route: 'papa', onClick:function(){console.log('I click here......')}, name: '1'},
+    {icon:'circle',  onClick:function(){console.log('I click here 2 only cb......')}, name: '2'}
+    ];
   var Menu = FocusComponents.application.menu.component;
 
   //Create the view.
