@@ -1,11 +1,11 @@
-var domain =  {
+var domain = {
   "DO_TEXT": {
     style: "do_text",
     type: "text",
     component: "PapaSinge",
     validation: [{
       type: "function",
-      value: function() {
+      value: function () {
         return false;
       }
     }]
@@ -16,37 +16,37 @@ var domain =  {
     component: "PapaMail",
     validation: [{
       type: "function",
-      value: function() {
+      value: function () {
         return true;
       }
     }]
   },
   'DO_DATE': {
     'InputComponent': FocusComponents.common.input.date.component,
-    'formatter': function(date){
+    'formatter': function (date) {
       var monthNames = [
-      'January', "February", "March",
-      "April", "May", "June", "July",
-      "August", "September", "October",
-      "November", "December"
-        ];
-        date = new Date(date);
-        var day = date.getDate();
-        var monthIndex = date.getMonth();
-        var year = date.getFullYear();
-        return "" + day +" "+ monthNames[monthIndex] +" "+ year;
+        'January', "February", "March",
+        "April", "May", "June", "July",
+        "August", "September", "October",
+        "November", "December"
+      ];
+      date = new Date(date);
+      var day = date.getDate();
+      var monthIndex = date.getMonth();
+      var year = date.getFullYear();
+      return "" + day + " " + monthNames[monthIndex] + " " + year;
     }
 
   }
 };
 Focus.definition.domain.container.setAll(domain);
 /*global focus*/
-var entities ={
+var entities = {
   "contact": {
     "firstName": {
       "domain": "DO_TEXT",
       "required": false,
-      "validator": function(data){
+      "validator": function (data) {
         return data.length <= 3 ? "le champ doit dépasser la taille de 3" : true;
       }
     },
@@ -67,32 +67,44 @@ var entities ={
       "domain": "DO_EMAIL",
       "InputComponent": FocusComponents.common.input.textarea.component
     },
-    "isCool":{
+    "isCool": {
       "domain": "DO_BOOLEAN",
       "InputComponent": FocusComponents.common.input.checkbox.component,
       "DisplayComponent": FocusComponents.common.display.checkbox.component
     },
-    "isNice":{
+    "isNice": {
       "domain": "DO_BOOLEAN",
       "FieldComponent": FocusComponents.common.input.toggle.component
     },
-    "birthDate":{
+    "birthDate": {
       "domain": "DO_DATE",
     }
-  }};
+  },
+  "commande": {
+    "name": {
+      "domain": "DO_TEXT",
+      "required": true
+    },
+    "number": {
+      "domain": "DO_NUMBER",
+      "required": false,
+      "type": "number"
+    }
+  }
+};
 Focus.definition.entity.container.setEntityConfiguration(entities);
 
-function loadRedList(name){
-    return function loadRef(){
-      var refLst = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9].map(function(cd){
-        return {
-          code: cd,
-          label: ('' + cd + ' ' + name)
-        };
-      });
+function loadRedList(name) {
+  return function loadRef() {
+    var refLst = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9].map(function (cd) {
+      return {
+        code: cd,
+        label: ('' + cd + ' ' + name)
+      };
+    });
     return Promise.resolve(refLst);
   };
 }
 
-  Focus.reference.config.set({'papas': loadRedList('papas'), 'singe': loadRedList('singe')});
-  Focus.definition.entity.container.setEntityConfiguration(entities);
+Focus.reference.config.set({'papas': loadRedList('papas'), 'singe': loadRedList('singe')});
+Focus.definition.entity.container.setEntityConfiguration(entities);
