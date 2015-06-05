@@ -19,7 +19,11 @@ let SearchStore = require('focus').store.SearchStore;
 let ScrollInfoMixin = require('../common/scroll-info-mixin').mixin;
 let GroupByMixin = require('../common/group-by-mixin').mixin;
 let SearchMixin = require('../common/search-mixin').mixin;
-
+let type = require('focus').component.types;
+/**
+ * Page mixin of the advanced search.
+ * @type {Object}
+ */
 let AdvancedSearchMixin = {
     mixins: [ScrollInfoMixin, GroupByMixin, SearchMixin],
     /**
@@ -40,24 +44,28 @@ let AdvancedSearchMixin = {
     componentWillUnmount() {
         this._unRegisterListeners();
     },
-    /**
-     * Init default props.
-     * @returns {object} Default props.
+    /** @inheritedDoc
      */
     getDefaultProps() {
         return {
             facetConfig: {},
-            idField: 'id',
+            idField: 'id', //To remove?
             isSelection: true,
             criteria: {
                 scope: undefined,
                 searchText: undefined
             },
-            exportAction: function () {
-            },
-            unselectedScopeAction: function () {
-            }
+            exportAction: undefined,
+            unselectedScopeAction: undefined
         };
+    },
+    propTypes: {
+      facetConfig: type('object'),
+      idField: type('string'),
+      isSelection: type('bool'),
+      criteria: type('object'),
+      exportAction: type('function', 'object'),
+      unselectedScopeAction: type('function', 'object')
     },
     /**
      * Init default state.
@@ -251,14 +259,13 @@ let AdvancedSearchMixin = {
      */
     getFacetBoxComponent() {
         return (
-            <div className='facetBoxContainer'>
-                <FacetBox
-                    facetList={this.state.facetList}
-                    selectedFacetList={this.state.selectedFacetList}
-                    openedFacetList={this.state.openedFacetList}
-                    config={this.props.facetConfig}
-                    dataSelectionHandler={this._facetSelectionClick}/>
-            </div>
+          <FacetBox
+              facetList={this.state.facetList}
+              selectedFacetList={this.state.selectedFacetList}
+              openedFacetList={this.state.openedFacetList}
+              config={this.props.facetConfig}
+              dataSelectionHandler={this._facetSelectionClick}
+          />
         );
     },
     /**
