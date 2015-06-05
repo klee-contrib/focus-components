@@ -64,8 +64,8 @@ let AdvancedSearchMixin = {
       idField: type('string'),
       isSelection: type('bool'),
       criteria: type('object'),
-      exportAction: type('function', 'object'),
-      unselectedScopeAction: type('function', 'object')
+      exportAction: type(['function', 'object']),
+      unselectedScopeAction: type(['function', 'object'])
     },
     /**
      * Init default state.
