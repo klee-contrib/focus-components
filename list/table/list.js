@@ -88,7 +88,7 @@ var tableMixin = {
     _renderTableBody: function renderTableBody(){
         var lineCount = 1;
         var lineComponent = this.props.lineComponent;
-        return this.props.data.map((line)=>{
+        var content = this.props.data.map((line)=>{
             return React.createElement(lineComponent, {
                 key: line[this.props.idField],
                 data: line,
@@ -97,6 +97,11 @@ var tableMixin = {
                 onSelection: this.props.onSelection
             });
         });
+        return (
+          <tbody className="table-body">
+            {content}
+          </tbody>
+        );
     },
 
     _renderLoading: function renderLoading(){
@@ -105,7 +110,7 @@ var tableMixin = {
                 return this.props.loader();
             }
             return (
-                <tbody className="timeline-loading">
+                <tbody className="table-loading">
                     <tr>
                         <td>{this.i18n('list.loading')} ...</td>
                     </tr>
@@ -118,7 +123,7 @@ var tableMixin = {
         if(this.props.isManualFetch && this.props.hasMoreData){
             var style = {className: 'primary'};
             return (
-                <tbody className="timeline-manualFetch">
+                <tbody className="table-manualFetch">
                     <tr>
                         <td>
                             <Button label="list.button.showMore"
