@@ -123,16 +123,16 @@ var tableMixin = {
         if(this.props.isManualFetch && this.props.hasMoreData){
             var style = {className: 'primary'};
             return (
-                <tbody className="table-manualFetch">
+                <tfoot className="table-manualFetch">
                     <tr>
-                        <td>
+                        <td colSpan={Object.keys(this.props.columns).length}>
                             <Button label="list.button.showMore"
                                     type="button"
                                     handleOnClick={this.handleShowMore}
                                     style={style}/>
                         </td>
                     </tr>
-                </tbody>
+                </tfoot>
             );
         }
     },
