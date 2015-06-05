@@ -14,9 +14,9 @@ var contentActionsMixin = {
     return (
       <div className={this._getStyleClassName()} data-focus='layout'>
         <this.props.AppHeader />
-        <div data-focus='menu-left'><this.props.MenuLeft /></div>
+        <div data-focus='menu'><this.props.MenuLeft /></div>
         <div data-focus='page-content'></div>
-        <footer data-focus='footer'>Team Focus</footer>
+        <footer data-focus='footer'>Focus-démo - Propulsé par la Team Focus &copy; KleeGroup 2015</footer>
         {this.props.children}
       </div>
     );
