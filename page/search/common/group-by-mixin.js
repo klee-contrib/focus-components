@@ -62,6 +62,9 @@ let GroupByMixin = {
         if (options.maxRows) {
             newList = newList.slice(0, options.maxRows);
         }
+        if(!this.props.lineMap || !this.props.lineMap[options.type]){
+          console.warn(`It seems you have not define a line for your type. ${options.type}, lineMap`, this.props.lineMap);
+        }
         return (
             <ListSelection data={newList}
                            ref={options.type}
