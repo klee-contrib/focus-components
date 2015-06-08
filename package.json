@@ -89,6 +89,14 @@
       "path": "common/input/text"
     },
     {
+      "name": "progress-bar",
+      "path": "common/progress-bar"
+    },
+    {
+      "name": "loading-bar",
+      "path": "application/loading-bar"
+    },
+    {
       "name": "input-checkbox",
       "path": "common/input/checkbox"
     },
