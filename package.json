@@ -169,6 +169,14 @@
       "path": "list/action-bar"
     },
     {
+      "name": "letters-live-filter",
+      "path": "list/letters-filter"
+    },
+    {
+      "name": "directory-list",
+      "path": "list/directory"
+    },
+    {
       "name": "list-action-contextual",
       "path": "list/action-contextual"
     },
