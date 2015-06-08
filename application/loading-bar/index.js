@@ -23,14 +23,14 @@ let LoadingBarMixin = {
     return requestStore.getRequests();
   },
   _handleRequestsUpdate: function _handlePushMessage(messageId){
-    this.setState(_getStateFromStore());
+    this.setState(this._getStateFromStore());
   },
   _handleClearRequests(){
     this.setState({requests: {}});
   },
   /** @inheriteddoc */
-  render: function renderMessageCenter() {
-    var completed  = +(this.state.pending/this.state.total);
+  render: function renderProgressBar() {
+    var completed  = +(this.state.pending/this.state.total)*100;
     return (
       <div data-focus='request-bar'>
         <ProgressBar completed={completed} />
