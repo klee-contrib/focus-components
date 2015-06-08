@@ -1,0 +1,16 @@
+.letters-filter-bar {
+  .letter-element {
+    display: inline-block;
+    padding: 0 10px 0 10px;
+	background-color: #fff;
+  }
+  .letter-element.disabled {
+    color: #999;
+    background-color: #ccc;
+  }
+  .letter-element.selected {
+    color: white;
+    background-color: black;
+    font-weight: bold;
+  }
+}
