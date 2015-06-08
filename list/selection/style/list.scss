@@ -1,36 +1,51 @@
 /* Style for the list component*/
+$sl-line-border-color: #e1e1e1;
 $sl-line-level1-color:#36b7b9;
 
 /*variables*/
 $boxSize:50px;
 /*styles*/
-ul.selection-list {
+[data-focus="selection-list"] {
   list-style: none;
   padding: 0;
   margin:0;
 
   li {
-    padding: 10px;
+    padding: 15px;
     background-color: #FFF;
-    margin: 10px 0;
+    border-bottom:1px solid $sl-line-border-color;
+    &:first-child {
+      border-top:1px solid $sl-line-border-color;
+    }
   }
 
-  li.sl-line {
+  [data-focus="sl-line"] {
     cursor: pointer;
     padding-left: $boxSize + 10px;
     position: relative;
 
+    [data-focus="sl-icon"] {
+      position: absolute;
+      top:0;
+      left: 0;
+      text-align: center;
+      height: 100%;
+      line-height: 60px;
+      width: 60px;
+    }
+
     .level1 {
-      font-size: 18pt;
+      font-size: 15pt;
       color: $sl-line-level1-color;
     }
 
     .level2 {
-      font-size: 15pt;
+      font-size: 12pt;
+      color: #000;
     }
 
-    .level2 {
-      color: #a3a3a3;
+    .level3 {
+      color: rgb(125, 123, 122);
     }
 
     div.sl-selection {

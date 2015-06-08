@@ -102,8 +102,9 @@ buttonEdit: function buttonEdit() {
   var form = this;
   return React.createElement(Button, {
     label: 'button.edit',
+    shape:'link',
     type: 'button',
-    style: {className: 'edit icon'},
+    icon: 'pencil',
     handleOnClick: function handleOnClickEdit(){
       form.setState({isEdit: !form.state.isEdit});
     }
@@ -117,8 +118,9 @@ buttonCancel: function buttonCancel() {
   var form = this;
   return React.createElement(Button, {
     label: 'button.cancel',
+    shape:'link',
     type: 'button',
-    style: {className: 'cancel icon'},
+    icon: 'undo',
     handleOnClick: function handleOnClickCancel(){
       console.log('cancel icon');
       form.setState({isEdit: !form.state.isEdit});
@@ -134,7 +136,8 @@ buttonSave: function() {
   return React.createElement(Button, {
     label: 'button.save',
     type: 'submit',
-    style: {className: 'save icon primary'},
+    shape:'link',
+    icon: 'floppy-o'
     /*handleOnClick: function handleClickOnSave(e){
       if(form.validate()){
         form.action.save(form._getEntity());

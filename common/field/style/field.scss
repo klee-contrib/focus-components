@@ -1,9 +1,14 @@
-/*
-[data-focus="field"] {
-  $.[data-focus="mode"] {
-   .input-group {
-     border: 0;
-   }
 
+[data-focus="field"] {
+  label {
+    text-align: right;
   }
-}*/
+  &[data-mode="consult"] {
+    .input-group {
+      border: 0;
+      .form-control {
+        border: 0;
+      }
+    }
+  }
+}
