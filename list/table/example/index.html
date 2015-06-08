@@ -12,6 +12,9 @@
     <script src="//code.jquery.com/jquery-1.10.2.min.js"></script>
     <script src="https://fb.me/react-0.13.3.js"></script>
     <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+    <script src="https://fb.me/JSXTransformer-0.13.3.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/3.9.3/lodash.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/backbone.js/1.2.1/backbone.js"></script>
 
     <!-- Material degign-->
     <link rel="stylesheet" href="//cdn.jsdelivr.net/bootstrap.material-design/0.3.0/css/material-wfont.min.css">
@@ -39,9 +42,9 @@
         renderLineContent: function(data){
             return (
                     <tr>
-                            <td>{this.textFor("firstName", {})}</td>
-                            <td>{this.textFor("lastName", {})}</td>
-                            <td>{this.textFor("birthDate", {})}</td>
+                        <td>{this.textFor("firstName", {})}</td>
+                        <td>{this.textFor("lastName", {})}</td>
+                        <td>{this.textFor("birthDate", {})}</td>
                     </tr>
             );
         }

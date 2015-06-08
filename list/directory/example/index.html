@@ -1,0 +1,210 @@
+<!doctype html>
+<html class="no-js" lang="">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Focus component examples</title>
+    <meta name="description" content="Example of the component.">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css" />
+    <script src="//code.jquery.com/jquery-1.10.2.min.js"></script>
+    <script src="https://fb.me/react-0.13.3.js"></script>
+    <script src="https://fb.me/JSXTransformer-0.13.3.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/3.9.3/lodash.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/backbone.js/1.2.1/backbone.js"></script>
+
+    <!-- Material design-->
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/bootstrap.material-design/0.3.0/css/material-wfont.min.css">
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/bootstrap.material-design/0.3.0/css/material.min.css">
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/bootstrap.material-design/0.3.0/css/ripples.min.css">
+    <script src="//cdn.jsdelivr.net/bootstrap.material-design/0.3.0/js/material.min.js"></script>
+    <script src="//cdn.jsdelivr.net/bootstrap.material-design/0.3.0/js/ripples.min.js"></script>
+    <script src="//johannburkard.de/resources/Johann/jquery.highlight-5.js"></script>
+
+    <script src="/focus-components/dist/js/focus.js"></script>
+    <script src="/focus-components/dist/js/focus-components.js"></script>
+    <script src="/focus-components/example/js/initFocus.js"></script>
+    <link rel="stylesheet" href="/focus-components/dist/css/focus-components.css"/>
+    <link rel="stylesheet" href="css/directory-list.css"/>
+
+    <style>
+        .directory-specific-class{
+            /*position: fixed;
+            top: 0;*/
+        }
+
+        [data-focus='letters-filter-bar']{
+            float: left;
+            margin-right: 20px;
+
+        }
+
+
+        [data-focus="directory-letters-container"]{
+            height: 50px;
+            padding: 10px;
+            border: 2px #999 solid;
+        }
+
+        .highlight {
+            background-color: yellow;
+        }
+
+        .circle {
+            width:50px;
+            height:50px;
+            border-radius:25px;
+            color:#fff;
+            line-height: 50px;
+            text-align:center;
+            background:#000;
+        }
+    </style>
+
+</head>
+<body>
+<div style="float: left">
+    <input id="show_all" type="checkbox" value="true" checked/> Show all
+    <br>
+    <input id="display_group_header" type="checkbox" value="false"/> Diplay group headers
+    <!--<br>-->
+    <!--<input id="quickSearch" type="text" placeholder="search text"/>-->
+</div>
+<div id="directory-container"></div>
+
+<script type="text/jsx">
+    Focus.components = FocusComponents;
+    var data = [];
+    var showAllProp = true;
+    var displayGroupHeader = false;
+
+    //generate test data
+    var letters = 'bcdefghijklnopqrstvwxyz';
+    var maxObjs = 1000;
+    for(var i = 0; i < maxObjs; i++){
+        var randomLetter = letters.charAt(_.random(0, 22));
+        var obj = {id: i, first_name: `${randomLetter} name (${i})`, last_name: 'last_name', email: `${randomLetter}_name${i}.last_name@test.com`};
+        data.push(obj);
+    }
+
+    var Line;
+    var columns;
+
+    var getLineComponent = function (){
+
+        //Line component (List)
+        if(!displayGroupHeader){
+            Line = React.createClass({
+                mixins: [Focus.components.list.selection.line.mixin],
+                definitionPath: "contact",
+                renderLineContent: function(data){
+                    return (
+                            <div className="container" key={this.props.data.id}>
+                                <div className="col-md-3">{this.textFor("first_name")}</div>
+                                <div className="col-md-3">{this.textFor("last_name")}</div>
+                                <div className="col-md-3">{this.textFor("email")}</div>
+                            </div>
+                    );
+                }
+            });
+        }
+
+        if(displayGroupHeader) {
+            //headers (needed for table component with option "displayGroupHeader = true"
+            columns = {
+                firstName: {label: "Prénom", noSort: true},
+                lastName: {label: "Nom", noSort: true},
+                email: {label: "E-mail", noSort: true}
+            };
+            //Line component (Table)
+            Line = React.createClass({
+                mixins: [Focus.components.list.table.line.mixin],
+                definitionPath: "contact",
+                renderLineContent: function (data) {
+                    return (
+                            <tr key={this.props.data.id} className="myTableRow">
+                                <td className="col-md-3">{this.textFor("first_name")}</td>
+                                <td className="col-md-3">{this.textFor("last_name")}</td>
+                                <td className="col-md-3">{this.textFor("email")}</td>
+                            </tr>
+                    );
+                }
+            });
+        }
+
+    }
+    var filteredPropertyName = 'first_name';
+    var DirectoryList = Focus.components.list.directory.list.component;
+
+    var render = function(){
+        var DirectoryListSample = React.createClass({
+            render: function(){
+                return(
+                <DirectoryList data={data}
+                               fieldName={filteredPropertyName}
+                               displayGroupSize={true}
+                               displayGroupHeader={displayGroupHeader}
+                               showAll={showAllProp}
+                               globalSearch={true}
+                               style={{className:"directory-specific-class"}}
+                               doAfterRefresh={this.handleAfterRefresh}
+
+                               columns={columns}
+                               lineComponent={Line}
+                               hasMoreData={false}
+                               isSelection={false}
+                               isManualFetch={true}
+                               onLineClick={this.handleLineClick}
+                        />
+                )
+            },
+            handleAfterRefresh: function(searchText){
+                if(displayGroupHeader){
+                    $('.myTableRow td').removeHighlight();
+                    if(searchText != ''){
+                        $('.myTableRow td').highlight(searchText);
+                    }
+                }else{
+                    $('.sl-content > .container > div > div').removeHighlight();
+                    if(searchText != ''){
+                        $('.sl-content > .container > div > div').highlight(searchText);
+                    }
+                }
+            },
+            handleLineClick: function(line){
+                alert(JSON.stringify(line));
+            }
+        });
+        React.render(
+                <DirectoryListSample/>
+                , document.querySelector("#directory-container")
+        );
+
+        listContainer = $("[data-focus='directory-list-container']")[0];
+        listContainer.style.height ='80vh';
+    }
+
+    var listContainer;
+    $(document).ready(function(){
+        getLineComponent();
+        render();
+        $("#show_all").click(function(){
+            showAllProp = $("#show_all").prop('checked');
+            render();
+        });
+
+        $("#display_group_header").click(function(){
+            displayGroupHeader = $("#display_group_header").prop('checked');
+            getLineComponent();
+            render();
+        });
+
+    });
+
+</script>
+
+</body>
+
+</html>

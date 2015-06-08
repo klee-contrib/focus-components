@@ -1,0 +1,27 @@
+[data-focus='directory-list-container'] {
+  overflow: scroll;
+}
+
+[data-focus='directory-list-group'] {
+  font-weight: bold;
+  color: #3CC098;
+  vertical-align: middle;
+  background-color: #D8D8D8;
+  border: 1px rgb(178, 178, 178) solid;
+  [data-focus='directory-list-group-letter'] {
+    display: inline-block;
+    width:30px;
+    height:30px;
+    border-radius:50%;
+    color:#fff;
+    line-height: 30px;
+    text-align:center;
+    background:#3CC098;
+    margin: 10px;
+  }
+
+  [data-focus='directory-list-group-size'] {
+    font-weight: normal;
+    color: #000;
+  }
+}
