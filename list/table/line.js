@@ -42,6 +42,7 @@ var lineMixin = {
      */
     renderActions: function renderLineActions(){
         //TODO ajouter les actions sur une ligne : edit save et delete
+        console.warn('line actions not implemented');
     },
 
     render: function renderLine(){

@@ -2,8 +2,10 @@ var React = require('react');
 var Field = require('../field').component;
 var Text = require('../display/text').component;
 var Button = require('../button/action').component;
-var List = require('../list');
+var memoryList = require('../list').component;
 var fieldComponentBehaviour = require('./field-component-behaviour');
+var Table = require('../../list/table').list.component;
+var List = require('../../list/selection').list.component;
 
 var assign = require('object-assign');
 module.exports = {
@@ -65,19 +67,31 @@ textFor: function textFor(name, options){
  * Display a list component.
  * @param {string} name - Property name.
  * @param {object} options - Options object.
- * @returns {object} - The react component for the line.
+ * @returns {object} - The react component for the list.
  */
-listFor: function listFor(name, options){
+listFor: function listFor(name, options) {
   options = options || {};
   options.reference = options.reference || this.state.reference;
+  options.listComponent = options.listComponent || List;
   var listForProps = assign({}, options, {
     data: this.state[name],
-    line: options.LineComponent || this.props.LineComponent || this.LineComponent,
+    lineComponent: options.lineComponent || this.props.lineComponent || this.lineComponent,
     perPage: options.perPage || 5,
     reference: options.reference,
     isEdit: options.isEdit !== undefined ? options.isEdit : false
   });
-  return React.createElement(List, listForProps);
+  return React.createElement(memoryList, listForProps);
+},
+
+/**
+ * Display a table component.
+ * @param {string} name - Property name.
+ * @param {object} options - Options object.
+ * @returns {object} - The react component for the list.
+ */
+tableFor: function tableFor(name, options){
+  options.listComponent = options.listComponent || Table;
+  return this.listFor(name, options);
 },
 /**
  * Button delete generation.

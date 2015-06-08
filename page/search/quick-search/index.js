@@ -125,14 +125,17 @@ let QuickSearchMixin = {
         }
     },
     _prepareSearch(searchValues){
-        this.setState(
-            assign(
-                {isLoadingSearch: true},
-                searchValues,
-                this.getNoFetchState()
-            ),
-            this.search
-        );
+        clearTimeout(this._searchTimeout);
+        this._searchTimeout = setTimeout(() => {
+            this.setState(
+                assign(
+                    {isLoadingSearch: true},
+                    searchValues,
+                    this.getNoFetchState()
+                ),
+                this.search
+            );
+        }, 500);
     },
     /**
      * return a SearchBar
