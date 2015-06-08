@@ -1,27 +1,14 @@
-$field-font-size:12pt;
 
-.form-horizontal .form-group {
-        margin:0;
-}
-
-.form-control {
-        font-size: $field-font-size;
-}
-
-[data-focus='field'] {
-        padding: 5px 5px 5px 0;
-        label {
-                text-align: right;
-                margin: 0;
-        }
-}
-
-
-[data-mode='consult'] {
-        [data-focus='field'] {
-                .form-control {
-                        border: 0;
-                        background-image: none;
-                }
-        }
+[data-focus="field"] {
+  label {
+    text-align: right;
+  }
+  &[data-mode="consult"] {
+    .input-group {
+      border: 0;
+      .form-control {
+        border: 0;
+      }
+    }
+  }
 }

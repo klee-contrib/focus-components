@@ -153,7 +153,7 @@ var lineMixin = {
             return this.renderLine();
         }else{
             return (
-                <li className="sl-line">
+                <li data-focus="sl-line">
                     {this._renderSelectionBox()}
                     <div className="sl-content" onClick={this._handleLineClick}>
                         {this._renderLineContent()}
