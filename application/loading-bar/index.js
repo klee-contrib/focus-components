@@ -32,7 +32,7 @@ let LoadingBarMixin = {
   render: function renderProgressBar() {
     var completed  = +((this.state.total - this.state.pending)/this.state.total)*100;
     return (
-      <div data-focus='request-bar'>
+      <div data-focus='loading-bar'>
         <ProgressBar completed={completed} />
         <ul>
           <li>pending {this.state.pending}</li>
