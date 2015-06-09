@@ -73,7 +73,7 @@ let GroupByMixin = {
                 hasMoreData={this.state.hasMoreData}
                 isLoading={this.state.isLoading}
                 operationList={this.props.lineOperationList}
-                lineComponent={this.props.lineComponentMapper(list)}
+                lineComponent={this.props.lineComponentMapper(groupKey, list)}
                 parentSelector={this.props.parentSelector}
                 selectionStatus={this.state.selectionStatus}
                 />
