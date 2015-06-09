@@ -40,6 +40,10 @@
   Focus.components = FocusComponents;
   var LoadingBar = Focus.components.application.loadingBar.component;
   React.render(<LoadingBar/>, document.querySelector("#loading-bar-container"));
+  Focus.dispatcher.handleServerAction({data:{request:{id: 131, status: 'pending'}} ,type: 'update'});
+
+  Focus.dispatcher.handleServerAction({data:{request:{id: 132, status: 'pending'}} ,type: 'update'});
+  Focus.dispatcher.handleServerAction({data:{request:{id: 133, status: 'pending'}} ,type: 'error'});
   </script>
 
 </body>
