@@ -21,7 +21,9 @@
 	<link rel="stylesheet" href="//cdn.jsdelivr.net/bootstrap.material-design/0.3.0/css/ripples.min.css">
 	<script src="//cdn.jsdelivr.net/bootstrap.material-design/0.3.0/js/material.min.js"></script>
 	<script src="//cdn.jsdelivr.net/bootstrap.material-design/0.3.0/js/ripples.min.js"></script>
-	<script src="https://fb.me/JSXTransformer-0.13.3.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/3.9.3/lodash.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/backbone.js/1.2.1/backbone.js"></script>
+	<script src="https://fb.me/JSXTransformer-0.13.3.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/3.9.3/lodash.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/backbone.js/1.2.1/backbone.js"></script>
 	<!-- Material degign-->
 
 	<script src="/focus-components/dist/js/focus.js"></script>
@@ -39,15 +41,36 @@
 		search: function (criteria) {
 			window.setTimeout(
 					function () {
-						var list = [{id: countId++, firstName: "toto", lastName: "ceci est un test"}, {
-							id: countId++,
-							firstName: "tata",
-							lastName: "deuxieme test"
-						}];
+						var map = {
+							Test: [
+								{
+									id: countId++,
+									firstName: "toto",
+									lastName: "ceci est un test"
+								},
+								{
+									id: countId++,
+									firstName: "tata",
+									lastName: "deuxieme test"
+								}
+							],
+							Autre: [
+								{
+									id: countId++,
+									firstName: "toto",
+									lastName: "ceci est un test"
+								},
+								{
+									id: countId++,
+									firstName: "tata",
+									lastName: "deuxieme test"
+								}
+							]
+						};
 
 						var data = {
 							facet: {},
-							list: list,
+							map: map,
 							pageInfos: {
 								currentPage: criteria.pageInfos.page,
 								perPage: 2,
@@ -75,74 +98,39 @@
 		}
 	});
 
-	var searchProps = {
-		lineMap: {"test": Line},
+	var Group = React.createClass({
+		render: function () {
+			return (
+					<div>
+						<h2>{this.props.groupKey}</h2>
+						{this.props.children}
+					</div>
+			);
+		}
+	});
+
+	var quickSearchProps = {
 		onLineClick: function onLineClick(line) {
 			alert('click sur la ligne ' + line.id);
 		},
-		operationList: [
-			{
-				label: "Button1_a", action: function (data) {
-				alert(data.title);
-			}, style: undefined, priority: 1
-			},
-			{
-				label: "Button1_b", action: function (data) {
-				alert(data.title);
-			}, style: undefined, priority: 1
-			},
-			{
-				label: "Button2_a", action: function (data) {
-				alert(data.title);
-			}, style: undefined, priority: 2
-			},
-			{
-				label: "Button2_b", action: function (data) {
-				alert(data.title);
-			}, style: undefined, priority: 2
-			}
-		], scope: 2,
+		scope: 2,
 		scopeList: [
 			{code: undefined, label: "None", style: "qs-scope-none"},
 			{code: 1, label: "Scope1", style: "qs-scope-1"},
 			{code: 2, label: "Scope2", style: "qs-scope-2"},
 			{code: 3, label: "Scope3", style: "qs-scope-3"}
 		],
-		groupMaxRows: 1
+		groupMaxRows: 3,
+		lineComponentMapper: function (list) {
+			return Line;
+		},
+		searchAction: action.search,
+		groupComponent: Group
 	};
 
-	var ExampleQuickSearch = React.createClass({
-		mixins: [FocusComponents.page.search.quickSearch.mixin],
-		actions: action,
-		store: new Focus.store.SearchStore(),
-		render: function render() {
-			var searchBar = this.getSearchBarComponent();
-			var resultsList = this.isSimpleList() ? this.getSimpleListComponent({type: "test"}) : this.getGroupByListComponent();
-			return (
-				<div className="search-panel" data-focus="quick-search">
-					{searchBar}
-					{resultsList}
-				</div>
-			);
-		},
-		renderGroupByBlock: function renderGroupByBlock(groupKey, list, maxRows) {
-			var Title = FocusComponents.common.title.component;
-			var Button = FocusComponents.common.button.action.component;
-			return (
-					<div className="listResultContainer panel" data-focus="group-result-container">
-						<Title tilte={groupKey}/>
-						{this.getSimpleListComponent({
-							type: "test",
-							list: list,
-							maxRows: maxRows
-						})}
-						<Button handleOnClick={this.changeGroupByMaxRows(groupKey, 5)} label="Show more"/>
-					</div>
-			);
-		}
-	});
+	var QuickSearchComponent = FocusComponents.page.search.quickSearch.component;
 
-	React.render(React.createElement(ExampleQuickSearch, searchProps), document.querySelector("#quick-search-container"));
+	React.render(React.createElement(QuickSearchComponent, quickSearchProps), document.querySelector("#quick-search-container"));
 </script>
 
 </body>
