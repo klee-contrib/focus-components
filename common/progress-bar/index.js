@@ -4,22 +4,25 @@ var React = require('react');
 var builder = require('focus').component.builder;
 
 var progressMixin = {
+  getDefaultProps(){
+    return {
+      type: 'info'
+    };
+  },
   /**@inheritDoc**/
-  render: function() {
+  render() {
     var completed = +this.props.completed;
     if (completed < 0) {completed = 0; }
     if (completed > 100) {completed = 100; }
 
     var style = {
-      backgroundColor: this.props.color || '#0BD318',
       width: completed + '%',
       transition: 'width 200ms',
-      height: this.props.height || 10
+      height: this.props.height || 4
     };
-
     return (
-      <div className="progressbar-container" >
-        <div className="progressbar-progress" style={style}>{this.props.children}</div>
+      <div className='progress' data-focus='progress-bar' >
+        <div className={`progress-bar progress-bar-${this.props.type}`} style={style}>{this.props.children}</div>
       </div>
     );
   }
