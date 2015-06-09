@@ -1,3 +1,4 @@
+let isFunction = require('lodash/lang/isFunction');
 let SearchMixin = {
     /**
      * Next page fetch action handler.
@@ -43,8 +44,11 @@ let SearchMixin = {
                 return {
                     key: selectedFacetKey,
                     value: selectedFacet.key
-                }
+                };
             });
+        }
+        if(!this.actions || !isFunction(this.actions.search)){
+          console.warn(`Your page seems to miss a search action, add in your configuration a {actions: {search : function(scope, query, facets){}}}`, this.actions);
         }
         this.actions.search(
             this.getSearchCriteria(this.state.scope, this.state.query, facets)
