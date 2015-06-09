@@ -43,7 +43,12 @@
   Focus.dispatcher.handleServerAction({data:{request:{id: 131, status: 'pending'}} ,type: 'update'});
 
   Focus.dispatcher.handleServerAction({data:{request:{id: 132, status: 'pending'}} ,type: 'update'});
-  Focus.dispatcher.handleServerAction({data:{request:{id: 133, status: 'pending'}} ,type: 'error'});
+  Focus.dispatcher.handleServerAction({data:{request:{id: 133, status: 'pending'}} ,type: 'update'});
+  setTimeout(function(){
+  Focus.dispatcher.handleServerAction({data:{request:{id: 133, status: 'error'}} ,type: 'update'});    
+    Focus.dispatcher.handleServerAction({data:{request:{id: 132, status: 'success'}} ,type: 'update'});
+}, 3000);
+
   </script>
 
 </body>
