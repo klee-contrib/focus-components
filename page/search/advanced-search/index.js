@@ -314,8 +314,10 @@ let AdvancedSearch = {
     render: function render() {
         return (
             <div className="advanced-search" data-focus="advanced-search">
-                {this.getFacetBoxComponent()}
-                <div className="resultContainer">
+                <div data-focus="facet-container">
+                    {this.getFacetBoxComponent()}
+                </div>
+                <div data-focus="result-container">
                     {this.getListSummaryComponent()}
                     {this.getActionBarComponent()}
                     {this.getResultListComponent()}
