@@ -1,11 +1,11 @@
 /**@jsx*/
-var builder = require('focus').component.builder;
-var styleBeahviour = require('../../mixin/stylable');
-var type = require('focus').component.types;
+let builder = require('focus').component.builder;
+let styleBeahviour = require('../../mixin/stylable');
+let type = require('focus').component.types;
 
-var alphabetLetters = 'abcdefghijklmnopqrstuvwxyz';
+let alphabetLetters = 'abcdefghijklmnopqrstuvwxyz';
 
-var lettersFilterMixin = {
+let lettersFilterMixin = {
     mixins: [styleBeahviour],
     /** */
     displayName: 'list-letters-filter',
@@ -45,6 +45,13 @@ var lettersFilterMixin = {
         availableLetters: type('string')
     },
 
+    /** @inheritdoc */
+    getInitialState(){
+        return{
+            selectedLetter: this.props.selectedLetter
+        }
+    },
+
     /**
      * on letter select function
      * @private
@@ -52,6 +59,7 @@ var lettersFilterMixin = {
     _selectionFunction(event) {
         var letter = event.target.getAttribute('data-letter');
         if(this._isLetterAvailable(letter)){
+            this.setState({selectedLetter: letter});
             return this.props.handleLetterSelection(letter);
         }
     },
@@ -97,11 +105,11 @@ var lettersFilterMixin = {
                 {
                 this.letters.map((letter)=>{
                     var isLetterAvailable = this._isLetterAvailable(letter) ;
-                    var elementClassName = `letter-element ${isLetterAvailable ? '': 'disabled'} ${this._getSelectedStyle(letter, this.props.selectedLetter)}`;
+                    var elementClassName = `letter-element ${isLetterAvailable ? '': 'disabled'} ${this._getSelectedStyle(letter, this.state.selectedLetter)}`;
                       return (
-                        <button ref={letter} onClick={this._selectionFunction} className={elementClassName} data-letter={letter} disabled={this._getDisabledBehavior(letter)}>
-                          {letter}
-                        </button>
+                            <button ref={letter} onClick={this._selectionFunction} className={elementClassName} data-letter={letter} disabled={this._getDisabledBehavior(letter)}>
+                              {letter}
+                            </button>
                       );
                 })
                 }

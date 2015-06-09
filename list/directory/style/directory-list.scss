@@ -1,2 +1,13 @@
-.directory-list {
+.directory-list-container{
+  height: 90vh;
+  overflow: scroll;
+}
+
+.directory-list-group{
+  font-weight: bold;
+  color: #3CC098;
+}
+
+.letters-filter-bar-fixed {
+  position: fixed;
 }
