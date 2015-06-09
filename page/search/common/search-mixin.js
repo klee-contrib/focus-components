@@ -1,5 +1,12 @@
 let isFunction = require('lodash/lang/isFunction');
+let BuiltInSearchStore = Focus.search.builtInStore;
+
 let SearchMixin = {
+    getDefaultProps() {
+        return ({
+            store: BuiltInSearchStore
+        });
+    },
     /**
      * Next page fetch action handler.
      */
