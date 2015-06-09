@@ -79,7 +79,7 @@ var fieldBuiltInComponentsMixin = {
         if (this.props.FieldComponent || this.props.InputLabelComponent) {
             return this.renderFieldComponent();
         }
-        var inputClassName = `form-control }`;
+        var inputClassName = `form-control`;
         return (
             <div className ={`${this._getContentGridClassName()} input-group`}>
                 <this.props.InputComponent
@@ -102,9 +102,9 @@ var fieldBuiltInComponentsMixin = {
         if (this.props.FieldComponent || this.props.InputLabelComponent) {
             return this.renderFieldComponent();
         }
-        var selectClassName = `form-control ${this._getContentGridClassName()}`;
+        var selectClassName = `form-control`;
         return (
-            <div className = "input-group" >
+            <div className ={`input-group ${this._getContentGridClassName()}`}>
                 <this.props.SelectComponent
                     style={{class: selectClassName}}
                     id={this.props.name}
@@ -115,84 +115,84 @@ var fieldBuiltInComponentsMixin = {
                     onChange={this.onInputChange}
                     ref="input"
                 />
-                < /div>
-                );
-                },
-                    /**
-                     * Render the display part of the component.
-                     * @return {object} - The display part of the compoennt if the mode is not edit.
-                     */
-                display: function renderDisplay(){
-                    if(this.props.FieldComponent || this.props.InputLabelComponent){
-                    return this.renderFieldComponent();
-                    }
-                    var selectClassName = `form-control ${this._getContentGridClassName()}`;
-                    return (
-                    <div className = "input-group" >
-                    <this.props.DisplayComponent
-                    style={{class: selectClassName}}
+            </div>
+        );
+    },
+    /**
+     * Render the display part of the component.
+     * @return {object} - The display part of the compoennt if the mode is not edit.
+     */
+    display: function renderDisplay() {
+        if (this.props.FieldComponent || this.props.InputLabelComponent) {
+            return this.renderFieldComponent();
+        }
+        var displayClassName = ``;
+        return (
+            <div className ={`input-group ${this._getContentGridClassName()}`}>
+                <this.props.DisplayComponent
+                    style={{class: displayClassName}}
                     id={this.props.name}
                     name={this.props.name}
                     value={this.state.value}
                     type={this.props.type}
                     ref="display"
                     formatter={this.props.formatter}
-                    />
-                    < /div>
-                    );
-                    },
-                    /**
-                     * Render the error part of the component.
-                     * @return {object} - The error part of the component.
-                     */
-                error: function renderError() {
-                    if (this.state.error) {
-                    if(this.props.FieldComponent){
-                    return;
-                    }
-                    return (
-                    /*<span class="glyphicon glyphicon-remove form-control-feedback" aria-hidden="true"></span>*/
-                    <span className="help-block">
+                />
+            </div>
+        );
+    },
+    /**
+     * Render the error part of the component.
+     * @return {object} - The error part of the component.
+     */
+    error: function renderError() {
+        if (this.state.error) {
+            if (this.props.FieldComponent) {
+                return;
+            }
+            return (
+                /*<span class="glyphicon glyphicon-remove form-control-feedback" aria-hidden="true"></span>*/
+                <span className="help-block">
                     {this.state.error}
-                    </span>
-                    )
-                    }
-                    },
-                    /**
-                     * Render the help component.
-                     * @return {object} - The help part of the component.
-                     */
-                help: function renderHelp() {
-                    if (this.props.help) {
-                    if(this.props.FieldComponent){
-                    return;
-                    }
-                    return (
-                    <span className="help-block">
+                </span>
+            )
+        }
+    },
+    /**
+     * Render the help component.
+     * @return {object} - The help part of the component.
+     */
+    help: function renderHelp() {
+        if (this.props.help) {
+            if (this.props.FieldComponent) {
+                return;
+            }
+            return (
+                <span className="help-block">
                     {this.props.help}
-                    </span>
-                    );
-                    }
-                    },
-                    /**
-                     * Render the field component if it is overriden in the component definition.
-                     */
-                renderFieldComponent: function renderFieldComponent(){
-                    var Component = this.props.FieldComponent || this.props.InputLabelComponent;
-                    return React.createElement(Component, {
-                    id: this.props.name,
-                    name: this.props.name,
-                    label: this.props.label,
-                    value: this.state.value,
-                    type: this.props.type,
-                    style: this.props.style.input,
-                    labelSize: this.props.labelSize,
-                    error: this.state.error,
-                    help: this.props.help,
-                    onChange: this.onInputChange,
-                    ref: 'input'
-                    });
-                    }
-                };
+                </span>
+            );
+        }
+    },
+    /**
+     * Render the field component if it is overriden in the component definition.
+     */
+    renderFieldComponent: function renderFieldComponent() {
+        var Component = this.props.FieldComponent || this.props.InputLabelComponent;
+        return React.createElement(Component, {
+            id: this.props.name,
+            name: this.props.name,
+            label: this.props.label,
+            value: this.state.value,
+            type: this.props.type,
+            style: this.props.style.input,
+            labelSize: this.props.labelSize,
+            error: this.state.error,
+            help: this.props.help,
+            onChange: this.onInputChange,
+            ref: 'input'
+        });
+    }
+};
 
-                module.exports = fieldBuiltInComponentsMixin;
+module.exports = fieldBuiltInComponentsMixin;
