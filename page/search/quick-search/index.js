@@ -143,7 +143,9 @@ let QuickSearchComponent = {
      */
     getSearchBarComponent() {
         return (
-            <this.props.SearchBar handleChange={this._prepareSearch}
+            <this.props.SearchBar
+                data-focus='search-bar'
+                handleChange={this._prepareSearch}
                 ref='searchBar'
                 scope={this.props.scope}
                 scopes={this.props.scopeList}

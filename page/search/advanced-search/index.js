@@ -60,12 +60,12 @@ let AdvancedSearch = {
         };
     },
     propTypes: {
-      facetConfig: type('object'),
-      idField: type('string'),
-      isSelection: type('bool'),
-      criteria: type('object'),
-      exportAction: type(['function', 'object']),
-      unselectedScopeAction: type(['function', 'object'])
+        facetConfig: type('object'),
+        idField: type('string'),
+        isSelection: type('bool'),
+        criteria: type('object'),
+        exportAction: type(['function', 'object']),
+        unselectedScopeAction: type(['function', 'object'])
     },
     /**
      * Init default state.
@@ -261,13 +261,14 @@ let AdvancedSearch = {
      */
     getFacetBoxComponent() {
         return (
-          <FacetBox
-              facetList={this.state.facetList}
-              selectedFacetList={this.state.selectedFacetList}
-              openedFacetList={this.state.openedFacetList}
-              config={this.props.facetConfig}
-              dataSelectionHandler={this._facetSelectionClick}
-          />
+            <FacetBox
+                data-focus='advanced-search-facet-box'
+                facetList={this.state.facetList}
+                selectedFacetList={this.state.selectedFacetList}
+                openedFacetList={this.state.openedFacetList}
+                config={this.props.facetConfig}
+                dataSelectionHandler={this._facetSelectionClick}
+                />
         );
     },
     /**
@@ -277,12 +278,13 @@ let AdvancedSearch = {
     getListSummaryComponent() {
         let scopeList = {scope: this.props.criteria.scope};
         return (
-          <ListSummary
-                    nb={this.state.totalRecords}
-                    queryText={this.props.criteria.searchText}
-                    scopeList={scopeList}
-                    scopeClickAction={this._scopeClick}
-                    exportAction={this._exportHandler}/>
+            <ListSummary
+                data-focus='advanced-search-list-summary'
+                nb={this.state.totalRecords}
+                queryText={this.props.criteria.searchText}
+                scopeList={scopeList}
+                scopeClickAction={this._scopeClick}
+                exportAction={this._exportHandler}/>
         );
     },
     /**
@@ -295,7 +297,8 @@ let AdvancedSearch = {
             return result;
         }, {});
         return (
-            <ListActionBar selectionStatus={this.state.selectionStatus}
+            <ListActionBar data-focus='advanced-search-action-bar'
+                           selectionStatus={this.state.selectionStatus}
                            selectionAction={this._selectionGroupLineClick}
                            orderableColumnList={this.props.orderableColumnList}
                            orderAction={this._orderClick}

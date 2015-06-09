@@ -43,12 +43,14 @@ let GroupByMixin = {
         let isBounded = keys(this.state.map).length > 1;
         let groupList = keys(this.state.map).map((groupKey) => {
             return (
-                <SingleGroupComponent key={groupKey}
-                                      ref={groupKey}
-                                      renderGroupBy={this.renderGroupByBlock}
-                                      list={this.state.map[groupKey]}
-                                   groupKey={groupKey}
-                                      maxRows={isBounded && this.props.groupMaxRows}
+                <SingleGroupComponent
+                    data-focus='results-group'
+                    key={groupKey}
+                    ref={groupKey}
+                    renderGroupBy={this.renderGroupByBlock}
+                    list={this.state.map[groupKey]}
+                    groupKey={groupKey}
+                    maxRows={isBounded && this.props.groupMaxRows}
                     />
             );
         });
@@ -59,19 +61,21 @@ let GroupByMixin = {
             list = list.slice(0, maxRows);
         }
         return (
-            <ListSelection data={list}
-                           ref={groupKey}
-                           idField={this.props.idField}
-                           isSelection={this.props.isSelection}
-                           onSelection={this._selectItem}
-                           onLineClick={this._lineClick}
-                           fetchNextPage={this.fetchNextPage}
-                           hasMoreData={this.state.hasMoreData}
-                           isLoading={this.state.isLoading}
-                           operationList={this.props.lineOperationList}
-                           lineComponent={this.props.lineComponentMapper(list)}
-                           parentSelector={this.props.parentSelector}
-                           selectionStatus={this.state.selectionStatus}
+            <ListSelection
+                data-focus='results-list'
+                data={list}
+                ref={groupKey}
+                idField={this.props.idField}
+                isSelection={this.props.isSelection}
+                onSelection={this._selectItem}
+                onLineClick={this._lineClick}
+                fetchNextPage={this.fetchNextPage}
+                hasMoreData={this.state.hasMoreData}
+                isLoading={this.state.isLoading}
+                operationList={this.props.lineOperationList}
+                lineComponent={this.props.lineComponentMapper(list)}
+                parentSelector={this.props.parentSelector}
+                selectionStatus={this.state.selectionStatus}
                 />
         );
     },

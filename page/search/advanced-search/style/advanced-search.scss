@@ -1,13 +1,13 @@
 [data-focus='advanced-search'] {
-  .facetBoxContainer {
+  [data-focus='facet-box'] {
     padding-right: 10px;
   }
 
-  .listSummaryContainer {
+  .list-summary {
     height:50px;
   }
 
-  .facetBoxContainer, .resultContainer {
+  [data-focus='facet-box'], &>.resultContainer {
     vertical-align:top;
     float:left;
   }
