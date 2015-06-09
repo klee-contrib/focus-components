@@ -4,6 +4,7 @@ let type = require('focus').component.types;
 let requestStore = require('focus').network.builtInStore();
 let assign = require('object-assign');
 let ProgressBar = require('../../common/progress-bar').component;
+let Icon = require('../../common/icon').component;
 let LoadingBarMixin = {
   /** @inheriteddoc */
   getInitialState() {
@@ -34,12 +35,12 @@ let LoadingBarMixin = {
     return (
       <div data-focus='loading-bar'>
         <ProgressBar completed={completed} />
-        <ul>
-          <li>pending {this.state.pending}</li>
-          <li>cancelled {this.state.cancelled}</li>
-          <li>success {this.state.success}</li>
-          <li>error {this.state.error}</li>
-          <li>total {this.state.total}</li>
+        <ul className='fa-ul'>
+          <li><Icon name='circle-o-notch' other='fa-li fa-spin'/> pending {this.state.pending}</li>
+          <li><Icon name='circle-thin' other='fa-li'/> cancelled {this.state.cancelled}</li>
+          <li><Icon name='check' other='fa-li'/> success {this.state.success}</li>
+          <li><Icon name='ban' other='fa-li'/>error {this.state.error}</li>
+          <li><Icon name='plus-square-o' other='fa-li'/>total {this.state.total}</li>
         </ul>
       </div>
     );
