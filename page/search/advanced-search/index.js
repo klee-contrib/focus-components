@@ -78,7 +78,9 @@ let AdvancedSearchMixin = {
             openedFacetList: this.props.openedFacetList,
             selectionStatus: 'none',
             orderSelected: undefined,
-            groupSelectedKey: undefined
+            groupSelectedKey: undefined,
+            scope: this.props.scope,
+            query: this.props.query
         });
     },
     /**
@@ -275,14 +277,12 @@ let AdvancedSearchMixin = {
     getListSummaryComponent() {
         let scopeList = {scope: this.props.criteria.scope};
         return (
-            <div className='listSummaryContainer panel'>
-                <ListSummary
+          <ListSummary
                     nb={this.state.totalRecords}
                     queryText={this.props.criteria.searchText}
                     scopeList={scopeList}
                     scopeClickAction={this._scopeClick}
                     exportAction={this._exportHandler}/>
-            </div>
         );
     },
     /**
