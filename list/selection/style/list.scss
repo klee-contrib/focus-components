@@ -24,6 +24,10 @@ $boxSize:50px;
     padding-left: $boxSize + 10px;
     position: relative;
 
+    &:hover {
+      background-color: #edeef0;
+    }
+
     [data-focus="sl-icon"] {
       position: absolute;
       top:0;
