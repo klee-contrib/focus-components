@@ -1,14 +1,28 @@
+$advanced-search-facet-box-width: 300px;
+
 [data-focus='advanced-search'] {
-  [data-focus='facet-box'] {
-    padding-right: 10px;
+
+  &:before {
+    content: " ";
+    border: 1px solid red;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    width: 410px;
+    background-color: #FFF;
+    z-index: 0;
   }
 
-  .list-summary {
-    height:50px;
+  [data-focus='facet-container'] {
+    float: left;
+    width: $advanced-search-facet-box-width;
+    position: relative;
   }
 
-  [data-focus='facet-box'], &>.resultContainer {
-    vertical-align:top;
-    float:left;
+  [data-focus='result-container'] {
+    margin-left: $advanced-search-facet-box-width + 60;
+    border:1px solid red;
+    position: relative;
   }
 }
