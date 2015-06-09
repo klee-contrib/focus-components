@@ -32,9 +32,13 @@ let LoadingBarMixin = {
   /** @inheriteddoc */
   render: function renderProgressBar() {
     var completed  = +((this.state.total - this.state.pending)/this.state.total)*100;
+    var visible = false;
+    if(completed < 100){
+      visible = true;
+    }
     return (
       <div data-focus='loading-bar'>
-        <ProgressBar completed={completed} />
+        {visible && <ProgressBar completed={completed} />}
         <ul className='fa-ul'>
           <li><Icon name='circle-o-notch' other='fa-li fa-spin'/> pending {this.state.pending}</li>
           <li><Icon name='circle-thin' other='fa-li'/> cancelled {this.state.cancelled}</li>
