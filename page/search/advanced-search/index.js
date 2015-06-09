@@ -16,7 +16,7 @@ let SearchStore = require('focus').store.SearchStore;
 
 // Mixins
 
-let ScrollInfoMixin = require('../common/scroll-info-mixin').mixin;
+let ScrollBehaviourMixin = require('../common/scroll-behaviour-mixin').mixin;
 let GroupByMixin = require('../common/group-by-mixin').mixin;
 let SearchMixin = require('../common/search-mixin').mixin;
 let type = require('focus').component.types;
@@ -25,7 +25,7 @@ let type = require('focus').component.types;
  * @type {Object}
  */
 let AdvancedSearch = {
-    mixins: [ScrollInfoMixin, GroupByMixin, SearchMixin],
+    mixins: [ScrollBehaviourMixin, GroupByMixin, SearchMixin],
     /**
      * Display name.
      */

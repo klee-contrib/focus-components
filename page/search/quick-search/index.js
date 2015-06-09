@@ -11,7 +11,7 @@ let SearchBar  = require('../../../search/search-bar').component;
 
 // Mixins
 
-let ScrollInfoMixin = require('../common/scroll-info-mixin').mixin;
+let ScrollBehaviourMixin = require('../common/scroll-behaviour-mixin').mixin;
 let GroupByMixin= require('../common/group-by-mixin').mixin;
 let SearchMixin = require('../common/search-mixin').mixin;
 
@@ -21,7 +21,7 @@ let SearchMixin = require('../common/search-mixin').mixin;
  * @type {Object}
  */
 let QuickSearchComponent = {
-    mixins: [ScrollInfoMixin, GroupByMixin, SearchMixin],
+    mixins: [ScrollBehaviourMixin, GroupByMixin, SearchMixin],
     /**
      * Tag name.
      */
