@@ -8,5 +8,6 @@ module.exports = {
   messageCenter: require('./message-center'),
   contentBar: require('./content-bar'),
   contentActions: require('./content-actions'),
-  layout: require('./layout')
+  layout: require('./layout'),
+  loadingBar: require('./loading-bar')
 };
