@@ -47,7 +47,7 @@ let GroupByMixin = {
                                       ref={groupKey}
                                       renderGroupBy={this.renderGroupByBlock}
                                       list={this.state.map[groupKey]}
-                                      groupKey={groupKey}
+                                   groupKey={groupKey}
                                       maxRows={isBounded && this.props.groupMaxRows}
                     />
             );
@@ -78,7 +78,7 @@ let GroupByMixin = {
     renderGroupByBlock(groupKey, list, maxRows) {
         let GroupWrapper = this.props.groupComponent;
         return (
-            <GroupWrapper data-focus="group-result-container" groupKey={groupKey}>
+            <GroupWrapper data-focus="group-result-container" groupKey={groupKey} showAll={this.changeGroupByMaxRows}>
                 {this.getSingleTypeResultList(groupKey, list, maxRows)}
             </GroupWrapper>
         );
