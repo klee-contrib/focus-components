@@ -60,8 +60,7 @@ let SearchBar = {
         };
     },
     _getClassName() {
-        let loadingClassName = this.props.loading ? 'sb-loading' : '';
-        return `form-control ${loadingClassName}`;
+        return `form-control`;
     },
     _handleChange() {
         if (this.props.handleChange) {
@@ -104,11 +103,15 @@ let SearchBar = {
         return this.setState(this.getValue(), this._focusQuery);
     },
     render() {
+        let loadingClassName = this.props.loading ? 'sb-loading' : '';
         return (
             <div className={`${this._getStyleClassName()}`} data-focus='search-bar'>
-                <div className='scope'><Scope handleOnClick={this._handleOnClickScope} list={this.props.scopes} ref='scope' value={this.state.scope}/></div>
-                <div className='input-search'><input className={this._getClassName()} onKeyUp={this._handleKeyUp} ref='query'  type='search' placeholder={this.props.placeholder} /></div>
-                <div class='help'>{this._renderHelp()}</div>
+                <div className='sb-scope'><Scope handleOnClick={this._handleOnClickScope} list={this.props.scopes} ref='scope' value={this.state.scope}/></div>
+                <div className='sb-input-search'>
+                    <input className={this._getClassName()} onKeyUp={this._handleKeyUp} ref='query'  type='search' placeholder={this.props.placeholder} />
+                    <div className={`sb-spinner three-quarters-loader ${loadingClassName}`}></div>
+                </div>
+                {this._renderHelp()}
             </div>
         );
     }

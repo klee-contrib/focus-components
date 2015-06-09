@@ -43,6 +43,11 @@ $bloc-title-color:#36b7b9;
     padding: 16px;
     font-size: 12pt;
     display: inline-block;
+
+    //rendu du selection list dans les block
+    [data-focus="selection-list"] {
+      margin: 40px 20px;
+    }
   }
 }
 

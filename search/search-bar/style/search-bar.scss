@@ -11,11 +11,11 @@ $sb-input-height: 35px;
   /*position: relative;*/
   /*height:70px;*/
 
-  .scope {
+  .sb-scope {
     float: left;
-    
+
     [data-focus='scope'] {
-      position:relative;
+      position: relative;
       cursor: pointer;
       width: $sb-scope-width;
       height: $sb-input-height;
@@ -26,7 +26,7 @@ $sb-input-height: 35px;
           background-size: 22px;
         }
         &.sb-scope-deploy-up:after {
-          content:"\f077";
+          content: "\f077";
           position: absolute;
           top: 10px;
           right: 0;
@@ -36,7 +36,7 @@ $sb-input-height: 35px;
           font-size: 12px;
         }
         &.sb-scope-deploy-down:after {
-          content:"\f078";
+          content: "\f078";
           position: absolute;
           top: 10px;
           right: 0;
@@ -57,8 +57,8 @@ $sb-input-height: 35px;
       }
       ul {
         position: absolute;
-        top:$sb-input-height+1;
-        left:0;
+        top: $sb-input-height+1;
+        left: 0;
 
         background: #FFF;
         box-shadow: 0 1px 6px rgba(0, 0, 0, 0.12), 0 1px 6px rgba(0, 0, 0, 0.12);
@@ -82,7 +82,7 @@ $sb-input-height: 35px;
           }
           &.active {
             background-color: #36B6B8;
-            color:#FFF;
+            color: #FFF;
           }
         }
       }
@@ -90,13 +90,23 @@ $sb-input-height: 35px;
   }
 
   /* Input block */
-  .input-search {
+  .sb-input-search {
+    position: relative;
     margin-left: $sb-scope-width+10;
     input {
       height: $sb-input-height;
-      .sb-loading {
-        //Loading gif when the search is active.
-        margin-left: 80px;
+    }
+    .sb-spinner {
+      position: absolute;
+      top: 7px;
+      right: 10px;
+      width: 20px;
+      height: 20px;
+      border-width: 5px;
+      display: none;
+
+      &.sb-loading {
+        display: block;
       }
     }
   }
