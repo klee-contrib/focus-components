@@ -20,7 +20,7 @@ let SearchMixin = require('../common/search-mixin').mixin;
  * Contains a search bar, and a results list.
  * @type {Object}
  */
-let QuickSearchMixin = {
+let QuickSearchComponent = {
     mixins: [ScrollInfoMixin, GroupByMixin, SearchMixin],
     /**
      * Tag name.
@@ -80,8 +80,8 @@ let QuickSearchMixin = {
      * @private
      */
     _registerListeners(){
-        if(this.store){
-            this.store.addSearchChangeListener(this.onSearchChange);
+        if(this.props.store){
+            this.props.store.addSearchChangeListener(this.onSearchChange);
         } else {
             console.warn('Search result has no store to listen to. Please provide one as a "store" property.');
         }
@@ -91,8 +91,8 @@ let QuickSearchMixin = {
      * @private
      */
     _unRegisterListeners(){
-        if(this.store){
-            this.store.removeSearchChangeListener(this.onSearchChange);
+        if(this.props.store){
+            this.props.store.removeSearchChangeListener(this.onSearchChange);
         }
     },
     /**
@@ -150,7 +150,15 @@ let QuickSearchMixin = {
                 loading={this.state.isLoadingSearch}
             />
         );
+    },
+    render() {
+        return (
+            <div className="search-panel" data-focus="quick-search">
+                {this.getSearchBarComponent()}
+                {this.getResultListComponent()}
+            </div>
+        );
     }
 };
 
-module.exports = builder(QuickSearchMixin, true);
+module.exports = builder(QuickSearchComponent);
