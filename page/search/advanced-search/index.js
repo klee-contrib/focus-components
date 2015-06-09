@@ -24,7 +24,7 @@ let type = require('focus').component.types;
  * Page mixin of the advanced search.
  * @type {Object}
  */
-let AdvancedSearchMixin = {
+let AdvancedSearch = {
     mixins: [ScrollInfoMixin, GroupByMixin, SearchMixin],
     /**
      * Display name.
@@ -88,8 +88,8 @@ let AdvancedSearchMixin = {
      * @returns {object} Dtat to update store.
      */
     _getStateFromStore() {
-        if (this.store) {
-            let data = this.store.get();
+        if (this.props.store) {
+            let data = this.props.store.get();
             return assign({
                 facetList: data.facet
             }, this.getScrollState());
@@ -101,8 +101,8 @@ let AdvancedSearchMixin = {
      * @private
      */
     _registerListeners() {
-        if (this.store) {
-            this.store.addSearchChangeListener(this._onSearchChange);
+        if (this.props.store) {
+            this.props.store.addSearchChangeListener(this._onSearchChange);
         }
     },
     /**
@@ -110,8 +110,8 @@ let AdvancedSearchMixin = {
      * @private
      */
     _unRegisterListeners() {
-        if (this.store) {
-            this.store.removeSearchChangeListener(this._onSearchChange);
+        if (this.props.store) {
+            this.props.store.removeSearchChangeListener(this._onSearchChange);
         }
     },
 
@@ -243,7 +243,7 @@ let AdvancedSearchMixin = {
         return (event)=> {
             let selectedFacetList = this.state.selectedFacetList;
 
-            let facet = this.store.getFacet();
+            let facet = this.props.store.getFacet();
             selectedFacetList[this.state.groupSelectedKey] = {
                 data: facet[this.state.groupSelectedKey][groupKey],
                 key: groupKey
@@ -307,7 +307,19 @@ let AdvancedSearchMixin = {
                            facetClickAction={this._facetBarClick}
                            operationList={this.props.lineOperationList}/>
         );
+    },
+    render: function render() {
+        return (
+            <div className="advanced-search" data-focus="advanced-search">
+                {this.getFacetBoxComponent()}
+                <div className="resultContainer">
+                    {this.getListSummaryComponent()}
+                    {this.getActionBarComponent()}
+                    {this.getResultListComponent()}
+                </div>
+            </div>
+        );
     }
 };
 
-module.exports = builder(AdvancedSearchMixin, true);
+module.exports = builder(AdvancedSearch);
