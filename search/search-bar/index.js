@@ -23,7 +23,7 @@ let SearchBar = {
     displayName: 'SearchBar',
     getDefaultProps() {
         return {
-            placeholder: '',
+            placeholder: 'Enter your search here...',
             value: 'defaultValue',
             scope: undefined,
             scopes: [],
@@ -59,6 +59,10 @@ let SearchBar = {
             query: React.findDOMNode(this.refs.query).value
         };
     },
+    _getClassName() {
+        let loadingClassName = this.props.loading ? 'sb-loading' : '';
+        return `form-control ${loadingClassName}`;
+    },
     _handleChange() {
         if (this.props.handleChange) {
             return this.props.handleChange(this.getValue());
@@ -90,10 +94,7 @@ let SearchBar = {
     },
     _renderHelp() {
         return (
-            <div className='sb-help' ref='help'>
-                <span name='share'/>
-                <span>{this.i18n(this.props.helpTranslationPath)}</span>
-            </div>
+            <div className='sb-help' ref='help'>{this.i18n(this.props.helpTranslationPath)}</div>
         );
     },
     _focusQuery() {
@@ -103,12 +104,11 @@ let SearchBar = {
         return this.setState(this.getValue(), this._focusQuery);
     },
     render() {
-        let loadingClassName = this.props.loading ? 'sb-loading' : '';
         return (
             <div className={`${this._getStyleClassName()}`} data-focus='search-bar'>
-                <Scope handleOnClick={this._handleOnClickScope} list={this.props.scopes} ref='scope' value={this.state.scope}/>
-                <input className={loadingClassName} onKeyUp={this._handleKeyUp} ref='query'  type='search' />
-                {this._renderHelp()}
+                <div className='scope'><Scope handleOnClick={this._handleOnClickScope} list={this.props.scopes} ref='scope' value={this.state.scope}/></div>
+                <div className='input-search'><input className={this._getClassName()} onKeyUp={this._handleKeyUp} ref='query'  type='search' placeholder={this.props.placeholder} /></div>
+                <div class='help'>{this._renderHelp()}</div>
             </div>
         );
     }
