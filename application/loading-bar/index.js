@@ -36,6 +36,7 @@ let LoadingBarMixin = {
     if(completed < 100){
       visible = true;
     }
+    //Else empty the loading list?
     return (
       <div data-focus='loading-bar'>
         {visible && <ProgressBar completed={completed} />}
