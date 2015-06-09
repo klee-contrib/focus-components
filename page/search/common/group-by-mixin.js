@@ -1,7 +1,9 @@
 // Dependencies
 
 let isArray = require('lodash/lang/isArray');
+let keys = require('lodash/object/keys');
 let checkIsNotNull = require('focus').util.object.checkIsNotNull;
+let ArgumentNullException = require('focus').exception.ArgumentNullException;
 
 // Components
 
@@ -20,15 +22,11 @@ let GroupByMixin = {
     getDefaultProps() {
         return ({
             lineOperationList: [],
-            orderableColumnList: {}
+            orderableColumnList: {},
+            lineComponentMapper() {
+                throw new ArgumentNullException('Please provide a inferLineComponentFromList(list) function.');
+            }
         });
-    },
-    /**
-     * @returns {boolean} Returns true if list is a simple list, false if grouped.
-     * @private
-     */
-    isSimpleList() {
-        return isArray(this.state.list);
     },
     /**
      * Change the max rows of a group.
@@ -41,33 +39,28 @@ let GroupByMixin = {
             this.refs[groupKey].changeGroupByMaxRows(maxRows);
         };
     },
-    getGroupByListComponent() {
-        let groupList = Object.keys(this.state.list).map((groupKey) => {
+    getResultListComponent() {
+        let isBounded = keys(this.state.map).length > 1;
+        let groupList = keys(this.state.map).map((groupKey) => {
             return (
                 <SingleGroupComponent key={groupKey}
                                       ref={groupKey}
                                       renderGroupBy={this.renderGroupByBlock}
-                                      list={this.state.list[groupKey]}
+                                      list={this.state.map[groupKey]}
                                       groupKey={groupKey}
-                                      maxRows={this.props.groupMaxRows}
+                                      maxRows={isBounded && this.props.groupMaxRows}
                     />
             );
         });
         return groupList;
     },
-    getSimpleListComponent(options) {
-        checkIsNotNull('options', options);
-        checkIsNotNull('options.type', options.type);
-        let newList = options.list || this.state.list;
-        if (options.maxRows) {
-            newList = newList.slice(0, options.maxRows);
-        }
-        if(!this.props.lineMap || !this.props.lineMap[options.type]){
-          console.warn(`It seems you have not define a line for your type. ${options.type}, lineMap`, this.props.lineMap);
+    getSingleTypeResultList(groupKey, list, maxRows) {
+        if (maxRows) {
+            list = list.slice(0, maxRows);
         }
         return (
-            <ListSelection data={newList}
-                           ref={options.type}
+            <ListSelection data={list}
+                           ref={groupKey}
                            idField={this.props.idField}
                            isSelection={this.props.isSelection}
                            onSelection={this._selectItem}
@@ -76,10 +69,18 @@ let GroupByMixin = {
                            hasMoreData={this.state.hasMoreData}
                            isLoading={this.state.isLoading}
                            operationList={this.props.lineOperationList}
-                           lineComponent={this.props.lineMap[options.type]}
+                           lineComponent={this.props.lineComponentMapper(list)}
                            parentSelector={this.props.parentSelector}
                            selectionStatus={this.state.selectionStatus}
                 />
+        );
+    },
+    renderGroupByBlock(groupKey, list, maxRows) {
+        let GroupWrapper = this.props.groupComponent;
+        return (
+            <GroupWrapper data-focus="group-result-container" groupKey={groupKey}>
+                {this.getSingleTypeResultList(groupKey, list, maxRows)}
+            </GroupWrapper>
         );
     }
 };
