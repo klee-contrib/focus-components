@@ -1,5 +1,12 @@
 let isFunction = require('lodash/lang/isFunction');
+let BuiltInSearchStore = Focus.search.builtInStore;
+
 let SearchMixin = {
+    getDefaultProps() {
+        return ({
+            store: BuiltInSearchStore
+        });
+    },
     /**
      * Next page fetch action handler.
      */
@@ -47,10 +54,10 @@ let SearchMixin = {
                 };
             });
         }
-        if(!this.actions || !isFunction(this.actions.search)){
-          console.warn(`Your page seems to miss a search action, add in your configuration a {actions: {search : function(scope, query, facets){}}}`, this.actions);
+        if(!isFunction(this.props.searchAction)){
+          console.warn(`Your page seems to miss a search action, add in your props a {searchAction: function(scope, query, facets){}}`, this.props.searchAction);
         }
-        this.actions.search(
+        this.props.searchAction(
             this.getSearchCriteria(this.state.scope, this.state.query, facets)
         );
     }
