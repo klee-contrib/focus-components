@@ -12,22 +12,24 @@ var iconMixin = {
      * Default props.
      * @returns {object} Initial props.
      */
-    getDefaultProps: function(){
+    getDefaultProps(){
         return {
           prefix: 'fa fa-',
-          name: ''
+          name: '',
+          other: ''
         };
     },
     propTypes: {
       prefix: type('string'),
-      name: type('string')
+      name: type('string'),
+      other: type('string')
     },
     /**
      * Render the img.
      * @returns {XML} Html code.
      */
     render: function renderIcon(){
-        var className = `${this.props.prefix}${this.props.name}`;
+        var className = `${this.props.prefix}${this.props.name} ${this.props.other}`;
         return <i className={className} onClick={this.props.onClick}></i>;
     }
 };
