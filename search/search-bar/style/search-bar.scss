@@ -66,6 +66,7 @@ $sb-input-height: 35px;
         padding: 10px;
         overflow: auto;
         max-width: 500px;
+        z-index: 10;
 
         li {
           list-style-type: none;
