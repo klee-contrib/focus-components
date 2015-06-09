@@ -13,6 +13,9 @@
     <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css" />
     <script src="https://fb.me/react-0.13.3.js"></script>
+    <script src="https://fb.me/JSXTransformer-0.13.3.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/3.9.3/lodash.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/backbone.js/1.2.1/backbone.js"></script>
 
     <!-- Material degign-->
     <script src="//code.jquery.com/jquery-1.10.2.min.js"></script>
@@ -32,29 +35,22 @@
 <body>
 <div id="letters-filter-container"></div>
 
-<script type="text/javascript">
-    var render = function() {
-        React.render(
-                React.createElement(React.createClass(FocusComponents.list.lettersFilter.mixin),
-                        {
-                            selectedLetter: selectedLetter,
-                            availableLetters: 'abcdeijklmnopqrsvwz',
-                            handleLetterSelection: selectionClick
-                        }
-                ),
-                document.querySelector("#letters-filter-container")
-        );
-    }
+<script type="text/jsx">
 
+    var selectedLetter = "A";
     var selectionClick = function(letter) {
         console.log("new selected letter : " + letter);
         selectedLetter = letter;
-        render();
     };
 
-    var selectedLetter = "A";
-    render();
 
+    Focus.components = FocusComponents;
+    var LettersFilter = Focus.components.list.lettersFilter.component;
+
+    React.render(
+            <LettersFilter selectedLetter={selectedLetter} availableLetters='abcdeijklmnopqrsvwz' handleLetterSelection={selectionClick}/>
+            , document.querySelector("#letters-filter-container")
+    );
 
 </script>
 

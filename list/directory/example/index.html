@@ -13,6 +13,9 @@
     <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css" />
     <script src="https://fb.me/react-0.13.3.js"></script>
+    <script src="https://fb.me/JSXTransformer-0.13.3.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/3.9.3/lodash.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/backbone.js/1.2.1/backbone.js"></script>
 
     <!-- Material degign-->
     <script src="//code.jquery.com/jquery-1.10.2.min.js"></script>
@@ -21,7 +24,7 @@
     <link rel="stylesheet" href="//cdn.jsdelivr.net/bootstrap.material-design/0.3.0/css/ripples.min.css">
     <script src="//cdn.jsdelivr.net/bootstrap.material-design/0.3.0/js/material.min.js"></script>
     <script src="//cdn.jsdelivr.net/bootstrap.material-design/0.3.0/js/ripples.min.js"></script>
-    <!-- Material degign-->
+    <!-- Material design-->
     <script src="/focus-components/dist/js/focus.js"></script>
     <script src="/focus-components/dist/js/focus-components.js"></script>
     <script src="/focus-components/example/js/initFocus.js"></script>
@@ -30,18 +33,67 @@
 
 </head>
 <body>
+<div style="float: right">
+    <input id="show_all" type="checkbox" value="true"/>Show all
+</div>
 <div id="directory-container"></div>
 
-<script type="text/javascript">
-    var render = function() {
+<script type="text/jsx">
+
+    Focus.components = FocusComponents;
+    var data = [];
+    var showAllProp = true;
+
+    //generate test data
+    var letters = 'bcdefghijklnopqrstvwxyz';
+    var maxObjs = 1000;
+    for(var i= 0; i < maxObjs; i++){
+        var randomLetter = letters.charAt(_.random(0, 22));
+        var obj = {first_name: `${randomLetter} name (${i})`, last_name: 'last_name', email: `${randomLetter}_name${i}.last_name@test.com`};
+        data.push(obj);
+    }
+
+    //Line component
+    var Line = React.createClass({
+        mixins: [Focus.components.list.selection.line.mixin],
+        definitionPath: "contact",
+        renderLineContent: function(data){
+            return (
+                    <div className="container">
+                        <div className="col-md-3">{this.textFor("first_name")}</div>
+                        <div className="col-md-3">{this.textFor("last_name")}</div>
+                        <div className="col-md-3">{this.textFor("email")}</div>
+                    </div>
+            );
+        }
+    });
+
+
+
+    var filteredPropertyName = 'first_name';
+    var DirectoryList = Focus.components.list.directory.list.component;
+
+    var render = function(){
         React.render(
-                React.createElement(React.createClass(FocusComponents.list.directory.list.mixin),{}),
-                document.querySelector("#directory-container")
+                <DirectoryList data={data}
+                               fieldName={filteredPropertyName}
+                               lineComponent={Line}
+                               displayGroupSize={true}
+                               showAll={showAllProp}
+                        />
+                , document.querySelector("#directory-container")
         );
     }
 
-    render();
 
+    $(document).ready(function(){
+        render();
+        $("#show_all").click(function(){
+            showAllProp = $("#show_all").prop('checked');
+            $('#directory-container').html('')
+            render();
+        });
+    });
 
 </script>
 
