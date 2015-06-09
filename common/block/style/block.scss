@@ -1,6 +1,6 @@
 $bloc-background: #fff;         //normal
 $bloc-background-hover: #fff;   //on mouse over
-/*$bloc-background-active: #eeeff1;*/  //in edit mode
+$bloc-background-active: #F9F9F9;  //in edit mode
 $bloc-border-color: #e7e7e7;
 $bloc-title-color:#36b7b9;
 
@@ -48,7 +48,10 @@ $bloc-title-color:#36b7b9;
 
 [data-mode='edit'] {
   [data-focus='block'] {
-    /*background-color: $bloc-background-active;*/
+    background-color: $bloc-background-active;
     border:1px solid #36b7b9;
+    .actions {
+      display: inline-block;
+    }
   }
 }
