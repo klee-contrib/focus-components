@@ -6,6 +6,11 @@ var memoryList = require('../list').component;
 var fieldComponentBehaviour = require('./field-component-behaviour');
 var Table = require('../../list/table').list.component;
 var List = require('../../list/selection').list.component;
+var dispatcher = require('focus').dispacther;
+function changeMode(newMode, previousMode){
+  var mode = {newMode: newMode, previousMode: previousMode};
+  dispatcher.handleViewAction({data: {mode: mode}, type: 'update'});
+}
 
 var assign = require('object-assign');
 module.exports = {
@@ -120,7 +125,9 @@ buttonEdit: function buttonEdit() {
     type: 'button',
     icon: 'pencil',
     handleOnClick: function handleOnClickEdit(){
-      form.setState({isEdit: !form.state.isEdit});
+      form.setState({isEdit: !form.state.isEdit},function(){
+        changeMode('edit', 'consult')
+      });
     }
   });
 },
@@ -136,8 +143,8 @@ buttonCancel: function buttonCancel() {
     type: 'button',
     icon: 'undo',
     handleOnClick: function handleOnClickCancel(){
-      console.log('cancel icon');
-      form.setState({isEdit: !form.state.isEdit});
+      form.setState({isEdit: !form.state.isEdit},function(){
+        changeMode('consult', 'edit')});
     }
   });
 },
