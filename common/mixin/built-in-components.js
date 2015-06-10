@@ -7,10 +7,7 @@ var fieldComponentBehaviour = require('./field-component-behaviour');
 var Table = require('../../list/table').list.component;
 var List = require('../../list/selection').list.component;
 var dispatcher = require('focus').dispacther;
-function changeMode(newMode, previousMode){
-  var mode = {newMode: newMode, previousMode: previousMode};
-  dispatcher.handleViewAction({data: {mode: mode}, type: 'update'});
-}
+var changeMode = require('focus').application.changeMode;
 
 var assign = require('object-assign');
 module.exports = {
