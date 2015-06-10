@@ -19,13 +19,14 @@ let SearchStore = require('focus').store.SearchStore;
 let ScrollInfoMixin = require('../common/scroll-info-mixin').mixin;
 let GroupByMixin = require('../common/group-by-mixin').mixin;
 let SearchMixin = require('../common/search-mixin').mixin;
+let CartridgeBehaviour = require('../../mixin/cartridge-behaviour');
 let type = require('focus').component.types;
 /**
  * Page mixin of the advanced search.
  * @type {Object}
  */
 let AdvancedSearch = {
-    mixins: [ScrollInfoMixin, GroupByMixin, SearchMixin],
+    mixins: [ScrollInfoMixin, GroupByMixin, SearchMixin, CartridgeBehaviour],
     /**
      * Display name.
      */
