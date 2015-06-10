@@ -40,7 +40,7 @@
   //Load dependencies.
   Focus.components = FocusComponents;
   var Layout = Focus.components.application.layout.component;
-  React.render(<Layout MenuLeft={React.DOM.img}>Test</Layout>, document.querySelector("#layout-container"));
+  React.render(<Layout MenuLeft={React.DOM.div}>Test</Layout>, document.querySelector("#layout-container"));
   Focus.dispatcher.handleServerAction({data:{request:{id: 131, status: 'pending'}} ,type: 'update'});
 
   Focus.dispatcher.handleServerAction({data:{request:{id: 132, status: 'pending'}} ,type: 'update'});
