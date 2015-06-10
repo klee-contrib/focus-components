@@ -7,10 +7,10 @@ var applicationStateMixin = {
   /** @inheriteddoc */
   componentWillMount: function cartridgeWillMount() {
     applicationStore.addModeChangeListener(this._handleChangeApplicationStatus);
-    applicationStore.addModeRouteListener(this._handleChangeApplicationStatus);
+    applicationStore.addRouteChangeListener(this._handleChangeApplicationStatus);
   },
   /** @inheriteddoc */
-  componentWillUnMount: function cartridgeWillUnMount(){
+  appStateWillUnMount: function cartridgeWillUnMount(){
     applicationStore.removeModeChangeListener(this._handleChangeApplicationStatus);
     applicationStore.removeRouteChangeListener(this._handleChangeApplicationStatus);
   },
