@@ -15,12 +15,13 @@ $advanced-search-facet-box-width: 275px;
     -webkit-box-shadow: 2px 0px 3px 0px #dadada;
     -o-box-shadow: 2px 0px 3px 0px #dadada;*/
     box-shadow: 2px 0px 3px 0px #dadada;
+    opacity: .99;
+    z-index: -10;
   }
 
   [data-focus='facet-container'] {
     float: left;
     width: $advanced-search-facet-box-width;
-    position: relative;
     margin-left: -20px;
   }
 

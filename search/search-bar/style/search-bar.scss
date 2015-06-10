@@ -3,14 +3,11 @@
 /* Variables*/
 /*$border-size: 2px;*/
 $sb-scope-width: 70px;
-$sb-input-height: 35px;
+$sb-input-height: 50px;
 
 /* Style */
 [data-focus='search-bar'] {
-  display: block;
-  /*position: relative;*/
-  /*height:70px;*/
-
+  padding: 10px 0;
   .sb-scope {
     float: left;
 
@@ -25,27 +22,28 @@ $sb-input-height: 35px;
         &.sb-icon > div {
           background-size: 22px;
         }
-        &.sb-scope-deploy-up:after {
-          content: "\f077";
-          position: absolute;
-          top: 10px;
-          right: 0;
-          font-family: FontAwesome;
-          display: inline-block;
-          vertical-align: middle;
-          font-size: 12px;
+        &.sb-scope-deploy {
+          &:after {
+            content: "\f077";
+            position: absolute;
+            top: 17px;
+            right: 0;
+            font-family: FontAwesome;
+            display: inline-block;
+            vertical-align: middle;
+            font-size: 12px;
+          }
+          &.up {
+            &:after {
+              content: "\f077";
+            }
+          }
+          &.down {
+            &:after {
+              content: "\f078";
+            }
+          }
         }
-        &.sb-scope-deploy-down:after {
-          content: "\f078";
-          position: absolute;
-          top: 10px;
-          right: 0;
-          font-family: FontAwesome;
-          display: inline-block;
-          vertical-align: middle;
-          font-size: 12px;
-        }
-
         text-align: center;
         height: 100%;
         div {
@@ -91,10 +89,11 @@ $sb-input-height: 35px;
 
   /* Input block */
   .sb-input-search {
-    position: relative;
     margin-left: $sb-scope-width+10;
     input {
       height: $sb-input-height;
+      font-size: 22px;
+      height: 50px;
       font-size: 22px;
     }
     .sb-spinner {

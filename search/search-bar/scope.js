@@ -124,7 +124,7 @@ let scopeMixin = {
      * @return {object} - The jsx element.
      */
     render() {
-        let cssClass = `sb-scope-deploy-${this.state.isDeployed ? 'up' : 'down'}`;
+        let cssClass = `sb-scope-deploy ${this.state.isDeployed ? 'up' : 'down'}`;
         return (
             <div className={this._getClassName()} data-focus='scope'>
                 <div className={cssClass} onClick={this.handleDeployClick}>
