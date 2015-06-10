@@ -17,7 +17,24 @@ let InfiniteScrollPageMixin = {
             this.getScrollState()
         );
     },
-
+    /**
+     * Next page fetch action handler.
+     */
+    fetchNextPage() {
+        this.setState({
+            isLoading: true,
+            currentPage: this.state.currentPage + 1
+        }, this.search);
+    },
+    /**
+     * State for a no fetch search.
+     * @returns {object} current page set to 1.
+     */
+    getNoFetchState() {
+        return {
+            currentPage: 1
+        };
+    },
     /**
      * current state of the scrolling list.
      * @returns {*} the scroll state

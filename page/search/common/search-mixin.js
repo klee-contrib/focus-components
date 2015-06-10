@@ -8,24 +8,6 @@ let SearchMixin = {
         });
     },
     /**
-     * Next page fetch action handler.
-     */
-    fetchNextPage() {
-        this.setState({
-            isLoading: true,
-            currentPage: this.state.currentPage + 1
-        }, this.search);
-    },
-    /**
-     * State for a no fetch search.
-     * @returns {object} current page set to 1.
-     */
-    getNoFetchState() {
-        return {
-            currentPage: 1
-        };
-    },
-    /**
      * Returns the search criteria sent to the store.
      * @param {string} scope Current scope.
      * @param {string} query Current query.
