@@ -1,16 +1,12 @@
-.print {
-  background: url("../img/print.svg") no-repeat center;
-}
 
-.list-summary {
-  .nb-result, .scope {
-    display: inline-block;
-    padding: 0 25px 0 25px;
-    min-width: 150px;
+[data-focus="list-summary"] {
+  line-height: 55px;
+  height: 55px;
+  .sentence{
+    font-size: 20px;
+    margin-right: 20px;
   }
   .print {
-    display: inline-block;
     float: right;
-    padding: 0 25px 0 25px;
   }
 }
