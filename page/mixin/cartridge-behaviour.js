@@ -5,6 +5,7 @@ module.exports = {
      * Register the cartridge.
      */
     _registerCartridge: function registerCartridge(){
+      this.cartridgeConfiguration = this.cartridgeConfiguration || this.props.cartridgeConfiguration;
       if(!isFunction(this.cartridgeConfiguration)){
         this.cartridgeConfiguration = function cartridgeConfiguration(){
           return {};
