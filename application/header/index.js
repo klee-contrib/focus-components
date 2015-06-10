@@ -77,6 +77,7 @@ var headerMixin = {
   /** @inheriteddoc */
   componentWillUnMount: function barWillUnMount(){
     this.detachScrollListener();
+    this.appStateWillUnmount();
   },
   /**
    * Process the sizeMap in order to sort them by border size and create a sizes array.
