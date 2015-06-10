@@ -39,7 +39,7 @@ let Facet = {
      * @returns {XML} Html component code.
      */
     render() {
-        let className = 'panel panel-primary facet';
+        let className = 'facet';
         if (this.props.selectedDataKey) {
             className += '-selected';
         } else if (this.props.isExpanded) {
@@ -59,13 +59,12 @@ let Facet = {
      */
     _renderFacetTitle() {
         let title = this.i18n('live.filter.facets.' + this.props.facetKey); // Default facet translation path is live.filter.facets.
-        let className = 'panel-heading';
         if (this.props.selectedDataKey) {
             title += ' : ' + this.props.facet[this.props.selectedDataKey].label;
         }
         return (
-            <div className={className} data-focus='facet-title' onClick={this._facetTitleClickHandler}>
-                {title}
+            <div data-focus='facet-title' onClick={this._facetTitleClickHandler}>
+                <h3>{title}</h3>
             </div>
         );
     },
@@ -91,7 +90,7 @@ let Facet = {
             return '';
         }
         return (
-            <div className='panel-body' data-focus='facet-data-list'>
+            <div className='' data-focus='facet-data-list'>
                 <ul>
                     {Object.keys(this.props.facet).slice(0, this.props.nbDefaultDataList).map((key) => {
                         return (

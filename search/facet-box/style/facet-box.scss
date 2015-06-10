@@ -1,3 +1,91 @@
+
+[data-focus='facet-box'] {
+  padding: 10px;
+
+  &.collapsed {
+    width: 30px;
+    [data-focus="facet-box-heading"] {
+      h2 {
+        border: 0;
+        &:after {
+          content: "\f054";
+        }
+      }
+    }
+  }
+
+  &.expanded {
+    [data-focus="facet-box-heading"] {
+      h2 {
+        &:after {
+          content: "\f053";
+        }
+      }
+    }
+  }
+
+  [data-focus="facet-box-heading"] {
+    cursor: pointer;
+    position: relative;
+
+    h2 {
+      margin: 0;
+      padding: 15px 0;
+      border-bottom: 1px solid #e2e2e2;
+
+      &:after {
+        font-family: FontAwesome;
+        display: inline-block;
+        vertical-align: middle;
+        position: absolute;
+        right: 0;
+      }
+    }
+  }
+
+  .facet-collapsed {
+    .panel-heading {
+      background-image: url("../img/chevron-thin-down.svg");
+      background-repeat: no-repeat;
+      background-position: 90%;
+    }
+  }
+  .facet-expanded {
+    .panel-heading {
+      background-image: url("../img/chevron-thin-up.svg");
+      background-repeat: no-repeat;
+      background-position: 90%;
+    }
+  }
+
+  [data-focus='facet-box-body'] {
+    [data-focus='facet'] {
+      margin: 10px 0;
+      h3 {
+        color: #36b6b8;
+        padding: 5px 0;
+        margin: 0;
+        font-size: 18px;
+        font-weight: bolder;
+      }
+      ul {
+        margin: 0;
+        padding: 5px 5px 5px 15px;
+        list-style-type: none;
+        li {
+          padding: 0;
+          margin: 0;
+          cursor: pointer;
+        }
+        li:hover {
+          color: #E6E6E6;
+        }
+      }
+    }
+  }
+
+}
+
 /*[data-focus='facet-box'] {
   .collapsed {
     width: 30px;

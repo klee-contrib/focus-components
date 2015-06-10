@@ -1,6 +1,7 @@
 /* Style for the list component*/
 $sl-line-border-color: #e1e1e1;
 $sl-line-level1-color:#36b7b9;
+$sl-line-bg-hover:#edeef0;
 
 /*variables*/
 $boxSize:50px;
@@ -10,22 +11,21 @@ $boxSize:50px;
   padding: 0;
   margin:0;
 
-  li {
+
+  [data-focus="sl-line"] {
     padding: 15px;
     background-color: #FFF;
     border-bottom:1px solid $sl-line-border-color;
-    &:first-child {
-      border-top:1px solid $sl-line-border-color;
-    }
-  }
-
-  [data-focus="sl-line"] {
     cursor: pointer;
     padding-left: $boxSize + 10px;
     position: relative;
 
+    &:first-child {
+      border-top:1px solid $sl-line-border-color;
+    }
+
     &:hover {
-      background-color: #edeef0;
+      background-color: $sl-line-bg-hover;
     }
 
     [data-focus="sl-icon"] {
@@ -61,7 +61,7 @@ $boxSize:50px;
       height: 100%;
       width: $boxSize;
       display:none;
-      background-color: #fff;
+      background-color: #FFF;
     }
 
     div.sl-actions {
@@ -76,9 +76,13 @@ $boxSize:50px;
         display: block;
       }
 
+      div.sl-selection {
+        background-color: $sl-line-bg-hover;
+      }
+
       div.sl-selection.no-selection {
         //background-size: $icon-size $icon-size;
-        border-left:3px solid red;
+        border-left:5px solid #ffd657;
       }
 
       div.sl-actions{
@@ -89,17 +93,18 @@ $boxSize:50px;
     div.sl-selection.selected {
       //background-size: $icon-size $icon-size;
       display: block;
-      border-left:3px solid green;
+      border-left:5px solid #36b6b8;
+    }
+
+    .sl-button{
+      background-color: transparent;
+      position: relative;
+
+      a,button{
+        position: absolute;
+        right: 0px;
+      }
     }
   }
 
-  li.sl-button{
-    background-color: transparent;
-    position: relative;
-
-    a,button{
-      position: absolute;
-      right: 0px;
-    }
-  }
 }

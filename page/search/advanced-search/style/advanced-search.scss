@@ -1,28 +1,38 @@
-$advanced-search-facet-box-width: 300px;
+$advanced-search-facet-box-width: 275px;
 
 [data-focus='advanced-search'] {
 
   &:before {
     content: " ";
-    border: 1px solid red;
     position: absolute;
     top: 0;
     bottom: 0;
     left: 0;
-    width: 410px;
+    width: 345px;
     background-color: #FFF;
     z-index: 0;
+    /*-moz-box-shadow: 2px 0px 3px 0px #dadada;
+    -webkit-box-shadow: 2px 0px 3px 0px #dadada;
+    -o-box-shadow: 2px 0px 3px 0px #dadada;*/
+    box-shadow: 2px 0px 3px 0px #dadada;
   }
 
   [data-focus='facet-container'] {
     float: left;
     width: $advanced-search-facet-box-width;
     position: relative;
+    margin-left: -20px;
   }
 
   [data-focus='result-container'] {
-    margin-left: $advanced-search-facet-box-width + 60;
-    border:1px solid red;
-    position: relative;
+    margin-left: $advanced-search-facet-box-width + 40;
+  }
+
+  [data-focus="group-result-container"] {
+    h3 {
+      margin: 0;
+      padding: 15px 10px;
+      color: #36b6b8;
+    }
   }
 }
