@@ -3,6 +3,8 @@
 let builder = require('focus').component.builder;
 let React = require('react');
 let assign = require('object-assign');
+let reduce = require('lodash/collection/reduce');
+let includes = require('lodash/collection/includes');
 
 // Components
 
@@ -83,6 +85,14 @@ let AdvancedSearch = {
             scope: this.props.scope,
             query: this.props.query
         });
+    },
+    componentWillReceiveProps(nextProps) {
+        this.setState(reduce(nextProps, (newState, key, value) => {
+            if (includes(['scope', 'query'], key)) {
+                newState[key] = value;
+            }
+            return newState;
+        }, {}));
     },
     /**
      * Get the state from store.
