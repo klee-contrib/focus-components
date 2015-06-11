@@ -6,7 +6,7 @@ let type = require('focus').component.types;
 // Mixins
 
 let Stylabe =  require('../../mixin/stylable');
-
+let scrollTo = require('../mixin/scroll-to').scrollTo;
 
 /**
  * Sticky navigation component.
@@ -127,7 +127,7 @@ let StickyNavigation = {
      */
     _linkClickHandler(title) {
         return () => {
-            document.querySelector(this.props.scrolledElementSelector).scrollTop = title.offsetTop;
+            scrollTo(document.querySelector(this.props.scrolledElementSelector), title.offsetTop, 500);
         }
     },
     /**
