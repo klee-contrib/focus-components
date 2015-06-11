@@ -34,9 +34,7 @@ var barMixin = {
       <div className={className} data-focus='bar'>
         <div data-focus='bar-content-left'>{this.props.appName}</div>
         <div data-focus='bar-content-right'>
-          <i className="mdi-action-language"></i>
-          <i className="mdi-social-notifications"></i>
-          <i className="mdi-action-account-circle"></i>
+          <i className="fa fa-bell-o fa-2x"></i>
         </div>
         <div data-focus='bar-content-middle'><this.state.summaryComponent.component {...this.state.summaryComponent.props}/></div>
       </div>
