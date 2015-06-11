@@ -25,8 +25,7 @@ let StickyNavigation = {
     getDefaultProps() {
         return ({
             titleSelector: '[data-menu]',
-            scrolledElementSelector: 'body',
-            triggerHeight: 50
+            scrolledElementSelector: 'body'
         });
     },
     /**
@@ -66,7 +65,8 @@ let StickyNavigation = {
             return {
                 label: titleElement.innerText,
                 id: titleElement.getAttribute('id'),
-                offsetTop: titleElement.offsetTop
+                offsetTop: titleElement.offsetTop,
+                offsetHeight: titleElement.parentElement.offsetHeight
             }
         });
     },
@@ -94,7 +94,7 @@ let StickyNavigation = {
         let scrollPosition = document.querySelector(this.props.scrolledElementSelector).scrollTop;
         if (this.state && this.state.titleList) {
             this.state.titleList.forEach((title) => {
-                if (Math.abs(title.offsetTop - scrollPosition) < this.props.triggerHeight) {
+                if (title.offsetTop <= scrollPosition && title.offsetTop + title.offsetHeight > scrollPosition) {
                     this.setState({
                         activeTitle: title.id
                     });
