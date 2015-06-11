@@ -157,10 +157,6 @@
       "path": "common/sticky-navigation"
     },
     {
-      "name": "live-filter",
-      "path": "search/live-filter"
-    },
-    {
       "name": "selection-list",
       "path": "list/selection"
     },

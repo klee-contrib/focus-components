@@ -1,17 +1,19 @@
 /**@jsx*/
 let builder = require('focus').component.builder;
-let styleBeahviour = require('../../mixin/stylable');
+let stylable = require('../../mixin/stylable');
 let type = require('focus').component.types;
 
 let alphabetLetters = 'abcdefghijklmnopqrstuvwxyz';
 
 let lettersFilterMixin = {
-    mixins: [styleBeahviour],
-    /** */
+    mixins: [stylable],
+    /**
+     * Component display name.
+     */
     displayName: 'list-letters-filter',
 
     /**
-     * [letters description]
+     * Letters.
      * @type {Array}
      */
     letters: alphabetLetters.toUpperCase().split(''),
@@ -20,19 +22,19 @@ let lettersFilterMixin = {
     getDefaultProps() {
         return {
             /**
-             * current selected letter.
+             * Current selected letter.
              * @type {string}
              */
             selectedLetter: '',
 
             /**
-             * available letters to be actioned
+             * Available letters.
              * @type {string}
              */
             availableLetters: '',
 
             /**
-             * handle letter selection action (must be overridden by calling component)
+             * Handle letter selection action (must be overridden by calling component).
              * @param letter
              */
             handleLetterSelection: function(letter) { console.warn('selected letter: ', letter); } // Action on selection click
@@ -53,7 +55,7 @@ let lettersFilterMixin = {
     },
 
     /**
-     * on letter select function
+     * Handle letter selection.
      * @private
      */
     _selectionFunction(event) {
@@ -65,7 +67,8 @@ let lettersFilterMixin = {
     },
 
     /**
-     * check if letter is available in input data
+     * Check if a letter is available.
+     * @param {string} letter.
      * @returns {boolean} letter is available in input data
      * @private
      */
@@ -74,7 +77,7 @@ let lettersFilterMixin = {
     },
 
     /**
-     * get selected style for letter
+     * Get selected style for a letter.
      * @param {string} letter letter to render.
      * @param {string} selectedLetter letter corresponding to the selected one.
      * @returns {string} selected if letter equals to the selected letter.
@@ -85,13 +88,41 @@ let lettersFilterMixin = {
     },
 
     /**
-     * get disabled behavior
-     * @param {string} letter letter to render.
-     * @returns {string} disabled if letter not available in input data.
+     * Get disabled behavior style.
+     * @param {string} letter
+     * @returns {string} disabled if letter not available.
      * @private
      */
     _getDisabledBehavior(letter){
         return !this._isLetterAvailable(letter)? 'disabled': undefined;
+    },
+
+    /**
+     * Render letters component. This is done by rendering each letter component from letters array.
+     * @returns {JSX} Htm content.
+     * @private
+     */
+    _renderLetters(){
+        return (() => {
+            return this.letters.map((letter)=>{
+                /*
+                 render each letter component from letters array.
+                 */
+                var isLetterAvailable = this._isLetterAvailable(letter);
+                var elementClassName = `${isLetterAvailable ? '': 'disabled'} ${this._getSelectedStyle(letter, this.state.selectedLetter)}`;
+
+                return (
+                    <button ref={letter}
+                            onClick={this._selectionFunction}
+                            className={elementClassName}
+                            data-focus='letter-element'
+                            data-letter={letter}
+                            disabled={this._getDisabledBehavior(letter)}>
+                        {letter}
+                    </button>
+                );
+            });
+        })();
     },
 
     /**
@@ -101,18 +132,8 @@ let lettersFilterMixin = {
      */
     render(){
         return (
-            <div className={`letters-filter-bar ${this._getStyleClassName()}`}>
-                {
-                this.letters.map((letter)=>{
-                    var isLetterAvailable = this._isLetterAvailable(letter) ;
-                    var elementClassName = `letter-element ${isLetterAvailable ? '': 'disabled'} ${this._getSelectedStyle(letter, this.state.selectedLetter)}`;
-                      return (
-                            <button ref={letter} onClick={this._selectionFunction} className={elementClassName} data-letter={letter} disabled={this._getDisabledBehavior(letter)}>
-                              {letter}
-                            </button>
-                      );
-                })
-                }
+            <div className={this._getStyleClassName()} data-focus='letters-filter-bar'>
+                {this._renderLetters()}
             </div>
         );
     }

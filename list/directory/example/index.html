@@ -30,11 +30,16 @@
     <script src="/focus-components/example/js/initFocus.js"></script>
     <link rel="stylesheet" href="css/directory-list.css"/>
 
+    <style>
+        [data-focus='directory-list-container']{
+            height: 70vh;
+        }
+    </style>
 
 </head>
 <body>
 <div style="float: right">
-    <input id="show_all" type="checkbox" value="true" checked/>Show all
+    <input id="show_all" type="checkbox" value="true" checked/> Show all
 </div>
 <div id="directory-container"></div>
 
@@ -47,7 +52,7 @@
     //generate test data
     var letters = 'bcdefghijklnopqrstvwxyz';
     var maxObjs = 1000;
-    for(var i= 0; i < maxObjs; i++){
+    for(var i = 0; i < maxObjs; i++){
         var randomLetter = letters.charAt(_.random(0, 22));
         var obj = {first_name: `${randomLetter} name (${i})`, last_name: 'last_name', email: `${randomLetter}_name${i}.last_name@test.com`};
         data.push(obj);
@@ -85,7 +90,7 @@
         );
     }
 
-
+    var testObj
     $(document).ready(function(){
         render();
         $("#show_all").click(function(){
@@ -93,6 +98,7 @@
             $('#directory-container').html('')
             render();
         });
+        testObj = $("[data-focus='directory-list-container']")[0];
     });
 
 </script>
