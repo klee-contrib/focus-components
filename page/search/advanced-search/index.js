@@ -331,7 +331,7 @@ let AdvancedSearch = {
                 <div data-focus="result-container">
                     {this.getListSummaryComponent()}
                     {this.getActionBarComponent()}
-                    {this.getResultListComponent()}
+                    {this.getResultListComponent(true)}
                 </div>
             </div>
         );

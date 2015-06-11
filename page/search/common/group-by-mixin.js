@@ -39,22 +39,28 @@ let GroupByMixin = {
             this.refs[groupKey].changeGroupByMaxRows(maxRows);
         };
     },
-    getResultListComponent() {
+    getResultListComponent(advancedSearch) {
         let isBounded = keys(this.state.map).length > 1;
-        let groupList = keys(this.state.map).map((groupKey) => {
-            return (
-                <SingleGroupComponent
-                    data-focus='results-group'
-                    key={groupKey}
-                    ref={groupKey}
-                    renderGroupBy={this.renderGroupByBlock}
-                    list={this.state.map[groupKey]}
-                    groupKey={groupKey}
-                    maxRows={isBounded && this.props.groupMaxRows}
-                    />
-            );
-        });
-        return groupList;
+        let noDecoration = keys(this.state.map).length === 1;
+        if (noDecoration && advancedSearch) {
+            let groupKey = keys(this.state.map)[0];
+            return this.getSingleTypeResultList(groupKey, this.state.map[groupKey], isBounded && this.props.groupMaxRows);
+        } else {
+            let groupList = keys(this.state.map).map((groupKey) => {
+                return (
+                    <SingleGroupComponent
+                        data-focus='results-group'
+                        key={groupKey}
+                        ref={groupKey}
+                        renderGroupBy={this.renderGroupByBlock}
+                        list={this.state.map[groupKey]}
+                        groupKey={groupKey}
+                        maxRows={isBounded && this.props.groupMaxRows}
+                        />
+                );
+            });
+            return groupList;
+        }
     },
     getSingleTypeResultList(groupKey, list, maxRows) {
         if (maxRows) {
