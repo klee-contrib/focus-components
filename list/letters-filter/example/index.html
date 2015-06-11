@@ -30,9 +30,16 @@
     <script src="/focus-components/example/js/initFocus.js"></script>
     <link rel="stylesheet" href="css/letters-live-filter.css"/>
 
+    <style>
+        .my-letters-filter-class{
+            height: 10vh;
+        }
+
+    </style>
 
 </head>
 <body>
+
 <div id="letters-filter-container"></div>
 
 <script type="text/jsx">
@@ -43,12 +50,15 @@
         selectedLetter = letter;
     };
 
-
     Focus.components = FocusComponents;
     var LettersFilter = Focus.components.list.lettersFilter.component;
 
     React.render(
-            <LettersFilter selectedLetter={selectedLetter} availableLetters='abcdeijklmnopqrsvwz' handleLetterSelection={selectionClick}/>
+            <LettersFilter selectedLetter={selectedLetter}
+                           availableLetters='abcdeijklmnopqrsvwz'
+                           handleLetterSelection={selectionClick}
+                           style={{className:'my-letters-filter-class'}}
+                    />
             , document.querySelector("#letters-filter-container")
     );
 

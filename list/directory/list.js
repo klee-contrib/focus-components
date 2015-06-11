@@ -9,54 +9,57 @@ var memoryMixin = require('../mixin/memory-scroll').mixin;
 var LettersFilter = require('../letters-filter').component;
 var List = require('../selection/list').component;
 
-var assign = require('object-assign');
 var groupBy = require('lodash/collection/groupBy');
 var pairs = require('lodash/object/pairs');
 var sortBy = require('lodash/collection/sortBy');
+var keys = require('lodash/object/keys');
 var uuid= require('uuid');
 
 var directoryListMixin = {
-    /** */
+    /**
+     * Component display name.
+     */
     displayName: 'directory-list',
 
+    /**
+     * Mixins used by component.
+     */
     mixins: [memoryMixin],
 
+    /**
+     * Current selected letter.
+     */
     currentSelectedLetter: '',
-
-    currentSelectedGroup: {},
 
     /** @inheritedDoc */
     getDefaultProps() {
         return {
             /**
-             * property name to be filtered by letters-filter component
+             * Property name to be filtered by letters-filter component.
              * @type {string}
              */
             fieldName: '',
 
             /**
-             * data to be displayed
+             * Data to be displayed in the list.
              * @type {Array}
              */
             data: [],
 
             /**
-             * show all data
+             * Show all data.
+             * If true, list will display all data separated by letters.
+             * Otherwise, only data responding to filter criteria will be shown in the list.
              * @type {boolean}
              */
             showAll: true,
 
             /**
-             * display group size
+             * Display group size.
+             * If true, display size of each group.
              * @type {boolean}
              */
-            displayGroupSize: false,
-
-            /**
-             * linecomponent
-             * @type {Array}
-             */
-            lineComponent: undefined
+            displayGroupSize: false
 
         };
     },
@@ -93,8 +96,8 @@ var directoryListMixin = {
     },
 
     /**
-     * sort data
-     * @returns {object} data sorted by letter
+     * Sorting data by letter.
+     * @returns {object} data sorted by letter.
      * @private
      */
      _sortData(){
@@ -105,7 +108,7 @@ var directoryListMixin = {
     },
 
     /**
-     * get data to display
+     * Get data to use.
      * @returns {object} data grouped by letter. exemple: {A: Array[], B: Array[], C: Array[], ..., Z: Array[]}
      * @private
      */
@@ -118,7 +121,7 @@ var directoryListMixin = {
     },
 
     /**
-     * get group by letter
+     * Get one group by letter.
      * @param {string} selected letter
      * @returns {string} group corresponding to selected letter
      * @private
@@ -130,28 +133,29 @@ var directoryListMixin = {
     },
 
     /**
-     * get initial letter from a grouped data:
-     * The grouped array is already sorted, so we need to pick only first object property name
+     * Get initial letter from data.
+     * Hint: The grouped array is already sorted, so we need to pick only first object property name.
      * @param {object} grouped data. exemple: {A: Array[], B: Array[], C: Array[], ..., Z: Array[]}
      * @returns {string} initial selected data from grouped array
      * @private
      */
     _getInitialSelectedLetter(data){
-        return Object.keys(data)[0];
+        return keys(data)[0];
     },
 
     /**
-     * retrieve available letters from data. The grouped data is already sorted by letter
+     * Retrieve available letters from data.
+     * Hint: The grouped data is already sorted by letter.
      * @param {object} grouped data. exemple: {A: Array[], B: Array[], C: Array[], ..., Z: Array[]}
      * @returns {string} a string of available letters
      * @private
      */
     _getAvailableLetters(data){
-        return Object.keys(data).join('');
+        return keys(data).join('');
     },
 
     /**
-     * handle letter click event
+     * Handle letter click event.
      * @param {string} selected letter
      * @private
      */
@@ -167,7 +171,7 @@ var directoryListMixin = {
     },
 
     /**
-     * get group id
+     * Get group id.
      * @param {string} selected letter
      * @returns {string} group id
      * @private
@@ -177,7 +181,7 @@ var directoryListMixin = {
     },
 
     /**
-     * get group header label
+     * Get group header label
      * @param {string} selected letter
      * @returns {string} group header label
      * @private
@@ -190,7 +194,7 @@ var directoryListMixin = {
         return groupHeaderLabel;
     },
     /**
-     * get group size
+     * Get group size.
      * @param {string} selected letter
      * @returns {int} group size
      * @private
@@ -200,45 +204,52 @@ var directoryListMixin = {
     },
 
     /**
+     * Render data list.
+     * @returns {JSX} Htm content.
+     * @private
+     */
+    _renderDataList(){
+        return (() => {
+            return pairs(this.state.dataToDisplay).map((groupList)=>{
+                    var groupLetter = groupList[0];
+                    var groupLetterId = this._getGroupId(groupLetter);
+                    var listData = groupList[1];
+
+                    return(
+                        <div id={groupLetterId}>
+                            <div data-focus='directory-list-group'>{this._getGroupHeaderLabel(groupLetter)}</div>
+
+                            <List data={listData}
+                                  key={this.props.idField || uuid.v4()}
+                                  hasMoreData={false}
+                                  lineComponent={this.props.lineComponent}
+                                  isSelection={false}
+                                  isManualFetch={true}
+                                />
+
+                        </div>
+                    )});
+        })();
+    },
+
+    /**
      * Render the html
      * @returns {JSX} Htm content.
      * @private
      */
      render(){
         return (
-            <div data-focus='list-directory' >
+            <div data-focus='list-directory'>
 
-                <div className='letters-filter-bar'>
-                    <LettersFilter
-                        selectedLetter={this.state.currentSelectedLetter}
-                        availableLetters={this.state.availableLetters}
-                        handleLetterSelection={this._onLetterSelected}
-                    />
+                <LettersFilter
+                    selectedLetter={this.state.currentSelectedLetter}
+                    availableLetters={this.state.availableLetters}
+                    handleLetterSelection={this._onLetterSelected}
+                />
+
+                <div data-focus='directory-list-container'>
+                    {this._renderDataList()}
                 </div>
-
-                <div className='directory-list-container'>
-                {pairs(this.state.dataToDisplay).map((groupList)=>{
-                    var groupLetter = groupList[0];
-                    var groupLetterId = this._getGroupId(groupLetter);
-                    var groupData = groupList[1];
-
-                    return(
-                        <div id={groupLetterId}>
-                            <div className='directory-list-group'>{this._getGroupHeaderLabel(groupLetter)}</div>
-
-                              <List data={groupData}
-                                    key={this.props.idField || uuid.v4()}
-                                    hasMoreData={false}
-                                    lineComponent={this.props.lineComponent}
-                                    isSelection={false}
-                                    isManualFetch={true}
-                                  />
-
-                        </div>
-                    )})
-                }
-                </div>
-
             </div>
         );
     }

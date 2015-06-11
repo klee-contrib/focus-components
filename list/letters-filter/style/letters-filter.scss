@@ -1,16 +1,15 @@
-.letters-filter-bar {
-  height: 10vh;
-  .letter-element {
+[data-focus='letters-filter-bar'] {
+  [data-focus='letter-element'] {
     display: inline-block;
     padding: 0 10px 0 10px;
     background-color: #fff;
     color: #3CC098;
   }
-  .letter-element.disabled {
+  [data-focus='letter-element'].disabled {
     color: #999;
     background-color: #ccc;
   }
-  .letter-element.selected {
+  [data-focus='letter-element'].selected {
     color: white;
     background-color: #3CC098;
     font-weight: bold;
