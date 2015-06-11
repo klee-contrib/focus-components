@@ -14,7 +14,9 @@ var inputTextMixin = {
       type: 'text',
       value: undefined,
       name: undefined,
-      style: {}
+      style: {},
+      formatter: function(d){return d},
+      unformatter: function(d){return d}
     };
   },
   /** @inheritdoc */
@@ -27,7 +29,7 @@ var inputTextMixin = {
   /** @inheritdoc */
   getInitialState: function getInitialStateInputText() {
     return {
-      value: this.props.value
+      value: this.props.formatter(this.props.value)
     };
   },
   /**
@@ -35,13 +37,13 @@ var inputTextMixin = {
    * @param {object} newProps - The new props to update.
    */
   componentWillReceiveProps: function inputWillReceiveProps(newProps){
-    this.setState({value: newProps.value});
+    this.setState({value: this.props.formatter(newProps.value)});
   },
   /**
    * Get the value from the input in the DOM.
    */
   getValue: function getInputTextValue() {
-    return this.getDOMNode().value;
+    return this.props.unformatter(this.getDOMNode().value);
   },
   /**
    * Handle the change value of the input.
