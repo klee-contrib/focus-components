@@ -42,7 +42,8 @@ var fieldBehaviourMixin = {
       style: options.style,
       //Methods
       validator: def.validator,
-      formatter: def.formatter,
+      formatter: def.formatter || function(d){return d;},
+      unformatter: def.unformatter || function(d){return d;},
       //Component
       FieldComponent: def.FieldComponent,
       InputLabelComponent: def.InputLabelComponent,
