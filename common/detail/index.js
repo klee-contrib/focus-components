@@ -30,7 +30,7 @@ var detailMixin = {
    */
   renderNavigation: function(){
     if(this.props.navigation){
-      return <StickyNavigation contentSelector='[data-focus="detail-content"'/>;
+      return <StickyNavigation/>;
     } return;
   },
   /** @inheritedDoc */
