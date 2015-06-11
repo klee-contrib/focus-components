@@ -32,7 +32,7 @@ var checkBoxMixin = {
         value: type('bool'),
         label: type('string'),
         style: type('object'),
-        onChange: type('function')
+        onChange: type(['function', 'object'])
     },
     getInitialState: function () {
         return {
