@@ -18,7 +18,7 @@ var cartridgeMixin = {
   },
   /** @inheriteddoc */
   componentWillUnMount: function cartridgeWillUnMount(){
-    applicationStore.removeCartridgeComponentChangeListener(this._onComponentChange);
+    applicationStore.removeCartridgeComponentChangeListener(this._handleComponentChange);
   },
   _getStateFromStore: function getCartridgeStateFromStore(){
     return {cartridgeComponent: applicationStore.getCartridgeComponent() || {component: 'div', props: {}}};

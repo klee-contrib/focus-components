@@ -31,12 +31,18 @@ var blockMixin = {
     return `${window.location.hash.slice(1)}/${trim(this.heading().toLowerCase())}`;//.replace('/', '_');
   },
   /**
+   * ClassName of the button.
+   */
+  _className: function buttonClassName() {
+    return this.props.style.className ? this.props.style.className : '';
+  },
+  /**
    * Render the a block container and the cild content of the block.
    * @return {DOM}
    */
   render: function renderBlock(){
     return(
-      <div className={`${this.props.style.className}`} data-focus='block'>
+      <div className={this._className()} data-focus='block'>
         <header>
           <Title id={this._buildId()} title={this.heading()} />
           <div className="actions">{this.props.actions()}</div>

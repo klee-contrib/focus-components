@@ -1,36 +1,56 @@
 /* Style for the list component*/
+$sl-line-border-color: #e1e1e1;
 $sl-line-level1-color:#36b7b9;
+$sl-line-bg-hover:#edeef0;
 
 /*variables*/
 $boxSize:50px;
 /*styles*/
-ul.selection-list {
+[data-focus="selection-list"] {
   list-style: none;
   padding: 0;
   margin:0;
 
-  li {
-    padding: 10px;
-    background-color: #FFF;
-    margin: 10px 0;
-  }
 
-  li.sl-line {
+  [data-focus="sl-line"] {
+    padding: 15px;
+    background-color: #FFF;
+    border-bottom:1px solid $sl-line-border-color;
     cursor: pointer;
     padding-left: $boxSize + 10px;
     position: relative;
 
+    &:first-child {
+      border-top:1px solid $sl-line-border-color;
+    }
+
+    &:hover {
+      background-color: $sl-line-bg-hover;
+    }
+
+    [data-focus="sl-icon"] {
+      position: absolute;
+      top:0;
+      left: 0;
+      text-align: center;
+      height: 100%;
+      line-height: 60px;
+      width: 60px;
+      font-size: 30px;
+    }
+
     .level1 {
-      font-size: 18pt;
+      font-size: 15pt;
       color: $sl-line-level1-color;
     }
 
     .level2 {
-      font-size: 15pt;
+      font-size: 12pt;
+      color: #000;
     }
 
-    .level2 {
-      color: #a3a3a3;
+    .level3 {
+      color: rgb(125, 123, 122);
     }
 
     div.sl-selection {
@@ -41,7 +61,7 @@ ul.selection-list {
       height: 100%;
       width: $boxSize;
       display:none;
-      background-color: #fff;
+      background-color: #FFF;
     }
 
     div.sl-actions {
@@ -56,9 +76,13 @@ ul.selection-list {
         display: block;
       }
 
+      div.sl-selection {
+        background-color: $sl-line-bg-hover;
+      }
+
       div.sl-selection.no-selection {
         //background-size: $icon-size $icon-size;
-        border-left:3px solid red;
+        border-left:5px solid #ffd657;
       }
 
       div.sl-actions{
@@ -69,17 +93,18 @@ ul.selection-list {
     div.sl-selection.selected {
       //background-size: $icon-size $icon-size;
       display: block;
-      border-left:3px solid green;
+      border-left:5px solid #36b6b8;
+    }
+
+    .sl-button{
+      background-color: transparent;
+      position: relative;
+
+      a,button{
+        position: absolute;
+        right: 0px;
+      }
     }
   }
 
-  li.sl-button{
-    background-color: transparent;
-    position: relative;
-
-    a,button{
-      position: absolute;
-      right: 0px;
-    }
-  }
 }

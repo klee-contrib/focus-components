@@ -68,6 +68,18 @@ $fill-height-popin-margin: 200px;
 
 
 // Style
+[data-focus='popin-window'] {
+  overflow-y: auto;
+  padding: 10px 25px;
+  h1 {
+    font-size: 26px;
+    margin: 5px 0 15px 0;
+  }
+  h3 {
+    font-size: 22px;
+    color: #36b6b8;
+  }
+}
 
 [data-focus='popin'] {
 
@@ -177,7 +189,7 @@ $fill-height-popin-margin: 200px;
 
     &>[data-focus='popin-window'] {
       background-color: white;
-      padding: 10px;
+      /*padding: 10px;*/
       @include animation-duration(0.2s);
 
       .fa-close {

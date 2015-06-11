@@ -32,6 +32,7 @@ var fieldBehaviourMixin = {
       label: def.label || name,
       ref: name,
       value: value,
+      domain: options.domain || def.domain,
       error: context.state.error ? context.state.error[name] : undefined,
       //Mode
       isEdit: isEdit,

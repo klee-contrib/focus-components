@@ -11,7 +11,9 @@
 	<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css"/>
 	<script src="//code.jquery.com/jquery-1.10.2.min.js"></script>
 	<script src="https://fb.me/react-0.13.3.js"></script>
-	<script src="https://fb.me/JSXTransformer-0.13.3.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/3.9.3/lodash.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/backbone.js/1.2.1/backbone.js"></script>
+	<script src="https://fb.me/JSXTransformer-0.13.3.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/3.9.3/lodash.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/backbone.js/1.2.1/backbone.js"></script>
 	<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
 
 	<!-- Material degign-->
@@ -69,32 +71,61 @@
 							newFacet[criteria.pageInfos.group] = facets[criteria.pageInfos.group];
 							var data = {
 								facet: newFacet,
-								list: {
-									'FRA': [{
-										id: countId++,
-										firstName: "toto",
-										lastName: "ceci est un test"
-									}, {id: countId++, firstName: "tata", lastName: "deuxieme test"}, {
-										id: countId++,
-										firstName: "titi",
-										lastName: "troisième test"
-									}],
-									'GER': [{
-										id: countId++,
-										firstName: "toto",
-										lastName: "ceci est un test"
-									}, {id: countId++, firstName: "tata", lastName: "deuxieme test"}]
+								map: {
+									'FRA': [
+										{
+											id: countId++,
+											firstName: "toto",
+											lastName: "ceci est un test"
+										},
+										{
+											id: countId++,
+											firstName: "tata",
+											lastName: "deuxieme test"
+										},
+										{
+											id: countId++,
+											firstName: "titi",
+											lastName: "troisième test"
+										}
+									],
+									'GER': [
+										{
+											id: countId++,
+											firstName: "toto",
+											lastName: "ceci est un test"
+										},
+										{
+											id: countId++,
+											firstName: "tata",
+											lastName: "deuxieme test"
+										}
+									]
 								},
 								pageInfos: {}
 							};
 						} else {
 							var data = {
 								facet: facets,
-								list: [{id: countId++, firstName: "toto", lastName: "ceci est un test"}, {
-									id: countId++,
-									firstName: "tata",
-									lastName: "deuxieme test"
-								}, {id: countId++, firstName: "titi", lastName: "troisième test"}],
+								map: {
+									Test: [
+										{
+											id: countId++,
+											firstName: "toto",
+											lastName: "ceci est un test"
+										},
+										{
+											id: countId++,
+											firstName: "tata",
+											lastName: "deuxieme test"
+										},
+										{
+											id: countId++,
+											firstName: "titi",
+											lastName: "troisième test"
+										}
+									]
+								},
 								pageInfos: {
 									currentPage: criteria.pageInfos.page,
 									perPage: 3,
@@ -124,7 +155,23 @@
 		}
 	});
 
-	var config = {
+	var Group = React.createClass({
+		render: function () {
+			var Title = FocusComponents.common.title.component;
+			var Button = FocusComponents.common.button.action.component;
+			return (
+					<div className="listResultContainer panel" data-focus="group-result-container">
+						<Title title={this.props.groupKey}/>
+						<div className="resultContainer">
+							{this.props.children}
+						</div>
+						<Button  handleClickAction={this.props.showAll(this.props.groupKey)} label="Show all"/>
+					</div>
+			);
+		}
+	});
+
+	var advancedSearchProps = {
 		facetConfig: {
 			FCT_PAYS: "text",
 			FCT_STATUS: "text",
@@ -136,51 +183,71 @@
 			{key: "col2", order: "asc", label: "Colonne 2 asc"}],
 		operationList: [
 			{
-				label: "Button1_a", action: function () {
-				alert("Button1a");
-			}, style: undefined, priority: 1
+				label: "Button1_a",
+				action: function () {
+					alert("Button1a");
+				},
+				tyle: undefined,
+				priority: 1
 			},
 			{
-				label: "Button1_b", action: function () {
-				alert("Button1b");
-			}, style: undefined, priority: 1
+				label: "Button1_b",
+				action: function () {
+					alert("Button1b");
+				},
+				style: undefined, priority: 1
 			},
 			{
-				label: "Button2_a", action: function () {
-				alert("Button2a");
-			}, style: undefined, priority: 2
+				label: "Button2_a",
+				action: function () {
+					alert("Button2a");
+				},
+				style: undefined, priority: 2
 			},
 			{
-				label: "Button2_b", action: function () {
-				alert("Button2b");
-			}, style: undefined, priority: 2
-			},
+				label: "Button2_b",
+				action: function () {
+					alert("Button2b");
+				},
+				style: undefined, priority: 2
+			}
 		],
-		lineMap: {"test": Line},
 		onLineClick: function onLineClick(line) {
 			alert('click sur la ligne ' + line.id);
 		},
 		isSelection: true,
 		lineOperationList: [
 			{
-				label: "Button1_a", action: function (data) {
-				alert(data.title);
-			}, style: undefined, priority: 1
+				label: "Button1_a",
+				action: function (data) {
+					alert(data.title);
+				},
+				style: undefined,
+				priority: 1
 			},
 			{
-				label: "Button1_b", action: function (data) {
-				alert(data.title);
-			}, style: undefined, priority: 1
+				label: "Button1_b",
+				action: function (data) {
+					alert(data.title);
+				},
+				style: undefined,
+				priority: 1
 			},
 			{
-				label: "Button2_a", action: function (data) {
-				alert(data.title);
-			}, style: undefined, priority: 2
+				label: "Button2_a",
+				action: function (data) {
+					alert(data.title);
+				},
+				style: undefined,
+				priority: 2
 			},
 			{
-				label: "Button2_b", action: function (data) {
-				alert(data.title);
-			}, style: undefined, priority: 2
+				label: "Button2_b",
+				action: function (data) {
+					alert(data.title);
+				},
+				style: undefined,
+				priority: 2
 			}
 		],
 		criteria: {
@@ -194,46 +261,17 @@
 		exportAction: function () {
 			alert("export")
 		},
+		searchAction: action.search,
+		lineComponentMapper: function(list) {
+			return Line;
+		},
+		groupComponent: Group,
 		groupMaxRows: 1
 	};
 
-	var ExampleAdvancedSearch = React.createClass({
-		mixins: [FocusComponents.page.search.advancedSearch.mixin],
-		actions: action,
-		store: new Focus.store.SearchStore(),
-		render: function render() {
-			var facets = this.getFacetBoxComponent();
-			var resultsList = this.isSimpleList() ? this.getSimpleListComponent({type: "test"}) : this.getGroupByListComponent();
-			return (
-					<div className="advanced-search" data-focus="advanced-search">
-						{facets}
-						<div className="resultContainer">
-							{this.getListSummaryComponent()}
-							{this.getActionBarComponent()}
-							{resultsList}
-						</div>
-					</div>
-			);
-		},
-		renderGroupByBlock: function renderGroupByBlock(groupKey, list, maxRows) {
-			var Title = FocusComponents.common.title.component;
-			var Button = FocusComponents.common.button.action.component;
-			return (
-					<div className="listResultContainer panel" data-focus="group-result-container">
-						<Title title={groupKey}/>
-						{this.getSimpleListComponent({
-							type: "test",
-							list: list,
-							maxRows: maxRows
-						})}
-						<Button handleOnClick={this.changeGroupByMaxRows(groupKey, 5)} label="Show more"/>
-						<Button handleOnClick={this.showAllGroupListHandler(groupKey)} label="Show all"/>
-					</div>
-			);
-		}
-	});
+	var AdvancedSearch = FocusComponents.page.search.advancedSearch.component;
 
-	React.render(React.createElement(ExampleAdvancedSearch, config), document.querySelector("#advanced-search-container"));
+	React.render(React.createElement(AdvancedSearch, advancedSearchProps), document.querySelector("#advanced-search-container"));
 </script>
 
 </body>

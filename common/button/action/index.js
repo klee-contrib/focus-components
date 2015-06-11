@@ -16,8 +16,8 @@ var buttonMixin = {
         getDefaultProps: function getInputDefaultProps() {
             return {
                 type: 'submit',
-                shape: 'raised', //other values : fab, flat
-                option: 'default', //other values : primary, link (see other from bootsrap) http://getbootstrap.com/css/#buttons-options
+                shape: 'raised', //other values : fab, flat, link, ghost
+                option: 'default', //other values : primary (see other from bootsrap) http://getbootstrap.com/css/#buttons-options
                 action: undefined,
                 isPressed: false,
                 label: undefined,

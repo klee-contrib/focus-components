@@ -1,14 +1,39 @@
+$advanced-search-facet-box-width: 275px;
+
 [data-focus='advanced-search'] {
-  .facetBoxContainer {
-    padding-right: 10px;
+
+  &:before {
+    content: " ";
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    width: 345px;
+    background-color: #FFF;
+    z-index: 0;
+    /*-moz-box-shadow: 2px 0px 3px 0px #dadada;
+    -webkit-box-shadow: 2px 0px 3px 0px #dadada;
+    -o-box-shadow: 2px 0px 3px 0px #dadada;*/
+    box-shadow: 2px 0px 3px 0px #dadada;
+    opacity: .99;
+    z-index: -10;
   }
 
-  .listSummaryContainer {
-    height:50px;
+  [data-focus='facet-container'] {
+    float: left;
+    width: $advanced-search-facet-box-width;
+    margin-left: -20px;
   }
 
-  .facetBoxContainer, .resultContainer {
-    vertical-align:top;
-    float:left;
+  [data-focus='result-container'] {
+    margin-left: 300px;
+  }
+
+  [data-focus="group-result-container"] {
+    h3 {
+      margin: 0;
+      padding: 15px 10px;
+      color: #36b6b8;
+    }
   }
 }

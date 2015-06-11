@@ -55,6 +55,9 @@ let scopeMixin = {
         }
         return this.state.value;
     },
+    _getClassName(){
+        return `form-control ${this.props.className ? this.props.className : ''}`;
+    },
     /**
      * Internal function which handles the click on the scope line element and call the real handleOnclick if it is defined.
      * @param {object} event - Event trigger by the search.
@@ -101,7 +104,7 @@ let scopeMixin = {
             //Add defaut Style to scope if not define
             let scopeCss = scope.style;
             if (!scopeCss) {
-                scopeCss = 'sb-scope-' + scope.code;
+                scopeCss = 'sb-scope sb-scope-' + scope.code;
             }
             scope.style = scopeCss;
 
@@ -121,9 +124,9 @@ let scopeMixin = {
      * @return {object} - The jsx element.
      */
     render() {
-        let cssClass = `sb-icon sb-scope-deploy-${this.state.isDeployed ? 'up' : 'down'}`;
+        let cssClass = `sb-scope-deploy ${this.state.isDeployed ? 'up' : 'down'}`;
         return (
-            <div className={this.props.className} data-focus='scope'>
+            <div className={this._getClassName()} data-focus='scope'>
                 <div className={cssClass} onClick={this.handleDeployClick}>
                     <div className={this.scopeStyle()}>
                         {this.scopeLabel()}

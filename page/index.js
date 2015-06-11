@@ -7,6 +7,7 @@ let detailMixin = require('./detail').mixin;
 module.exports = {
   detail: detailMixin,
   search: require('./search'),
+  mixin: require('./mixin'),
   /**
    * Helper to creates a detail page.
    * @param {object} config - The page configuration.

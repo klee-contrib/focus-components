@@ -23,7 +23,7 @@ let SearchBar = {
     displayName: 'SearchBar',
     getDefaultProps() {
         return {
-            placeholder: '',
+            placeholder: 'Enter your search here...',
             value: 'defaultValue',
             scope: undefined,
             scopes: [],
@@ -59,6 +59,9 @@ let SearchBar = {
             query: React.findDOMNode(this.refs.query).value
         };
     },
+    _getClassName() {
+        return `form-control`;
+    },
     _handleChange() {
         if (this.props.handleChange) {
             return this.props.handleChange(this.getValue());
@@ -90,10 +93,7 @@ let SearchBar = {
     },
     _renderHelp() {
         return (
-            <div className='sb-help' ref='help'>
-                <span name='share'/>
-                <span>{this.i18n(this.props.helpTranslationPath)}</span>
-            </div>
+            <div className='sb-help' ref='help'>{this.i18n(this.props.helpTranslationPath)}</div>
         );
     },
     _focusQuery() {
@@ -106,8 +106,11 @@ let SearchBar = {
         let loadingClassName = this.props.loading ? 'sb-loading' : '';
         return (
             <div className={`${this._getStyleClassName()}`} data-focus='search-bar'>
-                <Scope handleOnClick={this._handleOnClickScope} list={this.props.scopes} ref='scope' value={this.state.scope}/>
-                <input className={loadingClassName} onKeyUp={this._handleKeyUp} ref='query'  type='search' />
+                <div className='sb-scope'><Scope handleOnClick={this._handleOnClickScope} list={this.props.scopes} ref='scope' value={this.state.scope}/></div>
+                <div className='sb-input-search'>
+                    <input className={this._getClassName()} onKeyUp={this._handleKeyUp} ref='query'  type='search' placeholder={this.props.placeholder} />
+                    <div className={`sb-spinner three-quarters-loader ${loadingClassName}`}></div>
+                </div>
                 {this._renderHelp()}
             </div>
         );

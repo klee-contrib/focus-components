@@ -83,7 +83,7 @@ let FacetBox = {
      * @returns {XML} Html code.
      */
     render() {
-        let className = ' panel';
+        let className = '';
         if (this.state.isExpanded) {
             className += ' expanded';
         } else {
@@ -102,11 +102,10 @@ let FacetBox = {
      */
     _renderFacetBoxTitle() {
         let title = this.state.isExpanded ? this.i18n('live.filter.title') : '';
-        let img = this.state.isExpanded ? 'chevron-thin-left' : 'chevron-thin-right';
+        //TODO onClick={this._facetBoxTitleClickHandler} (le repli doit aussi etre porté par le data-focus=advanced-search
         return (
-            <div className='panel-heading'>
-                <span>{title}</span>
-                <Img src={img} onClick={this._facetBoxTitleClickHandler}/>
+            <div data-focus="facet-box-heading" onClick={this._facetBoxTitleClickHandler}>
+                <h2>{title}</h2>
             </div>
         );
     },
@@ -119,7 +118,7 @@ let FacetBox = {
             return '';
         }
         return (
-            <div className='panel-body'>
+            <div data-focus="facet-box-body">
                 {Object.keys(this.props.facetList).map((facetKey) => {
                     let facet = this.props.facetList[facetKey];
                     let selectedDataKey = this.props.selectedFacetList[facetKey] ? this.props.selectedFacetList[facetKey].key : undefined;
