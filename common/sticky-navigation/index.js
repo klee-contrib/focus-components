@@ -1,16 +1,77 @@
-var builder = require('focus').component.builder;
-var type = require('focus').component.types;
+// Dependencies
+
+let builder = require('focus').component.builder;
+let type = require('focus').component.types;
+
+
+let StickyNavigation = {
+    getDefaultProps() {
+        return ({
+            scrollSpyTargetSelector: 'body',
+            titleSelector: '[data-menu]'
+        });
+    },
+    componentDidMount() {
+        this._scrollCarrier = document.querySelector(this.props.scrollSpyTargetSelector);
+        this._attachScrollSpy();
+    },
+    componentWillUnmount() {
+        this._detachScrollSpy();
+    },
+    _getTitleList() {
+        let rawTitleList = document.querySelectorAll(this.props.titleSelector);
+        return [].map.call(rawTitleList, (titleElement) => {
+            return {
+                label: titleElement.innerText,
+                id: titleElement.getAttribute('id'),
+                offsetTop: titleElement.offsetTop
+            }
+        });
+    },
+    _attachScrollSpy() {
+        this._scrollCarrier.addEventListener('scroll', this._scrollSpy);
+        this._scrollCarrier.addEventListener('resize', this._scrollSpy);
+    },
+    _detachScrollSpy() {
+        this._scrollCarrier.removeEventListener('scroll', this._scrollSpy);
+        this._scrollCarrier.removeEventListener('resize', this._scrollSpy);
+    },
+    _scrollSpy() {
+
+    },
+    _renderList() {
+        let titleList = this._getTitleList();
+        return titleList.map((title) => {
+            return <div onClick={this._linkClickHandler(title)} key={title.id}>{title.label}</div>;
+        });
+    },
+    _linkClickHandler(title) {
+        return () => {
+            this._scrollCarrier.scrollTop = title.offsetTop;
+        }
+    },
+    render() {
+        return (
+            <nav data-focus='sticky-navigation'>
+                {this._renderList()}
+            </nav>
+        )
+    }
+};
+
+
+
 /**
  * Mixin component for the sticky navigation.
  * @type {Object}
  */
-var stickyNavigationMixin = {
+let stickyNavigationMixin = {
 
     /** @inheritedDoc */
     displayName: 'sticky-navigation',
 
     /** @inheritedDoc */
-    getDefaultProps: function(){
+    getDefaultProps() {
         return {
             /**
              * Selector for the content to be watched.
@@ -42,11 +103,11 @@ var stickyNavigationMixin = {
       style: type('object')
     },
     /** @inheritedDoc */
-    getInitialState: function getStickyNavigationInitialState(){
+    getInitialState() {
       return {menuList: []};
     },
     /** @inheritedDoc */
-    componentDidMount: function stickyNavigationDidMount() {
+    componentDidMount() {
         //The list is processed only when the component is mounted.
         this._buildMenuList();
         //Set bootstrap data attributes to register the spy.
@@ -55,24 +116,24 @@ var stickyNavigationMixin = {
     /**
      * Build the menu list from the title attributes read in the selector.
      */
-    _buildMenuList: function buildMenuList(){
+    _buildMenuList() {
       //Get all title elements form the DOM elements read in the selector.
-      var titleListElements = document.querySelectorAll(this.props.titleSelector);
-      var menuList = [];
-      for(var key in titleListElements) {
+      let titleListElements = document.querySelectorAll(this.props.titleSelector);
+      let menuList = [];
+      for(let key in titleListElements) {
           menuList.push(this._renderLink(titleListElements[key]));
       }
       //Update the menu list into the state.
       this.setState({menuList: menuList});
     },
-    _registerScrollSpyAttributes: function registerScrollSpyAttributes(){
-      var content = document.querySelector(this.props.contentSelector);
+    _registerScrollSpyAttributes(){
+      let content = document.querySelector(this.props.contentSelector);
       content.setAttribute('data-spy', 'scroll');
       content.setAttribute('data-target', '#' + this.props.navBarId);
     },
     /** @inheritedDoc */
-    render: function renderStickyNavigation(){
-        var className = `bs-docs-sidebar hidden-print affix ${this.props.style.className}`;
+    render() {
+        let className = `bs-docs-sidebar hidden-print affix ${this.props.style.className}`;
         return(
           <nav className={className} id={this.props.navBarId} data-focus="sticky-navigation" data-spy="affix" data-offset-top="60" data-offset-bottom="0">
             <ul className="nav bs-docs-sidenav" role="tablist">
@@ -86,12 +147,18 @@ var stickyNavigationMixin = {
      * @param anchor
      * @returns {JSX}
      */
-    _renderLink: function renderLink(title) {
+    _renderLink(title) {
         if(title.getAttribute) {
-            var link = '#' + title.getAttribute("id");
-            return (<li><a href={link} data-bypass >{title.innerText}</a></li>);
+            let active = this.state.currentLink ==  title.getAttribute("id") ? 'active' : '';
+            return (<li><div className={active} onClick={this._linkClick(title.getAttribute("id"))}>{title.innerText}</div></li>);
         }
+    },
+    _linkClick(id) {
+        return () => {
+            Backbone.history.navigate('#' + id);
+            this.setState({currentLink: id});
+        };
     }
 };
 
-module.exports =  builder(stickyNavigationMixin);
+module.exports =  builder(StickyNavigation);

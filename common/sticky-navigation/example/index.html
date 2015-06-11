@@ -1,79 +1,107 @@
 <!doctype html>
 <html class="no-js" lang="">
 <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Focus component examples</title>
-    <meta name="description" content="Example of the component.">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>Focus component examples</title>
+	<meta name="description" content="Example of the component.">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <script src="https://fb.me/react-0.13.3.js"></script>
-    <script src="/focus-components/dist/js/focus.js"></script>
-    <script src="/focus-components/dist/js/focus-components.js"></script>
-    <link rel="stylesheet" href="/focus-components/dist/css/focus-components.css">
+	<script src="https://fb.me/react-0.13.3.js"></script>
+	<script src="https://fb.me/JSXTransformer-0.13.3.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/3.9.3/lodash.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/backbone.js/1.2.1/backbone.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/3.9.3/lodash.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/backbone.js/1.2.1/backbone.js"></script>
+	<script src="/focus-components/dist/js/focus.js"></script>
+	<script src="/focus-components/dist/js/focus-components.js"></script>
+	<link rel="stylesheet" href="/focus-components/dist/css/focus-components.css">
 
-    <!-- Material degign-->
-    <script src="//code.jquery.com/jquery-1.10.2.min.js"></script>
-    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
-    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.css" />
-    <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js" ></script>
-    <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.js" ></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-material-design/0.2.2/css/material-wfont.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-material-design/0.2.2/css/material.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-material-design/0.2.2/css/ripples.css">
+	<!-- Material degign-->
+	<script src="//code.jquery.com/jquery-1.10.2.min.js"></script>
+	<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+	<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css"/>
+	<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.css"/>
+	<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+	<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.js"></script>
+	<link rel="stylesheet"
+		  href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-material-design/0.2.2/css/material-wfont.css">
+	<link rel="stylesheet"
+		  href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-material-design/0.2.2/css/material.css">
+	<link rel="stylesheet"
+		  href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-material-design/0.2.2/css/ripples.css">
 
-    <link rel="font" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-material-design/0.2.2/fonts/Material-Design-Icons.eot">
-    <link rel="font" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-material-design/0.2.2/fonts/Material-Design-Icons.svg">
-    <link rel="font" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-material-design/0.2.2/fonts/Material-Design-Icons.ttf">
-    <link rel="font" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-material-design/0.2.2/fonts/Material-Design-Icons.woff">
+	<link rel="font"
+		  href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-material-design/0.2.2/fonts/Material-Design-Icons.eot">
+	<link rel="font"
+		  href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-material-design/0.2.2/fonts/Material-Design-Icons.svg">
+	<link rel="font"
+		  href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-material-design/0.2.2/fonts/Material-Design-Icons.ttf">
+	<link rel="font"
+		  href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-material-design/0.2.2/fonts/Material-Design-Icons.woff">
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-material-design/0.2.2/js/material.js"/>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-material-design/0.2.2/js/ripples.min.js"></script>
-    <!-- Material degign-->
-
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-material-design/0.2.2/js/material.js"/>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-material-design/0.2.2/js/ripples.min.js"></script>
+	<!-- Material degign-->
 
 
 </head>
-<body >
-    <div id="content"  style="position: relative;float: left;width:600px;  overflow: auto;display:inline-block;">
-        <div>
-            <div id="titre1"></div>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque sit amet erat quis enim consequat pretium. Etiam ultricies est a libero lacinia, in tempus nisi tristique. Integer tincidunt feugiat lorem, ac vestibulum quam mollis in. Fusce sodales elementum mollis. Fusce nec sagittis libero. In consequat enim ligula, ac maximus orci sollicitudin nec. Donec sem erat, ultricies non leo sit amet, maximus malesuada purus. Maecenas faucibus leo porta, fringilla est a, commodo velit. Duis ex nunc, varius a felis sed, dignissim placerat mi. Cras aliquet placerat purus, ut scelerisque erat venenatis quis. Donec aliquam scelerisque velit in bibendum.
-        </div>
-        <div>
-            <div id="titre2"></div>
-            Proin a sem non mauris tempus sagittis eu non nisl. Cras consectetur nulla leo, vitae condimentum metus vehicula a. Cras dictum lacus pharetra augue consectetur, eget tincidunt sem sodales. Nunc aliquet pharetra mattis. Phasellus molestie laoreet leo vitae vestibulum. Sed porttitor augue ac enim tristique lacinia sed nec diam. Pellentesque pretium, sem ac porta imperdiet, nisl neque mattis nunc, eget aliquet neque lectus fringilla risus. Nulla pellentesque erat nec hendrerit efficitur. Duis eu ex eu lorem varius lobortis. Quisque sagittis sapien vehicula congue bibendum.
-        </div>
-        <div>
-            <div id="titre3"></div>
-            Vestibulum nisi nibh, fermentum sed nunc nec, semper feugiat lectus. Sed volutpat dui ipsum. Quisque ac elit eu magna placerat rutrum nec vel turpis. Quisque at sagittis enim. Morbi urna nunc, molestie eget laoreet pharetra, malesuada sed dolor. Duis in imperdiet felis. Donec in consequat tortor.
-        </div>
-        <div>
-            <div id="titre4"></div>
-            Donec sit amet vestibulum dui, et dapibus urna. Vestibulum quis tincidunt ex. Aliquam scelerisque, risus at vestibulum laoreet, nibh purus pellentesque nunc, vel tincidunt est purus vitae tellus. Ut pretium nulla sed urna porttitor, quis sodales erat pulvinar. Vivamus efficitur in quam a condimentum. Curabitur scelerisque ultricies mi, vitae faucibus mauris suscipit ac. In malesuada nisl orci, egestas tempus ipsum gravida a. Nulla eget semper mi. Sed in tellus sed augue gravida viverra suscipit sed enim. Cras at est fermentum erat vestibulum pharetra. Integer volutpat tempor massa.
-        </div>
-    </div>
-    <div id="sticky-navigation-container" style="display:inline-block;"></div>
+<body>
+<div id="content" style="position: relative;float: left;width:600px;  overflow: auto;display:inline-block;">
+	<div>
+		<div id="titre1"></div>
+		Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque sit amet erat quis enim consequat pretium.
+		Etiam ultricies est a libero lacinia, in tempus nisi tristique. Integer tincidunt feugiat lorem, ac vestibulum
+		quam mollis in. Fusce sodales elementum mollis. Fusce nec sagittis libero. In consequat enim ligula, ac maximus
+		orci sollicitudin nec. Donec sem erat, ultricies non leo sit amet, maximus malesuada purus. Maecenas faucibus
+		leo porta, fringilla est a, commodo velit. Duis ex nunc, varius a felis sed, dignissim placerat mi. Cras aliquet
+		placerat purus, ut scelerisque erat venenatis quis. Donec aliquam scelerisque velit in bibendum.
+	</div>
+	<div>
+		<div id="titre2"></div>
+		Proin a sem non mauris tempus sagittis eu non nisl. Cras consectetur nulla leo, vitae condimentum metus vehicula
+		a. Cras dictum lacus pharetra augue consectetur, eget tincidunt sem sodales. Nunc aliquet pharetra mattis.
+		Phasellus molestie laoreet leo vitae vestibulum. Sed porttitor augue ac enim tristique lacinia sed nec diam.
+		Pellentesque pretium, sem ac porta imperdiet, nisl neque mattis nunc, eget aliquet neque lectus fringilla risus.
+		Nulla pellentesque erat nec hendrerit efficitur. Duis eu ex eu lorem varius lobortis. Quisque sagittis sapien
+		vehicula congue bibendum.
+	</div>
+	<div>
+		<div id="titre3"></div>
+		Vestibulum nisi nibh, fermentum sed nunc nec, semper feugiat lectus. Sed volutpat dui ipsum. Quisque ac elit eu
+		magna placerat rutrum nec vel turpis. Quisque at sagittis enim. Morbi urna nunc, molestie eget laoreet pharetra,
+		malesuada sed dolor. Duis in imperdiet felis. Donec in consequat tortor.
+	</div>
+	<div>
+		<div id="titre4"></div>
+		Donec sit amet vestibulum dui, et dapibus urna. Vestibulum quis tincidunt ex. Aliquam scelerisque, risus at
+		vestibulum laoreet, nibh purus pellentesque nunc, vel tincidunt est purus vitae tellus. Ut pretium nulla sed
+		urna porttitor, quis sodales erat pulvinar. Vivamus efficitur in quam a condimentum. Curabitur scelerisque
+		ultricies mi, vitae faucibus mauris suscipit ac. In malesuada nisl orci, egestas tempus ipsum gravida a. Nulla
+		eget semper mi. Sed in tellus sed augue gravida viverra suscipit sed enim. Cras at est fermentum erat vestibulum
+		pharetra. Integer volutpat tempor massa.
+	</div>
+</div>
+<div id="sticky-navigation-container" style="display:inline-block;"></div>
 
-    <script type="text/javascript">
-        React.render(
-                React.createElement(React.createClass(FocusComponents.common.title.mixin),{title:"Bloc 1", id:"bloc1"}),
-                document.querySelector("#titre1"));
-        React.render(
-                React.createElement(React.createClass(FocusComponents.common.title.mixin),{title:"Bloc 2", id:"bloc2"}),
-                document.querySelector("#titre2"));
-        React.render(
-                React.createElement(React.createClass(FocusComponents.common.title.mixin),{title:"Bloc 3", id:"bloc3"}),
-                document.querySelector("#titre3"));
-        React.render(
-                React.createElement(React.createClass(FocusComponents.common.title.mixin),{title:"Bloc 4", id:"bloc4"}),
-                document.querySelector("#titre4"));
-        React.render(
-                React.createElement(React.createClass(FocusComponents.common.stickyNavigation.mixin),{contentSelector:"#content"}),
-                document.querySelector("#sticky-navigation-container")
-        );
-    </script>
+<script type="text/javascript">
+	React.render(
+			React.createElement(React.createClass(FocusComponents.common.title.mixin), {title: "Bloc 1", id: "bloc1"}),
+			document.querySelector("#titre1"));
+	React.render(
+			React.createElement(React.createClass(FocusComponents.common.title.mixin), {title: "Bloc 2", id: "bloc2"}),
+			document.querySelector("#titre2"));
+	React.render(
+			React.createElement(React.createClass(FocusComponents.common.title.mixin), {title: "Bloc 3", id: "bloc3"}),
+			document.querySelector("#titre3"));
+	React.render(
+			React.createElement(React.createClass(FocusComponents.common.title.mixin), {title: "Bloc 4", id: "bloc4"}),
+			document.querySelector("#titre4"));
+	React.render(
+			React.createElement(React.createClass(FocusComponents.common.stickyNavigation.mixin), {contentSelector: "#content"}),
+			document.querySelector("#sticky-navigation-container")
+	);
+</script>
 
 </body>
 
