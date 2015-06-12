@@ -11,6 +11,7 @@ var type = require('focus').component.types;
 var fieldGridBehaviourMixin = require('../../mixin/field-grid-behaviour');
 var jQuery = require('jquery');
 var isBoolean = require('lodash/lang/isBoolean');
+var uuid = require('uuid').v4;
 
 var checkBoxMixin = {
     mixins: [fieldGridBehaviourMixin],
@@ -36,6 +37,7 @@ var checkBoxMixin = {
     },
     getInitialState: function () {
         return {
+            uuid: uuid(),
             isChecked: this.props.isChecked ? this.props.isChecked : this.props.value
         };
     },
@@ -61,13 +63,26 @@ var checkBoxMixin = {
     _labelClassName: function labelClassName() {
         return `${this._getContentOffsetClassName()} ${this._getContentGridClassName()}`;
     },
+    _matrerialize(){
+      jQuery.material.checkbox(`[data-focus="input-checkbox"][data-uid="${this.state.uuid}"] input[type="checkbox"]`);
+    },
+    componentDidUpdate(){
+      this._matrerialize();
+    },
+    componentDidMount(){
+      if(!jQuery.material.checkbox){
+        console.warn('You should install bootstrap material with your project in order to have a working checkbox see https://fezvrasta.github.io/bootstrap-material-design');
+      }
+      this._matrerialize();
+    },
+
     /**
      * Render the Checkbox HTML.
      * @return {VirtualDOM} - The virtual DOM of the checkbox.
      */
     render: function renderCheckBox() {
         return (
-            <div className="checkbox" data-focus="input-checkbox">
+            <div className="checkbox" data-focus="input-checkbox" data-uid={this.state.uuid}>
                 <label>
                     <input ref='checkbox' checked={this.state.isChecked} onChange={this._onChange} type='checkbox' value={this.props.value} />
                     <span>{this.props.label ? this.props.label : ''}</span>

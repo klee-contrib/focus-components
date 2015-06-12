@@ -53,6 +53,9 @@ let SearchBar = {
             this.setState({loading: newProps.loading, scope: newProps.scope});
         }
     },
+    componentDidMount() {
+        React.findDOMNode(this.refs.query).focus();
+    },
     getValue() {
         return {
             scope: this.refs.scope.getValue(),
@@ -108,7 +111,7 @@ let SearchBar = {
             <div className={`${this._getStyleClassName()}`} data-focus='search-bar'>
                 <div className='sb-scope-choice'><Scope handleOnClick={this._handleOnClickScope} list={this.props.scopes} ref='scope' value={this.state.scope}/></div>
                 <div className='sb-input-search'>
-                    <input className={this._getClassName()} onKeyUp={this._handleKeyUp} ref='query'  type='search' placeholder={this.props.placeholder} />
+                    <input autofocus className={this._getClassName()} onKeyUp={this._handleKeyUp} ref='query'  type='search' placeholder={this.props.placeholder} />
                     <div className={`sb-spinner three-quarters-loader ${loadingClassName}`}></div>
                 </div>
                 {this._renderHelp()}
