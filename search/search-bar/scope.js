@@ -21,6 +21,9 @@ let scopeMixin = {
             isDeployed: false
         };
     },
+    componentWillReceiveProps(nextProps) {
+        this.setState({value: nextProps.value});
+    },
     /**
      * Scope property validation.
      * @type {Object}
@@ -43,16 +46,6 @@ let scopeMixin = {
      * Get the value of the scope.
      */
     getValue() {
-        return this.state.value;
-    },
-    /**
-     * Define the scope label.
-     */
-    scopeLabel() {
-        return;
-        if (!this.state.value) {
-            return 'Choose your scope';
-        }
         return this.state.value;
     },
     _getClassName(){
@@ -93,7 +86,7 @@ let scopeMixin = {
         if (!activeScope) {
             return 'sb-scope-none';
         }
-        return activeScope.style || `sb-scope-${activeScope.code}`;
+        return activeScope.style || `sb-scope sb-scope-${activeScope.code}`;
     },
     renderScopeList() {
         if (!this.state.isDeployed) {
@@ -128,9 +121,7 @@ let scopeMixin = {
         return (
             <div className={this._getClassName()} data-focus='scope'>
                 <div className={cssClass} onClick={this.handleDeployClick}>
-                    <div className={this.scopeStyle()}>
-                        {this.scopeLabel()}
-                    </div>
+                    <div className={this.scopeStyle()} />
                 </div>
                 {this.renderScopeList()}
             </div>
