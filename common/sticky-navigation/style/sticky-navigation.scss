@@ -7,6 +7,10 @@ $sticky-nav-active-color:#36b7b9;
   float: left;
   font-size: 13pt;
 
+  &.affix {
+    top: 80px;
+  }
+
   div {
     padding: 5px 10px;
     margin: 15px 0;
