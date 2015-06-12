@@ -136,7 +136,7 @@ let StickyNavigation = {
      */
     render() {
         return (
-            <nav data-focus='sticky-navigation' className={this._getStyleClassName()}>
+            <nav data-focus='sticky-navigation' className={this._getStyleClassName()} data-spy="affix" data-offset-top="60" data-offset-bottom="0">
                 {this._renderList()}
             </nav>
         )
