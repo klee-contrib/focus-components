@@ -52,7 +52,7 @@ var messageCenterMixin = {
   render: function renderMessageCenter() {
     var className = `message-center ${this.props.style.className}`;
     return (
-      <div className={className} data-focus-message-center>
+      <div className={className} data-focus='message-center'>
         {this.renderMessages()}
       </div>
     );
