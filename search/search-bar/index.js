@@ -50,7 +50,7 @@ let SearchBar = {
     },
     componentWillReceiveProps(newProps) {
         if (newProps && newProps.loading !== undefined) {
-            this.setState({loading: newProps.loading});
+            this.setState({loading: newProps.loading, scope: newProps.scope});
         }
     },
     getValue() {
