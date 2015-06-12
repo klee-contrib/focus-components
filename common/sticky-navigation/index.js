@@ -61,11 +61,11 @@ let StickyNavigation = {
      */
     _getTitleList() {
         let rawTitleList = document.querySelectorAll(this.props.titleSelector);
-        return [].map.call(rawTitleList, (titleElement) => {
+        return [].map.call(rawTitleList, (titleElement, titleIndex) => {
             return {
                 label: titleElement.innerText,
                 id: titleElement.getAttribute('id'),
-                offsetTop: titleElement.offsetTop,
+                offsetTop: titleIndex === 0 ? 0 : titleElement.offsetTop,
                 offsetHeight: titleElement.parentElement.offsetHeight
             }
         });
