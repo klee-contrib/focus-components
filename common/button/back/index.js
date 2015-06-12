@@ -28,6 +28,7 @@ var buttonBackMixin = {
     render() {
       return (
         <button data-focus='button-back' className='btn btn-link' onClick={this.goBackHistory}>
+          <Icon name='navigation-arrow-back' prefix='mdi-' />
           {this.i18n('button.back')}
         </button>
       );
