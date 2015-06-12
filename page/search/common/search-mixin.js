@@ -32,7 +32,7 @@ let SearchMixin = {
      * @param {object} facets Selected facets.
      * @returns {object} Formatted criteria {criteria:{}, pagesInfos:{}, facets:{}}.
      */
-    getSearchCriteria(scope, query, facets) {
+    _buildSearchCriteria(scope, query, facets) {
         return {
             criteria: {scope, query},
             pageInfos: {
@@ -43,7 +43,7 @@ let SearchMixin = {
             facets
         };
     },
-    search() {
+    getSearchCriteria() {
         let facets = [];
         if (this.state.selectedFacetList) {
             facets = Object.keys(this.state.selectedFacetList).map((selectedFacetKey) => {
@@ -57,8 +57,12 @@ let SearchMixin = {
         if(!isFunction(this.props.searchAction)){
           console.warn(`Your page seems to miss a search action, add in your props a {searchAction: function(scope, query, facets){}}`, this.props.searchAction);
         }
+        return this._buildSearchCriteria(this.state.scope, this.state.query, facets);
+    },
+    search() {
+        
         this.props.searchAction(
-            this.getSearchCriteria(this.state.scope, this.state.query, facets)
+            this.getSearchCriteria()
         );
     }
 };
