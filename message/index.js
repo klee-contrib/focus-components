@@ -19,6 +19,18 @@ var messageMixin = {
     ttl: type('number'),
     style: type('object')
   },
+  componentDidMount(){
+    if(this.props.ttl){
+      setTimeout(()=>{
+        this._handleTimeToLeave();
+      }, this.props.ttl);
+    }
+  },
+  _handleTimeToLeave(){
+    if(this.props.handleTimeToLeave){
+      this.props.handleTimeToLeave(this.props.id);
+    }
+  },
   /**
    * Handle click on the dismiss button.
    * @param {Event} event - Sanitize event.
@@ -43,7 +55,7 @@ var messageMixin = {
   render: function renderAlert(){
     var cssClass = `alert alert-dismissable alert-${this.props.type} ${this.props.style.className}`;
     return(
-      <div className={cssClass} data-id={this.props.id}>
+      <div className={cssClass} data-id={this.props.id} data-focus='message'>
         <button type='button' className='close' data-dismiss='alert' onClick={this._handleOnClick}>×</button>
         {this._renderTitle()}
         <p>{this.props.content}</p>
