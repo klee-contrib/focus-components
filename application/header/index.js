@@ -29,7 +29,7 @@ var headerMixin = {
        */
        sizeMap: {
          'small': {
-           'sizeBorder': 200
+           'sizeBorder': 5
          },
          'medium': {
            'sizeBorder': 0
