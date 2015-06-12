@@ -8,7 +8,7 @@ $sb-input-height: 50px;
 /* Style */
 [data-focus='search-bar'] {
   padding: 10px 0;
-  .sb-scope {
+  .sb-scope-choice {
     float: left;
 
     [data-focus='scope'] {
@@ -16,7 +16,7 @@ $sb-input-height: 50px;
       cursor: pointer;
       width: $sb-scope-width;
       height: $sb-input-height;
-      padding: 6px 12px;
+      padding: 12px 12px;
 
       div {
         &.sb-icon > div {
@@ -75,6 +75,10 @@ $sb-input-height: 50px;
           font-size: 14px;
           cursor: pointer;
 
+          &.sb-scope:before{
+            padding-right: 10px;
+          }
+
           &:hover {
             background-color: rgba(141, 134, 134, 0.62);
           }
@@ -89,6 +93,7 @@ $sb-input-height: 50px;
 
   /* Input block */
   .sb-input-search {
+    position:relative;
     margin-left: $sb-scope-width+10;
     input {
       height: $sb-input-height;
@@ -98,7 +103,7 @@ $sb-input-height: 50px;
     }
     .sb-spinner {
       position: absolute;
-      top: 7px;
+      top: 15px;
       right: 10px;
       width: 20px;
       height: 20px;

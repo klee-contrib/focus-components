@@ -106,7 +106,7 @@ let SearchBar = {
         let loadingClassName = this.props.loading ? 'sb-loading' : '';
         return (
             <div className={`${this._getStyleClassName()}`} data-focus='search-bar'>
-                <div className='sb-scope'><Scope handleOnClick={this._handleOnClickScope} list={this.props.scopes} ref='scope' value={this.state.scope}/></div>
+                <div className='sb-scope-choice'><Scope handleOnClick={this._handleOnClickScope} list={this.props.scopes} ref='scope' value={this.state.scope}/></div>
                 <div className='sb-input-search'>
                     <input className={this._getClassName()} onKeyUp={this._handleKeyUp} ref='query'  type='search' placeholder={this.props.placeholder} />
                     <div className={`sb-spinner three-quarters-loader ${loadingClassName}`}></div>
