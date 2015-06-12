@@ -10,11 +10,16 @@ let ArgumentNullException = require('focus').exception.ArgumentNullException;
 let SingleGroupComponent = require('./single-group-component').component;
 let ListSelection = require('../../../list/selection').list.component;
 
+// Mixins
+
+let i18nMixin = require('../../../common/i18n/mixin');
+
 /**
  * Mixin used in order to create a block.
  * @type {Object}
  */
 let GroupByMixin = {
+    mixins: [i18nMixin],
     /**
      * Init default props.
      * @returns {object} Default props.
@@ -40,11 +45,15 @@ let GroupByMixin = {
         };
     },
     getResultListComponent(advancedSearch) {
+        // First check if there is any result
+        if (this.state.totalRecords === 0) {
+            return this._getEmptyResultList();
+        }
         let isBounded = keys(this.state.map).length > 1;
         let noDecoration = keys(this.state.map).length === 1;
         if (noDecoration && advancedSearch) {
             let groupKey = keys(this.state.map)[0];
-            return this.getSingleTypeResultList(groupKey, this.state.map[groupKey], isBounded && this.props.groupMaxRows);
+            return this._getSingleTypeResultList(groupKey, this.state.map[groupKey], isBounded && this.props.groupMaxRows);
         } else {
             let groupList = keys(this.state.map).map((groupKey) => {
                 return (
@@ -62,7 +71,10 @@ let GroupByMixin = {
             return groupList;
         }
     },
-    getSingleTypeResultList(groupKey, list, maxRows) {
+    _getSingleTypeResultList(groupKey, list, maxRows) {
+        if (list.length === 0) {
+            return this._getEmptyResultList();
+        }
         if (maxRows) {
             list = list.slice(0, maxRows);
         }
@@ -85,11 +97,18 @@ let GroupByMixin = {
                 />
         );
     },
+    _getEmptyResultList() {
+        return (
+            <div data-focus='empty-result'>
+                {this.i18n('search.empty')}
+            </div>
+        );
+    },
     renderGroupByBlock(groupKey, list, maxRows) {
         let GroupWrapper = this.props.groupComponent;
         return (
             <GroupWrapper data-focus="group-result-container" groupKey={groupKey} query={this.state.query} showAll={this.changeGroupByMaxRows}>
-                {this.getSingleTypeResultList(groupKey, list, maxRows)}
+                {this._getSingleTypeResultList(groupKey, list, maxRows)}
             </GroupWrapper>
         );
     }

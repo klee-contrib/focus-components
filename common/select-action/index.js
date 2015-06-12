@@ -16,7 +16,7 @@ var selectActionMixin = {
     getDefaultProps: function () {
         return {
             operationList: [],
-            style: 'dots-three-vertical'
+            icon: 'ellipsis-v'
         };
     },
     /**
@@ -73,9 +73,8 @@ var selectActionMixin = {
         }
         var liList = this._getList(this.props.operationList);
         return (
-            <div className="select-action btn btn-fab btn-default">
-                <Icon onClick={this._dropdownToggleClickHandler} name='ellipsis-v'/>
-                <div className="dropdown-toggle" data-toggle="dropdown" ref='dropdown-toggle'/>
+            <div className="select-action btn btn-fab btn-default" onClick={this._dropdownToggleClickHandler}>
+                <a className="dropdown-toggle" data-toggle="dropdown" ref='dropdown-toggle'><i className={`fa fa-${this.props.icon}`}></i></a>
                 <ul className="dropdown-menu">{liList}</ul>
             </div>
         );
