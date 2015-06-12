@@ -38,8 +38,8 @@ var barMixin = {
     return (
       <div className={className} data-focus='bar'>
         <div data-focus='bar-content-left'><this.state.barContentLeftComponent.component {...this.state.barContentLeftComponent.props}/> </div>
-        <div data-focus='bar-content-middle'><this.state.summaryComponent.component {...this.state.summaryComponent.props}/></div>
         <div data-focus='bar-content-right'><i className="fa fa-bell-o fa-2x"></i></div>
+        <div data-focus='bar-content-middle'><this.state.summaryComponent.component {...this.state.summaryComponent.props}/></div>
       </div>
     );
   }
