@@ -1,5 +1,6 @@
 var isFunction = require('lodash/lang/isFunction');
 var dispatcher = require('focus').dispatcher;
+var Empty = require('../../common/empty').component;
 module.exports = {
     /**
      * Register the cartridge.
@@ -26,9 +27,10 @@ module.exports = {
       var cartridgeConf = this.cartridgeConfiguration();
       dispatcher.handleViewAction({
         data: {
-          cartridgeComponent: cartridgeConf.cartridge,
-          summaryComponent: cartridgeConf.summary,
-          actions: cartridgeConf.actions
+          cartridgeComponent: cartridgeConf.cartridge || {component: Empty},
+          summaryComponent: cartridgeConf.summary|| {component: Empty},
+          actions: cartridgeConf.actions|| {primary: [], secondary: Empty},
+          barContentLeftComponent: cartridgeConf.barLeft || {component: Empty}
         },
         type: 'update'
       });
