@@ -1,12 +1,11 @@
 //Header.css
-@mixin transition($transition-property, $transition-time) {
+/*@mixin transition($transition-property, $transition-time) {
   -webkit-transition: $transition-property $transition-time;
   -moz-transition: $transition-property $transition-time;
   -ms-transition: $transition-property $transition-time;
   -o-transition: $transition-property $transition-time;
   transition: $transition-property $transition-time;
-}
-
+}*/
 $header-shadow-color: #EAEAEA;
 @mixin shadow() {
   -moz-box-shadow: 0px 1px 10px 2px $header-shadow-color;
@@ -15,6 +14,16 @@ $header-shadow-color: #EAEAEA;
   box-shadow: 0px 1px 10px 2px $header-shadow-color;
   filter: progid:DXImageTransform.Microsoft.Shadow(color=$header-shadow-color, Direction=180, Strength=10);
 }
+/*
+@keyframes shrink {
+  from { height: auto; }
+  to { height: 0; }
+}
+
+@keyframes expend {
+  from { height: 0; }
+  to { height: auto; }
+}*/
 
 /*---------------------------------------------------------------*/
 $duration: 0.5s;
@@ -30,14 +39,26 @@ header[data-focus='header'] {
           display: none;
         }
       }
+      div[data-focus="cartridge"] {
+        display: block;
+        /*transition-property: all;
+        transition-duration: 3s;
+        transition-timing-function: ease-in;
+        transition-delay: 1s;*/
+      }
     }
   }
 
   //When the size is min  don't show the cartridge
   &[data-size="small"] {
+    height: 120px;
     [data-focus="content-bar"] {
       div[data-focus="cartridge"] {
         display: none;
+        /*transition-property: all;
+        transition-duration: 3s;
+        transition-timing-function: ease-in;
+        transition-delay: 1s;*/
       }
       div[data-focus="bar"] {
         @include shadow();
@@ -49,6 +70,7 @@ header[data-focus='header'] {
       right: 0;
       z-index: 1010;
     }
+
   }
 
   //When the size is small, the cartridge is not visible.
@@ -64,12 +86,12 @@ header[data-focus='header'] {
     align-content: stretch;
     flex-wrap: wrap;*/
 
-  div.entete-actions {
+  /*div.entete-actions {
     position: relative;
     top: -$action-bar-height/2;
     float: right;
     height: $action-bar-height;
-  }
+  }*/
   div[data-focus="content-bar"] {
     background-color: white;
     color: black;
@@ -87,7 +109,7 @@ header[data-focus='header'] {
 
   }
   div[data-focus="bar"] {
-    @include transition(min-height, $duration);
+    /*@include transition(min-height, $duration);*/
     position: fixed;
     width: 100%;
     padding-left: $menu-bar-size+10;
@@ -95,36 +117,36 @@ header[data-focus='header'] {
     background-color: rgba(255, 255, 255, 1);
   }
 
-  &.header-tall {
-    div.content-bar {
+  //&.header-tall {
+    //div.content-bar {
       //min-height: 250px;
       //background-color: #2600D4;
       //color: white;
-      @include transition(min-height, $duration);
-    }
+      //@include transition(min-height, $duration);
+   // }
 
-  }
-  &.header-medium {
-    div.content-bar {
+  //}
+  //&.header-medium {
+    //div.content-bar {
       //min-height: 150px;
       //background-color: #0073D4;
       //color: white;
-      @include transition(min-height, $duration);
-    }
+      //@include transition(min-height, $duration);
+    //}
 
-  }
-  &.header-small {
-    div.entete-tall {
+  //}
+  //&.header-small {
+    /*div.entete-tall {
       display: none;
-    }
-    div.content-bar {
-      min-height: 60px;
+    }*/
+    //div.content-bar {
+      //min-height: 60px;
       //color: white;
       //background-color: #00bcd4;
-      @include transition(min-height, $duration);
-    }
+      /*@include transition(min-height, $duration);*/
+    //}
 
-  }
+  //}
 
   [data-focus="content-actions"] {
     margin: 0 0 0 60px;
