@@ -16,8 +16,52 @@ var buttonMixin = {
       return {
         icon: 'arrow-circle-up',
         scrollTarget: 'body',
-        duration: 100
+        duration: 100,
+        scrolledElementSelector: 'body',
+        scrollSpyTargetSelector: undefined,
+        scrollTriggerBorder: 100,
       };
+    },
+    getInitialState(){
+      return {isVisible: false};
+    },
+    componentWillMount(){
+      this._scrollCarrier = this.props.scrollSpyTargetSelector ? document.querySelector(this.props.scrollSpyTargetSelector) : document;
+      this._attachScrollSpy();
+    },
+    componentWillUnMount(){
+      this._detachScrollSpy();
+    },
+    componentDidMount() {
+      this._scrollSpy();
+    },
+    /**
+     * Attach the scroll spy
+     * @private
+     */
+    _attachScrollSpy() {
+        this._scrollCarrier.addEventListener('scroll', this._scrollSpy);
+        this._scrollCarrier.addEventListener('resize', this._scrollSpy);
+    },
+    /**
+     * Detach the scroll spy
+     * @private
+     */
+    _detachScrollSpy() {
+        this._scrollCarrier.removeEventListener('scroll', this._scrollSpy);
+        this._scrollCarrier.removeEventListener('resize', this._scrollSpy);
+    },
+    /**
+     * The scroll event handler
+     * @private
+     */
+    _scrollSpy() {
+        let scrollPosition = document.querySelector(this.props.scrolledElementSelector).scrollTop;
+        if(scrollPosition > this.props.scrollTriggerBorder){
+          this.setState({isVisible: true});
+        }else{
+          this.setState({isVisible: false});
+        }
     },
     /**
      * Go back to the top of the page.
@@ -29,7 +73,8 @@ var buttonMixin = {
     },
     /** inheritedDoc */
     render: function renderInput() {
-      return <button className={`${this._getStyleClassName()}`} data-focus='back-to-top' onClick={this.goBackToTop}>
+      let className = `${this._getStyleClassName()} ${this.state.isVisible ? '' : 'invisible'}`;
+      return <button className={className} data-focus='back-to-top' onClick={this.goBackToTop}>
         <Icon name={this.props.icon}/> this.i18n('button.backTop')
       </button>;
     }
