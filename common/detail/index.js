@@ -1,9 +1,10 @@
 var React = require('react');
-var builder = require('focus').component.builder
+var builder = require('focus').component.builder;
 //var i18nMixin = require('../i18n').mixin;
-var StickyNavigation = require('../sticky-navigation').component
+var StickyNavigation = require('../sticky-navigation').component;
 var type = require('focus').component.types;
 var stylable = require('../../mixin/stylable')
+var BackToTopComponent = require('../button/back-to-top').component;
 /**
  * Mixin used in order to create a Detail.
  * @type {Object}
@@ -17,12 +18,16 @@ var detailMixin = {
        * Activate the presence of the sticky navigation component.
        * @type {Boolean}
        */
-      navigation: true
-    }
+      navigation: true,
+      hasBackToTop: true,
+      BackToTopComponent: BackToTopComponent
+    };
   },
   /** @inheritedDoc */
   propTypes: {
-    navigation: type('bool')
+    navigation: type('bool'),
+    hasBackToTop: type('bool'),
+    BackToTopComponent: type(['function', 'object'])
   },
   /**
    * Render the navigation component if the props navigation is true.
@@ -41,6 +46,7 @@ var detailMixin = {
         <div data-focus='detail-content'>
           {this.props.children}
         </div>
+        {this.props.hasBackToTop && <this.props.BackToTopComponent/>}
       </div>
     );
   }
