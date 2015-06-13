@@ -13,7 +13,17 @@ let ListSelection = require('../../../list/selection').list.component;
 // Mixins
 
 let i18nMixin = require('../../../common/i18n/mixin');
-
+//Empty Result component to be mututalized.
+let EmptyComponent = React.createClass({
+    mixins: [i18nMixin],
+    render(){
+        return (
+                <div data-focus='empty-result'>
+                    {this.i18n('search.empty')}
+                </div>
+            );
+    }
+})
 /**
  * Mixin used in order to create a block.
  * @type {Object}
@@ -31,11 +41,7 @@ let GroupByMixin = {
             lineComponentMapper() {
                 throw new ArgumentNullException('Please provide a inferLineComponentFromList(list) function.');
             },
-            emptyComponent: (
-                <div data-focus='empty-result'>
-                    {this.i18n('search.empty')}
-                </div>
-            )
+            emptyComponent: EmptyComponent
         });
     },
     /**
@@ -78,7 +84,7 @@ let GroupByMixin = {
     },
     _getSingleTypeResultList(groupKey, list, maxRows) {
         if (list.length === 0) {
-            return this.emptyComponent;
+            return <this.emptyComponent />;
         }
         if (maxRows) {
             list = list.slice(0, maxRows);
