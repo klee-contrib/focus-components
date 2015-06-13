@@ -41,7 +41,7 @@ var actionBarMixin = {
             {action: this._selectionFunction('selected'), label: 'all', style: this._getSelectedStyle(this.props.selectionStatus, 'selected') },
             {action: this._selectionFunction('none'), label: 'none', style: this._getSelectedStyle(this.props.selectionStatus, 'none') }
         ];
-        return <SelectAction style={this._getSelectionObjectStyle()} operationList={selectionOperationList} />;
+        return <SelectAction icon={this._getSelectionObjectIcon()} operationList={selectionOperationList} />;
     },
 
     /**
@@ -60,8 +60,8 @@ var actionBarMixin = {
                     style: this._getSelectedStyle(description.key + description.order, orderSelectedParsedKey)
                 });
             }
-            var orderStyle = this.props.orderSelected.order ? 'circle-up' : 'chevron-up';
-            return <SelectAction key='down' style={orderStyle} operationList={orderOperationList} />;
+            var orderIcon = this.props.orderSelected.order ? 'unsorted' : 'sort-amount-asc';
+            return <SelectAction key='down' icon={orderIcon} operationList={orderOperationList} />;
         }
         return '';
     },
@@ -82,8 +82,8 @@ var actionBarMixin = {
         var groupOperationList = [
             { label: 'action.group', childOperationList: groupList },
             { label: 'action.ungroup', action: this._groupFunction(null) }];
-        var groupStyle = this.props.groupSelectedKey ? 'controller-record' : 'dots-three-vertical';
-        return <SelectAction style={groupStyle} operationList={groupOperationList} />;
+        var groupIcon = this.props.groupSelectedKey ? 'th-list' : 'th-large';
+        return <SelectAction icon={groupIcon} operationList={groupOperationList} />;
     },
 
     /**
@@ -103,13 +103,13 @@ var actionBarMixin = {
      * @return {string} Class of the selection component icon.
      * @private
      */
-    _getSelectionObjectStyle: function() {
+    _getSelectionObjectIcon: function() {
         if(this.props.selectionStatus == 'none') {
-            return 'checkbox-unchecked';
+            return 'square-o';
         } else if(this.props.selectionStatus == 'selected') {
-            return 'checkbox-checked';
+            return 'check-square-o';
         }
-        return 'notification';
+        return 'minus-square-o';
     },
 
     _selectionFunction: function(selectionStatus) {

@@ -56,7 +56,7 @@ var actionContextualMixin = {
         for (var key in this.props.operationList) {
             var operation = this.props.operationList[key];
             if (operation.priority === 1) {
-                primaryActionList.push( <Button key={key} style={operation.style} handleOnClick={this._handleAction(key)} label={operation.label}/> );
+                primaryActionList.push( <Button key={key} style={operation.style} handleOnClick={this._handleAction(key)} shape={operation.style.shape || 'raised'} label={operation.label}/> );
             } else {
                 secondaryActionList.push(operation);
             }

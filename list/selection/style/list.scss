@@ -4,7 +4,7 @@ $sl-line-level1-color:#36b7b9;
 $sl-line-bg-hover:#edeef0;
 
 /*variables*/
-$boxSize:50px;
+$boxSize:60px;
 /*styles*/
 [data-focus="selection-list"] {
   list-style: none;
@@ -30,12 +30,11 @@ $boxSize:50px;
 
     [data-focus="sl-icon"] {
       position: absolute;
-      top:0;
+      top: 50%;
+      transform: translateY(-50%);
       left: 0;
       text-align: center;
-      height: 100%;
-      line-height: 60px;
-      width: 60px;
+      width: $boxSize + 10px;
       font-size: 30px;
     }
 
@@ -62,27 +61,37 @@ $boxSize:50px;
       width: $boxSize;
       display:none;
       background-color: #FFF;
+      -webkit-transform-style: preserve-3d;
+      -moz-transform-style: preserve-3d;
+      transform-style: preserve-3d;
+      [data-focus="input-checkbox"] {
+        position: relative;
+        top: 50%;
+        transform: translateY(-50%);
+        text-align: center;
+        margin: 0;
+        height: 27px;
+      }
     }
 
     div.sl-actions {
       position: absolute;
-      top : 0px;
+      top : 50%;
       right : 0px;
       display: none;
+      transform: translateY(-50%);
+      .btn {
+        margin-right: 10px;
+      }
     }
 
     &:hover {
       div.sl-selection {
         display: block;
-      }
-
-      div.sl-selection {
         background-color: $sl-line-bg-hover;
-      }
-
-      div.sl-selection.no-selection {
-        //background-size: $icon-size $icon-size;
-        border-left:5px solid #ffd657;
+        &.no-selection {
+          border-left:5px solid #ffd657;
+        }
       }
 
       div.sl-actions{
@@ -91,7 +100,6 @@ $boxSize:50px;
     }
 
     div.sl-selection.selected {
-      //background-size: $icon-size $icon-size;
       display: block;
       border-left:5px solid #36b6b8;
     }

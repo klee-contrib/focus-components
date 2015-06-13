@@ -96,12 +96,14 @@ let Facet = {
                         return (
                             <li key={key}>
                                 <FacetData dataKey={key} data={this.props.facet[key]} selectHandler={this._facetDataSelectionHandler}
-                                      type={this.props.type}/>
+                                    type={this.props.type}/>
                             </li>
                         );
                     })}
                 </ul>
-                {this._renderShowAllDataList()}
+                <div data-focus="facet-data-show-all">
+                    {this._renderShowAllDataList()}
+                </div>
             </div>);
     },
     /**

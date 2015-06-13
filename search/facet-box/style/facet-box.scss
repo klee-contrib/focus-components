@@ -2,6 +2,23 @@
 [data-focus='facet-box'] {
   padding: 10px;
 
+  &:before {
+    content: " ";
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    width: 345px;
+    background-color: #FFF;
+    z-index: 0;
+    /*-moz-box-shadow: 2px 0px 3px 0px #dadada;
+    -webkit-box-shadow: 2px 0px 3px 0px #dadada;
+    -o-box-shadow: 2px 0px 3px 0px #dadada;*/
+    box-shadow: 2px 0px 3px 0px #dadada;
+    opacity: .99;
+    z-index: -10;
+  }
+
   &.collapsed {
     width: 30px;
     [data-focus="facet-box-heading"] {
@@ -131,6 +148,9 @@
           li:hover {
             color: #ffd841;
           }
+        }
+        [data-focus="facet-data-show-all"]{
+          text-align: right;
         }
       }
     }
