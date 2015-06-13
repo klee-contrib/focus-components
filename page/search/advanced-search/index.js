@@ -11,7 +11,7 @@ let includes = require('lodash/collection/includes');
 let FacetBox = require('../../../search/facet-box').component;
 let ListActionBar = require('../../../list/action-bar/index').component;
 let ListSummary = require('../../../list/summary/index').component;
-
+let BackToTopComponent = require('../../../common/button/back-to-top').component;
 // Store
 
 let SearchStore = require('focus').store.SearchStore;
@@ -53,7 +53,9 @@ let AdvancedSearch = {
         return {
             facetConfig: {},
             idField: 'id', //To remove?
-            isSelection: true
+            isSelection: true,
+            hasBackToTop: true,
+            BackToTopComponent: BackToTopComponent
         };
     },
     propTypes: {
@@ -328,6 +330,7 @@ let AdvancedSearch = {
                     {this.getActionBarComponent()}
                     {this.getResultListComponent(true)}
                 </div>
+                {this.props.hasBackToTop && <this.props.BackToTopComponent/>}
             </div>
         );
     }
