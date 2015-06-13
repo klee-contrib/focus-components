@@ -76,9 +76,13 @@ $boxSize:60px;
 
     div.sl-actions {
       position: absolute;
-      top : 0px;
+      top : 50%;
       right : 0px;
       display: none;
+      transform: translateY(-50%);
+      .btn {
+        margin-right: 10px;
+      }
     }
 
     &:hover {
