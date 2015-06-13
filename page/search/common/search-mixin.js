@@ -57,6 +57,12 @@ let SearchMixin = {
         if(!isFunction(this.props.searchAction)){
           console.warn(`Your page seems to miss a search action, add in your props a {searchAction: function(scope, query, facets){}}`, this.props.searchAction);
         }
+<<<<<<< Updated upstream
+=======
+        return this._buildSearchCriteria(this.state.scope, this.state.query, facets);
+    },
+    search() {
+>>>>>>> Stashed changes
         this.props.searchAction(
             this.getSearchCriteria(this.state.scope, this.state.query, facets)
         );
