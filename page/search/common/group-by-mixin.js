@@ -30,7 +30,12 @@ let GroupByMixin = {
             orderableColumnList: {},
             lineComponentMapper() {
                 throw new ArgumentNullException('Please provide a inferLineComponentFromList(list) function.');
-            }
+            },
+            emptyComponent: (
+                <div data-focus='empty-result'>
+                    {this.i18n('search.empty')}
+                </div>
+            )
         });
     },
     /**
@@ -47,7 +52,7 @@ let GroupByMixin = {
     getResultListComponent(advancedSearch) {
         // First check if there is any result
         if (this.state.totalRecords === 0) {
-            return this._getEmptyResultList();
+            return this.props.emptyComponent;
         }
         let isBounded = keys(this.state.map).length > 1;
         let noDecoration = keys(this.state.map).length === 1;
@@ -73,7 +78,7 @@ let GroupByMixin = {
     },
     _getSingleTypeResultList(groupKey, list, maxRows) {
         if (list.length === 0) {
-            return this._getEmptyResultList();
+            return this.emptyComponent;
         }
         if (maxRows) {
             list = list.slice(0, maxRows);
@@ -95,13 +100,6 @@ let GroupByMixin = {
                 parentSelector={this.props.parentSelector}
                 selectionStatus={this.state.selectionStatus}
                 />
-        );
-    },
-    _getEmptyResultList() {
-        return (
-            <div data-focus='empty-result'>
-                {this.i18n('search.empty')}
-            </div>
         );
     },
     renderGroupByBlock(groupKey, list, maxRows) {
