@@ -25,7 +25,8 @@ let StickyNavigation = {
     getDefaultProps() {
         return ({
             titleSelector: '[data-menu]',
-            scrolledElementSelector: 'body'
+            scrolledElementSelector: 'body',
+            hasBackToTop: true
         });
     },
     /**
@@ -35,7 +36,8 @@ let StickyNavigation = {
         titleSelector: type('string'),
         scrolledElementSelector: type('string'),
         triggerHeight: type('number'),
-        style: type('object')
+        style: type('object'),
+        hasBackToTop: type('bool')
     },
     /**
      * Component did mount, attach the scroll spy
@@ -44,8 +46,10 @@ let StickyNavigation = {
         this.setState({
             titleList: this._getTitleList()
         });
+        //todo: @stan Maybe put this in the componentWillMount
         this._scrollCarrier = this.props.scrollSpyTargetSelector ? document.querySelector(this.props.scrollSpyTargetSelector) : document;
         this._attachScrollSpy();
+        //
         this._scrollSpy();
     },
     /**
