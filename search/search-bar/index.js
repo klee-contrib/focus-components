@@ -24,7 +24,7 @@ let SearchBar = {
     getDefaultProps() {
         return {
             placeholder: 'Enter your search here...',
-            value: 'defaultValue',
+            value: '',
             scope: undefined,
             scopes: [],
             minChar: 0,
@@ -71,13 +71,16 @@ let SearchBar = {
         }
     },
     _handleKeyUp(event) {
-        let val = event.target.value;
-        if (val.length >= this.props.minChar) {
-            if (this.props.handleKeyUp) {
-                this.props.handleKeyUp(event);
+
+          this.setState({value: event.target.value}, ()=>{
+            if (this.state.value.length >= this.props.minChar) {
+              if (this.props.handleKeyUp) {
+                  this.props.handleKeyUp(event);
+              }
+              this._handleChange();
             }
-            this._handleChange();
-        }
+          });
+
     },
     _handleChangeScope(event) {
         this._focusQuery();
@@ -111,7 +114,7 @@ let SearchBar = {
             <div className={`${this._getStyleClassName()}`} data-focus='search-bar'>
                 <div className='sb-scope-choice'><Scope handleOnClick={this._handleOnClickScope} list={this.props.scopes} ref='scope' value={this.state.scope}/></div>
                 <div className='sb-input-search'>
-                    <input autofocus className={this._getClassName()} onKeyUp={this._handleKeyUp} ref='query'  type='search' placeholder={this.props.placeholder} />
+                    <input autofocus className={this._getClassName()} onChange={this._handleKeyUp} ref='query'  type='search' placeholder={this.props.placeholder} value={this.state.value} />
                     <div className={`sb-spinner three-quarters-loader ${loadingClassName}`}></div>
                 </div>
                 {this._renderHelp()}
