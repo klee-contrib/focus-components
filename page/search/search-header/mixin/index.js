@@ -24,10 +24,10 @@ module.exports = {
                 scope={this.props.scope}
                 scopes={this.props.scopeList}
                 loading={this.state.isLoadingSearch}
-                handleChange={this._runSearch}
+                handleChange={this._wrappedSearch}
               />;
     },
     componentWillMount(){
-      this._prepareSearch = searchWrappedAction(this._runSearch, this);
+      this._wrappedSearch = searchWrappedAction(this._runSearch, this);
     }
 };

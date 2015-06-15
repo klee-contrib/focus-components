@@ -10,7 +10,8 @@ function actionWrapper(searchAction, context){
     }
     currentTimeout = window.setTimeout(
       function(){
-        searchAction.apply(context, args)
+        searchAction.apply(context, args);
+        currentTimeout = undefined;
       },
       DEFAULT_TIMEOUT
     );
