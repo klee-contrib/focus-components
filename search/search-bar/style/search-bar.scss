@@ -158,7 +158,6 @@ $sb-input-height: 50px;
   &.header-small {
     [data-focus="bar"] {
       [data-focus='search-bar'] {
-        margin-left: 115px;
         padding: 0;
       }
     }
@@ -166,7 +165,7 @@ $sb-input-height: 50px;
   &.header-medium {
     [data-focus="cartridge"] {
       [data-focus='search-bar'] {
-        margin-left: 270px;
+        margin: auto;
         [data-focus="scope"] {
           div.sb-scope-deploy {
             &:after {
