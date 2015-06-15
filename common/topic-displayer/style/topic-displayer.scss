@@ -1,6 +1,16 @@
 
-.topic-displayer {
-  .topic {
-    background: url("../img/cross.svg") no-repeat right center;
+
+[data-focus='topic-displayer'] {
+  .btn, {
+    position: relative;
+
+    &:after {
+      content: "\f00d";
+      font-family: FontAwesome;
+      position: absolute;
+      top: 6px;
+      right: 9px;
+    }
   }
+
 }
