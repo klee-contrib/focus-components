@@ -1,6 +1,9 @@
+$advanced-search-facet-box-width: 275px;
 
 [data-focus='facet-box'] {
   padding: 10px;
+  width: $advanced-search-facet-box-width;
+
 
   &:before {
     content: " ";
@@ -21,6 +24,9 @@
 
   &.collapsed {
     width: 30px;
+    &:before {
+      width: 95px;
+    }
     [data-focus="facet-box-heading"] {
       h2 {
         border: 0;
@@ -58,21 +64,6 @@
         top: 21px;
         font-size: 20px;
       }
-    }
-  }
-
-  .facet-collapsed {
-    .panel-heading {
-      background-image: url("../img/chevron-thin-down.svg");
-      background-repeat: no-repeat;
-      background-position: 90%;
-    }
-  }
-  .facet-expanded {
-    .panel-heading {
-      background-image: url("../img/chevron-thin-up.svg");
-      background-repeat: no-repeat;
-      background-position: 90%;
     }
   }
 
@@ -157,60 +148,3 @@
   }
 
 }
-
-/*[data-focus='facet-box'] {
-  .collapsed {
-    width: 30px;
-  }
-
-  .expanded {
-    width: 250px;
-  }
-
-  min-height: 400px;
-  .icon {
-    float: right;
-    height: inherit;
-  }
-  .facet-selected {
-    .panel-heading {
-      background-image: url("../img/cross.svg");
-      background-repeat: no-repeat;
-      background-position: 90%;
-    }
-  }
-  .facet-collapsed {
-    .panel-heading {
-      background-image: url("../img/chevron-thin-down.svg");
-      background-repeat: no-repeat;
-      background-position: 90%;
-    }
-  }
-  .facet-expanded {
-    .panel-heading {
-      background-image: url("../img/chevron-thin-up.svg");
-      background-repeat: no-repeat;
-      background-position: 90%;
-    }
-  }
-
-  .panel-heading {
-    cursor: pointer;
-  }
-  ul {
-    list-style-type: none;
-  }
-  li {
-    cursor: pointer;
-  }
-  li:hover {
-    color: #E6E6E6;
-  }
-}
-
-.chevron-thin-left {
-  background: url("../img/chevron-thin-left.svg") no-repeat right center;
-}
-.chevron-thin-right {
-  background: url("../img/chevron-thin-right.svg") no-repeat right center;
-}*/
