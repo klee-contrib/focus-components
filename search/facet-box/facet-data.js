@@ -3,6 +3,7 @@
 let builder = require('focus').component.builder;
 let React = require('react');
 let ArgumentInvalidException = require('focus').exception.ArgumentInvalidException;
+let numberFormatter = Focus.definition.formatter.number;
 
 let FacetData = {
     /**
@@ -26,7 +27,7 @@ let FacetData = {
      */
     _renderData() {
         if(this.props.type == 'text') {
-            return this.props.data.label + ' (' + this.props.data.count + ')';
+            return `${this.props.data.label} (${numberFormatter.format(this.props.data.count)})`;
         }
         throw new ArgumentInvalidException('Unknown property type : ' + this.props.type);
     },
