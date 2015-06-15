@@ -1,21 +1,30 @@
 const DEFAULT_TIMEOUT = 1000; // 1s
-var currentTimeout;
+var currentCall = {};
 function actionWrapper(searchAction, context){
   return function(){
     context = context || this || {};
     var args = arguments;
-    if(currentTimeout){
+    if(currentCall){
       //Cancel previous search action.
-      window.clearTimeout(currentTimeout);
+      window.clearTimeout(currentCall.timeout);
+      if(currentCall.action && currentCall.action.cancel){
+        currentCall.action.cancel();
+      }
     }
-    currentTimeout = window.setTimeout(
+    currentCall.timeout = window.setTimeout(
       function(){
-        searchAction.apply(context, args);
-        currentTimeout = undefined;
+        currentCall.action = searchAction.apply(context, args);
+        if(currentCall.action.cancel){
+          currentCall.action.then(()=>{
+            currentCall ={};
+          })
+        }else{
+          currentCall ={};
+        }
       },
       DEFAULT_TIMEOUT
     );
-    return currentTimeout;
+    return currentCall.timeout;
   };
 }
 module.exports = actionWrapper;
