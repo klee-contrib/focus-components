@@ -14,7 +14,7 @@ function actionWrapper(searchAction, context){
     currentCall.timeout = window.setTimeout(
       function(){
         currentCall.action = searchAction.apply(context, args);
-        if(currentCall.action.cancel){
+        if(currentCall.action && currentCall.action.cancel){
           currentCall.action.then(()=>{
             currentCall ={};
           })
