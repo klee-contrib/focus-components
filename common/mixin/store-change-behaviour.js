@@ -8,7 +8,7 @@ var changeBehaviourMixin = {
     }
     if(changeInfos && changeInfos.status && changeInfos.status.name){
       switch(changeInfos.status.name){
-        case 'loading':
+       /* case 'loading':
           Focus.message.addInformationMessage('detail.loading');
           break;
         case 'loaded':
@@ -16,7 +16,7 @@ var changeBehaviourMixin = {
           break;
         case 'saving':
           Focus.message.addInformationMessage('detail.saving');
-          break;
+          break;*/
         case 'saved':
           Focus.message.addSuccessMessage('detail.saved');
           //Change the page mode as edit
