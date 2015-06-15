@@ -2,6 +2,7 @@
 var builder = require('focus').component.builder;
 var TopicDisplayer = require('../../common/topic-displayer').component;
 var Button = require('../../common/button/action').component;
+var numberFormatter = Focus.definition.formatter.number;
 
 var listSummaryMixin = {
     mixins: [require('../../common/i18n/mixin')],
@@ -28,7 +29,7 @@ var listSummaryMixin = {
     _getResultSentence() {
         return (
             <span>
-                <strong>{this.props.nb}</strong> {this.i18n('result.for')} &#34;{this.props.queryText}&#34;
+                <strong>{numberFormatter.format(this.props.nb)}</strong> {this.i18n('result.for')} &#34;{this.props.queryText}&#34;
             </span>
         );
     },
