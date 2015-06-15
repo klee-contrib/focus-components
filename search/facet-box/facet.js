@@ -2,6 +2,7 @@
 
 let builder = require('focus').component.builder;
 let React = require('react');
+let keys = require('lodash/object/keys');
 
 // Components
 
@@ -89,10 +90,11 @@ let Facet = {
         if (!this.props.isExpanded || this.props.selectedDataKey) {
             return '';
         }
+        let keysList = this.state.isShowAll ? keys(this.props.facet) : keys(this.props.facet).slice(0, this.props.nbDefaultDataList);
         return (
             <div className='' data-focus='facet-data-list'>
                 <ul>
-                    {Object.keys(this.props.facet).slice(0, this.props.nbDefaultDataList).map((key) => {
+                    {keysList.map((key) => {
                         return (
                             <li key={key}>
                                 <FacetData dataKey={key} data={this.props.facet[key]} selectHandler={this._facetDataSelectionHandler}
