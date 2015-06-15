@@ -7,8 +7,12 @@ $sticky-nav-active-color:#36b7b9;
   float: left;
   font-size: 13pt;
 
-  &.affix {
+  &[data-affix='true'] {
+    position: fixed;
     top: 80px;
+  }
+  &[data-affix='false'] {
+
   }
 
   div {
