@@ -1,4 +1,4 @@
-const DEFAULT_TIMEOUT = 5000;
+const DEFAULT_TIMEOUT = 1000; // 1s
 var currentTimeout;
 function actionWrapper(searchAction, context){
   return function(){
