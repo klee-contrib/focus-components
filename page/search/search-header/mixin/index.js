@@ -2,12 +2,14 @@
 // Mixins
 let i18nMixin =require('../../../../common/i18n').mixin;
 let searchBehaviour = require('../../common/search-mixin').mixin;
-var searchWrappedAction = require('../action-wrapper');
+let searchWrappedAction = require('../action-wrapper');
 let SearchBar = require('../../../../search/search-bar').component;
-var React = require('react');
+let referenceBehaviour = require('../../../../common/form/mixin/reference-behaviour');
+let storeBehaviour = require('../../../../common/mixin/store-behaviour');
+let React = require('react');
 
 module.exports = {
-    mixins: [i18nMixin, searchBehaviour],
+    mixins: [i18nMixin,referenceBehaviour,storeBehaviour, searchBehaviour],
     getInitialState(){
       return {
         isLoading: false
@@ -22,12 +24,14 @@ module.exports = {
                 ref='searchBar'
                 value={this.props.query}
                 scope={this.props.scope}
-                scopes={this.props.scopeList}
+                scopes={this.state.reference.scopes}
                 loading={this.state.isLoadingSearch}
                 handleChange={this._wrappedSearch}
+                referenceNames={this.props.referenceNames}
               />;
     },
     componentWillMount(){
       this._wrappedSearch = searchWrappedAction(this._runSearch, this);
+      this._loadReference();
     }
 };
