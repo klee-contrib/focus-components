@@ -1,32 +1,9 @@
-var dispatcher = require('focus').dispatcher;
+
+var saveBehaviour = require('./mixin/save-behaviour');
+var validateBehaviour = require('./mixin/validate-behaviour');
+var cartridgeBehaviour = require('../mixin/cartridge-behaviour');
 
 var detailMixin = {
-  /**
-   * Register the cartridge.
-   */
-  _registerCartridge: function registerCartridge(){
-    if(!this.cartridgeConfiguration){
-      this.cartridgeConfiguration = {};
-      console.warn(`
-        Your detail page does not have any cartrige configuration, this is not mandarory but recommended.
-        It should be a component attribute.
-        cartridgeConfiguration = {
-          summary: {component: "A React Component"},
-          cartridge: {component: "A React Component"}
-        };
-      `);
-    }
-    dispatcher.handleViewAction({
-      data: {
-        cartridgeComponent: this.cartridgeConfiguration.cartridge,
-        summaryComponent: this.cartridgeConfiguration.summary
-      },
-      type: 'update'
-    });
-  },
-  componentWillMount: function pageMixinWillMount(){
-    this._registerCartridge();
-  }
-
+  mixins: [validateBehaviour, saveBehaviour, cartridgeBehaviour]
 };
 module.exports = {mixin: detailMixin};

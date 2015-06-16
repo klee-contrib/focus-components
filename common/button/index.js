@@ -1,3 +1,5 @@
 module.exports = {
-	action: require('./action')
+	action: require('./action'),
+	backToTop: require('./back-to-top'),
+	back: require('./back')
 };

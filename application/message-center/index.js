@@ -4,10 +4,12 @@ var type = require('focus').component.types;
 var messageStore = require('focus').message.builtInStore();
 var Message = require('../../message').component;
 var assign = require('object-assign');
-
+var capitalize = require('lodash/string/capitalize')
 var messageCenterMixin = {
   getDefaultProps: function getCartridgeDefaultProps(){
     return {
+      ttlInfo: 10000,
+      ttlSuccess: 5000,
       style: {}
     };
   },
@@ -44,7 +46,13 @@ var messageCenterMixin = {
   renderMessages: function renderMessages(){
     var msgs = [];
     for(var msgKey in this.state.messages){
-      msgs.push(React.createElement(Message, assign(this.state.messages[msgKey], {handleOnClick: this._handleRemoveMessage, key: msgKey})));
+      let msg = this.state.messages[msgKey];
+      let ttlConf = {};
+      let messageProps = assign(this.state.messages[msgKey], {handleOnClick: this._handleRemoveMessage, key: msgKey});
+      if(msg.type === 'info' || msg.type ==='success'){
+        assign(messageProps, {ttl: this.props[`ttl${capitalize(msg.type)}`], handleTimeToLeave: this._handleRemoveMessage});
+      }
+      msgs.push(React.createElement(Message, messageProps));
     }
     return msgs;
   },
@@ -52,7 +60,7 @@ var messageCenterMixin = {
   render: function renderMessageCenter() {
     var className = `message-center ${this.props.style.className}`;
     return (
-      <div className={className} data-focus-message-center>
+      <div className={className} data-focus='message-center'>
         {this.renderMessages()}
       </div>
     );

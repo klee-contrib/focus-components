@@ -1,4 +1,5 @@
 module.exports = {
-    filterResult: require('./filter-result'),
-    searchResult: require('./search-result')
+    advancedSearch: require('./advanced-search'),
+    quickSearch: require('./quick-search'),
+    searchHeader: require('./search-header')
 }

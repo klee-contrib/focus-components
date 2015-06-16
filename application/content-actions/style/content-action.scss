@@ -1,0 +1,15 @@
+
+header {
+  [data-focus="content-actions"] {
+    .btn {
+      margin: 0 10px;
+      &.btn-fab {
+        background-color: #FFF !important;
+      }
+      &:hover {
+        background-color: #F9F9F9 !important;
+      }
+    }
+  }
+}
+

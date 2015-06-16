@@ -1,13 +1,13 @@
 $bloc-background: #fff;         //normal
 $bloc-background-hover: #fff;   //on mouse over
-$bloc-background-active: #CBCBCB;  //in edit mode
+$bloc-background-active: #F9F9F9;  //in edit mode
 $bloc-border-color: #e7e7e7;
 $bloc-title-color:#36b7b9;
 
 [data-focus='block'] {
   background-color: $bloc-background;
-  border: solid 1px #e7e7e7;
-  box-shadow: 1px 1px 3px 0px $bloc-border-color;
+  border: solid 1px transparent;
+  box-shadow: 1px 1px 4px 1px $bloc-border-color;
   margin-bottom: 15px;
   header{
     padding: 16px;
@@ -25,6 +25,10 @@ $bloc-title-color:#36b7b9;
       margin-left: 20px;
       height: 16pt;
       line-height: 16pt;
+      .btn {
+        margin:0;
+        padding: 3px 15px;
+      }
     }
   }
   &:hover {
@@ -37,11 +41,22 @@ $bloc-title-color:#36b7b9;
     display:block;
     width: 100%;
     padding: 16px;
+    font-size: 12pt;
+    display: inline-block;
+
+    //rendu du selection list dans les block
+    [data-focus="selection-list"] {
+      margin: 40px 20px;
+    }
   }
 }
 
-.form-edit {
+[data-mode='edit'] {
   [data-focus='block'] {
     background-color: $bloc-background-active;
+    border:1px solid #36b7b9;
+    .actions {
+      display: inline-block;
+    }
   }
 }

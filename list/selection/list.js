@@ -141,7 +141,7 @@ var listMixin = {
      */
     render: function renderList(){
         return (
-            <ul className="selection-list">
+            <ul data-focus="selection-list">
               {this._renderLines()}
               {this._renderLoading()}
               {this._renderManualFetch()}

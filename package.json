@@ -1,10 +1,10 @@
 {
   "name": "focusjs-components",
-  "version": "0.1.9",
+  "version": "0.2.0",
   "description": "Focus component repository.",
   "main": "index.js",
   "scripts": {
-    "test": "iojs jest",
+    "test": "exit 0",
     "example": "node static-server.js",
     "build": "gulp browserify",
     "watch": "gulp watchify",
@@ -41,12 +41,24 @@
       "path": "application/header"
     },
     {
+      "name": "layout",
+      "path": "application/layout"
+    },
+    {
       "name": "cartridge",
       "path": "application/cartridge"
     },
     {
-      "name": "quick-search",
-      "path": "search/quick-search"
+      "name": "content-actions",
+      "path": "application/content-actions"
+    },
+    {
+      "name": "content-bar",
+      "path": "application/content-bar"
+    },
+    {
+      "name": "search-bar",
+      "path": "search/search-bar"
     },
     {
       "name": "block",
@@ -75,6 +87,14 @@
     {
       "name": "input-text",
       "path": "common/input/text"
+    },
+    {
+      "name": "progress-bar",
+      "path": "common/progress-bar"
+    },
+    {
+      "name": "loading-bar",
+      "path": "application/loading-bar"
     },
     {
       "name": "input-checkbox",
@@ -161,16 +181,20 @@
       "path": "common/button/action"
     },
     {
+      "name": "button-back-to-top",
+      "path": "common/button/back-to-top"
+    },
+    {
       "name": "block",
       "path": "common/block"
     },
     {
-      "name": "search-filter-result",
-      "path": "page/search/filter-result"
+      "name": "quick-search",
+      "path": "page/search/quick-search"
     },
     {
-      "name": "search-result",
-      "path": "page/search/search-result"
+      "name": "advanced-search",
+      "path": "page/search/advanced-search"
     },
     {
       "name": "popin",

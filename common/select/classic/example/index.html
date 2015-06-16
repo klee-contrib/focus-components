@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>Test react and backbone</title>
+  <title>Focus component examples</title>
   <meta name="description" content="Example of the component.">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -11,24 +11,50 @@
   <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
   <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css" />
   <script src="https://fb.me/react-0.13.3.js"></script>
+  <script src="https://fb.me/JSXTransformer-0.13.3.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/3.9.3/lodash.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/backbone.js/1.2.1/backbone.js"></script>
   <script src="//code.jquery.com/jquery-1.10.2.min.js"></script>
 </head>
 
 <body>
   <script src="/focus-components/dist/js/focus.js"></script>
   <script src="/focus-components/dist/js/focus-components.js"></script>
-  <div id="form-container"></div>
-  <script type="text/javascript">
+  <div id="select-container"></div>
+  <script type="text/jsx">
   $(function(){
     Focus.components = FocusComponents;
     var Select = Focus.components.common.select.classic.component;
-    React.render(React.createElement(Select,
-      { multiple: false,
-        value: "B",
-        values: [{code: "A", label: "aaaa"},{code: "B", label: "bbbbb"}, {code: "C", label: "ccccc"}],
-        style: {className: "papa"},
-      //  onChange: function(evt){console.log("date changed", evt)}
-      }), document.querySelector("#form-container"));
+    var valuesExample = [
+      {code: "A", label: "aaaa"},
+      {code: "B", label: "bbbbb"},
+      {code: "C", label: "ccccc"},
+      {code: "D", label: "DDDD"}
+    ];
+    var valuesCustomExample = [
+      {id: "custom", name: "aaaaCustom"},
+      {id: "BCustom", name: "bbbbbCustom"},
+      {id: "CCustom", name: "cccccCustom"}
+    ];
+    React.render(
+      <ul>
+        <li>
+          Liste simple sans valeur préselectionnée:
+          <Select value='B' values={valuesExample}/>
+        </li>
+        <li>
+          Liste simple avec valeur préselectionnée:
+          <Select values={valuesExample}/>
+        </li>
+        <li>
+          Liste simple avec redéfinition des code /value:
+          <Select values={valuesCustomExample} valueKey='id' labelKey='name'/>
+        </li>
+        <li>
+          Liste simple sans valeur préselectionnée:
+          <Select value={['B','C']} multiple={true} values={valuesExample}/>
+        </li>
+      </ul>,
+      document.querySelector("#select-container")
+    );
   });
   </script>
 

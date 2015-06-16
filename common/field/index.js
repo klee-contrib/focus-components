@@ -56,7 +56,7 @@ var FieldMixin = {
 
   render: function renderField() {
     return (
-      <div className={this._className()} data-focus='field'>
+      <div className={this._className()} data-focus='field' data-domain={this.props.domain} data-mode={this.props.isEdit ? 'edit':'consult'}>
        {this.label()}
        {this.props.isEdit ? (this.props.values ? this.select() : this.input()) : this.display()}
        {this.help()}

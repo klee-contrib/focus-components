@@ -13,7 +13,7 @@ var source = require('vinyl-source-stream');
  * LINT
  */
 var src = '{spec,search,list,form,page,common,application}/**/*.js';
-var srcCSS = '{spec,search,list,form,page,common,application}/**/*.scss';
+var srcCSS = '{spec,search,list,form,page,common,application,style}/**/*.scss';
 var sources = [src];
 gulp.task('eslint', function() {
 	//gulp eslint 2>lint/lintErrors.txt
@@ -77,7 +77,8 @@ function jsBuild(directory, options) {
 		}, literalify.configure({
 			react: 'window.React',
 			focus: 'window.Focus',
-			jquery: 'window.jQuery'
+			jquery: 'window.jQuery',
+			backbone: 'window.Backbone'
 		}))
 		.transform(babelify)
 		.bundle()
@@ -120,7 +121,8 @@ function build(name){
 			}, literalify.configure({
 				react: 'window.React',
 				focus: 'window.Focus',
-				jquery: 'window.jQuery'
+				jquery: 'window.jQuery',
+				backbone: 'window.Backbone'
 			}))
 			.transform(babelify)
 			.bundle()
@@ -171,7 +173,7 @@ gulp.task('componentify-style', function() {
 gulp.task('style', function() {
 	var sass = require('gulp-sass');
 	var concat = require('gulp-concat');
-	gulp.src(['{spec,search,list,form,page,common,application}/**/*.scss'])
+	gulp.src(['{spec,search,list,form,page,common,application,style}/**/*.scss'])
 		.pipe(sass())
 		.pipe(concat('focus-components.css'))
 		.pipe(gulp.dest('./example/css/'))

@@ -1,167 +1,130 @@
-/* General styles for all menus */
-.menu {
-	background: #47a3da;
-	position: fixed;
-}
-
-.menu h3 {
-	color: #afdefa;
-	font-size: 1.9em;
-	padding: 20px;
-	margin: 0;
-	font-weight: 300;
-	background: #0d77b6;
-}
-
-.menu a {
-	display: block;
-	color: #fff;
-	font-size: 1.1em;
-	font-weight: 300;
-}
-
-.menu a:hover {
-	background: #258ecd;
-}
-
-.menu a:active {
-	background: #afdefa;
-	color: #47a3da;
-}
-
-/* Orientation-dependent styles for the content of the menu */
-
-.menu-vertical {
-	width: 240px;
-	height: 100%;
-	top: 0;
-	z-index: 1000;
-}
-
-.menu-vertical a {
-	border-bottom: 1px solid #258ecd;
-	padding: 1em;
-}
-
-.menu-horizontal {
-	width: 100%;
-	height: 150px;
-	left: 0;
-	z-index: 1000;
-	overflow: hidden;
-}
-
-.menu-horizontal h3 {
-	height: 100%;
-	width: 20%;
-	float: left;
-}
-
-.menu-horizontal a {
-	float: left;
-	width: 20%;
-	padding: 0.8em;
-	border-left: 1px solid #258ecd;
-}
-
-/* Vertical menu that slides from the left or right */
-
-.menu-left {
-	left: -240px;
-}
-
-.menu-right {
-	right: -240px;
-}
-
-.menu-left.menu-open {
-	left: 0px;
-}
-
-.menu-right.menu-open {
-	right: 0px;
-}
-
-/* Horizontal menu that slides from the top or bottom */
-
-
-.menu-top {
-	top: -150px;
-}
-
-.menu-bottom {
-	bottom: -150px;
-}
-
-.menu-top.menu-open {
-	top: 0px;
-}
-
-.menu-bottom.menu-open {
-	bottom: 0px;
-}
-
-/* Push classes applied to the body */
-
-.menu-push {
-	overflow-x: hidden;
-	position: relative;
-	left: 0;
-}
-
-.menu-push-toright {
-	left: 240px;
-}
-
-.menu-push-toleft {
-	left: -240px;
-}
+$menu-size: 60px;
+$menu-brand-background-color: #424950;
 
 /* Transitions */
-
-.menu,
-.menu-push {
-	-webkit-transition: all 0.3s ease;
-	-moz-transition: all 0.3s ease;
-	transition: all 0.3s ease;
+@mixin transition() {
+  -webkit-transition: all 0.3s ease;
+  -moz-transition: all 0.3s ease;
+  transition: all 0.3s ease;
 }
 
-/* Example media queries */
+/* General styles for all menus */
+[data-focus="menu"] {
+  background: #36b7b9;
+  position: fixed;
+  z-index: 2000;
 
-@media screen and (max-width: 55.1875em){
+  @include transition();
 
-	.menu-horizontal {
-		font-size: 75%;
-		height: 110px;
-	}
+  [data-focus="menu-brand"] {
+    text-align: center;
+    background-color: $menu-brand-background-color;
+    height: $menu-size;
+  }
 
-	.menu-top {
-		top: -110px;
-	}
+  [data-focus="menu-items"] {
+    padding:0;
+    margin: 0;
+    li {
+      width: $menu-size;
+      height: $menu-size;
+      line-height: $menu-size;
+      padding:0;
+      margin: 15px 0;
+      button.btn {
+        margin: 0;
+        padding: 0;
+        width: $menu-size;
+        height: $menu-size;
+        white-space: normal;
+        margin: 0;
+        font-weight: normal;
+        color:white;
+        &:hover {
+         text-decoration: none;
+        }
+        i {
+          display: block;
+          font-size: 16pt;
+          padding: 7px 0;
+          margin: 0;
+        }
+        span {
+          font-size: 9pt;
+        }
+      }
+    }
+  }
 
-	.menu-bottom {
-		bottom: -110px;
-	}
+  /* Orientation-dependent styles for the content of the menu */
+  &.menu-vertical {
+    width: $menu-size;
+    position: fixed;
+    top: 0;
+    bottom: 0;
+  }
 
-}
+  &.menu-horizontal {
+    height: $menu-size;
+    width: 100%;
+    left: 0;
+  }
 
-@media screen and (max-height: 26.375em){
+  /* Vertical menu that slides from the left or right */
+  &.menu-left {
+    left: -($menu-size);
+  }
 
-	.menu-vertical {
-		font-size: 90%;
-		width: 190px;
-	}
+  &.menu-right {
+    right: -($menu-size);
+  }
 
-	.menu-left,
-	.menu-push-toleft {
-		left: -190px;
-	}
+  &.menu-left {
+    &.menu-open {
+      left: 0px;
+    }
+  }
 
-	.menu-right {
-		right: -190px;
-	}
+  &.menu-right {
+    &.menu-open {
+      right: 0px;
+    }
+  }
 
-	.menu-push-toright {
-		left: 190px;
-	}
+  /* Horizontal menu that slides from the top or bottom */
+
+  &.menu-top {
+    top: -($menu-size);
+  }
+
+  &.menu-bottom {
+    bottom: -($menu-size);
+  }
+
+  &.menu-top {
+    &.menu-open {
+      top: 0px;
+    }
+  }
+
+  &.menu-bottom {
+    &.menu-open {
+      bottom: 0px;
+    }
+  }
+
+  &.menu-push {
+    overflow-x: hidden;
+    position: relative;
+    left: 0;
+    @include transition();
+  }
+
+  &.menu-push-toright {
+    left: $menu-size;
+  }
+
+  &.menu-push-toleft {
+    left: -($menu-size);
+  }
 }

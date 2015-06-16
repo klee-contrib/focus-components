@@ -22,7 +22,7 @@ var inputDateMixin = {
       singleDatePicker: true,
       showDropdowns: true
     }, function(start){ ///*, end, label*/
-      component.setState({value: start.format('L')});
+      component.setState({value: component.props.formatter(start.toDate())});
     });
   }
 };

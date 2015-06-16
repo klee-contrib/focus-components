@@ -16,13 +16,18 @@ var barMixin = {
   /** @inheriteddoc */
   componentWillMount: function cartridgeWillMount() {
     applicationStore.addSummaryComponentChangeListener(this._handleComponentChange);
+    applicationStore.addBarContentLeftComponentChangeListener(this._handleComponentChange);
   },
   /** @inheriteddoc */
   componentWillUnMount: function cartridgeWillUnMount(){
-    applicationStore.removeSummaryComponentChangeListener(this._onComponentChange);
+    applicationStore.removeSummaryComponentChangeListener(this._handleComponentChange);
+    applicationStore.addBarContentLeftComponentChangeListener(this._handleComponentChange);
   },
   _getStateFromStore: function getCartridgeStateFromStore(){
-    return {summaryComponent: applicationStore.getSummaryComponent() || {component: 'div', props: {}}};
+    return {
+      summaryComponent: applicationStore.getSummaryComponent() || {component: 'div', props: {}},
+      barContentLeftComponent: applicationStore.getBarContentLeftComponent() || {component: 'div', props:{}}
+    };
   },
   _handleComponentChange: function _handleComponentChangeBarSummary(){
     this.setState(this._getStateFromStore());
@@ -32,14 +37,9 @@ var barMixin = {
     var className = `bar ${this.props.style.className}`;
     return (
       <div className={className} data-focus='bar'>
-        <div data-focus='bar-app-name'>{this.props.appName}</div>
-        <div data-focus='bar-actions-left'>{this.props.actionLeft}</div>
-        <div data-focus='bar-summary'><this.state.summaryComponent.component {...this.state.summaryComponent.props}/></div>
-        <div data-focus='bar-user-infos'>
-          <i className="mdi-action-language"></i>
-          <i className="mdi-social-notifications"></i>
-          <i className="mdi-action-account-circle"></i>
-        </div>
+        <div data-focus='bar-content-left'><this.state.barContentLeftComponent.component {...this.state.barContentLeftComponent.props}/> </div>
+        <div data-focus='bar-content-right'><i className="fa fa-bell-o fa-2x"></i></div>
+        <div data-focus='bar-content-middle'><this.state.summaryComponent.component {...this.state.summaryComponent.props}/></div>
       </div>
     );
   }

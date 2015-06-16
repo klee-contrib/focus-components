@@ -1,0 +1,138 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>Test search-result mixin</title>
+	<meta name="description" content="Example of the component.">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<!-- Place favicon.ico in the root directory -->
+
+	<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+	<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css"/>
+	<script src="//code.jquery.com/jquery-1.10.2.min.js"></script>
+	<script src="https://fb.me/react-0.13.3.js"></script>
+	<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+
+	<!-- Material degign-->
+	<link rel="stylesheet" href="//cdn.jsdelivr.net/bootstrap.material-design/0.3.0/css/material-wfont.min.css">
+	<link rel="stylesheet" href="//cdn.jsdelivr.net/bootstrap.material-design/0.3.0/css/material.min.css">
+	<link rel="stylesheet" href="//cdn.jsdelivr.net/bootstrap.material-design/0.3.0/css/ripples.min.css">
+	<script src="//cdn.jsdelivr.net/bootstrap.material-design/0.3.0/js/material.min.js"></script>
+	<script src="//cdn.jsdelivr.net/bootstrap.material-design/0.3.0/js/ripples.min.js"></script>
+	<script src="https://fb.me/JSXTransformer-0.13.3.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/3.9.3/lodash.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/backbone.js/1.2.1/backbone.js"></script>
+	<!-- Material degign-->
+
+	<script src="/focus-components/dist/js/focus.js"></script>
+	<script src="/focus-components/dist/js/focus-components.js"></script>
+	<script src="/focus-components/example/js/initFocus.js"></script>
+	<link rel="stylesheet" href="/focus-components/dist/css/focus-components.css"/>
+
+</head>
+<body>
+<div id="quick-search-container" style=" width:70%;margin: auto;"></div>
+
+<script type="text/jsx">
+	var countId = 0;
+	var action = {
+		search: function (criteria) {
+			window.setTimeout(
+					function () {
+						var map = {
+							Test: [
+								{
+									id: countId++,
+									firstName: "toto",
+									lastName: "ceci est un test"
+								},
+								{
+									id: countId++,
+									firstName: "tata",
+									lastName: "deuxieme test"
+								}
+							],
+							Autre: [
+								{
+									id: countId++,
+									firstName: "toto",
+									lastName: "ceci est un test"
+								},
+								{
+									id: countId++,
+									firstName: "tata",
+									lastName: "deuxieme test"
+								}
+							]
+						};
+
+						var data = {
+							facet: {},
+							map: map,
+							pageInfos: {
+								currentPage: criteria.pageInfos.page,
+								perPage: 2,
+								totalRecords: 18
+							}
+						};
+
+						Focus.dispatcher.handleServerAction({
+							data: data, type: "update"
+						})
+					},
+					1000);
+		}
+	};
+	var Line = React.createClass({
+		mixins: [FocusComponents.list.selection.line.mixin],
+		definitionPath: "contact",
+		renderLineContent: function (data) {
+			return (
+					<div>
+						{this.displayFor("firstName", {})}
+						{this.displayFor("lastName", {})}
+					</div>
+			);
+		}
+	});
+
+	var Group = React.createClass({
+		render: function () {
+			return (
+					<div>
+						<h2>{this.props.groupKey}</h2>
+						{this.props.children}
+					</div>
+			);
+		}
+	});
+
+	var quickSearchProps = {
+		onLineClick: function onLineClick(line) {
+			alert('click sur la ligne ' + line.id);
+		},
+		scope: 2,
+		scopeList: [
+			{code: undefined, label: "None", style: "qs-scope-none"},
+			{code: 1, label: "Scope1", style: "qs-scope-1"},
+			{code: 2, label: "Scope2", style: "qs-scope-2"},
+			{code: 3, label: "Scope3", style: "qs-scope-3"}
+		],
+		groupMaxRows: 3,
+		lineComponentMapper: function (list) {
+			return Line;
+		},
+		searchAction: action.search,
+		groupComponent: Group
+	};
+
+	var QuickSearchComponent = FocusComponents.page.search.quickSearch.component;
+
+	React.render(React.createElement(QuickSearchComponent, quickSearchProps), document.querySelector("#quick-search-container"));
+</script>
+
+</body>
+
+</html>

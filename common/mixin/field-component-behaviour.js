@@ -26,12 +26,13 @@ var fieldBehaviourMixin = {
       } return true;
     }();
     //Build a container for the props.
-      var name = options.name || `${this.definitionPath}.${name}`;
+    name = options.name || `${this.definitionPath}.${name}`;
     var propsContainer = {
       name: name,
       label: def.label || name,
       ref: name,
       value: value,
+      domain: options.domain || def.domain,
       error: context.state.error ? context.state.error[name] : undefined,
       //Mode
       isEdit: isEdit,
@@ -41,7 +42,8 @@ var fieldBehaviourMixin = {
       style: options.style,
       //Methods
       validator: def.validator,
-      formatter: def.formatter,
+      formatter: def.formatter || function(d){return d;},
+      unformatter: def.unformatter || function(d){return d;},
       //Component
       FieldComponent: def.FieldComponent,
       InputLabelComponent: def.InputLabelComponent,
@@ -49,12 +51,14 @@ var fieldBehaviourMixin = {
       TextComponent: def.TextComponent,
       DisplayComponent: def.DisplayComponent
     };
+    //Extend the options object in order to be able to specify more options to thie son's component.
+    var fieldProps = assign(options, propsContainer);
     // Values list.
     var refContainer = options.refContainer || context.state.reference;
     if(refContainer && refContainer[listName]){
-      assign(propsContainer, {values: refContainer[listName]});
+      assign(fieldProps, {values: refContainer[listName]});
     }
-    return propsContainer;
+    return fieldProps;
   }
 };
 

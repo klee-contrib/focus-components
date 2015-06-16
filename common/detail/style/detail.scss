@@ -1,0 +1,8 @@
+$detail-nav-size:200px;
+
+[data-focus='detail'] {
+  [data-focus="detail-content"] {
+    margin-left: $detail-nav-size;
+  }
+}
+

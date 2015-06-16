@@ -2,8 +2,13 @@ var React = require('react');
 var Field = require('../field').component;
 var Text = require('../display/text').component;
 var Button = require('../button/action').component;
-var List = require('../list');
+var memoryList = require('../list').component;
 var fieldComponentBehaviour = require('./field-component-behaviour');
+var Table = require('../../list/table').list.component;
+var List = require('../../list/selection').list.component;
+var dispatcher = require('focus').dispacther;
+var changeMode = require('focus').application.changeMode;
+
 var assign = require('object-assign');
 module.exports = {
   mixins: [fieldComponentBehaviour],
@@ -14,10 +19,7 @@ module.exports = {
  * @returns {object} - A React Field.
  */
 fieldFor: function(name, options) {
-  options = assign({}, {
-      style: {className: ''}
-  }, options);
-
+  options = assign({}, options);
   var fieldProps = this._buildFieldProps(name, options, this);
   return React.createElement(Field, fieldProps);
 },
@@ -67,18 +69,31 @@ textFor: function textFor(name, options){
  * Display a list component.
  * @param {string} name - Property name.
  * @param {object} options - Options object.
- * @returns {object} - The react component for the line.
+ * @returns {object} - The react component for the list.
  */
-listFor: function listFor(name, options){
+listFor: function listFor(name, options) {
   options = options || {};
   options.reference = options.reference || this.state.reference;
-  return React.createElement( List, {
+  options.listComponent = options.listComponent || List;
+  var listForProps = assign({}, options, {
     data: this.state[name],
-    line: options.LineComponent || this.props.LineComponent || this.LineComponent,
+    lineComponent: options.lineComponent || this.props.lineComponent || this.lineComponent,
     perPage: options.perPage || 5,
     reference: options.reference,
     isEdit: options.isEdit !== undefined ? options.isEdit : false
   });
+  return React.createElement(memoryList, listForProps);
+},
+
+/**
+ * Display a table component.
+ * @param {string} name - Property name.
+ * @param {object} options - Options object.
+ * @returns {object} - The react component for the list.
+ */
+tableFor: function tableFor(name, options){
+  options.listComponent = options.listComponent || Table;
+  return this.listFor(name, options);
 },
 /**
  * Button delete generation.
@@ -87,7 +102,7 @@ listFor: function listFor(name, options){
 buttonDelete: function buttonDelete() {
   var form = this;
   return React.createElement(Button, {
-    label: 'delete',
+    label: 'button.delete',
     type: 'button',
     style: {className: 'delete'},
     handleOnClick: function handleOnClickEdit(){
@@ -102,11 +117,14 @@ buttonDelete: function buttonDelete() {
 buttonEdit: function buttonEdit() {
   var form = this;
   return React.createElement(Button, {
-    label: 'edit',
+    label: 'button.edit',
+    shape:'link',
     type: 'button',
-    style: {className: 'edit icon'},
+    icon: 'pencil',
     handleOnClick: function handleOnClickEdit(){
-      form.setState({isEdit: !form.state.isEdit});
+      form.setState({isEdit: !form.state.isEdit},function(){
+        changeMode('edit', 'consult')
+      });
     }
   });
 },
@@ -117,12 +135,13 @@ buttonEdit: function buttonEdit() {
 buttonCancel: function buttonCancel() {
   var form = this;
   return React.createElement(Button, {
-    label: 'cancel',
+    label: 'button.cancel',
+    shape:'link',
     type: 'button',
-    style: {className: 'cancel icon'},
+    icon: 'undo',
     handleOnClick: function handleOnClickCancel(){
-      console.log('cancel icon');
-      form.setState({isEdit: !form.state.isEdit});
+      form.setState({isEdit: !form.state.isEdit},function(){
+        changeMode('consult', 'edit')});
     }
   });
 },
@@ -133,9 +152,10 @@ buttonCancel: function buttonCancel() {
 buttonSave: function() {
   //var form = this;
   return React.createElement(Button, {
-    label: 'save',
+    label: 'button.save',
     type: 'submit',
-    style: {className: 'save icon primary'},
+    shape:'link',
+    icon: 'floppy-o'
     /*handleOnClick: function handleClickOnSave(e){
       if(form.validate()){
         form.action.save(form._getEntity());

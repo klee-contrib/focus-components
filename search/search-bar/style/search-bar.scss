@@ -1,0 +1,185 @@
+/* Style for the quick-search-component*/
+
+/* Variables*/
+/*$border-size: 2px;*/
+$sb-scope-width: 70px;
+$sb-input-height: 50px;
+
+/* Style */
+[data-focus='search-bar'] {
+  padding: 10px 0;
+  .sb-scope-choice {
+    float: left;
+
+    [data-focus='scope'] {
+      position: relative;
+      cursor: pointer;
+      width: $sb-scope-width;
+      height: $sb-input-height;
+      padding: 12px 12px;
+
+      div {
+        &.sb-icon > div {
+          background-size: 22px;
+        }
+        &.sb-scope-deploy {
+          &:after {
+            content: "\f077";
+            position: absolute;
+            top: 17px;
+            right: 0;
+            font-family: FontAwesome;
+            display: inline-block;
+            vertical-align: middle;
+            font-size: 12px;
+          }
+          &.up {
+            &:after {
+              content: "\f077";
+            }
+          }
+          &.down {
+            &:after {
+              content: "\f078";
+            }
+          }
+        }
+        text-align: center;
+        height: 100%;
+        div {
+          &.sb-scope-none {
+            /*background: url('../img/sb-none.svg') no-repeat center center;*/
+            background-size: 100% 100%;
+          }
+        }
+      }
+      ul {
+        position: absolute;
+        top: $sb-input-height+1;
+        left: 0;
+
+        background: #FFF;
+        box-shadow: 0 1px 6px rgba(0, 0, 0, 0.12), 0 1px 6px rgba(0, 0, 0, 0.12);
+        transition: transform 0.2s ease-out;
+        padding: 10px;
+        overflow: auto;
+        max-width: 500px;
+        z-index: 10;
+
+        li {
+          list-style-type: none;
+          height: 32px;
+          line-height: 32px;
+          min-width: 120px;
+          padding: 0 10px;
+          font-size: 14px;
+          cursor: pointer;
+
+          &.sb-scope:before {
+            padding-right: 10px;
+          }
+
+          &:hover {
+            background-color: rgba(141, 134, 134, 0.62);
+          }
+          &.active {
+            background-color: #36B6B8;
+            color: #FFF;
+          }
+        }
+      }
+    }
+  }
+
+  /* Input block */
+  .sb-input-search {
+    position: relative;
+    margin-left: $sb-scope-width+10;
+    input {
+      height: $sb-input-height;
+      font-size: 22px;
+      height: 50px;
+      font-size: 22px;
+    }
+    .sb-spinner {
+      position: absolute;
+      top: 15px;
+      right: 10px;
+      width: 20px;
+      height: 20px;
+      border-width: 5px;
+      display: none;
+
+      &.sb-loading {
+        display: block;
+      }
+    }
+  }
+
+  /* Help block.*/
+  div.sb-help {
+    padding: 20px 20px 20px 83px;
+    font-style: italic;
+    font-weight: bold;
+    font-size: 13px;
+  }
+}
+
+[data-focus="header"] {
+  [data-focus='search-bar'] {
+    width: 800px;
+    .sb-help {
+      display: none;
+    }
+  }
+  [data-focus="bar"] {
+    [data-focus='search-bar'] {
+      .sb-scope-choice {
+        [data-focus='scope'] {
+          height: 35px;
+          .sb-scope-deploy {
+            &:after {
+              top: 8px;
+            }
+          }
+          ul {
+            top: 36px;
+          }
+        }
+      }
+      .sb-input-search {
+        input {
+          height: 35px;
+          font-size: 18px;
+        }
+      }
+    }
+  }
+  &.header-small {
+    [data-focus="bar"] {
+      [data-focus='search-bar'] {
+        padding: 0;
+      }
+    }
+  }
+  &.header-medium {
+    [data-focus="cartridge"] {
+      [data-focus='search-bar'] {
+        margin: auto;
+        [data-focus="scope"] {
+          div.sb-scope-deploy {
+            &:after {
+              right: 5px;
+            }
+          }
+          div.sb-scope-deploy-down {
+            &:after {
+              right: 5px;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+

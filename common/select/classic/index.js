@@ -2,38 +2,43 @@
 var builder = require('focus').component.builder;
 var React = require('react');
 var type = require('focus').component.types;
-
+var i18nMixin = require('../../i18n/mixin');
+var stylableMixin = require('../../../mixin/stylable');
+var union = require('lodash/array/union');
+var uuid = require('uuid');
 /**
  * Input text mixin.
  * @type {Object}
  */
 var selectTextMixin = {
+  mixins: [i18nMixin, stylableMixin],
   /** @inheritdoc */
   getDefaultProps: function getSelectDefaultProps() {
     return {
       multiple: false,
       value: undefined,
       values: [],
-      valueKey: 'value',
-      labelKey: 'code',
+      valueKey: 'code',
+      labelKey: 'label',
       name: undefined,
-      style: {}
+      onChange: undefined
     };
   },
   /** @inheritdoc */
   propTypes: {
     multiple: type('bool'),
-    value: type(['number', 'string']),
+    value: type(['number', 'string', 'array']),
     values: type('array'),
     valueKey: type('string'),
     labelKey: type('string'),
     name: type('string'),
-    style: type('object')
+    onChange: type(['function','object'])
   },
   /** @inheritdoc */
   getInitialState: function getInitialStateSelect() {
     return {
-      value: this.props.value
+      value: this.props.value,
+      hasUndefined : this.props.hasUndefined === false ? false : !this.props.value
     };
   },
   /** @inheritdoc */
@@ -56,18 +61,32 @@ var selectTextMixin = {
       this.props.onChange(event);
     }else {
       //Set the state then call the change handler.
-      this.setState({value: event.target.value});
+      if(this.props.multiple){
+        var vals = this.state.value;
+        vals.push(event.target.value);
+        return this.setState({value: vals});
+      }
+      return this.setState({value: event.target.value});
     }
   },
   /**
    * Render options.
    */
   renderOptions: function renderOptions(){
-    return this.props.values.map((val)=>{
+    let values;
+    if(this.state.hasUndefined){
+      values = union(
+        [{[this.props.labelKey]: 'select.unSelected', [this.props.valueKey]: undefined}],
+        this.props.values
+      );
+    }else{
+      values = this.props.values;
+    }
+    return values.map((val)=>{
       var value = val[this.props.valueKey];
       return(
-        <option key={value} value={value}>
-          {val[this.props.labelKey]}
+        <option key={value || uuid.v4() } value={value}>
+          {this.i18n(val[this.props.labelKey])}
         </option>
     );
     });
@@ -81,7 +100,7 @@ var selectTextMixin = {
       <select
         multiple={this.props.multiple}
         value={this.state.value}
-        className={this.props.style.className}
+        className={this._getStyleClassName()}
         name={this.props.name}
         onChange={this._handleOnChange}
       >

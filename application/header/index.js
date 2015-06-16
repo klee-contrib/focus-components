@@ -2,8 +2,9 @@ var builder = require('focus').component.builder;
 var React = require('react');
 var type = require('focus').component.types;
 var {pluck, sortBy} = require('lodash/collection');
-
+var applicationStateBehaviour = require('./mixin/application-state');
 var headerMixin = {
+  mixins: [applicationStateBehaviour],
   /** @inheriteddoc */
   getDefaultProps: function getMenuDefaultProps() {
     return {
@@ -28,7 +29,7 @@ var headerMixin = {
        */
        sizeMap: {
          'small': {
-           'sizeBorder': 200
+           'sizeBorder': 5
          },
          'medium': {
            'sizeBorder': 0
@@ -63,6 +64,7 @@ var headerMixin = {
       size: this.props.size
     };
   },
+
     /** @inheriteddoc */
   componentWillMount: function barWillMount() {
       this._processSizes();
@@ -75,6 +77,7 @@ var headerMixin = {
   /** @inheriteddoc */
   componentWillUnMount: function barWillUnMount(){
     this.detachScrollListener();
+    this.appStateWillUnmount();
   },
   /**
    * Process the sizeMap in order to sort them by border size and create a sizes array.
@@ -172,7 +175,7 @@ var headerMixin = {
   render: function renderBar() {
     var className = `header header-${this.state.size} ${this.props.style.className}`;
     return (
-      <header className={className} data-focus='header' data-size={this.state.size}>
+      <header className={className} data-focus='header' data-route={this.state.route} data-mode={this.state.mode} data-size={this.state.size}>
         {this.props.children}
       </header>
     );

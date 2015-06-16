@@ -1,0 +1,68 @@
+$field-input-width-long: 400px;
+$field-input-width-normal: 250px;
+$field-input-width-short: 100px;
+$field-input-width-date: 90px;
+
+
+[data-focus="field"] {
+  label {
+    text-align: right;
+  }
+  &[data-mode="consult"] {
+    .input-group {
+      border: 0;
+      .form-control {
+        border: 0;
+      }
+    }
+  }
+  &[data-mode="edit"] {
+    &[data-domain]{
+        input, select {
+          width: $field-input-width-normal;
+        }
+    }
+    &[data-domain="DO_COMMENTAIRE"] {
+      input {
+        width: $field-input-width-long;
+      }
+    }
+    &[data-domain="DO_DATE"] {
+      input {
+        width: $field-input-width-date;
+        text-align: center;
+      }
+    }
+    &[data-domain="DO_LIBELLE_50"] {
+      input {
+        width: $field-input-width-short;
+      }
+    }
+    &[data-domain="DO_LIBELLE_250"] {
+      input {
+        width: $field-input-width-long;
+      }
+    }
+    &[data-domain="DO_NOM"] {
+      input {
+        width: $field-input-width-short;
+      }
+    }
+    &[data-domain="DO_PRENOM"] {
+      input {
+        width: $field-input-width-short;
+      }
+    }
+    &[data-domain="DO_EMAIL"] {
+      input {
+        width: $field-input-width-long;
+      }
+    }
+    &[data-domain="DO_EMAIL"] {
+      input {
+        width: $field-input-width-short;
+      }
+    }
+  }
+
+}

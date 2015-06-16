@@ -1,7 +1,7 @@
 
-var i18nMixin = require('../../i18n').mixin;
-
-var validationMixin ={
+let i18nMixin = require('../../i18n').mixin;
+let validate = require('focus').definition.validator.validate;
+let validationMixin ={
     mixins: [i18nMixin],
 
   /** @inheritdoc */
@@ -10,6 +10,12 @@ var validationMixin ={
       isRequired: false,
       validator: undefined
     };
+  },
+  _computeValidationStatus(validationStatus){
+    if(validationStatus.isValid){
+      return true;
+    }
+    return validationStatus.errors.join(', ');
   },
   /**
    * Validate the input.
@@ -21,7 +27,16 @@ var validationMixin ={
       return this.i18n('field.required', {name: this.i18n(this.props.label)});
     }
     if (this.props.validator) {
-      return this.props.validator(value);
+      var validStat = this._computeValidationStatus(validate({
+          value: value,
+          name: this.i18n(this.props.label)
+        },
+        this.props.validator
+      ));
+      if(validStat !== true){
+        validStat = this.i18n(validStat);
+      }
+      return validStat;
     }
     return true;
   },
@@ -42,7 +57,6 @@ var validationMixin ={
    * @param error Error to set.
    */
   setError: function setErrorOnField(error) {
-    console.log('VALUEs : ' + this.getValue());
     this.setState({ error: error });
   }
 };

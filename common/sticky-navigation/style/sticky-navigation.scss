@@ -1,6 +1,41 @@
+$sticky-nav-size:200px;
+$sticky-nav-active-color:#36b7b9;
 
-.sticky-navigation {
-  li.active {
-    font-weight: bold;
+[data-focus='sticky-navigation'] {
+  background-color: transparent;
+  width: $sticky-nav-size;
+  float: left;
+  font-size: 13pt;
+
+  &[data-affix='true'] {
+    position: fixed;
+    top: 80px;
   }
+  &[data-affix='false'] {
+
+  }
+
+  div {
+    padding: 5px 10px;
+    margin: 15px 0;
+    color:black;
+    border-left: 5px solid transparent;
+    line-height: 20px;
+    font-size: 13pt;
+    color:#848484;
+    cursor: pointer;
+    background-color: transparent;
+    transition: background-color 1s linear;
+
+    &:hover {
+      background-color: #EAEAEA;
+    }
+
+    &.active {
+      border-color: $sticky-nav-active-color;
+      color: $sticky-nav-active-color;
+      font-size: 16pt;
+    }
+  }
+
 }

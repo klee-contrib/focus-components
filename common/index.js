@@ -1,6 +1,7 @@
 module.exports = {
   block: require('./block'),
   button: require('./button'),
+  empty: require('./empty'),
   field: require('./field'),
   form: require('./form'),
   img: require('./img'),
@@ -17,5 +18,6 @@ module.exports = {
   list: require('./list'),
   mixin: require('./mixin'),
   display: require('./display'),
-  detail: require('./detail')
+  detail: require('./detail'),
+  progressBar: require('./progress-bar')
 };

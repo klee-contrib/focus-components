@@ -55,6 +55,7 @@ var referenceMixin = {
   },
   /** @inheritdoc */
   componentWillMount: function formWillMount(){
+    this.referenceNames = this.props.referenceNames || this.referenceNames;
     this._buildReference();
   }
 };

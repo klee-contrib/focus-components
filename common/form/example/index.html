@@ -1,107 +1,173 @@
 <!doctype html>
 <html class="no-js" lang="">
 <head>
-  <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>Test react and backbone</title>
-  <meta name="description" content="Example of the component.">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Focus component examples</title>
+    <meta name="description" content="Example of the component.">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 
-  <!-- Place favicon.ico in the root directory -->
-  <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
-  <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css" />
-  <script src="https://fb.me/react-0.13.3.js"></script>
-  <script src="http://fb.me/JSXTransformer-0.13.2.js"></script>
+    <!-- Place favicon.ico in the root directory -->
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css"/>
+    <script src="https://fb.me/react-0.13.3.js"></script>
+    <script src="https://fb.me/JSXTransformer-0.13.3.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/3.9.3/lodash.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/backbone.js/1.2.1/backbone.js"></script>
 
-  <!-- Material degign-->
-  <script src="//code.jquery.com/jquery-1.10.2.min.js"></script>
-  <link rel="stylesheet" href="//cdn.jsdelivr.net/bootstrap.material-design/0.3.0/css/material-wfont.min.css">
-  <link rel="stylesheet" href="//cdn.jsdelivr.net/bootstrap.material-design/0.3.0/css/material.min.css">
-  <link rel="stylesheet" href="//cdn.jsdelivr.net/bootstrap.material-design/0.3.0/css/ripples.min.css">
-  <script src="//cdn.jsdelivr.net/bootstrap.material-design/0.3.0/js/material.min.js"></script>
-  <script src="//cdn.jsdelivr.net/bootstrap.material-design/0.3.0/js/ripples.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/showdown/0.4.0/Showdown.js"></script>
-  <!-- Material degign-->
-  <script src="/focus-components/dist/js/focus.js"></script>
-  <script src="/focus-components/dist/js/focus-components.js"></script>
-  <script src="/focus-components/example/js/initFocus.js"></script>
-  <link rel="stylesheet" href="css/form.css"/>
-  <link rel="stylesheet" href="/focus-components/example/js/picker.css"/>
+    <!-- Material degign-->
+    <script src="//code.jquery.com/jquery-1.10.2.min.js"></script>
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/bootstrap.material-design/0.3.0/css/material-wfont.min.css">
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/bootstrap.material-design/0.3.0/css/material.min.css">
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/bootstrap.material-design/0.3.0/css/ripples.min.css">
+    <script src="//cdn.jsdelivr.net/bootstrap.material-design/0.3.0/js/material.min.js"></script>
+    <script src="//cdn.jsdelivr.net/bootstrap.material-design/0.3.0/js/ripples.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/showdown/0.4.0/Showdown.js"></script>
 
+    <!-- Include Date Range Picker -->
+    <script type="text/javascript" src="//cdn.jsdelivr.net/momentjs/2.9.0/moment.min.js"></script>
+    <script type="text/javascript" src="//cdn.jsdelivr.net/bootstrap.daterangepicker/1/daterangepicker.js"></script>
+    <link rel="stylesheet" type="text/css"
+          href="//cdn.jsdelivr.net/bootstrap.daterangepicker/1/daterangepicker-bs3.css"/>
+
+
+    <!-- Material degign-->
+    <script src="/focus-components/dist/js/focus.js"></script>
+    <script src="/focus-components/dist/js/focus-components.js"></script>
+    <script src="/focus-components/example/js/initFocus.js"></script>
+    <link rel="stylesheet" href="/focus-components/dist/css/focus-components.css"/>
+    <link rel="stylesheet" href="/focus-components/example/js/picker.css"/>
 </head>
 <body>
-  <script src="/focus-components/example/js/picker.js"></script>
-  <div id="form-container" class="container"></div>
-  <div id='message-cennter-container'></div>
-  <script type="text/javascript">
-      $(document).ready(function() {$.material.init();});
-  </script>
-  <script type="text/jsx">
-  //Load dependencies.
-  Focus.components = FocusComponents;
-  var contactStore = new Focus.store.CoreStore({
-    definition : {'contact': 'contact', 'commande': 'commande'}
-  });
-  var formMixin = Focus.components.common.form.mixin;
-  var Panel = Focus.components.common.panel.component;
-  var MessageCenter = Focus.components.application.messageCenter.component;
-  React.render(<MessageCenter/>, document.querySelector("#message-cennter-container"));
-  //Create the view.
-  var Form = React.createClass({displayName: "Form",
-    mixins: [formMixin],
-    stores: [{
-      store: contactStore,
-      properties: ["contact"]
-    }],
-    definitionPath: "contact",
-    action: {
-      load: function(){
-        Focus.dispatcher.handleViewAction({
-          data: {contact: {}},
-          status: {contact: {isLoading: true ,name:'loading'}},
-          type: "update"
-          });
-          //console.break();
-        Promise.resolve({contact: {firstName: "pierre", lastName: "besson", isCool: true, birthDate: new Date().toISOString()}}).then(
-          function(data){
-
-          Focus.dispatcher.handleServerAction({
-            data: data,
-            status: {contact:{isLoading: false, name:'loaded'}},
-            type: "update"
-          });
-        });
-    }, save: function saveContact(data){
-      Focus.dispatcher.handleViewAction({
-        data: {contact: {}},
-        status: {contact: {isLoading: true,  name:'saving'}},
-        type: "update"
-      });
-      return Promise.resolve(data).then(function(d){Focus.dispatcher.handleServerAction({
-        data: {contact: data},
-        status: {contact:{isLoading: false, name:'saved'}},
-        type: "update"
-      });})
-    }},
-    referenceNames: ['papas'],
-    renderContent:function renderUserDetail(){
-      return(
-          React.createElement(Panel, {title: "Fiche de l'utilisateur"},
-              this._renderActions(),
-              this.fieldFor("firstName"),
-              this.fieldFor("lastName"),
-              this.textFor("birthDate", {formatter: function(date){return "formatted date" + date}}),
-              this.fieldFor("bio"),
-              this.fieldFor("isCool"),
-              this.fieldFor("isNice")
-              /*this.fieldFor("birthDate"),
-              this.selectFor('papaCode', 'papas')*/
-         )
-      );
+<script src="/focus-components/example/js/picker.js"></script>
+<div id="form-container" class="container"></div>
+<div id='message-cennter-container'></div>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $.material.init();
+    });
+</script>
+<script type="text/jsx">
+    //Load dependencies.
+    Focus.components = FocusComponents;
+    var TableLine = React.createClass({
+        mixins: [FocusComponents.list.table.line.mixin],
+        definitionPath: "commande",
+        renderLineContent: function (data) {
+            return (
+                    <tr>
+                        <td>{this.textFor("name", {})}</td>
+                        <td>{this.textFor("number", {})}</td>
+                    </tr>
+            );
+        }
+    });
+    var columns = {
+        firstName: {label: "Nom", sort:"asc"},
+        lastName: {label: "Numéro", sort: 'desc'}
     }
-  });
-  //Render the created View.
-  React.render(React.createElement(Form, null), document.querySelector("#form-container"));
+
+    var ListLine = React.createClass({
+        mixins: [FocusComponents.list.selection.line.mixin],
+        definitionPath: "commande",
+        renderLineContent: function(data){
+            var firstName = this.displayFor("name", {});
+            var lastName = this.displayFor("number", {});
+            var root = React.createElement('div',null,firstName,lastName);
+            return root;
+        }
+    });
+    var contactStore = new Focus.store.CoreStore({
+        definition: {'contact': 'contact', 'commandes': 'commande'}
+    });
+    var formMixin = Focus.components.common.form.mixin;
+    var Panel = Focus.components.common.panel.component;
+    var MessageCenter = Focus.components.application.messageCenter.component;
+    React.render(<MessageCenter/>, document.querySelector("#message-cennter-container"));
+    //Create the view.
+    var Form = React.createClass({
+        displayName: "Form",
+        mixins: [formMixin],
+        stores: [{
+            store: contactStore,
+            properties: ["contact", "commandes"]
+        }],
+        definitionPath: "contact",
+        action: {
+            load: function () {
+                Focus.dispatcher.handleViewAction({
+                    data: {contact: {}},
+                    status: {
+                        contact: {isLoading: true, name: 'loading'}
+                    },
+                    type: "update"
+                });
+                //console.break();
+                Promise.resolve({
+                    contact: {
+                        firstName: "pierre",
+                        lastName: "besson",
+                        isCool: true,
+                        birthDate: new Date().toISOString(),
+                        commandes: [{name: "commande1", number: "1"}, {
+                            name: "commande2",
+                            number: "2"
+                        }, {name: "commande3", number: "3"}, {name: "commande4", number: "4"}, {
+                            name: "commande5",
+                            number: "5"
+                        }, {name: "commande6", number: "6"}]
+                    }
+                }).then(
+                        function (data) {
+
+                            Focus.dispatcher.handleServerAction({
+                                data: data,
+                                status: {
+                                    contact: {isLoading: false, name: 'loaded'}
+                                },
+                                type: "update"
+                            });
+                        });
+            }, save: function saveContact(data) {
+                Focus.dispatcher.handleViewAction({
+                    data: {contact: {}},
+                    status: {contact: {isLoading: true, name: 'saving'}},
+                    type: "update"
+                });
+                return Promise.resolve(data).then(function (d) {
+                    Focus.dispatcher.handleServerAction({
+                        data: {contact: data},
+                        status: {contact: {isLoading: false, name: 'saved'}},
+                        type: "update"
+                    });
+                })
+            }
+        },
+        referenceNames: ['papas'],
+        renderContent: function renderUserDetail() {
+            return (
+                    React.createElement(Panel, {title: "Fiche de l'utilisateur"},
+                            this._renderActions(),
+                            this.fieldFor("firstName"),
+                            this.fieldFor("lastName"),
+                            this.textFor("birthDate", {
+                                formatter: function (date) {
+                                    return "formatted date" + date
+                                }
+                            }),
+                            this.fieldFor("bio"),
+                            this.fieldFor("isCool"),
+                            this.fieldFor("isNice"),
+                            this.fieldFor("birthDate"),
+                            this.tableFor("commandes", {lineComponent: TableLine, columns: columns}),
+                            this.listFor("commandes", {lineComponent: ListLine})
+                            /*this.selectFor('papaCode', 'papas')*/
+                    )
+            );
+        }
+    });
+    //Render the created View.
+    React.render(React.createElement(Form, null), document.querySelector("#form-container"));
 </script>
 
 </body>

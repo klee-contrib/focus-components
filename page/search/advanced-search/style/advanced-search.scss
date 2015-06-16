@@ -1,0 +1,26 @@
+
+[data-focus='advanced-search'] {
+  margin-left: -20px;
+
+  [data-focus='facet-container'] {
+    float: left;
+  }
+
+  [data-focus='result-container'] {
+    padding-left: 30px;
+    display: table-cell;
+    width: 5000px;
+  }
+
+  [data-focus="group-result-container"] {
+    h3 {
+      margin: 0;
+      padding: 15px 10px;
+      color: #36b6b8;
+    }
+    [data-focus="group-actions"] {
+      padding: 5px 10px;
+      text-align: center;
+    }
+  }
+}

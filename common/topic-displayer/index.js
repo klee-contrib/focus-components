@@ -35,7 +35,7 @@ var topicDisplayerMixin = {
         if(this.props.style) {
             style += this.props.style;
         }
-        return (<p className={style}>{topicList}</p>);
+        return (<span data-focus='topic-displayer'>{topicList}</span>);
     },
 
     /**
