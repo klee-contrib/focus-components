@@ -2,6 +2,11 @@ let isFunction = require('lodash/lang/isFunction');
 let BuiltInSearchStore = Focus.search.builtInStore;
 
 let SearchMixin = {
+    //mixins: [storeBehaviour],
+    //stores: [{
+    //    store: Focus.search.builtInStore.queryStore,
+    //    properties: ['query', 'scope']
+    //}],
     getDefaultProps() {
         return ({
             store: BuiltInSearchStore.searchStore
@@ -32,7 +37,9 @@ let SearchMixin = {
      * @param {object} facets Selected facets.
      * @returns {object} Formatted criteria {criteria:{}, pagesInfos:{}, facets:{}}.
      */
-    _buildSearchCriteria(scope, query, facets) {
+    _buildSearchCriteria(facets) {
+        let query = Focus.search.builtInStore.queryStore.getQuery() || '';
+        let scope = Focus.search.builtInStore.queryStore.getScope() || '';
         return {
             criteria: {scope, query},
             pageInfos: {
@@ -57,7 +64,7 @@ let SearchMixin = {
         if(!isFunction(this.props.searchAction)){
           console.warn(`Your page seems to miss a search action, add in your props a {searchAction: function(scope, query, facets){}}`, this.props.searchAction);
         }
-        return this._buildSearchCriteria(this.state.scope, this.state.query, facets);
+        return this._buildSearchCriteria(facets);
     },
     search() {
         this.props.searchAction(
