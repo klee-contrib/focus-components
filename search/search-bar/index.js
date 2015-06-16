@@ -29,7 +29,7 @@ let SearchBar = {
             minChar: 0,
             loading: false,
             helpTranslationPath: 'search.bar.help',
-            hasScopes: false
+            hasScopes: true
         };
     },
     propTypes: {

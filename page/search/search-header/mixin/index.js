@@ -10,6 +10,11 @@ let React = require('react');
 
 module.exports = {
     mixins: [i18nMixin,referenceBehaviour,storeBehaviour, searchBehaviour],
+    getDefaultProps() {
+        return ({
+            hasScopes: true
+        });
+    },
     getInitialState(){
       return {
         isLoading: false
@@ -28,6 +33,7 @@ module.exports = {
                 loading={this.state.isLoadingSearch}
                 handleChange={this._wrappedSearch}
                 referenceNames={this.props.referenceNames}
+                hasScopes={this.props.hasScopes}
               />;
     },
     componentWillMount(){
