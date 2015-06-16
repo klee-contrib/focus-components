@@ -4,7 +4,7 @@ let BuiltInSearchStore = Focus.search.builtInStore;
 let SearchMixin = {
     getDefaultProps() {
         return ({
-            store: BuiltInSearchStore
+            store: BuiltInSearchStore.searchStore
         });
     },
     /**
@@ -60,7 +60,6 @@ let SearchMixin = {
         return this._buildSearchCriteria(this.state.scope, this.state.query, facets);
     },
     search() {
-        
         this.props.searchAction(
             this.getSearchCriteria()
         );

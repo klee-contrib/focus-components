@@ -73,20 +73,23 @@ let SearchBar = {
         return `form-control`;
     },
     _handleChange() {
+        Focus.dispatcher.handleViewAction({
+            data: this.getValue(),
+            type: 'update'
+        });
         if (this.props.handleChange) {
             return this.props.handleChange(this.getValue());
         }
     },
     _handleKeyUp(event) {
-
-          this.setState({value: event.target.value}, ()=>{
+        this.setState({value: event.target.value}, ()=> {
             if (this.state.value.length >= this.props.minChar) {
-              if (this.props.handleKeyUp) {
-                  this.props.handleKeyUp(event);
-              }
-              this._handleChange();
+                if (this.props.handleKeyUp) {
+                    this.props.handleKeyUp(event);
+                }
+                this._handleChange();
             }
-          });
+        });
 
     },
     _handleChangeScope(event) {
@@ -120,12 +123,15 @@ let SearchBar = {
         return (
             <div className={`${this._getStyleClassName()}`} data-focus='search-bar'>
                 {this.props.hasScopes &&
-                    <div className='sb-scope-choice'>
-                        <Scope handleOnClick={this._handleOnClickScope} list={this.props.scopes} ref='scope' value={this.state.scope}/>
-                    </div>
+                <div className='sb-scope-choice'>
+                    <Scope handleOnClick={this._handleOnClickScope} list={this.props.scopes} ref='scope'
+                           value={this.state.scope}/>
+                </div>
                 }
                 <div className='sb-input-search'>
-                    <input autofocus className={this._getClassName()} onChange={this._handleKeyUp} ref='query'  type='search' placeholder={this.props.placeholder} value={this.state.value} />
+                    <input autofocus className={this._getClassName()} onChange={this._handleKeyUp} ref='query'
+                           type='search' placeholder={this.props.placeholder} value={this.state.value}/>
+
                     <div className={`sb-spinner three-quarters-loader ${loadingClassName}`}></div>
                 </div>
                 {this._renderHelp()}
