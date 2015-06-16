@@ -26,7 +26,8 @@ let StickyNavigation = {
         return ({
             titleSelector: '[data-menu]',
             scrolledElementSelector: 'body',
-            hasBackToTop: true
+            hasBackToTop: true,
+            affixMargin: 80
         });
     },
     /**
@@ -37,7 +38,8 @@ let StickyNavigation = {
         scrolledElementSelector: type('string'),
         triggerHeight: type('number'),
         style: type('object'),
-        hasBackToTop: type('bool')
+        hasBackToTop: type('bool'),
+        affixMargin: type('number')
     },
     /**
      * Component did mount, attach the scroll spy
@@ -96,6 +98,7 @@ let StickyNavigation = {
      */
     _scrollSpy() {
         let scrollPosition = document.querySelector(this.props.scrolledElementSelector).scrollTop;
+        this.setState({affixNav: this.props.affixMargin < scrollPosition});
         if (this.state && this.state.titleList) {
             this.state.titleList.forEach((title) => {
                 if (title.offsetTop <= scrollPosition && title.offsetTop + title.offsetHeight > scrollPosition) {
@@ -140,7 +143,7 @@ let StickyNavigation = {
      */
     render() {
         return (
-            <nav data-focus='sticky-navigation' className={this._getStyleClassName()} data-spy="affix" data-offset-top="0" data-offset-bottom="0">
+            <nav data-focus='sticky-navigation' className={this._getStyleClassName()} data-affix={this.state && this.state.affixNav ? 'true' : 'false'} ref='nav'>
                 {this._renderList()}
             </nav>
         )
