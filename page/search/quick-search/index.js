@@ -80,20 +80,18 @@ let QuickSearchComponent = {
      * @private
      */
     _registerListeners(){
-        if(this.props.store){
-            this.props.store.addSearchChangeListener(this.onSearchChange);
-        } else {
-            console.warn('Search result has no store to listen to. Please provide one as a "store" property.');
-        }
+        this.props.store.addSearchChangeListener(this.onSearchChange);
+        Focus.search.builtInStore.queryStore.addQueryChangeListener(this.onChange);
+        Focus.search.builtInStore.queryStore.addScopeChangeListener(this.onChange);
     },
     /**
      * Unregister a listener on the store.
      * @private
      */
     _unRegisterListeners(){
-        if(this.props.store){
-            this.props.store.removeSearchChangeListener(this.onSearchChange);
-        }
+        this.props.store.removeSearchChangeListener(this.onSearchChange);
+        Focus.search.builtInStore.queryStore.removeQueryChangeListener(this.onChange);
+        Focus.search.builtInStore.queryStore.removeScopeChangeListener(this.onChange);
     },
     /**
      * Handler when store emit a change event.
@@ -124,18 +122,27 @@ let QuickSearchComponent = {
             this.props.onLineClick(item);
         }
     },
-    _prepareSearch(searchValues){
-        clearTimeout(this._searchTimeout);
-        this._searchTimeout = setTimeout(() => {
-            this.setState(
-                assign(
-                    {isLoadingSearch: true},
-                    searchValues,
-                    this.getNoFetchState()
-                ),
-                this.search
-            );
-        }, 500);
+    //_prepareSearch(searchValues){
+    //    clearTimeout(this._searchTimeout);
+    //    this._searchTimeout = setTimeout(() => {
+    //        this.setState(
+    //            assign(
+    //                {isLoadingSearch: true},
+    //                searchValues,
+    //                this.getNoFetchState()
+    //            ),
+    //            this.search
+    //        );
+    //    }, 500);
+    //},
+    onChange() {
+        this.setState(
+            assign(
+                {isLoadingSearch: true},
+                this.getNoFetchState()
+            ),
+            this.search
+        );
     },
     /**
      * return a SearchBar
@@ -145,7 +152,6 @@ let QuickSearchComponent = {
         return (
             <this.props.SearchBar
                 data-focus='search-bar'
-                handleChange={this._prepareSearch}
                 ref='searchBar'
                 scope={this.props.scope}
                 scopes={this.props.scopeList}
