@@ -4,6 +4,7 @@ let builder = require('focus').component.builder;
 let type = require('focus').component.types;
 let React = require('react');
 let words = require('lodash/string/words');
+let actionWrapper = require('../../page/search/search-header/action-wrapper');
 
 // Components
 
@@ -13,18 +14,22 @@ let Scope = require('./scope').component;
 
 let stylable = require('../../mixin/stylable');
 let i18n = require('../../common/i18n/mixin');
+let storeBehaviour = require('../../common/mixin/store-behaviour');
 
 /**
  * SearchBar component
  * @type {Object}
  */
 let SearchBar = {
-    mixins: [i18n, stylable],
+    mixins: [i18n, stylable, storeBehaviour],
+    stores: [{
+        store: Focus.search.builtInStore.queryStore,
+        properties: ['query', 'scope']
+    }],
     displayName: 'SearchBar',
     getDefaultProps() {
         return {
             placeholder: 'Enter your search here...',
-            value: '',
             scopes: [],
             minChar: 0,
             loading: false,
@@ -35,7 +40,6 @@ let SearchBar = {
     propTypes: {
         placeholder: type('string'),
         value: type('string'),
-        scope: type(['string', 'number']),
         scopes: type('array'),
         minChar: type('number'),
         loading: type('bool'),
@@ -44,68 +48,59 @@ let SearchBar = {
     },
     getInitialState() {
         return {
-            value: this.props.value,
-            scope: this.props.scope,
+            query: Focus.search.builtInStore.queryStore.getQuery() || '',
+            scope: Focus.search.builtInStore.queryStore.getScope() || '',
             loading: this.props.loading
         };
-    },
-    componentWillReceiveProps(newProps) {
-        if (newProps && newProps.loading !== undefined) {
-            this.setState({loading: newProps.loading, scope: newProps.scope});
-        }
     },
     componentDidMount() {
         React.findDOMNode(this.refs.query).focus();
     },
-    getValue() {
-        if (this.props.hasScopes) {
-            return {
-                scope: this.refs.scope.getValue(),
-                query: React.findDOMNode(this.refs.query).value
-            }
-        } else {
-            return {
-                query: React.findDOMNode(this.refs.query).value
-            }
-        }
-    },
+    //getValue() {
+    //    if (this.props.hasScopes) {
+    //        return {
+    //            scope: this.refs.scope.getValue(),
+    //            query: React.findDOMNode(this.refs.query).value
+    //        }
+    //    } else {
+    //        return {
+    //            query: React.findDOMNode(this.refs.query).value
+    //        }
+    //    }
+    //},
     _getClassName() {
         return `form-control`;
     },
-    _handleChange() {
-        Focus.dispatcher.handleViewAction({
-            data: this.getValue(),
-            type: 'update'
-        });
-        if (this.props.handleChange) {
-            return this.props.handleChange(this.getValue());
-        }
+    _handleQueryChange() {
+        actionWrapper(() => {
+            Focus.dispatcher.handleViewAction({
+                data: {
+                    query: React.findDOMNode(this.refs.query).value
+                },
+                type: 'update'
+            });
+        })();
+
     },
     _handleKeyUp(event) {
-        this.setState({value: event.target.value}, ()=> {
-            if (this.state.value.length >= this.props.minChar) {
+        this.setState({query: event.target.value}, ()=> {
+            if (this.state.query.length >= this.props.minChar) {
                 if (this.props.handleKeyUp) {
                     this.props.handleKeyUp(event);
                 }
-                this._handleChange();
+                this._handleQueryChange();
             }
         });
 
     },
-    _handleChangeScope(event) {
-        this._focusQuery();
-        //If query not empty
-        let query = this.getValue().query;
-        if (!query || 0 === query.length) {
-            return;
-        }
-        if (this.props.handleChangeScope) {
-            this.props.handleChangeScope(event);
-        }
-        this._handleChange();
-    },
     _handleOnClickScope() {
-        this.setState({scope: this.refs.scope.getValue()}, this._handleChangeScope(event));
+        this._focusQuery();
+        Focus.dispatcher.handleViewAction({
+            data: {
+                scope: this.refs.scope.getValue()
+            },
+            type: 'update'
+        });
     },
     _renderHelp() {
         return (
@@ -115,9 +110,9 @@ let SearchBar = {
     _focusQuery() {
         React.findDOMNode(this.refs.query).focus();
     },
-    setStateFromSubComponent() {
-        return this.setState(this.getValue(), this._focusQuery);
-    },
+    //setStateFromSubComponent() {
+    //    return this.setState(this.getValue(), this._focusQuery);
+    //},
     render() {
         let loadingClassName = this.props.loading ? 'sb-loading' : '';
         return (
@@ -130,7 +125,7 @@ let SearchBar = {
                 }
                 <div className='sb-input-search'>
                     <input autofocus className={this._getClassName()} onChange={this._handleKeyUp} ref='query'
-                           type='search' placeholder={this.props.placeholder} value={this.state.value}/>
+                           type='search' placeholder={this.props.placeholder} value={this.state.query}/>
 
                     <div className={`sb-spinner three-quarters-loader ${loadingClassName}`}></div>
                 </div>
