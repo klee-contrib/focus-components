@@ -25,11 +25,11 @@ let SearchBar = {
         return {
             placeholder: 'Enter your search here...',
             value: '',
-            scope: undefined,
             scopes: [],
             minChar: 0,
             loading: false,
-            helpTranslationPath: 'search.bar.help'
+            helpTranslationPath: 'search.bar.help',
+            hasScopes: false
         };
     },
     propTypes: {
@@ -39,7 +39,8 @@ let SearchBar = {
         scopes: type('array'),
         minChar: type('number'),
         loading: type('bool'),
-        helpTranslationPath: type('string')
+        helpTranslationPath: type('string'),
+        hasScopes: type('bool')
     },
     getInitialState() {
         return {
@@ -57,10 +58,16 @@ let SearchBar = {
         React.findDOMNode(this.refs.query).focus();
     },
     getValue() {
-        return {
-            scope: this.refs.scope.getValue(),
-            query: React.findDOMNode(this.refs.query).value
-        };
+        if (this.props.hasScopes) {
+            return {
+                scope: this.refs.scope.getValue(),
+                query: React.findDOMNode(this.refs.query).value
+            }
+        } else {
+            return {
+                query: React.findDOMNode(this.refs.query).value
+            }
+        }
     },
     _getClassName() {
         return `form-control`;
@@ -112,7 +119,11 @@ let SearchBar = {
         let loadingClassName = this.props.loading ? 'sb-loading' : '';
         return (
             <div className={`${this._getStyleClassName()}`} data-focus='search-bar'>
-                <div className='sb-scope-choice'><Scope handleOnClick={this._handleOnClickScope} list={this.props.scopes} ref='scope' value={this.state.scope}/></div>
+                {this.props.hasScopes &&
+                    <div className='sb-scope-choice'>
+                        <Scope handleOnClick={this._handleOnClickScope} list={this.props.scopes} ref='scope' value={this.state.scope}/>
+                    </div>
+                }
                 <div className='sb-input-search'>
                     <input autofocus className={this._getClassName()} onChange={this._handleKeyUp} ref='query'  type='search' placeholder={this.props.placeholder} value={this.state.value} />
                     <div className={`sb-spinner three-quarters-loader ${loadingClassName}`}></div>
