@@ -15,6 +15,7 @@ let ScrollInfoMixin = require('../common/scroll-info-mixin').mixin;
 let GroupByMixin = require('../common/group-by-mixin').mixin;
 let SearchMixin = require('../common/search-mixin').mixin;
 let referenceBehaviour = require('../../../common/form/mixin/reference-behaviour');
+let storeBehaviour = require('../../../common/mixin/store-behaviour');
 
 /**
  * General search mixin.
@@ -22,7 +23,7 @@ let referenceBehaviour = require('../../../common/form/mixin/reference-behaviour
  * @type {Object}
  */
 let QuickSearchComponent = {
-    mixins: [ScrollInfoMixin, GroupByMixin, SearchMixin, referenceBehaviour],
+    mixins: [ScrollInfoMixin, GroupByMixin, SearchMixin, referenceBehaviour, storeBehaviour],
     /**
      * Tag name.
      */
@@ -31,7 +32,7 @@ let QuickSearchComponent = {
      * Component initialization
      */
     componentDidMount() {
-        this._registerListeners();
+        this.__registerListeners();
     },
     componentWillMount() {
         this._loadReference();
@@ -41,7 +42,7 @@ let QuickSearchComponent = {
      * @constructor
      */
     componentWillUnmount() {
-        this._unRegisterListeners();
+        this.__unRegisterListeners();
     },
     getDefaultProps() {
         return {
@@ -51,6 +52,7 @@ let QuickSearchComponent = {
             groupMaxRows: 3
         };
     },
+    referenceNames: ['scopes'],
     /**
      * properties validation
      */
@@ -82,7 +84,7 @@ let QuickSearchComponent = {
      * Register a listener on the store.
      * @private
      */
-    _registerListeners() {
+    __registerListeners() {
         this.props.store.addSearchChangeListener(this.onSearchChange);
         Focus.search.builtInStore.queryStore.addQueryChangeListener(this._onQueryStoreChange);
         Focus.search.builtInStore.queryStore.addScopeChangeListener(this._onQueryStoreChange);
@@ -91,7 +93,7 @@ let QuickSearchComponent = {
      * Unregister a listener on the store.
      * @private
      */
-    _unRegisterListeners() {
+    __unRegisterListeners() {
         this.props.store.removeSearchChangeListener(this.onSearchChange);
         Focus.search.builtInStore.queryStore.removeQueryChangeListener(this._onQueryStoreChange);
         Focus.search.builtInStore.queryStore.removeScopeChangeListener(this._onQueryStoreChange);
