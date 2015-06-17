@@ -5,6 +5,7 @@ let React = require('react');
 let assign = require('object-assign');
 let reduce = require('lodash/collection/reduce');
 let includes = require('lodash/collection/includes');
+let omit = require('lodash/object/omit');
 
 // Components
 
@@ -137,8 +138,10 @@ let AdvancedSearch = {
     _getFacetListForBar() {
         let facetList = {};
         for (let key in this.state.selectedFacetList) {
-            let facet = this.state.selectedFacetList[key];
-            facetList[key] = facet.data.label;
+            if (key !== 'FCT_SCOPE') {
+                let facet = this.state.selectedFacetList[key];
+                facetList[key] = facet.data.label;
+            }
         }
         return facetList;
     },

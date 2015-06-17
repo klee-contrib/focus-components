@@ -5,6 +5,7 @@ let type = require('focus').component.types;
 let React = require('react');
 let words = require('lodash/string/words');
 let actionWrapper = require('../../page/search/search-header/action-wrapper');
+let assign = require('lodash/object/extend');
 
 // Components
 
@@ -48,14 +49,13 @@ let SearchBar = {
         hasScopes: type('bool')
     },
     getInitialState() {
-        return {
-            query: Focus.search.builtInStore.queryStore.getQuery() || '',
-            scope: Focus.search.builtInStore.queryStore.getScope() || this.props.scope || '',
-            loading: this.props.loading
-        };
+        return assign({loading: this.props.loading, scope: this.props.scope, query: this.props.query}, this._getStateFromStores());
     },
     componentDidMount() {
         React.findDOMNode(this.refs.query).focus();
+    },
+    onChange() {
+        this.setState(this._getStateFromStores())
     },
     //getValue() {
     //    if (this.props.hasScopes) {

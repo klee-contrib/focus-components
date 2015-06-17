@@ -16,7 +16,9 @@ module.exports = {
     },
     getInitialState() {
         return {
-            isLoading: false
+            isLoading: false,
+            scope: this.props.scope,
+            query: this.props.query
         }
     },
     componentWillMount() {
@@ -29,6 +31,9 @@ module.exports = {
         Focus.search.builtInStore.queryStore.removeScopeChangeListener(this._onQueryStoreChange);
     },
     _onQueryStoreChange(event) {
+        let query = Focus.search.builtInStore.queryStore.getQuery();
+        let scope = Focus.search.builtInStore.queryStore.getScope();
+        this.setState({query, scope});
         if (event.informations.callerId === this.refs.searchBar._uuid) {
             this._runSearch()
         }
@@ -39,8 +44,8 @@ module.exports = {
     _SearchBarComponent() {
         return <SearchBar
             ref='searchBar'
-            value={this.props.query}
-            scope={this.props.scope}
+            value={this.state.query}
+            scope={this.state.scope}
             scopes={this.state.reference.scopes}
             loading={this.state.isLoadingSearch}
             handleChange={this._wrappedSearch}
