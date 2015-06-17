@@ -50,7 +50,7 @@ let SearchBar = {
     getInitialState() {
         return {
             query: Focus.search.builtInStore.queryStore.getQuery() || '',
-            scope: Focus.search.builtInStore.queryStore.getScope() || '',
+            scope: Focus.search.builtInStore.queryStore.getScope() || this.props.scope || '',
             loading: this.props.loading
         };
     },
