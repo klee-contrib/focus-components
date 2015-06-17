@@ -10,7 +10,7 @@ module.exports = React.createClass({
     return (
       <Header>
         <ContentBar>
-          <Bar appName='FOCUS'/>
+          <Bar />
           <Cartridge />
         </ContentBar>
         <ContentActions />
