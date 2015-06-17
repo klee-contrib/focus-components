@@ -5,7 +5,6 @@ var applicationStore = require('focus').application.builtInStore();
 var barMixin = {
   getDefaultProps: function getCartridgeDefaultProps(){
     return {
-      appName: "",
       style: {}
     };
   },
