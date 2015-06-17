@@ -144,14 +144,18 @@ let AdvancedSearch = {
     },
     /**
      * Click on bar facet action handler.
-     * @param key [string}  Key of the clicked facet.
+     * @param key [string]  Key of the clicked facet.
      * @private
      */
     _facetBarClick(key) {
         let selectedFacetList = this.state.selectedFacetList;
-        delete selectedFacetList[key];
+        if (key === 'FCT_SCOPE') {
+            Focus.search.changeScope('ALL');
+            selectedFacetList = {};
+        } else {
+            delete selectedFacetList[key];
+        }
 
-        this.state.selectedFacetList = selectedFacetList;
         this.setState(
             assign(
                 {selectedFacetList: selectedFacetList},
