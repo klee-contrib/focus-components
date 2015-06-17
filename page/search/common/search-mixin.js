@@ -51,20 +51,10 @@ let SearchMixin = {
         };
     },
     getSearchCriteria() {
-        let facets = [];
-        if (this.state.selectedFacetList) {
-            facets = Object.keys(this.state.selectedFacetList).map((selectedFacetKey) => {
-                let selectedFacet = this.state.selectedFacetList[selectedFacetKey];
-                return {
-                    key: selectedFacetKey,
-                    value: selectedFacet.key
-                };
-            });
-        }
         if(!isFunction(this.props.searchAction)){
           console.warn(`Your page seems to miss a search action, add in your props a {searchAction: function(scope, query, facets){}}`, this.props.searchAction);
         }
-        return this._buildSearchCriteria(facets);
+        return this._buildSearchCriteria(this.state.selectedFacetList);
     },
     search() {
         this.props.searchAction(
