@@ -1,12 +1,12 @@
+// Dependencies
+
 let isFunction = require('lodash/lang/isFunction');
+
+// Stores
+
 let BuiltInSearchStore = Focus.search.builtInStore;
 
 let SearchMixin = {
-    //mixins: [storeBehaviour],
-    //stores: [{
-    //    store: Focus.search.builtInStore.queryStore,
-    //    properties: ['query', 'scope']
-    //}],
     getDefaultProps() {
         return ({
             store: BuiltInSearchStore.searchStore
