@@ -44,7 +44,6 @@ module.exports = {
             scopes={this.state.reference.scopes}
             loading={this.state.isLoadingSearch}
             handleChange={this._wrappedSearch}
-            referenceNames={this.props.referenceNames}
             hasScopes={this.props.hasScopes}
             />;
     }
