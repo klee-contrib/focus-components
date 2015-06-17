@@ -7,13 +7,15 @@ let React = require('react');
 
 // Components
 
-let SearchBar  = require('../../../search/search-bar').component;
+let SearchBar = require('../../../search/search-bar').component;
 
 // Mixins
 
 let ScrollInfoMixin = require('../common/scroll-info-mixin').mixin;
-let GroupByMixin= require('../common/group-by-mixin').mixin;
+let GroupByMixin = require('../common/group-by-mixin').mixin;
 let SearchMixin = require('../common/search-mixin').mixin;
+let referenceBehaviour = require('../../../common/form/mixin/reference-behaviour');
+let storeBehaviour = require('../../../common/mixin/store-behaviour');
 
 /**
  * General search mixin.
@@ -21,7 +23,7 @@ let SearchMixin = require('../common/search-mixin').mixin;
  * @type {Object}
  */
 let QuickSearchComponent = {
-    mixins: [ScrollInfoMixin, GroupByMixin, SearchMixin],
+    mixins: [ScrollInfoMixin, GroupByMixin, SearchMixin, referenceBehaviour, storeBehaviour],
     /**
      * Tag name.
      */
@@ -29,18 +31,20 @@ let QuickSearchComponent = {
     /**
      * Component initialization
      */
-    componentDidMount(){
-        this._registerListeners();
+    componentDidMount() {
+        this.__registerListeners();
     },
-
+    componentWillMount() {
+        this._loadReference();
+    },
     /**
      * Actions before component will unmount.
      * @constructor
      */
-    componentWillUnmount(){
-        this._unRegisterListeners();
+    componentWillUnmount() {
+        this.__unRegisterListeners();
     },
-    getDefaultProps(){
+    getDefaultProps() {
         return {
             isSelection: false,
             idField: 'id',
@@ -48,6 +52,7 @@ let QuickSearchComponent = {
             groupMaxRows: 3
         };
     },
+    referenceNames: ['scopes'],
     /**
      * properties validation
      */
@@ -70,30 +75,28 @@ let QuickSearchComponent = {
         };
     },
     getCriteria() {
-      if(!this.refs.searchBar){
-        return {};
-      }
-      return this.refs.searchBar.getValue();
+        if (!this.refs.searchBar) {
+            return {};
+        }
+        return this.refs.searchBar.getValue();
     },
     /**
      * Register a listener on the store.
      * @private
      */
-    _registerListeners(){
-        if(this.props.store){
-            this.props.store.addSearchChangeListener(this.onSearchChange);
-        } else {
-            console.warn('Search result has no store to listen to. Please provide one as a "store" property.');
-        }
+    __registerListeners() {
+        this.props.store.addSearchChangeListener(this.onSearchChange);
+        Focus.search.builtInStore.queryStore.addQueryChangeListener(this._onQueryStoreChange);
+        Focus.search.builtInStore.queryStore.addScopeChangeListener(this._onQueryStoreChange);
     },
     /**
      * Unregister a listener on the store.
      * @private
      */
-    _unRegisterListeners(){
-        if(this.props.store){
-            this.props.store.removeSearchChangeListener(this.onSearchChange);
-        }
+    __unRegisterListeners() {
+        this.props.store.removeSearchChangeListener(this.onSearchChange);
+        Focus.search.builtInStore.queryStore.removeQueryChangeListener(this._onQueryStoreChange);
+        Focus.search.builtInStore.queryStore.removeScopeChangeListener(this._onQueryStoreChange);
     },
     /**
      * Handler when store emit a change event.
@@ -101,16 +104,29 @@ let QuickSearchComponent = {
     onSearchChange() {
         this.setState(assign({isLoadingSearch: false}, this.getScrollState()));
     },
+    _onQueryStoreChange(event) {
+        this.setState(
+            assign(
+                {isLoadingSearch: true},
+                this.getNoFetchState()
+            ),
+            () => {
+                if (event.informations.callerId === this.refs.searchBar._uuid) {
+                    this.search()
+                }
+            }
+        );
+    },
     /**
      * Action on item selection.
      * @param {object} item selected
      */
-    _selectItem(item){
+    _selectItem(item) {
         let selected = this.state.selected;
         let index = selected.indexOf(item);
-        if(index){
+        if (index) {
             selected.splice(index, index);
-        }else{
+        } else {
             selected.push(item);
         }
         this.setState({selected});
@@ -119,24 +135,24 @@ let QuickSearchComponent = {
      * Action on line click.
      * @param {object} item  the item clicked
      */
-    _lineClick(item){
-        if(this.props.onLineClick){
+    _lineClick(item) {
+        if (this.props.onLineClick) {
             this.props.onLineClick(item);
         }
     },
-    _prepareSearch(searchValues){
-        clearTimeout(this._searchTimeout);
-        this._searchTimeout = setTimeout(() => {
-            this.setState(
-                assign(
-                    {isLoadingSearch: true},
-                    searchValues,
-                    this.getNoFetchState()
-                ),
-                this.search
-            );
-        }, 500);
-    },
+    //_prepareSearch(searchValues){
+    //    clearTimeout(this._searchTimeout);
+    //    this._searchTimeout = setTimeout(() => {
+    //        this.setState(
+    //            assign(
+    //                {isLoadingSearch: true},
+    //                searchValues,
+    //                this.getNoFetchState()
+    //            ),
+    //            this.search
+    //        );
+    //    }, 500);
+    //},
     /**
      * return a SearchBar
      * @returns {XML} the component
@@ -145,12 +161,11 @@ let QuickSearchComponent = {
         return (
             <this.props.SearchBar
                 data-focus='search-bar'
-                handleChange={this._prepareSearch}
                 ref='searchBar'
                 scope={this.props.scope}
-                scopes={this.props.scopeList}
+                scopes={this.state.reference.scopes}
                 loading={this.state.isLoadingSearch}
-            />
+                />
         );
     },
     render() {

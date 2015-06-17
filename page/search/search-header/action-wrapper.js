@@ -1,4 +1,4 @@
-const DEFAULT_TIMEOUT = 1000; // 1s
+const DEFAULT_TIMEOUT = 500; // 0.5s
 var currentCall = {};
 function actionWrapper(searchAction, context){
   return function(){
