@@ -15,13 +15,14 @@ let Scope = require('./scope').component;
 let stylable = require('../../mixin/stylable');
 let i18n = require('../../common/i18n/mixin');
 let storeBehaviour = require('../../common/mixin/store-behaviour');
+let queryStoreBehaviour = require('../mixin/query-store-behaviour');
 
 /**
  * SearchBar component
  * @type {Object}
  */
 let SearchBar = {
-    mixins: [i18n, stylable, storeBehaviour],
+    mixins: [i18n, stylable, storeBehaviour, queryStoreBehaviour],
     stores: [{
         store: Focus.search.builtInStore.queryStore,
         properties: ['query', 'scope']
@@ -73,14 +74,8 @@ let SearchBar = {
     },
     _handleQueryChange() {
         actionWrapper(() => {
-            Focus.dispatcher.handleViewAction({
-                data: {
-                    query: React.findDOMNode(this.refs.query).value
-                },
-                type: 'update'
-            });
+            this._updateQuery(React.findDOMNode(this.refs.query).value);
         })();
-
     },
     _handleKeyUp(event) {
         this.setState({query: event.target.value}, ()=> {
@@ -95,12 +90,7 @@ let SearchBar = {
     },
     _handleOnClickScope() {
         this._focusQuery();
-        Focus.dispatcher.handleViewAction({
-            data: {
-                scope: this.refs.scope.getValue()
-            },
-            type: 'update'
-        });
+        this._updateScope(this.refs.scope.getValue());
     },
     _renderHelp() {
         return (
