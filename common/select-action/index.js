@@ -72,9 +72,11 @@ var selectActionMixin = {
             return <div/>;
         }
         var liList = this._getList(this.props.operationList);
+        //todo : a revoir pour gérer les boutons d'action groupés
         return (
-            <div className="select-action btn btn-fab btn-default" onClick={this._dropdownToggleClickHandler}>
-                <a className="dropdown-toggle" data-toggle="dropdown" ref='dropdown-toggle'><i className={`fa fa-${this.props.icon}`}></i></a>
+            <div data-focus="select-action" className='' onClick={this._dropdownToggleClickHandler}>
+                <a className={`btn btn-fab btn-default fa fa-${this.props.icon}`}></a>
+                <a className="dropdown-toggle" data-toggle="dropdown" ref='dropdown-toggle'></a>
                 <ul className="dropdown-menu">{liList}</ul>
             </div>
         );

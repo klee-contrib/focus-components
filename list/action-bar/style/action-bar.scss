@@ -1,41 +1,26 @@
-.checkbox-unchecked {
-  background: url("../img/checkbox-unchecked.svg") no-repeat center;
-}
-.checkbox-checked {
-  background: url("../img/checkbox-checked.svg") no-repeat center;
-}
-.notification {
-  background: url("../img/notification.svg") no-repeat center;
-}
-.circle-down {
-  background: url("../img/circle-down.svg") no-repeat center;
-}
-.circle-up {
-  background: url("../img/circle-up.svg") no-repeat center;
-}
-.chevron-down {
-  background: url("../img/chevron-down.svg") no-repeat center;
-}
-.chevron-up {
-  background: url("../img/chevron-up.svg") no-repeat center;
-}
-.controller-record {
-  background: url("../img/controller-record.svg") no-repeat center;
-}
+$list-action-bar-size: 55px;
 
-.action-bar {
+[data-focus="list-action-bar"] {
   margin-top: 10px;
-  .general-action, .facet-container, .contextual-action {
-    display: inline-block;
-    padding: 0 25px 0 25px;
+  box-shadow: 1px 1px 4px 1px #e7e7e7;
+  height: $list-action-bar-size;
+  line-height: $list-action-bar-size;
+
+  [data-focus="global-list-content"] {
+    float: left;
+    height: $list-action-bar-size;
+    line-height: $list-action-bar-size;
+    width: 200px;
   }
-  .general-action {
-    border-right: solid 2px;
+  [data-focus="contextual-action-content"] {
+    float: right;
+    height: $list-action-bar-size;
+    line-height: $list-action-bar-size;
   }
-  .contextual-action {
-    border-left: solid 2px;
-  }
-  .facet-container {
-    width: 400px;
+  [data-focus="selected-facet-content"] {
+    height: $list-action-bar-size;
+    line-height: $list-action-bar-size;
+    margin-left: 200px;
+    overflow: hidden;
   }
 }
