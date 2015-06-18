@@ -57,18 +57,6 @@ let SearchBar = {
     onChange() {
         this.setState(this._getStateFromStores())
     },
-    //getValue() {
-    //    if (this.props.hasScopes) {
-    //        return {
-    //            scope: this.refs.scope.getValue(),
-    //            query: React.findDOMNode(this.refs.query).value
-    //        }
-    //    } else {
-    //        return {
-    //            query: React.findDOMNode(this.refs.query).value
-    //        }
-    //    }
-    //},
     _getClassName() {
         return `form-control`;
     },
@@ -105,6 +93,7 @@ let SearchBar = {
     //},
     render() {
         let loadingClassName = this.props.loading ? 'sb-loading' : '';
+        console.log(this.props.hasScopes);
         return (
             <div className={`${this._getStyleClassName()}`} data-focus='search-bar'>
                 {this.props.hasScopes &&
