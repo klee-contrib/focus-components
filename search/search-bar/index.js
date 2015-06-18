@@ -93,8 +93,9 @@ let SearchBar = {
     //},
     render() {
         let loadingClassName = this.props.loading ? 'sb-loading' : '';
+        let scopeClassName = this.props.hasScopes ? 'withScopes' : 'noScopes';
         return (
-            <div className={`${this._getStyleClassName()}`} data-focus='search-bar'>
+            <div className={`${this._getStyleClassName()} ${scopeClassName}`} data-focus='search-bar'>
                 {this.props.hasScopes &&
                 <div className='sb-scope-choice'>
                     <Scope handleOnClick={this._handleOnClickScope} list={this.props.scopes} ref='scope'
