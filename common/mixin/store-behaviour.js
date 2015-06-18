@@ -1,6 +1,6 @@
 var capitalize = require('lodash/string/capitalize');
 var assign = require('object-assign');
-var isArray = require('lodash/lang/isArray');
+var {isObject, isArray} = require('lodash/lang');
 var keys = require('lodash/object/keys');
 var storeChangeBehaviour = require('./store-change-behaviour');
 
@@ -69,11 +69,11 @@ var storeMixin = {
     }
     var entity = {reference: {}};
     for(var key in data){
-      if(this.referenceNames && this.referenceNames.indexOf(key) !== -1){
+      if(this.referenceNames && this.referenceNames.indexOf(key) !== -1 ){
         entity.reference[key] = data[key];
       }else {
         var d = data[key];
-        if(isArray(d)){
+        if(!isObject(d)){
           d = {[key] : d};
         }
         assign(entity, d);

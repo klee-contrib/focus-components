@@ -5,6 +5,7 @@ let type = require('focus').component.types;
 let React = require('react');
 let words = require('lodash/string/words');
 let actionWrapper = require('../../page/search/search-header/action-wrapper');
+let assign = require('lodash/object/extend');
 
 // Components
 
@@ -48,27 +49,14 @@ let SearchBar = {
         hasScopes: type('bool')
     },
     getInitialState() {
-        return {
-            query: Focus.search.builtInStore.queryStore.getQuery() || '',
-            scope: Focus.search.builtInStore.queryStore.getScope() || this.props.scope || '',
-            loading: this.props.loading
-        };
+        return assign({loading: this.props.loading, scope: this.props.scope, query: this.props.query}, this._getStateFromStores());
     },
     componentDidMount() {
         React.findDOMNode(this.refs.query).focus();
     },
-    //getValue() {
-    //    if (this.props.hasScopes) {
-    //        return {
-    //            scope: this.refs.scope.getValue(),
-    //            query: React.findDOMNode(this.refs.query).value
-    //        }
-    //    } else {
-    //        return {
-    //            query: React.findDOMNode(this.refs.query).value
-    //        }
-    //    }
-    //},
+    onChange() {
+        this.setState(this._getStateFromStores())
+    },
     _getClassName() {
         return `form-control`;
     },
@@ -105,6 +93,7 @@ let SearchBar = {
     //},
     render() {
         let loadingClassName = this.props.loading ? 'sb-loading' : '';
+        console.log(this.props.hasScopes);
         return (
             <div className={`${this._getStyleClassName()}`} data-focus='search-bar'>
                 {this.props.hasScopes &&
