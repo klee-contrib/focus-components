@@ -93,7 +93,6 @@ let SearchBar = {
     //},
     render() {
         let loadingClassName = this.props.loading ? 'sb-loading' : '';
-        console.log(this.props.hasScopes);
         return (
             <div className={`${this._getStyleClassName()}`} data-focus='search-bar'>
                 {this.props.hasScopes &&
