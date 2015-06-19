@@ -84,7 +84,7 @@ let GroupByMixin = {
     },
     _getSingleTypeResultList(groupKey, list, maxRows) {
         if (list.length === 0) {
-            return <this.emptyComponent />;
+            return <this.props.emptyComponent />;
         }
         if (maxRows) {
             list = list.slice(0, maxRows);
