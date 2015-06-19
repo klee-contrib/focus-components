@@ -1,9 +1,30 @@
-/*.dots-three-vertical {
-  background: url("../img/dots-three-vertical.svg") no-repeat center;
-}*/
 
-.select-action {
-  li.selected a {
-    font-weight: bold;
+[data-focus="select-action"] {
+  position: relative;
+  display: inline-block;
+}
+
+
+[data-focus="list-action-bar"] {
+  [data-focus="select-action"] {
+    .btn {
+      &.btn-fab {
+        border: 0;
+        padding: 0;
+        box-shadow: 0 0 0;
+        margin: 0;
+        padding: 13px;
+        font-size: 26px;
+        width: 50px;
+        height: 50px;
+      }
+    }
+    &.open {
+      .btn {
+        .ripple-wrapper {
+          background-color: rgba(231, 231, 231, 0.5);
+        }
+      }
+    }
   }
 }

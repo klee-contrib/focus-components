@@ -1,10 +1,15 @@
+// Dependencies
+
 let isFunction = require('lodash/lang/isFunction');
+
+// Stores
+
 let BuiltInSearchStore = Focus.search.builtInStore;
 
 let SearchMixin = {
     getDefaultProps() {
         return ({
-            store: BuiltInSearchStore
+            store: BuiltInSearchStore.searchStore
         });
     },
     /**
@@ -32,7 +37,9 @@ let SearchMixin = {
      * @param {object} facets Selected facets.
      * @returns {object} Formatted criteria {criteria:{}, pagesInfos:{}, facets:{}}.
      */
-    _buildSearchCriteria(scope, query, facets) {
+    _buildSearchCriteria(facets) {
+        let query = Focus.search.builtInStore.queryStore.getQuery() || '';
+        let scope = Focus.search.builtInStore.queryStore.getScope() || '';
         return {
             criteria: {scope, query},
             pageInfos: {
@@ -44,23 +51,12 @@ let SearchMixin = {
         };
     },
     getSearchCriteria() {
-        let facets = [];
-        if (this.state.selectedFacetList) {
-            facets = Object.keys(this.state.selectedFacetList).map((selectedFacetKey) => {
-                let selectedFacet = this.state.selectedFacetList[selectedFacetKey];
-                return {
-                    key: selectedFacetKey,
-                    value: selectedFacet.key
-                };
-            });
-        }
         if(!isFunction(this.props.searchAction)){
           console.warn(`Your page seems to miss a search action, add in your props a {searchAction: function(scope, query, facets){}}`, this.props.searchAction);
         }
-        return this._buildSearchCriteria(this.state.scope, this.state.query, facets);
+        return this._buildSearchCriteria(this.state.selectedFacetList);
     },
     search() {
-        
         this.props.searchAction(
             this.getSearchCriteria()
         );

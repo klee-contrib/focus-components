@@ -94,7 +94,6 @@ $sb-input-height: 50px;
   /* Input block */
   .sb-input-search {
     position: relative;
-    margin-left: $sb-scope-width+10;
     input {
       height: $sb-input-height;
       font-size: 22px;
@@ -113,6 +112,17 @@ $sb-input-height: 50px;
       &.sb-loading {
         display: block;
       }
+    }
+  }
+
+  &.withScopes{
+    .sb-input-search {
+      margin-left: $sb-scope-width+10;
+    }
+  }
+  &.noScopes {
+    .sb-input-search {
+      margin-left: 0;
     }
   }
 

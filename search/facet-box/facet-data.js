@@ -6,6 +6,11 @@ let ArgumentInvalidException = require('focus').exception.ArgumentInvalidExcepti
 let numberFormatter = Focus.definition.formatter.number;
 
 let FacetData = {
+    getDefaultProps() {
+        return ({
+            type: 'text'
+        });
+    },
     /**
      * Display name.
      */

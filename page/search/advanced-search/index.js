@@ -5,6 +5,7 @@ let React = require('react');
 let assign = require('object-assign');
 let reduce = require('lodash/collection/reduce');
 let includes = require('lodash/collection/includes');
+let omit = require('lodash/object/omit');
 
 // Components
 
@@ -12,9 +13,10 @@ let FacetBox = require('../../../search/facet-box').component;
 let ListActionBar = require('../../../list/action-bar/index').component;
 let ListSummary = require('../../../list/summary/index').component;
 let BackToTopComponent = require('../../../common/button/back-to-top').component;
+
 // Store
 
-let SearchStore = require('focus').store.SearchStore;
+let queryStore = Focus.search.builtInStore.queryStore;
 
 // Mixins
 
@@ -22,13 +24,21 @@ let ScrollInfoMixin = require('../common/scroll-info-mixin').mixin;
 let GroupByMixin = require('../common/group-by-mixin').mixin;
 let SearchMixin = require('../common/search-mixin').mixin;
 let CartridgeBehaviour = require('../../mixin/cartridge-behaviour');
+let storeBehaviour = require('../../../common/mixin/store-behaviour');
 let type = require('focus').component.types;
 /**
  * Page mixin of the advanced search.
  * @type {Object}
  */
 let AdvancedSearch = {
-    mixins: [ScrollInfoMixin, GroupByMixin, SearchMixin, CartridgeBehaviour],
+    mixins: [ScrollInfoMixin, GroupByMixin, SearchMixin, CartridgeBehaviour, storeBehaviour],
+    stores: [{
+        store: queryStore,
+        properties: ['scope', 'query']
+    }],
+    onChange() {
+        this.setState(this._getStateFromStores())
+    },
     /**
      * Display name.
      */
@@ -37,7 +47,7 @@ let AdvancedSearch = {
      * Component initialisation
      */
     componentDidMount() {
-        this._registerListeners();
+        this.__registerListeners();
         this.search();
     },
     /**
@@ -45,7 +55,7 @@ let AdvancedSearch = {
      * @constructor
      */
     componentWillUnmount() {
-        this._unRegisterListeners();
+        this.__unRegisterListeners();
     },
     /** @inheritedDoc
      */
@@ -95,7 +105,7 @@ let AdvancedSearch = {
      * Get the state from store.
      * @returns {object} Dtat to update store.
      */
-    _getStateFromStore() {
+    __getStateFromStore() {
         if (this.props.store) {
             let data = this.props.store.get();
             return assign({
@@ -108,7 +118,7 @@ let AdvancedSearch = {
      * Register a listener on the store.
      * @private
      */
-    _registerListeners() {
+    __registerListeners() {
         if (this.props.store) {
             this.props.store.addSearchChangeListener(this._onSearchChange);
         }
@@ -117,7 +127,7 @@ let AdvancedSearch = {
      * Unregister a listener on the store.
      * @private
      */
-    _unRegisterListeners() {
+    __unRegisterListeners() {
         if (this.props.store) {
             this.props.store.removeSearchChangeListener(this._onSearchChange);
         }
@@ -127,7 +137,7 @@ let AdvancedSearch = {
      * Handler when store emit a change event.
      */
     _onSearchChange() {
-        this.setState(this._getStateFromStore());
+        this.setState(this.__getStateFromStore());
     },
     /**
      * Get the list of facet to print into the top bar.
@@ -137,21 +147,27 @@ let AdvancedSearch = {
     _getFacetListForBar() {
         let facetList = {};
         for (let key in this.state.selectedFacetList) {
-            let facet = this.state.selectedFacetList[key];
-            facetList[key] = facet.data.label;
+            if (key !== 'FCT_SCOPE') {
+                let facet = this.state.selectedFacetList[key];
+                facetList[key] = facet.data.label;
+            }
         }
         return facetList;
     },
     /**
      * Click on bar facet action handler.
-     * @param key [string}  Key of the clicked facet.
+     * @param key [string]  Key of the clicked facet.
      * @private
      */
     _facetBarClick(key) {
         let selectedFacetList = this.state.selectedFacetList;
-        delete selectedFacetList[key];
+        if (key === 'FCT_SCOPE') {
+            Focus.search.changeScope('ALL');
+            selectedFacetList = {};
+        } else {
+            delete selectedFacetList[key];
+        }
 
-        this.state.selectedFacetList = selectedFacetList;
         this.setState(
             assign(
                 {selectedFacetList: selectedFacetList},
@@ -231,7 +247,11 @@ let AdvancedSearch = {
      * Click on scope action handler.
      */
     _scopeClick() {
-        this.props.unselectScopeAction();
+        Focus.search.changeScope('ALL');
+        this.setState({
+            selectedFacetList: {},
+            scope: 'ALL'
+        }, this.search);
     },
     /**
      * Action on line click.
@@ -284,13 +304,13 @@ let AdvancedSearch = {
      * @returns {XML} Htm code.
      */
     getListSummaryComponent() {
-        let scopeList = {scope: this.props.scope};
+        let scope = this.state.scope !== 'ALL' ? {scope: this.state.scope} : undefined;
         return (
             <ListSummary
                 data-focus='advanced-search-list-summary'
                 nb={this.state.totalRecords}
-                queryText={this.props.query}
-                scopeList={scopeList}
+                queryText={this.state.query}
+                scopeList={scope}
                 scopeClickAction={this._scopeClick}
                 exportAction={this._exportHandler}/>
         );

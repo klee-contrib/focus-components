@@ -60,7 +60,7 @@ var actionBarMixin = {
                     style: this._getSelectedStyle(description.key + description.order, orderSelectedParsedKey)
                 });
             }
-            var orderIcon = this.props.orderSelected.order ? 'unsorted' : 'sort-amount-asc';
+            var orderIcon = this.props.orderSelected.order ? 'sort-alpha-desc' : 'sort-alpha-asc';
             return <SelectAction key='down' icon={orderIcon} operationList={orderOperationList} />;
         }
         return '';
@@ -82,7 +82,7 @@ var actionBarMixin = {
         var groupOperationList = [
             { label: 'action.group', childOperationList: groupList },
             { label: 'action.ungroup', action: this._groupFunction(null) }];
-        var groupIcon = this.props.groupSelectedKey ? 'th-list' : 'th-large';
+        var groupIcon = this.props.groupSelectedKey ? 'folder-open-o' : 'folder-o';
         return <SelectAction icon={groupIcon} operationList={groupOperationList} />;
     },
 
@@ -134,10 +134,10 @@ var actionBarMixin = {
      */
     render: function renderActionBar(){
         return (
-            <div className="action-bar panel">
-                <div className="general-action">{this._getSelectionObject()} {this._getOrderObject()} {this._getGroupObject()}</div>
-                <div className="facet-container"><TopicDisplayer topicList={this.props.facetList} topicClickAction={this.props.facetClickAction} /></div>
-                <div className="contextual-action"><ActionContextual operationList={this.props.operationList} /></div>
+            <div data-focus="list-action-bar" className="panel">
+                <div data-focus="global-list-content">{this._getSelectionObject()} {this._getOrderObject()} {this._getGroupObject()}</div>
+                <div data-focus="contextual-action-content"><ActionContextual operationList={this.props.operationList} /></div>
+                <div data-focus="selected-facet-content"><TopicDisplayer topicList={this.props.facetList} topicClickAction={this.props.facetClickAction} /></div>
             </div>
         );
     }
