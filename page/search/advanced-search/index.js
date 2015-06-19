@@ -6,6 +6,7 @@ let assign = require('object-assign');
 let reduce = require('lodash/collection/reduce');
 let includes = require('lodash/collection/includes');
 let omit = require('lodash/object/omit');
+let keys = require('lodash/object/keys');
 
 // Components
 
@@ -26,6 +27,7 @@ let SearchMixin = require('../common/search-mixin').mixin;
 let CartridgeBehaviour = require('../../mixin/cartridge-behaviour');
 let storeBehaviour = require('../../../common/mixin/store-behaviour');
 let type = require('focus').component.types;
+
 /**
  * Page mixin of the advanced search.
  * @type {Object}
@@ -270,12 +272,21 @@ let AdvancedSearch = {
     showAllGroupListHandler(groupKey) {
         return (event)=> {
             let selectedFacetList = this.state.selectedFacetList;
+            let facets = this.props.store.getFacet();
 
-            let facet = this.props.store.getFacet();
-            selectedFacetList[this.state.groupSelectedKey] = {
-                data: facet[this.state.groupSelectedKey][groupKey],
-                key: groupKey
-            };
+            if (this.state.groupSelectedKey) {
+                selectedFacetList[this.state.groupSelectedKey] = {
+                    data: facet[this.state.groupSelectedKey][groupKey],
+                    key: groupKey
+                };
+            } else {
+                let scopeFacet = facets[keys(facets)[0]];
+                selectedFacetList[keys(facets)[0]] = {
+                    data: scopeFacet[groupKey],
+                    key: groupKey
+                }
+            }
+
             this._facetSelectionClick({
                 selectedFacetList: selectedFacetList,
                 facetComponentData: this.state.openedFacetList
