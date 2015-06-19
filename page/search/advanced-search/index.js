@@ -152,7 +152,10 @@ let AdvancedSearch = {
         for (let key in this.state.selectedFacetList) {
             if (key !== 'FCT_SCOPE') {
                 let facet = this.state.selectedFacetList[key];
-                facetList[key] = facet.data.label;
+                facetList[key] = {
+                    label: this.i18n(`live.filter.facets.${key}`),
+                    value: facet.data.label
+                };
             }
         }
         return facetList;
@@ -316,7 +319,10 @@ let AdvancedSearch = {
      * @returns {XML} Htm code.
      */
     getListSummaryComponent() {
-        let scope = this.state.scope !== 'ALL' ? {scope: this.state.scope} : undefined;
+        let scope = this.state.scope !== 'ALL' ? {scope: {
+            label: 'Scope',
+            value: this.state.scope
+        }} : undefined;
         return (
             <ListSummary
                 data-focus='advanced-search-list-summary'

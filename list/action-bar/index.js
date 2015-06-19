@@ -137,7 +137,7 @@ var actionBarMixin = {
             <div data-focus="list-action-bar" className="panel">
                 <div data-focus="global-list-content">{this._getSelectionObject()} {this._getOrderObject()} {this._getGroupObject()}</div>
                 <div data-focus="contextual-action-content"><ActionContextual operationList={this.props.operationList} /></div>
-                <div data-focus="selected-facet-content"><TopicDisplayer topicList={this.props.facetList} topicClickAction={this.props.facetClickAction} /></div>
+                <div data-focus="selected-facet-content"><TopicDisplayer displayLabels={true} topicList={this.props.facetList} topicClickAction={this.props.facetClickAction} /></div>
             </div>
         );
     }

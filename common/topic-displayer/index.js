@@ -17,7 +17,8 @@ var topicDisplayerMixin = {
         return {
             style: undefined, // Component css style.
             topicClickAction: function(key) {}, // Action when click on topic
-            topicList: {} // {topic1: "Label of topic one", topic2:"Label of topic 2"} List f topics
+            topicList: {}, // {topic1: "Label of topic one", topic2:"Label of topic 2"} List f topics,
+            displayLabels: false
         };
     },
 
@@ -29,7 +30,8 @@ var topicDisplayerMixin = {
         var topicList = [];
         var className = 'btn btn-primary btn-raised topic';
         for(var key in this.props.topicList) {
-            topicList.push(<a key={key} href="javascript:void(0)" onClick={this.topicClickHandler(key)} className={className}>{this.props.topicList[key]}</a>);
+            var text = this.props.displayLabels ? `${this.props.topicList[key].label}: ${this.props.topicList[key].value}` : this.props.topicList[key].value;
+            topicList.push(<a key={key} href="javascript:void(0)" onClick={this.topicClickHandler(key)} className={className}>{text}</a>);
         }
         var style = 'topic-displayer bs-component ';
         if(this.props.style) {
