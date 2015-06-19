@@ -51,7 +51,7 @@ let AdvancedSearch = {
      */
     componentDidMount() {
         this.__registerListeners();
-        this.search();
+        //this.search();
     },
     /**
      * Actions before component will unmount.
@@ -122,18 +122,14 @@ let AdvancedSearch = {
      * @private
      */
     __registerListeners() {
-        if (this.props.store) {
-            this.props.store.addSearchChangeListener(this._onSearchChange);
-        }
+        this.props.store.addSearchChangeListener(this._onSearchChange);
     },
     /**
      * Unregister a listener on the store.
      * @private
      */
     __unRegisterListeners() {
-        if (this.props.store) {
-            this.props.store.removeSearchChangeListener(this._onSearchChange);
-        }
+        this.props.store.removeSearchChangeListener(this._onSearchChange);
     },
 
     /**

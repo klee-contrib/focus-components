@@ -13,6 +13,7 @@ let ListSelection = require('../../../list/selection').list.component;
 // Mixins
 
 let i18nMixin = require('../../../common/i18n/mixin');
+
 //Empty Result component to be mututalized.
 let EmptyComponent = React.createClass({
     mixins: [i18nMixin],
@@ -23,7 +24,8 @@ let EmptyComponent = React.createClass({
                 </div>
             );
     }
-})
+});
+
 /**
  * Mixin used in order to create a block.
  * @type {Object}
