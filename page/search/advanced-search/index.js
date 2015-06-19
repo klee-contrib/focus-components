@@ -7,6 +7,7 @@ let reduce = require('lodash/collection/reduce');
 let includes = require('lodash/collection/includes');
 let omit = require('lodash/object/omit');
 let keys = require('lodash/object/keys');
+let clone = require('lodash/lang/clone');
 
 // Components
 
@@ -271,12 +272,12 @@ let AdvancedSearch = {
      */
     showAllGroupListHandler(groupKey) {
         return (event)=> {
-            let selectedFacetList = this.state.selectedFacetList;
+            let selectedFacetList = clone(this.state.selectedFacetList);
             let facets = this.props.store.getFacet();
 
             if (this.state.groupSelectedKey) {
                 selectedFacetList[this.state.groupSelectedKey] = {
-                    data: facet[this.state.groupSelectedKey][groupKey],
+                    data: facets[this.state.groupSelectedKey][groupKey],
                     key: groupKey
                 };
             } else {
