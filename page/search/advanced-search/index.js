@@ -251,6 +251,7 @@ let AdvancedSearch = {
         Focus.search.changeScope('ALL');
         this.setState({
             selectedFacetList: {},
+            groupSelectedKey: undefined,
             scope: 'ALL'
         }, this.search);
     },
