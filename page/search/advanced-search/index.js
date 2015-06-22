@@ -40,7 +40,7 @@ let AdvancedSearch = {
         properties: ['scope', 'query']
     }],
     onChange() {
-        this.setState(this._getStateFromStores())
+        this.setState(assign(this._getStateFromStores(), {selectedFacetList: {}}));
     },
     /**
      * Display name.
@@ -51,7 +51,6 @@ let AdvancedSearch = {
      */
     componentDidMount() {
         this.__registerListeners();
-        //this.search();
     },
     /**
      * Actions before component will unmount.
@@ -299,6 +298,7 @@ let AdvancedSearch = {
      * @returns {XML} Render the facetBox.
      */
     getFacetBoxComponent() {
+        console.log('Facets :', this.state.facetList);
         return (
             <FacetBox
                 data-focus='advanced-search-facet-box'

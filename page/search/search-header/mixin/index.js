@@ -44,7 +44,6 @@ module.exports = {
         }, () => {
             this.props.searchAction(this._buildSearchCriteria());
         });
-        //return this.props.searchAction(this._buildSearchCriteria())
     },
     _SearchBarComponent() {
         return <SearchBar
