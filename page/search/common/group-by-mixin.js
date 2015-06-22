@@ -113,7 +113,7 @@ let GroupByMixin = {
     renderGroupByBlock(groupKey, list, maxRows) {
         let GroupWrapper = this.props.groupComponent;
         return (
-            <GroupWrapper data-focus="group-result-container" groupKey={groupKey} query={this.state.query} showAll={this.changeGroupByMaxRows}>
+            <GroupWrapper data-focus="group-result-container" groupKey={groupKey} query={this.state.query} showAll={this.showAllGroupListHandler}>
                 {this._getSingleTypeResultList(groupKey, list, maxRows)}
             </GroupWrapper>
         );
