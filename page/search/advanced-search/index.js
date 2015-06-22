@@ -6,6 +6,8 @@ let assign = require('object-assign');
 let reduce = require('lodash/collection/reduce');
 let includes = require('lodash/collection/includes');
 let omit = require('lodash/object/omit');
+let keys = require('lodash/object/keys');
+let clone = require('lodash/lang/clone');
 
 // Components
 
@@ -26,6 +28,7 @@ let SearchMixin = require('../common/search-mixin').mixin;
 let CartridgeBehaviour = require('../../mixin/cartridge-behaviour');
 let storeBehaviour = require('../../../common/mixin/store-behaviour');
 let type = require('focus').component.types;
+
 /**
  * Page mixin of the advanced search.
  * @type {Object}
@@ -37,7 +40,7 @@ let AdvancedSearch = {
         properties: ['scope', 'query']
     }],
     onChange() {
-        this.setState(this._getStateFromStores())
+        this.setState(assign(this._getStateFromStores(), {selectedFacetList: {}}));
     },
     /**
      * Display name.
@@ -48,7 +51,6 @@ let AdvancedSearch = {
      */
     componentDidMount() {
         this.__registerListeners();
-        this.search();
     },
     /**
      * Actions before component will unmount.
@@ -119,18 +121,14 @@ let AdvancedSearch = {
      * @private
      */
     __registerListeners() {
-        if (this.props.store) {
-            this.props.store.addSearchChangeListener(this._onSearchChange);
-        }
+        this.props.store.addSearchChangeListener(this._onSearchChange);
     },
     /**
      * Unregister a listener on the store.
      * @private
      */
     __unRegisterListeners() {
-        if (this.props.store) {
-            this.props.store.removeSearchChangeListener(this._onSearchChange);
-        }
+        this.props.store.removeSearchChangeListener(this._onSearchChange);
     },
 
     /**
@@ -149,7 +147,10 @@ let AdvancedSearch = {
         for (let key in this.state.selectedFacetList) {
             if (key !== 'FCT_SCOPE') {
                 let facet = this.state.selectedFacetList[key];
-                facetList[key] = facet.data.label;
+                facetList[key] = {
+                    label: this.i18n(`live.filter.facets.${key}`),
+                    value: facet.data.label
+                };
             }
         }
         return facetList;
@@ -250,6 +251,7 @@ let AdvancedSearch = {
         Focus.search.changeScope('ALL');
         this.setState({
             selectedFacetList: {},
+            groupSelectedKey: undefined,
             scope: 'ALL'
         }, this.search);
     },
@@ -269,13 +271,22 @@ let AdvancedSearch = {
      */
     showAllGroupListHandler(groupKey) {
         return (event)=> {
-            let selectedFacetList = this.state.selectedFacetList;
+            let selectedFacetList = clone(this.state.selectedFacetList);
+            let facets = this.props.store.getFacet();
 
-            let facet = this.props.store.getFacet();
-            selectedFacetList[this.state.groupSelectedKey] = {
-                data: facet[this.state.groupSelectedKey][groupKey],
-                key: groupKey
-            };
+            if (this.state.groupSelectedKey) {
+                selectedFacetList[this.state.groupSelectedKey] = {
+                    data: facets[this.state.groupSelectedKey][groupKey],
+                    key: groupKey
+                };
+            } else {
+                let scopeFacet = facets[keys(facets)[0]];
+                selectedFacetList[keys(facets)[0]] = {
+                    data: scopeFacet[groupKey],
+                    key: groupKey
+                }
+            }
+
             this._facetSelectionClick({
                 selectedFacetList: selectedFacetList,
                 facetComponentData: this.state.openedFacetList
@@ -304,7 +315,10 @@ let AdvancedSearch = {
      * @returns {XML} Htm code.
      */
     getListSummaryComponent() {
-        let scope = this.state.scope !== 'ALL' ? {scope: this.state.scope} : undefined;
+        let scope = this.state.scope !== 'ALL' ? {scope: {
+            label: 'Scope',
+            value: this.state.scope
+        }} : undefined;
         return (
             <ListSummary
                 data-focus='advanced-search-list-summary'

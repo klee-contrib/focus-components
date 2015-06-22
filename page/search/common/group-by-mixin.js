@@ -13,6 +13,7 @@ let ListSelection = require('../../../list/selection').list.component;
 // Mixins
 
 let i18nMixin = require('../../../common/i18n/mixin');
+
 //Empty Result component to be mututalized.
 let EmptyComponent = React.createClass({
     mixins: [i18nMixin],
@@ -23,7 +24,8 @@ let EmptyComponent = React.createClass({
                 </div>
             );
     }
-})
+});
+
 /**
  * Mixin used in order to create a block.
  * @type {Object}
@@ -84,7 +86,7 @@ let GroupByMixin = {
     },
     _getSingleTypeResultList(groupKey, list, maxRows) {
         if (list.length === 0) {
-            return <this.emptyComponent />;
+            return <this.props.emptyComponent />;
         }
         if (maxRows) {
             list = list.slice(0, maxRows);
@@ -111,7 +113,7 @@ let GroupByMixin = {
     renderGroupByBlock(groupKey, list, maxRows) {
         let GroupWrapper = this.props.groupComponent;
         return (
-            <GroupWrapper data-focus="group-result-container" groupKey={groupKey} query={this.state.query} showAll={this.changeGroupByMaxRows}>
+            <GroupWrapper data-focus="group-result-container" groupKey={groupKey} query={this.state.query} showAll={this.showAllGroupListHandler}>
                 {this._getSingleTypeResultList(groupKey, list, maxRows)}
             </GroupWrapper>
         );

@@ -65,7 +65,7 @@ let SearchBar = {
             this._updateQuery(React.findDOMNode(this.refs.query).value);
         })();
     },
-    _handleKeyUp(event) {
+    _handleInputChange(event) {
         this.setState({query: event.target.value}, ()=> {
             if (this.state.query.length >= this.props.minChar) {
                 if (this.props.handleKeyUp) {
@@ -75,6 +75,13 @@ let SearchBar = {
             }
         });
 
+    },
+    _handleInputKeyPress(event) {
+        if (event.key === 'Enter' && this.props.onEnterKeyPressed) {
+            actionWrapper(() => {
+                this._updateQuery(React.findDOMNode(this.refs.query).value);
+            }, null, 0)();
+        }
     },
     _handleOnClickScope() {
         this._focusQuery();
@@ -88,9 +95,6 @@ let SearchBar = {
     _focusQuery() {
         React.findDOMNode(this.refs.query).focus();
     },
-    //setStateFromSubComponent() {
-    //    return this.setState(this.getValue(), this._focusQuery);
-    //},
     render() {
         let loadingClassName = this.props.loading ? 'sb-loading' : '';
         let scopeClassName = this.props.hasScopes ? 'withScopes' : 'noScopes';
@@ -103,7 +107,7 @@ let SearchBar = {
                 </div>
                 }
                 <div className='sb-input-search'>
-                    <input autofocus className={this._getClassName()} onChange={this._handleKeyUp} ref='query'
+                    <input autofocus className={this._getClassName()} onKeyPress={this._handleInputKeyPress} onChange={this._handleInputChange} ref='query'
                            type='search' placeholder={this.props.placeholder} value={this.state.query}/>
 
                     <div className={`sb-spinner three-quarters-loader ${loadingClassName}`}></div>

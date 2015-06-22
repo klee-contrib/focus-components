@@ -140,19 +140,6 @@ let QuickSearchComponent = {
             this.props.onLineClick(item);
         }
     },
-    //_prepareSearch(searchValues){
-    //    clearTimeout(this._searchTimeout);
-    //    this._searchTimeout = setTimeout(() => {
-    //        this.setState(
-    //            assign(
-    //                {isLoadingSearch: true},
-    //                searchValues,
-    //                this.getNoFetchState()
-    //            ),
-    //            this.search
-    //        );
-    //    }, 500);
-    //},
     /**
      * return a SearchBar
      * @returns {XML} the component
