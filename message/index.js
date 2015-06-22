@@ -53,7 +53,8 @@ var messageMixin = {
    * @return {JSX} The jsx.
    */
   render: function renderAlert(){
-    var cssClass = `alert alert-dismissable alert-${this.props.type} ${this.props.style.className}`;
+    let type = this.props.type && this.props.type === 'error' ? 'danger' : this.props.type;
+    var cssClass = `alert alert-dismissable alert-${type} ${this.props.style.className}`;
     return(
       <div className={cssClass} data-id={this.props.id} data-focus='message'>
         <button type='button' className='close' data-dismiss='alert' onClick={this._handleOnClick}>×</button>
