@@ -298,7 +298,6 @@ let AdvancedSearch = {
      * @returns {XML} Render the facetBox.
      */
     getFacetBoxComponent() {
-        console.log('Facets :', this.state.facetList);
         return (
             <FacetBox
                 data-focus='advanced-search-facet-box'
