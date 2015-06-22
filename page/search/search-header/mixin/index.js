@@ -39,7 +39,12 @@ module.exports = {
         }
     },
     _runSearch() {
-        return this.props.searchAction(this._buildSearchCriteria())
+        this.setState({
+            currentPage: 1
+        }, () => {
+            this.props.searchAction(this._buildSearchCriteria());
+        });
+        //return this.props.searchAction(this._buildSearchCriteria())
     },
     _SearchBarComponent() {
         return <SearchBar
