@@ -59,9 +59,13 @@ var buttonMixin = {
     _scrollSpy() {
         let scrollPosition = document.querySelector(this.props.scrolledElementSelector).scrollTop;
         if (scrollPosition > this.props.scrollTriggerBorder) {
-            this.setState({isVisible: true});
+            if (!this.state.isVisible) {
+                this.setState({isVisible: true});
+            }
         } else {
-            this.setState({isVisible: false});
+            if (this.state.isVisible) {
+                this.setState({isVisible: false});
+            }
         }
     },
     /**
