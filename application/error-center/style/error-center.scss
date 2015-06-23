@@ -1,0 +1,10 @@
+[data-focus='error-center']{
+  position:fixed;
+  bottom: 60px;
+  right: 10px;
+  z-index: 9999999;
+  max-width: 300px;
+  min-width: 200px;
+  background-color: red;
+  color: white;
+}
