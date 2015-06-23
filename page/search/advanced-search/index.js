@@ -350,7 +350,9 @@ let AdvancedSearch = {
                            groupSelectedKey={this.state.groupSelectedKey}
                            facetList={this._getFacetListForBar()}
                            facetClickAction={this._facetBarClick}
-                           operationList={this.props.lineOperationList}/>
+                           operationList={this.props.lineOperationList}
+                           groupLabelPrefix='live.filter.facets.'
+                />
         );
     },
     render: function render() {
