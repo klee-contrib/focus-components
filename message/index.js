@@ -57,7 +57,7 @@ var messageMixin = {
     var cssClass = `alert alert-dismissable alert-${type} ${this.props.style.className}`;
     return(
       <div className={cssClass} data-id={this.props.id} data-focus='message'>
-        <button type='button' className='close' data-dismiss='alert' onClick={this._handleOnClick}>×</button>
+        <button type='button' className='close'  onClick={this._handleOnClick}>×</button>
         {this._renderTitle()}
         <p>{this.props.content}</p>
       </div>
