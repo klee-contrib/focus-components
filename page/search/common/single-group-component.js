@@ -45,7 +45,7 @@ let groupByComponent = {
      * @returns {XML} Content.
      */
     render() {
-        return this.props.renderGroupBy(this.props.groupKey, this.props.list, this.state.maxRows);
+        return this.props.renderGroupBy(this.props.groupKey, this.props.count, this.props.list, this.state.maxRows);
     }
 };
 
