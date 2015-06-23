@@ -77,7 +77,7 @@ let SearchBar = {
 
     },
     _handleInputKeyPress(event) {
-        if (event.key === 'Enter' && this.props.onEnterKeyPressed) {
+        if (event.key === 'Enter') {
             actionWrapper(() => {
                 this._updateQuery(React.findDOMNode(this.refs.query).value);
             }, null, 0)();
