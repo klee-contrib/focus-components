@@ -16,8 +16,22 @@ let Overlay = React.createClass({
      */
     componentDidMount: function () {
         React.findDOMNode(this.refs.overlay).addEventListener('mousewheel', this._onScroll);
+        //this._storeAndHideBodyOverflow();
+    },
+    /**
+     * Store the body overgflow property, and set it to hidden
+     * @private
+     */
+    _storeAndHideBodyOverflow() {
         this._oldScroll = document.body.style['overflow-y'];
         document.body.style['overflow-y'] = 'hidden';
+    },
+    /**
+     * Restore body overflow property
+     * @private
+     */
+    _restoreBodyOverflow() {
+        document.body.style['overflow-y'] = this._oldScroll;
     },
     /**
      * Component will unmount event handler.
@@ -25,7 +39,7 @@ let Overlay = React.createClass({
      */
     componentWillUnmount: function () {
         React.findDOMNode(this.refs.overlay).removeEventListener('mousewheel', this._onScroll);
-        document.body.style['overflow-y'] = this._oldScroll;
+        //this._restoreBodyOverflow();
     },
     /**
      * Mouse wheel event handler.
@@ -120,6 +134,7 @@ let popin = {
             this.setState({
                 opened: !this.state.opened
             });
+            this.state.opened ? this.refs['popin-overlay']._restoreBodyOverflow() : this.refs['popin-overlay']._storeAndHideBodyOverflow();
         }, timeout);
     },
     /**
