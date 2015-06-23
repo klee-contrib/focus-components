@@ -2,6 +2,8 @@
 
 let isArray = require('lodash/lang/isArray');
 let keys = require('lodash/object/keys');
+let forEach = require('lodash/collection/forEach');
+let isEqual = require('lodash/lang/isEqual');
 let checkIsNotNull = require('focus').util.object.checkIsNotNull;
 let ArgumentNullException = require('focus').exception.ArgumentNullException;
 
@@ -68,12 +70,14 @@ let GroupByMixin = {
             let groupKey = keys(this.state.map)[0];
             return this._getSingleTypeResultList(groupKey, this.state.map[groupKey], isBounded && this.props.groupMaxRows);
         } else {
+            let groupCounts = this._getGroupsCountsFromStore();
             return keys(this.state.map).reduce((groupList, groupKey) => {
                 if (this.state.map[groupKey].length > 0) {
                     groupList.push(
                         <SingleGroupComponent
                             data-focus='results-group'
                             key={groupKey}
+                            count={groupCounts[groupKey].count}
                             ref={groupKey}
                             renderGroupBy={this.renderGroupByBlock}
                             list={this.state.map[groupKey]}
@@ -109,10 +113,22 @@ let GroupByMixin = {
                 />
         );
     },
-    renderGroupByBlock(groupKey, list, maxRows) {
+    _getGroupsCountsFromStore() {
+        let groupKeys = keys(this.state.map);
+        let facets = this.props.store.getFacet();
+        let targetFacetData;
+        forEach(facets, (facetData, facetKey) => {
+            if (isEqual(keys(facetData).sort(), groupKeys.sort())) {
+                targetFacetData = facetData;
+                return false;
+            }
+        });
+        return targetFacetData;
+    },
+    renderGroupByBlock(groupKey, count, list, maxRows) {
         let GroupWrapper = this.props.groupComponent;
         return (
-            <GroupWrapper data-focus="group-result-container" groupKey={groupKey} query={this.state.query} showAll={this.showAllGroupListHandler}>
+            <GroupWrapper data-focus="group-result-container" groupKey={groupKey} count={count} query={this.state.query} showAll={this.showAllGroupListHandler}>
                 {this._getSingleTypeResultList(groupKey, list, maxRows)}
             </GroupWrapper>
         );
