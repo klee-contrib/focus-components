@@ -131,6 +131,9 @@ let popin = {
             popinOverlay.classList.add(popinOverlay.getAttribute('data-closing-animation'));
             timeout = 200;
         }
+        if (this.state.opened && this.props.onPopinClose) {
+            this.props.onPopinClose();
+        }
         setTimeout(() => {
             this.setState({
                 opened: !this.state.opened
