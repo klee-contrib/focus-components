@@ -115,6 +115,9 @@ let GroupByMixin = {
     },
     _getGroupsCountsFromStore() {
         let groupKeys = keys(this.state.map);
+        if (groupKeys.length === 1) {
+            return {[groupKeys[0]]: this.props.store.getPageInfos().totalRecords};
+        }
         let facets = this.props.store.getFacet();
         let targetFacetData;
         forEach(facets, (facetData, facetKey) => {
