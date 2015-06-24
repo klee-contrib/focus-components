@@ -134,7 +134,9 @@ let popin = {
             this.setState({
                 opened: !this.state.opened
             });
-            this.state.opened ? this.refs['popin-overlay']._restoreBodyOverflow() : this.refs['popin-overlay']._storeAndHideBodyOverflow();
+            if (this.refs['popin-overlay']) {
+                this.state.opened ? this.refs['popin-overlay']._restoreBodyOverflow() : this.refs['popin-overlay']._storeAndHideBodyOverflow();
+            }
         }, timeout);
     },
     /**
