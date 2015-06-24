@@ -171,7 +171,10 @@ let AdvancedSearch = {
 
         this.setState(
             assign(
-                {selectedFacetList: selectedFacetList},
+                {
+                    selectedFacetList: selectedFacetList,
+                    groupSelectedKey: undefined
+                },
                 this.getNoFetchState())
             , this.search);
     },
