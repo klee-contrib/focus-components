@@ -7,7 +7,8 @@ var errorCenter = {
     return {
       source: window,
       errors: [],
-      isErrorsVisible: false
+      isErrorsVisible: false,
+      numberDisplayed: 3
     }
   },
   getInitialState(){
@@ -24,30 +25,26 @@ var errorCenter = {
   _toggleVisible(){
     this.setState({isErrorsVisible: !this.state.isErrorsVisible})
   },
-  /** @inheriteddoc */
-  render() {
+  _renderErrors(){
     return (
       <div data-focus='error-center'>
         <div data-focus='error-counter'>
-          {this.state.errors.length}
+          <i className="fa fa-times-circle"></i>{this.state.errors.length}
         </div>
         <div data-focus='error-actions'>
-          {
-            this.state.errors.length > 1
-            &&
-            <button className='btn btn-default' onClick={()=>{window.location.reload();}}>Reload</button>
-          }
-          {
-            this.state.errors.length > 1
-            &&
-            <button className='btn btn-default' onClick={this._toggleVisible}>{this.state.isErrorsVisible ? "Hide Errors":"Show Errors"}</button>
-          }
+          <i className='fa fa-refresh' onClick={()=>{window.location.reload();}}></i>
+          <i className={`fa fa-arrow-circle-o-${this.state.isErrorsVisible ? 'up' : 'down'}`} onClick={this._toggleVisible}></i>
+          <i className='fa fa-trash-o' onClick={()=>{this.setState({errors: []})}}></i>
         </div>
         <ul data-focus='error-stack'>
-          {this.state.isErrorsVisible ? this.state.errors.map((err)=>{return <li>{err}</li>}) : null}
+          {this.state.isErrorsVisible ? this.state.errors.slice(this.state.errors.length - this.props.numberDisplayed, this.state.errors.length).map((err)=>{return <li>{err}</li>}) : null}
         </ul>
       </div>
-      );
+    );
+  },
+  /** @inheriteddoc */
+  render() {
+    return this.state.errors.length > 0 ? this._renderErrors() : null;
   }
 };
 
