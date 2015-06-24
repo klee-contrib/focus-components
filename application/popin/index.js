@@ -16,7 +16,6 @@ let Overlay = React.createClass({
      */
     componentDidMount: function () {
         React.findDOMNode(this.refs.overlay).addEventListener('mousewheel', this._onScroll);
-        //this._storeAndHideBodyOverflow();
     },
     /**
      * Store the body overgflow property, and set it to hidden
@@ -39,7 +38,6 @@ let Overlay = React.createClass({
      */
     componentWillUnmount: function () {
         React.findDOMNode(this.refs.overlay).removeEventListener('mousewheel', this._onScroll);
-        //this._restoreBodyOverflow();
     },
     /**
      * Mouse wheel event handler.
@@ -116,6 +114,9 @@ let popin = {
         overlay: type('bool'),
         open: type('bool')
     },
+    _onWheel(event) {
+        React.findDOMNode(this.refs['popin-window']).scrollTop += event.deltaY;
+    },
     /**
      * Toggle the popin's open state
      */
@@ -151,7 +152,9 @@ let popin = {
                 <Overlay clickHandler={this.props.modal && this.toggleOpen} ref='popin-overlay' resize={this.props.type=='full'} show={this.props.overlay}>
                     <div {...this._getAnimationProps()} data-focus='popin-window' onClick={this._preventPopinClose} ref='popin-window'>
                         <i className='fa fa-close' onClick={this.toggleOpen}></i>
-                        {this.props.children}
+                        <div onWheel={this._onWheel}>
+                            {this.props.children}
+                        </div>
                     </div>
                 </Overlay>
                 }

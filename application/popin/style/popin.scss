@@ -30,7 +30,8 @@ $fill-height-popin-margin: 200px;
         min-width: #{$width}vw;
         left: calc(#{$level} * #{$width}vw);
       }
-      min-height: 100vh;
+      height: 100vh;
+      overflow-y: auto;
 
       [data-focus='popin-window'] {
         right: -#{$width}vw;
@@ -41,7 +42,8 @@ $fill-height-popin-margin: 200px;
     @if $type == 'from-right' {
       position: fixed;
       min-width: #{$width}vw;
-      min-height: 100vh;
+      height: 100vh;
+      overflow-y: auto;
       right: 0;
     }
   }
@@ -69,7 +71,6 @@ $fill-height-popin-margin: 200px;
 
 // Style
 [data-focus='popin-window'] {
-  overflow-y: auto;
   padding: 10px 25px;
   h1 {
     font-size: 26px;
