@@ -115,7 +115,7 @@ let popin = {
         open: type('bool')
     },
     _onWheel(event) {
-        React.findDOMNode(this.refs['popin-window']).scrollTop += event.deltaY;
+        React.findDOMNode(this.refs['popin-window']).scrollTop += event.deltaY > 0 ? 100 : -100;
     },
     /**
      * Toggle the popin's open state
