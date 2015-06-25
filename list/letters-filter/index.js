@@ -3,7 +3,7 @@ let builder = require('focus').component.builder;
 let stylable = require('../../mixin/stylable');
 let type = require('focus').component.types;
 
-let alphabetLetters = 'abcdefghijklmnopqrstuvwxyz';
+const alphabetLetters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
 
 let lettersFilterMixin = {
     mixins: [stylable],
@@ -16,7 +16,7 @@ let lettersFilterMixin = {
      * Letters.
      * @type {Array}
      */
-    letters: alphabetLetters.toUpperCase().split(''),
+    letters: alphabetLetters.split(''),
 
     /** @inheritedDoc */
     getDefaultProps() {
@@ -69,10 +69,10 @@ let lettersFilterMixin = {
      * @private
      */
     _selectionFunction(event) {
-        var letter = event.target.getAttribute('data-letter');
+        let letter = event.target.getAttribute('data-letter');
         if(this._isLetterAvailable(letter)){
-            this.setState({selectedLetter: letter});
-            return this.props.handleLetterSelection(letter);
+            //this.setState({selectedLetter: letter});
+            this.setState({selectedLetter: letter}, () => {this.props.handleLetterSelection(letter)});
         }
     },
 
@@ -118,8 +118,8 @@ let lettersFilterMixin = {
                 /*
                  render each letter component from letters array.
                  */
-                var isLetterAvailable = this._isLetterAvailable(letter);
-                var elementClassName = `${isLetterAvailable ? '': 'disabled'} ${this._getSelectedStyle(letter, this.state.selectedLetter)}`;
+                let isLetterAvailable = this._isLetterAvailable(letter);
+                let elementClassName = `${isLetterAvailable ? '': 'disabled'} ${this._getSelectedStyle(letter, this.state.selectedLetter)}`;
 
                 return (
                     <button key={letter}

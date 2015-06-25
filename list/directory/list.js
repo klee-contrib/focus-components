@@ -1,29 +1,27 @@
 /**@jsx*/
 
-var React = require('react');
-var type = require('focus').component.types;
-var checkIsNotNull = require('focus').util.object.checkIsNotNull;
-var builder = require('focus').component.builder;
+let React = require('react');
+let type = require('focus').component.types;
+let checkIsNotNull = require('focus').util.object.checkIsNotNull;
+let builder = require('focus').component.builder;
 
-var memoryMixin = require('../mixin/memory-scroll').mixin;
+let memoryMixin = require('../mixin/memory-scroll').mixin;
 let stylable = require('../../mixin/stylable');
 
-var LettersFilter = require('../letters-filter').component;
-var List = require('../selection/list').component;
-var Table = require('../table/list').component;
+let LettersFilter = require('../letters-filter').component;
+let List = require('../selection/list').component;
+let Table = require('../table/list').component;
 
-var isArray = require('lodash/lang/isArray');
-var groupBy = require('lodash/collection/groupBy');
-var pairs = require('lodash/object/pairs');
-var sortBy = require('lodash/collection/sortBy');
-var keys = require('lodash/object/keys');
-var values = require('lodash/object/values');
+let isArray = require('lodash/lang/isArray');
+let groupBy = require('lodash/collection/groupBy');
+let pairs = require('lodash/object/pairs');
+let sortBy = require('lodash/collection/sortBy');
+let keys = require('lodash/object/keys');
+let values = require('lodash/object/values');
 let omit = require('lodash/object/omit');
 let escapeRegExp = require('lodash/string/escapeRegExp');
 
-var uuid= require('uuid');
-
-var INPUT_EVENT = 'input';
+const INPUT_EVENT = 'input';
 
 var directoryListMixin = {
     /**
@@ -90,7 +88,7 @@ var directoryListMixin = {
              * In this case, the default quick search will be omitted.
              * @type {string}
              */
-            quickSearchInput: undefined,
+            externalQuickSearch: undefined,
 
             /**
              * Add a default quick search input.
@@ -126,7 +124,7 @@ var directoryListMixin = {
         showAll: type('bool'),
         displayGroupSize: type('bool'),
         globalSearch: type('bool'),
-        quickSearchInput: type('string'),
+        externalQuickSearch: type('string'),
         withQuickSearch: type('bool')
     },
 
@@ -152,11 +150,11 @@ var directoryListMixin = {
      * @private
      */
      _getState(){
-        var dataToUse = this._getDataToUse();
-        var initialSelectedLetter = this._getInitialSelectedLetter(dataToUse);
-        var availableLetters = this._getAvailableLetters(dataToUse);
+        let dataToUse = this._getDataToUse();
+        let initialSelectedLetter = this._getInitialSelectedLetter(dataToUse);
+        let availableLetters = this._getAvailableLetters(dataToUse);
 
-        var dataToDisplay = this.props.showAll ? dataToUse: this._getGroupFromData(dataToUse, initialSelectedLetter) ;
+        let dataToDisplay = this.props.showAll ? dataToUse: this._getGroupFromData(dataToUse, initialSelectedLetter) ;
         return {
             data: dataToDisplay,
             currentSelectedLetter: initialSelectedLetter,
@@ -173,8 +171,8 @@ var directoryListMixin = {
 
     /** @inheritdoc */
     componentDidMount(){
-        if(document.querySelector(this.props.quickSearchInput) != null){
-            this.quickSearchDOMNode = document.querySelector(this.props.quickSearchInput);
+        if(document.querySelector(this.props.externalQuickSearch) != null){
+            this.quickSearchDOMNode = document.querySelector(this.props.externalQuickSearch);
         }else if(this.props.withQuickSearch) {
             this.quickSearchDOMNode = React.findDOMNode(this.refs.quickSearch);
         }
@@ -198,7 +196,7 @@ var directoryListMixin = {
     /** @inheritdoc */
     componentDidUpdate(){
         if(!this.props.showAll){
-            var groupView = document.getElementById(this._getGroupId(this.state.currentSelectedLetter));
+            let groupView = document.querySelector(`[data-directory-group=${this.state.currentSelectedLetter}]`);
             groupView.scrollIntoView();
         }
         this.props.doAfterRefresh(this.searchText);
@@ -210,7 +208,7 @@ var directoryListMixin = {
      * @private
      */
      _sortData(newData){
-        var dataToSort = newData != undefined ? newData: this.props.data;
+        let dataToSort = newData != undefined ? newData: this.props.data;
         this.sortedData = sortBy(dataToSort, (singleData) => {
             return singleData[this.props.fieldName].charAt(0).toLowerCase();
         });
@@ -222,9 +220,9 @@ var directoryListMixin = {
      * @private
      */
      _getDataToUse(){
-        var dataToUse = [];
+        let dataToUse = [];
         if(this.searchText !== ''){
-            var regExp = new RegExp(escapeRegExp(this.searchText), 'i');
+            let regExp = new RegExp(escapeRegExp(this.searchText), 'i');
             if(this.props.globalSearch){
                 dataToUse = (() => {
                     return this.sortedData.filter((obj) => {
@@ -255,8 +253,7 @@ var directoryListMixin = {
      * @private
      */
     _getGroupFromData(dataToUse, letter){
-        var group = {};
-        group[letter] = dataToUse[letter];
+        let group = {[letter]: dataToUse[letter]};
         return group;
     },
 
@@ -268,7 +265,10 @@ var directoryListMixin = {
      * @private
      */
     _getInitialSelectedLetter(data){
-        return keys(data)[0];
+        let initialLetter;
+        if((initialLetter = keys(data)[0]) !== undefined){
+            return initialLetter;
+        }
     },
 
     /**
@@ -290,12 +290,12 @@ var directoryListMixin = {
      */
     _onLetterSelected(letter){
         if(this.props.showAll){//display all data
-            var groupView = document.getElementById(this._getGroupId(letter));
+            let groupView = document.querySelector(`[data-directory-group=${letter}]`);
             groupView.scrollIntoView();
         }else{//display only one group
-            var dataToUse = this._getDataToUse();
-            var availableLetters = this._getAvailableLetters(dataToUse);
-            var groupToDisplay = this._getGroupFromData(dataToUse, letter);
+            let dataToUse = this._getDataToUse();
+            let availableLetters = this._getAvailableLetters(dataToUse);
+            let groupToDisplay = this._getGroupFromData(dataToUse, letter);
             this.setState({data: groupToDisplay, currentSelectedLetter: letter, availableLetters: availableLetters});
         }
 
@@ -307,23 +307,13 @@ var directoryListMixin = {
      */
     _filterResults(){
         this.searchText = this.quickSearchDOMNode.value.trim();
-        var newState = this._getState();
+        let newState = this._getState();
 
         this.setState(
             {   data: newState.data,
                 currentSelectedLetter: newState.currentSelectedLetter,
                 availableLetters: newState.availableLetters
             });
-    },
-
-    /**
-     * Get group id.
-     * @param {string} selected letter
-     * @returns {string} group id
-     * @private
-     */
-    _getGroupId(letter){
-        return `directory-group-${letter}`;
     },
 
     /**
@@ -359,9 +349,11 @@ var directoryListMixin = {
      * @private
      */
     _renderQuickSearch(){
-        if(document.querySelector(this.props.quickSearchInput) == null){
+        if(document.querySelector(this.props.externalQuickSearch) == null){
             return(
-                <input ref="quickSearch" type="text" placeholder="search text"></input>
+                <div style={{display: 'inline-block'}}>
+                    <input ref="quickSearch" className="form-control" type="text" placeholder="search text"></input>
+                </div>
             );
         }
     },
@@ -387,29 +379,28 @@ var directoryListMixin = {
      * @private
      */
     _renderDataList(){
-        var listProps = omit(this.props, ['fieldName', 'showAll', 'displayGroupSize', 'data', 'quickSearchInput', 'withQuickSearch', 'globalSearch', 'handleAfterRefresh', 'displayGroupHeader']);
+        let listProps = omit(this.props, ['fieldName', 'showAll', 'displayGroupSize', 'data', 'externalQuickSearch', 'withQuickSearch', 'globalSearch', 'handleAfterRefresh', 'displayGroupHeader']);
 
         if(this.state && this.state.data && keys(this.state.data).length > 0){
             return (() => {
                 return pairs(this.state.data).map((groupList)=>{
-                        var groupLetter = groupList[0];
-                        var groupLetterId = this._getGroupId(groupLetter);
-                        var listData = groupList[1];
+                    let groupLetter = groupList[0];
+                    let listData = groupList[1];
 
-                        var dataList;
-                        if(this.props.displayGroupHeader){
-                            dataList = <Table data={listData} {...listProps} />;
+                    let dataList;
+                    if(this.props.displayGroupHeader){
+                        dataList = <Table data={listData} {...listProps} />;
 
-                        }else{
-                            dataList = <List data={listData} {...listProps}/>;
-                        }
+                    }else{
+                        dataList = <List data={listData} {...listProps}/>;
+                    }
 
-                        return(
-                            <div id={groupLetterId} key={groupLetterId}>
-                                {this._renderGroupHeader(groupLetter)}
-                                {dataList}
-                            </div>
-                        )});
+                    return(
+                        <div key={groupLetter} data-directory-group={groupLetter} >
+                            {this._renderGroupHeader(groupLetter)}
+                            {dataList}
+                        </div>
+                    )});
             })();
         }
 
