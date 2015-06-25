@@ -24,7 +24,7 @@ $fill-height-popin-margin: 200px;
     // From menu popin type
     @if $type == 'from-menu' {
       @if $level == '0' {
-        min-width: calc(#{$width}vw - #{$menu-width});
+        width: calc(#{$width}vw - #{$menu-width});
         left: calc(#{$menu-width} + #{$level} * #{$width}vw);
       } @else {
         min-width: #{$width}vw;
