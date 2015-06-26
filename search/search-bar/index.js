@@ -55,7 +55,7 @@ let SearchBar = {
         React.findDOMNode(this.refs.query).focus();
     },
     onChange() {
-        this.setState(this._getStateFromStores())
+        this.setState(this._getStateFromStores());
     },
     _getClassName() {
         return `form-control`;

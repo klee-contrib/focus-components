@@ -4,11 +4,25 @@ let builder = require('focus').component.builder;
 let omit = require('lodash/object/omit');
 let map = require('lodash/collection/map');
 
+// Components
+
+let DefaultEmpty = require('./default-empty-component');
+
 /**
  * Results component, used to render the results, grouped or ungrouped
  * @type {Object}
  */
 let Results = {
+    /**
+     * By default, an empty component is picked.
+     * @return {Object} the default props
+     */
+    getDefaultProps() {
+        return {
+            emptyComponent: DefaultEmpty,
+            renderSingleGroupDecoration: true
+        };
+    },
     /**
      * Render a single group of results, using the group component given as a prop.
      * @param  {array} list the results list
@@ -16,7 +30,12 @@ let Results = {
      * @return {HMTL}      the rendered group
      */
     _renderSingleGroup(list, key) {
-        return <this.props.groupComponent groupKey={key} list={list} showAllHandler={this.props.showAllHandler}/>;
+        let Group = this.props.groupComponent;
+        return (
+            <Group groupKey={key} list={list} showAllHandler={this.props.showAllHandler}>
+
+            </Group>
+        );
     },
     /**
      * Render the empty component given as a prop when the result map is empty.
