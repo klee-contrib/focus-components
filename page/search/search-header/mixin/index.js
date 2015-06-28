@@ -43,7 +43,7 @@ module.exports = {
         return <SearchBar
             ref='searchBar'
             scopes={this.state.reference.scopes}
-            loading={this.state.isLoadingSearch}
+            loading={this.state.isLoading}
             action={this.props.action}
             store={Focus.search.builtInStore.advancedSearchStore}
             service={this.props.service}
