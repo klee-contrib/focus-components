@@ -14,10 +14,6 @@ let Scope = require('./scope').component;
 let stylable = require('../../mixin/stylable');
 let i18n = require('../../common/i18n/mixin');
 
-// Actions
-
-let actionBuilder = require('../../../../search/action-builder');
-
 /**
  * SearchBar component
  * @type {Object}
@@ -35,10 +31,7 @@ let SearchBar = {
             hasScopes: true,
             identifier: undefined,
             store: undefined,
-            action: actionBuilder({ // TODO check if it is possible to call a prop inside the getDefaultProps
-                service: this.props.service,
-                identifier: this.props.identifier
-            })
+            action: undefined
         };
     },
     propTypes: {
@@ -68,12 +61,12 @@ let SearchBar = {
         this.props.store.removeQueryChangeListener(this._onQueryChangeFromStore);
         this.props.store.removeScopeChangeListener(this._onScopeChangeFromStore);
     },
-    _onQueryChangeFromStore(event) {
+    _onQueryChangeFromStore() {
         this.setState({
             query: this.props.store.getQuery()
         });
     },
-    _onScopeChangeFromStore(event) {
+    _onScopeChangeFromStore() {
         this.setState({
             scope: this.props.store.getScope()
         });
