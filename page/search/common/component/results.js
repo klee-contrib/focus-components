@@ -41,7 +41,8 @@ let Results = {
             scrollParentSelector: undefined,
             selectionStatus: undefined,
             groupByKey: undefined,
-            scopeSelectionHandler: undefined
+            scopeSelectionHandler: undefined,
+            resultsFacets: undefined
         };
     },
     getInitialState() {
@@ -132,6 +133,12 @@ let Results = {
             groupsRowsCounts[key] = groupsRowsCounts[key] ? groupsRowsCounts[key] + this.props.showMoreAdditionalRows : this.props.initialRowsCount;
             this.setState({groupsRowsCounts});
         };
+    },
+    _getGroupCounts() {
+        return reduce(this.props.resultsFacets, (groupCounts, facetData, facetKey) => {
+            groupCounts[facetKey] = facetData.count;
+            return groupCounts;
+        }, {});
     },
     /**
      * Render the whole component
