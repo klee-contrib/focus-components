@@ -3,7 +3,11 @@ let builder = require('focus').component.builder;
 let stylable = require('../../mixin/stylable');
 let type = require('focus').component.types;
 
+//Alphabet letters
 const alphabetLetters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+
+//Lodash utilities functions
+let every = require('lodash/collection/every');
 
 let lettersFilterMixin = {
     mixins: [stylable],
@@ -14,6 +18,7 @@ let lettersFilterMixin = {
 
     /**
      * Letters.
+     * The letters array contains '*' for special chars ans all letters from A to Z.
      * @type {Array}
      */
     letters: alphabetLetters.split(''),
@@ -34,6 +39,12 @@ let lettersFilterMixin = {
             availableLetters: '',
 
             /**
+             * Symbol used for non alphabetic characters.
+             * @type {string}
+             */
+            extraCharsSymbol: '*',
+
+            /**
              * Handle letter selection action (must be overridden by calling component).
              * @param letter
              */
@@ -44,7 +55,8 @@ let lettersFilterMixin = {
     /** @inheritdoc */
     propTypes: {
         selectedLetter: type('string'),
-        availableLetters: type('string')
+        availableLetters: type('string'),
+        extraCharsSymbol: type('string')
     },
 
     /** @inheritdoc */
@@ -54,14 +66,27 @@ let lettersFilterMixin = {
         }
     },
 
+    /** @inheritDoc */
+    componentWillMount(){
+        /*
+         Check if there are some extra chars in available letters.
+         If so, render extra chars in the beginning of letters bar
+         */
+        let isLettersOnly = every(this.props.availableLetters.split(''), (letter) => {
+            return this.letters.indexOf(letter) >= 0;
+        });
+
+        if(!isLettersOnly){
+            this.letters.unshift(this.props.extraCharsSymbol);
+        }
+    },
+
     /** @inheritdoc */
     componentWillReceiveProps(newProps){
-        this.setState(
-            {
+        this.setState({
                 selectedLetter: newProps.selectedLetter,
                 availableLetters: newProps.availableLetters
-            }
-        );
+            });
     },
 
     /**
@@ -71,7 +96,6 @@ let lettersFilterMixin = {
     _selectionFunction(event) {
         let letter = event.target.getAttribute('data-letter');
         if(this._isLetterAvailable(letter)){
-            //this.setState({selectedLetter: letter});
             this.setState({selectedLetter: letter}, () => {this.props.handleLetterSelection(letter)});
         }
     },
@@ -116,7 +140,7 @@ let lettersFilterMixin = {
         return (() => {
             return this.letters.map((letter)=>{
                 /*
-                 render each letter component from letters array.
+                 Render each letter component from letters array.
                  */
                 let isLetterAvailable = this._isLetterAvailable(letter);
                 let elementClassName = `${isLetterAvailable ? '': 'disabled'} ${this._getSelectedStyle(letter, this.state.selectedLetter)}`;

@@ -42,7 +42,7 @@
 
 <script type="text/jsx">
 
-    var selectedLetter = "A";
+    var selectedLetter = "C";
     var selectionClick = function(letter) {
         console.log("new selected letter : " + letter);
         selectedLetter = letter;
@@ -53,7 +53,7 @@
 
     React.render(
             <LettersFilter selectedLetter={selectedLetter}
-                           availableLetters='abcdeijklmnopqrsvwz'
+                           availableLetters='*abcdeijklmnopqrsvwz'
                            handleLetterSelection={selectionClick}
                            style={{className:'my-letters-filter-class'}}
                     />

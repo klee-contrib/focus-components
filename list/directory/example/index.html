@@ -76,18 +76,22 @@
 
 <script type="text/jsx">
     Focus.components = FocusComponents;
+
+    var data_Undefined;
     var data = [];
     var showAllProp = true;
     var displayGroupHeader = false;
 
     //generate test data
-    var letters = 'bcdefghijklnopqrstvwxyz';
+    var letters = '?bcdefghijklnopqrstvwxyz[$';
     var maxObjs = 1000;
     for(var i = 0; i < maxObjs; i++){
-        var randomLetter = letters.charAt(_.random(0, 22));
+        var randomLetter = letters.charAt(_.random(0, letters.length-1));
         var obj = {id: i, first_name: `${randomLetter} name (${i})`, last_name: 'last_name', email: `${randomLetter}_name${i}.last_name@test.com`};
         data.push(obj);
     }
+
+    //data = data_Undefined;
 
     var Line;
     var columns;
@@ -149,7 +153,7 @@
                                showAll={showAllProp}
                                globalSearch={true}
                                style={{className:"directory-specific-class"}}
-                               doAfterRefresh={this.handleAfterRefresh}
+                               doAfterSearch={this.handleAfterSearch}
 
                                columns={columns}
                                lineComponent={Line}
@@ -160,7 +164,7 @@
                         />
                 )
             },
-            handleAfterRefresh: function(searchText){
+            handleAfterSearch: function(searchText){
                 if(displayGroupHeader){
                     $('.myTableRow td').removeHighlight();
                     if(searchText != ''){

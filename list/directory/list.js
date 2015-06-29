@@ -5,23 +5,39 @@ let type = require('focus').component.types;
 let checkIsNotNull = require('focus').util.object.checkIsNotNull;
 let builder = require('focus').component.builder;
 
+//mixins
 let memoryMixin = require('../mixin/memory-scroll').mixin;
 let stylable = require('../../mixin/stylable');
 
+//Components used by directory
 let LettersFilter = require('../letters-filter').component;
 let List = require('../selection/list').component;
 let Table = require('../table/list').component;
 
+//Lodash utilities functions
 let isArray = require('lodash/lang/isArray');
+let isEmpty = require('lodash/lang/isEmpty');
 let groupBy = require('lodash/collection/groupBy');
 let pairs = require('lodash/object/pairs');
-let sortBy = require('lodash/collection/sortBy');
 let keys = require('lodash/object/keys');
 let values = require('lodash/object/values');
 let omit = require('lodash/object/omit');
 let escapeRegExp = require('lodash/string/escapeRegExp');
 
+//Event name to be listened for quick search
 const INPUT_EVENT = 'input';
+
+//RegExp for alphabetic letters needed to check if another chars are present in the list
+const isLetterRegExp = new RegExp('[a-zA-Z]');
+
+//Define a symbol to all non alphabitc characters
+const nonAlphabeticCharactersSymbol = '*';
+
+//Message to display if initial data is empty
+const MESSAGE_EMPTY_LIST = 'empty.list'
+
+//Message to display if no data found for a search text
+const MESSAGE_NO_RESULT_FOUND = 'no.results.found'
 
 var directoryListMixin = {
     /**
@@ -109,10 +125,10 @@ var directoryListMixin = {
             displayGroupHeader: false,
 
             /**
-             * function called after component is refreshed.
+             * function called after search.
              * @type {function}
              */
-            handleAfterRefresh: function(searchText){}
+            doAfterSearch: function(searchText){}
         };
     },
 
@@ -196,10 +212,12 @@ var directoryListMixin = {
     /** @inheritdoc */
     componentDidUpdate(){
         if(!this.props.showAll){
-            let groupView = document.querySelector(`[data-directory-group=${this.state.currentSelectedLetter}]`);
-            groupView.scrollIntoView();
+            let groupView = document.querySelector(`[data-directory-group="${this.state.currentSelectedLetter}"]`);
+            if(groupView != null){
+                groupView.scrollIntoView();
+            }
         }
-        this.props.doAfterRefresh(this.searchText);
+        this.props.doAfterSearch(this.searchText);
     },
 
     /**
@@ -209,9 +227,25 @@ var directoryListMixin = {
      */
      _sortData(newData){
         let dataToSort = newData != undefined ? newData: this.props.data;
-        this.sortedData = sortBy(dataToSort, (singleData) => {
-            return singleData[this.props.fieldName].charAt(0).toLowerCase();
+
+
+        //this.sortedData = sortBy(dataToSort, (element) => {
+        //    return element[this.props.fieldName].charAt(0).toLowerCase();
+        //});
+
+        this.sortedData = dataToSort.sort((a, b) => {
+            let isStartWithLetterA = isLetterRegExp.test(a[this.props.fieldName].charAt(0).toLowerCase());
+            let isStartWithLetterB = isLetterRegExp.test(b[this.props.fieldName].charAt(0).toLowerCase());
+
+            if(!isStartWithLetterA && isStartWithLetterB){
+                return -1;
+            }else if(isStartWithLetterA && !isStartWithLetterB){
+                return 1;
+            }else{
+                return a[this.props.fieldName].charAt(0).toLowerCase().localeCompare(b[this.props.fieldName].charAt(0).toLowerCase());
+            }
         });
+
     },
 
     /**
@@ -224,26 +258,26 @@ var directoryListMixin = {
         if(this.searchText !== ''){
             let regExp = new RegExp(escapeRegExp(this.searchText), 'i');
             if(this.props.globalSearch){
-                dataToUse = (() => {
-                    return this.sortedData.filter((obj) => {
-                        return regExp.test(values(obj).join(''));
-                    });
-                })();
+                dataToUse = this.sortedData.filter((obj) => {
+                                return regExp.test(values(obj).join(''));
+                            });
             }else{
-                dataToUse = (() => {
-                    return this.sortedData.filter((obj) => {
-                        return regExp.test(obj[this.props.fieldName]);
-                    });
-                })();
+                dataToUse = this.sortedData.filter((obj) => {
+                                return regExp.test(obj[this.props.fieldName]);
+                            });
             }
         }else{
             dataToUse = this.sortedData;
         }
-        return (() => {
-            return groupBy(dataToUse, (line) => {
-                return line[this.props.fieldName][0].toUpperCase();
-            });
-        })();
+
+        return groupBy(dataToUse, (line) => {
+            let groupChar = line[this.props.fieldName].charAt(0);
+            if(isLetterRegExp.test(groupChar)){
+                return groupChar.toUpperCase();
+            }else{
+                return nonAlphabeticCharactersSymbol;
+            }
+        });
     },
 
     /**
@@ -253,8 +287,10 @@ var directoryListMixin = {
      * @private
      */
     _getGroupFromData(dataToUse, letter){
-        let group = {[letter]: dataToUse[letter]};
-        return group;
+        if(letter){
+            let group = {[letter]: dataToUse[letter]};
+            return group;
+        }
     },
 
     /**
@@ -290,7 +326,7 @@ var directoryListMixin = {
      */
     _onLetterSelected(letter){
         if(this.props.showAll){//display all data
-            let groupView = document.querySelector(`[data-directory-group=${letter}]`);
+            let groupView = document.querySelector(`[data-directory-group="${letter}"]`);
             groupView.scrollIntoView();
         }else{//display only one group
             let dataToUse = this._getDataToUse();
@@ -339,6 +375,7 @@ var directoryListMixin = {
                 selectedLetter={this.state.currentSelectedLetter}
                 availableLetters={this.state.availableLetters}
                 handleLetterSelection={this._onLetterSelected}
+                extraCharsSymbol={nonAlphabeticCharactersSymbol}
                 />
         );
     },
@@ -379,9 +416,17 @@ var directoryListMixin = {
      * @private
      */
     _renderDataList(){
-        let listProps = omit(this.props, ['fieldName', 'showAll', 'displayGroupSize', 'data', 'externalQuickSearch', 'withQuickSearch', 'globalSearch', 'handleAfterRefresh', 'displayGroupHeader']);
+        let listProps = omit(this.props, ['fieldName', 'showAll', 'displayGroupSize', 'data', 'externalQuickSearch', 'withQuickSearch', 'globalSearch', 'doAfterSearch', 'displayGroupHeader']);
 
-        if(this.state && this.state.data && keys(this.state.data).length > 0){
+        if(this.props.data && isEmpty(this.props.data)){
+            return(
+                <div>{MESSAGE_EMPTY_LIST}</div>
+            );
+        } else if(this.state && this.state.data && isEmpty(this.state.data)){
+            return(
+                <div>{MESSAGE_NO_RESULT_FOUND}</div>
+            );
+        } else if(this.state && this.state.data && !isEmpty(this.state.data)){
             return (() => {
                 return pairs(this.state.data).map((groupList)=>{
                     let groupLetter = groupList[0];
@@ -402,6 +447,10 @@ var directoryListMixin = {
                         </div>
                     )});
             })();
+        }else{
+            return(
+                <div>{MESSAGE_EMPTY_LIST}</div>
+            );
         }
 
     },
