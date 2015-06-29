@@ -73,7 +73,7 @@ var storeMixin = {
         entity.reference[key] = data[key];
       }else {
         var d = data[key];
-        if(!isObject(d)){
+        if(isArray(d) || !isObject(d)){
           d = {[key] : d};
         }
         assign(entity, d);
