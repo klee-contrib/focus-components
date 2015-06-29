@@ -30,6 +30,7 @@ let Results = {
             initialRowsCount: 3,
             showMoreAdditionalRows: 5,
             scopeFacetKey: 'FCT_SCOPE',
+            action: undefined,
             resultsMap: undefined,
             totalCount: undefined,
             groupComponent: undefined,
@@ -38,25 +39,36 @@ let Results = {
             isSelection: undefined,
             lineSelectionHandler: undefined,
             lineClickHandler: undefined,
-            scrollReachedBottomHandler: undefined,
             lineOperationList: undefined,
             scrollParentSelector: undefined,
             selectionStatus: undefined,
-            groupByKey: undefined,
-            scopeSelectionHandler: undefined,
+            groupingKey: undefined,
             resultsFacets: undefined
         };
     },
+    /**
+     * Component's intial state
+     * @return {object} the initial state
+     */
     getInitialState() {
         return ({
             groupsRowsCounts: this._initGroupsRowsCountsFromMap(this.props.resultsMap)
         });
     },
+    /**
+     * New props are received, update the state
+     * @param  {object} nextProps the new props
+     */
     componentWillReceiveNewProps(nextProps) {
         this.setState({
             groupsRowsCounts: this._initGroupsRowsCountsFromMap(nextProps.resultsMap)
         });
     },
+    /**
+     * Init the group counts from the results map, with a default count of this.props.initialRowsCount
+     * @param  {object} resultsMap the results map
+     * @return {object}            The map of counts per result type
+     */
     _initGroupsRowsCountsFromMap(resultsMap) {
         return reduce(resultsMap, (result, list, key) => {
             result[key] = this.props.initialRowsCount;
@@ -98,9 +110,17 @@ let Results = {
     _renderEmptyResults() {
         return <this.props.emptyComponent/>;
     },
+    /**
+     * Render the results list
+     * @param  {Array}  list     the results list
+     * @param  {string}  key      the group key
+     * @param  {integer}  count    the group count
+     * @param  {Boolean} isUnique true if this is the only group rendered
+     * @return {HTML}          the rendered component
+     */
     _renderResultsList(list, key, count, isUnique) {
         let LineComponent = this.props.lineComponentMapper(key, list);
-        let hasMoreData = isUnique && list.length === count;
+        let hasMoreData = isUnique && list.length <= count;
         return (
             <ListSelection
                 data-focus='results-list'
@@ -109,7 +129,7 @@ let Results = {
                 isSelection={this.props.isSelection}
                 onSelection={this.props.lineSelectionHandler}
                 onLineClick={this.props.lineClickHandler}
-                fetchNextPage={this.props.scrollReachedBottomHandler}
+                fetchNextPage={this._onScrollReachedBottom}
                 hasMoreData={hasMoreData}
                 operationList={this.props.lineOperationList}
                 lineComponent={LineComponent}
@@ -118,17 +138,29 @@ let Results = {
             />
         );
     },
+    /**
+     * Construct the show all action
+     * @param  {string} key the group key where the show all has been clicked
+     * @return {function}     the show all handler
+     */
     _getShowAllHandler(key) {
         return () => {
-            if (this.props.groupByKey === this.props.scopeFacetKey) {
-                this.props.scopeSelectionHandler(key);
+            if (this.props.groupingKey === this.props.scopeFacetKey) {
+                this._scopeSelectionHandler(key);
             } else {
-                let facetKey = this.props.groupByKey;
+                let facetKey = this.props.groupingKey;
                 let facetValue = key;
-                // TODO handle this as a facet selection
+                this._facetSelectionHandler({
+                    [facetKey]: facetValue
+                });
             }
         };
     },
+    /**
+     * Construct the show more handler
+     * @param  {string} key the group key where the show more has been clicked
+     * @return {function}     the show more handler
+     */
     _getShowMoreHandler(key) {
         return () => {
             let groupsRowsCounts = clone(this.state.groupsRowsCounts);
@@ -136,6 +168,11 @@ let Results = {
             this.setState({groupsRowsCounts});
         };
     },
+    /**
+     * Get the group counts object
+     * @param  {object} resultsMap the results map
+     * @return {object}           the counts map
+     */
     _getGroupCounts(resultsMap) {
         let groupKeys = keys(resultsMap);
         if (groupKeys.length === 1) {
@@ -156,6 +193,30 @@ let Results = {
             result[key] = data.count;
             return result;
         }, {});
+    },
+    /**
+     * Scope selection handler
+     * @param  {string} key the scope key
+     */
+    _scopeSelectionHandler(key) {
+        this.props.action.updateProperties({
+            scope: key
+        });
+    },
+    /**
+     * Facet selection handler
+     * @param  {string} key the facet key
+     */
+    _facetSelectionHandler(key) {
+        this.props.action.updateProperties({
+            groupingKey: key
+        });
+    },
+    /**
+     * Scroll reached bottom handler
+     */
+    _onScrollReachedBottom() {
+        this.props.action.search(true);
     },
     /**
      * Render the whole component
