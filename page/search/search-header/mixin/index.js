@@ -12,16 +12,13 @@ let SearchBar = require('../../../../search/search-bar').component;
 
 let actionBuilder = require('../../../../search/action-builder');
 
+// Store
+
+let advancedSearchStore = Focus.search.builtInStore.advancedSearchStore;
+
 module.exports = {
     mixins: [i18nMixin, referenceBehaviour, storeBehaviour],
-    getDefaultProps() {
-        return ({
-            action: actionBuilder({ // TODO check if it is possible to call a prop inside the getDefaultProps
-                service: this.props.service,
-                identifier: 'ADVANCED_SEARCH'
-            })
-        });
-    },
+    referenceNames: ['scopes'],
     getInitialState() {
         return {
             isLoading: false
@@ -29,24 +26,27 @@ module.exports = {
     },
     componentWillMount() {
         this._loadReference();
-        Focus.search.builtInStore.advancedSearchStore.addQueryChangeListener(this._triggerSearch);
-        Focus.search.builtInStore.advancedSearchStore.addScopeChangeListener(this._triggerSearch);
+        this._action = this.props.action || actionBuilder({
+            service: this.props.service,
+            identifier: 'ADVANCED_SEARCH'
+        });
+        advancedSearchStore.addQueryChangeListener(this._triggerSearch);
+        advancedSearchStore.addScopeChangeListener(this._triggerSearch);
     },
     componentWillUnmount() {
-        Focus.search.builtInStore.advancedSearchStore.removeQueryChangeListener(this._triggerSearch);
-        Focus.search.builtInStore.advancedSearchStore.removeScopeChangeListener(this._triggerSearch);
+        advancedSearchStore.removeQueryChangeListener(this._triggerSearch);
+        advancedSearchStore.removeScopeChangeListener(this._triggerSearch);
     },
     _triggerSearch() {
-        this.props.action.search();
+        this._action.search();
     },
     _SearchBarComponent() {
         return <SearchBar
             ref='searchBar'
             scopes={this.state.reference.scopes}
             loading={this.state.isLoading}
-            action={this.props.action}
-            store={Focus.search.builtInStore.advancedSearchStore}
-            service={this.props.service}
+            action={this._action}
+            store={advancedSearchStore}
             />;
     }
 };
