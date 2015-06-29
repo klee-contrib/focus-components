@@ -27,12 +27,24 @@ let quicSearchStore = Focus.search.builtInStore.quickSearchStore;
  * @type {Object}
  */
 let QuickSearchComponent = {
+    /**
+     * Component's mixins
+     * @type {Array}
+     */
     mixins: [referenceBehaviour, storeBehaviour],
     /**
      * Tag name.
      */
     displayName: 'quick-search',
+    /**
+     * Reference names to be fetched by the reference behaviour
+     * @type {Array}
+     */
     referenceNames: ['scopes'],
+    /**
+     * Get the default props
+     * @return {object} the default props
+     */
     getDefaultProps() {
         return {
             scopeSelectionHandler: this._scopeSelectionHandler,
@@ -47,19 +59,24 @@ let QuickSearchComponent = {
             groupMaxRows: undefined
         };
     },
-    propTypes() {
-        return ({
-            scopeSelectionHandler: type('function'),
-            store: type('object'),
-            scopeFacetKey: type('string'),
-            lineComponentMapper: type('function'),
-            groupComponent: type('object'),
-            service: type('object'),
-            action: type('object'),
-            onLineClick: type('function'),
-            groupMaxRows: type('number')
-        });
+    /**
+     * Prop validation
+     * @type {Object}
+     */
+    propTypes: {
+        scopeSelectionHandler: type('function'),
+        store: type('object'),
+        scopeFacetKey: type('string'),
+        lineComponentMapper: type('function'),
+        groupComponent: type('object'),
+        service: type('object'),
+        action: type('object'),
+        onLineClick: type('function'),
+        groupMaxRows: type('number')
     },
+    /**
+     * Register the store listeners
+     */
     componentWillMount() {
         this._action = this.props.action || actionBuilder({
             service: this.props.service,
@@ -71,14 +88,16 @@ let QuickSearchComponent = {
         this.props.store.addResultsChangeListener(this._onResultsChange);
     },
     /**
-     * Actions before component will unmount.
-     * @constructor
+     * Unregister the store listeners
      */
     componentWillUnmount() {
         this.props.store.removeQueryChangeListener(this.props.action.search);
         this.props.store.removeScopeChangeListener(this.props.action.search);
         this.props.store.removeResultsChangeListener(this._onResultsChange);
     },
+    /**
+     * Results change handler
+     */
     _onResultsChange() {
         let resultsMap = this.props.store.getResults();
         let facets = this.props.store.getFacets();
@@ -95,8 +114,8 @@ let QuickSearchComponent = {
         }
     },
     /**
-     * return a SearchBar
-     * @returns {XML} the component
+     * redner the SearchBar
+     * @returns {HTML} the rendered component
      */
     _renderSearchBar() {
         return (
@@ -110,6 +129,10 @@ let QuickSearchComponent = {
                 />
         );
     },
+    /**
+     * redner the results
+     * @returns {HTML} the rendered component
+     */
     _renderResults() {
         return (
             <Results
@@ -121,11 +144,16 @@ let QuickSearchComponent = {
                 isSelection={false}
                 lineClickHandler={this._lineClickHandler}
                 lineOperationList={this.props.lineOperationList}
-                groupByKey={this.props.scopeFacetKey}
+                groupingKey={this.props.scopeFacetKey}
                 initialRowsCount={this.props.groupMaxRows}
+                action={this._action}
             />
         );
     },
+    /**
+     * Render the component
+     * @return {HTML} the rendered component
+     */
     render() {
         return (
             <div className="search-panel" data-focus="quick-search">
