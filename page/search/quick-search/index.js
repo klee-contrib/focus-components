@@ -47,6 +47,19 @@ let QuickSearchComponent = {
             groupMaxRows: undefined
         };
     },
+    propTypes() {
+        return ({
+            scopeSelectionHandler: type('function'),
+            store: type('object'),
+            scopeFacetKey: type('string'),
+            lineComponentMapper: type('function'),
+            groupComponent: type('object'),
+            service: type('object'),
+            action: type('object'),
+            onLineClick: type('function'),
+            groupMaxRows: type('number')
+        });
+    },
     componentWillMount() {
         this._action = this.props.action || actionBuilder({
             service: this.props.service,
