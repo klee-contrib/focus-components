@@ -1,21 +1,25 @@
 // Dependencies
 
-let assign = require('object-assign');
 let type = require('focus').component.types;
 let builder = require('focus').component.builder;
-let React = require('react');
 
 // Components
 
 let SearchBar = require('../../../search/search-bar').component;
+let Results = require('../common/component/results').component;
 
 // Mixins
 
-let ScrollInfoMixin = require('../common/scroll-info-mixin').mixin;
-let GroupByMixin = require('../common/group-by-mixin').mixin;
-let SearchMixin = require('../common/search-mixin').mixin;
 let referenceBehaviour = require('../../../common/form/mixin/reference-behaviour');
 let storeBehaviour = require('../../../common/mixin/store-behaviour');
+
+// Actions
+
+let actionBuilder = require('../../../../search/action-builder');
+
+// Stores
+
+let quicSearchStore = Focus.search.builtInStore.quickSearchStore;
 
 /**
  * General search mixin.
@@ -23,119 +27,56 @@ let storeBehaviour = require('../../../common/mixin/store-behaviour');
  * @type {Object}
  */
 let QuickSearchComponent = {
-    mixins: [ScrollInfoMixin, GroupByMixin, SearchMixin, referenceBehaviour, storeBehaviour],
+    mixins: [referenceBehaviour, storeBehaviour],
     /**
      * Tag name.
      */
     displayName: 'quick-search',
-    /**
-     * Component initialization
-     */
-    componentDidMount() {
-        this.__registerListeners();
+    referenceNames: ['scopes'],
+    getDefaultProps() {
+        return {
+            scopeSelectionHandler: this._scopeSelectionHandler,
+            store: quicSearchStore,
+            scopeFacetKey: 'FCT_SCOPE',
+            lineComponentMapper: undefined,
+            lineOperationList: undefined,
+            groupComponent: undefined,
+            service: undefined,
+            action: undefined,
+            onLineClick: undefined,
+            groupMaxRows: undefined
+        };
     },
     componentWillMount() {
+        this._action = this.props.action || actionBuilder({
+            service: this.props.service,
+            identifier: 'QUICK_SEARCH'
+        });
         this._loadReference();
+        this.props.store.addQueryChangeListener(this.props.action.search);
+        this.props.store.addScopeChangeListener(this.props.action.search);
+        this.props.store.addResultsChangeListener(this._onResultsChange);
     },
     /**
      * Actions before component will unmount.
      * @constructor
      */
     componentWillUnmount() {
-        this.__unRegisterListeners();
+        this.props.store.removeQueryChangeListener(this.props.action.search);
+        this.props.store.removeScopeChangeListener(this.props.action.search);
+        this.props.store.removeResultsChangeListener(this._onResultsChange);
     },
-    getDefaultProps() {
-        return {
-            isSelection: false,
-            idField: 'id',
-            SearchBar: SearchBar,
-            groupMaxRows: 3
-        };
-    },
-    referenceNames: ['scopes'],
-    /**
-     * properties validation
-     */
-    propTypes: {
-        lineMap: type('object'),
-        isSelection: type('bool'),
-        lineOperationList: type('array'),
-        idField: type('string'),
-        SearchBar: type('func'),
-        groupMaxRows: type('number')
-    },
-    /**
-     * Initial state of the list component.
-     * @returns {{list: (*|Array)}} the state
-     */
-    getInitialState() {
-        return {
-            isAllSelected: false,
-            selected: []
-        };
-    },
-    getCriteria() {
-        if (!this.refs.searchBar) {
-            return {};
-        }
-        return this.refs.searchBar.getValue();
-    },
-    /**
-     * Register a listener on the store.
-     * @private
-     */
-    __registerListeners() {
-        this.props.store.addSearchChangeListener(this.onSearchChange);
-        Focus.search.builtInStore.queryStore.addQueryChangeListener(this._onQueryStoreChange);
-        Focus.search.builtInStore.queryStore.addScopeChangeListener(this._onQueryStoreChange);
-    },
-    /**
-     * Unregister a listener on the store.
-     * @private
-     */
-    __unRegisterListeners() {
-        this.props.store.removeSearchChangeListener(this.onSearchChange);
-        Focus.search.builtInStore.queryStore.removeQueryChangeListener(this._onQueryStoreChange);
-        Focus.search.builtInStore.queryStore.removeScopeChangeListener(this._onQueryStoreChange);
-    },
-    /**
-     * Handler when store emit a change event.
-     */
-    onSearchChange() {
-        this.setState(assign({isLoadingSearch: false}, this.getScrollState()));
-    },
-    _onQueryStoreChange(event) {
-        this.setState(
-            assign(
-                {isLoadingSearch: true},
-                this.getNoFetchState()
-            ),
-            () => {
-                if (event.informations.callerId === this.refs.searchBar._uuid) {
-                    this.search()
-                }
-            }
-        );
-    },
-    /**
-     * Action on item selection.
-     * @param {object} item selected
-     */
-    _selectItem(item) {
-        let selected = this.state.selected;
-        let index = selected.indexOf(item);
-        if (index) {
-            selected.splice(index, index);
-        } else {
-            selected.push(item);
-        }
-        this.setState({selected});
+    _onResultsChange() {
+        let resultsMap = this.props.store.getResults();
+        let facets = this.props.store.getFacets();
+        let totalCount = this.props.store.getTotalCount();
+        this.setState({resultsMap, facets, totalCount});
     },
     /**
      * Action on line click.
      * @param {object} item  the item clicked
      */
-    _lineClick(item) {
+    _lineClickHandler(item) {
         if (this.props.onLineClick) {
             this.props.onLineClick(item);
         }
@@ -144,22 +85,39 @@ let QuickSearchComponent = {
      * return a SearchBar
      * @returns {XML} the component
      */
-    getSearchBarComponent() {
+    _renderSearchBar() {
         return (
-            <this.props.SearchBar
+            <SearchBar
                 data-focus='search-bar'
                 ref='searchBar'
-                scope={this.props.scope}
                 scopes={this.state.reference.scopes}
-                loading={this.state.isLoadingSearch}
+                loading={this.state.isLoading}
+                action={this._action}
+                store={this.props.store}
                 />
+        );
+    },
+    _renderResults() {
+        return (
+            <Results
+                resultsMap={this.state.resultsMap}
+                totalCount={this.state.totalCount}
+                resultsFacets={this.state.facets}
+                groupComponent={this.props.groupComponent}
+                lineComponentMapper={this.props.lineComponentMapper}
+                isSelection={false}
+                lineClickHandler={this._lineClickHandler}
+                lineOperationList={this.props.lineOperationList}
+                groupByKey={this.props.scopeFacetKey}
+                initialRowsCount={this.props.groupMaxRows}
+            />
         );
     },
     render() {
         return (
             <div className="search-panel" data-focus="quick-search">
-                {this.getSearchBarComponent()}
-                {this.getResultListComponent()}
+                {this._renderSearchBar()}
+                {this._renderResults()}
             </div>
         );
     }
