@@ -1,245 +1,133 @@
 // Dependencies
 
 let builder = require('focus').component.builder;
-let React = require('react');
-let assign = require('object-assign');
-let reduce = require('lodash/collection/reduce');
-let includes = require('lodash/collection/includes');
-let omit = require('lodash/object/omit');
-let keys = require('lodash/object/keys');
-let clone = require('lodash/lang/clone');
+let camel = require('lodash/string/camelCase');
+let capitalize = require('lodash/string/capitalize');
 
 // Components
 
-let FacetBox = require('../../../search/facet-box').component;
-let ListActionBar = require('../../../list/action-bar/index').component;
-let ListSummary = require('../../../list/summary/index').component;
+let FacetBox = require('./facet-box').component;
+let ListActionBar = require('./action-bar').component;
+let ListSummary = require('./list-summary').component;
+let Results = require('../common/component/results').component;
+
 let BackToTopComponent = require('../../../common/button/back-to-top').component;
 
 // Store
 
-let queryStore = Focus.search.builtInStore.queryStore;
+let advancedSearchStore = Focus.search.builtInStore.advancedSearchStore;
 
 // Mixins
 
-let ScrollInfoMixin = require('../common/scroll-info-mixin').mixin;
-let GroupByMixin = require('../common/group-by-mixin').mixin;
-let SearchMixin = require('../common/search-mixin').mixin;
 let CartridgeBehaviour = require('../../mixin/cartridge-behaviour');
-let storeBehaviour = require('../../../common/mixin/store-behaviour');
 let type = require('focus').component.types;
+
+// Actions
+
+let actionBuilder = require('../../../../search/action-builder');
 
 /**
  * Page mixin of the advanced search.
  * @type {Object}
  */
 let AdvancedSearch = {
-    mixins: [ScrollInfoMixin, GroupByMixin, SearchMixin, CartridgeBehaviour, storeBehaviour],
-    stores: [{
-        store: queryStore,
-        properties: ['scope', 'query']
-    }],
-    onChange() {
-        this.setState(assign(this._getStateFromStores(), {selectedFacetList: {}}));
-    },
+    /**
+     * Component's mixins
+     * @type {Array}
+     */
+    mixins: [CartridgeBehaviour],
     /**
      * Display name.
      */
     displayName: 'advanced-search',
     /**
-     * Component initialisation
-     */
-    componentDidMount() {
-        this.__registerListeners();
-    },
-    /**
-     * Actions before component will unmount.
-     * @constructor
-     */
-    componentWillUnmount() {
-        this.__unRegisterListeners();
-    },
-    /** @inheritedDoc
+     * Get the default props
+     * @return {object} the default props
      */
     getDefaultProps() {
         return {
             facetConfig: {},
-            idField: 'id', //To remove?
             isSelection: true,
             hasBackToTop: true,
-            BackToTopComponent: BackToTopComponent
+            backToTopComponent: BackToTopComponent,
+            store: advancedSearchStore,
+            action: undefined,
+            service: undefined,
+            orderableColumnList: {},
+            lineOperationList: {},
+            exportAction: {},
+            groupComponent: undefined,
+            lineComponentMapper: undefined,
+            scrollParentSelector: undefined,
+            onLineClick: undefined
         };
     },
+    /**
+     * Props validation
+     * @type {Object}
+     */
     propTypes: {
         facetConfig: type('object'),
-        idField: type('string'),
-        isSelection: type('bool'),
-        scope: type('string'),
-        query: type('string'),
-        exportAction: type(['function', 'object']),
-        unselectedScopeAction: type(['function', 'object'])
+        isSelection: type('boolean'),
+        hasBackToTop: type('boolean'),
+        backToTopComponent: type('object'),
+        store: type('object'),
+        action: type('object'),
+        service: type('object'),
+        orderableColumnList: type('object'),
+        lineOperationList: type('object'),
+        exportAction: type('function'),
+        groupComponent: type('object'),
+        lineComponentMapper: type('function'),
+        scrollParentSelector: type('string'),
+        onLineClick: type('function')
     },
     /**
-     * Init default state.
-     * @returns {object} Initialized state.
+     * Register the store listeners
      */
-    getInitialState() {
-        return assign({
-            facetList: this.props.store.getFacet() || {},
-            selectedFacetList: {},
-            openedFacetList: this.props.openedFacetList,
-            selectionStatus: 'none',
-            orderSelected: undefined,
-            groupSelectedKey: undefined,
-            scope: this.props.scope,
-            query: this.props.query
+    componentWillMount() {
+        ['selected-facets', 'grouping-key', 'sort-by', 'sort-asc'].forEach((node) => {
+            this.props.store[`add${capitalize(camel(node))}ChangeListener`](this._onStoreChangeWithSearch);
         });
-    },
-    componentWillReceiveProps(nextProps) {
-        this.setState(reduce(nextProps, (newState, key, value) => {
-            if (includes(['scope', 'query'], key)) {
-                newState[key] = value;
-            }
-            return newState;
-        }, {}));
-    },
-    /**
-     * Get the state from store.
-     * @returns {object} Dtat to update store.
-     */
-    __getStateFromStore() {
-        if (this.props.store) {
-            let data = this.props.store.get();
-            return assign({
-                facetList: data.facet
-            }, this.getScrollState());
-        }
-    },
-
-    /**
-     * Register a listener on the store.
-     * @private
-     */
-    __registerListeners() {
-        this.props.store.addSearchChangeListener(this._onSearchChange);
-    },
-    /**
-     * Unregister a listener on the store.
-     * @private
-     */
-    __unRegisterListeners() {
-        this.props.store.removeSearchChangeListener(this._onSearchChange);
-    },
-
-    /**
-     * Handler when store emit a change event.
-     */
-    _onSearchChange() {
-        this.setState(this.__getStateFromStore());
-    },
-    /**
-     * Get the list of facet to print into the top bar.
-     * @returns {{}} Facets object : [facet1: 'Label of facet1', facet2: 'Label of facet2'}.
-     * @private
-     */
-    _getFacetListForBar() {
-        let facetList = {};
-        for (let key in this.state.selectedFacetList) {
-            if (key !== 'FCT_SCOPE') {
-                let facet = this.state.selectedFacetList[key];
-                facetList[key] = {
-                    label: this.i18n(`live.filter.facets.${key}`),
-                    value: facet.data.label
-                };
-            }
-        }
-        return facetList;
-    },
-    /**
-     * Click on bar facet action handler.
-     * @param key [string]  Key of the clicked facet.
-     * @private
-     */
-    _facetBarClick(key) {
-        let selectedFacetList = this.state.selectedFacetList;
-        if (key === 'FCT_SCOPE') {
-            Focus.search.changeScope('ALL');
-            selectedFacetList = {};
-        } else {
-            delete selectedFacetList[key];
-        }
-
-        this.setState(
-            assign(
-                {
-                    selectedFacetList: selectedFacetList,
-                    groupSelectedKey: undefined
-                },
-                this.getNoFetchState())
-            , this.search);
-    },
-    /**
-     * Group action click handler.
-     * @param {string} key Name of the column to group (if null => ungroup action).
-     * @private
-     */
-    _groupClick(key) {
-        console.log('Group by : ' + key);
-        this.setState(
-            assign(
-                {groupSelectedKey: key},
-                this.getNoFetchState()
-            ), this.search);
-    },
-    /**
-     * Order action click handler.
-     * @param {string} key Column to order.
-     * @param {string} order Order  asc/desc
-     * @private
-     */
-    _orderClick(key, order) {
-        console.log('Order : ' + key + ' - ' + order);
-        this.setState(
-            assign(
-                {orderSelected: {key: key, order: order}},
-                this.getNoFetchState()
-            ), this.search);
-    },
-    /**
-     * Selection action handler.
-     * @param selectionStatus Current selection status.
-     * @private
-     */
-    _selectionGroupLineClick(selectionStatus) {
-        console.log('Selection status : ' + selectionStatus);
-        this.setState({
-            selectionStatus
+        ['query', 'scope', 'facets', 'results', 'total-count'].forEach((node) => {
+            this.props.store[`add${capitalize(camel(node))}ChangeListener`](this._onStoreChangeWithoutSearch);
+        });
+        this._action = this.props.action || actionBuilder({
+            service: this.props.service,
+            identifier: 'ADVANCED_SEARCH'
         });
     },
     /**
-     * Handler called when facet is selected.
-     * @param facetComponentData Data of facet.
+     * Un-register the store listeners
      */
-    _facetSelectionClick(facetComponentData, isDisableGroup) {
-        console.warn('Facet selection ');
-        console.log(facetComponentData.selectedFacetList);
-
-        let newState = {
-            selectedFacetList: facetComponentData.selectedFacetList,
-            openedFacetList: facetComponentData.openedFacetList
-        };
-        if (isDisableGroup) {
-            newState.groupSelectedKey = undefined;
-        }
-
-        this.setState(assign(newState, this.getNoFetchState()), this.search);
+    componentWillUnmount() {
+        ['selected-facets', 'grouping-key', 'sort-by', 'sort-asc'].forEach((node) => {
+            this.props.store[`remove${capitalize(camel(node))}ChangeListener`](this._onStoreChangeWithSearch);
+        });
+        ['query', 'scope', 'facets', 'results', 'total-count'].forEach((node) => {
+            this.props.store[`remove${capitalize(camel(node))}ChangeListener`](this._onStoreChangeWithoutSearch);
+        });
     },
     /**
-     * Line selection handler.
-     * @param item Line checked/unchecked.
+     * Store changed, update the state, trigger a search after update
      */
-    _selectItem(item) {
-        this.setState({selectionStatus: 'partial'});
+    _onStoreChangeWithSearch() {
+        let selectedFacets = this.store.getSelectedFacets();
+        let groupingKey = this.store.getGroupingKey();
+        let sortBy = this.store.getSortBy();
+        let sortAsc = this.store.getSortAsc();
+        this.setState({selectedFacets, groupingKey, sortBy, sortAsc}, this._action.search);
+    },
+    /**
+     * Store changed, update the state, do not trigger a search after update
+     */
+    _onStoreChangeWithoutSearch() {
+        let query = this.store.getQuery();
+        let scope = this.store.getScope();
+        let facets = this.store.getFacets();
+        let results = this.store.getResults();
+        let totalCount = this.store.getTotalCount();
+        this.setState({query, scope, facets, results, totalCount});
     },
     /**
      * Export action handler.
@@ -248,15 +136,87 @@ let AdvancedSearch = {
         this.props.exportAction();
     },
     /**
-     * Click on scope action handler.
+     * Render the facet box.
+     * @returns {HTML} the rendered component
      */
-    _scopeClick() {
-        Focus.search.changeScope('ALL');
-        this.setState({
-            selectedFacetList: {},
-            groupSelectedKey: undefined,
-            scope: 'ALL'
-        }, this.search);
+    _renderFacetBox() {
+        return (
+            <FacetBox
+                facets={this.state.facets}
+                selectedFacets={this.state.selectedFacets}
+                facetConfig={this.props.facetConfig}
+                action={this._action}
+            />
+        );
+    },
+    /**
+     * Render the list summary component.
+     * @returns {HTML} the rendered component
+     */
+    _renderListSummary() {
+        return (
+            <ListSummary
+                totalCount={this.state.totalCount}
+                query={this.state.query}
+                action={this._action}
+                scope={this.state.scope}
+            />
+        );
+    },
+    /**
+     * Render the action bar.
+     * @returns {HTML} the rendered component
+     */
+    _renderActionBar() {
+        let groupableColumnList = Object.keys(this.state.facets).reduce((result, facetKey) => {
+            result[facetKey] = facetKey;
+            return result;
+        }, {});
+        let selectionAction = (selectionStatus) => {
+            this.setState({selectionStatus});
+        };
+        return (
+            <ListActionBar
+               selectionStatus={this.state.selectionStatus}
+               selectionAction={selectionAction}
+               orderableColumnList={this.props.orderableColumnList}
+               orderSelected={this.state.sortBy}
+               groupableColumnList={groupableColumnList}
+               groupSelectedKey={this.state.groupingKey}
+               facetList={this.state.selectedFacets}
+               operationList={this.props.lineOperationList}
+               action={this._action}
+            />
+        );
+    },
+    /**
+     * Render the results component
+     * @return {HTML} the rendered component
+     */
+    _renderResults() {
+        return (
+            <Results
+                action={this._action}
+                resultsMap={this.state.results}
+                totalCount={this.state.totalCount}
+                groupComponent={this.props.groupComponent}
+                lineComponentMapper={this.props.lineComponentMapper}
+                isSelection={this.props.isSelection}
+                lineSelectionHandler={this._selectItem}
+                lineClickHandler={this._lineClick}
+                lineOperationList={this.props.lineOperationList}
+                scrollParentSelector={this.props.scrollParentSelector}
+                selectionStatus={this.state.selectionStatus}
+                groupingKey={this.state.groupingKey}
+                resultsFacets={this.state.facets}
+            />
+        );
+    },
+    /**
+     * Line selection handler
+     */
+    _selectItem() {
+        this.setState({selectionStatus: 'partial'});
     },
     /**
      * Action on line click.
@@ -268,108 +228,21 @@ let AdvancedSearch = {
         }
     },
     /**
-     * Render the show all button  seect the group corresponding facet.
-     * @param groupKey Group key.
-     * @returns {Function} Function to select the facet.
+     * Render the component
+     * @return {HTML} the rendered component
      */
-    showAllGroupListHandler(groupKey) {
-        return (event)=> {
-            let selectedFacetList = clone(this.state.selectedFacetList);
-            let facets = this.props.store.getFacet();
-
-            if (this.state.groupSelectedKey) {
-                selectedFacetList[this.state.groupSelectedKey] = {
-                    data: facets[this.state.groupSelectedKey][groupKey],
-                    key: groupKey
-                };
-            } else {
-                let scopeFacet = facets[keys(facets)[0]];
-                selectedFacetList[keys(facets)[0]] = {
-                    data: scopeFacet[groupKey],
-                    key: groupKey
-                }
-            }
-
-            this._facetSelectionClick({
-                selectedFacetList: selectedFacetList,
-                facetComponentData: this.state.openedFacetList
-            }, true);
-        };
-    },
-
-    /**
-     * Render the facet box.
-     * @returns {XML} Render the facetBox.
-     */
-    getFacetBoxComponent() {
-        return (
-            <FacetBox
-                data-focus='advanced-search-facet-box'
-                facetList={this.state.facetList}
-                selectedFacetList={this.state.selectedFacetList}
-                openedFacetList={this.state.openedFacetList}
-                config={this.props.facetConfig}
-                dataSelectionHandler={this._facetSelectionClick}
-                />
-        );
-    },
-    /**
-     * Render the list summary component.
-     * @returns {XML} Htm code.
-     */
-    getListSummaryComponent() {
-        let scope = this.state.scope !== 'ALL' ? {scope: {
-            label: 'Scope',
-            value: this.state.scope
-        }} : undefined;
-        return (
-            <ListSummary
-                data-focus='advanced-search-list-summary'
-                nb={this.state.totalRecords}
-                queryText={this.state.query}
-                scopeList={scope}
-                scopeClickAction={this._scopeClick}
-                exportAction={this._exportHandler}/>
-        );
-    },
-    /**
-     * Render the action bar.
-     * @returns {XML} Rendering of the action bar.
-     */
-    getActionBarComponent() {
-        let groupableColumnList = Object.keys(this.state.facetList).reduce((result, facetKey) => {
-            result[facetKey] = facetKey;
-            return result;
-        }, {});
-        return (
-            <ListActionBar data-focus='advanced-search-action-bar'
-                           selectionStatus={this.state.selectionStatus}
-                           selectionAction={this._selectionGroupLineClick}
-                           orderableColumnList={this.props.orderableColumnList}
-                           orderAction={this._orderClick}
-                           orderSelected={this.state.orderSelected}
-                           groupableColumnList={groupableColumnList}
-                           groupAction={this._groupClick}
-                           groupSelectedKey={this.state.groupSelectedKey}
-                           facetList={this._getFacetListForBar()}
-                           facetClickAction={this._facetBarClick}
-                           operationList={this.props.lineOperationList}
-                           groupLabelPrefix='live.filter.facets.'
-                />
-        );
-    },
-    render: function render() {
+    render() {
         return (
             <div className="advanced-search" data-focus="advanced-search">
                 <div data-focus="facet-container">
-                    {this.getFacetBoxComponent()}
+                    {this.renderFacetBox()}
                 </div>
                 <div data-focus="result-container">
-                    {this.getListSummaryComponent()}
-                    {this.getActionBarComponent()}
-                    {this.getResultListComponent(true)}
+                    {this._renderListSummary()}
+                    {this._renderActionBar()}
+                    {this._renderResults()}
                 </div>
-                {this.props.hasBackToTop && <this.props.BackToTopComponent/>}
+                {this.props.hasBackToTop && <this.props.backToTopComponent/>}
             </div>
         );
     }
