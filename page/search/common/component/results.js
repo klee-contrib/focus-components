@@ -6,6 +6,8 @@ let map = require('lodash/collection/map');
 let reduce = require('lodash/collection/reduce');
 let clone = require('lodash/lang/clone');
 let keys = require('lodash/object/keys');
+let forEach = require('lodash/collection/forEach');
+let isEqual = require('lodash/lang/isEqual');
 
 // Components
 
@@ -134,10 +136,25 @@ let Results = {
             this.setState({groupsRowsCounts});
         };
     },
-    _getGroupCounts() {
-        return reduce(this.props.resultsFacets, (groupCounts, facetData, facetKey) => {
-            groupCounts[facetKey] = facetData.count;
-            return groupCounts;
+    _getGroupCounts(resultsMap) {
+        let groupKeys = keys(resultsMap);
+        if (groupKeys.length === 1) {
+            return {
+                [groupKeys[0]]: {
+                    count: this.props.totalCount
+                }
+            };
+        }
+        let targetFacetData;
+        forEach(this.props.resultsFacets(), (facetData) => {
+            if (isEqual(keys(facetData).sort(), groupKeys.sort())) {
+                targetFacetData = facetData;
+                return false;
+            }
+        });
+        return reduce(targetFacetData, (result, data, key) => {
+            result[key] = data.count;
+            return result;
         }, {});
     },
     /**
@@ -154,7 +171,7 @@ let Results = {
             return list.length === 0;
         });
         // Get the count for each group
-        let groupCounts = this._getGroupsCounts();
+        let groupCounts = this._getGroupsCounts(this.props.resultsMap);
         // Check if there is only one group left
         if (keys(resultsMap).length === 1) {
             let key = keys(resultsMap)[0];
