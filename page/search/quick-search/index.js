@@ -81,7 +81,7 @@ let QuickSearchComponent = {
         this._action = this.props.action || actionBuilder({
             service: this.props.service,
             identifier: this.props.store.identifier,
-            getSearchOptions: this.props.store.value
+            getSearchOptions: () => {return this.props.store.getValue.call(this.props.store); } // Binding the store in the function call
         });
         this._loadReference();
         this.props.store.addQueryChangeListener(this._action.search);
