@@ -24,7 +24,7 @@ let type = require('focus').component.types;
 
 // Actions
 
-let actionBuilder = require('../../../../search/action-builder');
+let actionBuilder = Focus.search.actionBuilder;
 
 /**
  * Page mixin of the advanced search.
@@ -82,6 +82,11 @@ let AdvancedSearch = {
         scrollParentSelector: type('string'),
         onLineClick: type('function')
     },
+    getInitialState() {
+        return ({
+
+        });
+    },
     /**
      * Register the store listeners
      */
@@ -94,7 +99,8 @@ let AdvancedSearch = {
         });
         this._action = this.props.action || actionBuilder({
             service: this.props.service,
-            identifier: 'ADVANCED_SEARCH'
+            identifier: this.props.store.identifier,
+            getSearchOptions: this.props.store.value
         });
     },
     /**
@@ -112,21 +118,21 @@ let AdvancedSearch = {
      * Store changed, update the state, trigger a search after update
      */
     _onStoreChangeWithSearch() {
-        let selectedFacets = this.store.getSelectedFacets();
-        let groupingKey = this.store.getGroupingKey();
-        let sortBy = this.store.getSortBy();
-        let sortAsc = this.store.getSortAsc();
+        let selectedFacets = this.props.store.getSelectedFacets();
+        let groupingKey = this.props.store.getGroupingKey();
+        let sortBy = this.props.store.getSortBy();
+        let sortAsc = this.props.store.getSortAsc();
         this.setState({selectedFacets, groupingKey, sortBy, sortAsc}, this._action.search);
     },
     /**
      * Store changed, update the state, do not trigger a search after update
      */
     _onStoreChangeWithoutSearch() {
-        let query = this.store.getQuery();
-        let scope = this.store.getScope();
-        let facets = this.store.getFacets();
-        let results = this.store.getResults();
-        let totalCount = this.store.getTotalCount();
+        let query = this.props.store.getQuery();
+        let scope = this.props.store.getScope();
+        let facets = this.props.store.getFacets();
+        let results = this.props.store.getResults();
+        let totalCount = this.props.store.getTotalCount();
         this.setState({query, scope, facets, results, totalCount});
     },
     /**
@@ -168,10 +174,10 @@ let AdvancedSearch = {
      * @returns {HTML} the rendered component
      */
     _renderActionBar() {
-        let groupableColumnList = Object.keys(this.state.facets).reduce((result, facetKey) => {
+        let groupableColumnList = this.state.facets ? Object.keys(this.state.facets).reduce((result, facetKey) => {
             result[facetKey] = facetKey;
             return result;
-        }, {});
+        }, {}) : {};
         let selectionAction = (selectionStatus) => {
             this.setState({selectionStatus});
         };
@@ -235,7 +241,7 @@ let AdvancedSearch = {
         return (
             <div className="advanced-search" data-focus="advanced-search">
                 <div data-focus="facet-container">
-                    {this.renderFacetBox()}
+                    {this._renderFacetBox()}
                 </div>
                 <div data-focus="result-container">
                     {this._renderListSummary()}
