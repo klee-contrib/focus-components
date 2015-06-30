@@ -26,8 +26,7 @@ let Box = {
      */
     _onFacetSelection(facetComponentData, isDisableGroup) {
         let newProperties = {
-            selectedFacets: facetComponentData.selectedFacetList,
-            openedFacetList: {}
+            selectedFacets: facetComponentData.selectedFacetList
         };
         if (isDisableGroup) {
             newProperties.groupingKey = undefined;
