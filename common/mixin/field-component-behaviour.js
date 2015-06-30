@@ -49,7 +49,8 @@ var fieldBehaviourMixin = {
       InputLabelComponent: def.InputLabelComponent,
       InputComponent: def.InputComponent,
       TextComponent: def.TextComponent,
-      DisplayComponent: def.DisplayComponent
+      DisplayComponent: def.DisplayComponent,
+      options: options.options || def.options //Add options to the fields
     };
     //Extend the options object in order to be able to specify more options to thie son's component.
     var fieldProps = assign(options, propsContainer);
