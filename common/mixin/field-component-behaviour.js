@@ -37,13 +37,13 @@ var fieldBehaviourMixin = {
       //Mode
       isEdit: isEdit,
       hasLabel: hasLabel,
-      isRequired: def.isRequired,
+      isRequired: def.isRequired || def.required, //ToDO: check with the generators.
       //Style
       style: options.style,
       //Methods
       validator: def.validator,
-      formatter: def.formatter || function(d){return d;},
-      unformatter: def.unformatter || function(d){return d;},
+      formatter: def.formatter || function(d){return d; },
+      unformatter: def.unformatter || function(d){return d; },
       //Component
       FieldComponent: def.FieldComponent,
       InputLabelComponent: def.InputLabelComponent,
