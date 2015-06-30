@@ -13,12 +13,18 @@ let isEqual = require('lodash/lang/isEqual');
 
 let DefaultEmpty = require('./default-empty-component');
 let ListSelection = require('../../../../list/selection').list.component;
+let GroupWrapper = require('./group-wrapper').component;
+
+// Mixins
+
+let i18nMixin = require('../../../../common/i18n/mixin');
 
 /**
  * Results component, used to render the results, grouped or ungrouped
  * @type {Object}
  */
 let Results = {
+    mixins: [i18nMixin],
     /**
      * By default, an empty component is picked.
      * @return {Object} the default props
@@ -46,35 +52,19 @@ let Results = {
             resultsFacets: undefined
         };
     },
-    /**
-     * Component's intial state
-     * @return {object} the initial state
-     */
     getInitialState() {
         return ({
-            groupsRowsCounts: this._initGroupsRowsCountsFromMap(this.props.resultsMap)
+            loading: false
         });
     },
-    /**
-     * New props are received, update the state
-     * @param  {object} nextProps the new props
-     */
-    componentWillReceiveNewProps(nextProps) {
-        this.setState({
-            groupsRowsCounts: this._initGroupsRowsCountsFromMap(nextProps.resultsMap)
-        });
+    componentWillReceiveProps() {
+        if (this.state.loading) {
+            this.setState({
+                loading: false
+            });
+        }
     },
-    /**
-     * Init the group counts from the results map, with a default count of this.props.initialRowsCount
-     * @param  {object} resultsMap the results map
-     * @return {object}            The map of counts per result type
-     */
-    _initGroupsRowsCountsFromMap(resultsMap) {
-        return reduce(resultsMap, (result, list, key) => {
-            result[key] = this.props.initialRowsCount;
-            return result;
-        }, {});
-    },
+
     /**
      * Render a single group of results, using the group component given as a prop.
      * @param  {array} list the results list
@@ -84,22 +74,31 @@ let Results = {
      * @return {HMTL}      the rendered group
      */
     _renderSingleGroup(list, key, count, isUnique) {
-        let Group = this.props.groupComponent;
         if (isUnique) {
             if (this.props.renderSingleGroupDecoration) {
                 return (
-                    <Group groupKey={key} showAllHandler={this._getShowAllHandler(key)} showMoreHandler={this._getShowMoreHandler(key)} isUnique={true}>
-                        {this._renderResultsList(list, key, count, true)}
-                    </Group>
+                    <GroupWrapper
+                        count={count}
+                        groupComponent={this.props.groupComponent}
+                        isUnique={true}
+                        groupKey={key}
+                        list={list}
+                        renderResultsList={this._renderResultsList}
+                    />
                 );
             } else {
                 return this._renderResultsList(list, key, count, true);
             }
         } else {
             return (
-                <this.props.groupComponent groupKey={key} showAllHandler={this._getShowAllHandler(key)} showMoreHandler={this._getShowMoreHandler(key)}>
-                    {this._renderResultsList(list, key, count)}
-                </this.props.groupComponent>
+                <GroupWrapper
+                    count={count}
+                    groupComponent={this.props.groupComponent}
+                    groupKey={key}
+                    list={list}
+                    renderResultsList={this._renderResultsList}
+                    showAllHandler={this._showAllHandler}
+                />
             );
         }
     },
@@ -120,41 +119,48 @@ let Results = {
      */
     _renderResultsList(list, key, count, isUnique) {
         let LineComponent = this.props.lineComponentMapper(key, list);
-        let hasMoreData = isUnique && list.length <= count;
+        let hasMoreData = isUnique !== undefined && isUnique && list.length <= count;
         return (
-            <ListSelection
-                data-focus='results-list'
-                data={list}
-                idField={this.props.idField}
-                isSelection={this.props.isSelection}
-                onSelection={this.props.lineSelectionHandler}
-                onLineClick={this.props.lineClickHandler}
-                fetchNextPage={this._onScrollReachedBottom}
-                hasMoreData={hasMoreData}
-                operationList={this.props.lineOperationList}
-                lineComponent={LineComponent}
-                parentSelector={this.props.scrollParentSelector}
-                selectionStatus={this.props.selectionStatus}
-            />
+            <div>
+                <ListSelection
+                    data-focus='results-list'
+                    data={list}
+                    idField={this.props.idField}
+                    isSelection={this.props.isSelection}
+                    onSelection={this.props.lineSelectionHandler}
+                    onLineClick={this.props.lineClickHandler}
+                    fetchNextPage={this._onScrollReachedBottom}
+                    hasMoreData={hasMoreData}
+                    operationList={this.props.lineOperationList}
+                    lineComponent={LineComponent}
+                    parentSelector={this.props.scrollParentSelector}
+                    selectionStatus={this.props.selectionStatus}
+                />
+                {this.state.loading &&
+                    <div data-focus='loading-more-results'>
+                        <i className='fa fa-spinner'></i>
+                        {this.i18n('search.loadingMore')}
+                    </div>
+                }
+            </div>
         );
     },
+    
     /**
      * Construct the show all action
      * @param  {string} key the group key where the show all has been clicked
      * @return {function}     the show all handler
      */
-    _getShowAllHandler(key) {
-        return () => {
-            if (this.props.groupingKey === this.props.scopeFacetKey) {
-                this._scopeSelectionHandler(key);
-            } else {
-                let facetKey = this.props.groupingKey;
-                let facetValue = key;
-                this._facetSelectionHandler({
-                    [facetKey]: facetValue
-                });
-            }
-        };
+    _showAllHandler(key) {
+        if (this.props.resultsFacets[this.props.scopeFacetKey]) {
+            this._scopeSelectionHandler(key);
+        } else {
+            let facetKey = this.props.groupingKey;
+            let facetValue = key;
+            this._facetSelectionHandler({
+                [facetKey]: facetValue
+            });
+        }
     },
     /**
      * Construct the show more handler
@@ -216,7 +222,14 @@ let Results = {
      * Scroll reached bottom handler
      */
     _onScrollReachedBottom() {
-        this.props.action.search(true);
+        if (!this.state.loading) {
+            this.setState({
+                loading: true
+            }, () => {
+                this.props.action.search(true);
+            });
+        }
+
     },
     /**
      * Render the whole component
@@ -237,14 +250,14 @@ let Results = {
         if (keys(resultsMap).length === 1) {
             let key = keys(resultsMap)[0];
             let list = resultsMap[key];
-            let count = groupCounts[key];
+            let count = groupCounts[key].count;
             return this._renderSingleGroup(list, key, count, true);
         } else {
             return (
                 <div data-focus='search-results'>
                     {map(resultsMap, (list, key) => {
                         let count = groupCounts[key];
-                        this._renderSingleGroup(list, key, count);
+                        return this._renderSingleGroup(list, key, count);
                     })}
                 </div>
             );
