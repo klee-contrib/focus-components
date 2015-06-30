@@ -15,11 +15,11 @@ let storeBehaviour = require('../../../common/mixin/store-behaviour');
 
 // Actions
 
-let actionBuilder = require('../../../../search/action-builder');
+let actionBuilder = Focus.search.actionBuilder;
 
 // Stores
 
-let quicSearchStore = Focus.search.builtInStore.quickSearchStore;
+let quickSearchStore = Focus.search.builtInStore.quickSearchStore;
 
 /**
  * General search mixin.
@@ -48,7 +48,7 @@ let QuickSearchComponent = {
     getDefaultProps() {
         return {
             scopeSelectionHandler: this._scopeSelectionHandler,
-            store: quicSearchStore,
+            store: quickSearchStore,
             scopeFacetKey: 'FCT_SCOPE',
             lineComponentMapper: undefined,
             lineOperationList: undefined,
@@ -80,19 +80,20 @@ let QuickSearchComponent = {
     componentWillMount() {
         this._action = this.props.action || actionBuilder({
             service: this.props.service,
-            identifier: 'QUICK_SEARCH'
+            identifier: this.props.store.identifier,
+            getSearchOptions: this.props.store.value
         });
         this._loadReference();
-        this.props.store.addQueryChangeListener(this.props.action.search);
-        this.props.store.addScopeChangeListener(this.props.action.search);
+        this.props.store.addQueryChangeListener(this._action.search);
+        this.props.store.addScopeChangeListener(this._action.search);
         this.props.store.addResultsChangeListener(this._onResultsChange);
     },
     /**
      * Unregister the store listeners
      */
     componentWillUnmount() {
-        this.props.store.removeQueryChangeListener(this.props.action.search);
-        this.props.store.removeScopeChangeListener(this.props.action.search);
+        this.props.store.removeQueryChangeListener(this._action.search);
+        this.props.store.removeScopeChangeListener(this._action.search);
         this.props.store.removeResultsChangeListener(this._onResultsChange);
     },
     /**
