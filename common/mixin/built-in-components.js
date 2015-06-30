@@ -140,6 +140,7 @@ buttonCancel: function buttonCancel() {
     type: 'button',
     icon: 'undo',
     handleOnClick: function handleOnClickCancel(){
+      form.clearError();
       form.setState({isEdit: !form.state.isEdit},function(){
         changeMode('consult', 'edit')});
     }
