@@ -12,7 +12,7 @@ let isEqual = require('lodash/lang/isEqual');
 // Components
 
 let DefaultEmpty = require('./default-empty-component');
-let ListSelection = require('../../../list/selection').list.component;
+let ListSelection = require('../../../../list/selection').list.component;
 
 /**
  * Results component, used to render the results, grouped or ungrouped
@@ -183,7 +183,7 @@ let Results = {
             };
         }
         let targetFacetData;
-        forEach(this.props.resultsFacets(), (facetData) => {
+        forEach(this.props.resultsFacets, (facetData) => {
             if (isEqual(keys(facetData).sort(), groupKeys.sort())) {
                 targetFacetData = facetData;
                 return false;
@@ -232,7 +232,7 @@ let Results = {
             return list.length === 0;
         });
         // Get the count for each group
-        let groupCounts = this._getGroupsCounts(this.props.resultsMap);
+        let groupCounts = this._getGroupCounts(this.props.resultsMap);
         // Check if there is only one group left
         if (keys(resultsMap).length === 1) {
             let key = keys(resultsMap)[0];
@@ -240,10 +240,14 @@ let Results = {
             let count = groupCounts[key];
             return this._renderSingleGroup(list, key, count, true);
         } else {
-            return map(resultsMap, (list, key) => {
-                let count = groupCounts[key];
-                this._renderSingleGroup(list, key, count);
-            });
+            return (
+                <div data-focus='search-results'>
+                    {map(resultsMap, (list, key) => {
+                        let count = groupCounts[key];
+                        this._renderSingleGroup(list, key, count);
+                    })}
+                </div>
+            );
         }
     }
 };
