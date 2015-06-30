@@ -10,7 +10,7 @@ let SearchBar = require('../../../../search/search-bar').component;
 
 // Actions
 
-let actionBuilder = require('../../../../search/action-builder');
+let actionBuilder = Focus.search.actionBuilder;
 
 // Store
 
@@ -19,6 +19,13 @@ let advancedSearchStore = Focus.search.builtInStore.advancedSearchStore;
 module.exports = {
     mixins: [i18nMixin, referenceBehaviour, storeBehaviour],
     referenceNames: ['scopes'],
+    getDefaultProps() {
+        return {
+            service: undefined,
+            store: advancedSearchStore,
+            onSearchCriteriaChange: undefined
+        };
+    },
     getInitialState() {
         return {
             isLoading: false
@@ -28,17 +35,20 @@ module.exports = {
         this._loadReference();
         this._action = this.props.action || actionBuilder({
             service: this.props.service,
-            identifier: 'ADVANCED_SEARCH'
+            identifier: this.props.store.identifier,
+            getSearchOptions: this.props.store.value
         });
-        advancedSearchStore.addQueryChangeListener(this._triggerSearch);
-        advancedSearchStore.addScopeChangeListener(this._triggerSearch);
+        advancedSearchStore.addQueryChangeListener(this._onSearchCriteriaChange);
+        advancedSearchStore.addScopeChangeListener(this._onSearchCriteriaChange);
     },
     componentWillUnmount() {
-        advancedSearchStore.removeQueryChangeListener(this._triggerSearch);
-        advancedSearchStore.removeScopeChangeListener(this._triggerSearch);
+        advancedSearchStore.removeQueryChangeListener(this._onSearchCriteriaChange);
+        advancedSearchStore.removeScopeChangeListener(this._onSearchCriteriaChange);
     },
-    _triggerSearch() {
-        this._action.search();
+    _onSearchCriteriaChange() {
+        if (this.props.onSearchCriteriaChange) {
+            this.props.onSearchCriteriaChange();
+        }
     },
     _SearchBarComponent() {
         return <SearchBar
