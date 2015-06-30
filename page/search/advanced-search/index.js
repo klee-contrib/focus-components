@@ -91,10 +91,10 @@ let AdvancedSearch = {
      * Register the store listeners
      */
     componentWillMount() {
-        ['selected-facets', 'grouping-key', 'sort-by', 'sort-asc'].forEach((node) => {
+        ['query', 'scope', 'selected-facets', 'grouping-key', 'sort-by', 'sort-asc'].forEach((node) => {
             this.props.store[`add${capitalize(camel(node))}ChangeListener`](this._onStoreChangeWithSearch);
         });
-        ['query', 'scope', 'facets', 'results', 'total-count'].forEach((node) => {
+        ['facets', 'results', 'total-count'].forEach((node) => {
             this.props.store[`add${capitalize(camel(node))}ChangeListener`](this._onStoreChangeWithoutSearch);
         });
         this._action = this.props.action || actionBuilder({
@@ -107,10 +107,10 @@ let AdvancedSearch = {
      * Un-register the store listeners
      */
     componentWillUnmount() {
-        ['selected-facets', 'grouping-key', 'sort-by', 'sort-asc'].forEach((node) => {
+        ['query', 'scope', 'selected-facets', 'grouping-key', 'sort-by', 'sort-asc'].forEach((node) => {
             this.props.store[`remove${capitalize(camel(node))}ChangeListener`](this._onStoreChangeWithSearch);
         });
-        ['query', 'scope', 'facets', 'results', 'total-count'].forEach((node) => {
+        ['facets', 'results', 'total-count'].forEach((node) => {
             this.props.store[`remove${capitalize(camel(node))}ChangeListener`](this._onStoreChangeWithoutSearch);
         });
     },
@@ -118,22 +118,22 @@ let AdvancedSearch = {
      * Store changed, update the state, trigger a search after update
      */
     _onStoreChangeWithSearch() {
+        let query = this.props.store.getQuery();
+        let scope = this.props.store.getScope();
         let selectedFacets = this.props.store.getSelectedFacets();
         let groupingKey = this.props.store.getGroupingKey();
         let sortBy = this.props.store.getSortBy();
         let sortAsc = this.props.store.getSortAsc();
-        this.setState({selectedFacets, groupingKey, sortBy, sortAsc}, this._action.search);
+        this.setState({query, scope, selectedFacets, groupingKey, sortBy, sortAsc}, this._action.search);
     },
     /**
      * Store changed, update the state, do not trigger a search after update
      */
     _onStoreChangeWithoutSearch() {
-        let query = this.props.store.getQuery();
-        let scope = this.props.store.getScope();
         let facets = this.props.store.getFacets();
         let results = this.props.store.getResults();
         let totalCount = this.props.store.getTotalCount();
-        this.setState({query, scope, facets, results, totalCount});
+        this.setState({facets, results, totalCount});
     },
     /**
      * Export action handler.
