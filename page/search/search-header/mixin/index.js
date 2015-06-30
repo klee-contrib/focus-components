@@ -36,7 +36,7 @@ module.exports = {
         this._action = this.props.action || actionBuilder({
             service: this.props.service,
             identifier: this.props.store.identifier,
-            getSearchOptions: this.props.store.value
+            getSearchOptions: () => {return this.props.store.getValue.call(this.props.store); } // Binding the store in the function call
         });
         advancedSearchStore.addQueryChangeListener(this._onSearchCriteriaChange);
         advancedSearchStore.addScopeChangeListener(this._onSearchCriteriaChange);
