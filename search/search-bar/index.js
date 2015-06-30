@@ -83,7 +83,7 @@ let SearchBar = {
     },
     _onInputChange(event) {
         this.setState({query: event.target.value});
-        if (this.state.query.length >= this.props.minChar) {
+        if (event.target.value.length >= this.props.minChar) {
             this._broadcastQueryChange();
         }
     },
