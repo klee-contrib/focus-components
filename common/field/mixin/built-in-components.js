@@ -62,11 +62,13 @@ var fieldBuiltInComponentsMixin = {
         }
         if (this.props.hasLabel) {
             var labelClassName = this._getLabelGridClassName();
+            console.log('LABEL', this.props);
             return (
                 <Label
                     style={{className: labelClassName}}
                     name={this.props.name}
                     key={this.props.name}
+                    isRequired={this.props.isRequired}
                 />
             );
         }
@@ -91,6 +93,7 @@ var fieldBuiltInComponentsMixin = {
                     onChange={this.onInputChange}
                     formatter={this.props.formatter}
                     unformatter={this.props.unformatter}
+                    options={this.props.options}
                     ref="input"
                 />
             </div>
@@ -115,6 +118,7 @@ var fieldBuiltInComponentsMixin = {
                     values={this.state.values}
                     type={this.props.type}
                     onChange={this.onInputChange}
+                    options={this.props.options}
                     ref="input"
                 />
             </div>

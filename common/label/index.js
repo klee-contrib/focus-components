@@ -10,13 +10,15 @@ var labelMixin = {
     return {
       name: undefined,
       key: undefined,
-			style: {className: ''}
+			style: {className: ''},
+      isRequired: false,
+      requiredChar: ' *'
     };
   },
    render: function() {
     return (
       <label className={this.props.style.className} htmlFor={this.props.name}>
-        {this.i18n(this.props.name)}
+        {this.i18n(this.props.name) + (this.props.isRequired ? this.props.requiredChar : '  ')}
       </label>
     );
   }

@@ -57,6 +57,14 @@ var actionMixin = {
    */
   _loadData: function formLoadData() {
     this.action.load(this._getId());
+  },
+  clearError(){
+    for(var r in this.refs){
+      //If the reference has a getValue function if is read.
+      if(this.refs[r] && isFunction(this.refs[r].getValue)){
+        this.refs[r].setError(undefined);
+      }
+    }
   }
 };
 
