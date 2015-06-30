@@ -93,6 +93,7 @@ var fieldBuiltInComponentsMixin = {
                     onChange={this.onInputChange}
                     formatter={this.props.formatter}
                     unformatter={this.props.unformatter}
+                    options={this.props.options}
                     ref="input"
                 />
             </div>
@@ -117,6 +118,7 @@ var fieldBuiltInComponentsMixin = {
                     values={this.state.values}
                     type={this.props.type}
                     onChange={this.onInputChange}
+                    options={this.props.options}
                     ref="input"
                 />
             </div>
