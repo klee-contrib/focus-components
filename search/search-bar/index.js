@@ -47,7 +47,7 @@ let SearchBar = {
         return {
             loading: this.props.loading,
             scope: this.props.store.getScope(),
-            query: this.props.sore.getQuery()
+            query: this.props.store.getQuery()
         };
     },
     componentDidMount() {
@@ -76,7 +76,9 @@ let SearchBar = {
     },
     _broadcastQueryChange() {
         actionWrapper(() => {
-            this.props.action.updateQuery(React.findDOMNode(this.refs.query).value);
+            this.props.action.updateProperties({
+                query: React.findDOMNode(this.refs.query).value
+            });
         })();
     },
     _onInputChange(event) {
@@ -87,13 +89,15 @@ let SearchBar = {
     },
     _onScopeSelection(scope) {
         this._focusQuery();
-        this.props.action.updateScope(scope);
+        this.props.action.updateProperties({scope});
         this.setState({scope});
     },
     _handleInputKeyPress(event) {
         if (event.key === 'Enter') {
             actionWrapper(() => {
-                this.props.action.updateQuery(React.findDOMNode(this.refs.query).value);
+                this.props.action.updateProperties({
+                    query: React.findDOMNode(this.refs.query).value
+                });
             }, null, 0)();
         }
     },

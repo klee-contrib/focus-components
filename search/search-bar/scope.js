@@ -1,9 +1,7 @@
 let builder = require('focus').component.builder;
 let type = require('focus').component.types;
-let React = require('react');
-
-let find = require('lodash/collection/find');
 let uuid = require('uuid');
+let find = require('lodash/collection/find');
 
 let scopeMixin = {
     /**
@@ -42,16 +40,13 @@ let scopeMixin = {
     _getClassName(){
         return `form-control ${this.props.className ? this.props.className : ''}`;
     },
-    /**
-     * Internal function which handles the click on the scope line element and call the real handleOnclick if it is defined.
-     * @param {object} event - Event trigger by the search.
-     */
-    _handleOnClick(event) {
-        let val = event.target.hasAttribute('value') ? event.target.getAttribute('value') : undefined;
-        this.setState({
-            isDeployed: false
-        });
-        this.props.onScopeSelection(val);
+    _onScopeClickHandler(scope) {
+        return () => {
+            this.setState({
+                isDeployed: false
+            });
+            this.props.onScopeSelection(scope.code);
+        };
     },
     /**
      * Handle the click on the scope element.
@@ -65,7 +60,7 @@ let scopeMixin = {
      * Return the css class for the scope.
      */
     scopeStyle() {
-        let activeScope = this.props.value;
+        let activeScope = find(this.props.list, {code: this.props.value});
         if (!activeScope) {
             return 'sb-scope-none';
         }
@@ -76,7 +71,7 @@ let scopeMixin = {
             return;
         }
         let scopes = this.props.list.map((scope) => {
-            let selectedValue = this.props.value.code === scope.code ? 'active' : '';
+            let selectedValue = this.props.value === scope.code ? 'active' : '';
             //Add defaut Style to scope if not define
             let scopeCss = scope.style;
             if (!scopeCss) {
@@ -85,7 +80,7 @@ let scopeMixin = {
             scope.style = scopeCss;
 
             return (
-                <li key={scope.code || uuid.v4()} value={scope} className={`${selectedValue} ${scope.style}`} onClick={this._handleOnClick}>
+                <li key={scope.code || uuid.v4()} className={`${selectedValue} ${scope.style}`} onClick={this._onScopeClickHandler(scope)}>
                     {scope.label}
                 </li>
             );
