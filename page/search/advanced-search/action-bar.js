@@ -73,7 +73,7 @@ let Bar = {
      */
     _groupAction(key) {
         this.props.action.updateProperties({
-            groupBy: key
+            groupingKey: key
         });
     },
     /**
