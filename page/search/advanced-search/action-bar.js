@@ -7,7 +7,12 @@ let clone = require('lodash/lang/clone');
 
 let ListActionBar = require('../../../list/action-bar/index').component;
 
+//Mixins
+
+let i18nMixin = require('../../../common/i18n/mixin');
+
 let Bar = {
+    mixins: [i18nMixin],
     /**
      * Get the default props
      * @return {object} the default props
