@@ -19,5 +19,6 @@ module.exports = {
   mixin: require('./mixin'),
   display: require('./display'),
   detail: require('./detail'),
-  progressBar: require('./progress-bar')
+  progressBar: require('./progress-bar'),
+  role: require('./role')
 };

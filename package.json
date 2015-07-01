@@ -73,6 +73,10 @@
       "path": "common/field"
     },
     {
+      "name": "role",
+      "path": "common/role"
+    },
+    {
       "name": "icon",
       "path": "common/icon"
     },
