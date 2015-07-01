@@ -1,6 +1,6 @@
 {
   "name": "focusjs-components",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "description": "Focus component repository.",
   "main": "index.js",
   "scripts": {
@@ -223,7 +223,7 @@
   ],
   "homepage": "https://github.com/KleeGroup/focus-components",
   "dependencies": {
-    "focusjs": "^0.5.5",
+    "focusjs": "^0.7.0",
     "immutable": "^3.7.3",
     "lodash": "^3.9.1",
     "object-assign": "^2.0.0",
