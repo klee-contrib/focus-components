@@ -120,22 +120,25 @@ let AdvancedSearch = {
      * Store changed, update the state, trigger a search after update
      */
     _onStoreChangeWithSearch() {
+        this.setState(this._getNewStateFromStore(), this._action.search);
+    },
+    /**
+     * Store changed, update the state, do not trigger a search after update
+     */
+    _onStoreChangeWithoutSearch() {
+        this.setState(this._getNewStateFromStore());
+    },
+    _getNewStateFromStore() {
         let query = this.props.store.getQuery();
         let scope = this.props.store.getScope();
         let selectedFacets = this.props.store.getSelectedFacets() || {};
         let groupingKey = this.props.store.getGroupingKey();
         let sortBy = this.props.store.getSortBy();
         let sortAsc = this.props.store.getSortAsc();
-        this.setState({query, scope, selectedFacets, groupingKey, sortBy, sortAsc}, this._action.search);
-    },
-    /**
-     * Store changed, update the state, do not trigger a search after update
-     */
-    _onStoreChangeWithoutSearch() {
         let facets = this.props.store.getFacets();
         let results = this.props.store.getResults();
         let totalCount = this.props.store.getTotalCount();
-        this.setState({facets, results, totalCount});
+        return {query, scope, selectedFacets, groupingKey, sortBy, sortAsc, facets, results, totalCount};
     },
     /**
      * Export action handler.
@@ -192,7 +195,7 @@ let AdvancedSearch = {
                orderSelected={this.state.sortBy}
                groupableColumnList={groupableColumnList}
                groupSelectedKey={this.state.groupingKey}
-               facetList={this.state.selectedFacets}
+               selectedFacets={this.state.selectedFacets}
                operationList={this.props.lineOperationList}
                action={this._action}
             />
