@@ -1,9 +1,7 @@
 let builder = require('focus').component.builder;
 let type = require('focus').component.types;
-let React = require('react');
-
-let find = require('lodash/collection/find');
 let uuid = require('uuid');
+let find = require('lodash/collection/find');
 
 let scopeMixin = {
     /**
@@ -18,11 +16,9 @@ let scopeMixin = {
         return {
             list: [],
             value: undefined,
-            isDeployed: false
+            isDeployed: false,
+            onScopeSelection: undefined
         };
-    },
-    componentWillReceiveProps(nextProps) {
-        this.setState({value: nextProps.value});
     },
     /**
      * Scope property validation.
@@ -38,51 +34,33 @@ let scopeMixin = {
      */
     getInitialState() {
         return {
-            isDeployed: this.props.isDeployed,
-            value: this.props.value
+            isDeployed: this.props.isDeployed
         };
-    },
-    /**
-     * Get the value of the scope.
-     */
-    getValue() {
-        return this.state.value;
     },
     _getClassName(){
         return `form-control ${this.props.className ? this.props.className : ''}`;
     },
-    /**
-     * Internal function which handles the click on the scope line element and call the real handleOnclick if it is defined.
-     * @param {object} event - Event trigger by the search.
-     */
-    _handleOnClick(event) {
-        let val = event.target.hasAttribute('value') ? event.target.getAttribute('value') : undefined;
-        this.setState({
-            value: val,
-            isDeployed: false
-        }, this.props.handleOnClick);
+    _onScopeClickHandler(scope) {
+        return () => {
+            this.setState({
+                isDeployed: false
+            });
+            this.props.onScopeSelection(scope.code);
+        };
     },
     /**
      * Handle the click on the scope element.
      */
-    handleDeployClick() {
+    _handleDeployClick() {
         this.setState({
             isDeployed: !this.state.isDeployed
-        });
-    },
-    /**
-     * Get the current active scope.
-     */
-    getActiveScope() {
-        return find(this.props.list, (scope) => {
-            return scope.code === this.state.value;
         });
     },
     /**
      * Return the css class for the scope.
      */
     scopeStyle() {
-        let activeScope = this.getActiveScope();
+        let activeScope = find(this.props.list, {code: this.props.value});
         if (!activeScope) {
             return 'sb-scope-none';
         }
@@ -93,7 +71,7 @@ let scopeMixin = {
             return;
         }
         let scopes = this.props.list.map((scope) => {
-            let selectedValue = this.state.value === scope.code ? 'active' : '';
+            let selectedValue = this.props.value === scope.code ? 'active' : '';
             //Add defaut Style to scope if not define
             let scopeCss = scope.style;
             if (!scopeCss) {
@@ -102,7 +80,7 @@ let scopeMixin = {
             scope.style = scopeCss;
 
             return (
-                <li key={scope.code || uuid.v4()} value={scope.code} className={`${selectedValue} ${scope.style}`} onClick={this._handleOnClick}>
+                <li key={scope.code || uuid.v4()} className={`${selectedValue} ${scope.style}`} onClick={this._onScopeClickHandler(scope)}>
                     {scope.label}
                 </li>
             );
@@ -120,7 +98,7 @@ let scopeMixin = {
         let cssClass = `sb-scope-deploy ${this.state.isDeployed ? 'up' : 'down'}`;
         return (
             <div className={this._getClassName()} data-focus='scope'>
-                <div className={cssClass} onClick={this.handleDeployClick}>
+                <div className={cssClass} onClick={this._handleDeployClick}>
                     <div className={this.scopeStyle()} />
                 </div>
                 {this.renderScopeList()}

@@ -1,59 +1,62 @@
 // Mixins
+
 let i18nMixin = require('../../../../common/i18n').mixin;
-let searchBehaviour = require('../../common/search-mixin').mixin;
-let searchWrappedAction = require('../action-wrapper');
-let SearchBar = require('../../../../search/search-bar').component;
 let referenceBehaviour = require('../../../../common/form/mixin/reference-behaviour');
 let storeBehaviour = require('../../../../common/mixin/store-behaviour');
-let React = require('react');
+
+// Components
+
+let SearchBar = require('../../../../search/search-bar').component;
+
+// Actions
+
+let actionBuilder = Focus.search.actionBuilder;
+
+// Store
+
+let advancedSearchStore = Focus.search.builtInStore.advancedSearchStore;
 
 module.exports = {
-    mixins: [i18nMixin, referenceBehaviour, storeBehaviour, searchBehaviour],
+    mixins: [i18nMixin, referenceBehaviour, storeBehaviour],
+    referenceNames: ['scopes'],
     getDefaultProps() {
-        return ({
-            hasScopes: true
-        });
+        return {
+            service: undefined,
+            store: advancedSearchStore,
+            onSearchCriteriaChange: undefined
+        };
     },
     getInitialState() {
         return {
-            isLoading: false,
-            scope: this.props.scope,
-            query: this.props.query
-        }
+            isLoading: false
+        };
     },
     componentWillMount() {
         this._loadReference();
-        Focus.search.builtInStore.queryStore.addQueryChangeListener(this._onQueryStoreChange);
-        Focus.search.builtInStore.queryStore.addScopeChangeListener(this._onQueryStoreChange);
+        this._action = this.props.action || actionBuilder({
+            service: this.props.service,
+            identifier: this.props.store.identifier,
+            getSearchOptions: () => {return this.props.store.getValue.call(this.props.store); } // Binding the store in the function call
+        });
+        advancedSearchStore.addQueryChangeListener(this._onSearchCriteriaChange);
+        advancedSearchStore.addScopeChangeListener(this._onSearchCriteriaChange);
     },
     componentWillUnmount() {
-        Focus.search.builtInStore.queryStore.removeQueryChangeListener(this._onQueryStoreChange);
-        Focus.search.builtInStore.queryStore.removeScopeChangeListener(this._onQueryStoreChange);
+        advancedSearchStore.removeQueryChangeListener(this._onSearchCriteriaChange);
+        advancedSearchStore.removeScopeChangeListener(this._onSearchCriteriaChange);
     },
-    _onQueryStoreChange(event) {
-        let query = Focus.search.builtInStore.queryStore.getQuery();
-        let scope = Focus.search.builtInStore.queryStore.getScope();
-        this.setState({query, scope});
-        if (event.informations.callerId === this.refs.searchBar._uuid) {
-            this._runSearch()
+    _onSearchCriteriaChange() {
+        if (this.props.onSearchCriteriaChange) {
+            this.props.onSearchCriteriaChange();
         }
-    },
-    _runSearch() {
-        this.setState({
-            currentPage: 1
-        }, () => {
-            this.props.searchAction(this._buildSearchCriteria());
-        });
     },
     _SearchBarComponent() {
         return <SearchBar
             ref='searchBar'
-            value={this.state.query}
-            scope={this.state.scope}
             scopes={this.state.reference.scopes}
-            loading={this.state.isLoadingSearch}
-            handleChange={this._wrappedSearch}
-            hasScopes={this.props.hasScopes}
+            loading={this.state.isLoading}
+            action={this._action}
+            store={advancedSearchStore}
             />;
     }
 };
