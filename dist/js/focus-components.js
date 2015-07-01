@@ -27,7 +27,7 @@ module.exports = {
   infos: infosFn
 };
 
-},{"./application":9,"./common":38,"./list":69,"./message":84,"./package.json":277,"./page":281,"./search":299}],2:[function(require,module,exports){
+},{"./application":10,"./common":39,"./list":71,"./message":86,"./package.json":287,"./page":291,"./search":311}],2:[function(require,module,exports){
 "use strict";
 
 var builder = window.Focus.component.builder;
@@ -37,7 +37,6 @@ var applicationStore = window.Focus.application.builtInStore();
 var barMixin = {
   getDefaultProps: function getCartridgeDefaultProps() {
     return {
-      appName: "",
       style: {}
     };
   },
@@ -206,7 +205,7 @@ var popinMixin = {
 
 module.exports = builder(popinMixin);
 
-},{"../../common/button/action":18,"../popin":16}],5:[function(require,module,exports){
+},{"../../common/button/action":19,"../popin":17}],5:[function(require,module,exports){
 "use strict";
 
 var builder = window.Focus.component.builder;
@@ -252,7 +251,7 @@ module.exports = builder(contentActionsMixin);
 
 //<button class="btn btn-fab"><i class="mdi-action-open-in-new"></i></button>
 
-},{"../../common/button/action":18,"../../common/select-action":59,"../../mixin/stylable":85}],6:[function(require,module,exports){
+},{"../../common/button/action":19,"../../common/select-action":61,"../../mixin/stylable":87}],6:[function(require,module,exports){
 "use strict";
 
 var builder = window.Focus.component.builder;
@@ -272,6 +271,82 @@ var headerMixin = {
 module.exports = builder(headerMixin);
 
 },{}],7:[function(require,module,exports){
+"use strict";
+
+var builder = window.Focus.component.builder;
+var React = window.React;
+var type = window.Focus.component.types;
+var assign = require("object-assign");
+var errorCenter = {
+  getDefaultProps: function getDefaultProps() {
+    return {
+      source: window,
+      errors: [],
+      isErrorsVisible: false,
+      numberDisplayed: 3
+    };
+  },
+  getInitialState: function getInitialState() {
+    return { errors: this.props.errors, isErrorsVisible: this.props.isErrorsVisible };
+  },
+  /** @inheriteddoc */
+  componentWillMount: function componentWillMount() {
+    var _this = this;
+
+    this.props.source.onerror = function (e) {
+      var errs = _this.state.errors;
+      errs.push(e);
+      _this.setState({ errors: errs });
+    };
+  },
+  _toggleVisible: function _toggleVisible() {
+    this.setState({ isErrorsVisible: !this.state.isErrorsVisible });
+  },
+  _renderErrors: function _renderErrors() {
+    var _this = this;
+
+    return React.createElement(
+      "div",
+      { "data-focus": "error-center" },
+      React.createElement(
+        "div",
+        { "data-focus": "error-counter" },
+        React.createElement("i", { className: "fa fa-times-circle" }),
+        this.state.errors.length
+      ),
+      React.createElement(
+        "div",
+        { "data-focus": "error-actions" },
+        React.createElement("i", { className: "fa fa-refresh", onClick: function () {
+            window.location.reload();
+          } }),
+        React.createElement("i", { className: "fa fa-arrow-circle-o-" + (this.state.isErrorsVisible ? "up" : "down"), onClick: this._toggleVisible }),
+        React.createElement("i", { className: "fa fa-trash-o", onClick: function () {
+            _this.setState({ errors: [] });
+          } })
+      ),
+      React.createElement(
+        "ul",
+        { "data-focus": "error-stack" },
+        this.state.isErrorsVisible ? this.state.errors.slice(this.state.errors.length - this.props.numberDisplayed, this.state.errors.length).map(function (err) {
+          return React.createElement(
+            "li",
+            null,
+            err
+          );
+        }) : null
+      )
+    );
+  },
+  /** @inheriteddoc */
+  render: function render() {
+    return this.state.errors.length > 0 ? this._renderErrors() : null;
+  }
+};
+
+module.exports = builder(errorCenter);
+
+},{"object-assign":284}],8:[function(require,module,exports){
 "use strict";
 
 var builder = window.Focus.component.builder;
@@ -465,7 +540,7 @@ var headerMixin = {
 
 module.exports = builder(headerMixin);
 
-},{"./mixin/application-state":8,"lodash/collection":88}],8:[function(require,module,exports){
+},{"./mixin/application-state":9,"lodash/collection":91}],9:[function(require,module,exports){
 "use strict";
 
 var applicationStore = window.Focus.application.builtInStore();
@@ -499,7 +574,7 @@ var applicationStateMixin = {
 
 module.exports = applicationStateMixin;
 
-},{}],9:[function(require,module,exports){
+},{}],10:[function(require,module,exports){
 "use strict";
 
 module.exports = {
@@ -516,7 +591,7 @@ module.exports = {
   loadingBar: require("./loading-bar")
 };
 
-},{"./bar":2,"./cartridge":3,"./confirmation-popin":4,"./content-actions":5,"./content-bar":6,"./header":7,"./layout":11,"./loading-bar":12,"./menu":13,"./message-center":14,"./popin":16}],10:[function(require,module,exports){
+},{"./bar":2,"./cartridge":3,"./confirmation-popin":4,"./content-actions":5,"./content-bar":6,"./header":8,"./layout":12,"./loading-bar":13,"./menu":14,"./message-center":15,"./popin":17}],11:[function(require,module,exports){
 //Needed components
 "use strict";
 
@@ -534,7 +609,7 @@ module.exports = React.createClass({
       React.createElement(
         ContentBar,
         null,
-        React.createElement(Bar, { appName: "FOCUS" }),
+        React.createElement(Bar, null),
         React.createElement(Cartridge, null)
       ),
       React.createElement(ContentActions, null)
@@ -542,7 +617,7 @@ module.exports = React.createClass({
   }
 });
 
-},{"../bar":2,"../cartridge":3,"../content-actions":5,"../content-bar":6,"../header":7}],11:[function(require,module,exports){
+},{"../bar":2,"../cartridge":3,"../content-actions":5,"../content-bar":6,"../header":8}],12:[function(require,module,exports){
 "use strict";
 
 var builder = window.Focus.component.builder;
@@ -551,13 +626,15 @@ var AppHeader = require("./app-header");
 var LoadingBar = require("../loading-bar").component;
 var stylableBehaviour = require("../../mixin/stylable");
 var MessageCenter = require("../message-center").component;
+var ErrorCenter = require("../error-center").component;
 var contentActionsMixin = {
   mixins: [stylableBehaviour],
   getDefaultProps: function getDefaultLayoutProps() {
     return {
       AppHeader: AppHeader,
       LoadingBar: LoadingBar,
-      MessageCenter: MessageCenter
+      MessageCenter: MessageCenter,
+      ErrorCenter: ErrorCenter
     };
   },
   /** @inheriteddoc */
@@ -567,6 +644,7 @@ var contentActionsMixin = {
       { className: this._getStyleClassName(), "data-focus": "layout" },
       React.createElement(this.props.LoadingBar, null),
       React.createElement(this.props.MessageCenter, null),
+      React.createElement(this.props.ErrorCenter, null),
       React.createElement(this.props.AppHeader, null),
       React.createElement(
         "div",
@@ -586,7 +664,7 @@ var contentActionsMixin = {
 
 module.exports = builder(contentActionsMixin);
 
-},{"../../mixin/stylable":85,"../loading-bar":12,"../message-center":14,"./app-header":10}],12:[function(require,module,exports){
+},{"../../mixin/stylable":87,"../error-center":7,"../loading-bar":13,"../message-center":15,"./app-header":11}],13:[function(require,module,exports){
 "use strict";
 
 var builder = window.Focus.component.builder;
@@ -677,7 +755,7 @@ var LoadingBarMixin = {
 
 module.exports = builder(LoadingBarMixin);
 
-},{"../../common/icon":36,"../../common/progress-bar":58,"object-assign":274}],13:[function(require,module,exports){
+},{"../../common/icon":37,"../../common/progress-bar":59,"object-assign":284}],14:[function(require,module,exports){
 "use strict";
 
 var builder = window.Focus.component.builder;
@@ -748,7 +826,7 @@ var menuMixin = {
 
 module.exports = builder(menuMixin);
 
-},{"../../common/button/action":18,"../../common/icon":36,"../../mixin/stylable":85,"../mixin/popin-behaviour":15}],14:[function(require,module,exports){
+},{"../../common/button/action":19,"../../common/icon":37,"../../mixin/stylable":87,"../mixin/popin-behaviour":16}],15:[function(require,module,exports){
 "use strict";
 
 var builder = window.Focus.component.builder;
@@ -822,7 +900,7 @@ var messageCenterMixin = {
 
 module.exports = builder(messageCenterMixin);
 
-},{"../../message":84,"lodash/string/capitalize":266,"object-assign":274}],15:[function(require,module,exports){
+},{"../../message":86,"lodash/string/capitalize":275,"object-assign":284}],16:[function(require,module,exports){
 "use strict";
 
 var type = window.Focus.component.types;
@@ -853,7 +931,7 @@ var PopinProperties = {
 
 module.exports = { mixin: PopinProperties };
 
-},{}],16:[function(require,module,exports){
+},{}],17:[function(require,module,exports){
 "use strict";
 
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
@@ -878,8 +956,21 @@ var Overlay = React.createClass({
      */
     componentDidMount: function componentDidMount() {
         React.findDOMNode(this.refs.overlay).addEventListener("mousewheel", this._onScroll);
+    },
+    /**
+     * Store the body overgflow property, and set it to hidden
+     * @private
+     */
+    _storeAndHideBodyOverflow: function _storeAndHideBodyOverflow() {
         this._oldScroll = document.body.style["overflow-y"];
         document.body.style["overflow-y"] = "hidden";
+    },
+    /**
+     * Restore body overflow property
+     * @private
+     */
+    _restoreBodyOverflow: function _restoreBodyOverflow() {
+        document.body.style["overflow-y"] = this._oldScroll;
     },
     /**
      * Component will unmount event handler.
@@ -887,7 +978,6 @@ var Overlay = React.createClass({
      */
     componentWillUnmount: function componentWillUnmount() {
         React.findDOMNode(this.refs.overlay).removeEventListener("mousewheel", this._onScroll);
-        document.body.style["overflow-y"] = this._oldScroll;
     },
     /**
      * Mouse wheel event handler.
@@ -964,6 +1054,9 @@ var popin = {
         overlay: type("bool"),
         open: type("bool")
     },
+    _onWheel: function _onWheel(event) {
+        React.findDOMNode(this.refs["popin-window"]).scrollTop += event.deltaY > 0 ? 100 : -100;
+    },
     /**
      * Toggle the popin's open state
      */
@@ -980,10 +1073,16 @@ var popin = {
             popinOverlay.classList.add(popinOverlay.getAttribute("data-closing-animation"));
             timeout = 200;
         }
+        if (this.state.opened && this.props.onPopinClose) {
+            this.props.onPopinClose();
+        }
         setTimeout(function () {
             _this.setState({
                 opened: !_this.state.opened
             });
+            if (_this.refs["popin-overlay"]) {
+                _this.state.opened ? _this.refs["popin-overlay"]._restoreBodyOverflow() : _this.refs["popin-overlay"]._storeAndHideBodyOverflow();
+            }
         }, timeout);
     },
     /**
@@ -1003,7 +1102,11 @@ var popin = {
                     "div",
                     _extends({}, this._getAnimationProps(), { "data-focus": "popin-window", onClick: this._preventPopinClose, ref: "popin-window" }),
                     React.createElement("i", { className: "fa fa-close", onClick: this.toggleOpen }),
-                    this.props.children
+                    React.createElement(
+                        "div",
+                        { onWheel: this._onWheel },
+                        this.props.children
+                    )
                 )
             )
         );
@@ -1059,7 +1162,7 @@ var popin = {
 
 module.exports = builder(popin);
 
-},{"lodash":129}],17:[function(require,module,exports){
+},{"lodash":132}],18:[function(require,module,exports){
 "use strict";
 
 var React = window.React;
@@ -1129,7 +1232,7 @@ var blockMixin = {
 module.exports = builder(blockMixin);
 // actions -->
 
-},{"../i18n":34,"../title":65,"lodash/string/trim":268,"uuid":276}],18:[function(require,module,exports){
+},{"../i18n":35,"../title":67,"lodash/string/trim":278,"uuid":286}],19:[function(require,module,exports){
 "use strict";
 
 var React = window.React;
@@ -1229,7 +1332,7 @@ var buttonMixin = {
 
 module.exports = builder(buttonMixin);
 
-},{"../../../mixin/stylable":85,"../../i18n/mixin":35,"../../icon":36,"../../img":37}],19:[function(require,module,exports){
+},{"../../../mixin/stylable":87,"../../i18n/mixin":36,"../../icon":37,"../../img":38}],20:[function(require,module,exports){
 "use strict";
 
 var React = window.React;
@@ -1293,9 +1396,13 @@ var buttonMixin = {
     _scrollSpy: function _scrollSpy() {
         var scrollPosition = document.querySelector(this.props.scrolledElementSelector).scrollTop;
         if (scrollPosition > this.props.scrollTriggerBorder) {
-            this.setState({ isVisible: true });
+            if (!this.state.isVisible) {
+                this.setState({ isVisible: true });
+            }
         } else {
-            this.setState({ isVisible: false });
+            if (this.state.isVisible) {
+                this.setState({ isVisible: false });
+            }
         }
     },
     /**
@@ -1324,7 +1431,7 @@ var buttonMixin = {
 
 module.exports = builder(buttonMixin);
 
-},{"../../../mixin/stylable":85,"../../i18n/mixin":35,"../../icon":36,"../../mixin/scroll-to":54}],20:[function(require,module,exports){
+},{"../../../mixin/stylable":87,"../../i18n/mixin":36,"../../icon":37,"../../mixin/scroll-to":55}],21:[function(require,module,exports){
 "use strict";
 
 var React = window.React;
@@ -1366,7 +1473,7 @@ var buttonBackMixin = {
 
 module.exports = builder(buttonBackMixin);
 
-},{"../../../mixin/stylable":85,"../../i18n/mixin":35,"../../icon":36,"../../mixin/scroll-to":54}],21:[function(require,module,exports){
+},{"../../../mixin/stylable":87,"../../i18n/mixin":36,"../../icon":37,"../../mixin/scroll-to":55}],22:[function(require,module,exports){
 "use strict";
 
 module.exports = {
@@ -1375,7 +1482,7 @@ module.exports = {
 	back: require("./back")
 };
 
-},{"./action":18,"./back":20,"./back-to-top":19}],22:[function(require,module,exports){
+},{"./action":19,"./back":21,"./back-to-top":20}],23:[function(require,module,exports){
 "use strict";
 
 var React = window.React;
@@ -1435,7 +1542,7 @@ var detailMixin = {
 };
 module.exports = builder(detailMixin);
 
-},{"../../mixin/stylable":85,"../button/back-to-top":19,"../sticky-navigation":64}],23:[function(require,module,exports){
+},{"../../mixin/stylable":87,"../button/back-to-top":20,"../sticky-navigation":66}],24:[function(require,module,exports){
 //Dependencies.
 "use strict";
 
@@ -1490,7 +1597,7 @@ var displayCheckboxMixin = {
 
 module.exports = builder(displayCheckboxMixin);
 
-},{"../../i18n/mixin":35}],24:[function(require,module,exports){
+},{"../../i18n/mixin":36}],25:[function(require,module,exports){
 "use strict";
 
 module.exports = {
@@ -1498,7 +1605,7 @@ module.exports = {
   checkbox: require("./checkbox")
 };
 
-},{"./checkbox":23,"./text":25}],25:[function(require,module,exports){
+},{"./checkbox":24,"./text":26}],26:[function(require,module,exports){
 //Dependencies.
 "use strict";
 
@@ -1551,7 +1658,7 @@ var displayTextMixin = {
 
 module.exports = builder(displayTextMixin);
 
-},{}],26:[function(require,module,exports){
+},{}],27:[function(require,module,exports){
 "use strict";
 
 var builder = window.Focus.component.builder;
@@ -1564,7 +1671,7 @@ var emptyMixin = {
 
 module.exports = builder(emptyMixin);
 
-},{}],27:[function(require,module,exports){
+},{}],28:[function(require,module,exports){
 "use strict";
 
 var builder = window.Focus.component.builder;
@@ -1626,7 +1733,7 @@ var FieldMixin = {
   render: function renderField() {
     return React.createElement(
       "div",
-      { className: this._className(), "data-focus": "field", "data-domain": this.props.domain, "data-mode": this.props.isEdit ? "edit" : "consult" },
+      { className: this._className(), "data-focus": "field", "data-domain": this.props.domain, "data-required": this.props.isRequired, "data-mode": this.props.isEdit ? "edit" : "consult" },
       this.label(),
       this.props.isEdit ? this.props.values ? this.select() : this.input() : this.display(),
       this.help(),
@@ -1636,7 +1743,7 @@ var FieldMixin = {
 };
 module.exports = builder(FieldMixin);
 
-},{"./mixin/built-in-components":28,"./mixin/validation-behaviour":29,"./mixin/value-behaviour":30}],28:[function(require,module,exports){
+},{"./mixin/built-in-components":29,"./mixin/validation-behaviour":30,"./mixin/value-behaviour":31}],29:[function(require,module,exports){
 "use strict";
 
 var InputText = require("../../input/text").component;
@@ -1703,10 +1810,12 @@ var fieldBuiltInComponentsMixin = {
         }
         if (this.props.hasLabel) {
             var labelClassName = this._getLabelGridClassName();
+            console.log("LABEL", this.props);
             return React.createElement(Label, {
                 style: { className: labelClassName },
                 name: this.props.name,
-                key: this.props.name
+                key: this.props.name,
+                isRequired: this.props.isRequired
             });
         }
     },
@@ -1731,6 +1840,7 @@ var fieldBuiltInComponentsMixin = {
                 onChange: this.onInputChange,
                 formatter: this.props.formatter,
                 unformatter: this.props.unformatter,
+                options: this.props.options,
                 ref: "input"
             })
         );
@@ -1755,6 +1865,7 @@ var fieldBuiltInComponentsMixin = {
                 values: this.state.values,
                 type: this.props.type,
                 onChange: this.onInputChange,
+                options: this.props.options,
                 ref: "input"
             })
         );
@@ -1840,7 +1951,7 @@ var fieldBuiltInComponentsMixin = {
 
 module.exports = fieldBuiltInComponentsMixin;
 
-},{"../../display/text":25,"../../input/text":43,"../../label":46,"../../mixin/field-grid-behaviour":51,"../../select/classic":61}],29:[function(require,module,exports){
+},{"../../display/text":26,"../../input/text":44,"../../label":47,"../../mixin/field-grid-behaviour":52,"../../select/classic":63}],30:[function(require,module,exports){
 "use strict";
 
 var i18nMixin = require("../../i18n").mixin;
@@ -1904,7 +2015,7 @@ var validationMixin = {
 };
 module.exports = validationMixin;
 
-},{"../../i18n":34}],30:[function(require,module,exports){
+},{"../../i18n":35}],31:[function(require,module,exports){
 "use strict";
 
 var _require = require("lodash/lang");
@@ -1944,13 +2055,16 @@ var valueBehaviourMixin = {
    * @param {event} event - The event to set.
    */
   onInputChange: function fieldOnInputChanges(event) {
+    if (this.props.onChange) {
+      return this.props.onChange(event);
+    }
     this.setState({ error: undefined, value: this.getValue() });
   }
 };
 
 module.exports = valueBehaviourMixin;
 
-},{"lodash/lang":227}],31:[function(require,module,exports){
+},{"lodash/lang":234}],32:[function(require,module,exports){
 "use strict";
 
 var _defineProperty = function (obj, key, value) { return Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); };
@@ -2124,7 +2238,7 @@ var formMixin = {
 
 module.exports = builder(formMixin);
 
-},{"../mixin/built-in-components":48,"../mixin/definition":49,"../mixin/store-behaviour":55,"./mixin/action-behaviour":32,"./mixin/reference-behaviour":33,"lodash/lang":227,"object-assign":274}],32:[function(require,module,exports){
+},{"../mixin/built-in-components":49,"../mixin/definition":50,"../mixin/store-behaviour":56,"./mixin/action-behaviour":33,"./mixin/reference-behaviour":34,"lodash/lang":234,"object-assign":284}],33:[function(require,module,exports){
 "use strict";
 
 var assign = require("object-assign");
@@ -2186,12 +2300,20 @@ var actionMixin = {
    */
   _loadData: function formLoadData() {
     this.action.load(this._getId());
+  },
+  clearError: function clearError() {
+    for (var r in this.refs) {
+      //If the reference has a getValue function if is read.
+      if (this.refs[r] && isFunction(this.refs[r].getValue)) {
+        this.refs[r].setError(undefined);
+      }
+    }
   }
 };
 
 module.exports = actionMixin;
 
-},{"lodash/lang/isFunction":242,"lodash/object/omit":263,"object-assign":274}],33:[function(require,module,exports){
+},{"lodash/lang/isFunction":249,"lodash/object/omit":271,"object-assign":284}],34:[function(require,module,exports){
 //Focus.reference.builder.loadListByName('papas').then(function(data){Focus.dispatcher.dispatch({action: {type: "update",data: {papas: data}}})})
 
 "use strict";
@@ -2258,14 +2380,14 @@ var referenceMixin = {
 
 module.exports = referenceMixin;
 
-},{"lodash/lang/isEmpty":238}],34:[function(require,module,exports){
+},{"lodash/lang/isEmpty":245}],35:[function(require,module,exports){
 "use strict";
 
 module.exports = {
   mixin: require("./mixin")
 };
 
-},{"./mixin":35}],35:[function(require,module,exports){
+},{"./mixin":36}],36:[function(require,module,exports){
 /*global window*/
 /*todo check the library presence*/
 "use strict";
@@ -2285,7 +2407,7 @@ module.exports = {
     }
 };
 
-},{}],36:[function(require,module,exports){
+},{}],37:[function(require,module,exports){
 "use strict";
 
 var builder = window.Focus.component.builder;
@@ -2326,7 +2448,7 @@ var iconMixin = {
 
 module.exports = builder(iconMixin);
 
-},{}],37:[function(require,module,exports){
+},{}],38:[function(require,module,exports){
 "use strict";
 
 var builder = window.Focus.component.builder;
@@ -2363,7 +2485,7 @@ var imgMixin = {
 
 module.exports = builder(imgMixin);
 
-},{}],38:[function(require,module,exports){
+},{}],39:[function(require,module,exports){
 "use strict";
 
 module.exports = {
@@ -2387,10 +2509,11 @@ module.exports = {
   mixin: require("./mixin"),
   display: require("./display"),
   detail: require("./detail"),
-  progressBar: require("./progress-bar")
+  progressBar: require("./progress-bar"),
+  role: require("./role")
 };
 
-},{"./block":17,"./button":21,"./detail":22,"./display":24,"./empty":26,"./field":27,"./form":31,"./i18n":34,"./icon":36,"./img":37,"./input":41,"./label":46,"./list":47,"./mixin":52,"./panel":57,"./progress-bar":58,"./select":62,"./select-action":59,"./sticky-navigation":64,"./title":65,"./topic-displayer":66}],39:[function(require,module,exports){
+},{"./block":18,"./button":22,"./detail":23,"./display":25,"./empty":27,"./field":28,"./form":32,"./i18n":35,"./icon":37,"./img":38,"./input":42,"./label":47,"./list":48,"./mixin":53,"./panel":58,"./progress-bar":59,"./role":60,"./select":64,"./select-action":61,"./sticky-navigation":66,"./title":67,"./topic-displayer":68}],40:[function(require,module,exports){
 //Target
 //http://codepen.io/Sambego/pen/zDLxe
 /*
@@ -2501,7 +2624,7 @@ var checkBoxMixin = {
 
 module.exports = builder(checkBoxMixin);
 
-},{"../../mixin/field-grid-behaviour":51,"lodash/lang/isBoolean":235,"uuid":276}],40:[function(require,module,exports){
+},{"../../mixin/field-grid-behaviour":52,"lodash/lang/isBoolean":242,"uuid":286}],41:[function(require,module,exports){
 "use strict";
 
 var jQuery = window.jQuery;
@@ -2510,7 +2633,7 @@ var jQuery = window.jQuery;
 var builder = window.Focus.component.builder;
 var React = window.React;
 var inputTextMixin = require("../text").mixin;
-
+var assign = require("object-assign");
 /**
  * Input text mixin.
  * @type {Object}
@@ -2524,10 +2647,15 @@ var inputDateMixin = {
       console.warn("The jquery daterangepicker plugin should be loaded: see https://github.com/dangrossman/bootstrap-daterangepicker.");
     }
     var component = this;
-    jQuery(React.findDOMNode(this)).daterangepicker({
+    //If the domains set options.
+    var propsOptions = this.props.options && this.props.options.dateRangePicker ? this.props.options.dateRangePicker : {};
+    console.log("parentEL............", "div [data-reactid=\"" + React.findDOMNode(this).getAttribute("data-reactid") + "\"]");
+    var dateRangeOptions = assign(propsOptions, {
+      parentEl: "div [data-reactid=\"" + React.findDOMNode(this).getAttribute("data-reactid") + "\"]",
       singleDatePicker: true,
       showDropdowns: true
-    }, function (start) {
+    });
+    jQuery(React.findDOMNode(this)).daterangepicker(dateRangeOptions, function (start) {
       ///*, end, label*/
       component.setState({ value: component.props.formatter(start.toDate()) });
     });
@@ -2536,7 +2664,7 @@ var inputDateMixin = {
 
 module.exports = builder(inputDateMixin);
 
-},{"../text":43}],41:[function(require,module,exports){
+},{"../text":44,"object-assign":284}],42:[function(require,module,exports){
 "use strict";
 
 module.exports = {
@@ -2548,7 +2676,7 @@ module.exports = {
   markdown: require("./markdown")
 };
 
-},{"./checkbox":39,"./date":40,"./markdown":42,"./text":43,"./textarea":44,"./toggle":45}],42:[function(require,module,exports){
+},{"./checkbox":40,"./date":41,"./markdown":43,"./text":44,"./textarea":45,"./toggle":46}],43:[function(require,module,exports){
 //Dependencies.
 "use strict";
 
@@ -2596,7 +2724,7 @@ var markdownEditorMixin = {
 
 module.exports = builder(markdownEditorMixin);
 
-},{}],43:[function(require,module,exports){
+},{}],44:[function(require,module,exports){
 //Dependencies.
 "use strict";
 
@@ -2681,7 +2809,7 @@ var inputTextMixin = {
 
 module.exports = builder(inputTextMixin);
 
-},{}],44:[function(require,module,exports){
+},{}],45:[function(require,module,exports){
 //Target
 /*
 <div class="checkbox">
@@ -2775,7 +2903,7 @@ var textAreaMixin = {
 
 module.exports = builder(textAreaMixin);
 
-},{}],45:[function(require,module,exports){
+},{}],46:[function(require,module,exports){
 //Target
 /*
 <label>
@@ -2862,7 +2990,7 @@ var toggleMixin = {
 
 module.exports = builder(toggleMixin);
 
-},{"../../mixin/field-grid-behaviour":51}],46:[function(require,module,exports){
+},{"../../mixin/field-grid-behaviour":52}],47:[function(require,module,exports){
 "use strict";
 
 var builder = window.Focus.component.builder;
@@ -2877,21 +3005,23 @@ var labelMixin = {
     return {
       name: undefined,
       key: undefined,
-      style: { className: "" }
+      style: { className: "" },
+      isRequired: false,
+      requiredChar: " *"
     };
   },
   render: function render() {
     return React.createElement(
       "label",
       { className: this.props.style.className, htmlFor: this.props.name },
-      this.i18n(this.props.name)
+      this.i18n(this.props.name) + (this.props.isRequired ? this.props.requiredChar : "  ")
     );
   }
 };
 
 module.exports = builder(labelMixin);
 
-},{"../i18n/mixin":35}],47:[function(require,module,exports){
+},{"../i18n/mixin":36}],48:[function(require,module,exports){
 "use strict";
 
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
@@ -2930,7 +3060,7 @@ var MemoryListMixin = {
 
 module.exports = builder(MemoryListMixin);
 
-},{"../../list/mixin/memory-scroll":72,"lodash/object/omit":263,"object-assign":274}],48:[function(require,module,exports){
+},{"../../list/mixin/memory-scroll":74,"lodash/object/omit":271,"object-assign":284}],49:[function(require,module,exports){
 "use strict";
 
 var React = window.React;
@@ -3075,6 +3205,7 @@ module.exports = {
       type: "button",
       icon: "undo",
       handleOnClick: function handleOnClickCancel() {
+        form.clearError();
         form.setState({ isEdit: !form.state.isEdit }, function () {
           changeMode("consult", "edit");
         });
@@ -3101,7 +3232,7 @@ module.exports = {
     });
   } };
 
-},{"../../list/selection":74,"../../list/table":78,"../button/action":18,"../display/text":25,"../field":27,"../list":47,"./field-component-behaviour":50,"object-assign":274}],49:[function(require,module,exports){
+},{"../../list/selection":76,"../../list/table":80,"../button/action":19,"../display/text":26,"../field":28,"../list":48,"./field-component-behaviour":51,"object-assign":284}],50:[function(require,module,exports){
 //Dependencies.
 /**
  * Accessor on the entity informations.
@@ -3129,7 +3260,7 @@ var definitionMixin = {
 
 module.exports = definitionMixin;
 
-},{}],50:[function(require,module,exports){
+},{}],51:[function(require,module,exports){
 "use strict";
 
 var assign = require("object-assign");
@@ -3170,7 +3301,7 @@ var fieldBehaviourMixin = {
       //Mode
       isEdit: isEdit,
       hasLabel: hasLabel,
-      isRequired: def.isRequired,
+      isRequired: def.isRequired || def.required, //ToDO: check with the generators.
       //Style
       style: options.style,
       //Methods
@@ -3186,7 +3317,8 @@ var fieldBehaviourMixin = {
       InputLabelComponent: def.InputLabelComponent,
       InputComponent: def.InputComponent,
       TextComponent: def.TextComponent,
-      DisplayComponent: def.DisplayComponent
+      DisplayComponent: def.DisplayComponent,
+      options: options.options || def.options //Add options to the fields
     };
     //Extend the options object in order to be able to specify more options to thie son's component.
     var fieldProps = assign(options, propsContainer);
@@ -3201,7 +3333,7 @@ var fieldBehaviourMixin = {
 
 module.exports = fieldBehaviourMixin;
 
-},{"object-assign":274}],51:[function(require,module,exports){
+},{"object-assign":284}],52:[function(require,module,exports){
 "use strict";
 
 var gridSize = 12;
@@ -3240,7 +3372,7 @@ var fieldGridBehaviourMixin = {
 };
 module.exports = fieldGridBehaviourMixin;
 
-},{}],52:[function(require,module,exports){
+},{}],53:[function(require,module,exports){
 "use strict";
 
 module.exports = {
@@ -3251,7 +3383,7 @@ module.exports = {
   storeBehaviour: require("./store-behaviour")
 };
 
-},{"./definition":49,"./field-component-behaviour":50,"./field-grid-behaviour":51,"./reference-property":53,"./store-behaviour":55}],53:[function(require,module,exports){
+},{"./definition":50,"./field-component-behaviour":51,"./field-grid-behaviour":52,"./reference-property":54,"./store-behaviour":56}],54:[function(require,module,exports){
 "use strict";
 
 var type = window.Focus.component.types;
@@ -3281,7 +3413,7 @@ var referenceMixin = {
 };
 module.exports = referenceMixin;
 
-},{}],54:[function(require,module,exports){
+},{}],55:[function(require,module,exports){
 "use strict";
 
 var scrollTo = function (element, to, duration) {
@@ -3302,14 +3434,19 @@ var scrollTo = function (element, to, duration) {
 
 module.exports = { scrollTo: scrollTo };
 
-},{}],55:[function(require,module,exports){
+},{}],56:[function(require,module,exports){
 "use strict";
 
 var _defineProperty = function (obj, key, value) { return Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); };
 
 var capitalize = require("lodash/string/capitalize");
 var assign = require("object-assign");
-var isArray = require("lodash/lang/isArray");
+
+var _require = require("lodash/lang");
+
+var isObject = _require.isObject;
+var isArray = _require.isArray;
+
 var keys = require("lodash/object/keys");
 var storeChangeBehaviour = require("./store-change-behaviour");
 
@@ -3382,7 +3519,7 @@ var storeMixin = {
         entity.reference[key] = data[key];
       } else {
         var d = data[key];
-        if (isArray(d)) {
+        if (isArray(d) || !isObject(d)) {
           d = _defineProperty({}, key, d);
         }
         assign(entity, d);
@@ -3437,70 +3574,76 @@ var storeMixin = {
 
 module.exports = storeMixin;
 
-},{"./store-change-behaviour":56,"lodash/lang/isArray":234,"lodash/object/keys":261,"lodash/string/capitalize":266,"object-assign":274}],56:[function(require,module,exports){
+},{"./store-change-behaviour":57,"lodash/lang":234,"lodash/object/keys":269,"lodash/string/capitalize":275,"object-assign":284}],57:[function(require,module,exports){
 "use strict";
 
 var changeBehaviourMixin = {
-  /**
-   * Display a message on change.
-   */
-  _displayMessageOnChange: function displayMessageOnChange(changeInfos) {
-    if (this.displayMessageOnChange) {
-      return this.displayMessageOnChange(changeInfos);
-    }
-    if (changeInfos && changeInfos.status && changeInfos.status.name) {
-      switch (changeInfos.status.name) {
-        /* case 'loading':
-           Focus.message.addInformationMessage('detail.loading');
-           break;
-         case 'loaded':
-           Focus.message.addSuccessMessage('detail.loaded');
-           break;
-         case 'saving':
-           Focus.message.addInformationMessage('detail.saving');
-           break;*/
-        case "saved":
-          Focus.message.addSuccessMessage("detail.saved");
-          //Change the page mode as edit
-          this.setState({ isEdit: false });
-          break;
-      }
-    }
-  },
-  /**
-   * After change informations.
-   * You can override this method using afterChange function.
-   * @param {object} changeInfos - All informations relative to the change.
-   * @returns {undefined} -  The return value is the callback.
-   */
-  _afterChange: function afterChangeForm(changeInfos) {
-    if (this.afterChange) {
-      return this.afterChange(changeInfos);
-    }
-    return this._displayMessageOnChange(changeInfos);
-  },
-  /**
-   * Event handler for 'change' events coming from the stores
-   * @param {object} changeInfos - The changing informations.
-   */
-  _onChange: function onFormStoreChangeHandler(changeInfos) {
-    this.setState(this._getStateFromStores(), this._afterChange(changeInfos));
-  },
-  /**
+    /**
+     * Display a message on change.
+     */
+    _displayMessageOnChange: function displayMessageOnChange(changeInfos) {
+        if (this.displayMessageOnChange) {
+            return this.displayMessageOnChange(changeInfos);
+        }
+        if (changeInfos && changeInfos.status && changeInfos.status.name) {
+            switch (changeInfos.status.name) {
+                /* case 'loading':
+                 Focus.message.addInformationMessage('detail.loading');
+                 break;
+                 case 'loaded':
+                 Focus.message.addSuccessMessage('detail.loaded');
+                 break;
+                 case 'saving':
+                 Focus.message.addInformationMessage('detail.saving');
+                 break;*/
+                case "saved":
+                    if (this.props.hasForm) {
+                        Focus.message.addSuccessMessage("detail.saved");
+                        //Change the page mode as edit
+                        this.setState({ isEdit: false });
+                    }
+                    break;
+            }
+        }
+    },
+    /**
+     * After change informations.
+     * You can override this method using afterChange function.
+     * @param {object} changeInfos - All informations relative to the change.
+     * @returns {undefined} -  The return value is the callback.
+     */
+    _afterChange: function afterChangeForm(changeInfos) {
+        if (this.afterChange) {
+            return this.afterChange(changeInfos);
+        }
+        return this._displayMessageOnChange(changeInfos);
+    },
+    /**
+     * Event handler for 'change' events coming from the stores
+     * @param {object} changeInfos - The changing informations.
+     */
+    _onChange: function onFormStoreChangeHandler(changeInfos) {
+        var onChange = this.props.onChange || this.onChange;
+        if (onChange) {
+            onChange.call(this, changeInfos);
+        }
+        this.setState(this._getStateFromStores(), this._afterChange(changeInfos));
+    },
+    /**
      * Event handler for 'error' events coming from the stores.
-      */
-  _onError: function onFormErrorHandler() {
-    var errorState = this._getErrorStateFromStores();
-    for (var key in errorState) {
-      if (this.refs[key]) {
-        this.refs[key].setError(errorState[key]);
-      }
+     */
+    _onError: function onFormErrorHandler() {
+        var errorState = this._getErrorStateFromStores();
+        for (var key in errorState) {
+            if (this.refs[key]) {
+                this.refs[key].setError(errorState[key]);
+            }
+        }
     }
-  }
 };
 module.exports = changeBehaviourMixin;
 
-},{}],57:[function(require,module,exports){
+},{}],58:[function(require,module,exports){
 "use strict";
 
 var React = window.React;
@@ -3547,7 +3690,7 @@ var panelMixin = {
 };
 module.exports = builder(panelMixin);
 
-},{}],58:[function(require,module,exports){
+},{}],59:[function(require,module,exports){
 //Code from https://raw.githubusercontent.com/paramaggarwal/react-progressbar/master/index.js
 //
 "use strict";
@@ -3590,7 +3733,39 @@ var progressMixin = {
 
 module.exports = builder(progressMixin);
 
-},{}],59:[function(require,module,exports){
+},{}],60:[function(require,module,exports){
+"use strict";
+
+var React = window.React;
+var builder = window.Focus.component.builder;
+var user = window.Focus.user;
+var intersection = require("lodash/array/intersection");
+var isArray = require("lodash/lang/isArray");
+var type = window.Focus.component.types;
+
+/**
+ * Mixin button.
+ * @type {Object}
+ */
+var roleMixin = {
+  propTypes: {
+    hasOne: type("array"),
+    hasAll: type("array")
+  },
+  render: function render() {
+    var userRoles = user.getRoles();
+    if (isArray(this.props.hasAll) && intersection(userRoles, this.props.hasAll).length === this.props.hasAll.length) {
+      return this.props.children;
+    } else if (isArray(this.props.hasOne) && intersection(userRoles, this.props.hasOne).length > 0) {
+      return this.props.children;
+    }
+    return null;
+  }
+};
+
+module.exports = builder(roleMixin);
+
+},{"lodash/array/intersection":88,"lodash/lang/isArray":241}],61:[function(require,module,exports){
 "use strict";
 
 var builder = window.Focus.component.builder;
@@ -3624,9 +3799,6 @@ var selectActionMixin = {
         var _this = this;
 
         return function (event) {
-            if (event) {
-                event.preventDefault();
-            }
             if (_this.props.operationParam) {
                 action(_this.props.operationParam);
             } else {
@@ -3671,9 +3843,6 @@ var selectActionMixin = {
         }
         return liList;
     },
-    _dropdownToggleClickHandler: function _dropdownToggleClickHandler() {
-        React.findDOMNode(this.refs["dropdown-toggle"]).click();
-    },
     /**
      * Render the component.
      * @returns  {XML} Htm code.
@@ -3683,14 +3852,11 @@ var selectActionMixin = {
             return React.createElement("div", null);
         }
         var liList = this._getList(this.props.operationList);
+        //todo : a revoir pour gérer les boutons d'action groupés
         return React.createElement(
             "div",
-            { className: "select-action btn btn-fab btn-default", onClick: this._dropdownToggleClickHandler },
-            React.createElement(
-                "a",
-                { className: "dropdown-toggle", "data-toggle": "dropdown", ref: "dropdown-toggle" },
-                React.createElement("i", { className: "fa fa-" + this.props.icon })
-            ),
+            { "data-focus": "select-action", className: "" },
+            React.createElement("a", { className: "dropdown-toggle btn btn-fab btn-default fa fa-" + this.props.icon, "data-toggle": "dropdown", ref: "dropdown-toggle" }),
             React.createElement(
                 "ul",
                 { className: "dropdown-menu" },
@@ -3702,7 +3868,7 @@ var selectActionMixin = {
 
 module.exports = builder(selectActionMixin);
 
-},{"../icon":36,"../img":37}],60:[function(require,module,exports){
+},{"../icon":37,"../img":38}],62:[function(require,module,exports){
 "use strict";
 
 var builder = window.Focus.component.builder;
@@ -3822,7 +3988,7 @@ var checkboxMixin = {
 
 module.exports = builder(checkboxMixin);
 
-},{"../../input/checkbox":39}],61:[function(require,module,exports){
+},{"../../input/checkbox":40}],63:[function(require,module,exports){
 "use strict";
 
 var _defineProperty = function (obj, key, value) { return Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); };
@@ -3948,7 +4114,7 @@ var selectTextMixin = {
 
 module.exports = builder(selectTextMixin);
 
-},{"../../../mixin/stylable":85,"../../i18n/mixin":35,"lodash/array/union":87,"uuid":276}],62:[function(require,module,exports){
+},{"../../../mixin/stylable":87,"../../i18n/mixin":36,"lodash/array/union":90,"uuid":286}],64:[function(require,module,exports){
 "use strict";
 
 module.exports = {
@@ -3957,7 +4123,7 @@ module.exports = {
   checkbox: require("./checkbox")
 };
 
-},{"./checkbox":60,"./classic":61,"./radio":63}],63:[function(require,module,exports){
+},{"./checkbox":62,"./classic":63,"./radio":65}],65:[function(require,module,exports){
 "use strict";
 
 var builder = window.Focus.component.builder;
@@ -4074,7 +4240,7 @@ var radioMixin = {
 
 module.exports = builder(radioMixin);
 
-},{}],64:[function(require,module,exports){
+},{}],66:[function(require,module,exports){
 // Dependencies
 
 "use strict";
@@ -4237,7 +4403,7 @@ var StickyNavigation = {
 
 module.exports = builder(StickyNavigation);
 
-},{"../../mixin/stylable":85,"../mixin/scroll-to":54}],65:[function(require,module,exports){
+},{"../../mixin/stylable":87,"../mixin/scroll-to":55}],67:[function(require,module,exports){
 "use strict";
 
 var builder = window.Focus.component.builder;
@@ -4276,7 +4442,7 @@ var titleMixin = {
 
 module.exports = builder(titleMixin);
 
-},{}],66:[function(require,module,exports){
+},{}],68:[function(require,module,exports){
 "use strict";
 
 var builder = window.Focus.component.builder;
@@ -4297,7 +4463,8 @@ var topicDisplayerMixin = {
         return {
             style: undefined, // Component css style.
             topicClickAction: function topicClickAction(key) {}, // Action when click on topic
-            topicList: {} // {topic1: "Label of topic one", topic2:"Label of topic 2"} List f topics
+            topicList: {}, // {topic1: "Label of topic one", topic2:"Label of topic 2"} List f topics,
+            displayLabels: false
         };
     },
 
@@ -4309,10 +4476,11 @@ var topicDisplayerMixin = {
         var topicList = [];
         var className = "btn btn-primary btn-raised topic";
         for (var key in this.props.topicList) {
+            var text = this.props.displayLabels ? "" + this.props.topicList[key].label + ": " + this.props.topicList[key].value : this.props.topicList[key].value;
             topicList.push(React.createElement(
                 "a",
                 { key: key, href: "javascript:void(0)", onClick: this.topicClickHandler(key), className: className },
-                this.props.topicList[key]
+                text
             ));
         }
         var style = "topic-displayer bs-component ";
@@ -4343,7 +4511,7 @@ var topicDisplayerMixin = {
 
 module.exports = builder(topicDisplayerMixin);
 
-},{}],67:[function(require,module,exports){
+},{}],69:[function(require,module,exports){
 /**@jsx*/
 "use strict";
 
@@ -4351,6 +4519,7 @@ var builder = window.Focus.component.builder;
 var SelectAction = require("../../common/select-action").component;
 var ActionContextual = require("../action-contextual").component;
 var TopicDisplayer = require("../../common/topic-displayer").component;
+var translationMixin = require("../../common/i18n/mixin");
 
 var actionBarMixin = {
 
@@ -4358,6 +4527,8 @@ var actionBarMixin = {
      * Display name.
      */
     displayName: "list-action-bar",
+
+    mixins: [translationMixin],
 
     /**
      * INit default props
@@ -4383,7 +4554,8 @@ var actionBarMixin = {
                 console.warn(key);
             }, // Action on group function
             groupSelectedKey: undefined, // Defautl grouped key.
-            operationList: [] // List of contextual operations
+            operationList: [], // List of contextual operations
+            groupLabelPrefix: ""
         };
     },
 
@@ -4393,7 +4565,15 @@ var actionBarMixin = {
      */
     _getSelectionObject: function _getSelectionObject() {
         // Selection datas
-        var selectionOperationList = [{ action: this._selectionFunction("selected"), label: "all", style: this._getSelectedStyle(this.props.selectionStatus, "selected") }, { action: this._selectionFunction("none"), label: "none", style: this._getSelectedStyle(this.props.selectionStatus, "none") }];
+        var selectionOperationList = [{
+            action: this._selectionFunction("selected"),
+            label: "all",
+            style: this._getSelectedStyle(this.props.selectionStatus, "selected")
+        }, {
+            action: this._selectionFunction("none"),
+            label: "none",
+            style: this._getSelectedStyle(this.props.selectionStatus, "none")
+        }];
         return React.createElement(SelectAction, { icon: this._getSelectionObjectIcon(), operationList: selectionOperationList });
     },
 
@@ -4413,7 +4593,7 @@ var actionBarMixin = {
                     style: this._getSelectedStyle(description.key + description.order, orderSelectedParsedKey)
                 });
             }
-            var orderIcon = this.props.orderSelected.order ? "unsorted" : "sort-amount-asc";
+            var orderIcon = this.props.orderSelected.order ? "sort-alpha-desc" : "sort-alpha-asc";
             return React.createElement(SelectAction, { key: "down", icon: orderIcon, operationList: orderOperationList });
         }
         return "";
@@ -4428,12 +4608,18 @@ var actionBarMixin = {
         for (var key in this.props.groupableColumnList) {
             groupList.push({
                 action: this._groupFunction(key),
-                label: this.props.groupableColumnList[key],
+                label: this.i18n(this.props.groupLabelPrefix + this.props.groupableColumnList[key]),
                 style: this._getSelectedStyle(key, this.props.groupSelectedKey)
             });
         }
-        var groupOperationList = [{ label: "action.group", childOperationList: groupList }, { label: "action.ungroup", action: this._groupFunction(null) }];
-        var groupIcon = this.props.groupSelectedKey ? "th-list" : "th-large";
+        var groupOperationList = [{
+            label: this.i18n("action.group"),
+            childOperationList: groupList
+        }, {
+            label: this.i18n("action.ungroup"),
+            action: this._groupFunction()
+        }];
+        var groupIcon = this.props.groupSelectedKey ? "folder-open-o" : "folder-o";
         return React.createElement(SelectAction, { icon: groupIcon, operationList: groupOperationList });
     },
 
@@ -4492,10 +4678,11 @@ var actionBarMixin = {
     render: function renderActionBar() {
         return React.createElement(
             "div",
-            { className: "action-bar panel" },
+            { "data-focus": "list-action-bar", className: "panel" },
             React.createElement(
                 "div",
-                { className: "general-action" },
+                {
+                    "data-focus": "global-list-content" },
                 this._getSelectionObject(),
                 " ",
                 this._getOrderObject(),
@@ -4504,13 +4691,15 @@ var actionBarMixin = {
             ),
             React.createElement(
                 "div",
-                { className: "facet-container" },
-                React.createElement(TopicDisplayer, { topicList: this.props.facetList, topicClickAction: this.props.facetClickAction })
+                { "data-focus": "contextual-action-content" },
+                React.createElement(ActionContextual, { operationList: this.props.operationList })
             ),
             React.createElement(
                 "div",
-                { className: "contextual-action" },
-                React.createElement(ActionContextual, { operationList: this.props.operationList })
+                { "data-focus": "selected-facet-content" },
+                React.createElement(TopicDisplayer, { displayLabels: true,
+                    topicList: this.props.facetList,
+                    topicClickAction: this.props.facetClickAction })
             )
         );
     }
@@ -4518,7 +4707,7 @@ var actionBarMixin = {
 
 module.exports = builder(actionBarMixin);
 
-},{"../../common/select-action":59,"../../common/topic-displayer":66,"../action-contextual":68}],68:[function(require,module,exports){
+},{"../../common/i18n/mixin":36,"../../common/select-action":61,"../../common/topic-displayer":68,"../action-contextual":70}],70:[function(require,module,exports){
 /**@jsx*/
 "use strict";
 
@@ -4601,7 +4790,7 @@ var actionContextualMixin = {
 
 module.exports = builder(actionContextualMixin);
 
-},{"../../common/button/action":18,"../../common/select-action":59}],69:[function(require,module,exports){
+},{"../../common/button/action":19,"../../common/select-action":61}],71:[function(require,module,exports){
 "use strict";
 
 module.exports = {
@@ -4613,7 +4802,7 @@ module.exports = {
 	table: require("./table")
 };
 
-},{"./action-bar":67,"./action-contextual":68,"./selection":74,"./summary":77,"./table":78,"./timeline":81}],70:[function(require,module,exports){
+},{"./action-bar":69,"./action-contextual":70,"./selection":76,"./summary":79,"./table":80,"./timeline":83}],72:[function(require,module,exports){
 "use strict";
 
 var React = window.React;
@@ -4707,7 +4896,7 @@ var builtInComponentsMixin = {
 
 module.exports = builtInComponentsMixin;
 
-},{"../../common/display/text":25,"../../common/field":27,"../../common/mixin/field-component-behaviour":50,"object-assign":274}],71:[function(require,module,exports){
+},{"../../common/display/text":26,"../../common/field":28,"../../common/mixin/field-component-behaviour":51,"object-assign":284}],73:[function(require,module,exports){
 "use strict";
 
 var topOfElement = (function (_topOfElement) {
@@ -4825,7 +5014,7 @@ var InfiniteScrollMixin = {
 
 module.exports = { mixin: InfiniteScrollMixin };
 
-},{"../mixin/pagination":73}],72:[function(require,module,exports){
+},{"../mixin/pagination":75}],74:[function(require,module,exports){
 "use strict";
 
 var memoryMixin = {
@@ -4880,7 +5069,7 @@ var memoryMixin = {
 
 module.exports = memoryMixin;
 
-},{}],73:[function(require,module,exports){
+},{}],75:[function(require,module,exports){
 "use strict";
 
 var type = window.Focus.component.types;
@@ -4928,7 +5117,7 @@ var paginationMixin = {
 
 module.exports = { mixin: paginationMixin };
 
-},{}],74:[function(require,module,exports){
+},{}],76:[function(require,module,exports){
 "use strict";
 
 module.exports = {
@@ -4936,7 +5125,7 @@ module.exports = {
     list: require("./list")
 };
 
-},{"./line":75,"./list":76}],75:[function(require,module,exports){
+},{"./line":77,"./list":78}],77:[function(require,module,exports){
 /**@jsx*/
 "use strict";
 
@@ -5118,7 +5307,7 @@ var lineMixin = {
 
 module.exports = { mixin: lineMixin };
 
-},{"../../common/i18n":34,"../../common/input/checkbox":39,"../../common/mixin/definition":49,"../../common/mixin/reference-property":53,"../action-contextual":68,"../mixin/built-in-components":70}],76:[function(require,module,exports){
+},{"../../common/i18n":35,"../../common/input/checkbox":40,"../../common/mixin/definition":50,"../../common/mixin/reference-property":54,"../action-contextual":70,"../mixin/built-in-components":72}],78:[function(require,module,exports){
 /**@jsx*/
 "use strict";
 
@@ -5134,19 +5323,19 @@ var checkIsNotNull = window.Focus.util.object.checkIsNotNull;
 
 var listMixin = {
     /**
-     * Display name.
-     */
+    * Display name.
+    */
     displayName: "selection-list",
 
     /**
-     * Mixin dependancies.
-     */
+    * Mixin dependancies.
+    */
     mixins: [translationMixin, infiniteScrollMixin, referenceMixin],
 
     /**
-     * Default properties for the list.
-     * @returns {{isSelection: boolean}} the default properties
-     */
+    * Default properties for the list.
+    * @returns {{isSelection: boolean}} the default properties
+    */
     getDefaultProps: function getListDefaultProps() {
         return {
             data: [],
@@ -5159,9 +5348,9 @@ var listMixin = {
     },
 
     /**
-     * list property validation.
-     * @type {Object}
-     */
+    * list property validation.
+    * @type {Object}
+    */
     propTypes: {
         data: type("array"),
         isSelection: type("bool"),
@@ -5176,16 +5365,16 @@ var listMixin = {
     },
 
     /**
-     * called before component mount
-     */
+    * called before component mount
+    */
     componentWillMount: function componentWillMount() {
         checkIsNotNull("lineComponent", this.props.lineComponent);
     },
 
     /**
-     * Return selected items in the list.
-     * @return {Array} selected items
-     */
+    * Return selected items in the list.
+    * @return {Array} selected items
+    */
     getSelectedItems: function getListSelectedItems() {
         var selected = [];
         for (var i = 1; i < this.props.data.length + 1; i++) {
@@ -5199,9 +5388,9 @@ var listMixin = {
     },
 
     /**
-     * Render lines of the list.
-     * @returns {*} DOM for lines
-     */
+    * Render lines of the list.
+    * @returns {*} DOM for lines
+    */
     _renderLines: function renderLines() {
         var _this = this;
 
@@ -5258,15 +5447,16 @@ var listMixin = {
                 React.createElement(Button, { label: "list.button.showMore",
                     type: "button",
                     handleOnClick: this.handleShowMore,
-                    style: style })
+                    style: style
+                })
             );
         }
     },
 
     /**
-     * Render the list.
-     * @returns {XML} DOM of the component
-     */
+    * Render the list.
+    * @returns {XML} DOM of the component
+    */
     render: function renderList() {
         return React.createElement(
             "ul",
@@ -5280,7 +5470,7 @@ var listMixin = {
 
 module.exports = builder(listMixin);
 
-},{"../../common/button/action":18,"../../common/i18n":34,"../../common/mixin/reference-property":53,"../mixin/infinite-scroll":71,"./line":75}],77:[function(require,module,exports){
+},{"../../common/button/action":19,"../../common/i18n":35,"../../common/mixin/reference-property":54,"../mixin/infinite-scroll":73,"./line":77}],79:[function(require,module,exports){
 /**@jsx*/
 "use strict";
 
@@ -5354,7 +5544,7 @@ var listSummaryMixin = {
 
 module.exports = builder(listSummaryMixin);
 
-},{"../../common/button/action":18,"../../common/i18n/mixin":35,"../../common/topic-displayer":66}],78:[function(require,module,exports){
+},{"../../common/button/action":19,"../../common/i18n/mixin":36,"../../common/topic-displayer":68}],80:[function(require,module,exports){
 "use strict";
 
 module.exports = {
@@ -5362,7 +5552,7 @@ module.exports = {
     list: require("./list")
 };
 
-},{"./line":79,"./list":80}],79:[function(require,module,exports){
+},{"./line":81,"./list":82}],81:[function(require,module,exports){
 "use strict";
 
 var React = window.React;
@@ -5419,7 +5609,7 @@ var lineMixin = {
 
 module.exports = { mixin: lineMixin };
 
-},{"../../common/i18n":34,"../../common/mixin/definition":49,"../../common/mixin/reference-property":53,"../mixin/built-in-components":70}],80:[function(require,module,exports){
+},{"../../common/i18n":35,"../../common/mixin/definition":50,"../../common/mixin/reference-property":54,"../mixin/built-in-components":72}],82:[function(require,module,exports){
 "use strict";
 
 var builder = window.Focus.component.builder;
@@ -5597,7 +5787,7 @@ var tableMixin = {
 
 module.exports = builder(tableMixin);
 
-},{"../../common/button/action":18,"../../common/i18n":34,"../../common/mixin/reference-property":53,"../mixin/infinite-scroll":71}],81:[function(require,module,exports){
+},{"../../common/button/action":19,"../../common/i18n":35,"../../common/mixin/reference-property":54,"../mixin/infinite-scroll":73}],83:[function(require,module,exports){
 "use strict";
 
 module.exports = {
@@ -5605,7 +5795,7 @@ module.exports = {
     list: require("./list")
 };
 
-},{"./line":82,"./list":83}],82:[function(require,module,exports){
+},{"./line":84,"./list":85}],84:[function(require,module,exports){
 /**@jsx*/
 "use strict";
 
@@ -5725,7 +5915,7 @@ var lineMixin = {
 
 module.exports = { mixin: lineMixin };
 
-},{"../../common/i18n":34,"../../common/mixin/definition":49,"../../common/mixin/reference-property":53,"../mixin/built-in-components":70}],83:[function(require,module,exports){
+},{"../../common/i18n":35,"../../common/mixin/definition":50,"../../common/mixin/reference-property":54,"../mixin/built-in-components":72}],85:[function(require,module,exports){
 "use strict";
 
 var builder = window.Focus.component.builder;
@@ -5849,7 +6039,7 @@ var listMixin = {
 
 module.exports = builder(listMixin);
 
-},{"../../common/button/action":18,"../../common/i18n":34,"../../common/mixin/reference-property":53,"../mixin/infinite-scroll":71,"./line":82,"uuid":276}],84:[function(require,module,exports){
+},{"../../common/button/action":19,"../../common/i18n":35,"../../common/mixin/reference-property":54,"../mixin/infinite-scroll":73,"./line":84,"uuid":286}],86:[function(require,module,exports){
 "use strict";
 
 var builder = window.Focus.component.builder;
@@ -5913,13 +6103,14 @@ var messageMixin = {
    * @return {JSX} The jsx.
    */
   render: function renderAlert() {
-    var cssClass = "alert alert-dismissable alert-" + this.props.type + " " + this.props.style.className;
+    var type = this.props.type && this.props.type === "error" ? "danger" : this.props.type;
+    var cssClass = "alert alert-dismissable alert-" + type + " " + this.props.style.className;
     return React.createElement(
       "div",
       { className: cssClass, "data-id": this.props.id, "data-focus": "message" },
       React.createElement(
         "button",
-        { type: "button", className: "close", "data-dismiss": "alert", onClick: this._handleOnClick },
+        { type: "button", className: "close", onClick: this._handleOnClick },
         "×"
       ),
       this._renderTitle(),
@@ -5933,7 +6124,7 @@ var messageMixin = {
 };
 module.exports = builder(messageMixin);
 
-},{}],85:[function(require,module,exports){
+},{}],87:[function(require,module,exports){
 "use strict";
 
 var type = window.Focus.component.types;
@@ -5956,7 +6147,67 @@ module.exports = {
   }
 };
 
-},{}],86:[function(require,module,exports){
+},{}],88:[function(require,module,exports){
+var baseIndexOf = require('../internal/baseIndexOf'),
+    cacheIndexOf = require('../internal/cacheIndexOf'),
+    createCache = require('../internal/createCache'),
+    isArrayLike = require('../internal/isArrayLike'),
+    restParam = require('../function/restParam');
+
+/**
+ * Creates an array of unique values that are included in all of the provided
+ * arrays using [`SameValueZero`](https://people.mozilla.org/~jorendorff/es6-draft.html#sec-samevaluezero)
+ * for equality comparisons.
+ *
+ * @static
+ * @memberOf _
+ * @category Array
+ * @param {...Array} [arrays] The arrays to inspect.
+ * @returns {Array} Returns the new array of shared values.
+ * @example
+ * _.intersection([1, 2], [4, 2], [2, 1]);
+ * // => [2]
+ */
+var intersection = restParam(function(arrays) {
+  var othLength = arrays.length,
+      othIndex = othLength,
+      caches = Array(length),
+      indexOf = baseIndexOf,
+      isCommon = true,
+      result = [];
+
+  while (othIndex--) {
+    var value = arrays[othIndex] = isArrayLike(value = arrays[othIndex]) ? value : [];
+    caches[othIndex] = (isCommon && value.length >= 120) ? createCache(othIndex && value) : null;
+  }
+  var array = arrays[0],
+      index = -1,
+      length = array ? array.length : 0,
+      seen = caches[0];
+
+  outer:
+  while (++index < length) {
+    value = array[index];
+    if ((seen ? cacheIndexOf(seen, value) : indexOf(result, value, 0)) < 0) {
+      var othIndex = othLength;
+      while (--othIndex) {
+        var cache = caches[othIndex];
+        if ((cache ? cacheIndexOf(cache, value) : indexOf(arrays[othIndex], value, 0)) < 0) {
+          continue outer;
+        }
+      }
+      if (seen) {
+        seen.push(value);
+      }
+      result.push(value);
+    }
+  }
+  return result;
+});
+
+module.exports = intersection;
+
+},{"../function/restParam":131,"../internal/baseIndexOf":167,"../internal/cacheIndexOf":189,"../internal/createCache":199,"../internal/isArrayLike":217}],89:[function(require,module,exports){
 /**
  * Gets the last element of `array`.
  *
@@ -5977,7 +6228,7 @@ function last(array) {
 
 module.exports = last;
 
-},{}],87:[function(require,module,exports){
+},{}],90:[function(require,module,exports){
 var baseFlatten = require('../internal/baseFlatten'),
     baseUniq = require('../internal/baseUniq'),
     restParam = require('../function/restParam');
@@ -6003,7 +6254,7 @@ var union = restParam(function(arrays) {
 
 module.exports = union;
 
-},{"../function/restParam":128,"../internal/baseFlatten":156,"../internal/baseUniq":181}],88:[function(require,module,exports){
+},{"../function/restParam":131,"../internal/baseFlatten":160,"../internal/baseUniq":185}],91:[function(require,module,exports){
 module.exports = {
   'all': require('./collection/all'),
   'any': require('./collection/any'),
@@ -6049,13 +6300,13 @@ module.exports = {
   'where': require('./collection/where')
 };
 
-},{"./collection/all":89,"./collection/any":90,"./collection/at":91,"./collection/collect":92,"./collection/contains":93,"./collection/countBy":94,"./collection/detect":95,"./collection/each":96,"./collection/eachRight":97,"./collection/every":98,"./collection/filter":99,"./collection/find":100,"./collection/findLast":101,"./collection/findWhere":102,"./collection/foldl":103,"./collection/foldr":104,"./collection/forEach":105,"./collection/forEachRight":106,"./collection/groupBy":107,"./collection/include":108,"./collection/includes":109,"./collection/indexBy":110,"./collection/inject":111,"./collection/invoke":112,"./collection/map":113,"./collection/partition":114,"./collection/pluck":115,"./collection/reduce":116,"./collection/reduceRight":117,"./collection/reject":118,"./collection/sample":119,"./collection/select":120,"./collection/shuffle":121,"./collection/size":122,"./collection/some":123,"./collection/sortBy":124,"./collection/sortByAll":125,"./collection/sortByOrder":126,"./collection/where":127,"./math/max":258,"./math/min":259,"./math/sum":260}],89:[function(require,module,exports){
+},{"./collection/all":92,"./collection/any":93,"./collection/at":94,"./collection/collect":95,"./collection/contains":96,"./collection/countBy":97,"./collection/detect":98,"./collection/each":99,"./collection/eachRight":100,"./collection/every":101,"./collection/filter":102,"./collection/find":103,"./collection/findLast":104,"./collection/findWhere":105,"./collection/foldl":106,"./collection/foldr":107,"./collection/forEach":108,"./collection/forEachRight":109,"./collection/groupBy":110,"./collection/include":111,"./collection/includes":112,"./collection/indexBy":113,"./collection/inject":114,"./collection/invoke":115,"./collection/map":116,"./collection/partition":117,"./collection/pluck":118,"./collection/reduce":119,"./collection/reduceRight":120,"./collection/reject":121,"./collection/sample":122,"./collection/select":123,"./collection/shuffle":124,"./collection/size":125,"./collection/some":126,"./collection/sortBy":127,"./collection/sortByAll":128,"./collection/sortByOrder":129,"./collection/where":130,"./math/max":265,"./math/min":266,"./math/sum":267}],92:[function(require,module,exports){
 module.exports = require('./every');
 
-},{"./every":98}],90:[function(require,module,exports){
+},{"./every":101}],93:[function(require,module,exports){
 module.exports = require('./some');
 
-},{"./some":123}],91:[function(require,module,exports){
+},{"./some":126}],94:[function(require,module,exports){
 var baseAt = require('../internal/baseAt'),
     baseFlatten = require('../internal/baseFlatten'),
     restParam = require('../function/restParam');
@@ -6086,13 +6337,13 @@ var at = restParam(function(collection, props) {
 
 module.exports = at;
 
-},{"../function/restParam":128,"../internal/baseAt":143,"../internal/baseFlatten":156}],92:[function(require,module,exports){
+},{"../function/restParam":131,"../internal/baseAt":147,"../internal/baseFlatten":160}],95:[function(require,module,exports){
 module.exports = require('./map');
 
-},{"./map":113}],93:[function(require,module,exports){
+},{"./map":116}],96:[function(require,module,exports){
 module.exports = require('./includes');
 
-},{"./includes":109}],94:[function(require,module,exports){
+},{"./includes":112}],97:[function(require,module,exports){
 var createAggregator = require('../internal/createAggregator');
 
 /** Used for native method references. */
@@ -6148,16 +6399,16 @@ var countBy = createAggregator(function(result, value, key) {
 
 module.exports = countBy;
 
-},{"../internal/createAggregator":191}],95:[function(require,module,exports){
+},{"../internal/createAggregator":195}],98:[function(require,module,exports){
 module.exports = require('./find');
 
-},{"./find":100}],96:[function(require,module,exports){
+},{"./find":103}],99:[function(require,module,exports){
 module.exports = require('./forEach');
 
-},{"./forEach":105}],97:[function(require,module,exports){
+},{"./forEach":108}],100:[function(require,module,exports){
 module.exports = require('./forEachRight');
 
-},{"./forEachRight":106}],98:[function(require,module,exports){
+},{"./forEachRight":109}],101:[function(require,module,exports){
 var arrayEvery = require('../internal/arrayEvery'),
     baseCallback = require('../internal/baseCallback'),
     baseEvery = require('../internal/baseEvery'),
@@ -6225,7 +6476,7 @@ function every(collection, predicate, thisArg) {
 
 module.exports = every;
 
-},{"../internal/arrayEvery":134,"../internal/baseCallback":144,"../internal/baseEvery":151,"../internal/isIterateeCall":212,"../lang/isArray":234}],99:[function(require,module,exports){
+},{"../internal/arrayEvery":137,"../internal/baseCallback":148,"../internal/baseEvery":155,"../internal/isIterateeCall":219,"../lang/isArray":241}],102:[function(require,module,exports){
 var arrayFilter = require('../internal/arrayFilter'),
     baseCallback = require('../internal/baseCallback'),
     baseFilter = require('../internal/baseFilter'),
@@ -6288,7 +6539,7 @@ function filter(collection, predicate, thisArg) {
 
 module.exports = filter;
 
-},{"../internal/arrayFilter":136,"../internal/baseCallback":144,"../internal/baseFilter":153,"../lang/isArray":234}],100:[function(require,module,exports){
+},{"../internal/arrayFilter":139,"../internal/baseCallback":148,"../internal/baseFilter":157,"../lang/isArray":241}],103:[function(require,module,exports){
 var baseEach = require('../internal/baseEach'),
     createFind = require('../internal/createFind');
 
@@ -6346,7 +6597,7 @@ var find = createFind(baseEach);
 
 module.exports = find;
 
-},{"../internal/baseEach":149,"../internal/createFind":196}],101:[function(require,module,exports){
+},{"../internal/baseEach":153,"../internal/createFind":202}],104:[function(require,module,exports){
 var baseEachRight = require('../internal/baseEachRight'),
     createFind = require('../internal/createFind');
 
@@ -6373,7 +6624,7 @@ var findLast = createFind(baseEachRight, true);
 
 module.exports = findLast;
 
-},{"../internal/baseEachRight":150,"../internal/createFind":196}],102:[function(require,module,exports){
+},{"../internal/baseEachRight":154,"../internal/createFind":202}],105:[function(require,module,exports){
 var baseMatches = require('../internal/baseMatches'),
     find = require('./find');
 
@@ -6412,13 +6663,13 @@ function findWhere(collection, source) {
 
 module.exports = findWhere;
 
-},{"../internal/baseMatches":169,"./find":100}],103:[function(require,module,exports){
+},{"../internal/baseMatches":173,"./find":103}],106:[function(require,module,exports){
 module.exports = require('./reduce');
 
-},{"./reduce":116}],104:[function(require,module,exports){
+},{"./reduce":119}],107:[function(require,module,exports){
 module.exports = require('./reduceRight');
 
-},{"./reduceRight":117}],105:[function(require,module,exports){
+},{"./reduceRight":120}],108:[function(require,module,exports){
 var arrayEach = require('../internal/arrayEach'),
     baseEach = require('../internal/baseEach'),
     createForEach = require('../internal/createForEach');
@@ -6457,7 +6708,7 @@ var forEach = createForEach(arrayEach, baseEach);
 
 module.exports = forEach;
 
-},{"../internal/arrayEach":132,"../internal/baseEach":149,"../internal/createForEach":197}],106:[function(require,module,exports){
+},{"../internal/arrayEach":135,"../internal/baseEach":153,"../internal/createForEach":203}],109:[function(require,module,exports){
 var arrayEachRight = require('../internal/arrayEachRight'),
     baseEachRight = require('../internal/baseEachRight'),
     createForEach = require('../internal/createForEach');
@@ -6485,7 +6736,7 @@ var forEachRight = createForEach(arrayEachRight, baseEachRight);
 
 module.exports = forEachRight;
 
-},{"../internal/arrayEachRight":133,"../internal/baseEachRight":150,"../internal/createForEach":197}],107:[function(require,module,exports){
+},{"../internal/arrayEachRight":136,"../internal/baseEachRight":154,"../internal/createForEach":203}],110:[function(require,module,exports){
 var createAggregator = require('../internal/createAggregator');
 
 /** Used for native method references. */
@@ -6546,9 +6797,9 @@ var groupBy = createAggregator(function(result, value, key) {
 
 module.exports = groupBy;
 
-},{"../internal/createAggregator":191}],108:[function(require,module,exports){
-arguments[4][93][0].apply(exports,arguments)
-},{"./includes":109,"dup":93}],109:[function(require,module,exports){
+},{"../internal/createAggregator":195}],111:[function(require,module,exports){
+arguments[4][96][0].apply(exports,arguments)
+},{"./includes":112,"dup":96}],112:[function(require,module,exports){
 var baseIndexOf = require('../internal/baseIndexOf'),
     getLength = require('../internal/getLength'),
     isArray = require('../lang/isArray'),
@@ -6610,7 +6861,7 @@ function includes(collection, target, fromIndex, guard) {
 
 module.exports = includes;
 
-},{"../internal/baseIndexOf":163,"../internal/getLength":202,"../internal/isIterateeCall":212,"../internal/isLength":214,"../lang/isArray":234,"../lang/isString":251,"../object/values":265}],110:[function(require,module,exports){
+},{"../internal/baseIndexOf":167,"../internal/getLength":209,"../internal/isIterateeCall":219,"../internal/isLength":221,"../lang/isArray":241,"../lang/isString":258,"../object/values":273}],113:[function(require,module,exports){
 var createAggregator = require('../internal/createAggregator');
 
 /**
@@ -6665,9 +6916,9 @@ var indexBy = createAggregator(function(result, value, key) {
 
 module.exports = indexBy;
 
-},{"../internal/createAggregator":191}],111:[function(require,module,exports){
-arguments[4][103][0].apply(exports,arguments)
-},{"./reduce":116,"dup":103}],112:[function(require,module,exports){
+},{"../internal/createAggregator":195}],114:[function(require,module,exports){
+arguments[4][106][0].apply(exports,arguments)
+},{"./reduce":119,"dup":106}],115:[function(require,module,exports){
 var baseEach = require('../internal/baseEach'),
     invokePath = require('../internal/invokePath'),
     isArrayLike = require('../internal/isArrayLike'),
@@ -6711,7 +6962,7 @@ var invoke = restParam(function(collection, path, args) {
 
 module.exports = invoke;
 
-},{"../function/restParam":128,"../internal/baseEach":149,"../internal/invokePath":209,"../internal/isArrayLike":210,"../internal/isKey":213}],113:[function(require,module,exports){
+},{"../function/restParam":131,"../internal/baseEach":153,"../internal/invokePath":216,"../internal/isArrayLike":217,"../internal/isKey":220}],116:[function(require,module,exports){
 var arrayMap = require('../internal/arrayMap'),
     baseCallback = require('../internal/baseCallback'),
     baseMap = require('../internal/baseMap'),
@@ -6781,7 +7032,7 @@ function map(collection, iteratee, thisArg) {
 
 module.exports = map;
 
-},{"../internal/arrayMap":137,"../internal/baseCallback":144,"../internal/baseMap":168,"../lang/isArray":234}],114:[function(require,module,exports){
+},{"../internal/arrayMap":140,"../internal/baseCallback":148,"../internal/baseMap":172,"../lang/isArray":241}],117:[function(require,module,exports){
 var createAggregator = require('../internal/createAggregator');
 
 /**
@@ -6849,7 +7100,7 @@ var partition = createAggregator(function(result, value, key) {
 
 module.exports = partition;
 
-},{"../internal/createAggregator":191}],115:[function(require,module,exports){
+},{"../internal/createAggregator":195}],118:[function(require,module,exports){
 var map = require('./map'),
     property = require('../utility/property');
 
@@ -6882,7 +7133,7 @@ function pluck(collection, path) {
 
 module.exports = pluck;
 
-},{"../utility/property":273,"./map":113}],116:[function(require,module,exports){
+},{"../utility/property":283,"./map":116}],119:[function(require,module,exports){
 var arrayReduce = require('../internal/arrayReduce'),
     baseEach = require('../internal/baseEach'),
     createReduce = require('../internal/createReduce');
@@ -6927,7 +7178,7 @@ var reduce = createReduce(arrayReduce, baseEach);
 
 module.exports = reduce;
 
-},{"../internal/arrayReduce":138,"../internal/baseEach":149,"../internal/createReduce":198}],117:[function(require,module,exports){
+},{"../internal/arrayReduce":141,"../internal/baseEach":153,"../internal/createReduce":204}],120:[function(require,module,exports){
 var arrayReduceRight = require('../internal/arrayReduceRight'),
     baseEachRight = require('../internal/baseEachRight'),
     createReduce = require('../internal/createReduce');
@@ -6958,7 +7209,7 @@ var reduceRight = createReduce(arrayReduceRight, baseEachRight);
 
 module.exports = reduceRight;
 
-},{"../internal/arrayReduceRight":139,"../internal/baseEachRight":150,"../internal/createReduce":198}],118:[function(require,module,exports){
+},{"../internal/arrayReduceRight":142,"../internal/baseEachRight":154,"../internal/createReduce":204}],121:[function(require,module,exports){
 var arrayFilter = require('../internal/arrayFilter'),
     baseCallback = require('../internal/baseCallback'),
     baseFilter = require('../internal/baseFilter'),
@@ -7010,7 +7261,7 @@ function reject(collection, predicate, thisArg) {
 
 module.exports = reject;
 
-},{"../internal/arrayFilter":136,"../internal/baseCallback":144,"../internal/baseFilter":153,"../lang/isArray":234}],119:[function(require,module,exports){
+},{"../internal/arrayFilter":139,"../internal/baseCallback":148,"../internal/baseFilter":157,"../lang/isArray":241}],122:[function(require,module,exports){
 var baseRandom = require('../internal/baseRandom'),
     isIterateeCall = require('../internal/isIterateeCall'),
     toArray = require('../lang/toArray'),
@@ -7062,10 +7313,10 @@ function sample(collection, n, guard) {
 
 module.exports = sample;
 
-},{"../internal/baseRandom":173,"../internal/isIterateeCall":212,"../internal/toIterable":222,"../lang/toArray":256}],120:[function(require,module,exports){
+},{"../internal/baseRandom":177,"../internal/isIterateeCall":219,"../internal/toIterable":229,"../lang/toArray":263}],123:[function(require,module,exports){
 module.exports = require('./filter');
 
-},{"./filter":99}],121:[function(require,module,exports){
+},{"./filter":102}],124:[function(require,module,exports){
 var sample = require('./sample');
 
 /** Used as references for `-Infinity` and `Infinity`. */
@@ -7091,7 +7342,7 @@ function shuffle(collection) {
 
 module.exports = shuffle;
 
-},{"./sample":119}],122:[function(require,module,exports){
+},{"./sample":122}],125:[function(require,module,exports){
 var getLength = require('../internal/getLength'),
     isLength = require('../internal/isLength'),
     keys = require('../object/keys');
@@ -7123,7 +7374,7 @@ function size(collection) {
 
 module.exports = size;
 
-},{"../internal/getLength":202,"../internal/isLength":214,"../object/keys":261}],123:[function(require,module,exports){
+},{"../internal/getLength":209,"../internal/isLength":221,"../object/keys":269}],126:[function(require,module,exports){
 var arraySome = require('../internal/arraySome'),
     baseCallback = require('../internal/baseCallback'),
     baseSome = require('../internal/baseSome'),
@@ -7192,7 +7443,7 @@ function some(collection, predicate, thisArg) {
 
 module.exports = some;
 
-},{"../internal/arraySome":140,"../internal/baseCallback":144,"../internal/baseSome":176,"../internal/isIterateeCall":212,"../lang/isArray":234}],124:[function(require,module,exports){
+},{"../internal/arraySome":143,"../internal/baseCallback":148,"../internal/baseSome":180,"../internal/isIterateeCall":219,"../lang/isArray":241}],127:[function(require,module,exports){
 var baseCallback = require('../internal/baseCallback'),
     baseMap = require('../internal/baseMap'),
     baseSortBy = require('../internal/baseSortBy'),
@@ -7265,7 +7516,7 @@ function sortBy(collection, iteratee, thisArg) {
 
 module.exports = sortBy;
 
-},{"../internal/baseCallback":144,"../internal/baseMap":168,"../internal/baseSortBy":177,"../internal/compareAscending":189,"../internal/isIterateeCall":212}],125:[function(require,module,exports){
+},{"../internal/baseCallback":148,"../internal/baseMap":172,"../internal/baseSortBy":181,"../internal/compareAscending":193,"../internal/isIterateeCall":219}],128:[function(require,module,exports){
 var baseFlatten = require('../internal/baseFlatten'),
     baseSortByOrder = require('../internal/baseSortByOrder'),
     isIterateeCall = require('../internal/isIterateeCall'),
@@ -7319,7 +7570,7 @@ var sortByAll = restParam(function(collection, iteratees) {
 
 module.exports = sortByAll;
 
-},{"../function/restParam":128,"../internal/baseFlatten":156,"../internal/baseSortByOrder":178,"../internal/isIterateeCall":212}],126:[function(require,module,exports){
+},{"../function/restParam":131,"../internal/baseFlatten":160,"../internal/baseSortByOrder":182,"../internal/isIterateeCall":219}],129:[function(require,module,exports){
 var baseSortByOrder = require('../internal/baseSortByOrder'),
     isArray = require('../lang/isArray'),
     isIterateeCall = require('../internal/isIterateeCall');
@@ -7376,7 +7627,7 @@ function sortByOrder(collection, iteratees, orders, guard) {
 
 module.exports = sortByOrder;
 
-},{"../internal/baseSortByOrder":178,"../internal/isIterateeCall":212,"../lang/isArray":234}],127:[function(require,module,exports){
+},{"../internal/baseSortByOrder":182,"../internal/isIterateeCall":219,"../lang/isArray":241}],130:[function(require,module,exports){
 var baseMatches = require('../internal/baseMatches'),
     filter = require('./filter');
 
@@ -7415,7 +7666,7 @@ function where(collection, source) {
 
 module.exports = where;
 
-},{"../internal/baseMatches":169,"./filter":99}],128:[function(require,module,exports){
+},{"../internal/baseMatches":173,"./filter":102}],131:[function(require,module,exports){
 /** Used as the `TypeError` message for "Functions" methods. */
 var FUNC_ERROR_TEXT = 'Expected a function';
 
@@ -7475,7 +7726,7 @@ function restParam(func, start) {
 
 module.exports = restParam;
 
-},{}],129:[function(require,module,exports){
+},{}],132:[function(require,module,exports){
 (function (global){
 /**
  * @license
@@ -19714,7 +19965,7 @@ module.exports = restParam;
 }.call(this));
 
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{}],130:[function(require,module,exports){
+},{}],133:[function(require,module,exports){
 (function (global){
 var cachePush = require('./cachePush'),
     getNative = require('./getNative');
@@ -19747,7 +19998,7 @@ SetCache.prototype.push = cachePush;
 module.exports = SetCache;
 
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{"./cachePush":186,"./getNative":204}],131:[function(require,module,exports){
+},{"./cachePush":190,"./getNative":211}],134:[function(require,module,exports){
 /**
  * Copies the values of `source` to `array`.
  *
@@ -19769,7 +20020,7 @@ function arrayCopy(source, array) {
 
 module.exports = arrayCopy;
 
-},{}],132:[function(require,module,exports){
+},{}],135:[function(require,module,exports){
 /**
  * A specialized version of `_.forEach` for arrays without support for callback
  * shorthands and `this` binding.
@@ -19793,7 +20044,7 @@ function arrayEach(array, iteratee) {
 
 module.exports = arrayEach;
 
-},{}],133:[function(require,module,exports){
+},{}],136:[function(require,module,exports){
 /**
  * A specialized version of `_.forEachRight` for arrays without support for
  * callback shorthands and `this` binding.
@@ -19816,7 +20067,7 @@ function arrayEachRight(array, iteratee) {
 
 module.exports = arrayEachRight;
 
-},{}],134:[function(require,module,exports){
+},{}],137:[function(require,module,exports){
 /**
  * A specialized version of `_.every` for arrays without support for callback
  * shorthands and `this` binding.
@@ -19841,7 +20092,7 @@ function arrayEvery(array, predicate) {
 
 module.exports = arrayEvery;
 
-},{}],135:[function(require,module,exports){
+},{}],138:[function(require,module,exports){
 /**
  * A specialized version of `baseExtremum` for arrays which invokes `iteratee`
  * with one argument: (value).
@@ -19873,7 +20124,7 @@ function arrayExtremum(array, iteratee, comparator, exValue) {
 
 module.exports = arrayExtremum;
 
-},{}],136:[function(require,module,exports){
+},{}],139:[function(require,module,exports){
 /**
  * A specialized version of `_.filter` for arrays without support for callback
  * shorthands and `this` binding.
@@ -19900,7 +20151,7 @@ function arrayFilter(array, predicate) {
 
 module.exports = arrayFilter;
 
-},{}],137:[function(require,module,exports){
+},{}],140:[function(require,module,exports){
 /**
  * A specialized version of `_.map` for arrays without support for callback
  * shorthands and `this` binding.
@@ -19923,7 +20174,7 @@ function arrayMap(array, iteratee) {
 
 module.exports = arrayMap;
 
-},{}],138:[function(require,module,exports){
+},{}],141:[function(require,module,exports){
 /**
  * A specialized version of `_.reduce` for arrays without support for callback
  * shorthands and `this` binding.
@@ -19951,7 +20202,7 @@ function arrayReduce(array, iteratee, accumulator, initFromArray) {
 
 module.exports = arrayReduce;
 
-},{}],139:[function(require,module,exports){
+},{}],142:[function(require,module,exports){
 /**
  * A specialized version of `_.reduceRight` for arrays without support for
  * callback shorthands and `this` binding.
@@ -19977,7 +20228,7 @@ function arrayReduceRight(array, iteratee, accumulator, initFromArray) {
 
 module.exports = arrayReduceRight;
 
-},{}],140:[function(require,module,exports){
+},{}],143:[function(require,module,exports){
 /**
  * A specialized version of `_.some` for arrays without support for callback
  * shorthands and `this` binding.
@@ -20002,7 +20253,7 @@ function arraySome(array, predicate) {
 
 module.exports = arraySome;
 
-},{}],141:[function(require,module,exports){
+},{}],144:[function(require,module,exports){
 /**
  * A specialized version of `_.sum` for arrays without support for iteratees.
  *
@@ -20022,7 +20273,41 @@ function arraySum(array) {
 
 module.exports = arraySum;
 
-},{}],142:[function(require,module,exports){
+},{}],145:[function(require,module,exports){
+var keys = require('../object/keys');
+
+/**
+ * A specialized version of `_.assign` for customizing assigned values without
+ * support for argument juggling, multiple sources, and `this` binding `customizer`
+ * functions.
+ *
+ * @private
+ * @param {Object} object The destination object.
+ * @param {Object} source The source object.
+ * @param {Function} customizer The function to customize assigned values.
+ * @returns {Object} Returns `object`.
+ */
+function assignWith(object, source, customizer) {
+  var index = -1,
+      props = keys(source),
+      length = props.length;
+
+  while (++index < length) {
+    var key = props[index],
+        value = object[key],
+        result = customizer(value, source[key], key, object, source);
+
+    if ((result === result ? (result !== value) : (value === value)) ||
+        (value === undefined && !(key in object))) {
+      object[key] = result;
+    }
+  }
+  return object;
+}
+
+module.exports = assignWith;
+
+},{"../object/keys":269}],146:[function(require,module,exports){
 var baseCopy = require('./baseCopy'),
     keys = require('../object/keys');
 
@@ -20043,7 +20328,7 @@ function baseAssign(object, source) {
 
 module.exports = baseAssign;
 
-},{"../object/keys":261,"./baseCopy":147}],143:[function(require,module,exports){
+},{"../object/keys":269,"./baseCopy":151}],147:[function(require,module,exports){
 var isArrayLike = require('./isArrayLike'),
     isIndex = require('./isIndex');
 
@@ -20077,7 +20362,7 @@ function baseAt(collection, props) {
 
 module.exports = baseAt;
 
-},{"./isArrayLike":210,"./isIndex":211}],144:[function(require,module,exports){
+},{"./isArrayLike":217,"./isIndex":218}],148:[function(require,module,exports){
 var baseMatches = require('./baseMatches'),
     baseMatchesProperty = require('./baseMatchesProperty'),
     bindCallback = require('./bindCallback'),
@@ -20114,7 +20399,7 @@ function baseCallback(func, thisArg, argCount) {
 
 module.exports = baseCallback;
 
-},{"../utility/identity":272,"../utility/property":273,"./baseMatches":169,"./baseMatchesProperty":170,"./bindCallback":183}],145:[function(require,module,exports){
+},{"../utility/identity":282,"../utility/property":283,"./baseMatches":173,"./baseMatchesProperty":174,"./bindCallback":187}],149:[function(require,module,exports){
 var arrayCopy = require('./arrayCopy'),
     arrayEach = require('./arrayEach'),
     baseAssign = require('./baseAssign'),
@@ -20244,7 +20529,7 @@ function baseClone(value, isDeep, customizer, key, object, stackA, stackB) {
 
 module.exports = baseClone;
 
-},{"../lang/isArray":234,"../lang/isObject":248,"./arrayCopy":131,"./arrayEach":132,"./baseAssign":142,"./baseForOwn":159,"./initCloneArray":206,"./initCloneByTag":207,"./initCloneObject":208}],146:[function(require,module,exports){
+},{"../lang/isArray":241,"../lang/isObject":255,"./arrayCopy":134,"./arrayEach":135,"./baseAssign":146,"./baseForOwn":163,"./initCloneArray":213,"./initCloneByTag":214,"./initCloneObject":215}],150:[function(require,module,exports){
 /**
  * The base implementation of `compareAscending` which compares values and
  * sorts them in ascending order without guaranteeing a stable sort.
@@ -20280,7 +20565,7 @@ function baseCompareAscending(value, other) {
 
 module.exports = baseCompareAscending;
 
-},{}],147:[function(require,module,exports){
+},{}],151:[function(require,module,exports){
 /**
  * Copies properties of `source` to `object`.
  *
@@ -20305,7 +20590,7 @@ function baseCopy(source, props, object) {
 
 module.exports = baseCopy;
 
-},{}],148:[function(require,module,exports){
+},{}],152:[function(require,module,exports){
 var baseIndexOf = require('./baseIndexOf'),
     cacheIndexOf = require('./cacheIndexOf'),
     createCache = require('./createCache');
@@ -20359,7 +20644,7 @@ function baseDifference(array, values) {
 
 module.exports = baseDifference;
 
-},{"./baseIndexOf":163,"./cacheIndexOf":185,"./createCache":194}],149:[function(require,module,exports){
+},{"./baseIndexOf":167,"./cacheIndexOf":189,"./createCache":199}],153:[function(require,module,exports){
 var baseForOwn = require('./baseForOwn'),
     createBaseEach = require('./createBaseEach');
 
@@ -20376,7 +20661,7 @@ var baseEach = createBaseEach(baseForOwn);
 
 module.exports = baseEach;
 
-},{"./baseForOwn":159,"./createBaseEach":192}],150:[function(require,module,exports){
+},{"./baseForOwn":163,"./createBaseEach":197}],154:[function(require,module,exports){
 var baseForOwnRight = require('./baseForOwnRight'),
     createBaseEach = require('./createBaseEach');
 
@@ -20393,7 +20678,7 @@ var baseEachRight = createBaseEach(baseForOwnRight, true);
 
 module.exports = baseEachRight;
 
-},{"./baseForOwnRight":160,"./createBaseEach":192}],151:[function(require,module,exports){
+},{"./baseForOwnRight":164,"./createBaseEach":197}],155:[function(require,module,exports){
 var baseEach = require('./baseEach');
 
 /**
@@ -20417,7 +20702,7 @@ function baseEvery(collection, predicate) {
 
 module.exports = baseEvery;
 
-},{"./baseEach":149}],152:[function(require,module,exports){
+},{"./baseEach":153}],156:[function(require,module,exports){
 var baseEach = require('./baseEach');
 
 /**
@@ -20448,7 +20733,7 @@ function baseExtremum(collection, iteratee, comparator, exValue) {
 
 module.exports = baseExtremum;
 
-},{"./baseEach":149}],153:[function(require,module,exports){
+},{"./baseEach":153}],157:[function(require,module,exports){
 var baseEach = require('./baseEach');
 
 /**
@@ -20472,7 +20757,7 @@ function baseFilter(collection, predicate) {
 
 module.exports = baseFilter;
 
-},{"./baseEach":149}],154:[function(require,module,exports){
+},{"./baseEach":153}],158:[function(require,module,exports){
 /**
  * The base implementation of `_.find`, `_.findLast`, `_.findKey`, and `_.findLastKey`,
  * without support for callback shorthands and `this` binding, which iterates
@@ -20499,7 +20784,7 @@ function baseFind(collection, predicate, eachFunc, retKey) {
 
 module.exports = baseFind;
 
-},{}],155:[function(require,module,exports){
+},{}],159:[function(require,module,exports){
 /**
  * The base implementation of `_.findIndex` and `_.findLastIndex` without
  * support for callback shorthands and `this` binding.
@@ -20524,7 +20809,7 @@ function baseFindIndex(array, predicate, fromRight) {
 
 module.exports = baseFindIndex;
 
-},{}],156:[function(require,module,exports){
+},{}],160:[function(require,module,exports){
 var isArguments = require('../lang/isArguments'),
     isArray = require('../lang/isArray'),
     isArrayLike = require('./isArrayLike'),
@@ -20569,7 +20854,7 @@ function baseFlatten(array, isDeep, isStrict) {
 
 module.exports = baseFlatten;
 
-},{"../lang/isArguments":233,"../lang/isArray":234,"./isArrayLike":210,"./isObjectLike":215}],157:[function(require,module,exports){
+},{"../lang/isArguments":240,"../lang/isArray":241,"./isArrayLike":217,"./isObjectLike":222}],161:[function(require,module,exports){
 var createBaseFor = require('./createBaseFor');
 
 /**
@@ -20588,7 +20873,7 @@ var baseFor = createBaseFor();
 
 module.exports = baseFor;
 
-},{"./createBaseFor":193}],158:[function(require,module,exports){
+},{"./createBaseFor":198}],162:[function(require,module,exports){
 var baseFor = require('./baseFor'),
     keysIn = require('../object/keysIn');
 
@@ -20607,7 +20892,7 @@ function baseForIn(object, iteratee) {
 
 module.exports = baseForIn;
 
-},{"../object/keysIn":262,"./baseFor":157}],159:[function(require,module,exports){
+},{"../object/keysIn":270,"./baseFor":161}],163:[function(require,module,exports){
 var baseFor = require('./baseFor'),
     keys = require('../object/keys');
 
@@ -20626,7 +20911,7 @@ function baseForOwn(object, iteratee) {
 
 module.exports = baseForOwn;
 
-},{"../object/keys":261,"./baseFor":157}],160:[function(require,module,exports){
+},{"../object/keys":269,"./baseFor":161}],164:[function(require,module,exports){
 var baseForRight = require('./baseForRight'),
     keys = require('../object/keys');
 
@@ -20645,7 +20930,7 @@ function baseForOwnRight(object, iteratee) {
 
 module.exports = baseForOwnRight;
 
-},{"../object/keys":261,"./baseForRight":161}],161:[function(require,module,exports){
+},{"../object/keys":269,"./baseForRight":165}],165:[function(require,module,exports){
 var createBaseFor = require('./createBaseFor');
 
 /**
@@ -20662,7 +20947,7 @@ var baseForRight = createBaseFor(true);
 
 module.exports = baseForRight;
 
-},{"./createBaseFor":193}],162:[function(require,module,exports){
+},{"./createBaseFor":198}],166:[function(require,module,exports){
 var toObject = require('./toObject');
 
 /**
@@ -20693,7 +20978,7 @@ function baseGet(object, path, pathKey) {
 
 module.exports = baseGet;
 
-},{"./toObject":223}],163:[function(require,module,exports){
+},{"./toObject":230}],167:[function(require,module,exports){
 var indexOfNaN = require('./indexOfNaN');
 
 /**
@@ -20722,7 +21007,7 @@ function baseIndexOf(array, value, fromIndex) {
 
 module.exports = baseIndexOf;
 
-},{"./indexOfNaN":205}],164:[function(require,module,exports){
+},{"./indexOfNaN":212}],168:[function(require,module,exports){
 var baseIsEqualDeep = require('./baseIsEqualDeep'),
     isObject = require('../lang/isObject'),
     isObjectLike = require('./isObjectLike');
@@ -20752,7 +21037,7 @@ function baseIsEqual(value, other, customizer, isLoose, stackA, stackB) {
 
 module.exports = baseIsEqual;
 
-},{"../lang/isObject":248,"./baseIsEqualDeep":165,"./isObjectLike":215}],165:[function(require,module,exports){
+},{"../lang/isObject":255,"./baseIsEqualDeep":169,"./isObjectLike":222}],169:[function(require,module,exports){
 var equalArrays = require('./equalArrays'),
     equalByTag = require('./equalByTag'),
     equalObjects = require('./equalObjects'),
@@ -20856,7 +21141,7 @@ function baseIsEqualDeep(object, other, equalFunc, customizer, isLoose, stackA, 
 
 module.exports = baseIsEqualDeep;
 
-},{"../lang/isArray":234,"../lang/isTypedArray":252,"./equalArrays":199,"./equalByTag":200,"./equalObjects":201}],166:[function(require,module,exports){
+},{"../lang/isArray":241,"../lang/isTypedArray":259,"./equalArrays":206,"./equalByTag":207,"./equalObjects":208}],170:[function(require,module,exports){
 /**
  * The base implementation of `_.isFunction` without support for environments
  * with incorrect `typeof` results.
@@ -20873,7 +21158,7 @@ function baseIsFunction(value) {
 
 module.exports = baseIsFunction;
 
-},{}],167:[function(require,module,exports){
+},{}],171:[function(require,module,exports){
 var baseIsEqual = require('./baseIsEqual'),
     toObject = require('./toObject');
 
@@ -20927,7 +21212,7 @@ function baseIsMatch(object, matchData, customizer) {
 
 module.exports = baseIsMatch;
 
-},{"./baseIsEqual":164,"./toObject":223}],168:[function(require,module,exports){
+},{"./baseIsEqual":168,"./toObject":230}],172:[function(require,module,exports){
 var baseEach = require('./baseEach'),
     isArrayLike = require('./isArrayLike');
 
@@ -20952,7 +21237,7 @@ function baseMap(collection, iteratee) {
 
 module.exports = baseMap;
 
-},{"./baseEach":149,"./isArrayLike":210}],169:[function(require,module,exports){
+},{"./baseEach":153,"./isArrayLike":217}],173:[function(require,module,exports){
 var baseIsMatch = require('./baseIsMatch'),
     getMatchData = require('./getMatchData'),
     toObject = require('./toObject');
@@ -20984,7 +21269,7 @@ function baseMatches(source) {
 
 module.exports = baseMatches;
 
-},{"./baseIsMatch":167,"./getMatchData":203,"./toObject":223}],170:[function(require,module,exports){
+},{"./baseIsMatch":171,"./getMatchData":210,"./toObject":230}],174:[function(require,module,exports){
 var baseGet = require('./baseGet'),
     baseIsEqual = require('./baseIsEqual'),
     baseSlice = require('./baseSlice'),
@@ -21031,7 +21316,7 @@ function baseMatchesProperty(path, srcValue) {
 
 module.exports = baseMatchesProperty;
 
-},{"../array/last":86,"../lang/isArray":234,"./baseGet":162,"./baseIsEqual":164,"./baseSlice":175,"./isKey":213,"./isStrictComparable":217,"./toObject":223,"./toPath":224}],171:[function(require,module,exports){
+},{"../array/last":89,"../lang/isArray":241,"./baseGet":166,"./baseIsEqual":168,"./baseSlice":179,"./isKey":220,"./isStrictComparable":224,"./toObject":230,"./toPath":231}],175:[function(require,module,exports){
 /**
  * The base implementation of `_.property` without support for deep paths.
  *
@@ -21047,7 +21332,7 @@ function baseProperty(key) {
 
 module.exports = baseProperty;
 
-},{}],172:[function(require,module,exports){
+},{}],176:[function(require,module,exports){
 var baseGet = require('./baseGet'),
     toPath = require('./toPath');
 
@@ -21068,7 +21353,7 @@ function basePropertyDeep(path) {
 
 module.exports = basePropertyDeep;
 
-},{"./baseGet":162,"./toPath":224}],173:[function(require,module,exports){
+},{"./baseGet":166,"./toPath":231}],177:[function(require,module,exports){
 /** Native method references. */
 var floor = Math.floor;
 
@@ -21090,7 +21375,7 @@ function baseRandom(min, max) {
 
 module.exports = baseRandom;
 
-},{}],174:[function(require,module,exports){
+},{}],178:[function(require,module,exports){
 /**
  * The base implementation of `_.reduce` and `_.reduceRight` without support
  * for callback shorthands and `this` binding, which iterates over `collection`
@@ -21116,7 +21401,7 @@ function baseReduce(collection, iteratee, accumulator, initFromCollection, eachF
 
 module.exports = baseReduce;
 
-},{}],175:[function(require,module,exports){
+},{}],179:[function(require,module,exports){
 /**
  * The base implementation of `_.slice` without an iteratee call guard.
  *
@@ -21150,7 +21435,7 @@ function baseSlice(array, start, end) {
 
 module.exports = baseSlice;
 
-},{}],176:[function(require,module,exports){
+},{}],180:[function(require,module,exports){
 var baseEach = require('./baseEach');
 
 /**
@@ -21175,7 +21460,7 @@ function baseSome(collection, predicate) {
 
 module.exports = baseSome;
 
-},{"./baseEach":149}],177:[function(require,module,exports){
+},{"./baseEach":153}],181:[function(require,module,exports){
 /**
  * The base implementation of `_.sortBy` which uses `comparer` to define
  * the sort order of `array` and replaces criteria objects with their
@@ -21198,7 +21483,7 @@ function baseSortBy(array, comparer) {
 
 module.exports = baseSortBy;
 
-},{}],178:[function(require,module,exports){
+},{}],182:[function(require,module,exports){
 var arrayMap = require('./arrayMap'),
     baseCallback = require('./baseCallback'),
     baseMap = require('./baseMap'),
@@ -21231,7 +21516,7 @@ function baseSortByOrder(collection, iteratees, orders) {
 
 module.exports = baseSortByOrder;
 
-},{"./arrayMap":137,"./baseCallback":144,"./baseMap":168,"./baseSortBy":177,"./compareMultiple":190}],179:[function(require,module,exports){
+},{"./arrayMap":140,"./baseCallback":148,"./baseMap":172,"./baseSortBy":181,"./compareMultiple":194}],183:[function(require,module,exports){
 var baseEach = require('./baseEach');
 
 /**
@@ -21253,7 +21538,7 @@ function baseSum(collection, iteratee) {
 
 module.exports = baseSum;
 
-},{"./baseEach":149}],180:[function(require,module,exports){
+},{"./baseEach":153}],184:[function(require,module,exports){
 /**
  * Converts `value` to a string if it's not one. An empty string is returned
  * for `null` or `undefined` values.
@@ -21271,7 +21556,7 @@ function baseToString(value) {
 
 module.exports = baseToString;
 
-},{}],181:[function(require,module,exports){
+},{}],185:[function(require,module,exports){
 var baseIndexOf = require('./baseIndexOf'),
     cacheIndexOf = require('./cacheIndexOf'),
     createCache = require('./createCache');
@@ -21330,7 +21615,7 @@ function baseUniq(array, iteratee) {
 
 module.exports = baseUniq;
 
-},{"./baseIndexOf":163,"./cacheIndexOf":185,"./createCache":194}],182:[function(require,module,exports){
+},{"./baseIndexOf":167,"./cacheIndexOf":189,"./createCache":199}],186:[function(require,module,exports){
 /**
  * The base implementation of `_.values` and `_.valuesIn` which creates an
  * array of `object` property values corresponding to the property names
@@ -21354,7 +21639,7 @@ function baseValues(object, props) {
 
 module.exports = baseValues;
 
-},{}],183:[function(require,module,exports){
+},{}],187:[function(require,module,exports){
 var identity = require('../utility/identity');
 
 /**
@@ -21395,7 +21680,7 @@ function bindCallback(func, thisArg, argCount) {
 
 module.exports = bindCallback;
 
-},{"../utility/identity":272}],184:[function(require,module,exports){
+},{"../utility/identity":282}],188:[function(require,module,exports){
 (function (global){
 var constant = require('../utility/constant'),
     getNative = require('./getNative');
@@ -21454,7 +21739,7 @@ if (!bufferSlice) {
 module.exports = bufferClone;
 
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{"../utility/constant":271,"./getNative":204}],185:[function(require,module,exports){
+},{"../utility/constant":281,"./getNative":211}],189:[function(require,module,exports){
 var isObject = require('../lang/isObject');
 
 /**
@@ -21475,7 +21760,7 @@ function cacheIndexOf(cache, value) {
 
 module.exports = cacheIndexOf;
 
-},{"../lang/isObject":248}],186:[function(require,module,exports){
+},{"../lang/isObject":255}],190:[function(require,module,exports){
 var isObject = require('../lang/isObject');
 
 /**
@@ -21497,7 +21782,7 @@ function cachePush(value) {
 
 module.exports = cachePush;
 
-},{"../lang/isObject":248}],187:[function(require,module,exports){
+},{"../lang/isObject":255}],191:[function(require,module,exports){
 /**
  * Used by `_.trim` and `_.trimLeft` to get the index of the first character
  * of `string` that is not found in `chars`.
@@ -21517,7 +21802,7 @@ function charsLeftIndex(string, chars) {
 
 module.exports = charsLeftIndex;
 
-},{}],188:[function(require,module,exports){
+},{}],192:[function(require,module,exports){
 /**
  * Used by `_.trim` and `_.trimRight` to get the index of the last character
  * of `string` that is not found in `chars`.
@@ -21536,7 +21821,7 @@ function charsRightIndex(string, chars) {
 
 module.exports = charsRightIndex;
 
-},{}],189:[function(require,module,exports){
+},{}],193:[function(require,module,exports){
 var baseCompareAscending = require('./baseCompareAscending');
 
 /**
@@ -21554,7 +21839,7 @@ function compareAscending(object, other) {
 
 module.exports = compareAscending;
 
-},{"./baseCompareAscending":146}],190:[function(require,module,exports){
+},{"./baseCompareAscending":150}],194:[function(require,module,exports){
 var baseCompareAscending = require('./baseCompareAscending');
 
 /**
@@ -21599,7 +21884,7 @@ function compareMultiple(object, other, orders) {
 
 module.exports = compareMultiple;
 
-},{"./baseCompareAscending":146}],191:[function(require,module,exports){
+},{"./baseCompareAscending":150}],195:[function(require,module,exports){
 var baseCallback = require('./baseCallback'),
     baseEach = require('./baseEach'),
     isArray = require('../lang/isArray');
@@ -21641,7 +21926,53 @@ function createAggregator(setter, initializer) {
 
 module.exports = createAggregator;
 
-},{"../lang/isArray":234,"./baseCallback":144,"./baseEach":149}],192:[function(require,module,exports){
+},{"../lang/isArray":241,"./baseCallback":148,"./baseEach":153}],196:[function(require,module,exports){
+var bindCallback = require('./bindCallback'),
+    isIterateeCall = require('./isIterateeCall'),
+    restParam = require('../function/restParam');
+
+/**
+ * Creates a function that assigns properties of source object(s) to a given
+ * destination object.
+ *
+ * **Note:** This function is used to create `_.assign`, `_.defaults`, and `_.merge`.
+ *
+ * @private
+ * @param {Function} assigner The function to assign values.
+ * @returns {Function} Returns the new assigner function.
+ */
+function createAssigner(assigner) {
+  return restParam(function(object, sources) {
+    var index = -1,
+        length = object == null ? 0 : sources.length,
+        customizer = length > 2 ? sources[length - 2] : undefined,
+        guard = length > 2 ? sources[2] : undefined,
+        thisArg = length > 1 ? sources[length - 1] : undefined;
+
+    if (typeof customizer == 'function') {
+      customizer = bindCallback(customizer, thisArg, 5);
+      length -= 2;
+    } else {
+      customizer = typeof thisArg == 'function' ? thisArg : undefined;
+      length -= (customizer ? 1 : 0);
+    }
+    if (guard && isIterateeCall(sources[0], sources[1], guard)) {
+      customizer = length < 3 ? undefined : customizer;
+      length = 1;
+    }
+    while (++index < length) {
+      var source = sources[index];
+      if (source) {
+        assigner(object, source, customizer);
+      }
+    }
+    return object;
+  });
+}
+
+module.exports = createAssigner;
+
+},{"../function/restParam":131,"./bindCallback":187,"./isIterateeCall":219}],197:[function(require,module,exports){
 var getLength = require('./getLength'),
     isLength = require('./isLength'),
     toObject = require('./toObject');
@@ -21674,7 +22005,7 @@ function createBaseEach(eachFunc, fromRight) {
 
 module.exports = createBaseEach;
 
-},{"./getLength":202,"./isLength":214,"./toObject":223}],193:[function(require,module,exports){
+},{"./getLength":209,"./isLength":221,"./toObject":230}],198:[function(require,module,exports){
 var toObject = require('./toObject');
 
 /**
@@ -21703,7 +22034,7 @@ function createBaseFor(fromRight) {
 
 module.exports = createBaseFor;
 
-},{"./toObject":223}],194:[function(require,module,exports){
+},{"./toObject":230}],199:[function(require,module,exports){
 (function (global){
 var SetCache = require('./SetCache'),
     constant = require('../utility/constant'),
@@ -21729,7 +22060,35 @@ var createCache = !(nativeCreate && Set) ? constant(null) : function(values) {
 module.exports = createCache;
 
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{"../utility/constant":271,"./SetCache":130,"./getNative":204}],195:[function(require,module,exports){
+},{"../utility/constant":281,"./SetCache":133,"./getNative":211}],200:[function(require,module,exports){
+var deburr = require('../string/deburr'),
+    words = require('../string/words');
+
+/**
+ * Creates a function that produces compound words out of the words in a
+ * given string.
+ *
+ * @private
+ * @param {Function} callback The function to combine each word.
+ * @returns {Function} Returns the new compounder function.
+ */
+function createCompounder(callback) {
+  return function(string) {
+    var index = -1,
+        array = words(deburr(string)),
+        length = array.length,
+        result = '';
+
+    while (++index < length) {
+      result = callback(result, array[index], index);
+    }
+    return result;
+  };
+}
+
+module.exports = createCompounder;
+
+},{"../string/deburr":276,"../string/words":279}],201:[function(require,module,exports){
 var arrayExtremum = require('./arrayExtremum'),
     baseCallback = require('./baseCallback'),
     baseExtremum = require('./baseExtremum'),
@@ -21763,7 +22122,7 @@ function createExtremum(comparator, exValue) {
 
 module.exports = createExtremum;
 
-},{"./arrayExtremum":135,"./baseCallback":144,"./baseExtremum":152,"./isIterateeCall":212,"./toIterable":222}],196:[function(require,module,exports){
+},{"./arrayExtremum":138,"./baseCallback":148,"./baseExtremum":156,"./isIterateeCall":219,"./toIterable":229}],202:[function(require,module,exports){
 var baseCallback = require('./baseCallback'),
     baseFind = require('./baseFind'),
     baseFindIndex = require('./baseFindIndex'),
@@ -21790,7 +22149,7 @@ function createFind(eachFunc, fromRight) {
 
 module.exports = createFind;
 
-},{"../lang/isArray":234,"./baseCallback":144,"./baseFind":154,"./baseFindIndex":155}],197:[function(require,module,exports){
+},{"../lang/isArray":241,"./baseCallback":148,"./baseFind":158,"./baseFindIndex":159}],203:[function(require,module,exports){
 var bindCallback = require('./bindCallback'),
     isArray = require('../lang/isArray');
 
@@ -21812,7 +22171,7 @@ function createForEach(arrayFunc, eachFunc) {
 
 module.exports = createForEach;
 
-},{"../lang/isArray":234,"./bindCallback":183}],198:[function(require,module,exports){
+},{"../lang/isArray":241,"./bindCallback":187}],204:[function(require,module,exports){
 var baseCallback = require('./baseCallback'),
     baseReduce = require('./baseReduce'),
     isArray = require('../lang/isArray');
@@ -21836,7 +22195,42 @@ function createReduce(arrayFunc, eachFunc) {
 
 module.exports = createReduce;
 
-},{"../lang/isArray":234,"./baseCallback":144,"./baseReduce":174}],199:[function(require,module,exports){
+},{"../lang/isArray":241,"./baseCallback":148,"./baseReduce":178}],205:[function(require,module,exports){
+/** Used to map latin-1 supplementary letters to basic latin letters. */
+var deburredLetters = {
+  '\xc0': 'A',  '\xc1': 'A', '\xc2': 'A', '\xc3': 'A', '\xc4': 'A', '\xc5': 'A',
+  '\xe0': 'a',  '\xe1': 'a', '\xe2': 'a', '\xe3': 'a', '\xe4': 'a', '\xe5': 'a',
+  '\xc7': 'C',  '\xe7': 'c',
+  '\xd0': 'D',  '\xf0': 'd',
+  '\xc8': 'E',  '\xc9': 'E', '\xca': 'E', '\xcb': 'E',
+  '\xe8': 'e',  '\xe9': 'e', '\xea': 'e', '\xeb': 'e',
+  '\xcC': 'I',  '\xcd': 'I', '\xce': 'I', '\xcf': 'I',
+  '\xeC': 'i',  '\xed': 'i', '\xee': 'i', '\xef': 'i',
+  '\xd1': 'N',  '\xf1': 'n',
+  '\xd2': 'O',  '\xd3': 'O', '\xd4': 'O', '\xd5': 'O', '\xd6': 'O', '\xd8': 'O',
+  '\xf2': 'o',  '\xf3': 'o', '\xf4': 'o', '\xf5': 'o', '\xf6': 'o', '\xf8': 'o',
+  '\xd9': 'U',  '\xda': 'U', '\xdb': 'U', '\xdc': 'U',
+  '\xf9': 'u',  '\xfa': 'u', '\xfb': 'u', '\xfc': 'u',
+  '\xdd': 'Y',  '\xfd': 'y', '\xff': 'y',
+  '\xc6': 'Ae', '\xe6': 'ae',
+  '\xde': 'Th', '\xfe': 'th',
+  '\xdf': 'ss'
+};
+
+/**
+ * Used by `_.deburr` to convert latin-1 supplementary letters to basic latin letters.
+ *
+ * @private
+ * @param {string} letter The matched letter to deburr.
+ * @returns {string} Returns the deburred letter.
+ */
+function deburrLetter(letter) {
+  return deburredLetters[letter];
+}
+
+module.exports = deburrLetter;
+
+},{}],206:[function(require,module,exports){
 var arraySome = require('./arraySome');
 
 /**
@@ -21889,7 +22283,7 @@ function equalArrays(array, other, equalFunc, customizer, isLoose, stackA, stack
 
 module.exports = equalArrays;
 
-},{"./arraySome":140}],200:[function(require,module,exports){
+},{"./arraySome":143}],207:[function(require,module,exports){
 /** `Object#toString` result references. */
 var boolTag = '[object Boolean]',
     dateTag = '[object Date]',
@@ -21939,7 +22333,7 @@ function equalByTag(object, other, tag) {
 
 module.exports = equalByTag;
 
-},{}],201:[function(require,module,exports){
+},{}],208:[function(require,module,exports){
 var keys = require('../object/keys');
 
 /** Used for native method references. */
@@ -22008,7 +22402,7 @@ function equalObjects(object, other, equalFunc, customizer, isLoose, stackA, sta
 
 module.exports = equalObjects;
 
-},{"../object/keys":261}],202:[function(require,module,exports){
+},{"../object/keys":269}],209:[function(require,module,exports){
 var baseProperty = require('./baseProperty');
 
 /**
@@ -22025,7 +22419,7 @@ var getLength = baseProperty('length');
 
 module.exports = getLength;
 
-},{"./baseProperty":171}],203:[function(require,module,exports){
+},{"./baseProperty":175}],210:[function(require,module,exports){
 var isStrictComparable = require('./isStrictComparable'),
     pairs = require('../object/pairs');
 
@@ -22048,7 +22442,7 @@ function getMatchData(object) {
 
 module.exports = getMatchData;
 
-},{"../object/pairs":264,"./isStrictComparable":217}],204:[function(require,module,exports){
+},{"../object/pairs":272,"./isStrictComparable":224}],211:[function(require,module,exports){
 var isNative = require('../lang/isNative');
 
 /**
@@ -22066,7 +22460,7 @@ function getNative(object, key) {
 
 module.exports = getNative;
 
-},{"../lang/isNative":245}],205:[function(require,module,exports){
+},{"../lang/isNative":252}],212:[function(require,module,exports){
 /**
  * Gets the index at which the first occurrence of `NaN` is found in `array`.
  *
@@ -22091,7 +22485,7 @@ function indexOfNaN(array, fromIndex, fromRight) {
 
 module.exports = indexOfNaN;
 
-},{}],206:[function(require,module,exports){
+},{}],213:[function(require,module,exports){
 /** Used for native method references. */
 var objectProto = Object.prototype;
 
@@ -22119,7 +22513,7 @@ function initCloneArray(array) {
 
 module.exports = initCloneArray;
 
-},{}],207:[function(require,module,exports){
+},{}],214:[function(require,module,exports){
 var bufferClone = require('./bufferClone');
 
 /** `Object#toString` result references. */
@@ -22184,7 +22578,7 @@ function initCloneByTag(object, tag, isDeep) {
 
 module.exports = initCloneByTag;
 
-},{"./bufferClone":184}],208:[function(require,module,exports){
+},{"./bufferClone":188}],215:[function(require,module,exports){
 /**
  * Initializes an object clone.
  *
@@ -22202,7 +22596,7 @@ function initCloneObject(object) {
 
 module.exports = initCloneObject;
 
-},{}],209:[function(require,module,exports){
+},{}],216:[function(require,module,exports){
 var baseGet = require('./baseGet'),
     baseSlice = require('./baseSlice'),
     isKey = require('./isKey'),
@@ -22230,7 +22624,7 @@ function invokePath(object, path, args) {
 
 module.exports = invokePath;
 
-},{"../array/last":86,"./baseGet":162,"./baseSlice":175,"./isKey":213,"./toPath":224}],210:[function(require,module,exports){
+},{"../array/last":89,"./baseGet":166,"./baseSlice":179,"./isKey":220,"./toPath":231}],217:[function(require,module,exports){
 var getLength = require('./getLength'),
     isLength = require('./isLength');
 
@@ -22247,7 +22641,7 @@ function isArrayLike(value) {
 
 module.exports = isArrayLike;
 
-},{"./getLength":202,"./isLength":214}],211:[function(require,module,exports){
+},{"./getLength":209,"./isLength":221}],218:[function(require,module,exports){
 /** Used to detect unsigned integer values. */
 var reIsUint = /^\d+$/;
 
@@ -22273,7 +22667,7 @@ function isIndex(value, length) {
 
 module.exports = isIndex;
 
-},{}],212:[function(require,module,exports){
+},{}],219:[function(require,module,exports){
 var isArrayLike = require('./isArrayLike'),
     isIndex = require('./isIndex'),
     isObject = require('../lang/isObject');
@@ -22303,7 +22697,7 @@ function isIterateeCall(value, index, object) {
 
 module.exports = isIterateeCall;
 
-},{"../lang/isObject":248,"./isArrayLike":210,"./isIndex":211}],213:[function(require,module,exports){
+},{"../lang/isObject":255,"./isArrayLike":217,"./isIndex":218}],220:[function(require,module,exports){
 var isArray = require('../lang/isArray'),
     toObject = require('./toObject');
 
@@ -22333,7 +22727,7 @@ function isKey(value, object) {
 
 module.exports = isKey;
 
-},{"../lang/isArray":234,"./toObject":223}],214:[function(require,module,exports){
+},{"../lang/isArray":241,"./toObject":230}],221:[function(require,module,exports){
 /**
  * Used as the [maximum length](https://people.mozilla.org/~jorendorff/es6-draft.html#sec-number.max_safe_integer)
  * of an array-like value.
@@ -22355,7 +22749,7 @@ function isLength(value) {
 
 module.exports = isLength;
 
-},{}],215:[function(require,module,exports){
+},{}],222:[function(require,module,exports){
 /**
  * Checks if `value` is object-like.
  *
@@ -22369,7 +22763,7 @@ function isObjectLike(value) {
 
 module.exports = isObjectLike;
 
-},{}],216:[function(require,module,exports){
+},{}],223:[function(require,module,exports){
 /**
  * Used by `trimmedLeftIndex` and `trimmedRightIndex` to determine if a
  * character code is whitespace.
@@ -22385,7 +22779,7 @@ function isSpace(charCode) {
 
 module.exports = isSpace;
 
-},{}],217:[function(require,module,exports){
+},{}],224:[function(require,module,exports){
 var isObject = require('../lang/isObject');
 
 /**
@@ -22402,7 +22796,7 @@ function isStrictComparable(value) {
 
 module.exports = isStrictComparable;
 
-},{"../lang/isObject":248}],218:[function(require,module,exports){
+},{"../lang/isObject":255}],225:[function(require,module,exports){
 var toObject = require('./toObject');
 
 /**
@@ -22432,7 +22826,7 @@ function pickByArray(object, props) {
 
 module.exports = pickByArray;
 
-},{"./toObject":223}],219:[function(require,module,exports){
+},{"./toObject":230}],226:[function(require,module,exports){
 var baseForIn = require('./baseForIn');
 
 /**
@@ -22456,7 +22850,7 @@ function pickByCallback(object, predicate) {
 
 module.exports = pickByCallback;
 
-},{"./baseForIn":158}],220:[function(require,module,exports){
+},{"./baseForIn":162}],227:[function(require,module,exports){
 var baseForIn = require('./baseForIn'),
     isObjectLike = require('./isObjectLike');
 
@@ -22508,7 +22902,7 @@ function shimIsPlainObject(value) {
 
 module.exports = shimIsPlainObject;
 
-},{"./baseForIn":158,"./isObjectLike":215}],221:[function(require,module,exports){
+},{"./baseForIn":162,"./isObjectLike":222}],228:[function(require,module,exports){
 var isArguments = require('../lang/isArguments'),
     isArray = require('../lang/isArray'),
     isIndex = require('./isIndex'),
@@ -22551,7 +22945,7 @@ function shimKeys(object) {
 
 module.exports = shimKeys;
 
-},{"../lang/isArguments":233,"../lang/isArray":234,"../object/keysIn":262,"./isIndex":211,"./isLength":214}],222:[function(require,module,exports){
+},{"../lang/isArguments":240,"../lang/isArray":241,"../object/keysIn":270,"./isIndex":218,"./isLength":221}],229:[function(require,module,exports){
 var isArrayLike = require('./isArrayLike'),
     isObject = require('../lang/isObject'),
     values = require('../object/values');
@@ -22575,7 +22969,7 @@ function toIterable(value) {
 
 module.exports = toIterable;
 
-},{"../lang/isObject":248,"../object/values":265,"./isArrayLike":210}],223:[function(require,module,exports){
+},{"../lang/isObject":255,"../object/values":273,"./isArrayLike":217}],230:[function(require,module,exports){
 var isObject = require('../lang/isObject');
 
 /**
@@ -22591,7 +22985,7 @@ function toObject(value) {
 
 module.exports = toObject;
 
-},{"../lang/isObject":248}],224:[function(require,module,exports){
+},{"../lang/isObject":255}],231:[function(require,module,exports){
 var baseToString = require('./baseToString'),
     isArray = require('../lang/isArray');
 
@@ -22621,7 +23015,7 @@ function toPath(value) {
 
 module.exports = toPath;
 
-},{"../lang/isArray":234,"./baseToString":180}],225:[function(require,module,exports){
+},{"../lang/isArray":241,"./baseToString":184}],232:[function(require,module,exports){
 var isSpace = require('./isSpace');
 
 /**
@@ -22642,7 +23036,7 @@ function trimmedLeftIndex(string) {
 
 module.exports = trimmedLeftIndex;
 
-},{"./isSpace":216}],226:[function(require,module,exports){
+},{"./isSpace":223}],233:[function(require,module,exports){
 var isSpace = require('./isSpace');
 
 /**
@@ -22662,7 +23056,7 @@ function trimmedRightIndex(string) {
 
 module.exports = trimmedRightIndex;
 
-},{"./isSpace":216}],227:[function(require,module,exports){
+},{"./isSpace":223}],234:[function(require,module,exports){
 module.exports = {
   'clone': require('./lang/clone'),
   'cloneDeep': require('./lang/cloneDeep'),
@@ -22696,7 +23090,7 @@ module.exports = {
   'toPlainObject': require('./lang/toPlainObject')
 };
 
-},{"./lang/clone":228,"./lang/cloneDeep":229,"./lang/eq":230,"./lang/gt":231,"./lang/gte":232,"./lang/isArguments":233,"./lang/isArray":234,"./lang/isBoolean":235,"./lang/isDate":236,"./lang/isElement":237,"./lang/isEmpty":238,"./lang/isEqual":239,"./lang/isError":240,"./lang/isFinite":241,"./lang/isFunction":242,"./lang/isMatch":243,"./lang/isNaN":244,"./lang/isNative":245,"./lang/isNull":246,"./lang/isNumber":247,"./lang/isObject":248,"./lang/isPlainObject":249,"./lang/isRegExp":250,"./lang/isString":251,"./lang/isTypedArray":252,"./lang/isUndefined":253,"./lang/lt":254,"./lang/lte":255,"./lang/toArray":256,"./lang/toPlainObject":257}],228:[function(require,module,exports){
+},{"./lang/clone":235,"./lang/cloneDeep":236,"./lang/eq":237,"./lang/gt":238,"./lang/gte":239,"./lang/isArguments":240,"./lang/isArray":241,"./lang/isBoolean":242,"./lang/isDate":243,"./lang/isElement":244,"./lang/isEmpty":245,"./lang/isEqual":246,"./lang/isError":247,"./lang/isFinite":248,"./lang/isFunction":249,"./lang/isMatch":250,"./lang/isNaN":251,"./lang/isNative":252,"./lang/isNull":253,"./lang/isNumber":254,"./lang/isObject":255,"./lang/isPlainObject":256,"./lang/isRegExp":257,"./lang/isString":258,"./lang/isTypedArray":259,"./lang/isUndefined":260,"./lang/lt":261,"./lang/lte":262,"./lang/toArray":263,"./lang/toPlainObject":264}],235:[function(require,module,exports){
 var baseClone = require('../internal/baseClone'),
     bindCallback = require('../internal/bindCallback'),
     isIterateeCall = require('../internal/isIterateeCall');
@@ -22768,7 +23162,7 @@ function clone(value, isDeep, customizer, thisArg) {
 
 module.exports = clone;
 
-},{"../internal/baseClone":145,"../internal/bindCallback":183,"../internal/isIterateeCall":212}],229:[function(require,module,exports){
+},{"../internal/baseClone":149,"../internal/bindCallback":187,"../internal/isIterateeCall":219}],236:[function(require,module,exports){
 var baseClone = require('../internal/baseClone'),
     bindCallback = require('../internal/bindCallback');
 
@@ -22825,10 +23219,10 @@ function cloneDeep(value, customizer, thisArg) {
 
 module.exports = cloneDeep;
 
-},{"../internal/baseClone":145,"../internal/bindCallback":183}],230:[function(require,module,exports){
+},{"../internal/baseClone":149,"../internal/bindCallback":187}],237:[function(require,module,exports){
 module.exports = require('./isEqual');
 
-},{"./isEqual":239}],231:[function(require,module,exports){
+},{"./isEqual":246}],238:[function(require,module,exports){
 /**
  * Checks if `value` is greater than `other`.
  *
@@ -22855,7 +23249,7 @@ function gt(value, other) {
 
 module.exports = gt;
 
-},{}],232:[function(require,module,exports){
+},{}],239:[function(require,module,exports){
 /**
  * Checks if `value` is greater than or equal to `other`.
  *
@@ -22882,7 +23276,7 @@ function gte(value, other) {
 
 module.exports = gte;
 
-},{}],233:[function(require,module,exports){
+},{}],240:[function(require,module,exports){
 var isArrayLike = require('../internal/isArrayLike'),
     isObjectLike = require('../internal/isObjectLike');
 
@@ -22920,7 +23314,7 @@ function isArguments(value) {
 
 module.exports = isArguments;
 
-},{"../internal/isArrayLike":210,"../internal/isObjectLike":215}],234:[function(require,module,exports){
+},{"../internal/isArrayLike":217,"../internal/isObjectLike":222}],241:[function(require,module,exports){
 var getNative = require('../internal/getNative'),
     isLength = require('../internal/isLength'),
     isObjectLike = require('../internal/isObjectLike');
@@ -22962,7 +23356,7 @@ var isArray = nativeIsArray || function(value) {
 
 module.exports = isArray;
 
-},{"../internal/getNative":204,"../internal/isLength":214,"../internal/isObjectLike":215}],235:[function(require,module,exports){
+},{"../internal/getNative":211,"../internal/isLength":221,"../internal/isObjectLike":222}],242:[function(require,module,exports){
 var isObjectLike = require('../internal/isObjectLike');
 
 /** `Object#toString` result references. */
@@ -22999,7 +23393,7 @@ function isBoolean(value) {
 
 module.exports = isBoolean;
 
-},{"../internal/isObjectLike":215}],236:[function(require,module,exports){
+},{"../internal/isObjectLike":222}],243:[function(require,module,exports){
 var isObjectLike = require('../internal/isObjectLike');
 
 /** `Object#toString` result references. */
@@ -23036,7 +23430,7 @@ function isDate(value) {
 
 module.exports = isDate;
 
-},{"../internal/isObjectLike":215}],237:[function(require,module,exports){
+},{"../internal/isObjectLike":222}],244:[function(require,module,exports){
 var isObjectLike = require('../internal/isObjectLike'),
     isPlainObject = require('./isPlainObject'),
     support = require('../support');
@@ -23079,7 +23473,7 @@ if (!support.dom) {
 
 module.exports = isElement;
 
-},{"../internal/isObjectLike":215,"../support":270,"./isPlainObject":249}],238:[function(require,module,exports){
+},{"../internal/isObjectLike":222,"../support":280,"./isPlainObject":256}],245:[function(require,module,exports){
 var isArguments = require('./isArguments'),
     isArray = require('./isArray'),
     isArrayLike = require('../internal/isArrayLike'),
@@ -23128,7 +23522,7 @@ function isEmpty(value) {
 
 module.exports = isEmpty;
 
-},{"../internal/isArrayLike":210,"../internal/isObjectLike":215,"../object/keys":261,"./isArguments":233,"./isArray":234,"./isFunction":242,"./isString":251}],239:[function(require,module,exports){
+},{"../internal/isArrayLike":217,"../internal/isObjectLike":222,"../object/keys":269,"./isArguments":240,"./isArray":241,"./isFunction":249,"./isString":258}],246:[function(require,module,exports){
 var baseIsEqual = require('../internal/baseIsEqual'),
     bindCallback = require('../internal/bindCallback');
 
@@ -23184,7 +23578,7 @@ function isEqual(value, other, customizer, thisArg) {
 
 module.exports = isEqual;
 
-},{"../internal/baseIsEqual":164,"../internal/bindCallback":183}],240:[function(require,module,exports){
+},{"../internal/baseIsEqual":168,"../internal/bindCallback":187}],247:[function(require,module,exports){
 var isObjectLike = require('../internal/isObjectLike');
 
 /** `Object#toString` result references. */
@@ -23222,7 +23616,7 @@ function isError(value) {
 
 module.exports = isError;
 
-},{"../internal/isObjectLike":215}],241:[function(require,module,exports){
+},{"../internal/isObjectLike":222}],248:[function(require,module,exports){
 (function (global){
 var getNative = require('../internal/getNative');
 
@@ -23264,7 +23658,7 @@ var isFinite = nativeNumIsFinite || function(value) {
 module.exports = isFinite;
 
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{"../internal/getNative":204}],242:[function(require,module,exports){
+},{"../internal/getNative":211}],249:[function(require,module,exports){
 (function (global){
 var baseIsFunction = require('../internal/baseIsFunction'),
     getNative = require('../internal/getNative');
@@ -23310,7 +23704,7 @@ var isFunction = !(baseIsFunction(/x/) || (Uint8Array && !baseIsFunction(Uint8Ar
 module.exports = isFunction;
 
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{"../internal/baseIsFunction":166,"../internal/getNative":204}],243:[function(require,module,exports){
+},{"../internal/baseIsFunction":170,"../internal/getNative":211}],250:[function(require,module,exports){
 var baseIsMatch = require('../internal/baseIsMatch'),
     bindCallback = require('../internal/bindCallback'),
     getMatchData = require('../internal/getMatchData');
@@ -23361,7 +23755,7 @@ function isMatch(object, source, customizer, thisArg) {
 
 module.exports = isMatch;
 
-},{"../internal/baseIsMatch":167,"../internal/bindCallback":183,"../internal/getMatchData":203}],244:[function(require,module,exports){
+},{"../internal/baseIsMatch":171,"../internal/bindCallback":187,"../internal/getMatchData":210}],251:[function(require,module,exports){
 var isNumber = require('./isNumber');
 
 /**
@@ -23397,7 +23791,7 @@ function isNaN(value) {
 
 module.exports = isNaN;
 
-},{"./isNumber":247}],245:[function(require,module,exports){
+},{"./isNumber":254}],252:[function(require,module,exports){
 var escapeRegExp = require('../string/escapeRegExp'),
     isObjectLike = require('../internal/isObjectLike');
 
@@ -23456,7 +23850,7 @@ function isNative(value) {
 
 module.exports = isNative;
 
-},{"../internal/isObjectLike":215,"../string/escapeRegExp":267}],246:[function(require,module,exports){
+},{"../internal/isObjectLike":222,"../string/escapeRegExp":277}],253:[function(require,module,exports){
 /**
  * Checks if `value` is `null`.
  *
@@ -23479,7 +23873,7 @@ function isNull(value) {
 
 module.exports = isNull;
 
-},{}],247:[function(require,module,exports){
+},{}],254:[function(require,module,exports){
 var isObjectLike = require('../internal/isObjectLike');
 
 /** `Object#toString` result references. */
@@ -23522,7 +23916,7 @@ function isNumber(value) {
 
 module.exports = isNumber;
 
-},{"../internal/isObjectLike":215}],248:[function(require,module,exports){
+},{"../internal/isObjectLike":222}],255:[function(require,module,exports){
 /**
  * Checks if `value` is the [language type](https://es5.github.io/#x8) of `Object`.
  * (e.g. arrays, functions, objects, regexes, `new Number(0)`, and `new String('')`)
@@ -23552,7 +23946,7 @@ function isObject(value) {
 
 module.exports = isObject;
 
-},{}],249:[function(require,module,exports){
+},{}],256:[function(require,module,exports){
 var getNative = require('../internal/getNative'),
     shimIsPlainObject = require('../internal/shimIsPlainObject');
 
@@ -23615,7 +24009,7 @@ var isPlainObject = !getPrototypeOf ? shimIsPlainObject : function(value) {
 
 module.exports = isPlainObject;
 
-},{"../internal/getNative":204,"../internal/shimIsPlainObject":220}],250:[function(require,module,exports){
+},{"../internal/getNative":211,"../internal/shimIsPlainObject":227}],257:[function(require,module,exports){
 var isObjectLike = require('../internal/isObjectLike');
 
 /** `Object#toString` result references. */
@@ -23652,7 +24046,7 @@ function isRegExp(value) {
 
 module.exports = isRegExp;
 
-},{"../internal/isObjectLike":215}],251:[function(require,module,exports){
+},{"../internal/isObjectLike":222}],258:[function(require,module,exports){
 var isObjectLike = require('../internal/isObjectLike');
 
 /** `Object#toString` result references. */
@@ -23689,7 +24083,7 @@ function isString(value) {
 
 module.exports = isString;
 
-},{"../internal/isObjectLike":215}],252:[function(require,module,exports){
+},{"../internal/isObjectLike":222}],259:[function(require,module,exports){
 var isLength = require('../internal/isLength'),
     isObjectLike = require('../internal/isObjectLike');
 
@@ -23765,7 +24159,7 @@ function isTypedArray(value) {
 
 module.exports = isTypedArray;
 
-},{"../internal/isLength":214,"../internal/isObjectLike":215}],253:[function(require,module,exports){
+},{"../internal/isLength":221,"../internal/isObjectLike":222}],260:[function(require,module,exports){
 /**
  * Checks if `value` is `undefined`.
  *
@@ -23788,7 +24182,7 @@ function isUndefined(value) {
 
 module.exports = isUndefined;
 
-},{}],254:[function(require,module,exports){
+},{}],261:[function(require,module,exports){
 /**
  * Checks if `value` is less than `other`.
  *
@@ -23815,7 +24209,7 @@ function lt(value, other) {
 
 module.exports = lt;
 
-},{}],255:[function(require,module,exports){
+},{}],262:[function(require,module,exports){
 /**
  * Checks if `value` is less than or equal to `other`.
  *
@@ -23842,7 +24236,7 @@ function lte(value, other) {
 
 module.exports = lte;
 
-},{}],256:[function(require,module,exports){
+},{}],263:[function(require,module,exports){
 var arrayCopy = require('../internal/arrayCopy'),
     getLength = require('../internal/getLength'),
     isLength = require('../internal/isLength'),
@@ -23876,7 +24270,7 @@ function toArray(value) {
 
 module.exports = toArray;
 
-},{"../internal/arrayCopy":131,"../internal/getLength":202,"../internal/isLength":214,"../object/values":265}],257:[function(require,module,exports){
+},{"../internal/arrayCopy":134,"../internal/getLength":209,"../internal/isLength":221,"../object/values":273}],264:[function(require,module,exports){
 var baseCopy = require('../internal/baseCopy'),
     keysIn = require('../object/keysIn');
 
@@ -23909,7 +24303,7 @@ function toPlainObject(value) {
 
 module.exports = toPlainObject;
 
-},{"../internal/baseCopy":147,"../object/keysIn":262}],258:[function(require,module,exports){
+},{"../internal/baseCopy":151,"../object/keysIn":270}],265:[function(require,module,exports){
 var createExtremum = require('../internal/createExtremum'),
     gt = require('../lang/gt');
 
@@ -23967,7 +24361,7 @@ var max = createExtremum(gt, NEGATIVE_INFINITY);
 
 module.exports = max;
 
-},{"../internal/createExtremum":195,"../lang/gt":231}],259:[function(require,module,exports){
+},{"../internal/createExtremum":201,"../lang/gt":238}],266:[function(require,module,exports){
 var createExtremum = require('../internal/createExtremum'),
     lt = require('../lang/lt');
 
@@ -24025,7 +24419,7 @@ var min = createExtremum(lt, POSITIVE_INFINITY);
 
 module.exports = min;
 
-},{"../internal/createExtremum":195,"../lang/lt":254}],260:[function(require,module,exports){
+},{"../internal/createExtremum":201,"../lang/lt":261}],267:[function(require,module,exports){
 var arraySum = require('../internal/arraySum'),
     baseCallback = require('../internal/baseCallback'),
     baseSum = require('../internal/baseSum'),
@@ -24079,7 +24473,52 @@ function sum(collection, iteratee, thisArg) {
 
 module.exports = sum;
 
-},{"../internal/arraySum":141,"../internal/baseCallback":144,"../internal/baseSum":179,"../internal/isIterateeCall":212,"../internal/toIterable":222,"../lang/isArray":234}],261:[function(require,module,exports){
+},{"../internal/arraySum":144,"../internal/baseCallback":148,"../internal/baseSum":183,"../internal/isIterateeCall":219,"../internal/toIterable":229,"../lang/isArray":241}],268:[function(require,module,exports){
+var assignWith = require('../internal/assignWith'),
+    baseAssign = require('../internal/baseAssign'),
+    createAssigner = require('../internal/createAssigner');
+
+/**
+ * Assigns own enumerable properties of source object(s) to the destination
+ * object. Subsequent sources overwrite property assignments of previous sources.
+ * If `customizer` is provided it is invoked to produce the assigned values.
+ * The `customizer` is bound to `thisArg` and invoked with five arguments:
+ * (objectValue, sourceValue, key, object, source).
+ *
+ * **Note:** This method mutates `object` and is based on
+ * [`Object.assign`](https://people.mozilla.org/~jorendorff/es6-draft.html#sec-object.assign).
+ *
+ * @static
+ * @memberOf _
+ * @alias extend
+ * @category Object
+ * @param {Object} object The destination object.
+ * @param {...Object} [sources] The source objects.
+ * @param {Function} [customizer] The function to customize assigned values.
+ * @param {*} [thisArg] The `this` binding of `customizer`.
+ * @returns {Object} Returns `object`.
+ * @example
+ *
+ * _.assign({ 'user': 'barney' }, { 'age': 40 }, { 'user': 'fred' });
+ * // => { 'user': 'fred', 'age': 40 }
+ *
+ * // using a customizer callback
+ * var defaults = _.partialRight(_.assign, function(value, other) {
+ *   return _.isUndefined(value) ? other : value;
+ * });
+ *
+ * defaults({ 'user': 'barney' }, { 'age': 36 }, { 'user': 'fred' });
+ * // => { 'user': 'barney', 'age': 36 }
+ */
+var assign = createAssigner(function(object, source, customizer) {
+  return customizer
+    ? assignWith(object, source, customizer)
+    : baseAssign(object, source);
+});
+
+module.exports = assign;
+
+},{"../internal/assignWith":145,"../internal/baseAssign":146,"../internal/createAssigner":196}],269:[function(require,module,exports){
 var getNative = require('../internal/getNative'),
     isArrayLike = require('../internal/isArrayLike'),
     isObject = require('../lang/isObject'),
@@ -24126,7 +24565,7 @@ var keys = !nativeKeys ? shimKeys : function(object) {
 
 module.exports = keys;
 
-},{"../internal/getNative":204,"../internal/isArrayLike":210,"../internal/shimKeys":221,"../lang/isObject":248}],262:[function(require,module,exports){
+},{"../internal/getNative":211,"../internal/isArrayLike":217,"../internal/shimKeys":228,"../lang/isObject":255}],270:[function(require,module,exports){
 var isArguments = require('../lang/isArguments'),
     isArray = require('../lang/isArray'),
     isIndex = require('../internal/isIndex'),
@@ -24192,7 +24631,7 @@ function keysIn(object) {
 
 module.exports = keysIn;
 
-},{"../internal/isIndex":211,"../internal/isLength":214,"../lang/isArguments":233,"../lang/isArray":234,"../lang/isObject":248}],263:[function(require,module,exports){
+},{"../internal/isIndex":218,"../internal/isLength":221,"../lang/isArguments":240,"../lang/isArray":241,"../lang/isObject":255}],271:[function(require,module,exports){
 var arrayMap = require('../internal/arrayMap'),
     baseDifference = require('../internal/baseDifference'),
     baseFlatten = require('../internal/baseFlatten'),
@@ -24241,7 +24680,7 @@ var omit = restParam(function(object, props) {
 
 module.exports = omit;
 
-},{"../function/restParam":128,"../internal/arrayMap":137,"../internal/baseDifference":148,"../internal/baseFlatten":156,"../internal/bindCallback":183,"../internal/pickByArray":218,"../internal/pickByCallback":219,"./keysIn":262}],264:[function(require,module,exports){
+},{"../function/restParam":131,"../internal/arrayMap":140,"../internal/baseDifference":152,"../internal/baseFlatten":160,"../internal/bindCallback":187,"../internal/pickByArray":225,"../internal/pickByCallback":226,"./keysIn":270}],272:[function(require,module,exports){
 var keys = require('./keys'),
     toObject = require('../internal/toObject');
 
@@ -24276,7 +24715,7 @@ function pairs(object) {
 
 module.exports = pairs;
 
-},{"../internal/toObject":223,"./keys":261}],265:[function(require,module,exports){
+},{"../internal/toObject":230,"./keys":269}],273:[function(require,module,exports){
 var baseValues = require('../internal/baseValues'),
     keys = require('./keys');
 
@@ -24311,7 +24750,36 @@ function values(object) {
 
 module.exports = values;
 
-},{"../internal/baseValues":182,"./keys":261}],266:[function(require,module,exports){
+},{"../internal/baseValues":186,"./keys":269}],274:[function(require,module,exports){
+var createCompounder = require('../internal/createCompounder');
+
+/**
+ * Converts `string` to [camel case](https://en.wikipedia.org/wiki/CamelCase).
+ *
+ * @static
+ * @memberOf _
+ * @category String
+ * @param {string} [string=''] The string to convert.
+ * @returns {string} Returns the camel cased string.
+ * @example
+ *
+ * _.camelCase('Foo Bar');
+ * // => 'fooBar'
+ *
+ * _.camelCase('--foo-bar');
+ * // => 'fooBar'
+ *
+ * _.camelCase('__foo_bar__');
+ * // => 'fooBar'
+ */
+var camelCase = createCompounder(function(result, word, index) {
+  word = word.toLowerCase();
+  return result + (index ? (word.charAt(0).toUpperCase() + word.slice(1)) : word);
+});
+
+module.exports = camelCase;
+
+},{"../internal/createCompounder":200}],275:[function(require,module,exports){
 var baseToString = require('../internal/baseToString');
 
 /**
@@ -24334,7 +24802,38 @@ function capitalize(string) {
 
 module.exports = capitalize;
 
-},{"../internal/baseToString":180}],267:[function(require,module,exports){
+},{"../internal/baseToString":184}],276:[function(require,module,exports){
+var baseToString = require('../internal/baseToString'),
+    deburrLetter = require('../internal/deburrLetter');
+
+/** Used to match [combining diacritical marks](https://en.wikipedia.org/wiki/Combining_Diacritical_Marks). */
+var reComboMark = /[\u0300-\u036f\ufe20-\ufe23]/g;
+
+/** Used to match latin-1 supplementary letters (excluding mathematical operators). */
+var reLatin1 = /[\xc0-\xd6\xd8-\xde\xdf-\xf6\xf8-\xff]/g;
+
+/**
+ * Deburrs `string` by converting [latin-1 supplementary letters](https://en.wikipedia.org/wiki/Latin-1_Supplement_(Unicode_block)#Character_table)
+ * to basic latin letters and removing [combining diacritical marks](https://en.wikipedia.org/wiki/Combining_Diacritical_Marks).
+ *
+ * @static
+ * @memberOf _
+ * @category String
+ * @param {string} [string=''] The string to deburr.
+ * @returns {string} Returns the deburred string.
+ * @example
+ *
+ * _.deburr('déjà vu');
+ * // => 'deja vu'
+ */
+function deburr(string) {
+  string = baseToString(string);
+  return string && string.replace(reLatin1, deburrLetter).replace(reComboMark, '');
+}
+
+module.exports = deburr;
+
+},{"../internal/baseToString":184,"../internal/deburrLetter":205}],277:[function(require,module,exports){
 var baseToString = require('../internal/baseToString');
 
 /**
@@ -24368,7 +24867,7 @@ function escapeRegExp(string) {
 
 module.exports = escapeRegExp;
 
-},{"../internal/baseToString":180}],268:[function(require,module,exports){
+},{"../internal/baseToString":184}],278:[function(require,module,exports){
 var baseToString = require('../internal/baseToString'),
     charsLeftIndex = require('../internal/charsLeftIndex'),
     charsRightIndex = require('../internal/charsRightIndex'),
@@ -24412,7 +24911,7 @@ function trim(string, chars, guard) {
 
 module.exports = trim;
 
-},{"../internal/baseToString":180,"../internal/charsLeftIndex":187,"../internal/charsRightIndex":188,"../internal/isIterateeCall":212,"../internal/trimmedLeftIndex":225,"../internal/trimmedRightIndex":226}],269:[function(require,module,exports){
+},{"../internal/baseToString":184,"../internal/charsLeftIndex":191,"../internal/charsRightIndex":192,"../internal/isIterateeCall":219,"../internal/trimmedLeftIndex":232,"../internal/trimmedRightIndex":233}],279:[function(require,module,exports){
 var baseToString = require('../internal/baseToString'),
     isIterateeCall = require('../internal/isIterateeCall');
 
@@ -24452,7 +24951,7 @@ function words(string, pattern, guard) {
 
 module.exports = words;
 
-},{"../internal/baseToString":180,"../internal/isIterateeCall":212}],270:[function(require,module,exports){
+},{"../internal/baseToString":184,"../internal/isIterateeCall":219}],280:[function(require,module,exports){
 (function (global){
 /** Used to detect DOM support. */
 var document = (document = global.window) ? document.document : null;
@@ -24490,7 +24989,7 @@ var support = {};
 module.exports = support;
 
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{}],271:[function(require,module,exports){
+},{}],281:[function(require,module,exports){
 /**
  * Creates a function that returns `value`.
  *
@@ -24515,7 +25014,7 @@ function constant(value) {
 
 module.exports = constant;
 
-},{}],272:[function(require,module,exports){
+},{}],282:[function(require,module,exports){
 /**
  * This method returns the first argument provided to it.
  *
@@ -24537,7 +25036,7 @@ function identity(value) {
 
 module.exports = identity;
 
-},{}],273:[function(require,module,exports){
+},{}],283:[function(require,module,exports){
 var baseProperty = require('../internal/baseProperty'),
     basePropertyDeep = require('../internal/basePropertyDeep'),
     isKey = require('../internal/isKey');
@@ -24570,7 +25069,7 @@ function property(path) {
 
 module.exports = property;
 
-},{"../internal/baseProperty":171,"../internal/basePropertyDeep":172,"../internal/isKey":213}],274:[function(require,module,exports){
+},{"../internal/baseProperty":175,"../internal/basePropertyDeep":176,"../internal/isKey":220}],284:[function(require,module,exports){
 'use strict';
 
 function ToObject(val) {
@@ -24598,7 +25097,7 @@ module.exports = Object.assign || function (target, source) {
 	return to;
 };
 
-},{}],275:[function(require,module,exports){
+},{}],285:[function(require,module,exports){
 (function (global){
 
 var rng;
@@ -24633,7 +25132,7 @@ module.exports = rng;
 
 
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{}],276:[function(require,module,exports){
+},{}],286:[function(require,module,exports){
 //     uuid.js
 //
 //     Copyright (c) 2010-2012 Robert Kieffer
@@ -24818,10 +25317,10 @@ uuid.unparse = unparse;
 
 module.exports = uuid;
 
-},{"./rng":275}],277:[function(require,module,exports){
+},{"./rng":285}],287:[function(require,module,exports){
 module.exports={
   "name": "focusjs-components",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "description": "Focus component repository.",
   "main": "index.js",
   "scripts": {
@@ -24892,6 +25391,10 @@ module.exports={
     {
       "name": "field",
       "path": "common/field"
+    },
+    {
+      "name": "role",
+      "path": "common/role"
     },
     {
       "name": "icon",
@@ -25040,7 +25543,7 @@ module.exports={
   ],
   "homepage": "https://github.com/KleeGroup/focus-components",
   "dependencies": {
-    "focusjs": "^0.5.5",
+    "focusjs": "^0.7.0",
     "immutable": "^3.7.3",
     "lodash": "^3.9.1",
     "object-assign": "^2.0.0",
@@ -25088,7 +25591,7 @@ module.exports={
   }
 }
 
-},{}],278:[function(require,module,exports){
+},{}],288:[function(require,module,exports){
 "use strict";
 
 var saveBehaviour = require("./mixin/save-behaviour");
@@ -25100,7 +25603,7 @@ var detailMixin = {
 };
 module.exports = { mixin: detailMixin };
 
-},{"../mixin/cartridge-behaviour":282,"./mixin/save-behaviour":279,"./mixin/validate-behaviour":280}],279:[function(require,module,exports){
+},{"../mixin/cartridge-behaviour":292,"./mixin/save-behaviour":289,"./mixin/validate-behaviour":290}],289:[function(require,module,exports){
 "use strict";
 
 var _defineProperty = function (obj, key, value) { return Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); };
@@ -25120,7 +25623,7 @@ module.exports = {
   }
 };
 
-},{"lodash/lang/isFunction":242,"object-assign":274}],280:[function(require,module,exports){
+},{"lodash/lang/isFunction":249,"object-assign":284}],290:[function(require,module,exports){
 "use strict";
 
 var _defineProperty = function (obj, key, value) { return Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); };
@@ -25150,7 +25653,7 @@ module.exports = {
   }
 };
 
-},{"lodash/lang":227,"object-assign":274}],281:[function(require,module,exports){
+},{"lodash/lang":234,"object-assign":284}],291:[function(require,module,exports){
 // Dependencies
 
 "use strict";
@@ -25179,7 +25682,7 @@ module.exports = {
   }
 };
 
-},{"./detail":278,"./mixin":283,"./search":289}],282:[function(require,module,exports){
+},{"./detail":288,"./mixin":293,"./search":301}],292:[function(require,module,exports){
 "use strict";
 
 var isFunction = require("lodash/lang/isFunction");
@@ -25213,226 +25716,336 @@ module.exports = {
   }
 };
 
-},{"../../common/empty":26,"lodash/lang/isFunction":242}],283:[function(require,module,exports){
+},{"../../common/empty":27,"lodash/lang/isFunction":249}],293:[function(require,module,exports){
 "use strict";
 
 module.exports = {
   cartridgeBehaviour: require("./cartridge-behaviour")
 };
 
-},{"./cartridge-behaviour":282}],284:[function(require,module,exports){
+},{"./cartridge-behaviour":292}],294:[function(require,module,exports){
 // Dependencies
 
 "use strict";
 
 var builder = window.Focus.component.builder;
-var React = window.React;
-var assign = require("object-assign");
-var reduce = require("lodash/collection/reduce");
-var includes = require("lodash/collection/includes");
+var clone = require("lodash/lang/clone");
+
+// Components
+
+var ListActionBar = require("../../../list/action-bar/index").component;
+
+//Mixins
+
+var i18nMixin = require("../../../common/i18n/mixin");
+
+var Bar = {
+    mixins: [i18nMixin],
+    /**
+     * Get the default props
+     * @return {object} the default props
+     */
+    getDefaultProps: function getDefaultProps() {
+        return {
+            orderableColumnList: {},
+            groupableColumnList: {},
+            orderSelected: undefined,
+            selectionStatus: undefined,
+            selectionAction: undefined,
+            groupingKey: undefined,
+            selectedFacets: {},
+            action: undefined,
+            lineOperationList: undefined
+        };
+    },
+    /**
+     * Filter the facet list so that the scope facet is not displayed
+     * @return {object} The filtered facet list
+     */
+    _filterFacetList: function _filterFacetList() {
+        var facetList = {};
+        for (var key in this.props.selectedFacets) {
+            if (key !== "FCT_SCOPE") {
+                var facet = this.props.selectedFacets[key];
+                facetList[key] = {
+                    label: this.i18n("live.filter.facets." + key),
+                    value: facet.data.label
+                };
+            }
+        }
+        return facetList;
+    },
+    /**
+     * On facet click, remove it from the selected facets, and update the store
+     * @param  {string} key The facet key to remove
+     */
+    _onFacetClick: function _onFacetClick(key) {
+        var selectedFacets = clone(this.props.selectedFacets);
+        delete selectedFacets[key];
+        this.props.action.updateProperties({ selectedFacets: selectedFacets });
+    },
+    /**
+     * Update the store to ask for a new results order
+     * @param  {string} key   the filed key to sort by
+     * @param  {boolean} order the sort direciton, ascending or descending
+     */
+    _orderAction: function _orderAction(key, order) {
+        this.props.action.updateProperties({
+            sortBy: key,
+            sortAsc: order
+        });
+    },
+    /**
+     * Group by the given key
+     * @param  {string} key The facet key to base the grouping on
+     */
+    _groupAction: function _groupAction(key) {
+        this.props.action.updateProperties({
+            groupingKey: key
+        });
+    },
+    /**
+     * Render the component
+     * @return {HTML} the rendered component
+     */
+    render: function render() {
+        return React.createElement(ListActionBar, {
+            "data-focus": "advanced-search-action-bar",
+            groupLabelPrefix: "live.filter.facets.",
+            selectionStatus: this.props.selectionStatus,
+            selectionAction: this.props.selectionAction,
+            orderableColumnList: this.props.orderableColumnList,
+            orderAction: this._orderAction,
+            orderSelected: this.props.sortBy,
+            groupableColumnList: this.props.groupableColumnList,
+            groupAction: this._groupAction,
+            groupSelectedKey: this.props.groupingKey,
+            facetList: this._filterFacetList(),
+            facetClickAction: this._onFacetClick,
+            operationList: this.props.lineOperationList
+        });
+    }
+};
+
+module.exports = builder(Bar);
+
+},{"../../../common/i18n/mixin":36,"../../../list/action-bar/index":69,"lodash/lang/clone":235}],295:[function(require,module,exports){
+// Dependencies
+
+"use strict";
+
+var builder = window.Focus.component.builder;
+var keys = require("lodash/object/keys");
 
 // Components
 
 var FacetBox = require("../../../search/facet-box").component;
-var ListActionBar = require("../../../list/action-bar/index").component;
-var ListSummary = require("../../../list/summary/index").component;
+
+var scopeFacetKey = "FCT_SCOPE";
+
+var Box = {
+    /**
+     * Get the default props
+     * @return {object} the default props
+     */
+    getDefaultProps: function getDefaultProps() {
+        return {
+            facets: {},
+            selectedFacets: {},
+            facetConfig: {},
+            action: undefined,
+            scopesConfig: undefined
+        };
+    },
+    /**
+     * Facet selection handler
+     * @param  {object}  facetComponentData The new facet box state, given by the FacetBox component
+     * @param  {Boolean} isDisableGroup     override the groupinKey ?
+     */
+    _onFacetSelection: function _onFacetSelection(facetComponentData, isDisableGroup) {
+        if (keys(facetComponentData.selectedFacetList).length === 1 && facetComponentData.selectedFacetList[scopeFacetKey]) {
+            this.props.action.updateProperties({
+                scope: this.props.scopesConfig[facetComponentData.selectedFacetList[scopeFacetKey].key]
+            });
+        } else {
+            delete facetComponentData.selectedFacetList[scopeFacetKey];
+            var newProperties = {
+                selectedFacets: facetComponentData.selectedFacetList
+            };
+            if (isDisableGroup) {
+                newProperties.groupingKey = undefined;
+            }
+            this.props.action.updateProperties(newProperties);
+        }
+    },
+    /**
+     * Render the component
+     * @return {HTML} the rendered component
+     */
+    render: function render() {
+        return React.createElement(FacetBox, {
+            "data-focus": "advanced-search-facet-box",
+            facetList: this.props.facets,
+            selectedFacetList: this.props.selectedFacets,
+            config: this.props.facetConfig,
+            dataSelectionHandler: this._onFacetSelection
+        });
+    }
+};
+
+module.exports = builder(Box);
+
+},{"../../../search/facet-box":310,"lodash/object/keys":269}],296:[function(require,module,exports){
+// Dependencies
+
+"use strict";
+
+var builder = window.Focus.component.builder;
+var camel = require("lodash/string/camelCase");
+var capitalize = require("lodash/string/capitalize");
+
+// Components
+
+var FacetBox = require("./facet-box").component;
+var ListActionBar = require("./action-bar").component;
+var ListSummary = require("./list-summary").component;
+var Results = require("../common/component/results").component;
+
 var BackToTopComponent = require("../../../common/button/back-to-top").component;
+
 // Store
 
-var SearchStore = window.Focus.store.SearchStore;
+var advancedSearchStore = Focus.search.builtInStore.advancedSearchStore;
 
 // Mixins
 
-var ScrollInfoMixin = require("../common/scroll-info-mixin").mixin;
-var GroupByMixin = require("../common/group-by-mixin").mixin;
-var SearchMixin = require("../common/search-mixin").mixin;
 var CartridgeBehaviour = require("../../mixin/cartridge-behaviour");
 var type = window.Focus.component.types;
+
+// Actions
+
+var actionBuilder = Focus.search.actionBuilder;
+
 /**
  * Page mixin of the advanced search.
  * @type {Object}
  */
 var AdvancedSearch = {
-    mixins: [ScrollInfoMixin, GroupByMixin, SearchMixin, CartridgeBehaviour],
+    /**
+     * Component's mixins
+     * @type {Array}
+     */
+    mixins: [CartridgeBehaviour],
     /**
      * Display name.
      */
     displayName: "advanced-search",
     /**
-     * Component initialisation
-     */
-    componentDidMount: function componentDidMount() {
-        this._registerListeners();
-        this.search();
-    },
-    /**
-     * Actions before component will unmount.
-     * @constructor
-     */
-    componentWillUnmount: function componentWillUnmount() {
-        this._unRegisterListeners();
-    },
-    /** @inheritedDoc
+     * Get the default props
+     * @return {object} the default props
      */
     getDefaultProps: function getDefaultProps() {
         return {
             facetConfig: {},
-            idField: "id", //To remove?
+            scopesConfig: {},
             isSelection: true,
             hasBackToTop: true,
-            BackToTopComponent: BackToTopComponent
+            backToTopComponent: BackToTopComponent,
+            store: advancedSearchStore,
+            action: undefined,
+            service: undefined,
+            orderableColumnList: {},
+            lineOperationList: {},
+            exportAction: {},
+            groupComponent: undefined,
+            lineComponentMapper: undefined,
+            scrollParentSelector: undefined,
+            onLineClick: undefined
         };
     },
+    /**
+     * Props validation
+     * @type {Object}
+     */
     propTypes: {
+        scopesConfig: type("object"),
         facetConfig: type("object"),
-        idField: type("string"),
-        isSelection: type("bool"),
-        scope: type("string"),
-        query: type("string"),
-        exportAction: type(["function", "object"]),
-        unselectedScopeAction: type(["function", "object"])
+        isSelection: type("boolean"),
+        hasBackToTop: type("boolean"),
+        backToTopComponent: type("object"),
+        store: type("object"),
+        action: type("object"),
+        service: type("object"),
+        orderableColumnList: type("object"),
+        lineOperationList: type("object"),
+        exportAction: type("function"),
+        groupComponent: type("object"),
+        lineComponentMapper: type("function"),
+        scrollParentSelector: type("string"),
+        onLineClick: type("function")
     },
-    /**
-     * Init default state.
-     * @returns {object} Initialized state.
-     */
     getInitialState: function getInitialState() {
-        return assign({
-            facetList: {},
-            selectedFacetList: {},
-            openedFacetList: this.props.openedFacetList,
-            selectionStatus: "none",
-            orderSelected: undefined,
-            groupSelectedKey: undefined,
-            scope: this.props.scope,
-            query: this.props.query
+        return this._getNewStateFromStore();
+    },
+    /**
+     * Register the store listeners
+     */
+    componentWillMount: function componentWillMount() {
+        var _this = this;
+
+        ["query", "scope", "selected-facets", "grouping-key", "sort-by", "sort-asc"].forEach(function (node) {
+            _this.props.store["add" + capitalize(camel(node)) + "ChangeListener"](_this._onStoreChangeWithSearch);
+        });
+        ["facets", "results", "total-count"].forEach(function (node) {
+            _this.props.store["add" + capitalize(camel(node)) + "ChangeListener"](_this._onStoreChangeWithoutSearch);
+        });
+        this._action = this.props.action || actionBuilder({
+            service: this.props.service,
+            identifier: this.props.store.identifier,
+            getSearchOptions: function () {
+                return _this.props.store.getValue.call(_this.props.store);
+            } // Binding the store in the function call
         });
     },
-    componentWillReceiveProps: function componentWillReceiveProps(nextProps) {
-        this.setState(reduce(nextProps, function (newState, key, value) {
-            if (includes(["scope", "query"], key)) {
-                newState[key] = value;
-            }
-            return newState;
-        }, {}));
+    componentDidMount: function componentDidMount() {
+        this._action.search();
     },
     /**
-     * Get the state from store.
-     * @returns {object} Dtat to update store.
+     * Un-register the store listeners
      */
-    _getStateFromStore: function _getStateFromStore() {
-        if (this.props.store) {
-            var data = this.props.store.get();
-            return assign({
-                facetList: data.facet
-            }, this.getScrollState());
-        }
-    },
+    componentWillUnmount: function componentWillUnmount() {
+        var _this = this;
 
-    /**
-     * Register a listener on the store.
-     * @private
-     */
-    _registerListeners: function _registerListeners() {
-        if (this.props.store) {
-            this.props.store.addSearchChangeListener(this._onSearchChange);
-        }
-    },
-    /**
-     * Unregister a listener on the store.
-     * @private
-     */
-    _unRegisterListeners: function _unRegisterListeners() {
-        if (this.props.store) {
-            this.props.store.removeSearchChangeListener(this._onSearchChange);
-        }
-    },
-
-    /**
-     * Handler when store emit a change event.
-     */
-    _onSearchChange: function _onSearchChange() {
-        this.setState(this._getStateFromStore());
-    },
-    /**
-     * Get the list of facet to print into the top bar.
-     * @returns {{}} Facets object : [facet1: 'Label of facet1', facet2: 'Label of facet2'}.
-     * @private
-     */
-    _getFacetListForBar: function _getFacetListForBar() {
-        var facetList = {};
-        for (var key in this.state.selectedFacetList) {
-            var facet = this.state.selectedFacetList[key];
-            facetList[key] = facet.data.label;
-        }
-        return facetList;
-    },
-    /**
-     * Click on bar facet action handler.
-     * @param key [string}  Key of the clicked facet.
-     * @private
-     */
-    _facetBarClick: function _facetBarClick(key) {
-        var selectedFacetList = this.state.selectedFacetList;
-        delete selectedFacetList[key];
-
-        this.state.selectedFacetList = selectedFacetList;
-        this.setState(assign({ selectedFacetList: selectedFacetList }, this.getNoFetchState()), this.search);
-    },
-    /**
-     * Group action click handler.
-     * @param {string} key Name of the column to group (if null => ungroup action).
-     * @private
-     */
-    _groupClick: function _groupClick(key) {
-        console.log("Group by : " + key);
-        this.setState(assign({ groupSelectedKey: key }, this.getNoFetchState()), this.search);
-    },
-    /**
-     * Order action click handler.
-     * @param {string} key Column to order.
-     * @param {string} order Order  asc/desc
-     * @private
-     */
-    _orderClick: function _orderClick(key, order) {
-        console.log("Order : " + key + " - " + order);
-        this.setState(assign({ orderSelected: { key: key, order: order } }, this.getNoFetchState()), this.search);
-    },
-    /**
-     * Selection action handler.
-     * @param selectionStatus Current selection status.
-     * @private
-     */
-    _selectionGroupLineClick: function _selectionGroupLineClick(selectionStatus) {
-        console.log("Selection status : " + selectionStatus);
-        this.setState({
-            selectionStatus: selectionStatus
+        ["query", "scope", "selected-facets", "grouping-key", "sort-by", "sort-asc"].forEach(function (node) {
+            _this.props.store["remove" + capitalize(camel(node)) + "ChangeListener"](_this._onStoreChangeWithSearch);
+        });
+        ["facets", "results", "total-count"].forEach(function (node) {
+            _this.props.store["remove" + capitalize(camel(node)) + "ChangeListener"](_this._onStoreChangeWithoutSearch);
         });
     },
     /**
-     * Handler called when facet is selected.
-     * @param facetComponentData Data of facet.
+     * Store changed, update the state, trigger a search after update
      */
-    _facetSelectionClick: function _facetSelectionClick(facetComponentData, isDisableGroup) {
-        console.warn("Facet selection ");
-        console.log(facetComponentData.selectedFacetList);
-
-        var newState = {
-            selectedFacetList: facetComponentData.selectedFacetList,
-            openedFacetList: facetComponentData.openedFacetList
-        };
-        if (isDisableGroup) {
-            newState.groupSelectedKey = undefined;
-        }
-
-        this.setState(assign(newState, this.getNoFetchState()), this.search);
+    _onStoreChangeWithSearch: function _onStoreChangeWithSearch() {
+        this.setState(this._getNewStateFromStore(), this._action.search);
     },
     /**
-     * Line selection handler.
-     * @param item Line checked/unchecked.
+     * Store changed, update the state, do not trigger a search after update
      */
-    _selectItem: function _selectItem(item) {
-        this.setState({ selectionStatus: "partial" });
+    _onStoreChangeWithoutSearch: function _onStoreChangeWithoutSearch() {
+        this.setState(this._getNewStateFromStore());
+    },
+    _getNewStateFromStore: function _getNewStateFromStore() {
+        var query = this.props.store.getQuery();
+        var scope = this.props.store.getScope();
+        var selectedFacets = this.props.store.getSelectedFacets() || {};
+        var groupingKey = this.props.store.getGroupingKey();
+        var sortBy = this.props.store.getSortBy();
+        var sortAsc = this.props.store.getSortAsc();
+        var facets = this.props.store.getFacets();
+        var results = this.props.store.getResults();
+        var totalCount = this.props.store.getTotalCount();
+        return { query: query, scope: scope, selectedFacets: selectedFacets, groupingKey: groupingKey, sortBy: sortBy, sortAsc: sortAsc, facets: facets, results: results, totalCount: totalCount };
     },
     /**
      * Export action handler.
@@ -25441,10 +26054,84 @@ var AdvancedSearch = {
         this.props.exportAction();
     },
     /**
-     * Click on scope action handler.
+     * Render the facet box.
+     * @returns {HTML} the rendered component
      */
-    _scopeClick: function _scopeClick() {
-        this.props.unselectScopeAction();
+    _renderFacetBox: function _renderFacetBox() {
+        return React.createElement(FacetBox, {
+            facets: this.state.facets,
+            selectedFacets: this.state.selectedFacets,
+            facetConfig: this.props.facetConfig,
+            action: this._action,
+            scopesConfig: this.props.scopesConfig
+        });
+    },
+    /**
+     * Render the list summary component.
+     * @returns {HTML} the rendered component
+     */
+    _renderListSummary: function _renderListSummary() {
+        return React.createElement(ListSummary, {
+            totalCount: this.state.totalCount,
+            query: this.state.query,
+            action: this._action,
+            scope: this.state.scope
+        });
+    },
+    /**
+     * Render the action bar.
+     * @returns {HTML} the rendered component
+     */
+    _renderActionBar: function _renderActionBar() {
+        var _this = this;
+
+        var groupableColumnList = this.state.facets ? Object.keys(this.state.facets).reduce(function (result, facetKey) {
+            result[facetKey] = facetKey;
+            return result;
+        }, {}) : {};
+        var selectionAction = function (selectionStatus) {
+            _this.setState({ selectionStatus: selectionStatus });
+        };
+        return React.createElement(ListActionBar, {
+            selectionStatus: this.state.selectionStatus,
+            selectionAction: selectionAction,
+            orderableColumnList: this.props.orderableColumnList,
+            orderSelected: this.state.sortBy,
+            groupableColumnList: groupableColumnList,
+            groupSelectedKey: this.state.groupingKey,
+            selectedFacets: this.state.selectedFacets,
+            operationList: this.props.lineOperationList,
+            action: this._action
+        });
+    },
+    /**
+     * Render the results component
+     * @return {HTML} the rendered component
+     */
+    _renderResults: function _renderResults() {
+        return React.createElement(Results, {
+            action: this._action,
+            store: this.props.store,
+            resultsMap: this.state.results,
+            totalCount: this.state.totalCount,
+            groupComponent: this.props.groupComponent,
+            lineComponentMapper: this.props.lineComponentMapper,
+            isSelection: this.props.isSelection,
+            lineSelectionHandler: this._selectItem,
+            lineClickHandler: this._lineClick,
+            lineOperationList: this.props.lineOperationList,
+            scrollParentSelector: this.props.scrollParentSelector,
+            selectionStatus: this.state.selectionStatus,
+            groupingKey: this.state.groupingKey,
+            resultsFacets: this.state.facets,
+            renderSingleGroupDecoration: false
+        });
+    },
+    /**
+     * Line selection handler
+     */
+    _selectItem: function _selectItem() {
+        this.setState({ selectionStatus: "partial" });
     },
     /**
      * Action on line click.
@@ -25456,78 +26143,9 @@ var AdvancedSearch = {
         }
     },
     /**
-     * Render the show all button  seect the group corresponding facet.
-     * @param groupKey Group key.
-     * @returns {Function} Function to select the facet.
+     * Render the component
+     * @return {HTML} the rendered component
      */
-    showAllGroupListHandler: function showAllGroupListHandler(groupKey) {
-        var _this = this;
-
-        return function (event) {
-            var selectedFacetList = _this.state.selectedFacetList;
-
-            var facet = _this.props.store.getFacet();
-            selectedFacetList[_this.state.groupSelectedKey] = {
-                data: facet[_this.state.groupSelectedKey][groupKey],
-                key: groupKey
-            };
-            _this._facetSelectionClick({
-                selectedFacetList: selectedFacetList,
-                facetComponentData: _this.state.openedFacetList
-            }, true);
-        };
-    },
-
-    /**
-     * Render the facet box.
-     * @returns {XML} Render the facetBox.
-     */
-    getFacetBoxComponent: function getFacetBoxComponent() {
-        return React.createElement(FacetBox, {
-            "data-focus": "advanced-search-facet-box",
-            facetList: this.state.facetList,
-            selectedFacetList: this.state.selectedFacetList,
-            openedFacetList: this.state.openedFacetList,
-            config: this.props.facetConfig,
-            dataSelectionHandler: this._facetSelectionClick
-        });
-    },
-    /**
-     * Render the list summary component.
-     * @returns {XML} Htm code.
-     */
-    getListSummaryComponent: function getListSummaryComponent() {
-        var scopeList = { scope: this.props.scope };
-        return React.createElement(ListSummary, {
-            "data-focus": "advanced-search-list-summary",
-            nb: this.state.totalRecords,
-            queryText: this.props.query,
-            scopeList: scopeList,
-            scopeClickAction: this._scopeClick,
-            exportAction: this._exportHandler });
-    },
-    /**
-     * Render the action bar.
-     * @returns {XML} Rendering of the action bar.
-     */
-    getActionBarComponent: function getActionBarComponent() {
-        var groupableColumnList = Object.keys(this.state.facetList).reduce(function (result, facetKey) {
-            result[facetKey] = facetKey;
-            return result;
-        }, {});
-        return React.createElement(ListActionBar, { "data-focus": "advanced-search-action-bar",
-            selectionStatus: this.state.selectionStatus,
-            selectionAction: this._selectionGroupLineClick,
-            orderableColumnList: this.props.orderableColumnList,
-            orderAction: this._orderClick,
-            orderSelected: this.state.orderSelected,
-            groupableColumnList: groupableColumnList,
-            groupAction: this._groupClick,
-            groupSelectedKey: this.state.groupSelectedKey,
-            facetList: this._getFacetListForBar(),
-            facetClickAction: this._facetBarClick,
-            operationList: this.props.lineOperationList });
-    },
     render: function render() {
         return React.createElement(
             "div",
@@ -25535,44 +26153,93 @@ var AdvancedSearch = {
             React.createElement(
                 "div",
                 { "data-focus": "facet-container" },
-                this.getFacetBoxComponent()
+                this._renderFacetBox()
             ),
             React.createElement(
                 "div",
                 { "data-focus": "result-container" },
-                this.getListSummaryComponent(),
-                this.getActionBarComponent(),
-                this.getResultListComponent(true)
+                this._renderListSummary(),
+                this._renderActionBar(),
+                this._renderResults()
             ),
-            this.props.hasBackToTop && React.createElement(this.props.BackToTopComponent, null)
+            this.props.hasBackToTop && React.createElement(this.props.backToTopComponent, null)
         );
     }
 };
 
 module.exports = builder(AdvancedSearch);
 
-},{"../../../common/button/back-to-top":19,"../../../list/action-bar/index":67,"../../../list/summary/index":77,"../../../search/facet-box":298,"../../mixin/cartridge-behaviour":282,"../common/group-by-mixin":285,"../common/scroll-info-mixin":286,"../common/search-mixin":287,"lodash/collection/includes":109,"lodash/collection/reduce":116,"object-assign":274}],285:[function(require,module,exports){
+},{"../../../common/button/back-to-top":20,"../../mixin/cartridge-behaviour":292,"../common/component/results":300,"./action-bar":294,"./facet-box":295,"./list-summary":297,"lodash/string/camelCase":274,"lodash/string/capitalize":275}],297:[function(require,module,exports){
 // Dependencies
 
 "use strict";
 
-var isArray = require("lodash/lang/isArray");
-var keys = require("lodash/object/keys");
-var checkIsNotNull = window.Focus.util.object.checkIsNotNull;
-var ArgumentNullException = window.Focus.exception.ArgumentNullException;
+var builder = window.Focus.component.builder;
 
 // Components
 
-var SingleGroupComponent = require("./single-group-component").component;
-var ListSelection = require("../../../list/selection").list.component;
+var ListSummary = require("../../../list/summary/index").component;
+
+var scopeAll = "ALL";
+
+var Summary = {
+    /**
+     * Get the default props
+     * @return {object} the default props
+     */
+    getDefaultProps: function getDefaultProps() {
+        return {
+            totalCount: 0,
+            query: "",
+            action: undefined,
+            scope: undefined
+        };
+    },
+    /**
+     * Scope click handler
+     * Set the scope to ALL.
+     */
+    _onScopeClick: function _onScopeClick() {
+        this.props.action.updateProperties({
+            scope: scopeAll,
+            selectedFacets: {},
+            groupingKey: undefined
+        });
+    },
+    /**
+     * Render the component
+     * @return {HTML} the rendered component
+     */
+    render: function render() {
+        var scope = this.props.scope !== scopeAll ? { scope: {
+                code: this.props.scope,
+                label: "Scope",
+                value: this.props.scope
+            } } : undefined;
+        return React.createElement(ListSummary, {
+            "data-focus": "advanced-search-list-summary",
+            nb: this.props.totalCount,
+            queryText: this.props.query,
+            scopeList: scope,
+            scopeClickAction: this._onScopeClick
+        });
+    }
+};
+
+module.exports = builder(Summary);
+
+},{"../../../list/summary/index":79}],298:[function(require,module,exports){
+// Dependencies
+
+"use strict";
+
+var builder = window.Focus.component.builder;
 
 // Mixins
 
-var i18nMixin = require("../../../common/i18n/mixin");
-//Empty Result component to be mututalized.
-var EmptyComponent = React.createClass({
-    displayName: "EmptyComponent",
+var i18nMixin = require("../../../../common/i18n/mixin");
 
+var DefaultEmpty = {
     mixins: [i18nMixin],
     render: function render() {
         return React.createElement(
@@ -25581,282 +26248,333 @@ var EmptyComponent = React.createClass({
             this.i18n("search.empty")
         );
     }
-});
-/**
- * Mixin used in order to create a block.
- * @type {Object}
- */
-var GroupByMixin = {
-    mixins: [i18nMixin],
-    /**
-     * Init default props.
-     * @returns {object} Default props.
-     */
-    getDefaultProps: function getDefaultProps() {
-        return {
-            lineOperationList: [],
-            orderableColumnList: {},
-            lineComponentMapper: function lineComponentMapper() {
-                throw new ArgumentNullException("Please provide a inferLineComponentFromList(list) function.");
-            },
-            emptyComponent: EmptyComponent
-        };
-    },
-    /**
-     * Change the max rows of a group.
-     * @param {string} groupKey Key of the group.
-     * @param {int} maxRows Number of needed rows.
-     * @returns {Function} The function wich will change the max rows of the group.
-     */
-    changeGroupByMaxRows: function changeGroupByMaxRows(groupKey, maxRows) {
-        var _this = this;
-
-        return function (event) {
-            _this.refs[groupKey].changeGroupByMaxRows(maxRows);
-        };
-    },
-    getResultListComponent: function getResultListComponent(advancedSearch) {
-        var _this = this;
-
-        // First check if there is any result
-        if (this.state.totalRecords === 0) {
-            return this.props.emptyComponent;
-        }
-        var isBounded = keys(this.state.map).length > 1;
-        var noDecoration = keys(this.state.map).length === 1;
-        if (noDecoration && advancedSearch) {
-            var groupKey = keys(this.state.map)[0];
-            return this._getSingleTypeResultList(groupKey, this.state.map[groupKey], isBounded && this.props.groupMaxRows);
-        } else {
-            var groupList = keys(this.state.map).map(function (groupKey) {
-                return React.createElement(SingleGroupComponent, {
-                    "data-focus": "results-group",
-                    key: groupKey,
-                    ref: groupKey,
-                    renderGroupBy: _this.renderGroupByBlock,
-                    list: _this.state.map[groupKey],
-                    groupKey: groupKey,
-                    maxRows: isBounded && _this.props.groupMaxRows
-                });
-            });
-            return groupList;
-        }
-    },
-    _getSingleTypeResultList: function _getSingleTypeResultList(groupKey, list, maxRows) {
-        if (list.length === 0) {
-            return React.createElement(this.emptyComponent, null);
-        }
-        if (maxRows) {
-            list = list.slice(0, maxRows);
-        }
-        return React.createElement(ListSelection, {
-            "data-focus": "results-list",
-            data: list,
-            ref: groupKey,
-            idField: this.props.idField,
-            isSelection: this.props.isSelection,
-            onSelection: this._selectItem,
-            onLineClick: this._lineClick,
-            fetchNextPage: this.fetchNextPage,
-            hasMoreData: this.state.hasMoreData,
-            isLoading: this.state.isLoading,
-            operationList: this.props.lineOperationList,
-            lineComponent: this.props.lineComponentMapper(list),
-            parentSelector: this.props.parentSelector,
-            selectionStatus: this.state.selectionStatus
-        });
-    },
-    renderGroupByBlock: function renderGroupByBlock(groupKey, list, maxRows) {
-        var GroupWrapper = this.props.groupComponent;
-        return React.createElement(
-            GroupWrapper,
-            { "data-focus": "group-result-container", groupKey: groupKey, query: this.state.query, showAll: this.changeGroupByMaxRows },
-            this._getSingleTypeResultList(groupKey, list, maxRows)
-        );
-    }
 };
 
-module.exports = { mixin: GroupByMixin };
+module.exports = builder(DefaultEmpty);
 
-},{"../../../common/i18n/mixin":35,"../../../list/selection":74,"./single-group-component":288,"lodash/lang/isArray":234,"lodash/object/keys":261}],286:[function(require,module,exports){
-"use strict";
-
-var assign = require("object-assign");
-var keys = require("lodash/object/keys");
-/**
- * Infinite scroll mixin.
- * @type {Object}
- */
-var InfiniteScrollPageMixin = {
-    /**
-     * Initial state for a scrolling page.
-     * @returns {*} the initial state
-     */
-    getInitialState: function getInitialState() {
-        return assign({
-            hasMoreData: false,
-            currentPage: 1
-        }, this.getScrollState());
-    },
-
-    /**
-     * current state of the scrolling list.
-     * @returns {*} the scroll state
-     */
-    getScrollState: function getScrollState() {
-        if (this.props.store) {
-            var data = this.props.store.get();
-            var hasMoreData = data.pageInfos && data.map && data.pageInfos.totalPages && data.pageInfos.currentPage < data.pageInfos.totalPages && keys(data.map).length === 1;
-            var totalRecords = data.pageInfos ? data.pageInfos.totalRecords : undefined;
-            return {
-                map: data.map,
-                hasMoreData: hasMoreData,
-                totalRecords: totalRecords,
-                isLoading: false
-            };
-        } else {
-            return {};
-        }
-    }
-};
-
-module.exports = { mixin: InfiniteScrollPageMixin };
-
-},{"lodash/object/keys":261,"object-assign":274}],287:[function(require,module,exports){
-"use strict";
-
-var isFunction = require("lodash/lang/isFunction");
-var BuiltInSearchStore = Focus.search.builtInStore;
-
-var SearchMixin = {
-    getDefaultProps: function getDefaultProps() {
-        return {
-            store: BuiltInSearchStore
-        };
-    },
-    /**
-     * Next page fetch action handler.
-     */
-    fetchNextPage: function fetchNextPage() {
-        this.setState({
-            isLoading: true,
-            currentPage: this.state.currentPage + 1
-        }, this.search);
-    },
-    /**
-     * State for a no fetch search.
-     * @returns {object} current page set to 1.
-     */
-    getNoFetchState: function getNoFetchState() {
-        return {
-            currentPage: 1
-        };
-    },
-    /**
-     * Returns the search criteria sent to the store.
-     * @param {string} scope Current scope.
-     * @param {string} query Current query.
-     * @param {object} facets Selected facets.
-     * @returns {object} Formatted criteria {criteria:{}, pagesInfos:{}, facets:{}}.
-     */
-    _buildSearchCriteria: function _buildSearchCriteria(scope, query, facets) {
-        return {
-            criteria: { scope: scope, query: query },
-            pageInfos: {
-                page: this.state.currentPage,
-                order: this.state.orderSelected,
-                group: this.state.groupSelectedKey
-            },
-            facets: facets
-        };
-    },
-    getSearchCriteria: function getSearchCriteria() {
-        var _this = this;
-
-        var facets = [];
-        if (this.state.selectedFacetList) {
-            facets = Object.keys(this.state.selectedFacetList).map(function (selectedFacetKey) {
-                var selectedFacet = _this.state.selectedFacetList[selectedFacetKey];
-                return {
-                    key: selectedFacetKey,
-                    value: selectedFacet.key
-                };
-            });
-        }
-        if (!isFunction(this.props.searchAction)) {
-            console.warn("Your page seems to miss a search action, add in your props a {searchAction: function(scope, query, facets){}}", this.props.searchAction);
-        }
-        return this._buildSearchCriteria(this.state.scope, this.state.query, facets);
-    },
-    search: function search() {
-
-        this.props.searchAction(this.getSearchCriteria());
-    }
-};
-
-module.exports = {
-    mixin: SearchMixin
-};
-
-},{"lodash/lang/isFunction":242}],288:[function(require,module,exports){
+},{"../../../../common/i18n/mixin":36}],299:[function(require,module,exports){
 // Dependencies
 
 "use strict";
 
 var builder = window.Focus.component.builder;
-var ArgumentNullException = window.Focus.exception.ArgumentNullException;
 
-/**
- * Component of a single group, used in the group-by-mixin.
- * @type {Object}
- */
-var groupByComponent = {
-    /**
-     * Display name.
-     */
-    displayName: "group-by",
-    /**
-     * Init default props.
-     * @returns {object} Default props.
-     */
+var GroupWrapper = {
     getDefaultProps: function getDefaultProps() {
         return {
-            renderGroupBy: function renderGroupBy(groupKey, list, maxRows) {
-                throw new ArgumentNullException("Please implement renderGroupBy() function.");
-            },
-            list: undefined,
+            groupComponent: undefined,
             groupKey: undefined,
-            maxRows: 3
+            count: undefined,
+            isUnique: false,
+            showAllHandler: undefined,
+            list: undefined,
+            renderResultsList: undefined
         };
     },
-    /**
-     * Init default state.
-     * @returns {object} Initialized state.
-     */
     getInitialState: function getInitialState() {
         return {
-            maxRows: this.props.maxRows
+            resultsDisplayedCount: 3
         };
     },
-    /**
-     * Change the number of maxRows displayed.
-     * @param {int} maxRows New value.
-     */
-    changeGroupByMaxRows: function changeGroupByMaxRows(maxRows) {
-        this.setState({ maxRows: maxRows });
+    _showMoreHandler: function _showMoreHandler() {
+        this.setState({
+            resultsDisplayedCount: this.state.resultsDisplayedCount + 3
+        });
     },
-    /**
-     * Render the group by block.
-     * @returns {XML} Content.
-     */
     render: function render() {
-        return this.props.renderGroupBy(this.props.groupKey, this.props.list, this.state.maxRows);
+        var list = this.props.isUnique ? this.props.list : this.props.list.splice(0, this.state.resultsDisplayedCount);
+        return React.createElement(
+            this.props.groupComponent,
+            { count: this.props.count, isUnique: this.props.isUnique, groupKey: this.props.groupKey, list: list, showAllHandler: this.props.showAllHandler, showMoreHandler: this._showMoreHandler },
+            this.props.renderResultsList(list, this.props.groupKey, this.props.count, this.props.isUnique)
+        );
     }
 };
 
-module.exports = builder(groupByComponent);
+module.exports = builder(GroupWrapper);
 
-},{}],289:[function(require,module,exports){
+},{}],300:[function(require,module,exports){
+"use strict";
+
+var _defineProperty = function (obj, key, value) { return Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); };
+
+// Dependencies
+
+var builder = window.Focus.component.builder;
+var omit = require("lodash/object/omit");
+var map = require("lodash/collection/map");
+var reduce = require("lodash/collection/reduce");
+var clone = require("lodash/lang/clone");
+var keys = require("lodash/object/keys");
+var forEach = require("lodash/collection/forEach");
+var isEqual = require("lodash/lang/isEqual");
+var assign = require("lodash/object/assign");
+
+// Components
+
+var DefaultEmpty = require("./default-empty-component").component;
+var ListSelection = require("../../../../list/selection").list.component;
+var GroupWrapper = require("./group-wrapper").component;
+
+// Mixins
+
+var i18nMixin = require("../../../../common/i18n/mixin");
+
+/**
+ * Results component, used to render the results, grouped or ungrouped
+ * @type {Object}
+ */
+var Results = {
+    mixins: [i18nMixin],
+    /**
+     * By default, an empty component is picked.
+     * @return {Object} the default props
+     */
+    getDefaultProps: function getDefaultProps() {
+        return {
+            emptyComponent: DefaultEmpty,
+            renderSingleGroupDecoration: true,
+            initialRowsCount: 3,
+            showMoreAdditionalRows: 5,
+            scopeFacetKey: "FCT_SCOPE",
+            action: undefined,
+            store: undefined,
+            resultsMap: undefined,
+            totalCount: undefined,
+            groupComponent: undefined,
+            lineComponentMapper: undefined,
+            idField: undefined,
+            isSelection: undefined,
+            lineSelectionHandler: undefined,
+            lineClickHandler: undefined,
+            lineOperationList: undefined,
+            scrollParentSelector: undefined,
+            selectionStatus: undefined,
+            groupingKey: undefined,
+            resultsFacets: undefined
+        };
+    },
+    getInitialState: function getInitialState() {
+        return {
+            loading: false
+        };
+    },
+    componentWillReceiveProps: function componentWillReceiveProps() {
+        if (this.state.loading) {
+            this.setState({
+                loading: false
+            });
+        }
+    },
+
+    /**
+     * Render a single group of results, using the group component given as a prop.
+     * @param  {array} list the results list
+     * @param  {string} key  the group key
+     * @param  {int} count  the group's results count
+     * @param  {bool} isUnique  is this the only rendered group
+     * @return {HMTL}      the rendered group
+     */
+    _renderSingleGroup: function _renderSingleGroup(list, key, count, isUnique) {
+        if (isUnique) {
+            if (this.props.renderSingleGroupDecoration) {
+                return React.createElement(GroupWrapper, {
+                    count: count,
+                    groupComponent: this.props.groupComponent,
+                    isUnique: true,
+                    groupKey: key,
+                    list: list,
+                    renderResultsList: this._renderResultsList
+                });
+            } else {
+                return this._renderResultsList(list, key, count, true);
+            }
+        } else {
+            return React.createElement(GroupWrapper, {
+                count: count,
+                groupComponent: this.props.groupComponent,
+                groupKey: key,
+                list: list,
+                renderResultsList: this._renderResultsList,
+                showAllHandler: this._showAllHandler
+            });
+        }
+    },
+    /**
+     * Render the empty component given as a prop when the result map is empty.
+     * @return {HMTL}      the rendered component
+     */
+    _renderEmptyResults: function _renderEmptyResults() {
+        return React.createElement(this.props.emptyComponent, null);
+    },
+    /**
+     * Render the results list
+     * @param  {Array}  list     the results list
+     * @param  {string}  key      the group key
+     * @param  {integer}  count    the group count
+     * @param  {Boolean} isUnique true if this is the only group rendered
+     * @return {HTML}          the rendered component
+     */
+    _renderResultsList: function _renderResultsList(list, key, count, isUnique) {
+        var LineComponent = this.props.lineComponentMapper(key, list);
+        var hasMoreData = isUnique !== undefined && isUnique && list.length < count;
+        return React.createElement(
+            "div",
+            null,
+            React.createElement(ListSelection, {
+                "data-focus": "results-list",
+                data: list,
+                idField: this.props.idField,
+                isSelection: this.props.isSelection,
+                onSelection: this.props.lineSelectionHandler,
+                onLineClick: this.props.lineClickHandler,
+                fetchNextPage: this._onScrollReachedBottom,
+                hasMoreData: hasMoreData,
+                operationList: this.props.lineOperationList,
+                lineComponent: LineComponent,
+                parentSelector: this.props.scrollParentSelector,
+                selectionStatus: this.props.selectionStatus
+            }),
+            this.state.loading && React.createElement(
+                "div",
+                { "data-focus": "loading-more-results" },
+                React.createElement("i", { className: "fa fa-spinner" }),
+                this.i18n("search.loadingMore")
+            )
+        );
+    },
+
+    /**
+     * Construct the show all action
+     * @param  {string} key the group key where the show all has been clicked
+     * @return {function}     the show all handler
+     */
+    _showAllHandler: function _showAllHandler(key) {
+        if (this.props.resultsFacets[this.props.scopeFacetKey]) {
+            this._scopeSelectionHandler(key);
+        } else {
+            var facetKey = this.props.groupingKey;
+            var facetValue = key;
+            this._facetSelectionHandler(facetKey, facetValue);
+        }
+    },
+    /**
+     * Construct the show more handler
+     * @param  {string} key the group key where the show more has been clicked
+     * @return {function}     the show more handler
+     */
+    _getShowMoreHandler: function _getShowMoreHandler(key) {
+        var _this = this;
+
+        return function () {
+            var groupsRowsCounts = clone(_this.state.groupsRowsCounts);
+            groupsRowsCounts[key] = groupsRowsCounts[key] ? groupsRowsCounts[key] + _this.props.showMoreAdditionalRows : _this.props.initialRowsCount;
+            _this.setState({ groupsRowsCounts: groupsRowsCounts });
+        };
+    },
+    /**
+     * Get the group counts object
+     * @param  {object} resultsMap the results map
+     * @return {object}           the counts map
+     */
+    _getGroupCounts: function _getGroupCounts(resultsMap) {
+        var groupKeys = keys(resultsMap);
+        if (groupKeys.length === 1) {
+            return _defineProperty({}, groupKeys[0], {
+                count: this.props.totalCount
+            });
+        }
+        var targetFacetData = undefined;
+        forEach(this.props.resultsFacets, function (facetData) {
+            if (isEqual(keys(facetData).sort(), groupKeys.sort())) {
+                targetFacetData = facetData;
+                return false;
+            }
+        });
+        return reduce(targetFacetData, function (result, data, key) {
+            result[key] = data.count;
+            return result;
+        }, {});
+    },
+    /**
+     * Scope selection handler
+     * @param  {string} key the scope key
+     */
+    _scopeSelectionHandler: function _scopeSelectionHandler(key) {
+        this.props.action.updateProperties({
+            scope: key
+        });
+    },
+    /**
+     * Facet selection handler
+     * @param  {string} key the facet key
+     */
+    _facetSelectionHandler: function _facetSelectionHandler(key, value) {
+        var selectedFacets = assign({}, this.props.store.getSelectedFacets(), _defineProperty({}, key, {
+            key: value,
+            data: {
+                label: value,
+                count: 0
+            }
+        }));
+        this.props.action.updateProperties({
+            groupingKey: undefined,
+            selectedFacets: selectedFacets
+        });
+    },
+    /**
+     * Scroll reached bottom handler
+     */
+    _onScrollReachedBottom: function _onScrollReachedBottom() {
+        var _this = this;
+
+        if (!this.state.loading) {
+            this.setState({
+                loading: true
+            }, function () {
+                _this.props.action.search(true);
+            });
+        }
+    },
+    /**
+     * Render the whole component
+     * @return {HMTL}      the rendered component
+     */
+    render: function render() {
+        var _this = this;
+
+        // If there is no result, render the given empty component
+        if (this.props.totalCount === 0) {
+            return this._renderEmptyResults();
+        }
+        // Filter groups with no results
+        var resultsMap = omit(this.props.resultsMap, function (list) {
+            return list.length === 0;
+        });
+        // Get the count for each group
+        var groupCounts = this._getGroupCounts(this.props.resultsMap);
+        // Check if there is only one group left
+        if (keys(resultsMap).length === 1) {
+            var key = keys(resultsMap)[0];
+            var list = resultsMap[key];
+            var count = groupCounts[key].count;
+            return this._renderSingleGroup(list, key, count, true);
+        } else {
+            return React.createElement(
+                "div",
+                { "data-focus": "search-results" },
+                map(resultsMap, function (list, key) {
+                    var count = groupCounts[key];
+                    return _this._renderSingleGroup(list, key, count);
+                })
+            );
+        }
+    }
+};
+
+module.exports = builder(Results);
+
+},{"../../../../common/i18n/mixin":36,"../../../../list/selection":76,"./default-empty-component":298,"./group-wrapper":299,"lodash/collection/forEach":108,"lodash/collection/map":116,"lodash/collection/reduce":119,"lodash/lang/clone":235,"lodash/lang/isEqual":246,"lodash/object/assign":268,"lodash/object/keys":269,"lodash/object/omit":271}],301:[function(require,module,exports){
 "use strict";
 
 module.exports = {
@@ -25865,25 +26583,31 @@ module.exports = {
     searchHeader: require("./search-header")
 };
 
-},{"./advanced-search":284,"./quick-search":290,"./search-header":293}],290:[function(require,module,exports){
+},{"./advanced-search":296,"./quick-search":302,"./search-header":305}],302:[function(require,module,exports){
 // Dependencies
 
 "use strict";
 
-var assign = require("object-assign");
 var type = window.Focus.component.types;
 var builder = window.Focus.component.builder;
-var React = window.React;
 
 // Components
 
 var SearchBar = require("../../../search/search-bar").component;
+var Results = require("../common/component/results").component;
 
 // Mixins
 
-var ScrollInfoMixin = require("../common/scroll-info-mixin").mixin;
-var GroupByMixin = require("../common/group-by-mixin").mixin;
-var SearchMixin = require("../common/search-mixin").mixin;
+var referenceBehaviour = require("../../../common/form/mixin/reference-behaviour");
+var storeBehaviour = require("../../../common/mixin/store-behaviour");
+
+// Actions
+
+var actionBuilder = Focus.search.actionBuilder;
+
+// Stores
+
+var quickSearchStore = Focus.search.builtInStore.quickSearchStore;
 
 /**
  * General search mixin.
@@ -25891,175 +26615,181 @@ var SearchMixin = require("../common/search-mixin").mixin;
  * @type {Object}
  */
 var QuickSearchComponent = {
-    mixins: [ScrollInfoMixin, GroupByMixin, SearchMixin],
+    /**
+     * Component's mixins
+     * @type {Array}
+     */
+    mixins: [referenceBehaviour, storeBehaviour],
     /**
      * Tag name.
      */
     displayName: "quick-search",
     /**
-     * Component initialization
+     * Reference names to be fetched by the reference behaviour
+     * @type {Array}
      */
-    componentDidMount: function componentDidMount() {
-        this._registerListeners();
-    },
-
+    referenceNames: ["scopes"],
     /**
-     * Actions before component will unmount.
-     * @constructor
+     * Get the default props
+     * @return {object} the default props
      */
-    componentWillUnmount: function componentWillUnmount() {
-        this._unRegisterListeners();
-    },
     getDefaultProps: function getDefaultProps() {
         return {
-            isSelection: false,
-            idField: "id",
-            SearchBar: SearchBar,
-            groupMaxRows: 3
+            scopeSelectionHandler: this._scopeSelectionHandler,
+            store: quickSearchStore,
+            scopeFacetKey: "FCT_SCOPE",
+            lineComponentMapper: undefined,
+            lineOperationList: undefined,
+            groupComponent: undefined,
+            service: undefined,
+            action: undefined,
+            onLineClick: undefined,
+            groupMaxRows: undefined
         };
     },
     /**
-     * properties validation
+     * Prop validation
+     * @type {Object}
      */
     propTypes: {
-        lineMap: type("object"),
-        isSelection: type("bool"),
-        lineOperationList: type("array"),
-        idField: type("string"),
-        SearchBar: type("func"),
+        scopeSelectionHandler: type("function"),
+        store: type("object"),
+        scopeFacetKey: type("string"),
+        lineComponentMapper: type("function"),
+        groupComponent: type("object"),
+        service: type("object"),
+        action: type("object"),
+        onLineClick: type("function"),
         groupMaxRows: type("number")
     },
     /**
-     * Initial state of the list component.
-     * @returns {{list: (*|Array)}} the state
+     * Register the store listeners
      */
-    getInitialState: function getInitialState() {
-        return {
-            isAllSelected: false,
-            selected: []
-        };
-    },
-    getCriteria: function getCriteria() {
-        if (!this.refs.searchBar) {
-            return {};
-        }
-        return this.refs.searchBar.getValue();
-    },
-    /**
-     * Register a listener on the store.
-     * @private
-     */
-    _registerListeners: function _registerListeners() {
-        if (this.props.store) {
-            this.props.store.addSearchChangeListener(this.onSearchChange);
-        } else {
-            console.warn("Search result has no store to listen to. Please provide one as a \"store\" property.");
-        }
+    componentWillMount: function componentWillMount() {
+        var _this = this;
+
+        this._action = this.props.action || actionBuilder({
+            service: this.props.service,
+            identifier: this.props.store.identifier,
+            getSearchOptions: function () {
+                return _this.props.store.getValue.call(_this.props.store);
+            } // Binding the store in the function call
+        });
+        this._loadReference();
+        this.props.store.addQueryChangeListener(this._triggerSearch);
+        this.props.store.addScopeChangeListener(this._triggerSearch);
+        this.props.store.addResultsChangeListener(this._onResultsChange);
     },
     /**
-     * Unregister a listener on the store.
-     * @private
+     * Unregister the store listeners
      */
-    _unRegisterListeners: function _unRegisterListeners() {
-        if (this.props.store) {
-            this.props.store.removeSearchChangeListener(this.onSearchChange);
-        }
+    componentWillUnmount: function componentWillUnmount() {
+        this.props.store.removeQueryChangeListener(this._triggerSearch);
+        this.props.store.removeScopeChangeListener(this._triggerSearch);
+        this.props.store.removeResultsChangeListener(this._onResultsChange);
+    },
+    _triggerSearch: function _triggerSearch() {
+        this._action.search();
     },
     /**
-     * Handler when store emit a change event.
+     * Results change handler
      */
-    onSearchChange: function onSearchChange() {
-        this.setState(assign({ isLoadingSearch: false }, this.getScrollState()));
-    },
-    /**
-     * Action on item selection.
-     * @param {object} item selected
-     */
-    _selectItem: function _selectItem(item) {
-        var selected = this.state.selected;
-        var index = selected.indexOf(item);
-        if (index) {
-            selected.splice(index, index);
-        } else {
-            selected.push(item);
-        }
-        this.setState({ selected: selected });
+    _onResultsChange: function _onResultsChange() {
+        var resultsMap = this.props.store.getResults();
+        var facets = this.props.store.getFacets();
+        var totalCount = this.props.store.getTotalCount();
+        this.setState({ resultsMap: resultsMap, facets: facets, totalCount: totalCount });
     },
     /**
      * Action on line click.
      * @param {object} item  the item clicked
      */
-    _lineClick: function _lineClick(item) {
+    _lineClickHandler: function _lineClickHandler(item) {
         if (this.props.onLineClick) {
             this.props.onLineClick(item);
         }
     },
-    _prepareSearch: function _prepareSearch(searchValues) {
-        var _this = this;
-
-        clearTimeout(this._searchTimeout);
-        this._searchTimeout = setTimeout(function () {
-            _this.setState(assign({ isLoadingSearch: true }, searchValues, _this.getNoFetchState()), _this.search);
-        }, 500);
-    },
     /**
-     * return a SearchBar
-     * @returns {XML} the component
+     * redner the SearchBar
+     * @returns {HTML} the rendered component
      */
-    getSearchBarComponent: function getSearchBarComponent() {
-        return React.createElement(this.props.SearchBar, {
+    _renderSearchBar: function _renderSearchBar() {
+        return React.createElement(SearchBar, {
             "data-focus": "search-bar",
-            handleChange: this._prepareSearch,
             ref: "searchBar",
-            scope: this.props.scope,
-            scopes: this.props.scopeList,
-            loading: this.state.isLoadingSearch
+            scopes: this.state.reference.scopes,
+            loading: this.state.isLoading,
+            action: this._action,
+            store: this.props.store
         });
     },
+    /**
+     * redner the results
+     * @returns {HTML} the rendered component
+     */
+    _renderResults: function _renderResults() {
+        return React.createElement(Results, {
+            resultsMap: this.state.resultsMap,
+            totalCount: this.state.totalCount,
+            resultsFacets: this.state.facets,
+            groupComponent: this.props.groupComponent,
+            lineComponentMapper: this.props.lineComponentMapper,
+            isSelection: false,
+            lineClickHandler: this._lineClickHandler,
+            lineOperationList: this.props.lineOperationList,
+            groupingKey: this.props.scopeFacetKey,
+            initialRowsCount: this.props.groupMaxRows,
+            action: this._action
+        });
+    },
+    /**
+     * Render the component
+     * @return {HTML} the rendered component
+     */
     render: function render() {
         return React.createElement(
             "div",
             { className: "search-panel", "data-focus": "quick-search" },
-            this.getSearchBarComponent(),
-            this.getResultListComponent()
+            this._renderSearchBar(),
+            this._renderResults()
         );
     }
 };
 
 module.exports = builder(QuickSearchComponent);
 
-},{"../../../search/search-bar":300,"../common/group-by-mixin":285,"../common/scroll-info-mixin":286,"../common/search-mixin":287,"object-assign":274}],291:[function(require,module,exports){
+},{"../../../common/form/mixin/reference-behaviour":34,"../../../common/mixin/store-behaviour":56,"../../../search/search-bar":312,"../common/component/results":300}],303:[function(require,module,exports){
 "use strict";
 
-var DEFAULT_TIMEOUT = 1000; // 1s
+var DEFAULT_TIMEOUT = 500; // 0.5s
 var currentCall = {};
-function actionWrapper(searchAction, context) {
-  return function () {
-    context = context || this || {};
-    var args = arguments;
-    if (currentCall) {
-      //Cancel previous search action.
-      window.clearTimeout(currentCall.timeout);
-      if (currentCall.action && currentCall.action.cancel) {
-        currentCall.action.cancel();
-      }
-    }
-    currentCall.timeout = window.setTimeout(function () {
-      currentCall.action = searchAction.apply(context, args);
-      if (currentCall.action && currentCall.action.cancel) {
-        currentCall.action.then(function () {
-          currentCall = {};
-        });
-      } else {
-        currentCall = {};
-      }
-    }, DEFAULT_TIMEOUT);
-    return currentCall.timeout;
-  };
+function actionWrapper(searchAction, context, timeout) {
+    return function () {
+        context = context || this || {};
+        var args = arguments;
+        if (currentCall) {
+            //Cancel previous search action.
+            window.clearTimeout(currentCall.timeout);
+            if (currentCall.action && currentCall.action.cancel) {
+                currentCall.action.cancel();
+            }
+        }
+        currentCall.timeout = window.setTimeout(function () {
+            currentCall.action = searchAction.apply(context, args);
+            if (currentCall.action && currentCall.action.cancel) {
+                currentCall.action.then(function () {
+                    currentCall = {};
+                });
+            } else {
+                currentCall = {};
+            }
+        }, timeout !== undefined ? timeout : DEFAULT_TIMEOUT);
+        return currentCall.timeout;
+    };
 }
 module.exports = actionWrapper;
 
-},{}],292:[function(require,module,exports){
+},{}],304:[function(require,module,exports){
 // Components
 "use strict";
 
@@ -26083,7 +26813,7 @@ module.exports = React.createClass({
   }
 });
 
-},{"./mixin":294}],293:[function(require,module,exports){
+},{"./mixin":306}],305:[function(require,module,exports){
 "use strict";
 
 module.exports = {
@@ -26092,54 +26822,77 @@ module.exports = {
   summary: require("./summary")
 };
 
-},{"./action-wrapper":291,"./cartridge":292,"./summary":295}],294:[function(require,module,exports){
-
+},{"./action-wrapper":303,"./cartridge":304,"./summary":307}],306:[function(require,module,exports){
 // Mixins
+
 "use strict";
 
 var i18nMixin = require("../../../../common/i18n").mixin;
-var searchBehaviour = require("../../common/search-mixin").mixin;
-var searchWrappedAction = require("../action-wrapper");
-var SearchBar = require("../../../../search/search-bar").component;
 var referenceBehaviour = require("../../../../common/form/mixin/reference-behaviour");
 var storeBehaviour = require("../../../../common/mixin/store-behaviour");
-var React = window.React;
+
+// Components
+
+var SearchBar = require("../../../../search/search-bar").component;
+
+// Actions
+
+var actionBuilder = Focus.search.actionBuilder;
+
+// Store
+
+var advancedSearchStore = Focus.search.builtInStore.advancedSearchStore;
 
 module.exports = {
-  mixins: [i18nMixin, referenceBehaviour, storeBehaviour, searchBehaviour],
-  getDefaultProps: function getDefaultProps() {
-    return {
-      hasScopes: true
-    };
-  },
-  getInitialState: function getInitialState() {
-    return {
-      isLoading: false
-    };
-  },
-  _runSearch: function _runSearch() {
-    var criteria = this.refs.searchBar.getValue();
-    return this.props.searchAction(this._buildSearchCriteria(criteria.scope, criteria.query));
-  },
-  _SearchBarComponent: function _SearchBarComponent() {
-    return React.createElement(SearchBar, {
-      ref: "searchBar",
-      value: this.props.query,
-      scope: this.props.scope,
-      scopes: this.state.reference.scopes,
-      loading: this.state.isLoadingSearch,
-      handleChange: this._wrappedSearch,
-      referenceNames: this.props.referenceNames,
-      hasScopes: this.props.hasScopes
-    });
-  },
-  componentWillMount: function componentWillMount() {
-    this._wrappedSearch = searchWrappedAction(this._runSearch, this);
-    this._loadReference();
-  }
+    mixins: [i18nMixin, referenceBehaviour, storeBehaviour],
+    referenceNames: ["scopes"],
+    getDefaultProps: function getDefaultProps() {
+        return {
+            service: undefined,
+            store: advancedSearchStore,
+            onSearchCriteriaChange: undefined
+        };
+    },
+    getInitialState: function getInitialState() {
+        return {
+            isLoading: false
+        };
+    },
+    componentWillMount: function componentWillMount() {
+        var _this = this;
+
+        this._loadReference();
+        this._action = this.props.action || actionBuilder({
+            service: this.props.service,
+            identifier: this.props.store.identifier,
+            getSearchOptions: function () {
+                return _this.props.store.getValue.call(_this.props.store);
+            } // Binding the store in the function call
+        });
+        advancedSearchStore.addQueryChangeListener(this._onSearchCriteriaChange);
+        advancedSearchStore.addScopeChangeListener(this._onSearchCriteriaChange);
+    },
+    componentWillUnmount: function componentWillUnmount() {
+        advancedSearchStore.removeQueryChangeListener(this._onSearchCriteriaChange);
+        advancedSearchStore.removeScopeChangeListener(this._onSearchCriteriaChange);
+    },
+    _onSearchCriteriaChange: function _onSearchCriteriaChange() {
+        if (this.props.onSearchCriteriaChange) {
+            this.props.onSearchCriteriaChange();
+        }
+    },
+    _SearchBarComponent: function _SearchBarComponent() {
+        return React.createElement(SearchBar, {
+            ref: "searchBar",
+            scopes: this.state.reference.scopes,
+            loading: this.state.isLoading,
+            action: this._action,
+            store: advancedSearchStore
+        });
+    }
 };
 
-},{"../../../../common/form/mixin/reference-behaviour":33,"../../../../common/i18n":34,"../../../../common/mixin/store-behaviour":55,"../../../../search/search-bar":300,"../../common/search-mixin":287,"../action-wrapper":291}],295:[function(require,module,exports){
+},{"../../../../common/form/mixin/reference-behaviour":34,"../../../../common/i18n":35,"../../../../common/mixin/store-behaviour":56,"../../../../search/search-bar":312}],307:[function(require,module,exports){
 // Components
 "use strict";
 
@@ -26154,7 +26907,7 @@ module.exports = React.createClass({
     }
 });
 
-},{"./mixin":294}],296:[function(require,module,exports){
+},{"./mixin":306}],308:[function(require,module,exports){
 // Dependencies
 
 "use strict";
@@ -26165,6 +26918,11 @@ var ArgumentInvalidException = window.Focus.exception.ArgumentInvalidException;
 var numberFormatter = Focus.definition.formatter.number;
 
 var FacetData = {
+    getDefaultProps: function getDefaultProps() {
+        return {
+            type: "text"
+        };
+    },
     /**
      * Display name.
      */
@@ -26201,7 +26959,7 @@ var FacetData = {
 
 module.exports = builder(FacetData);
 
-},{}],297:[function(require,module,exports){
+},{}],309:[function(require,module,exports){
 // Dependencies
 
 "use strict";
@@ -26358,7 +27116,7 @@ var Facet = {
 
 module.exports = builder(Facet);
 
-},{"../../common/i18n/mixin":35,"./facet-data":296,"lodash/object/keys":261}],298:[function(require,module,exports){
+},{"../../common/i18n/mixin":36,"./facet-data":308,"lodash/object/keys":269}],310:[function(require,module,exports){
 "use strict";
 
 var _defineProperty = function (obj, key, value) { return Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); };
@@ -26543,7 +27301,7 @@ var FacetBox = {
 
 module.exports = builder(FacetBox);
 
-},{"../../common/i18n/mixin":35,"../../common/img":37,"../../mixin/stylable":85,"./facet":297,"lodash/object/omit":263,"object-assign":274}],299:[function(require,module,exports){
+},{"../../common/i18n/mixin":36,"../../common/img":38,"../../mixin/stylable":87,"./facet":309,"lodash/object/omit":271,"object-assign":284}],311:[function(require,module,exports){
 "use strict";
 
 module.exports = {
@@ -26551,7 +27309,7 @@ module.exports = {
   searchBar: require("./search-bar")
 };
 
-},{"./facet-box":298,"./search-bar":300}],300:[function(require,module,exports){
+},{"./facet-box":310,"./search-bar":312}],312:[function(require,module,exports){
 // Dependencies
 
 "use strict";
@@ -26559,7 +27317,7 @@ module.exports = {
 var builder = window.Focus.component.builder;
 var type = window.Focus.component.types;
 var React = window.React;
-var words = require("lodash/string/words");
+var actionWrapper = require("../../page/search/search-header/action-wrapper");
 
 // Components
 
@@ -26580,18 +27338,19 @@ var SearchBar = {
     getDefaultProps: function getDefaultProps() {
         return {
             placeholder: "Enter your search here...",
-            value: "",
             scopes: [],
             minChar: 0,
             loading: false,
             helpTranslationPath: "search.bar.help",
-            hasScopes: true
+            hasScopes: true,
+            identifier: undefined,
+            store: undefined,
+            action: undefined
         };
     },
     propTypes: {
         placeholder: type("string"),
         value: type("string"),
-        scope: type(["string", "number"]),
         scopes: type("array"),
         minChar: type("number"),
         loading: type("bool"),
@@ -26600,65 +27359,69 @@ var SearchBar = {
     },
     getInitialState: function getInitialState() {
         return {
-            value: this.props.value,
-            scope: this.props.scope,
-            loading: this.props.loading
+            loading: this.props.loading,
+            scope: this.props.store.getScope(),
+            query: this.props.store.getQuery()
         };
-    },
-    componentWillReceiveProps: function componentWillReceiveProps(newProps) {
-        if (newProps && newProps.loading !== undefined) {
-            this.setState({ loading: newProps.loading, scope: newProps.scope });
-        }
     },
     componentDidMount: function componentDidMount() {
         React.findDOMNode(this.refs.query).focus();
     },
-    getValue: function getValue() {
-        if (this.props.hasScopes) {
-            return {
-                scope: this.refs.scope.getValue(),
-                query: React.findDOMNode(this.refs.query).value
-            };
-        } else {
-            return {
-                query: React.findDOMNode(this.refs.query).value
-            };
-        }
+    componentWillMount: function componentWillMount() {
+        this.props.store.addQueryChangeListener(this._onQueryChangeFromStore);
+        this.props.store.addScopeChangeListener(this._onScopeChangeFromStore);
+    },
+    componentWillUnmoun: function componentWillUnmoun() {
+        this.props.store.removeQueryChangeListener(this._onQueryChangeFromStore);
+        this.props.store.removeScopeChangeListener(this._onScopeChangeFromStore);
+    },
+    _onQueryChangeFromStore: function _onQueryChangeFromStore() {
+        this.setState({
+            query: this.props.store.getQuery()
+        });
+    },
+    _onScopeChangeFromStore: function _onScopeChangeFromStore() {
+        this.setState({
+            scope: this.props.store.getScope()
+        });
     },
     _getClassName: function _getClassName() {
         return "form-control";
     },
-    _handleChange: function _handleChange() {
-        if (this.props.handleChange) {
-            return this.props.handleChange(this.getValue());
-        }
-    },
-    _handleKeyUp: function _handleKeyUp(event) {
+    _broadcastQueryChange: function _broadcastQueryChange() {
         var _this = this;
 
-        this.setState({ value: event.target.value }, function () {
-            if (_this.state.value.length >= _this.props.minChar) {
-                if (_this.props.handleKeyUp) {
-                    _this.props.handleKeyUp(event);
-                }
-                _this._handleChange();
-            }
-        });
+        actionWrapper(function () {
+            _this.props.action.updateProperties({
+                query: React.findDOMNode(_this.refs.query).value
+            });
+        })();
     },
-    _handleChangeScope: function _handleChangeScope(event) {
+    _onInputChange: function _onInputChange(event) {
+        this.setState({ query: event.target.value });
+        if (event.target.value.length >= this.props.minChar) {
+            this._broadcastQueryChange();
+        }
+    },
+    _onScopeSelection: function _onScopeSelection(scope) {
         this._focusQuery();
-        //If query not empty
-        var query = this.getValue().query;
-        if (!query || 0 === query.length) {
-            return;
-        }
-        if (this.props.handleChangeScope) {
-            this.props.handleChangeScope(event);
-        }
-        this._handleChange();
+        this.props.action.updateProperties({
+            scope: scope,
+            selectedFacets: {},
+            groupingKey: undefined
+        });
+        this.setState({ scope: scope });
     },
-    _handleOnClickScope: function _handleOnClickScope() {
-        this.setState({ scope: this.refs.scope.getValue() }, this._handleChangeScope(event));
+    _handleInputKeyPress: function _handleInputKeyPress(event) {
+        var _this = this;
+
+        if (event.key === "Enter") {
+            actionWrapper(function () {
+                _this.props.action.updateProperties({
+                    query: React.findDOMNode(_this.refs.query).value
+                });
+            }, null, 0)();
+        }
     },
     _renderHelp: function _renderHelp() {
         return React.createElement(
@@ -26670,23 +27433,21 @@ var SearchBar = {
     _focusQuery: function _focusQuery() {
         React.findDOMNode(this.refs.query).focus();
     },
-    setStateFromSubComponent: function setStateFromSubComponent() {
-        return this.setState(this.getValue(), this._focusQuery);
-    },
     render: function render() {
         var loadingClassName = this.props.loading ? "sb-loading" : "";
+        var scopeClassName = this.props.hasScopes ? "withScopes" : "noScopes";
         return React.createElement(
             "div",
-            { className: "" + this._getStyleClassName(), "data-focus": "search-bar" },
+            { className: "" + this._getStyleClassName() + " " + scopeClassName, "data-focus": "search-bar" },
             this.props.hasScopes && React.createElement(
                 "div",
                 { className: "sb-scope-choice" },
-                React.createElement(Scope, { handleOnClick: this._handleOnClickScope, list: this.props.scopes, ref: "scope", value: this.state.scope })
+                React.createElement(Scope, { onScopeSelection: this._onScopeSelection, list: this.props.scopes, ref: "scope", value: this.state.scope })
             ),
             React.createElement(
                 "div",
                 { className: "sb-input-search" },
-                React.createElement("input", { autofocus: true, className: this._getClassName(), onChange: this._handleKeyUp, ref: "query", type: "search", placeholder: this.props.placeholder, value: this.state.value }),
+                React.createElement("input", { autofocus: true, className: this._getClassName(), onKeyPress: this._handleInputKeyPress, onChange: this._onInputChange, ref: "query", type: "search", placeholder: this.props.placeholder, value: this.state.query }),
                 React.createElement("div", { className: "sb-spinner three-quarters-loader " + loadingClassName })
             ),
             this._renderHelp()
@@ -26696,15 +27457,13 @@ var SearchBar = {
 
 module.exports = builder(SearchBar);
 
-},{"../../common/i18n/mixin":35,"../../mixin/stylable":85,"./scope":301,"lodash/string/words":269}],301:[function(require,module,exports){
+},{"../../common/i18n/mixin":36,"../../mixin/stylable":87,"../../page/search/search-header/action-wrapper":303,"./scope":313}],313:[function(require,module,exports){
 "use strict";
 
 var builder = window.Focus.component.builder;
 var type = window.Focus.component.types;
-var React = window.React;
-
-var find = require("lodash/collection/find");
 var uuid = require("uuid");
+var find = require("lodash/collection/find");
 
 var scopeMixin = {
     /**
@@ -26719,11 +27478,9 @@ var scopeMixin = {
         return {
             list: [],
             value: undefined,
-            isDeployed: false
+            isDeployed: false,
+            onScopeSelection: undefined
         };
-    },
-    componentWillReceiveProps: function componentWillReceiveProps(nextProps) {
-        this.setState({ value: nextProps.value });
     },
     /**
      * Scope property validation.
@@ -26739,53 +27496,35 @@ var scopeMixin = {
      */
     getInitialState: function getInitialState() {
         return {
-            isDeployed: this.props.isDeployed,
-            value: this.props.value
+            isDeployed: this.props.isDeployed
         };
-    },
-    /**
-     * Get the value of the scope.
-     */
-    getValue: function getValue() {
-        return this.state.value;
     },
     _getClassName: function _getClassName() {
         return "form-control " + (this.props.className ? this.props.className : "");
     },
-    /**
-     * Internal function which handles the click on the scope line element and call the real handleOnclick if it is defined.
-     * @param {object} event - Event trigger by the search.
-     */
-    _handleOnClick: function _handleOnClick(event) {
-        var val = event.target.hasAttribute("value") ? event.target.getAttribute("value") : undefined;
-        this.setState({
-            value: val,
-            isDeployed: false
-        }, this.props.handleOnClick);
+    _onScopeClickHandler: function _onScopeClickHandler(scope) {
+        var _this = this;
+
+        return function () {
+            _this.setState({
+                isDeployed: false
+            });
+            _this.props.onScopeSelection(scope.code);
+        };
     },
     /**
      * Handle the click on the scope element.
      */
-    handleDeployClick: function handleDeployClick() {
+    _handleDeployClick: function _handleDeployClick() {
         this.setState({
             isDeployed: !this.state.isDeployed
-        });
-    },
-    /**
-     * Get the current active scope.
-     */
-    getActiveScope: function getActiveScope() {
-        var _this = this;
-
-        return find(this.props.list, function (scope) {
-            return scope.code === _this.state.value;
         });
     },
     /**
      * Return the css class for the scope.
      */
     scopeStyle: function scopeStyle() {
-        var activeScope = this.getActiveScope();
+        var activeScope = find(this.props.list, { code: this.props.value });
         if (!activeScope) {
             return "sb-scope-none";
         }
@@ -26798,7 +27537,7 @@ var scopeMixin = {
             return;
         }
         var scopes = this.props.list.map(function (scope) {
-            var selectedValue = _this.state.value === scope.code ? "active" : "";
+            var selectedValue = _this.props.value === scope.code ? "active" : "";
             //Add defaut Style to scope if not define
             var scopeCss = scope.style;
             if (!scopeCss) {
@@ -26808,7 +27547,7 @@ var scopeMixin = {
 
             return React.createElement(
                 "li",
-                { key: scope.code || uuid.v4(), value: scope.code, className: "" + selectedValue + " " + scope.style, onClick: _this._handleOnClick },
+                { key: scope.code || uuid.v4(), className: "" + selectedValue + " " + scope.style, onClick: _this._onScopeClickHandler(scope) },
                 scope.label
             );
         });
@@ -26829,7 +27568,7 @@ var scopeMixin = {
             { className: this._getClassName(), "data-focus": "scope" },
             React.createElement(
                 "div",
-                { className: cssClass, onClick: this.handleDeployClick },
+                { className: cssClass, onClick: this._handleDeployClick },
                 React.createElement("div", { className: this.scopeStyle() })
             ),
             this.renderScopeList()
@@ -26839,5 +27578,5 @@ var scopeMixin = {
 
 module.exports = builder(scopeMixin);
 
-},{"lodash/collection/find":100,"uuid":276}]},{},[1])(1)
+},{"lodash/collection/find":103,"uuid":286}]},{},[1])(1)
 });
