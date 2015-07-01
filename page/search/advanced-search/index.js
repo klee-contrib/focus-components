@@ -207,6 +207,7 @@ let AdvancedSearch = {
         return (
             <Results
                 action={this._action}
+                store={this.props.store}
                 resultsMap={this.state.results}
                 totalCount={this.state.totalCount}
                 groupComponent={this.props.groupComponent}
