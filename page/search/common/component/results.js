@@ -8,10 +8,11 @@ let clone = require('lodash/lang/clone');
 let keys = require('lodash/object/keys');
 let forEach = require('lodash/collection/forEach');
 let isEqual = require('lodash/lang/isEqual');
+let assign = require('lodash/object/assign');
 
 // Components
 
-let DefaultEmpty = require('./default-empty-component');
+let DefaultEmpty = require('./default-empty-component').component;
 let ListSelection = require('../../../../list/selection').list.component;
 let GroupWrapper = require('./group-wrapper').component;
 
@@ -37,6 +38,7 @@ let Results = {
             showMoreAdditionalRows: 5,
             scopeFacetKey: 'FCT_SCOPE',
             action: undefined,
+            store: undefined,
             resultsMap: undefined,
             totalCount: undefined,
             groupComponent: undefined,
@@ -157,9 +159,7 @@ let Results = {
         } else {
             let facetKey = this.props.groupingKey;
             let facetValue = key;
-            this._facetSelectionHandler({
-                [facetKey]: facetValue
-            });
+            this._facetSelectionHandler(facetKey, facetValue);
         }
     },
     /**
@@ -213,9 +213,19 @@ let Results = {
      * Facet selection handler
      * @param  {string} key the facet key
      */
-    _facetSelectionHandler(key) {
+    _facetSelectionHandler(key, value) {
+        let selectedFacets = assign({}, this.props.store.getSelectedFacets(), {
+            [key]: {
+                key: value,
+                data: {
+                    label: value,
+                    count: 0
+                }
+            }
+        });
         this.props.action.updateProperties({
-            groupingKey: key
+            groupingKey: undefined,
+            selectedFacets
         });
     },
     /**
