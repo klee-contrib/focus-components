@@ -6,6 +6,8 @@ let builder = require('focus').component.builder;
 
 let ListSummary = require('../../../list/summary/index').component;
 
+const scopeAll = 'ALL';
+
 let Summary = {
     /**
      * Get the default props
@@ -25,11 +27,8 @@ let Summary = {
      */
     _onScopeClick() {
         this.props.action.updateProperties({
-            scope: {
-                label: 'All',
-                code: 'ALL'
-            },
-            selectedFacets: undefined,
+            scope: scopeAll,
+            selectedFacets: {},
             groupingKey: undefined
         });
     },
@@ -38,7 +37,7 @@ let Summary = {
      * @return {HTML} the rendered component
      */
     render() {
-        let scope = this.props.scope !== 'ALL' ? {scope: {
+        let scope = this.props.scope !== scopeAll ? {scope: {
             code: this.props.scope,
             label: 'Scope',
             value: this.props.scope
