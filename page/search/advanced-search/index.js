@@ -47,6 +47,7 @@ let AdvancedSearch = {
     getDefaultProps() {
         return {
             facetConfig: {},
+            scopesConfig: {},
             isSelection: true,
             hasBackToTop: true,
             backToTopComponent: BackToTopComponent,
@@ -67,6 +68,7 @@ let AdvancedSearch = {
      * @type {Object}
      */
     propTypes: {
+        scopesConfig: type('object'),
         facetConfig: type('object'),
         isSelection: type('boolean'),
         hasBackToTop: type('boolean'),
@@ -152,6 +154,7 @@ let AdvancedSearch = {
                 selectedFacets={this.state.selectedFacets}
                 facetConfig={this.props.facetConfig}
                 action={this._action}
+                scopesConfig={this.props.scopesConfig}
             />
         );
     },
