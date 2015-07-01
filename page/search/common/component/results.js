@@ -119,7 +119,7 @@ let Results = {
      */
     _renderResultsList(list, key, count, isUnique) {
         let LineComponent = this.props.lineComponentMapper(key, list);
-        let hasMoreData = isUnique !== undefined && isUnique && list.length <= count;
+        let hasMoreData = isUnique !== undefined && isUnique && list.length < count;
         return (
             <div>
                 <ListSelection
@@ -145,7 +145,7 @@ let Results = {
             </div>
         );
     },
-    
+
     /**
      * Construct the show all action
      * @param  {string} key the group key where the show all has been clicked
