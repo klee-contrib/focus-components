@@ -89,7 +89,11 @@ let SearchBar = {
     },
     _onScopeSelection(scope) {
         this._focusQuery();
-        this.props.action.updateProperties({scope});
+        this.props.action.updateProperties({
+            scope,
+            selectedFacets: {},
+            groupingKey: undefined
+        });
         this.setState({scope});
     },
     _handleInputKeyPress(event) {
