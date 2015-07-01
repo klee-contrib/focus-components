@@ -84,17 +84,20 @@ let QuickSearchComponent = {
             getSearchOptions: () => {return this.props.store.getValue.call(this.props.store); } // Binding the store in the function call
         });
         this._loadReference();
-        this.props.store.addQueryChangeListener(this._action.search);
-        this.props.store.addScopeChangeListener(this._action.search);
+        this.props.store.addQueryChangeListener(this._triggerSearch);
+        this.props.store.addScopeChangeListener(this._triggerSearch);
         this.props.store.addResultsChangeListener(this._onResultsChange);
     },
     /**
      * Unregister the store listeners
      */
     componentWillUnmount() {
-        this.props.store.removeQueryChangeListener(this._action.search);
-        this.props.store.removeScopeChangeListener(this._action.search);
+        this.props.store.removeQueryChangeListener(this._triggerSearch);
+        this.props.store.removeScopeChangeListener(this._triggerSearch);
         this.props.store.removeResultsChangeListener(this._onResultsChange);
+    },
+    _triggerSearch() {
+        this._action.search();
     },
     /**
      * Results change handler
