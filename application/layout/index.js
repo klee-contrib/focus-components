@@ -4,13 +4,15 @@ var AppHeader = require('./app-header');
 var LoadingBar = require('../loading-bar').component;
 var stylableBehaviour = require('../../mixin/stylable');
 var MessageCenter = require('../message-center').component;
+var ErrorCenter = require('../error-center').component;
 var contentActionsMixin = {
   mixins: [stylableBehaviour],
   getDefaultProps: function getDefaultLayoutProps(){
     return {
       AppHeader: AppHeader,
       LoadingBar: LoadingBar,
-      MessageCenter: MessageCenter
+      MessageCenter: MessageCenter,
+      ErrorCenter: ErrorCenter
     };
   },
   /** @inheriteddoc */
@@ -19,6 +21,7 @@ var contentActionsMixin = {
       <div className={this._getStyleClassName()} data-focus='layout'>
         <this.props.LoadingBar />
         <this.props.MessageCenter />
+        <this.props.ErrorCenter />
         <this.props.AppHeader />
         <div data-focus='menu'>{this.props.MenuLeft &&<this.props.MenuLeft />}</div>
         <div data-focus='page-content'></div>

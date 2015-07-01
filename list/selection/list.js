@@ -11,19 +11,19 @@ var checkIsNotNull = require('focus').util.object.checkIsNotNull;
 
 var listMixin = {
     /**
-     * Display name.
-     */
+    * Display name.
+    */
     displayName: 'selection-list',
 
     /**
-     * Mixin dependancies.
-     */
+    * Mixin dependancies.
+    */
     mixins: [translationMixin, infiniteScrollMixin, referenceMixin],
 
     /**
-     * Default properties for the list.
-     * @returns {{isSelection: boolean}} the default properties
-     */
+    * Default properties for the list.
+    * @returns {{isSelection: boolean}} the default properties
+    */
     getDefaultProps: function getListDefaultProps(){
         return {
             data: [],
@@ -36,9 +36,9 @@ var listMixin = {
     },
 
     /**
-     * list property validation.
-     * @type {Object}
-     */
+    * list property validation.
+    * @type {Object}
+    */
     propTypes: {
         data: type('array'),
         isSelection: type('bool'),
@@ -53,16 +53,16 @@ var listMixin = {
     },
 
     /**
-     * called before component mount
-     */
+    * called before component mount
+    */
     componentWillMount: function componentWillMount(){
-      checkIsNotNull('lineComponent', this.props.lineComponent);
+        checkIsNotNull('lineComponent', this.props.lineComponent);
     },
 
     /**
-     * Return selected items in the list.
-     * @return {Array} selected items
-     */
+    * Return selected items in the list.
+    * @return {Array} selected items
+    */
     getSelectedItems: function getListSelectedItems(){
         var selected = [];
         for(var i = 1; i < this.props.data.length + 1; i++){
@@ -76,9 +76,9 @@ var listMixin = {
     },
 
     /**
-     * Render lines of the list.
-     * @returns {*} DOM for lines
-     */
+    * Render lines of the list.
+    * @returns {*} DOM for lines
+    */
     _renderLines: function renderLines(){
         var lineCount = 1;
         var LineComponent = this.props.lineComponent;
@@ -86,16 +86,16 @@ var listMixin = {
             var isSelected;
             switch(this.props.selectionStatus){
                 case 'none':
-                    isSelected = false;
-                    break;
+                isSelected = false;
+                break;
                 case 'selected':
-                    isSelected = true;
-                    break;
+                isSelected = true;
+                break;
                 case 'partial':
-                    isSelected = undefined;
-                    break;
+                isSelected = undefined;
+                break;
                 default:
-                    isSelected = false;
+                isSelected = false;
             }
             return React.createElement(LineComponent, {
                 key: line[this.props.idField],
@@ -126,25 +126,26 @@ var listMixin = {
             var style = {className: 'primary'};
             return (
                 <li className="sl-button">
-                    <Button label="list.button.showMore"
-                        type="button"
-                        handleOnClick={this.handleShowMore}
-                        style={style}/>
+                <Button label="list.button.showMore"
+                type="button"
+                handleOnClick={this.handleShowMore}
+                style={style}
+                />
                 </li>
             );
         }
     },
 
     /**
-     * Render the list.
-     * @returns {XML} DOM of the component
-     */
+    * Render the list.
+    * @returns {XML} DOM of the component
+    */
     render: function renderList(){
         return (
             <ul data-focus="selection-list">
-              {this._renderLines()}
-              {this._renderLoading()}
-              {this._renderManualFetch()}
+            {this._renderLines()}
+            {this._renderLoading()}
+            {this._renderManualFetch()}
             </ul>
         );
     }

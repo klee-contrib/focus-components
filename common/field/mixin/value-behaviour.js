@@ -35,6 +35,9 @@ var valueBehaviourMixin = {
    * @param {event} event - The event to set.
    */
   onInputChange: function fieldOnInputChanges(event){
+    if(this.props.onChange){
+      return this.props.onChange(event);
+    }
     this.setState({error: undefined, value: this.getValue()});
   }
 };

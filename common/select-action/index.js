@@ -27,9 +27,6 @@ var selectActionMixin = {
      */
     _handleAction: function (action) {
         return (event)=> {
-            if (event) {
-                event.preventDefault();
-            }
             if (this.props.operationParam) {
                 action(this.props.operationParam);
             } else {
@@ -60,9 +57,6 @@ var selectActionMixin = {
         }
         return liList;
     },
-    _dropdownToggleClickHandler: function () {
-        React.findDOMNode(this.refs['dropdown-toggle']).click();
-    },
     /**
      * Render the component.
      * @returns  {XML} Htm code.
@@ -74,9 +68,8 @@ var selectActionMixin = {
         var liList = this._getList(this.props.operationList);
         //todo : a revoir pour gérer les boutons d'action groupés
         return (
-            <div data-focus="select-action" className='' onClick={this._dropdownToggleClickHandler}>
-                <a className={`btn btn-fab btn-default fa fa-${this.props.icon}`}></a>
-                <a className="dropdown-toggle" data-toggle="dropdown" ref='dropdown-toggle'></a>
+            <div data-focus="select-action" className=''>
+                <a className={`dropdown-toggle btn btn-fab btn-default fa fa-${this.props.icon}`} data-toggle="dropdown" ref='dropdown-toggle'></a>
                 <ul className="dropdown-menu">{liList}</ul>
             </div>
         );

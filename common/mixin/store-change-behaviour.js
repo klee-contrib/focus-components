@@ -18,9 +18,11 @@ var changeBehaviourMixin = {
                  Focus.message.addInformationMessage('detail.saving');
                  break;*/
                 case 'saved':
-                    Focus.message.addSuccessMessage('detail.saved');
-                    //Change the page mode as edit
-                    this.setState({isEdit: false});
+                    if(this.props.hasForm){
+                      Focus.message.addSuccessMessage('detail.saved');
+                      //Change the page mode as edit
+                      this.setState({isEdit: false});
+                    }
                     break;
             }
         }

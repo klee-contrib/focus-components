@@ -16,8 +16,21 @@ let Overlay = React.createClass({
      */
     componentDidMount: function () {
         React.findDOMNode(this.refs.overlay).addEventListener('mousewheel', this._onScroll);
+    },
+    /**
+     * Store the body overgflow property, and set it to hidden
+     * @private
+     */
+    _storeAndHideBodyOverflow() {
         this._oldScroll = document.body.style['overflow-y'];
         document.body.style['overflow-y'] = 'hidden';
+    },
+    /**
+     * Restore body overflow property
+     * @private
+     */
+    _restoreBodyOverflow() {
+        document.body.style['overflow-y'] = this._oldScroll;
     },
     /**
      * Component will unmount event handler.
@@ -25,7 +38,6 @@ let Overlay = React.createClass({
      */
     componentWillUnmount: function () {
         React.findDOMNode(this.refs.overlay).removeEventListener('mousewheel', this._onScroll);
-        document.body.style['overflow-y'] = this._oldScroll;
     },
     /**
      * Mouse wheel event handler.
@@ -102,6 +114,9 @@ let popin = {
         overlay: type('bool'),
         open: type('bool')
     },
+    _onWheel(event) {
+        React.findDOMNode(this.refs['popin-window']).scrollTop += event.deltaY > 0 ? 100 : -100;
+    },
     /**
      * Toggle the popin's open state
      */
@@ -116,10 +131,16 @@ let popin = {
             popinOverlay.classList.add(popinOverlay.getAttribute('data-closing-animation'));
             timeout = 200;
         }
+        if (this.state.opened && this.props.onPopinClose) {
+            this.props.onPopinClose();
+        }
         setTimeout(() => {
             this.setState({
                 opened: !this.state.opened
             });
+            if (this.refs['popin-overlay']) {
+                this.state.opened ? this.refs['popin-overlay']._restoreBodyOverflow() : this.refs['popin-overlay']._storeAndHideBodyOverflow();
+            }
         }, timeout);
     },
     /**
@@ -134,7 +155,9 @@ let popin = {
                 <Overlay clickHandler={this.props.modal && this.toggleOpen} ref='popin-overlay' resize={this.props.type=='full'} show={this.props.overlay}>
                     <div {...this._getAnimationProps()} data-focus='popin-window' onClick={this._preventPopinClose} ref='popin-window'>
                         <i className='fa fa-close' onClick={this.toggleOpen}></i>
-                        {this.props.children}
+                        <div onWheel={this._onWheel}>
+                            {this.props.children}
+                        </div>
                     </div>
                 </Overlay>
                 }
