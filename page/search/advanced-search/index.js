@@ -122,7 +122,7 @@ let AdvancedSearch = {
     _onStoreChangeWithSearch() {
         let query = this.props.store.getQuery();
         let scope = this.props.store.getScope();
-        let selectedFacets = this.props.store.getSelectedFacets();
+        let selectedFacets = this.props.store.getSelectedFacets() || {};
         let groupingKey = this.props.store.getGroupingKey();
         let sortBy = this.props.store.getSortBy();
         let sortAsc = this.props.store.getSortAsc();
