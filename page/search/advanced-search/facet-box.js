@@ -6,6 +6,8 @@ let builder = require('focus').component.builder;
 
 let FacetBox = require('../../../search/facet-box').component;
 
+const scopeFacetKey = 'FCT_SCOPE';
+
 let Box = {
     /**
      * Get the default props
@@ -16,7 +18,8 @@ let Box = {
             facets: {},
             selectedFacets: {},
             facetConfig: {},
-            action: undefined
+            action: undefined,
+            scopesConfig: undefined
         });
     },
     /**
@@ -25,13 +28,20 @@ let Box = {
      * @param  {Boolean} isDisableGroup     override the groupinKey ?
      */
     _onFacetSelection(facetComponentData, isDisableGroup) {
-        let newProperties = {
-            selectedFacets: facetComponentData.selectedFacetList
-        };
-        if (isDisableGroup) {
-            newProperties.groupingKey = undefined;
+        if (facetComponentData.selectedFacetList[scopeFacetKey]) {
+            this.props.action.updateProperties({
+                scope: this.props.scopesConfig[facetComponentData.selectedFacetList[scopeFacetKey].key]
+            });
+        } else {
+            let newProperties = {
+                selectedFacets: facetComponentData.selectedFacetList
+            };
+            if (isDisableGroup) {
+                newProperties.groupingKey = undefined;
+            }
+            this.props.action.updateProperties(newProperties);
         }
-        this.props.action.updateProperties(newProperties);
+
     },
     /**
      * Render the component
