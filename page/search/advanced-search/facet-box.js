@@ -1,6 +1,7 @@
 // Dependencies
 
 let builder = require('focus').component.builder;
+let keys = require('lodash/object/keys');
 
 // Components
 
@@ -28,11 +29,12 @@ let Box = {
      * @param  {Boolean} isDisableGroup     override the groupinKey ?
      */
     _onFacetSelection(facetComponentData, isDisableGroup) {
-        if (facetComponentData.selectedFacetList[scopeFacetKey]) {
+        if (keys(facetComponentData.selectedFacetList).length === 1 && facetComponentData.selectedFacetList[scopeFacetKey]) {
             this.props.action.updateProperties({
                 scope: this.props.scopesConfig[facetComponentData.selectedFacetList[scopeFacetKey].key]
             });
         } else {
+            delete facetComponentData.selectedFacetList[scopeFacetKey];
             let newProperties = {
                 selectedFacets: facetComponentData.selectedFacetList
             };
