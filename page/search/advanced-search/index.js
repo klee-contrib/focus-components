@@ -103,6 +103,9 @@ let AdvancedSearch = {
             getSearchOptions: () => {return this.props.store.getValue.call(this.props.store); } // Binding the store in the function call
         });
     },
+    componentDidMount() {
+        this._action.search();
+    },
     /**
      * Un-register the store listeners
      */
