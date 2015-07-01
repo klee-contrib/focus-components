@@ -85,9 +85,7 @@ let AdvancedSearch = {
         onLineClick: type('function')
     },
     getInitialState() {
-        return ({
-
-        });
+        return (this._getNewStateFromStore());
     },
     /**
      * Register the store listeners
