@@ -31,3 +31,16 @@ table.table-list {
   }
 }
 
+[data-focus='table-line'] {
+    position: relative;
+
+    [data-focus='table-line-actions'] {
+        display: none;
+    }
+
+    &:hover {
+        [data-focus='table-line-actions'] {
+            display: inline-block;
+        }
+    }
+}
