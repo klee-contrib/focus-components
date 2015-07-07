@@ -106,6 +106,7 @@ let tableMixin = {
                             ref={`line${index}`}
                             reference={this._getReference()}
                             onSelection={this.props.onSelection}
+                            onLineClick={this.props.onLineClick}
                             operationList={this.props.operationList}
                         />
                     );

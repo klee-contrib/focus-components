@@ -59,8 +59,15 @@ let lineMixin = {
             );
         }
     },
+    _onLineClickHandler(data) {
+        return () => {this.props.onLineClick(data); };
+    },
     render() {
-        return this.renderLineContent(this.props.data);
+        return (
+            <div onClick={this._onLineClickHandler(this.props.onLineClick)}>
+                {this.renderLineContent(this.props.data)}
+            </div>
+        );
     }
 };
 
