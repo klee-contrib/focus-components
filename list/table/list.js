@@ -1,13 +1,21 @@
-var builder = require('focus').component.builder;
-var React = require('react');
-var type = require('focus').component.types;
-var infiniteScrollMixin = require('../mixin/infinite-scroll').mixin;
-var translationMixin = require('../../common/i18n').mixin;
-var referenceMixin = require('../../common/mixin/reference-property');
-var checkIsNotNull = require('focus').util.object.checkIsNotNull;
-var Button = require('../../common/button/action').component;
+// Dependencies
 
-var tableMixin = {
+let builder = require('focus').component.builder;
+let type = require('focus').component.types;
+let checkIsNotNull = require('focus').util.object.checkIsNotNull;
+let React = require('react');
+
+// Mixins
+
+let infiniteScrollMixin = require('../mixin/infinite-scroll').mixin;
+let translationMixin = require('../../common/i18n').mixin;
+let referenceMixin = require('../../common/mixin/reference-property');
+
+// Components
+
+let Button = require('../../common/button/action').component;
+
+let tableMixin = {
     /**
      * React tag name.
      */
@@ -18,11 +26,12 @@ var tableMixin = {
      */
     mixins: [translationMixin, infiniteScrollMixin, referenceMixin],
 
-    getDefaultProps: function getListDefaultProps(){
+    getDefaultProps() {
         return {
             data: [],
             idField: 'id',
-            isLoading: false
+            isLoading: false,
+            operationList: []
         };
     },
 
@@ -31,6 +40,7 @@ var tableMixin = {
         onLineClick: type('func'),
         idField: type('string'),
         lineComponent: type('func', true),
+        operationList: type('array'),
         columns: type('object'),
         sortColumn: type('func'),
         isloading: type('bool'),
@@ -40,13 +50,13 @@ var tableMixin = {
     /**
      * called before component mount
      */
-    componentWillMount: function componentWillMount(){
+    componentWillMount(){
         checkIsNotNull('lineComponent', this.props.lineComponent);
     },
 
-    _renderTableHeader: function renderTableHeader(){
-        var headerCols = [];
-        for(var field in this.props.columns){
+    _renderTableHeader(){
+        let headerCols = [];
+        for(let field in this.props.columns){
             headerCols.push(
                 this._renderColumnHeader(field)
             );
@@ -60,21 +70,21 @@ var tableMixin = {
         );
     },
 
-    _sortColumnAction: function sortColumnAction(column, order) {
-        var currentComponent = this;
+    _sortColumnAction(column, order) {
+        let currentComponent = this;
         return function(event) {
             event.preventDefault();
             currentComponent.props.sortColumn(column, order);
         };
     },
 
-    _renderColumnHeader: function(name){
-        var colProperties = this.props.columns[name];
-        var sort;
+    _renderColumnHeader(name) {
+        let colProperties = this.props.columns[name];
+        let sort;
         if(!this.props.isEdit && !colProperties.noSort ){
-            var order = colProperties.sort ? colProperties.sort : 'asc';
-            var iconClass = 'fa fa-sort-' + order;
-            var icon = <i className={iconClass}/>;
+            let order = colProperties.sort ? colProperties.sort : 'asc';
+            let iconClass = 'fa fa-sort-' + order;
+            let icon = <i className={iconClass}/>;
             sort = <a className='sort' href='#' data-name={name} onClick={this._sortColumnAction(name, (order == 'asc' ? 'desc' : 'asc' ))}>{icon}</a>;
         }
         return (
@@ -86,21 +96,22 @@ var tableMixin = {
     },
 
     _renderTableBody: function renderTableBody(){
-        var lineCount = 1;
-        var lineComponent = this.props.lineComponent;
-        var content = this.props.data.map((line)=>{
-            return React.createElement(lineComponent, {
-                key: line[this.props.idField],
-                data: line,
-                ref: 'line' + lineCount++,
-                reference: this._getReference(),
-                onSelection: this.props.onSelection
-            });
-        });
         return (
-          <tbody className="table-body">
-            {content}
-          </tbody>
+            <tbody className="table-body">
+                {this.props.data.map((line, index) => {
+                    return (
+                        <this.props.lineComponent
+                            key={line[this.props.idField]}
+                            data={line}
+                            ref={`line${index}`}
+                            reference={this._getReference()}
+                            onSelection={this.props.onSelection}
+                            onLineClick={this.props.onLineClick}
+                            operationList={this.props.operationList}
+                        />
+                    );
+                })}
+            </tbody>
         );
     },
 
@@ -112,7 +123,7 @@ var tableMixin = {
             return (
                 <tbody className="table-loading">
                     <tr>
-                        <td>{this.i18n('list.loading')} ...</td>
+                        <td>{`${this.i18n('list.loading')} ...`}</td>
                     </tr>
                 </tbody>
             );
@@ -121,15 +132,17 @@ var tableMixin = {
 
     _renderManualFetch: function renderManualFetch(){
         if(this.props.isManualFetch && this.props.hasMoreData){
-            var style = {className: 'primary'};
+            let style = {className: 'primary'};
             return (
                 <tfoot className="table-manualFetch">
                     <tr>
                         <td colSpan={Object.keys(this.props.columns).length}>
-                            <Button label="list.button.showMore"
-                                    type="button"
-                                    handleOnClick={this.handleShowMore}
-                                    style={style}/>
+                            <Button
+                                label="list.button.showMore"
+                                type="button"
+                                handleOnClick={this.handleShowMore}
+                                style={style}
+                            />
                         </td>
                     </tr>
                 </tfoot>
@@ -141,7 +154,7 @@ var tableMixin = {
      * Render the list.
      * @return {XML} the render of the table list.
      */
-    render: function render(){
+    render() {
         return (
             <table className="table-list">
                 {this._renderTableHeader()}
