@@ -24,6 +24,14 @@ fieldFor: function(name, options) {
   return React.createElement(Field, fieldProps);
 },
 /**
+ * Display two different fields, depending on wheter the user is editing the form or not
+ * @param  {Object} config the configuration, with the structure {consultField: ..., editField: ...}
+ * @return {Object} the rendered resulting field
+ */
+dualFieldFor({consultField, editField}) {
+  return this.state.isEdit ? editField : consultField;
+},
+/**
  * Select component for the component.
  * @param {string} name - property name.
  * @param {string} listName - list name.
