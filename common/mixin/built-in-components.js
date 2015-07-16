@@ -114,7 +114,7 @@ buttonDelete: function buttonDelete() {
     type: 'button',
     style: {className: 'delete'},
     handleOnClick: function handleOnClickEdit(){
-      form.action.delete(form._getId());
+      form.action.delete(form._getEntity());
     }
   });
 },
