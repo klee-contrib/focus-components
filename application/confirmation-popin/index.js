@@ -1,64 +1,74 @@
-var builder = require('focus').component.builder;
-var popin = require('../popin').mixin;
-var Button = require('../../common/button/action').component;
-var type = require('focus').component.types;
+// Dependencies
 
-/**
- * Popin mixin
- * @type {object}
- */
-var popinMixin = {
-  mixins: [popin],
+let builder = require('focus').component.builder;
+let type = require('focus').component.types;
+
+// Mixins
+
+let i18nMixin = require('../../common/i18n/mixin');
+
+// Components
+
+let Popin = require('../popin').component;
+let Button = require('../../common/button/action').component;
+
+let ConfirmationPopin = {
   /**
    * Display name.
    */
   displayName: 'confirmation-popin',
-
-  /** @inheritdoc */
-  getDefaultProps: function () {
+  mixins: [i18nMixin],
+  getDefaultProps() {
     return {
-      btnClose: 'Cancel',
-      btnConfirm: 'Ok'
+      cancelButtonLabel: 'popin.confirmation.cancel',
+      confirmButtonLabel: 'popin.confirmation.confirm'
     };
   },
 
-  /** @inheritdoc */
   propTypes: {
-    btnClose: type('string'),
-    btnConfirm: type('string')
+    cancelButtonLabel: type('string'),
+    confirmButtonLabel: type('string'),
+    cancelHandler: type(['function', 'object']),
+    confirmHandler: type(['function', 'object'])
   },
 
   /**
-   * Confirmation action
+   * Confirmation action handler
    */
-  _handleConfirm: function openModal() {
-    this.closeModal();
-    this.handleClikOnOk();
+  _handleConfirm() {
+    this.toggleOpen();
+    if (this.props.confirmHandler) {
+      this.props.confirmHandler();
+    }
   },
+
   /**
-   * Cancel action
+   * Cancel action handler
    */
-  _handleCancel: function closeModal() {
-    this.closeModal();
-    this.handleClikOnCancel();
+  _handleCancel() {
+    this.toggleOpen();
+    if (this.props.cancelHandler) {
+      this.props.cancelHandler();
+    }
   },
-  /**
-   * Render the footer content.
-   * @returns {XML} - footer content
-   */
-  renderPopinFooter: function renderPopinFooter(){
-    var closeStyle = {
-      className: 'confirmation-popin-close'
-    };
-    var confirmStyle = {
-      className: 'confirmation-popin-confirm btn-primary'
-    };
-    return <div className='btns-confirmation-popin'>
-            <Button handleOnClick = {this._handleCancel} label = {this.props.btnClose} style = {closeStyle}/>
-            <Button handleOnClick = {this._handleConfirm} label = {this.props.btnConfirm} style = {confirmStyle} />
-          </div>;
+
+  toggleOpen() {
+    this.refs.popin.toggleOpen();
+  },
+
+  render() {
+    return (
+      <div data-focus='confirmation-popin'>
+        <Popin  ref='popin'>
+          {this.props.children}
+          <div data-focus='button-stack'>
+            <Button handleOnClick={this._handleCancel} label={this.i18n(this.props.cancelButtonLabel)}/>
+            <Button handleOnClick={this._handleConfirm} label={this.i18n(this.props.confirmButtonLabel)} option='primary'/>
+          </div>
+        </Popin>
+      </div>
+    );
   }
-
 };
 
-module.exports = builder(popinMixin);
+module.exports = builder(ConfirmationPopin);
