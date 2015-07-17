@@ -29,6 +29,11 @@ var formMixin = {
        */
       hasEdit: true,
       /**
+       * Defines if the form has a delete action button.
+       * @type {Boolean}
+       */
+      hasDelete: false,
+      /**
        * Defines
        * @type {Boolean}
        */
@@ -106,24 +111,26 @@ var formMixin = {
     return `form-horizontal ${this.props.style.className}`;
   },
   _renderActions: function renderActions(){
-    if(this.renderActions){return this.renderActions(); }
-    if(this.state.isEdit){
-      return this._renderEditActions();
+    if (this.renderActions) {
+      return this.renderActions();
     }
-    return this._renderConsultActions();
+    return this.state.isEdit ? this._renderEditActions() : this._renderConsultActions();
   },
   _renderEditActions: function _renderEditActions(){
-    if(this.renderEditActions){return this.renderEditActions(); }
-    return (
-      <div className="button-bar">
+    return this.renderEditActions ? this.renderEditActions() : (
+      <span>
         {this.buttonSave()}
         {this.buttonCancel()}
-      </div>
+      </span>
     );
   },
   _renderConsultActions: function _renderConsultActions(){
-    if(this.renderConsultActions){return this.renderConsultActions(); }
-    return this.buttonEdit();
+    return this.renderConsultActions ? this.renderConsultActions() : (
+      <div>
+        {this.props.hasEdit && this.buttonEdit()}
+        {this.props.hasDelete && this.buttonDelete()}
+      </div>
+    );
   },
   /**
    * Handle the form submission.

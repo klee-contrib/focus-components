@@ -112,6 +112,8 @@ buttonDelete: function buttonDelete() {
   return React.createElement(Button, {
     label: 'button.delete',
     type: 'button',
+    shape: 'link',
+    icon: 'trash',
     style: {className: 'delete'},
     handleOnClick: function handleOnClickEdit(){
       form.action.delete(form._getEntity());
@@ -126,7 +128,7 @@ buttonEdit: function buttonEdit() {
   var form = this;
   return React.createElement(Button, {
     label: 'button.edit',
-    shape:'link',
+    shape: 'link',
     type: 'button',
     icon: 'pencil',
     handleOnClick: function handleOnClickEdit(){
