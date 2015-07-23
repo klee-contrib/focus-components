@@ -52,7 +52,7 @@
             var begin = criteria.urlData.skip;
             var end = begin + criteria.urlData.top;
             return Promise.resolve(fakeData.slice(begin, end)).then(function(d){
-                return {dataList: d, totalCount: d.length}
+                return {dataList: d, totalCount: fakeData.length}
             });
     };
 

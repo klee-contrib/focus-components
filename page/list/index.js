@@ -31,6 +31,9 @@ let listPageMixin = {
             pickProps(props){return props;}
         };
     },
+    getInitialState(){
+        return {};
+    },
     /** @inheritdoc */
     propTypes: {
         //Store object.
@@ -76,12 +79,12 @@ let listPageMixin = {
      */
     _buildListProps(){
         let {props, state} = this;
-        let {dataList} = (state || {});
+        let {dataList, totalCount} = state;
         dataList = dataList || [];
         return assign(props, state, {
             data: dataList,
             fetchNextPage: this._action.load,
-            hasMoreData: false
+            hasMoreData: dataList.length < totalCount
         });
     },
     /** @inheritdoc */
