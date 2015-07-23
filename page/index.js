@@ -8,6 +8,7 @@ module.exports = {
   detail: detailMixin,
   search: require('./search'),
   mixin: require('./mixin'),
+  list: require('./list'),
   /**
    * Helper to creates a detail page.
    * @param {object} config - The page configuration.
