@@ -63,11 +63,7 @@ let lineMixin = {
         return () => {this.props.onLineClick(data); };
     },
     render() {
-        return (
-            <div onClick={this._onLineClickHandler(this.props.onLineClick)}>
-                {this.renderLineContent(this.props.data)}
-            </div>
-        );
+        return this.renderLineContent(this.props.data);
     }
 };
 

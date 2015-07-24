@@ -6,9 +6,10 @@
     "scripts": {
         "test": "exit 0",
         "example": "node static-server.js",
-        "build": "gulp browserify",
+        "build": "sh ./build.sh",
         "watch": "gulp watchify",
-        "prepublish": "gulp build"
+        "prepublish": "gulp build",
+        "serve": "sh ./build.sh && node static-server.js"
     },
     "repository": {
         "type": "git",
@@ -191,6 +192,10 @@
         {
             "name": "block",
             "path": "common/block"
+        },
+        {
+            "name": "list-page",
+            "path": "page/list"
         },
         {
             "name": "quick-search",
