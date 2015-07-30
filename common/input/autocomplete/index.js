@@ -4,6 +4,7 @@
 
 let builder = Focus.component.builder;
 let types = Focus.component.types;
+let find = require('lodash/collection/find');
 
 let Autocomplete = {
     componentWillMount() {
@@ -13,10 +14,12 @@ let Autocomplete = {
         }
     },
     componentDidMount() {
-        this._awesomeplete = new Awesomplete(document.querySelector('input[data-focus="autocomplete-input"]'), {
-            list: this.props.pickList
+        let {input} = this.refs;
+        let {pickList} = this.props;
+        this._awesomeplete = new Awesomplete(React.findDOMNode(input), {
+            list: pickList
         });
-        this._awesomeplete.input.addEventListener('awesomplete-select', event => this.props.selectionHandler(event.text));
+        this._awesomeplete.input.addEventListener('awesomplete-select', event => this._selectionHandler(event.text));
     },
     getDefaultProps() {
         return {
@@ -29,12 +32,37 @@ let Autocomplete = {
         pickList: types('array'),
         type: types('string')
     },
-    render() {
+    _selectionHandler(value) {
+        const {pickList} = this.props;
+        const selectedCode = find(pickList, {value}).code;
+        this.setState({selectedCode});
+    },
+    _extractListFromData(data) {
+        return data.map(datum => datum.value);
+    },
+    getValue() {
+        const {pickList} = this.props;
+        const {selectedCode} = this.state;
+        // Check if current value is in the given pickList, otherwise return undefined
+        if (find(pickList, {code: selectedCode})) {
+            return selectedCode;
+        } else {
+            return undefined;
+        }
+    },
+    _renderEdit() {
         return (
             <div data-focus='autocomplete'>
-                <input data-focus='autocomplete-input' ref='input'/>
+                <input ref='input'/>
             </div>
         );
+    },
+    _renderConsult() {
+
+    },
+    render() {
+        let {isEdit} = this.props;
+        return isEdit ? this._renderEdit() : this._renderConsult();
     }
 };
 
