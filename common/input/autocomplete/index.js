@@ -1,3 +1,5 @@
+/* globals Awesomplete */
+
 // Dependencies
 
 let builder = Focus.component.builder;
@@ -10,9 +12,16 @@ let Autocomplete = {
             throw new Error('Please include Awesomplete to your application. See http://leaverou.github.io/awesomplete/ for more information');
         }
     },
+    componentDidMount() {
+        this._awesomeplete = new Awesomplete(document.querySelector('input[data-focus="autocomplete-input"]'), {
+            list: this.props.pickList
+        });
+        this._awesomeplete.input.addEventListener('awesomplete-select', event => this.props.selectionHandler(event.text));
+    },
     getDefaultProps() {
         return {
             pickList: [],
+            selectionHandler: text => console.log(`Autocomplete selection : ${text}`),
             type: 'simple'
         };
     },
@@ -22,17 +31,8 @@ let Autocomplete = {
     },
     render() {
         return (
-            <div data-focus='autocomple'>
-                <input className='awesomplete' list='focus-autocomplete-list'/>
-                <datalist id='focus-autocomplete-list'>
-                    {this.props.pickList.map((choice) => {
-                        return (
-                            <option>
-                                {choice}
-                            </option>
-                        );
-                    })}
-                </datalist>
+            <div data-focus='autocomplete'>
+                <input data-focus='autocomplete-input' ref='input'/>
             </div>
         );
     }
