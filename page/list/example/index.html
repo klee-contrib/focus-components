@@ -33,9 +33,11 @@
 
 </head>
 <body>
+<h1>List examples</h1>
+<h2>Simple list</h2>
 <div id="list-container" style=" width:70%;margin: auto;"></div>
-
 <script type="text/jsx">
+    /*SIMPLE LIST EXAMPLE (NO CRITERIA)*/
     var countId = 0;
     var service = function (criteria) {
         console.log('criteria', criteria);
@@ -55,7 +57,7 @@
                 return {dataList: d, totalCount: fakeData.length}
             });
     };
-
+    //Creates a line for the component.
     var Line = React.createClass({
         mixins: [FocusComponents.list.table.line.mixin],
         definitionPath: "contact",
@@ -70,9 +72,9 @@
             );
         }
     });
-
+    //Creates a store for the list.
     var listStore =  new Focus.store.ListStore({identifier: 'LIST_TEST'});
-
+    //Creates the props for the page.
     var listPageProps = {
         onLineClick: function onLineClick(line) {
             alert('click sur la ligne ' + line.id);
@@ -83,8 +85,106 @@
     };
     var ListPage = FocusComponents.page.list.component;
 
-    React.render(<ListPage {...listPageProps} />, document.querySelector("#list-container"));
+    //React.render(<ListPage {...listPageProps} />, document.querySelector("#list-container"));
 </script>
+
+<h2> List with criteria</h2>
+<span>Type a number to filte the list</span>
+<div id='list-criteria-container' style=" width:70%;margin: auto;"></div>
+<script type="text/jsx">
+//Fake data
+var fakeData = [];
+for(var i = 0; i < 150; i++){
+    fakeData.push({
+        id: i,
+        firstName: 'firstName ' + i,
+        lastName: 'lastName ' + i,
+        birthDate: Date.now(),
+        age : i
+    })
+}
+
+    /*SIMPLE LIST EXAMPLE (NO CRITERIA)*/
+    var countId = 0;
+    var service = function (searchOptions) {
+        var criteria = searchOptions.data.criteria || {};
+            var filteredData = fakeData.filter(function(element){
+                return (element.age || 0) < (criteria.age || 150);
+            })
+            var begin = searchOptions.urlData.skip;
+            var end = begin + searchOptions.urlData.top;
+            return Promise.resolve(filteredData.slice(begin, end)).then(function(d){
+                return {dataList: d, totalCount: filteredData.length}
+            });
+    };
+    var action = function(criteria){
+
+    }
+    var Button = FocusComponents.common.button.action.component;
+    var listStore =  new Focus.store.ListStore({identifier: 'LIST_CRITERIA_TEST'});
+
+    //Criteria component
+    var Criteria = React.createClass({
+        definitionPath: "contact",
+        mixins: [FocusComponents.common.form.mixin],
+
+        handleSearch: function(event){
+                var criteria = this._getEntity();
+                Focus.dispatcher.handleViewAction({
+                    data: {criteria: criteria},
+                    type: 'update',
+                    identifier: listStore.identifier
+                });
+        },
+        renderContent: function(){
+            return(
+                <div className='SearchComponent'>
+                    {this.fieldFor('age')}
+                    <Button handleOnClick={this.handleSearch}/>
+                </div>
+            );
+        }
+    })
+    //List component
+    //Creates a line for the component.
+    var Line = React.createClass({
+        mixins: [FocusComponents.list.table.line.mixin],
+        definitionPath: "contact",
+        renderLineContent: function(data){
+            return (
+                    <tr onClick={this.props.onLineClick}>
+                        <td>{this.textFor("firstName", {})}</td>
+                        <td>{this.textFor("lastName", {})}</td>
+                        <td>{this.textFor("birthDate", {})}</td>
+                    </tr>
+            );
+        }
+    });
+    //Creates the props for the page.
+    var listPageProps = {
+        onLineClick: function onLineClick(line) {
+            alert('click sur la ligne ' + line.id);
+        },
+        lineComponent: Line,
+        store: listStore,
+        service: service
+    };
+    var ListPage = FocusComponents.page.list.component;
+
+
+    var CriteriaPage = React.createClass({
+        render: function renderCriteriaPage(){
+            return (
+                <div className='CriteriaPage'>
+                    <Criteria isEdit={true} hasForm={false} hasLoad={false}/>
+                    <ListPage {...listPageProps} />
+                </div>
+            );
+        }
+    });
+    React.render( <CriteriaPage id />, document.querySelector("#list-criteria-container"));
+</script>
+
 
 </body>
 

@@ -34,6 +34,11 @@ var formMixin = {
        */
       hasDelete: false,
       /**
+       * Does the form call the load action on componentdid mount.
+       * @type {Boolean}
+       */
+      hasLoad: true,
+      /**
        * Defines
        * @type {Boolean}
        */
@@ -58,7 +63,9 @@ var formMixin = {
   },
   /** @inheritdoc */
   callMountedActions: function formCallMountedActions() {
-    this._loadData();
+    if(this.props.hasLoad){
+        this._loadData();
+    }
     this._loadReference();
   },
   /** @inheritdoc */
