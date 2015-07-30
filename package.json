@@ -102,6 +102,10 @@
             "path": "application/loading-bar"
         },
         {
+            "name": "input-autocomplete",
+            "path": "common/input/autocomplete"
+        },
+        {
             "name": "input-checkbox",
             "path": "common/input/checkbox"
         },
