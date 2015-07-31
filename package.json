@@ -90,6 +90,10 @@
             "path": "common/detail"
         },
         {
+            "name": "autocomplete",
+            "path": "common/autocomplete"
+        },
+        {
             "name": "input-text",
             "path": "common/input/text"
         },
@@ -100,10 +104,6 @@
         {
             "name": "loading-bar",
             "path": "application/loading-bar"
-        },
-        {
-            "name": "input-autocomplete",
-            "path": "common/input/autocomplete"
         },
         {
             "name": "input-checkbox",

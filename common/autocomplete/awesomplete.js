@@ -44,7 +44,6 @@ let Autocomplete = {
             code: '',
             isEdit: false,
             pickList: [],
-            type: 'simple',
             validate: true
         };
     },
@@ -54,11 +53,10 @@ let Autocomplete = {
      */
     propTypes: {
         code: types('string'),
+        inputChangeHandler: types('function'),
         isEdit: types('bool'),
-        onInputChange: types('function'),
         pickList: types('array'),
         selectionHandler: types('function'),
-        type: types('string'),
         validate: types('bool')
     },
     /**
@@ -67,9 +65,9 @@ let Autocomplete = {
      * @return {Object} initial state
      */
     getInitialState() {
-        const {code} = this.props;
+        const {code, pickList} = this.props;
         return ({
-            value: this._getValueFromCode(code)
+            value: 0 < pickList.length ? this._getValueFromCode(code) : code
         });
     },
     /**
@@ -79,10 +77,11 @@ let Autocomplete = {
      */
     componentWillReceiveProps(nextProps) {
         let {pickList, code} = nextProps;
-        code = code || ''; // Value can be missing from the new props, in case the parent only changed the list for example
-        const value = this._getValueFromCode(code, pickList);
+        if (code) {
+            const value = this._getValueFromCode(code, pickList);
+            this.setState({value});
+        }
         this._awesomeplete._list = this._extractListFromData(pickList);
-        this.setState({value});
     },
     /**
      * Selection handler.
@@ -160,9 +159,9 @@ let Autocomplete = {
             clearTimeout(this._changeTimeout);
         }
         this._changeTimeout = setTimeout(() => {
-            let {onInputChange} = this.props;
-            if (onInputChange) {
-                onInputChange(this.getValue());
+            let {inputChangeHandler} = this.props;
+            if (inputChangeHandler) {
+                inputChangeHandler(value);
             }
         }, 200);
     },
