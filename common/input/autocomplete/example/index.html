@@ -32,15 +32,57 @@
 <body>
     <div class='container'>
         <h1>Autocomplete</h1>
+        <p>For the first 5 seconds, the pick list is 'Riri', 'Fifi', 'Loulou', then it is dynamically changed to 'Mickey', 'Dingo', 'Pluto'.</p>
         <div id="autocomple-container"></div>
     </div>
     <script type="text/jsx">
     var Autocomplete = FocusComponents.common.input.autocomplete.component;
     var Demo = React.createClass({
+        getInitialState() {
+            return ({
+                pickList: [
+                    {
+                        code: 'RIRI',
+                        value: 'Riri'
+                    },
+                    {
+                        code: 'FIFI',
+                        value: 'Fifi'
+                    },
+                    {
+                        code: 'LOULOU',
+                        value: 'Loulou'
+                    }
+                ]
+            });
+        },
+        componentWillMount() {
+            var _this = this;
+            setTimeout(function() {
+                _this.setState({
+                    pickList: [
+                        {
+                            code: 'MICKEY',
+                            value: 'Mickey'
+                        },
+                        {
+                            code: 'DINGO',
+                            value: 'Dingo'
+                        },
+                        {
+                            code: 'PLUTO',
+                            value: 'Pluto'
+                        }
+                    ]
+                });
+            }, 5000);
+        },
         render() {
             return (
                 <Autocomplete
-                    pickList={['riri', 'fifi', 'loulou']}
+                    code='RIRI'
+                    isEdit={true}
+                    pickList={this.state.pickList}
                 />
             );
         }
