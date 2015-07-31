@@ -42,6 +42,7 @@ let Autocomplete = {
     getDefaultProps() {
         return {
             code: '',
+            isEdit: false,
             pickList: [],
             type: 'simple',
             validate: true
@@ -52,11 +53,13 @@ let Autocomplete = {
      * @type {Object}
      */
     propTypes: {
+        code: types('string'),
+        isEdit: types('bool'),
+        onInputChange: types('function'),
         pickList: types('array'),
         selectionHandler: types('function'),
         type: types('string'),
-        validate: types('bool'),
-        value: types('string')
+        validate: types('bool')
     },
     /**
      * Initial state.
@@ -153,6 +156,15 @@ let Autocomplete = {
     _onInputChange(event) {
         const {value} = event.target;
         this.setState({value});
+        if (this._changeTimeout) {
+            clearTimeout(this._changeTimeout);
+        }
+        this._changeTimeout = setTimeout(() => {
+            let {onInputChange} = this.props;
+            if (onInputChange) {
+                onInputChange(this.getValue());
+            }
+        }, 200);
     },
     /**
      * Render the edit mode
