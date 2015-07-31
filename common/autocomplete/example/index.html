@@ -65,10 +65,17 @@
     var Demo = React.createClass({
         render() {
             return (
-                <AutocompleteFor
-                    loader={listLoader}
-                    isEdit={true}
-                />
+                <div>
+                    <AutocompleteFor
+                        loader={listLoader}
+                        isEdit={true}
+                    />
+                    <AutocompleteFor
+                        loader={listLoader}
+                        isEdit={true}
+                        value='RIRI'
+                    />
+                </div>
             );
         }
     });

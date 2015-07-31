@@ -37,6 +37,11 @@ let Autocomplete = {
     },
     /**
      * Default props.
+     * timeoutDuration : the throttle duration of the input rate
+     * code : the field code value
+     * isEdit : is in edit mode
+     * pickList : list of values, looking like [{code: '', value: ''}, {code: '', value: ''}, ...]
+     * validate : restrict user input to values of the list, or allow freestyle
      * @return {Object} default props
      */
     getDefaultProps() {
@@ -44,6 +49,7 @@ let Autocomplete = {
             code: '',
             isEdit: false,
             pickList: [],
+            timeoutDuration: 200,
             validate: true
         };
     },
@@ -57,6 +63,7 @@ let Autocomplete = {
         isEdit: types('bool'),
         pickList: types('array'),
         selectionHandler: types('function'),
+        timeoutDuration: types('number'),
         validate: types('bool')
     },
     /**
@@ -166,37 +173,15 @@ let Autocomplete = {
         }, 200);
     },
     /**
-     * Render the edit mode
-     * @return {HTML} rendered element
-     */
-    _renderEdit() {
-        let {value} = this.state;
-        let {_onInputBlur, _onInputChange} = this;
-        return (
-            <input onBlur={_onInputBlur} onChange={_onInputChange} ref='input' value={value}/>
-        );
-    },
-    /**
-     * Render the consult mode
-     * @return {HTML} rendered element
-     */
-    _renderConsult() {
-        let {value} = this.state;
-        return (
-            <span>{value}</span>
-        );
-    },
-    /**
      * Render
      * @return {HTML} rendered element
      */
     render() {
-        let {isEdit} = this.props;
-        let {_renderEdit, _renderConsult} = this;
+        let {value} = this.state;
+        let {_onInputBlur, _onInputChange} = this;
         return (
             <div data-focus='autocomplete'>
-                {isEdit && _renderEdit()}
-                {!isEdit && _renderConsult()}
+                <input onBlur={_onInputBlur} onChange={_onInputChange} ref='input' value={value}/>
             </div>
         );
     }

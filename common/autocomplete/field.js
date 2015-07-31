@@ -2,6 +2,7 @@
 
 let builder = Focus.component.builder;
 let types = Focus.component.types;
+let find = require('lodash/collection/find');
 
 // Components
 
@@ -67,21 +68,41 @@ let AutocompleteFor = {
         return autocomplete.getValue();
     },
     /**
-     * Render the component
-     * @return {HTML} the rendered component
+     * Render the edit mode
+     * @return {HTML} rendered element
      */
-    render() {
-        let {AutocompleteComponent, isEdit, value} = this.props;
+    _renderEdit() {
+        let {AutocompleteComponent, value} = this.props;
         let {pickList} = this.state;
         return (
             <AutocompleteComponent
                 code={value}
                 inputChangeHandler={this._doLoad}
-                isEdit={isEdit}
                 pickList={pickList}
                 ref='autocomplete'
             />
         );
+    },
+    /**
+     * Render the consult mode
+     * @return {HTML} rendered element
+     */
+    _renderConsult() {
+        let {value} = this.props;
+        let {pickList} = this.state;
+        let pick = find(pickList, {code: value});
+        let text = pick ? pick.value : value;
+        return (
+            <span>{text}</span>
+        );
+    },
+    /**
+     * Render the component
+     * @return {HTML} the rendered component
+     */
+    render() {
+        let {isEdit} = this.props;
+        return isEdit ? this._renderEdit() : this._renderConsult();
     }
 };
 
