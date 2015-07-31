@@ -37,11 +37,6 @@ let Autocomplete = {
     },
     /**
      * Default props.
-     * timeoutDuration : the throttle duration of the input rate
-     * code : the field code value
-     * isEdit : is in edit mode
-     * pickList : list of values, looking like [{code: '', value: ''}, {code: '', value: ''}, ...]
-     * validate : restrict user input to values of the list, or allow freestyle
      * @return {Object} default props
      */
     getDefaultProps() {
@@ -58,13 +53,13 @@ let Autocomplete = {
      * @type {Object}
      */
     propTypes: {
-        code: types('string'),
-        inputChangeHandler: types('function'),
-        isEdit: types('bool'),
-        pickList: types('array'),
-        selectionHandler: types('function'),
-        timeoutDuration: types('number'),
-        validate: types('bool')
+        code: types('string'), // the field code value
+        inputChangeHandler: types('function'), // callback when input changed
+        isEdit: types('bool'), // is in edit mode
+        pickList: types('array'), // list of values, looking like [{code: '', value: ''}, {code: '', value: ''}, ...]
+        selectionHandler: types('function'), // selection callback
+        timeoutDuration: types('number'), // the throttle duration of the input rate
+        validate: types('bool') // restrict user input to values of the list, or allow freestyle
     },
     /**
      * Initial state.
