@@ -18,7 +18,7 @@ var changeBehaviourMixin = {
                  Focus.message.addInformationMessage('detail.saving');
                  break;*/
                 case 'saved':
-                    if(this.props.hasForm){
+                    if(this.props.hasForm){ //See https://github.com/KleeGroup/focus-components/issues/148
                       Focus.message.addSuccessMessage('detail.saved');
                       //Change the page mode as edit
                       this.setState({isEdit: false});

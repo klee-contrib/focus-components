@@ -70,8 +70,13 @@ let listPageMixin = {
      */
     _registerStoreNode(){
         STORE_NODE.forEach((node)=>{
+            //Maybe this is a bit too much, a global change event could be more efficient as almost all store props change.
             this.props.store[_listenerProp(node)](this._handleStoreChanged)
         });
+        //When the criteria is changed, the search is triggered.
+        this.props.store.addCriteriaChangeListener(()=>{
+            this._action.load();
+        })
     },
     /**
      * build the list props.
