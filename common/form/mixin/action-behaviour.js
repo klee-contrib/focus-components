@@ -37,6 +37,7 @@ let actionMixin = {
     },
   /**
    * Get the constructed entity from the state.
+   * If you need to perform a custom getEntity just write a getEntity function in your mixin.
    * @returns {object} - the entity informations.
    */
     _getEntity(){
@@ -45,10 +46,11 @@ let actionMixin = {
         }
         //Build the entity value from the ref getVaue.
         let htmlData = {};
-        for(let r in this.refs){
+        let {refs} = this;
+        for(let r in refs){
              //If the reference has a getValue function if is read.
-            if(this.refs[r] && isFunction(this.refs[r].getValue)){
-                htmlData[r] = this.refs[r].getValue();
+            if(refs[r] && isFunction(refs[r].getValue)){
+                htmlData[r] = refs[r].getValue();
             }
         }
         //Maybe a merge cold be done if we need a deeper property merge.
@@ -66,7 +68,7 @@ let actionMixin = {
     clearError(){
         for(let r in this.refs){
             //If the reference has a getValue function if is read.
-            if(this.refs[r] && isFunction(this.refs[r].getValue)){
+            if(this.refs[r] && isFunction(this.refs[r].setError)){
                 this.refs[r].setError(undefined);
             }
         }
