@@ -1,5 +1,4 @@
 module.exports = {
-    autocomplete: require('./autocomplete'),
     checkbox: require('./checkbox'),
     date: require('./date'),
     text: require('./text'),
