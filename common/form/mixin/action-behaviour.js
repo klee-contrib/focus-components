@@ -56,14 +56,14 @@ let actionMixin = {
         //Maybe a merge cold be done if we need a deeper property merge.
         return assign({}, this._getCleanState(), this._computeEntityFromHtml(htmlData));
     },
-  /**
-   * Load data action call.
-   */
+    /**
+     * This is the load action of the form.
+     */
     _loadData(){
         if(!this.action || !isFunction(this.action.load)){
             throw new FocusException('It seems your form component does not have a load action, and your props is set to hasLoad={true}.', this);
         }
-        this.action.load(this._getId());
+        this.action.load.call(this, this._getId());
     },
     clearError(){
         for(let r in this.refs){
