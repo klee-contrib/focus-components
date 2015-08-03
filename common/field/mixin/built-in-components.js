@@ -2,6 +2,8 @@
 
 let React = require('react');
 let type = require('focus').component.types;
+let find = require('lodash/collection/find');
+let result = require('lodash/object/result');
 
 // Components
 
@@ -141,13 +143,14 @@ let fieldBuiltInComponentsMixin = {
             return this.renderFieldComponent();
         }
         let displayClassName = ``;
+        let value = this.state.values ? result(find(this.state.values, {code: this.state.value}), 'label') : this.state.value;
         return (
             <div className ={`input-group ${this._getContentGridClassName()}`}>
                 <this.props.DisplayComponent
                     style={{class: displayClassName}}
                     id={this.props.name}
                     name={this.props.name}
-                    value={this.state.value}
+                    value={value}
                     type={this.props.type}
                     ref='display'
                     formatter={this.props.formatter}
