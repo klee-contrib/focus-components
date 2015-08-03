@@ -1,24 +1,24 @@
-var builder = require('focus').component.builder;
-var React = require('react');
-var assign = require('object-assign');
-var {isEmpty, isFunction} = require('lodash/lang');
+let builder = require('focus').component.builder;
+let React = require('react');
+let assign = require('object-assign');
+let {isEmpty, isFunction} = require('lodash/lang');
 
 // Common mixins.
-var definitionMixin = require('../mixin/definition');
-//var fieldComponentBehaviour = require('../mixin/field-component-behaviour');
-var builtInComponents = require('../mixin/built-in-components');
-var storeBehaviour = require('../mixin/store-behaviour');
-
+let definitionMixin = require('../mixin/definition');
+//let fieldComponentBehaviour = require('../mixin/field-component-behaviour');
+let builtInComponents = require('../mixin/built-in-components');
+let storeBehaviour = require('../mixin/store-behaviour');
+let ownIdentifierBehaviour = require('../mixin/own-identifier');
 //Form mixins.
-var referenceBehaviour = require('./mixin/reference-behaviour');
-var actionBehaviour = require('./mixin/action-behaviour');
+let referenceBehaviour = require('./mixin/reference-behaviour');
+let actionBehaviour = require('./mixin/action-behaviour');
 
 /**
  * Mixin to create a block for the rendering.
  * @type {Object}
  */
-var formMixin = {
-  mixins: [definitionMixin, referenceBehaviour, storeBehaviour, actionBehaviour, builtInComponents],
+let formMixin = {
+  mixins: [ownIdentifierBehaviour, definitionMixin, referenceBehaviour, storeBehaviour, actionBehaviour, builtInComponents],
   /** @inheritdoc */
   getDefaultProps: function getFormDefaultProps() {
     return {
@@ -60,7 +60,7 @@ var formMixin = {
       id: this.props.id,
       isEdit: this.props.isEdit
     };
-  },
+},
   /** @inheritdoc */
   callMountedActions: function formCallMountedActions() {
     if(this.props.hasLoad){
@@ -146,7 +146,7 @@ var formMixin = {
   _handleSubmitForm: function handleSumbitForm(e) {
     e.preventDefault();
     if(this.validate()){
-      this.action.save(this._getEntity());
+      this.action.save.call(this, this._getEntity());
     }
     //return false;
   },

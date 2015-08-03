@@ -37,6 +37,7 @@ let actionMixin = {
     },
   /**
    * Get the constructed entity from the state.
+   * If you need to perform a custom getEntity just write a getEntity function in your mixin.
    * @returns {object} - the entity informations.
    */
     _getEntity(){
@@ -45,28 +46,29 @@ let actionMixin = {
         }
         //Build the entity value from the ref getVaue.
         let htmlData = {};
-        for(let r in this.refs){
+        let {refs} = this;
+        for(let r in refs){
              //If the reference has a getValue function if is read.
-            if(this.refs[r] && isFunction(this.refs[r].getValue)){
-                htmlData[r] = this.refs[r].getValue();
+            if(refs[r] && isFunction(refs[r].getValue)){
+                htmlData[r] = refs[r].getValue();
             }
         }
         //Maybe a merge cold be done if we need a deeper property merge.
         return assign({}, this._getCleanState(), this._computeEntityFromHtml(htmlData));
     },
-  /**
-   * Load data action call.
-   */
+    /**
+     * This is the load action of the form.
+     */
     _loadData(){
         if(!this.action || !isFunction(this.action.load)){
             throw new FocusException('It seems your form component does not have a load action, and your props is set to hasLoad={true}.', this);
         }
-        this.action.load(this._getId());
+        this.action.load.call(this, this._getId());
     },
     clearError(){
         for(let r in this.refs){
             //If the reference has a getValue function if is read.
-            if(this.refs[r] && isFunction(this.refs[r].getValue)){
+            if(this.refs[r] && isFunction(this.refs[r].setError)){
                 this.refs[r].setError(undefined);
             }
         }
