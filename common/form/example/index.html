@@ -84,65 +84,60 @@
     var Panel = Focus.components.common.panel.component;
     var MessageCenter = Focus.components.application.messageCenter.component;
     React.render(<MessageCenter/>, document.querySelector("#message-cennter-container"));
+    var actionBuilder = Focus.application.actionBuilder;
+    var jsonContact= {
+        firstName: "Zeus",
+        lastName: "God",
+        isCool: true,
+        birthDate: new Date().toISOString(),
+        commandes: [{
+            name: "commande1",
+            number: "1"
+        }, {
+            name: "commande2",
+            number: "2"
+        }, {
+            name: "commande3",
+            number: "3"
+        }, {
+            name: "commande4",
+            number: "4"
+        }, {
+            name: "commande5",
+            number: "5"
+        }, {
+            name: "commande6",
+            number: "6"
+        }]
+    };
+    var action = {
+        load: actionBuilder({
+            status: 'loaded',
+            node: 'contact',
+            service: function(){
+                return Promise.resolve(jsonContact);
+            }
+        }),
+        save:actionBuilder({
+            status: 'saved',
+            preStatus: 'saving',
+            node: 'contact',
+            service: function(data){
+                return Promise.resolve(data);
+            }
+        })
+    };
+
     //Create the view.
     var Form = React.createClass({
-        displayName: "Form",
+        displayName: "FormExample",
         mixins: [formMixin],
         stores: [{
             store: contactStore,
             properties: ["contact", "commandes"]
         }],
         definitionPath: "contact",
-        action: {
-            load: function () {
-                Focus.dispatcher.handleViewAction({
-                    data: {contact: {}},
-                    status: {
-                        contact: {isLoading: true, name: 'loading'}
-                    },
-                    type: "update"
-                });
-                //console.break();
-                Promise.resolve({
-                    contact: {
-                        firstName: "pierre",
-                        lastName: "besson",
-                        isCool: true,
-                        birthDate: new Date().toISOString(),
-                        commandes: [{name: "commande1", number: "1"}, {
-                            name: "commande2",
-                            number: "2"
-                        }, {name: "commande3", number: "3"}, {name: "commande4", number: "4"}, {
-                            name: "commande5",
-                            number: "5"
-                        }, {name: "commande6", number: "6"}]
-                    }
-                }).then(
-                        function (data) {
-
-                            Focus.dispatcher.handleServerAction({
-                                data: data,
-                                status: {
-                                    contact: {isLoading: false, name: 'loaded'}
-                                },
-                                type: "update"
-                            });
-                        });
-            }, save: function saveContact(data) {
-                Focus.dispatcher.handleViewAction({
-                    data: {contact: {}},
-                    status: {contact: {isLoading: true, name: 'saving'}},
-                    type: "update"
-                });
-                return Promise.resolve(data).then(function (d) {
-                    Focus.dispatcher.handleServerAction({
-                        data: {contact: data},
-                        status: {contact: {isLoading: false, name: 'saved'}},
-                        type: "update"
-                    });
-                })
-            }
-        },
+        action: action,
         referenceNames: ['papas'],
         renderContent: function renderUserDetail() {
             return (
@@ -159,7 +154,7 @@
                             this.fieldFor("isCool"),
                             this.fieldFor("isNice"),
                             this.fieldFor("birthDate"),
-                            this.tableFor("commandes", {lineComponent: TableLine, columns: columns}),
+                            //this.tableFor("commandes", {lineComponent: TableLine, columns: columns}),
                             this.listFor("commandes", {lineComponent: ListLine})
                             /*this.selectFor('papaCode', 'papas')*/
                     )
