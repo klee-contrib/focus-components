@@ -1,0 +1,88 @@
+<!doctype html>
+<html class="no-js" lang="">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Focus component examples</title>
+    <meta name="description" content="Example of the component.">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Place favicon.ico in the root directory -->
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css" />
+
+    <!-- Material degign-->
+    <script src="//code.jquery.com/jquery-1.10.2.min.js"></script>
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/bootstrap.material-design/0.3.0/css/material.min.css">
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/bootstrap.material-design/0.3.0/css/ripples.min.css">
+    <script src="//cdn.jsdelivr.net/bootstrap.material-design/0.3.0/js/material.min.js"></script>
+    <script src="//cdn.jsdelivr.net/bootstrap.material-design/0.3.0/js/ripples.min.js"></script>
+
+
+    <script src="https://fb.me/react-0.13.3.js"></script>
+    <script src="https://fb.me/JSXTransformer-0.13.3.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/3.9.3/lodash.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/backbone.js/1.2.1/backbone.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/3.9.3/lodash.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/backbone.js/1.2.1/backbone.js"></script>
+    <script src="//code.jquery.com/jquery-1.10.2.min.js"></script>
+    <script src="/focus-components/dist/js/focus.js"></script>
+    <script src="/focus-components/dist/js/focus-components.js"></script>
+    <link rel="stylesheet" href="/focus-components/dist/css/focus-components.css">
+
+    <link rel="stylesheet" href="lib/awesomplete.css" />
+    <script src="lib/awesomplete.js"></script>
+</head>
+<body>
+    <div class='container'>
+        <h1>Autocomplete</h1>
+        <div id="autocomple-container"></div>
+    </div>
+    <script type="text/jsx">
+    // Components
+
+    var AutocompleteFor = FocusComponents.common.autocomplete.field.component;
+
+    // Services
+
+    var listLoader = function(text) {
+        return new Promise(function(resolve, reject) {
+            setTimeout(function() {
+                resolve([
+                    {
+                        code: 'RIRI',
+                        value: 'Riri'
+                    },
+                    {
+                        code: 'FIFI',
+                        value: 'Fifi'
+                    },
+                    {
+                        code: 'LOULOU',
+                        value: 'Loulou'
+                    }
+                ]);
+            }, 500);
+        });
+    };
+
+    var Demo = React.createClass({
+        render() {
+            return (
+                <div>
+                    <AutocompleteFor
+                        loader={listLoader}
+                        isEdit={true}
+                    />
+                    <AutocompleteFor
+                        loader={listLoader}
+                        isEdit={true}
+                        value='RIRI'
+                    />
+                </div>
+            );
+        }
+    });
+
+    React.render(<Demo/>, document.querySelector("#autocomple-container"));
+    </script>
+
+</body>
+
+</html>

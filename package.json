@@ -6,10 +6,10 @@
     "scripts": {
         "test": "exit 0",
         "example": "node static-server.js",
-        "build": "node ./node_modules/gulp/bin/gulp.js build",
-        "watch": "node ./node_modules/gulp/bin/gulp.js watch",
-        "prepublish": "node ./node_modules/gulp/bin/gulp.js build",
-        "serve": "node ./node_modules/gulp/bin/gulp.js build && node static-server.js"
+        "build": "sh ./build.sh",
+        "watch": "gulp watchify",
+        "prepublish": "gulp build",
+        "serve": "sh ./build.sh && node static-server.js"
     },
     "repository": {
         "type": "git",
@@ -88,6 +88,10 @@
         {
             "name": "detail",
             "path": "common/detail"
+        },
+        {
+            "name": "autocomplete",
+            "path": "common/autocomplete"
         },
         {
             "name": "input-text",
@@ -228,26 +232,22 @@
     ],
     "homepage": "https://github.com/KleeGroup/focus-components",
     "dependencies": {
-        "awesomplete": "^1.0.0",
         "focusjs": "^0.7.0",
         "immutable": "^3.7.3",
         "lodash": "^3.9.1",
         "object-assign": "^2.0.0",
         "react": "^0.13.3",
-        "uuid": "^2.0.1",
-        "babel-eslint": "4.0.5",
-        "eslint": "0.24.1",
-        "eslint-plugin-filenames": "0.1.1",
-        "eslint-plugin-react": "2.7.1",
-        "eslint-plugin-require-jsdoc": "^1.0.4"
+        "uuid": "^2.0.1"
     },
     "devDependencies": {
+        "babel-eslint": "^3.1.26",
         "babel-jest": "^4.0.0",
         "babelify": "^5.0.3",
         "bootstrap-material": "^0.1.5",
         "browser-sync": "^2.2.1",
         "browserify": "^9.0.3",
-        "eslint-config-focus": "^0.1.4",
+        "eslint": "1.0.0-rc-1",
+        "eslint-plugin-react": "^2.7.1",
         "express": "^4.12.0",
         "gulp": "^3.8.11",
         "gulp-babel": "^4.0.0",
