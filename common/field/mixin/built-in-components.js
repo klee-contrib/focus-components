@@ -4,7 +4,7 @@ let React = require('react');
 let type = require('focus').component.types;
 let find = require('lodash/collection/find');
 let result = require('lodash/object/result');
-
+let assign = require('object-assign');
 // Components
 
 let InputText = require('../../input/text').component;
@@ -62,75 +62,78 @@ let fieldBuiltInComponentsMixin = {
         SelectComponent: type(['object', 'function']),
         DisplayComponent: type(['object', 'function'])
     },
+    _buildStyle(){
+        let {style} = this.props;
+        style = style || {};
+        style.className = style && style.className ? style.className : '';
+        return style;
+    },
     /**
     * Render the label part of the component.
-    * @returns {[type]} [description]
+    * @returns {Component} - The builded label component.
     */
     label() {
         if (this.props.FieldComponent || this.props.InputLabelComponent) {
             return undefined;
         }
         if (this.props.hasLabel) {
+            //In the labelCasen there is no reason to pass all props.
             let labelClassName = this._getLabelGridClassName();
+            let {isEdit, isRequired, name} = this.props;
             return (
                 <Label
+                    isEdit={isEdit}
+                    isRequired={isRequired}
+                    key={name}
+                    name={name}
                     style={{className: labelClassName}}
-                    name={this.props.name}
-                    key={this.props.name}
-                    isRequired={this.props.isRequired}
-                    isEdit={this.props.isEdit}
                 />
             );
         }
     },
     /**
     * Rendet the input part of the component.
-    * @return {[type]} [description]
+    * @return {Component} - The constructed input component.
     */
     input() {
         if (this.props.FieldComponent || this.props.InputLabelComponent) {
             return this.renderFieldComponent();
         }
-        let inputClassName = `form-control`;
+        let {name, style} = this.props;
+        let {value} = this.state;
+        let inputClassName = `form-control ${style.className ? style.className : ''}`;
+        let inputBuildedProps = assign({}, this.props, {
+            id: name,
+            style: this._buildStyle(),
+            onChange: this.onInputChange,
+            value: value,
+            ref: 'input'
+        });
         return (
             <div className ={`${this._getContentGridClassName()} input-group`}>
-                <this.props.InputComponent
-                    style={{class: inputClassName}}
-                    id={this.props.name}
-                    name={this.props.name}
-                    value={this.state.value}
-                    type={this.props.type}
-                    onChange={this.onInputChange}
-                    formatter={this.props.formatter}
-                    unformatter={this.props.unformatter}
-                    options={this.props.options}
-                    ref='input'
-                />
+                <this.props.InputComponent {...inputBuildedProps}/>
             </div>
         );
     },
     /**
-    * [select description]
-    * @return {[type]} [description]
-    */
+     * Build a select component depending on the domain, definition and props.
+     * @return {Component} - The builded select component.
+     */
     select() {
         if (this.props.FieldComponent || this.props.InputLabelComponent) {
             return this.renderFieldComponent();
         }
-        let selectClassName = `form-control`;
+        let {value, values} = this.state;
+        let buildedSelectProps = assign({}, this.props, {
+            value: value,
+            values: values,
+            style: this._buildStyle(),
+            onChange: this.onInputChange,
+            ref: 'input'
+        });
         return (
             <div className ={`input-group ${this._getContentGridClassName()}`}>
-            <this.props.SelectComponent
-            style={{class: selectClassName}}
-            id={this.props.name}
-            name={this.props.name}
-            value={this.state.value}
-            values={this.state.values}
-            type={this.props.type}
-            onChange={this.onInputChange}
-            options={this.props.options}
-            ref='input'
-            />
+                <this.props.SelectComponent {...buildedSelectProps} />
             </div>
         );
     },
@@ -142,19 +145,18 @@ let fieldBuiltInComponentsMixin = {
         if (this.props.FieldComponent || this.props.InputLabelComponent) {
             return this.renderFieldComponent();
         }
-        let displayClassName = ``;
-        let value = this.state.values ? result(find(this.state.values, {code: this.state.value}), 'label') : this.state.value;
+        let {values, value} = this.state;
+        let {name, valueKey, labelKey} = this.props;
+        let _processValue = values ? result(find(values, {[valueKey || 'code']: value}), labelKey || 'label') : value;
+        let buildedDislplayProps = assign({}, this.props, {
+            id: name,
+            style: this._buildStyle(),
+            value: _processValue,
+            ref: 'display'
+        });
         return (
             <div className ={`input-group ${this._getContentGridClassName()}`}>
-                <this.props.DisplayComponent
-                    style={{class: displayClassName}}
-                    id={this.props.name}
-                    name={this.props.name}
-                    value={value}
-                    type={this.props.type}
-                    ref='display'
-                    formatter={this.props.formatter}
-                />
+                <this.props.DisplayComponent {...buildedDislplayProps}/>
             </div>
         );
     },
@@ -163,52 +165,52 @@ let fieldBuiltInComponentsMixin = {
     * @return {object} - The error part of the component.
     */
     error() {
-        if (this.state.error) {
+        let {error} = this.state;
+        if (error) {
             if (this.props.FieldComponent) {
                 return;
             }
             return (
-                /*<span class='glyphicon glyphicon-remove form-control-feedback' aria-hidden='true'></span>*/
                 <span className='help-block'>
-                    {this.state.error}
+                    {error}
                 </span>
-            )
+            );
         }
+        return;
     },
     /**
     * Render the help component.
     * @return {object} - The help part of the component.
     */
     help() {
-        if (this.props.help) {
-            if (this.props.FieldComponent) {
+        let {help, FieldComponent} = this.props;
+        if (help) {
+            if (FieldComponent) {
                 return;
             }
             return (
                 <span className='help-block'>
-                    {this.props.help}
+                    {help}
                 </span>
             );
         }
     },
     /**
-    * Render the field component if it is overriden in the component definition.
-    */
+     * Render the field component if it is overriden in the component definition.
+     * @return {Component} - The builded field component.
+     */
     renderFieldComponent() {
-        let Component = this.props.FieldComponent || this.props.InputLabelComponent;
-        return React.createElement(Component, {
+        let FieldComponent = this.props.FieldComponent || this.props.InputLabelComponent;
+        let {value, error} = this.state;
+        let buildedProps = assign({}, this.props, {
             id: this.props.name,
-            name: this.props.name,
-            label: this.props.label,
-            value: this.state.value,
-            type: this.props.type,
-            style: this.props.style.input,
-            labelSize: this.props.labelSize,
-            error: this.state.error,
-            help: this.props.help,
+            style: this._buildStyle(),
+            value: value,
+            error: error,
             onChange: this.onInputChange,
             ref: 'input'
         });
+        return <FieldComponent {...buildedProps} />;
     }
 };
 
