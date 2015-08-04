@@ -4,5 +4,6 @@ module.exports = {
 	selection: require('./selection'),
     summary: require('./summary'),
 	timeline: require('./timeline'),
-	table: require('./table')
+	table: require('./table'),
+	mixin: require('./mixin')
 };
