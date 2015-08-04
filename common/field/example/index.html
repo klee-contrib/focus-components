@@ -9,23 +9,19 @@
 
   <!-- Place favicon.ico in the root directory -->
   <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
-  <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css" />
+  <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css"/>
   <script src="https://fb.me/react-0.13.3.js"></script>
+  <script src="https://fb.me/JSXTransformer-0.13.3.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/3.9.3/lodash.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/backbone.js/1.2.1/backbone.js"></script>
 
   <!-- Material degign-->
   <script src="//code.jquery.com/jquery-1.10.2.min.js"></script>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-material-design/0.2.2/css/material-wfont.css">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-material-design/0.2.2/css/material.css">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-material-design/0.2.2/css/ripples.css">
-
-  <link rel="font" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-material-design/0.2.2/fonts/Material-Design-Icons.eot">
-  <link rel="font" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-material-design/0.2.2/fonts/Material-Design-Icons.svg">
-  <link rel="font" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-material-design/0.2.2/fonts/Material-Design-Icons.ttf">
-  <link rel="font" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-material-design/0.2.2/fonts/Material-Design-Icons.woff">
-
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-material-design/0.2.2/js/material.js"/>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-material-design/0.2.2/js/ripples.min.js"></script>
-  <!-- Material degign-->
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/bootstrap.material-design/0.3.0/css/material-wfont.min.css">
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/bootstrap.material-design/0.3.0/css/material.min.css">
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/bootstrap.material-design/0.3.0/css/ripples.min.css">
+  <script src="//cdn.jsdelivr.net/bootstrap.material-design/0.3.0/js/material.min.js"></script>
+  <script src="//cdn.jsdelivr.net/bootstrap.material-design/0.3.0/js/ripples.min.js"></script>
 
   <script src="/focus-components/dist/js/focus.js"></script>
   <script src="/focus-components/dist/js/focus-components.js"></script>
@@ -44,21 +40,23 @@
   -->
 
   <div id="form-container" class="container"></div>
-  <script type="text/javascript">
+  <script type="text/jsx">
     Focus.components = FocusComponents;
-  var Field = Focus.components.common.field.component;
+    var Field = Focus.components.common.field.component;
     React.render(
-      React.createElement("form", {className: "form-horizontal"},
-      React.createElement("h2", null, "Champ 1"),
-      React.createElement(Field, {name: "field1", value: "field1value", isEdit: true}),
-      React.createElement("h2", null, "Consultation"),
-      React.createElement(Field, {name: "field Consult", value: "fieldConsultValue", isEdit: false}),
-      React.createElement(Field, {name: "field Consult", value: "fieldConsultValue", isEdit: false,formatter: function(data){return data + " formatter applied";}}),
-      React.createElement("h2", null, "Champ 2 (erreur)"),
-      React.createElement(Field, {name: "field2", value: "field2value", type: "text", error: "error on field2"}),    React.createElement("h2", null, "Champ 3 type number"),
-      React.createElement(Field, {name: "field3", value: 3, type: "number"}),
-      React.createElement(Field, {name: "field4", value: "popop", type: "text", help: "Here to help ..."})
-  ),
+        <form className='form-horizontal'>
+            <h2> Premier champ</h2>
+            <Field  name='field1' value='fieldValue' isEdit={true}/>
+            <h2> Consultation </h2>
+            <Field  name='field Consult' value='fieldConsultValue' isEdit={false}/>
+            <Field  name='field Consult formated' value='fieldConsultValue' isEdit={false} formatter={function(data){return data + " formatter applied";}}/>
+            <h2>Erreur</h2>
+            <Field  name='field2' value='field2Value' error='error in field2' isEdit={true} />
+            <h2>Type number</h2>
+            <Field  name='field3' value={3} type='number'/>
+            <Field  name='field4' value='popop' isEdit={true} help='Here to help'/>
+        </form>
+    ,
     document.querySelector("#form-container")
   );
   </script>
