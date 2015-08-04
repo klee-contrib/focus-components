@@ -12,13 +12,15 @@ let validationBehaviour = require('./mixin/validation-behaviour');
 
 let builtInComponents = require('./mixin/built-in-components');
 
-
+/**
+ * Mixin for the field helper.
+ * @type {Object}
+ */
 let FieldMixin = {
+    /** @inheriteDoc */
     mixins: [valueBehaviour, validationBehaviour, builtInComponents],
-    /**
-    * Get field default properties.
-    */
-    getDefaultProps: function getFieldDefaultProps() {
+    /** @inheriteDoc */
+   getDefaultProps() {
         return {
 
             /**
@@ -50,7 +52,6 @@ let FieldMixin = {
         name: type('string'),
         value: type(['string', 'number'])
     },
-
     /** @inheritdoc */
     componentWillReceiveProps: function fieldWillReceiveProps(newProps){
         this.setState({value: newProps.value, values: newProps.values});
@@ -58,19 +59,22 @@ let FieldMixin = {
     /**
     * Get the css class of the field component.
     */
-    _className: function() {
-        let stateClass = this.state.error ? "has-feedback has-error" : "";
+    _className(){
+        let stateClass = this.state.error ? 'has-feedback has-error' : '';
         return `form-group ${stateClass} ${this.props.style.className}`;
     },
-
-    render: function renderField() {
+    /** @inheritdoc */
+    render() {
+        let {domain, isRequired, isEdit, values} = this.props;
+        let {input, label, select, display, help, error, _className} = this;
         return (
-            <div className={this._className()} data-focus='field' data-domain={this.props.domain} data-required={this.props.isRequired} data-mode={this.props.isEdit ? 'edit' : 'consult'}>
-                {this.label()}
-                {this.props.isEdit ? (this.props.values ? this.select() : this.input()) : this.display()}
-                {this.help()}
-                {this.error()}
-            </div>);
-        }
-    };
-    module.exports = builder(FieldMixin);
+            <div className={_className()} data-domain={domain} data-focus='field' data-mode={isEdit ? 'edit' : 'consult'} data-required={isRequired}>
+                {label()}
+                {isEdit ? (values ? select() : input()) : display()}
+                {help()}
+                {error()}
+            </div>
+        );
+    }
+};
+module.exports = builder(FieldMixin);
