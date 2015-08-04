@@ -16,7 +16,7 @@ var contentActionsMixin = {
   },
   /** @inheriteddoc */
   componentWillUnMount: function ContentActionsWillUnMount(){
-    applicationStore.removeActionsChangeListener(this._onComponentChange);
+    applicationStore.removeActionsChangeListener(this._handleComponentChange);
   },
   _getStateFromStore: function getContentActionsStateFromStore(){
     return {actions: applicationStore.getActions() || {primary: [], secondary: []}};
