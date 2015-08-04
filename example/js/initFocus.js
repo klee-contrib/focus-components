@@ -94,17 +94,24 @@ var entities = {
 };
 Focus.definition.entity.container.setEntityConfiguration(entities);
 
-function loadRedList(name) {
+function loadRefList(name) {
   return function loadRef() {
     var refLst = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9].map(function (cd) {
       return {
-        code: cd,
+        code: ''+cd,
         label: ('' + cd + ' ' + name)
       };
     });
     return Promise.resolve(refLst);
   };
 }
+function loadMonkeyList(){
+    return loadRefList('monkey')().then(function(data){
+        return data.map(function(element){
+            return {myCustomCode: element.code, myCustomLabel: element.label};
+        });
+    });
+}
 
-Focus.reference.config.set({'papas': loadRedList('papas'), 'singe': loadRedList('singe')});
+Focus.reference.config.set({papas: loadRefList('papas'), singe: loadRefList('singe'), monkeys: loadMonkeyList});
 Focus.definition.entity.container.setEntityConfiguration(entities);

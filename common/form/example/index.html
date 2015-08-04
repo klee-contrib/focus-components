@@ -122,47 +122,48 @@
             status: 'saved',
             preStatus: 'saving',
             node: 'contact',
-            service: function(data){
+            service: function myCustomSaveService(data){
+                console.log('save', data);
                 return Promise.resolve(data);
             }
         })
     };
-
+    var Block = FocusComponents.common.block.component;
     //Create the view.
-    var Form = React.createClass({
+    var FormExample = React.createClass({
         displayName: "FormExample",
         mixins: [formMixin],
         stores: [{
             store: contactStore,
-            properties: ["contact", "commandes"]
+            properties: ["contact", "commandes"],
         }],
         definitionPath: "contact",
         action: action,
-        referenceNames: ['papas'],
+        referenceNames: ['papas', 'monkeys'],
         renderContent: function renderUserDetail() {
             return (
-                    React.createElement(Panel, {title: "Fiche de l'utilisateur"},
-                            this._renderActions(),
-                            this.fieldFor("firstName"),
-                            this.fieldFor("lastName"),
-                            this.textFor("birthDate", {
-                                formatter: function (date) {
-                                    return "formatted date" + date
-                                }
-                            }),
-                            this.fieldFor("bio"),
-                            this.fieldFor("isCool"),
-                            this.fieldFor("isNice"),
-                            this.fieldFor("birthDate"),
-                            //this.tableFor("commandes", {lineComponent: TableLine, columns: columns}),
-                            this.listFor("commandes", {lineComponent: ListLine})
-                            /*this.selectFor('papaCode', 'papas')*/
-                    )
+                    <Block title="Fiche de l'utilisateur" actions={this._renderActions}>
+                      {this.fieldFor("firstName")}
+                      {this.fieldFor("lastName")}
+                      {
+                          this.textFor("birthDate", {
+                              formatter: function (date) {
+                                  return "formatted date" + date
+                              }
+                          })}
+                      {this.fieldFor('papaCode', {listName: 'papas'})}
+                      {this.fieldFor('monkeyCode', {listName: 'monkeys', valueKey: 'myCustomCode', labelKey: 'myCustomLabel' })}
+                      {this.fieldFor("bio")}
+                      {this.fieldFor("isCool")}
+                      {this.fieldFor("isNice")}
+                      {this.fieldFor("birthDate")}
+                      {this.listFor("commandes", {lineComponent: ListLine})}
+                    </Block>
             );
         }
     });
     //Render the created View.
-    React.render(React.createElement(Form, null), document.querySelector("#form-container"));
+    React.render(<FormExample />, document.querySelector("#form-container"));
 </script>
 
 </body>
