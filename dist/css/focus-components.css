@@ -5172,6 +5172,13 @@ table.table-list {
   table.table-list tbody tr:nth-child(even) {
     background-color: #EAF3F3; }
 
+[data-focus='table-line'] {
+  position: relative; }
+  [data-focus='table-line'] [data-focus='table-line-actions'] {
+    display: none; }
+  [data-focus='table-line']:hover [data-focus='table-line-actions'] {
+    display: inline-block; }
+
 /** css from : http://codepen.io/betdream/details/Ifvbi**/
 .timeline {
   list-style: none;
@@ -5457,15 +5464,13 @@ form {
   -o-box-shadow: 0px 1px 10px 2px #EAEAEA;
   box-shadow: 0px 1px 10px 2px #EAEAEA; }
 
-.btns-confirmation-popin {
+[data-focus='confirmation-popin'] [data-focus='button-stack'] {
+  text-align: center;
   position: fixed;
   bottom: 0;
-  right: 0;
-  margin: 0 20px 10px 0; }
-
-.btn-confirmation-popin-close {
-  margin-right: 20px !important; }
-
+  width: 100%; }
+  [data-focus='confirmation-popin'] [data-focus='button-stack'] button {
+    margin: 20px; }
 
 header [data-focus="content-actions"] .btn {
   margin: 0 10px; }
