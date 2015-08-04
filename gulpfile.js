@@ -78,7 +78,8 @@ function jsBuild(directory, options) {
 			react: 'window.React',
 			focus: 'window.Focus',
 			jquery: 'window.jQuery',
-			backbone: 'window.Backbone'
+			backbone: 'window.Backbone',
+			moment: 'window.moment'
 		}))
 		.transform(babelify)
 		.bundle()
@@ -122,7 +123,8 @@ function build(name){
 				react: 'window.React',
 				focus: 'window.Focus',
 				jquery: 'window.jQuery',
-				backbone: 'window.Backbone'
+				backbone: 'window.Backbone',
+				moment: 'window.moment'
 			}))
 			.transform(babelify)
 			.bundle()
