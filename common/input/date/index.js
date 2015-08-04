@@ -14,8 +14,12 @@ let inputDateMixin = {
     /** @inheritdoc */
     componentDidMount(){
         let jQuery = require('jquery');
+        let moment = require('moment');
         if(!jQuery.fn.daterangepicker){
             console.warn('The jquery daterangepicker plugin should be loaded: see https://github.com/dangrossman/bootstrap-daterangepicker.');
+        }
+        if(!moment){
+            console.warn('The moment library should be loaded: http://http://momentjs.com/');
         }
         let component = this;
         //If the domains set options.
@@ -28,7 +32,7 @@ let inputDateMixin = {
           showDropdowns: true
         });
         jQuery(React.findDOMNode(this)).daterangepicker(dateRangeOptions, (start)=>{ ///*, end, label*/
-            component.setState({value: start.format('L')});
+            component.setState({value: component.props.formatter(start.toDate())});
         });
     }
 };

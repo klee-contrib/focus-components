@@ -49,7 +49,7 @@
     var DateInput = Focus.components.common.input.date.component;
     React.render(
         <form>
-            <DateInput  name='fieldDate1' value={new Date()} style={{className: 'papaDate'}} onChange={function(evt){console.log('date changed', evt)}}/>
+            <DateInput  name='fieldDate1' formatter={function(d){return moment(d).format('L')}} value={new Date()} style={{className: 'papaDate'}} onChange={function(evt){console.log('date changed', evt)}}/>
         </form>
     , document.querySelector("#form-container"));
   });
