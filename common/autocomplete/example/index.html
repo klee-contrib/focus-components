@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Test confirmation popin  mixin</title>
+    <title>Focus component examples</title>
     <meta name="description" content="Example of the component.">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -25,42 +25,64 @@
     <script src="/focus-components/dist/js/focus.js"></script>
     <script src="/focus-components/dist/js/focus-components.js"></script>
     <link rel="stylesheet" href="/focus-components/dist/css/focus-components.css">
+
+    <link rel="stylesheet" href="lib/awesomplete.css" />
+    <script src="lib/awesomplete.js"></script>
 </head>
 <body>
-  <div id='anchor'></div>
-  <script type="text/jsx">
-    var ConfirmationPopin = FocusComponents.application.confirmationPopin.component;
-    var Button = FocusComponents.common.button.action.component;
+    <div class='container'>
+        <h1>Autocomplete</h1>
+        <div id="autocomple-container"></div>
+    </div>
+    <script type="text/jsx">
+    // Components
 
-    var Wrapper = React.createClass({
-      getInitialState() {
-        return ({status: 'Waiting for confirmation...'});
-      },
-      _onButtonClickHandler() {
-        this.refs.popin.toggleOpen();
-      },
-      _cancelHandler() {
-        this.setState({status: 'Cancelled.'});
-      },
-      _confirmHandler() {
-        this.setState({status: 'Confirmed !'});
-      },
-      render() {
-        return (
-          <div>
-            <h1>{this.state.status}</h1>
-            <Button handleOnClick={this._onButtonClickHandler} label='Confirm action'/>
-            <ConfirmationPopin cancelHandler={this._cancelHandler} confirmHandler={this._confirmHandler} ref='popin'>
-              <div>
-                Confirmation popin content goes here.
-              </div>
-            </ConfirmationPopin>
-          </div>
-        )
-      }
+    var AutocompleteFor = FocusComponents.common.autocomplete.field.component;
+
+    // Services
+
+    var listLoader = function(text) {
+        return new Promise(function(resolve, reject) {
+            setTimeout(function() {
+                resolve([
+                    {
+                        code: 'RIRI',
+                        value: 'Riri'
+                    },
+                    {
+                        code: 'FIFI',
+                        value: 'Fifi'
+                    },
+                    {
+                        code: 'LOULOU',
+                        value: 'Loulou'
+                    }
+                ]);
+            }, 500);
+        });
+    };
+
+    var Demo = React.createClass({
+        render() {
+            return (
+                <div>
+                    <AutocompleteFor
+                        loader={listLoader}
+                        isEdit={true}
+                    />
+                    <AutocompleteFor
+                        loader={listLoader}
+                        isEdit={true}
+                        value='RIRI'
+                    />
+                </div>
+            );
+        }
     });
 
-    React.render(React.createElement(Wrapper, {}), document.querySelector("#anchor"));
-  </script>
+    React.render(<Demo/>, document.querySelector("#autocomple-container"));
+    </script>
+
 </body>
+
 </html>

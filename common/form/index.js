@@ -1,24 +1,24 @@
-var builder = require('focus').component.builder;
-var React = require('react');
-var assign = require('object-assign');
-var {isEmpty, isFunction} = require('lodash/lang');
+let builder = require('focus').component.builder;
+let React = require('react');
+let assign = require('object-assign');
+let {isEmpty, isFunction} = require('lodash/lang');
 
 // Common mixins.
-var definitionMixin = require('../mixin/definition');
-//var fieldComponentBehaviour = require('../mixin/field-component-behaviour');
-var builtInComponents = require('../mixin/built-in-components');
-var storeBehaviour = require('../mixin/store-behaviour');
-
+let definitionMixin = require('../mixin/definition');
+//let fieldComponentBehaviour = require('../mixin/field-component-behaviour');
+let builtInComponents = require('../mixin/built-in-components');
+let storeBehaviour = require('../mixin/store-behaviour');
+let ownIdentifierBehaviour = require('../mixin/own-identifier');
 //Form mixins.
-var referenceBehaviour = require('./mixin/reference-behaviour');
-var actionBehaviour = require('./mixin/action-behaviour');
+let referenceBehaviour = require('./mixin/reference-behaviour');
+let actionBehaviour = require('./mixin/action-behaviour');
 
 /**
  * Mixin to create a block for the rendering.
  * @type {Object}
  */
-var formMixin = {
-  mixins: [definitionMixin, referenceBehaviour, storeBehaviour, actionBehaviour, builtInComponents],
+let formMixin = {
+  mixins: [ownIdentifierBehaviour, definitionMixin, referenceBehaviour, storeBehaviour, actionBehaviour, builtInComponents],
   /** @inheritdoc */
   getDefaultProps: function getFormDefaultProps() {
     return {
@@ -28,6 +28,16 @@ var formMixin = {
        * @type {Boolean}
        */
       hasEdit: true,
+      /**
+       * Defines if the form has a delete action button.
+       * @type {Boolean}
+       */
+      hasDelete: false,
+      /**
+       * Does the form call the load action on componentdid mount.
+       * @type {Boolean}
+       */
+      hasLoad: true,
       /**
        * Defines
        * @type {Boolean}
@@ -50,10 +60,12 @@ var formMixin = {
       id: this.props.id,
       isEdit: this.props.isEdit
     };
-  },
+},
   /** @inheritdoc */
   callMountedActions: function formCallMountedActions() {
-    this._loadData();
+    if(this.props.hasLoad){
+        this._loadData();
+    }
     this._loadReference();
   },
   /** @inheritdoc */
@@ -106,24 +118,26 @@ var formMixin = {
     return `form-horizontal ${this.props.style.className}`;
   },
   _renderActions: function renderActions(){
-    if(this.renderActions){return this.renderActions(); }
-    if(this.state.isEdit){
-      return this._renderEditActions();
+    if (this.renderActions) {
+      return this.renderActions();
     }
-    return this._renderConsultActions();
+    return this.state.isEdit ? this._renderEditActions() : this._renderConsultActions();
   },
   _renderEditActions: function _renderEditActions(){
-    if(this.renderEditActions){return this.renderEditActions(); }
-    return (
-      <div className="button-bar">
+    return this.renderEditActions ? this.renderEditActions() : (
+      <span>
         {this.buttonSave()}
         {this.buttonCancel()}
-      </div>
+      </span>
     );
   },
   _renderConsultActions: function _renderConsultActions(){
-    if(this.renderConsultActions){return this.renderConsultActions(); }
-    return this.buttonEdit();
+    return this.renderConsultActions ? this.renderConsultActions() : (
+      <div>
+        {this.props.hasEdit && this.buttonEdit()}
+        {this.props.hasDelete && this.buttonDelete()}
+      </div>
+    );
   },
   /**
    * Handle the form submission.
@@ -132,7 +146,7 @@ var formMixin = {
   _handleSubmitForm: function handleSumbitForm(e) {
     e.preventDefault();
     if(this.validate()){
-      this.action.save(this._getEntity());
+      this.action.save.call(this, this._getEntity());
     }
     //return false;
   },

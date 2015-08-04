@@ -24,6 +24,14 @@ fieldFor: function(name, options) {
   return React.createElement(Field, fieldProps);
 },
 /**
+ * Display two different fields, depending on wheter the user is editing the form or not
+ * @param  {Object} config the configuration, with the structure {consultField: ..., editField: ...}
+ * @return {Object} the rendered resulting field
+ */
+dualFieldFor({consultField, editField}) {
+  return this.state.isEdit ? editField : consultField;
+},
+/**
  * Select component for the component.
  * @param {string} name - property name.
  * @param {string} listName - list name.
@@ -104,9 +112,11 @@ buttonDelete: function buttonDelete() {
   return React.createElement(Button, {
     label: 'button.delete',
     type: 'button',
+    shape: 'link',
+    icon: 'trash',
     style: {className: 'delete'},
     handleOnClick: function handleOnClickEdit(){
-      form.action.delete(form._getId());
+      form.action.delete(form._getEntity());
     }
   });
 },
@@ -118,7 +128,7 @@ buttonEdit: function buttonEdit() {
   var form = this;
   return React.createElement(Button, {
     label: 'button.edit',
-    shape:'link',
+    shape: 'link',
     type: 'button',
     icon: 'pencil',
     handleOnClick: function handleOnClickEdit(){

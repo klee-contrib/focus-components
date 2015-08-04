@@ -1,14 +1,12 @@
+[data-focus='confirmation-popin'] {
+  [data-focus='button-stack'] {
+    text-align: center;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
 
-//todo restyle
-.btns-confirmation-popin{
-  position: fixed;
-  bottom: 0;
-  right: 0;
-  margin: 0 20px 10px 0;
-}
-.btn-confirmation-popin-close {
-  margin-right: 20px !important;
-}
-.btn-confirmation-popin-confirm{
-
+    button {
+      margin: 20px;
+    }
+  }
 }

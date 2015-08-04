@@ -33,7 +33,7 @@ let actionBuilder = Focus.search.actionBuilder;
 let AdvancedSearch = {
     /**
      * Component's mixins
-     * @type {Array}
+      * @type {Array}
      */
     mixins: [CartridgeBehaviour],
     /**

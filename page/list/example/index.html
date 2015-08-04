@@ -1,0 +1,191 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Test search-result mixin</title>
+    <meta name="description" content="Example of the component.">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Place favicon.ico in the root directory -->
+
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css"/>
+    <script src="//code.jquery.com/jquery-1.10.2.min.js"></script>
+    <script src="https://fb.me/react-0.13.3.js"></script>
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+
+    <!-- Material degign-->
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/bootstrap.material-design/0.3.0/css/material-wfont.min.css">
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/bootstrap.material-design/0.3.0/css/material.min.css">
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/bootstrap.material-design/0.3.0/css/ripples.min.css">
+    <script src="//cdn.jsdelivr.net/bootstrap.material-design/0.3.0/js/material.min.js"></script>
+    <script src="//cdn.jsdelivr.net/bootstrap.material-design/0.3.0/js/ripples.min.js"></script>
+    <script src="https://fb.me/JSXTransformer-0.13.3.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/3.9.3/lodash.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/backbone.js/1.2.1/backbone.js"></script>
+    <!-- Material degign-->
+
+    <script src="/focus-components/dist/js/focus.js"></script>
+    <script src="/focus-components/dist/js/focus-components.js"></script>
+    <script src="/focus-components/example/js/initFocus.js"></script>
+    <link rel="stylesheet" href="/focus-components/dist/css/focus-components.css"/>
+
+</head>
+<body>
+<h1>List examples</h1>
+<h2>Simple list</h2>
+<div id="list-container" style=" width:70%;margin: auto;"></div>
+<script type="text/jsx">
+    /*SIMPLE LIST EXAMPLE (NO CRITERIA)*/
+    var countId = 0;
+    var service = function (criteria) {
+        console.log('criteria', criteria);
+            var fakeData = [];
+            for(var i = 0; i < 150; i++){
+                fakeData.push({
+                    id: i,
+                    firstName: 'firstName ' + i,
+                    lastName: 'lastName ' + i,
+                    birthDate: Date.now(),
+                    age : i
+                })
+            }
+            var begin = criteria.urlData.skip;
+            var end = begin + criteria.urlData.top;
+            return Promise.resolve(fakeData.slice(begin, end)).then(function(d){
+                return {dataList: d, totalCount: fakeData.length}
+            });
+    };
+    //Creates a line for the component.
+    var Line = React.createClass({
+        mixins: [FocusComponents.list.table.line.mixin],
+        definitionPath: "contact",
+        renderLineContent: function(data){
+            console.log('line content')
+            return (
+                    <tr onClick={this.props.onLineClick}>
+                        <td>{this.textFor("firstName", {})}</td>
+                        <td>{this.textFor("lastName", {})}</td>
+                        <td>{this.textFor("birthDate", {})}</td>
+                    </tr>
+            );
+        }
+    });
+    //Creates a store for the list.
+    var listStore =  new Focus.store.ListStore({identifier: 'LIST_TEST'});
+    //Creates the props for the page.
+    var listPageProps = {
+        onLineClick: function onLineClick(line) {
+            alert('click sur la ligne ' + line.id);
+        },
+        lineComponent: Line,
+        store: listStore,
+        service: service
+    };
+    var ListPage = FocusComponents.page.list.component;
+
+    //React.render(<ListPage {...listPageProps} />, document.querySelector("#list-container"));
+</script>
+
+<h2> List with criteria</h2>
+<span>Type a number to filte the list</span>
+<div id='list-criteria-container' style=" width:70%;margin: auto;"></div>
+<script type="text/jsx">
+//Fake data
+var fakeData = [];
+for(var i = 0; i < 150; i++){
+    fakeData.push({
+        id: i,
+        firstName: 'firstName ' + i,
+        lastName: 'lastName ' + i,
+        birthDate: Date.now(),
+        age : i
+    })
+}
+
+    /*SIMPLE LIST EXAMPLE (NO CRITERIA)*/
+    var countId = 0;
+    var service = function (searchOptions) {
+        var criteria = searchOptions.data.criteria || {};
+            var filteredData = fakeData.filter(function(element){
+                return (element.age || 0) < (criteria.age || 150);
+            })
+            var begin = searchOptions.urlData.skip;
+            var end = begin + searchOptions.urlData.top;
+            return Promise.resolve(filteredData.slice(begin, end)).then(function(d){
+                return {dataList: d, totalCount: filteredData.length}
+            });
+    };
+    var action = function(criteria){
+
+    }
+    var Button = FocusComponents.common.button.action.component;
+    var listStore =  new Focus.store.ListStore({identifier: 'LIST_CRITERIA_TEST'});
+
+    //Criteria component
+    var Criteria = React.createClass({
+        definitionPath: "contact",
+        mixins: [FocusComponents.common.form.mixin],
+
+        handleSearch: function(event){
+                var criteria = this._getEntity();
+                Focus.dispatcher.handleViewAction({
+                    data: {criteria: criteria},
+                    type: 'update',
+                    identifier: listStore.identifier
+                });
+        },
+        renderContent: function(){
+            return(
+                <div className='SearchComponent'>
+                    {this.fieldFor('age')}
+                    <Button handleOnClick={this.handleSearch}/>
+                </div>
+            );
+        }
+    })
+    //List component
+    //Creates a line for the component.
+    var Line = React.createClass({
+        mixins: [FocusComponents.list.table.line.mixin],
+        definitionPath: "contact",
+        renderLineContent: function(data){
+            return (
+                    <tr onClick={this.props.onLineClick}>
+                        <td>{this.textFor("firstName", {})}</td>
+                        <td>{this.textFor("lastName", {})}</td>
+                        <td>{this.textFor("birthDate", {})}</td>
+                    </tr>
+            );
+        }
+    });
+    //Creates the props for the page.
+    var listPageProps = {
+        onLineClick: function onLineClick(line) {
+            alert('click sur la ligne ' + line.id);
+        },
+        lineComponent: Line,
+        store: listStore,
+        service: service
+    };
+    var ListPage = FocusComponents.page.list.component;
+
+
+    var CriteriaPage = React.createClass({
+        render: function renderCriteriaPage(){
+            return (
+                <div className='CriteriaPage'>
+                    <Criteria isEdit={true} hasForm={false} hasLoad={false}/>
+                    <ListPage {...listPageProps} />
+                </div>
+            );
+        }
+    });
+    React.render( <CriteriaPage id />, document.querySelector("#list-criteria-container"));
+</script>
+
+
+</body>
+
+</html>

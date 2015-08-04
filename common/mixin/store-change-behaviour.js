@@ -1,6 +1,9 @@
-var changeBehaviourMixin = {
+let message = require('focus').message;
+let changeBehaviourMixin = {
     /**
-     * Display a message on change.
+     * Display a message when there is a change on a store property resulting from a component action call.
+     * @param  {object} changeInfos - An object containing all the event informations, without the data.
+     * @return {function} - An override function can be called.
      */
     _displayMessageOnChange: function displayMessageOnChange(changeInfos) {
         if (this.displayMessageOnChange) {
@@ -18,11 +21,12 @@ var changeBehaviourMixin = {
                  Focus.message.addInformationMessage('detail.saving');
                  break;*/
                 case 'saved':
-                    if(this.props.hasForm){
-                      Focus.message.addSuccessMessage('detail.saved');
-                      //Change the page mode as edit
-                      this.setState({isEdit: false});
-                    }
+                    //Maybe the action result or the event should have a caller notion.
+                    message.addSuccessMessage('detail.saved');
+                    //Change the page mode as edit
+                    this.setState({isEdit: false});
+                    break;
+                default:
                     break;
             }
         }
@@ -37,16 +41,21 @@ var changeBehaviourMixin = {
         if (this.afterChange) {
             return this.afterChange(changeInfos);
         }
-        return this._displayMessageOnChange(changeInfos);
+        //If there is no callerId in the event, the display message does not have any sens.
+        //Other component responding to the store property change does not need to react on it.
+        if(changeInfos && changeInfos.informations && changeInfos.informations.callerId && this._identifier === changeInfos.informations.callerId){
+            return this._displayMessageOnChange(changeInfos);
+        }
+
     },
     /**
      * Event handler for 'change' events coming from the stores
      * @param {object} changeInfos - The changing informations.
      */
     _onChange: function onFormStoreChangeHandler(changeInfos) {
-        var onChange =  this.props.onChange || this.onChange;
+        let onChange = this.props.onChange || this.onChange;
         if (onChange) {
-            onChange.call(this,changeInfos);
+            onChange.call(this, changeInfos);
         }
         this.setState(this._getStateFromStores(), this._afterChange(changeInfos));
     },
@@ -54,8 +63,8 @@ var changeBehaviourMixin = {
      * Event handler for 'error' events coming from the stores.
      */
     _onError: function onFormErrorHandler() {
-        var errorState = this._getErrorStateFromStores();
-        for (var key in errorState) {
+        let errorState = this._getErrorStateFromStores();
+        for (let key in errorState) {
             if (this.refs[key]) {
                 this.refs[key].setError(errorState[key]);
             }

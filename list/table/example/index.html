@@ -22,15 +22,17 @@
     <script src="http://fb.me/JSXTransformer-0.13.1.js"></script>
     <!-- Material degign-->
 
+    <script src="https://fb.me/JSXTransformer-0.13.3.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/3.9.3/lodash.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/backbone.js/1.2.1/backbone.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/3.9.3/lodash.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/backbone.js/1.2.1/backbone.js"></script>
+
     <script src="/focus-components/dist/js/focus.js"></script>
     <script src="/focus-components/dist/js/focus-components.js"></script>
     <script src="/focus-components/example/js/initFocus.js"></script>
     <link rel="stylesheet" href="/focus-components/dist/css/focus-components.css"/>
 </head>
 <body style="background-color:#fff">
-<div id="list-container" style="width: 600px; height: auto; margin:100px auto 100px auto;"></div>
+    <div id="list-container" style="width: 600px; height: auto; margin:100px auto 100px auto;"></div>
 
-<script type="text/jsx">
+    <script type="text/jsx">
     Focus.components = FocusComponents;
 
     var Line = React.createClass({
@@ -38,11 +40,14 @@
         definitionPath: "contact",
         renderLineContent: function(data){
             return (
-                    <tr>
-                            <td>{this.textFor("firstName", {})}</td>
-                            <td>{this.textFor("lastName", {})}</td>
-                            <td>{this.textFor("birthDate", {})}</td>
-                    </tr>
+                <tr data-focus='table-line'>
+                    <td>{this.textFor("firstName", {})}</td>
+                    <td>{this.textFor("lastName", {})}</td>
+                    <td>
+                        {this.textFor("birthDate", {})}
+                        {this.renderLineActions()}
+                    </td>
+                </tr>
             );
         }
     });
@@ -54,7 +59,6 @@
             firstName: {label: "Prénom", sort:"asc"},
             lastName: {label: "Nom", sort: 'desc'},
             birthDate: {label: "date", noSort: true}
-
         },
         onLineClick : function onLineClick(line){
             alert('click sur la ligne ' + line.title);
@@ -62,15 +66,23 @@
         sortColumn: function sortColumn(name, order){
             alert('Order ' + order + ' on column ' + name);
         },
+        operationList: [
+            {
+                label: "Button1_a",
+                action: function(data) {alert(data.title);},
+                style: {className: 'fa fa-eye', shape: 'fab', 'data-focus': 'line-preview'},
+                priority: 1
+            }
+        ],
         isLoading: true,
         hasMoreData: true,
         isManualFetch: true
     });
 
     React.render(
-            List,
-            document.querySelector("#list-container")
+        List,
+        document.querySelector("#list-container")
     );
-</script>
+    </script>
 </body>
 </html>

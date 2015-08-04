@@ -1,11 +1,19 @@
-var React = require('react');
-var type = require('focus').component.types;
-var translationMixin = require('../../common/i18n').mixin;
-var referenceMixin = require('../../common/mixin/reference-property');
-var definitionMixin = require('../../common/mixin/definition');
-var builtInComponentsMixin = require('../mixin/built-in-components');
+// Dependencies
 
-var lineMixin = {
+let type = require('focus').component.types;
+
+// Mixins
+
+let translationMixin = require('../../common/i18n').mixin;
+let referenceMixin = require('../../common/mixin/reference-property');
+let definitionMixin = require('../../common/mixin/definition');
+let builtInComponentsMixin = require('../mixin/built-in-components');
+
+// Components
+
+let ContextualActions = require('../action-contextual').component;
+
+let lineMixin = {
     /**
      * React component name.
      */
@@ -17,12 +25,12 @@ var lineMixin = {
     mixins: [translationMixin, definitionMixin, referenceMixin, builtInComponentsMixin],
 
     /**@inheritDoc**/
-    getDefaultProps: function getLineDefaultProps(){
+    getDefaultProps() {
         return {};
     },
 
     /**@inheritDoc**/
-    getInitialState: function getInitialSate(){
+    getInitialState() {
         return {};
     },
 
@@ -31,22 +39,31 @@ var lineMixin = {
      * @type {Object}
      */
     propTypes: {
+        data: type('object'),
         saveAction: type('func'),
         deleteAction: type('func'),
         onLineClick: type('func'),
-        onSelection: type('func')
+        onSelection: type('func'),
+        operationList: type('array', true)
     },
 
     /**
      * Render line Actions.
      */
-    renderActions: function renderLineActions(){
-        //TODO ajouter les actions sur une ligne : edit save et delete
-        console.warn('line actions not implemented');
+    renderLineActions() {
+        if (this.props.operationList.length > 0) {
+            return (
+                <div data-focus='table-line-actions'>
+                    <ContextualActions operationList={this.props.operationList} operationParam={this.props.data}/>
+                </div>
+            );
+        }
     },
-
-    render: function renderLine(){
-        return this.renderLineContent();
+    _onLineClickHandler(data) {
+        return () => {this.props.onLineClick(data); };
+    },
+    render() {
+        return this.renderLineContent(this.props.data);
     }
 };
 

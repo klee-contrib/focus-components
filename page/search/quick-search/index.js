@@ -56,7 +56,8 @@ let QuickSearchComponent = {
             service: undefined,
             action: undefined,
             onLineClick: undefined,
-            groupMaxRows: undefined
+            groupMaxRows: undefined,
+            scrollParentSelector: undefined
         };
     },
     /**
@@ -151,6 +152,7 @@ let QuickSearchComponent = {
                 groupingKey={this.props.scopeFacetKey}
                 initialRowsCount={this.props.groupMaxRows}
                 action={this._action}
+                scrollParentSelector={this.props.scrollParentSelector}
             />
         );
     },
@@ -160,7 +162,7 @@ let QuickSearchComponent = {
      */
     render() {
         return (
-            <div className="search-panel" data-focus="quick-search">
+            <div className='search-panel' data-focus='quick-search'>
                 {this._renderSearchBar()}
                 {this._renderResults()}
             </div>

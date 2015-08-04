@@ -1,15 +1,14 @@
-/**@jsx*/
-var builder =  require('focus').component.builder;
-var React = require('react');
-var Line = require('./line').mixin;
-var Button = require('../../common/button/action').component;
-var type = require('focus').component.types;
-var translationMixin = require('../../common/i18n').mixin;
-var infiniteScrollMixin = require('../mixin/infinite-scroll').mixin;
-var referenceMixin = require('../../common/mixin/reference-property');
-var checkIsNotNull = require('focus').util.object.checkIsNotNull;
+let builder = require('focus').component.builder;
+let React = require('react');
+let Line = require('./line').mixin;
+let Button = require('../../common/button/action').component;
+let type = require('focus').component.types;
+let translationMixin = require('../../common/i18n').mixin;
+let infiniteScrollMixin = require('../mixin/infinite-scroll').mixin;
+let referenceMixin = require('../../common/mixin/reference-property');
+let checkIsNotNull = require('focus').util.object.checkIsNotNull;
 
-var listMixin = {
+let listMixin = {
     /**
     * Display name.
     */
@@ -41,14 +40,15 @@ var listMixin = {
     */
     propTypes: {
         data: type('array'),
-        isSelection: type('bool'),
-        onSelection: type('func'),
-        onLineClick: type('func'),
-        isLoading: type('bool'),
-        loader: type('func'),
-        operationList: type('array'),
         idField: type('string'),
+        isLoading: type('bool'),
+        isSelection: type('bool'),
         lineComponent: type('func', true),
+        loader: type('func'),
+        onLineClick: type('func'),
+        onSelection: type('func'),
+        operationList: type('array'),
+        selectionData: type('array'),
         selectionStatus: type('string')
     },
 
@@ -64,10 +64,10 @@ var listMixin = {
     * @return {Array} selected items
     */
     getSelectedItems: function getListSelectedItems(){
-        var selected = [];
-        for(var i = 1; i < this.props.data.length + 1; i++){
-            var lineName = 'line' + i;
-            var lineValue = this.refs[lineName].getValue();
+        let selected = [];
+        for(let i = 1; i < this.props.data.length + 1; i++){
+            let lineName = 'line' + i;
+            let lineValue = this.refs[lineName].getValue();
             if(lineValue.isSelected){
                 selected.push(lineValue.item);
             }
@@ -80,22 +80,22 @@ var listMixin = {
     * @returns {*} DOM for lines
     */
     _renderLines: function renderLines(){
-        var lineCount = 1;
-        var LineComponent = this.props.lineComponent;
+        let lineCount = 1;
+        let LineComponent = this.props.lineComponent;
         return this.props.data.map((line)=>{
-            var isSelected;
+            let isSelected;
             switch(this.props.selectionStatus){
                 case 'none':
-                isSelected = false;
-                break;
+                    isSelected = false;
+                    break;
                 case 'selected':
-                isSelected = true;
-                break;
+                    isSelected = true;
+                    break;
                 case 'partial':
-                isSelected = undefined;
-                break;
+                    isSelected = undefined;
+                    break;
                 default:
-                isSelected = false;
+                    isSelected = false;
             }
             return React.createElement(LineComponent, {
                 key: line[this.props.idField],
@@ -116,21 +116,22 @@ var listMixin = {
                 return this.props.loader();
             }
             return (
-                <li className="sl-loading">{this.i18n('list.loading')} ...</li>
+                <li className='sl-loading'>{this.i18n('list.loading')} ...</li>
             );
         }
     },
 
     _renderManualFetch: function renderManualFetch(){
         if(this.props.isManualFetch && this.props.hasMoreData){
-            var style = {className: 'primary'};
+            let style = {className: 'primary'};
             return (
-                <li className="sl-button">
-                <Button label="list.button.showMore"
-                type="button"
-                handleOnClick={this.handleShowMore}
-                style={style}
-                />
+                <li className='sl-button'>
+                    <Button
+                        handleOnClick={this.handleShowMore}
+                        label='list.button.showMore'
+                        style={style}
+                        type='button'
+                    />
                 </li>
             );
         }
@@ -142,10 +143,10 @@ var listMixin = {
     */
     render: function renderList(){
         return (
-            <ul data-focus="selection-list">
-            {this._renderLines()}
-            {this._renderLoading()}
-            {this._renderManualFetch()}
+            <ul data-focus='selection-list'>
+                {this._renderLines()}
+                {this._renderLoading()}
+                {this._renderManualFetch()}
             </ul>
         );
     }

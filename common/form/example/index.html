@@ -84,90 +84,86 @@
     var Panel = Focus.components.common.panel.component;
     var MessageCenter = Focus.components.application.messageCenter.component;
     React.render(<MessageCenter/>, document.querySelector("#message-cennter-container"));
+    var actionBuilder = Focus.application.actionBuilder;
+    var jsonContact= {
+        firstName: "Zeus",
+        lastName: "God",
+        isCool: true,
+        birthDate: new Date().toISOString(),
+        commandes: [{
+            name: "commande1",
+            number: "1"
+        }, {
+            name: "commande2",
+            number: "2"
+        }, {
+            name: "commande3",
+            number: "3"
+        }, {
+            name: "commande4",
+            number: "4"
+        }, {
+            name: "commande5",
+            number: "5"
+        }, {
+            name: "commande6",
+            number: "6"
+        }]
+    };
+    var action = {
+        load: actionBuilder({
+            status: 'loaded',
+            node: 'contact',
+            service: function(){
+                return Promise.resolve(jsonContact);
+            }
+        }),
+        save:actionBuilder({
+            status: 'saved',
+            preStatus: 'saving',
+            node: 'contact',
+            service: function myCustomSaveService(data){
+                console.log('save', data);
+                return Promise.resolve(data);
+            }
+        })
+    };
+    var Block = FocusComponents.common.block.component;
     //Create the view.
-    var Form = React.createClass({
-        displayName: "Form",
+    var FormExample = React.createClass({
+        displayName: "FormExample",
         mixins: [formMixin],
         stores: [{
             store: contactStore,
-            properties: ["contact", "commandes"]
+            properties: ["contact", "commandes"],
         }],
         definitionPath: "contact",
-        action: {
-            load: function () {
-                Focus.dispatcher.handleViewAction({
-                    data: {contact: {}},
-                    status: {
-                        contact: {isLoading: true, name: 'loading'}
-                    },
-                    type: "update"
-                });
-                //console.break();
-                Promise.resolve({
-                    contact: {
-                        firstName: "pierre",
-                        lastName: "besson",
-                        isCool: true,
-                        birthDate: new Date().toISOString(),
-                        commandes: [{name: "commande1", number: "1"}, {
-                            name: "commande2",
-                            number: "2"
-                        }, {name: "commande3", number: "3"}, {name: "commande4", number: "4"}, {
-                            name: "commande5",
-                            number: "5"
-                        }, {name: "commande6", number: "6"}]
-                    }
-                }).then(
-                        function (data) {
-
-                            Focus.dispatcher.handleServerAction({
-                                data: data,
-                                status: {
-                                    contact: {isLoading: false, name: 'loaded'}
-                                },
-                                type: "update"
-                            });
-                        });
-            }, save: function saveContact(data) {
-                Focus.dispatcher.handleViewAction({
-                    data: {contact: {}},
-                    status: {contact: {isLoading: true, name: 'saving'}},
-                    type: "update"
-                });
-                return Promise.resolve(data).then(function (d) {
-                    Focus.dispatcher.handleServerAction({
-                        data: {contact: data},
-                        status: {contact: {isLoading: false, name: 'saved'}},
-                        type: "update"
-                    });
-                })
-            }
-        },
-        referenceNames: ['papas'],
+        action: action,
+        referenceNames: ['papas', 'monkeys'],
         renderContent: function renderUserDetail() {
             return (
-                    React.createElement(Panel, {title: "Fiche de l'utilisateur"},
-                            this._renderActions(),
-                            this.fieldFor("firstName"),
-                            this.fieldFor("lastName"),
-                            this.textFor("birthDate", {
-                                formatter: function (date) {
-                                    return "formatted date" + date
-                                }
-                            }),
-                            this.fieldFor("bio"),
-                            this.fieldFor("isCool"),
-                            this.fieldFor("isNice"),
-                            this.fieldFor("birthDate"),
-                            this.tableFor("commandes", {lineComponent: TableLine, columns: columns}),
-                            this.listFor("commandes", {lineComponent: ListLine})
-                            /*this.selectFor('papaCode', 'papas')*/
-                    )
+                    <Block title="Fiche de l'utilisateur" actions={this._renderActions}>
+                      {this.fieldFor("firstName")}
+                      {this.fieldFor("lastName")}
+                      {
+                          this.textFor("birthDate", {
+                              formatter: function (date) {
+                                  return "formatted date" + date
+                              }
+                          })}
+                      {this.fieldFor('papaCode', {listName: 'papas'})}
+                      {this.fieldFor('monkeyCode', {listName: 'monkeys', valueKey: 'myCustomCode', labelKey: 'myCustomLabel' })}
+                      {this.fieldFor("bio")}
+                      {this.fieldFor("isCool")}
+                      {this.fieldFor("isNice")}
+                      {this.fieldFor("birthDate")}
+                      {this.listFor("commandes", {lineComponent: ListLine})}
+                    </Block>
             );
         }
     });
     //Render the created View.
-    React.render(React.createElement(Form, null), document.querySelector("#form-container"));
+    React.render(<FormExample />, document.querySelector("#form-container"));
 </script>
 
 </body>

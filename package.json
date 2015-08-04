@@ -1,14 +1,15 @@
 {
   "name": "focusjs-components",
-  "version": "0.3.0",
+  "version": "0.4.0",
   "description": "Focus component repository.",
   "main": "index.js",
   "scripts": {
     "test": "exit 0",
     "example": "node static-server.js",
-    "build": "gulp browserify",
+    "build": "sh ./build.sh",
     "watch": "gulp watchify",
-    "prepublish": "gulp build"
+    "prepublish": "gulp build",
+    "serve": "sh ./build.sh && node static-server.js"
   },
   "repository": {
     "type": "git",
@@ -87,6 +88,10 @@
     {
       "name": "detail",
       "path": "common/detail"
+    },
+    {
+      "name": "autocomplete",
+      "path": "common/autocomplete"
     },
     {
       "name": "input-text",
@@ -193,6 +198,10 @@
       "path": "common/block"
     },
     {
+      "name": "list-page",
+      "path": "page/list"
+    },
+    {
       "name": "quick-search",
       "path": "page/search/quick-search"
     },
@@ -226,17 +235,20 @@
     "focusjs": "^0.7.0",
     "immutable": "^3.7.3",
     "lodash": "^3.9.1",
+    "moment": "^2.10.6",
     "object-assign": "^2.0.0",
     "react": "^0.13.3",
     "uuid": "^2.0.1"
   },
   "devDependencies": {
+    "babel-eslint": "^3.1.26",
     "babel-jest": "^4.0.0",
     "babelify": "^5.0.3",
     "bootstrap-material": "^0.1.5",
     "browser-sync": "^2.2.1",
     "browserify": "^9.0.3",
-    "eslint": "^0.17.1",
+    "eslint": "1.0.0-rc-1",
+    "eslint-plugin-react": "^2.7.1",
     "express": "^4.12.0",
     "gulp": "^3.8.11",
     "gulp-babel": "^4.0.0",
