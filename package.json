@@ -1,15 +1,15 @@
 {
   "name": "focusjs-components",
-  "version": "0.4.0",
+  "version": "0.4.1",
   "description": "Focus component repository.",
   "main": "index.js",
   "scripts": {
     "test": "exit 0",
     "example": "node static-server.js",
-    "build": "sh ./build.sh",
-    "watch": "gulp watchify",
-    "prepublish": "gulp build",
-    "serve": "sh ./build.sh && node static-server.js"
+    "build": "node ./node_modules/gulp/bin/gulp.js build",
+    "watch": "node ./node_modules/gulp/bin/gulp.js watch",
+    "prepublish": "node ./node_modules/gulp/bin/gulp.js build",
+    "serve": "node ./node_modules/gulp/bin/gulp.js build && node static-server.js"
   },
   "repository": {
     "type": "git",

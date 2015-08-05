@@ -219,7 +219,7 @@ gulp.task('focus-components-npm', ['style', 'browserify'], function() {
 		.pipe(gulpif(/[.]js$/, babel()))
 		.pipe(gulp.dest('../rodolphe/app/node_modules/focus-components/'));
 });
-gulp.task('watch', function(){
+gulp.task('watch',['build'], function(){
 	gulp.watch(['package.json','index.js',src, srcCSS],['build', 'style']);
 });
 
