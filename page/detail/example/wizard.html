@@ -55,6 +55,50 @@
     });
     var formMixin = Focus.components.common.form.mixin;
     var Block = FocusComponents.common.block.component;
+    var conf = {
+        informations:{
+            component: Informations
+            steps: {
+                1:{
+                    isVisible: true,
+                    props: {isEdit: true, hasLoad: false}
+                },
+                2:{
+                    isVisible: true,
+                    props: {isEdit: false, hasLoad: false}
+                },
+                3:{
+                    isVisible: true,
+                    props: {isEdit: true, hasLoad: false}
+                }
+            }
+        },
+        address:{
+            component: Address,
+            steps: {
+                1:{isVisible: false},
+                2:{
+                    isVisible: true,
+                    props: {isEdit: true, hasLoad: false}
+                },
+                3:{
+                    isVisible: true,
+                    props: {isEdit: false, hasLoad: false}
+                }
+            }
+        },
+        preferences:{
+            component: Preferences,
+            steps:{
+                1: {isVisible: false},
+                2: {isVisible: false},
+                3: {
+                    isVisible: true,
+                    props: {isEdit: true, hasLoad: false}
+                }
+            }
+        }
+    }
     var stepsConf = {
         "1": {
             "informations":{
@@ -183,12 +227,15 @@
             };
         },
         _readStepValue: function(){
-            //get the data from the step.
-            var stepConf = this.stepsConf[this.state.step];
+            //Read conf depending on step.
+            var step = this.state.step;
+            var configuration = this.props.configuration;
+            //Creates container
             var dataContainer = {};
             var isValid = true;
-            for(var node in stepConf){
-                var conf = stepConf[node];
+            //Process all nodes value.
+            for(var node in configuration){
+                var conf = configuration[node][step];
                 if(conf && conf.props && conf.props.isEdit && this.refs && this.refs[node]){
                     if(this.refs[node].validate()){
                         dataContainer[node] =  this.refs[node]._getEntity();
@@ -219,7 +266,7 @@
         },
         _isBlockVisible: function(blockName){
             var step = this.state.step;
-            var conf =this.stepsConf;
+            var conf =this.props.configuration;
             console.log('isvisible',blockName, conf && conf[step] && conf[step][blockName] && conf[step][blockName].isVisible)
           return conf && conf[step] && conf[step][blockName] && conf[step][blockName].isVisible;
         },
