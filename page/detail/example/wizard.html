@@ -1,0 +1,250 @@
+<!doctype html>
+<html class="no-js" lang="">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Focus component examples</title>
+    <meta name="description" content="Example of the component.">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Place favicon.ico in the root directory -->
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css"/>
+    <script src="https://fb.me/react-0.13.3.js"></script>
+    <script src="https://fb.me/JSXTransformer-0.13.3.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/3.9.3/lodash.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/backbone.js/1.2.1/backbone.js"></script>
+
+    <!-- Material degign-->
+    <script src="//code.jquery.com/jquery-1.10.2.min.js"></script>
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/bootstrap.material-design/0.3.0/css/material-wfont.min.css">
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/bootstrap.material-design/0.3.0/css/material.min.css">
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/bootstrap.material-design/0.3.0/css/ripples.min.css">
+    <script src="//cdn.jsdelivr.net/bootstrap.material-design/0.3.0/js/material.min.js"></script>
+    <script src="//cdn.jsdelivr.net/bootstrap.material-design/0.3.0/js/ripples.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/showdown/0.4.0/Showdown.js"></script>
+
+    <!-- Include Date Range Picker -->
+    <script type="text/javascript" src="//cdn.jsdelivr.net/momentjs/2.9.0/moment.min.js"></script>
+    <script type="text/javascript" src="//cdn.jsdelivr.net/bootstrap.daterangepicker/1/daterangepicker.js"></script>
+    <link rel="stylesheet" type="text/css"
+          href="//cdn.jsdelivr.net/bootstrap.daterangepicker/1/daterangepicker-bs3.css"/>
+
+
+    <!-- Material degign-->
+    <script src="/focus-components/dist/js/focus.js"></script>
+    <script src="/focus-components/dist/js/focus-components.js"></script>
+    <script src="/focus-components/example/js/initFocus.js"></script>
+    <link rel="stylesheet" href="/focus-components/dist/css/focus-components.css"/>
+    <link rel="stylesheet" href="/focus-components/example/js/picker.css"/>
+</head>
+<body>
+<script src="/focus-components/example/js/picker.js"></script>
+<div id="form-container" class="container"></div>
+<div id='message-cennter-container'></div>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $.material.init();
+    });
+</script>
+<script type="text/jsx">
+    //Load dependencies.
+    Focus.components = FocusComponents;
+    var contactStore = new Focus.store.CoreStore({
+        definition: {'informations': 'informations', 'address': 'address', 'preferences': 'preferences'}
+    });
+    var formMixin = Focus.components.common.form.mixin;
+    var actionBuilder = Focus.application.actionBuilder;
+    var action = {
+        load: actionBuilder({
+            status: 'loaded',
+            node: 'contact',
+            service: function(){
+                return Promise.resolve(jsonContact);
+            }
+        }),
+        save:actionBuilder({
+            status: 'saved',
+            preStatus: 'saving',
+            node: 'contact',
+            service: function myCustomSaveService(data){
+                console.log('save', data);
+                return Promise.resolve(data);
+            }
+        })
+    };
+    var Block = FocusComponents.common.block.component;
+    //data
+    var jsonContact= {
+        firstName: "Zeus",
+        lastName: "God",
+        isCool: true,
+        birthDate: new Date().toISOString(),
+        commandes: [{
+            name: "commande1",
+            number: "1"
+        }, {
+            name: "commande2",
+            number: "2"
+        }, {
+            name: "commande3",
+            number: "3"
+        }, {
+            name: "commande4",
+            number: "4"
+        }, {
+            name: "commande5",
+            number: "5"
+        }, {
+            name: "commande6",
+            number: "6"
+        }]
+    };
+    var stepsConf = {
+        "1": {
+            "informations":{
+                isVisible: true,
+                props: {isEdit: true, hasLoad: false}
+            },
+            "address":{
+                isVisible: false
+            },
+            "preferences":{
+                isVisible: false
+            }
+        },
+        "2": {
+            "informations":{
+                isVisible: true,
+                props: {isEdit: false, hasLoad: false}
+            },
+            "address":{
+                isVisible: true,
+                props: {isEdit: true, hasLoad: false}
+            },
+            "preferences":{
+                isVisible: false
+            }
+        },
+        "3": {
+            "informations":{
+                isVisible: false
+            },
+            "address":{
+                isVisible: true,
+                props: {isEdit: false, hasLoad: false}
+            },
+            "preferences":{
+                isVisible: true,
+                props: {isEdit: true, hasLoad: false}
+            }
+        }
+    }
+    //Create the view.
+    var Informations = React.createClass({
+        displayName: "informations",
+        mixins: [formMixin],
+        stores: [{
+            store: contactStore,
+            properties: ["informations"],
+        }],
+        definitionPath: "contact",
+        action: action,
+        renderContent: function renderUserDetail() {
+            return (
+                    <Block title="informations du contact">
+                      {this.fieldFor("firstName")}
+                      {this.fieldFor("lastName")}
+                     </Block>
+            );
+        }
+    });
+
+    var Wizard = React.createClass({
+        displayName: "Wizard",
+        stepsConf: stepsConf,
+        component:{
+            informations: Informations
+        },
+        getDefaultProps: function(){
+            return  {step: 1};
+        },
+        getInitialState: function(){
+            return {
+                step: this.props.step
+            };
+        },
+        _readStepValue: function(){
+            //get the data from the step.
+            var stepConf = this.stepsConf[this.state.step];
+            var dataContainer = {};
+            var isValid = true;
+            for(var node in stepConf){
+                var conf = stepConf[node];
+                if(conf && conf.props && conf.props.isEdit && this.refs && this.refs[node]){
+                    if(this.refs[node].validate()){
+                        dataContainer[node] =  this.refs[node]._getEntity();
+                    }else {
+                        isValid = false;
+                    }
+                }
+            }
+            if(!isValid){return;}
+            Focus.dispatcher.handleViewAction({
+                data: dataContainer,
+                type: 'update'
+            });
+            return true;
+            console.log('dataContainer', dataContainer);
+        },
+        _increaseStep: function(){
+              if(this._readStepValue()){
+                this.setState({step: this.state.step + 1});
+              }
+        },
+        _decreaseStep: function(){
+            if(this.state.step === 1){
+                return;
+            }
+            this.setState({step: this.state.step - 1});
+        },
+        _isBlockVisible: function(blockName){
+            var step = this.state.step;
+            var conf =this.stepsConf;
+            console.log('isvisible',blockName, conf && conf[step] && conf[step][blockName] && conf[step][blockName].isVisible)
+          return conf && conf[step] && conf[step][blockName] && conf[step][blockName].isVisible;
+        },
+        _getComponentStepsProps: function(blockName){
+            var step = this.state.step;
+            var conf = this.stepsConf;
+            console.log('props', blockName, conf[step][blockName].props);
+            if(conf && conf[step] && conf[step][blockName] && conf[step][blockName].props){
+                return conf[step][blockName].props;
+            }
+            return null;
+        },
+        _renderBlock: function(componentName){
+            console.log('render block', "step", this.state.step, "conf", this.stepsConf,'comp',  this.component, "name", componentName, this.component[componentName]);
+            if(!this._isBlockVisible(componentName)){return null;}
+            var props = this._getComponentStepsProps(componentName);
+            var Component = this.component[componentName];
+            return <Component ref={componentName} {...props} />
+        },
+        render: function(){
+            return (
+                <div className='Wizard'>
+                  <h2>current step: {this.state.step}</h2>
+                  {this._renderBlock('informations')}
+                  <button onClick={this._decreaseStep}>Previous step</button>
+                  <button onClick={this._increaseStep}>Next step</button>
+                </div>
+          );
+        }
+      });
+    //Render the created View.
+    React.render(<Wizard />, document.querySelector("#form-container"));
+</script>
+
+</body>
+
+</html>
