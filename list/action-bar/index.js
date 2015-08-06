@@ -52,12 +52,12 @@ var actionBarMixin = {
         var selectionOperationList = [
             {
                 action: this._selectionFunction('selected'),
-                label: 'all',
+                label: this.i18n('action.selection.all'),
                 style: this._getSelectedStyle(this.props.selectionStatus, 'selected')
             },
             {
                 action: this._selectionFunction('none'),
-                label: 'none',
+                label: this.i18n('action.selection.none'),
                 style: this._getSelectedStyle(this.props.selectionStatus, 'none')
             }
         ];
