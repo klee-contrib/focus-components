@@ -55,90 +55,6 @@
     });
     var formMixin = Focus.components.common.form.mixin;
     var Block = FocusComponents.common.block.component;
-    var conf = {
-        informations:{
-            component: Informations
-            steps: {
-                1:{
-                    isVisible: true,
-                    props: {isEdit: true, hasLoad: false}
-                },
-                2:{
-                    isVisible: true,
-                    props: {isEdit: false, hasLoad: false}
-                },
-                3:{
-                    isVisible: true,
-                    props: {isEdit: true, hasLoad: false}
-                }
-            }
-        },
-        address:{
-            component: Address,
-            steps: {
-                1:{isVisible: false},
-                2:{
-                    isVisible: true,
-                    props: {isEdit: true, hasLoad: false}
-                },
-                3:{
-                    isVisible: true,
-                    props: {isEdit: false, hasLoad: false}
-                }
-            }
-        },
-        preferences:{
-            component: Preferences,
-            steps:{
-                1: {isVisible: false},
-                2: {isVisible: false},
-                3: {
-                    isVisible: true,
-                    props: {isEdit: true, hasLoad: false}
-                }
-            }
-        }
-    }
-    var stepsConf = {
-        "1": {
-            "informations":{
-                isVisible: true,
-                props: {isEdit: true, hasLoad: false}
-            },
-            "address":{
-                isVisible: false
-            },
-            "preferences":{
-                isVisible: false
-            }
-        },
-        "2": {
-            "informations":{
-                isVisible: true,
-                props: {isEdit: false, hasLoad: false}
-            },
-            "address":{
-                isVisible: true,
-                props: {isEdit: true, hasLoad: false}
-            },
-            "preferences":{
-                isVisible: false
-            }
-        },
-        "3": {
-            "informations":{
-                isVisible: false
-            },
-            "address":{
-                isVisible: true,
-                props: {isEdit: false, hasLoad: false}
-            },
-            "preferences":{
-                isVisible: true,
-                props: {isEdit: true, hasLoad: false}
-            }
-        }
-    }
     //Create component for informations
     var Informations = React.createClass({
         displayName: "informations",
@@ -206,15 +122,30 @@
         }
     });
 
-    //create the creation wizard
+    //Thhis is a naive implementation of the wizard's concept.
+    //It just has to be configured to work.
+    //This page may be in focus component soon, it just has to be debated.
+    //Your conf just has the following structure:
+    //```javascript
+    //{
+    //   componentName: {
+    //      component: ReferenceToYourComponent,
+    //      steps:{
+    //          //X is the step number
+    //          X: {
+    //            isVisible: true | false // Is your node visible in the step.
+    //            props: {isEdit: trus } // this is an example. You just specify the props you want for your component in the given step.
+    //          }
+    //      }
+    //   },
+    //   otherComponentName: {
+    //      component: Ref...,
+    //      steps:{} //... Same thing.
+    //   }
+    //}
+    //```
     var Wizard = React.createClass({
         displayName: "Wizard",
-        stepsConf: stepsConf,
-        component:{
-            informations: Informations,
-            address: Address,
-            preferences: Preferences
-        },
         getDefaultProps: function(){
             return  {
                 step: 1,
@@ -235,7 +166,7 @@
             var isValid = true;
             //Process all nodes value.
             for(var node in configuration){
-                var conf = configuration[node][step];
+                var conf = configuration[node].steps[step];
                 if(conf && conf.props && conf.props.isEdit && this.refs && this.refs[node]){
                     if(this.refs[node].validate()){
                         dataContainer[node] =  this.refs[node]._getEntity();
@@ -266,24 +197,22 @@
         },
         _isBlockVisible: function(blockName){
             var step = this.state.step;
-            var conf =this.props.configuration;
-            console.log('isvisible',blockName, conf && conf[step] && conf[step][blockName] && conf[step][blockName].isVisible)
-          return conf && conf[step] && conf[step][blockName] && conf[step][blockName].isVisible;
+            var conf = this.props.configuration;
+            return conf && conf[blockName] &&  conf[blockName].steps && conf[blockName].steps[step] && conf[blockName].steps[step].isVisible;
         },
         _getComponentStepsProps: function(blockName){
             var step = this.state.step;
-            var conf = this.stepsConf;
-            console.log('props', blockName, conf[step][blockName].props);
-            if(conf && conf[step] && conf[step][blockName] && conf[step][blockName].props){
-                return conf[step][blockName].props;
+            var conf =  this.props.configuration;
+            // console.log('step', step,'conf', conf[blockName].steps[step].props);
+            if(conf && conf[blockName] && conf[blockName].steps && conf[blockName].steps[step] && conf[blockName].steps[step].props){
+                return conf[blockName].steps[step].props;
             }
             return null;
         },
         _renderBlock: function(componentName){
-            console.log('render block', "step", this.state.step, "conf", this.stepsConf,'comp',  this.component, "name", componentName, this.component[componentName]);
             if(!this._isBlockVisible(componentName)){return null;}
             var props = this._getComponentStepsProps(componentName);
-            var Component = this.component[componentName];
+            var Component = this.props.configuration[componentName].component;
             return <Component ref={componentName} {...props} />
         },
         _save: function(){
@@ -291,24 +220,88 @@
                 alert(JSON.stringify(contactStore.getValue()));
             }
         },
-        render: function(){
+        _renderSteps: function(){
+            var conf = this.props.configuration;
+            var comp = [];
+            for(var node in conf){
+              comp.push(this._renderBlock(node));
+            }
+            return comp;
+        },
+        _renderStepActions: function(){
             var step = this.state.step;
             var maxStep = this.props.maxStep;
             return (
+                <div data-focus='step-actions'>
+                {step > 1 && <button onClick={this._decreaseStep}>Previous step</button>}
+                {step < maxStep && <button onClick={this._increaseStep}>Next step</button>}
+                { step === maxStep && <button onClick={this._save}>Save</button>}
+                </div>
+            );
+        },
+        render: function(){
+
+            return (
                 <div className='Wizard'>
                   <h2>current step: {this.state.step}</h2>
-                  {this._renderBlock('informations')}
-                  {this._renderBlock('address')}
-                  {this._renderBlock('preferences')}
-                  {step > 1 && <button onClick={this._decreaseStep}>Previous step</button>}
-                  {step < maxStep && <button onClick={this._increaseStep}>Next step</button>}
-                  { step === maxStep && <button onClick={this._save}>Save</button>}
+                  {this._renderSteps()}
+                  {this._renderStepActions()}
                 </div>
           );
         }
       });
-    //Render the created View.
-    React.render(<Wizard />, document.querySelector("#form-container"));
+
+
+
+
+      //Now you just have to configure the wizard as you would do for a detail page.
+      var conf = {
+          informations:{
+              component: Informations,
+              steps: {
+                  1:{
+                      isVisible: true,
+                      props: {isEdit: true, hasLoad: false}
+                  },
+                  2:{
+                      isVisible: true,
+                      props: {isEdit: false, hasLoad: false}
+                  },
+                  3:{
+                      isVisible: false,
+                      props: {isEdit: false, hasLoad: false}
+                  }
+              }
+          },
+          address:{
+              component: Address,
+              steps: {
+                  1:{isVisible: false},
+                  2:{
+                      isVisible: true,
+                      props: {isEdit: true, hasLoad: false}
+                  },
+                  3:{
+                      isVisible: true,
+                      props: {isEdit: false, hasLoad: false}
+                  }
+              }
+          },
+          preferences:{
+              component: Preferences,
+              steps:{
+                  1: {isVisible: false},
+                  2: {isVisible: false},
+                  3: {
+                      isVisible: true,
+                      props: {isEdit: true, hasLoad: false}
+                  }
+              }
+          }
+      }
+
+    //Render the created View , just takes a configuration.
+    React.render(<Wizard configuration={conf} />, document.querySelector("#form-container"));
 </script>
 
 </body>
