@@ -75,7 +75,7 @@ var ratingMixin = {
   /**
    * Create a star item.
    * @param {number} index - index of the star
-   * @return a star item
+   * @return {Array} star item
    */
   starItem(index){
     let id = 'star-' + this.props.name  + '-' + index;
