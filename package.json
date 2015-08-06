@@ -256,7 +256,7 @@
     "eslint-plugin-react": "^2.7.1",
     "express": "^4.12.0",
     "gulp": "^3.8.11",
-    "gulp-babel": "^4.0.0",
+    "gulp-babel": "^5.2.0",
     "gulp-concat": "^2.5.2",
     "gulp-if": "^1.2.5",
     "gulp-react": "^3.0.0",
