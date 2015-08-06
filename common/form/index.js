@@ -61,6 +61,12 @@ let formMixin = {
       isEdit: this.props.isEdit
     };
 },
+    componentWillReceiveProps(newProps = {}){
+        let {isEdit} = newProps;
+        if(isEdit !== undefined){
+            this.setState({isEdit: isEdit})
+        }
+    },
   /** @inheritdoc */
   callMountedActions: function formCallMountedActions() {
     if(this.props.hasLoad){
