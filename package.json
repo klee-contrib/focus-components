@@ -236,9 +236,9 @@
   ],
   "homepage": "https://github.com/KleeGroup/focus-components",
   "dependencies": {
-    "focusjs": "^0.7.0",
-    "immutable": "^3.7.3",
-    "lodash": "^3.9.1",
+    "focusjs": "^0.8.0",
+    "immutable": "^3.7.4",
+    "lodash": "^3.10.1",
     "moment": "^2.10.6",
     "object-assign": "^2.0.0",
     "react": "^0.13.3",
