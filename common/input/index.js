@@ -4,5 +4,6 @@ module.exports = {
     text: require('./text'),
     textarea: require('./textarea'),
     toggle: require('./toggle'),
-    markdown: require('./markdown')
+    markdown: require('./markdown'),
+    rating: require('./rating')
 };

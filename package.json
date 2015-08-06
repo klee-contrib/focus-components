@@ -110,6 +110,10 @@
       "path": "common/input/checkbox"
     },
     {
+      "name": "input-rating",
+      "path": "common/input/rating"
+    },
+    {
       "name": "input-markdown",
       "path": "common/input/markdown"
     },

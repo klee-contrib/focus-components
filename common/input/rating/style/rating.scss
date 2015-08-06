@@ -1,0 +1,52 @@
+div[data-focus="rating"] {
+  float:left;
+}
+
+div[data-focus="rating"]:not(:checked) > input {
+  position:absolute;
+  top:-9999px;
+  clip:rect(0,0,0,0);
+}
+
+div[data-focus="rating"]:not(:checked) > label {
+  float:right;
+  width:1em;
+  padding:0 .1em;
+  overflow:hidden;
+  white-space:nowrap;
+  cursor:pointer;
+  font-size:200%;
+  line-height:1.2;
+  color:#ddd;
+  text-shadow:1px 1px #bbb, 2px 2px #666, .1em .1em .2em rgba(0,0,0,.5);
+}
+
+div[data-focus="rating"]:not(:checked) > label:before {
+  content: '\2605 ';
+}
+
+div[data-focus="rating"] > input:checked ~ label {
+  color: #f70;
+  text-shadow:1px 1px #c60, 2px 2px #940, .1em .1em .2em rgba(0,0,0,.5);
+}
+
+div[data-focus="rating"]:not(:checked) > label:hover,
+div[data-focus="rating"]:not(:checked) > label:hover ~ label {
+  color: gold;
+  text-shadow:1px 1px goldenrod, 2px 2px #B57340, .1em .1em .2em rgba(0,0,0,.5);
+}
+
+div[data-focus="rating"] > input:checked + label:hover,
+div[data-focus="rating"] > input:checked + label:hover ~ label,
+div[data-focus="rating"] > input:checked ~ label:hover,
+div[data-focus="rating"] > input:checked ~ label:hover ~ label,
+div[data-focus="rating"] > label:hover ~ input:checked ~ label {
+  color: #ea0;
+  text-shadow:1px 1px goldenrod, 2px 2px #B57340, .1em .1em .2em rgba(0,0,0,.5);
+}
+
+div[data-focus="rating"] > label:active {
+  position:relative;
+  top:2px;
+  left:2px;
+}
