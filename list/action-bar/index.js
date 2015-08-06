@@ -52,12 +52,12 @@ var actionBarMixin = {
         var selectionOperationList = [
             {
                 action: this._selectionFunction('selected'),
-                label: this.i18n('action.selection.all'),
+                label: this.i18n('list.actionBar.selection.all'),
                 style: this._getSelectedStyle(this.props.selectionStatus, 'selected')
             },
             {
                 action: this._selectionFunction('none'),
-                label: this.i18n('action.selection.none'),
+                label: this.i18n('list.actionBar.selection.none'),
                 style: this._getSelectedStyle(this.props.selectionStatus, 'none')
             }
         ];
@@ -101,11 +101,11 @@ var actionBarMixin = {
         }
         var groupOperationList = [
             {
-                label: this.i18n('action.group'),
+                label: this.i18n('list.actionBar.group'),
                 childOperationList: groupList
             },
             {
-                label: this.i18n('action.ungroup'),
+                label: this.i18n('list.actionBar.ungroup'),
                 action: this._groupFunction()
             }
         ];
