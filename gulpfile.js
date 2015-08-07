@@ -12,8 +12,8 @@ var source = require('vinyl-source-stream');
 /**
  * LINT
  */
-var src = '{spec,search,list,form,page,common,application}/**/*.js';
-var srcCSS = '{spec,search,list,form,page,common,application,style}/**/*.scss';
+var src = 'src/**/*.js';
+var srcCSS = 'src/**/*.scss';
 var sources = [src];
 gulp.task('eslint', function() {
 	//gulp eslint 2>lint/lintErrors.txt
@@ -113,7 +113,7 @@ function build(name){
 		var literalify = require('literalify');
 		var build = name === "browserify" ? browserify : watchify;
 		return build(({
-				entries: ['./index.js'],
+				entries: ['./src/index.js'],
 				extensions: ['.jsx'],
 				standalone: 'FocusComponents'
 			}))
@@ -141,7 +141,7 @@ gulp.task('componentify-js', function() {
 	//Each component build
 	var components = require('./package.json').components || [];
 	return components.forEach(function(component) {
-		return jsBuild(component.path, {
+		return jsBuild('src' + component.path, {
 			entryFile: "index.js",
 			generatedFile: component.name + ".js"
 		});
@@ -166,7 +166,7 @@ gulp.task('componentify-style', function() {
 	//Each component build
 	var components = require('./package.json').components || [];
 	return components.forEach(function(component) {
-		return styleBuild(component.path, {
+		return styleBuild('src' + component.path, {
 			generatedFile: component.name + ".css"
 		});
 	});
@@ -175,7 +175,7 @@ gulp.task('componentify-style', function() {
 gulp.task('style', function() {
 	var sass = require('gulp-sass');
 	var concat = require('gulp-concat');
-	gulp.src(['{spec,search,list,form,page,common,application,style}/**/*.scss'])
+	gulp.src(['src/**/*.scss'])
 		.pipe(sass())
 		.pipe(concat('focus-components.css'))
 		.pipe(gulp.dest('./example/css/'))
@@ -183,7 +183,7 @@ gulp.task('style', function() {
 		.pipe(gulp.dest('../rodolphe-demo/ui/vendor'));
 });
 
-gulp.task('build', ['browserify', 'style', 'componentify-img'])
+gulp.task('build', ['browserify', 'style']);
 gulp.task('componentify', ['componentify-js', 'componentify-style',
 	'componentify-img'
 ]);
