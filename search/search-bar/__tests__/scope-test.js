@@ -1,8 +1,7 @@
-/** @jsx React.DOM */
 /*global jest, expect*/
 
 // __tests__/qs-scope-test.js
-var React = require('react/addons');
+/*var React = require('react/addons');
 jest.dontMock('../scope.js');
 var Scope = React.createClass(require('../scope.js'));
 var TestUtils = React.addons.TestUtils;
@@ -34,3 +33,4 @@ describe('## QS-Scope', function() {
     expect(scopeUp).toBeDefined();
   });
 });
+*/
