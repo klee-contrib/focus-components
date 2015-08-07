@@ -1,12 +1,14 @@
 {
   "name": "focusjs-components",
-  "version": "0.4.1",
+  "version": "0.4.2-beta",
   "description": "Focus component repository.",
   "main": "index.js",
   "scripts": {
-    "test": "node ./node_modules/mocha/bin/mocha {spec,search,list,page,common,application,message,mixin}/**/__tests__/**/*.js",
+    "test": "node ./node_modules/mocha/bin/mocha src/**/__tests__/**/*.js",
     "example": "node static-server.js",
-    "build": "node ./node_modules/gulp/bin/gulp.js build",
+    "build:server": "node ./node_modules/babel/bin/babel.js src --out-dir lib",
+    "build:browser": "node ./node_modules/gulp/bin/gulp.js build",
+    "build": "npm run build:server && npm run build:browser",
     "watch": "node ./node_modules/gulp/bin/gulp.js watch",
     "prepublish": "node ./node_modules/gulp/bin/gulp.js build",
     "serve": "node ./node_modules/gulp/bin/gulp.js build && node static-server.js"
