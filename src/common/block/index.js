@@ -46,7 +46,6 @@ var blockMixin = {
         <header>
           <Title id={this._buildId()} title={this.heading()} />
           <div className="actions">{this.props.actions()}</div>
-          <!-- actions -->
         </header>
         <div className="block-content">
           {this.props.children}

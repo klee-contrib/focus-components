@@ -1,5 +1,5 @@
 //Generator http://patorjk.com/software/taag/#p=display&h=1&f=Banner4&t=Focus-COMPONENTS
-var infos = require('./package.json');
+var infos = require('../package.json');
 var infosFn = function infos(){
   console.log(
     `
