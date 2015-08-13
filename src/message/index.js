@@ -1,67 +1,71 @@
-var builder = require('focus').component.builder;
-var type = require('focus').component.types;
-var messageMixin = {
-  /** @inheritedDoc */
-  getDefaultProps: function getMessageDefaultProps(){
-    return {
-      title: undefined,
-      content: undefined,
-      type: 'info',
-      ttl: undefined,
-      style: {}
-    };
-  },
-  /** @inheritedDoc */
-  propTypes: {
-    title: type('string'),
-    content: type('string'),
-    type: type('string'),
-    ttl: type('number'),
-    style: type('object')
-  },
-  componentDidMount(){
-    if(this.props.ttl){
-      setTimeout(()=>{
-        this._handleTimeToLeave();
-      }, this.props.ttl);
+let {builder, types} = require('focus').component;
+let i18nBehaviour = require('../common/i18n/mixin');
+let messageMixin = {
+    /** @inheritedDoc */
+    getDefaultProps(){
+        return {
+            type: 'info',
+            style: {}
+        };
+    },
+    /** @inheritedDoc */
+    propTypes: {
+        title: types('string'),
+        content: types('string'),
+        type: types('string'),
+        ttl: types('number'),
+        style: types('object')
+    },
+    /** @inheritedDoc */
+    componentDidMount(){
+        if(this.props.ttl){
+            setTimeout(()=>{
+                this._handleTimeToLeave();
+            }, this.props.ttl);
+        }
+    },
+    /** @inheritedDoc */
+    mixins: [i18nBehaviour],
+    /**
+     * Time to leave handler.
+     */
+    _handleTimeToLeave(){
+        let {handleTimeToLeave, id} = this.props;
+        if(handleTimeToLeave){
+            handleTimeToLeave(id);
+        }
+    },
+    /**
+     * Handle click on the dismiss button.
+     * @param {Event} event - Sanitize event.
+     */
+    _handleOnClick(event){
+        let {handleOnClick, id} = this.props;
+        if(handleOnClick){
+            handleOnClick(id);
+        }
+        //Maybe it is not the best way to do it.
+        //React.unmountComponentAtNode(this.getDOMNode().parentNode);
+    },
+    _renderTitle() {
+        let {title} = this.props;
+        return title ? <h4>{title}</h4> : null;
+    },
+    /**
+     * Render an alert.
+     * @return {JSX} The jsx.
+     */
+    render(){
+        let {type, style, id, content} = this.props;
+        type = type && 'error' === type ? 'danger' : type;
+        let cssClass = `alert alert-dismissable alert-${type} ${style && style.className}`;
+        return (
+          <div className={cssClass} data-focus='message' data-id={id} >
+            <button className='close' onClick={this._handleOnClick} type='button' >×</button>
+            {this._renderTitle()}
+            <p>{this.i18n(content)}</p>
+          </div>
+        );
     }
-  },
-  _handleTimeToLeave(){
-    if(this.props.handleTimeToLeave){
-      this.props.handleTimeToLeave(this.props.id);
-    }
-  },
-  /**
-   * Handle click on the dismiss button.
-   * @param {Event} event - Sanitize event.
-   */
-  _handleOnClick: function handleOnClickMessageDismiss(event){
-    if(this.props.handleOnClick){
-      this.props.handleOnClick(this.props.id);
-    }
-    //Maybe it is not the best way to do it.
-    //React.unmountComponentAtNode(this.getDOMNode().parentNode);
-  },
-  _renderTitle: function renderMessageTitle() {
-      if(this.props.title) {
-          return <h4>{this.props.title}</h4>
-      }
-      return undefined;
-  },
-  /**
-   * Render an alert.
-   * @return {JSX} The jsx.
-   */
-  render: function renderAlert(){
-    let type = this.props.type && this.props.type === 'error' ? 'danger' : this.props.type;
-    var cssClass = `alert alert-dismissable alert-${type} ${this.props.style.className}`;
-    return(
-      <div className={cssClass} data-id={this.props.id} data-focus='message'>
-        <button type='button' className='close'  onClick={this._handleOnClick}>×</button>
-        {this._renderTitle()}
-        <p>{this.props.content}</p>
-      </div>
-    );
-  }
 };
 module.exports = builder(messageMixin);
