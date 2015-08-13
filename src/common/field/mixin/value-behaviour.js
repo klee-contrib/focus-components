@@ -34,7 +34,6 @@ var valueBehaviourMixin = {
     if(value === null || value === ''){
         value = undefined;
     }
-    console.log(this.props.name, value);
     return value;
   },
   /**
