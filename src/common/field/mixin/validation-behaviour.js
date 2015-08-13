@@ -11,6 +11,11 @@ let validationMixin ={
       validator: undefined
     };
   },
+  /**
+   * Compute the validation status and merge all errors into one.
+   * @param  {object} validationStatus - The result from the validation.
+   * @return {true | string} - true if the validation is ok and a message if it is not the case.
+   */
   _computeValidationStatus(validationStatus){
     if(validationStatus.isValid){
       return true;
@@ -22,35 +27,37 @@ let validationMixin ={
    * @return {object}
    */
   validateInput: function validateInputText() {
-    var value = this.getValue();
-    if (this.props.isRequired && (value === undefined || value === '')) {
-      return this.i18n('field.required', {name: this.i18n(this.props.label)});
-    }
-    if (this.props.validator) {
-      var validStat = this._computeValidationStatus(validate({
-          value: value,
-          name: this.i18n(this.props.label)
-        },
-        this.props.validator
-      ));
-      if(validStat !== true){
-        validStat = this.i18n(validStat);
+      let value = this.getValue();
+      let {isRequired, validator, label} = this.props;
+      if (isRequired && (undefined === value || '' === value)) {
+          return this.i18n('field.required', {name: this.i18n(label)});
       }
-      return validStat;
-    }
-    return true;
+      console.log('validation', label, 'value', value, 'validator', validator);
+      //The validation is performed only when the field has a value, otherwise, only the required validation is performed.
+      if (validator && undefined !== value) {
+          let validStat = this._computeValidationStatus(validate({
+               value: value,
+               name: this.i18n(label)
+           },
+           validator
+          ));
+          if(true !== validStat){
+              validStat = this.i18n(validStat);
+          }
+          return validStat;
+      }
+      return true;
   },
   /**
   * Validate the field.
   * @return {object} - undefined if valid, {name: "errors"} if not valid.
   */
   validate: function validateField() {
-    var validationStatus = this.validateInput();
-    if(validationStatus !== true){
-      this.setError(validationStatus);
-      return validationStatus;
-    }
-    return;
+      let validationStatus = this.validateInput();
+      if(true !== validationStatus){
+          this.setError(validationStatus);
+          return validationStatus;
+      }
   },
   /**
    * Set the error on the field.

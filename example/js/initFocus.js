@@ -3,10 +3,13 @@ var domain = {
     style: "do_text",
     type: "text",
     component: "PapaSinge",
-    validation: [{
+    validator: [{
       type: "function",
-      value: function () {
-        return false;
+      options:{
+          translationKey: 'domain.doTEXT.test'
+      },
+      value: function (d) {
+        return _.isString(d);
       }
     }]
   },
@@ -14,7 +17,7 @@ var domain = {
     style: "do_email",
     type: "email",
     component: "PapaMail",
-    validation: [{
+    validator: [{
       type: "function",
       value: function () {
         return true;
@@ -46,9 +49,9 @@ var entities = {
     "firstName": {
       "domain": "DO_TEXT",
       "required": false,
-      "validator": function (data) {
-        return data.length <= 3 ? "le champ doit dépasser la taille de 3" : true;
-      }
+      "validator": [{options:{translationKey: 'entityContactValidation.test'}, type:'function', value: function (data) {
+        return data.length <= 3 ? false : true;
+    }}]
     },
     "lastName": {
       "domain": "DO_TEXT",
