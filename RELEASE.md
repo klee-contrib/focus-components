@@ -7,4 +7,3 @@ In order to release a new version of focus on both **github** and **npm**, you h
 5. Merge all changes from **master** branch into **release** branch with a `git merge master`
 6. Perform a `npm run build` (Just to be sure)
 7. Commit all build's product onto the release branch (it consists of the `focus-components.{js,css}` from the `dist` directory).
-8. Go on 
