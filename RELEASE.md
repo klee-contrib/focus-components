@@ -11,5 +11,5 @@ In order to release a new version of focus on both **github** and **npm**, you h
 9. Push the tag on github `git push origin --tags`
 10. Publish the npm package with `npm publish` command
 11. It should be OK
-12. Go on github release page: [Focus-components releases](https://github.com/KleeGroup/focus-components/releases)
-12. You can now go back on `master` branch and 
+12. Go on github release page: [Focus-components releases](https://github.com/KleeGroup/focus-components/releases) and draft a new release with a release note detailing all the changes and bug fixes.
+12. You can now go back on `master` branch and increase the package version on the latest digit: `X.Y.Z+1`
