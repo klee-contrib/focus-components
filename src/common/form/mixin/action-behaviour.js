@@ -35,15 +35,11 @@ let actionMixin = {
         }
         return computedEntity;
     },
-  /**
-   * Get the constructed entity from the state.
-   * If you need to perform a custom getEntity just write a getEntity function in your mixin.
-   * @returns {object} - the entity informations.
-   */
-    _getEntity(){
-        if(this.getEntity){
-            return this.getEntity();
-        }
+    /**
+     * Get entity from the state, and the HTML.
+     * @return {object} - Combinaison of state and HTML builded entity.
+     */
+    _getEntityFromHTMLAndState(){
         //Build the entity value from the ref getVaue.
         let htmlData = {};
         let {refs} = this;
@@ -55,6 +51,17 @@ let actionMixin = {
         }
         //Maybe a merge cold be done if we need a deeper property merge.
         return assign({}, this._getCleanState(), this._computeEntityFromHtml(htmlData));
+    },
+  /**
+   * Get the constructed entity from the state.
+   * If you need to perform a custom getEntity just write a getEntity function in your mixin.
+   * @returns {object} - the entity informations.
+   */
+    _getEntity(){
+        if(this.getEntity){
+            return this.getEntity();
+        }
+        return this._getEntityFromHTMLAndState();
     },
     /**
      * This is the load action of the form.

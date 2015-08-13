@@ -16,19 +16,25 @@ var valueBehaviourMixin = {
     };
   },
   /**
-  * Get the value from the field.
-  */
-  getValue: function() {
+   * Gte the value from the field, it will look into the refs for the value, then into the state and then into the props.
+   * If the value is null or empty string the value will be changed to undefined.
+   * @return {object} - The value of the field.
+   */
+  getValue(){
+     let value;
     if(isObject(this.refs) && isObject(this.refs.input) && isFunction(this.refs.input.getValue)){
-      return this.refs.input.getValue();
+      value = this.refs.input.getValue();
     }
     else if(this.state && this.state.value !== undefined ){
-      return this.state.value;
+      value = this.state.value;
     }
     else if(this.props && this.props.value !== undefined ){
-      return this.props.value;
+      value = this.props.value;
     }
-
+    if(value === null || value === ''){
+        value = undefined;
+    }
+    return value;
   },
   /**
    * Handler called when the input Change its value.
