@@ -14,7 +14,7 @@ var port = "3000";
 * Creates a component map with all existing components.
 */
 components.map(function(component) {
-	var pth = '/' + component.path + '/example/';
+	var pth = '/src/' + component.path + '/example/';
 	console.log('route', component.name, 'path', pth);
 	componentServers[component.name] = pth; //new static.Server(pth);
 });

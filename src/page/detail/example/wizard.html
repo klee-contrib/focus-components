@@ -1,0 +1,309 @@
+<!doctype html>
+<html class="no-js" lang="">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Focus component examples</title>
+    <meta name="description" content="Example of the component.">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Place favicon.ico in the root directory -->
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css"/>
+    <script src="https://fb.me/react-0.13.3.js"></script>
+    <script src="https://fb.me/JSXTransformer-0.13.3.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/3.9.3/lodash.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/backbone.js/1.2.1/backbone.js"></script>
+
+    <!-- Material degign-->
+    <script src="//code.jquery.com/jquery-1.10.2.min.js"></script>
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/bootstrap.material-design/0.3.0/css/material-wfont.min.css">
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/bootstrap.material-design/0.3.0/css/material.min.css">
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/bootstrap.material-design/0.3.0/css/ripples.min.css">
+    <script src="//cdn.jsdelivr.net/bootstrap.material-design/0.3.0/js/material.min.js"></script>
+    <script src="//cdn.jsdelivr.net/bootstrap.material-design/0.3.0/js/ripples.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/showdown/0.4.0/Showdown.js"></script>
+
+    <!-- Include Date Range Picker -->
+    <script type="text/javascript" src="//cdn.jsdelivr.net/momentjs/2.9.0/moment.min.js"></script>
+    <script type="text/javascript" src="//cdn.jsdelivr.net/bootstrap.daterangepicker/1/daterangepicker.js"></script>
+    <link rel="stylesheet" type="text/css"
+          href="//cdn.jsdelivr.net/bootstrap.daterangepicker/1/daterangepicker-bs3.css"/>
+
+
+    <!-- Material degign-->
+    <script src="/focus-components/dist/js/focus.js"></script>
+    <script src="/focus-components/dist/js/focus-components.js"></script>
+    <script src="/focus-components/example/js/initFocus.js"></script>
+    <link rel="stylesheet" href="/focus-components/dist/css/focus-components.css"/>
+    <link rel="stylesheet" href="/focus-components/example/js/picker.css"/>
+</head>
+<body>
+<script src="/focus-components/example/js/picker.js"></script>
+<div id="form-container" class="container"></div>
+<div id='message-cennter-container'></div>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $.material.init();
+    });
+</script>
+<script type="text/jsx">
+    //Load dependencies.
+    Focus.components = FocusComponents;
+    var contactStore = new Focus.store.CoreStore({
+        definition: {'informations': 'informations', 'address': 'address', 'preferences': 'preferences'}
+    });
+    var formMixin = Focus.components.common.form.mixin;
+    var Block = FocusComponents.common.block.component;
+    //Create component for informations
+    var Informations = React.createClass({
+        displayName: "informations",
+        mixins: [formMixin],
+        stores: [{
+            store: contactStore,
+            properties: ["informations"],
+        }],
+        definitionPath: "contact",
+        componentWillMount: function(){
+            this.setState(this._getStateFromStores());
+        },
+        renderContent: function renderUserDetail() {
+            return (
+                    <Block title="informations du contact">
+                      {this.fieldFor("firstName")}
+                      {this.fieldFor("lastName")}
+                     </Block>
+            );
+        }
+    });
+    //Create component for address.
+    var Address = React.createClass({
+        displayName: "address",
+        mixins: [formMixin],
+        stores: [{
+            store: contactStore,
+            properties: ["address"],
+        }],
+        definitionPath: "contact",
+        componentWillMount: function(){
+            this.setState(this._getStateFromStores());
+        },
+        renderContent: function renderAddress() {
+            return (
+                    <Block title="informations du contact">
+                      {this.fieldFor("line1")}
+                      {this.fieldFor("line2")}
+                      {this.fieldFor("zipcode")}
+                      {this.fieldFor("city")}
+                     </Block>
+            );
+        }
+    });
+    var Preferences = React.createClass({
+        displayName: "Preferences",
+        mixins: [formMixin],
+        stores: [{
+            store: contactStore,
+            properties: ["preferences"],
+        }],
+        definitionPath: "contact",
+        componentWillMount: function(){
+            this.setState(this._getStateFromStores());
+        },
+        renderContent: function renderAddress() {
+            return (
+                    <Block title="informations du contact">
+                      {this.fieldFor("isMail")}
+                      {this.fieldFor("isPhone")}
+                      {this.fieldFor("isNotification")}
+                      {this.fieldFor("theme")}
+                     </Block>
+            );
+        }
+    });
+
+    //Thhis is a naive implementation of the wizard's concept.
+    //It just has to be configured to work.
+    //This page may be in focus component soon, it just has to be debated.
+    //Your conf just has the following structure:
+    //```javascript
+    //{
+    //   componentName: {
+    //      component: ReferenceToYourComponent,
+    //      steps:{
+    //          //X is the step number
+    //          X: {
+    //            isVisible: true | false // Is your node visible in the step.
+    //            props: {isEdit: trus } // this is an example. You just specify the props you want for your component in the given step.
+    //          }
+    //      }
+    //   },
+    //   otherComponentName: {
+    //      component: Ref...,
+    //      steps:{} //... Same thing.
+    //   }
+    //}
+    //```
+    var Wizard = React.createClass({
+        displayName: "Wizard",
+        getDefaultProps: function(){
+            return  {
+                step: 1,
+                maxStep:3
+            };
+        },
+        getInitialState: function(){
+            return {
+                step: this.props.step
+            };
+        },
+        _readStepValue: function(){
+            //Read conf depending on step.
+            var step = this.state.step;
+            var configuration = this.props.configuration;
+            //Creates container
+            var dataContainer = {};
+            var isValid = true;
+            //Process all nodes value.
+            for(var node in configuration){
+                var conf = configuration[node].steps[step];
+                if(conf && conf.props && conf.props.isEdit && this.refs && this.refs[node]){
+                    if(this.refs[node].validate()){
+                        dataContainer[node] =  this.refs[node]._getEntity();
+                    }else {
+                        isValid = false;
+                    }
+                }
+            }
+            if(!isValid){return;}
+            Focus.dispatcher.handleViewAction({
+                data: dataContainer,
+                type: 'update'
+            });
+            return true;
+            console.log('dataContainer', dataContainer);
+        },
+        _increaseStep: function(){
+              if(this.state.step === this.props.maxStep){return;}
+              if(this._readStepValue()){
+                this.setState({step: this.state.step + 1});
+              }
+        },
+        _decreaseStep: function(){
+            if(this.state.step === 1){
+                return;
+            }
+            this.setState({step: this.state.step - 1});
+        },
+        _isBlockVisible: function(blockName){
+            var step = this.state.step;
+            var conf = this.props.configuration;
+            return conf && conf[blockName] &&  conf[blockName].steps && conf[blockName].steps[step] && conf[blockName].steps[step].isVisible;
+        },
+        _getComponentStepsProps: function(blockName){
+            var step = this.state.step;
+            var conf =  this.props.configuration;
+            // console.log('step', step,'conf', conf[blockName].steps[step].props);
+            if(conf && conf[blockName] && conf[blockName].steps && conf[blockName].steps[step] && conf[blockName].steps[step].props){
+                return conf[blockName].steps[step].props;
+            }
+            return null;
+        },
+        _renderBlock: function(componentName){
+            if(!this._isBlockVisible(componentName)){return null;}
+            var props = this._getComponentStepsProps(componentName);
+            var Component = this.props.configuration[componentName].component;
+            return <Component ref={componentName} {...props} />
+        },
+        _save: function(){
+            if(this._readStepValue()){
+                alert(JSON.stringify(contactStore.getValue()));
+            }
+        },
+        _renderSteps: function(){
+            var conf = this.props.configuration;
+            var comp = [];
+            for(var node in conf){
+              comp.push(this._renderBlock(node));
+            }
+            return comp;
+        },
+        _renderStepActions: function(){
+            var step = this.state.step;
+            var maxStep = this.props.maxStep;
+            return (
+                <div data-focus='step-actions'>
+                {step > 1 && <button onClick={this._decreaseStep}>Previous step</button>}
+                {step < maxStep && <button onClick={this._increaseStep}>Next step</button>}
+                { step === maxStep && <button onClick={this._save}>Save</button>}
+                </div>
+            );
+        },
+        render: function(){
+
+            return (
+                <div className='Wizard'>
+                  <h2>current step: {this.state.step}</h2>
+                  {this._renderSteps()}
+                  {this._renderStepActions()}
+                </div>
+          );
+        }
+      });
+
+
+
+
+      //Now you just have to configure the wizard as you would do for a detail page.
+      var conf = {
+          informations:{
+              component: Informations,
+              steps: {
+                  1:{
+                      isVisible: true,
+                      props: {isEdit: true, hasLoad: false}
+                  },
+                  2:{
+                      isVisible: true,
+                      props: {isEdit: false, hasLoad: false}
+                  },
+                  3:{
+                      isVisible: false,
+                      props: {isEdit: false, hasLoad: false}
+                  }
+              }
+          },
+          address:{
+              component: Address,
+              steps: {
+                  1:{isVisible: false},
+                  2:{
+                      isVisible: true,
+                      props: {isEdit: true, hasLoad: false}
+                  },
+                  3:{
+                      isVisible: true,
+                      props: {isEdit: false, hasLoad: false}
+                  }
+              }
+          },
+          preferences:{
+              component: Preferences,
+              steps:{
+                  1: {isVisible: false},
+                  2: {isVisible: false},
+                  3: {
+                      isVisible: true,
+                      props: {isEdit: true, hasLoad: false}
+                  }
+              }
+          }
+      }
+
+    //Render the created View , just takes a configuration.
+    React.render(<Wizard configuration={conf} />, document.querySelector("#form-container"));
+</script>
+
+</body>
+
+</html>
