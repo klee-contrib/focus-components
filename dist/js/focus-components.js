@@ -20396,7 +20396,7 @@ module.exports = uuid;
 },{"./rng":226}],228:[function(require,module,exports){
 module.exports={
   "name": "focusjs-components",
-  "version": "0.4.3",
+  "version": "0.4.4",
   "description": "Focus component repository.",
   "main": "index.js",
   "scripts": {
@@ -26555,15 +26555,25 @@ module.exports = { mixin: lineMixin };
 },{"../../common/i18n":265,"../../common/input/checkbox":270,"../../common/mixin/definition":280,"../../common/mixin/reference-property":285,"../action-contextual":301,"../mixin/built-in-components":303}],310:[function(require,module,exports){
 "use strict";
 
+var _defineProperty = function (obj, key, value) { return Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); };
+
+// Dependencies
+
 var builder = window.Focus.component.builder;
 var React = window.React;
-var Line = require("./line").mixin;
-var Button = require("../../common/button/action").component;
+var checkIsNotNull = window.Focus.util.object.checkIsNotNull;
 var type = window.Focus.component.types;
+var find = require("lodash/collection/find");
+
+// Mixins
+
 var translationMixin = require("../../common/i18n").mixin;
 var infiniteScrollMixin = require("../mixin/infinite-scroll").mixin;
 var referenceMixin = require("../../common/mixin/reference-property");
-var checkIsNotNull = window.Focus.util.object.checkIsNotNull;
+
+// Components
+
+var Button = require("../../common/button/action").component;
 
 var listMixin = {
     /**
@@ -26585,6 +26595,8 @@ var listMixin = {
             data: [],
             isSelection: true,
             selectionStatus: "partial",
+            selectionData: [],
+            dataSelectionField: "id",
             isLoading: false,
             operationList: [],
             idField: "id"
@@ -26620,7 +26632,7 @@ var listMixin = {
     * Return selected items in the list.
     * @return {Array} selected items
     */
-    getSelectedItems: function getListSelectedItems() {
+    getSelectedItems: function getSelectedItems() {
         var selected = [];
         for (var i = 1; i < this.props.data.length + 1; i++) {
             var lineName = "line" + i;
@@ -26636,40 +26648,56 @@ var listMixin = {
     * Render lines of the list.
     * @returns {*} DOM for lines
     */
-    _renderLines: function renderLines() {
+    _renderLines: function _renderLines() {
         var _this = this;
 
         var lineCount = 1;
-        var LineComponent = this.props.lineComponent;
-        return this.props.data.map(function (line) {
+        var _props = this.props;
+        var data = _props.data;
+        var dataSelectionField = _props.dataSelectionField;
+        var lineComponent = _props.lineComponent;
+        var selectionStatus = _props.selectionStatus;
+        var idField = _props.idField;
+        var isSelection = _props.isSelection;
+        var selectionData = _props.selectionData;
+        var onSelection = _props.onSelection;
+        var onLineClick = _props.onLineClick;
+        var operationList = _props.operationList;
+
+        return data.map(function (line) {
             var isSelected = undefined;
-            switch (_this.props.selectionStatus) {
-                case "none":
-                    isSelected = false;
-                    break;
-                case "selected":
-                    isSelected = true;
-                    break;
-                case "partial":
-                    isSelected = undefined;
-                    break;
-                default:
-                    isSelected = false;
+            var selection = find(selectionData, _defineProperty({}, dataSelectionField, line[dataSelectionField]));
+            if (selection) {
+                isSelected = selection.isSelected;
+            } else {
+                switch (selectionStatus) {
+                    case "none":
+                        isSelected = false;
+                        break;
+                    case "selected":
+                        isSelected = true;
+                        break;
+                    case "partial":
+                        isSelected = undefined;
+                        break;
+                    default:
+                        isSelected = false;
+                }
             }
-            return React.createElement(LineComponent, {
-                key: line[_this.props.idField],
+            return React.createElement(lineComponent, {
+                key: line[idField],
                 data: line,
                 ref: "line" + lineCount++,
-                isSelection: _this.props.isSelection,
+                isSelection: isSelection,
                 isSelected: isSelected,
-                onSelection: _this.props.onSelection,
-                onLineClick: _this.props.onLineClick,
-                operationList: _this.props.operationList,
+                onSelection: onSelection,
+                onLineClick: onLineClick,
+                operationList: operationList,
                 reference: _this._getReference()
             });
         });
     },
-    _renderLoading: function renderLoading() {
+    _renderLoading: function _renderLoading() {
         if (this.props.isLoading) {
             if (this.props.loader) {
                 return this.props.loader();
@@ -26683,7 +26711,7 @@ var listMixin = {
         }
     },
 
-    _renderManualFetch: function renderManualFetch() {
+    _renderManualFetch: function _renderManualFetch() {
         if (this.props.isManualFetch && this.props.hasMoreData) {
             var style = { className: "primary" };
             return React.createElement(
@@ -26703,7 +26731,7 @@ var listMixin = {
     * Render the list.
     * @returns {XML} DOM of the component
     */
-    render: function renderList() {
+    render: function render() {
         return React.createElement(
             "ul",
             { "data-focus": "selection-list" },
@@ -26716,7 +26744,7 @@ var listMixin = {
 
 module.exports = builder(listMixin);
 
-},{"../../common/button/action":249,"../../common/i18n":265,"../../common/mixin/reference-property":285,"../mixin/infinite-scroll":305,"./line":309}],311:[function(require,module,exports){
+},{"../../common/button/action":249,"../../common/i18n":265,"../../common/mixin/reference-property":285,"../mixin/infinite-scroll":305,"lodash/collection/find":17}],311:[function(require,module,exports){
 /**@jsx*/
 "use strict";
 
