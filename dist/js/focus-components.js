@@ -20396,7 +20396,7 @@ module.exports = uuid;
 },{"./rng":226}],228:[function(require,module,exports){
 module.exports={
   "name": "focusjs-components",
-  "version": "0.4.4",
+  "version": "0.4.5",
   "description": "Focus component repository.",
   "main": "index.js",
   "scripts": {
@@ -23729,7 +23729,7 @@ var checkBoxMixin = {
      * @returns The DOM node value.
      */
     getValue: function getValue() {
-        if (isBoolean(this.props.value)) {
+        if (this.props.value === undefined || isBoolean(this.props.value)) {
             return this.state.isChecked;
         }
         return this.state.isChecked ? this.props.value : undefined;
@@ -28366,6 +28366,7 @@ var Results = {
             action: undefined,
             store: undefined,
             resultsMap: undefined,
+            selectionResultsMap: undefined,
             totalCount: undefined,
             groupComponent: undefined,
             lineComponentMapper: undefined,
@@ -28380,11 +28381,18 @@ var Results = {
             resultsFacets: undefined
         };
     },
+    /**
+     * Initial state
+     * @return {Object} Initial state
+     */
     getInitialState: function getInitialState() {
         return {
             loading: false
         };
     },
+    /**
+     * Component will receive props
+     */
     componentWillReceiveProps: function componentWillReceiveProps() {
         if (this.state.loading) {
             this.setState({
@@ -28407,8 +28415,8 @@ var Results = {
                 return React.createElement(GroupWrapper, {
                     count: count,
                     groupComponent: this.props.groupComponent,
-                    isUnique: true,
                     groupKey: key,
+                    isUnique: true,
                     list: list,
                     renderResultsList: this._renderResultsList
                 });
@@ -28442,24 +28450,37 @@ var Results = {
      * @return {HTML}          the rendered component
      */
     _renderResultsList: function _renderResultsList(list, key, count, isUnique) {
-        var LineComponent = this.props.lineComponentMapper(key, list);
+        var _props = this.props;
+        var lineComponentMapper = _props.lineComponentMapper;
+        var idField = _props.idField;
+        var isSelection = _props.isSelection;
+        var lineSelectionHandler = _props.lineSelectionHandler;
+        var lineClickHandler = _props.lineClickHandler;
+        var lineOperationList = _props.lineOperationList;
+        var scrollParentSelector = _props.scrollParentSelector;
+        var selectionStatus = _props.selectionStatus;
+        var selectionResultsMap = _props.selectionResultsMap;
+
+        var selectionData = selectionResultsMap[key] || [];
+        var LineComponent = lineComponentMapper(key, list);
         var hasMoreData = isUnique !== undefined && isUnique && list.length < count;
         return React.createElement(
             "div",
             null,
             React.createElement(ListSelection, {
-                "data-focus": "results-list",
                 data: list,
-                idField: this.props.idField,
-                isSelection: this.props.isSelection,
-                onSelection: this.props.lineSelectionHandler,
-                onLineClick: this.props.lineClickHandler,
+                "data-focus": "results-list",
                 fetchNextPage: this._onScrollReachedBottom,
                 hasMoreData: hasMoreData,
-                operationList: this.props.lineOperationList,
+                idField: idField,
+                isSelection: isSelection,
                 lineComponent: LineComponent,
-                parentSelector: this.props.scrollParentSelector,
-                selectionStatus: this.props.selectionStatus
+                onLineClick: lineClickHandler,
+                onSelection: lineSelectionHandler,
+                operationList: lineOperationList,
+                parentSelector: scrollParentSelector,
+                selectionData: selectionData,
+                selectionStatus: selectionStatus
             }),
             this.state.loading && React.createElement(
                 "div",
@@ -28473,7 +28494,6 @@ var Results = {
     /**
      * Construct the show all action
      * @param  {string} key the group key where the show all has been clicked
-     * @return {function}     the show all handler
      */
     _showAllHandler: function _showAllHandler(key) {
         if (this.props.resultsFacets[this.props.scopeFacetKey]) {
@@ -28505,7 +28525,7 @@ var Results = {
      */
     _getGroupCounts: function _getGroupCounts(resultsMap) {
         var groupKeys = keys(resultsMap);
-        if (groupKeys.length === 1) {
+        if (1 === groupKeys.length) {
             return _defineProperty({}, groupKeys[0], {
                 count: this.props.totalCount
             });
@@ -28534,6 +28554,7 @@ var Results = {
     /**
      * Facet selection handler
      * @param  {string} key the facet key
+     * @param  {string} value the facet value
      */
     _facetSelectionHandler: function _facetSelectionHandler(key, value) {
         var selectedFacets = assign({}, this.props.store.getSelectedFacets(), _defineProperty({}, key, {
@@ -28570,17 +28591,17 @@ var Results = {
         var _this = this;
 
         // If there is no result, render the given empty component
-        if (this.props.totalCount === 0) {
+        if (0 === this.props.totalCount) {
             return this._renderEmptyResults();
         }
         // Filter groups with no results
         var resultsMap = omit(this.props.resultsMap, function (list) {
-            return list.length === 0;
+            return 0 === list.length;
         });
         // Get the count for each group
         var groupCounts = this._getGroupCounts(this.props.resultsMap);
         // Check if there is only one group left
-        if (keys(resultsMap).length === 1) {
+        if (1 === keys(resultsMap).length) {
             var key = keys(resultsMap)[0];
             var list = resultsMap[key];
             var count = groupCounts[key].count;
