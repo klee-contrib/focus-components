@@ -37,7 +37,6 @@ let listMixin = {
             isSelection: true,
             selectionStatus: 'partial',
             selectionData: [],
-            dataSelectionField: 'id',
             isLoading: false,
             operationList: [],
             idField: 'id'
@@ -91,10 +90,10 @@ let listMixin = {
     */
     _renderLines() {
         let lineCount = 1;
-        let {data, dataSelectionField, lineComponent, selectionStatus, idField, isSelection, selectionData, onSelection, onLineClick, operationList} = this.props;
+        let {data, lineComponent, selectionStatus, idField, isSelection, selectionData, onSelection, onLineClick, operationList} = this.props;
         return data.map((line) => {
             let isSelected;
-            let selection = find(selectionData, {[dataSelectionField]: line[dataSelectionField]});
+            let selection = find(selectionData, {[idField]: line[idField]});
             if (selection) {
                 isSelected = selection.isSelected;
             } else {
