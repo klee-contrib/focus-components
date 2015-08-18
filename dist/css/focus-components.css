@@ -5932,6 +5932,13 @@ table.table-list {
   [data-focus="header"].header-medium [data-focus="cartridge"] [data-focus='search-bar'] [data-focus="scope"] div.sb-scope-deploy-down:after {
     right: 5px; }
 
+[data-focus='button-back'] {
+  padding: 0; }
+  [data-focus='button-back'] i {
+    font-size: 14px; }
+  [data-focus='button-back'] span {
+    font-size: 14px; }
+
 .btn.btn-fab i {
   position: static; }
 .btn i {
@@ -5963,13 +5970,6 @@ table.table-list {
     font-size: 60px; }
   [data-focus='back-to-top'].invisible {
     display: none; }
-
-[data-focus='button-back'] {
-  padding: 0; }
-  [data-focus='button-back'] i {
-    font-size: 14px; }
-  [data-focus='button-back'] span {
-    font-size: 14px; }
 
 
 
