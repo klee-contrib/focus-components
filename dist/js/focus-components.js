@@ -20396,7 +20396,7 @@ module.exports = uuid;
 },{"./rng":226}],228:[function(require,module,exports){
 module.exports={
   "name": "focusjs-components",
-  "version": "0.4.6",
+  "version": "0.4.7-0",
   "description": "Focus component repository.",
   "main": "index.js",
   "scripts": {
@@ -26596,7 +26596,6 @@ var listMixin = {
             isSelection: true,
             selectionStatus: "partial",
             selectionData: [],
-            dataSelectionField: "id",
             isLoading: false,
             operationList: [],
             idField: "id"
@@ -26654,7 +26653,6 @@ var listMixin = {
         var lineCount = 1;
         var _props = this.props;
         var data = _props.data;
-        var dataSelectionField = _props.dataSelectionField;
         var lineComponent = _props.lineComponent;
         var selectionStatus = _props.selectionStatus;
         var idField = _props.idField;
@@ -26666,7 +26664,7 @@ var listMixin = {
 
         return data.map(function (line) {
             var isSelected = undefined;
-            var selection = find(selectionData, _defineProperty({}, dataSelectionField, line[dataSelectionField]));
+            var selection = find(selectionData, _defineProperty({}, idField, line[idField]));
             if (selection) {
                 isSelected = selection.isSelected;
             } else {

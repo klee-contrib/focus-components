@@ -5941,13 +5941,6 @@ table.table-list {
   border: 1px solid #a1a1a1;
   padding: 5px 15px; }
 
-[data-focus='button-back'] {
-  padding: 0; }
-  [data-focus='button-back'] i {
-    font-size: 14px; }
-  [data-focus='button-back'] span {
-    font-size: 14px; }
-
 [data-focus='back-to-top'] {
   background: none;
   margin: 0;
@@ -5970,6 +5963,13 @@ table.table-list {
     font-size: 60px; }
   [data-focus='back-to-top'].invisible {
     display: none; }
+
+[data-focus='button-back'] {
+  padding: 0; }
+  [data-focus='button-back'] i {
+    font-size: 14px; }
+  [data-focus='button-back'] span {
+    font-size: 14px; }
 
 
 
