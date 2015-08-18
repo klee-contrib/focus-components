@@ -139,7 +139,7 @@ let Results = {
             selectionStatus,
             selectionResultsMap
         } = this.props;
-        let selectionData = selectionResultsMap[key] || [];
+        let selectionData = selectionResultsMap ? selectionResultsMap[key] || [] : [];
         let LineComponent = lineComponentMapper(key, list);
         let hasMoreData = isUnique !== undefined && isUnique && list.length < count;
         return (
