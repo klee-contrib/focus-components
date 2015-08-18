@@ -51,7 +51,7 @@ var checkBoxMixin = {
      * @returns The DOM node value.
      */
     getValue: function getValue() {
-        if (isBoolean(this.props.value)) {
+        if (this.props.value === undefined || isBoolean(this.props.value)) {
             return this.state.isChecked;
         }
         return this.state.isChecked ? this.props.value : undefined;
