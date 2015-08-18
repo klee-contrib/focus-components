@@ -40,6 +40,7 @@ let Results = {
             action: undefined,
             store: undefined,
             resultsMap: undefined,
+            selectionResultsMap: undefined,
             totalCount: undefined,
             groupComponent: undefined,
             lineComponentMapper: undefined,
@@ -54,11 +55,18 @@ let Results = {
             resultsFacets: undefined
         };
     },
+    /**
+     * Initial state
+     * @return {Object} Initial state
+     */
     getInitialState() {
         return ({
             loading: false
         });
     },
+    /**
+     * Component will receive props
+     */
     componentWillReceiveProps() {
         if (this.state.loading) {
             this.setState({
@@ -82,8 +90,8 @@ let Results = {
                     <GroupWrapper
                         count={count}
                         groupComponent={this.props.groupComponent}
-                        isUnique={true}
                         groupKey={key}
+                        isUnique={true}
                         list={list}
                         renderResultsList={this._renderResultsList}
                     />
@@ -120,23 +128,36 @@ let Results = {
      * @return {HTML}          the rendered component
      */
     _renderResultsList(list, key, count, isUnique) {
-        let LineComponent = this.props.lineComponentMapper(key, list);
+        let {
+            lineComponentMapper,
+            idField,
+            isSelection,
+            lineSelectionHandler,
+            lineClickHandler,
+            lineOperationList,
+            scrollParentSelector,
+            selectionStatus,
+            selectionResultsMap
+        } = this.props;
+        let selectionData = selectionResultsMap[key] || [];
+        let LineComponent = lineComponentMapper(key, list);
         let hasMoreData = isUnique !== undefined && isUnique && list.length < count;
         return (
             <div>
                 <ListSelection
-                    data-focus='results-list'
                     data={list}
-                    idField={this.props.idField}
-                    isSelection={this.props.isSelection}
-                    onSelection={this.props.lineSelectionHandler}
-                    onLineClick={this.props.lineClickHandler}
+                    data-focus='results-list'
                     fetchNextPage={this._onScrollReachedBottom}
                     hasMoreData={hasMoreData}
-                    operationList={this.props.lineOperationList}
+                    idField={idField}
+                    isSelection={isSelection}
                     lineComponent={LineComponent}
-                    parentSelector={this.props.scrollParentSelector}
-                    selectionStatus={this.props.selectionStatus}
+                    onLineClick={lineClickHandler}
+                    onSelection={lineSelectionHandler}
+                    operationList={lineOperationList}
+                    parentSelector={scrollParentSelector}
+                    selectionData={selectionData}
+                    selectionStatus={selectionStatus}
                 />
                 {this.state.loading &&
                     <div data-focus='loading-more-results'>
@@ -151,7 +172,6 @@ let Results = {
     /**
      * Construct the show all action
      * @param  {string} key the group key where the show all has been clicked
-     * @return {function}     the show all handler
      */
     _showAllHandler(key) {
         if (this.props.resultsFacets[this.props.scopeFacetKey]) {
@@ -181,7 +201,7 @@ let Results = {
      */
     _getGroupCounts(resultsMap) {
         let groupKeys = keys(resultsMap);
-        if (groupKeys.length === 1) {
+        if (1 === groupKeys.length) {
             return {
                 [groupKeys[0]]: {
                     count: this.props.totalCount
@@ -212,6 +232,7 @@ let Results = {
     /**
      * Facet selection handler
      * @param  {string} key the facet key
+     * @param  {string} value the facet value
      */
     _facetSelectionHandler(key, value) {
         let selectedFacets = assign({}, this.props.store.getSelectedFacets(), {
@@ -247,17 +268,17 @@ let Results = {
      */
     render() {
         // If there is no result, render the given empty component
-        if (this.props.totalCount === 0) {
+        if (0 === this.props.totalCount) {
             return this._renderEmptyResults();
         }
         // Filter groups with no results
         let resultsMap = omit(this.props.resultsMap, (list) => {
-            return list.length === 0;
+            return 0 === list.length;
         });
         // Get the count for each group
         let groupCounts = this._getGroupCounts(this.props.resultsMap);
         // Check if there is only one group left
-        if (keys(resultsMap).length === 1) {
+        if (1 === keys(resultsMap).length) {
             let key = keys(resultsMap)[0];
             let list = resultsMap[key];
             let count = groupCounts[key].count;
