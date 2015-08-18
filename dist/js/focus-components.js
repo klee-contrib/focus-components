@@ -28461,7 +28461,7 @@ var Results = {
         var selectionStatus = _props.selectionStatus;
         var selectionResultsMap = _props.selectionResultsMap;
 
-        var selectionData = selectionResultsMap[key] || [];
+        var selectionData = selectionResultsMap ? selectionResultsMap[key] || [] : [];
         var LineComponent = lineComponentMapper(key, list);
         var hasMoreData = isUnique !== undefined && isUnique && list.length < count;
         return React.createElement(
