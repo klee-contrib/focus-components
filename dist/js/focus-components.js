@@ -20396,7 +20396,7 @@ module.exports = uuid;
 },{"./rng":226}],228:[function(require,module,exports){
 module.exports={
   "name": "focusjs-components",
-  "version": "0.4.5",
+  "version": "0.4.6",
   "description": "Focus component repository.",
   "main": "index.js",
   "scripts": {
