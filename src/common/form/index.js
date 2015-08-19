@@ -101,6 +101,7 @@ let formMixin = {
     for (var inptKey in this.refs) {
       //validate only the reference elements which have valide function
       // todo: @pierr see if it is sufficient
+      //Validation champ à champ.
       if(isFunction(this.refs[inptKey].validate)){
         var validationRes = this.refs[inptKey].validate();
         if(validationRes !== undefined){
