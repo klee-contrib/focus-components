@@ -141,11 +141,36 @@
         definitionPath: "contact",
         action: action,
         referenceNames: ['papas', 'monkeys'],
+        /*customValidation: function(){
+            var firstName = this.refs['contact.firstName'];
+            var lastName = this.refs['contact.lastName'];
+            var firstNameVal = firstName && firstName.getValue();
+            var lastNameVal = lastName && lastName.getValue;
+            if(firstNameVal && lastNameVal){
+                if(firstNameVal.indexOf('p') === -1 || lastNameVal.indexOf('b') === -1){
+                    this.setState({
+                        customError: {
+                            lastAndFirstName: 'InvalidCustomValidation: firstName and lastname sould have b and d.'
+                        }
+                    });
+                    return false;
+                }
+            }
+            return true;
+            //In the component
+            {
+                this.state.customError &&
+                this.state.customError.lastAndFirstName &&
+                (<div style={{color: 'tomato'}}>{this.state.customError.lastAndFirstName}</div>)
+            }
+
+        },*/
         renderContent: function renderUserDetail() {
             return (
                     <Block title="Fiche de l'utilisateur" actions={this._renderActions}>
                       {this.fieldFor("firstName")}
                       {this.fieldFor("lastName")}
+
                       {
                           this.textFor("birthDate", {
                               formatter: function (date) {
