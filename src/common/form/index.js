@@ -127,18 +127,19 @@ let formMixin = {
         //return false;
     },
     /** @inheritdoc */
-    render: function renderForm() {
+    render() {
         //console.log('state form', this.state);
         if(this.props.hasForm){
             return (
                 <form
-                onSubmit={this._handleSubmitForm}
-                className={this._className()}
-                data-mode={this._mode()}
-                >
-                <fieldset>
-                {this.renderContent()}
-                </fieldset>
+                    onSubmit={this._handleSubmitForm}
+                    className={this._className()}
+                    data-mode={this._mode()}
+                    data-loading={this.state.isLoading}
+                    >
+                    <fieldset>
+                        {this.renderContent()}
+                    </fieldset>
                 </form>
             );
         }
