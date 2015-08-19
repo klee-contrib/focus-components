@@ -65,14 +65,14 @@ let QuickSearchComponent = {
      * @type {Object}
      */
     propTypes: {
-        scopeSelectionHandler: type('function'),
+        scopeSelectionHandler: type('func'),
         store: type('object'),
         scopeFacetKey: type('string'),
-        lineComponentMapper: type('function'),
+        lineComponentMapper: type('func'),
         groupComponent: type('object'),
         service: type('object'),
         action: type('object'),
-        onLineClick: type('function'),
+        onLineClick: type('func'),
         groupMaxRows: type('number')
     },
     /**
