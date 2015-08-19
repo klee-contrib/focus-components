@@ -25,7 +25,7 @@ var menuMixin = {
    * Render the links of the menu
    */
   _renderMenuItems(){
-    return this.props.items.map((link)=> {
+    return this.props.items.map((link, idx)=> {
       let clickHandler;
       if(link.route !== undefined ){
         clickHandler = (event)=>{
@@ -37,7 +37,7 @@ var menuMixin = {
         clickHandler = link.onClick;
       }
       return (
-        <li><Button handleOnClick={clickHandler} icon={link.icon} label={link.name} option="link" shape="flat" /></li>
+        <li key={idx}><Button handleOnClick={clickHandler} icon={link.icon} label={link.name} option="link" shape="flat" /></li>
       );
     });
   },
