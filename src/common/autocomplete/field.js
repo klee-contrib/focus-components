@@ -29,10 +29,10 @@ let AutocompleteFor = {
      * @type {Object}
      */
     propTypes: {
-        AutocompleteComponent: types('function'),
+        AutocompleteComponent: types('func'),
         code: types('string'),
         isEdit: types('bool'),
-        loader: types('function'),
+        loader: types('func'),
         pickList: types('array')
     },
     /**
