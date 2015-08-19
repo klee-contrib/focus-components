@@ -40,7 +40,6 @@ function _customValidation(){
  * @return {boolean} - True if the validation is ok.
  */
 function _validate(){
-    console.log('VALIDATE.............');
     return this._fieldsValidation() && this._customValidation();
 }
 

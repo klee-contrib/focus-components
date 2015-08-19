@@ -116,7 +116,11 @@
             status: 'loaded',
             node: 'contact',
             service: function(){
-                return Promise.resolve(jsonContact);
+                return new Promise(function(s,e){
+                        _.delay(function(){
+                            s(jsonContact);
+                        }, 3000);
+                })//Promise.resolve(jsonContact);
             }
         }),
         save:actionBuilder({

@@ -1,4 +1,9 @@
 form {
     margin: 0;
     padding: 0;
+    &[data-loading='true']{
+        background-color: blue;
+        //background:rgba(255,255,255,0.5);
+        background-image:url(http://spiffygif.com/?color=000)
+    }
 }

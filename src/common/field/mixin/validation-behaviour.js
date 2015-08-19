@@ -32,7 +32,7 @@ let validationMixin ={
         if (isRequired && (undefined === value || null === value)) {
             return this.i18n('field.required', {name: this.i18n(label)});
         }
-        console.log('validation', label, 'value', value, 'validator', validator);
+        //console.log('validation', label, 'value', value, 'validator', validator);
         //The validation is performed only when the field has a value, otherwise, only the required validation is performed.
         if (validator && !isUndefined(value) && !isNull(value)) {
             let validStat = this._computeValidationStatus(
