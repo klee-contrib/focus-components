@@ -29,7 +29,7 @@ let validationMixin ={
     validateInput: function validateInputText() {
         let value = this.getValue();
         let {isRequired, validator, label} = this.props;
-        if (isRequired && (undefined === value || '' === value)) {
+        if (isRequired && (undefined === value || null === value)) {
             return this.i18n('field.required', {name: this.i18n(label)});
         }
         console.log('validation', label, 'value', value, 'validator', validator);
