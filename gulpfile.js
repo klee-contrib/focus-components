@@ -132,7 +132,7 @@ function build(name){
 			.pipe(source('focus-components.js'))
 			.pipe(gulp.dest('./dist/js'))
 			.pipe(gulp.dest('./example/js'))
-			.pipe(gulp.dest('../rodolphe-demo/ui/vendor'));
+			.pipe(gulp.dest('../focus-demo/ui/vendor'));
 	});
 }
 build("browserify");
@@ -180,7 +180,7 @@ gulp.task('style', function() {
 		.pipe(concat('focus-components.css'))
 		.pipe(gulp.dest('./example/css/'))
 		.pipe(gulp.dest('./dist/css'))
-		.pipe(gulp.dest('../rodolphe-demo/ui/vendor'));
+		.pipe(gulp.dest('../focus-demo/ui/vendor'));
 });
 
 gulp.task('build', ['browserify', 'style']);
