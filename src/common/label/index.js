@@ -7,7 +7,7 @@ const styleBehaviour = require('../../mixin/stylable');
 * Label mixin for form.
 * @type {Object}
 */
-let labelMixin = {
+const labelMixin = {
     mixins: [i18nBehaviour, styleBehaviour],
     /** @inheritdoc */
     propTypes: {

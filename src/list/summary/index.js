@@ -1,11 +1,14 @@
 /**@jsx*/
-var builder = require('focus').component.builder;
-var TopicDisplayer = require('../../common/topic-displayer').component;
-var Button = require('../../common/button/action').component;
-var numberFormatter = Focus.definition.formatter.number;
+const {builder, types} = require('focus').component;
+const i18nBehaviour = require('../../common/i18n/mixin');
+const styleBehaviour = require('../../mixin/stylable');
 
-var listSummaryMixin = {
-    mixins: [require('../../common/i18n/mixin')],
+const TopicDisplayer = require('../../common/topic-displayer').component;
+const Button = require('../../common/button/action').component;
+const numberFormatter = Focus.definition.formatter.number;
+
+const listSummaryMixin = {
+    mixins: [i18nBehaviour, styleBehaviour],
     /**
      * Display name.
      */
@@ -15,21 +18,32 @@ var listSummaryMixin = {
      * Init the default props.
      * @returns {objet} default props.
      */
-    getDefaultProps: function () {
+    getDefaultProps () {
         return {
-            nb: undefined,
-            queryText: undefined,
             scopeList: {},
-            scopeClickAction: function (scopeKey) {
-            },
-            exportAction: function () {
-            }
+            /**
+             * Action on click on scope.
+             */
+            scopeClickAction() {}
         };
     },
+    /** @inheritdoc */
+    propTypes: {
+        nb: types('number'),
+        queryText: types('string'),
+        scopeList: types('array').isRequired,
+        scopeClickAction: types('func'),
+        exportAction: types('func')
+    },
+    /**
+     * Return result sentence.
+     * @return {object} Result sentence
+     */
     _getResultSentence() {
+        const {nb, queryText} = this.props;
         return (
             <span>
-                <strong>{numberFormatter.format(this.props.nb)}</strong> {this.i18n('result.for')} &#34;{this.props.queryText}&#34;
+                <strong>{numberFormatter.format(nb)}</strong> {this.i18n('result.for')} &#34;{queryText}&#34;
             </span>
         );
     },
@@ -37,15 +51,18 @@ var listSummaryMixin = {
      * Render the html.
      * @returns {JSX} Html rendering.
      */
-    render: function renderActionBar() {
+    render() {
+        const {exportAction, scopeList, scopeClickAction} = this.props;
         return (
             <div data-focus="list-summary">
-                <div className="print">
-                    <Button shape="link" icon="print" label="result.export" handleOnClick={this.props.exportAction} />
-                </div>
+                {exportAction &&
+                    <div className="print">
+                        <Button handleOnClick={exportAction} icon="print" label="result.export" shape="link" />
+                    </div>
+                }
                 <span className="sentence">{this._getResultSentence()}</span>
                 <span className="topics">
-                    <TopicDisplayer topicList={this.props.scopeList} topicClickAction={this.props.scopeClickAction} />
+                    <TopicDisplayer topicClickAction={scopeClickAction} topicList={scopeList} />
                 </span>
             </div>
         );
