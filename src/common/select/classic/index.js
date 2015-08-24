@@ -1,7 +1,7 @@
 //Dependencies.
 const builder = require('focus').component.builder;
 const React = require('react');
-const type = require('focus').component.types;
+const types = require('focus').component.types;
 const i18nMixin = require('../../i18n/mixin');
 const stylableMixin = require('../../../mixin/stylable');
 const union = require('lodash/array/union');
@@ -27,20 +27,23 @@ const selectTextMixin = {
     },
     /** @inheritdoc */
     propTypes: {
-        multiple: type('bool'),
-        labelKey: type('string'),
-        name: type('string'),
-        onChange: type('function'),
-        value: type(['number', 'string', 'array']),
-        values: type('array'),
-        valueKey: type('string')
+        multiple: types('bool'),
+        labelKey: types('string'),
+        name: types('string'),
+        isRequired: types('bool'),
+        onChange: types('function'),
+        value: types(['number', 'string', 'array']),
+        values: types('array'),
+        valueKey: types('string')
     },
     /** @inheritdoc */
     getInitialState() {
-        const {hasUndefined, value, values, valueKey} = this.props;
+        const {hasUndefined, value, values, valueKey, isRequired} = this.props;
+        const hasValue = !isUndefined(value) && !isNull(value);
+        const isRequiredAndHasValue = true === isRequired && hasValue;
         return {
             value: value,
-            hasUndefined: false === hasUndefined ? false : isUndefined(value) || isNull(value), //!value
+            hasUndefined: false === hasUndefined || isRequiredAndHasValue ? false : true, //!value
             isNumber: values && 0 < values.length && values[0] && values[0][valueKey] && isNumber(values[0][valueKey])
         };
     },

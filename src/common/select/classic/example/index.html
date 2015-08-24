@@ -67,7 +67,12 @@
       <ul>
         <li>
           Liste simple sans valeur préselectionnée:
+          hasUndefined forcé
           <Select value='B' hasUndefined={false} values={valuesExample}/>
+          Non requis
+          <Select value='B' isRequired={false} values={valuesExample}/>
+           Requis
+          <Select value='B' isRequired={true} values={valuesExample}/>
         </li>
         <li>
           Liste simple avec valeur préselectionnée:
