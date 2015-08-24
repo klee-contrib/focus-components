@@ -11,6 +11,7 @@ example/js/script-loader.js
 example/js/style-loader.js
 example/js/load-dependencies.js
 example/js/assets.js
+example/js/browser.js
 .idea
 
 
