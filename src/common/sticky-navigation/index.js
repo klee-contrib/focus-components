@@ -1,11 +1,9 @@
 // Dependencies
-
 let builder = require('focus').component.builder;
 let type = require('focus').component.types;
 
 // Mixins
-
-let Stylabe =  require('../../mixin/stylable');
+let Stylabe = require('../../mixin/stylable');
 let scrollTo = require('../mixin/scroll-to').scrollTo;
 
 /**
@@ -71,9 +69,9 @@ let StickyNavigation = {
             return {
                 label: titleElement.innerHTML,
                 id: titleElement.getAttribute('id'),
-                offsetTop: titleIndex === 0 ? 0 : titleElement.offsetTop,
+                offsetTop: 0 === titleIndex ? 0 : titleElement.offsetTop,
                 offsetHeight: titleElement.parentElement.offsetHeight
-            }
+            };
         });
     },
     /**
@@ -118,7 +116,7 @@ let StickyNavigation = {
         if (this.state && this.state.titleList) {
             return this.state.titleList.map((title) => {
                 return (
-                    <div className={this.state.activeTitle == title.id && 'active'} onClick={this._linkClickHandler(title)} key={title.id}>
+                    <div className={this.state.activeTitle === title.id && 'active'} key={title.id} onClick={this._linkClickHandler(title)}>
                         {title.label}
                     </div>
                 );
@@ -135,7 +133,7 @@ let StickyNavigation = {
     _linkClickHandler(title) {
         return () => {
             scrollTo(document.querySelector(this.props.scrolledElementSelector), title.offsetTop, 500);
-        }
+        };
     },
     /**
      * Render the component
@@ -143,10 +141,10 @@ let StickyNavigation = {
      */
     render() {
         return (
-            <nav data-focus='sticky-navigation' className={this._getStyleClassName()} data-affix={this.state && this.state.affixNav ? 'true' : 'false'} ref='nav'>
+            <nav className={this._getStyleClassName()} data-affix={this.state && this.state.affixNav ? 'true' : 'false'} data-focus='sticky-navigation' ref='nav'>
                 {this._renderList()}
             </nav>
-        )
+        );
     }
 };
 
