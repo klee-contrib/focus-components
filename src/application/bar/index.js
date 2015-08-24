@@ -1,6 +1,6 @@
 const builder = require('focus').component.builder;
 const React = require('react');
-const applicationStore = require('focus').application.builtInStore();
+const applicationStore = require('focus').application.builtInStore;
 
 const barMixin = {
     /**
