@@ -11,7 +11,8 @@
     "build": "npm run build:server && npm run build:browser",
     "watch": "node ./node_modules/gulp/bin/gulp.js watch",
     "prepublish": "npm run build",
-    "serve": "npm run build:browser && node static-server.js"
+    "serve": "npm run build:browser && node static-server.js",
+    "build:example": "node ./node_modules/babel/bin/babel.js scripts/script-loader.js --out-file example/js/script-loader.js && node ./node_modules/babel/bin/babel.js scripts/style-loader.js --out-file example/js/style-loader.js && node ./node_modules/babel/bin/babel.js scripts/load-dependencies.js --out-file example/js/load-dependencies.js && cat example/js/script-loader.js example/js/style-loader.js example/js/load-dependencies.js > example/js/assets.js"
   },
   "repository": {
     "type": "git",
@@ -238,22 +239,24 @@
   ],
   "homepage": "https://github.com/KleeGroup/focus-components",
   "dependencies": {
+    "babel-core": "^5.8.22",
     "babel-eslint": "4.0.5",
     "eslint": "0.24.1",
     "eslint-plugin-filenames": "0.1.1",
     "eslint-plugin-react": "2.7.1",
     "eslint-plugin-require-jsdoc": "^1.0.4",
+    "eslint-plugin-require-jsdoc-focus": "0.1.0",
     "focusjs": "^0.8.2-beta",
     "immutable": "^3.7.4",
     "lodash": "^3.10.1",
     "moment": "^2.10.6",
     "object-assign": "^2.0.0",
     "react": "^0.13.3",
-    "uuid": "^2.0.1",
-    "eslint-plugin-require-jsdoc-focus": "0.1.0"
+    "uuid": "^2.0.1"
   },
   "devDependencies": {
     "babel": "^5.8.21",
+    "babel-core": "^5.8.22",
     "babel-eslint": "^3.1.26",
     "babel-plugin-runtime": "^1.0.7",
     "babelify": "^5.0.3",
