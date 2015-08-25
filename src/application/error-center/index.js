@@ -2,6 +2,11 @@ const {builder} = require('focus').component;
 const React = require('react');
 const REACT_NOT_COMPONENT_ERROR = 'Uncaught TypeError: undefined is not a function';
 const REACT_NOT_COMPONENT_MESSAGE = 'Check your console errors, it seems you are trying to create a component from something which is not a component.';
+/**
+ * Error center component.
+ * @example React.render(<ErrorCenter />, document.querySelector('#container'))
+ * @type {Object}
+ */
 const errorCenter = {
     displayName: 'ErrorCenter',
     /** @inheriteddoc */
