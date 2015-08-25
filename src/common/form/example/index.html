@@ -42,7 +42,7 @@
 <body>
 <script src="/focus-components/example/js/picker.js"></script>
 <div id="form-container" class="container"></div>
-<div id='message-cennter-container'></div>
+<div id='message-center-container'></div>
 <script type="text/javascript">
     $(document).ready(function () {
         $.material.init();
@@ -84,7 +84,7 @@
     var formMixin = Focus.components.common.form.mixin;
     var Panel = Focus.components.common.panel.component;
     var MessageCenter = Focus.components.application.messageCenter.component;
-    React.render(<MessageCenter/>, document.querySelector("#message-cennter-container"));
+    React.render(<MessageCenter/>, document.querySelector("#message-center-container"));
     var actionBuilder = Focus.application.actionBuilder;
     var jsonContact= {
         firstName: "Zeus",
