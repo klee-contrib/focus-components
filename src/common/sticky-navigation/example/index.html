@@ -7,39 +7,14 @@
     <meta name="description" content="Example of the component.">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <!-- Place favicon.ico in the root directory -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-core/5.6.15/browser.js"></script>
-
-    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
-    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css"/>
-    <script src="https://fb.me/react-0.13.3.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/3.9.3/lodash.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/backbone.js/1.2.1/backbone.js"></script>
-
-    <!-- Material degign-->
-    <script src="//code.jquery.com/jquery-1.10.2.min.js"></script>
-    <script src='https://cdnjs.cloudflare.com/ajax/libs/i18next/1.6.3/i18next-1.6.3.min.js'></script>
-    <link rel="stylesheet" href="//cdn.jsdelivr.net/bootstrap.material-design/0.3.0/css/material-wfont.min.css">
-    <link rel="stylesheet" href="//cdn.jsdelivr.net/bootstrap.material-design/0.3.0/css/material.min.css">
-    <link rel="stylesheet" href="//cdn.jsdelivr.net/bootstrap.material-design/0.3.0/css/ripples.min.css">
-    <script src="//cdn.jsdelivr.net/bootstrap.material-design/0.3.0/js/material.min.js"></script>
-    <script src="//cdn.jsdelivr.net/bootstrap.material-design/0.3.0/js/ripples.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/showdown/0.4.0/Showdown.js"></script>
-
-    <!-- Include Date Range Picker -->
-    <script type="text/javascript" src="//cdn.jsdelivr.net/momentjs/2.9.0/moment.min.js"></script>
-    <script type="text/javascript" src="//cdn.jsdelivr.net/bootstrap.daterangepicker/1/daterangepicker.js"></script>
-    <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/bootstrap.daterangepicker/1/daterangepicker-bs3.css"/>
+    <!--  BABEL-->
+    <script src="/focus-components/example/js/browser.js"></script>
+    <!--  SCRIPT LOADING-->
+    <script src="/focus-components/example/js/assets.js"></script>
 
 
-    <!-- Material degign-->
-    <script src="/focus-components/dist/js/focus.js"></script>
-    <script src="/focus-components/dist/js/focus-components.js"></script>
-    <script src="/focus-components/example/js/initFocus.js"></script>
-    <link rel="stylesheet" href="/focus-components/dist/css/focus-components.css"/>
-    <link rel="stylesheet" href="/focus-components/example/js/picker.css"/>
     <style type="text/css" media=screen>
-        
+
         #content #nav {
             width: 250px;
             float: left;
@@ -50,58 +25,68 @@
             margin-left: 250px;
             padding: 10px
         }
+
+        #content #blocs h2 {
+            margin-top: 40px;
+        }
     </style>
 </head>
 <body>
     <script type="text/babel">
-        const StickyNavigation = FocusComponents.common.stickyNavigation.component;
+        loadAssets().then((d)=>{
+            const StickyNavigation = FocusComponents.common.stickyNavigation.component;
 
-        const StickyNavigationSample = React.createClass({
-          render: function() {
-            return <div id="content">
-                    <h1>Sticky navigation</h1>
-                    <div id="nav">
-                        <StickyNavigation />
+            const StickyNavigationSample = React.createClass({
+              render: function() {
+                return <div id="content">
+                        <h1>Sticky navigation</h1>
+                        <div id="nav">
+                            <StickyNavigation />
+                        </div>
+                        <div id="blocs">
+                            <h2 id="bloc1" data-menu="true">Sports</h2>
+                            <img src="http://lorempixel.com/800/600/sports" title="lorempixel" alt="lorempixel"/>
+
+                            <h2 id="bloc2" data-menu="true">Animals</h2>
+                            <img src="http://lorempixel.com/800/600/animals" title="lorempixel" alt="lorempixel"/>
+
+                            <h2 id="bloc3" data-menu="true">Business</h2>
+                            <img src="http://lorempixel.com/800/600/business" title="lorempixel" alt="lorempixel"/>
+
+                            <h2 id="bloc4" data-menu="true">Cats</h2>
+                            <img src="http://lorempixel.com/800/600/cats" title="lorempixel" alt="lorempixel"/>
+
+                            <h2 id="bloc5" data-menu="true">City</h2>
+                            <img src="http://lorempixel.com/800/600/city" title="lorempixel" alt="lorempixel"/>
+
+                            <h2 id="bloc6" data-menu="true">Food</h2>
+                            <img src="http://lorempixel.com/800/600/food" title="lorempixel" alt="lorempixel"/>
+
+                            <h2 id="bloc7" data-menu="true">Nightlife</h2>
+                            <img src="http://lorempixel.com/800/600/nightlife" title="lorempixel" alt="lorempixel"/>
+
+                            <h2 id="bloc8" data-menu="true">Fashion</h2>
+                            <img src="http://lorempixel.com/800/600/fashion" title="lorempixel" alt="lorempixel"/>
+
+                            <h2 id="bloc9" data-menu="true">People</h2>
+                            <img src="http://lorempixel.com/800/600/people" title="lorempixel" alt="lorempixel"/>
+
+                            <h2 id="bloc10" data-menu="true">Nature</h2>
+                            <img src="http://lorempixel.com/800/600/nature" title="lorempixel" alt="lorempixel" />
+
+                            <h2 id="bloc11" data-menu="true">Technics</h2>
+                            <img src="http://lorempixel.com/800/600/technics" title="lorempixel" alt="lorempixel" />
+
+                            <h2 id="bloc12" data-menu="true">Transport</h2>
+                            <img src="http://lorempixel.com/800/600/transport" title="lorempixel" alt="lorempixel" />
+                        </div>
                     </div>
-                    <div id="blocs">
-                        <h3 id="bloc1" data-menu="true">Bloc 1</h3>
-                        <img src="http://lorempixel.com/800/600/" title="lorempixel" alt="lorempixel"/>
-
-                        <h3 id="bloc2" data-menu="true">Bloc 2</h3>
-                        <img src="http://lorempixel.com/800/600/" title="lorempixel" alt="lorempixel"/>
-
-                        <h3 id="bloc3" data-menu="true">Bloc 3</h3>
-                        <img src="http://lorempixel.com/800/600/" title="lorempixel" alt="lorempixel"/>
-
-                        <h3 id="bloc4" data-menu="true">Bloc 4</h3>
-                        <img src="http://lorempixel.com/800/600/" title="lorempixel" alt="lorempixel"/>
-
-                        <h3 id="bloc5" data-menu="true">Bloc 5</h3>
-                        <img src="http://lorempixel.com/800/600/" title="lorempixel" alt="lorempixel"/>
-
-                        <h3 id="bloc6" data-menu="true">Bloc 6</h3>
-                        <img src="http://lorempixel.com/800/600/" title="lorempixel" alt="lorempixel"/>
-
-                        <h3 id="bloc7" data-menu="true">Bloc 7</h3>
-                        <img src="http://lorempixel.com/800/600/" title="lorempixel" alt="lorempixel"/>
-
-                        <h3 id="bloc8" data-menu="true">Bloc 8</h3>
-                        <img src="http://lorempixel.com/800/600/" title="lorempixel" alt="lorempixel"/>
-
-                        <h3 id="bloc9" data-menu="true">Bloc 9</h3>
-                        <img src="http://lorempixel.com/800/600/" title="lorempixel" alt="lorempixel"/>
-
-                        <h3 id="bloc10" data-menu="true">Bloc 10</h3>
-                        <img src="http://lorempixel.com/800/600/" title="lorempixel" alt="lorempixel" />
-
-                        <h3 id="bloc11" data-menu="true">Bloc 11</h3>
-                        <img src="http://lorempixel.com/800/600/" title="lorempixel" alt="lorempixel" />
-                    </div>
-                </div>
-          }
+              }
+            });
+            const mountNode = document.querySelector("body")
+            React.render(<StickyNavigationSample />, mountNode);
         });
-        const mountNode = document.querySelector("body")
-        React.render(<StickyNavigationSample />, mountNode);
+
     </script>
 </body>
 </html>
