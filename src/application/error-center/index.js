@@ -20,7 +20,6 @@ const errorCenter = {
     /** @inheriteddoc */
     componentWillMount() {
         this.props.source.onerror = ((e)=>{
-            console.log('errors', e);
             let {errors} = this.state;
             errors.push(e);
             this.setState({errors: errors});
