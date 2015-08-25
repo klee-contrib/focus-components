@@ -165,6 +165,10 @@
             "path": "common/select-action"
         },
         {
+            "name": "scrollspy",
+            "path": "common/scrollspy"
+        },
+        {
             "name": "sticky-navigation",
             "path": "common/sticky-navigation"
         },

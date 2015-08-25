@@ -13,6 +13,7 @@ module.exports = {
     panel: require('./panel'),
     select: require('./select'),
     selectAction: require('./select-action'),
+    scrollspy: require('./scrollspy'),
     stickyNavigation: require('./sticky-navigation'),
     title: require('./title'),
     topicDisplayer: require('./topic-displayer'),
