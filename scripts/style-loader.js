@@ -22,7 +22,7 @@
                 reject(url);
             }, false);
             // Add it to the body
-            document.body.appendChild(style);
+            document.getElementsByTagName('head')[0].appendChild(style);
         });
         return scriptPromise;
     }
