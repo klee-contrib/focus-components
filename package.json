@@ -41,6 +41,10 @@
             "path": "application/message-center"
         },
         {
+            "name": "error-center",
+            "path": "application/error-center"
+        },
+        {
             "name": "header",
             "path": "application/header"
         },

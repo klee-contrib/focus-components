@@ -1,0 +1,25 @@
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Focus component examples</title>
+    <meta name="description" content="Example of the component.">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!--  BABEL-->
+    <script src="/focus-components/example/js/browser.js"></script>
+    <!--  SCRIPT LOADING-->
+    <script src="/focus-components/example/js/assets.js"></script>
+</head>
+<body>
+    <div id="error-center-container"></div>
+    <div id='container'></div>
+    <script type='text/babel'>
+        loadAssets().then((d)=>{
+          React.render(
+              <div>
+                <button onClick={function(){throw new Error('Errroooooorrrrrrrrrrrr...........'); }}>Generate error</button>
+                <button onClick={function(){React.render(React.createElement({papa: 'singe'}), document.querySelector('#container')); }}>Generate react error on component</button>
+                <FocusComponents.application.errorCenter.component />
+              </div>,
+            document.querySelector('#error-center-container'));
+       });
+   </script>
