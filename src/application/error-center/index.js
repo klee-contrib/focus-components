@@ -1,4 +1,4 @@
-const {builder, types} = require('focus').component;
+const {builder} = require('focus').component;
 const React = require('react');
 const REACT_NOT_COMPONENT_ERROR = 'Uncaught TypeError: undefined is not a function';
 const REACT_NOT_COMPONENT_MESSAGE = 'Check your console errors, it seems you are trying to create a component from something which is not a component.';
@@ -25,12 +25,17 @@ const errorCenter = {
             errors.push(e);
             this.setState({errors: errors});
         });
-        console.log('this.props', this.props , 'ERR0R', this.props.source.onerror);
-
     },
+    /**
+     * Toggle the visibility of the error component.
+     */
     _toggleVisible(){
-        this.setState({isErrorsVisible: !this.state.isErrorsVisible})
+        this.setState({isErrorsVisible: !this.state.isErrorsVisible});
     },
+    /**
+     * Render all the errors.
+     * @return {object} - The jsx errors.
+     */
     _renderErrors(){
         const {errors, isErrorsVisible} = this.state;
         const {numberDisplayed} = this.props;
@@ -53,7 +58,7 @@ const errorCenter = {
     },
     /** @inheriteddoc */
     render() {
-        return this.state.errors.length > 0 ? this._renderErrors() : null;
+        return 0 < this.state.errors.length ? this._renderErrors() : null;
     }
 };
 
