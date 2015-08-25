@@ -11,7 +11,11 @@ Components for focus application.
 
 ## Components
 
-### spec
+## Sources
+
+All the source code is in `src`.
+
+### component spec
 
 Component example structure, with all the directories ans sub directories. 
 - `index.js` : the component entry point.
@@ -20,30 +24,16 @@ Component example structure, with all the directories ans sub directories.
 - `example`: a example directory for your component, should have an `index.html` file. (see build section for more informations).
 - `__tests__` : components unit tests
 
-### form
-
-All the components dealing with forms:
-- Inputs
-- select
-- rich text
-
-All  the block component to structure the
-
-### search
-
-All the component which deals with the search:
-- Facet (live-filter)
-- Quick search
-- Selectable results
-
-### list
-
-All the components for the list
-
-
 ## Build
+- First install the dependencies `npm install`, in case of any problem with a proxy or with `node-gyp` have a look at this [gist](https://gist.github.com/pierr/9c35b3657c053d13d373)
+- `npm run build` to trigger the complete build
+- `npm run build:browser` to trigger only the build for the browser
 
-In order to build and test each component alone, there is a build task called `componentify` which performs a build for each component describe under the `components` flag in the `package.json` file.
+
+
+## Component catalog
+
+In order to build the catalog, your component must be describe under the `components` node in the `package.json` file.
 
 ```json
 "components": [
@@ -60,13 +50,10 @@ When your component has been added to this list, it will automatically be deploy
 
 In order to launch unit test: `npm run test`
 
-## Dependencies
-
-In order to install all your dependencies: `npm install --no-optional`
 
 ### CSS
 
 [FlexBox](https://css-tricks.com/snippets/css/a-guide-to-flexbox)/
 
 ## Lint
-`gulp eslint` in order to see your errors.
+`npm run lint` in order to see your errors.
