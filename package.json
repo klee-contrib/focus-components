@@ -169,8 +169,8 @@
             "path": "common/select-action"
         },
         {
-            "name": "sticky-navigation",
-            "path": "common/sticky-navigation"
+            "name": "scrollspy",
+            "path": "common/scrollspy"
         },
         {
             "name": "live-filter",
