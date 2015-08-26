@@ -1,57 +1,59 @@
-var React = require('react');
-var builder = require('focus').component.builder
-var Title = require('../title').component;
-var i18nMixin = require('../i18n').mixin;
-var uuid = require('uuid').v4;
-var trim = require('lodash/string/trim');
+const React = require('react');
+const {builder, types} = require('focus').component;
+const i18nBehaviour = require('../../common/i18n/mixin');
+const styleBehaviour = require('../../mixin/stylable');
+const Title = require('../title').component;
+const trim = require('lodash/string/trim');
 /**
- * Mixin used in order to create a block.
- * @type {Object}
- */
-var blockMixin = {
-  mixins: [i18nMixin],
-  getDefaultProps: function(){
-    return {
-      style: {},
-      actions: function(){
-        return ; // override this to add actions.
-      }
+* Mixin used in order to create a block.
+* @type {Object}
+*/
+const blockMixin = {
+    mixins: [i18nBehaviour, styleBehaviour],
+
+    /** @inheritedDoc */
+    getDefaultProps() {
+        return {
+            actions: function(){
+                return ; // override this to add actions.
+            }
+        };
+    },
+    /** @inheritedDoc */
+    propTypes: {
+        title: types('string'),
+        actions: types('func')
+    },
+    /**
+    * Header of theblock function.
+    * @return {[type]} [description]
+    */
+    heading() {
+        if(this.props.title){
+            return this.i18n(this.props.title);
+        }
+    },
+    _buildId() {
+        return `${window.location.hash.slice(1)}/${trim(this.heading().toLowerCase())}`;//.replace('/', '_');
+    },
+    /**
+    * Render the a block container and the cild content of the block.
+    * @return {DOM} React DOM element
+    */
+    render: function renderBlock(){
+        const {actions, children} = this.props;
+        return (
+            <div data-focus='block'>
+            <header>
+            <Title id={this._buildId()} title={this.heading()} />
+            <div className="actions">{actions()}</div>
+            </header>
+            <div className="block-content">
+            {children}
+            </div>
+            </div>
+        );
     }
-  },
-  /**
-   * Header of theblock function.
-   * @return {[type]} [description]
-   */
-  heading: function(){
-    if(this.props.title){
-      return this.i18n(this.props.title);
-    }
-  },
-  _buildId: function(){
-    return `${window.location.hash.slice(1)}/${trim(this.heading().toLowerCase())}`;//.replace('/', '_');
-  },
-  /**
-   * ClassName of the button.
-   */
-  _className: function buttonClassName() {
-    return this.props.style.className ? this.props.style.className : '';
-  },
-  /**
-   * Render the a block container and the cild content of the block.
-   * @return {DOM}
-   */
-  render: function renderBlock(){
-    return(
-      <div className={this._className()} data-focus='block'>
-        <header>
-          <Title id={this._buildId()} title={this.heading()} />
-          <div className="actions">{this.props.actions()}</div>
-        </header>
-        <div className="block-content">
-          {this.props.children}
-        </div>
-      </div>
-    );
-  }
-}
+};
+
 module.exports = builder(blockMixin);
