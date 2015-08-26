@@ -14,7 +14,6 @@ module.exports = {
     select: require('./select'),
     selectAction: require('./select-action'),
     scrollspy: require('./scrollspy'),
-    stickyNavigation: require('./sticky-navigation'),
     title: require('./title'),
     topicDisplayer: require('./topic-displayer'),
     list: require('./list'),
