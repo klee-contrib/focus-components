@@ -1,8 +1,14 @@
 //Dependencies.
-let builder = require('focus').component.builder;
-let React = require('react');
-let type = require('focus').component.types;
-
+const builder = require('focus').component.builder;
+const React = require('react');
+const types = require('focus').component.types;
+const assign = require('object-assign');
+/**
+ * Identity function.
+ * @param  {object} data - The data.
+ * @return {object}   The data to save.
+ */
+function identity(d){ return d; }
 /**
  * Input text mixin.
  * @type {Object}
@@ -20,25 +26,21 @@ let inputTextMixin = {
              * @param  {object} d - Data to format.
              * @return {object}   - The formatted data.
              */
-            formatter(d){
-                return d;
-            },
+            formatter: identity,
             /**
              * Default unformatter.
              * @param  {object} d - Data to unformat.
              * @return {object}   - The unformatted data.
              */
-            unformatter(d){
-                return d;
-            }
+            unformatter: identity
         };
     },
     /** @inheritdoc */
     propTypes: {
-        type: type('string'),
-        value: type(['string', 'number']),
-        name: type('string'),
-        style: type('object')
+        type: types('string'),
+        value: types(['string', 'number']),
+        name: types('string'),
+        style: types('object')
     },
     /** @inheritdoc */
     getInitialState() {
@@ -51,22 +53,23 @@ let inputTextMixin = {
      * Update the component.
      * @param {object} newProps - The new props to update.
      */
-      componentWillReceiveProps: function inputWillReceiveProps(newProps){
+      componentWillReceiveProps(newProps){
           this.setState({value: this.props.formatter(newProps.value)});
       },
-  /**
-   * Get the value from the input in the DOM.
-   */
-    getValue: function getInputTextValue() {
+    /**
+     * Get the value from the input in the DOM.
+     * @return {object} - The value of the formatter.
+     */
+    getValue() {
         return this.props.unformatter(React.findDOMNode(this).value);
     },
   /**
    * Handle the change value of the input.
    * @param {object} event - The sanitize event of input.
    */
-  _handleOnChange: function inputOnChange(event){
+  _handleOnChange(event){
       //On change handler.
-      let {onChange} = this.props;
+      const {onChange} = this.props;
       if(onChange){
           return onChange(event);
       }else {
@@ -79,19 +82,9 @@ let inputTextMixin = {
    * @return {DOM} - The dom of an input.
    */
   render: function renderInput() {
-      let {name, style} = this.props;
-      let htmlType = this.props.type;
-      let {value} = this.state;
-      return (
-        <input
-          id={name}
-          name={name}
-          onChange={this._handleOnChange}
-          style={style}
-          type={htmlType}
-          value={value}
-        />
-    );
+      const {value} = this.state;
+      const inputProps = assign({}, this.props, {value}, {id: name, onChange: this._handleOnChange});
+      return <input {...inputProps}/>;
   }
 };
 
