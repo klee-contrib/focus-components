@@ -10,161 +10,161 @@
     <script src="/focus-components/example/js/assets.js"></script>
 </head>
 <body>
-    <div id="form-container" class="container"></div>
+<div id="form-container" class="container"></div>
     <div id='message-cennter-container'></div>
     <script type='text/babel'>
         loadAssets().then(function(d){
-            $(document).ready(function () {
-                $.material.init();
-            });
-            //Load dependencies.
-            Focus.components = FocusComponents;
-            var TableLine = React.createClass({
-                mixins: [FocusComponents.list.table.line.mixin],
-                definitionPath: "commande",
-                renderLineContent: function (data) {
-                    return (
-                            <tr>
-                                <td>{this.textFor("name", {})}</td>
-                                <td>{this.textFor("number", {})}</td>
-                            </tr>
-                    );
+    $(document).ready(function () {
+        $.material.init();
+    });
+    //Load dependencies.
+    Focus.components = FocusComponents;
+    var TableLine = React.createClass({
+        mixins: [FocusComponents.list.table.line.mixin],
+        definitionPath: "commande",
+        renderLineContent: function (data) {
+            return (
+                    <tr>
+                        <td>{this.textFor("name", {})}</td>
+                        <td>{this.textFor("number", {})}</td>
+                    </tr>
+            );
+        }
+    });
+    var columns = {
+        firstName: {label: "Nom", sort:"asc"},
+        lastName: {label: "Numéro", sort: 'desc'}
+    }
+
+    var ListLine = React.createClass({
+        mixins: [FocusComponents.list.selection.line.mixin],
+        definitionPath: "commande",
+        renderLineContent: function(data){
+            var firstName = this.displayFor("name", {});
+            var lastName = this.displayFor("number", {});
+            var root = React.createElement('div',null,firstName,lastName);
+            return root;
+        }
+    });
+    var contactStore = new Focus.store.CoreStore({
+        definition: {'contact': 'contact', 'commandes': 'commande'}
+    });
+    var formMixin = Focus.components.common.form.mixin;
+    var Panel = Focus.components.common.panel.component;
+    var MessageCenter = Focus.components.application.messageCenter.component;
+    React.render(<MessageCenter/>, document.querySelector("#message-center-container"));
+    var actionBuilder = Focus.application.actionBuilder;
+    var jsonContact= {
+        firstName: "Zeus",
+        lastName: "God",
+        isCool: true,
+        birthDate: new Date().toISOString(),
+        commandes: [{
+            name: "commande1",
+            number: "1"
+        }, {
+            name: "commande2",
+            number: "2"
+        }, {
+            name: "commande3",
+            number: "3"
+        }, {
+            name: "commande4",
+            number: "4"
+        }, {
+            name: "commande5",
+            number: "5"
+        }, {
+            name: "commande6",
+            number: "6"
+        }]
+    };
+    var action = {
+        load: actionBuilder({
+            status: 'loaded',
+            node: 'contact',
+            service: function(){
+                return new Promise(function(s,e){
+                        _.delay(function(){
+                            s(jsonContact);
+                        }, 3000);
+                })//Promise.resolve(jsonContact);
+            }
+        }),
+        save:actionBuilder({
+            status: 'saved',
+            preStatus: 'saving',
+            node: 'contact',
+            service: function myCustomSaveService(data){
+                console.log('save', data);
+                return Promise.resolve(data);
+            }
+        })
+    };
+    var Block = FocusComponents.common.block.component;
+    //Create the view.
+    var FormExample = React.createClass({
+        displayName: "FormExample",
+        mixins: [formMixin],
+        stores: [{
+            store: contactStore,
+            properties: ["contact", "commandes"],
+        }],
+        definitionPath: "contact",
+        action: action,
+        referenceNames: ['papas', 'monkeys'],
+        /*customValidation: function(){
+            var firstName = this.refs['contact.firstName'];
+            var lastName = this.refs['contact.lastName'];
+            var firstNameVal = firstName && firstName.getValue();
+            var lastNameVal = lastName && lastName.getValue;
+            if(firstNameVal && lastNameVal){
+                if(firstNameVal.indexOf('p') === -1 || lastNameVal.indexOf('b') === -1){
+                    this.setState({
+                        customError: {
+                            lastAndFirstName: 'InvalidCustomValidation: firstName and lastname sould have b and d.'
+                        }
+                    });
+                    return false;
                 }
-            });
-            var columns = {
-                firstName: {label: "Nom", sort:"asc"},
-                lastName: {label: "Numéro", sort: 'desc'}
+            }
+            return true;
+            //In the component
+            {
+                this.state.customError &&
+                this.state.customError.lastAndFirstName &&
+                (<div style={{color: 'tomato'}}>{this.state.customError.lastAndFirstName}</div>)
             }
 
-            var ListLine = React.createClass({
-                mixins: [FocusComponents.list.selection.line.mixin],
-                definitionPath: "commande",
-                renderLineContent: function(data){
-                    var firstName = this.displayFor("name", {});
-                    var lastName = this.displayFor("number", {});
-                    var root = React.createElement('div',null,firstName,lastName);
-                    return root;
-                }
-            });
-            var contactStore = new Focus.store.CoreStore({
-                definition: {'contact': 'contact', 'commandes': 'commande'}
-            });
-            var formMixin = Focus.components.common.form.mixin;
-            var Panel = Focus.components.common.panel.component;
-            var MessageCenter = Focus.components.application.messageCenter.component;
-            React.render(<MessageCenter/>, document.querySelector("#message-cennter-container"));
-            var actionBuilder = Focus.application.actionBuilder;
-            var jsonContact= {
-                firstName: "Zeus",
-                lastName: "God",
-                isCool: true,
-                birthDate: new Date().toISOString(),
-                commandes: [{
-                    name: "commande1",
-                    number: "1"
-                }, {
-                    name: "commande2",
-                    number: "2"
-                }, {
-                    name: "commande3",
-                    number: "3"
-                }, {
-                    name: "commande4",
-                    number: "4"
-                }, {
-                    name: "commande5",
-                    number: "5"
-                }, {
-                    name: "commande6",
-                    number: "6"
-                }]
-            };
-            var action = {
-                load: actionBuilder({
-                    status: 'loaded',
-                    node: 'contact',
-                    service: function(){
-                        return new Promise(function(s,e){
-                                _.delay(function(){
-                                    s(jsonContact);
-                                }, 3000);
-                        })//Promise.resolve(jsonContact);
-                    }
-                }),
-                save:actionBuilder({
-                    status: 'saved',
-                    preStatus: 'saving',
-                    node: 'contact',
-                    service: function myCustomSaveService(data){
-                        console.log('save', data);
-                        return Promise.resolve(data);
-                    }
-                })
-            };
-            var Block = FocusComponents.common.block.component;
-            //Create the view.
-            var FormExample = React.createClass({
-                displayName: "FormExample",
-                mixins: [formMixin],
-                stores: [{
-                    store: contactStore,
-                    properties: ["contact", "commandes"],
-                }],
-                definitionPath: "contact",
-                action: action,
-                referenceNames: ['papas', 'monkeys'],
-                /*customValidation: function(){
-                    var firstName = this.refs['contact.firstName'];
-                    var lastName = this.refs['contact.lastName'];
-                    var firstNameVal = firstName && firstName.getValue();
-                    var lastNameVal = lastName && lastName.getValue;
-                    if(firstNameVal && lastNameVal){
-                        if(firstNameVal.indexOf('p') === -1 || lastNameVal.indexOf('b') === -1){
-                            this.setState({
-                                customError: {
-                                    lastAndFirstName: 'InvalidCustomValidation: firstName and lastname sould have b and d.'
-                                }
-                            });
-                            return false;
-                        }
-                    }
-                    return true;
-                    //In the component
-                    {
-                        this.state.customError &&
-                        this.state.customError.lastAndFirstName &&
-                        (<div style={{color: 'tomato'}}>{this.state.customError.lastAndFirstName}</div>)
-                    }
+        },*/
+        renderContent: function renderUserDetail() {
+            return (
+                    <Block title="Fiche de l'utilisateur" actions={this._renderActions}>
+                      {this.fieldFor("firstName")}
+                      {this.fieldFor("lastName")}
 
-                },*/
-                renderContent: function renderUserDetail() {
-                    return (
-                            <Block title="Fiche de l'utilisateur" actions={this._renderActions}>
-                              {this.fieldFor("firstName")}
-                              {this.fieldFor("lastName")}
-
-                              {
-                                  this.textFor("birthDate", {
-                                      formatter: function (date) {
-                                          return "formatted date" + date
-                                      }
-                                  })}
-                              {this.fieldFor('papaCode', {listName: 'papas'})}
-                              {this.fieldFor('monkeyCode', {listName: 'monkeys', valueKey: 'myCustomCode', labelKey: 'myCustomLabel' })}
-                              {this.fieldFor("bio")}
-                              {this.fieldFor("isCool")}
-                              {this.fieldFor("isNice")}
-                              {this.fieldFor("birthDate")}
-                              {this.listFor("commandes", {lineComponent: ListLine})}
-                            </Block>
-                    );
-                }
-            });
-            //Render the created View.
-            React.render(<FormExample isEdit={true}/>, document.querySelector("#form-container"));
+                      {
+                          this.textFor("birthDate", {
+                              formatter: function (date) {
+                                  return "formatted date" + date
+                              }
+                          })}
+                      {this.fieldFor('papaCode', {listName: 'papas'})}
+                      {this.fieldFor('monkeyCode', {listName: 'monkeys', valueKey: 'myCustomCode', labelKey: 'myCustomLabel' })}
+                      {this.fieldFor("bio")}
+                      {this.fieldFor("isCool")}
+                      {this.fieldFor("isNice")}
+                      {this.fieldFor("birthDate")}
+                      {this.listFor("commandes", {lineComponent: ListLine})}
+                    </Block>
+            );
+        }
+    });
+    //Render the created View.
+    React.render(<FormExample isEdit={true}/>, document.querySelector("#form-container"));
         });
 
-    </script>
+</script>
 
 </body>
 
