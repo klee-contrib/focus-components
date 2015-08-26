@@ -58,11 +58,6 @@ $field-input-width-date: 90px;
         width: $field-input-width-long;
       }
     }
-    &[data-domain="DO_EMAIL"] {
-      input {
-        width: $field-input-width-short;
-      }
-    }
   }
 
 }
