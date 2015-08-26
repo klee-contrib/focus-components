@@ -127,7 +127,7 @@ const Scrollspy = {
     render() {
         const {affix} = this.state;
         return (
-            <div data-focus="scrollspy">
+            <div data-focus="scrollspy" ref='scrollSpy'>
                 <nav data-affix={!!affix} style={affix ? {position: 'fixed', top: `${this.props.affixOffset}px`} : null}>{this._renderList()}</nav>
                 <div>{this.props.children}</div>
             </div>
@@ -159,11 +159,14 @@ const Scrollspy = {
             currentId = last(titleList).id;
         }
         //save current state
-        const componentTopPosition = React.findDOMNode(this).offsetTop;
-        this.setState({
-            activeTitleId: currentId,
-            affix: componentTopPosition + this.props.affixOffset < scrollposition.top
-        });
+        const {scrollSpy} = this.refs;
+        if(scrollSpy){
+            const componentTopPosition = React.findDOMNode(scrollSpy).offsetTop;
+            this.setState({
+                activeTitleId: currentId,
+                affix: componentTopPosition + this.props.affixOffset < scrollposition.top
+            });
+        }
     }
 };
 
