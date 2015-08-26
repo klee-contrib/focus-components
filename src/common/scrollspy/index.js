@@ -26,7 +26,7 @@ const Scrollspy = {
         return {
             titleSelector: '[data-spy]',
             scrolledElementSelector: 'body',
-            scrollSpyTargetSelector: undefined
+            affix: 80
         };
     },
     /**
@@ -34,7 +34,7 @@ const Scrollspy = {
     */
     propTypes: {
         titleSelector: type('string'),
-        scrollSpyTargetSelector: type('string')
+        affix: type('number')
     },
     /** @inheritDoc */
     getInitialState() {
@@ -104,13 +104,17 @@ const Scrollspy = {
     * @private
     */
     _renderList() {
+        const {activeTitleId, titleList} = this.state;
         return (
             <ul> {
-                this.state.titleList.map((title) => {
+                titleList.map((title) => {
+                    const lineProps = {
+                        className: activeTitleId === title.id && 'active',
+                        key: title.id,
+                        onClick: this._linkClickHandler(title)
+                    };
                     return (
-                        <li className={this.state.activeTitleId === title.id && 'active'} key={title.id} onClick={this._linkClickHandler(title)}>
-                        {title.label}
-                        </li>
+                        <li {...lineProps}>{title.label}</li>
                     );
                 })
             } </ul>
@@ -121,10 +125,11 @@ const Scrollspy = {
     * @return {XML} the rendered component
     */
     render() {
+        const {affix} = this.state;
         return (
             <div data-focus="scrollspy">
-            <nav>{this._renderList()}</nav>
-            <div>{this.props.children}</div>
+                <nav data-affix={!!affix} style={affix ? {position: 'fixed', top: `${this.props.affix}px`} : null}>{this._renderList()}</nav>
+                <div>{this.props.children}</div>
             </div>
         );
     },
@@ -155,7 +160,8 @@ const Scrollspy = {
         }
         //save current state
         this.setState({
-            activeTitleId: currentId
+            activeTitleId: currentId,
+            affix: this.props.affix < scrollpostion.top
         });
     }
 };
