@@ -5101,6 +5101,14 @@ body {
       [data-focus="loading-bar"] ul li span {
         margin: 0 5px; }
 
+[data-focus='message-center'] {
+  position: fixed;
+  top: 60px;
+  right: 10px;
+  z-index: 9999999;
+  max-width: 300px;
+  min-width: 200px; }
+
 /* Transitions */
 /* General styles for all menus */
 [data-focus="menu"] {
@@ -5180,14 +5188,6 @@ body {
     left: 60px; }
   [data-focus="menu"].menu-push-toleft {
     left: -60px; }
-
-[data-focus='message-center'] {
-  position: fixed;
-  top: 60px;
-  right: 10px;
-  z-index: 9999999;
-  max-width: 300px;
-  min-width: 200px; }
 
 [data-focus='popin-window'] {
   padding: 10px 25px; }

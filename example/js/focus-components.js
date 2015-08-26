@@ -22262,7 +22262,7 @@ module.exports = uuid;
 },{"./rng":274}],276:[function(require,module,exports){
 module.exports={
     "name": "focusjs-components",
-    "version": "0.5.0",
+    "version": "0.5.1-0",
     "description": "Focus component repository.",
     "main": "index.js",
     "scripts": {
@@ -27259,7 +27259,7 @@ var Scrollspy = {
 
         return React.createElement(
             "div",
-            { "data-focus": "scrollspy" },
+            { "data-focus": "scrollspy", ref: "scrollSpy" },
             React.createElement(
                 "nav",
                 { "data-affix": !!affix, style: affix ? { position: "fixed", top: "" + this.props.affixOffset + "px" } : null },
@@ -27300,12 +27300,15 @@ var Scrollspy = {
             currentId = last(titleList).id;
         }
         //save current state
-        var componentTopPosition = React.findDOMNode(this).offsetTop;
-        console.debug(componentTopPosition);
-        this.setState({
-            activeTitleId: currentId,
-            affix: componentTopPosition + this.props.affixOffset < scrollposition.top
-        });
+        var scrollSpy = this.refs.scrollSpy;
+
+        if (scrollSpy) {
+            var componentTopPosition = React.findDOMNode(scrollSpy).offsetTop;
+            this.setState({
+                activeTitleId: currentId,
+                affix: componentTopPosition + this.props.affixOffset < scrollposition.top
+            });
+        }
     }
 };
 
