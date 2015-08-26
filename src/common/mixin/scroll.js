@@ -32,4 +32,4 @@ function scrollTo(element, to, duration = 500) {
 }
 
 
-module.exports = {scrollTo};
+module.exports = {scrollTo, scrollPosition};

@@ -4,7 +4,7 @@ let type = require('focus').component.types;
 
 // Mixins
 let Stylabe = require('../../mixin/stylable');
-let scrollTo = require('../mixin/scroll-to').scrollTo;
+let scrollTo = require('../mixin/scroll').scrollTo;
 
 /**
  * Sticky navigation component.

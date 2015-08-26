@@ -4,7 +4,9 @@ const type = require('focus').component.types;
 
 // Mixins
 const Stylabe = require('../../mixin/stylable');
-const scrollTo = require('../mixin/scroll-to').scrollTo;
+const {scrollTo, scrollPosition} = require('../mixin/scroll');
+const {filter} = require('lodash/collection');
+const {first, last} = require('lodash/array');
 
 /**
 * Scrollspy component.
@@ -49,6 +51,7 @@ const Scrollspy = {
         });
         this._scrollCarrier = window;
         this._attachScrollSpy();
+        this._scrollSpy();
     },
     /**
     * Attach the scroll spy
@@ -73,12 +76,12 @@ const Scrollspy = {
     */
     _getTitleList() {
         const rawTitleList = document.querySelectorAll(this.props.titleSelector);
-        console.debug(rawTitleList);
-        return [].map.call(rawTitleList, (titleElement, titleIndex) => {
+        return [].map.call(rawTitleList, (titleElement, index) => {
             return {
+                index: index,
                 label: titleElement.innerHTML,
                 id: titleElement.getAttribute('id'),
-                titleIndex: titleIndex
+                offsetTop: titleElement.offsetTop
             };
         });
     },
@@ -105,7 +108,7 @@ const Scrollspy = {
             <ul> {
                 this.state.titleList.map((title) => {
                     return (
-                        <li className={this.state.activeTitle === title.id && 'active'} key={title.id} onClick={this._linkClickHandler(title)}>
+                        <li className={this.state.activeTitleId === title.id && 'active'} key={title.id} onClick={this._linkClickHandler(title)}>
                         {title.label}
                         </li>
                     );
@@ -130,18 +133,30 @@ const Scrollspy = {
     * @private
     */
     _scrollSpy() {
-        //console.debug("scroll");
-        // let scrollPosition = document.querySelector(this.props.scrolledElementSelector).scrollTop;
-        // this.setState({affixNav: this.props.affixMargin < scrollPosition});
-        // if (this.state && this.state.titleList) {
-        //     this.state.titleList.forEach((title) => {
-        //         if (title.offsetTop <= scrollPosition && title.offsetTop + title.offsetHeight > scrollPosition) {
-        //             this.setState({
-        //                 activeTitle: title.id
-        //             });
-        //         }
-        //     });
-        // }
+        const titleList = this._getTitleList();
+        if(0 === titleList.length) { return; }
+        //---
+        const scrollpostion = scrollPosition();
+        const nextTitles = filter(titleList, n => {
+            return scrollpostion.top < n.offsetTop;
+        });
+        //by default, first node is indexed
+        let currentId = titleList[0].id;
+        if(0 < nextTitles.length) {
+            //check the first node
+            const firstNode = first(nextTitles);
+            const index = firstNode.index;
+            if(0 < index) {
+                currentId = titleList[index - 1].id;
+            }
+        } else {
+            //means that the position is the last title
+            currentId = last(titleList).id;
+        }
+        //save current state
+        this.setState({
+            activeTitleId: currentId
+        });
     }
 };
 
