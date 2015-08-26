@@ -22,7 +22,9 @@ const Scrollspy = {
     */
     getDefaultProps() {
         return {
-            titleSelector: '[data-spy]'
+            titleSelector: '[data-spy]',
+            scrolledElementSelector: 'body',
+            scrollSpyTargetSelector: undefined
         };
     },
     /**
@@ -30,6 +32,7 @@ const Scrollspy = {
     */
     propTypes: {
         titleSelector: type('string'),
+        scrollSpyTargetSelector: type('string')
     },
     /** @inheritDoc */
     getInitialState() {
@@ -44,6 +47,24 @@ const Scrollspy = {
         this.setState({
             titleList: this._getTitleList()
         });
+        this._scrollCarrier = window;
+        this._attachScrollSpy();
+    },
+    /**
+    * Attach the scroll spy
+    * @private
+    */
+    _attachScrollSpy() {
+        this._scrollCarrier.addEventListener('scroll', this._scrollSpy);
+        this._scrollCarrier.addEventListener('resize', this._scrollSpy);
+    },
+    /**
+    * Detach the scroll spy
+    * @private
+    */
+    _detachScrollSpy() {
+        this._scrollCarrier.removeEventListener('scroll', this._scrollSpy);
+        this._scrollCarrier.removeEventListener('resize', this._scrollSpy);
     },
     /**
     * Get the menu items list
@@ -70,8 +91,8 @@ const Scrollspy = {
     */
     _linkClickHandler(title) {
         return () => {
-            console.debug(title);
-            scrollTo(document.querySelector(this.props.scrolledElementSelector), title.offsetTop, 500);
+            const selectedTitle = document.getElementById(title.id);
+            scrollTo(undefined, selectedTitle.offsetTop);
         };
     },
     /**
@@ -103,6 +124,24 @@ const Scrollspy = {
             <div>{this.props.children}</div>
             </div>
         );
+    },
+    /**
+    * The scroll event handler
+    * @private
+    */
+    _scrollSpy() {
+        //console.debug("scroll");
+        // let scrollPosition = document.querySelector(this.props.scrolledElementSelector).scrollTop;
+        // this.setState({affixNav: this.props.affixMargin < scrollPosition});
+        // if (this.state && this.state.titleList) {
+        //     this.state.titleList.forEach((title) => {
+        //         if (title.offsetTop <= scrollPosition && title.offsetTop + title.offsetHeight > scrollPosition) {
+        //             this.setState({
+        //                 activeTitle: title.id
+        //             });
+        //         }
+        //     });
+        // }
     }
 };
 
