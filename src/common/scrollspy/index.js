@@ -26,7 +26,7 @@ const Scrollspy = {
         return {
             titleSelector: '[data-spy]',
             scrolledElementSelector: 'body',
-            affix: 80
+            affixOffset: 0
         };
     },
     /**
@@ -34,7 +34,7 @@ const Scrollspy = {
     */
     propTypes: {
         titleSelector: type('string'),
-        affix: type('number')
+        affixOffset: type('number')
     },
     /** @inheritDoc */
     getInitialState() {
@@ -128,7 +128,7 @@ const Scrollspy = {
         const {affix} = this.state;
         return (
             <div data-focus="scrollspy">
-                <nav data-affix={!!affix} style={affix ? {position: 'fixed', top: `${this.props.affix}px`} : null}>{this._renderList()}</nav>
+                <nav data-affix={!!affix} style={affix ? {position: 'fixed', top: `${this.props.affixOffset}px`} : null}>{this._renderList()}</nav>
                 <div>{this.props.children}</div>
             </div>
         );
@@ -141,9 +141,9 @@ const Scrollspy = {
         const titleList = this._getTitleList();
         if(0 === titleList.length) { return; }
         //---
-        const scrollpostion = scrollPosition();
+        const scrollposition = scrollPosition();
         const nextTitles = filter(titleList, n => {
-            return scrollpostion.top < n.offsetTop;
+            return scrollposition.top < n.offsetTop;
         });
         //by default, first node is indexed
         let currentId = titleList[0].id;
@@ -159,9 +159,11 @@ const Scrollspy = {
             currentId = last(titleList).id;
         }
         //save current state
+        const componentTopPosition = React.findDOMNode(this).offsetTop;
+        console.debug(componentTopPosition);
         this.setState({
             activeTitleId: currentId,
-            affix: this.props.affix < scrollpostion.top
+            affix: componentTopPosition + this.props.affixOffset < scrollposition.top
         });
     }
 };

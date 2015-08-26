@@ -12,7 +12,7 @@ const DefaultBackToTopComponent = require('../button/back-to-top').component;
 var detailMixin = {
     mixins: [stylable],
     /** @inheritedDoc */
-    getDefaultProps: function getDetailDefaultProps(){
+    getDefaultProps() {
         return {
             /**
             * Activate the presence of the sticky navigation component.
@@ -20,7 +20,8 @@ var detailMixin = {
             */
             hasNavigation: true,
             hasBackToTop: true,
-            BackToTopComponent: DefaultBackToTopComponent
+            BackToTopComponent: DefaultBackToTopComponent,
+            navigationAffixOffset: 80
         };
     },
     /** @inheritedDoc */
@@ -28,7 +29,7 @@ var detailMixin = {
         hasNavigation: type('bool'),
         hasBackToTop: type('bool'),
         BackToTopComponent: type(['function', 'object']),
-        navigationAffix: type('number')
+        navigationAffixOffset: type('number')
     },
     /**
     * Returns detail content.
@@ -43,10 +44,10 @@ var detailMixin = {
     },
     /** @inheritedDoc */
     render() {
-        const {hasNavigation, hasBackToTop, BackToTopComponent, navigationAffix} = this.props;
+        const {hasNavigation, hasBackToTop, BackToTopComponent, navigationAffixOffset} = this.props;
         return (
             <div className={`${this._getStyleClassName()}`} data-focus='detail'>
-            {hasNavigation ? <Scrollspy affix={navigationAffix}>{this._detailContent()}</Scrollspy> : this._detailContent()}
+            {hasNavigation ? <Scrollspy affixOffset={navigationAffixOffset}>{this._detailContent()}</Scrollspy> : this._detailContent()}
             {hasBackToTop && <BackToTopComponent/>}
             </div>
         );
