@@ -10,51 +10,51 @@
     <script src="/focus-components/example/js/assets.js"></script>
 </head>
 <body>
-<div id="form-container" class="container"></div>
-    <div id='message-cennter-container'></div>
+    <!-- Container HTML-->
+    <div id="form-container" class="container"></div>
+    <div id='message-center-container'></div>
+
     <script type='text/babel'>
         loadAssets().then(function(d){
-    $(document).ready(function () {
-        $.material.init();
-    });
-    //Load dependencies.
-    Focus.components = FocusComponents;
-    var TableLine = React.createClass({
-        mixins: [FocusComponents.list.table.line.mixin],
-        definitionPath: "commande",
-        renderLineContent: function (data) {
-            return (
-                    <tr>
-                        <td>{this.textFor("name", {})}</td>
-                        <td>{this.textFor("number", {})}</td>
-                    </tr>
-            );
+            $(document).ready(function () {
+                $.material.init();
+            });
+        //Load dependencies.
+        const TableLine = React.createClass({
+            mixins: [FocusComponents.list.table.line.mixin],
+            definitionPath: "commande",
+            renderLineContent: function (data) {
+                return (
+                        <tr>
+                            <td>{this.textFor("name", {})}</td>
+                            <td>{this.textFor("number", {})}</td>
+                        </tr>
+                );
+            }
+        });
+        const columns = {
+            firstName: {label: "Nom", sort:"asc"},
+            lastName: {label: "Numéro", sort: 'desc'}
         }
-    });
-    var columns = {
-        firstName: {label: "Nom", sort:"asc"},
-        lastName: {label: "Numéro", sort: 'desc'}
-    }
 
-    var ListLine = React.createClass({
+    const ListLine = React.createClass({
         mixins: [FocusComponents.list.selection.line.mixin],
         definitionPath: "commande",
-        renderLineContent: function(data){
-            var firstName = this.displayFor("name", {});
-            var lastName = this.displayFor("number", {});
-            var root = React.createElement('div',null,firstName,lastName);
-            return root;
+        renderLineContent(data){
+            const firstName = this.displayFor("name", {});
+            const lastName = this.displayFor("number", {});
+            return <div>{firstName} {lastName}</div>;
         }
     });
-    var contactStore = new Focus.store.CoreStore({
+    const contactStore = new Focus.store.CoreStore({
         definition: {'contact': 'contact', 'commandes': 'commande'}
     });
-    var formMixin = Focus.components.common.form.mixin;
-    var Panel = Focus.components.common.panel.component;
-    var MessageCenter = Focus.components.application.messageCenter.component;
+    const formMixin = FocusComponents.common.form.mixin;
+    const Panel = FocusComponents.common.panel.component;
+    const MessageCenter = FocusComponents.application.messageCenter.component;
     React.render(<MessageCenter/>, document.querySelector("#message-center-container"));
-    var actionBuilder = Focus.application.actionBuilder;
-    var jsonContact= {
+    const actionBuilder = Focus.application.actionBuilder;
+    const jsonContact= {
         firstName: "Zeus",
         lastName: "God",
         isCool: true,
@@ -79,15 +79,15 @@
             number: "6"
         }]
     };
-    var action = {
+    const action = {
         load: actionBuilder({
             status: 'loaded',
             node: 'contact',
-            service: function(){
+            service(){
                 return new Promise(function(s,e){
                         _.delay(function(){
                             s(jsonContact);
-                        }, 3000);
+                        }, 300000);
                 })//Promise.resolve(jsonContact);
             }
         }),
@@ -95,15 +95,15 @@
             status: 'saved',
             preStatus: 'saving',
             node: 'contact',
-            service: function myCustomSaveService(data){
+            service(data){
                 console.log('save', data);
                 return Promise.resolve(data);
             }
         })
     };
-    var Block = FocusComponents.common.block.component;
+    const Block = FocusComponents.common.block.component;
     //Create the view.
-    var FormExample = React.createClass({
+    const FormExample = React.createClass({
         displayName: "FormExample",
         mixins: [formMixin],
         stores: [{
@@ -137,7 +137,7 @@
             }
 
         },*/
-        renderContent: function renderUserDetail() {
+        renderContent() {
             return (
                     <Block title="Fiche de l'utilisateur" actions={this._renderActions}>
                       {this.fieldFor("firstName")}
@@ -160,10 +160,8 @@
             );
         }
     });
-    //Render the created View.
     React.render(<FormExample isEdit={true}/>, document.querySelector("#form-container"));
-        });
-
+});
 </script>
 
 </body>
