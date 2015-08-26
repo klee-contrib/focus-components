@@ -1,114 +1,115 @@
 //Dependencies.
-var builder = require('focus').component.builder;
-var React = require('react');
-var type = require('focus').component.types;
-var i18nMixin = require('../../i18n/mixin');
-var stylableMixin = require('../../../mixin/stylable');
-var union = require('lodash/array/union');
-var uuid = require('uuid');
+const builder = require('focus').component.builder;
+const React = require('react');
+const types = require('focus').component.types;
+const i18nMixin = require('../../i18n/mixin');
+const stylableMixin = require('../../../mixin/stylable');
+const union = require('lodash/array/union');
+const {isUndefined, isNull, isNumber} = require('lodash/lang');
 /**
- * Input text mixin.
- * @type {Object}
- */
-var selectTextMixin = {
-  mixins: [i18nMixin, stylableMixin],
-  /** @inheritdoc */
-  getDefaultProps: function getSelectDefaultProps() {
-    return {
-      multiple: false,
-      value: undefined,
-      values: [],
-      valueKey: 'code',
-      labelKey: 'label',
-      name: undefined,
-      onChange: undefined
-    };
-  },
-  /** @inheritdoc */
-  propTypes: {
-    multiple: type('bool'),
-    value: type(['number', 'string', 'array']),
-    values: type('array'),
-    valueKey: type('string'),
-    labelKey: type('string'),
-    name: type('string'),
-    onChange: type(['function','object'])
-  },
-  /** @inheritdoc */
-  getInitialState: function getInitialStateSelect() {
-    return {
-      value: this.props.value,
-      hasUndefined : this.props.hasUndefined === false ? false : !this.props.value
-    };
-  },
-  /** @inheritdoc */
-  componentWillReceiveProps: function selectWillReceiveProps(newProps){
-    this.setState({value: newProps.value});
-  },
-  /**
-   * Get the value from the select in the DOM.
-   */
-  getValue: function getSelectTextValue() {
-    return React.findDOMNode(this).value;
-  },
-  /**
-   * Handle the change value of the input.
-   * @param {object} event - The sanitize event of input.
-   */
-  _handleOnChange: function selectOnChange(event){
-    //On change handler.
-    if(this.props.onChange){
-      this.props.onChange(event);
-    }else {
-      //Set the state then call the change handler.
-      if(this.props.multiple){
-        var vals = this.state.value;
-        vals.push(event.target.value);
-        return this.setState({value: vals});
-      }
-      return this.setState({value: event.target.value});
+* Input text mixin.
+* @type {Object}
+*/
+const selectTextMixin = {
+    /** @inheritdoc */
+    displayName: 'Select',
+    /** @inheritdoc */
+    mixins: [i18nMixin, stylableMixin],
+    /** @inheritdoc */
+    getDefaultProps() {
+        return {
+            labelKey: 'label',
+            multiple: false,
+            values: [],
+            valueKey: 'code',
+            hasUndefined: true
+        };
+    },
+    /** @inheritdoc */
+    propTypes: {
+        multiple: types('bool'),
+        labelKey: types('string'),
+        name: types('string'),
+        isRequired: types('bool'),
+        onChange: types('function'),
+        value: types(['number', 'string', 'array']),
+        values: types('array'),
+        valueKey: types('string')
+    },
+    /** @inheritdoc */
+    getInitialState() {
+        const {hasUndefined, value, values, valueKey, isRequired} = this.props;
+        const hasValue = !isUndefined(value) && !isNull(value);
+        const isRequiredAndHasValue = true === isRequired && hasValue;
+        return {
+            value: value,
+            hasUndefined: false === hasUndefined || isRequiredAndHasValue ? false : true, //!value
+            isNumber: values && 0 < values.length && values[0] && values[0][valueKey] && isNumber(values[0][valueKey])
+        };
+    },
+    /** @inheritdoc */
+    componentWillReceiveProps(newProps){
+        this.setState({value: newProps.value});
+    },
+    /**
+     * Get the value of the component.
+     * @return {object} - Return the value of the component.
+     */
+    getValue() {
+        const domValue = React.findDOMNode(this).value;
+        return this.state.isNumber ? +domValue : domValue;
+    },
+    /**
+    * Handle the change value of the input.
+    * @param {object} event - The sanitize event of input.
+    */
+    _handleOnChange(event){
+        //On change handler.
+        const {onChange, multiple} = this.props;
+        if(onChange){
+            onChange(event);
+        }else {
+            const domValue = event.target.value;
+            const value = this.state.isNumber ? +domValue : domValue;
+            //Set the state then call the change handler.
+            if(multiple){
+                let vals = this.state.value;
+                vals.push(value);
+                return this.setState({value: vals});
+            }
+            return this.setState({value: value});
+        }
+    },
+    /** @inheritdoc */
+    renderOptions(){
+        let processValues;
+        const {labelKey, valueKey, values} = this.props;
+        const {hasUndefined} = this.state;
+        if(hasUndefined){
+            processValues = union(
+                [{[labelKey]: 'select.unSelected', [valueKey]: null}],
+                values
+            );
+        }else{
+            processValues = values;
+        }
+        return processValues.map((val, idx)=>{
+            const value = `${val[valueKey]}`;
+            const label = val[labelKey] || 'select.noLabel';
+            return <option key={idx} value={value}>{this.i18n(label)}</option>;
+        });
+    },
+    /**
+    * Render an input.
+    * @return {DOM} - The dom of an input.
+    */
+    render() {
+        const {props, state, _getStyleClassName, _handleOnChange} = this;
+        const {multiple, name} = props;
+        const {value} = state;
+        const selectProps = {multiple, value: `${value}`, name, onChange: _handleOnChange, className: _getStyleClassName};
+        return <select {...selectProps}>{this.renderOptions()}</select>;
     }
-  },
-  /**
-   * Render options.
-   */
-  renderOptions: function renderOptions(){
-    let values;
-    if(this.state.hasUndefined){
-      values = union(
-        [{[this.props.labelKey]: 'select.unSelected', [this.props.valueKey]: undefined}],
-        this.props.values
-      );
-    }else{
-      values = this.props.values;
-    }
-    return values.map((val)=>{
-      var value = val[this.props.valueKey];
-      return(
-        <option key={value || uuid.v4() } value={value}>
-          {this.i18n(val[this.props.labelKey])}
-        </option>
-    );
-    });
-  },
-  /**
-   * Render an input.
-   * @return {DOM} - The dom of an input.
-   */
-  render: function renderSelect() {
-    return (
-      <select
-        multiple={this.props.multiple}
-        value={this.state.value}
-        className={this._getStyleClassName()}
-        name={this.props.name}
-        onChange={this._handleOnChange}
-      >
-        {this.renderOptions()}
-      </select>
-    );
-  }
 };
-
 
 module.exports = builder(selectTextMixin);

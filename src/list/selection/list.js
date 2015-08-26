@@ -1,12 +1,20 @@
+// Dependencies
+
 let builder = require('focus').component.builder;
 let React = require('react');
-let Line = require('./line').mixin;
-let Button = require('../../common/button/action').component;
+let checkIsNotNull = require('focus').util.object.checkIsNotNull;
 let type = require('focus').component.types;
+let find = require('lodash/collection/find');
+
+// Mixins
+
 let translationMixin = require('../../common/i18n').mixin;
 let infiniteScrollMixin = require('../mixin/infinite-scroll').mixin;
 let referenceMixin = require('../../common/mixin/reference-property');
-let checkIsNotNull = require('focus').util.object.checkIsNotNull;
+
+// Components
+
+let Button = require('../../common/button/action').component;
 
 let listMixin = {
     /**
@@ -28,6 +36,7 @@ let listMixin = {
             data: [],
             isSelection: true,
             selectionStatus: 'partial',
+            selectionData: [],
             isLoading: false,
             operationList: [],
             idField: 'id'
@@ -55,7 +64,7 @@ let listMixin = {
     /**
     * called before component mount
     */
-    componentWillMount: function componentWillMount(){
+    componentWillMount() {
         checkIsNotNull('lineComponent', this.props.lineComponent);
     },
 
@@ -63,7 +72,7 @@ let listMixin = {
     * Return selected items in the list.
     * @return {Array} selected items
     */
-    getSelectedItems: function getListSelectedItems(){
+    getSelectedItems() {
         let selected = [];
         for(let i = 1; i < this.props.data.length + 1; i++){
             let lineName = 'line' + i;
@@ -79,38 +88,43 @@ let listMixin = {
     * Render lines of the list.
     * @returns {*} DOM for lines
     */
-    _renderLines: function renderLines(){
+    _renderLines() {
         let lineCount = 1;
-        let LineComponent = this.props.lineComponent;
-        return this.props.data.map((line)=>{
+        let {data, lineComponent, selectionStatus, idField, isSelection, selectionData, onSelection, onLineClick, operationList} = this.props;
+        return data.map((line) => {
             let isSelected;
-            switch(this.props.selectionStatus){
-                case 'none':
-                    isSelected = false;
-                    break;
-                case 'selected':
-                    isSelected = true;
-                    break;
-                case 'partial':
-                    isSelected = undefined;
-                    break;
-                default:
-                    isSelected = false;
+            let selection = find(selectionData, {[idField]: line[idField]});
+            if (selection) {
+                isSelected = selection.isSelected;
+            } else {
+                switch(selectionStatus){
+                    case 'none':
+                        isSelected = false;
+                        break;
+                    case 'selected':
+                        isSelected = true;
+                        break;
+                    case 'partial':
+                        isSelected = undefined;
+                        break;
+                    default:
+                        isSelected = false;
+                }
             }
-            return React.createElement(LineComponent, {
-                key: line[this.props.idField],
+            return React.createElement(lineComponent, {
+                key: line[idField],
                 data: line,
-                ref: 'line' + lineCount++,
-                isSelection: this.props.isSelection,
+                ref: `line${lineCount++}`,
+                isSelection: isSelection,
                 isSelected: isSelected,
-                onSelection: this.props.onSelection,
-                onLineClick: this.props.onLineClick,
-                operationList: this.props.operationList,
+                onSelection: onSelection,
+                onLineClick: onLineClick,
+                operationList: operationList,
                 reference: this._getReference()
             });
         });
     },
-    _renderLoading: function renderLoading(){
+    _renderLoading() {
         if(this.props.isLoading){
             if(this.props.loader){
                 return this.props.loader();
@@ -121,7 +135,7 @@ let listMixin = {
         }
     },
 
-    _renderManualFetch: function renderManualFetch(){
+    _renderManualFetch() {
         if(this.props.isManualFetch && this.props.hasMoreData){
             let style = {className: 'primary'};
             return (
@@ -141,7 +155,7 @@ let listMixin = {
     * Render the list.
     * @returns {XML} DOM of the component
     */
-    render: function renderList(){
+    render() {
         return (
             <ul data-focus='selection-list'>
                 {this._renderLines()}

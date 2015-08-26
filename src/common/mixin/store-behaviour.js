@@ -20,7 +20,8 @@ var storeMixin = {
         newState[property] = storeConf.store[`get${capitalize(property)}`]();
       });
     });
-    return assign(this._computeEntityFromStoresData(newState), this._getLoadingStateFromStores());
+    let computedState = assign(this._computeEntityFromStoresData(newState), this._getLoadingStateFromStores());
+    return computedState;
   },
     /**
      * Get the error state informations from the store.
@@ -45,17 +46,18 @@ var storeMixin = {
     if (this.getLoadingStateFromStores) {
         return this.getLoadingStateFromStores();
     }
-    var isLoading = false;
-    this.stores.map((storeConf) => {
+    let isLoading = false;
+    this.stores.forEach((storeConf) => {
         if(!isLoading){
-          storeConf.properties.map((property)=>{
+          storeConf.properties.forEach((property)=>{
             if(!isLoading){
-              var propStatus = storeConf.store.getStatus(property) || {};
+              let propStatus = storeConf.store.getStatus(property) || {};
                isLoading = propStatus.isLoading;
             }
           });
         }
     });
+    //console.info('Processing state', this.stores, 'loading', isLoading);
     return {isLoading: isLoading};
   },
   /**

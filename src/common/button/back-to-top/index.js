@@ -3,7 +3,7 @@ var builder = require('focus').component.builder;
 var Icon = require('../../icon').component;
 var i18nMixin = require('../../i18n/mixin');
 var stylableMixin = require('../../../mixin/stylable');
-var scrollTo = require('../../mixin/scroll-to').scrollTo;
+var scrollTo = require('../../mixin/scroll').scrollTo;
 
 /**
  * Mixin button.

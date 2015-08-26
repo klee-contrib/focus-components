@@ -1,66 +1,39 @@
 <!doctype html>
 <html class="no-js" lang="">
-<head>
-  <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>Focus component examples</title>
-  <meta name="description" content="Example of the component.">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-
-  <!-- Place favicon.ico in the root directory -->
-  <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
-  <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css"/>
-  <script src="https://fb.me/react-0.13.3.js"></script>
-  <script src="https://fb.me/JSXTransformer-0.13.3.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/3.9.3/lodash.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/backbone.js/1.2.1/backbone.js"></script>
-
-  <!-- Material degign-->
-  <script src="//code.jquery.com/jquery-1.10.2.min.js"></script>
-  <link rel="stylesheet" href="//cdn.jsdelivr.net/bootstrap.material-design/0.3.0/css/material-wfont.min.css">
-  <link rel="stylesheet" href="//cdn.jsdelivr.net/bootstrap.material-design/0.3.0/css/material.min.css">
-  <link rel="stylesheet" href="//cdn.jsdelivr.net/bootstrap.material-design/0.3.0/css/ripples.min.css">
-  <script src="//cdn.jsdelivr.net/bootstrap.material-design/0.3.0/js/material.min.js"></script>
-  <script src="//cdn.jsdelivr.net/bootstrap.material-design/0.3.0/js/ripples.min.js"></script>
-
-  <script src="/focus-components/dist/js/focus.js"></script>
-  <script src="/focus-components/dist/js/focus-components.js"></script>
-  <link rel="stylesheet" href="/focus-components/dist/css/focus-components.css">
-</head>
-<body>
-  <!--
-  <form>
-  <h2>Champ 1</h2>
-  <Field name="field1" value="field1value"/>
-  <h2>Champ 2 (erreur)</h2>
-  <Field name="field2" value="field2value" type="text" error="error on field2"/>
-  <h2>Champ 3 type number</h2>
-  <Field name="field3" value="field3value" type="number" />
-    </form>
-  -->
-
-  <div id="form-container" class="container"></div>
-  <script type="text/jsx">
-    Focus.components = FocusComponents;
-    var Field = Focus.components.common.field.component;
-    React.render(
-        <form className='form-horizontal'>
-            <h2> Premier champ</h2>
-            <Field  name='field1' value='fieldValue' isEdit={true}/>
-            <h2> Consultation </h2>
-            <Field  name='field Consult' value='fieldConsultValue' isEdit={false}/>
-            <Field  name='field Consult formated' value='fieldConsultValue' isEdit={false} formatter={function(data){return data + " formatter applied";}}/>
-            <h2>Erreur</h2>
-            <Field  name='field2' value='field2Value' error='error in field2' isEdit={true} />
-            <h2>Type number</h2>
-            <Field  name='field3' value={3} type='number'/>
-            <Field  name='field4' value='popop' isEdit={true} help='Here to help'/>
-        </form>
-    ,
-    document.querySelector("#form-container")
-  );
-  </script>
-
-</body>
-
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>Focus component examples</title>
+        <meta name="description" content="Example of the component.">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <script src="/focus-components/example/js/browser.js"></script>
+        <script src="/focus-components/example/js/assets.js"></script>
+    </head>
+    <body>
+        <div id="form-container" class="container"></div>
+        <script type='text/babel'>
+            loadAssets().then(function(d){
+                Focus.components = FocusComponents;
+                var Field = Focus.components.common.field.component;
+                React.render(
+                    <form className='form-horizontal'>
+                        <h2> Premier champ</h2>
+                        <Field  name='field1' value='fieldValue' isEdit={true}/>
+                        <h2> Consultation </h2>
+                        <Field  name='field Consult' value='fieldConsultValue' isEdit={false}/>
+                        <Field  name='field Consult formated' value='fieldConsultValue' isEdit={false} formatter={function(data){return data + " formatter applied";}}/>
+                        <h2>Erreur</h2>
+                        <Field  name='field2' value='field2Value' error='error in field2' isEdit={true} />
+                        <h2>Type number</h2>
+                        <Field  name='field3' value={3} type='number'/>
+                        <Field  name='field4' value='popop' isEdit={true} help='Here to help'/>
+                        <h2>Disable</h2>
+                        <Field name='fieldDisabled' value='popop' isEdit={true} disabled={true}/>
+                    </form>
+                ,
+                document.querySelector("#form-container")
+            );
+        });
+        </script>
+    </body>
 </html>
