@@ -70,19 +70,19 @@ let AdvancedSearch = {
     propTypes: {
         scopesConfig: type('object'),
         facetConfig: type('object'),
-        isSelection: type('boolean'),
-        hasBackToTop: type('boolean'),
+        isSelection: type('bool'),
+        hasBackToTop: type('bool'),
         backToTopComponent: type('object'),
         store: type('object'),
         action: type('object'),
         service: type('object'),
         orderableColumnList: type('object'),
         lineOperationList: type('object'),
-        exportAction: type('function'),
+        exportAction: type('func'),
         groupComponent: type('object'),
-        lineComponentMapper: type('function'),
+        lineComponentMapper: type('func'),
         scrollParentSelector: type('string'),
-        onLineClick: type('function')
+        onLineClick: type('func')
     },
     getInitialState() {
         return (this._getNewStateFromStore());

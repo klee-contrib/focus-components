@@ -52,9 +52,9 @@ var checkBoxMixin = {
      */
     getValue: function getValue() {
         if (this.props.value === undefined || isBoolean(this.props.value)) {
-            return this.state.isChecked;
+            return !!this.state.isChecked;
         }
-        return this.state.isChecked ? this.props.value : undefined;
+        return !!(this.state.isChecked ? this.props.value : undefined);
     },
     /**
      * Build the label class name.

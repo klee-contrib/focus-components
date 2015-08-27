@@ -1,27 +1,24 @@
 // Dependencies
 
-let builder = require('focus').component.builder;
-
+const {builder, types} = require('focus').component;
+const i18nBehaviour = require('../i18n/mixin');
+const styleBehaviour = require('../../mixin/stylable');
 /**
 * Label mixin for form.
 * @type {Object}
 */
-let labelMixin = {
-    mixins: [require('../i18n/mixin')],
-    getDefaultProps: function() {
-        return {
-            name: undefined,
-            key: undefined,
-            style: {className: ''},
-            isRequired: false,
-            requiredChar: ' *',
-            isEdit: false
-        };
+const labelMixin = {
+    mixins: [i18nBehaviour, styleBehaviour],
+    /** @inheritdoc */
+    propTypes: {
+        name: types('string').isRequired
     },
-    render: function() {
+    /** @inheritdoc */
+    render() {
+        const {name, style} = this.props;
         return (
-            <label className={this.props.style.className} htmlFor={this.props.name}>
-                {this.i18n(this.props.name) + (this.props.isRequired && this.props.isEdit ? this.props.requiredChar : '  ')}
+            <label className={style.className} htmlFor={name}>
+                {this.i18n(name)}
             </label>
         );
     }

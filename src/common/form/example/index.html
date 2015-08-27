@@ -6,87 +6,55 @@
     <title>Focus component examples</title>
     <meta name="description" content="Example of the component.">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-
-    <!-- Place favicon.ico in the root directory -->
-    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
-    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css"/>
-    <script src="https://fb.me/react-0.13.3.js"></script>
-    <script src="https://fb.me/JSXTransformer-0.13.3.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/3.9.3/lodash.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/backbone.js/1.2.1/backbone.js"></script>
-
-    <!-- Material degign-->
-    <script src="//code.jquery.com/jquery-1.10.2.min.js"></script>
-    <script src='https://cdnjs.cloudflare.com/ajax/libs/i18next/1.6.3/i18next-1.6.3.min.js'></script>
-    <link rel="stylesheet" href="//cdn.jsdelivr.net/bootstrap.material-design/0.3.0/css/material-wfont.min.css">
-    <link rel="stylesheet" href="//cdn.jsdelivr.net/bootstrap.material-design/0.3.0/css/material.min.css">
-    <link rel="stylesheet" href="//cdn.jsdelivr.net/bootstrap.material-design/0.3.0/css/ripples.min.css">
-    <script src="//cdn.jsdelivr.net/bootstrap.material-design/0.3.0/js/material.min.js"></script>
-    <script src="//cdn.jsdelivr.net/bootstrap.material-design/0.3.0/js/ripples.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/showdown/0.4.0/Showdown.js"></script>
-
-    <!-- Include Date Range Picker -->
-    <script type="text/javascript" src="//cdn.jsdelivr.net/momentjs/2.9.0/moment.min.js"></script>
-    <script type="text/javascript" src="//cdn.jsdelivr.net/bootstrap.daterangepicker/1/daterangepicker.js"></script>
-    <link rel="stylesheet" type="text/css"
-          href="//cdn.jsdelivr.net/bootstrap.daterangepicker/1/daterangepicker-bs3.css"/>
-
-
-    <!-- Material degign-->
-    <script src="/focus-components/dist/js/focus.js"></script>
-    <script src="/focus-components/dist/js/focus-components.js"></script>
-    <script src="/focus-components/example/js/initFocus.js"></script>
-    <link rel="stylesheet" href="/focus-components/dist/css/focus-components.css"/>
-    <link rel="stylesheet" href="/focus-components/example/js/picker.css"/>
+    <script src="/focus-components/example/js/browser.js"></script>
+    <script src="/focus-components/example/js/assets.js"></script>
 </head>
 <body>
-<script src="/focus-components/example/js/picker.js"></script>
-<div id="form-container" class="container"></div>
-<div id='message-cennter-container'></div>
-<script type="text/javascript">
-    $(document).ready(function () {
-        $.material.init();
-    });
-</script>
-<script type="text/jsx">
-    //Load dependencies.
-    Focus.components = FocusComponents;
-    var TableLine = React.createClass({
-        mixins: [FocusComponents.list.table.line.mixin],
-        definitionPath: "commande",
-        renderLineContent: function (data) {
-            return (
-                    <tr>
-                        <td>{this.textFor("name", {})}</td>
-                        <td>{this.textFor("number", {})}</td>
-                    </tr>
-            );
-        }
-    });
-    var columns = {
-        firstName: {label: "Nom", sort:"asc"},
-        lastName: {label: "Numéro", sort: 'desc'}
-    }
+    <!-- Container HTML-->
+    <div id="form-container" class="container"></div>
+    <div id='message-center-container'></div>
 
-    var ListLine = React.createClass({
+    <script type='text/babel'>
+        loadAssets().then(function(d){
+            $(document).ready(function () {
+                $.material.init();
+            });
+        //Load dependencies.
+        const TableLine = React.createClass({
+            mixins: [FocusComponents.list.table.line.mixin],
+            definitionPath: "commande",
+            renderLineContent: function (data) {
+                return (
+                        <tr>
+                            <td>{this.textFor("name", {})}</td>
+                            <td>{this.textFor("number", {})}</td>
+                        </tr>
+                );
+            }
+        });
+        const columns = {
+            firstName: {label: "Nom", sort:"asc"},
+            lastName: {label: "Numéro", sort: 'desc'}
+        }
+
+    const ListLine = React.createClass({
         mixins: [FocusComponents.list.selection.line.mixin],
         definitionPath: "commande",
-        renderLineContent: function(data){
-            var firstName = this.displayFor("name", {});
-            var lastName = this.displayFor("number", {});
-            var root = React.createElement('div',null,firstName,lastName);
-            return root;
+        renderLineContent(data){
+            const firstName = this.displayFor("name", {});
+            const lastName = this.displayFor("number", {});
+            return <div>{firstName} {lastName}</div>;
         }
     });
-    var contactStore = new Focus.store.CoreStore({
+    const contactStore = new Focus.store.CoreStore({
         definition: {'contact': 'contact', 'commandes': 'commande'}
     });
-    var formMixin = Focus.components.common.form.mixin;
-    var Panel = Focus.components.common.panel.component;
-    var MessageCenter = Focus.components.application.messageCenter.component;
-    React.render(<MessageCenter/>, document.querySelector("#message-cennter-container"));
-    var actionBuilder = Focus.application.actionBuilder;
-    var jsonContact= {
+    const formMixin = FocusComponents.common.form.mixin;
+    const Panel = FocusComponents.common.panel.component;
+    const MessageCenter = FocusComponents.application.messageCenter.component;
+    React.render(<MessageCenter/>, document.querySelector("#message-center-container"));
+    const actionBuilder = Focus.application.actionBuilder;
+    const jsonContact= {
         firstName: "Zeus",
         lastName: "God",
         isCool: true,
@@ -111,27 +79,31 @@
             number: "6"
         }]
     };
-    var action = {
+    const action = {
         load: actionBuilder({
             status: 'loaded',
             node: 'contact',
-            service: function(){
-                return Promise.resolve(jsonContact);
+            service(){
+                return new Promise(function(s,e){
+                        _.delay(function(){
+                            s(jsonContact);
+                        }, 5000);
+                })//Promise.resolve(jsonContact);
             }
         }),
         save:actionBuilder({
             status: 'saved',
             preStatus: 'saving',
             node: 'contact',
-            service: function myCustomSaveService(data){
+            service(data){
                 console.log('save', data);
                 return Promise.resolve(data);
             }
         })
     };
-    var Block = FocusComponents.common.block.component;
+    const Block = FocusComponents.common.block.component;
     //Create the view.
-    var FormExample = React.createClass({
+    const FormExample = React.createClass({
         displayName: "FormExample",
         mixins: [formMixin],
         stores: [{
@@ -141,11 +113,36 @@
         definitionPath: "contact",
         action: action,
         referenceNames: ['papas', 'monkeys'],
-        renderContent: function renderUserDetail() {
+        /*customValidation: function(){
+            var firstName = this.refs['contact.firstName'];
+            var lastName = this.refs['contact.lastName'];
+            var firstNameVal = firstName && firstName.getValue();
+            var lastNameVal = lastName && lastName.getValue;
+            if(firstNameVal && lastNameVal){
+                if(firstNameVal.indexOf('p') === -1 || lastNameVal.indexOf('b') === -1){
+                    this.setState({
+                        customError: {
+                            lastAndFirstName: 'InvalidCustomValidation: firstName and lastname sould have b and d.'
+                        }
+                    });
+                    return false;
+                }
+            }
+            return true;
+            //In the component
+            {
+                this.state.customError &&
+                this.state.customError.lastAndFirstName &&
+                (<div style={{color: 'tomato'}}>{this.state.customError.lastAndFirstName}</div>)
+            }
+
+        },*/
+        renderContent() {
             return (
                     <Block title="Fiche de l'utilisateur" actions={this._renderActions}>
                       {this.fieldFor("firstName")}
                       {this.fieldFor("lastName")}
+
                       {
                           this.textFor("birthDate", {
                               formatter: function (date) {
@@ -163,8 +160,8 @@
             );
         }
     });
-    //Render the created View.
     React.render(<FormExample isEdit={true}/>, document.querySelector("#form-container"));
+});
 </script>
 
 </body>
