@@ -6,6 +6,9 @@ const i18nMixin = require('../../i18n/mixin');
 const stylableMixin = require('../../../mixin/stylable');
 const union = require('lodash/array/union');
 const {isUndefined, isNull, isNumber} = require('lodash/lang');
+
+const UNSELECTED_KEY = 'UNSELECTED_KEY';
+
 /**
 * Input text mixin.
 * @type {Object}
@@ -56,8 +59,10 @@ const selectTextMixin = {
      * @return {object} - Return the value of the component.
      */
     getValue() {
-        const domValue = React.findDOMNode(this).value;
-        return this.state.isNumber ? +domValue : domValue;
+        const {select} = this.refs;
+        const domValue = React.findDOMNode(select).value;
+        let value = this.state.isNumber ? +domValue : domValue;
+        return value !== UNSELECTED_KEY ? value : null;
     },
     /**
     * Handle the change value of the input.
@@ -87,7 +92,7 @@ const selectTextMixin = {
         const {hasUndefined} = this.state;
         if(hasUndefined){
             processValues = union(
-                [{[labelKey]: 'select.unSelected', [valueKey]: null}],
+                [{[labelKey]: 'select.unSelected', [valueKey]: UNSELECTED_KEY}],
                 values
             );
         }else{
@@ -107,7 +112,7 @@ const selectTextMixin = {
         const {props, state, _getStyleClassName, _handleOnChange} = this;
         const {multiple, name} = props;
         const {value} = state;
-        const selectProps = {multiple, value: `${value}`, name, onChange: _handleOnChange, className: _getStyleClassName};
+        const selectProps = {multiple, value: `${value}`, name, onChange: _handleOnChange, className: _getStyleClassName(), ref: 'select'};
         return <select {...selectProps}>{this.renderOptions()}</select>;
     }
 };
