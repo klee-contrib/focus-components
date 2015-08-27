@@ -1,23 +1,19 @@
 // Dependencies
 const builder = require('focus').component.builder;
 const type = require('focus').component.types;
+const {uniqueId} = require('lodash/utility');
 
 
-var titleMixin = {
-
-    /**
-     * Display name.
-     */
-    displayName: "title",
+const titleMixin = {
 
     /**
-     * Default propos.
-     * @returns {object} Default props.
-     */
-    getDefaultProps: function(){
+    * Display name.
+    */
+    displayName: 'Title',
+    /** @inheritDoc */
+    getInitialState() {
         return {
-            id: undefined,
-            title: undefined
+            spyId: uniqueId('title_')
         };
     },
     /**
@@ -25,17 +21,17 @@ var titleMixin = {
     */
     propTypes: {
         id: type('string'),
-        title: type('string')
+        label: type('string')
     },
     /**
-     * Render the component.
-     * @returns {JSX} Htm code.
-     */
-    render: function renderStickyNavigation(){
-        const {id, title} = this.props;
-        return <h3 id={id} data-spy>{title}</h3>
+    * Render the component.
+    * @returns {JSX} Htm code.
+    */
+    render() {
+        const {spyId} = this.state;
+        const {id, label} = this.props;
+        return <h3 data-spy={spyId} id={id}>{label}</h3>;
     }
-
 };
 
-module.exports =  builder(titleMixin);
+module.exports = builder(titleMixin);
