@@ -41,7 +41,7 @@ l'identifiant est pas significatif mais nécessaire !
 On note la différence par rapport au stores classiques : c'est un ListStore!
 
 ###Etape 3:
-La page Liste.
+La page de liste (index.jsx).
 On inclue nos deux premières étapes :
 ```javascript
 let ParamLine = require('./paramLine');
