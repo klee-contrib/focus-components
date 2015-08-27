@@ -34,7 +34,12 @@ const FOCUS_INIT = '/focus-components/example/js/initFocus.js';
 function loadJS(){
 
     function focusPromise(){return loadScript(FOCUS_JS).then(()=>{return loadScript(FOCUS_COMPONENTS_JS); })}
-    return Promise.all([loadScript(JQUERY), loadScript(REACT_JS), loadScript(LODASH), loadScript(BABEL_TRANSFORMER)])
+    return Promise.all([
+        loadScript(JQUERY),
+        loadScript(REACT_JS),
+        loadScript(LODASH),
+        loadScript(BABEL_TRANSFORMER)
+    ])
     .then(()=>{
         return Promise.all([
             loadScript(GOOGLE_MATERIAL_JS),
@@ -53,7 +58,11 @@ function loadJS(){
  * @return {Promise} - Promise of all css load.
  */
 function loadCSS(){
-    return Promise.all([loadStyle(GOOGLE_MATERIAL_CSS), loadCSS(GOOGLE_MATERIAL_FONT), loadStyle(FONTAWESOME_CSS)]).then(()=>{
+    return Promise.all([
+        loadStyle(GOOGLE_MATERIAL_CSS),
+        loadStyle(GOOGLE_MATERIAL_FONT),
+        loadStyle(FONTAWESOME_CSS)
+    ]).then(()=>{
         return Promise.all([
             loadStyle(DATE_RANGE_PICKER_CSS)
         ]);
