@@ -1,5 +1,5 @@
 # Page affichant une liste #
-## Elle gère toute seule la pagination ##
+## Elle gère toute seule la pagination ;) ##
 
 ###Etape 1 : 
 Se créer une ligne qui recevra un objet (celui défini dans le definitionPath)
