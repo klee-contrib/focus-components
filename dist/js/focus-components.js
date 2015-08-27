@@ -22830,7 +22830,7 @@ module.exports = uuid;
 },{"./rng":289}],291:[function(require,module,exports){
 module.exports={
     "name": "focusjs-components",
-    "version": "0.5.1-1",
+    "version": "0.5.1-2",
     "description": "Focus component repository.",
     "main": "index.js",
     "scripts": {
@@ -28125,6 +28125,8 @@ var isUndefined = _require.isUndefined;
 var isNull = _require.isNull;
 var isNumber = _require.isNumber;
 
+var UNSELECTED_KEY = "UNSELECTED_KEY";
+
 /**
 * Input text mixin.
 * @type {Object}
@@ -28181,8 +28183,11 @@ var selectTextMixin = {
      * @return {object} - Return the value of the component.
      */
     getValue: function getValue() {
-        var domValue = React.findDOMNode(this).value;
-        return this.state.isNumber ? +domValue : domValue;
+        var select = this.refs.select;
+
+        var domValue = React.findDOMNode(select).value;
+        var value = this.state.isNumber ? +domValue : domValue;
+        return value !== UNSELECTED_KEY ? value : null;
     },
     /**
     * Handle the change value of the input.
@@ -28225,7 +28230,7 @@ var selectTextMixin = {
 
                 _defineProperty(_ref, labelKey, "select.unSelected");
 
-                _defineProperty(_ref, valueKey, null);
+                _defineProperty(_ref, valueKey, UNSELECTED_KEY);
 
                 return _ref;
             })()], values);
@@ -28257,7 +28262,7 @@ var selectTextMixin = {
         var name = props.name;
         var value = state.value;
 
-        var selectProps = { multiple: multiple, value: "" + value, name: name, onChange: _handleOnChange, className: _getStyleClassName };
+        var selectProps = { multiple: multiple, value: "" + value, name: name, onChange: _handleOnChange, className: _getStyleClassName(), ref: "select" };
         return React.createElement(
             "select",
             selectProps,
