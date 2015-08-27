@@ -101,16 +101,16 @@ const fieldBuiltInComponentsMixin = {
         }
         let {name, style} = this.props;
         let {value} = this.state;
-        let inputClassName = `form-control ${style.className ? style.className : ''}`;
+        let inputClassName = `mdl-textfield__input ${style.className ? style.className : ''}`;
         let inputBuildedProps = assign({}, this.props, {
             id: name,
-            className: this._buildStyle().className,
+            className: inputClassName,
             onChange: this.onInputChange,
             value: value,
             ref: 'input'
         });
         return (
-            <div className ={`${this._getContentGridClassName()}`}>
+            <div className ={`mdl-textfield mdl-js-textfield ${this._getContentGridClassName()}`}>
                 <this.props.InputComponent {...inputBuildedProps}/>
             </div>
         );
@@ -184,13 +184,13 @@ const fieldBuiltInComponentsMixin = {
     * @return {object} - The help part of the component.
     */
     help() {
-        let {help, FieldComponent} = this.props;
+        let {help, FieldComponent, name} = this.props;
         if (help) {
             if (FieldComponent) {
                 return;
             }
             return (
-                <label className='mdl-textfield__label'>
+                <label className='mdl-textfield__label' htmFor={`${name}`}>
                     {help}
                 </label>
             );
