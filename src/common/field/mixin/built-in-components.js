@@ -104,13 +104,13 @@ const fieldBuiltInComponentsMixin = {
         let inputClassName = `form-control ${style.className ? style.className : ''}`;
         let inputBuildedProps = assign({}, this.props, {
             id: name,
-            style: this._buildStyle(),
+            className: this._buildStyle().className,
             onChange: this.onInputChange,
             value: value,
             ref: 'input'
         });
         return (
-            <div className ={`${this._getContentGridClassName()} input-group`}>
+            <div className ={`${this._getContentGridClassName()}`}>
                 <this.props.InputComponent {...inputBuildedProps}/>
             </div>
         );
@@ -156,6 +156,7 @@ const fieldBuiltInComponentsMixin = {
         return (
             <div className ={`input-group ${this._getContentGridClassName()}`}>
                 <this.props.DisplayComponent {...buildedDislplayProps}/>
+                {error()}
             </div>
         );
     },
@@ -170,7 +171,7 @@ const fieldBuiltInComponentsMixin = {
                 return;
             }
             return (
-                <span className='help-block'>
+                <span className='mdl-textfield__error'>
                     {error}
                 </span>
             );
@@ -188,9 +189,9 @@ const fieldBuiltInComponentsMixin = {
                 return;
             }
             return (
-                <span className='help-block'>
+                <label className='mdl-textfield__label'>
                     {help}
-                </span>
+                </label>
             );
         }
     },
