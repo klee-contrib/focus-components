@@ -1,8 +1,19 @@
 const {builder, types} = require('focus').component;
 const React = require('react');
+const i18nBehaviour = require('../common/i18n/mixin');
 
 // const uuid = require('uuid').v4;
 const templateMixin = {
+    mixins: [i18nBehaviour],
+
+    /**
+    * Properties validation.
+    * @type {Object}
+    */
+    propTypes: {
+        title: types('string').isRequired
+    },
+
     /**
     * Render the template HTML of focus component demo.
     * @return {VirtualDOM} - The virtual DOM of the template.
@@ -13,7 +24,7 @@ const templateMixin = {
             <div className='demo-layout mdl-layout mdl-js-layout mdl-layout--fixed-drawer mdl-layout--fixed-header' data-focus='template'>
               <header className='demo-header mdl-layout__header mdl-color--white mdl-color--grey-100 mdl-color-text--grey-600'>
                 <div className='mdl-layout__header-row'>
-                  <span className='mdl-layout-title'>Home</span>
+                  <span className='mdl-layout-title'>{this.i18n(this.props.title)}</span>
                   <div className='mdl-layout-spacer'></div>
                   <div className='mdl-textfield mdl-js-textfield mdl-textfield--expandable'>
                     <label className='mdl-button mdl-js-button mdl-button--icon' htmlFor='search'>
