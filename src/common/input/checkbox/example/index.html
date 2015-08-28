@@ -13,12 +13,12 @@
     <script src="/focus-components/example/js/assets.js"></script>
 
     <style type="text/css">
-        h1 {
-            text-align: center;
-        }
-        body {
-            padding:20px;
-        }
+    h1 {
+        text-align: center;
+    }
+    body {
+        padding:20px;
+    }
     </style>
 </head>
 <body>
@@ -27,13 +27,42 @@
         const Checkbox = FocusComponents.common.input.checkbox.component;
 
         const CheckboxSample = React.createClass({
-            render: function() {
+
+            /**
+            * Handle click action to get check value.
+            */
+            handleGetValueClick(){
+                const value = this.refs.cbTestGetValue.getValue();
+                alert('Checkbox value: ' + value);
+            },
+
+            /**
+            * Render the component.
+            * @return {object} React node
+            */
+            render() {
                 return <div>
                 <h1>Checkbox</h1>
-                <Checkbox value={true} style={{className: "testClass"}} label="My awsome checkbox"/>,
+                <h3>Selected checkbox</h3>
+                <Checkbox value={true} label="My awsome checkbox"/>
+
+                <h3>Unselected checkbox</h3>
+                <Checkbox value={false} label="My awsome checkbox"/>
+
+                <h3>Without label</h3>
+                <Checkbox value={true} />
+                
+                <h3>Get Checkbox value</h3>
+                <div style={{float:'left', width: '300px'}}>
+                <Checkbox value={true} label="My awsome checkbox" ref="cbTestGetValue"/>
+                </div>
+                <div style={{marginLeft:'300px'}}>
+                <button onClick={this.handleGetValueClick}>Get the checkbox value</button>
+                </div>
                 </div>
             }
         });
+
         const mountNode = document.querySelector("body")
         React.render(<CheckboxSample />, mountNode);
     });

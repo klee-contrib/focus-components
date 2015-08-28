@@ -1,73 +1,62 @@
 // Dependencies
-
-let builder = require('focus').component.builder;
-let type = require('focus').component.types;
-
+const builder = require('focus').component.builder;
+const type = require('focus').component.types;
 // Mixins
-
-let valueBehaviour = require('./mixin/value-behaviour');
-let validationBehaviour = require('./mixin/validation-behaviour');
-
+const valueBehaviour = require('./mixin/value-behaviour');
+const validationBehaviour = require('./mixin/validation-behaviour');
 // Components
-
-let builtInComponents = require('./mixin/built-in-components');
+const builtInComponents = require('./mixin/built-in-components');
 
 /**
  * Mixin for the field helper.
  * @type {Object}
  */
-let FieldMixin = {
+const FieldMixin = {
     /** @inheriteDoc */
     mixins: [valueBehaviour, validationBehaviour, builtInComponents],
     /** @inheriteDoc */
    getDefaultProps() {
         return {
-
-            /**
-            * Edition mode of the field.
-            * @type {Boolean}
-            */
             isEdit: true,
-            /**
-            * HTML input type.
-            * @type {String}
-            */
-            type: 'text',
-            /**
-            * Field name.
-            * @type {string}
-            */
-            name: undefined,
-            /**
-            * Css properties of the component.
-            * @type {Object}
-            */
-            style: {}
+            type: 'text'
         };
     },
     /** @inheritdoc */
     propTypes: {
+        /**
+        * Edition mode of the field.
+        * @type {Boolean}
+        */
         isEdit: type('bool'),
+        /**
+        * HTML input type.
+        * @type {String}
+        */
         type: type('string'),
+        /**
+        * Field name.
+        * @type {string}
+        */
         name: type('string'),
         value: type(['string', 'number'])
     },
     /** @inheritdoc */
-    componentWillReceiveProps: function fieldWillReceiveProps(newProps){
+    componentWillReceiveProps(newProps) {
         this.setState({value: newProps.value, values: newProps.values});
     },
     /**
     * Get the css class of the field component.
     */
     _className(){
-        let stateClass = this.state.error ? 'has-feedback has-error' : '';
-        return `mdl-grid ${stateClass} ${this.props.style.className}`;
+        const stateClass = this.state.error ? 'is-invalid' : '';
+        return `mdl-grid ${stateClass}`;
     },
     /** @inheritdoc */
     render() {
-        
+        const {FieldComponent, InputLabelComponent, domain, isRequired} = this.props;
+        const {isEdit} = this.state;
         return (
-            <div className={_className()} data-domain={domain} data-focus='field' data-mode={isEdit ? 'edit' : 'consult'} data-required={isRequired}>
+            <div className={this._className()} data-domain={domain} data-focus='field' data-mode={isEdit ? 'edit' : 'consult'} data-required={isRequired}>
                 {(FieldComponent || InputLabelComponent) ? this.renderFieldComponent() : this._renderDefaultFieldComponent()}
             </div>
         );

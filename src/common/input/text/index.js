@@ -13,14 +13,11 @@ function identity(d){ return d; }
 * Input text mixin.
 * @type {Object}
 */
-let inputTextMixin = {
+const inputTextMixin = {
     /** @inheritdoc */
     getDefaultProps() {
         return {
             type: 'text',
-            value: undefined,
-            name: undefined,
-            style: {},
             /**
             * Default formatter.
             * @param  {object} d - Data to format.
@@ -37,14 +34,15 @@ let inputTextMixin = {
     },
     /** @inheritdoc */
     propTypes: {
+        error: types('string'),
         type: types('string'),
         value: types(['string', 'number']),
         name: types('string'),
-        style: types('object')
+        placeHolder: types('string'),
     },
     /** @inheritdoc */
     getInitialState() {
-        let {formatter, value} = this.props;
+        const {formatter, value} = this.props;
         return {
             value: formatter(value)
         };
@@ -70,7 +68,7 @@ let inputTextMixin = {
     _handleOnChange(event){
         //On change handler.
         const {onChange} = this.props;
-        if(onChange) {
+        if(onChange){
             return onChange(event);
         } else {
             //Set the state then call the change handler.
@@ -81,10 +79,20 @@ let inputTextMixin = {
     * Render an input.
     * @return {DOM} - The dom of an input.
     */
-    render: function renderInput() {
+    render() {
         const {value} = this.state;
+        const {error, name, placeHolder} = this.props;
         const inputProps = assign({}, this.props, {value}, {id: name, onChange: this._handleOnChange});
-        return <input {...inputProps}/>;
+        const pattern = error ? 'hasError' : null; //add pattern to overide mdl error style when displaying an focus error.
+        return (
+            <div className='mdl-textfield mdl-js-textfield'>
+                <input className='mdl-textfield__input' ref='inputText' {...inputProps} pattern={pattern} />
+                <label className='mdl-textfield__label' htmlFor={name}>{placeHolder}</label>
+                {error &&
+                    <span className="mdl-textfield__error">{error}</span>
+                }
+            </div>
+        );
     }
 };
 

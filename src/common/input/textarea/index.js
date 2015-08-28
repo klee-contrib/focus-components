@@ -1,11 +1,14 @@
 const builder = require('focus').component.builder;
 const React = require('react');
 const type = require('focus').component.types;
+const i18nBehaviour = require('../../i18n/mixin');
+
 /**
 *
 * @type {Object}
 */
 const textAreaMixin = {
+    mixins: [i18nBehaviour],
     /**
     * Gets the default props.
     * @return {object} default props
@@ -62,9 +65,9 @@ const textAreaMixin = {
     render: function renderTextArea() {
         const {cols, label, maxlength, minlength, rows} = this.props;
         return (
-            <div data-focus="input-textarea">
+            <div className="mdl-textfield mdl-js-textfield" data-focus="input-textarea">
                 <textarea className="mdl-textfield__input" cols={cols} maxLength={maxlength} minLength={minlength} onChange={this._onChange} ref='textarea' rows={rows} type="text">{this.state.value}</textarea>
-                <label className="mdl-textfield__label">{label}</label>
+                <label className="mdl-textfield__label">{this.i18n(label)}</label>
             </div>
         );
     }
