@@ -1,22 +1,22 @@
 // Dependencies
 
-let React = require('react');
-let type = require('focus').component.types;
-let find = require('lodash/collection/find');
-let result = require('lodash/object/result');
-let assign = require('object-assign');
+const React = require('react');
+const type = require('focus').component.types;
+const find = require('lodash/collection/find');
+const result = require('lodash/object/result');
+const assign = require('object-assign');
 // Components
 
-let InputText = require('../../input/text').component;
-let DisplayText = require('../../display/text').component;
-let SelectClassic = require('../../select/classic').component;
-let Label = require('../../label').component;
+const InputText = require('../../input/text').component;
+const DisplayText = require('../../display/text').component;
+const SelectClassic = require('../../select/classic').component;
+const Label = require('../../label').component;
 
 // Mixins
 
-let fieldGridBehaviourMixin = require('../../mixin/field-grid-behaviour');
+const fieldGridBehaviourMixin = require('../../mixin/field-grid-behaviour');
 
-let fieldBuiltInComponentsMixin = {
+const fieldBuiltInComponentsMixin = {
     mixins: [fieldGridBehaviourMixin],
     getDefaultProps() {
         return {
@@ -78,7 +78,6 @@ let fieldBuiltInComponentsMixin = {
         }
         if (this.props.hasLabel) {
             //In the labelCasen there is no reason to pass all props.
-            let labelClassName = this._getLabelGridClassName();
             let {isEdit, isRequired, name} = this.props;
             return (
                 <Label
@@ -86,7 +85,6 @@ let fieldBuiltInComponentsMixin = {
                     isRequired={isRequired}
                     key={name}
                     name={name}
-                    style={{className: labelClassName}}
                 />
             );
         }
@@ -99,21 +97,18 @@ let fieldBuiltInComponentsMixin = {
         if (this.props.FieldComponent || this.props.InputLabelComponent) {
             return this.renderFieldComponent();
         }
-        let {name, style} = this.props;
-        let {value} = this.state;
-        let inputClassName = `form-control ${style.className ? style.className : ''}`;
+        const {name: id, label: placeHolder} = this.props;
+        const {value, error} = this.state;
+        const {onInputChange: onChange} = this;
         let inputBuildedProps = assign({}, this.props, {
-            id: name,
-            style: this._buildStyle(),
-            onChange: this.onInputChange,
-            value: value,
+            id,
+            onChange,
+            value,
+            error,
+            placeHolder,
             ref: 'input'
         });
-        return (
-            <div className ={`${this._getContentGridClassName()} input-group`}>
-                <this.props.InputComponent {...inputBuildedProps}/>
-            </div>
-        );
+        return <this.props.InputComponent {...inputBuildedProps}/>;
     },
     /**
      * Build a select component depending on the domain, definition and props.
@@ -131,11 +126,7 @@ let fieldBuiltInComponentsMixin = {
             onChange: this.onInputChange,
             ref: 'input'
         });
-        return (
-            <div className ={`input-group ${this._getContentGridClassName()}`}>
-                <this.props.SelectComponent {...buildedSelectProps} />
-            </div>
-        );
+        return <this.props.SelectComponent {...buildedSelectProps} />;
     },
     /**
     * Render the display part of the component.
@@ -154,11 +145,7 @@ let fieldBuiltInComponentsMixin = {
             value: _processValue,
             ref: 'display'
         });
-        return (
-            <div className ={`input-group ${this._getContentGridClassName()}`}>
-                <this.props.DisplayComponent {...buildedDislplayProps}/>
-            </div>
-        );
+        return <this.props.DisplayComponent {...buildedDislplayProps}/>;
     },
     /**
     * Render the error part of the component.
@@ -167,31 +154,24 @@ let fieldBuiltInComponentsMixin = {
     error() {
         let {error} = this.state;
         if (error) {
-            if (this.props.FieldComponent) {
-                return;
-            }
             return (
-                <span className='help-block'>
+                <span className='mdl-textfield__error'>
                     {error}
                 </span>
             );
         }
-        return;
     },
     /**
     * Render the help component.
     * @return {object} - The help part of the component.
     */
     help() {
-        let {help, FieldComponent} = this.props;
+        let {help, name} = this.props;
         if (help) {
-            if (FieldComponent) {
-                return;
-            }
             return (
-                <span className='help-block'>
+                <label className='mdl-textfield__label' htmFor={`${name}`}>
                     {help}
-                </span>
+                </label>
             );
         }
     },
@@ -199,7 +179,7 @@ let fieldBuiltInComponentsMixin = {
      * Render the field component if it is overriden in the component definition.
      * @return {Component} - The builded field component.
      */
-    renderFieldComponent() {
+    _renderFieldComponent() {
         let FieldComponent = this.props.FieldComponent || this.props.InputLabelComponent;
         let {value, error} = this.state;
         let buildedProps = assign({}, this.props, {
@@ -211,6 +191,22 @@ let fieldBuiltInComponentsMixin = {
             ref: 'input'
         });
         return <FieldComponent {...buildedProps} />;
+    },
+    /**
+     * Render the default field component.
+     * @return {React} -
+     */
+    _renderDefaultFieldComponent(){
+        let { isRequired, isEdit, values, FieldComponent, InputLabelComponent} = this.props;
+        let {input, label, select, display, _className} = this;
+        return(
+            <div>
+                <div className ={`${this._getLabelGridClassName()}`} data-focus='field-label-container'>{label()}</div>
+                <div className ={`${this._getContentGridClassName()}`} data-focus='field-value-container'>
+                    {isEdit ? (values ? select() : input()) : display()}
+                </div>
+            </div>
+        );
     }
 };
 

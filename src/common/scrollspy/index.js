@@ -80,7 +80,7 @@ const Scrollspy = {
             return {
                 index: index,
                 label: titleElement.innerHTML,
-                id: titleElement.getAttribute('id'),
+                id: titleElement.getAttribute('data-spy'),
                 offsetTop: titleElement.offsetTop
             };
         });
@@ -94,8 +94,8 @@ const Scrollspy = {
     */
     _linkClickHandler(title) {
         return () => {
-            const selectedTitle = document.getElementById(title.id);
-            scrollTo(undefined, selectedTitle.offsetTop);
+            const selectedTitle = document.querySelector('[data-spy=\'' + title.id + '\']');
+            scrollTo(undefined, selectedTitle.offsetTop - this.props.affixOffset);
         };
     },
     /**
@@ -127,9 +127,9 @@ const Scrollspy = {
     render() {
         const {affix} = this.state;
         return (
-            <div data-focus="scrollspy">
-                <nav data-affix={!!affix} style={affix ? {position: 'fixed', top: `${this.props.affixOffset}px`} : null}>{this._renderList()}</nav>
-                <div>{this.props.children}</div>
+            <div data-focus="scrollspy" ref='scrollSpy'>
+            <nav data-affix={!!affix} style={affix ? {position: 'fixed', top: `${this.props.affixOffset}px`} : null}>{this._renderList()}</nav>
+            <div>{this.props.children}</div>
             </div>
         );
     },
@@ -143,7 +143,7 @@ const Scrollspy = {
         //---
         const scrollposition = scrollPosition();
         const nextTitles = filter(titleList, n => {
-            return scrollposition.top < n.offsetTop;
+            return scrollposition.top < n.offsetTop - this.props.affixOffset;
         });
         //by default, first node is indexed
         let currentId = titleList[0].id;
@@ -159,11 +159,14 @@ const Scrollspy = {
             currentId = last(titleList).id;
         }
         //save current state
-        const componentTopPosition = React.findDOMNode(this).offsetTop;
-        this.setState({
-            activeTitleId: currentId,
-            affix: componentTopPosition + this.props.affixOffset < scrollposition.top
-        });
+        const {scrollSpy} = this.refs;
+        if(scrollSpy){
+            const componentTopPosition = React.findDOMNode(scrollSpy).offsetTop;
+            this.setState({
+                activeTitleId: currentId,
+                affix: componentTopPosition + this.props.affixOffset < scrollposition.top
+            });
+        }
     }
 };
 

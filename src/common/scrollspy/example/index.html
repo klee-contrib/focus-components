@@ -16,46 +16,47 @@
     <script type="text/babel">
         loadAssets().then((d)=>{
             const Scrollspy = FocusComponents.common.scrollspy.component;
+            const Title = FocusComponents.common.title.component;
 
             const ScrollspySample = React.createClass({
               render: function() {
                 return <div>
                         <h1>Scrollspy</h1>
                         <Scrollspy>
-                                <h2 id="bloc1" data-spy>Sports</h2>
+                                <Title label="Sports"></Title>
                                 <img src="http://lorempixel.com/800/600/sports" title="lorempixel" alt="lorempixel"/>
 
-                                <h2 id="bloc2" data-spy>Animals</h2>
+                                <Title label="Animals"></Title>
                                 <img src="http://lorempixel.com/800/600/animals" title="lorempixel" alt="lorempixel"/>
 
-                                <h2 id="bloc3" data-spy>Business</h2>
+                                <Title label="Business"></Title>
                                 <img src="http://lorempixel.com/800/600/business" title="lorempixel" alt="lorempixel"/>
 
-                                <h2 id="bloc4" data-spy>Cats</h2>
+                                <Title label="Cats"></Title>
                                 <img src="http://lorempixel.com/800/600/cats" title="lorempixel" alt="lorempixel"/>
 
-                                <h2 id="bloc5" data-spy>City</h2>
+                                <Title label="City"></Title>
                                 <img src="http://lorempixel.com/800/600/city" title="lorempixel" alt="lorempixel"/>
 
-                                <h2 id="bloc6" data-spy>Food</h2>
+                                <Title label="Food"></Title>
                                 <img src="http://lorempixel.com/800/600/food" title="lorempixel" alt="lorempixel"/>
 
-                                <h2 id="bloc7" data-spy>Nightlife</h2>
+                                <Title label="Nightlife"></Title>
                                 <img src="http://lorempixel.com/800/600/nightlife" title="lorempixel" alt="lorempixel"/>
 
-                                <h2 id="bloc8" data-spy>Fashion</h2>
+                                <Title label="Fashion"></Title>
                                 <img src="http://lorempixel.com/800/600/fashion" title="lorempixel" alt="lorempixel"/>
 
-                                <h2 id="bloc9" data-spy>People</h2>
+                                <Title label="People"></Title>
                                 <img src="http://lorempixel.com/800/600/people" title="lorempixel" alt="lorempixel"/>
 
-                                <h2 id="bloc10" data-spy>Nature</h2>
+                                <Title label="Nature"></Title>
                                 <img src="http://lorempixel.com/800/600/nature" title="lorempixel" alt="lorempixel" />
 
-                                <h2 id="bloc11" data-spy>Technics</h2>
+                                <Title label="Technics"></Title>
                                 <img src="http://lorempixel.com/800/600/technics" title="lorempixel" alt="lorempixel" />
 
-                                <h2 id="bloc12" data-spy>Transport</h2>
+                                <Title label="Transport"></Title>
                                 <img src="http://lorempixel.com/800/600/transport" title="lorempixel" alt="lorempixel" />
                         </Scrollspy>
                     </div>

@@ -61,18 +61,14 @@ let FieldMixin = {
     */
     _className(){
         let stateClass = this.state.error ? 'has-feedback has-error' : '';
-        return `form-group ${stateClass} ${this.props.style.className}`;
+        return `mdl-grid ${stateClass} ${this.props.style.className}`;
     },
     /** @inheritdoc */
     render() {
-        let {domain, isRequired, isEdit, values} = this.props;
-        let {input, label, select, display, help, error, _className} = this;
+        
         return (
             <div className={_className()} data-domain={domain} data-focus='field' data-mode={isEdit ? 'edit' : 'consult'} data-required={isRequired}>
-                {label()}
-                {isEdit ? (values ? select() : input()) : display()}
-                {help()}
-                {error()}
+                {(FieldComponent || InputLabelComponent) ? this.renderFieldComponent() : this._renderDefaultFieldComponent()}
             </div>
         );
     }

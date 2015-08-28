@@ -33,9 +33,6 @@ const blockMixin = {
             return this.i18n(this.props.title);
         }
     },
-    _buildId() {
-        return `${window.location.hash.slice(1)}/${trim(this.heading().toLowerCase())}`;//.replace('/', '_');
-    },
     /**
     * Render the a block container and the cild content of the block.
     * @return {DOM} React DOM element
@@ -45,7 +42,7 @@ const blockMixin = {
         return (
             <div data-focus='block'>
             <header>
-            <Title id={this._buildId()} title={this.heading()} />
+            <Title label={this.heading()} />
             <div className="actions">{actions()}</div>
             </header>
             <div className="block-content">
