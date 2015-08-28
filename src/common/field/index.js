@@ -56,7 +56,6 @@ const FieldMixin = {
         const {FieldComponent, InputLabelComponent, domain, isRequired, values, hasLabel, isEdit} = this.props;
         const isCustomComponent = FieldComponent || InputLabelComponent;
         const {label, input, select, display} = this;
-        console.debug('isEdit', isEdit, 'state', this.state, 'props', this.props);
         return (
             <div className={this._className()} data-domain={domain} data-focus='field' data-mode={isEdit ? 'edit' : 'consult'} data-required={isRequired}>
                 {isCustomComponent && this.renderFieldComponent()}
