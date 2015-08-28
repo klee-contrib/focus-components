@@ -53,11 +53,19 @@ const FieldMixin = {
     },
     /** @inheritdoc */
     render() {
-        const {FieldComponent, InputLabelComponent, domain, isRequired} = this.props;
+        const {FieldComponent, InputLabelComponent, domain, isRequired, values} = this.props;
         const {isEdit} = this.state;
+        const isCustomComponent = FieldComponent || InputLabelComponent;
+        const {label, select, display} = this;
         return (
             <div className={this._className()} data-domain={domain} data-focus='field' data-mode={isEdit ? 'edit' : 'consult'} data-required={isRequired}>
-                {(FieldComponent || InputLabelComponent) ? this.renderFieldComponent() : this._renderDefaultFieldComponent()}
+                {isCustomComponent && this.renderFieldComponent()}
+                {!isCustomComponent && label()}
+                {!isCustomComponent &&
+                    <div className ={`${this._getContentGridClassName()}`} data-focus='field-value-container'>
+                        {isEdit ? (values ? select() : input()) : display()}
+                    </div>
+                }
             </div>
         );
     }
