@@ -5,7 +5,8 @@ const FONTAWESOME_CSS = '//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-a
 // google material
 const GOOGLE_MATERIAL_JS = 'https://storage.googleapis.com/code.getmdl.io/1.0.4/material.min.js',
  GOOGLE_MATERIAL_CSS = 'https://storage.googleapis.com/code.getmdl.io/1.0.4/material.indigo-pink.min.css',
- GOOGLE_MATERIAL_FONT = 'https://fonts.googleapis.com/icon?family=Material+Icons';
+ GOOGLE_MATERIAL_FONT = 'https://fonts.googleapis.com/icon?family=Material+Icons',
+ GOOGLE_FONT_ROBOTO = 'https://fonts.googleapis.com/css?family=Roboto:regular,bold,italic,thin,light,bolditalic,black,medium&amp;lang=en';
 //React
 const REACT_JS = 'https://fb.me/react-0.13.3.js',
 BABEL_TRANSFORMER = 'https://cdnjs.cloudflare.com/ajax/libs/babel-core/5.6.15/browser.js';
@@ -61,6 +62,7 @@ function loadCSS(){
     return Promise.all([
         loadStyle(GOOGLE_MATERIAL_CSS),
         loadStyle(GOOGLE_MATERIAL_FONT),
+        loadStyle(GOOGLE_FONT_ROBOTO),
         loadStyle(FONTAWESOME_CSS)
     ]).then(()=>{
         return Promise.all([

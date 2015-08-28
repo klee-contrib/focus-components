@@ -29,6 +29,10 @@
     },
     "components": [
         {
+            "name": "template",
+            "path": "template"
+        },
+        {
             "name": "menu",
             "path": "application/menu"
         },
