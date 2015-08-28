@@ -73,36 +73,22 @@ const fieldBuiltInComponentsMixin = {
     * @returns {Component} - The builded label component.
     */
     label() {
-        if (this.props.FieldComponent || this.props.InputLabelComponent) {
-            return undefined;
-        }
-        if (this.props.hasLabel) {
-            //In the labelCasen there is no reason to pass all props.
-            let {isEdit, isRequired, name} = this.props;
-            return (
-                <div className ={`${this._getLabelGridClassName()}`} data-focus='field-label-container'>
-                    <Label
-                        isEdit={isEdit}
-                        isRequired={isRequired}
-                        key={name}
-                        name={name}
-                    />
-                </div>
-            );
-        }
+        const {name} = this.props;
+        return (
+            <div className ={`${this._getLabelGridClassName()}`} data-focus='field-label-container'>
+                <Label name={name} />
+            </div>
+        );
     },
     /**
     * Rendet the input part of the component.
     * @return {Component} - The constructed input component.
     */
     input() {
-        if (this.props.FieldComponent || this.props.InputLabelComponent) {
-            return this.renderFieldComponent();
-        }
         const {name: id, label: placeHolder} = this.props;
         const {value, error} = this.state;
         const {onInputChange: onChange} = this;
-        let inputBuildedProps = assign({}, this.props, {
+        const inputBuildedProps = assign({}, this.props, {
             id,
             onChange,
             value,
@@ -117,11 +103,8 @@ const fieldBuiltInComponentsMixin = {
      * @return {Component} - The builded select component.
      */
     select() {
-        if (this.props.FieldComponent || this.props.InputLabelComponent) {
-            return this.renderFieldComponent();
-        }
-        let {value, values} = this.state;
-        let buildedSelectProps = assign({}, this.props, {
+        const {value, values} = this.state;
+        const buildedSelectProps = assign({}, this.props, {
             value: value,
             values: values,
             style: this._buildStyle(),
@@ -135,13 +118,10 @@ const fieldBuiltInComponentsMixin = {
     * @return {object} - The display part of the compoennt if the mode is not edit.
     */
     display() {
-        if (this.props.FieldComponent || this.props.InputLabelComponent) {
-            return this.renderFieldComponent();
-        }
-        let {values, value} = this.state;
-        let {name, valueKey, labelKey} = this.props;
-        let _processValue = values ? result(find(values, {[valueKey || 'code']: value}), labelKey || 'label') : value;
-        let buildedDislplayProps = assign({}, this.props, {
+        const {values, value} = this.state;
+        const {name, valueKey, labelKey} = this.props;
+        const _processValue = values ? result(find(values, {[valueKey || 'code']: value}), labelKey || 'label') : value;
+        const buildedDislplayProps = assign({}, this.props, {
             id: name,
             style: this._buildStyle(),
             value: _processValue,
@@ -182,33 +162,16 @@ const fieldBuiltInComponentsMixin = {
      * @return {Component} - The builded field component.
      */
     _renderFieldComponent() {
-        let FieldComponent = this.props.FieldComponent || this.props.InputLabelComponent;
-        let {value, error} = this.state;
-        let buildedProps = assign({}, this.props, {
+        const FieldComponent = this.props.FieldComponent || this.props.InputLabelComponent;
+        const {value, error} = this.state;
+        const buildedProps = assign({}, this.props, {
             id: this.props.name,
-            style: this._buildStyle(),
             value: value,
             error: error,
             onChange: this.onInputChange,
             ref: 'input'
         });
         return <FieldComponent {...buildedProps} />;
-    },
-    /**
-     * Render the default field component.
-     * @return {React} -
-     */
-    _renderDefaultFieldComponent(){
-        let { isRequired, isEdit, values, FieldComponent, InputLabelComponent} = this.props;
-        let {input, label, select, display, _className} = this;
-        return(
-            <div>
-                {label()}
-                <div className ={`${this._getContentGridClassName()}`} data-focus='field-value-container'>
-                    {isEdit ? (values ? select() : input()) : display()}
-                </div>
-            </div>
-        );
     }
 };
 
