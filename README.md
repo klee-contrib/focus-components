@@ -17,7 +17,7 @@ All the source code is in `src`.
 
 ### component spec
 
-Component example structure, with all the directories ans sub directories. 
+Component example structure, with all the directories ans sub directories.
 - `index.js` : the component entry point.
 - `style`: the style of the component should be written in **sass**.
 - `assets`: all the components assets
