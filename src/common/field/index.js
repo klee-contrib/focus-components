@@ -53,14 +53,14 @@ const FieldMixin = {
     },
     /** @inheritdoc */
     render() {
-        const {FieldComponent, InputLabelComponent, domain, isRequired, values} = this.props;
-        const {isEdit} = this.state;
+        const {FieldComponent, InputLabelComponent, domain, isRequired, values, hasLabel, isEdit} = this.props;
         const isCustomComponent = FieldComponent || InputLabelComponent;
-        const {label, select, display} = this;
+        const {label, input, select, display} = this;
+        console.debug('isEdit', isEdit, 'state', this.state, 'props', this.props);
         return (
             <div className={this._className()} data-domain={domain} data-focus='field' data-mode={isEdit ? 'edit' : 'consult'} data-required={isRequired}>
                 {isCustomComponent && this.renderFieldComponent()}
-                {!isCustomComponent && label()}
+                {!isCustomComponent && hasLabel && label()}
                 {!isCustomComponent &&
                     <div className ={`${this._getContentGridClassName()}`} data-focus='field-value-container'>
                         {isEdit ? (values ? select() : input()) : display()}

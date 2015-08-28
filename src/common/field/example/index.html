@@ -1,39 +1,39 @@
 <!doctype html>
 <html class="no-js" lang="">
-    <head>
-        <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <title>Focus component examples</title>
-        <meta name="description" content="Example of the component.">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <script src="/focus-components/example/js/browser.js"></script>
-        <script src="/focus-components/example/js/assets.js"></script>
-    </head>
-    <body>
-        <div id="form-container" class="container"></div>
-        <script type='text/babel'>
-            loadAssets().then(function(d){
-                Focus.components = FocusComponents;
-                var Field = Focus.components.common.field.component;
-                React.render(
-                    <form className='form-horizontal'>
-                        <h2> Premier champ</h2>
-                        <Field  name='field1' value='fieldValue' isEdit={true}/>
-                        <h2> Consultation </h2>
-                        <Field  name='field Consult' value='fieldConsultValue' isEdit={false}/>
-                        <Field  name='field Consult formated' value='fieldConsultValue' isEdit={false} formatter={function(data){return data + " formatter applied";}}/>
-                        <h2>Erreur</h2>
-                        <Field  name='field2' value='field2Value' error='error in field2' isEdit={true} />
-                        <h2>Type number</h2>
-                        <Field  name='field3' value={3} type='number'/>
-                        <Field  name='field4' value='popop' isEdit={true} help='Here to help'/>
-                        <h2>Disable</h2>
-                        <Field name='fieldDisabled' value='popop' isEdit={true} disabled={true}/>
-                    </form>
-                ,
-                document.querySelector("#form-container")
-            );
-        });
-        </script>
-    </body>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Focus component examples</title>
+    <meta name="description" content="Example of the component.">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="/focus-components/example/js/browser.js"></script>
+    <script src="/focus-components/example/js/assets.js"></script>
+</head>
+<body>
+    <div id="form-container" class="container"></div>
+    <script type='text/babel'>
+    loadAssets().then(function(d){
+        Focus.components = FocusComponents;
+        var Field = Focus.components.common.field.component;
+        React.render(
+            <form>
+                <h2>Champ en mode consultation</h2>
+                <Field name='field Consult' value='fieldConsultValue' isEdit={false}/>
+                <Field name='field Consult formated' value='fieldConsultValue' isEdit={false} formatter={function(data){return data + " formatter applied";}}/>
+                <h2>Champ en mode édition</h2>
+                <Field name='field1' value='fieldValue' isEdit={true}/>
+                <h2>Champ en erreur</h2>
+                <Field name='field2' value='field2Value' error='error in field2' isEdit={true} />
+                <h2>Type number</h2>
+                <Field name='field3' value={3} type='number'/>
+                <Field name='field4' value='popop' isEdit={true} help='Here to help'/>
+                <h2>Disable</h2>
+                <Field name='fieldDisabled' value='popop' isEdit={true} disabled={true}/>
+            </form>
+            ,
+            document.querySelector("#form-container")
+        );
+    });
+    </script>
+</body>
 </html>
