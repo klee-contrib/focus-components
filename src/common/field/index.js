@@ -65,12 +65,10 @@ let FieldMixin = {
     },
     /** @inheritdoc */
     render() {
-        let {domain, isRequired, isEdit, values} = this.props;
-        let {input, label, select, display, _className} = this;
+        
         return (
             <div className={_className()} data-domain={domain} data-focus='field' data-mode={isEdit ? 'edit' : 'consult'} data-required={isRequired}>
-                {label()}
-                {isEdit ? (values ? select() : input()) : display()}
+                {(FieldComponent || InputLabelComponent) ? this.renderFieldComponent() : this._renderDefaultFieldComponent()}
             </div>
         );
     }
