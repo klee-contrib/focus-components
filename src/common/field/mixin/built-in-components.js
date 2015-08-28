@@ -80,12 +80,14 @@ const fieldBuiltInComponentsMixin = {
             //In the labelCasen there is no reason to pass all props.
             let {isEdit, isRequired, name} = this.props;
             return (
-                <Label
-                    isEdit={isEdit}
-                    isRequired={isRequired}
-                    key={name}
-                    name={name}
-                />
+                <div className ={`${this._getLabelGridClassName()}`} data-focus='field-label-container'>
+                    <Label
+                        isEdit={isEdit}
+                        isRequired={isRequired}
+                        key={name}
+                        name={name}
+                    />
+                </div>
             );
         }
     },
@@ -201,7 +203,7 @@ const fieldBuiltInComponentsMixin = {
         let {input, label, select, display, _className} = this;
         return(
             <div>
-                <div className ={`${this._getLabelGridClassName()}`} data-focus='field-label-container'>{label()}</div>
+                {label()}
                 <div className ={`${this._getContentGridClassName()}`} data-focus='field-value-container'>
                     {isEdit ? (values ? select() : input()) : display()}
                 </div>
