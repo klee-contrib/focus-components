@@ -10,5 +10,6 @@ module.exports = {
   contentBar: require('./content-bar'),
   contentActions: require('./content-actions'),
   layout: require('./layout'),
-  loadingBar: require('./loading-bar')
+  loadingBar: require('./loading-bar'),
+  catalog: require('./catalog')
 };
