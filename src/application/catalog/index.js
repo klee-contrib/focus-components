@@ -1,16 +1,26 @@
-const {Component} = require('react');
+//dependencies
+const React = require('react');
+const {Component} = React;
+//Other component
+const ComponentCard = require('./component-card');
+//Fake data
 const componentsMetas = [{
-    name: 'MySuperComponent',
+    name: 'MySmartComponent',
+    description: 'My super componnent is usefull for',
+    example: 'http://github.com',
     url: 'htttp://google.com',
     photo: 'https://media.giphy.com/media/3o85xK5DSSgQZ6vq7u/giphy.gif',
-    tag: 'super,form,pierr'
+    tags: 'super,form,pierr'
 }, {
-    name: 'MyOtherSuperComponent',
+    name: 'MyDumbComponent',
+    description: 'My super componnent is usefull for',
+    example: 'http://github.com',
     url: 'htttp://google.com',
     photo: 'https://media.giphy.com/media/3o85xK5DSSgQZ6vq7u/giphy.gif',
-    tag: 'super,form,pierr'
+    tags: 'super,form,pierr'
 }];
-module.exports = class CatalogComponent extends Component{
+
+class CatalogComponent extends Component{
     constructor(props){
         super(props);
         this.state = {data: componentsMetas };
@@ -18,12 +28,14 @@ module.exports = class CatalogComponent extends Component{
     render(){
         const {data} = this.state;
         return (
-            <div>
-                <h2>The super catalog of Lopez's components........</h2>
-                <ul>
-                    {data.map( (comp) => <li>{JSON.stringify(comp)}</li> )}
+                <ul data-focus='catalogs'>
+                    {data.map( (comp) => <ComponentCard {...comp}/> )}
                 </ul>
-            </div>
         );
     }
-};
+}
+
+//Static props.
+CatalogComponent.displayName = 'Catalog';
+
+module.exports = CatalogComponent;
