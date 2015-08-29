@@ -23,7 +23,7 @@ class ComponentCard extends Component{
                     <div className='mdl-card__supporting-text'>
                         {description}
                         <div className='tags'>
-                          {tags.split(',').slice(0, 2).map((tag) => <button className='mdl-button mdl-js-button mdl-button--raised mdl-button--colored'>{tag}</button>)}
+                          {tags.split(',').slice(0, 2).map((tag) => <button className='mdl-button mdl-js-button mdl-js-ripple-effect'>{tag}</button>)}
                         </div>
                     </div>
                     <div className='mdl-card__actions mdl-card--border'>
