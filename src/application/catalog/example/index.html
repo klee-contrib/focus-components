@@ -17,18 +17,7 @@
     loadAssets().then((d)=>{
         const Template = FocusComponents.template.component;
         const Catalog = FocusComponents.application.catalog;
-        const TemplateSample = React.createClass({
-            /**
-            * Render the component.
-            * @return {object} React node
-            */
-            render() {
-                return <Template title='Component catalog'><Catalog /></Template>
-            }
-        });
-
-        const mountNode = document.querySelector("body")
-        React.render(<TemplateSample />, mountNode);
+        React.render(<Template title='Component catalog'><Catalog /></Template>, document.querySelector("body"));
     });
     </script>
 </body>

@@ -18,6 +18,38 @@ const componentsMetas = [{
     url: 'htttp://google.com',
     photo: 'https://media.giphy.com/media/3o85xK5DSSgQZ6vq7u/giphy.gif',
     tags: 'super,form,pierr'
+},
+{
+    name: 'SmartFormComponent',
+    description: 'My super componnent is usefull for',
+    example: 'http://github.com',
+    url: 'htttp://google.com',
+    photo: 'https://media.giphy.com/media/3o85xK5DSSgQZ6vq7u/giphy.gif',
+    tags: 'super,form,pierr'
+},
+{
+    name: 'InputDumbComponent',
+    description: 'My super componnent is usefull for',
+    example: 'http://github.com',
+    url: 'htttp://google.com',
+    photo: 'https://media.giphy.com/media/3o85xK5DSSgQZ6vq7u/giphy.gif',
+    tags: 'super,form,pierr'
+},
+{
+    name: 'LabelDumbComponent',
+    description: 'My super componnent is usefull for',
+    example: 'http://github.com',
+    url: 'htttp://google.com',
+    photo: 'https://media.giphy.com/media/3o85xK5DSSgQZ6vq7u/giphy.gif',
+    tags: 'super,form,pierr'
+},
+{
+    name: 'CheckboxDumbComponent',
+    description: 'My super componnent is usefull for',
+    example: 'http://github.com',
+    url: 'htttp://google.com',
+    photo: 'https://media.giphy.com/media/3o85xK5DSSgQZ6vq7u/giphy.gif',
+    tags: 'super,form,pierr'
 }];
 
 class CatalogComponent extends Component{
@@ -27,8 +59,11 @@ class CatalogComponent extends Component{
     }
     render(){
         const {data} = this.state;
+        const style = {
+            display: 'flex', flexWrap: 'wrap', listStyleType: 'none'
+        };
         return (
-                <ul data-focus='catalogs'>
+                <ul data-focus='catalogs' style={style}>
                     {data.map( (comp) => <ComponentCard {...comp}/> )}
                 </ul>
         );
