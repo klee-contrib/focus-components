@@ -21,7 +21,10 @@ class ComponentCard extends Component{
                     <h2 className='mdl-card__title-text'>{name}</h2>
                     </div>
                     <div className='mdl-card__supporting-text'>
-                        {description} {tags} {url}
+                        {description}
+                        <div className='tags'>
+                          {tags.split(',').slice(0, 2).map((tag) => <button className='mdl-button mdl-js-button mdl-button--raised mdl-button--colored'>{tag}</button>)}
+                        </div>
                     </div>
                     <div className='mdl-card__actions mdl-card--border'>
                         <a className='mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect' href={example}>
