@@ -1,60 +1,9 @@
-//dependencies
-const React = require('react');
 const {reduce, sortByOrder} = require('lodash/collection');
-const {Component} = React;
-//Other component
-const ComponentCard = require('./component-card');
+
 //Fake data
-const componentsMetas = [
-    {
-        name: 'MySmartComponent',
-        description: 'My super componnent is usefull for',
-        example: 'http://github.com',
-        url: 'htttp://google.com',
-        photo: 'https://media.giphy.com/media/3o85xK5DSSgQZ6vq7u/giphy.gif',
-        tags: 'super,form,pierr'
-    }, {
-        name: 'MyDumbComponent',
-        description: 'My super componnent is usefull for',
-        example: 'http://github.com',
-        url: 'htttp://google.com',
-        photo: 'https://media.giphy.com/media/3o85xK5DSSgQZ6vq7u/giphy.gif',
-        tags: 'super,form,pierr'
-    },
-    {
-        name: 'SmartFormComponent',
-        description: 'Your super componnent is usefull for',
-        example: 'http://github.com',
-        url: 'htttp://google.com',
-        photo: 'https://media.giphy.com/media/3o85xK5DSSgQZ6vq7u/giphy.gif',
-        tags: 'super,form,pierr'
-    },
-    {
-        name: 'InputDumbComponent',
-        description: ' super componnent is usefull for',
-        example: 'http://github.com',
-        url: 'htttp://google.com',
-        photo: 'https://media.giphy.com/media/3o85xK5DSSgQZ6vq7u/giphy.gif',
-        tags: 'super,form,pierr'
-    },
-    {
-        name: 'LabelDumbComponent',
-        description: 'My super componnent is usefull for',
-        example: 'http://github.com',
-        url: 'htttp://google.com',
-        photo: 'https://media.giphy.com/media/3o85xK5DSSgQZ6vq7u/giphy.gif',
-        tags: 'super,form,pierr'
-    },
-    {
-        name: 'CheckboxDumbComponent',
-        description: 'My super componnent is usefull for',
-        example: 'http://github.com',
-        url: 'htttp://google.com',
-        photo: 'https://media.giphy.com/media/3o85xK5DSSgQZ6vq7u/giphy.gif',
-        tags: 'super,form,pierr'
-    }
-];
-function searchService(query){
+const componentsMetas = require('./components.json');
+//service
+function _synchronousSearch(query){
     const matchQuery = reduce(componentsMetas, (result, comp, index) => {
         const {name, description, tags} = comp;
         let count = 0;
@@ -74,26 +23,56 @@ function searchService(query){
     const sortedComponents = sortedMatch.map((comp) => componentsMetas[comp.index]);
     console.log('Match', matchQuery);
     console.log('Sorted ', sortedComponents);
+    return sortedComponents;
 }
+function searchService(criteria){
+    return new Promise((success, failure)=>{
+        try{
+            const res = _synchronousSearch(criteria.query);
+            success(res);
+        }catch(e){
+            failure(e);
+        }
+    }).then((d) => {return {dataList: d, totalCount: d.length}; });
+}
+//<li key='button'><button onClick={()=>{console.log(searchService('My')); }}>Filter</button></li>
+//dependencies
+const React = require('react');
+const {Component} = React;
+const ListStore = require('focus').store.ListStore;
+//const types = require('focus').component.types;
+//Components
+const {component: ListPage} = require('../../page/list');
+const CatalogSearch = require('./catalog-search');
+const CatalogList = require('./catalog-list');
 
-class CatalogListComponent extends Component{
+const store = new ListStore({identifier: 'COMPONENT_CATALOG'});
+
+/**
+ * Component describing a component.
+ */
+class ComponentCatalog extends Component{
     constructor(props){
         super(props);
-        this.state = {data: componentsMetas };
     }
+    /** @inheriteDoc */
     render(){
-        const {data} = this.state;
-        const style = {
-            display: 'flex', flexWrap: 'wrap', listStyleType: 'none'
-        };
+        const {store} = this.props;
         return (
-            <ul data-focus='catalogs' style={style}>
-            <li key='button'><button onClick={()=>{console.log(searchService('My')); }}>Filter</button></li>
-            {data.map( (comp, idx) => <ComponentCard key={idx} {...comp}/> )}
-            </ul>
+                <div data-focus='catalog'>
+                    <CatalogSearch store={store}/>
+                    <ListPage {...this.props}/>
+                </div>
         );
     }
 }
+
 //Static props.
-CatalogListComponent.displayName = 'Catalog';
-module.exports = CatalogListComponent;
+ComponentCatalog.displayName = 'ComponentCatalog';
+ComponentCatalog.defaultProps = {
+    store,
+    service: searchService,
+    ListComponent: CatalogList
+};
+
+module.exports = ComponentCatalog;

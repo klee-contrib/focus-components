@@ -11,6 +11,8 @@ class ComponentSearch extends Component{
         super(props);
         this.componentWillMount = this.componentWillMount.bind(this);
         this.getStateFromStore = this.getStateFromStore.bind(this);
+        this._handleOnChange = this._handleOnChange.bind(this);
+        this.state = {criteria: {query: null}};
     }
     getStateFromStore(){
         const {store} = this.props;
@@ -24,7 +26,7 @@ class ComponentSearch extends Component{
         const {store} = this.props;
         store.removeCriteriaChangeListener(()=> this.getStateFromStore());
     }
-    _handleOnClick(){
+    _handleOnChange(){
         const {store} = this.props;
         const query = React.findDOMNode(this.refs.input).value;
         //Dispatch the new criteria value..
@@ -36,14 +38,16 @@ class ComponentSearch extends Component{
     }
     /** @inheriteDoc */
     render(){
+        const {criteria} = this.state;
+        const {query} = criteria;
         return (
             <form action="#">
               <div className='mdl-textfield mdl-js-textfield mdl-textfield--expandable'>
-                <label className='mdl-button mdl-js-button mdl-button--icon' htmlFor='search'>
+                <label className='mdl-button mdl-js-button mdl-button--icon' htmlFor='search-catalog'>
                   <i className='material-icons'>search</i>
                 </label>
                 <div className='mdl-textfield__expandable-holder'>
-                  <input className='mdl-textfield__input' id='search' onClick={this._handleOnClick} ref='input' type='text'/>
+                  <input className='mdl-textfield__input' id='search-catalog' onChange={this._handleOnChange} ref='input' type='text' value={query}/>
                   <label className='mdl-textfield__label' htmlFor='search-expandable'>Expandable search</label>
                 </div>
               </div>
@@ -56,7 +60,7 @@ class ComponentSearch extends Component{
 ComponentSearch.displayName = 'ComponentSearch';
 ComponentSearch.defaultProps = {};
 ComponentSearch.propTypes = {
-    store: types('function').isRequired
+    store: types('func').isRequired
 };
 
 module.exports = ComponentSearch;
