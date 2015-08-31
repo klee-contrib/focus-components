@@ -11,19 +11,11 @@
     <script src="/focus-components/example/js/browser.js"></script>
     <!--  SCRIPT LOADING-->
     <script src="/focus-components/example/js/assets.js"></script>
-
-    <style type="text/css">
-    h1 {
-        text-align: center;
-    }
-    body {
-        padding:20px;
-    }
-    </style>
 </head>
 <body>
     <script type="text/babel">
     loadAssets().then((d)=>{
+        const Template = FocusComponents.template.component;
         const InputText = FocusComponents.common.input.text.component;
 
         const InputTextSample = React.createClass({
@@ -33,10 +25,9 @@
             * @return {object} React node
             */
             render() {
-                return <div>
-                    <h1>Input Text</h1>
+                return <Template title="Input text">
                     <h3>Without value</h3>
-                    <InputText placeHolder="Put your value here..." />
+                    <div><InputText placeHolder="Put your value here..." /></div>
 
                     <h3>With value</h3>
                     <InputText value="Lorem Ipsum" />
@@ -48,7 +39,7 @@
                     <InputText value="Lorem Ipsum" ref="myInputText"/>
                     <button onClick={()=>{alert(this.refs.myInputText.getValue())}}>Get the input value</button>
 
-                </div>
+                </Template>
             }
         });
 
