@@ -36,7 +36,8 @@ var displayTextMixin = {
       <div
         id={this.props.name}
         name={this.props.name}
-        className={this.props.style.class}
+        className={this.props.style.class},
+	style={this.props.style}
       >{this.renderValue()}</div>
     );
   }
