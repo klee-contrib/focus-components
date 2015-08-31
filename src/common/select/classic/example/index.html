@@ -1,101 +1,82 @@
 <!doctype html>
 <html class="no-js" lang="">
 <head>
-  <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>Focus component examples</title>
-  <meta name="description" content="Example of the component.">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <!-- Place favicon.ico in the root directory -->
-  <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
-  <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css"/>
-  <script src="https://fb.me/react-0.13.3.js"></script>
-  <script src="https://fb.me/JSXTransformer-0.13.3.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/3.9.3/lodash.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/backbone.js/1.2.1/backbone.js"></script>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Focus component examples</title>
+    <meta name="description" content="Example of the component.">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 
-  <!-- Material degign-->
-  <script src="//code.jquery.com/jquery-1.10.2.min.js"></script>
-  <script src='https://cdnjs.cloudflare.com/ajax/libs/i18next/1.6.3/i18next-1.6.3.min.js'></script>
-  <link rel="stylesheet" href="//cdn.jsdelivr.net/bootstrap.material-design/0.3.0/css/material-wfont.min.css">
-  <link rel="stylesheet" href="//cdn.jsdelivr.net/bootstrap.material-design/0.3.0/css/material.min.css">
-  <link rel="stylesheet" href="//cdn.jsdelivr.net/bootstrap.material-design/0.3.0/css/ripples.min.css">
-  <script src="//cdn.jsdelivr.net/bootstrap.material-design/0.3.0/js/material.min.js"></script>
-  <script src="//cdn.jsdelivr.net/bootstrap.material-design/0.3.0/js/ripples.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/showdown/0.4.0/Showdown.js"></script>
-
-  <!-- Include Date Range Picker -->
-  <script type="text/javascript" src="//cdn.jsdelivr.net/momentjs/2.9.0/moment.min.js"></script>
-  <script type="text/javascript" src="//cdn.jsdelivr.net/bootstrap.daterangepicker/1/daterangepicker.js"></script>
-  <link rel="stylesheet" type="text/css"
-        href="//cdn.jsdelivr.net/bootstrap.daterangepicker/1/daterangepicker-bs3.css"/>
-
-
-  <!-- Material degign-->
-  <script src="/focus-components/dist/js/focus.js"></script>
-  <script src="/focus-components/dist/js/focus-components.js"></script>
-  <script src="/focus-components/example/js/initFocus.js"></script>
-  <link rel="stylesheet" href="/focus-components/dist/css/focus-components.css"/>
-  <link rel="stylesheet" href="/focus-components/example/js/picker.css"/>
+    <!--  BABEL-->
+    <script src="/focus-components/example/js/browser.js"></script>
+    <!--  SCRIPT LOADING-->
+    <script src="/focus-components/example/js/assets.js"></script>
 </head>
-
 <body>
-  <script src="/focus-components/dist/js/focus.js"></script>
-  <script src="/focus-components/dist/js/focus-components.js"></script>
-  <div id="select-container"></div>
-  <script type="text/jsx">
-  $(function(){
-    Focus.components = FocusComponents;
-    var Select = Focus.components.common.select.classic.component;
-    var valuesExample = [
-      {code: "A", label: "aaaa"},
-      {code: "B", label: "bbbbb"},
-      {code: "C", label: "ccccc"},
-      {code: "D", label: "DDDD"}
-    ];
-    var valuesCustomExample = [
-      {id: "custom", name: "aaaaCustom"},
-      {id: "BCustom", name: "bbbbbCustom"},
-      {id: "CCustom", name: "cccccCustom"}
-    ];
-    var valuesInt = [
-        {code: 1, label: "aInt"},
-        {code: 2, label: "bInt"},
-        {code: 3, label: "cInt"}
-    ];
-    React.render(
-      <ul>
-        <li>
-          Liste simple sans valeur préselectionnée:
-          hasUndefined forcé
-          <Select value='B' hasUndefined={false} values={valuesExample}/>
-          Non requis
-          <Select value='B' isRequired={false} values={valuesExample}/>
-           Requis
-          <Select value='B' isRequired={true} values={valuesExample}/>
-        </li>
-        <li>
-          Liste simple avec valeur préselectionnée:
-          <Select values={valuesExample}/>
-        </li>
-        <li>
-          Liste simple avec redéfinition des code /value:
-          <Select values={valuesCustomExample} valueKey='id' labelKey='name'/>
-        </li>
-        <li>
-          Liste simple sans valeur préselectionnée:
-          <Select value={['B','C']} multiple={true} values={valuesExample}/>
-        </li>
-        <li>
-          Liste simple avec valeurs entières:
-          <Select value={1} values={valuesInt} />
-        </li>
-      </ul>,
-      document.querySelector("#select-container")
-    );
-  });
-  </script>
+    <script type="text/babel">
+    loadAssets().then((d)=>{
 
+        const Template = FocusComponents.template.component;
+        const SelectInput = FocusComponents.common.select.classic.component;
+
+
+        const valuesExample = [
+          {code: "A", label: "aaaa"},
+          {code: "B", label: "bbbbb"},
+          {code: "C", label: "ccccc"},
+          {code: "D", label: "DDDD"}
+        ];
+        const valuesCustomExample = [
+          {id: "custom", name: "aaaaCustom"},
+          {id: "BCustom", name: "bbbbbCustom"},
+          {id: "CCustom", name: "cccccCustom"}
+        ];
+        const valuesInt = [
+            {code: 1, label: "aInt"},
+            {code: 2, label: "bInt"},
+            {code: 3, label: "cInt"}
+        ];
+
+
+        const SelectInputSample = React.createClass({
+
+            /**
+            * Render the component.
+            * @return {object} React node
+            */
+            render() {
+                return <Template title="Select input">
+                    <h3>Liste simple sans valeur préselectionnée</h3>
+                    <p>
+                        <span>hasUndefined forcé</span>
+                        <SelectInput value='B' hasUndefined={false} values={valuesExample}/>
+                    </p>
+                    <p>
+                        <span>Non requis</span>
+                        <SelectInput value='B' isRequired={false} values={valuesExample}/>
+                    </p>
+                    <p>
+                        <span>Requis</span>
+                        <SelectInput value='B' isRequired={true} values={valuesExample}/>
+                    </p>
+                    <h3>Liste simple avec valeur préselectionnée</h3>
+                    <SelectInput values={valuesExample}/>
+
+                    <h3>Liste simple avec redéfinition des code /value</h3>
+                    <SelectInput values={valuesCustomExample} valueKey='id' labelKey='name'/>
+
+                    <h3>Liste simple sans valeur préselectionnée</h3>
+                    <SelectInput value={['B','C']} multiple={true} values={valuesExample}/>
+
+                    <h3>Liste simple avec valeurs entières</h3>
+                    <SelectInput value={1} values={valuesInt} />
+                </Template>
+            }
+        });
+
+        const mountNode = document.querySelector("body")
+        React.render(<SelectInputSample />, mountNode);
+    });
+    </script>
 </body>
-
 </html>
