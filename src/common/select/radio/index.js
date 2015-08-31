@@ -1,15 +1,18 @@
-var builder = require('focus').component.builder;
-var React = require('react');
-var type = require('focus').component.types;
+const builder = require('focus').component.builder;
+const React = require('react');
+const types = require('focus').component.types;
+const i18nBehaviour = require('../../i18n/mixin');
+const uuid = require('uuid').v4;
 
-var radioMixin = {
+const selectRadioMixin = {
+    mixins: [i18nBehaviour],
     /**
-     * Tag name.
-     */
+    * Tag name.
+    */
     displayName: 'select-radio',
 
     /** @inheritdoc */
-    getDefaultProps: function getDefaultProps(){
+    getDefaultProps() {
         return {
             values: [],
             valueKey: 'value',
@@ -18,88 +21,76 @@ var radioMixin = {
     },
 
     /** @inheritdoc */
-    propTypes: function propTypes(){
+    propTypes() {
         return {
-            value: type(['number', 'string']),
-            values: type('array'),
-            valueKey: type('string'),
-            labelKey: type('string'),
-            name: type('string'),
-            style: type('object')
+            values: types('array'),
+            selectedValue: types(['number', 'string']),
+            valueKey: types('string'),
+            labelKey: types('string')
         };
     },
 
     /** @inheritdoc */
-    getInitialState: function getInitialStateSelect() {
+    getInitialState() {
         return {
+            guid: uuid(),
             value: this.props.value
         };
     },
 
     /** @inheritdoc */
-    componentWillReceiveProps: function selectWillReceiveProps(newProps){
-        this.setState({value: newProps.value});
+    componentWillReceiveProps (newProps){
+        this.setState({
+            value: newProps.value
+        });
     },
 
     /**
      * Get the value from the select in the DOM.
+     * @return {string, number} selected value
      */
-    getValue: function getSelectTextValue() {
+    getValue () {
         return this.state.value;
     },
 
     /**
-     * handle click on radio
-     * @param {object} event - the click event
-     */
-    _handleChange: function selectOnChange(event){
+    * handle click on radio
+    * @param {object} event - the click event
+    */
+    _handleOnChange(event) {
+        //Set the state then call the change handler.
+        this.setState({value: event.target.value});
         if(this.props.onChange){
             this.props.onChange(event);
-        }else {
-            //Set the state then call the change handler.
-            this.setState({value: event.target.value});
         }
     },
 
     /**
-     * Render radio for each values
-     * @return {XML} the different radio values
-     */
-    renderRadios: function renderRadio(){
-        var key = 0;
+    * Render radio for each values
+    * @return {XML} the different radio values
+    */
+    renderSelectRadios() {
+        const {guid} = this.state;
         return this.props.values.map((val)=>{
-            var value = val[this.props.valueKey];
-            var label = val[this.props.labelKey];
-            var isChecked = value == this.state.value;
+            const value = val[this.props.valueKey];
+            const label = val[this.props.labelKey];
+            const isChecked = value === this.state.value;
             return (
-                <div className="radio radio-primary" key={key++}>
-                    <label>
-                        <input type="radio"
-                            name={this.props.name}
-                            value={value}
-                            checked={isChecked}
-                            onChange={this._handleChange}
-                        />
-                        <span className="circle"></span>
-                        <span className="check"></span>
-                        <div>{label}</div>
-                    </label>
-                </div>
+                <label className="mdl-radio mdl-js-radio mdl-js-ripple-effect">
+                    <input checked={isChecked} className="mdl-radio__button" name={guid} onChange={this._handleOnChange} type="radio" value={value} />
+                    <span className="mdl-radio__label">{this.i18n(label)}</span>
+                </label>
             );
         });
     },
-
     /** @inheritdoc */
-    render: function renderRadio(){
+    render() {
         return (
-            <div
-                className={this.props.style.className}
-                name={this.props.name}
-            >
-            {this.renderRadios()}
+            <div data-focus="select-radio">
+                {this.renderSelectRadios()}
             </div>
         );
     }
 };
 
-module.exports = builder(radioMixin);
+module.exports = builder(selectRadioMixin);
