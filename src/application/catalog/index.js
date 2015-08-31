@@ -1,6 +1,6 @@
 //dependencies
 const React = require('react');
-const {reduce} = require('lodash/collection');
+const {reduce, sortByOrder} = require('lodash/collection');
 const {Component} = React;
 //Other component
 const ComponentCard = require('./component-card');
@@ -54,20 +54,26 @@ const componentsMetas = [
         tags: 'super,form,pierr'
     }
 ];
-function searchAction(query){
-    const matchNames = reduce(componentsMetas, (result, comp, key) => {
-        if( -1 !== comp.name.indexOf(query)){
-            result[key] = (result[key] | 0) + 1;
+function searchService(query){
+    const matchQuery = reduce(componentsMetas, (result, comp, index) => {
+        const {name, description, tags} = comp;
+        let count = 0;
+        if( -1 !== name.indexOf(query)){
+            count++;
         }
         if( -1 !== comp.description.indexOf(query)){
-            result[key] = (result[key] | 0) + 1;
+            count++;
         }
         if( -1 !== comp.tags.indexOf(query)){
-            result[key] = (result[key] | 0) + 1;
+            count++;
         }
+        result[index] = {name, count, index};
         return result;
     }, {});
-    console.log('Match', matchNames);
+    const sortedMatch = sortByOrder(matchQuery, ['count'], ['desc']);
+    const sortedComponents = sortedMatch.map((comp) => componentsMetas[comp.index]);
+    console.log('Match', matchQuery);
+    console.log('Sorted ', sortedComponents);
 }
 
 class CatalogComponent extends Component{
@@ -82,7 +88,7 @@ class CatalogComponent extends Component{
         };
         return (
             <ul data-focus='catalogs' style={style}>
-            <li key='button'><button onClick={()=>{console.log(searchAction('My')); }}>Filter</button></li>
+            <li key='button'><button onClick={()=>{console.log(searchService('My')); }}>Filter</button></li>
             {data.map( (comp, idx) => <ComponentCard key={idx} {...comp}/> )}
             </ul>
         );
