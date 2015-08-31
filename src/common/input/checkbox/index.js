@@ -1,80 +1,73 @@
 const builder = require('focus').component.builder;
 const React = require('react');
-const type = require('focus').component.types;
+const types = require('focus').component.types;
 const i18nBehaviour = require('../../i18n/mixin');
 const fieldGridBehaviourMixin = require('../../mixin/field-grid-behaviour');
-const isBoolean = require('lodash/lang/isBoolean');
-// const uuid = require('uuid').v4;
 
 const checkBoxMixin = {
     mixins: [i18nBehaviour, fieldGridBehaviourMixin],
 
+    /** @inheritdoc */
+    getDefaultProps() {
+        return {
+            value: false
+        };
+    },
     /**
     * Properties validation.
     * @type {Object}
     */
     propTypes: {
-        value: type('bool'),
-        label: type('string'),
-        onChange: type(['function', 'object'])
+        value: types('bool'),
+        label: types('string'),
+        onChange: types('func')
+    },
+    /** @inheritdoc */
+    componentWillReceiveProps(newProps) {
+        this.setState({isChecked: newProps.value});
     },
     /** @inheritDoc */
     getInitialState() {
         return {
-            // guid: uuid(),
-            isChecked: this.props.isChecked ? this.props.isChecked : this.props.value
+            isChecked: this.props.value
         };
     },
     /**
     * Executed actions on change event.
     * @param  {event} event
     */
-    _onChange(event) {
+    _onChange() {
         this.setState({
             isChecked: !this.state.isChecked
-        }, this.props.onChange);
+        }, () => {
+            if(this.props.onChange) {
+                this.props.onChange(this.state.isChecked);
+            }
+        });
     },
     /**
     * Get the value from the input in  the DOM.
     * @returns The DOM node value.
     */
     getValue() {
-        const value = this.props.value;
-        const isChecked = this.state.isChecked;
-        if (value === undefined || isBoolean(value)) {
-            return !!isChecked;
-        }
-        return !!(isChecked ? value : undefined);
+        return this.state.isChecked;
     },
-    // /**
-    // * Build the label class name.
-    // * @returns The label classame with the grid informations.
-    // */
-    // _labelClassName() {
-    //     return `${this._getContentOffsetClassName()} ${this._getContentGridClassName()}`;
-    // },
     /**
     * Render the Checkbox HTML.
     * @return {VirtualDOM} - The virtual DOM of the checkbox.
     */
     render() {
-        const {isChecked, guid} = this.state;
-        const {label, value} = this.props;
+        const {isChecked} = this.state;
+        const {label} = this.props;
         return (
-            <label className="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" data-focus="input-checkbox" data-uid={guid}>
-            <input checked={isChecked} className="mdl-checkbox__input" onChange={this._onChange} type="checkbox" value={value} />
-            {label &&
-                <span className="mdl-checkbox__label">{this.i18n(label)}</span>
-            }
+            <label className="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" data-focus="input-checkbox">
+                <input checked={isChecked} className="mdl-checkbox__input" onChange={this._onChange} type="checkbox" value={isChecked} />
+                {label &&
+                    <span className="mdl-checkbox__label">{this.i18n(label)}</span>
+                }
             </label>
         );
     }
-    // /** @inheritedDoc*/
-    // componentWillReceiveProps: function checkBoxWillreceiveProps(nextProps) {
-    //     if (nextProps.value !== undefined) {
-    //         this.setState({isChecked: nextProps.value});
-    //     }
-    // }
 };
 
 module.exports = builder(checkBoxMixin);

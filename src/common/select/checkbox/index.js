@@ -1,108 +1,106 @@
-var builder = require('focus').component.builder;
-var React = require('react');
-var type = require('focus').component.types;
-var Checkbox = require('../../input/checkbox');
+const builder = require('focus').component.builder;
+const React = require('react');
+const type = require('focus').component.types;
+const Checkbox = require('../../input/checkbox').component;
+const i18nBehaviour = require('../../i18n/mixin');
+const {pull} = require('lodash/array');
 
-var checkboxMixin = {
+const selectCheckboxMixin = {
+    mixins: [i18nBehaviour],
     /**
-     * Tag name.
-     */
+    * Tag name.
+    */
     displayName: 'select-checkbox',
 
     /** @inheritdoc */
-    getDefaultProps: function getDefaultProps(){
+    getDefaultProps() {
         return {
-            value: [],
-            values: [],
-            valueKey: 'value',
-            labelKey: 'label'
+            values: [], // all values
+            selectedValues: [], // selected values list
+            valueKey: 'value', // key for the displayed value
+            labelKey: 'label' // key for the displayed label
         };
     },
-
     /** @inheritdoc */
-    propTypes: function propTypes(){
+    propTypes() {
         return {
-            value: type('array'),
             values: type('array'),
+            selectedValues: type('array'),
             valueKey: type('string'),
-            labelKey: type('string'),
-            name: type('string'),
-            style: type('object')
+            labelKey: type('string')
         };
     },
 
     /** @inheritdoc */
-    getInitialState: function getInitialStateSelect() {
+    getInitialState() {
         return {
-            value: this.props.value
+            selectedValues: this.props.selectedValues
         };
     },
 
     /** @inheritdoc */
-    componentWillReceiveProps: function selectWillReceiveProps(newProps){
-        this.setState({value: newProps.value});
+    componentWillReceiveProps(newProps) {
+        this.setState({selectedValues: newProps.value});
     },
 
     /**
-     * Get the value from the select in the DOM.
-     */
-    getValue: function getSelectTextValue() {
-        return this.state.value;
+    * Get the value from the select in the DOM.
+    * @return {string} value
+    */
+    getValues() {
+        return this.state.selectedValues;
     },
 
-    _handleChange: function handleChange(event){
-        if(this.props.onChange){
+    /**
+     * Handle a change of value.
+     * @param  {[type]} key       the key
+     * @param  {[type]} newStatus the new status
+     */
+    _handleCheckboxChange(key, newStatus) {
+        const selectedValues = this.state.selectedValues;
+        if(newStatus) {
+            selectedValues.push(key);
+        } else {
+            pull(selectedValues, key);
+        }
+        this.setState({value: selectedValues});
+        if(this.props.onChange) {
             this.props.onChange(event);
-        }else {
-            var currentValue = this.state.value;
-            var selectedValue = event.target.value;
-            var idx = currentValue.indexOf(event.target.value);
-            if(idx >= 0){
-                currentValue.splice(idx, 1);
-            }else{
-                currentValue.push(selectedValue);
-            }
-            this.setState({value: currentValue});
         }
     },
-
+    /**
+     * Closure to capture key and checbox status.
+     * @param  {[type]} key the key of checkbox
+     * @return {[type]} status closure
+     */
+    _getCheckboxChangeHandler(key) {
+        return (status) => {
+            this._handleCheckboxChange(key, status);
+        };
+    },
     /**
      * Render all selection checkbox.
+     * @return {ReactDOMNode} list of ReactDomNode
      */
-    renderCheckbox: function renderCheckbox(){
-        var key = 0;
+    renderCheckboxes() {
         return this.props.values.map((val)=>{
-            var value = val[this.props.valueKey];
-            var label = val[this.props.labelKey];
-            var isChecked = this.state.value.indexOf(value) >= 0;
+            const value = val[this.props.valueKey];
+            const label = val[this.props.labelKey];
+            const isChecked = 0 <= this.state.selectedValues.indexOf(value);
             return (
-                <div className="paper-cb" key={key++}>
-                    <label className="paper-cb-label">
-                        <input type="checkbox"
-                            name={this.props.name}
-                            value={value}
-                            checked={isChecked}
-                            onChange={this._handleChange}
-                            className='paper-cbx'
-                        />
-                        <div>{label}</div>
-                    </label>
-                </div>
+                <Checkbox label={this.i18n(label)} onChange={this._getCheckboxChangeHandler(value)} value={isChecked} />
             );
         });
     },
 
     /** @inheritdoc */
-    render: function render(){
+    render() {
         return (
-            <div
-                className={this.props.style.className}
-                name={this.props.name}
-            >
-            {this.renderCheckbox()}
+            <div data-focus="select-checkbox">
+            {this.renderCheckboxes()}
             </div>
         );
     }
-}
+};
 
-module.exports = builder(checkboxMixin);
+module.exports = builder(selectCheckboxMixin);
