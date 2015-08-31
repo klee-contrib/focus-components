@@ -76,7 +76,7 @@ function searchService(query){
     console.log('Sorted ', sortedComponents);
 }
 
-class CatalogComponent extends Component{
+class CatalogListComponent extends Component{
     constructor(props){
         super(props);
         this.state = {data: componentsMetas };
@@ -95,5 +95,5 @@ class CatalogComponent extends Component{
     }
 }
 //Static props.
-CatalogComponent.displayName = 'Catalog';
-module.exports = CatalogComponent;
+CatalogListComponent.displayName = 'Catalog';
+module.exports = CatalogListComponent;
