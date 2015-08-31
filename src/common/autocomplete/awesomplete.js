@@ -41,7 +41,6 @@ let Autocomplete = {
     getDefaultProps() {
         return {
             code: '',
-            isEdit: false,
             pickList: [],
             timeoutDuration: 200,
             validate: true
@@ -54,7 +53,6 @@ let Autocomplete = {
     propTypes: {
         code: types('string'), // the field code value
         inputChangeHandler: types('func'), // callback when input changed
-        isEdit: types('bool'), // is in edit mode
         pickList: types('array'), // list of values, looking like [{code: '', value: ''}, {code: '', value: ''}, ...]
         selectionHandler: types('func'), // selection callback
         timeoutDuration: types('number'), // the throttle duration of the input rate
