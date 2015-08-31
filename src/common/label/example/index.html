@@ -1,34 +1,36 @@
 <!doctype html>
 <html class="no-js" lang="">
 <head>
-  <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>Focus component examples</title>
-  <meta name="description" content="Example of the component.">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Focus component examples</title>
+    <meta name="description" content="Example of the component.">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 
-  <!-- Place favicon.ico in the root directory -->
-  <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
-  <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css" />
-  <script src="https://fb.me/react-0.13.3.js"></script>
-  <script src="/focus-components/dist/js/focus.js"></script>
-  <script src="/focus-components/dist/js/focus-components.js"></script>
-  <link rel="stylesheet" href="css/form.css"/>
+    <!--  BABEL-->
+    <script src="/focus-components/example/js/browser.js"></script>
+    <!--  SCRIPT LOADING-->
+    <script src="/focus-components/example/js/assets.js"></script>
 </head>
 <body>
-  <div id="form-container"></div>
-  <script type="text/javascript">
+    <script type="text/babel">
+    loadAssets().then((d)=>{
+        const Template = FocusComponents.template.component;
+        const Label = FocusComponents.common.label.component;
 
-  window.i18n = function i18n(data){ return "FR-"+data;};
-  Focus.components = FocusComponents;
-  var Label = Focus.components.common.label.component;
-  var Form = React.createElement(Label, {name: "labelTest", value: "labelKeyValue"})
-  React.render(
-    Form,
-    document.querySelector("#form-container")
-  );
-  </script>
+        const LabelSample = React.createClass({
+            render: function() {
+                return <Template title="Label">
+                    <form>
+                        <Label name="My awsome label" value="labelKeyValue" />
+                    </form>
+                </Template>
+            }
+        });
 
+        const mountNode = document.querySelector("body")
+        React.render(<LabelSample />, mountNode);
+    });
+    </script>
 </body>
-
 </html>

@@ -13,10 +13,8 @@
     <div id="form-container" class="container"></div>
     <script type='text/babel'>
     loadAssets().then(function(d){
-
-        Focus.components = FocusComponents;
         const Template = FocusComponents.template.component;
-        const Field = Focus.components.common.field.component;
+        const Field = FocusComponents.common.field.component;
         React.render(
             <Template title="Field">
                 <form>
