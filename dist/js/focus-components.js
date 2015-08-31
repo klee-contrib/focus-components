@@ -22830,7 +22830,7 @@ module.exports = uuid;
 },{"./rng":289}],291:[function(require,module,exports){
 module.exports={
     "name": "focusjs-components",
-    "version": "0.5.1-2",
+    "version": "0.5.1-3",
     "description": "Focus component repository.",
     "main": "index.js",
     "scripts": {
@@ -24430,7 +24430,6 @@ var Autocomplete = {
     getDefaultProps: function getDefaultProps() {
         return {
             code: "",
-            isEdit: false,
             pickList: [],
             timeoutDuration: 200,
             validate: true
@@ -24443,7 +24442,6 @@ var Autocomplete = {
     propTypes: {
         code: types("string"), // the field code value
         inputChangeHandler: types("func"), // callback when input changed
-        isEdit: types("bool"), // is in edit mode
         pickList: types("array"), // list of values, looking like [{code: '', value: ''}, {code: '', value: ''}, ...]
         selectionHandler: types("func"), // selection callback
         timeoutDuration: types("number"), // the throttle duration of the input rate
@@ -24633,7 +24631,8 @@ var AutocompleteFor = {
         code: types("string"),
         isEdit: types("bool"),
         loader: types("func"),
-        pickList: types("array")
+        pickList: types("array"),
+        selectionHandler: types("func")
     },
     /**
      * Get initial state
@@ -24682,6 +24681,7 @@ var AutocompleteFor = {
     _renderEdit: function _renderEdit() {
         var _props = this.props;
         var AutocompleteComponent = _props.AutocompleteComponent;
+        var selectionHandler = _props.selectionHandler;
         var value = _props.value;
         var pickList = this.state.pickList;
 
@@ -24689,7 +24689,8 @@ var AutocompleteFor = {
             code: value,
             inputChangeHandler: this._doLoad,
             pickList: pickList,
-            ref: "autocomplete"
+            ref: "autocomplete",
+            selectionHandler: selectionHandler
         });
     },
     /**
