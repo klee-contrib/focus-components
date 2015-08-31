@@ -27,6 +27,7 @@ class ComponentSearch extends Component{
     _handleOnClick(){
         const {store} = this.props;
         const query = React.findDOMNode(this.refs.input).value;
+        //Dispatch the new criteria value..
         dispatcher.handleViewAction({
                data: {criteria: {query}},
                type: 'update',
