@@ -67,7 +67,7 @@ const templateMixin = {
                 </nav>
               </div>
               <main className='mdl-layout__content mdl-color--grey-100'>
-                <div className='mdl-grid demo-content'>
+                <div className='demo-content'>
                     {this.props.children}
                 </div>
               </main>
