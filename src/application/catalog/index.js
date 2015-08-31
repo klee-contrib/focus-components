@@ -4,19 +4,22 @@ const {reduce, sortByOrder} = require('lodash/collection');
 const componentsMetas = require('./components.json');
 //service
 function _synchronousSearch(query){
+    if(!query){return componentsMetas; }
     const matchQuery = reduce(componentsMetas, (result, comp, index) => {
         const {name, description, tags} = comp;
         let count = 0;
         if( -1 !== name.indexOf(query)){
             count++;
         }
-        if( -1 !== comp.description.indexOf(query)){
+        if( -1 !== description.indexOf(query)){
             count++;
         }
-        if( -1 !== comp.tags.indexOf(query)){
+        if( -1 !== tags.indexOf(query)){
             count++;
         }
-        result[index] = {name, count, index};
+        if(0 < count){
+            result[index] = {name, count, index};
+        }
         return result;
     }, {});
     const sortedMatch = sortByOrder(matchQuery, ['count'], ['desc']);
@@ -25,10 +28,11 @@ function _synchronousSearch(query){
     console.log('Sorted ', sortedComponents);
     return sortedComponents;
 }
-function searchService(criteria){
+function searchService(options){
     return new Promise((success, failure)=>{
         try{
-            const res = _synchronousSearch(criteria.query);
+            const {criteria} = options.data;
+            const res = _synchronousSearch((criteria && criteria.query) || undefined);
             success(res);
         }catch(e){
             failure(e);
