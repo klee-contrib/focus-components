@@ -54,10 +54,16 @@ const templateMixin = {
                     <h2>Showcase</h2>
                 </header>
                 <nav className='demo-navigation mdl-navigation mdl-color--blue-grey-800'>
-                  <a className='mdl-navigation__link' href=''><i className='mdl-color-text--blue-grey-400 material-icons' role='presentation'>home</i>Home</a>
-
+                  <a className='mdl-navigation__link' href='/'><i className='mdl-color-text--blue-grey-400 material-icons' role='presentation'>home</i>Home</a>
+                  <a className='mdl-navigation__link' href='/'><i className='mdl-color-text--blue-grey-400 material-icons' role='presentation'>insert_link</i>My awsome component 1</a>
+                  <a className='mdl-navigation__link' href='/'><i className='mdl-color-text--blue-grey-400 material-icons' role='presentation'>insert_link</i>My awsome component 2</a>
+                  <a className='mdl-navigation__link' href='/'><i className='mdl-color-text--blue-grey-400 material-icons' role='presentation'>insert_link</i>My awsome component 3</a>
+                  <a className='mdl-navigation__link' href='/'><i className='mdl-color-text--blue-grey-400 material-icons' role='presentation'>insert_link</i>My awsome component 4</a>
+                  <a className='mdl-navigation__link' href='/'><i className='mdl-color-text--blue-grey-400 material-icons' role='presentation'>insert_link</i>My awsome component 5</a>
+                  <a className='mdl-navigation__link' href='/'><i className='mdl-color-text--blue-grey-400 material-icons' role='presentation'>insert_link</i>My awsome component 6</a>
                   <div className='mdl-layout-spacer'></div>
-                  <a className='mdl-navigation__link' href=''><i className='mdl-color-text--blue-grey-400 material-icons' role='presentation'>help_outline</i><span className='visuallyhidden'>Help</span></a>
+                  <a className='mdl-navigation__link' href='http://kleegroup.github.io/focus-docs/'><i className='mdl-color-text--blue-grey-400 material-icons' role='presentation'>help_outline</i>Documentation</a>
+                  <a className='mdl-navigation__link' href='https://github.com/KleeGroup/focus-components'><i className='mdl-color-text--blue-grey-400 fa fa-github' role='presentation'></i>Github</a>
                 </nav>
               </div>
               <main className='mdl-layout__content mdl-color--grey-100'>
