@@ -1,6 +1,31 @@
 
 [data-focus="template"] {
     .demo-drawer-header {
-        background-image: url('../assets/logo-focus.png') no-repeat top left;
+        padding: 10px;
+        h1 {
+            margin: 0;
+            font-size: 22px;
+            background-image: url('/focus-components/example/toto/logo-focus.png');
+            background-position: 50%;
+            background-repeat: no-repeat;
+            padding-top: 90px;
+            text-align: center;
+            text-transform: uppercase;
+            font-family: Roboto;
+            font-weight: lighter;
+            strong {
+                margin: 0 3px;
+            }
+        }
+        h2 {
+            margin: 5px 0;
+            font-size: 20px;
+            text-align: center;
+            line-height: normal;
+            padding: 0;
+            text-transform: uppercase;
+            font-family: Roboto;
+            font-weight: lighter;
+        }
     }
 }

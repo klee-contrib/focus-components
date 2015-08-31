@@ -47,7 +47,11 @@ const templateMixin = {
               </header>
               <div className='demo-drawer mdl-layout__drawer mdl-color--blue-grey-900 mdl-color-text--blue-grey-50'>
                 <header className='demo-drawer-header'>
-
+                    <h1>
+                        <strong>FOCUS</strong>
+                        <span>components</span>
+                    </h1>
+                    <h2>Showcase</h2>
                 </header>
                 <nav className='demo-navigation mdl-navigation mdl-color--blue-grey-800'>
                   <a className='mdl-navigation__link' href=''><i className='mdl-color-text--blue-grey-400 material-icons' role='presentation'>home</i>Home</a>

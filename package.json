@@ -1,300 +1,300 @@
 {
-  "name": "focusjs-components",
-  "version": "0.5.1-2",
-  "description": "Focus component repository.",
-  "main": "index.js",
-  "scripts": {
-    "test": "node ./node_modules/mocha/bin/mocha src/**/__tests__/**/*.js",
-    "example": "node static-server.js",
-    "build:server": "node ./node_modules/babel/bin/babel.js src --out-dir lib",
-    "build:browser": "node ./node_modules/gulp/bin/gulp.js build",
-    "build": "npm run build:server && npm run build:browser",
-    "watch": "node ./node_modules/gulp/bin/gulp.js watch",
-    "prepublish": "npm run build",
-    "serve": "npm run build:example && npm run build:browser && node static-server.js",
-    "build:example": "node ./node_modules/babel/bin/babel.js scripts/script-loader.js --out-file example/js/script-loader.js && node ./node_modules/babel/bin/babel.js scripts/style-loader.js --out-file example/js/style-loader.js && node ./node_modules/babel/bin/babel.js scripts/load-dependencies.js --out-file example/js/load-dependencies.js && cat example/js/script-loader.js example/js/style-loader.js example/js/load-dependencies.js > example/js/assets.js"
-  },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/KleeGroup/focus-components.git"
-  },
-  "keywords": [
-    "react",
-    "focus"
-  ],
-  "author": "DT KLEE <direction.technique@kleegroup.com>",
-  "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/KleeGroup/focus-components/issues"
-  },
-  "components": [
-    {
-      "name": "template",
-      "path": "template"
+    "name": "focusjs-components",
+    "version": "0.5.1-2",
+    "description": "Focus component repository.",
+    "main": "index.js",
+    "scripts": {
+        "test": "node ./node_modules/mocha/bin/mocha src/**/__tests__/**/*.js",
+        "example": "node static-server.js",
+        "build:server": "node ./node_modules/babel/bin/babel.js src --out-dir lib",
+        "build:browser": "node ./node_modules/gulp/bin/gulp.js build",
+        "build": "npm run build:server && npm run build:browser",
+        "watch": "node ./node_modules/gulp/bin/gulp.js watch",
+        "prepublish": "npm run build",
+        "serve": "npm run build:example && npm run build:browser && node static-server.js",
+        "build:example": "node ./node_modules/babel/bin/babel.js scripts/script-loader.js --out-file example/js/script-loader.js && node ./node_modules/babel/bin/babel.js scripts/style-loader.js --out-file example/js/style-loader.js && node ./node_modules/babel/bin/babel.js scripts/load-dependencies.js --out-file example/js/load-dependencies.js && cat example/js/script-loader.js example/js/style-loader.js example/js/load-dependencies.js > example/js/assets.js"
     },
-    {
-      "name": "catalog",
-      "path": "application/catalog"
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/KleeGroup/focus-components.git"
     },
-    {
-      "name": "menu",
-      "path": "application/menu"
+    "keywords": [
+        "react",
+        "focus"
+    ],
+    "author": "DT KLEE <direction.technique@kleegroup.com>",
+    "license": "MIT",
+    "bugs": {
+        "url": "https://github.com/KleeGroup/focus-components/issues"
     },
-    {
-      "name": "bar",
-      "path": "application/bar"
+    "components": [
+        {
+            "name": "template",
+            "path": "template"
+        },
+        {
+            "name": "catalog",
+            "path": "application/catalog"
+        },
+        {
+            "name": "menu",
+            "path": "application/menu"
+        },
+        {
+            "name": "bar",
+            "path": "application/bar"
+        },
+        {
+            "name": "message-center",
+            "path": "application/message-center"
+        },
+        {
+            "name": "error-center",
+            "path": "application/error-center"
+        },
+        {
+            "name": "header",
+            "path": "application/header"
+        },
+        {
+            "name": "layout",
+            "path": "application/layout"
+        },
+        {
+            "name": "cartridge",
+            "path": "application/cartridge"
+        },
+        {
+            "name": "content-actions",
+            "path": "application/content-actions"
+        },
+        {
+            "name": "content-bar",
+            "path": "application/content-bar"
+        },
+        {
+            "name": "search-bar",
+            "path": "search/search-bar"
+        },
+        {
+            "name": "block",
+            "path": "common/block"
+        },
+        {
+            "name": "panel",
+            "path": "common/panel"
+        },
+        {
+            "name": "field",
+            "path": "common/field"
+        },
+        {
+            "name": "role",
+            "path": "common/role"
+        },
+        {
+            "name": "icon",
+            "path": "common/icon"
+        },
+        {
+            "name": "display-checkbox",
+            "path": "common/display/checkbox"
+        },
+        {
+            "name": "detail",
+            "path": "common/detail"
+        },
+        {
+            "name": "autocomplete",
+            "path": "common/autocomplete"
+        },
+        {
+            "name": "input-text",
+            "path": "common/input/text"
+        },
+        {
+            "name": "progress-bar",
+            "path": "common/progress-bar"
+        },
+        {
+            "name": "loading-bar",
+            "path": "application/loading-bar"
+        },
+        {
+            "name": "input-checkbox",
+            "path": "common/input/checkbox"
+        },
+        {
+            "name": "input-markdown",
+            "path": "common/input/markdown"
+        },
+        {
+            "name": "input-toggle",
+            "path": "common/input/toggle"
+        },
+        {
+            "name": "input-date",
+            "path": "common/input/date"
+        },
+        {
+            "name": "input-textarea",
+            "path": "common/input/textarea"
+        },
+        {
+            "name": "select-classic",
+            "path": "common/select/classic"
+        },
+        {
+            "name": "select-radio",
+            "path": "common/select/radio"
+        },
+        {
+            "name": "select-checkbox",
+            "path": "common/select/checkbox"
+        },
+        {
+            "name": "title",
+            "path": "common/title"
+        },
+        {
+            "name": "topic-displayer",
+            "path": "common/topic-displayer"
+        },
+        {
+            "name": "label",
+            "path": "common/label"
+        },
+        {
+            "name": "form",
+            "path": "common/form"
+        },
+        {
+            "name": "img",
+            "path": "common/img"
+        },
+        {
+            "name": "select-action",
+            "path": "common/select-action"
+        },
+        {
+            "name": "scrollspy",
+            "path": "common/scrollspy"
+        },
+        {
+            "name": "live-filter",
+            "path": "search/live-filter"
+        },
+        {
+            "name": "selection-list",
+            "path": "list/selection"
+        },
+        {
+            "name": "list-action-bar",
+            "path": "list/action-bar"
+        },
+        {
+            "name": "list-action-contextual",
+            "path": "list/action-contextual"
+        },
+        {
+            "name": "list-summary",
+            "path": "list/summary"
+        },
+        {
+            "name": "button-action",
+            "path": "common/button/action"
+        },
+        {
+            "name": "button-back-to-top",
+            "path": "common/button/back-to-top"
+        },
+        {
+            "name": "block",
+            "path": "common/block"
+        },
+        {
+            "name": "list-page",
+            "path": "page/list"
+        },
+        {
+            "name": "detail-page",
+            "path": "page/detail"
+        },
+        {
+            "name": "quick-search",
+            "path": "page/search/quick-search"
+        },
+        {
+            "name": "advanced-search",
+            "path": "page/search/advanced-search"
+        },
+        {
+            "name": "popin",
+            "path": "application/popin"
+        },
+        {
+            "name": "confirmation-popin",
+            "path": "application/confirmation-popin"
+        },
+        {
+            "name": "message",
+            "path": "message"
+        },
+        {
+            "name": "timeline",
+            "path": "list/timeline"
+        },
+        {
+            "name": "table",
+            "path": "list/table"
+        }
+    ],
+    "homepage": "https://github.com/KleeGroup/focus-components",
+    "dependencies": {
+        "babel-core": "^5.8.22",
+        "babel-eslint": "4.0.5",
+        "eslint": "0.24.1",
+        "eslint-plugin-filenames": "0.1.1",
+        "eslint-plugin-react": "2.7.1",
+        "eslint-plugin-require-jsdoc": "^1.0.4",
+        "eslint-plugin-require-jsdoc-focus": "0.1.0",
+        "focusjs": "^0.8.2-beta",
+        "immutable": "^3.7.4",
+        "lodash": "^3.10.1",
+        "material-design-icons": "^2.0.0",
+        "moment": "^2.10.6",
+        "object-assign": "^2.0.0",
+        "react": "^0.13.3",
+        "uuid": "^2.0.1"
     },
-    {
-      "name": "message-center",
-      "path": "application/message-center"
-    },
-    {
-      "name": "error-center",
-      "path": "application/error-center"
-    },
-    {
-      "name": "header",
-      "path": "application/header"
-    },
-    {
-      "name": "layout",
-      "path": "application/layout"
-    },
-    {
-      "name": "cartridge",
-      "path": "application/cartridge"
-    },
-    {
-      "name": "content-actions",
-      "path": "application/content-actions"
-    },
-    {
-      "name": "content-bar",
-      "path": "application/content-bar"
-    },
-    {
-      "name": "search-bar",
-      "path": "search/search-bar"
-    },
-    {
-      "name": "block",
-      "path": "common/block"
-    },
-    {
-      "name": "panel",
-      "path": "common/panel"
-    },
-    {
-      "name": "field",
-      "path": "common/field"
-    },
-    {
-      "name": "role",
-      "path": "common/role"
-    },
-    {
-      "name": "icon",
-      "path": "common/icon"
-    },
-    {
-      "name": "display-checkbox",
-      "path": "common/display/checkbox"
-    },
-    {
-      "name": "detail",
-      "path": "common/detail"
-    },
-    {
-      "name": "autocomplete",
-      "path": "common/autocomplete"
-    },
-    {
-      "name": "input-text",
-      "path": "common/input/text"
-    },
-    {
-      "name": "progress-bar",
-      "path": "common/progress-bar"
-    },
-    {
-      "name": "loading-bar",
-      "path": "application/loading-bar"
-    },
-    {
-      "name": "input-checkbox",
-      "path": "common/input/checkbox"
-    },
-    {
-      "name": "input-markdown",
-      "path": "common/input/markdown"
-    },
-    {
-      "name": "input-toggle",
-      "path": "common/input/toggle"
-    },
-    {
-      "name": "input-date",
-      "path": "common/input/date"
-    },
-    {
-      "name": "input-textarea",
-      "path": "common/input/textarea"
-    },
-    {
-      "name": "select-classic",
-      "path": "common/select/classic"
-    },
-    {
-      "name": "select-radio",
-      "path": "common/select/radio"
-    },
-    {
-      "name": "select-checkbox",
-      "path": "common/select/checkbox"
-    },
-    {
-      "name": "title",
-      "path": "common/title"
-    },
-    {
-      "name": "topic-displayer",
-      "path": "common/topic-displayer"
-    },
-    {
-      "name": "label",
-      "path": "common/label"
-    },
-    {
-      "name": "form",
-      "path": "common/form"
-    },
-    {
-      "name": "img",
-      "path": "common/img"
-    },
-    {
-      "name": "select-action",
-      "path": "common/select-action"
-    },
-    {
-      "name": "scrollspy",
-      "path": "common/scrollspy"
-    },
-    {
-      "name": "live-filter",
-      "path": "search/live-filter"
-    },
-    {
-      "name": "selection-list",
-      "path": "list/selection"
-    },
-    {
-      "name": "list-action-bar",
-      "path": "list/action-bar"
-    },
-    {
-      "name": "list-action-contextual",
-      "path": "list/action-contextual"
-    },
-    {
-      "name": "list-summary",
-      "path": "list/summary"
-    },
-    {
-      "name": "button-action",
-      "path": "common/button/action"
-    },
-    {
-      "name": "button-back-to-top",
-      "path": "common/button/back-to-top"
-    },
-    {
-      "name": "block",
-      "path": "common/block"
-    },
-    {
-      "name": "list-page",
-      "path": "page/list"
-    },
-    {
-      "name": "detail-page",
-      "path": "page/detail"
-    },
-    {
-      "name": "quick-search",
-      "path": "page/search/quick-search"
-    },
-    {
-      "name": "advanced-search",
-      "path": "page/search/advanced-search"
-    },
-    {
-      "name": "popin",
-      "path": "application/popin"
-    },
-    {
-      "name": "confirmation-popin",
-      "path": "application/confirmation-popin"
-    },
-    {
-      "name": "message",
-      "path": "message"
-    },
-    {
-      "name": "timeline",
-      "path": "list/timeline"
-    },
-    {
-      "name": "table",
-      "path": "list/table"
+    "devDependencies": {
+        "babel": "^5.8.21",
+        "babel-core": "^5.8.22",
+        "babel-eslint": "^3.1.26",
+        "babel-plugin-runtime": "^1.0.7",
+        "babelify": "^5.0.3",
+        "bootstrap-material": "^0.1.5",
+        "browser-sync": "^2.2.1",
+        "browserify": "^9.0.3",
+        "chai": "^3.2.0",
+        "chai-subset": "^1.0.1",
+        "eslint": "1.0.0-rc-1",
+        "eslint-config-focus": "git+https://github.com/KleeGroup/eslint-config-focus.git",
+        "eslint-plugin-react": "^2.7.1",
+        "express": "^4.12.0",
+        "focus": "git+https://git@github.com/KleeGroup/focus.git",
+        "gulp": "^3.8.11",
+        "gulp-babel": "^5.2.0",
+        "gulp-concat": "^2.5.2",
+        "gulp-if": "^1.2.5",
+        "gulp-react": "^3.0.0",
+        "gulp-sass": "^1.3.3",
+        "jquery": "^2.1.4",
+        "literalify": "^0.4.0",
+        "mocha": "^2.2.5",
+        "react-tools": "^0.12.2",
+        "reactify": "^1.0.0",
+        "vinyl-source-stream": "^1.0.0",
+        "watchify": "^2.4.0"
     }
-  ],
-  "homepage": "https://github.com/KleeGroup/focus-components",
-  "dependencies": {
-    "babel-core": "^5.8.22",
-    "babel-eslint": "4.0.5",
-    "eslint": "0.24.1",
-    "eslint-plugin-filenames": "0.1.1",
-    "eslint-plugin-react": "2.7.1",
-    "eslint-plugin-require-jsdoc": "^1.0.4",
-    "eslint-plugin-require-jsdoc-focus": "0.1.0",
-    "focusjs": "^0.8.2-beta",
-    "immutable": "^3.7.4",
-    "lodash": "^3.10.1",
-    "material-design-icons": "^2.0.0",
-    "moment": "^2.10.6",
-    "object-assign": "^2.0.0",
-    "react": "^0.13.3",
-    "uuid": "^2.0.1"
-  },
-  "devDependencies": {
-    "babel": "^5.8.21",
-    "babel-core": "^5.8.22",
-    "babel-eslint": "^3.1.26",
-    "babel-plugin-runtime": "^1.0.7",
-    "babelify": "^5.0.3",
-    "bootstrap-material": "^0.1.5",
-    "browser-sync": "^2.2.1",
-    "browserify": "^9.0.3",
-    "chai": "^3.2.0",
-    "chai-subset": "^1.0.1",
-    "eslint": "1.0.0-rc-1",
-    "eslint-config-focus": "git+https://github.com/KleeGroup/eslint-config-focus.git",
-    "eslint-plugin-react": "^2.7.1",
-    "express": "^4.12.0",
-    "focus": "git+https://git@github.com/KleeGroup/focus.git",
-    "gulp": "^3.8.11",
-    "gulp-babel": "^5.2.0",
-    "gulp-concat": "^2.5.2",
-    "gulp-if": "^1.2.5",
-    "gulp-react": "^3.0.0",
-    "gulp-sass": "^1.3.3",
-    "jquery": "^2.1.4",
-    "literalify": "^0.4.0",
-    "mocha": "^2.2.5",
-    "react-tools": "^0.12.2",
-    "reactify": "^1.0.0",
-    "vinyl-source-stream": "^1.0.0",
-    "watchify": "^2.4.0"
-  }
 }
