@@ -1,6 +1,6 @@
 //dependencies
 const React = require('react');
-const {filter} = require('lodash/collection');
+const {reduce} = require('lodash/collection');
 const {Component} = React;
 //Other component
 const ComponentCard = require('./component-card');
@@ -55,9 +55,19 @@ const componentsMetas = [
     }
 ];
 function searchAction(query){
-    return filter(componentsMetas, (comp)=>{
-        return comp.name.indexOf(query) !== -1;
-    });
+    const matchNames = reduce(componentsMetas, (result, comp, key) => {
+        if( -1 !== comp.name.indexOf(query)){
+            result[key] = (result[key] | 0) + 1;
+        }
+        if( -1 !== comp.description.indexOf(query)){
+            result[key] = (result[key] | 0) + 1;
+        }
+        if( -1 !== comp.tags.indexOf(query)){
+            result[key] = (result[key] | 0) + 1;
+        }
+        return result;
+    }, {});
+    console.log('Match', matchNames);
 }
 
 class CatalogComponent extends Component{
@@ -72,8 +82,8 @@ class CatalogComponent extends Component{
         };
         return (
             <ul data-focus='catalogs' style={style}>
-            <li><button onClick={()=>{console.log(searchAction('My')); }}>Filter</button></li>
-            {data.map( (comp) => <ComponentCard {...comp}/> )}
+            <li key='button'><button onClick={()=>{console.log(searchAction('My')); }}>Filter</button></li>
+            {data.map( (comp, idx) => <ComponentCard key={idx} {...comp}/> )}
             </ul>
         );
     }
