@@ -33,7 +33,8 @@ let AutocompleteFor = {
         code: types('string'),
         isEdit: types('bool'),
         loader: types('func'),
-        pickList: types('array')
+        pickList: types('array'),
+        selectionHandler: types('func')
     },
     /**
      * Get initial state
@@ -72,7 +73,7 @@ let AutocompleteFor = {
      * @return {HTML} rendered element
      */
     _renderEdit() {
-        let {AutocompleteComponent, value} = this.props;
+        let {AutocompleteComponent, selectionHandler, value} = this.props;
         let {pickList} = this.state;
         return (
             <AutocompleteComponent
@@ -80,6 +81,7 @@ let AutocompleteFor = {
                 inputChangeHandler={this._doLoad}
                 pickList={pickList}
                 ref='autocomplete'
+                selectionHandler={selectionHandler}
             />
         );
     },
