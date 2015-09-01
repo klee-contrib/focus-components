@@ -1,6 +1,6 @@
 // Dependencies
 const builder = require('focus').component.builder;
-const type = require('focus').component.types;
+const types = require('focus').component.types;
 
 // Mixins
 const Stylabe = require('../../mixin/stylable');
@@ -25,7 +25,6 @@ const Scrollspy = {
     getDefaultProps() {
         return {
             titleSelector: '[data-spy]',
-            scrolledElementSelector: 'body',
             affixOffset: 0
         };
     },
@@ -33,8 +32,8 @@ const Scrollspy = {
     * Props validation
     */
     propTypes: {
-        titleSelector: type('string'),
-        affixOffset: type('number')
+        titleSelector: types('string'),
+        affixOffset: types('number')
     },
     /** @inheritDoc */
     getInitialState() {
@@ -50,22 +49,11 @@ const Scrollspy = {
             titleList: this._getTitleList()
         });
         this._scrollCarrier = window;
-        this._attachScrollSpy();
-        this._scrollSpy();
-    },
-    /**
-    * Attach the scroll spy
-    * @private
-    */
-    _attachScrollSpy() {
         this._scrollCarrier.addEventListener('scroll', this._scrollSpy);
         this._scrollCarrier.addEventListener('resize', this._scrollSpy);
+        this._scrollSpy();
     },
-    /**
-    * Detach the scroll spy
-    * @private
-    */
-    _detachScrollSpy() {
+    componentWillUnMount() {
         this._scrollCarrier.removeEventListener('scroll', this._scrollSpy);
         this._scrollCarrier.removeEventListener('resize', this._scrollSpy);
     },
