@@ -6,7 +6,6 @@ logs
 lib/
 dist/
 
-showcase/components.json
 
 # Runtime data
 pids
