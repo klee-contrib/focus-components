@@ -1,6 +1,6 @@
 {
     "name": "focusjs-components",
-    "version": "0.5.1-4",
+    "version": "0.5.1-5",
     "description": "Focus component repository.",
     "main": "index.js",
     "scripts": {
