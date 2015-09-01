@@ -6,8 +6,7 @@ logs
 lib/
 dist/
 
-# ignore showcase
-showcase/*
+showcase/components.json
 
 # Runtime data
 pids

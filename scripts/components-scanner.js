@@ -1,12 +1,12 @@
 var pick = require('lodash/object/pick');
 var dir = require('node-dir');
 var components = [];
+var assign = require('object-assign');
 var exampleIndex = {};
 var fs = require('fs');
 function _processFileName(fileName){
     var path = fileName.split('\\src\\')[1];
-    console.log('PATHHHHHHHHHHHH', path);
-    return {dot: path.replace(/\\/g, '.'), path: '../src/' + path.replace(/\\/g, '/')};
+    return {dot: path.replace(/\\/g, '.'), path: './src/' + path.replace(/\\/g, '/')};
 }
 
 dir.readFiles('/dev/focus-components/src',
@@ -15,19 +15,25 @@ dir.readFiles('/dev/focus-components/src',
         if (err) {throw err;}
         var componentInfos = JSON.parse(content);
         //push the components into the list
-        components.push(pick(componentInfos, 'name','version','description','keywords','photo'));
         var processName = _processFileName(filename);
-        console.log('fn', filename, 'process', processName);
-         exampleIndex[processName.dot] = {
-             path :  processName.path/*,
-             content: fs.readFileSync(filename + '/example/index.js')*/
-         };
-        //console.log('content:', content);
+        var packageInfos = pick(componentInfos, 'name','version','description','keywords','photo','homepage');
+        var code = fs.readFileSync(processName.path.split('/package.json')[0] + '/example/index.js', {encoding: 'utf-8'});
+        components.push(assign({}, packageInfos, {code: code}));
         next();
     },
     function(err, files){
         if (err) {throw err;}
-        console.log('finished reading files:', files);
-        console.log('components', components);
-        console.log('exampleIndex', exampleIndex);
+            //console.log('finished reading files:', files);
+            // console.log('components', components);
+        _createComponentJSON(components, './showcase/components.json')
 });
+
+function _createComponentJSON(data, outputFilename){
+    fs.writeFile(outputFilename, JSON.stringify(data, null, 4), function(err) {
+        if(err) {
+          console.log(err);
+        } else {
+          console.log("Components.json saved to " + outputFilename);
+        }
+    });
+}
