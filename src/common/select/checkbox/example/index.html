@@ -36,7 +36,7 @@
             render() {
                 return <Template title="Select checkbox">
                     <SelectCheckbox
-                        selectedValues={["B"]}
+                        value={["B"]}
                         values={[{value: "A", label: "Value A"},{value: "B", label: "Value B"}, {value: "C", label: "Value C"}, {value: "D", label: "Value D"}]} ref="mySelectCheckbox" />
                     <br/>
                     <button onClick={this.handleGetValueClick}>Get the selected values</button>

@@ -16,7 +16,7 @@ const selectCheckboxMixin = {
     getDefaultProps() {
         return {
             values: [], // all values
-            selectedValues: [], // selected values list
+            value: [], // selected values list
             valueKey: 'value', // key for the displayed value
             labelKey: 'label' // key for the displayed label
         };
@@ -25,7 +25,7 @@ const selectCheckboxMixin = {
     propTypes() {
         return {
             values: type('array'),
-            selectedValues: type('array'),
+            value: type('array'),
             valueKey: type('string'),
             labelKey: type('string')
         };
@@ -34,7 +34,7 @@ const selectCheckboxMixin = {
     /** @inheritdoc */
     getInitialState() {
         return {
-            selectedValues: this.props.selectedValues
+            selectedValues: this.props.value
         };
     },
 
@@ -83,13 +83,12 @@ const selectCheckboxMixin = {
      * @return {ReactDOMNode} list of ReactDomNode
      */
     renderCheckboxes() {
-        let key = 0;
-        return this.props.values.map((val)=>{
+        return this.props.values.map((val, idx) => {
             const value = val[this.props.valueKey];
             const label = val[this.props.labelKey];
             const isChecked = 0 <= this.state.selectedValues.indexOf(value);
             return (
-                <Checkbox key={key++} label={this.i18n(label)} onChange={this._getCheckboxChangeHandler(value)} value={isChecked} />
+                <Checkbox key={idx} label={this.i18n(label)} onChange={this._getCheckboxChangeHandler(value)} value={isChecked} />
             );
         });
     },

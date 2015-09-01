@@ -21,13 +21,11 @@ const selectRadioMixin = {
     },
 
     /** @inheritdoc */
-    propTypes() {
-        return {
-            values: types('array'),
-            selectedValue: types(['number', 'string']),
-            valueKey: types('string'),
-            labelKey: types('string')
-        };
+    propTypes: {
+        values: types('array'),
+        value: types(['number', 'string']),
+        valueKey: types('string'),
+        labelKey: types('string')
     },
 
     /** @inheritdoc */

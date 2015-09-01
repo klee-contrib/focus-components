@@ -35,8 +35,8 @@
             render() {
                 return <Template title="Select radio">
                     <SelectRadio
-                        selectedValues='B'
-                        values={[{value: "A", label: "Value A"},{value: "B", label: "Value B"}, {value: "C", label: "Value C"}]} ref="mySelectRadio" />
+                        value='B'
+                        values={[{value: "A", label: "Value A"}, {value: "B", label: "Value B"}, {value: "C", label: "Value C"}]} ref="mySelectRadio" />
                     <br/>
                     <button onClick={this.handleGetValueClick}>Get the selected value</button>
                 </Template>
