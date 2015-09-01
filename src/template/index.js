@@ -21,7 +21,7 @@ const templateMixin = {
     render() {
 
         return (
-            <div className='demo-layout mdl-layout mdl-js-layout mdl-layout--fixed-drawer mdl-layout--fixed-header' data-focus='template'>
+            <div className='demo-layout mdl-layout mdl-layout--fixed-drawer mdl-layout--fixed-header' data-focus='template'>
               <header className='demo-header mdl-layout__header mdl-color--white mdl-color--grey-100 mdl-color-text--grey-600'>
                 <div className='mdl-layout__header-row'>
                   <span className='mdl-layout-title'>{this.i18n(this.props.title)}</span>

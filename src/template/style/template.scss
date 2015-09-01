@@ -1,32 +1,50 @@
 
 [data-focus="template"] {
-    .demo-drawer-header {
-        padding: 10px;
-        h1 {
-            margin: 0;
-            font-size: 22px;
-            background-image: url('/focus-components/example/toto/logo-focus.png');
-            background-position: 50%;
-            background-repeat: no-repeat;
-            padding-top: 90px;
-            text-align: center;
-            text-transform: uppercase;
-            font-family: Roboto;
-            font-weight: lighter;
-            strong {
-                margin: 0 3px;
+    &.mdl-layout {
+        position: static;
+        .mdl-layout__header {
+            position: fixed;
+        }
+        @media (max-width: 1024px) {
+            .mdl-layout__header {
+                margin-left: 0;
+                width: 100%;
+                .mdl-layout__header-row {
+                    padding-left: 40px;
+                }
             }
         }
-        h2 {
-            margin: 5px 0;
-            font-size: 14px;
-            text-align: center;
-            line-height: normal;
-            padding: 0;
-            text-transform: uppercase;
-            font-family: Roboto;
-            /*font-weight: lighter;*/
-            color:#757575;
+        .demo-drawer {
+            position: fixed;
+            header.demo-drawer-header {
+                padding: 10px;
+                h1 {
+                    margin: 0;
+                    font-size: 22px;
+                    background-image: url('/focus-components/example/toto/logo-focus.png');
+                    background-position: 50%;
+                    background-repeat: no-repeat;
+                    padding-top: 90px;
+                    text-align: center;
+                    text-transform: uppercase;
+                    font-family: Roboto;
+                    font-weight: lighter;
+                    strong {
+                        margin: 0 3px 0 0;
+                    }
+                }
+                h2 {
+                    margin: 5px 0;
+                    font-size: 14px;
+                    text-align: center;
+                    line-height: normal;
+                    padding: 0;
+                    text-transform: uppercase;
+                    font-family: Roboto;
+                    /*font-weight: lighter;*/
+                    color:#757575;
+                }
+            }
         }
     }
 
@@ -38,8 +56,4 @@
     .demo-content {
         padding: 20px 80px;
     }
-
-    // .mdl-layout__drawer .mdl-navigation .mdl-navigation__link {
-    //     padding: 40px 8px;
-    // }
 }

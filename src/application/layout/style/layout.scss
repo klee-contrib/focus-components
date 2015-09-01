@@ -1,17 +1,16 @@
-$layout-background-color: #f8f8f8;
-$layout-scrollbar-color: #36b7b9;
+$layout-background-color: #FFF;
+$layout-scrollbar-color: rgb(161, 175, 181);
 $layout-scrollbar-hover-color: #6AB2E5;
 $layout-scrollbar-background-color: #e2e2e2;
 
 html {
   position: relative;
-  /*min-height: 100%;*/
+  min-height: 100%;
 }
 
 body {
-  min-width: 1300px;
+  /*min-width: 1300px;*/
   background-color: $layout-background-color;
-  /*margin-bottom: 80px;*/
 }
 
 [data-focus='page-content'] {
@@ -32,6 +31,7 @@ body {
 /* color of the scrollbar */
 ::-webkit-scrollbar {
   width: 10px;
+  height: 10px;
 }
 
 ::-webkit-scrollbar-track {
