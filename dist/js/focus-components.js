@@ -22830,7 +22830,7 @@ module.exports = uuid;
 },{"./rng":289}],291:[function(require,module,exports){
 module.exports={
     "name": "focusjs-components",
-    "version": "0.5.1-3",
+    "version": "0.5.1-5",
     "description": "Focus component repository.",
     "main": "index.js",
     "scripts": {
@@ -24432,7 +24432,7 @@ var Autocomplete = {
             code: "",
             pickList: [],
             timeoutDuration: 200,
-            validate: true
+            allowUnmatchedValue: false
         };
     },
     /**
@@ -24445,7 +24445,7 @@ var Autocomplete = {
         pickList: types("array"), // list of values, looking like [{code: '', value: ''}, {code: '', value: ''}, ...]
         selectionHandler: types("func"), // selection callback
         timeoutDuration: types("number"), // the throttle duration of the input rate
-        validate: types("bool") // restrict user input to values of the list, or allow freestyle
+        allowUnmatchedValue: types("bool") // restrict user input to values of the list, or allow freestyle
     },
     /**
      * Initial state.
@@ -24533,19 +24533,21 @@ var Autocomplete = {
      */
     getValue: function getValue() {
         var value = this.state.value;
+        var allowUnmatchedValue = this.props.allowUnmatchedValue;
 
-        return this._getCodeFromValue(value);
+        var computedValue = this._getCodeFromValue(value);
+        return computedValue ? computedValue : allowUnmatchedValue ? value : undefined;
     },
     /**
      * On input blur.
-     * If validate is set in the props, validate the current value and erase it if not valid.
+     * If allowUnmatchedValue is set in the props, validate the current value and erase it if not valid.
      */
     _onInputBlur: function _onInputBlur() {
         var value = this.state.value;
-        var validate = this.props.validate;
+        var allowUnmatchedValue = this.props.allowUnmatchedValue;
 
         var code = this._getCodeFromValue(value);
-        if (!code && validate && !this._isSelecting) {
+        if (!code && allowUnmatchedValue && !this._isSelecting) {
             this.setState({ value: "" });
         }
         this._isSelecting = false;
@@ -24558,6 +24560,7 @@ var Autocomplete = {
         var _this = this;
 
         var value = event.target.value;
+        var timeoutDuration = this.props.timeoutDuration;
 
         this.setState({ value: value });
         if (this._changeTimeout) {
@@ -24569,7 +24572,7 @@ var Autocomplete = {
             if (inputChangeHandler) {
                 inputChangeHandler(value);
             }
-        }, 200);
+        }, timeoutDuration);
     },
     /**
      * Render
@@ -24628,6 +24631,7 @@ var AutocompleteFor = {
      */
     propTypes: {
         AutocompleteComponent: types("func"),
+        allowUnmatchedValue: types("bool"),
         code: types("string"),
         isEdit: types("bool"),
         loader: types("func"),
@@ -24681,11 +24685,13 @@ var AutocompleteFor = {
     _renderEdit: function _renderEdit() {
         var _props = this.props;
         var AutocompleteComponent = _props.AutocompleteComponent;
+        var allowUnmatchedValue = _props.allowUnmatchedValue;
         var selectionHandler = _props.selectionHandler;
         var value = _props.value;
         var pickList = this.state.pickList;
 
         return React.createElement(AutocompleteComponent, {
+            allowUnmatchedValue: allowUnmatchedValue,
             code: value,
             inputChangeHandler: this._doLoad,
             pickList: pickList,
