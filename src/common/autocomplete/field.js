@@ -30,6 +30,7 @@ let AutocompleteFor = {
      */
     propTypes: {
         AutocompleteComponent: types('func'),
+        allowUnmatchedValue: types('bool'),
         code: types('string'),
         isEdit: types('bool'),
         loader: types('func'),
@@ -73,10 +74,11 @@ let AutocompleteFor = {
      * @return {HTML} rendered element
      */
     _renderEdit() {
-        let {AutocompleteComponent, selectionHandler, value} = this.props;
+        let {AutocompleteComponent, allowUnmatchedValue, selectionHandler, value} = this.props;
         let {pickList} = this.state;
         return (
             <AutocompleteComponent
+                allowUnmatchedValue={allowUnmatchedValue}
                 code={value}
                 inputChangeHandler={this._doLoad}
                 pickList={pickList}
