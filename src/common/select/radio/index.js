@@ -77,9 +77,9 @@ const selectRadioMixin = {
             const label = val[this.props.labelKey];
             const isChecked = value === this.state.value;
             return (
-                <label className="mdl-radio mdl-js-radio mdl-js-ripple-effect" key={key++}>
-                    <input checked={isChecked} className="mdl-radio__button" name={guid} onChange={this._handleOnChange} type="radio" value={value} />
-                    <span className="mdl-radio__label">{this.i18n(label)}</span>
+                <label className='mdl-radio mdl-js-radio mdl-js-ripple-effect' key={key++}>
+                    <input checked={isChecked} className='mdl-radio__button' name={guid} onChange={this._handleOnChange} type='radio' value={value} />
+                    <span className='mdl-radio__label'>{this.i18n(label)}</span>
                 </label>
             );
         });
@@ -87,7 +87,7 @@ const selectRadioMixin = {
     /** @inheritdoc */
     render() {
         return (
-            <div data-focus="select-radio">
+            <div data-focus='select-radio'>
                 {this.renderSelectRadios()}
             </div>
         );
