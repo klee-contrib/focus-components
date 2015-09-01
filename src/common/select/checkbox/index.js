@@ -97,7 +97,7 @@ const selectCheckboxMixin = {
     /** @inheritdoc */
     render() {
         return (
-            <div data-focus="select-checkbox">
+            <div data-focus='select-checkbox'>
                 {this.renderCheckboxes()}
             </div>
         );
