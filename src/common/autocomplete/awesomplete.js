@@ -43,7 +43,7 @@ let Autocomplete = {
             code: '',
             pickList: [],
             timeoutDuration: 200,
-            validate: true
+            allowUnmatchedValue: false
         };
     },
     /**
@@ -56,7 +56,7 @@ let Autocomplete = {
         pickList: types('array'), // list of values, looking like [{code: '', value: ''}, {code: '', value: ''}, ...]
         selectionHandler: types('func'), // selection callback
         timeoutDuration: types('number'), // the throttle duration of the input rate
-        validate: types('bool') // restrict user input to values of the list, or allow freestyle
+        allowUnmatchedValue: types('bool') // restrict user input to values of the list, or allow freestyle
     },
     /**
      * Initial state.
@@ -132,17 +132,19 @@ let Autocomplete = {
      */
     getValue() {
         const {value} = this.state;
-        return this._getCodeFromValue(value);
+        const {allowUnmatchedValue} = this.props;
+        const computedValue = this._getCodeFromValue(value);
+        return computedValue ? computedValue : allowUnmatchedValue ? value : undefined;
     },
     /**
      * On input blur.
-     * If validate is set in the props, validate the current value and erase it if not valid.
+     * If allowUnmatchedValue is set in the props, validate the current value and erase it if not valid.
      */
     _onInputBlur() {
         const {value} = this.state;
-        const {validate} = this.props;
+        const {allowUnmatchedValue} = this.props;
         const code = this._getCodeFromValue(value);
-        if (!code && validate && !this._isSelecting) {
+        if (!code && allowUnmatchedValue && !this._isSelecting) {
             this.setState({value: ''});
         }
         this._isSelecting = false;
@@ -153,6 +155,7 @@ let Autocomplete = {
      */
     _onInputChange(event) {
         const {value} = event.target;
+        const {timeoutDuration} = this.props;
         this.setState({value});
         if (this._changeTimeout) {
             clearTimeout(this._changeTimeout);
@@ -162,7 +165,7 @@ let Autocomplete = {
             if (inputChangeHandler) {
                 inputChangeHandler(value);
             }
-        }, 200);
+        }, timeoutDuration);
     },
     /**
      * Render
