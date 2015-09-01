@@ -1,64 +1,64 @@
-var React = require('react');
-var builder = require('focus').component.builder;
-var Icon = require('../../icon').component;
-var i18nMixin = require('../../i18n/mixin');
-var stylableMixin = require('../../../mixin/stylable');
-var scrollTo = require('../../mixin/scroll').scrollTo;
+const React = require('react');
+const builder = require('focus').component.builder;
+const types = require('focus').component.types;
+const Icon = require('../../icon').component;
+const i18nMixin = require('../../i18n/mixin');
+const stylableMixin = require('../../../mixin/stylable');
+const {scrollTo, scrollPosition} = require('../../mixin/scroll');
 
 /**
- * Mixin button.
- * @type {Object}
- */
-var buttonMixin = {
-    /** inheritedDoc */
+* Mixin button.
+* @type {Object}
+*/
+const backToTopMixin = {
     mixins: [i18nMixin, stylableMixin],
-    getDefaultProps: function () {
+    /** inheritedDoc */
+    getDefaultProps() {
         return {
             iconPrefix: 'fa fa-',
             iconName: 'arrow-circle-up',
-            scrollTarget: 'body',
             duration: 100,
-            scrolledElementSelector: 'body',
-            scrollSpyTargetSelector: undefined,
-            scrollTriggerBorder: 100
+            scrollStart: 100
         };
     },
+    /**
+    * Props validation
+    */
+    propTypes: {
+        iconPrefix: types('string'),
+        iconName: types('string'),
+        duration: types('number'),
+        scrollStart: types('number')
+    },
+    /** inheritedDoc */
     getInitialState() {
-        return {isVisible: false};
-    },
-    componentWillMount() {
-        this._scrollCarrier = this.props.scrollSpyTargetSelector ? document.querySelector(this.props.scrollSpyTargetSelector) : document;
-        this._attachScrollSpy();
-    },
-    componentWillUnMount() {
-        this._detachScrollSpy();
-    },
-    componentDidMount() {
-        this._scrollSpy();
+        return {
+            isVisible: false
+        };
     },
     /**
-     * Attach the scroll spy
-     * @private
-     */
-    _attachScrollSpy() {
+    * Component did mount, attach the scroll spy
+    */
+    componentDidMount() {
+        this._scrollCarrier = window;
         this._scrollCarrier.addEventListener('scroll', this._scrollSpy);
         this._scrollCarrier.addEventListener('resize', this._scrollSpy);
+        this._scrollSpy();
+        console.debug('did mount');
     },
-    /**
-     * Detach the scroll spy
-     * @private
-     */
-    _detachScrollSpy() {
+    componentWillUnMount() {
         this._scrollCarrier.removeEventListener('scroll', this._scrollSpy);
         this._scrollCarrier.removeEventListener('resize', this._scrollSpy);
+        console.debug('will unmount');
     },
     /**
-     * The scroll event handler
-     * @private
-     */
+    * The scroll event handler
+    * @private
+    */
     _scrollSpy() {
-        let scrollPosition = document.querySelector(this.props.scrolledElementSelector).scrollTop;
-        if (scrollPosition > this.props.scrollTriggerBorder) {
+        console.debug('scrollspy');
+        const currentScrollPosition = scrollPosition();
+        if (currentScrollPosition.top > this.props.scrollStart) {
             if (!this.state.isVisible) {
                 this.setState({isVisible: true});
             }
@@ -69,21 +69,22 @@ var buttonMixin = {
         }
     },
     /**
-     * Go back to the top of the page.
-     */
-    goBackToTop: function goBackToTop() {
-        //todo: Add animation
-        scrollTo(document.querySelector(this.props.scrollTarget), 0, this.props.duration);
-        //window.document.body.scrollTop = 0;
+    * Go back to the top of the page.
+    */
+    goBackToTop() {
+        //TODO: Add animation
+        scrollTo(undefined, 0);
     },
     /** inheritedDoc */
-    render: function renderInput() {
+    render() {
         let className = `${this._getStyleClassName()} ${this.state.isVisible ? '' : 'invisible'}`;
-        return <button className={className} data-focus='back-to-top' onClick={this.goBackToTop}>
-            <Icon prefix={this.props.iconPrefix} name={this.props.iconName} />
+        return (
+            <button className={className} data-focus='back-to-top' onClick={this.goBackToTop}>
+            <Icon name={this.props.iconName} prefix={this.props.iconPrefix} />
             <div>{this.i18n('button.backTop')}</div>
-        </button>;
+            </button>
+        );
     }
 };
 
-module.exports = builder(buttonMixin);
+module.exports = builder(backToTopMixin);
