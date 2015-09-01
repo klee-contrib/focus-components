@@ -13,7 +13,7 @@ example/js/load-dependencies.js
 example/js/assets.js
 example/js/browser.js
 .idea
-
+showcase/components.json
 
 # Runtime data
 pids
