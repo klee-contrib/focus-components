@@ -10,7 +10,7 @@ const selectCheckboxMixin = {
     /**
     * Tag name.
     */
-    displayName: 'select-checkbox',
+    displayName: 'SelectCheckbox',
 
     /** @inheritdoc */
     getDefaultProps() {
@@ -83,12 +83,13 @@ const selectCheckboxMixin = {
      * @return {ReactDOMNode} list of ReactDomNode
      */
     renderCheckboxes() {
+        let key = 0;
         return this.props.values.map((val)=>{
             const value = val[this.props.valueKey];
             const label = val[this.props.labelKey];
             const isChecked = 0 <= this.state.selectedValues.indexOf(value);
             return (
-                <Checkbox label={this.i18n(label)} onChange={this._getCheckboxChangeHandler(value)} value={isChecked} />
+                <Checkbox key={key++} label={this.i18n(label)} onChange={this._getCheckboxChangeHandler(value)} value={isChecked} />
             );
         });
     },
@@ -97,7 +98,7 @@ const selectCheckboxMixin = {
     render() {
         return (
             <div data-focus="select-checkbox">
-            {this.renderCheckboxes()}
+                {this.renderCheckboxes()}
             </div>
         );
     }

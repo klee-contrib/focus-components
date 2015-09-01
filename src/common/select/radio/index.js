@@ -70,13 +70,14 @@ const selectRadioMixin = {
     * @return {XML} the different radio values
     */
     renderSelectRadios() {
+        let key = 0;
         const {guid} = this.state;
         return this.props.values.map((val)=>{
             const value = val[this.props.valueKey];
             const label = val[this.props.labelKey];
             const isChecked = value === this.state.value;
             return (
-                <label className="mdl-radio mdl-js-radio mdl-js-ripple-effect">
+                <label className="mdl-radio mdl-js-radio mdl-js-ripple-effect" key={key++}>
                     <input checked={isChecked} className="mdl-radio__button" name={guid} onChange={this._handleOnChange} type="radio" value={value} />
                     <span className="mdl-radio__label">{this.i18n(label)}</span>
                 </label>
