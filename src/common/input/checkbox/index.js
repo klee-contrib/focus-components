@@ -3,6 +3,7 @@ const React = require('react');
 const types = require('focus').component.types;
 const i18nBehaviour = require('../../i18n/mixin');
 const fieldGridBehaviourMixin = require('../../mixin/field-grid-behaviour');
+const {isUndefined} = require('lodash/lang');
 
 const checkBoxMixin = {
     mixins: [i18nBehaviour, fieldGridBehaviourMixin],
@@ -28,8 +29,9 @@ const checkBoxMixin = {
     },
     /** @inheritDoc */
     getInitialState() {
+        const {value} = this.props;
         return {
-            isChecked: this.props.value
+            isChecked: isUndefined(value) ? false : value
         };
     },
     /**
