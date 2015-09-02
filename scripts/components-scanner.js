@@ -25,7 +25,7 @@ dir.readFiles('./src',
         if (err) {throw err;}
             //console.log('finished reading files:', files);
             // console.log('components', components);
-        _createComponentJSON(components, './src/showcase/components.json')
+        _createComponentJSON(components, './src/showcase/catalog/components.json')
 });
 
 function _createComponentJSON(data, outputFilename){
