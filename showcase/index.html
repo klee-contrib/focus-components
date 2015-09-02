@@ -15,9 +15,9 @@
 <body>
     <script type="text/babel">
     loadAssets().then((d)=>{
-        const Template = FocusComponents.template.component;
-        const Catalog = FocusComponents.application.catalog;
-        React.render(<Template title='Component catalog'><Catalog /></Template>, document.querySelector("body"));
+        const Showcase = FocusComponents.showcase.layout;
+        const Catalog = FocusComponents.showcase.catalog;
+        React.render(<Showcase title='Component catalog'><Catalog /></Showcase>, document.querySelector("body"));
     });
     </script>
 </body>
