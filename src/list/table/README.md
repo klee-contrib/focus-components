@@ -25,7 +25,7 @@ affichage d'une liste en tableau avec la possibilité de trier par colonnes.
             <td><code>columns</code></td>
             <td><i>array</i></td>
             <td></td>
-            <td><code>[]</code></td>
+            <td><code>[{sort: 'asc|desc', label: 'labelKey', noSort: false}]</code></td>
             <td>Définit la liste des colonnes à afficher dans le tableau.</td>
         </tr>
         <tr>
