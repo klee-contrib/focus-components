@@ -47,23 +47,28 @@ const templateMixin = {
               </header>
               <div className='demo-drawer mdl-layout__drawer mdl-color--blue-grey-900 mdl-color-text--blue-grey-50'>
                 <header className='demo-drawer-header'>
-                    <h1>
-                        <strong>FOCUS</strong>
-                        <span>components</span>
-                    </h1>
-                    <h2>Showcase</h2>
+                    <a href="/">
+                        <h1>
+                            <strong>FOCUS</strong>
+                            <span>components</span>
+                        </h1>
+                        <h2>Showcase</h2>
+                    </a>
+                    <div className="links">
+                        <a alt="focus-docs" href="http://kleegroup.github.io/focus-docs/" target="_blank" title="Documentation focus-components"><i className="mdl-color-text--blue-grey-400 fa fa-book" role='presentation'></i></a>
+                        <a alt="focus-components sur Github" href="https://github.com/KleeGroup/focus-components" target="_blank" title="focus-components sur Github"><i className="mdl-color-text--blue-grey-400 fa fa-github" role="presentation"></i></a>
+                    </div>
                 </header>
                 <nav className='demo-navigation mdl-navigation mdl-color--blue-grey-800'>
-                  <a className='mdl-navigation__link' href='/'><i className='mdl-color-text--blue-grey-400 material-icons' role='presentation'>home</i>Home</a>
-                  <a className='mdl-navigation__link' href='/'><i className='mdl-color-text--blue-grey-400 material-icons' role='presentation'>insert_link</i>My awsome component 1</a>
-                  <a className='mdl-navigation__link' href='/'><i className='mdl-color-text--blue-grey-400 material-icons' role='presentation'>insert_link</i>My awsome component 2</a>
-                  <a className='mdl-navigation__link' href='/'><i className='mdl-color-text--blue-grey-400 material-icons' role='presentation'>insert_link</i>My awsome component 3</a>
-                  <a className='mdl-navigation__link' href='/'><i className='mdl-color-text--blue-grey-400 material-icons' role='presentation'>insert_link</i>My awsome component 4</a>
-                  <a className='mdl-navigation__link' href='/'><i className='mdl-color-text--blue-grey-400 material-icons' role='presentation'>insert_link</i>My awsome component 5</a>
-                  <a className='mdl-navigation__link' href='/'><i className='mdl-color-text--blue-grey-400 material-icons' role='presentation'>insert_link</i>My awsome component 6</a>
-                  <div className='mdl-layout-spacer'></div>
-                  <a className='mdl-navigation__link' href='http://kleegroup.github.io/focus-docs/'><i className='mdl-color-text--blue-grey-400 material-icons' role='presentation'>help_outline</i>Documentation</a>
-                  <a className='mdl-navigation__link' href='https://github.com/KleeGroup/focus-components'><i className='mdl-color-text--blue-grey-400 fa fa-github' role='presentation'></i>Github</a>
+                    <h3>Composants</h3>
+                    <a className='mdl-navigation__link' href='/'><i className='mdl-color-text--blue-grey-400 fa fa-cube' role='presentation'></i>My awsome component 1</a>
+                    <a className='mdl-navigation__link' href='/'><i className='mdl-color-text--blue-grey-400 fa fa-cube' role='presentation'></i>My awsome component 2</a>
+                    <a className='mdl-navigation__link' href='/'><i className='mdl-color-text--blue-grey-400 fa fa-cube' role='presentation'></i>My awsome component 3</a>
+                    <a className='mdl-navigation__link' href='/'><i className='mdl-color-text--blue-grey-400 fa fa-cube' role='presentation'></i>My awsome component 5</a>
+                    <a className='mdl-navigation__link' href='/'><i className='mdl-color-text--blue-grey-400 fa fa-cubes' role='presentation'></i>My awsome component 4</a>
+                    <a className='mdl-navigation__link' href='/'><i className='mdl-color-text--blue-grey-400 fa fa-cubes' role='presentation'></i>My awsome component 6</a>
+                    <div className='mdl-layout-spacer'></div>
+                    <div className='brand-powered'><a href="http://www.kleegroup.com">Propulsé par</a></div>
                 </nav>
               </div>
               <main className='mdl-layout__content mdl-color--grey-100'>
