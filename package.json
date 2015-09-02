@@ -33,14 +33,6 @@
     },
     "components": [
         {
-            "name": "template",
-            "path": "template"
-        },
-        {
-            "name": "catalog",
-            "path": "application/catalog"
-        },
-        {
             "name": "menu",
             "path": "application/menu"
         },
