@@ -11,7 +11,7 @@
     "build": "npm run build:server && npm run build:browser",
     "watch": "node ./node_modules/gulp/bin/gulp.js watch",
     "prepublish": "npm run build",
-    "serve": "npm run showcase &&npm run build:example && npm run build:browser && node static-server.js",
+    "serve": "npm run showcase && npm run build:example && npm run build:browser && node static-server.js",
     "showcase:components": "node scripts/components-scanner.js",
     "showcase:dependencies": "cp ./node_modules/babel-core/browser.js example/js/ && cp ./node_modules/babel-core/browser.js showcase/js/",
     "showcase:assets": "node ./node_modules/babel/bin/babel.js scripts/script-loader.js --out-file showcase/js/script-loader.js && node ./node_modules/babel/bin/babel.js scripts/style-loader.js --out-file showcase/js/style-loader.js && node ./node_modules/babel/bin/babel.js scripts/load-dependencies.js --out-file showcase/js/load-dependencies.js && cat showcase/js/script-loader.js showcase/js/style-loader.js showcase/js/load-dependencies.js > showcase/js/assets.js",
