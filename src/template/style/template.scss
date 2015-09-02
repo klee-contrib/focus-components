@@ -1,7 +1,7 @@
 
 [data-focus="template"] {
     &.mdl-layout {
-        position: static;
+        position: absolute;
         .mdl-layout__header {
             position: fixed;
         }
@@ -67,7 +67,7 @@
     }
 
     .demo-content {
-        padding: 20px 80px;
+        padding: 90px 80px 40px 90px;
     }
 
     .demo-navigation {
