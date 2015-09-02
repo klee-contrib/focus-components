@@ -6,7 +6,7 @@ const BlockSample = React.createClass({
     * @return {object} React node
     */
     render() {
-        return
+        return (
             <Block title="Here is the title">
                 <br/>
                 <br/>
@@ -18,8 +18,8 @@ const BlockSample = React.createClass({
                 <br/>
                 <br/>
             </Block>
+        );
     }
 });
 
-const mountNode = document.querySelector("body")
-return <BlockSample />;
+return <BlockSample/>;
