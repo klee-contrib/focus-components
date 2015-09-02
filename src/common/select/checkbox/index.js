@@ -1,6 +1,5 @@
-const builder = require('focus').component.builder;
+const {builder, types} = require('focus').component;
 const React = require('react');
-const type = require('focus').component.types;
 const Checkbox = require('../../input/checkbox').component;
 const i18nBehaviour = require('../../i18n/mixin');
 const {pull} = require('lodash/array');
@@ -24,10 +23,10 @@ const selectCheckboxMixin = {
     /** @inheritdoc */
     propTypes() {
         return {
-            values: type('array'),
-            value: type('array'),
-            valueKey: type('string'),
-            labelKey: type('string')
+            values: types('array'),
+            value: types('array'),
+            valueKey: types('string'),
+            labelKey: types('string')
         };
     },
 
