@@ -77,3 +77,5 @@ node_modules
 */*/*/*/*/*/example/img/*.gif
 components.html
 npm-debug.log
+
+src/showcase/catalog/components.json
