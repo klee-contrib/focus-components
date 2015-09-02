@@ -1,0 +1,31 @@
+<!doctype html>
+<html class="no-js" lang="">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Focus component examples</title>
+    <meta name="description" content="Example of the component.">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="/focus-components/example/js/browser.js"></script>
+    <script src="/focus-components/example/js/assets.js"></script>
+</head>
+<body>
+    <!-- Container HTML-->
+    <div id="container"></div>
+
+    <script type='text/babel'>
+    loadAssets().then(function(d){
+        console.warn('*******************************************************************************************************************************************************************************************************');
+        console.warn('The following page is a demo-intended page, and must not be reproduced for other components. It must be considered as a work-in-progress only, and sould not be taken as a source of truth in any case.');
+        console.warn('*******************************************************************************************************************************************************************************************************');
+        const codeBlock = `const Block = FocusComponents.common.block.component;
+
+return <Block title='Block title'/>;`;
+        const LiveExample = FocusComponents.live;
+        React.render(<LiveExample codeText={codeBlock} />, document.querySelector('#container'));
+    });
+    </script>
+
+</body>
+
+</html>
