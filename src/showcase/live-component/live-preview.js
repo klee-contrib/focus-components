@@ -11,17 +11,21 @@ const LivePreview = React.createClass({
         style: types('object')
     },
     /**
-     * Render the component.
-     * @return {HTML} the rendered component
-     */
+    * Render the component.
+    * @return {HTML} the rendered component
+    */
     render() {
         const {code, style} = this.props;
         let content;
         try {
-            content = eval(babel.transform(`(function(){${code}})()`).code); // eslint-disable-line no-eval
-        } catch (err) {
-            content = err.toString();
+            /* eslint-disable */
+            content = eval(babel.transform(`(function(){${code}})()`).code);
+            /* eslint-enable */
+        } catch (e) {
+            content = e.toString();
         }
+
+
         return (
             <div style={style}>
                 {content}

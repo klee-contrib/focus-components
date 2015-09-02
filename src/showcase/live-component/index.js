@@ -1,6 +1,7 @@
 // Dependencies
 
 const {types} = Focus.component;
+const {debounce} = require('lodash/function');
 
 // Components
 
@@ -57,7 +58,7 @@ const LiveExample = React.createClass({
         const {_handleCodeChange, style} = this;
         return (
             <div style={style.parent}>
-                <LiveEditor code={codeText} onChange={_handleCodeChange} style={style.editor} />
+                <LiveEditor code={codeText} onChange={debounce(_handleCodeChange, 100)} style={style.editor} />
                 <LivePreview code={codeText} style={style.preview} />
             </div>
         );
