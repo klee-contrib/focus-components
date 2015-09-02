@@ -1,7 +1,7 @@
 const {reduce, sortByOrder} = require('lodash/collection');
 
 //Fake data
-const componentsMetas = require('./components.json');
+const componentsMetas = require('../components.json');
 //service
 function _synchronousSearch(query){
     if(!query){return componentsMetas; }
