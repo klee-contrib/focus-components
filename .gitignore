@@ -67,4 +67,6 @@ node_modules
 components.html
 npm-debug.log
 
+showcase/css
+
 src/showcase/catalog/components.json
