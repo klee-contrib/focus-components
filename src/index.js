@@ -44,5 +44,6 @@ module.exports = {
     page: require('./page'),
     message: require('./message'),
     application: require('./application'),
+    showcase: require('./showcase'),
     infos: infosFn
 };
