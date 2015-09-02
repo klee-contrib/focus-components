@@ -1,6 +1,5 @@
-const builder = require('focus').component.builder;
+const {builder, types} = require('focus').component;
 const React = require('react');
-const types = require('focus').component.types;
 const i18nBehaviour = require('../../i18n/mixin');
 const fieldGridBehaviourMixin = require('../../mixin/field-grid-behaviour');
 const {isUndefined} = require('lodash/lang');
