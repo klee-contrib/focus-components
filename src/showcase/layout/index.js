@@ -76,7 +76,7 @@ const Layout = React.createClass({
                     <div className='brand-powered'><a href="http://www.kleegroup.com">Propulsé par</a></div>
                 </nav>
               </div>
-              <main className='mdl-layout__content mdl-color--grey-100'>
+              <main className='mdl-layout__content mdl-color--grey-100' style={{zIndex: '100'}}>
                 <div className='demo-content'>
                     {this.props.children}
                 </div>

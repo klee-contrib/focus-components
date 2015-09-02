@@ -10,7 +10,7 @@ const LivePreview = require('./live-preview');
 const LiveExample = React.createClass({
     displayName: 'LiveExample',
     propTypes: {
-        codeText: types('string')
+        component: types('object')
     },
     style: {
         parent: {
@@ -30,7 +30,7 @@ const LiveExample = React.createClass({
      */
     getDefaultProps() {
         return {
-            codeText: ''
+            component: {}
         };
     },
     /**
@@ -38,7 +38,7 @@ const LiveExample = React.createClass({
      * @return {Object} initial state
      */
     getInitialState() {
-        const {codeText} = this.props;
+        const {component: {code: codeText}} = this.props;
         return {codeText};
     },
     /**
