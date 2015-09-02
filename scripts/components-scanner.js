@@ -5,11 +5,11 @@ var assign = require('object-assign');
 var exampleIndex = {};
 var fs = require('fs');
 function _processFileName(fileName){
-    var path = fileName.split('\\src\\')[1];
+    var path = fileName.split('src\\')[1];
     return {dot: path.replace(/\\/g, '.'), path: './src/' + path.replace(/\\/g, '/')};
 }
 
-dir.readFiles('/dev/focus-components/src',
+dir.readFiles('./src',
     {match: /package.json/},
     function(err, content, filename, next) {
         if (err) {throw err;}
