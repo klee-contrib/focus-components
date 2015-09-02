@@ -48,6 +48,10 @@ function createLocalServer(components, localServerOptions) {
 	app.use('/focus-components/example', express.static(__dirname + "/example"));
 	app.use('/focus-components/dist', express.static(__dirname + "/dist"));
 
+	// EXPERIMENTAL : showcase
+
+	app.use('/showcase', express.static(__dirname + '/src/showcase'));
+
 	// Generate content
 
 	var localServerContent = buildPageHtml(localServerOptions, components);
