@@ -14,11 +14,31 @@ const LiveExample = React.createClass({
         component: types('object')
     },
     style: {
-        parent: {
+        name: {
+            fontSize: '3em',
+            marginLeft: '-5px',
+            marginBottom: '0'
+        },
+        version: {
+            fontSize: '1em',
+            marginTop: '-18px',
+            marginBottom: '0',
+            color: 'grey'
+        },
+        keyword: {
+            margin: '5px'
+        },
+        description: {
+            fontSize: '1.2em',
+            marginTop: '20px',
+            marginBottom: '20px'
+        },
+        previewZone: {
             display: 'flex',
             width: '100%'
         },
         editor: {
+            marginRight: '10px',
             flex: '1'
         },
         preview: {
@@ -56,10 +76,19 @@ const LiveExample = React.createClass({
     render() {
         const {codeText} = this.state;
         const {_handleCodeChange, style} = this;
+        const {component: {name, description, version, keywords}} = this.props;
         return (
             <div style={style.parent}>
-                <LiveEditor code={codeText} onChange={debounce(_handleCodeChange, 100)} style={style.editor} />
-                <LivePreview code={codeText} style={style.preview} />
+                <h1 style={style.name}>{name}</h1>
+                <h2 style={style.version}>{version}</h2>
+                {keywords.map((keyword, idx) => {
+                    return <span key={idx} style={style.keyword}><b>{keyword.toUpperCase()}</b></span>;
+                })}
+                <div style={style.description}>{description}</div>
+                <div style={style.previewZone}>
+                    <LiveEditor code={codeText} onChange={debounce(_handleCodeChange, 100)} style={style.editor} />
+                    <LivePreview code={codeText} style={style.preview} />
+                </div>
             </div>
         );
     }
