@@ -40,26 +40,13 @@ function createLocalServer(components, localServerOptions) {
 
 	// Add static paths
 
-	Object.keys(components).map(function(componentName) {
-		var component = components[componentName];
-		app.use('/' + componentName, express.static(__dirname + component));
-	});
+	// EXPERIMENTAL : showcase
+
+	app.use('/showcase', express.static(__dirname + '/showcase'));
 
 	app.use('/focus-components/example', express.static(__dirname + "/example"));
 	app.use('/focus-components/dist', express.static(__dirname + "/dist"));
 
-	// EXPERIMENTAL : showcase
-
-	app.use('/showcase', express.static(__dirname + '/src/showcase'));
-
-	// Generate content
-
-	var localServerContent = buildPageHtml(localServerOptions, components);
-
-	// Add a special 404 with all existing components and their urls.
-	app.use(function(req, res, next) {
-		res.status(404).send(localServerContent);
-	});
 
 	app.listen(localServerOptions.port, function() {
 		console.log('Application started on port: ', localServerOptions.port)
