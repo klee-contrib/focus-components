@@ -6,7 +6,7 @@ const componentsMetas = require('./components.json');
 function _synchronousSearch(query){
     if(!query){return componentsMetas; }
     const matchQuery = reduce(componentsMetas, (result, comp, index) => {
-        const {name, description, tags} = comp;
+        const {name, description, keywords} = comp;
         let count = 0;
         if( -1 !== name.indexOf(query)){
             count++;
