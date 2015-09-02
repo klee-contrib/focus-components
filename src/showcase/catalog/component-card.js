@@ -27,7 +27,7 @@ class ComponentCard extends Component{
                         </div>
                     </div>
                     <div className='mdl-card__actions mdl-card--border'>
-                        <a className='mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect' href={example}>
+                        <a className='mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect' href={example} onClick={this.props.showLiveComponent}>
                           Example
                         </a>
                         </div>
