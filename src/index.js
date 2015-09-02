@@ -37,7 +37,7 @@ module.exports = {
         console.log(`repository: ${infos.repository.url}`);
         console.log(`issues: ${infos.bugs.url}`);
     },
-    template: require('./template'),
+    showcase: require('./showcase'),
     common: require('./common'),
     list: require('./list'),
     search: require('./search'),
