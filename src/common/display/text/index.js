@@ -1,20 +1,17 @@
 //Dependencies.
-var builder = require('focus').component.builder;
-var React = require('react');
-var type = require('focus').component.types;
+const builder = require('focus').component.builder;
+const React = require('react');
+const type = require('focus').component.types;
 
 /**
  * Input text mixin.
  * @type {Object}
  */
-var displayTextMixin = {
+const displayTextMixin = {
   /** @inheritdoc */
-  getDefaultProps: function getInputDefaultProps() {
+  getDefaultProps(){
     return {
-      value: undefined,
-      name: undefined,
-      formatter: function(data){return data;},
-      style: {}
+      formatter: (data)=> data
     };
   },
   /** @inheritdoc */
@@ -24,21 +21,17 @@ var displayTextMixin = {
     name: type('string'),
     style: type('object')
   },
-  renderValue: function renderValueDisplayText(){
-      return this.props.formatter(this.props.value);
-  },
   /**
-   * Render a display field.
-   * @return {DOM} - The dom of an input.
+   * Render the value.
+   * @return {string} The formated value.
    */
+  renderValue(){
+      const {formatter, value} = this.props;
+      return formatter(value);
+  },
+   /** @inheritdoc */
   render: function renderInput() {
-    return (
-      <div
-        id={this.props.name}
-        name={this.props.name}
-        className={this.props.style.class}
-      >{this.renderValue()}</div>
-    );
+      return <div {...this.props}>{this.renderValue()}</div>;
   }
 };
 
