@@ -132,7 +132,7 @@ const popin = {
      * Toggle the popin's open state
      */
     toggleOpen() {
-        const timeout = 0;
+        let timeout = 0;
         const {opened} = this.state;
         const {onPopinClose} = this.props;
         if (opened) {
