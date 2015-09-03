@@ -1,0 +1,14 @@
+[
+    {
+        "name": "block",
+        "version": "0.0.0",
+        "description": "Block component",
+        "keywords": [
+            "block",
+            "detail",
+            "model",
+            "title"
+        ],
+        "code": "const Block = FocusComponents.common.block.component;\r\n\r\nconst BlockSample = React.createClass({\r\n    /**\r\n    * Render the component.\r\n    * @return {object} React node\r\n    */\r\n    render() {\r\n        return (\r\n            <Block title=\"Here is the title\">\r\n                <br/>\r\n                <br/>\r\n                <br/>\r\n                <br/>\r\n                <p>Here is the content.</p>\r\n                <br/>\r\n                <br/>\r\n                <br/>\r\n                <br/>\r\n            </Block>\r\n        );\r\n    }\r\n});\r\n\r\nreturn <BlockSample/>;\r\n"
+    }
+]
