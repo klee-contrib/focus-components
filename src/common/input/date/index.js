@@ -1,10 +1,12 @@
-//Dependencies.
-//https://github.com/skratchdot/react-bootstrap-daterangepicker
+// Dependencies.
+
 const {builder, types} = require('focus').component;
-const React = require('react');
-const InputText = require('../text').component;
 const moment = require('moment');
-const DateRangePicker = require('react-bootstrap-daterangepicker');
+
+// Components
+
+const InputText = require('../text').component;
+const DateRangePicker = require('react-bootstrap-daterangepicker'); //https://github.com/skratchdot/react-bootstrap-daterangepicker
 
 const defaultLocale = {
     format: 'L', //cf mo moment.js documentation for further date format
@@ -50,12 +52,16 @@ const InputDateMixin = {
     */
     displayName: 'InputDate',
 
-    /** @inheritdoc */
+    /**
+     * Get default props
+     * @return {object} default props
+     */
     getDefaultProps() {
         return {
             drops: 'down', // possible values: up, down
             showDropdowns: true,
-            locale: defaultLocale
+            locale: defaultLocale,
+            value: moment()
         };
     },
     /** @inheritdoc */
@@ -68,70 +74,90 @@ const InputDateMixin = {
         placeHolder: types('string'),
         value: types('object').isRequired
     },
-    /** @inheritdoc */
+    /**
+     * Get initial state
+     * @return {object} initial state
+     */
     getInitialState() {
-        return {
-            value: this.props.value
-        };
-    },
-    /** @inheritdoc */
-    componentWillReceiveProps(newProps){
-        this.setState({
-            value: newProps.value
-        });
+        const rawDate = moment(this.props.value).isValid() ? this.props.value : moment();
+        const inputDate = this.getFormattedDate(rawDate);
+        return {inputDate, rawDate};
     },
     /**
-    * Action when selection date event.
-    * @param  {event} event
-    * @param  {picker} picker date values
-    */
-    _onApply(event, picker){
-        if(picker.startDate.isValid) {
-            this.setState({
-                value: picker.startDate
-            });
-        }
-        React.findDOMNode(this.refs.inputDateText).focus();
+     * New props handler
+     * @param  {object} value new value given as a prop
+     */
+    componentWillReceiveProps({value}) {
+        const rawDate = moment(value).isValid() ? value : moment();
+        const inputDate = this.getFormattedDate(rawDate);
+        this.setState({inputDate, rawDate});
     },
-    // onShow(event){
-    //     if(this.state.value) {
-    //         const mdate = moment(this.state.value);
-    //         console.debug(mdate);
-    //         this.refs.daterangepicker.startDate = mdate;
-    //     }
-    // },
     /**
     * Get the selected date.
     * @return {object} selected date
     */
     getValue() {
-        return this.state.value.toISOString();
+        return moment(this.state.rawDate).toISOString();
     },
     /**
-    * Get formatted value.
-    * @return {string} formattedValue
+     * Get formatted value.
+     * @param  {date} rawDate raw date
+     * @return {string} formatted date
+     */
+    getFormattedDate(rawDate = moment()) {
+        const {locale: {format}} = this.props;
+        return moment(rawDate).format(format);
+    },
+    /**
+    * Action when selection date event.
+    * @param  {event} event event triggered by the component
+    * @param  {date} pickerDate date picker date value
     */
-    getFormattedValue(calendarValue) {
-        if(this.state.value){
-            return calendarValue.format(this.props.locale.format);
+    _onPickerApply(event, {startDate: pickerDate}) {
+        this.setState({
+            inputDate: this.getFormattedDate(pickerDate),
+            rawDate: pickerDate
+        });
+    },
+    /**
+     * Input blur handler
+     * @param  {object} inputDate input field value
+     */
+    _onInputBlur({target: {value: inputDate}}) {
+        if (moment(inputDate).isValid()) {
+            this.setState({
+                inputDate,
+                rawDate: moment(inputDate)
+            });
+        } else {
+            this.setState({
+                inputDate: this.getFormattedDate()
+            });
         }
-        return null;
     },
-    _onInputChange(event) {
-        const {value} = event.target;
-        this.setState({value});
+    /**
+     * Input change handler
+     * @param  {object} inputDate input field value
+     */
+    _onInputChange({target: {value: inputDate}}) {
+        if (moment(inputDate).isValid()) {
+            this.setState({inputDate, rawDate: inputDate});
+        } else {
+            this.setState({inputDate});
+        }
     },
-    /** @inheritdoc */
+    /**
+     * Render the component
+     * @return {HTML} rendered component
+     */
     render() {
-        const {value = moment()} = this.state;
-        const calendarValue = moment(value);
+        const {inputDate, rawDate} = this.state;
         const {drops, error, locale, name, placeHolder, showDropdowns} = this.props;
-        const formattedValue = calendarValue.isValid ? this.getFormattedValue(calendarValue) : value;
-        const {_onInputChange, _onApply} = this;
+        const {_onInputBlur, _onInputChange, _onPickerApply} = this;
         return (
             <div data-focus='input-date'>
-            <DateRangePicker drops={drops} locale={locale} onApply={_onApply} opens='center' ref="daterangepicker" showDropdowns={showDropdowns} singleDatePicker={true} startDate={calendarValue}>
-                <InputText error={error} name={name} onChange={_onInputChange} placeHolder={placeHolder} ref="inputDateText" value={formattedValue} />
+            <DateRangePicker drops={drops} endDate={moment(rawDate)} locale={locale} onApply={_onPickerApply} opens='center' ref='daterangepicker' showDropdowns={showDropdowns} singleDatePicker={true} startDate={moment(rawDate)}>
+                <InputText error={error} name={name} onBlur={_onInputBlur} onChange={_onInputChange} placeHolder={placeHolder} ref='inputDateText' value={inputDate} />
             </DateRangePicker>
             </div>
         );
