@@ -279,6 +279,8 @@
         "jquery": "^2.1.4",
         "literalify": "^0.4.0",
         "mocha": "^2.2.5",
+        "node-dir": "^0.1.9",
+        "react-bootstrap-daterangepicker": "^0.3.0",
         "react-tools": "^0.12.2",
         "reactify": "^1.0.0",
         "vinyl-source-stream": "^1.0.0",
