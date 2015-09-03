@@ -67,7 +67,7 @@ const inputTextMixin = {
     _handleOnChange(event){
         //On change handler.
         const {onChange} = this.props;
-        if(onChange){
+        if(onChange) {
             return onChange(event);
         } else {
             //Set the state then call the change handler.

@@ -7,7 +7,7 @@ const moment = require('moment');
 const DateRangePicker = require('react-bootstrap-daterangepicker');
 
 const defaultLocale = {
-    format: 'MM/DD/YYYY',
+    format: 'L', //cf mo moment.js documentation for further date format
     separator: ' - ',
     applyLabel: 'Apply',
     cancelLabel: 'Cancel',
@@ -40,40 +40,6 @@ const defaultLocale = {
     firstDay: 1
 };
 
-// const defaultLocale = {
-//     format: 'DD/MM/YYYY',
-//     separator: ' - ',
-//     applyLabel: 'Appliquer',
-//     cancelLabel: 'Abandonner',
-//     fromLabel: 'De',
-//     toLabel: 'à',
-//     customRangeLabel: 'Personnalisée',
-//     daysOfWeek: [
-//         'Di',
-//         'Lu',
-//         'Ma',
-//         'Me',
-//         'Je',
-//         'Ve',
-//         'Sa'
-//     ],
-//     monthNames: [
-//         'Janvier',
-//         'Février',
-//         'Mars',
-//         'Avril',
-//         'Mai',
-//         'Juin',
-//         'Juillet',
-//         'Août',
-//         'Septembre',
-//         'Octobre',
-//         'Novembre',
-//         'Décembre'
-//     ],
-//     firstDay: 1
-// };
-
 /**
 * Input text mixin.
 * @type {Object}
@@ -105,28 +71,35 @@ const InputDateMixin = {
     /** @inheritdoc */
     getInitialState() {
         return {
-            value: moment(this.props.value)
+            value: this.props.value
         };
     },
     /** @inheritdoc */
     componentWillReceiveProps(newProps){
-        if(newProps !== undefined){
-            this.setState({
-                value: moment(newProps.value)
-            });
-        }
+        this.setState({
+            value: newProps.value
+        });
     },
     /**
     * Action when selection date event.
     * @param  {event} event
     * @param  {picker} picker date values
     */
-    handleEvent(event, picker){
-        this.setState({
-            value: picker.startDate
-        });
-        //React.findDOMNode(this.refs.inputDateText).focus();
+    _onApply(event, picker){
+        if(picker.startDate.isValid) {
+            this.setState({
+                value: picker.startDate
+            });
+        }
+        React.findDOMNode(this.refs.inputDateText).focus();
     },
+    // onShow(event){
+    //     if(this.state.value) {
+    //         const mdate = moment(this.state.value);
+    //         console.debug(mdate);
+    //         this.refs.daterangepicker.startDate = mdate;
+    //     }
+    // },
     /**
     * Get the selected date.
     * @return {object} selected date
@@ -138,18 +111,27 @@ const InputDateMixin = {
     * Get formatted value.
     * @return {string} formattedValue
     */
-    getFormattedValue() {
-        return moment(this.state.value).format(this.props.locale.format);
+    getFormattedValue(calendarValue) {
+        if(this.state.value){
+            return calendarValue.format(this.props.locale.format);
+        }
+        return null;
+    },
+    _onInputChange(event) {
+        const {value} = event.target;
+        this.setState({value});
     },
     /** @inheritdoc */
     render() {
-        const {value} = this.state;
+        const {value = moment()} = this.state;
+        const calendarValue = moment(value);
         const {drops, error, locale, name, placeHolder, showDropdowns} = this.props;
-        const formattedValue = this.getFormattedValue();
+        const formattedValue = calendarValue.isValid ? this.getFormattedValue(calendarValue) : value;
+        const {_onInputChange, _onApply} = this;
         return (
             <div data-focus='input-date'>
-            <DateRangePicker autoApply='true' drops={drops} locale={locale} onEvent={this.handleEvent} opens='center' showDropdowns={showDropdowns} singleDatePicker={true} startDate={value}>
-            <InputText error={error} name={name} placeHolder={placeHolder} ref="inputDateText" value={formattedValue} />
+            <DateRangePicker drops={drops} locale={locale} onApply={_onApply} opens='center' ref="daterangepicker" showDropdowns={showDropdowns} singleDatePicker={true} startDate={calendarValue}>
+                <InputText error={error} name={name} onChange={_onInputChange} placeHolder={placeHolder} ref="inputDateText" value={formattedValue} />
             </DateRangePicker>
             </div>
         );
