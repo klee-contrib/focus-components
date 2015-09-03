@@ -61,7 +61,21 @@ let inputTextMixin = {
      * @return {object} - The value of the formatter.
      */
     getValue() {
-        return this.props.unformatter(React.findDOMNode(this).value);
+        return this.props.unformatter(React.findDOMNode(this.refs.inputText).value);
+    },
+    /**
+    * Handle the change value of the input.
+    * @param {object} event - The sanitize event of input.
+    */
+    _handleOnChange(event){
+        //On change handler.
+        const {onChange} = this.props;
+        if(onChange) {
+            return onChange(event);
+        } else {
+            //Set the state then call the change handler.
+            this.setState({value: event.target.value});
+        }
     },
   /**
    * Handle the change value of the input.
