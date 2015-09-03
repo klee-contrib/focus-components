@@ -24,10 +24,10 @@ const NUMERAL = '//cdnjs.cloudflare.com/ajax/libs/numeral.js/1.4.5/numeral.min.j
 const DATE_RANGE_PICKER_JS = '//cdn.jsdelivr.net/bootstrap.daterangepicker/1/daterangepicker.js',
 DATE_RANGE_PICKER_CSS = '//cdn.jsdelivr.net/bootstrap.daterangepicker/1/daterangepicker-bs3.css';
 
-const FOCUS_JS = '/focus-components/dist/js/focus.js';
-const FOCUS_COMPONENTS_JS = '/focus-components/dist/js/focus-components.js',
-      FOCUS_COMPONENTS_CSS = '/focus-components/dist/css/focus-components.css';
-const FOCUS_INIT = '/focus-components/example/js/initFocus.js';
+const FOCUS_JS = '/js/focus.js';
+const FOCUS_COMPONENTS_JS = '/js/focus-components.js',
+      FOCUS_COMPONENTS_CSS = '/css/focus-components.css';
+const FOCUS_INIT = '/js/initFocus.js';
 /**
  * Load all js dep.
  * @return {Promise} - Promise of the JS loading.

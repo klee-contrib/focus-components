@@ -26,7 +26,7 @@
                 h1 {
                     margin: 0;
                     font-size: 22px;
-                    background-image: url('/focus-components/example/assets/logo-focus.png');
+                    background-image: url('/assets/logo-focus.png');
                     background-position: 50%;
                     background-repeat: no-repeat;
                     padding-top: 90px;
@@ -91,7 +91,7 @@
         }
         .brand-powered{
             a {
-                background: url('/focus-components/example/assets/logo-klee.png') no-repeat bottom left;
+                background: url(' /assets/logo-klee.png') no-repeat bottom left;
                 display: block;
                 width: 110px;
                 color: #FFF;
@@ -102,6 +102,12 @@
                 font-size: 10px;
                 margin: 10px auto;
             }
+        }
+    }
+
+    [data-focus='live-component-popin'] {
+        [data-focus='popin-window'] {
+            width: calc(100vw - 290px);
         }
     }
 }

@@ -9,6 +9,13 @@ class CatalogListComponent extends Component{
     constructor(props){
         super(props);
     }
+
+    _showLiveComponentHandler(comp) {
+        return () => {
+            this.props.showLiveComponent(comp);
+        };
+    }
+
     render(){
         const {data} = this.props;
         const style = {
@@ -16,7 +23,7 @@ class CatalogListComponent extends Component{
         };
         return (
             <ul data-focus='catalog-list' style={style}>
-              {data.map( (comp, idx) => <ComponentCard key={idx} {...comp}/> )}
+              {data.map( (comp, idx) => <ComponentCard key={idx} {...comp} showLiveComponent={this._showLiveComponentHandler(comp)}/> )}
             </ul>
         );
     }

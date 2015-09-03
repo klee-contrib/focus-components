@@ -12,8 +12,8 @@ class ComponentCard extends Component{
         super(props);
     }
     /** @inheriteDoc */
-    render(){
-        const {name, description, example, url, photo, tags, key} = this.props;
+    render() {
+        const {name, description, example, photo, keywords} = this.props;
         const style = {background: `url('${photo}') bottom right  no-repeat #46B6AC`, height: '320px'};
         return (
                 <li className='demo-card-wide mdl-card mdl-shadow--2dp' style={liStyle}>
@@ -23,11 +23,11 @@ class ComponentCard extends Component{
                     <div className='mdl-card__supporting-text'>
                         {description}
                         <div className='tags'>
-                          {tags.split(',').slice(0, 2).map((tag) => <button className='mdl-button mdl-js-button mdl-js-ripple-effect'>{tag}</button>)}
+                          {keywords.slice(0, 2).map((tag) => <button className='mdl-button mdl-js-button mdl-js-ripple-effect'>{tag}</button>)}
                         </div>
                     </div>
                     <div className='mdl-card__actions mdl-card--border'>
-                        <a className='mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect' href={example}>
+                        <a className='mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect' href={example} onClick={this.props.showLiveComponent}>
                           Example
                         </a>
                         </div>
@@ -48,7 +48,7 @@ ComponentCard.propTypes = {
     description: types('string'),
     example: types('string'),
     url: types('string'),
-    tags: types('string'),
+    keywords: types('string'),
     photo: types('string'),
     name: types('string')
 };

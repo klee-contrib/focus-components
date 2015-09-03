@@ -95,3 +95,7 @@ gulp.task('style', function() {
 });
 
 gulp.task('build', ['browserify', 'style']);
+
+gulp.task('watch',['build'], function() {
+	gulp.watch(['package.json', 'index.js', src, srcCSS], ['build', 'style']);
+});

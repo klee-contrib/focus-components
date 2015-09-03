@@ -1,9 +1,14 @@
-const {builder, types} = require('focus').component;
-const React = require('react');
-const i18nBehaviour = require('../common/i18n/mixin');
+// Dependencies
 
-// const uuid = require('uuid').v4;
-const templateMixin = {
+const {types} = require('focus').component;
+const React = require('react');
+
+// Mixins
+
+const i18nBehaviour = require('../../common/i18n/mixin');
+
+const Layout = React.createClass({
+    displayName: 'ShowcaseLayout',
     mixins: [i18nBehaviour],
 
     /**
@@ -15,8 +20,8 @@ const templateMixin = {
     },
 
     /**
-    * Render the template HTML of focus component demo.
-    * @return {VirtualDOM} - The virtual DOM of the template.
+    * Render the layout HTML of focus components showcase.
+    * @return {VirtualDOM} - The virtual DOM of the layout.
     */
     render() {
 
@@ -71,7 +76,7 @@ const templateMixin = {
                     <div className='brand-powered'><a href="http://www.kleegroup.com">Propulsé par</a></div>
                 </nav>
               </div>
-              <main className='mdl-layout__content mdl-color--grey-100'>
+              <main className='mdl-layout__content mdl-color--grey-100' style={{zIndex: '100'}}>
                 <div className='demo-content'>
                     {this.props.children}
                 </div>
@@ -79,6 +84,6 @@ const templateMixin = {
             </div>
         );
     }
-};
+});
 
-module.exports = builder(templateMixin);
+module.exports = Layout;

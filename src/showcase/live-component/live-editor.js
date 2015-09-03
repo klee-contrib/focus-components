@@ -11,19 +11,30 @@ const CodeEditor = require('react-ace');
 
 const LiveEditor = React.createClass({
     displayName: 'LiveEditor',
+    style: {
+        title: {
+            margin: '15px',
+            color: '#372B3F'
+        }
+    },
     propTypes: {
         code: types('string'),
         onChange: types('func'),
         style: types('object')
     },
     /**
-     * Render the component.
-     * @return {HTML} the rendered component
-     */
+    * Render the component.
+    * @return {HTML} the rendered component
+    */
     render() {
-        const {code, onChange, style} = this.props;
+        const {code, onChange, style: mainStyle} = this.props;
+        const {style} = this;
         return (
-            <CodeEditor editorProps={{$blockScrolling: 'Infinity'}} mode='jsx' name='codeEditor' onChange={onChange} style={style} theme='github' value={code}/>
+            <div className='mdl-shadow--2dp' style={mainStyle}>
+                <h1 style={style.title}>Code <i>éditable</i></h1>
+                <hr/>
+                <CodeEditor editorProps={{$blockScrolling: 'Infinity'}} mode='jsx' name='codeEditor' onChange={onChange} theme='github' value={code}/>
+            </div>
         );
     }
 });
