@@ -17,16 +17,23 @@
     loadAssets().then((d)=>{
         const Template = FocusComponents.template.component;
         const InputDate = FocusComponents.common.input.date.component;
+        moment.locale('fr');
 
         const InputDateSample = React.createClass({
+
+            _handleGetValueClick() {
+                const value = this.refs.myInputDate.getValue();
+                alert(value);
+            },
+
             /**
             * Render the component.
             * @return {object} React node
             */
             render() {
                 return <Template title="Input date">
-                    <InputDate name='fieldDate1'
-                                value={new Date()} />
+                    <InputDate name='fieldDate1' value={new Date().toISOString()} ref='myInputDate' />
+                    <button onClick={this._handleGetValueClick}>Display value</button>
                 </Template>
             }
         });
