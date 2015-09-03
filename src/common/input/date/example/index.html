@@ -37,23 +37,31 @@
   <link rel="stylesheet" href="/focus-components/dist/css/focus-components.css"/>
   <link rel="stylesheet" href="/focus-components/example/js/picker.css"/>
 </head>
-
 <body>
-  <script src="/focus-components/example/js/picker.js"></script>
-  <script src="/focus-components/dist/js/focus.js"></script>
-  <script src="/focus-components/dist/js/focus-components.js"></script>
-  <div id="form-container"></div>
-  <script type="text/jsx">
-  $(function(){
-    Focus.components = FocusComponents;
-    var DateInput = Focus.components.common.input.date.component;
-    React.render(
-        <form>
-            <DateInput  name='fieldDate1' formatter={function(d){return moment(d).format('L')}} value={new Date()} style={{className: 'papaDate'}} onChange={function(evt){console.log('date changed', evt)}}/>
-        </form>
-    , document.querySelector("#form-container"));
-  });
-  </script>
+    <script type="text/babel">
+    loadAssets().then((d)=>{
+        const Template = FocusComponents.template.component;
+        const InputDate = FocusComponents.common.input.date.component;
+        moment.locale('fr');
+
+        const InputDateSample = React.createClass({
+
+            _handleGetValueClick() {
+                const value = this.refs.myInputDate.getValue();
+                alert(value);
+            },
+
+            /**
+            * Render the component.
+            * @return {object} React node
+            */
+            render() {
+                return <Template title="Input date">
+                    <InputDate name='fieldDate1' value={new Date().toISOString()} ref='myInputDate' />
+                    <button onClick={this._handleGetValueClick}>Display value</button>
+                </Template>
+            }
+        });
 
 </body>
 

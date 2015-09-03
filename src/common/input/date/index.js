@@ -1,41 +1,159 @@
 //Dependencies.
-////http://www.daterangepicker.com/#ex2
-let builder = require('focus').component.builder;
-let React = require('react');
-let inputTextMixin = require('../text').mixin;
-let assign = require('object-assign');
+//https://github.com/skratchdot/react-bootstrap-daterangepicker
+const {builder, types} = require('focus').component;
+const React = require('react');
+const InputText = require('../text').component;
+const moment = require('moment');
+const DateRangePicker = require('react-bootstrap-daterangepicker');
+
+const defaultLocale = {
+    format: 'MM/DD/YYYY',
+    separator: ' - ',
+    applyLabel: 'Apply',
+    cancelLabel: 'Cancel',
+    fromLabel: 'From',
+    toLabel: 'To',
+    customRangeLabel: 'Custom',
+    daysOfWeek: [
+        'Su',
+        'Mo',
+        'Tu',
+        'We',
+        'Th',
+        'Fr',
+        'Sa'
+    ],
+    monthNames: [
+        'January',
+        'February',
+        'March',
+        'April',
+        'May',
+        'June',
+        'July',
+        'August',
+        'September',
+        'October',
+        'November',
+        'December'
+    ],
+    firstDay: 1
+};
+
+// const defaultLocale = {
+//     format: 'DD/MM/YYYY',
+//     separator: ' - ',
+//     applyLabel: 'Appliquer',
+//     cancelLabel: 'Abandonner',
+//     fromLabel: 'De',
+//     toLabel: 'à',
+//     customRangeLabel: 'Personnalisée',
+//     daysOfWeek: [
+//         'Di',
+//         'Lu',
+//         'Ma',
+//         'Me',
+//         'Je',
+//         'Ve',
+//         'Sa'
+//     ],
+//     monthNames: [
+//         'Janvier',
+//         'Février',
+//         'Mars',
+//         'Avril',
+//         'Mai',
+//         'Juin',
+//         'Juillet',
+//         'Août',
+//         'Septembre',
+//         'Octobre',
+//         'Novembre',
+//         'Décembre'
+//     ],
+//     firstDay: 1
+// };
+
 /**
- * Input text mixin.
- * @type {Object}
- */
-let inputDateMixin = {
+* Input text mixin.
+* @type {Object}
+*/
+const InputDateMixin = {
+    /**
+    * Tag name.
+    */
+    displayName: 'InputDate',
+
     /** @inheritdoc */
-    mixins: [inputTextMixin],
+    getDefaultProps() {
+        return {
+            drops: 'down', // possible values: up, down
+            showDropdowns: true,
+            locale: defaultLocale
+        };
+    },
     /** @inheritdoc */
-    componentDidMount(){
-        let jQuery = require('jquery');
-        let moment = require('moment');
-        if(!jQuery.fn.daterangepicker){
-            console.warn('The jquery daterangepicker plugin should be loaded: see https://github.com/dangrossman/bootstrap-daterangepicker.');
+    propTypes: {
+        drops: types('string'),
+        error: types('string'),
+        formatter: types('func'),
+        locale: types('object').isRequired,
+        name: types('string').isRequired,
+        placeHolder: types('string'),
+        value: types('object').isRequired
+    },
+    /** @inheritdoc */
+    getInitialState() {
+        return {
+            value: moment(this.props.value)
+        };
+    },
+    /** @inheritdoc */
+    componentWillReceiveProps(newProps){
+        if(newProps !== undefined){
+            this.setState({
+                value: moment(newProps.value)
+            });
         }
-        if(!moment){
-            console.warn('The moment library should be loaded: http://http://momentjs.com/');
-        }
-        let component = this;
-        //If the domains set options.
-        let propsOptions = this.props.options && this.props.options.dateRangePicker ? this.props.options.dateRangePicker : {};
-        //console.log('parentEL............', `div [data-reactid="${React.findDOMNode(this).parentElement.getAttribute('data-reactid')}"]`);
-        let dateRangeOptions = assign( propsOptions, {
-          //Check if the parentElement is the correct container.
-          parentEl: `[data-reactid="${React.findDOMNode(this).parentElement.getAttribute('data-reactid')}"]`,
-          singleDatePicker: true,
-          showDropdowns: true
+    },
+    /**
+    * Action when selection date event.
+    * @param  {event} event
+    * @param  {picker} picker date values
+    */
+    handleEvent(event, picker){
+        this.setState({
+            value: picker.startDate
         });
-        jQuery(React.findDOMNode(this)).daterangepicker(dateRangeOptions, (start)=>{ ///*, end, label*/
-            component.setState({value: component.props.formatter(start.toDate())});
-        });
+        //React.findDOMNode(this.refs.inputDateText).focus();
+    },
+    /**
+    * Get the selected date.
+    * @return {object} selected date
+    */
+    getValue() {
+        return this.state.value.toISOString();
+    },
+    /**
+    * Get formatted value.
+    * @return {string} formattedValue
+    */
+    getFormattedValue() {
+        return moment(this.state.value).format(this.props.locale.format);
+    },
+    /** @inheritdoc */
+    render() {
+        const {value} = this.state;
+        const {drops, error, locale, name, placeHolder, showDropdowns} = this.props;
+        const formattedValue = this.getFormattedValue();
+        return (
+            <div data-focus='input-date'>
+            <DateRangePicker autoApply='true' drops={drops} locale={locale} onEvent={this.handleEvent} opens='center' showDropdowns={showDropdowns} singleDatePicker={true} startDate={value}>
+            <InputText error={error} name={name} placeHolder={placeHolder} ref="inputDateText" value={formattedValue} />
+            </DateRangePicker>
+            </div>
+        );
     }
 };
 
-
-module.exports = builder(inputDateMixin);
+module.exports = builder(InputDateMixin);
