@@ -1,0 +1,26 @@
+
+
+[data-focus="input-date"] {
+    width: 115px;
+    [data-focus="input-text"] {
+        position: relative;
+        &:after {
+            position: absolute;
+            font-size: 14px;
+            font-family: 'FontAwesome';
+            content: '\f073';
+            top: 0;
+            right: 0;
+            bottom: 0;
+            padding: 22px 0;
+        }
+    }
+}
+
+.daterangepicker {
+    display: none;
+    &.dropdown-menu {
+        border: 1px solid #ccc;
+        box-shadow: 0 6px 12px rgba(0,0,0,.175);
+    }
+}

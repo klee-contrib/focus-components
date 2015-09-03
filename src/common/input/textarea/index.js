@@ -1,6 +1,5 @@
-const builder = require('focus').component.builder;
+const {builder, types} = require('focus').component;
 const React = require('react');
-const type = require('focus').component.types;
 const i18nBehaviour = require('../../i18n/mixin');
 
 /**
@@ -27,14 +26,14 @@ const textAreaMixin = {
     * @type {Object}
     */
     propTypes: {
-        minlength: type('number'),
-        maxlength: type('number'),
-        wrap: type('string'),
-        required: type('bool'),
-        value: type('string'),
-        label: type('string'),
-        rows: type('number'),
-        cols: type('number')
+        minlength: types('number'),
+        maxlength: types('number'),
+        wrap: types('string'),
+        required: types('bool'),
+        value: types('string'),
+        label: types('string'),
+        rows: types('number'),
+        cols: types('number')
     },
     /** inheritedDoc */
     getInitialState() {

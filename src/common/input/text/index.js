@@ -1,7 +1,6 @@
 //Dependencies.
-const builder = require('focus').component.builder;
+const {builder, types} = require('focus').component;
 const React = require('react');
-const types = require('focus').component.types;
 const assign = require('object-assign');
 /**
 * Identity function.
@@ -38,7 +37,7 @@ const inputTextMixin = {
         type: types('string'),
         value: types(['string', 'number']),
         name: types('string'),
-        placeHolder: types('string'),
+        placeHolder: types('string')
     },
     /** @inheritdoc */
     getInitialState() {
@@ -68,7 +67,7 @@ const inputTextMixin = {
     _handleOnChange(event){
         //On change handler.
         const {onChange} = this.props;
-        if(onChange){
+        if(onChange) {
             return onChange(event);
         } else {
             //Set the state then call the change handler.
@@ -85,7 +84,7 @@ const inputTextMixin = {
         const inputProps = assign({}, this.props, {value}, {id: name, onChange: this._handleOnChange});
         const pattern = error ? 'hasError' : null; //add pattern to overide mdl error style when displaying an focus error.
         return (
-            <div className='mdl-textfield mdl-js-textfield'>
+            <div className='mdl-textfield mdl-js-textfield' data-focus='input-text'>
                 <input className='mdl-textfield__input' ref='inputText' {...inputProps} pattern={pattern} />
                 <label className='mdl-textfield__label' htmlFor={name}>{placeHolder}</label>
                 {error &&
