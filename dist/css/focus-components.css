@@ -4888,19 +4888,19 @@
   [data-focus='confirmation-popin'] [data-focus='button-stack'] button {
     margin: 20px; }
 
-header [data-focus="content-actions"] .btn {
-  margin: 0 10px; }
-  header [data-focus="content-actions"] .btn.btn-fab {
-    background-color: #FFF !important; }
-  header [data-focus="content-actions"] .btn:hover {
-    background-color: #F9F9F9 !important; }
-
 [data-focus='content-bar'] {
   -moz-box-shadow: 0px 1px 10px 2px #EAEAEA;
   -webkit-box-shadow: 0px 1px 10px 2px #EAEAEA;
   -o-box-shadow: 0px 1px 10px 2px #EAEAEA;
   box-shadow: 0px 1px 10px 2px #EAEAEA;
   filter: progid:DXImageTransform.Microsoft.Shadow(color=$content-bar-shadow-color, Direction=180, Strength=10); }
+
+header [data-focus="content-actions"] .btn {
+  margin: 0 10px; }
+  header [data-focus="content-actions"] .btn.btn-fab {
+    background-color: #FFF !important; }
+  header [data-focus="content-actions"] .btn:hover {
+    background-color: #F9F9F9 !important; }
 
 [data-focus='error-center'] {
   position: fixed;
@@ -5986,6 +5986,26 @@ table.table-list {
   [data-focus='back-to-top'].invisible {
     display: none; }
 
+
+[data-focus="input-date"] {
+  width: 115px; }
+  [data-focus="input-date"] [data-focus="input-text"] {
+    position: relative; }
+    [data-focus="input-date"] [data-focus="input-text"]:after {
+      position: absolute;
+      font-size: 14px;
+      font-family: 'FontAwesome';
+      content: '\f073';
+      top: 0;
+      right: 0;
+      bottom: 0;
+      padding: 22px 0; }
+
+.daterangepicker {
+  display: none; }
+  .daterangepicker.dropdown-menu {
+    border: 1px solid #ccc;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.175); }
 
 
 [data-focus='advanced-search'] {

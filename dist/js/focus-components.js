@@ -1,14 +1,14 @@
 (function(f){if(typeof exports==="object"&&typeof module!=="undefined"){module.exports=f()}else if(typeof define==="function"&&define.amd){define([],f)}else{var g;if(typeof window!=="undefined"){g=window}else if(typeof global!=="undefined"){g=global}else if(typeof self!=="undefined"){g=self}else{g=this}g.FocusComponents = f()}})(function(){var define,module,exports;return (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
 //Generator http://patorjk.com/software/taag/#p=display&h=1&f=Banner4&t=Focus-COMPONENTS
-"use strict";
+'use strict';
 
-var infos = require("../package.json");
+var infos = require('../package.json');
 
 /**
 * Display information data for Focus-COMPONENTS
 */
 var infosFn = function infos() {
-    console.log("\n        _____   _____   _____   _   _   _____        _____   _____       ___  ___   _____   _____   __   _   _____   __   _   _____   _____\n        |  ___| /  _  \\ /  ___| | | | | /  ___/      /  ___| /  _  \\     /   |/   | |  _  \\ /  _  \\ |  \\ | | | ____| |  \\ | | |_   _| /  ___/\n        | |__   | | | | | |     | | | | | |___       | |     | | | |    / /|   /| | | |_| | | | | | |   | |  | |__   |   \\| |   | |   | |___\n        |  __|  | | | | | |     | | | | \\___  \\      | |     | | | |   / / |__/ | | |  ___/ | | | | | |\\   | |  __|  | |\\   |   | |   \\___  \\\n        | |     | |_| | | |___  | |_| |  ___| |      | |___  | |_| |  / /       | | | |     | |_| | | | \\  | | |___  | | \\  |   | |    ___| |\n        |_|     \\_____/ \\_____| \\_____/ /_____/      \\_____| \\_____/ /_/        |_| |_|     \\_____/ |_|  \\_| |_____| |_|  \\_|   |_|   /_____/\n\n        version: " + infos.version + "\n        focus-components: " + infos.homepage + "\n        documentation: " + infos.documentation + "\n        issues: " + infos.bugs.url + "\n        ");
+    console.log('\n        _____   _____   _____   _   _   _____        _____   _____       ___  ___   _____   _____   __   _   _____   __   _   _____   _____\n        |  ___| /  _  \\ /  ___| | | | | /  ___/      /  ___| /  _  \\     /   |/   | |  _  \\ /  _  \\ |  \\ | | | ____| |  \\ | | |_   _| /  ___/\n        | |__   | | | | | |     | | | | | |___       | |     | | | |    / /|   /| | | |_| | | | | | |   | |  | |__   |   \\| |   | |   | |___\n        |  __|  | | | | | |     | | | | \\___  \\      | |     | | | |   / / |__/ | | |  ___/ | | | | | |\\   | |  __|  | |\\   |   | |   \\___  \\\n        | |     | |_| | | |___  | |_| |  ___| |      | |___  | |_| |  / /       | | | |     | |_| | | | \\  | | |___  | | \\  |   | |    ___| |\n        |_|     \\_____/ \\_____| \\_____/ /_____/      \\_____| \\_____/ /_/        |_| |_|     \\_____/ |_|  \\_| |_____| |_|  \\_|   |_|   /_____/\n\n        version: ' + infos.version + '\n        focus-components: ' + infos.homepage + '\n        documentation: ' + infos.documentation + '\n        issues: ' + infos.bugs.url + '\n        ');
 };
 
 module.exports = {
@@ -20,22 +20,22 @@ module.exports = {
      * Display documentation data
      */
     DOCUMENTATION: function DOCUMENTATION() {
-        console.log("documentation: http://kleegroup.github.io/focus-components");
-        console.log("components available");
+        console.log('documentation: http://kleegroup.github.io/focus-components');
+        console.log('components available');
         console.table(infos.components);
-        console.log("repository: " + infos.repository.url);
-        console.log("issues: " + infos.bugs.url);
+        console.log('repository: ' + infos.repository.url);
+        console.log('issues: ' + infos.bugs.url);
     },
-    common: require("./common"),
-    list: require("./list"),
-    search: require("./search"),
-    page: require("./page"),
-    message: require("./message"),
-    application: require("./application"),
+    common: require('./common'),
+    list: require('./list'),
+    search: require('./search'),
+    page: require('./page'),
+    message: require('./message'),
+    application: require('./application'),
     infos: infosFn
 };
 
-},{"../package.json":291,"./application":300,"./common":334,"./list":367,"./message":383,"./page":388,"./search":411}],2:[function(require,module,exports){
+},{"../package.json":294,"./application":303,"./common":337,"./list":370,"./message":386,"./page":391,"./search":414}],2:[function(require,module,exports){
 module.exports = {
   'chunk': require('./array/chunk'),
   'compact': require('./array/compact'),
@@ -22608,6 +22608,1543 @@ module.exports = Object.assign || function (target, source) {
 };
 
 },{}],289:[function(require,module,exports){
+/**
+* @version: 2.0.8
+* @author: Dan Grossman http://www.dangrossman.info/
+* @copyright: Copyright (c) 2012-2015 Dan Grossman. All rights reserved.
+* @license: Licensed under the MIT license. See http://www.opensource.org/licenses/mit-license.php
+* @website: https://www.improvely.com/
+*/
+
+(function(root, factory) {
+
+  if (typeof define === 'function' && define.amd) {
+    define(['moment', 'jquery', 'exports'], function(momentjs, $, exports) {
+      root.daterangepicker = factory(root, exports, momentjs, $);
+    });
+
+  } else if (typeof exports !== 'undefined') {
+    var momentjs = window.moment;
+    var jQuery = window.jQuery;
+    if (jQuery === undefined) {
+      try {
+        jQuery = window.jQuery;
+      } catch (err) {
+        if (!jQuery) throw new Error('jQuery dependency not found');
+      }
+    }
+
+    factory(root, exports, momentjs, jQuery);
+
+  // Finally, as a browser global.
+  } else {
+    root.daterangepicker = factory(root, {}, root.moment || moment, (root.jQuery || root.Zepto || root.ender || root.$));
+  }
+
+}(this, function(root, daterangepicker, moment, $) {
+
+    var DateRangePicker = function(element, options, cb) {
+
+        //default settings for options
+        this.parentEl = 'body';
+        this.element = $(element);
+        this.startDate = moment().startOf('day');
+        this.endDate = moment().endOf('day');
+        this.timeZone = moment().utcOffset();
+        this.minDate = false;
+        this.maxDate = false;
+        this.dateLimit = false;
+        this.autoApply = false;
+        this.singleDatePicker = false;
+        this.showDropdowns = false;
+        this.showWeekNumbers = false;
+        this.timePicker = false;
+        this.timePicker24Hour = false;
+        this.timePickerIncrement = 1;
+        this.timePickerSeconds = false;
+        this.linkedCalendars = true;
+        this.ranges = {};
+
+        this.opens = 'right';
+        if (this.element.hasClass('pull-right'))
+            this.opens = 'left';
+
+        this.drops = 'down';
+        if (this.element.hasClass('dropup'))
+            this.drops = 'up';
+
+        this.buttonClasses = 'btn btn-sm';
+        this.applyClass = 'btn-success';
+        this.cancelClass = 'btn-default';
+
+        this.locale = {
+            format: 'MM/DD/YYYY',
+            separator: ' - ',
+            applyLabel: 'Apply',
+            cancelLabel: 'Cancel',
+            weekLabel: 'W',
+            customRangeLabel: 'Custom Range',
+            daysOfWeek: moment.weekdaysMin(),
+            monthNames: moment.monthsShort(),
+            firstDay: moment.localeData().firstDayOfWeek()
+        };
+
+        this.callback = function() { };
+
+        //some state information
+        this.isShowing = false;
+        this.leftCalendar = {};
+        this.rightCalendar = {};
+
+        //custom options from user
+        if (typeof options !== 'object' || options === null)
+            options = {};
+
+        //allow setting options with data attributes
+        //data-api options will be overwritten with custom javascript options
+        options = $.extend(this.element.data(), options);
+
+        //html template for the picker UI
+        if (typeof options.template !== 'string')
+            options.template = '<div class="daterangepicker dropdown-menu">' +
+                '<div class="calendar left">' +
+                    '<div class="daterangepicker_input">' +
+                      '<input class="input-mini" type="text" name="daterangepicker_start" value="" />' +
+                      '<i class="fa fa-calendar glyphicon glyphicon-calendar"></i>' +
+                      '<div class="calendar-time">' +
+                        '<div></div>' +
+                        '<i class="fa fa-clock-o glyphicon glyphicon-time"></i>' +
+                      '</div>' +
+                    '</div>' +
+                    '<div class="calendar-table"></div>' +
+                '</div>' +
+                '<div class="calendar right">' +
+                    '<div class="daterangepicker_input">' +
+                      '<input class="input-mini" type="text" name="daterangepicker_end" value="" />' +
+                      '<i class="fa fa-calendar glyphicon glyphicon-calendar"></i>' +
+                      '<div class="calendar-time">' +
+                        '<div></div>' +
+                        '<i class="fa fa-clock-o glyphicon glyphicon-time"></i>' +
+                      '</div>' +
+                    '</div>' +
+                    '<div class="calendar-table"></div>' +
+                '</div>' +
+                '<div class="ranges">' +
+                    '<div class="range_inputs">' +
+                        '<button class="applyBtn" disabled="disabled" type="button"></button> ' +
+                        '<button class="cancelBtn" type="button"></button>' +
+                    '</div>' +
+                '</div>' +
+            '</div>';
+
+        this.parentEl = (options.parentEl && $(options.parentEl).length) ? $(options.parentEl) : $(this.parentEl);
+        this.container = $(options.template).appendTo(this.parentEl);
+
+        //
+        // handle all the possible options overriding defaults
+        //
+
+        if (typeof options.locale === 'object') {
+
+            if (typeof options.locale.format === 'string')
+                this.locale.format = options.locale.format;
+
+            if (typeof options.locale.separator === 'string')
+                this.locale.separator = options.locale.separator;
+
+            if (typeof options.locale.daysOfWeek === 'object')
+                this.locale.daysOfWeek = options.locale.daysOfWeek.slice();
+
+            if (typeof options.locale.monthNames === 'object')
+              this.locale.monthNames = options.locale.monthNames.slice();
+
+            if (typeof options.locale.firstDay === 'number')
+              this.locale.firstDay = options.locale.firstDay;
+
+            if (typeof options.locale.applyLabel === 'string')
+              this.locale.applyLabel = options.locale.applyLabel;
+
+            if (typeof options.locale.cancelLabel === 'string')
+              this.locale.cancelLabel = options.locale.cancelLabel;
+
+            if (typeof options.locale.weekLabel === 'string')
+              this.locale.weekLabel = options.locale.weekLabel;
+
+            if (typeof options.locale.customRangeLabel === 'string')
+              this.locale.customRangeLabel = options.locale.customRangeLabel;
+
+        }
+
+        if (typeof options.startDate === 'string')
+            this.startDate = moment(options.startDate, this.locale.format);
+
+        if (typeof options.endDate === 'string')
+            this.endDate = moment(options.endDate, this.locale.format);
+
+        if (typeof options.minDate === 'string')
+            this.minDate = moment(options.minDate, this.locale.format);
+
+        if (typeof options.maxDate === 'string')
+            this.maxDate = moment(options.maxDate, this.locale.format);
+
+        if (typeof options.startDate === 'object')
+            this.startDate = moment(options.startDate);
+
+        if (typeof options.endDate === 'object')
+            this.endDate = moment(options.endDate);
+
+        if (typeof options.minDate === 'object')
+            this.minDate = moment(options.minDate);
+
+        if (typeof options.maxDate === 'object')
+            this.maxDate = moment(options.maxDate);
+
+        // sanity check for bad options
+        if (this.minDate && this.startDate.isBefore(this.minDate))
+            this.startDate = this.minDate.clone();
+
+        // sanity check for bad options
+        if (this.maxDate && this.endDate.isAfter(this.maxDate))
+            this.endDate = this.maxDate.clone();
+
+        if (typeof options.applyClass === 'string')
+            this.applyClass = options.applyClass;
+
+        if (typeof options.cancelClass === 'string')
+            this.cancelClass = options.cancelClass;
+
+        if (typeof options.dateLimit === 'object')
+            this.dateLimit = options.dateLimit;
+
+        if (typeof options.opens === 'string')
+            this.opens = options.opens;
+
+        if (typeof options.drops === 'string')
+            this.drops = options.drops;
+
+        if (typeof options.showWeekNumbers === 'boolean')
+            this.showWeekNumbers = options.showWeekNumbers;
+
+        if (typeof options.buttonClasses === 'string')
+            this.buttonClasses = options.buttonClasses;
+
+        if (typeof options.buttonClasses === 'object')
+            this.buttonClasses = options.buttonClasses.join(' ');
+
+        if (typeof options.showDropdowns === 'boolean')
+            this.showDropdowns = options.showDropdowns;
+
+        if (typeof options.singleDatePicker === 'boolean') {
+            this.singleDatePicker = options.singleDatePicker;
+            if (this.singleDatePicker)
+                this.endDate = this.startDate.clone();
+        }
+
+        if (typeof options.timePicker === 'boolean')
+            this.timePicker = options.timePicker;
+
+        if (typeof options.timePickerSeconds === 'boolean')
+            this.timePickerSeconds = options.timePickerSeconds;
+
+        if (typeof options.timePickerIncrement === 'number')
+            this.timePickerIncrement = options.timePickerIncrement;
+
+        if (typeof options.timePicker24Hour === 'boolean')
+            this.timePicker24Hour = options.timePicker24Hour;
+
+        if (typeof options.autoApply === 'boolean')
+            this.autoApply = options.autoApply;
+
+        if (typeof options.linkedCalendars === 'boolean')
+            this.linkedCalendars = options.linkedCalendars;
+
+        // update day names order to firstDay
+        if (this.locale.firstDay != 0) {
+            var iterator = this.locale.firstDay;
+            while (iterator > 0) {
+                this.locale.daysOfWeek.push(this.locale.daysOfWeek.shift());
+                iterator--;
+            }
+        }
+
+        var start, end, range;
+
+        //if no start/end dates set, check if an input element contains initial values
+        if (typeof options.startDate === 'undefined' && typeof options.endDate === 'undefined') {
+            if ($(this.element).is('input[type=text]')) {
+                var val = $(this.element).val(),
+                    split = val.split(this.locale.separator);
+
+                start = end = null;
+
+                if (split.length == 2) {
+                    start = moment(split[0], this.locale.format);
+                    end = moment(split[1], this.locale.format);
+                } else if (this.singleDatePicker && val !== "") {
+                    start = moment(val, this.locale.format);
+                    end = moment(val, this.locale.format);
+                }
+                if (start !== null && end !== null) {
+                    this.setStartDate(start);
+                    this.setEndDate(end);
+                }
+            }
+        }
+
+        // bind the time zone used to build the calendar to either the timeZone passed in through the options or the zone of the startDate (which will be the local time zone by default)
+        if (typeof options.timeZone === 'string' || typeof options.timeZone === 'number') {
+            if (typeof options.timeZone === 'string' && typeof moment.tz !== 'undefined') {
+                this.timeZone = moment.tz.zone(options.timeZone).parse(new Date) * -1;  // Offset is positive if the timezone is behind UTC and negative if it is ahead.
+            } else {
+                this.timeZone = options.timeZone;
+            }
+          this.startDate.utcOffset(this.timeZone);
+          this.endDate.utcOffset(this.timeZone);
+        } else {
+            this.timeZone = moment(this.startDate).utcOffset();
+        }
+
+        if (typeof options.ranges === 'object') {
+            for (range in options.ranges) {
+
+                if (typeof options.ranges[range][0] === 'string')
+                    start = moment(options.ranges[range][0], this.locale.format);
+                else
+                    start = moment(options.ranges[range][0]);
+
+                if (typeof options.ranges[range][1] === 'string')
+                    end = moment(options.ranges[range][1], this.locale.format);
+                else
+                    end = moment(options.ranges[range][1]);
+
+                // If the start or end date exceed those allowed by the minDate or dateLimit
+                // options, shorten the range to the allowable period.
+                if (this.minDate && start.isBefore(this.minDate))
+                    start = this.minDate.clone();
+
+                var maxDate = this.maxDate;
+                if (this.dateLimit && start.clone().add(this.dateLimit).isAfter(maxDate))
+                    maxDate = start.clone().add(this.dateLimit);
+                if (maxDate && end.isAfter(maxDate))
+                    end = maxDate.clone();
+
+                // If the end of the range is before the minimum or the start of the range is
+                // after the maximum, don't display this range option at all.
+                if ((this.minDate && end.isBefore(this.minDate)) || (maxDate && start.isAfter(maxDate)))
+                    continue;
+
+                this.ranges[range] = [start, end];
+            }
+
+            var list = '<ul>';
+            for (range in this.ranges) {
+                list += '<li>' + range + '</li>';
+            }
+            list += '<li>' + this.locale.customRangeLabel + '</li>';
+            list += '</ul>';
+            this.container.find('.ranges ul').remove();
+            this.container.find('.ranges').prepend(list);
+        }
+
+        if (typeof cb === 'function') {
+            this.callback = cb;
+        }
+
+        if (!this.timePicker) {
+            this.startDate = this.startDate.startOf('day');
+            this.endDate = this.endDate.endOf('day');
+            this.container.find('.calendar-time').hide();
+        }
+
+        //can't be used together for now
+        if (this.timePicker && this.autoApply)
+            this.autoApply = false;
+
+        if (this.autoApply && typeof options.ranges !== 'object') {
+            this.container.find('.ranges').hide();
+        } else if (this.autoApply) {
+            this.container.find('.applyBtn, .cancelBtn').addClass('hide');
+        }
+
+        if (this.singleDatePicker) {
+            this.container.addClass('single');
+            this.container.find('.calendar.left').addClass('single');
+            this.container.find('.calendar.left').show();
+            this.container.find('.calendar.right').hide();
+            this.container.find('.daterangepicker_input input, .daterangepicker_input i').hide();
+            if (!this.timePicker) {
+                this.container.find('.ranges').hide();
+            }
+        }
+
+        if (typeof options.ranges === 'undefined' && !this.singleDatePicker) {
+            this.container.addClass('show-calendar');
+        }
+
+        this.container.removeClass('opensleft opensright').addClass('opens' + this.opens);
+
+        //apply CSS classes and labels to buttons
+        this.container.find('.applyBtn, .cancelBtn').addClass(this.buttonClasses);
+        if (this.applyClass.length)
+            this.container.find('.applyBtn').addClass(this.applyClass);
+        if (this.cancelClass.length)
+            this.container.find('.cancelBtn').addClass(this.cancelClass);
+        this.container.find('.applyBtn').html(this.locale.applyLabel);
+        this.container.find('.cancelBtn').html(this.locale.cancelLabel);
+
+        //
+        // event listeners
+        //
+
+        this.container.find('.calendar')
+            .on('click.daterangepicker', '.prev', $.proxy(this.clickPrev, this))
+            .on('click.daterangepicker', '.next', $.proxy(this.clickNext, this))
+            .on('click.daterangepicker', 'td.available', $.proxy(this.clickDate, this))
+            .on('mouseenter.daterangepicker', 'td.available', $.proxy(this.hoverDate, this))
+            .on('mouseleave.daterangepicker', 'td.available', $.proxy(this.updateFormInputs, this))
+            .on('change.daterangepicker', 'select.yearselect', $.proxy(this.monthOrYearChanged, this))
+            .on('change.daterangepicker', 'select.monthselect', $.proxy(this.monthOrYearChanged, this))
+            .on('change.daterangepicker', 'select.hourselect,select.minuteselect,select.secondselect,select.ampmselect', $.proxy(this.timeChanged, this))
+            .on('click.daterangepicker', '.daterangepicker_input input', $.proxy(this.showCalendars, this))
+            .on('keyup.daterangepicker', '.daterangepicker_input input', $.proxy(this.formInputsChanged, this))
+            .on('change.daterangepicker', '.daterangepicker_input input', $.proxy(this.updateFormInputs, this));
+
+        this.container.find('.ranges')
+            .on('click.daterangepicker', 'button.applyBtn', $.proxy(this.clickApply, this))
+            .on('click.daterangepicker', 'button.cancelBtn', $.proxy(this.clickCancel, this))
+            .on('click.daterangepicker', 'li', $.proxy(this.clickRange, this))
+            .on('mouseenter.daterangepicker', 'li', $.proxy(this.hoverRange, this))
+            .on('mouseleave.daterangepicker', 'li', $.proxy(this.updateFormInputs, this));
+
+        if (this.element.is('input')) {
+            this.element.on({
+                'click.daterangepicker': $.proxy(this.show, this),
+                'focus.daterangepicker': $.proxy(this.show, this),
+                'keyup.daterangepicker': $.proxy(this.controlChanged, this),
+                'keydown.daterangepicker': $.proxy(this.keydown, this)
+            });
+        } else {
+            this.element.on('click.daterangepicker', $.proxy(this.toggle, this));
+        }
+
+        //
+        // if attached to a text input, set the initial value
+        //
+
+        if (this.element.is('input') && !this.singleDatePicker) {
+            this.element.val(this.startDate.format(this.locale.format) + this.locale.separator + this.endDate.format(this.locale.format));
+            this.element.trigger('change');
+        } else if (this.element.is('input')) {
+            this.element.val(this.startDate.format(this.locale.format));
+            this.element.trigger('change');
+        }
+
+    };
+
+    DateRangePicker.prototype = {
+
+        constructor: DateRangePicker,
+
+        setStartDate: function(startDate) {
+            if (typeof startDate === 'string')
+                this.startDate = moment(startDate, this.locale.format).utcOffset(this.timeZone);
+
+            if (typeof startDate === 'object')
+                this.startDate = moment(startDate);
+
+            if (!this.timePicker)
+                this.startDate = this.startDate.startOf('day');
+
+            if (this.timePicker && this.timePickerIncrement)
+                this.startDate.minute(Math.round(this.startDate.minute() / this.timePickerIncrement) * this.timePickerIncrement);
+
+            if (this.minDate && this.startDate.isBefore(this.minDate))
+                this.startDate = this.minDate;
+
+            if (this.maxDate && this.startDate.isAfter(this.maxDate))
+                this.startDate = this.maxDate;
+
+            this.updateMonthsInView();
+        },
+
+        setEndDate: function(endDate) {
+            if (typeof endDate === 'string')
+                this.endDate = moment(endDate, this.locale.format).utcOffset(this.timeZone);
+
+            if (typeof endDate === 'object')
+                this.endDate = moment(endDate);
+
+            if (!this.timePicker)
+                this.endDate = this.endDate.endOf('day');
+
+            if (this.timePicker && this.timePickerIncrement)
+                this.endDate.minute(Math.round(this.endDate.minute() / this.timePickerIncrement) * this.timePickerIncrement);
+
+            if (this.endDate.isBefore(this.startDate))
+                this.endDate = this.startDate.clone();
+
+            if (this.maxDate && this.endDate.isAfter(this.maxDate))
+                this.endDate = this.maxDate;
+
+            if (this.dateLimit && this.startDate.clone().add(this.dateLimit).isBefore(this.endDate))
+                this.endDate = this.startDate.clone().add(this.dateLimit);
+
+            this.updateMonthsInView();
+        },
+
+        updateView: function() {
+            if (this.timePicker) {
+                this.renderTimePicker('left');
+                this.renderTimePicker('right');
+                if (!this.endDate) {
+                    this.container.find('.right .calendar-time select').attr('disabled', 'disabled').addClass('disabled');
+                } else {
+                    this.container.find('.right .calendar-time select').removeAttr('disabled').removeClass('disabled');
+                }
+            }
+            if (this.endDate) {
+                this.container.find('input[name="daterangepicker_end"]').removeClass('active');
+                this.container.find('input[name="daterangepicker_start"]').addClass('active');
+            } else {
+                this.container.find('input[name="daterangepicker_end"]').addClass('active');
+                this.container.find('input[name="daterangepicker_start"]').removeClass('active');
+            }
+            this.updateMonthsInView();
+            this.updateCalendars();
+            this.updateFormInputs();
+        },
+
+        updateMonthsInView: function() {
+            if (this.endDate) {
+                this.leftCalendar.month = this.startDate.clone().date(2);
+                if (!this.linkedCalendars && (this.endDate.month() != this.startDate.month() || this.endDate.year() != this.startDate.year())) {
+                    this.rightCalendar.month = this.endDate.clone().date(2);
+                } else {
+                    this.rightCalendar.month = this.startDate.clone().date(2).add(1, 'month');
+                }
+            } else {
+                if (this.leftCalendar.month.format('YYYY-MM') != this.startDate.format('YYYY-MM') && this.rightCalendar.month.format('YYYY-MM') != this.startDate.format('YYYY-MM')) {
+                    this.leftCalendar.month = this.startDate.clone().date(2);
+                    this.rightCalendar.month = this.startDate.clone().date(2).add(1, 'month');
+                }
+            }
+        },
+
+        updateCalendars: function() {
+
+            if (this.timePicker) {
+                var hour, minute, second;
+                if (this.endDate) {
+                    hour = parseInt(this.container.find('.left .hourselect').val(), 10);
+                    minute = parseInt(this.container.find('.left .minuteselect').val(), 10);
+                    second = this.timePickerSeconds ? parseInt(this.container.find('.left .secondselect').val(), 10) : 0;
+                    if (!this.timePicker24Hour) {
+                        var ampm = this.container.find('.left .ampmselect').val();
+                        if (ampm === 'PM' && hour < 12)
+                            hour += 12;
+                        if (ampm === 'AM' && hour === 12)
+                            hour = 0;
+                    }
+                } else {
+                    hour = parseInt(this.container.find('.right .hourselect').val(), 10);
+                    minute = parseInt(this.container.find('.right .minuteselect').val(), 10);
+                    second = this.timePickerSeconds ? parseInt(this.container.find('.right .secondselect').val(), 10) : 0;
+                    if (!this.timePicker24Hour) {
+                        var ampm = this.container.find('.left .ampmselect').val();
+                        if (ampm === 'PM' && hour < 12)
+                            hour += 12;
+                        if (ampm === 'AM' && hour === 12)
+                            hour = 0;
+                    }
+                }
+                this.leftCalendar.month.hour(hour).minute(minute).second(second);
+                this.rightCalendar.month.hour(hour).minute(minute).second(second);
+            }
+
+            this.renderCalendar('left');
+            this.renderCalendar('right');
+
+            //highlight any predefined range matching the current start and end dates
+            this.container.find('.ranges li').removeClass('active');
+            if (this.endDate == null) return;
+
+            var customRange = true;
+            var i = 0;
+            for (var range in this.ranges) {
+                if (this.timePicker) {
+                    if (this.startDate.isSame(this.ranges[range][0]) && this.endDate.isSame(this.ranges[range][1])) {
+                        customRange = false;
+                        this.chosenLabel = this.container.find('.ranges li:eq(' + i + ')').addClass('active').html();
+                        break;
+                    }
+                } else {
+                    //ignore times when comparing dates if time picker is not enabled
+                    if (this.startDate.format('YYYY-MM-DD') == this.ranges[range][0].format('YYYY-MM-DD') && this.endDate.format('YYYY-MM-DD') == this.ranges[range][1].format('YYYY-MM-DD')) {
+                        customRange = false;
+                        this.chosenLabel = this.container.find('.ranges li:eq(' + i + ')').addClass('active').html();
+                        break;
+                    }
+                }
+                i++;
+            }
+            if (customRange) {
+                this.chosenLabel = this.container.find('.ranges li:last').addClass('active').html();
+                this.showCalendars();
+            }
+
+        },
+
+        renderCalendar: function(side) {
+
+            //
+            // Build the matrix of dates that will populate the calendar
+            //
+
+            var calendar = side == 'left' ? this.leftCalendar : this.rightCalendar;
+            var month = calendar.month.month();
+            var year = calendar.month.year();
+            var hour = calendar.month.hour();
+            var minute = calendar.month.minute();
+            var second = calendar.month.second();
+            var daysInMonth = moment([year, month]).daysInMonth();
+            var firstDay = moment([year, month, 1]);
+            var lastDay = moment([year, month, daysInMonth]);
+            var lastMonth = moment(firstDay).subtract(1, 'month').month();
+            var lastYear = moment(firstDay).subtract(1, 'month').year();
+            var daysInLastMonth = moment([lastYear, lastMonth]).daysInMonth();
+            var dayOfWeek = firstDay.day();
+
+            //initialize a 6 rows x 7 columns array for the calendar
+            var calendar = [];
+            calendar.firstDay = firstDay;
+            calendar.lastDay = lastDay;
+
+            for (var i = 0; i < 6; i++) {
+                calendar[i] = [];
+            }
+
+            //populate the calendar with date objects
+            var startDay = daysInLastMonth - dayOfWeek + this.locale.firstDay + 1;
+            if (startDay > daysInLastMonth)
+                startDay -= 7;
+
+            if (dayOfWeek == this.locale.firstDay)
+                startDay = daysInLastMonth - 6;
+
+            // Possible patch for issue #626 https://github.com/dangrossman/bootstrap-daterangepicker/issues/626
+            var curDate = moment([lastYear, lastMonth, startDay, 12, minute, second]).utcOffset(this.timeZone); // .utcOffset(this.timeZone);
+
+            var col, row;
+            for (var i = 0, col = 0, row = 0; i < 42; i++, col++, curDate = moment(curDate).add(24, 'hour')) {
+                if (i > 0 && col % 7 === 0) {
+                    col = 0;
+                    row++;
+                }
+                calendar[row][col] = curDate.clone().hour(hour).minute(minute).second(second);
+                curDate.hour(12);
+
+                if (this.minDate && calendar[row][col].format('YYYY-MM-DD') == this.minDate.format('YYYY-MM-DD') && calendar[row][col].isBefore(this.minDate) && side == 'left') {
+                    calendar[row][col] = this.minDate.clone();
+                }
+
+                if (this.maxDate && calendar[row][col].format('YYYY-MM-DD') == this.maxDate.format('YYYY-MM-DD') && calendar[row][col].isAfter(this.maxDate) && side == 'right') {
+                    calendar[row][col] = this.maxDate.clone();
+                }
+
+            }
+
+            //make the calendar object available to hoverDate/clickDate
+            if (side == 'left') {
+                this.leftCalendar.calendar = calendar;
+            } else {
+                this.rightCalendar.calendar = calendar;
+            }
+
+            //
+            // Display the calendar
+            //
+
+            var minDate = side == 'left' ? this.minDate : this.startDate;
+            var maxDate = this.maxDate;
+            var selected = side == 'left' ? this.startDate : this.endDate;
+
+            var html = '<table class="table-condensed">';
+            html += '<thead>';
+            html += '<tr>';
+
+            // add empty cell for week number
+            if (this.showWeekNumbers)
+                html += '<th></th>';
+
+            if ((!minDate || minDate.isBefore(calendar.firstDay)) && (!this.linkedCalendars || side == 'left')) {
+                html += '<th class="prev available"><i class="fa fa-chevron-left glyphicon glyphicon-chevron-left"></i></th>';
+            } else {
+                html += '<th></th>';
+            }
+
+            var dateHtml = this.locale.monthNames[calendar[1][1].month()] + calendar[1][1].format(" YYYY");
+
+            if (this.showDropdowns) {
+                var currentMonth = calendar[1][1].month();
+                var currentYear = calendar[1][1].year();
+                var maxYear = (maxDate && maxDate.year()) || (currentYear + 5);
+                var minYear = (minDate && minDate.year()) || (currentYear - 50);
+                var inMinYear = currentYear == minYear;
+                var inMaxYear = currentYear == maxYear;
+
+                var monthHtml = '<select class="monthselect">';
+                for (var m = 0; m < 12; m++) {
+                    if ((!inMinYear || m >= minDate.month()) && (!inMaxYear || m <= maxDate.month())) {
+                        monthHtml += "<option value='" + m + "'" +
+                            (m === currentMonth ? " selected='selected'" : "") +
+                            ">" + this.locale.monthNames[m] + "</option>";
+                    } else {
+                        monthHtml += "<option value='" + m + "'" +
+                            (m === currentMonth ? " selected='selected'" : "") +
+                            " disabled='disabled'>" + this.locale.monthNames[m] + "</option>";
+                    }
+                }
+                monthHtml += "</select>";
+
+                var yearHtml = '<select class="yearselect">';
+                for (var y = minYear; y <= maxYear; y++) {
+                    yearHtml += '<option value="' + y + '"' +
+                        (y === currentYear ? ' selected="selected"' : '') +
+                        '>' + y + '</option>';
+                }
+                yearHtml += '</select>';
+
+                dateHtml = monthHtml + yearHtml;
+            }
+
+            html += '<th colspan="5" class="month">' + dateHtml + '</th>';
+            if ((!maxDate || maxDate.isAfter(calendar.lastDay)) && (!this.linkedCalendars || side == 'right' || this.singleDatePicker)) {
+                html += '<th class="next available"><i class="fa fa-chevron-right glyphicon glyphicon-chevron-right"></i></th>';
+            } else {
+                html += '<th></th>';
+            }
+
+            html += '</tr>';
+            html += '<tr>';
+
+            // add week number label
+            if (this.showWeekNumbers)
+                html += '<th class="week">' + this.locale.weekLabel + '</th>';
+
+            $.each(this.locale.daysOfWeek, function(index, dayOfWeek) {
+                html += '<th>' + dayOfWeek + '</th>';
+            });
+
+            html += '</tr>';
+            html += '</thead>';
+            html += '<tbody>';
+
+            //adjust maxDate to reflect the dateLimit setting in order to
+            //grey out end dates beyond the dateLimit
+            if (this.endDate == null && this.dateLimit) {
+                var maxLimit = this.startDate.clone().add(this.dateLimit).endOf('day');
+                if (!maxDate || maxLimit.isBefore(maxDate)) {
+                    maxDate = maxLimit;
+                }
+            }
+
+            for (var row = 0; row < 6; row++) {
+                html += '<tr>';
+
+                // add week number
+                if (this.showWeekNumbers)
+                    html += '<td class="week">' + calendar[row][0].week() + '</td>';
+
+                for (var col = 0; col < 7; col++) {
+
+                    var classes = [];
+
+                    //highlight today's date
+                    if (calendar[row][col].isSame(new Date(), "day"))
+                        classes.push('today');
+
+                    //highlight weekends
+                    if (calendar[row][col].isoWeekday() > 5)
+                        classes.push('weekend');
+
+                    //grey out the dates in other months displayed at beginning and end of this calendar
+                    if (calendar[row][col].month() != calendar[1][1].month())
+                        classes.push('off');
+
+                    //don't allow selection of dates before the minimum date
+                    if (this.minDate && calendar[row][col].isBefore(this.minDate, 'day'))
+                        classes.push('off', 'disabled');
+
+                    //don't allow selection of dates after the maximum date
+                    if (maxDate && calendar[row][col].isAfter(maxDate, 'day'))
+                        classes.push('off', 'disabled');
+
+                    //highlight the currently selected start date
+                    if (calendar[row][col].format('YYYY-MM-DD') == this.startDate.format('YYYY-MM-DD'))
+                        classes.push('active', 'start-date');
+
+                    //highlight the currently selected end date
+                    if (this.endDate != null && calendar[row][col].format('YYYY-MM-DD') == this.endDate.format('YYYY-MM-DD'))
+                        classes.push('active', 'end-date');
+
+                    //highlight dates in-between the selected dates
+                    if (this.endDate != null && calendar[row][col] > this.startDate && calendar[row][col] < this.endDate)
+                        classes.push('in-range');
+
+                    var cname = '', disabled = false;
+                    for (var i = 0; i < classes.length; i++) {
+                        cname += classes[i] + ' ';
+                        if (classes[i] == 'disabled')
+                            disabled = true;
+                    }
+                    if (!disabled)
+                        cname += 'available';
+
+                    html += '<td class="' + cname.replace(/^\s+|\s+$/g, '') + '" data-title="' + 'r' + row + 'c' + col + '">' + calendar[row][col].date() + '</td>';
+
+                }
+                html += '</tr>';
+            }
+
+            html += '</tbody>';
+            html += '</table>';
+
+            this.container.find('.calendar.' + side + ' .calendar-table').html(html);
+
+        },
+
+        renderTimePicker: function(side) {
+
+            var selected, minDate, maxDate = this.maxDate;
+
+            if (this.dateLimit && (!this.maxDate || this.startDate.clone().add(this.dateLimit).isAfter(this.maxDate)))
+                maxDate = this.startDate.clone().add(this.dateLimit);
+
+            if (side == 'left') {
+                selected = this.startDate.clone();
+                minDate = this.minDate;
+            } else if (side == 'right') {
+                selected = this.endDate ? this.endDate.clone() : this.startDate.clone();
+                minDate = this.startDate;
+            }
+
+            //
+            // hours
+            //
+
+            html = '<select class="hourselect">';
+
+            var start = this.timePicker24Hour ? 0 : 1;
+            var end = this.timePicker24Hour ? 23 : 12;
+
+            for (var i = start; i <= end; i++) {
+                var i_in_24 = i;
+                if (!this.timePicker24Hour)
+                    i_in_24 = selected.hour() >= 12 ? (i == 12 ? 12 : i + 12) : (i == 12 ? 0 : i);
+
+                var time = selected.clone().hour(i_in_24);
+                var disabled = false;
+                if (minDate && time.minute(59).isBefore(minDate))
+                    disabled = true;
+                if (maxDate && time.minute(0).isAfter(maxDate))
+                    disabled = true;
+
+                if (i_in_24 == selected.hour() && !disabled) {
+                    html += '<option value="' + i + '" selected="selected">' + i + '</option>';
+                } else if (disabled) {
+                    html += '<option value="' + i + '" disabled="disabled" class="disabled">' + i + '</option>';
+                } else {
+                    html += '<option value="' + i + '">' + i + '</option>';
+                }
+            }
+
+            html += '</select> ';
+
+            //
+            // minutes
+            //
+
+            html += ': <select class="minuteselect">';
+
+            for (var i = 0; i < 60; i += this.timePickerIncrement) {
+                var padded = i < 10 ? '0' + i : i;
+                var time = selected.clone().minute(i);
+
+                var disabled = false;
+                if (minDate && time.second(59).isBefore(minDate))
+                    disabled = true;
+                if (maxDate && time.second(0).isAfter(maxDate))
+                    disabled = true;
+
+                if (selected.minute() == i && !disabled) {
+                    html += '<option value="' + i + '" selected="selected">' + padded + '</option>';
+                } else if (disabled) {
+                    html += '<option value="' + i + '" disabled="disabled" class="disabled">' + padded + '</option>';
+                } else {
+                    html += '<option value="' + i + '">' + padded + '</option>';
+                }
+            }
+
+            html += '</select> ';
+
+            //
+            // seconds
+            //
+
+            if (this.timePickerSeconds) {
+                html += ': <select class="secondselect">';
+
+                for (var i = 0; i < 60; i++) {
+                    var padded = i < 10 ? '0' + i : i;
+                    var time = selected.clone().second(i);
+
+                    var disabled = false;
+                    if (minDate && time.isBefore(minDate))
+                        disabled = true;
+                    if (maxDate && time.isAfter(maxDate))
+                        disabled = true;
+
+                    if (selected.second() == i && !disabled) {
+                        html += '<option value="' + i + '" selected="selected">' + padded + '</option>';
+                    } else if (disabled) {
+                        html += '<option value="' + i + '" disabled="disabled" class="disabled">' + padded + '</option>';
+                    } else {
+                        html += '<option value="' + i + '">' + padded + '</option>';
+                    }
+                }
+
+                html += '</select> ';
+            }
+
+            //
+            // AM/PM
+            //
+
+            if (!this.timePicker24Hour) {
+                html += '<select class="ampmselect">';
+
+                var am_html = '';
+                var pm_html = '';
+
+                if (minDate && selected.clone().hour(12).minute(0).second(0).isBefore(minDate))
+                    am_html = ' disabled="disabled" class="disabled"';
+
+                if (maxDate && selected.clone().hour(0).minute(0).second(0).isAfter(maxDate))
+                    pm_html = ' disabled="disabled" class="disabled"';
+
+                if (selected.hour() >= 12) {
+                    html += '<option value="AM"' + am_html + '>AM</option><option value="PM" selected="selected"' + pm_html + '>PM</option>';
+                } else {
+                    html += '<option value="AM" selected="selected"' + am_html + '>AM</option><option value="PM"' + pm_html + '>PM</option>';
+                }
+
+                html += '</select>';
+            }
+
+            this.container.find('.calendar.' + side + ' .calendar-time div').html(html);
+
+        },
+
+        updateFormInputs: function() {
+            this.container.find('input[name=daterangepicker_start]').val(this.startDate.format(this.locale.format));
+            if (this.endDate)
+                this.container.find('input[name=daterangepicker_end]').val(this.endDate.format(this.locale.format));
+
+            if (this.singleDatePicker || (this.endDate && (this.startDate.isBefore(this.endDate) || this.startDate.isSame(this.endDate)))) {
+                this.container.find('button.applyBtn').removeAttr('disabled');
+            } else {
+                this.container.find('button.applyBtn').attr('disabled', 'disabled');
+            }
+        },
+
+        move: function() {
+            var parentOffset = { top: 0, left: 0 },
+                containerTop;
+            var parentRightEdge = $(window).width();
+            if (!this.parentEl.is('body')) {
+                parentOffset = {
+                    top: this.parentEl.offset().top - this.parentEl.scrollTop(),
+                    left: this.parentEl.offset().left - this.parentEl.scrollLeft()
+                };
+                parentRightEdge = this.parentEl[0].clientWidth + this.parentEl.offset().left;
+            }
+
+            if (this.drops == 'up')
+                containerTop = this.element.offset().top - this.container.outerHeight() - parentOffset.top;
+            else
+                containerTop = this.element.offset().top + this.element.outerHeight() - parentOffset.top;
+            this.container[this.drops == 'up' ? 'addClass' : 'removeClass']('dropup');
+
+            if (this.opens == 'left') {
+                this.container.css({
+                    top: containerTop,
+                    right: parentRightEdge - this.element.offset().left - this.element.outerWidth(),
+                    left: 'auto'
+                });
+                if (this.container.offset().left < 0) {
+                    this.container.css({
+                        right: 'auto',
+                        left: 9
+                    });
+                }
+            } else if (this.opens == 'center') {
+                this.container.css({
+                    top: containerTop,
+                    left: this.element.offset().left - parentOffset.left + this.element.outerWidth() / 2
+                            - this.container.outerWidth() / 2,
+                    right: 'auto'
+                });
+                if (this.container.offset().left < 0) {
+                    this.container.css({
+                        right: 'auto',
+                        left: 9
+                    });
+                }
+            } else {
+                this.container.css({
+                    top: containerTop,
+                    left: this.element.offset().left - parentOffset.left,
+                    right: 'auto'
+                });
+                if (this.container.offset().left + this.container.outerWidth() > $(window).width()) {
+                    this.container.css({
+                        left: 'auto',
+                        right: 0
+                    });
+                }
+            }
+        },
+
+        show: function(e) {
+            if (this.isShowing) return;
+
+            // Create a click proxy that is private to this instance of datepicker, for unbinding
+            this._outsideClickProxy = $.proxy(function(e) { this.outsideClick(e); }, this);
+            // Bind global datepicker mousedown for hiding and
+            $(document)
+              .on('mousedown.daterangepicker', this._outsideClickProxy)
+              // also support mobile devices
+              .on('touchend.daterangepicker', this._outsideClickProxy)
+              // also explicitly play nice with Bootstrap dropdowns, which stopPropagation when clicking them
+              .on('click.daterangepicker', '[data-toggle=dropdown]', this._outsideClickProxy)
+              // and also close when focus changes to outside the picker (eg. tabbing between controls)
+              .on('focusin.daterangepicker', this._outsideClickProxy);
+
+            this.oldStartDate = this.startDate.clone();
+            this.oldEndDate = this.endDate.clone();
+
+            this.updateView();
+            this.container.show();
+            this.move();
+            this.element.trigger('show.daterangepicker', this);
+            this.isShowing = true;
+        },
+
+        hide: function(e) {
+            if (!this.isShowing) return;
+
+            //incomplete date selection, revert to last values
+            if (!this.endDate) {
+                this.startDate = this.oldStartDate.clone();
+                this.endDate = this.oldEndDate.clone();
+            }
+
+            //if a new date range was selected, invoke the user callback function
+            if (!this.startDate.isSame(this.oldStartDate) || !this.endDate.isSame(this.oldEndDate))
+                this.callback(this.startDate, this.endDate, this.chosenLabel);
+
+            //if picker is attached to a text input, update it
+            if (this.element.is('input') && !this.singleDatePicker) {
+                this.element.val(this.startDate.format(this.locale.format) + this.locale.separator + this.endDate.format(this.locale.format));
+                this.element.trigger('change');
+            } else if (this.element.is('input')) {
+                this.element.val(this.startDate.format(this.locale.format));
+                this.element.trigger('change');
+            }
+
+            $(document).off('.daterangepicker');
+            this.container.hide();
+            this.element.trigger('hide.daterangepicker', this);
+            this.isShowing = false;
+        },
+
+        toggle: function(e) {
+            if (this.isShowing) {
+                this.hide();
+            } else {
+                this.show();
+            }
+        },
+
+        outsideClick: function(e) {
+            var target = $(e.target);
+            // if the page is clicked anywhere except within the daterangerpicker/button
+            // itself then call this.hide()
+            if (
+                // ie modal dialog fix
+                e.type == "focusin" ||
+                target.closest(this.element).length ||
+                target.closest(this.container).length ||
+                target.closest('.calendar-table').length
+                ) return;
+            this.hide();
+        },
+
+        showCalendars: function() {
+            this.container.addClass('show-calendar');
+            this.move();
+            this.element.trigger('showCalendar.daterangepicker', this);
+        },
+
+        hideCalendars: function() {
+            this.container.removeClass('show-calendar');
+            this.element.trigger('hideCalendar.daterangepicker', this);
+        },
+
+        hoverRange: function(e) {
+            var label = e.target.innerHTML;
+            if (label == this.locale.customRangeLabel) {
+                this.updateView();
+            } else {
+                var dates = this.ranges[label];
+                this.container.find('input[name=daterangepicker_start]').val(dates[0].format(this.locale.format));
+                this.container.find('input[name=daterangepicker_end]').val(dates[1].format(this.locale.format));
+            }
+        },
+
+        clickRange: function(e) {
+            var label = e.target.innerHTML;
+            this.chosenLabel = label;
+            if (label == this.locale.customRangeLabel) {
+                this.showCalendars();
+            } else {
+                var dates = this.ranges[label];
+                this.startDate = dates[0];
+                this.endDate = dates[1];
+
+                if (!this.timePicker) {
+                    this.startDate.startOf('day');
+                    this.endDate.endOf('day');
+                }
+
+                this.hideCalendars();
+                this.clickApply();
+            }
+        },
+
+        clickPrev: function(e) {
+            var cal = $(e.target).parents('.calendar');
+            if (cal.hasClass('left')) {
+                this.leftCalendar.month.subtract(1, 'month');
+                if (this.linkedCalendars)
+                    this.rightCalendar.month.subtract(1, 'month');
+            } else {
+                this.rightCalendar.month.subtract(1, 'month');
+            }
+            this.updateCalendars();
+        },
+
+        clickNext: function(e) {
+            var cal = $(e.target).parents('.calendar');
+            if (cal.hasClass('left')) {
+                this.leftCalendar.month.add(1, 'month');
+            } else {
+                this.rightCalendar.month.add(1, 'month');
+                if (this.linkedCalendars)
+                    this.leftCalendar.month.add(1, 'month');
+            }
+            this.updateCalendars();
+        },
+
+        hoverDate: function(e) {
+
+            //ignore dates that can't be selected
+            if (!$(e.target).hasClass('available')) return;
+
+            //have the text inputs above calendars reflect the date being hovered over
+            var title = $(e.target).attr('data-title');
+            var row = title.substr(1, 1);
+            var col = title.substr(3, 1);
+            var cal = $(e.target).parents('.calendar');
+            var date = cal.hasClass('left') ? this.leftCalendar.calendar[row][col] : this.rightCalendar.calendar[row][col];
+
+            if (this.endDate) {
+                this.container.find('input[name=daterangepicker_start]').val(date.format(this.locale.format));
+            } else {
+                this.container.find('input[name=daterangepicker_end]').val(date.format(this.locale.format));
+            }
+
+            //highlight the dates between the start date and the date being hovered as a potential end date
+            var leftCalendar = this.leftCalendar;
+            var rightCalendar = this.rightCalendar;
+            var startDate = this.startDate;
+            if (!this.endDate) {
+                this.container.find('.calendar td').each(function(index, el) {
+                    
+                    //skip week numbers, only look at dates
+                    if ($(el).hasClass('week')) return;
+
+                    var title = $(el).attr('data-title');
+                    var row = title.substr(1, 1);
+                    var col = title.substr(3, 1);
+                    var cal = $(el).parents('.calendar');
+                    var dt = cal.hasClass('left') ? leftCalendar.calendar[row][col] : rightCalendar.calendar[row][col];
+
+                    if (dt.isAfter(startDate) && dt.isBefore(date)) {
+                        $(el).addClass('in-range');
+                    } else {
+                        $(el).removeClass('in-range');
+                    }
+
+                });
+            }
+
+        },
+
+        clickDate: function(e) {
+
+            if (!$(e.target).hasClass('available')) return;
+
+            var title = $(e.target).attr('data-title');
+            var row = title.substr(1, 1);
+            var col = title.substr(3, 1);
+            var cal = $(e.target).parents('.calendar');
+            var date = cal.hasClass('left') ? this.leftCalendar.calendar[row][col] : this.rightCalendar.calendar[row][col];
+
+            //
+            // this function needs to do a few things:
+            // * alternate between selecting a start and end date for the range,
+            // * if the time picker is enabled, apply the hour/minute/second from the select boxes to the clicked date
+            // * if autoapply is enabled, and an end date was chosen, apply the selection
+            // * if single date picker mode, and time picker isn't enabled, apply the selection immediately
+            //
+
+            if (this.endDate || date.isBefore(this.startDate)) {
+                if (this.timePicker) {
+                    var hour = parseInt(this.container.find('.left .hourselect').val(), 10);
+                    if (!this.timePicker24Hour) {
+                        var ampm = cal.find('.ampmselect').val();
+                        if (ampm === 'PM' && hour < 12)
+                            hour += 12;
+                        if (ampm === 'AM' && hour === 12)
+                            hour = 0;
+                    }
+                    var minute = parseInt(this.container.find('.left .minuteselect').val(), 10);
+                    var second = this.timePickerSeconds ? parseInt(this.container.find('.left .secondselect').val(), 10) : 0;
+                    date = date.clone().hour(hour).minute(minute).second(second);
+                }
+                this.endDate = null;
+                this.setStartDate(date.clone());
+            } else {
+                if (this.timePicker) {
+                    var hour = parseInt(this.container.find('.right .hourselect').val(), 10);
+                    if (!this.timePicker24Hour) {
+                        var ampm = this.container.find('.right .ampmselect').val();
+                        if (ampm === 'PM' && hour < 12)
+                            hour += 12;
+                        if (ampm === 'AM' && hour === 12)
+                            hour = 0;
+                    }
+                    var minute = parseInt(this.container.find('.right .minuteselect').val(), 10);
+                    var second = this.timePickerSeconds ? parseInt(this.container.find('.right .secondselect').val(), 10) : 0;
+                    date = date.clone().hour(hour).minute(minute).second(second);
+                }
+                this.setEndDate(date.clone());
+                if (this.autoApply)
+                    this.clickApply();
+            }
+
+            if (this.singleDatePicker) {
+                this.setEndDate(this.startDate);
+                if (!this.timePicker)
+                    this.clickApply();
+            }
+
+            this.updateView();
+
+        },
+
+        clickApply: function(e) {
+            this.hide();
+            this.element.trigger('apply.daterangepicker', this);
+        },
+
+        clickCancel: function(e) {
+            this.startDate = this.oldStartDate;
+            this.endDate = this.oldEndDate;
+            this.hide();
+            this.element.trigger('cancel.daterangepicker', this);
+        },
+
+        monthOrYearChanged: function(e) {
+            var isLeft = $(e.target).closest('.calendar').hasClass('left'),
+                leftOrRight = isLeft ? 'left' : 'right',
+                cal = this.container.find('.calendar.'+leftOrRight);
+
+            // Month must be Number for new moment versions
+            var month = parseInt(cal.find('.monthselect').val(), 10);
+            var year = cal.find('.yearselect').val();
+
+            if (!isLeft) {
+                if (year < this.startDate.year() || (year == this.startDate.year() && month < this.startDate.month())) {
+                    month = this.startDate.month();
+                    year = this.startDate.year();
+                }
+            }
+
+            if (this.minDate) {
+                if (year < this.minDate.year() || (year == this.minDate.year() && month < this.minDate.month())) {
+                    month = this.minDate.month();
+                    year = this.minDate.year();
+                }
+            }
+
+            if (this.maxDate) {
+                if (year > this.maxDate.year() || (year == this.maxDate.year() && month > this.maxDate.month())) {
+                    month = this.maxDate.month();
+                    year = this.maxDate.year();
+                }
+            }
+
+            if (isLeft) {
+                this.leftCalendar.month.month(month).year(year);
+                if (this.linkedCalendars)
+                    this.rightCalendar.month = this.leftCalendar.month.clone().add(1, 'month');
+            } else {
+                this.rightCalendar.month.month(month).year(year);
+                if (this.linkedCalendars)
+                    this.leftCalendar.month = this.rightCalendar.month.clone().subtract(1, 'month');
+            }
+            this.updateCalendars();
+        },
+
+        timeChanged: function(e) {
+
+            var cal = $(e.target).closest('.calendar'),
+                isLeft = cal.hasClass('left');
+
+            var hour = parseInt(cal.find('.hourselect').val(), 10);
+            var minute = parseInt(cal.find('.minuteselect').val(), 10);
+            var second = this.timePickerSeconds ? parseInt(cal.find('.secondselect').val(), 10) : 0;
+
+            if (!this.timePicker24Hour) {
+                var ampm = cal.find('.ampmselect').val();
+                if (ampm === 'PM' && hour < 12)
+                    hour += 12;
+                if (ampm === 'AM' && hour === 12)
+                    hour = 0;
+            }
+
+            if (isLeft) {
+                var start = this.startDate.clone();
+                start.hour(hour);
+                start.minute(minute);
+                start.second(second);
+                this.setStartDate(start);
+                if (this.singleDatePicker)
+                    this.endDate = this.startDate.clone();
+            } else if (this.endDate) {
+                var end = this.endDate.clone();
+                end.hour(hour);
+                end.minute(minute);
+                end.second(second);
+                this.setEndDate(end);
+            }
+
+            //update the calendars so all clickable dates reflect the new time component
+            this.updateCalendars();
+
+            //update the form inputs above the calendars with the new time
+            this.updateFormInputs();
+
+            //re-render the time pickers because changing one selection can affect what's enabled in another
+            this.renderTimePicker('left');
+            this.renderTimePicker('right');
+
+        },
+
+        formInputsChanged: function(e) {
+            var isRight = $(e.target).closest('.calendar').hasClass('right');
+            var start = moment(this.container.find('input[name="daterangepicker_start"]').val(), this.locale.format);
+            var end = moment(this.container.find('input[name="daterangepicker_end"]').val(), this.locale.format);
+
+            if (start.isValid() && end.isValid()) {
+
+                if (isRight && end.isBefore(start))
+                    start = end.clone();
+
+                this.setStartDate(start);
+                this.setEndDate(end);
+
+                if (isRight) {
+                    this.container.find('input[name="daterangepicker_start"]').val(this.startDate.format(this.locale.format));
+                } else {
+                    this.container.find('input[name="daterangepicker_end"]').val(this.endDate.format(this.locale.format));
+                }
+
+            }
+
+            this.updateCalendars();
+            if (this.timePicker) {
+                this.renderTimePicker('left');
+                this.renderTimePicker('right');
+            }
+        },
+
+        controlChanged: function() {
+            if (!this.element.is('input')) return;
+            if (!this.element.val().length) return;
+
+            var dateString = this.element.val().split(this.locale.separator),
+                start = null,
+                end = null;
+
+            if (dateString.length === 2) {
+                start = moment(dateString[0], this.locale.format).utcOffset(this.timeZone);
+                end = moment(dateString[1], this.locale.format).utcOffset(this.timeZone);
+            }
+
+            if (this.singleDatePicker || start === null || end === null) {
+                start = moment(this.element.val(), this.locale.format).utcOffset(this.timeZone);
+                end = start;
+            }
+
+            this.setStartDate(start);
+            this.setEndDate(end);
+            this.updateView();
+        },
+
+        keydown: function(e) {
+            //hide on tab or enter
+            if ((e.keyCode === 9) || (e.keyCode === 13)) {
+                this.hide();
+            }
+        },
+
+        remove: function() {
+            this.container.remove();
+            this.element.off('.daterangepicker');
+            this.element.removeData();
+        }
+
+    };
+
+    $.fn.daterangepicker = function(options, callback) {
+        this.each(function() {
+            var el = $(this);
+            if (el.data('daterangepicker'))
+                el.data('daterangepicker').remove();
+            el.data('daterangepicker', new DateRangePicker(el, options, callback));
+        });
+        return this;
+    };
+
+}));
+
+},{}],290:[function(require,module,exports){
+"use strict";
+/* generated by gulpfile.js */
+module.exports = exports = function () {
+	return [
+		"applyClass",
+		"autoApply",
+		"buttonClasses",
+		"cancelClass",
+		"dateLimit",
+		"drops",
+		"endDate",
+		"linkedCalendars",
+		"locale",
+		"maxDate",
+		"minDate",
+		"opens",
+		"parentEl",
+		"ranges",
+		"showDropdowns",
+		"showWeekNumbers",
+		"singleDatePicker",
+		"startDate",
+		"timePicker",
+		"timePicker24Hour",
+		"timePickerIncrement",
+		"timePickerSeconds",
+		"timeZone"
+];
+};
+},{}],291:[function(require,module,exports){
+'use strict';
+/**
+ * react-bootstrap-daterangepicker.js
+ *
+ * A slightly modified version of bootstrap-daterangepicker.js for use in react and npm.
+ * Original copyright in: ./lib/daterangepicker.js
+ */
+var React = window.React;
+var $ = window.jQuery;
+var DateRangePicker = require('./daterangepicker.js');
+var getOptions = require('./get-options.js');
+
+/* this is our export React class */
+module.exports = React.createClass({
+	$picker: null,
+	options: getOptions(),
+	makeEventHandler: function (eventType) {
+		return function (event, picker) {
+			if (typeof this.props.onEvent === 'function') {
+				this.props.onEvent(event, picker);
+			}
+			if (typeof this.props[eventType] === 'function') {
+				this.props[eventType](event, picker);
+			}
+		}.bind(this);
+	},
+	getOptionsFromProps: function () {
+		var options, props = this.props;
+		this.options.forEach(function (option) {
+			if (props.hasOwnProperty(option)) {
+				options = options || {};
+				options[option] = props[option];
+			}
+		});
+		return options || {};
+	},
+	setOptionsFromProps: function () {
+		var currentOptions = this.getOptionsFromProps();
+		var keys = Object.keys(currentOptions);
+		var $this = this;
+		if ($this.$picker) {
+			if (currentOptions) {
+				keys.forEach(function (key) {
+					$this.$picker.data('daterangepicker')[key] = currentOptions[key];
+				});
+			}
+		}
+	},
+	componentDidMount: function () {
+		var $this = this;
+		$this.$picker = $(this.refs.picker.getDOMNode());
+		// initialize
+		$this.$picker.daterangepicker(this.getOptionsFromProps());
+		// attach event listeners
+		['Show', 'Hide', 'ShowCalendar', 'HideCalendar', 'Apply', 'Cancel'].forEach(function (event) {
+			var lcase = event.toLowerCase();
+			$this.$picker.on(lcase + '.daterangepicker', $this.makeEventHandler('on' + event));
+		});
+	},
+	componentWillUnmount: function () {
+		this.$picker.data('daterangepicker').remove();
+	},
+	render: function () {
+		this.setOptionsFromProps();
+		return React.createElement(
+			'div',
+			React.__spread({ref: 'picker'},  this.props),
+			this.props.children
+		);
+	}
+});
+
+},{"./daterangepicker.js":289,"./get-options.js":290}],292:[function(require,module,exports){
 (function (global){
 
 var rng;
@@ -22642,7 +24179,7 @@ module.exports = rng;
 
 
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{}],290:[function(require,module,exports){
+},{}],293:[function(require,module,exports){
 //     uuid.js
 //
 //     Copyright (c) 2010-2012 Robert Kieffer
@@ -22827,10 +24364,10 @@ uuid.unparse = unparse;
 
 module.exports = uuid;
 
-},{"./rng":289}],291:[function(require,module,exports){
+},{"./rng":292}],294:[function(require,module,exports){
 module.exports={
     "name": "focusjs-components",
-    "version": "0.5.1-5",
+    "version": "0.5.2",
     "description": "Focus component repository.",
     "main": "index.js",
     "scripts": {
@@ -23074,34 +24611,30 @@ module.exports={
     "homepage": "https://github.com/KleeGroup/focus-components",
     "dependencies": {
         "babel-core": "^5.8.22",
-        "babel-eslint": "4.0.5",
-        "eslint": "0.24.1",
-        "eslint-plugin-filenames": "0.1.1",
-        "eslint-plugin-react": "2.7.1",
-        "eslint-plugin-require-jsdoc": "^1.0.4",
-        "eslint-plugin-require-jsdoc-focus": "0.1.0",
-        "focusjs": "^0.8.2-beta",
+        "eslint-config-focus": "0.2.0",
+        "focusjs": "0.9.0-1",
         "immutable": "^3.7.4",
         "lodash": "^3.10.1",
         "moment": "^2.10.6",
         "object-assign": "^2.0.0",
         "react": "^0.13.3",
-        "uuid": "^2.0.1"
+        "uuid": "^2.0.1",
+        "babel-eslint": "4.0.5",
+        "eslint": "0.24.1",
+        "eslint-plugin-filenames": "0.1.1",
+        "eslint-plugin-react": "2.7.1",
+        "eslint-plugin-require-jsdoc": "git+https://github.com/Bernardstanislas/eslint-plugin-require-jsdoc.git"
     },
     "devDependencies": {
         "babel": "^5.8.21",
         "babel-core": "^5.8.22",
-        "babel-eslint": "^3.1.26",
         "babel-plugin-runtime": "^1.0.7",
-        "babelify": "^5.0.3",
+        "babelify": "6.3.0",
         "bootstrap-material": "^0.1.5",
         "browser-sync": "^2.2.1",
         "browserify": "^9.0.3",
         "chai": "^3.2.0",
         "chai-subset": "^1.0.1",
-        "eslint": "1.0.0-rc-1",
-        "eslint-config-focus": "git+https://github.com/KleeGroup/eslint-config-focus.git",
-        "eslint-plugin-react": "^2.7.1",
         "express": "^4.12.0",
         "focus": "git+https://git@github.com/KleeGroup/focus.git",
         "gulp": "^3.8.11",
@@ -23113,6 +24646,8 @@ module.exports={
         "jquery": "^2.1.4",
         "literalify": "^0.4.0",
         "mocha": "^2.2.5",
+        "node-dir": "^0.1.9",
+        "react-bootstrap-daterangepicker": "^0.3.0",
         "react-tools": "^0.12.2",
         "reactify": "^1.0.0",
         "vinyl-source-stream": "^1.0.0",
@@ -23120,8 +24655,8 @@ module.exports={
     }
 }
 
-},{}],292:[function(require,module,exports){
-"use strict";
+},{}],295:[function(require,module,exports){
+'use strict';
 
 var builder = window.Focus.component.builder;
 var React = window.React;
@@ -23182,28 +24717,28 @@ var barMixin = {
     * @return {HTML} Rendered component
     */
     render: function render() {
-        var className = "bar " + this.props.style.className;
+        var className = 'bar ' + this.props.style.className;
         var _state = this.state;
         var barContentLeftComponent = _state.barContentLeftComponent;
         var barContentRightComponent = _state.barContentRightComponent;
         var summaryComponent = _state.summaryComponent;
 
         return React.createElement(
-            "div",
-            { className: className, "data-focus": "bar" },
+            'div',
+            { className: className, 'data-focus': 'bar' },
             React.createElement(
-                "div",
-                { "data-focus": "bar-content-left" },
+                'div',
+                { 'data-focus': 'bar-content-left' },
                 barContentLeftComponent && React.createElement(barContentLeftComponent.component, barContentLeftComponent.props)
             ),
             React.createElement(
-                "div",
-                { "data-focus": "bar-content-right" },
+                'div',
+                { 'data-focus': 'bar-content-right' },
                 barContentRightComponent && React.createElement(barContentRightComponent.component, barContentRightComponent.props)
             ),
             React.createElement(
-                "div",
-                { "data-focus": "bar-content-middle" },
+                'div',
+                { 'data-focus': 'bar-content-middle' },
                 summaryComponent && React.createElement(summaryComponent.component, summaryComponent.props)
             )
         );
@@ -23212,8 +24747,8 @@ var barMixin = {
 
 module.exports = builder(barMixin);
 
-},{}],293:[function(require,module,exports){
-"use strict";
+},{}],296:[function(require,module,exports){
+'use strict';
 
 var builder = window.Focus.component.builder;
 var React = window.React;
@@ -23238,17 +24773,17 @@ var cartridgeMixin = {
     applicationStore.removeCartridgeComponentChangeListener(this._handleComponentChange);
   },
   _getStateFromStore: function getCartridgeStateFromStore() {
-    return { cartridgeComponent: applicationStore.getCartridgeComponent() || { component: "div", props: {} } };
+    return { cartridgeComponent: applicationStore.getCartridgeComponent() || { component: 'div', props: {} } };
   },
   _handleComponentChange: function _handleComponentChange() {
     this.setState(this._getStateFromStore());
   },
   /** @inheriteddoc */
   render: function renderCartridge() {
-    var className = "cartridge " + this.props.style.className;
+    var className = 'cartridge ' + this.props.style.className;
     return React.createElement(
-      "div",
-      { className: className, "data-focus": "cartridge" },
+      'div',
+      { className: className, 'data-focus': 'cartridge' },
       React.createElement(this.state.cartridgeComponent.component, this.state.cartridgeComponent.props)
     );
   }
@@ -23256,41 +24791,41 @@ var cartridgeMixin = {
 
 module.exports = builder(cartridgeMixin);
 
-},{}],294:[function(require,module,exports){
+},{}],297:[function(require,module,exports){
 // Dependencies
 
-"use strict";
+'use strict';
 
 var builder = window.Focus.component.builder;
 var type = window.Focus.component.types;
 
 // Mixins
 
-var i18nMixin = require("../../common/i18n/mixin");
+var i18nMixin = require('../../common/i18n/mixin');
 
 // Components
 
-var Popin = require("../popin").component;
-var Button = require("../../common/button/action").component;
+var Popin = require('../popin').component;
+var Button = require('../../common/button/action').component;
 
 var ConfirmationPopin = {
   /**
    * Display name.
    */
-  displayName: "confirmation-popin",
+  displayName: 'confirmation-popin',
   mixins: [i18nMixin],
   getDefaultProps: function getDefaultProps() {
     return {
-      cancelButtonLabel: "popin.confirmation.cancel",
-      confirmButtonLabel: "popin.confirmation.confirm"
+      cancelButtonLabel: 'popin.confirmation.cancel',
+      confirmButtonLabel: 'popin.confirmation.confirm'
     };
   },
 
   propTypes: {
-    cancelButtonLabel: type("string"),
-    confirmButtonLabel: type("string"),
-    cancelHandler: type(["function", "object"]),
-    confirmHandler: type(["function", "object"])
+    cancelButtonLabel: type('string'),
+    confirmButtonLabel: type('string'),
+    cancelHandler: type(['function', 'object']),
+    confirmHandler: type(['function', 'object'])
   },
 
   /**
@@ -23319,17 +24854,17 @@ var ConfirmationPopin = {
 
   render: function render() {
     return React.createElement(
-      "div",
-      { "data-focus": "confirmation-popin" },
+      'div',
+      { 'data-focus': 'confirmation-popin' },
       React.createElement(
         Popin,
-        { ref: "popin" },
+        { ref: 'popin' },
         this.props.children,
         React.createElement(
-          "div",
-          { "data-focus": "button-stack" },
+          'div',
+          { 'data-focus': 'button-stack' },
           React.createElement(Button, { handleOnClick: this._handleCancel, label: this.i18n(this.props.cancelButtonLabel) }),
-          React.createElement(Button, { handleOnClick: this._handleConfirm, label: this.i18n(this.props.confirmButtonLabel), option: "primary" })
+          React.createElement(Button, { handleOnClick: this._handleConfirm, label: this.i18n(this.props.confirmButtonLabel), option: 'primary' })
         )
       )
     );
@@ -23338,15 +24873,15 @@ var ConfirmationPopin = {
 
 module.exports = builder(ConfirmationPopin);
 
-},{"../../common/button/action":312,"../../common/i18n/mixin":331,"../popin":307}],295:[function(require,module,exports){
-"use strict";
+},{"../../common/button/action":315,"../../common/i18n/mixin":334,"../popin":310}],298:[function(require,module,exports){
+'use strict';
 
 var builder = window.Focus.component.builder;
 var React = window.React;
 var applicationStore = window.Focus.application.builtInStore;
-var stylableBehaviour = require("../../mixin/stylable");
-var Button = require("../../common/button/action").component;
-var SelectButtons = require("../../common/select-action").component;
+var stylableBehaviour = require('../../mixin/stylable');
+var Button = require('../../common/button/action').component;
+var SelectButtons = require('../../common/select-action').component;
 var contentActionsMixin = {
   mixins: [stylableBehaviour],
   /** @inheriteddoc */
@@ -23370,10 +24905,11 @@ var contentActionsMixin = {
   /** @inheriteddoc */
   render: function renderActions() {
     return React.createElement(
-      "div",
-      { className: this._getStyleClassName(), "data-focus": "content-actions" },
+      'div',
+      { className: this._getStyleClassName(), 'data-focus': 'content-actions' },
       this.state.actions.primary.map(function (primary) {
-        return React.createElement(Button, { shape: "fab", style: { className: primary.className }, handleOnClick: primary.action, label: primary.label, type: "button", icon: primary.icon });
+        //<button class="btn btn-fab"><i class="mdi-action-open-in-new"></i></button>
+        return React.createElement(Button, { shape: 'fab', style: { className: primary.className }, handleOnClick: primary.action, label: primary.label, type: 'button', icon: primary.icon });
       }),
       React.createElement(SelectButtons, { operationList: this.state.actions.secondary })
     );
@@ -23382,10 +24918,8 @@ var contentActionsMixin = {
 
 module.exports = builder(contentActionsMixin);
 
-//<button class="btn btn-fab"><i class="mdi-action-open-in-new"></i></button>
-
-},{"../../common/button/action":312,"../../common/select-action":358,"../../mixin/stylable":384}],296:[function(require,module,exports){
-"use strict";
+},{"../../common/button/action":315,"../../common/select-action":361,"../../mixin/stylable":387}],299:[function(require,module,exports){
+'use strict';
 
 var builder = window.Focus.component.builder;
 var React = window.React;
@@ -23394,8 +24928,8 @@ var headerMixin = {
   /** @inheriteddoc */
   render: function renderContentBar() {
     return React.createElement(
-      "div",
-      { "data-focus": "content-bar" },
+      'div',
+      { 'data-focus': 'content-bar' },
       this.props.children
     );
   }
@@ -23403,21 +24937,21 @@ var headerMixin = {
 
 module.exports = builder(headerMixin);
 
-},{}],297:[function(require,module,exports){
-"use strict";
+},{}],300:[function(require,module,exports){
+'use strict';
 
 var builder = window.Focus.component.builder;
 
 var React = window.React;
-var REACT_NOT_COMPONENT_ERROR = "Uncaught TypeError: undefined is not a function";
-var REACT_NOT_COMPONENT_MESSAGE = "Check your console errors, it seems you are trying to create a component from something which is not a component.";
+var REACT_NOT_COMPONENT_ERROR = 'Uncaught TypeError: undefined is not a function';
+var REACT_NOT_COMPONENT_MESSAGE = 'Check your console errors, it seems you are trying to create a component from something which is not a component.';
 /**
  * Error center component.
  * @example React.render(<ErrorCenter />, document.querySelector('#container'))
  * @type {Object}
  */
 var errorCenter = {
-    displayName: "ErrorCenter",
+    displayName: 'ErrorCenter',
     /** @inheriteddoc */
     getDefaultProps: function getDefaultProps() {
         return {
@@ -23453,7 +24987,7 @@ var errorCenter = {
      * @return {object} - The jsx errors.
      */
     _renderErrors: function _renderErrors() {
-        var _this = this;
+        var _this2 = this;
 
         var _state = this.state;
         var errors = _state.errors;
@@ -23462,31 +24996,31 @@ var errorCenter = {
 
         var errorLength = errors.length;
         return React.createElement(
-            "div",
-            { "data-focus": "error-center" },
+            'div',
+            { 'data-focus': 'error-center' },
             React.createElement(
-                "div",
-                { "data-focus": "error-counter" },
-                React.createElement("i", { className: "fa fa-times-circle" }),
+                'div',
+                { 'data-focus': 'error-counter' },
+                React.createElement('i', { className: 'fa fa-times-circle' }),
                 errorLength
             ),
             React.createElement(
-                "div",
-                { "data-focus": "error-actions" },
-                React.createElement("i", { className: "fa fa-refresh", onClick: function () {
+                'div',
+                { 'data-focus': 'error-actions' },
+                React.createElement('i', { className: 'fa fa-refresh', onClick: function () {
                         window.location.reload();
                     } }),
-                React.createElement("i", { className: "fa fa-arrow-circle-o-" + (isErrorsVisible ? "up" : "down"), onClick: this._toggleVisible }),
-                React.createElement("i", { className: "fa fa-trash-o", onClick: function () {
-                        _this.setState({ errors: [] });
+                React.createElement('i', { className: 'fa fa-arrow-circle-o-' + (isErrorsVisible ? 'up' : 'down'), onClick: this._toggleVisible }),
+                React.createElement('i', { className: 'fa fa-trash-o', onClick: function () {
+                        _this2.setState({ errors: [] });
                     } })
             ),
             React.createElement(
-                "ul",
-                { "data-focus": "error-stack" },
+                'ul',
+                { 'data-focus': 'error-stack' },
                 isErrorsVisible ? errors.slice(errorLength - numberDisplayed, errorLength).map(function (err) {
                     var e = REACT_NOT_COMPONENT_ERROR === err ? REACT_NOT_COMPONENT_MESSAGE : err;return React.createElement(
-                        "li",
+                        'li',
                         null,
                         e
                     );
@@ -23502,19 +25036,19 @@ var errorCenter = {
 
 module.exports = builder(errorCenter);
 
-},{}],298:[function(require,module,exports){
-"use strict";
+},{}],301:[function(require,module,exports){
+'use strict';
 
 var builder = window.Focus.component.builder;
 var React = window.React;
 var type = window.Focus.component.types;
 
-var _require = require("lodash/collection");
+var _require = require('lodash/collection');
 
 var pluck = _require.pluck;
 var sortBy = _require.sortBy;
 
-var applicationStateBehaviour = require("./mixin/application-state");
+var applicationStateBehaviour = require('./mixin/application-state');
 var headerMixin = {
   mixins: [applicationStateBehaviour],
   /** @inheriteddoc */
@@ -23534,17 +25068,17 @@ var headerMixin = {
        * Default size of the bar. Should be present in sizeMap.
        * @type {String}
        */
-      size: "medium",
+      size: 'medium',
       /**
        * Map which defines sizes exists for the components and their border.
        * @type {Object}
        */
       sizeMap: {
-        small: {
-          sizeBorder: 5
+        'small': {
+          'sizeBorder': 5
         },
-        medium: {
-          sizeBorder: 0
+        'medium': {
+          'sizeBorder': 0
         }
       },
       /**
@@ -23561,12 +25095,12 @@ var headerMixin = {
   },
   /** @inheritdoc */
   propTypes: {
-    size: type("string"),
-    scrollTargetSelector: type("string"),
-    style: type("object"),
-    sizeMap: type("object"),
-    notifySizeChange: type(["function", "object"]),
-    processSize: type(["function", "object"])
+    size: type('string'),
+    scrollTargetSelector: type('string'),
+    style: type('object'),
+    sizeMap: type('object'),
+    notifySizeChange: type(['function', 'object']),
+    processSize: type(['function', 'object'])
   },
   /** @inheritdoc */
   getInitialState: function getMenuDefaultState() {
@@ -23580,7 +25114,7 @@ var headerMixin = {
   /** @inheriteddoc */
   componentWillMount: function barWillMount() {
     this._processSizes();
-    this.scrollTargetNode = this.props.scrollTargetSelector && this.props.scrollTargetSelector !== "" ? document.querySelector(this.props.scrollTargetSelector) : window;
+    this.scrollTargetNode = this.props.scrollTargetSelector && this.props.scrollTargetSelector !== '' ? document.querySelector(this.props.scrollTargetSelector) : window;
   },
   /** @inheriteddoc */
   componentDidMount: function barDidMount() {
@@ -23599,7 +25133,7 @@ var headerMixin = {
     for (var sz in this.props.sizeMap) {
       sizes.push({ name: sz, sizeBorder: this.props.sizeMap[sz].sizeBorder });
     }
-    this.sizes = pluck(sortBy(sizes, "sizeBorder"), "name");
+    this.sizes = pluck(sortBy(sizes, 'sizeBorder'), 'name');
   },
   /**
    * Get the current element size.
@@ -23672,23 +25206,23 @@ var headerMixin = {
    * Attach scroll listener on the scroll target node.
    */
   attachScrollListener: function attachScrollListener() {
-    this.scrollTargetNode.addEventListener("scroll", this.handleScroll);
-    this.scrollTargetNode.addEventListener("resize", this.handleScroll);
+    this.scrollTargetNode.addEventListener('scroll', this.handleScroll);
+    this.scrollTargetNode.addEventListener('resize', this.handleScroll);
   },
 
   /**
    * Detach scroll handler on the scroll target node.
    */
   detachScrollListener: function detachScrollListener() {
-    this.scrollTargetNode.removeEventListener("scroll", this.handleScroll);
-    this.scrollTargetNode.removeEventListener("resize", this.handleScroll);
+    this.scrollTargetNode.removeEventListener('scroll', this.handleScroll);
+    this.scrollTargetNode.removeEventListener('resize', this.handleScroll);
   },
   /** @inheriteddoc */
   render: function renderBar() {
-    var className = "header header-" + this.state.size + " " + this.props.style.className;
+    var className = 'header header-' + this.state.size + ' ' + this.props.style.className;
     return React.createElement(
-      "header",
-      { className: className, "data-focus": "header", "data-route": this.state.route, "data-mode": this.state.mode, "data-size": this.state.size },
+      'header',
+      { className: className, 'data-focus': 'header', 'data-route': this.state.route, 'data-mode': this.state.mode, 'data-size': this.state.size },
       this.props.children
     );
   }
@@ -23696,8 +25230,8 @@ var headerMixin = {
 
 module.exports = builder(headerMixin);
 
-},{"./mixin/application-state":299,"lodash/collection":45}],299:[function(require,module,exports){
-"use strict";
+},{"./mixin/application-state":302,"lodash/collection":45}],302:[function(require,module,exports){
+'use strict';
 
 var applicationStore = window.Focus.application.builtInStore;
 var applicationStateMixin = {
@@ -23720,9 +25254,9 @@ var applicationStateMixin = {
   },
   _getStateFromStore: function getCartridgeStateFromStore() {
     var processMode = applicationStore.getMode();
-    var mode = "consult";
+    var mode = 'consult';
     if (processMode && processMode.edit && processMode.edit > 0) {
-      mode = "edit";
+      mode = 'edit';
     }
     return { mode: mode, route: applicationStore.getRoute() };
   }
@@ -23730,35 +25264,35 @@ var applicationStateMixin = {
 
 module.exports = applicationStateMixin;
 
-},{}],300:[function(require,module,exports){
-"use strict";
+},{}],303:[function(require,module,exports){
+'use strict';
 
 module.exports = {
-  header: require("./header"),
-  bar: require("./bar"),
-  cartridge: require("./cartridge"),
-  menu: require("./menu"),
-  popin: require("./popin"),
-  confirmationPopin: require("./confirmation-popin"),
-  messageCenter: require("./message-center"),
-  errorCenter: require("./error-center"),
-  contentBar: require("./content-bar"),
-  contentActions: require("./content-actions"),
-  layout: require("./layout"),
-  loadingBar: require("./loading-bar")
+  header: require('./header'),
+  bar: require('./bar'),
+  cartridge: require('./cartridge'),
+  menu: require('./menu'),
+  popin: require('./popin'),
+  confirmationPopin: require('./confirmation-popin'),
+  messageCenter: require('./message-center'),
+  errorCenter: require('./error-center'),
+  contentBar: require('./content-bar'),
+  contentActions: require('./content-actions'),
+  layout: require('./layout'),
+  loadingBar: require('./loading-bar')
 };
 
-},{"./bar":292,"./cartridge":293,"./confirmation-popin":294,"./content-actions":295,"./content-bar":296,"./error-center":297,"./header":298,"./layout":302,"./loading-bar":303,"./menu":304,"./message-center":305,"./popin":307}],301:[function(require,module,exports){
+},{"./bar":295,"./cartridge":296,"./confirmation-popin":297,"./content-actions":298,"./content-bar":299,"./error-center":300,"./header":301,"./layout":305,"./loading-bar":306,"./menu":307,"./message-center":308,"./popin":310}],304:[function(require,module,exports){
 //Needed components
-"use strict";
+'use strict';
 
-var Header = require("../header").component;
-var Cartridge = require("../cartridge").component;
-var ContentBar = require("../content-bar").component;
-var Bar = require("../bar").component;
-var ContentActions = require("../content-actions").component;
+var Header = require('../header').component;
+var Cartridge = require('../cartridge').component;
+var ContentBar = require('../content-bar').component;
+var Bar = require('../bar').component;
+var ContentActions = require('../content-actions').component;
 module.exports = React.createClass({
-  displayName: "AppHeader",
+  displayName: 'AppHeader',
   render: function renderApplicationHeader() {
     return React.createElement(
       Header,
@@ -23774,23 +25308,23 @@ module.exports = React.createClass({
   }
 });
 
-},{"../bar":292,"../cartridge":293,"../content-actions":295,"../content-bar":296,"../header":298}],302:[function(require,module,exports){
+},{"../bar":295,"../cartridge":296,"../content-actions":298,"../content-bar":299,"../header":301}],305:[function(require,module,exports){
 // Dependencies
 
-"use strict";
+'use strict';
 
 var builder = window.Focus.component.builder;
 
 // Components
 
-var AppHeader = require("./app-header");
-var LoadingBar = require("../loading-bar").component;
-var MessageCenter = require("../message-center").component;
-var ErrorCenter = require("../error-center").component;
+var AppHeader = require('./app-header');
+var LoadingBar = require('../loading-bar').component;
+var MessageCenter = require('../message-center').component;
+var ErrorCenter = require('../error-center').component;
 
 // Mixins
 
-var stylableBehaviour = require("../../mixin/stylable");
+var stylableBehaviour = require('../../mixin/stylable');
 
 var contentActionsMixin = {
     mixins: [stylableBehaviour],
@@ -23800,26 +25334,26 @@ var contentActionsMixin = {
             LoadingBar: LoadingBar,
             MessageCenter: MessageCenter,
             ErrorCenter: ErrorCenter,
-            footerText: "Please override the footer text by giving a \"footerText\" property to the Layout component."
+            footerText: 'Please override the footer text by giving a "footerText" property to the Layout component.'
         };
     },
     render: function render() {
         return React.createElement(
-            "div",
-            { className: this._getStyleClassName(), "data-focus": "layout" },
+            'div',
+            { className: this._getStyleClassName(), 'data-focus': 'layout' },
             React.createElement(this.props.LoadingBar, null),
             React.createElement(this.props.MessageCenter, null),
             React.createElement(this.props.ErrorCenter, null),
             React.createElement(this.props.AppHeader, null),
             React.createElement(
-                "div",
-                { "data-focus": "menu" },
+                'div',
+                { 'data-focus': 'menu' },
                 this.props.MenuLeft && React.createElement(this.props.MenuLeft, null)
             ),
-            React.createElement("div", { "data-focus": "page-content" }),
+            React.createElement('div', { 'data-focus': 'page-content' }),
             React.createElement(
-                "footer",
-                { "data-focus": "footer" },
+                'footer',
+                { 'data-focus': 'footer' },
                 this.props.footerText
             ),
             this.props.children
@@ -23829,16 +25363,16 @@ var contentActionsMixin = {
 
 module.exports = builder(contentActionsMixin);
 
-},{"../../mixin/stylable":384,"../error-center":297,"../loading-bar":303,"../message-center":305,"./app-header":301}],303:[function(require,module,exports){
-"use strict";
+},{"../../mixin/stylable":387,"../error-center":300,"../loading-bar":306,"../message-center":308,"./app-header":304}],306:[function(require,module,exports){
+'use strict';
 
 var builder = window.Focus.component.builder;
 var React = window.React;
 var type = window.Focus.component.types;
 var requestStore = window.Focus.network.builtInStore;
-var assign = require("object-assign");
-var ProgressBar = require("../../common/progress-bar").component;
-var Icon = require("../../common/icon").component;
+var assign = require('object-assign');
+var ProgressBar = require('../../common/progress-bar').component;
+var Icon = require('../../common/icon').component;
 var LoadingBarMixin = {
   /** @inheriteddoc */
   getInitialState: function getInitialState() {
@@ -23872,45 +25406,45 @@ var LoadingBarMixin = {
     }
     //Else empty the loading list?
     return React.createElement(
-      "div",
-      { "data-focus": "loading-bar" },
+      'div',
+      { 'data-focus': 'loading-bar' },
       visible && React.createElement(ProgressBar, { completed: completed }),
       React.createElement(
-        "ul",
-        { className: "fa-ul" },
+        'ul',
+        { className: 'fa-ul' },
         React.createElement(
-          "li",
+          'li',
           null,
-          React.createElement(Icon, { name: "circle-o-notch", other: "fa-li fa-spin" }),
-          " pending ",
+          React.createElement(Icon, { name: 'circle-o-notch', other: 'fa-li fa-spin' }),
+          ' pending ',
           this.state.pending
         ),
         React.createElement(
-          "li",
+          'li',
           null,
-          React.createElement(Icon, { name: "circle-thin", other: "fa-li" }),
-          " cancelled ",
+          React.createElement(Icon, { name: 'circle-thin', other: 'fa-li' }),
+          ' cancelled ',
           this.state.cancelled
         ),
         React.createElement(
-          "li",
+          'li',
           null,
-          React.createElement(Icon, { name: "check", other: "fa-li" }),
-          " success ",
+          React.createElement(Icon, { name: 'check', other: 'fa-li' }),
+          ' success ',
           this.state.success
         ),
         React.createElement(
-          "li",
+          'li',
           null,
-          React.createElement(Icon, { name: "ban", other: "fa-li" }),
-          "error ",
+          React.createElement(Icon, { name: 'ban', other: 'fa-li' }),
+          'error ',
           this.state.error
         ),
         React.createElement(
-          "li",
+          'li',
           null,
-          React.createElement(Icon, { name: "plus-square-o", other: "fa-li" }),
-          "total ",
+          React.createElement(Icon, { name: 'plus-square-o', other: 'fa-li' }),
+          'total ',
           this.state.total
         )
       )
@@ -23920,17 +25454,17 @@ var LoadingBarMixin = {
 
 module.exports = builder(LoadingBarMixin);
 
-},{"../../common/icon":332,"../../common/progress-bar":355,"object-assign":288}],304:[function(require,module,exports){
-"use strict";
+},{"../../common/icon":335,"../../common/progress-bar":358,"object-assign":288}],307:[function(require,module,exports){
+'use strict';
 
 var builder = window.Focus.component.builder;
 var React = window.React;
 var Backbone = window.Backbone;
 var types = window.Focus.component.types;
-var popinProperties = require("../mixin/popin-behaviour").mixin;
-var stylabe = require("../../mixin/stylable");
-var Icon = require("../../common/icon").component;
-var Button = require("../../common/button/action").component;
+var popinProperties = require('../mixin/popin-behaviour').mixin;
+var stylabe = require('../../mixin/stylable');
+var Icon = require('../../common/icon').component;
+var Button = require('../../common/button/action').component;
 var menuMixin = {
     mixins: [stylabe, popinProperties], /** @inheritedProps*/
     /** @inheritedProps*/
@@ -23941,7 +25475,7 @@ var menuMixin = {
     },
     /** @inheritedProps*/
     propTypes: {
-        code: types("array")
+        code: types('array')
     },
     /**
     * Toggle the state of the menu.
@@ -23953,9 +25487,8 @@ var menuMixin = {
     * Render the links of the menu
     */
     _renderMenuItems: function _renderMenuItems() {
-        var _this = this;
-
-        var _arguments = arguments;
+        var _this = this,
+            _arguments = arguments;
 
         return this.props.items.map(function (link, idx) {
             var clickHandler = undefined;
@@ -23973,12 +25506,12 @@ var menuMixin = {
                 label: link.name,
                 icon: link.icon,
                 style: link.style,
-                option: "link",
-                shape: "flat",
-                type: "button"
+                option: 'link',
+                shape: 'flat',
+                type: 'button'
             };
             return React.createElement(
-                "li",
+                'li',
                 { key: idx },
                 React.createElement(Button, buttonProps)
             );
@@ -23991,14 +25524,14 @@ var menuMixin = {
         var position = _props.position;
         var children = _props.children;
 
-        var className = "menu menu-" + direction + " menu-" + position + " menu-" + (this.state.open ? "open" : "") + " " + this._getStyleClassName();
+        var className = 'menu menu-' + direction + ' menu-' + position + ' menu-' + (this.state.open ? 'open' : '') + ' ' + this._getStyleClassName();
         return React.createElement(
-            "nav",
-            { className: className, "data-focus": "menu" },
-            React.createElement("div", { "data-focus": "menu-brand" }),
+            'nav',
+            { className: className, 'data-focus': 'menu' },
+            React.createElement('div', { 'data-focus': 'menu-brand' }),
             React.createElement(
-                "ul",
-                { "data-focus": "menu-items" },
+                'ul',
+                { 'data-focus': 'menu-items' },
                 this._renderMenuItems()
             ),
             children
@@ -24008,16 +25541,16 @@ var menuMixin = {
 
 module.exports = builder(menuMixin);
 
-},{"../../common/button/action":312,"../../common/icon":332,"../../mixin/stylable":384,"../mixin/popin-behaviour":306}],305:[function(require,module,exports){
-"use strict";
+},{"../../common/button/action":315,"../../common/icon":335,"../../mixin/stylable":387,"../mixin/popin-behaviour":309}],308:[function(require,module,exports){
+'use strict';
 
 var builder = window.Focus.component.builder;
 var React = window.React;
 var type = window.Focus.component.types;
 var messageStore = window.Focus.message.builtInStore;
-var Message = require("../../message").component;
-var assign = require("object-assign");
-var capitalize = require("lodash/string/capitalize");
+var Message = require('../../message').component;
+var assign = require('object-assign');
+var capitalize = require('lodash/string/capitalize');
 var messageCenterMixin = {
   getDefaultProps: function getCartridgeDefaultProps() {
     return {
@@ -24062,8 +25595,8 @@ var messageCenterMixin = {
       var msg = this.state.messages[msgKey];
       var ttlConf = {};
       var messageProps = assign(this.state.messages[msgKey], { handleOnClick: this._handleRemoveMessage, key: msgKey });
-      if (msg.type === "info" || msg.type === "success") {
-        assign(messageProps, { ttl: this.props["ttl" + capitalize(msg.type)], handleTimeToLeave: this._handleRemoveMessage });
+      if (msg.type === 'info' || msg.type === 'success') {
+        assign(messageProps, { ttl: this.props['ttl' + capitalize(msg.type)], handleTimeToLeave: this._handleRemoveMessage });
       }
       msgs.push(React.createElement(Message, messageProps));
     }
@@ -24071,10 +25604,10 @@ var messageCenterMixin = {
   },
   /** @inheriteddoc */
   render: function renderMessageCenter() {
-    var className = "message-center " + this.props.style.className;
+    var className = 'message-center ' + this.props.style.className;
     return React.createElement(
-      "div",
-      { className: className, "data-focus": "message-center" },
+      'div',
+      { className: className, 'data-focus': 'message-center' },
       this.renderMessages()
     );
   }
@@ -24082,8 +25615,8 @@ var messageCenterMixin = {
 
 module.exports = builder(messageCenterMixin);
 
-},{"../../message":383,"lodash/string/capitalize":249,"object-assign":288}],306:[function(require,module,exports){
-"use strict";
+},{"../../message":386,"lodash/string/capitalize":249,"object-assign":288}],309:[function(require,module,exports){
+'use strict';
 
 var type = window.Focus.component.types;
 /**
@@ -24094,14 +25627,14 @@ var PopinProperties = {
   /** @inheritdoc */
   getDefaultProps: function getMenuDefaultProps() {
     return {
-      direction: "vertical", //horizontal
-      position: "left", // top, bottom, right, left
+      direction: 'vertical', //horizontal
+      position: 'left', // top, bottom, right, left
       open: false
     };
   },
   /** @inheritdoc */
   propTypes: {
-    open: type("bool")
+    open: type('bool')
   },
   /** @inheritdoc */
   getInitialState: function getDefaultState() {
@@ -24113,57 +25646,57 @@ var PopinProperties = {
 
 module.exports = { mixin: PopinProperties };
 
-},{}],307:[function(require,module,exports){
-"use strict";
+},{}],310:[function(require,module,exports){
+// Dependencies
+
+'use strict';
 
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
-
-// Dependencies
 
 var React = window.React;
 var builder = window.Focus.component.builder;
 var types = window.Focus.component.types;
 var ArgumentInvalidException = window.Focus.exception.ArgumentInvalidException;
-var includes = require("lodash").includes;
+var includes = require('lodash').includes;
 
 /**
  * Small overlay component used to listen to scroll and prevent it to leave the Popin component
  */
 var Overlay = React.createClass({
-    displayName: "popin-overlay",
+    displayName: 'popin-overlay',
     propTypes: {
-        children: types("object"),
-        clickHandler: types("func"),
-        show: types("boolean")
+        children: types('object'),
+        clickHandler: types('func'),
+        show: types('boolean')
     },
     /**
      * Component did mount event handler.
      * Add a listener to the mouse wheel, to spy the scroll.
      */
     componentDidMount: function componentDidMount() {
-        React.findDOMNode(this.refs.overlay).addEventListener("mousewheel", this._onScroll);
+        React.findDOMNode(this.refs.overlay).addEventListener('mousewheel', this._onScroll);
     },
     /**
      * Store the body overgflow property, and set it to hidden
      * @private
      */
     _storeAndHideBodyOverflow: function _storeAndHideBodyOverflow() {
-        this._oldScroll = document.body.style["overflow-y"];
-        document.body.style["overflow-y"] = "hidden";
+        this._oldScroll = document.body.style['overflow-y'];
+        document.body.style['overflow-y'] = 'hidden';
     },
     /**
      * Restore body overflow property
      * @private
      */
     _restoreBodyOverflow: function _restoreBodyOverflow() {
-        document.body.style["overflow-y"] = this._oldScroll;
+        document.body.style['overflow-y'] = this._oldScroll;
     },
     /**
      * Component will unmount event handler.
      * Remove the mouse wheel listener.
      */
     componentWillUnmount: function componentWillUnmount() {
-        React.findDOMNode(this.refs.overlay).removeEventListener("mousewheel", this._onScroll);
+        React.findDOMNode(this.refs.overlay).removeEventListener('mousewheel', this._onScroll);
     },
     /**
      * Mouse wheel event handler.
@@ -24172,13 +25705,13 @@ var Overlay = React.createClass({
      */
     _onScroll: function _onScroll(event) {
         var target = event.target;
-        var direction = 0 > event.wheelDeltaY ? "down" : "up";
+        var direction = 0 > event.wheelDeltaY ? 'down' : 'up';
         // Test if scrolling down the lower limit
-        if (target.clientHeight + target.scrollTop === target.scrollHeight && "down" === direction) {
+        if (target.clientHeight + target.scrollTop === target.scrollHeight && 'down' === direction) {
             event.preventDefault();
         }
         // Test if scrolling up the upper limit
-        if (0 === target.scrollTop && "up" === direction) {
+        if (0 === target.scrollTop && 'up' === direction) {
             event.preventDefault();
         }
     },
@@ -24193,8 +25726,8 @@ var Overlay = React.createClass({
         var show = _props.show;
 
         return React.createElement(
-            "div",
-            { className: "animated fadeIn", "data-animation": "fadeIn", "data-closing-animation": "fadeOut", "data-focus": "popin-overlay", "data-visible": show, onClick: clickHandler, ref: "overlay" },
+            'div',
+            { className: 'animated fadeIn', 'data-animation': 'fadeIn', 'data-closing-animation': 'fadeOut', 'data-focus': 'popin-overlay', 'data-visible': show, onClick: clickHandler, ref: 'overlay' },
             children
         );
     }
@@ -24223,8 +25756,8 @@ var popin = {
     getDefaultProps: function getDefaultProps() {
         return {
             modal: true,
-            size: "medium",
-            type: "full",
+            size: 'medium',
+            type: 'full',
             level: 0,
             overlay: true,
             open: false
@@ -24233,24 +25766,24 @@ var popin = {
     /**
      * Helper attribute, for React debugging
      */
-    displayName: "Popin",
+    displayName: 'Popin',
     /**
      * Properties validation
      */
     propTypes: {
-        modal: types("bool"),
-        size: types("string"),
-        types: types("string"),
-        level: types("number"),
-        overlay: types("bool"),
-        open: types("bool")
+        modal: types('bool'),
+        size: types('string'),
+        types: types('string'),
+        level: types('number'),
+        overlay: types('bool'),
+        open: types('bool')
     },
     /**
      * Wheel event handler.
      * @param  {object} event wheel event
      */
     _onWheel: function _onWheel(event) {
-        React.findDOMNode(this.refs["popin-window"]).scrollTop += 0 < event.deltaY ? 100 : -100;
+        React.findDOMNode(this.refs['popin-window']).scrollTop += 0 < event.deltaY ? 100 : -100;
     },
     /**
      * Toggle the popin's open state
@@ -24263,12 +25796,12 @@ var popin = {
         var onPopinClose = this.props.onPopinClose;
 
         if (opened) {
-            var popinWindow = React.findDOMNode(this.refs["popin-window"]);
-            var popinOverlay = React.findDOMNode(this.refs["popin-overlay"]);
-            popinWindow.classList.remove(popinWindow.getAttribute("data-animation"));
-            popinWindow.classList.add(popinWindow.getAttribute("data-closing-animation"));
-            popinOverlay.classList.remove(popinOverlay.getAttribute("data-animation"));
-            popinOverlay.classList.add(popinOverlay.getAttribute("data-closing-animation"));
+            var popinWindow = React.findDOMNode(this.refs['popin-window']);
+            var popinOverlay = React.findDOMNode(this.refs['popin-overlay']);
+            popinWindow.classList.remove(popinWindow.getAttribute('data-animation'));
+            popinWindow.classList.add(popinWindow.getAttribute('data-closing-animation'));
+            popinOverlay.classList.remove(popinOverlay.getAttribute('data-animation'));
+            popinOverlay.classList.add(popinOverlay.getAttribute('data-closing-animation'));
             timeout = 200;
         }
         if (opened && onPopinClose) {
@@ -24278,16 +25811,16 @@ var popin = {
             // Store the current popin state
             var wasOpened = _this.state.opened;
             // If it was  opened, then we are closing it, so restore the body overflow before closing.
-            if (wasOpened) {
-                _this.refs["popin-overlay"]._restoreBodyOverflow();
+            if (wasOpened && _this.refs['popin-overlay']) {
+                _this.refs['popin-overlay']._restoreBodyOverflow();
             }
             _this.setState({
                 opened: !wasOpened
             }, function () {
-                if (_this.refs["popin-overlay"]) {
+                if (_this.refs['popin-overlay']) {
                     if (!wasOpened) {
                         // We just opened the popin, so store and hide the body overflow.
-                        _this.refs["popin-overlay"]._storeAndHideBodyOverflow();
+                        _this.refs['popin-overlay']._storeAndHideBodyOverflow();
                     }
                 }
             });
@@ -24299,25 +25832,25 @@ var popin = {
      */
     render: function render() {
         // test for this.state.opened and return an Overlay component if true
-        var _props = this.props;
-        var type = _props.type;
-        var level = _props.level;
-        var modal = _props.modal;
-        var overlay = _props.overlay;
-        var children = _props.children;
+        var _props2 = this.props;
+        var type = _props2.type;
+        var level = _props2.level;
+        var modal = _props2.modal;
+        var overlay = _props2.overlay;
+        var children = _props2.children;
 
         return React.createElement(
-            "div",
-            { "data-focus": "popin", "data-level": level, "data-size": this._validateSize(), "data-type": type },
+            'div',
+            { 'data-focus': 'popin', 'data-level': level, 'data-size': this._validateSize(), 'data-type': type },
             this.state.opened && React.createElement(
                 Overlay,
-                { clickHandler: modal && this.toggleOpen, ref: "popin-overlay", resize: "full" === type, show: overlay },
+                { clickHandler: modal && this.toggleOpen, ref: 'popin-overlay', resize: 'full' === type, show: overlay },
                 React.createElement(
-                    "div",
-                    _extends({}, this._getAnimationProps(), { "data-focus": "popin-window", onClick: this._preventPopinClose, ref: "popin-window" }),
-                    React.createElement("i", { className: "fa fa-close", onClick: this.toggleOpen }),
+                    'div',
+                    _extends({}, this._getAnimationProps(), { 'data-focus': 'popin-window', onClick: this._preventPopinClose, ref: 'popin-window' }),
+                    React.createElement('i', { className: 'fa fa-close', onClick: this.toggleOpen }),
                     React.createElement(
-                        "div",
+                        'div',
                         { onWheel: this._onWheel },
                         children
                     )
@@ -24334,23 +25867,23 @@ var popin = {
         var openingAnimation = undefined;
         var closingAnimation = undefined;
         switch (this.props.type) {
-            case "from-menu":
-                openingAnimation = "slideInLeft";
-                closingAnimation = "slideOutLeft";
+            case 'from-menu':
+                openingAnimation = 'slideInLeft';
+                closingAnimation = 'slideOutLeft';
                 break;
-            case "from-right":
-                openingAnimation = "slideInRight";
-                closingAnimation = "slideOutRight";
+            case 'from-right':
+                openingAnimation = 'slideInRight';
+                closingAnimation = 'slideOutRight';
                 break;
             default:
-                openingAnimation = "zoomIn";
-                closingAnimation = "zoomOut";
+                openingAnimation = 'zoomIn';
+                closingAnimation = 'zoomOut';
                 break;
         }
         return {
-            className: "animated " + openingAnimation,
-            "data-animation": openingAnimation,
-            "data-closing-animation": closingAnimation
+            className: 'animated ' + openingAnimation,
+            'data-animation': openingAnimation,
+            'data-closing-animation': closingAnimation
         };
     },
     /**
@@ -24359,8 +25892,8 @@ var popin = {
      * @private
      */
     _validateSize: function _validateSize() {
-        if (!includes(["small", "medium", "large"], this.props.size)) {
-            throw new ArgumentInvalidException("Please provide a valid popin size among small, medium and large. Provided " + this.props.size);
+        if (!includes(['small', 'medium', 'large'], this.props.size)) {
+            throw new ArgumentInvalidException('Please provide a valid popin size among small, medium and large. Provided ' + this.props.size);
         }
         return this.props.size;
     },
@@ -24376,18 +25909,18 @@ var popin = {
 
 module.exports = builder(popin);
 
-},{"lodash":86}],308:[function(require,module,exports){
+},{"lodash":86}],311:[function(require,module,exports){
 /* globals Awesomplete */
 
 // Dependencies
-"use strict";
+'use strict';
 
 var Focus = window.Focus;
 var _Focus$component = Focus.component;
 var builder = _Focus$component.builder;
 var types = _Focus$component.types;
 
-var find = require("lodash/collection/find");
+var find = require('lodash/collection/find');
 
 /**
  * Autocomplete component.
@@ -24403,7 +25936,7 @@ var Autocomplete = {
     componentWillMount: function componentWillMount() {
         // Check if Awesomplete is set in Window
         if (!window.Awesomplete) {
-            throw new Error("Please include Awesomplete to your application. See http://leaverou.github.io/awesomplete/ for more information");
+            throw new Error('Please include Awesomplete to your application. See http://leaverou.github.io/awesomplete/ for more information');
         }
     },
     /**
@@ -24419,7 +25952,7 @@ var Autocomplete = {
         this._awesomeplete = new Awesomplete(React.findDOMNode(input), {
             list: this._extractListFromData(pickList)
         });
-        this._awesomeplete.input.addEventListener("awesomplete-select", function (event) {
+        this._awesomeplete.input.addEventListener('awesomplete-select', function (event) {
             return _this._selectionHandler(event.text);
         });
     },
@@ -24429,7 +25962,7 @@ var Autocomplete = {
      */
     getDefaultProps: function getDefaultProps() {
         return {
-            code: "",
+            code: '',
             pickList: [],
             timeoutDuration: 200,
             allowUnmatchedValue: false
@@ -24440,12 +25973,12 @@ var Autocomplete = {
      * @type {Object}
      */
     propTypes: {
-        code: types("string"), // the field code value
-        inputChangeHandler: types("func"), // callback when input changed
-        pickList: types("array"), // list of values, looking like [{code: '', value: ''}, {code: '', value: ''}, ...]
-        selectionHandler: types("func"), // selection callback
-        timeoutDuration: types("number"), // the throttle duration of the input rate
-        allowUnmatchedValue: types("bool") // restrict user input to values of the list, or allow freestyle
+        code: types('string'), // the field code value
+        inputChangeHandler: types('func'), // callback when input changed
+        pickList: types('array'), // list of values, looking like [{code: '', value: ''}, {code: '', value: ''}, ...]
+        selectionHandler: types('func'), // selection callback
+        timeoutDuration: types('number'), // the throttle duration of the input rate
+        allowUnmatchedValue: types('bool') // restrict user input to values of the list, or allow freestyle
     },
     /**
      * Initial state.
@@ -24522,10 +26055,10 @@ var Autocomplete = {
      * @return {String} value
      */
     _getValueFromCode: function _getValueFromCode(code) {
-        var pickList = arguments[1] === undefined ? this.props.pickList : arguments[1];
+        var pickList = arguments.length <= 1 || arguments[1] === undefined ? this.props.pickList : arguments[1];
 
         var pick = find(pickList, { code: code });
-        return pick ? pick.value : "";
+        return pick ? pick.value : '';
     },
     /**
      * Get the current code
@@ -24548,7 +26081,7 @@ var Autocomplete = {
 
         var code = this._getCodeFromValue(value);
         if (!code && allowUnmatchedValue && !this._isSelecting) {
-            this.setState({ value: "" });
+            this.setState({ value: '' });
         }
         this._isSelecting = false;
     },
@@ -24557,7 +26090,7 @@ var Autocomplete = {
      * @param  {Object} event change event
      */
     _onInputChange: function _onInputChange(event) {
-        var _this = this;
+        var _this2 = this;
 
         var value = event.target.value;
         var timeoutDuration = this.props.timeoutDuration;
@@ -24567,7 +26100,7 @@ var Autocomplete = {
             clearTimeout(this._changeTimeout);
         }
         this._changeTimeout = setTimeout(function () {
-            var inputChangeHandler = _this.props.inputChangeHandler;
+            var inputChangeHandler = _this2.props.inputChangeHandler;
 
             if (inputChangeHandler) {
                 inputChangeHandler(value);
@@ -24580,34 +26113,31 @@ var Autocomplete = {
      */
     render: function render() {
         var value = this.state.value;
-
-        var _ref = this;
-
-        var _onInputBlur = _ref._onInputBlur;
-        var _onInputChange = _ref._onInputChange;
+        var _onInputBlur = this._onInputBlur;
+        var _onInputChange = this._onInputChange;
 
         return React.createElement(
-            "div",
-            { "data-focus": "autocomplete" },
-            React.createElement("input", { onBlur: _onInputBlur, onChange: _onInputChange, ref: "input", value: value })
+            'div',
+            { 'data-focus': 'autocomplete' },
+            React.createElement('input', { onBlur: _onInputBlur, onChange: _onInputChange, ref: 'input', value: value })
         );
     }
 };
 
 module.exports = builder(Autocomplete);
 
-},{"lodash/collection/find":57}],309:[function(require,module,exports){
+},{"lodash/collection/find":57}],312:[function(require,module,exports){
 // Dependencies
 
-"use strict";
+'use strict';
 
 var builder = Focus.component.builder;
 var types = Focus.component.types;
-var find = require("lodash/collection/find");
+var find = require('lodash/collection/find');
 
 // Components
 
-var Autocomplete = require("./awesomplete").component;
+var Autocomplete = require('./awesomplete').component;
 
 /**
  * Autocomplete for component
@@ -24622,7 +26152,7 @@ var AutocompleteFor = {
         return {
             AutocompleteComponent: Autocomplete,
             pickList: [],
-            value: ""
+            value: ''
         };
     },
     /**
@@ -24630,13 +26160,13 @@ var AutocompleteFor = {
      * @type {Object}
      */
     propTypes: {
-        AutocompleteComponent: types("func"),
-        allowUnmatchedValue: types("bool"),
-        code: types("string"),
-        isEdit: types("bool"),
-        loader: types("func"),
-        pickList: types("array"),
-        selectionHandler: types("func")
+        AutocompleteComponent: types('func'),
+        allowUnmatchedValue: types('bool'),
+        code: types('string'),
+        isEdit: types('bool'),
+        loader: types('func'),
+        pickList: types('array'),
+        selectionHandler: types('func')
     },
     /**
      * Get initial state
@@ -24660,7 +26190,7 @@ var AutocompleteFor = {
     _doLoad: function _doLoad() {
         var _this = this;
 
-        var text = arguments[0] === undefined ? "" : arguments[0];
+        var text = arguments.length <= 0 || arguments[0] === undefined ? '' : arguments[0];
         var loader = this.props.loader;
 
         if (loader) {
@@ -24695,7 +26225,7 @@ var AutocompleteFor = {
             code: value,
             inputChangeHandler: this._doLoad,
             pickList: pickList,
-            ref: "autocomplete",
+            ref: 'autocomplete',
             selectionHandler: selectionHandler
         });
     },
@@ -24710,7 +26240,7 @@ var AutocompleteFor = {
         var pick = find(pickList, { code: value });
         var text = pick ? pick.value : value;
         return React.createElement(
-            "span",
+            'span',
             null,
             text
         );
@@ -24728,16 +26258,16 @@ var AutocompleteFor = {
 
 module.exports = builder(AutocompleteFor);
 
-},{"./awesomplete":308,"lodash/collection/find":57}],310:[function(require,module,exports){
-"use strict";
+},{"./awesomplete":311,"lodash/collection/find":57}],313:[function(require,module,exports){
+'use strict';
 
 module.exports = {
-    awesomplete: require("./awesomplete"),
-    field: require("./field")
+    awesomplete: require('./awesomplete'),
+    field: require('./field')
 };
 
-},{"./awesomplete":308,"./field":309}],311:[function(require,module,exports){
-"use strict";
+},{"./awesomplete":311,"./field":312}],314:[function(require,module,exports){
+'use strict';
 
 var React = window.React;
 
@@ -24746,10 +26276,10 @@ var _require$component = window.Focus.component;
 var builder = _require$component.builder;
 var types = _require$component.types;
 
-var i18nBehaviour = require("../../common/i18n/mixin");
-var styleBehaviour = require("../../mixin/stylable");
-var Title = require("../title").component;
-var trim = require("lodash/string/trim");
+var i18nBehaviour = require('../../common/i18n/mixin');
+var styleBehaviour = require('../../mixin/stylable');
+var Title = require('../title').component;
+var trim = require('lodash/string/trim');
 /**
 * Mixin used in order to create a block.
 * @type {Object}
@@ -24767,8 +26297,8 @@ var blockMixin = {
     },
     /** @inheritedDoc */
     propTypes: {
-        title: types("string"),
-        actions: types("func")
+        title: types('string'),
+        actions: types('func')
     },
     /**
     * Header of theblock function.
@@ -24789,21 +26319,21 @@ var blockMixin = {
         var children = _props.children;
 
         return React.createElement(
-            "div",
-            { "data-focus": "block" },
+            'div',
+            { 'data-focus': 'block' },
             React.createElement(
-                "header",
+                'header',
                 null,
                 React.createElement(Title, { label: this.heading() }),
                 React.createElement(
-                    "div",
-                    { className: "actions" },
+                    'div',
+                    { className: 'actions' },
                     actions()
                 )
             ),
             React.createElement(
-                "div",
-                { className: "block-content" },
+                'div',
+                { className: 'block-content' },
                 children
             )
         );
@@ -24812,15 +26342,15 @@ var blockMixin = {
 
 module.exports = builder(blockMixin);
 
-},{"../../common/i18n/mixin":331,"../../mixin/stylable":384,"../title":363,"lodash/string/trim":265}],312:[function(require,module,exports){
-"use strict";
+},{"../../common/i18n/mixin":334,"../../mixin/stylable":387,"../title":366,"lodash/string/trim":265}],315:[function(require,module,exports){
+'use strict';
 
 var React = window.React;
 var builder = window.Focus.component.builder;
-var Img = require("../../img").component;
-var i18nMixin = require("../../i18n/mixin");
-var stylableMixin = require("../../../mixin/stylable");
-var Icon = require("../../icon").component;
+var Img = require('../../img').component;
+var i18nMixin = require('../../i18n/mixin');
+var stylableMixin = require('../../../mixin/stylable');
+var Icon = require('../../icon').component;
 
 /**
  * Mixin button.
@@ -24832,15 +26362,15 @@ var buttonMixin = {
     /** inheritedDoc */
     getDefaultProps: function getInputDefaultProps() {
         return {
-            type: "submit",
-            shape: "raised", //other values : fab, flat, link, ghost
-            option: "default", //other values : primary (see other from bootsrap) http://getbootstrap.com/css/#buttons-options
+            type: 'submit',
+            shape: 'raised', //other values : fab, flat, link, ghost
+            option: 'default', //other values : primary (see other from bootsrap) http://getbootstrap.com/css/#buttons-options
             action: undefined,
             isPressed: false,
             label: undefined,
             icon: undefined,
             imgSrc: undefined,
-            iconPrefix: "fa fa-" //todo to remove
+            iconPrefix: 'fa fa-' //todo to remove
         };
     },
     /**
@@ -24851,7 +26381,7 @@ var buttonMixin = {
             return this.props.handleOnClick.apply(this, arguments);
         }
         if (!this.props.action || !this.action[this.props.action]) {
-            console.warn("Your button action is not implemented");
+            console.warn('Your button action is not implemented');
             return;
         }
         return this.action[this.props.action].apply(this, arguments);
@@ -24866,29 +26396,29 @@ var buttonMixin = {
      * ClassName of the button.
      */
     _className: function buttonClassName() {
-        return "btn btn-" + this.props.shape + " btn-" + this.props.option + " " + this._getStyleClassName();
+        return 'btn btn-' + this.props.shape + ' btn-' + this.props.option + ' ' + this._getStyleClassName();
     },
     /**
      * Render the pressed state of the button.
      */
     renderPressedButton: function renderPressedButton() {
         return React.createElement(
-            "button",
+            'button',
             null,
-            "Loading..."
+            'Loading...'
         );
     },
     _renderIcon: function renderIcon() {
         if (this.props.icon) {
             return React.createElement(Icon, { name: this.props.icon, prefix: this.props.iconPrefix });
         }
-        return "";
+        return '';
     },
     _renderLabel: function renderLabel() {
-        if (this.props.label && this.props.shape !== "fab") {
+        if (this.props.label && this.props.shape !== 'fab') {
             return this.i18n(this.props.label);
         }
-        return "";
+        return '';
     },
     /** inheritedDoc */
     render: function renderInput() {
@@ -24902,8 +26432,8 @@ var buttonMixin = {
         //END todo to remove-------------------------------------------------------
 
         return React.createElement(
-            "button",
-            { href: "javascript:void(0)", onClick: this.handleOnClick, type: this.props.type, alt: this.props.label, title: this.props.label, className: this._className() },
+            'button',
+            { href: 'javascript:void(0)', onClick: this.handleOnClick, type: this.props.type, alt: this.props.label, title: this.props.label, className: this._className() },
             this._renderIcon(),
             this._renderLabel()
         );
@@ -24912,15 +26442,15 @@ var buttonMixin = {
 
 module.exports = builder(buttonMixin);
 
-},{"../../../mixin/stylable":384,"../../i18n/mixin":331,"../../icon":332,"../../img":333}],313:[function(require,module,exports){
-"use strict";
+},{"../../../mixin/stylable":387,"../../i18n/mixin":334,"../../icon":335,"../../img":336}],316:[function(require,module,exports){
+'use strict';
 
 var React = window.React;
 var builder = window.Focus.component.builder;
-var Icon = require("../../icon").component;
-var i18nMixin = require("../../i18n/mixin");
-var stylableMixin = require("../../../mixin/stylable");
-var scrollTo = require("../../mixin/scroll").scrollTo;
+var Icon = require('../../icon').component;
+var i18nMixin = require('../../i18n/mixin');
+var stylableMixin = require('../../../mixin/stylable');
+var scrollTo = require('../../mixin/scroll').scrollTo;
 
 /**
  * Mixin button.
@@ -24931,11 +26461,11 @@ var buttonMixin = {
     mixins: [i18nMixin, stylableMixin],
     getDefaultProps: function getDefaultProps() {
         return {
-            iconPrefix: "fa fa-",
-            iconName: "arrow-circle-up",
-            scrollTarget: "body",
+            iconPrefix: 'fa fa-',
+            iconName: 'arrow-circle-up',
+            scrollTarget: 'body',
             duration: 100,
-            scrolledElementSelector: "body",
+            scrolledElementSelector: 'body',
             scrollSpyTargetSelector: undefined,
             scrollTriggerBorder: 100
         };
@@ -24958,16 +26488,16 @@ var buttonMixin = {
      * @private
      */
     _attachScrollSpy: function _attachScrollSpy() {
-        this._scrollCarrier.addEventListener("scroll", this._scrollSpy);
-        this._scrollCarrier.addEventListener("resize", this._scrollSpy);
+        this._scrollCarrier.addEventListener('scroll', this._scrollSpy);
+        this._scrollCarrier.addEventListener('resize', this._scrollSpy);
     },
     /**
      * Detach the scroll spy
      * @private
      */
     _detachScrollSpy: function _detachScrollSpy() {
-        this._scrollCarrier.removeEventListener("scroll", this._scrollSpy);
-        this._scrollCarrier.removeEventListener("resize", this._scrollSpy);
+        this._scrollCarrier.removeEventListener('scroll', this._scrollSpy);
+        this._scrollCarrier.removeEventListener('resize', this._scrollSpy);
     },
     /**
      * The scroll event handler
@@ -24995,15 +26525,15 @@ var buttonMixin = {
     },
     /** inheritedDoc */
     render: function renderInput() {
-        var className = "" + this._getStyleClassName() + " " + (this.state.isVisible ? "" : "invisible");
+        var className = this._getStyleClassName() + ' ' + (this.state.isVisible ? '' : 'invisible');
         return React.createElement(
-            "button",
-            { className: className, "data-focus": "back-to-top", onClick: this.goBackToTop },
+            'button',
+            { className: className, 'data-focus': 'back-to-top', onClick: this.goBackToTop },
             React.createElement(Icon, { prefix: this.props.iconPrefix, name: this.props.iconName }),
             React.createElement(
-                "div",
+                'div',
                 null,
-                this.i18n("button.backTop")
+                this.i18n('button.backTop')
             )
         );
     }
@@ -25011,15 +26541,15 @@ var buttonMixin = {
 
 module.exports = builder(buttonMixin);
 
-},{"../../../mixin/stylable":384,"../../i18n/mixin":331,"../../icon":332,"../../mixin/scroll":351}],314:[function(require,module,exports){
-"use strict";
+},{"../../../mixin/stylable":387,"../../i18n/mixin":334,"../../icon":335,"../../mixin/scroll":354}],317:[function(require,module,exports){
+'use strict';
 
 var React = window.React;
 var builder = window.Focus.component.builder;
-var Icon = require("../../icon").component;
-var i18nMixin = require("../../i18n/mixin");
-var stylableMixin = require("../../../mixin/stylable");
-var scrollTo = require("../../mixin/scroll").scrollTo;
+var Icon = require('../../icon').component;
+var i18nMixin = require('../../i18n/mixin');
+var stylableMixin = require('../../../mixin/stylable');
+var scrollTo = require('../../mixin/scroll').scrollTo;
 var backbone = window.Backbone;
 
 /**
@@ -25043,35 +26573,35 @@ var buttonBackMixin = {
   /** inheritedDoc */
   render: function render() {
     return React.createElement(
-      "button",
-      { "data-focus": "button-back", className: "btn btn-link", onClick: this.goBackHistory },
-      React.createElement(Icon, { name: "navigation-arrow-back", prefix: "mdi-" }),
-      this.i18n("button.back")
+      'button',
+      { 'data-focus': 'button-back', className: 'btn btn-link', onClick: this.goBackHistory },
+      React.createElement(Icon, { name: 'navigation-arrow-back', prefix: 'mdi-' }),
+      this.i18n('button.back')
     );
   }
 };
 
 module.exports = builder(buttonBackMixin);
 
-},{"../../../mixin/stylable":384,"../../i18n/mixin":331,"../../icon":332,"../../mixin/scroll":351}],315:[function(require,module,exports){
-"use strict";
+},{"../../../mixin/stylable":387,"../../i18n/mixin":334,"../../icon":335,"../../mixin/scroll":354}],318:[function(require,module,exports){
+'use strict';
 
 module.exports = {
-	action: require("./action"),
-	backToTop: require("./back-to-top"),
-	back: require("./back")
+	action: require('./action'),
+	backToTop: require('./back-to-top'),
+	back: require('./back')
 };
 
-},{"./action":312,"./back":314,"./back-to-top":313}],316:[function(require,module,exports){
-"use strict";
+},{"./action":315,"./back":317,"./back-to-top":316}],319:[function(require,module,exports){
+'use strict';
 
 var React = window.React;
 var builder = window.Focus.component.builder;
 //var i18nMixin = require('../i18n').mixin;
-var Scrollspy = require("../scrollspy").component;
+var Scrollspy = require('../scrollspy').component;
 var type = window.Focus.component.types;
-var stylable = require("../../mixin/stylable");
-var DefaultBackToTopComponent = require("../button/back-to-top").component;
+var stylable = require('../../mixin/stylable');
+var DefaultBackToTopComponent = require('../button/back-to-top').component;
 /**
 * Mixin used in order to create a Detail.
 * @type {Object}
@@ -25093,10 +26623,10 @@ var detailMixin = {
     },
     /** @inheritedDoc */
     propTypes: {
-        hasNavigation: type("bool"),
-        hasBackToTop: type("bool"),
-        BackToTopComponent: type(["function", "object"]),
-        navigationAffixOffset: type("number")
+        hasNavigation: type('bool'),
+        hasBackToTop: type('bool'),
+        BackToTopComponent: type(['function', 'object']),
+        navigationAffixOffset: type('number')
     },
     /**
     * Returns detail content.
@@ -25104,8 +26634,8 @@ var detailMixin = {
     */
     _detailContent: function _detailContent() {
         return React.createElement(
-            "div",
-            { "data-focus": "detail-content" },
+            'div',
+            { 'data-focus': 'detail-content' },
             this.props.children
         );
     },
@@ -25118,8 +26648,8 @@ var detailMixin = {
         var navigationAffixOffset = _props.navigationAffixOffset;
 
         return React.createElement(
-            "div",
-            { className: "" + this._getStyleClassName(), "data-focus": "detail" },
+            'div',
+            { className: '' + this._getStyleClassName(), 'data-focus': 'detail' },
             hasNavigation ? React.createElement(
                 Scrollspy,
                 { affixOffset: navigationAffixOffset },
@@ -25132,14 +26662,14 @@ var detailMixin = {
 
 module.exports = builder(detailMixin);
 
-},{"../../mixin/stylable":384,"../button/back-to-top":313,"../scrollspy":357}],317:[function(require,module,exports){
+},{"../../mixin/stylable":387,"../button/back-to-top":316,"../scrollspy":360}],320:[function(require,module,exports){
 //Dependencies.
-"use strict";
+'use strict';
 
 var builder = window.Focus.component.builder;
 var React = window.React;
 var type = window.Focus.component.types;
-var i18nBehaviour = require("../../i18n/mixin");
+var i18nBehaviour = require('../../i18n/mixin');
 /**
  * Input text mixin.
  * @type {Object}
@@ -25156,17 +26686,17 @@ var displayCheckboxMixin = {
   },
   /** @inheritdoc */
   propTypes: {
-    type: type("string"),
-    value: type("bool"),
-    name: type("string"),
-    style: type("object")
+    type: type('string'),
+    value: type('bool'),
+    name: type('string'),
+    style: type('object')
   },
   /**
    * Render the boolean value.
    */
   renderValue: function renderValueDisplayText() {
-    var stringValue = this.props.value === true ? "true" : "false";
-    return this.i18n("display.checkbox." + stringValue);
+    var stringValue = this.props.value === true ? 'true' : 'false';
+    return this.i18n('display.checkbox.' + stringValue);
   },
   /**
    * Render a display field.
@@ -25174,11 +26704,11 @@ var displayCheckboxMixin = {
    */
   render: function renderInput() {
     return React.createElement(
-      "div",
+      'div',
       {
         id: this.props.name,
         name: this.props.name,
-        className: this.props.style["class"]
+        className: this.props.style['class']
       },
       this.renderValue()
     );
@@ -25187,17 +26717,17 @@ var displayCheckboxMixin = {
 
 module.exports = builder(displayCheckboxMixin);
 
-},{"../../i18n/mixin":331}],318:[function(require,module,exports){
-"use strict";
+},{"../../i18n/mixin":334}],321:[function(require,module,exports){
+'use strict';
 
 module.exports = {
-  text: require("./text"),
-  checkbox: require("./checkbox")
+  text: require('./text'),
+  checkbox: require('./checkbox')
 };
 
-},{"./checkbox":317,"./text":319}],319:[function(require,module,exports){
+},{"./checkbox":320,"./text":322}],322:[function(require,module,exports){
 //Dependencies.
-"use strict";
+'use strict';
 
 var builder = window.Focus.component.builder;
 var React = window.React;
@@ -25209,38 +26739,36 @@ var type = window.Focus.component.types;
  */
 var displayTextMixin = {
   /** @inheritdoc */
-  getDefaultProps: function getInputDefaultProps() {
+  getDefaultProps: function getDefaultProps() {
     return {
-      value: undefined,
-      name: undefined,
       formatter: function formatter(data) {
         return data;
-      },
-      style: {}
+      }
     };
   },
   /** @inheritdoc */
   propTypes: {
-    type: type("string"),
-    value: type(["string", "number"]),
-    name: type("string"),
-    style: type("object")
-  },
-  renderValue: function renderValueDisplayText() {
-    return this.props.formatter(this.props.value);
+    type: type('string'),
+    value: type(['string', 'number']),
+    name: type('string'),
+    style: type('object')
   },
   /**
-   * Render a display field.
-   * @return {DOM} - The dom of an input.
+   * Render the value.
+   * @return {string} The formated value.
    */
+  renderValue: function renderValue() {
+    var _props = this.props;
+    var formatter = _props.formatter;
+    var value = _props.value;
+
+    return formatter(value);
+  },
+  /** @inheritdoc */
   render: function renderInput() {
     return React.createElement(
-      "div",
-      {
-        id: this.props.name,
-        name: this.props.name,
-        className: this.props.style["class"]
-      },
+      'div',
+      this.props,
       this.renderValue()
     );
   }
@@ -25248,35 +26776,35 @@ var displayTextMixin = {
 
 module.exports = builder(displayTextMixin);
 
-},{}],320:[function(require,module,exports){
-"use strict";
+},{}],323:[function(require,module,exports){
+'use strict';
 
 var builder = window.Focus.component.builder;
 var React = window.React;
 var emptyMixin = {
   render: function render() {
-    return React.createElement("div", { "data-focus": "empty" });
+    return React.createElement('div', { 'data-focus': 'empty' });
   }
 };
 
 module.exports = builder(emptyMixin);
 
-},{}],321:[function(require,module,exports){
+},{}],324:[function(require,module,exports){
 // Dependencies
 
-"use strict";
+'use strict';
 
 var builder = window.Focus.component.builder;
 var type = window.Focus.component.types;
 
 // Mixins
 
-var valueBehaviour = require("./mixin/value-behaviour");
-var validationBehaviour = require("./mixin/validation-behaviour");
+var valueBehaviour = require('./mixin/value-behaviour');
+var validationBehaviour = require('./mixin/validation-behaviour');
 
 // Components
 
-var builtInComponents = require("./mixin/built-in-components");
+var builtInComponents = require('./mixin/built-in-components');
 
 /**
  * Mixin for the field helper.
@@ -25298,7 +26826,7 @@ var FieldMixin = {
             * HTML input type.
             * @type {String}
             */
-            type: "text",
+            type: 'text',
             /**
             * Field name.
             * @type {string}
@@ -25313,10 +26841,10 @@ var FieldMixin = {
     },
     /** @inheritdoc */
     propTypes: {
-        isEdit: type("bool"),
-        type: type("string"),
-        name: type("string"),
-        value: type(["string", "number"])
+        isEdit: type('bool'),
+        type: type('string'),
+        name: type('string'),
+        value: type(['string', 'number'])
     },
     /** @inheritdoc */
     componentWillReceiveProps: function fieldWillReceiveProps(newProps) {
@@ -25326,8 +26854,8 @@ var FieldMixin = {
     * Get the css class of the field component.
     */
     _className: function _className() {
-        var stateClass = this.state.error ? "has-feedback has-error" : "";
-        return "form-group " + stateClass + " " + this.props.style.className;
+        var stateClass = this.state.error ? 'has-feedback has-error' : '';
+        return 'form-group ' + stateClass + ' ' + this.props.style.className;
     },
     /** @inheritdoc */
     render: function render() {
@@ -25336,20 +26864,17 @@ var FieldMixin = {
         var isRequired = _props.isRequired;
         var isEdit = _props.isEdit;
         var values = _props.values;
-
-        var _ref = this;
-
-        var input = _ref.input;
-        var label = _ref.label;
-        var select = _ref.select;
-        var display = _ref.display;
-        var help = _ref.help;
-        var error = _ref.error;
-        var _className = _ref._className;
+        var input = this.input;
+        var label = this.label;
+        var select = this.select;
+        var display = this.display;
+        var help = this.help;
+        var error = this.error;
+        var _className = this._className;
 
         return React.createElement(
-            "div",
-            { className: _className(), "data-domain": domain, "data-focus": "field", "data-mode": isEdit ? "edit" : "consult", "data-required": isRequired },
+            'div',
+            { className: _className(), 'data-domain': domain, 'data-focus': 'field', 'data-mode': isEdit ? 'edit' : 'consult', 'data-required': isRequired },
             label(),
             isEdit ? values ? select() : input() : display(),
             help(),
@@ -25359,28 +26884,26 @@ var FieldMixin = {
 };
 module.exports = builder(FieldMixin);
 
-},{"./mixin/built-in-components":322,"./mixin/validation-behaviour":323,"./mixin/value-behaviour":324}],322:[function(require,module,exports){
-"use strict";
-
-var _defineProperty = function (obj, key, value) { return Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); };
-
+},{"./mixin/built-in-components":325,"./mixin/validation-behaviour":326,"./mixin/value-behaviour":327}],325:[function(require,module,exports){
 // Dependencies
+
+'use strict';
 
 var React = window.React;
 var type = window.Focus.component.types;
-var find = require("lodash/collection/find");
-var result = require("lodash/object/result");
-var assign = require("object-assign");
+var find = require('lodash/collection/find');
+var result = require('lodash/object/result');
+var assign = require('object-assign');
 // Components
 
-var InputText = require("../../input/text").component;
-var DisplayText = require("../../display/text").component;
-var SelectClassic = require("../../select/classic").component;
-var Label = require("../../label").component;
+var InputText = require('../../input/text').component;
+var DisplayText = require('../../display/text').component;
+var SelectClassic = require('../../select/classic').component;
+var Label = require('../../label').component;
 
 // Mixins
 
-var fieldGridBehaviourMixin = require("../../mixin/field-grid-behaviour");
+var fieldGridBehaviourMixin = require('../../mixin/field-grid-behaviour');
 
 var fieldBuiltInComponentsMixin = {
     mixins: [fieldGridBehaviourMixin],
@@ -25420,19 +26943,19 @@ var fieldBuiltInComponentsMixin = {
     },
     /** @inheriteDoc */
     propTypes: {
-        hasLabel: type("bool"),
-        labelSize: type("number"),
-        FieldComponent: type(["object", "function"]),
-        InputLabelComponent: type(["object", "function"]),
-        InputComponent: type(["object", "function"]),
-        SelectComponent: type(["object", "function"]),
-        DisplayComponent: type(["object", "function"])
+        hasLabel: type('bool'),
+        labelSize: type('number'),
+        FieldComponent: type(['object', 'function']),
+        InputLabelComponent: type(['object', 'function']),
+        InputComponent: type(['object', 'function']),
+        SelectComponent: type(['object', 'function']),
+        DisplayComponent: type(['object', 'function'])
     },
     _buildStyle: function _buildStyle() {
         var style = this.props.style;
 
         style = style || {};
-        style.className = style && style.className ? style.className : "";
+        style.className = style && style.className ? style.className : '';
         return style;
     },
     /**
@@ -25468,22 +26991,22 @@ var fieldBuiltInComponentsMixin = {
         if (this.props.FieldComponent || this.props.InputLabelComponent) {
             return this.renderFieldComponent();
         }
-        var _props = this.props;
-        var name = _props.name;
-        var style = _props.style;
+        var _props2 = this.props;
+        var name = _props2.name;
+        var style = _props2.style;
         var value = this.state.value;
 
-        var inputClassName = "form-control " + (style.className ? style.className : "");
+        var inputClassName = 'form-control ' + (style.className ? style.className : '');
         var inputBuildedProps = assign({}, this.props, {
             id: name,
             style: this._buildStyle(),
             onChange: this.onInputChange,
             value: value,
-            ref: "input"
+            ref: 'input'
         });
         return React.createElement(
-            "div",
-            { className: "" + this._getContentGridClassName() + " input-group" },
+            'div',
+            { className: this._getContentGridClassName() + ' input-group' },
             React.createElement(this.props.InputComponent, inputBuildedProps)
         );
     },
@@ -25495,20 +27018,17 @@ var fieldBuiltInComponentsMixin = {
         if (this.props.FieldComponent || this.props.InputLabelComponent) {
             return this.renderFieldComponent();
         }
-        var _state = this.state;
-        var value = _state.value;
-        var values = _state.values;
+        var value = this.state.value;
 
         var buildedSelectProps = assign({}, this.props, {
             value: value,
-            values: values,
             style: this._buildStyle(),
             onChange: this.onInputChange,
-            ref: "input"
+            ref: 'input'
         });
         return React.createElement(
-            "div",
-            { className: "input-group " + this._getContentGridClassName() },
+            'div',
+            { className: 'input-group ' + this._getContentGridClassName() },
             React.createElement(this.props.SelectComponent, buildedSelectProps)
         );
     },
@@ -25517,27 +27037,29 @@ var fieldBuiltInComponentsMixin = {
     * @return {object} - The display part of the compoennt if the mode is not edit.
     */
     display: function display() {
+        var _find;
+
         if (this.props.FieldComponent || this.props.InputLabelComponent) {
             return this.renderFieldComponent();
         }
         var _state = this.state;
         var values = _state.values;
         var value = _state.value;
-        var _props = this.props;
-        var name = _props.name;
-        var valueKey = _props.valueKey;
-        var labelKey = _props.labelKey;
+        var _props3 = this.props;
+        var name = _props3.name;
+        var valueKey = _props3.valueKey;
+        var labelKey = _props3.labelKey;
 
-        var _processValue = values ? result(find(values, _defineProperty({}, valueKey || "code", value)), labelKey || "label") : value;
+        var _processValue = values ? result(find(values, (_find = {}, _find[valueKey || 'code'] = value, _find)), labelKey || 'label') : value;
         var buildedDislplayProps = assign({}, this.props, {
             id: name,
             style: this._buildStyle(),
             value: _processValue,
-            ref: "display"
+            ref: 'display'
         });
         return React.createElement(
-            "div",
-            { className: "input-group " + this._getContentGridClassName() },
+            'div',
+            { className: 'input-group ' + this._getContentGridClassName() },
             React.createElement(this.props.DisplayComponent, buildedDislplayProps)
         );
     },
@@ -25545,17 +27067,7 @@ var fieldBuiltInComponentsMixin = {
     * Render the error part of the component.
     * @return {object} - The error part of the component.
     */
-    error: (function (_error) {
-        var _errorWrapper = function error() {
-            return _error.apply(this, arguments);
-        };
-
-        _errorWrapper.toString = function () {
-            return _error.toString();
-        };
-
-        return _errorWrapper;
-    })(function () {
+    error: function error() {
         var error = this.state.error;
 
         if (error) {
@@ -25563,52 +27075,42 @@ var fieldBuiltInComponentsMixin = {
                 return;
             }
             return React.createElement(
-                "span",
-                { className: "help-block" },
+                'span',
+                { className: 'help-block' },
                 error
             );
         }
         return;
-    }),
+    },
     /**
     * Render the help component.
     * @return {object} - The help part of the component.
     */
-    help: (function (_help) {
-        var _helpWrapper = function help() {
-            return _help.apply(this, arguments);
-        };
-
-        _helpWrapper.toString = function () {
-            return _help.toString();
-        };
-
-        return _helpWrapper;
-    })(function () {
-        var _props = this.props;
-        var help = _props.help;
-        var FieldComponent = _props.FieldComponent;
+    help: function help() {
+        var _props4 = this.props;
+        var help = _props4.help;
+        var FieldComponent = _props4.FieldComponent;
 
         if (help) {
             if (FieldComponent) {
                 return;
             }
             return React.createElement(
-                "span",
-                { className: "help-block" },
+                'span',
+                { className: 'help-block' },
                 help
             );
         }
-    }),
+    },
     /**
      * Render the field component if it is overriden in the component definition.
      * @return {Component} - The builded field component.
      */
     renderFieldComponent: function renderFieldComponent() {
         var FieldComponent = this.props.FieldComponent || this.props.InputLabelComponent;
-        var _state = this.state;
-        var value = _state.value;
-        var error = _state.error;
+        var _state2 = this.state;
+        var value = _state2.value;
+        var error = _state2.error;
 
         var buildedProps = assign({}, this.props, {
             id: this.props.name,
@@ -25616,7 +27118,7 @@ var fieldBuiltInComponentsMixin = {
             value: value,
             error: error,
             onChange: this.onInputChange,
-            ref: "input"
+            ref: 'input'
         });
         return React.createElement(FieldComponent, buildedProps);
     }
@@ -25624,13 +27126,13 @@ var fieldBuiltInComponentsMixin = {
 
 module.exports = fieldBuiltInComponentsMixin;
 
-},{"../../display/text":319,"../../input/text":339,"../../label":342,"../../mixin/field-grid-behaviour":347,"../../select/classic":360,"lodash/collection/find":57,"lodash/object/result":245,"object-assign":288}],323:[function(require,module,exports){
-"use strict";
+},{"../../display/text":322,"../../input/text":342,"../../label":345,"../../mixin/field-grid-behaviour":350,"../../select/classic":363,"lodash/collection/find":57,"lodash/object/result":245,"object-assign":288}],326:[function(require,module,exports){
+'use strict';
 
-var i18nMixin = require("../../i18n").mixin;
+var i18nMixin = require('../../i18n').mixin;
 var validate = window.Focus.definition.validator.validate;
 
-var _require = require("lodash/lang");
+var _require = require('lodash/lang');
 
 var isNull = _require.isNull;
 var isUndefined = _require.isUndefined;
@@ -25653,7 +27155,7 @@ var validationMixin = {
         if (validationStatus.isValid) {
             return true;
         }
-        return validationStatus.errors.join(", ");
+        return validationStatus.errors.join(', ');
     },
     /**
     * Validate the input.
@@ -25667,7 +27169,7 @@ var validationMixin = {
         var label = _props.label;
 
         if (isRequired && (undefined === value || null === value)) {
-            return this.i18n("field.required", { name: this.i18n(label) });
+            return this.i18n('field.required', { name: this.i18n(label) });
         }
         //console.log('validation', label, 'value', value, 'validator', validator);
         //The validation is performed only when the field has a value, otherwise, only the required validation is performed.
@@ -25701,16 +27203,16 @@ var validationMixin = {
 };
 module.exports = validationMixin;
 
-},{"../../i18n":330,"lodash/lang":206}],324:[function(require,module,exports){
-"use strict";
+},{"../../i18n":333,"lodash/lang":206}],327:[function(require,module,exports){
+'use strict';
 
-var _require = require("lodash/lang");
+var _require = require('lodash/lang');
 
 var isObject = _require.isObject;
 var isFunction = _require.isFunction;
 var isUndefined = _require.isUndefined;
 
-var EMPTY = "";
+var EMPTY = '';
 var valueBehaviourMixin = {
     /** @inheritdoc */
     getDefaultProps: function getDefaultProps() {
@@ -25758,21 +27260,21 @@ var valueBehaviourMixin = {
 };
 module.exports = valueBehaviourMixin;
 
-},{"lodash/lang":206}],325:[function(require,module,exports){
-"use strict";
+},{"lodash/lang":206}],328:[function(require,module,exports){
+'use strict';
 
 var builder = window.Focus.component.builder;
 var React = window.React;
 
 // Common mixins.
-var definitionMixin = require("../mixin/definition");
+var definitionMixin = require('../mixin/definition');
 //let fieldComponentBehaviour = require('../mixin/field-component-behaviour');
-var builtInComponents = require("../mixin/built-in-components");
-var storeBehaviour = require("../mixin/store-behaviour");
-var ownIdentifierBehaviour = require("../mixin/own-identifier");
+var builtInComponents = require('../mixin/built-in-components');
+var storeBehaviour = require('../mixin/store-behaviour');
+var ownIdentifierBehaviour = require('../mixin/own-identifier');
 //Form mixins.
 
-var _require = require("./mixin");
+var _require = require('./mixin');
 
 var actionBehaviour = _require.actionBehaviour;
 var referenceBehaviour = _require.referenceBehaviour;
@@ -25827,7 +27329,7 @@ var formMixin = {
         };
     },
     componentWillReceiveProps: function componentWillReceiveProps() {
-        var newProps = arguments[0] === undefined ? {} : arguments[0];
+        var newProps = arguments.length <= 0 || arguments[0] === undefined ? {} : arguments[0];
         var isEdit = newProps.isEdit;
 
         if (isEdit !== undefined) {
@@ -25858,10 +27360,10 @@ var formMixin = {
         }
     },
     _mode: function _mode() {
-        return "" + (this.state.isEdit ? "edit" : "consult");
+        return '' + (this.state.isEdit ? 'edit' : 'consult');
     },
     _className: function formClassName() {
-        return "form-horizontal " + this.props.style.className;
+        return 'form-horizontal ' + this.props.style.className;
     },
     _renderActions: function renderActions() {
         if (this.renderActions) {
@@ -25871,7 +27373,7 @@ var formMixin = {
     },
     _renderEditActions: function _renderEditActions() {
         return this.renderEditActions ? this.renderEditActions() : React.createElement(
-            "span",
+            'span',
             null,
             this.buttonSave(),
             this.buttonCancel()
@@ -25879,7 +27381,7 @@ var formMixin = {
     },
     _renderConsultActions: function _renderConsultActions() {
         return this.renderConsultActions ? this.renderConsultActions() : React.createElement(
-            "div",
+            'div',
             null,
             this.props.hasEdit && this.buttonEdit(),
             this.props.hasDelete && this.buttonDelete()
@@ -25901,15 +27403,15 @@ var formMixin = {
         //console.log('state form', this.state);
         if (this.props.hasForm) {
             return React.createElement(
-                "form",
+                'form',
                 {
                     onSubmit: this._handleSubmitForm,
                     className: this._className(),
-                    "data-mode": this._mode(),
-                    "data-loading": this.state.isLoading
+                    'data-mode': this._mode(),
+                    'data-loading': this.state.isLoading
                 },
                 React.createElement(
-                    "fieldset",
+                    'fieldset',
                     null,
                     this.renderContent()
                 )
@@ -25921,12 +27423,12 @@ var formMixin = {
 
 module.exports = builder(formMixin);
 
-},{"../mixin/built-in-components":344,"../mixin/definition":345,"../mixin/own-identifier":349,"../mixin/store-behaviour":352,"./mixin":327}],326:[function(require,module,exports){
-"use strict";
+},{"../mixin/built-in-components":347,"../mixin/definition":348,"../mixin/own-identifier":352,"../mixin/store-behaviour":355,"./mixin":330}],329:[function(require,module,exports){
+'use strict';
 
-var assign = require("object-assign");
-var isFunction = require("lodash/lang/isFunction");
-var omit = require("lodash/object/omit");
+var assign = require('object-assign');
+var isFunction = require('lodash/lang/isFunction');
+var omit = require('lodash/object/omit');
 
 var FocusException = window.Focus.exception.FocusException;
 
@@ -25947,7 +27449,7 @@ var actionMixin = {
      * @returns {object} - The state json cleanded
      */
     _getCleanState: function _getCleanState() {
-        return omit(this.state, ["reference", "isLoading", "isEdit"]);
+        return omit(this.state, ['reference', 'isLoading', 'isEdit']);
     },
     /**
      * Compute the entity read from the html givent the keys and the definition Path, this operation is reversed from the _computeEntityFromStore operation.
@@ -25955,8 +27457,8 @@ var actionMixin = {
      * @returns {object} - The computed entity from html.
      */
     _computeEntityFromHtml: function _computeEntityFromHtml(htmlData) {
-        var DEF = "" + this.definitionPath + ".";
-        var EMPTY = "";
+        var DEF = this.definitionPath + '.';
+        var EMPTY = '';
         var computedEntity = {};
         for (var prop in htmlData) {
             computedEntity[prop.replace(DEF, EMPTY)] = htmlData[prop];
@@ -25970,10 +27472,7 @@ var actionMixin = {
     _getEntityFromHTMLAndState: function _getEntityFromHTMLAndState() {
         //Build the entity value from the ref getVaue.
         var htmlData = {};
-
-        var _ref = this;
-
-        var refs = _ref.refs;
+        var refs = this.refs;
 
         for (var r in refs) {
             //If the reference has a getValue function if is read.
@@ -26000,7 +27499,7 @@ var actionMixin = {
      */
     _loadData: function _loadData() {
         if (!this.action || !isFunction(this.action.load)) {
-            throw new FocusException("It seems your form component does not have a load action, and your props is set to hasLoad={true}.", this);
+            throw new FocusException('It seems your form component does not have a load action, and your props is set to hasLoad={true}.', this);
         }
         this.action.load.call(this, this._getId());
     },
@@ -26016,12 +27515,12 @@ var actionMixin = {
 
 module.exports = actionMixin;
 
-},{"lodash/lang/isFunction":221,"lodash/object/omit":243,"object-assign":288}],327:[function(require,module,exports){
-"use strict";
+},{"lodash/lang/isFunction":221,"lodash/object/omit":243,"object-assign":288}],330:[function(require,module,exports){
+'use strict';
 
-var referenceBehaviour = require("./reference-behaviour");
-var actionBehaviour = require("./action-behaviour");
-var validationBehaviour = require("./validation-behaviour");
+var referenceBehaviour = require('./reference-behaviour');
+var actionBehaviour = require('./action-behaviour');
+var validationBehaviour = require('./validation-behaviour');
 
 module.exports = {
     actionBehaviour: actionBehaviour,
@@ -26029,14 +27528,14 @@ module.exports = {
     validationBehaviour: validationBehaviour
 };
 
-},{"./action-behaviour":326,"./reference-behaviour":328,"./validation-behaviour":329}],328:[function(require,module,exports){
+},{"./action-behaviour":329,"./reference-behaviour":331,"./validation-behaviour":332}],331:[function(require,module,exports){
 //Focus.reference.builder.loadListByName('papas').then(function(data){Focus.dispatcher.dispatch({action: {type: "update",data: {papas: data}}})})
 
-"use strict";
+'use strict';
 
 var refStoreGetter = window.Focus.reference.getStore;
 var builtInActionReferenceLoader = window.Focus.reference.builtInAction;
-var isEmpty = require("lodash/lang/isEmpty");
+var isEmpty = require('lodash/lang/isEmpty');
 var referenceMixin = {
     /** @inheritdoc */
     /*  getDefaultProps: function getReferenceDefaultProps(){
@@ -26096,19 +27595,16 @@ var referenceMixin = {
 
 module.exports = referenceMixin;
 
-},{"lodash/lang/isEmpty":217}],329:[function(require,module,exports){
-"use strict";
-
-var _defineProperty = function (obj, key, value) { return Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); };
-
+},{"lodash/lang/isEmpty":217}],332:[function(require,module,exports){
 //Dependencies.
+'use strict';
 
-var _require = require("lodash/lang");
+var _require = require('lodash/lang');
 
 var isEmpty = _require.isEmpty;
 var isFunction = _require.isFunction;
 
-var assign = require("object-assign");
+var assign = require('object-assign');
 
 /**
 * Validate each field of the form.
@@ -26122,7 +27618,9 @@ function _fieldsValidation() {
         if (isFunction(this.refs[inptKey].validate)) {
             var validationRes = this.refs[inptKey].validate();
             if (validationRes !== undefined) {
-                assign(validationMap, _defineProperty({}, inptKey, validationRes));
+                var _assign;
+
+                assign(validationMap, (_assign = {}, _assign[inptKey] = validationRes, _assign));
             }
         }
     }
@@ -26150,12 +27648,13 @@ function _validate() {
 }
 
 /**
- * Validation function.
+ * Validate the form
  * @deprecated
+ * @return {object} - The validation  result.
  */
 function validate() {
-    console.warn("This function will be deprecated in the version 0.6.0 the validate function should be custom for the project, instead");
-    this._validate();
+    console.warn('This function will be deprecated in the version 0.6.0 the validate function should be custom for the project, instead call this._validate');
+    return this._validate();
 }
 
 module.exports = {
@@ -26165,14 +27664,14 @@ module.exports = {
     validate: validate
 };
 
-},{"lodash/lang":206,"object-assign":288}],330:[function(require,module,exports){
-"use strict";
+},{"lodash/lang":206,"object-assign":288}],333:[function(require,module,exports){
+'use strict';
 
 module.exports = {
-  mixin: require("./mixin")
+  mixin: require('./mixin')
 };
 
-},{"./mixin":331}],331:[function(require,module,exports){
+},{"./mixin":334}],334:[function(require,module,exports){
 /*global window*/
 /*todo check the library presence*/
 "use strict";
@@ -26192,8 +27691,8 @@ module.exports = {
     }
 };
 
-},{}],332:[function(require,module,exports){
-"use strict";
+},{}],335:[function(require,module,exports){
+'use strict';
 
 var builder = window.Focus.component.builder;
 var React = window.React;
@@ -26204,37 +27703,37 @@ var iconMixin = {
   /**
    * Display name.
    */
-  displayName: "icon",
+  displayName: 'icon',
   /**
    * Default props.
    * @returns {object} Initial props.
    */
   getDefaultProps: function getDefaultProps() {
     return {
-      prefix: "fa fa-",
-      name: "",
-      other: ""
+      prefix: 'fa fa-',
+      name: '',
+      other: ''
     };
   },
   propTypes: {
-    prefix: type("string"),
-    name: type("string"),
-    other: type("string")
+    prefix: type('string'),
+    name: type('string'),
+    other: type('string')
   },
   /**
    * Render the img.
    * @returns {XML} Html code.
    */
   render: function renderIcon() {
-    var className = "" + this.props.prefix + "" + this.props.name + " " + this.props.other;
-    return React.createElement("i", { className: className, onClick: this.props.onClick });
+    var className = '' + this.props.prefix + this.props.name + ' ' + this.props.other;
+    return React.createElement('i', { className: className, onClick: this.props.onClick });
   }
 };
 
 module.exports = builder(iconMixin);
 
-},{}],333:[function(require,module,exports){
-"use strict";
+},{}],336:[function(require,module,exports){
+'use strict';
 
 var builder = window.Focus.component.builder;
 var React = window.React;
@@ -26243,7 +27742,7 @@ var imgMixin = {
     /**
      * Display name.
      */
-    displayName: "img",
+    displayName: 'img',
     /**
      * Default props.
      * @returns {object} Initial props.
@@ -26259,47 +27758,47 @@ var imgMixin = {
      * @returns {XML} Html code.
      */
     render: function renderImg() {
-        var className = "icon " + this.props.src;
+        var className = 'icon ' + this.props.src;
         return React.createElement(
-            "span",
+            'span',
             { className: className, onClick: this.props.onClick },
-            " "
+            ' '
         );
     }
 };
 
 module.exports = builder(imgMixin);
 
-},{}],334:[function(require,module,exports){
-"use strict";
+},{}],337:[function(require,module,exports){
+'use strict';
 
 module.exports = {
-    autocomplete: require("./autocomplete"),
-    block: require("./block"),
-    button: require("./button"),
-    empty: require("./empty"),
-    field: require("./field"),
-    form: require("./form"),
-    img: require("./img"),
-    i18n: require("./i18n"),
-    icon: require("./icon"),
-    input: require("./input"),
-    label: require("./label"),
-    panel: require("./panel"),
-    select: require("./select"),
-    selectAction: require("./select-action"),
-    scrollspy: require("./scrollspy"),
-    title: require("./title"),
-    topicDisplayer: require("./topic-displayer"),
-    list: require("./list"),
-    mixin: require("./mixin"),
-    display: require("./display"),
-    detail: require("./detail"),
-    progressBar: require("./progress-bar"),
-    role: require("./role")
+    autocomplete: require('./autocomplete'),
+    block: require('./block'),
+    button: require('./button'),
+    empty: require('./empty'),
+    field: require('./field'),
+    form: require('./form'),
+    img: require('./img'),
+    i18n: require('./i18n'),
+    icon: require('./icon'),
+    input: require('./input'),
+    label: require('./label'),
+    panel: require('./panel'),
+    select: require('./select'),
+    selectAction: require('./select-action'),
+    scrollspy: require('./scrollspy'),
+    title: require('./title'),
+    topicDisplayer: require('./topic-displayer'),
+    list: require('./list'),
+    mixin: require('./mixin'),
+    display: require('./display'),
+    detail: require('./detail'),
+    progressBar: require('./progress-bar'),
+    role: require('./role')
 };
 
-},{"./autocomplete":310,"./block":311,"./button":315,"./detail":316,"./display":318,"./empty":320,"./field":321,"./form":325,"./i18n":330,"./icon":332,"./img":333,"./input":337,"./label":342,"./list":343,"./mixin":348,"./panel":354,"./progress-bar":355,"./role":356,"./scrollspy":357,"./select":361,"./select-action":358,"./title":363,"./topic-displayer":364}],335:[function(require,module,exports){
+},{"./autocomplete":313,"./block":314,"./button":318,"./detail":319,"./display":321,"./empty":323,"./field":324,"./form":328,"./i18n":333,"./icon":335,"./img":336,"./input":340,"./label":345,"./list":346,"./mixin":351,"./panel":357,"./progress-bar":358,"./role":359,"./scrollspy":360,"./select":364,"./select-action":361,"./title":366,"./topic-displayer":367}],338:[function(require,module,exports){
 //Target
 //http://codepen.io/Sambego/pen/zDLxe
 /*
@@ -26307,15 +27806,15 @@ module.exports = {
  <input type="checkbox"><span class="ripple"></span><span class="check"></span> Checkbox
  </label>
  */
-"use strict";
+'use strict';
 
 var builder = window.Focus.component.builder;
 var React = window.React;
 var type = window.Focus.component.types;
-var fieldGridBehaviourMixin = require("../../mixin/field-grid-behaviour");
+var fieldGridBehaviourMixin = require('../../mixin/field-grid-behaviour');
 var jQuery = window.jQuery;
-var isBoolean = require("lodash/lang/isBoolean");
-var uuid = require("uuid").v4;
+var isBoolean = require('lodash/lang/isBoolean');
+var uuid = require('uuid').v4;
 
 var checkBoxMixin = {
     mixins: [fieldGridBehaviourMixin],
@@ -26334,10 +27833,10 @@ var checkBoxMixin = {
      * @type {Object}
      */
     propTypes: {
-        value: type("bool"),
-        label: type("string"),
-        style: type("object"),
-        onChange: type(["function", "object"])
+        value: type('bool'),
+        label: type('string'),
+        style: type('object'),
+        onChange: type(['function', 'object'])
     },
     getInitialState: function getInitialState() {
         return {
@@ -26365,17 +27864,17 @@ var checkBoxMixin = {
      * @returns The label classame with the grid informations.
      */
     _labelClassName: function labelClassName() {
-        return "" + this._getContentOffsetClassName() + " " + this._getContentGridClassName();
+        return this._getContentOffsetClassName() + ' ' + this._getContentGridClassName();
     },
     _matrerialize: function _matrerialize() {
-        jQuery.material.checkbox("[data-focus=\"input-checkbox\"][data-uid=\"" + this.state.uuid + "\"] input[type=\"checkbox\"]");
+        jQuery.material.checkbox('[data-focus="input-checkbox"][data-uid="' + this.state.uuid + '"] input[type="checkbox"]');
     },
     componentDidUpdate: function componentDidUpdate() {
         this._matrerialize();
     },
     componentDidMount: function componentDidMount() {
         if (!jQuery.material.checkbox) {
-            console.warn("You should install bootstrap material with your project in order to have a working checkbox see https://fezvrasta.github.io/bootstrap-material-design");
+            console.warn('You should install bootstrap material with your project in order to have a working checkbox see https://fezvrasta.github.io/bootstrap-material-design');
         }
         this._matrerialize();
     },
@@ -26386,16 +27885,16 @@ var checkBoxMixin = {
      */
     render: function renderCheckBox() {
         return React.createElement(
-            "div",
-            { className: "checkbox", "data-focus": "input-checkbox", "data-uid": this.state.uuid },
+            'div',
+            { className: 'checkbox', 'data-focus': 'input-checkbox', 'data-uid': this.state.uuid },
             React.createElement(
-                "label",
+                'label',
                 null,
-                React.createElement("input", { ref: "checkbox", checked: this.state.isChecked, onChange: this._onChange, type: "checkbox", value: this.props.value }),
+                React.createElement('input', { ref: 'checkbox', checked: this.state.isChecked, onChange: this._onChange, type: 'checkbox', value: this.props.value }),
                 React.createElement(
-                    "span",
+                    'span',
                     null,
-                    this.props.label ? this.props.label : ""
+                    this.props.label ? this.props.label : ''
                 )
             )
         );
@@ -26410,66 +27909,198 @@ var checkBoxMixin = {
 
 module.exports = builder(checkBoxMixin);
 
-},{"../../mixin/field-grid-behaviour":347,"lodash/lang/isBoolean":214,"uuid":290}],336:[function(require,module,exports){
-//Dependencies.
-////http://www.daterangepicker.com/#ex2
-"use strict";
+},{"../../mixin/field-grid-behaviour":350,"lodash/lang/isBoolean":214,"uuid":293}],339:[function(require,module,exports){
+// Dependencies.
 
-var builder = window.Focus.component.builder;
-var React = window.React;
-var inputTextMixin = require("../text").mixin;
-var assign = require("object-assign");
+'use strict';
+
+var _require$component = window.Focus.component;
+
+var builder = _require$component.builder;
+var types = _require$component.types;
+
+var moment = window.moment;
+
+// Components
+
+var InputText = require('../text').component;
+var DateRangePicker = require('react-bootstrap-daterangepicker'); //https://github.com/skratchdot/react-bootstrap-daterangepicker
+
+var defaultLocale = {
+    format: 'L', //cf mo moment.js documentation for further date format
+    separator: ' - ',
+    applyLabel: 'Apply',
+    cancelLabel: 'Cancel',
+    fromLabel: 'From',
+    toLabel: 'To',
+    customRangeLabel: 'Custom',
+    daysOfWeek: ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa'],
+    monthNames: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
+    firstDay: 1
+};
+
 /**
- * Input text mixin.
- * @type {Object}
- */
-var inputDateMixin = {
+* Input text mixin.
+* @type {Object}
+*/
+var InputDateMixin = {
+    /**
+    * Tag name.
+    */
+    displayName: 'InputDate',
+
+    /**
+     * Get default props
+     * @return {object} default props
+     */
+    getDefaultProps: function getDefaultProps() {
+        return {
+            drops: 'down', // possible values: up, down
+            showDropdowns: true,
+            locale: defaultLocale,
+            value: moment()
+        };
+    },
     /** @inheritdoc */
-    mixins: [inputTextMixin],
-    /** @inheritdoc */
-    componentDidMount: function componentDidMount() {
-        var jQuery = window.jQuery;
-        var moment = window.moment;
-        if (!jQuery.fn.daterangepicker) {
-            console.warn("The jquery daterangepicker plugin should be loaded: see https://github.com/dangrossman/bootstrap-daterangepicker.");
-        }
-        if (!moment) {
-            console.warn("The moment library should be loaded: http://http://momentjs.com/");
-        }
-        var component = this;
-        //If the domains set options.
-        var propsOptions = this.props.options && this.props.options.dateRangePicker ? this.props.options.dateRangePicker : {};
-        //console.log('parentEL............', `div [data-reactid="${React.findDOMNode(this).parentElement.getAttribute('data-reactid')}"]`);
-        var dateRangeOptions = assign(propsOptions, {
-            //Check if the parentElement is the correct container.
-            parentEl: "[data-reactid=\"" + React.findDOMNode(this).parentElement.getAttribute("data-reactid") + "\"]",
-            singleDatePicker: true,
-            showDropdowns: true
+    propTypes: {
+        drops: types('string'),
+        error: types('string'),
+        formatter: types('func'),
+        locale: types('object').isRequired,
+        name: types('string').isRequired,
+        placeHolder: types('string'),
+        value: types('object').isRequired
+    },
+    /**
+     * Get initial state
+     * @return {object} initial state
+     */
+    getInitialState: function getInitialState() {
+        var rawDate = moment(this.props.value).isValid() ? this.props.value : moment();
+        var inputDate = this.getFormattedDate(rawDate);
+        return { inputDate: inputDate, rawDate: rawDate };
+    },
+    /**
+     * New props handler
+     * @param  {object} value new value given as a prop
+     */
+    componentWillReceiveProps: function componentWillReceiveProps(_ref) {
+        var value = _ref.value;
+
+        var rawDate = moment(value).isValid() ? value : moment();
+        var inputDate = this.getFormattedDate(rawDate);
+        this.setState({ inputDate: inputDate, rawDate: rawDate });
+    },
+    /**
+    * Get the selected date.
+    * @return {object} selected date
+    */
+    getValue: function getValue() {
+        return moment(this.state.rawDate).toISOString();
+    },
+    /**
+     * Get formatted value.
+     * @param  {date} rawDate raw date
+     * @return {string} formatted date
+     */
+    getFormattedDate: function getFormattedDate() {
+        var rawDate = arguments.length <= 0 || arguments[0] === undefined ? moment() : arguments[0];
+        var format = this.props.locale.format;
+
+        return moment(rawDate).format(format);
+    },
+    /**
+    * Action when selection date event.
+    * @param  {event} event event triggered by the component
+    * @param  {date} pickerDate date picker date value
+    */
+    _onPickerApply: function _onPickerApply(event, _ref2) {
+        var pickerDate = _ref2.startDate;
+
+        this.setState({
+            inputDate: this.getFormattedDate(pickerDate),
+            rawDate: pickerDate
         });
-        jQuery(React.findDOMNode(this)).daterangepicker(dateRangeOptions, function (start) {
-            ///*, end, label*/
-            component.setState({ value: component.props.formatter(start.toDate()) });
-        });
+    },
+    /**
+     * Input blur handler
+     * @param  {object} inputDate input field value
+     */
+    _onInputBlur: function _onInputBlur(_ref3) {
+        var inputDate = _ref3.target.value;
+
+        if (moment(inputDate).isValid()) {
+            this.setState({
+                inputDate: inputDate,
+                rawDate: moment(inputDate)
+            });
+        } else {
+            this.setState({
+                inputDate: this.getFormattedDate()
+            });
+        }
+    },
+    /**
+     * Input change handler
+     * @param  {object} inputDate input field value
+     */
+    _onInputChange: function _onInputChange(_ref4) {
+        var inputDate = _ref4.target.value;
+
+        if (moment(inputDate).isValid()) {
+            this.setState({ inputDate: inputDate, rawDate: inputDate });
+        } else {
+            this.setState({ inputDate: inputDate });
+        }
+    },
+    /**
+     * Render the component
+     * @return {HTML} rendered component
+     */
+    render: function render() {
+        var _state = this.state;
+        var inputDate = _state.inputDate;
+        var rawDate = _state.rawDate;
+        var _props = this.props;
+        var drops = _props.drops;
+        var error = _props.error;
+        var locale = _props.locale;
+        var name = _props.name;
+        var placeHolder = _props.placeHolder;
+        var showDropdowns = _props.showDropdowns;
+        var _onInputBlur = this._onInputBlur;
+        var _onInputChange = this._onInputChange;
+        var _onPickerApply = this._onPickerApply;
+
+        return React.createElement(
+            'div',
+            { 'data-focus': 'input-date' },
+            React.createElement(
+                DateRangePicker,
+                { drops: drops, endDate: moment(rawDate), locale: locale, onApply: _onPickerApply, opens: 'center', ref: 'daterangepicker', showDropdowns: showDropdowns, singleDatePicker: true, startDate: moment(rawDate) },
+                React.createElement(InputText, { error: error, name: name, onBlur: _onInputBlur, onChange: _onInputChange, placeHolder: placeHolder, ref: 'inputDateText', value: inputDate })
+            )
+        );
     }
 };
 
-module.exports = builder(inputDateMixin);
+module.exports = builder(InputDateMixin);
 
-},{"../text":339,"object-assign":288}],337:[function(require,module,exports){
-"use strict";
+},{"../text":342,"react-bootstrap-daterangepicker":291}],340:[function(require,module,exports){
+'use strict';
 
 module.exports = {
-    checkbox: require("./checkbox"),
-    date: require("./date"),
-    text: require("./text"),
-    textarea: require("./textarea"),
-    toggle: require("./toggle"),
-    markdown: require("./markdown")
+    checkbox: require('./checkbox'),
+    date: require('./date'),
+    text: require('./text'),
+    textarea: require('./textarea'),
+    toggle: require('./toggle'),
+    markdown: require('./markdown')
 };
 
-},{"./checkbox":335,"./date":336,"./markdown":338,"./text":339,"./textarea":340,"./toggle":341}],338:[function(require,module,exports){
+},{"./checkbox":338,"./date":339,"./markdown":341,"./text":342,"./textarea":343,"./toggle":344}],341:[function(require,module,exports){
 //Dependencies.
-"use strict";
+'use strict';
 
 var builder = window.Focus.component.builder;
 var React = window.React;
@@ -26482,7 +28113,7 @@ var markdownEditorMixin = {
   /** @inherideddoc */
   componentDidMount: function markdownComponentDidMount() {
     if (!window.Showdown) {
-      console.warn("The showdown library should be imported. See https://github.com/showdownjs/showdown");
+      console.warn('The showdown library should be imported. See https://github.com/showdownjs/showdown');
     }
   },
   /**
@@ -26494,17 +28125,17 @@ var markdownEditorMixin = {
   /** @inherideddoc */
   render: function renderMarkdownComponent() {
     var converter = window.Showdown ? function (data) {
-      console.warn("showdown should be imported/");return data;
+      console.warn('showdown should be imported/');return data;
     } : new window.Showdown.converter();
     return React.createElement(
-      "div",
-      { className: "MarkdownEditor" },
-      React.createElement("textarea", {
+      'div',
+      { className: 'MarkdownEditor' },
+      React.createElement('textarea', {
         onChange: this.handleChange,
-        ref: "textarea",
+        ref: 'textarea',
         defaultValue: this.state.value }),
-      React.createElement("div", {
-        className: "content",
+      React.createElement('div', {
+        className: 'content',
         dangerouslySetInnerHTML: {
           __html: converter.makeHtml(this.state.value)
         }
@@ -26515,54 +28146,54 @@ var markdownEditorMixin = {
 
 module.exports = builder(markdownEditorMixin);
 
-},{}],339:[function(require,module,exports){
+},{}],342:[function(require,module,exports){
 //Dependencies.
-"use strict";
+'use strict';
 
 var builder = window.Focus.component.builder;
 var React = window.React;
 var types = window.Focus.component.types;
-var assign = require("object-assign");
+var assign = require('object-assign');
 /**
- * Identity function.
- * @param  {object} data - The data.
- * @return {object}   The data to save.
- */
+* Identity function.
+* @param  {object} data - The data.
+* @return {object}   The data to save.
+*/
 function identity(d) {
     return d;
 }
 /**
- * Input text mixin.
- * @type {Object}
- */
+* Input text mixin.
+* @type {Object}
+*/
 var inputTextMixin = {
     /** @inheritdoc */
     getDefaultProps: function getDefaultProps() {
         return {
-            type: "text",
+            type: 'text',
             value: undefined,
             name: undefined,
             style: {},
             /**
-             * Default formatter.
-             * @param  {object} d - Data to format.
-             * @return {object}   - The formatted data.
-             */
+            * Default formatter.
+            * @param  {object} d - Data to format.
+            * @return {object}   - The formatted data.
+            */
             formatter: identity,
             /**
-             * Default unformatter.
-             * @param  {object} d - Data to unformat.
-             * @return {object}   - The unformatted data.
-             */
+            * Default unformatter.
+            * @param  {object} d - Data to unformat.
+            * @return {object}   - The unformatted data.
+            */
             unformatter: identity
         };
     },
     /** @inheritdoc */
     propTypes: {
-        type: types("string"),
-        value: types(["string", "number"]),
-        name: types("string"),
-        style: types("object")
+        type: types('string'),
+        value: types(['string', 'number']),
+        name: types('string'),
+        style: types('object')
     },
     /** @inheritdoc */
     getInitialState: function getInitialState() {
@@ -26575,23 +28206,23 @@ var inputTextMixin = {
         };
     },
     /**
-     * Update the component.
-     * @param {object} newProps - The new props to update.
-     */
+    * Update the component.
+    * @param {object} newProps - The new props to update.
+    */
     componentWillReceiveProps: function componentWillReceiveProps(newProps) {
         this.setState({ value: this.props.formatter(newProps.value) });
     },
     /**
-     * Get the value from the input in the DOM.
-     * @return {object} - The value of the formatter.
-     */
+    * Get the value from the input in the DOM.
+    * @return {object} - The value of the formatter.
+    */
     getValue: function getValue() {
-        return this.props.unformatter(React.findDOMNode(this).value);
+        return this.props.unformatter(React.findDOMNode(this.refs.inputText).value);
     },
     /**
-     * Handle the change value of the input.
-     * @param {object} event - The sanitize event of input.
-     */
+    * Handle the change value of the input.
+    * @param {object} event - The sanitize event of input.
+    */
     _handleOnChange: function _handleOnChange(event) {
         //On change handler.
         var onChange = this.props.onChange;
@@ -26604,20 +28235,20 @@ var inputTextMixin = {
         }
     },
     /**
-     * Render an input.
-     * @return {DOM} - The dom of an input.
-     */
+    * Render an input.
+    * @return {DOM} - The dom of an input.
+    */
     render: function renderInput() {
         var value = this.state.value;
 
         var inputProps = assign({}, this.props, { value: value }, { id: name, onChange: this._handleOnChange });
-        return React.createElement("input", inputProps);
+        return React.createElement('input', inputProps);
     }
 };
 
 module.exports = builder(inputTextMixin);
 
-},{"object-assign":288}],340:[function(require,module,exports){
+},{"object-assign":288}],343:[function(require,module,exports){
 //Target
 /*
 <div class="checkbox">
@@ -26626,7 +28257,7 @@ module.exports = builder(inputTextMixin);
   </label>
 </div>
  */
-"use strict";
+'use strict';
 
 var builder = window.Focus.component.builder;
 var React = window.React;
@@ -26656,15 +28287,15 @@ var textAreaMixin = {
    * @type {Object}
    */
   propTypes: {
-    minlength: type("number"),
-    maxlength: type("number"),
-    wrap: type("string"),
-    required: type("bool"),
-    value: type("string"),
-    label: type("string"),
-    style: type("object"),
-    rows: type("number"),
-    cols: type("number")
+    minlength: type('number'),
+    maxlength: type('number'),
+    wrap: type('string'),
+    required: type('bool'),
+    value: type('string'),
+    label: type('string'),
+    style: type('object'),
+    rows: type('number'),
+    cols: type('number')
   },
   /** inheritedDoc */
   getInitialState: function getTextAreaInitialState() {
@@ -26694,9 +28325,9 @@ var textAreaMixin = {
    */
   render: function renderTextArea() {
     return React.createElement(
-      "textarea",
+      'textarea',
       {
-        ref: "textarea",
+        ref: 'textarea',
         onChange: this._onChange,
         cols: this.props.cols,
         rows: this.props.rows,
@@ -26711,19 +28342,19 @@ var textAreaMixin = {
 
 module.exports = builder(textAreaMixin);
 
-},{}],341:[function(require,module,exports){
+},{}],344:[function(require,module,exports){
 //Target
 /*
 <label>
   <input type="checkbox"><span class="ripple"></span><span class="check"></span> Checkbox
 </label>
  */
-"use strict";
+'use strict';
 
 var builder = window.Focus.component.builder;
 var React = window.React;
 var type = window.Focus.component.types;
-var fieldGridBehaviourMixin = require("../../mixin/field-grid-behaviour");
+var fieldGridBehaviourMixin = require('../../mixin/field-grid-behaviour');
 
 var toggleMixin = {
   mixins: [fieldGridBehaviourMixin],
@@ -26742,9 +28373,9 @@ var toggleMixin = {
    * @type {Object}
    */
   propTypes: {
-    value: type("bool"),
-    label: type("string"),
-    style: type("object")
+    value: type('bool'),
+    label: type('string'),
+    style: type('object')
   },
   getInitialState: function getInitialState() {
     return {
@@ -26760,7 +28391,7 @@ var toggleMixin = {
     }
   },
   _labelClassName: function labelClassName() {
-    return "" + this._getContentGridClassName();
+    return '' + this._getContentGridClassName();
   },
   /**
    * Get the value from the input in  the DOM.
@@ -26774,17 +28405,17 @@ var toggleMixin = {
    */
   render: function renderToggle() {
     return React.createElement(
-      "div",
-      { className: "togglebutton form-group" },
+      'div',
+      { className: 'togglebutton form-group' },
       React.createElement(
-        "label",
+        'label',
         { className: this._getLabelGridClassName() },
-        this.props.label ? this.props.label : ""
+        this.props.label ? this.props.label : ''
       ),
       React.createElement(
-        "label",
+        'label',
         { className: this._labelClassName() },
-        React.createElement("input", { ref: "checkbox", checked: this.state.isChecked, onChange: this._onChange, type: "checkbox" })
+        React.createElement('input', { ref: 'checkbox', checked: this.state.isChecked, onChange: this._onChange, type: 'checkbox' })
       )
     );
   },
@@ -26798,18 +28429,18 @@ var toggleMixin = {
 
 module.exports = builder(toggleMixin);
 
-},{"../../mixin/field-grid-behaviour":347}],342:[function(require,module,exports){
+},{"../../mixin/field-grid-behaviour":350}],345:[function(require,module,exports){
 // Dependencies
 
-"use strict";
+'use strict';
 
 var _require$component = window.Focus.component;
 
 var builder = _require$component.builder;
 var types = _require$component.types;
 
-var i18nBehaviour = require("../i18n/mixin");
-var styleBehaviour = require("../../mixin/stylable");
+var i18nBehaviour = require('../i18n/mixin');
+var styleBehaviour = require('../../mixin/stylable');
 /**
 * Label mixin for form.
 * @type {Object}
@@ -26818,7 +28449,7 @@ var labelMixin = {
     mixins: [i18nBehaviour, styleBehaviour],
     /** @inheritdoc */
     propTypes: {
-        name: types("string").isRequired
+        name: types('string').isRequired
     },
     /** @inheritdoc */
     render: function render() {
@@ -26827,7 +28458,7 @@ var labelMixin = {
         var style = _props.style;
 
         return React.createElement(
-            "label",
+            'label',
             { className: style.className, htmlFor: name },
             this.i18n(name)
         );
@@ -26836,31 +28467,32 @@ var labelMixin = {
 
 module.exports = builder(labelMixin);
 
-},{"../../mixin/stylable":384,"../i18n/mixin":331}],343:[function(require,module,exports){
-"use strict";
+},{"../../mixin/stylable":387,"../i18n/mixin":334}],346:[function(require,module,exports){
+
+//var SelectionList = Focus.components.list.selection.list.component;
+'use strict';
 
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
-//var SelectionList = Focus.components.list.selection.list.component;
 var builder = window.Focus.component.builder;
 var React = window.React;
 var type = window.Focus.component.types;
-var assign = require("object-assign");
-var omit = require("lodash/object/omit");
-var memoryMixin = require("../../list/mixin/memory-scroll");
+var assign = require('object-assign');
+var omit = require('lodash/object/omit');
+var memoryMixin = require('../../list/mixin/memory-scroll');
 
 var MemoryListMixin = {
   mixins: [memoryMixin],
 
   propTypes: {
-    listComponent: type(["function", "object"])
+    listComponent: type(['function', 'object'])
   },
 
   /** @inheritdoc */
   render: function renderFormList() {
     var data = this.props.data || [];
     var hasMoreData = data.length > this.state.maxElements;
-    var childProps = omit(this.props, ["lineComponent", "data"]);
+    var childProps = omit(this.props, ['lineComponent', 'data']);
     return React.createElement(this.props.listComponent, _extends({
       data: this.getDataToUse(),
       hasMoreData: hasMoreData,
@@ -26875,27 +28507,27 @@ var MemoryListMixin = {
 
 module.exports = builder(MemoryListMixin);
 
-},{"../../list/mixin/memory-scroll":371,"lodash/object/omit":243,"object-assign":288}],344:[function(require,module,exports){
+},{"../../list/mixin/memory-scroll":374,"lodash/object/omit":243,"object-assign":288}],347:[function(require,module,exports){
 // Dependencies
 
-"use strict";
+'use strict';
 
 var React = window.React;
 var changeMode = window.Focus.application.changeMode;
-var assign = require("object-assign");
+var assign = require('object-assign');
 
 // Components
 
-var Field = require("../field").component;
-var Text = require("../display/text").component;
-var Button = require("../button/action").component;
-var MemoryList = require("../list").component;
-var Table = require("../../list/table").list.component;
-var List = require("../../list/selection").list.component;
+var Field = require('../field').component;
+var Text = require('../display/text').component;
+var Button = require('../button/action').component;
+var MemoryList = require('../list').component;
+var Table = require('../../list/table').list.component;
+var List = require('../../list/selection').list.component;
 
 // Mixins
 
-var fieldComponentBehaviour = require("./field-component-behaviour");
+var fieldComponentBehaviour = require('./field-component-behaviour');
 
 module.exports = {
     mixins: [fieldComponentBehaviour],
@@ -26958,7 +28590,7 @@ module.exports = {
         return React.createElement(Text, {
             FieldComponent: def.FieldComponent,
             formatter: options.formatter || def.formatter,
-            name: options.name || "" + this.definitionPath + "." + name,
+            name: options.name || this.definitionPath + '.' + name,
             style: options.style,
             value: this.state[name]
         });
@@ -27000,16 +28632,16 @@ module.exports = {
     buttonDelete: function buttonDelete() {
         var _this = this;
 
-        var handleOnClick = function () {
-            _this.action["delete"](_this._getEntity());
+        var handleOnClick = function handleOnClick() {
+            _this.action['delete'](_this._getEntity());
         };
         return React.createElement(Button, {
             handleOnClick: handleOnClick,
-            icon: "trash",
-            label: "button.delete",
-            shape: "link",
-            style: { className: "delete" },
-            type: "button"
+            icon: 'trash',
+            label: 'button.delete',
+            shape: 'link',
+            style: { className: 'delete' },
+            type: 'button'
         });
     },
     /**
@@ -27017,20 +28649,20 @@ module.exports = {
     * @returns {object} - The React component for the button.
     */
     buttonEdit: function buttonEdit() {
-        var _this = this;
+        var _this2 = this;
 
-        var handleOnClick = function () {
-            _this.setState({ isEdit: !_this.state.isEdit }, function () {
-                changeMode("edit", "consult");
+        var handleOnClick = function handleOnClick() {
+            _this2.setState({ isEdit: !_this2.state.isEdit }, function () {
+                changeMode('edit', 'consult');
             });
         };
         return React.createElement(Button, {
             handleOnClick: handleOnClick,
-            icon: "pencil",
-            label: "button.edit",
-            shape: "link",
-            style: { className: "delete" },
-            type: "button"
+            icon: 'pencil',
+            label: 'button.edit',
+            shape: 'link',
+            style: { className: 'delete' },
+            type: 'button'
         });
     },
     /**
@@ -27038,21 +28670,21 @@ module.exports = {
     * @returns {object} - The React component for the button.
     */
     buttonCancel: function buttonCancel() {
-        var _this = this;
+        var _this3 = this;
 
-        var handleOnClick = function () {
-            _this.clearError();
-            _this.setState({ isEdit: !_this.state.isEdit }, function () {
-                changeMode("consult", "edit");
+        var handleOnClick = function handleOnClick() {
+            _this3.clearError();
+            _this3.setState({ isEdit: !_this3.state.isEdit }, function () {
+                changeMode('consult', 'edit');
             });
         };
         return React.createElement(Button, {
             handleOnClick: handleOnClick,
-            icon: "undo",
-            label: "button.cancel",
-            shape: "link",
-            style: { className: "delete" },
-            type: "button"
+            icon: 'undo',
+            label: 'button.cancel',
+            shape: 'link',
+            style: { className: 'delete' },
+            type: 'button'
         });
     },
     /**
@@ -27060,20 +28692,20 @@ module.exports = {
     * @returns {object} - A React  save button.
     */
     buttonSave: function buttonSave() {
-        var _this = this;
+        var _this4 = this;
 
-        var handleOnClick = function () {
-            if (_this._validate()) {
-                _this.action.save.call(_this, _this._getEntity());
+        var handleOnClick = function handleOnClick() {
+            if (_this4._validate()) {
+                _this4.action.save.call(_this4, _this4._getEntity());
             }
         };
         return React.createElement(Button, {
             handleOnClick: handleOnClick,
-            icon: "floppy-o",
-            label: "button.save",
-            shape: "link",
-            style: { className: "delete" },
-            type: "button"
+            icon: 'floppy-o',
+            label: 'button.save',
+            shape: 'link',
+            style: { className: 'delete' },
+            type: 'button'
         });
     },
     /**
@@ -27086,13 +28718,13 @@ module.exports = {
     }
 };
 
-},{"../../list/selection":373,"../../list/table":377,"../button/action":312,"../display/text":319,"../field":321,"../list":343,"./field-component-behaviour":346,"object-assign":288}],345:[function(require,module,exports){
+},{"../../list/selection":376,"../../list/table":380,"../button/action":315,"../display/text":322,"../field":324,"../list":346,"./field-component-behaviour":349,"object-assign":288}],348:[function(require,module,exports){
 //Dependencies.
 /**
  * Accessor on the entity informations.
  * @type {function} - Get the entity definition for a given key.
  */
-"use strict";
+'use strict';
 
 var getEntityDefinition = window.Focus.definition.entity.builder.getEntityInformations;
 
@@ -27102,7 +28734,7 @@ var definitionMixin = {
    */
   _buildDefinition: function buildFormDefinition() {
     if (!this.definitionPath) {
-      throw new Error("the definition path should be defined to know the domain of your entity property.");
+      throw new Error('the definition path should be defined to know the domain of your entity property.');
     }
     this.definition = getEntityDefinition(this.definitionPath, this.additionalDefinition);
   },
@@ -27114,10 +28746,10 @@ var definitionMixin = {
 
 module.exports = definitionMixin;
 
-},{}],346:[function(require,module,exports){
-"use strict";
+},{}],349:[function(require,module,exports){
+'use strict';
 
-var assign = require("object-assign");
+var assign = require('object-assign');
 /**
  * Identity function
  * @param  {object} d - data to treat.
@@ -27135,8 +28767,8 @@ var fieldBehaviourMixin = {
     * @param {object} context - Function context, this by default.
     * @returns {object} - The constructed props for the field.
     */
-    _buildFieldProps: function _buildFieldProps(name, _x, context) {
-        var options = arguments[1] === undefined ? {} : arguments[1];
+    _buildFieldProps: function _buildFieldProps(name, options, context) {
+        if (options === undefined) options = {};
 
         context = context || this;
         //Properties.
@@ -27154,7 +28786,7 @@ var fieldBehaviourMixin = {
             }return true;
         })();
         //Build a container for the props.
-        name = options.name || "" + this.definitionPath + "." + name;
+        name = options.name || this.definitionPath + '.' + name;
         var propsContainer = {
             name: name,
             label: def.label || options.label || name,
@@ -27193,7 +28825,7 @@ var fieldBehaviourMixin = {
 
 module.exports = fieldBehaviourMixin;
 
-},{"object-assign":288}],347:[function(require,module,exports){
+},{"object-assign":288}],350:[function(require,module,exports){
 "use strict";
 
 var gridSize = 12;
@@ -27232,23 +28864,23 @@ var fieldGridBehaviourMixin = {
 };
 module.exports = fieldGridBehaviourMixin;
 
-},{}],348:[function(require,module,exports){
-"use strict";
+},{}],351:[function(require,module,exports){
+'use strict';
 
 module.exports = {
-  definition: require("./definition"),
-  fieldComponentBehaviour: require("./field-component-behaviour"),
-  fieldGridBehaviour: require("./field-grid-behaviour"),
-  referenceProperty: require("./reference-property"),
-  storeBehaviour: require("./store-behaviour"),
-  builtInComponents: require("./built-in-components"),
-  ownIdentifier: require("./own-identifier")
+  definition: require('./definition'),
+  fieldComponentBehaviour: require('./field-component-behaviour'),
+  fieldGridBehaviour: require('./field-grid-behaviour'),
+  referenceProperty: require('./reference-property'),
+  storeBehaviour: require('./store-behaviour'),
+  builtInComponents: require('./built-in-components'),
+  ownIdentifier: require('./own-identifier')
 };
 
-},{"./built-in-components":344,"./definition":345,"./field-component-behaviour":346,"./field-grid-behaviour":347,"./own-identifier":349,"./reference-property":350,"./store-behaviour":352}],349:[function(require,module,exports){
-"use strict";
+},{"./built-in-components":347,"./definition":348,"./field-component-behaviour":349,"./field-grid-behaviour":350,"./own-identifier":352,"./reference-property":353,"./store-behaviour":355}],352:[function(require,module,exports){
+'use strict';
 
-var uuid = require("uuid");
+var uuid = require('uuid');
 /**
  * Export a method which add an identifier to component;
  * @type {Object}
@@ -27256,7 +28888,7 @@ var uuid = require("uuid");
 module.exports = {
     /** @inheriteDoc */
     componentWillMount: function componentWillMount() {
-        Object.defineProperty(this, "_identifier", {
+        Object.defineProperty(this, '_identifier', {
             value: uuid.v4(),
             writable: false,
             enumerable: true,
@@ -27265,8 +28897,8 @@ module.exports = {
     }
 };
 
-},{"uuid":290}],350:[function(require,module,exports){
-"use strict";
+},{"uuid":293}],353:[function(require,module,exports){
+'use strict';
 
 var type = window.Focus.component.types;
 var referenceMixin = {
@@ -27283,7 +28915,7 @@ var referenceMixin = {
 
   /** @inheritdoc */
   propTypes: {
-    reference: type("object")
+    reference: type('object')
   },
 
   /**
@@ -27295,10 +28927,10 @@ var referenceMixin = {
 };
 module.exports = referenceMixin;
 
-},{}],351:[function(require,module,exports){
-"use strict";
+},{}],354:[function(require,module,exports){
+'use strict';
 
-var _require = require("lodash/lang");
+var _require = require('lodash/lang');
 
 var isUndefined = _require.isUndefined;
 
@@ -27325,7 +28957,7 @@ function scrollPosition(domNode) {
 * @param {number} duration duration of animation
 */
 function scrollTo(element, to) {
-    var duration = arguments[2] === undefined ? 500 : arguments[2];
+    var duration = arguments.length <= 2 || arguments[2] === undefined ? 500 : arguments[2];
 
     if (isUndefined(element)) {
         window.scrollTo(0, to);
@@ -27336,21 +28968,19 @@ function scrollTo(element, to) {
 
 module.exports = { scrollTo: scrollTo, scrollPosition: scrollPosition };
 
-},{"lodash/lang":206}],352:[function(require,module,exports){
-"use strict";
+},{"lodash/lang":206}],355:[function(require,module,exports){
+'use strict';
 
-var _defineProperty = function (obj, key, value) { return Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); };
+var capitalize = require('lodash/string/capitalize');
+var assign = require('object-assign');
 
-var capitalize = require("lodash/string/capitalize");
-var assign = require("object-assign");
-
-var _require = require("lodash/lang");
+var _require = require('lodash/lang');
 
 var isObject = _require.isObject;
 var isArray = _require.isArray;
 
-var keys = require("lodash/object/keys");
-var storeChangeBehaviour = require("./store-change-behaviour");
+var keys = require('lodash/object/keys');
+var storeChangeBehaviour = require('./store-change-behaviour');
 
 var storeMixin = {
   mixins: [storeChangeBehaviour],
@@ -27365,7 +28995,7 @@ var storeMixin = {
     var newState = {};
     this.stores.map(function (storeConf) {
       storeConf.properties.map(function (property) {
-        newState[property] = storeConf.store["get" + capitalize(property)]();
+        newState[property] = storeConf.store['get' + capitalize(property)]();
       });
     });
     var computedState = assign(this._computeEntityFromStoresData(newState), this._getLoadingStateFromStores());
@@ -27382,7 +29012,7 @@ var storeMixin = {
     var newState = {};
     this.stores.map(function (storeConf) {
       storeConf.properties.map(function (property) {
-        newState[property] = storeConf.store["getError" + capitalize(property)]();
+        newState[property] = storeConf.store['getError' + capitalize(property)]();
       });
     });
     return this._computeEntityFromStoresData(newState);
@@ -27424,7 +29054,9 @@ var storeMixin = {
       } else {
         var d = data[key];
         if (isArray(d) || !isObject(d)) {
-          d = _defineProperty({}, key, d);
+          var _d;
+
+          d = (_d = {}, _d[key] = d, _d);
         }
         assign(entity, d);
       }
@@ -27441,10 +29073,10 @@ var storeMixin = {
       this.stores.map(function (storeConf) {
         storeConf.properties.map(function (property) {
           if (!storeConf.store || !storeConf.store.definition || !storeConf.store.definition[property]) {
-            console.warn("You add a property : " + property + " in your store which is not in your definition : " + keys(storeConf.store.definition));
+            console.warn('You add a property : ' + property + ' in your store which is not in your definition : ' + keys(storeConf.store.definition));
           }
-          storeConf.store["add" + capitalize(property) + "ChangeListener"](_this._onChange);
-          storeConf.store["add" + capitalize(property) + "ErrorListener"](_this._onError);
+          storeConf.store['add' + capitalize(property) + 'ChangeListener'](_this._onChange);
+          storeConf.store['add' + capitalize(property) + 'ErrorListener'](_this._onError);
         });
       });
     }
@@ -27453,13 +29085,13 @@ var storeMixin = {
   * Unregister all the listeners related to the page.
   */
   _unRegisterListeners: function unregisterListener() {
-    var _this = this;
+    var _this2 = this;
 
     if (this.stores) {
       this.stores.map(function (storeConf) {
         storeConf.properties.map(function (property) {
-          storeConf.store["remove" + capitalize(property) + "ChangeListener"](_this._onChange);
-          storeConf.store["remove" + capitalize(property) + "ErrorListener"](_this._onError);
+          storeConf.store['remove' + capitalize(property) + 'ChangeListener'](_this2._onChange);
+          storeConf.store['remove' + capitalize(property) + 'ErrorListener'](_this2._onError);
         });
       });
     }
@@ -27478,8 +29110,8 @@ var storeMixin = {
 
 module.exports = storeMixin;
 
-},{"./store-change-behaviour":353,"lodash/lang":206,"lodash/object/keys":241,"lodash/string/capitalize":249,"object-assign":288}],353:[function(require,module,exports){
-"use strict";
+},{"./store-change-behaviour":356,"lodash/lang":206,"lodash/object/keys":241,"lodash/string/capitalize":249,"object-assign":288}],356:[function(require,module,exports){
+'use strict';
 
 var message = window.Focus.message;
 var changeBehaviourMixin = {
@@ -27503,9 +29135,9 @@ var changeBehaviourMixin = {
                  case 'saving':
                  Focus.message.addInformationMessage('detail.saving');
                  break;*/
-                case "saved":
+                case 'saved':
                     //Maybe the action result or the event should have a caller notion.
-                    message.addSuccessMessage("detail.saved");
+                    message.addSuccessMessage('detail.saved');
                     //Change the page mode as edit
                     this.setState({ isEdit: false });
                     break;
@@ -27555,8 +29187,8 @@ var changeBehaviourMixin = {
 };
 module.exports = changeBehaviourMixin;
 
-},{}],354:[function(require,module,exports){
-"use strict";
+},{}],357:[function(require,module,exports){
+'use strict';
 
 var React = window.React;
 var builder = window.Focus.component.builder;
@@ -27577,8 +29209,8 @@ var panelMixin = {
   heading: function heading() {
     if (this.props.title) {
       return React.createElement(
-        "div",
-        { className: "panel-heading" },
+        'div',
+        { className: 'panel-heading' },
         this.props.title
       );
     }
@@ -27589,12 +29221,12 @@ var panelMixin = {
    */
   render: function renderBlock() {
     return React.createElement(
-      "div",
-      { className: "panel panel-default " + this.props.style.className },
+      'div',
+      { className: 'panel panel-default ' + this.props.style.className },
       this.heading(),
       React.createElement(
-        "div",
-        { className: "panel-body" },
+        'div',
+        { className: 'panel-body' },
         this.props.children
       )
     );
@@ -27602,10 +29234,10 @@ var panelMixin = {
 };
 module.exports = builder(panelMixin);
 
-},{}],355:[function(require,module,exports){
+},{}],358:[function(require,module,exports){
 //Code from https://raw.githubusercontent.com/paramaggarwal/react-progressbar/master/index.js
 //
-"use strict";
+'use strict';
 
 var React = window.React;
 var builder = window.Focus.component.builder;
@@ -27613,7 +29245,7 @@ var builder = window.Focus.component.builder;
 var progressMixin = {
   getDefaultProps: function getDefaultProps() {
     return {
-      type: "info"
+      type: 'info'
     };
   },
   /**@inheritDoc**/
@@ -27627,16 +29259,16 @@ var progressMixin = {
     }
 
     var style = {
-      width: completed + "%",
-      transition: "width 200ms",
+      width: completed + '%',
+      transition: 'width 200ms',
       height: this.props.height || 4
     };
     return React.createElement(
-      "div",
-      { className: "progress", "data-focus": "progress-bar" },
+      'div',
+      { className: 'progress', 'data-focus': 'progress-bar' },
       React.createElement(
-        "div",
-        { className: "progress-bar progress-bar-" + this.props.type, style: style },
+        'div',
+        { className: 'progress-bar progress-bar-' + this.props.type, style: style },
         this.props.children
       )
     );
@@ -27645,14 +29277,14 @@ var progressMixin = {
 
 module.exports = builder(progressMixin);
 
-},{}],356:[function(require,module,exports){
-"use strict";
+},{}],359:[function(require,module,exports){
+'use strict';
 
 var React = window.React;
 var builder = window.Focus.component.builder;
 var user = window.Focus.user;
-var intersection = require("lodash/array/intersection");
-var isArray = require("lodash/lang/isArray");
+var intersection = require('lodash/array/intersection');
+var isArray = require('lodash/lang/isArray');
 var type = window.Focus.component.types;
 
 /**
@@ -27661,8 +29293,8 @@ var type = window.Focus.component.types;
  */
 var roleMixin = {
   propTypes: {
-    hasOne: type("array"),
-    hasAll: type("array")
+    hasOne: type('array'),
+    hasAll: type('array')
   },
   render: function render() {
     var userRoles = user.getRoles();
@@ -27677,26 +29309,26 @@ var roleMixin = {
 
 module.exports = builder(roleMixin);
 
-},{"lodash/array/intersection":19,"lodash/lang/isArray":213}],357:[function(require,module,exports){
+},{"lodash/array/intersection":19,"lodash/lang/isArray":213}],360:[function(require,module,exports){
 // Dependencies
-"use strict";
+'use strict';
 
 var builder = window.Focus.component.builder;
 var type = window.Focus.component.types;
 
 // Mixins
-var Stylabe = require("../../mixin/stylable");
+var Stylabe = require('../../mixin/stylable');
 
-var _require = require("../mixin/scroll");
+var _require = require('../mixin/scroll');
 
 var scrollTo = _require.scrollTo;
 var scrollPosition = _require.scrollPosition;
 
-var _require2 = require("lodash/collection");
+var _require2 = require('lodash/collection');
 
 var filter = _require2.filter;
 
-var _require3 = require("lodash/array");
+var _require3 = require('lodash/array');
 
 var first = _require3.first;
 var last = _require3.last;
@@ -27717,8 +29349,8 @@ var Scrollspy = {
     */
     getDefaultProps: function getDefaultProps() {
         return {
-            titleSelector: "[data-spy]",
-            scrolledElementSelector: "body",
+            titleSelector: '[data-spy]',
+            scrolledElementSelector: 'body',
             affixOffset: 0
         };
     },
@@ -27726,8 +29358,8 @@ var Scrollspy = {
     * Props validation
     */
     propTypes: {
-        titleSelector: type("string"),
-        affixOffset: type("number")
+        titleSelector: type('string'),
+        affixOffset: type('number')
     },
     /** @inheritDoc */
     getInitialState: function getInitialState() {
@@ -27751,16 +29383,16 @@ var Scrollspy = {
     * @private
     */
     _attachScrollSpy: function _attachScrollSpy() {
-        this._scrollCarrier.addEventListener("scroll", this._scrollSpy);
-        this._scrollCarrier.addEventListener("resize", this._scrollSpy);
+        this._scrollCarrier.addEventListener('scroll', this._scrollSpy);
+        this._scrollCarrier.addEventListener('resize', this._scrollSpy);
     },
     /**
     * Detach the scroll spy
     * @private
     */
     _detachScrollSpy: function _detachScrollSpy() {
-        this._scrollCarrier.removeEventListener("scroll", this._scrollSpy);
-        this._scrollCarrier.removeEventListener("resize", this._scrollSpy);
+        this._scrollCarrier.removeEventListener('scroll', this._scrollSpy);
+        this._scrollCarrier.removeEventListener('resize', this._scrollSpy);
     },
     /**
     * Get the menu items list
@@ -27773,7 +29405,7 @@ var Scrollspy = {
             return {
                 index: index,
                 label: titleElement.innerHTML,
-                id: titleElement.getAttribute("data-spy"),
+                id: titleElement.getAttribute('data-spy'),
                 offsetTop: titleElement.offsetTop
             };
         });
@@ -27789,7 +29421,7 @@ var Scrollspy = {
         var _this = this;
 
         return function () {
-            var selectedTitle = document.querySelector("[data-spy='" + title.id + "']");
+            var selectedTitle = document.querySelector('[data-spy=\'' + title.id + '\']');
             scrollTo(undefined, selectedTitle.offsetTop - _this.props.affixOffset);
         };
     },
@@ -27799,29 +29431,29 @@ var Scrollspy = {
     * @private
     */
     _renderList: function _renderList() {
-        var _this = this;
+        var _this2 = this;
 
         var _state = this.state;
         var activeTitleId = _state.activeTitleId;
         var titleList = _state.titleList;
 
         return React.createElement(
-            "ul",
+            'ul',
             null,
-            " ",
+            ' ',
             titleList.map(function (title) {
                 var lineProps = {
-                    className: activeTitleId === title.id && "active",
+                    className: activeTitleId === title.id && 'active',
                     key: title.id,
-                    onClick: _this._linkClickHandler(title)
+                    onClick: _this2._linkClickHandler(title)
                 };
                 return React.createElement(
-                    "li",
+                    'li',
                     lineProps,
                     title.label
                 );
             }),
-            " "
+            ' '
         );
     },
     /**
@@ -27832,15 +29464,15 @@ var Scrollspy = {
         var affix = this.state.affix;
 
         return React.createElement(
-            "div",
-            { "data-focus": "scrollspy", ref: "scrollSpy" },
+            'div',
+            { 'data-focus': 'scrollspy', ref: 'scrollSpy' },
             React.createElement(
-                "nav",
-                { "data-affix": !!affix, style: affix ? { position: "fixed", top: "" + this.props.affixOffset + "px" } : null },
+                'nav',
+                { 'data-affix': !!affix, style: affix ? { position: 'fixed', top: this.props.affixOffset + 'px' } : null },
                 this._renderList()
             ),
             React.createElement(
-                "div",
+                'div',
                 null,
                 this.props.children
             )
@@ -27851,7 +29483,7 @@ var Scrollspy = {
     * @private
     */
     _scrollSpy: function _scrollSpy() {
-        var _this = this;
+        var _this3 = this;
 
         var titleList = this._getTitleList();
         if (0 === titleList.length) {
@@ -27860,7 +29492,7 @@ var Scrollspy = {
         //---
         var scrollposition = scrollPosition();
         var nextTitles = filter(titleList, function (n) {
-            return scrollposition.top < n.offsetTop - _this.props.affixOffset;
+            return scrollposition.top < n.offsetTop - _this3.props.affixOffset;
         });
         //by default, first node is indexed
         var currentId = titleList[0].id;
@@ -27890,20 +29522,20 @@ var Scrollspy = {
 
 module.exports = builder(Scrollspy);
 
-},{"../../mixin/stylable":384,"../mixin/scroll":351,"lodash/array":2,"lodash/collection":45}],358:[function(require,module,exports){
-"use strict";
+},{"../../mixin/stylable":387,"../mixin/scroll":354,"lodash/array":2,"lodash/collection":45}],361:[function(require,module,exports){
+'use strict';
 
 var builder = window.Focus.component.builder;
 var React = window.React;
-var Img = require("../img").component;
-var Icon = require("../icon").component;
+var Img = require('../img').component;
+var Icon = require('../icon').component;
 
 var selectActionMixin = {
 
     /**
      * Display name.
      */
-    displayName: "select-action",
+    displayName: 'select-action',
     /**
      * Default props.
      * @returns {object} Defauilt props.
@@ -27911,7 +29543,7 @@ var selectActionMixin = {
     getDefaultProps: function getDefaultProps() {
         return {
             operationList: [],
-            icon: "ellipsis-v"
+            icon: 'ellipsis-v'
         };
     },
     /**
@@ -27944,22 +29576,22 @@ var selectActionMixin = {
             var operation = operationList[key];
 
             liList.push(React.createElement(
-                "li",
+                'li',
                 { key: key, onClick: this._handleAction(operation.action), className: operation.style },
                 React.createElement(
-                    "a",
+                    'a',
                     {
-                        href: "javascript:void(0)" },
+                        href: 'javascript:void(0)' },
                     operation.label
                 )
             ));
             if (operation.childOperationList) {
-                var subKey = "sub_" + key;
+                var subKey = 'sub_' + key;
                 liList.push(React.createElement(
-                    "li",
+                    'li',
                     { key: subKey },
                     React.createElement(
-                        "ul",
+                        'ul',
                         null,
                         this._getList(operation.childOperationList)
                     )
@@ -27974,17 +29606,17 @@ var selectActionMixin = {
      */
     render: function renderSelectAcion() {
         if (this.props.operationList.length == 0) {
-            return React.createElement("div", null);
+            return React.createElement('div', null);
         }
         var liList = this._getList(this.props.operationList);
         //todo : a revoir pour gérer les boutons d'action groupés
         return React.createElement(
-            "div",
-            { "data-focus": "select-action", className: "" },
-            React.createElement("a", { className: "dropdown-toggle btn btn-fab btn-default fa fa-" + this.props.icon, "data-toggle": "dropdown", ref: "dropdown-toggle" }),
+            'div',
+            { 'data-focus': 'select-action', className: '' },
+            React.createElement('a', { className: 'dropdown-toggle btn btn-fab btn-default fa fa-' + this.props.icon, 'data-toggle': 'dropdown', ref: 'dropdown-toggle' }),
             React.createElement(
-                "ul",
-                { className: "dropdown-menu" },
+                'ul',
+                { className: 'dropdown-menu' },
                 liList
             )
         );
@@ -27993,39 +29625,39 @@ var selectActionMixin = {
 
 module.exports = builder(selectActionMixin);
 
-},{"../icon":332,"../img":333}],359:[function(require,module,exports){
-"use strict";
+},{"../icon":335,"../img":336}],362:[function(require,module,exports){
+'use strict';
 
 var builder = window.Focus.component.builder;
 var React = window.React;
 var type = window.Focus.component.types;
-var Checkbox = require("../../input/checkbox");
+var Checkbox = require('../../input/checkbox');
 
 var checkboxMixin = {
     /**
      * Tag name.
      */
-    displayName: "select-checkbox",
+    displayName: 'select-checkbox',
 
     /** @inheritdoc */
     getDefaultProps: function getDefaultProps() {
         return {
             value: [],
             values: [],
-            valueKey: "value",
-            labelKey: "label"
+            valueKey: 'value',
+            labelKey: 'label'
         };
     },
 
     /** @inheritdoc */
     propTypes: function propTypes() {
         return {
-            value: type("array"),
-            values: type("array"),
-            valueKey: type("string"),
-            labelKey: type("string"),
-            name: type("string"),
-            style: type("object")
+            value: type('array'),
+            values: type('array'),
+            valueKey: type('string'),
+            labelKey: type('string'),
+            name: type('string'),
+            style: type('object')
         };
     },
 
@@ -28076,20 +29708,20 @@ var checkboxMixin = {
             var label = val[_this.props.labelKey];
             var isChecked = _this.state.value.indexOf(value) >= 0;
             return React.createElement(
-                "div",
-                { className: "paper-cb", key: key++ },
+                'div',
+                { className: 'paper-cb', key: key++ },
                 React.createElement(
-                    "label",
-                    { className: "paper-cb-label" },
-                    React.createElement("input", { type: "checkbox",
+                    'label',
+                    { className: 'paper-cb-label' },
+                    React.createElement('input', { type: 'checkbox',
                         name: _this.props.name,
                         value: value,
                         checked: isChecked,
                         onChange: _this._handleChange,
-                        className: "paper-cbx"
+                        className: 'paper-cbx'
                     }),
                     React.createElement(
-                        "div",
+                        'div',
                         null,
                         label
                     )
@@ -28101,7 +29733,7 @@ var checkboxMixin = {
     /** @inheritdoc */
     render: function render() {
         return React.createElement(
-            "div",
+            'div',
             {
                 className: this.props.style.className,
                 name: this.props.name
@@ -28113,26 +29745,24 @@ var checkboxMixin = {
 
 module.exports = builder(checkboxMixin);
 
-},{"../../input/checkbox":335}],360:[function(require,module,exports){
-"use strict";
-
-var _defineProperty = function (obj, key, value) { return Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); };
-
+},{"../../input/checkbox":338}],363:[function(require,module,exports){
 //Dependencies.
+'use strict';
+
 var builder = window.Focus.component.builder;
 var React = window.React;
 var types = window.Focus.component.types;
-var i18nMixin = require("../../i18n/mixin");
-var stylableMixin = require("../../../mixin/stylable");
-var union = require("lodash/array/union");
+var i18nMixin = require('../../i18n/mixin');
+var stylableMixin = require('../../../mixin/stylable');
+var union = require('lodash/array/union');
 
-var _require = require("lodash/lang");
+var _require = require('lodash/lang');
 
 var isUndefined = _require.isUndefined;
 var isNull = _require.isNull;
 var isNumber = _require.isNumber;
 
-var UNSELECTED_KEY = "UNSELECTED_KEY";
+var UNSELECTED_KEY = 'UNSELECTED_KEY';
 
 /**
 * Input text mixin.
@@ -28140,29 +29770,29 @@ var UNSELECTED_KEY = "UNSELECTED_KEY";
 */
 var selectTextMixin = {
     /** @inheritdoc */
-    displayName: "Select",
+    displayName: 'Select',
     /** @inheritdoc */
     mixins: [i18nMixin, stylableMixin],
     /** @inheritdoc */
     getDefaultProps: function getDefaultProps() {
         return {
-            labelKey: "label",
+            labelKey: 'label',
             multiple: false,
             values: [],
-            valueKey: "code",
+            valueKey: 'code',
             hasUndefined: true
         };
     },
     /** @inheritdoc */
     propTypes: {
-        multiple: types("bool"),
-        labelKey: types("string"),
-        name: types("string"),
-        isRequired: types("bool"),
-        onChange: types("function"),
-        value: types(["number", "string", "array"]),
-        values: types("array"),
-        valueKey: types("string")
+        multiple: types('bool'),
+        labelKey: types('string'),
+        name: types('string'),
+        isRequired: types('bool'),
+        onChange: types('function'),
+        value: types(['number', 'string', 'array']),
+        values: types('array'),
+        valueKey: types('string')
     },
     /** @inheritdoc */
     getInitialState: function getInitialState() {
@@ -28202,9 +29832,9 @@ var selectTextMixin = {
     */
     _handleOnChange: function _handleOnChange(event) {
         //On change handler.
-        var _props = this.props;
-        var onChange = _props.onChange;
-        var multiple = _props.multiple;
+        var _props2 = this.props;
+        var onChange = _props2.onChange;
+        var multiple = _props2.multiple;
 
         if (onChange) {
             onChange(event);
@@ -28225,30 +29855,24 @@ var selectTextMixin = {
         var _this = this;
 
         var processValues = undefined;
-        var _props = this.props;
-        var labelKey = _props.labelKey;
-        var valueKey = _props.valueKey;
-        var values = _props.values;
+        var _props3 = this.props;
+        var labelKey = _props3.labelKey;
+        var valueKey = _props3.valueKey;
+        var values = _props3.values;
         var hasUndefined = this.state.hasUndefined;
 
         if (hasUndefined) {
-            processValues = union([(function () {
-                var _ref = {};
+            var _ref;
 
-                _defineProperty(_ref, labelKey, "select.unSelected");
-
-                _defineProperty(_ref, valueKey, UNSELECTED_KEY);
-
-                return _ref;
-            })()], values);
+            processValues = union([(_ref = {}, _ref[labelKey] = 'select.unSelected', _ref[valueKey] = UNSELECTED_KEY, _ref)], values);
         } else {
             processValues = values;
         }
         return processValues.map(function (val, idx) {
-            var value = "" + val[valueKey];
-            var label = val[labelKey] || "select.noLabel";
+            var value = '' + val[valueKey];
+            var label = val[labelKey] || 'select.noLabel';
             return React.createElement(
-                "option",
+                'option',
                 { key: idx, value: value },
                 _this.i18n(label)
             );
@@ -28259,19 +29883,17 @@ var selectTextMixin = {
     * @return {DOM} - The dom of an input.
     */
     render: function render() {
-        var _ref = this;
-
-        var props = _ref.props;
-        var state = _ref.state;
-        var _getStyleClassName = _ref._getStyleClassName;
-        var _handleOnChange = _ref._handleOnChange;
+        var props = this.props;
+        var state = this.state;
+        var _getStyleClassName = this._getStyleClassName;
+        var _handleOnChange = this._handleOnChange;
         var multiple = props.multiple;
         var name = props.name;
         var value = state.value;
 
-        var selectProps = { multiple: multiple, value: "" + value, name: name, onChange: _handleOnChange, className: _getStyleClassName(), ref: "select" };
+        var selectProps = { multiple: multiple, value: '' + value, name: name, onChange: _handleOnChange, className: _getStyleClassName(), ref: 'select' };
         return React.createElement(
-            "select",
+            'select',
             selectProps,
             this.renderOptions()
         );
@@ -28280,17 +29902,17 @@ var selectTextMixin = {
 
 module.exports = builder(selectTextMixin);
 
-},{"../../../mixin/stylable":384,"../../i18n/mixin":331,"lodash/array/union":35,"lodash/lang":206}],361:[function(require,module,exports){
-"use strict";
+},{"../../../mixin/stylable":387,"../../i18n/mixin":334,"lodash/array/union":35,"lodash/lang":206}],364:[function(require,module,exports){
+'use strict';
 
 module.exports = {
-  classic: require("./classic"),
-  radio: require("./radio"),
-  checkbox: require("./checkbox")
+  classic: require('./classic'),
+  radio: require('./radio'),
+  checkbox: require('./checkbox')
 };
 
-},{"./checkbox":359,"./classic":360,"./radio":362}],362:[function(require,module,exports){
-"use strict";
+},{"./checkbox":362,"./classic":363,"./radio":365}],365:[function(require,module,exports){
+'use strict';
 
 var builder = window.Focus.component.builder;
 var React = window.React;
@@ -28300,26 +29922,26 @@ var radioMixin = {
     /**
      * Tag name.
      */
-    displayName: "select-radio",
+    displayName: 'select-radio',
 
     /** @inheritdoc */
     getDefaultProps: function getDefaultProps() {
         return {
             values: [],
-            valueKey: "value",
-            labelKey: "label"
+            valueKey: 'value',
+            labelKey: 'label'
         };
     },
 
     /** @inheritdoc */
     propTypes: function propTypes() {
         return {
-            value: type(["number", "string"]),
-            values: type("array"),
-            valueKey: type("string"),
-            labelKey: type("string"),
-            name: type("string"),
-            style: type("object")
+            value: type(['number', 'string']),
+            values: type('array'),
+            valueKey: type('string'),
+            labelKey: type('string'),
+            name: type('string'),
+            style: type('object')
         };
     },
 
@@ -28368,21 +29990,21 @@ var radioMixin = {
             var label = val[_this.props.labelKey];
             var isChecked = value == _this.state.value;
             return React.createElement(
-                "div",
-                { className: "radio radio-primary", key: key++ },
+                'div',
+                { className: 'radio radio-primary', key: key++ },
                 React.createElement(
-                    "label",
+                    'label',
                     null,
-                    React.createElement("input", { type: "radio",
+                    React.createElement('input', { type: 'radio',
                         name: _this.props.name,
                         value: value,
                         checked: isChecked,
                         onChange: _this._handleChange
                     }),
-                    React.createElement("span", { className: "circle" }),
-                    React.createElement("span", { className: "check" }),
+                    React.createElement('span', { className: 'circle' }),
+                    React.createElement('span', { className: 'check' }),
                     React.createElement(
-                        "div",
+                        'div',
                         null,
                         label
                     )
@@ -28394,7 +30016,7 @@ var radioMixin = {
     /** @inheritdoc */
     render: function renderRadio() {
         return React.createElement(
-            "div",
+            'div',
             {
                 className: this.props.style.className,
                 name: this.props.name
@@ -28406,14 +30028,14 @@ var radioMixin = {
 
 module.exports = builder(radioMixin);
 
-},{}],363:[function(require,module,exports){
+},{}],366:[function(require,module,exports){
 // Dependencies
-"use strict";
+'use strict';
 
 var builder = window.Focus.component.builder;
 var type = window.Focus.component.types;
 
-var _require = require("lodash/utility");
+var _require = require('lodash/utility');
 
 var uniqueId = _require.uniqueId;
 
@@ -28422,19 +30044,19 @@ var titleMixin = {
     /**
     * Display name.
     */
-    displayName: "Title",
+    displayName: 'Title',
     /** @inheritDoc */
     getInitialState: function getInitialState() {
         return {
-            spyId: uniqueId("title_")
+            spyId: uniqueId('title_')
         };
     },
     /**
     * Props validation
     */
     propTypes: {
-        id: type("string"),
-        label: type("string")
+        id: type('string'),
+        label: type('string')
     },
     /**
     * Render the component.
@@ -28447,8 +30069,8 @@ var titleMixin = {
         var label = _props.label;
 
         return React.createElement(
-            "h3",
-            { "data-spy": spyId, id: id },
+            'h3',
+            { 'data-spy': spyId, id: id },
             label
         );
     }
@@ -28456,8 +30078,8 @@ var titleMixin = {
 
 module.exports = builder(titleMixin);
 
-},{"lodash/utility":271}],364:[function(require,module,exports){
-"use strict";
+},{"lodash/utility":271}],367:[function(require,module,exports){
+'use strict';
 
 var builder = window.Focus.component.builder;
 var React = window.React;
@@ -28467,7 +30089,7 @@ var topicDisplayerMixin = {
     /**
      * Display name.
      */
-    displayName: "topic-displayer",
+    displayName: 'topic-displayer',
 
     /**
      * Default props.
@@ -28488,22 +30110,22 @@ var topicDisplayerMixin = {
      */
     render: function renderSelectAcion() {
         var topicList = [];
-        var className = "btn btn-primary btn-raised topic";
+        var className = 'btn btn-primary btn-raised topic';
         for (var key in this.props.topicList) {
-            var text = this.props.displayLabels ? "" + this.props.topicList[key].label + ": " + this.props.topicList[key].value : this.props.topicList[key].value;
+            var text = this.props.displayLabels ? this.props.topicList[key].label + ': ' + this.props.topicList[key].value : this.props.topicList[key].value;
             topicList.push(React.createElement(
-                "a",
-                { key: key, href: "javascript:void(0)", onClick: this.topicClickHandler(key), className: className },
+                'a',
+                { key: key, href: 'javascript:void(0)', onClick: this.topicClickHandler(key), className: className },
                 text
             ));
         }
-        var style = "topic-displayer bs-component ";
+        var style = 'topic-displayer bs-component ';
         if (this.props.style) {
             style += this.props.style;
         }
         return React.createElement(
-            "span",
-            { "data-focus": "topic-displayer" },
+            'span',
+            { 'data-focus': 'topic-displayer' },
             topicList
         );
     },
@@ -28525,22 +30147,22 @@ var topicDisplayerMixin = {
 
 module.exports = builder(topicDisplayerMixin);
 
-},{}],365:[function(require,module,exports){
+},{}],368:[function(require,module,exports){
 /**@jsx*/
-"use strict";
+'use strict';
 
 var builder = window.Focus.component.builder;
-var SelectAction = require("../../common/select-action").component;
-var ActionContextual = require("../action-contextual").component;
-var TopicDisplayer = require("../../common/topic-displayer").component;
-var translationMixin = require("../../common/i18n/mixin");
+var SelectAction = require('../../common/select-action').component;
+var ActionContextual = require('../action-contextual').component;
+var TopicDisplayer = require('../../common/topic-displayer').component;
+var translationMixin = require('../../common/i18n/mixin');
 
 var actionBarMixin = {
 
     /**
      * Display name.
      */
-    displayName: "list-action-bar",
+    displayName: 'list-action-bar',
 
     mixins: [translationMixin],
 
@@ -28550,13 +30172,13 @@ var actionBarMixin = {
      */
     getDefaultProps: function getDefaultProps() {
         return {
-            selectionStatus: "none", // none, selected, partial
+            selectionStatus: 'none', // none, selected, partial
             selectionAction: function selectionAction(selectionStatus) {
                 console.warn(selectionStatus);
             }, // Action on selection click
             orderableColumnList: undefined, // [{key:"columnKey", label:"columnLabel"}]
             orderAction: function orderAction(key, order) {
-                console.warn(key + "-" + order);
+                console.warn(key + '-' + order);
             }, // Action on click on order function
             orderSelected: {},
             facetClickAction: function facetClickAction(key) {
@@ -28569,7 +30191,7 @@ var actionBarMixin = {
             }, // Action on group function
             groupSelectedKey: undefined, // Defautl grouped key.
             operationList: [], // List of contextual operations
-            groupLabelPrefix: ""
+            groupLabelPrefix: ''
         };
     },
 
@@ -28580,13 +30202,13 @@ var actionBarMixin = {
     _getSelectionObject: function _getSelectionObject() {
         // Selection datas
         var selectionOperationList = [{
-            action: this._selectionFunction("selected"),
-            label: this.i18n("list.actionBar.selection.all"),
-            style: this._getSelectedStyle(this.props.selectionStatus, "selected")
+            action: this._selectionFunction('selected'),
+            label: this.i18n('list.actionBar.selection.all'),
+            style: this._getSelectedStyle(this.props.selectionStatus, 'selected')
         }, {
-            action: this._selectionFunction("none"),
-            label: this.i18n("list.actionBar.selection.none"),
-            style: this._getSelectedStyle(this.props.selectionStatus, "none")
+            action: this._selectionFunction('none'),
+            label: this.i18n('list.actionBar.selection.none'),
+            style: this._getSelectedStyle(this.props.selectionStatus, 'none')
         }];
         return React.createElement(SelectAction, { icon: this._getSelectionObjectIcon(), operationList: selectionOperationList });
     },
@@ -28607,10 +30229,10 @@ var actionBarMixin = {
                     style: this._getSelectedStyle(description.key + description.order, orderSelectedParsedKey)
                 });
             }
-            var orderIcon = this.props.orderSelected.order ? "sort-alpha-desc" : "sort-alpha-asc";
-            return React.createElement(SelectAction, { key: "down", icon: orderIcon, operationList: orderOperationList });
+            var orderIcon = this.props.orderSelected.order ? 'sort-alpha-desc' : 'sort-alpha-asc';
+            return React.createElement(SelectAction, { key: 'down', icon: orderIcon, operationList: orderOperationList });
         }
-        return "";
+        return '';
     },
 
     /**
@@ -28627,13 +30249,13 @@ var actionBarMixin = {
             });
         }
         var groupOperationList = [{
-            label: this.i18n("list.actionBar.group"),
+            label: this.i18n('list.actionBar.group'),
             childOperationList: groupList
         }, {
-            label: this.i18n("list.actionBar.ungroup"),
+            label: this.i18n('list.actionBar.ungroup'),
             action: this._groupFunction()
         }];
-        var groupIcon = this.props.groupSelectedKey ? "folder-open-o" : "folder-o";
+        var groupIcon = this.props.groupSelectedKey ? 'folder-open-o' : 'folder-o';
         return React.createElement(SelectAction, { icon: groupIcon, operationList: groupOperationList });
     },
 
@@ -28645,7 +30267,7 @@ var actionBarMixin = {
      */
     _getSelectedStyle: function _getSelectedStyle(currentKey, selectedKey) {
         if (currentKey == selectedKey) {
-            return " selected ";
+            return ' selected ';
         }
         return undefined;
     },
@@ -28655,12 +30277,12 @@ var actionBarMixin = {
      * @private
      */
     _getSelectionObjectIcon: function _getSelectionObjectIcon() {
-        if (this.props.selectionStatus == "none") {
-            return "square-o";
-        } else if (this.props.selectionStatus == "selected") {
-            return "check-square-o";
+        if (this.props.selectionStatus == 'none') {
+            return 'square-o';
+        } else if (this.props.selectionStatus == 'selected') {
+            return 'check-square-o';
         }
-        return "minus-square-o";
+        return 'minus-square-o';
     },
 
     _selectionFunction: function _selectionFunction(selectionStatus) {
@@ -28671,17 +30293,17 @@ var actionBarMixin = {
         };
     },
     _orderFunction: function _orderFunction(key, order) {
-        var _this = this;
+        var _this2 = this;
 
         return function () {
-            _this.props.orderAction(key, order);
+            _this2.props.orderAction(key, order);
         };
     },
     _groupFunction: function _groupFunction(key) {
-        var _this = this;
+        var _this3 = this;
 
         return function () {
-            _this.props.groupAction(key);
+            _this3.props.groupAction(key);
         };
     },
 
@@ -28691,26 +30313,26 @@ var actionBarMixin = {
      */
     render: function renderActionBar() {
         return React.createElement(
-            "div",
-            { "data-focus": "list-action-bar", className: "panel" },
+            'div',
+            { 'data-focus': 'list-action-bar', className: 'panel' },
             React.createElement(
-                "div",
+                'div',
                 {
-                    "data-focus": "global-list-content" },
+                    'data-focus': 'global-list-content' },
                 this._getSelectionObject(),
-                " ",
+                ' ',
                 this._getOrderObject(),
-                " ",
+                ' ',
                 this._getGroupObject()
             ),
             React.createElement(
-                "div",
-                { "data-focus": "contextual-action-content" },
+                'div',
+                { 'data-focus': 'contextual-action-content' },
                 React.createElement(ActionContextual, { operationList: this.props.operationList })
             ),
             React.createElement(
-                "div",
-                { "data-focus": "selected-facet-content" },
+                'div',
+                { 'data-focus': 'selected-facet-content' },
                 React.createElement(TopicDisplayer, { displayLabels: true,
                     topicList: this.props.facetList,
                     topicClickAction: this.props.facetClickAction })
@@ -28721,35 +30343,46 @@ var actionBarMixin = {
 
 module.exports = builder(actionBarMixin);
 
-},{"../../common/i18n/mixin":331,"../../common/select-action":358,"../../common/topic-displayer":364,"../action-contextual":366}],366:[function(require,module,exports){
-/**@jsx*/
-"use strict";
+},{"../../common/i18n/mixin":334,"../../common/select-action":361,"../../common/topic-displayer":367,"../action-contextual":369}],369:[function(require,module,exports){
+// Dependencies
+
+'use strict';
+
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
 var builder = window.Focus.component.builder;
-var Button = require("../../common/button/action").component;
-var SelectAction = require("../../common/select-action").component;
+
+var _require = require('lodash/collection');
+
+var reduce = _require.reduce;
+
+// Components
+
+var Button = require('../../common/button/action').component;
+var SelectAction = require('../../common/select-action').component;
 
 var actionContextualMixin = {
 
     /**
-     * Display name.
-     */
-    displayName: "list-action-contextual",
+    * Display name.
+    */
+    displayName: 'ActionContextual',
 
     /**
-     * Init default props.
-     * @returns {object} Default props.
-     */
+    * Init default props.
+    * @returns {object} Default props.
+    */
     getDefaultProps: function getDefaultProps() {
         return {
+            buttonComponent: Button,
             operationList: [],
             operationParam: undefined
         };
     },
     /**
-     * Init default state.
-     * @returns {oject} Initial state.
-     */
+    * Init default state.
+    * @returns {oject} Initial state.
+    */
     getInitialState: function getInitialState() {
         return {
             isSecondaryActionListExpanded: false // true if secondary actionList is expanded.
@@ -28757,74 +30390,100 @@ var actionContextualMixin = {
     },
 
     /**
-     * handle contextual action on click.
-     * @param {string} key Action key.
-     */
-    _handleAction: function handleContextualAction(key) {
-        var _this = this;
+    * Handle contextual action on click.
+    * @param {string} key Action key.
+    * @return {function} action handler.
+    */
+    _handleAction: function _handleAction(key) {
+        var _props = this.props;
+        var operationList = _props.operationList;
+        var operationParam = _props.operationParam;
 
         return function (event) {
             event.preventDefault();
-            if (_this.props.operationParam) {
-                _this.props.operationList[key].action(_this.props.operationParam);
+            event.stopPropagation();
+            if (operationParam) {
+                operationList[key].action(operationParam);
             } else {
-                _this.props.operationList[key].action();
+                operationList[key].action();
             }
         };
     },
 
     /**
-     * render the component.
-     * @returns {JSX} Html code.
-     */
-    render: function renderContextualAction() {
-        var primaryActionList = [];
-        var secondaryActionList = [];
-        for (var key in this.props.operationList) {
-            var operation = this.props.operationList[key];
-            if (operation.priority === 1) {
-                primaryActionList.push(React.createElement(Button, { key: key, style: operation.style, handleOnClick: this._handleAction(key), shape: operation.style.shape || "raised", label: operation.label }));
+    * render the component.
+    * @returns {JSX} Html code.
+    */
+    render: function render() {
+        var _this = this;
+
+        var _props2 = this.props;
+        var operationList = _props2.operationList;
+        var operationParam = _props2.operationParam;
+        var buttonComponent = _props2.buttonComponent;
+        var isSecondaryActionListExpanded = this.state.isSecondaryActionListExpanded;
+
+        var _reduce = reduce(operationList, function (actionLists, operation, key) {
+            var primaryActions = actionLists.primaryActionList;
+            var secondaryActions = actionLists.secondaryActionList;
+
+            if (1 === operation.priority) {
+                primaryActions.push(React.createElement('buttonComponent', _extends({
+                    handleOnClick: _this._handleAction(key),
+                    key: key,
+                    label: operation.label,
+                    shape: operation.style.shape || 'raised',
+                    style: operation.style
+                }, _this.props)));
             } else {
-                secondaryActionList.push(operation);
+                secondaryActions.push(operation);
             }
-        }
+            return actionLists;
+        }, { primaryActionList: [], secondaryActionList: [] });
+
+        var primaryActionList = _reduce.primaryActionList;
+        var secondaryActionList = _reduce.secondaryActionList;
+
         return React.createElement(
-            "div",
-            { className: "list-action-contextual" },
+            'div',
+            { className: 'list-action-contextual' },
             React.createElement(
-                "span",
+                'span',
                 null,
-                " ",
                 primaryActionList
             ),
-            React.createElement(SelectAction, { operationList: secondaryActionList, operationParam: this.props.operationParam, isExpanded: this.state.isSecondaryActionListExpanded })
+            React.createElement(SelectAction, {
+                isExpanded: isSecondaryActionListExpanded,
+                operationList: secondaryActionList,
+                operationParam: operationParam
+            })
         );
     }
 };
 
 module.exports = builder(actionContextualMixin);
 
-},{"../../common/button/action":312,"../../common/select-action":358}],367:[function(require,module,exports){
-"use strict";
+},{"../../common/button/action":315,"../../common/select-action":361,"lodash/collection":45}],370:[function(require,module,exports){
+'use strict';
 
 module.exports = {
-	actionBar: require("./action-bar"),
-	actionContextual: require("./action-contextual"),
-	selection: require("./selection"),
-	summary: require("./summary"),
-	timeline: require("./timeline"),
-	table: require("./table"),
-	mixin: require("./mixin")
+	actionBar: require('./action-bar'),
+	actionContextual: require('./action-contextual'),
+	selection: require('./selection'),
+	summary: require('./summary'),
+	timeline: require('./timeline'),
+	table: require('./table'),
+	mixin: require('./mixin')
 };
 
-},{"./action-bar":365,"./action-contextual":366,"./mixin":369,"./selection":373,"./summary":376,"./table":377,"./timeline":380}],368:[function(require,module,exports){
-"use strict";
+},{"./action-bar":368,"./action-contextual":369,"./mixin":372,"./selection":376,"./summary":379,"./table":380,"./timeline":383}],371:[function(require,module,exports){
+'use strict';
 
 var React = window.React;
-var fielBehaviourMixin = require("../../common/mixin/field-component-behaviour");
-var assign = require("object-assign");
-var Field = require("../../common/field").component;
-var Text = require("../../common/display/text").component;
+var fielBehaviourMixin = require('../../common/mixin/field-component-behaviour');
+var assign = require('object-assign');
+var Field = require('../../common/field').component;
+var Text = require('../../common/display/text').component;
 
 var builtInComponentsMixin = {
     /**
@@ -28853,7 +30512,7 @@ var builtInComponentsMixin = {
             hasLabel: false,
             value: this.props.data[name],
             refContainer: this.props.reference,
-            style: { className: "form-list" }
+            style: { className: 'form-list' }
         }, options);
 
         var fieldProps = this._buildFieldProps(name, options, this);
@@ -28883,7 +30542,7 @@ var builtInComponentsMixin = {
             hasLabel: false,
             value: this.props.data[name],
             refContainer: this.props.reference,
-            style: { className: "form-list" }
+            style: { className: 'form-list' }
         }, options);
 
         var fieldProps = this._buildFieldProps(name, options, this);
@@ -28900,7 +30559,7 @@ var builtInComponentsMixin = {
         options = options || {};
         var def = this.definition && this.definition[name] ? this.definition[name] : {};
         return React.createElement(Text, {
-            name: options.name || "" + this.definitionPath + "." + name,
+            name: options.name || this.definitionPath + '.' + name,
             style: options.style,
             FieldComponent: def.FieldComponent,
             formatter: options.formatter || def.formatter,
@@ -28911,37 +30570,27 @@ var builtInComponentsMixin = {
 
 module.exports = builtInComponentsMixin;
 
-},{"../../common/display/text":319,"../../common/field":321,"../../common/mixin/field-component-behaviour":346,"object-assign":288}],369:[function(require,module,exports){
-"use strict";
+},{"../../common/display/text":322,"../../common/field":324,"../../common/mixin/field-component-behaviour":349,"object-assign":288}],372:[function(require,module,exports){
+'use strict';
 
 module.exports = {
-    infiniteScroll: require("./infinite-scroll"),
-    builtInComponents: require("./built-in-components"),
-    memoryScroll: require("./memory-scroll"),
-    pagination: require("./pagination")
+    infiniteScroll: require('./infinite-scroll'),
+    builtInComponents: require('./built-in-components'),
+    memoryScroll: require('./memory-scroll'),
+    pagination: require('./pagination')
 };
 
-},{"./built-in-components":368,"./infinite-scroll":370,"./memory-scroll":371,"./pagination":372}],370:[function(require,module,exports){
-"use strict";
+},{"./built-in-components":371,"./infinite-scroll":373,"./memory-scroll":374,"./pagination":375}],373:[function(require,module,exports){
+'use strict';
 
-var topOfElement = (function (_topOfElement) {
-    var _topOfElementWrapper = function topOfElement(_x) {
-        return _topOfElement.apply(this, arguments);
-    };
-
-    _topOfElementWrapper.toString = function () {
-        return _topOfElement.toString();
-    };
-
-    return _topOfElementWrapper;
-})(function (element) {
+var topOfElement = function topOfElement(element) {
     if (!element) {
         return 0;
     }
     return element.offsetTop + topOfElement(element.offsetParent);
-});
+};
 
-var paginationMixin = require("../mixin/pagination").mixin;
+var paginationMixin = require('../mixin/pagination').mixin;
 /**
  *
  * Mixin which add infinite scroll behavior.
@@ -29023,8 +30672,8 @@ var InfiniteScrollMixin = {
         if (!this.props.hasMoreData) {
             return;
         }
-        this.parentNode.addEventListener("scroll", this.scrollListener);
-        this.parentNode.addEventListener("resize", this.scrollListener);
+        this.parentNode.addEventListener('scroll', this.scrollListener);
+        this.parentNode.addEventListener('resize', this.scrollListener);
         this.scrollListener();
     },
 
@@ -29032,14 +30681,14 @@ var InfiniteScrollMixin = {
      * detach scroll listener on the component
      */
     detachScrollListener: function detachScrollListener() {
-        this.parentNode.removeEventListener("scroll", this.scrollListener);
-        this.parentNode.removeEventListener("resize", this.scrollListener);
+        this.parentNode.removeEventListener('scroll', this.scrollListener);
+        this.parentNode.removeEventListener('resize', this.scrollListener);
     }
 };
 
 module.exports = { mixin: InfiniteScrollMixin };
 
-},{"../mixin/pagination":372}],371:[function(require,module,exports){
+},{"../mixin/pagination":375}],374:[function(require,module,exports){
 "use strict";
 
 var memoryMixin = {
@@ -29094,8 +30743,8 @@ var memoryMixin = {
 
 module.exports = memoryMixin;
 
-},{}],372:[function(require,module,exports){
-"use strict";
+},{}],375:[function(require,module,exports){
+'use strict';
 
 var type = window.Focus.component.types;
 
@@ -29111,9 +30760,9 @@ var paginationMixin = {
     },
 
     propTypes: {
-        hasMoreData: type("bool"),
-        fetchNextPage: type("func"),
-        isManualFetch: type("bool")
+        hasMoreData: type('bool'),
+        fetchNextPage: type('func'),
+        isManualFetch: type('bool')
     },
 
     /**
@@ -29142,33 +30791,40 @@ var paginationMixin = {
 
 module.exports = { mixin: paginationMixin };
 
-},{}],373:[function(require,module,exports){
-"use strict";
+},{}],376:[function(require,module,exports){
+'use strict';
 
 module.exports = {
-    line: require("./line"),
-    list: require("./list")
+    line: require('./line'),
+    list: require('./list')
 };
 
-},{"./line":374,"./list":375}],374:[function(require,module,exports){
-/**@jsx*/
-"use strict";
+},{"./line":377,"./list":378}],377:[function(require,module,exports){
+// Dependencies
 
-var React = window.React;
-var builder = window.Focus.component.builder;
-var type = window.Focus.component.types;
-var ContextualActions = require("../action-contextual").component;
-var CheckBox = require("../../common/input/checkbox").component;
-var translationMixin = require("../../common/i18n").mixin;
-var referenceMixin = require("../../common/mixin/reference-property");
-var definitionMixin = require("../../common/mixin/definition");
-var builtInComponentsMixin = require("../mixin/built-in-components");
+'use strict';
+
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+var types = window.Focus.component.types;
+
+// Components
+
+var ContextualActions = require('../action-contextual').component;
+var CheckBox = require('../../common/input/checkbox').component;
+
+// Mixins
+
+var translationMixin = require('../../common/i18n').mixin;
+var referenceMixin = require('../../common/mixin/reference-property');
+var definitionMixin = require('../../common/mixin/definition');
+var builtInComponentsMixin = require('../mixin/built-in-components');
 
 var lineMixin = {
     /**
     * React component name.
     */
-    displayName: "selection-line",
+    displayName: 'ListLine',
 
     /**
     * Mixin dependancies.
@@ -29176,10 +30832,10 @@ var lineMixin = {
     mixins: [translationMixin, definitionMixin, referenceMixin, builtInComponentsMixin],
 
     /**
-    * Default properties for the line.
-    * @returns {{isSelection: boolean}}
-    */
-    getDefaultProps: function getLineDefaultProps() {
+     * Get default props
+     * @return {object} default props
+     */
+    getDefaultProps: function getDefaultProps() {
         return {
             isSelection: true,
             operationList: []
@@ -29191,79 +30847,91 @@ var lineMixin = {
     * @type {Object}
     */
     propTypes: {
-        data: type("object"),
-        isSelected: type("bool"),
-        isSelection: type("bool"),
-        onLineClick: type("func"),
-        onSelection: type("func"),
-        operationList: type("array")
+        data: types('object'),
+        isSelected: types('bool'),
+        isSelection: types('bool'),
+        onLineClick: types('func'),
+        onSelection: types('func'),
+        operationList: types('array')
     },
 
     /**
     * State initialization.
-    * @returns {{isSelected: boolean, lineItem: *}}
+    * @return {object} initial state
     */
-    getInitialState: function getLineInitialState() {
+    getInitialState: function getInitialState() {
         return {
             isSelected: this.props.isSelected || false
         };
     },
 
     /**
-    * Update properties on component.
-    * @param nextProps next properties
-    */
-    componentWillReceiveProps: function componentWillReceiveProps(nextProps) {
-        if (nextProps.isSelected !== undefined) {
-            this.setState({ isSelected: nextProps.isSelected });
+     * Component will receive props
+     * @param  {object} nextProps new component's props
+     */
+    componentWillReceiveProps: function componentWillReceiveProps(_ref) {
+        var isSelected = _ref.isSelected;
+
+        if (isSelected !== undefined) {
+            this.setState({ isSelected: isSelected });
         }
     },
 
     /**
     * Get the line value.
-    * @returns {{item: *, isSelected: (*|isSelected|boolean)}}
+    * @return {object} the line value
     */
-    getValue: function getLineValue() {
-        return {
-            item: this.props.data,
-            isSelected: this.state.isSelected
-        };
+    getValue: function getValue() {
+        var _props = this.props;
+        var item = _props.data;
+        var isSelected = _props.isSelected;
+
+        return { item: item, isSelected: isSelected };
     },
 
     /**
     * Selection Click handler.
-    * @param event
     */
-    _handleSelectionClick: function handleSelectionClick(event) {
-        var select = !this.state.isSelected;
-        this.setState({ isSelected: select });
-        if (this.props.onSelection) {
-            this.props.onSelection(this.props.data, select);
+    _handleSelectionClick: function _handleSelectionClick() {
+        var isSelected = !this.state.isSelected;
+        var _props2 = this.props;
+        var data = _props2.data;
+        var onSelection = _props2.onSelection;
+
+        this.setState({ isSelected: isSelected });
+        if (onSelection) {
+            onSelection(data, isSelected);
         }
     },
 
     /**
     * Line Click handler.
-    * @param event
     */
-    _handleLineClick: function handleLineClick(event) {
-        if (this.props.onLineClick) {
-            this.props.onLineClick(this.props.data);
+    _handleLineClick: function _handleLineClick() {
+        var _props3 = this.props;
+        var data = _props3.data;
+        var onLineClick = _props3.onLineClick;
+
+        if (onLineClick) {
+            onLineClick(data);
         }
     },
 
     /**
     * Render the left box for selection
-    * @returns {XML}
+    * @return {XML} the rendered selection box
     */
-    _renderSelectionBox: function renderSelectionBox() {
-        if (this.props.isSelection) {
-            var selectionClass = this.state.isSelected ? "selected" : "no-selection";
-            //let image = this.state.isSelected? undefined : <img src={this.state.lineItem[this.props.iconfield]}/>
+    _renderSelectionBox: function _renderSelectionBox() {
+        var isSelection = this.props.isSelection;
+        var isSelected = this.state.isSelected;
+
+        if (isSelection) {
+            var selectionClass = isSelected ? 'selected' : 'no-selection';
+            //const image = this.state.isSelected? undefined : <img src={this.state.lineItem[this.props.iconfield]}/>
             return React.createElement(
-                "div",
-                { className: "sl-selection " + selectionClass },
-                React.createElement(CheckBox, { value: this.state.isSelected, onChange: this._handleSelectionClick })
+                'div',
+                { className: 'sl-selection ' + selectionClass },
+                React.createElement(CheckBox, { onChange: this._handleSelectionClick, value: isSelected })
             );
         }
         return null;
@@ -29271,57 +30939,63 @@ var lineMixin = {
 
     /**
     * render content for a line.
-    * @returns {*}
+    * @return {XML} the rendered line content
     */
-    _renderLineContent: function renderLineContent() {
+    _renderLineContent: function _renderLineContent() {
+        var data = this.props.data;
+        var title = data.title;
+        var body = data.body;
+
         if (this.renderLineContent) {
-            return this.renderLineContent(this.props.data);
+            return this.renderLineContent(data);
         } else {
             return React.createElement(
-                "div",
+                'div',
                 null,
                 React.createElement(
-                    "div",
+                    'div',
                     null,
-                    this.props.data.title
+                    title
                 ),
                 React.createElement(
-                    "div",
+                    'div',
                     null,
-                    this.props.data.body
+                    body
                 )
             );
         }
     },
 
     /**
-    * Render actions wich can be applied on the line
+    * Render actions which can be applied on the line
+    * @return {XML} the rendered actions
     */
-    _renderActions: function renderLineActions() {
-        if (this.props.operationList.length > 0) {
+    _renderActions: function _renderActions() {
+        var props = _extends({ operationParam: this.props.data }, this.props);
+        if (0 < props.operationList.length) {
             return React.createElement(
-                "div",
-                { className: "sl-actions" },
-                React.createElement(ContextualActions, { operationList: this.props.operationList, operationParam: this.props.data })
+                'div',
+                { className: 'sl-actions' },
+                React.createElement(ContextualActions, props)
             );
         }
     },
 
     /**
     * Render line in list.
-    * @returns {*}
+    *  @return {XML} the rendered line
     */
-    render: function renderLine() {
+    render: function render() {
         if (this.renderLine) {
             return this.renderLine();
         } else {
             return React.createElement(
-                "li",
-                { "data-focus": "sl-line" },
+                'li',
+                { 'data-focus': 'sl-line' },
                 this._renderSelectionBox(),
                 React.createElement(
-                    "div",
-                    { className: "sl-content", onClick: this._handleLineClick },
+                    'div',
+                    { className: 'sl-content', onClick: this._handleLineClick },
                     this._renderLineContent()
                 ),
                 this._renderActions()
@@ -29332,34 +31006,37 @@ var lineMixin = {
 
 module.exports = { mixin: lineMixin };
 
-},{"../../common/i18n":330,"../../common/input/checkbox":335,"../../common/mixin/definition":345,"../../common/mixin/reference-property":350,"../action-contextual":366,"../mixin/built-in-components":368}],375:[function(require,module,exports){
-"use strict";
-
-var _defineProperty = function (obj, key, value) { return Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); };
-
+},{"../../common/i18n":333,"../../common/input/checkbox":338,"../../common/mixin/definition":348,"../../common/mixin/reference-property":353,"../action-contextual":369,"../mixin/built-in-components":371}],378:[function(require,module,exports){
 // Dependencies
 
-var builder = window.Focus.component.builder;
-var React = window.React;
+'use strict';
+
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
 var checkIsNotNull = window.Focus.util.object.checkIsNotNull;
-var type = window.Focus.component.types;
-var find = require("lodash/collection/find");
+
+var _require$component = window.Focus.component;
+
+var builder = _require$component.builder;
+var types = _require$component.types;
+
+var find = require('lodash/collection/find');
 
 // Mixins
 
-var translationMixin = require("../../common/i18n").mixin;
-var infiniteScrollMixin = require("../mixin/infinite-scroll").mixin;
-var referenceMixin = require("../../common/mixin/reference-property");
+var translationMixin = require('../../common/i18n').mixin;
+var infiniteScrollMixin = require('../mixin/infinite-scroll').mixin;
+var referenceMixin = require('../../common/mixin/reference-property');
 
 // Components
 
-var Button = require("../../common/button/action").component;
+var Button = require('../../common/button/action').component;
 
 var listMixin = {
     /**
     * Display name.
     */
-    displayName: "selection-list",
+    displayName: 'selection-list',
 
     /**
     * Mixin dependancies.
@@ -29374,11 +31051,11 @@ var listMixin = {
         return {
             data: [],
             isSelection: true,
-            selectionStatus: "partial",
+            selectionStatus: 'partial',
             selectionData: [],
             isLoading: false,
             operationList: [],
-            idField: "id"
+            idField: 'id'
         };
     },
 
@@ -29387,24 +31064,25 @@ var listMixin = {
     * @type {Object}
     */
     propTypes: {
-        data: type("array"),
-        idField: type("string"),
-        isLoading: type("bool"),
-        isSelection: type("bool"),
-        lineComponent: type("func", true),
-        loader: type("func"),
-        onLineClick: type("func"),
-        onSelection: type("func"),
-        operationList: type("array"),
-        selectionData: type("array"),
-        selectionStatus: type("string")
+        buttonComponent: types('func'),
+        data: types('array'),
+        idField: types('string'),
+        isLoading: types('bool'),
+        isSelection: types('bool'),
+        lineComponent: types('func', true),
+        loader: types('func'),
+        onLineClick: types('func'),
+        onSelection: types('func'),
+        operationList: types('array'),
+        selectionData: types('array'),
+        selectionStatus: types('string')
     },
 
     /**
     * called before component mount
     */
     componentWillMount: function componentWillMount() {
-        checkIsNotNull("lineComponent", this.props.lineComponent);
+        checkIsNotNull('lineComponent', this.props.lineComponent);
     },
 
     /**
@@ -29414,7 +31092,7 @@ var listMixin = {
     getSelectedItems: function getSelectedItems() {
         var selected = [];
         for (var i = 1; i < this.props.data.length + 1; i++) {
-            var lineName = "line" + i;
+            var lineName = 'line' + i;
             var lineValue = this.refs[lineName].getValue();
             if (lineValue.isSelected) {
                 selected.push(lineValue.item);
@@ -29433,73 +31111,82 @@ var listMixin = {
         var lineCount = 1;
         var _props = this.props;
         var data = _props.data;
-        var lineComponent = _props.lineComponent;
-        var selectionStatus = _props.selectionStatus;
-        var idField = _props.idField;
-        var isSelection = _props.isSelection;
+        var Line = _props.lineComponent;
         var selectionData = _props.selectionData;
-        var onSelection = _props.onSelection;
-        var onLineClick = _props.onLineClick;
-        var operationList = _props.operationList;
+        var idField = _props.idField;
+        var selectionStatus = _props.selectionStatus;
 
         return data.map(function (line) {
+            var _find;
+
             var isSelected = undefined;
-            var selection = find(selectionData, _defineProperty({}, idField, line[idField]));
+            var selection = find(selectionData, (_find = {}, _find[idField] = line[idField], _find));
             if (selection) {
                 isSelected = selection.isSelected;
             } else {
                 switch (selectionStatus) {
-                    case "none":
+                    case 'none':
                         isSelected = false;
                         break;
-                    case "selected":
+                    case 'selected':
                         isSelected = true;
                         break;
-                    case "partial":
+                    case 'partial':
                         isSelected = undefined;
                         break;
                     default:
                         isSelected = false;
                 }
             }
-            return React.createElement(lineComponent, {
-                key: line[idField],
+            return React.createElement(Line, _extends({
                 data: line,
-                ref: "line" + lineCount++,
-                isSelection: isSelection,
                 isSelected: isSelected,
-                onSelection: onSelection,
-                onLineClick: onLineClick,
-                operationList: operationList,
+                key: line[idField],
+                ref: 'line' + lineCount++,
                 reference: _this._getReference()
-            });
+            }, _this.props));
         });
     },
+    /**
+    * Render loading state
+    * @return {HTML} the loading state
+    */
     _renderLoading: function _renderLoading() {
-        if (this.props.isLoading) {
-            if (this.props.loader) {
-                return this.props.loader();
+        var _props2 = this.props;
+        var isLoading = _props2.isLoading;
+        var loader = _props2.loader;
+
+        if (isLoading) {
+            if (loader) {
+                return loader();
             }
             return React.createElement(
-                "li",
-                { className: "sl-loading" },
-                this.i18n("list.loading"),
-                " ..."
+                'li',
+                { className: 'sl-loading' },
+                this.i18n('list.loading'),
+                ' ...'
             );
         }
     },
-
+    /**
+    * Render manual fetch state
+    * @return {HTML} the rendered manual fetch state
+    */
     _renderManualFetch: function _renderManualFetch() {
-        if (this.props.isManualFetch && this.props.hasMoreData) {
-            var style = { className: "primary" };
+        var _props3 = this.props;
+        var isManualFetch = _props3.isManualFetch;
+        var hasMoreData = _props3.hasMoreData;
+
+        if (isManualFetch && hasMoreData) {
+            var style = { className: 'primary' };
             return React.createElement(
-                "li",
-                { className: "sl-button" },
+                'li',
+                { className: 'sl-button' },
                 React.createElement(Button, {
                     handleOnClick: this.handleShowMore,
-                    label: "list.button.showMore",
+                    label: 'list.button.showMore',
                     style: style,
-                    type: "button"
+                    type: 'button'
                 })
             );
         }
@@ -29511,8 +31198,8 @@ var listMixin = {
     */
     render: function render() {
         return React.createElement(
-            "ul",
-            { "data-focus": "selection-list" },
+            'ul',
+            { 'data-focus': 'selection-list' },
             this._renderLines(),
             this._renderLoading(),
             this._renderManualFetch()
@@ -29522,20 +31209,20 @@ var listMixin = {
 
 module.exports = builder(listMixin);
 
-},{"../../common/button/action":312,"../../common/i18n":330,"../../common/mixin/reference-property":350,"../mixin/infinite-scroll":370,"lodash/collection/find":57}],376:[function(require,module,exports){
+},{"../../common/button/action":315,"../../common/i18n":333,"../../common/mixin/reference-property":353,"../mixin/infinite-scroll":373,"lodash/collection/find":57}],379:[function(require,module,exports){
 /**@jsx*/
-"use strict";
+'use strict';
 
 var _require$component = window.Focus.component;
 
 var builder = _require$component.builder;
 var types = _require$component.types;
 
-var i18nBehaviour = require("../../common/i18n/mixin");
-var styleBehaviour = require("../../mixin/stylable");
+var i18nBehaviour = require('../../common/i18n/mixin');
+var styleBehaviour = require('../../mixin/stylable');
 
-var TopicDisplayer = require("../../common/topic-displayer").component;
-var Button = require("../../common/button/action").component;
+var TopicDisplayer = require('../../common/topic-displayer').component;
+var Button = require('../../common/button/action').component;
 var numberFormatter = Focus.definition.formatter.number;
 
 var listSummaryMixin = {
@@ -29543,7 +31230,7 @@ var listSummaryMixin = {
     /**
      * Display name.
      */
-    displayName: "list-summary",
+    displayName: 'list-summary',
 
     /**
      * Init the default props.
@@ -29560,11 +31247,11 @@ var listSummaryMixin = {
     },
     /** @inheritdoc */
     propTypes: {
-        nb: types("number"),
-        queryText: types("string"),
-        scopeList: types("array").isRequired,
-        scopeClickAction: types("func"),
-        exportAction: types("func")
+        nb: types('number'),
+        queryText: types('string'),
+        scopeList: types('array').isRequired,
+        scopeClickAction: types('func'),
+        exportAction: types('func')
     },
     /**
      * Return result sentence.
@@ -29576,18 +31263,18 @@ var listSummaryMixin = {
         var queryText = _props.queryText;
 
         return React.createElement(
-            "span",
+            'span',
             null,
             React.createElement(
-                "strong",
+                'strong',
                 null,
                 numberFormatter.format(nb)
             ),
-            " ",
-            this.i18n("result.for"),
-            " \"",
+            ' ',
+            this.i18n('result.for'),
+            ' "',
             queryText,
-            "\""
+            '"'
         );
     },
     /**
@@ -29595,27 +31282,27 @@ var listSummaryMixin = {
      * @returns {JSX} Html rendering.
      */
     render: function render() {
-        var _props = this.props;
-        var exportAction = _props.exportAction;
-        var scopeList = _props.scopeList;
-        var scopeClickAction = _props.scopeClickAction;
+        var _props2 = this.props;
+        var exportAction = _props2.exportAction;
+        var scopeList = _props2.scopeList;
+        var scopeClickAction = _props2.scopeClickAction;
 
         return React.createElement(
-            "div",
-            { "data-focus": "list-summary" },
+            'div',
+            { 'data-focus': 'list-summary' },
             exportAction && React.createElement(
-                "div",
-                { className: "print" },
-                React.createElement(Button, { handleOnClick: exportAction, icon: "print", label: "result.export", shape: "link" })
+                'div',
+                { className: 'print' },
+                React.createElement(Button, { handleOnClick: exportAction, icon: 'print', label: 'result.export', shape: 'link' })
             ),
             React.createElement(
-                "span",
-                { className: "sentence" },
+                'span',
+                { className: 'sentence' },
                 this._getResultSentence()
             ),
             React.createElement(
-                "span",
-                { className: "topics" },
+                'span',
+                { className: 'topics' },
                 React.createElement(TopicDisplayer, { topicClickAction: scopeClickAction, topicList: scopeList })
             )
         );
@@ -29624,37 +31311,37 @@ var listSummaryMixin = {
 
 module.exports = builder(listSummaryMixin);
 
-},{"../../common/button/action":312,"../../common/i18n/mixin":331,"../../common/topic-displayer":364,"../../mixin/stylable":384}],377:[function(require,module,exports){
-"use strict";
+},{"../../common/button/action":315,"../../common/i18n/mixin":334,"../../common/topic-displayer":367,"../../mixin/stylable":387}],380:[function(require,module,exports){
+'use strict';
 
 module.exports = {
-    line: require("./line"),
-    list: require("./list")
+    line: require('./line'),
+    list: require('./list')
 };
 
-},{"./line":378,"./list":379}],378:[function(require,module,exports){
+},{"./line":381,"./list":382}],381:[function(require,module,exports){
 // Dependencies
 
-"use strict";
+'use strict';
 
 var type = window.Focus.component.types;
 
 // Mixins
 
-var translationMixin = require("../../common/i18n").mixin;
-var referenceMixin = require("../../common/mixin/reference-property");
-var definitionMixin = require("../../common/mixin/definition");
-var builtInComponentsMixin = require("../mixin/built-in-components");
+var translationMixin = require('../../common/i18n').mixin;
+var referenceMixin = require('../../common/mixin/reference-property');
+var definitionMixin = require('../../common/mixin/definition');
+var builtInComponentsMixin = require('../mixin/built-in-components');
 
 // Components
 
-var ContextualActions = require("../action-contextual").component;
+var ContextualActions = require('../action-contextual').component;
 
 var lineMixin = {
     /**
      * React component name.
      */
-    displayName: "table-line",
+    displayName: 'table-line',
 
     /**
      * Mixin dependancies.
@@ -29676,12 +31363,12 @@ var lineMixin = {
      * @type {Object}
      */
     propTypes: {
-        data: type("object"),
-        saveAction: type("func"),
-        deleteAction: type("func"),
-        onLineClick: type("func"),
-        onSelection: type("func"),
-        operationList: type("array", true)
+        data: type('object'),
+        saveAction: type('func'),
+        deleteAction: type('func'),
+        onLineClick: type('func'),
+        onSelection: type('func'),
+        operationList: type('array', true)
     },
 
     /**
@@ -29690,8 +31377,8 @@ var lineMixin = {
     renderLineActions: function renderLineActions() {
         if (this.props.operationList.length > 0) {
             return React.createElement(
-                "div",
-                { "data-focus": "table-line-actions" },
+                'div',
+                { 'data-focus': 'table-line-actions' },
                 React.createElement(ContextualActions, { operationList: this.props.operationList, operationParam: this.props.data })
             );
         }
@@ -29710,10 +31397,10 @@ var lineMixin = {
 
 module.exports = { mixin: lineMixin };
 
-},{"../../common/i18n":330,"../../common/mixin/definition":345,"../../common/mixin/reference-property":350,"../action-contextual":366,"../mixin/built-in-components":368}],379:[function(require,module,exports){
+},{"../../common/i18n":333,"../../common/mixin/definition":348,"../../common/mixin/reference-property":353,"../action-contextual":369,"../mixin/built-in-components":371}],382:[function(require,module,exports){
 // Dependencies
 
-"use strict";
+'use strict';
 
 var builder = window.Focus.component.builder;
 var type = window.Focus.component.types;
@@ -29722,19 +31409,19 @@ var React = window.React;
 
 // Mixins
 
-var infiniteScrollMixin = require("../mixin/infinite-scroll").mixin;
-var translationMixin = require("../../common/i18n").mixin;
-var referenceMixin = require("../../common/mixin/reference-property");
+var infiniteScrollMixin = require('../mixin/infinite-scroll').mixin;
+var translationMixin = require('../../common/i18n').mixin;
+var referenceMixin = require('../../common/mixin/reference-property');
 
 // Components
 
-var Button = require("../../common/button/action").component;
+var Button = require('../../common/button/action').component;
 
 var tableMixin = {
     /**
      * React tag name.
      */
-    displayName: "table-list",
+    displayName: 'table-list',
 
     /**
      * Mixin dependancies.
@@ -29744,29 +31431,29 @@ var tableMixin = {
     getDefaultProps: function getDefaultProps() {
         return {
             data: [],
-            idField: "id",
+            idField: 'id',
             isLoading: false,
             operationList: []
         };
     },
 
     proptypes: {
-        data: type("array"),
-        onLineClick: type("func"),
-        idField: type("string"),
-        lineComponent: type("func", true),
-        operationList: type("array"),
-        columns: type("object"),
-        sortColumn: type("func"),
-        isloading: type("bool"),
-        loader: type("func")
+        data: type('array'),
+        onLineClick: type('func'),
+        idField: type('string'),
+        lineComponent: type('func', true),
+        operationList: type('array'),
+        columns: type('object'),
+        sortColumn: type('func'),
+        isloading: type('bool'),
+        loader: type('func')
     },
 
     /**
      * called before component mount
      */
     componentWillMount: function componentWillMount() {
-        checkIsNotNull("lineComponent", this.props.lineComponent);
+        checkIsNotNull('lineComponent', this.props.lineComponent);
     },
 
     _renderTableHeader: function _renderTableHeader() {
@@ -29775,10 +31462,10 @@ var tableMixin = {
             headerCols.push(this._renderColumnHeader(field));
         }
         return React.createElement(
-            "thead",
+            'thead',
             null,
             React.createElement(
-                "tr",
+                'tr',
                 null,
                 headerCols
             )
@@ -29797,17 +31484,17 @@ var tableMixin = {
         var colProperties = this.props.columns[name];
         var sort = undefined;
         if (!this.props.isEdit && !colProperties.noSort) {
-            var order = colProperties.sort ? colProperties.sort : "asc";
-            var iconClass = "fa fa-sort-" + order;
-            var icon = React.createElement("i", { className: iconClass });
+            var order = colProperties.sort ? colProperties.sort : 'asc';
+            var iconClass = 'fa fa-sort-' + order;
+            var icon = React.createElement('i', { className: iconClass });
             sort = React.createElement(
-                "a",
-                { className: "sort", href: "#", "data-name": name, onClick: this._sortColumnAction(name, order == "asc" ? "desc" : "asc") },
+                'a',
+                { className: 'sort', href: '#', 'data-name': name, onClick: this._sortColumnAction(name, order == 'asc' ? 'desc' : 'asc') },
                 icon
             );
         }
         return React.createElement(
-            "th",
+            'th',
             null,
             this.i18n(colProperties.label),
             sort
@@ -29818,13 +31505,13 @@ var tableMixin = {
         var _this = this;
 
         return React.createElement(
-            "tbody",
-            { className: "table-body" },
+            'tbody',
+            { className: 'table-body' },
             this.props.data.map(function (line, index) {
                 return React.createElement(_this.props.lineComponent, {
                     key: line[_this.props.idField],
                     data: line,
-                    ref: "line" + index,
+                    ref: 'line' + index,
                     reference: _this._getReference(),
                     onSelection: _this.props.onSelection,
                     onLineClick: _this.props.onLineClick,
@@ -29840,15 +31527,15 @@ var tableMixin = {
                 return this.props.loader();
             }
             return React.createElement(
-                "tbody",
-                { className: "table-loading" },
+                'tbody',
+                { className: 'table-loading' },
                 React.createElement(
-                    "tr",
+                    'tr',
                     null,
                     React.createElement(
-                        "td",
+                        'td',
                         null,
-                        "" + this.i18n("list.loading") + " ..."
+                        this.i18n('list.loading') + ' ...'
                     )
                 )
             );
@@ -29857,19 +31544,19 @@ var tableMixin = {
 
     _renderManualFetch: function renderManualFetch() {
         if (this.props.isManualFetch && this.props.hasMoreData) {
-            var style = { className: "primary" };
+            var style = { className: 'primary' };
             return React.createElement(
-                "tfoot",
-                { className: "table-manualFetch" },
+                'tfoot',
+                { className: 'table-manualFetch' },
                 React.createElement(
-                    "tr",
+                    'tr',
                     null,
                     React.createElement(
-                        "td",
+                        'td',
                         { colSpan: Object.keys(this.props.columns).length },
                         React.createElement(Button, {
-                            label: "list.button.showMore",
-                            type: "button",
+                            label: 'list.button.showMore',
+                            type: 'button',
                             handleOnClick: this.handleShowMore,
                             style: style
                         })
@@ -29885,8 +31572,8 @@ var tableMixin = {
      */
     render: function render() {
         return React.createElement(
-            "table",
-            { className: "table-list" },
+            'table',
+            { className: 'table-list' },
             this._renderTableHeader(),
             this._renderTableBody(),
             this._renderLoading(),
@@ -29898,31 +31585,31 @@ var tableMixin = {
 
 module.exports = builder(tableMixin);
 
-},{"../../common/button/action":312,"../../common/i18n":330,"../../common/mixin/reference-property":350,"../mixin/infinite-scroll":370}],380:[function(require,module,exports){
-"use strict";
+},{"../../common/button/action":315,"../../common/i18n":333,"../../common/mixin/reference-property":353,"../mixin/infinite-scroll":373}],383:[function(require,module,exports){
+'use strict';
 
 module.exports = {
-    line: require("./line"),
-    list: require("./list")
+    line: require('./line'),
+    list: require('./list')
 };
 
-},{"./line":381,"./list":382}],381:[function(require,module,exports){
+},{"./line":384,"./list":385}],384:[function(require,module,exports){
 /**@jsx*/
-"use strict";
+'use strict';
 
 var React = window.React;
 var builder = window.Focus.component.builder;
 var type = window.Focus.component.types;
-var translationMixin = require("../../common/i18n").mixin;
-var referenceMixin = require("../../common/mixin/reference-property");
-var definitionMixin = require("../../common/mixin/definition");
-var builtInComponentsMixin = require("../mixin/built-in-components");
+var translationMixin = require('../../common/i18n').mixin;
+var referenceMixin = require('../../common/mixin/reference-property');
+var definitionMixin = require('../../common/mixin/definition');
+var builtInComponentsMixin = require('../mixin/built-in-components');
 
 var lineMixin = {
     /**
      * React component name.
      */
-    displayName: "timeline-line",
+    displayName: 'timeline-line',
 
     /**
      * Mixin dependancies.
@@ -29938,10 +31625,10 @@ var lineMixin = {
      * @type {Object}
      */
     propTypes: {
-        data: type("object"),
-        dateField: type("string"),
-        dateComponent: type("object"),
-        onLineClick: type("func")
+        data: type('object'),
+        dateField: type('string'),
+        dateComponent: type('object'),
+        onLineClick: type('func')
     },
 
     /**
@@ -29973,22 +31660,22 @@ var lineMixin = {
             return this.renderLineContent(this.props.data);
         } else {
             return React.createElement(
-                "div",
+                'div',
                 null,
                 React.createElement(
-                    "div",
-                    { className: "timeline-heading" },
+                    'div',
+                    { className: 'timeline-heading' },
                     React.createElement(
-                        "h4",
-                        { className: "timeline-title" },
+                        'h4',
+                        { className: 'timeline-title' },
                         this.props.data.title
                     )
                 ),
                 React.createElement(
-                    "div",
-                    { className: "timeline-body" },
+                    'div',
+                    { className: 'timeline-body' },
                     React.createElement(
-                        "p",
+                        'p',
                         null,
                         this.props.data.body
                     )
@@ -30006,17 +31693,17 @@ var lineMixin = {
             return this.renderLine();
         } else {
             return React.createElement(
-                "li",
+                'li',
                 null,
                 React.createElement(
-                    "div",
-                    { className: "timeline-date" },
+                    'div',
+                    { className: 'timeline-date' },
                     this.textFor(this.props.dateField, {})
                 ),
-                React.createElement("div", { className: "timeline-badge" }),
+                React.createElement('div', { className: 'timeline-badge' }),
                 React.createElement(
-                    "div",
-                    { className: "timeline-panel", onClick: this._handleLineClick },
+                    'div',
+                    { className: 'timeline-panel', onClick: this._handleLineClick },
                     this._renderLineContent()
                 )
             );
@@ -30026,25 +31713,25 @@ var lineMixin = {
 
 module.exports = { mixin: lineMixin };
 
-},{"../../common/i18n":330,"../../common/mixin/definition":345,"../../common/mixin/reference-property":350,"../mixin/built-in-components":368}],382:[function(require,module,exports){
-"use strict";
+},{"../../common/i18n":333,"../../common/mixin/definition":348,"../../common/mixin/reference-property":353,"../mixin/built-in-components":371}],385:[function(require,module,exports){
+'use strict';
 
 var builder = window.Focus.component.builder;
 var React = window.React;
 var type = window.Focus.component.types;
-var Line = require("./line").mixin;
-var uuid = require("uuid");
-var translationMixin = require("../../common/i18n").mixin;
-var infiniteScrollMixin = require("../mixin/infinite-scroll").mixin;
-var referenceMixin = require("../../common/mixin/reference-property");
+var Line = require('./line').mixin;
+var uuid = require('uuid');
+var translationMixin = require('../../common/i18n').mixin;
+var infiniteScrollMixin = require('../mixin/infinite-scroll').mixin;
+var referenceMixin = require('../../common/mixin/reference-property');
 var checkIsNotNull = window.Focus.util.object.checkIsNotNull;
-var Button = require("../../common/button/action").component;
+var Button = require('../../common/button/action').component;
 
 var listMixin = {
     /**
      * Tag name
      */
-    displayName: "timeline",
+    displayName: 'timeline',
 
     /**
      * Mixin dependancies.
@@ -30058,8 +31745,8 @@ var listMixin = {
     getDefaultProps: function getDefaultProps() {
         return {
             data: [],
-            idField: "id",
-            dateField: "date",
+            idField: 'id',
+            dateField: 'date',
             isLoading: false
         };
     },
@@ -30068,21 +31755,21 @@ var listMixin = {
      * list property validation.
      */
     propTypes: {
-        data: type("array"),
-        idField: type("string"),
-        dateField: type("string"),
-        dateComponent: type("object"),
-        lineComponent: type("func", true),
-        isloading: type("bool"),
-        loader: type("func"),
-        onLineClick: type("func")
+        data: type('array'),
+        idField: type('string'),
+        dateField: type('string'),
+        dateComponent: type('object'),
+        lineComponent: type('func', true),
+        isloading: type('bool'),
+        loader: type('func'),
+        onLineClick: type('func')
     },
 
     /**
      * called before component mount
      */
     componentWillMount: function componentWillMount() {
-        checkIsNotNull("lineComponent", this.props.lineComponent);
+        checkIsNotNull('lineComponent', this.props.lineComponent);
     },
 
     /**
@@ -30098,7 +31785,7 @@ var listMixin = {
             return React.createElement(LineComponent, {
                 key: line[_this.props.idField] || uuid.v4(),
                 data: line,
-                ref: "line" + lineCount++,
+                ref: 'line' + lineCount++,
                 dateField: _this.props.dateField,
                 onLineClick: _this.props.onLineClick
             });
@@ -30111,22 +31798,22 @@ var listMixin = {
                 return this.props.loader();
             }
             return React.createElement(
-                "li",
-                { className: "timeline-loading" },
-                this.i18n("list.loading"),
-                " ..."
+                'li',
+                { className: 'timeline-loading' },
+                this.i18n('list.loading'),
+                ' ...'
             );
         }
     },
 
     _renderManualFetch: function renderManualFetch() {
         if (this.props.isManualFetch && this.props.hasMoreData) {
-            var style = { className: "primary" };
+            var style = { className: 'primary' };
             return React.createElement(
-                "li",
-                { className: "timeline-button" },
-                React.createElement(Button, { label: "list.button.showMore",
-                    type: "button",
+                'li',
+                { className: 'timeline-button' },
+                React.createElement(Button, { label: 'list.button.showMore',
+                    type: 'button',
                     handleOnClick: this.handleShowMore,
                     style: style })
             );
@@ -30139,8 +31826,8 @@ var listMixin = {
      */
     render: function renderList() {
         return React.createElement(
-            "ul",
-            { className: "timeline" },
+            'ul',
+            { className: 'timeline' },
             this._renderLines(),
             this._renderLoading(),
             this._renderManualFetch()
@@ -30150,30 +31837,30 @@ var listMixin = {
 
 module.exports = builder(listMixin);
 
-},{"../../common/button/action":312,"../../common/i18n":330,"../../common/mixin/reference-property":350,"../mixin/infinite-scroll":370,"./line":381,"uuid":290}],383:[function(require,module,exports){
-"use strict";
+},{"../../common/button/action":315,"../../common/i18n":333,"../../common/mixin/reference-property":353,"../mixin/infinite-scroll":373,"./line":384,"uuid":293}],386:[function(require,module,exports){
+'use strict';
 
 var _require$component = window.Focus.component;
 
 var builder = _require$component.builder;
 var types = _require$component.types;
 
-var i18nBehaviour = require("../common/i18n/mixin");
+var i18nBehaviour = require('../common/i18n/mixin');
 var messageMixin = {
     /** @inheritedDoc */
     getDefaultProps: function getDefaultProps() {
         return {
-            type: "info",
+            type: 'info',
             style: {}
         };
     },
     /** @inheritedDoc */
     propTypes: {
-        title: types("string"),
-        content: types("string"),
-        type: types("string"),
-        ttl: types("number"),
-        style: types("object")
+        title: types('string'),
+        content: types('string'),
+        type: types('string'),
+        ttl: types('number'),
+        style: types('object')
     },
     /** @inheritedDoc */
     componentDidMount: function componentDidMount() {
@@ -30204,9 +31891,9 @@ var messageMixin = {
      * @param {Event} event - Sanitize event.
      */
     _handleOnClick: function _handleOnClick(event) {
-        var _props = this.props;
-        var handleOnClick = _props.handleOnClick;
-        var id = _props.id;
+        var _props2 = this.props;
+        var handleOnClick = _props2.handleOnClick;
+        var id = _props2.id;
 
         if (handleOnClick) {
             handleOnClick(id);
@@ -30218,7 +31905,7 @@ var messageMixin = {
         var title = this.props.title;
 
         return title ? React.createElement(
-            "h4",
+            'h4',
             null,
             title
         ) : null;
@@ -30228,25 +31915,25 @@ var messageMixin = {
      * @return {JSX} The jsx.
      */
     render: function render() {
-        var _props = this.props;
-        var type = _props.type;
-        var style = _props.style;
-        var id = _props.id;
-        var content = _props.content;
+        var _props3 = this.props;
+        var type = _props3.type;
+        var style = _props3.style;
+        var id = _props3.id;
+        var content = _props3.content;
 
-        type = type && "error" === type ? "danger" : type;
-        var cssClass = "alert alert-dismissable alert-" + type + " " + (style && style.className);
+        type = type && 'error' === type ? 'danger' : type;
+        var cssClass = 'alert alert-dismissable alert-' + type + ' ' + (style && style.className);
         return React.createElement(
-            "div",
-            { className: cssClass, "data-focus": "message", "data-id": id },
+            'div',
+            { className: cssClass, 'data-focus': 'message', 'data-id': id },
             React.createElement(
-                "button",
-                { className: "close", onClick: this._handleOnClick, type: "button" },
-                "×"
+                'button',
+                { className: 'close', onClick: this._handleOnClick, type: 'button' },
+                '×'
             ),
             this._renderTitle(),
             React.createElement(
-                "p",
+                'p',
                 null,
                 this.i18n(content)
             )
@@ -30255,20 +31942,20 @@ var messageMixin = {
 };
 module.exports = builder(messageMixin);
 
-},{"../common/i18n/mixin":331}],384:[function(require,module,exports){
-"use strict";
+},{"../common/i18n/mixin":334}],387:[function(require,module,exports){
+'use strict';
 
 var types = window.Focus.component.types;
 module.exports = {
     /** @inheritedDocs */
     getDefaultProps: function getDefaultProps() {
         return {
-            style: { className: "" }
+            style: { className: '' }
         };
     },
     /** @inheritedDocs */
     propTypes: {
-        style: types("object")
+        style: types('object')
     },
     /**
     * Get the className from the style.className props
@@ -30278,53 +31965,51 @@ module.exports = {
         if (this.props.style && this.props.style.className) {
             return this.props.style.className;
         }
-        return "";
+        return '';
     }
 };
 
-},{}],385:[function(require,module,exports){
-"use strict";
+},{}],388:[function(require,module,exports){
+'use strict';
 
-var saveBehaviour = require("./mixin/save-behaviour");
-var validateBehaviour = require("./mixin/validate-behaviour");
-var cartridgeBehaviour = require("../mixin/cartridge-behaviour");
+var saveBehaviour = require('./mixin/save-behaviour');
+var validateBehaviour = require('./mixin/validate-behaviour');
+var cartridgeBehaviour = require('../mixin/cartridge-behaviour');
 
 var detailMixin = {
   mixins: [validateBehaviour, saveBehaviour, cartridgeBehaviour]
 };
 module.exports = { mixin: detailMixin };
 
-},{"../mixin/cartridge-behaviour":390,"./mixin/save-behaviour":386,"./mixin/validate-behaviour":387}],386:[function(require,module,exports){
-"use strict";
+},{"../mixin/cartridge-behaviour":393,"./mixin/save-behaviour":389,"./mixin/validate-behaviour":390}],389:[function(require,module,exports){
+'use strict';
 
-var _defineProperty = function (obj, key, value) { return Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); };
-
-var isFunction = require("lodash/lang/isFunction");
-var assign = require("object-assign");
+var isFunction = require('lodash/lang/isFunction');
+var assign = require('object-assign');
 module.exports = {
   _getDetail: function getDetail() {
     var detailJSON = {};
     for (var blockKey in this.refs) {
       if (isFunction(this.refs[blockKey]._getEntity)) {
+        var _assign;
+
         var blockJSON = this.refs[blockKey]._getEntity();
-        assign(detailJSON, _defineProperty({}, blockKey, blockJSON));
+        assign(detailJSON, (_assign = {}, _assign[blockKey] = blockJSON, _assign));
       }
     }
     return detailJSON;
   }
 };
 
-},{"lodash/lang/isFunction":221,"object-assign":288}],387:[function(require,module,exports){
-"use strict";
+},{"lodash/lang/isFunction":221,"object-assign":288}],390:[function(require,module,exports){
+'use strict';
 
-var _defineProperty = function (obj, key, value) { return Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); };
-
-var _require = require("lodash/lang");
+var _require = require('lodash/lang');
 
 var isFunction = _require.isFunction;
 var isEmpty = _require.isEmpty;
 
-var assign = require("object-assign");
+var assign = require('object-assign');
 module.exports = {
   validate: function validateDetail() {
     var validationMap = {};
@@ -30334,7 +32019,9 @@ module.exports = {
       if (isFunction(this.refs[blockKey].validate)) {
         var validationRes = this.refs[blockKey].validate();
         if (validationRes !== undefined) {
-          assign(validationMap, _defineProperty({}, blockKey, validationRes));
+          var _assign;
+
+          assign(validationMap, (_assign = {}, _assign[blockKey] = validationRes, _assign));
         }
       }
     }
@@ -30344,20 +32031,20 @@ module.exports = {
   }
 };
 
-},{"lodash/lang":206,"object-assign":288}],388:[function(require,module,exports){
+},{"lodash/lang":206,"object-assign":288}],391:[function(require,module,exports){
 // Dependencies
 
-"use strict";
+'use strict';
 
 var React = window.React;
-var detailMixin = require("./detail").mixin;
+var detailMixin = require('./detail').mixin;
 
 //Function to help page creation.
 module.exports = {
   detail: detailMixin,
-  search: require("./search"),
-  mixin: require("./mixin"),
-  list: require("./list"),
+  search: require('./search'),
+  mixin: require('./mixin'),
+  list: require('./list'),
   /**
    * Helper to creates a detail page.
    * @param {object} config - The page configuration.
@@ -30374,16 +32061,16 @@ module.exports = {
   }
 };
 
-},{"./detail":385,"./list":389,"./mixin":391,"./search":401}],389:[function(require,module,exports){
+},{"./detail":388,"./list":392,"./mixin":394,"./search":404}],392:[function(require,module,exports){
 //The purpose of this module is to deal with autonomous lists.
 //If you need lists inside a form please see the listFor helper function in a form.
 //The following lists can
 //- be loaded from a criteria (or without) (the criteria can be the result of a form)
 //- be paginated
 //- be displayed in any list container.
-"use strict";
+'use strict';
 
-var _require = require("lodash/string");
+var _require = require('lodash/string');
 
 var camelCase = _require.camelCase;
 var capitalize = _require.capitalize;
@@ -30395,17 +32082,17 @@ var builder = _require$component.builder;
 
 var actionBuilder = window.Focus.list.actionBuilder;
 var type = types;
-var assign = require("object-assign");
+var assign = require('object-assign');
 
-var STORE_NODE = ["criteria", "groupingKey", "sortBy", "sortAsc", "dataList", "totalCount"];
-var DEFAULT_LIST_COMPONENT = require("../../list/table/list").component;
+var STORE_NODE = ['criteria', 'groupingKey', 'sortBy', 'sortAsc', 'dataList', 'totalCount'];
+var DEFAULT_LIST_COMPONENT = require('../../list/table/list').component;
 /**
  * Cretes a name for the property listener.
  * @param  {string} node - Node name.
  * @return {string} the built property.
  */
 function _listenerProp(node) {
-    return "add" + capitalize(camelCase(node)) + "ChangeListener";
+    return 'add' + capitalize(camelCase(node)) + 'ChangeListener';
 }
 /**
  * Mixin to deal the list page.
@@ -30426,9 +32113,9 @@ var listPageMixin = {
     /** @inheritdoc */
     propTypes: {
         //Store object.
-        pickProps: type("func"),
-        service: type("func"),
-        store: type("object").isRequired
+        pickProps: type('func'),
+        service: type('func'),
+        store: type('object').isRequired
     },
     /**
      *  Build the action from.
@@ -30439,7 +32126,7 @@ var listPageMixin = {
         this._action = this.props.action || actionBuilder({
             service: this.props.service,
             identifier: this.props.store.identifier,
-            getListOptions: function () {
+            getListOptions: function getListOptions() {
                 return _this.props.store.getValue.call(_this.props.store);
             } // Binding the store in the function call
         });
@@ -30462,15 +32149,15 @@ var listPageMixin = {
      * Register the store nodes.
      */
     _registerStoreNode: function _registerStoreNode() {
-        var _this = this;
+        var _this2 = this;
 
         STORE_NODE.forEach(function (node) {
             //Maybe this is a bit too much, a global change event could be more efficient as almost all store props change.
-            _this.props.store[_listenerProp(node)](_this._handleStoreChanged);
+            _this2.props.store[_listenerProp(node)](_this2._handleStoreChanged);
         });
         //When the criteria is changed, the search is triggered.
         this.props.store.addCriteriaChangeListener(function () {
-            _this._action.load();
+            _this2._action.load();
         });
     },
     /**
@@ -30478,10 +32165,8 @@ var listPageMixin = {
      * @return {object} - the list property.
      */
     _buildListProps: function _buildListProps() {
-        var _ref = this;
-
-        var props = _ref.props;
-        var state = _ref.state;
+        var props = this.props;
+        var state = this.state;
         var dataList = state.dataList;
         var totalCount = state.totalCount;
 
@@ -30507,12 +32192,12 @@ var listPageMixin = {
 
 module.exports = builder(listPageMixin);
 
-},{"../../list/table/list":379,"lodash/string":247,"object-assign":288}],390:[function(require,module,exports){
-"use strict";
+},{"../../list/table/list":382,"lodash/string":247,"object-assign":288}],393:[function(require,module,exports){
+'use strict';
 
-var isFunction = require("lodash/lang/isFunction");
+var isFunction = require('lodash/lang/isFunction');
 var dispatcher = window.Focus.dispatcher;
-var Empty = require("../../common/empty").component;
+var Empty = require('../../common/empty').component;
 module.exports = {
   /**
    * Register the cartridge.
@@ -30523,7 +32208,7 @@ module.exports = {
       this.cartridgeConfiguration = function cartridgeConfiguration() {
         return {};
       };
-      console.warn("\n          Your detail page does not have any cartrige configuration, this is not mandarory but recommended.\n          It should be a component attribute return by a function.\n          function cartridgeConfiguration(){\n            var cartridgeConfiguration = {\n              summary: {component: \"A React Component\", props: {id: this.props.id}},\n              cartridge: {component: \"A React Component\"},\n              actions: {components: \"react actions\"}\n            };\n            return cartridgeConfiguration;\n          }\n        ");
+      console.warn('\n          Your detail page does not have any cartrige configuration, this is not mandarory but recommended.\n          It should be a component attribute return by a function.\n          function cartridgeConfiguration(){\n            var cartridgeConfiguration = {\n              summary: {component: "A React Component", props: {id: this.props.id}},\n              cartridge: {component: "A React Component"},\n              actions: {components: "react actions"}\n            };\n            return cartridgeConfiguration;\n          }\n        ');
     }
     var cartridgeConf = this.cartridgeConfiguration();
     dispatcher.handleViewAction({
@@ -30533,7 +32218,7 @@ module.exports = {
         actions: cartridgeConf.actions || { primary: [], secondary: Empty },
         barContentLeftComponent: cartridgeConf.barLeft || { component: Empty }
       },
-      type: "update"
+      type: 'update'
     });
   },
   componentWillMount: function pageMixinWillMount() {
@@ -30541,28 +32226,28 @@ module.exports = {
   }
 };
 
-},{"../../common/empty":320,"lodash/lang/isFunction":221}],391:[function(require,module,exports){
-"use strict";
+},{"../../common/empty":323,"lodash/lang/isFunction":221}],394:[function(require,module,exports){
+'use strict';
 
 module.exports = {
-  cartridgeBehaviour: require("./cartridge-behaviour")
+  cartridgeBehaviour: require('./cartridge-behaviour')
 };
 
-},{"./cartridge-behaviour":390}],392:[function(require,module,exports){
+},{"./cartridge-behaviour":393}],395:[function(require,module,exports){
 // Dependencies
 
-"use strict";
+'use strict';
 
 var builder = window.Focus.component.builder;
-var clone = require("lodash/lang/clone");
+var clone = require('lodash/lang/clone');
 
 // Components
 
-var ListActionBar = require("../../../list/action-bar/index").component;
+var ListActionBar = require('../../../list/action-bar/index').component;
 
 //Mixins
 
-var i18nMixin = require("../../../common/i18n/mixin");
+var i18nMixin = require('../../../common/i18n/mixin');
 
 var Bar = {
     mixins: [i18nMixin],
@@ -30590,10 +32275,10 @@ var Bar = {
     _filterFacetList: function _filterFacetList() {
         var facetList = {};
         for (var key in this.props.selectedFacets) {
-            if (key !== "FCT_SCOPE") {
+            if (key !== 'FCT_SCOPE') {
                 var facet = this.props.selectedFacets[key];
                 facetList[key] = {
-                    label: this.i18n("live.filter.facets." + key),
+                    label: this.i18n('live.filter.facets.' + key),
                     value: facet.data.label
                 };
             }
@@ -30635,8 +32320,8 @@ var Bar = {
      */
     render: function render() {
         return React.createElement(ListActionBar, {
-            "data-focus": "advanced-search-action-bar",
-            groupLabelPrefix: "live.filter.facets.",
+            'data-focus': 'advanced-search-action-bar',
+            groupLabelPrefix: 'live.filter.facets.',
             selectionStatus: this.props.selectionStatus,
             selectionAction: this.props.selectionAction,
             orderableColumnList: this.props.orderableColumnList,
@@ -30654,19 +32339,19 @@ var Bar = {
 
 module.exports = builder(Bar);
 
-},{"../../../common/i18n/mixin":331,"../../../list/action-bar/index":365,"lodash/lang/clone":207}],393:[function(require,module,exports){
+},{"../../../common/i18n/mixin":334,"../../../list/action-bar/index":368,"lodash/lang/clone":207}],396:[function(require,module,exports){
 // Dependencies
 
-"use strict";
+'use strict';
 
 var builder = window.Focus.component.builder;
-var keys = require("lodash/object/keys");
+var keys = require('lodash/object/keys');
 
 // Components
 
-var FacetBox = require("../../../search/facet-box").component;
+var FacetBox = require('../../../search/facet-box').component;
 
-var scopeFacetKey = "FCT_SCOPE";
+var scopeFacetKey = 'FCT_SCOPE';
 
 var Box = {
     /**
@@ -30709,7 +32394,7 @@ var Box = {
      */
     render: function render() {
         return React.createElement(FacetBox, {
-            "data-focus": "advanced-search-facet-box",
+            'data-focus': 'advanced-search-facet-box',
             facetList: this.props.facets,
             selectedFacetList: this.props.selectedFacets,
             config: this.props.facetConfig,
@@ -30720,23 +32405,23 @@ var Box = {
 
 module.exports = builder(Box);
 
-},{"../../../search/facet-box":410,"lodash/object/keys":241}],394:[function(require,module,exports){
+},{"../../../search/facet-box":413,"lodash/object/keys":241}],397:[function(require,module,exports){
 // Dependencies
 
-"use strict";
+'use strict';
 
 var builder = window.Focus.component.builder;
-var camel = require("lodash/string/camelCase");
-var capitalize = require("lodash/string/capitalize");
+var camel = require('lodash/string/camelCase');
+var capitalize = require('lodash/string/capitalize');
 
 // Components
 
-var FacetBox = require("./facet-box").component;
-var ListActionBar = require("./action-bar").component;
-var ListSummary = require("./list-summary").component;
-var Results = require("../common/component/results").component;
+var FacetBox = require('./facet-box').component;
+var ListActionBar = require('./action-bar').component;
+var ListSummary = require('./list-summary').component;
+var Results = require('../common/component/results').component;
 
-var BackToTopComponent = require("../../../common/button/back-to-top").component;
+var BackToTopComponent = require('../../../common/button/back-to-top').component;
 
 // Store
 
@@ -30744,7 +32429,7 @@ var advancedSearchStore = Focus.search.builtInStore.advancedSearchStore;
 
 // Mixins
 
-var CartridgeBehaviour = require("../../mixin/cartridge-behaviour");
+var CartridgeBehaviour = require('../../mixin/cartridge-behaviour');
 var type = window.Focus.component.types;
 
 // Actions
@@ -30764,7 +32449,7 @@ var AdvancedSearch = {
     /**
      * Display name.
      */
-    displayName: "advanced-search",
+    displayName: 'advanced-search',
     /**
      * Get the default props
      * @return {object} the default props
@@ -30793,21 +32478,21 @@ var AdvancedSearch = {
      * @type {Object}
      */
     propTypes: {
-        scopesConfig: type("object"),
-        facetConfig: type("object"),
-        isSelection: type("bool"),
-        hasBackToTop: type("bool"),
-        backToTopComponent: type("object"),
-        store: type("object"),
-        action: type("object"),
-        service: type("object"),
-        orderableColumnList: type("object"),
-        lineOperationList: type("object"),
-        exportAction: type("func"),
-        groupComponent: type("object"),
-        lineComponentMapper: type("func"),
-        scrollParentSelector: type("string"),
-        onLineClick: type("func")
+        scopesConfig: type('object'),
+        facetConfig: type('object'),
+        isSelection: type('bool'),
+        hasBackToTop: type('bool'),
+        backToTopComponent: type('object'),
+        store: type('object'),
+        action: type('object'),
+        service: type('object'),
+        orderableColumnList: type('object'),
+        lineOperationList: type('object'),
+        exportAction: type('func'),
+        groupComponent: type('object'),
+        lineComponentMapper: type('func'),
+        scrollParentSelector: type('string'),
+        onLineClick: type('func')
     },
     getInitialState: function getInitialState() {
         return this._getNewStateFromStore();
@@ -30818,16 +32503,16 @@ var AdvancedSearch = {
     componentWillMount: function componentWillMount() {
         var _this = this;
 
-        ["query", "scope", "selected-facets", "grouping-key", "sort-by", "sort-asc"].forEach(function (node) {
-            _this.props.store["add" + capitalize(camel(node)) + "ChangeListener"](_this._onStoreChangeWithSearch);
+        ['query', 'scope', 'selected-facets', 'grouping-key', 'sort-by', 'sort-asc'].forEach(function (node) {
+            _this.props.store['add' + capitalize(camel(node)) + 'ChangeListener'](_this._onStoreChangeWithSearch);
         });
-        ["facets", "results", "total-count"].forEach(function (node) {
-            _this.props.store["add" + capitalize(camel(node)) + "ChangeListener"](_this._onStoreChangeWithoutSearch);
+        ['facets', 'results', 'total-count'].forEach(function (node) {
+            _this.props.store['add' + capitalize(camel(node)) + 'ChangeListener'](_this._onStoreChangeWithoutSearch);
         });
         this._action = this.props.action || actionBuilder({
             service: this.props.service,
             identifier: this.props.store.identifier,
-            getSearchOptions: function () {
+            getSearchOptions: function getSearchOptions() {
                 return _this.props.store.getValue.call(_this.props.store);
             } // Binding the store in the function call
         });
@@ -30839,13 +32524,13 @@ var AdvancedSearch = {
      * Un-register the store listeners
      */
     componentWillUnmount: function componentWillUnmount() {
-        var _this = this;
+        var _this2 = this;
 
-        ["query", "scope", "selected-facets", "grouping-key", "sort-by", "sort-asc"].forEach(function (node) {
-            _this.props.store["remove" + capitalize(camel(node)) + "ChangeListener"](_this._onStoreChangeWithSearch);
+        ['query', 'scope', 'selected-facets', 'grouping-key', 'sort-by', 'sort-asc'].forEach(function (node) {
+            _this2.props.store['remove' + capitalize(camel(node)) + 'ChangeListener'](_this2._onStoreChangeWithSearch);
         });
-        ["facets", "results", "total-count"].forEach(function (node) {
-            _this.props.store["remove" + capitalize(camel(node)) + "ChangeListener"](_this._onStoreChangeWithoutSearch);
+        ['facets', 'results', 'total-count'].forEach(function (node) {
+            _this2.props.store['remove' + capitalize(camel(node)) + 'ChangeListener'](_this2._onStoreChangeWithoutSearch);
         });
     },
     /**
@@ -30908,14 +32593,14 @@ var AdvancedSearch = {
      * @returns {HTML} the rendered component
      */
     _renderActionBar: function _renderActionBar() {
-        var _this = this;
+        var _this3 = this;
 
         var groupableColumnList = this.state.facets ? Object.keys(this.state.facets).reduce(function (result, facetKey) {
             result[facetKey] = facetKey;
             return result;
         }, {}) : {};
-        var selectionAction = function (selectionStatus) {
-            _this.setState({ selectionStatus: selectionStatus });
+        var selectionAction = function selectionAction(selectionStatus) {
+            _this3.setState({ selectionStatus: selectionStatus });
         };
         return React.createElement(ListActionBar, {
             selectionStatus: this.state.selectionStatus,
@@ -30956,7 +32641,7 @@ var AdvancedSearch = {
      * Line selection handler
      */
     _selectItem: function _selectItem() {
-        this.setState({ selectionStatus: "partial" });
+        this.setState({ selectionStatus: 'partial' });
     },
     /**
      * Action on line click.
@@ -30973,16 +32658,16 @@ var AdvancedSearch = {
      */
     render: function render() {
         return React.createElement(
-            "div",
-            { className: "advanced-search", "data-focus": "advanced-search" },
+            'div',
+            { className: 'advanced-search', 'data-focus': 'advanced-search' },
             React.createElement(
-                "div",
-                { "data-focus": "facet-container" },
+                'div',
+                { 'data-focus': 'facet-container' },
                 this._renderFacetBox()
             ),
             React.createElement(
-                "div",
-                { "data-focus": "result-container" },
+                'div',
+                { 'data-focus': 'result-container' },
                 this._renderListSummary(),
                 this._renderActionBar(),
                 this._renderResults()
@@ -30994,18 +32679,18 @@ var AdvancedSearch = {
 
 module.exports = builder(AdvancedSearch);
 
-},{"../../../common/button/back-to-top":313,"../../mixin/cartridge-behaviour":390,"../common/component/results":399,"./action-bar":392,"./facet-box":393,"./list-summary":395,"lodash/string/camelCase":248,"lodash/string/capitalize":249}],395:[function(require,module,exports){
+},{"../../../common/button/back-to-top":316,"../../mixin/cartridge-behaviour":393,"../common/component/results":402,"./action-bar":395,"./facet-box":396,"./list-summary":398,"lodash/string/camelCase":248,"lodash/string/capitalize":249}],398:[function(require,module,exports){
 // Dependencies
 
-"use strict";
+'use strict';
 
 var builder = window.Focus.component.builder;
 
 // Components
 
-var ListSummary = require("../../../list/summary/index").component;
+var ListSummary = require('../../../list/summary/index').component;
 
-var scopeAll = "ALL";
+var scopeAll = 'ALL';
 
 var Summary = {
     /**
@@ -31015,7 +32700,7 @@ var Summary = {
     getDefaultProps: function getDefaultProps() {
         return {
             totalCount: 0,
-            query: "",
+            query: '',
             action: undefined,
             scope: undefined
         };
@@ -31038,11 +32723,11 @@ var Summary = {
     render: function render() {
         var scope = this.props.scope !== scopeAll ? { scope: {
                 code: this.props.scope,
-                label: "Scope",
+                label: 'Scope',
                 value: this.props.scope
             } } : undefined;
         return React.createElement(ListSummary, {
-            "data-focus": "advanced-search-list-summary",
+            'data-focus': 'advanced-search-list-summary',
             nb: this.props.totalCount,
             queryText: this.props.query,
             scopeList: scope,
@@ -31053,37 +32738,37 @@ var Summary = {
 
 module.exports = builder(Summary);
 
-},{"../../../list/summary/index":376}],396:[function(require,module,exports){
+},{"../../../list/summary/index":379}],399:[function(require,module,exports){
 // Dependencies
 
-"use strict";
+'use strict';
 
 var builder = window.Focus.component.builder;
 
 // Mixins
 
-var i18nMixin = require("../../../../common/i18n/mixin");
+var i18nMixin = require('../../../../common/i18n/mixin');
 
 var DefaultEmpty = {
     mixins: [i18nMixin],
     render: function render() {
         return React.createElement(
-            "div",
-            { "data-focus": "empty-result" },
-            this.i18n("search.empty")
+            'div',
+            { 'data-focus': 'empty-result' },
+            this.i18n('search.empty')
         );
     }
 };
 
 module.exports = builder(DefaultEmpty);
 
-},{"../../../../common/i18n/mixin":331}],397:[function(require,module,exports){
+},{"../../../../common/i18n/mixin":334}],400:[function(require,module,exports){
 // Dependencies
 
-"use strict";
+'use strict';
 
 var builder = window.Focus.component.builder;
-var clone = require("lodash/lang/clone");
+var clone = require('lodash/lang/clone');
 
 var GroupWrapper = {
     getDefaultProps: function getDefaultProps() {
@@ -31120,41 +32805,39 @@ var GroupWrapper = {
 
 module.exports = builder(GroupWrapper);
 
-},{"lodash/lang/clone":207}],398:[function(require,module,exports){
-"use strict";
+},{"lodash/lang/clone":207}],401:[function(require,module,exports){
+'use strict';
 
 module.exports = {
-    defaultEmptyComponent: require("./default-empty-component"),
-    groupWrapper: require("./group-wrapper"),
-    results: require("./results")
+    defaultEmptyComponent: require('./default-empty-component'),
+    groupWrapper: require('./group-wrapper'),
+    results: require('./results')
 };
 
-},{"./default-empty-component":396,"./group-wrapper":397,"./results":399}],399:[function(require,module,exports){
-"use strict";
-
-var _defineProperty = function (obj, key, value) { return Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); };
-
+},{"./default-empty-component":399,"./group-wrapper":400,"./results":402}],402:[function(require,module,exports){
 // Dependencies
 
+'use strict';
+
 var builder = window.Focus.component.builder;
-var omit = require("lodash/object/omit");
-var map = require("lodash/collection/map");
-var reduce = require("lodash/collection/reduce");
-var clone = require("lodash/lang/clone");
-var keys = require("lodash/object/keys");
-var forEach = require("lodash/collection/forEach");
-var isEqual = require("lodash/lang/isEqual");
-var assign = require("lodash/object/assign");
+var omit = require('lodash/object/omit');
+var map = require('lodash/collection/map');
+var reduce = require('lodash/collection/reduce');
+var clone = require('lodash/lang/clone');
+var keys = require('lodash/object/keys');
+var forEach = require('lodash/collection/forEach');
+var isEqual = require('lodash/lang/isEqual');
+var assign = require('lodash/object/assign');
 
 // Components
 
-var DefaultEmpty = require("./default-empty-component").component;
-var ListSelection = require("../../../../list/selection").list.component;
-var GroupWrapper = require("./group-wrapper").component;
+var DefaultEmpty = require('./default-empty-component').component;
+var ListSelection = require('../../../../list/selection').list.component;
+var GroupWrapper = require('./group-wrapper').component;
 
 // Mixins
 
-var i18nMixin = require("../../../../common/i18n/mixin");
+var i18nMixin = require('../../../../common/i18n/mixin');
 
 /**
  * Results component, used to render the results, grouped or ungrouped
@@ -31172,7 +32855,7 @@ var Results = {
             renderSingleGroupDecoration: true,
             initialRowsCount: 3,
             showMoreAdditionalRows: 5,
-            scopeFacetKey: "FCT_SCOPE",
+            scopeFacetKey: 'FCT_SCOPE',
             action: undefined,
             store: undefined,
             resultsMap: undefined,
@@ -31275,11 +32958,11 @@ var Results = {
         var LineComponent = lineComponentMapper(key, list);
         var hasMoreData = isUnique !== undefined && isUnique && list.length < count;
         return React.createElement(
-            "div",
+            'div',
             null,
             React.createElement(ListSelection, {
                 data: list,
-                "data-focus": "results-list",
+                'data-focus': 'results-list',
                 fetchNextPage: this._onScrollReachedBottom,
                 hasMoreData: hasMoreData,
                 idField: idField,
@@ -31293,10 +32976,10 @@ var Results = {
                 selectionStatus: selectionStatus
             }),
             this.state.loading && React.createElement(
-                "div",
-                { "data-focus": "loading-more-results" },
-                React.createElement("i", { className: "fa fa-spinner" }),
-                this.i18n("search.loadingMore")
+                'div',
+                { 'data-focus': 'loading-more-results' },
+                React.createElement('i', { className: 'fa fa-spinner' }),
+                this.i18n('search.loadingMore')
             )
         );
     },
@@ -31336,9 +33019,11 @@ var Results = {
     _getGroupCounts: function _getGroupCounts(resultsMap) {
         var groupKeys = keys(resultsMap);
         if (1 === groupKeys.length) {
-            return _defineProperty({}, groupKeys[0], {
+            var _ref;
+
+            return (_ref = {}, _ref[groupKeys[0]] = {
                 count: this.props.totalCount
-            });
+            }, _ref);
         }
         var targetFacetData = undefined;
         forEach(this.props.resultsFacets, function (facetData) {
@@ -31367,13 +33052,15 @@ var Results = {
      * @param  {string} value the facet value
      */
     _facetSelectionHandler: function _facetSelectionHandler(key, value) {
-        var selectedFacets = assign({}, this.props.store.getSelectedFacets(), _defineProperty({}, key, {
+        var _assign;
+
+        var selectedFacets = assign({}, this.props.store.getSelectedFacets(), (_assign = {}, _assign[key] = {
             key: value,
             data: {
                 label: value,
                 count: 0
             }
-        }));
+        }, _assign));
         this.props.action.updateProperties({
             groupingKey: undefined,
             selectedFacets: selectedFacets
@@ -31383,13 +33070,13 @@ var Results = {
      * Scroll reached bottom handler
      */
     _onScrollReachedBottom: function _onScrollReachedBottom() {
-        var _this = this;
+        var _this2 = this;
 
         if (!this.state.loading) {
             this.setState({
                 loading: true
             }, function () {
-                _this.props.action.search(true);
+                _this2.props.action.search(true);
             });
         }
     },
@@ -31398,7 +33085,7 @@ var Results = {
      * @return {HMTL}      the rendered component
      */
     render: function render() {
-        var _this = this;
+        var _this3 = this;
 
         // If there is no result, render the given empty component
         if (0 === this.props.totalCount) {
@@ -31418,11 +33105,11 @@ var Results = {
             return this._renderSingleGroup(list, key, count, true);
         } else {
             return React.createElement(
-                "div",
-                { "data-focus": "search-results" },
+                'div',
+                { 'data-focus': 'search-results' },
                 map(resultsMap, function (list, key) {
                     var count = groupCounts[key];
-                    return _this._renderSingleGroup(list, key, count);
+                    return _this3._renderSingleGroup(list, key, count);
                 })
             );
         }
@@ -31431,40 +33118,40 @@ var Results = {
 
 module.exports = builder(Results);
 
-},{"../../../../common/i18n/mixin":331,"../../../../list/selection":373,"./default-empty-component":396,"./group-wrapper":397,"lodash/collection/forEach":62,"lodash/collection/map":70,"lodash/collection/reduce":73,"lodash/lang/clone":207,"lodash/lang/isEqual":218,"lodash/object/assign":240,"lodash/object/keys":241,"lodash/object/omit":243}],400:[function(require,module,exports){
-"use strict";
+},{"../../../../common/i18n/mixin":334,"../../../../list/selection":376,"./default-empty-component":399,"./group-wrapper":400,"lodash/collection/forEach":62,"lodash/collection/map":70,"lodash/collection/reduce":73,"lodash/lang/clone":207,"lodash/lang/isEqual":218,"lodash/object/assign":240,"lodash/object/keys":241,"lodash/object/omit":243}],403:[function(require,module,exports){
+'use strict';
 
 module.exports = {
-    component: require("./component")
+    component: require('./component')
 };
 
-},{"./component":398}],401:[function(require,module,exports){
-"use strict";
+},{"./component":401}],404:[function(require,module,exports){
+'use strict';
 
 module.exports = {
-    advancedSearch: require("./advanced-search"),
-    quickSearch: require("./quick-search"),
-    searchHeader: require("./search-header"),
-    common: require("./common")
+    advancedSearch: require('./advanced-search'),
+    quickSearch: require('./quick-search'),
+    searchHeader: require('./search-header'),
+    common: require('./common')
 };
 
-},{"./advanced-search":394,"./common":400,"./quick-search":402,"./search-header":405}],402:[function(require,module,exports){
+},{"./advanced-search":397,"./common":403,"./quick-search":405,"./search-header":408}],405:[function(require,module,exports){
 // Dependencies
 
-"use strict";
+'use strict';
 
 var type = window.Focus.component.types;
 var builder = window.Focus.component.builder;
 
 // Components
 
-var SearchBar = require("../../../search/search-bar").component;
-var Results = require("../common/component/results").component;
+var SearchBar = require('../../../search/search-bar').component;
+var Results = require('../common/component/results').component;
 
 // Mixins
 
-var referenceBehaviour = require("../../../common/form/mixin/reference-behaviour");
-var storeBehaviour = require("../../../common/mixin/store-behaviour");
+var referenceBehaviour = require('../../../common/form/mixin/reference-behaviour');
+var storeBehaviour = require('../../../common/mixin/store-behaviour');
 
 // Actions
 
@@ -31488,12 +33175,12 @@ var QuickSearchComponent = {
     /**
      * Tag name.
      */
-    displayName: "quick-search",
+    displayName: 'quick-search',
     /**
      * Reference names to be fetched by the reference behaviour
      * @type {Array}
      */
-    referenceNames: ["scopes"],
+    referenceNames: ['scopes'],
     /**
      * Get the default props
      * @return {object} the default props
@@ -31502,7 +33189,7 @@ var QuickSearchComponent = {
         return {
             scopeSelectionHandler: this._scopeSelectionHandler,
             store: quickSearchStore,
-            scopeFacetKey: "FCT_SCOPE",
+            scopeFacetKey: 'FCT_SCOPE',
             lineComponentMapper: undefined,
             lineOperationList: undefined,
             groupComponent: undefined,
@@ -31518,15 +33205,15 @@ var QuickSearchComponent = {
      * @type {Object}
      */
     propTypes: {
-        scopeSelectionHandler: type("func"),
-        store: type("object"),
-        scopeFacetKey: type("string"),
-        lineComponentMapper: type("func"),
-        groupComponent: type("object"),
-        service: type("object"),
-        action: type("object"),
-        onLineClick: type("func"),
-        groupMaxRows: type("number")
+        scopeSelectionHandler: type('func'),
+        store: type('object'),
+        scopeFacetKey: type('string'),
+        lineComponentMapper: type('func'),
+        groupComponent: type('object'),
+        service: type('object'),
+        action: type('object'),
+        onLineClick: type('func'),
+        groupMaxRows: type('number')
     },
     /**
      * Register the store listeners
@@ -31537,7 +33224,7 @@ var QuickSearchComponent = {
         this._action = this.props.action || actionBuilder({
             service: this.props.service,
             identifier: this.props.store.identifier,
-            getSearchOptions: function () {
+            getSearchOptions: function getSearchOptions() {
                 return _this.props.store.getValue.call(_this.props.store);
             } // Binding the store in the function call
         });
@@ -31581,8 +33268,8 @@ var QuickSearchComponent = {
      */
     _renderSearchBar: function _renderSearchBar() {
         return React.createElement(SearchBar, {
-            "data-focus": "search-bar",
-            ref: "searchBar",
+            'data-focus': 'search-bar',
+            ref: 'searchBar',
             scopes: this.state.reference.scopes,
             loading: this.state.isLoading,
             action: this._action,
@@ -31615,8 +33302,8 @@ var QuickSearchComponent = {
      */
     render: function render() {
         return React.createElement(
-            "div",
-            { className: "search-panel", "data-focus": "quick-search" },
+            'div',
+            { className: 'search-panel', 'data-focus': 'quick-search' },
             this._renderSearchBar(),
             this._renderResults()
         );
@@ -31625,7 +33312,7 @@ var QuickSearchComponent = {
 
 module.exports = builder(QuickSearchComponent);
 
-},{"../../../common/form/mixin/reference-behaviour":328,"../../../common/mixin/store-behaviour":352,"../../../search/search-bar":412,"../common/component/results":399}],403:[function(require,module,exports){
+},{"../../../common/form/mixin/reference-behaviour":331,"../../../common/mixin/store-behaviour":355,"../../../search/search-bar":415,"../common/component/results":402}],406:[function(require,module,exports){
 "use strict";
 
 var DEFAULT_TIMEOUT = 500; // 0.5s
@@ -31656,52 +33343,52 @@ function actionWrapper(searchAction, context, timeout) {
 }
 module.exports = actionWrapper;
 
-},{}],404:[function(require,module,exports){
+},{}],407:[function(require,module,exports){
 // Components
-"use strict";
+'use strict';
 
-var searchHeaderMixin = require("./mixin");
+var searchHeaderMixin = require('./mixin');
 var React = window.React;
 module.exports = React.createClass({
-  displayName: "exports",
+  displayName: 'exports',
 
   mixins: [searchHeaderMixin],
   render: function render() {
     return React.createElement(
-      "div",
-      { className: "cartridge-search", "data-focus": "cartridge-search" },
+      'div',
+      { className: 'cartridge-search', 'data-focus': 'cartridge-search' },
       React.createElement(
-        "h1",
+        'h1',
         null,
-        this.i18n("search.cartridge.title")
+        this.i18n('search.cartridge.title')
       ),
       this._SearchBarComponent()
     );
   }
 });
 
-},{"./mixin":406}],405:[function(require,module,exports){
-"use strict";
+},{"./mixin":409}],408:[function(require,module,exports){
+'use strict';
 
 module.exports = {
-  actionWrapper: require("./action-wrapper"),
-  cartridge: require("./cartridge"),
-  summary: require("./summary"),
-  mixin: require("./mixin")
+  actionWrapper: require('./action-wrapper'),
+  cartridge: require('./cartridge'),
+  summary: require('./summary'),
+  mixin: require('./mixin')
 };
 
-},{"./action-wrapper":403,"./cartridge":404,"./mixin":406,"./summary":407}],406:[function(require,module,exports){
+},{"./action-wrapper":406,"./cartridge":407,"./mixin":409,"./summary":410}],409:[function(require,module,exports){
 // Mixins
 
-"use strict";
+'use strict';
 
-var i18nMixin = require("../../../../common/i18n").mixin;
-var referenceBehaviour = require("../../../../common/form/mixin/reference-behaviour");
-var storeBehaviour = require("../../../../common/mixin/store-behaviour");
+var i18nMixin = require('../../../../common/i18n').mixin;
+var referenceBehaviour = require('../../../../common/form/mixin/reference-behaviour');
+var storeBehaviour = require('../../../../common/mixin/store-behaviour');
 
 // Components
 
-var SearchBar = require("../../../../search/search-bar").component;
+var SearchBar = require('../../../../search/search-bar').component;
 
 // Actions
 
@@ -31713,7 +33400,7 @@ var advancedSearchStore = Focus.search.builtInStore.advancedSearchStore;
 
 module.exports = {
     mixins: [i18nMixin, referenceBehaviour, storeBehaviour],
-    referenceNames: ["scopes"],
+    referenceNames: ['scopes'],
     getDefaultProps: function getDefaultProps() {
         return {
             service: undefined,
@@ -31733,7 +33420,7 @@ module.exports = {
         this._action = this.props.action || actionBuilder({
             service: this.props.service,
             identifier: this.props.store.identifier,
-            getSearchOptions: function () {
+            getSearchOptions: function getSearchOptions() {
                 return _this.props.store.getValue.call(_this.props.store);
             } // Binding the store in the function call
         });
@@ -31751,7 +33438,7 @@ module.exports = {
     },
     _SearchBarComponent: function _SearchBarComponent() {
         return React.createElement(SearchBar, {
-            ref: "searchBar",
+            ref: 'searchBar',
             scopes: this.state.reference.scopes,
             loading: this.state.isLoading,
             action: this._action,
@@ -31760,14 +33447,14 @@ module.exports = {
     }
 };
 
-},{"../../../../common/form/mixin/reference-behaviour":328,"../../../../common/i18n":330,"../../../../common/mixin/store-behaviour":352,"../../../../search/search-bar":412}],407:[function(require,module,exports){
+},{"../../../../common/form/mixin/reference-behaviour":331,"../../../../common/i18n":333,"../../../../common/mixin/store-behaviour":355,"../../../../search/search-bar":415}],410:[function(require,module,exports){
 // Components
-"use strict";
+'use strict';
 
 var React = window.React;
-var searchHeaderMixin = require("./mixin");
+var searchHeaderMixin = require('./mixin');
 module.exports = React.createClass({
-    displayName: "exports",
+    displayName: 'exports',
 
     mixins: [searchHeaderMixin],
     render: function render() {
@@ -31775,10 +33462,10 @@ module.exports = React.createClass({
     }
 });
 
-},{"./mixin":406}],408:[function(require,module,exports){
+},{"./mixin":409}],411:[function(require,module,exports){
 // Dependencies
 
-"use strict";
+'use strict';
 
 var builder = window.Focus.component.builder;
 var React = window.React;
@@ -31788,21 +33475,21 @@ var numberFormatter = Focus.definition.formatter.number;
 var FacetData = {
     getDefaultProps: function getDefaultProps() {
         return {
-            type: "text"
+            type: 'text'
         };
     },
     /**
      * Display name.
      */
-    displayName: "facet-data",
+    displayName: 'facet-data',
     /**
      * Render the component.
      * @returns {XML} Html code of the component.
      */
     render: function render() {
         return React.createElement(
-            "div",
-            { "data-focus": "facet-data", onClick: this._selectFacetData },
+            'div',
+            { 'data-focus': 'facet-data', onClick: this._selectFacetData },
             this._renderData()
         );
     },
@@ -31811,10 +33498,10 @@ var FacetData = {
      * @returns {string} Html generated code.
      */
     _renderData: function _renderData() {
-        if (this.props.type == "text") {
-            return "" + this.props.data.label + " (" + numberFormatter.format(this.props.data.count) + ")";
+        if (this.props.type == 'text') {
+            return this.props.data.label + ' (' + numberFormatter.format(this.props.data.count) + ')';
         }
-        throw new ArgumentInvalidException("Unknown property type : " + this.props.type);
+        throw new ArgumentInvalidException('Unknown property type : ' + this.props.type);
     },
     /**
      * Facet selection action handler.
@@ -31827,28 +33514,28 @@ var FacetData = {
 
 module.exports = builder(FacetData);
 
-},{}],409:[function(require,module,exports){
+},{}],412:[function(require,module,exports){
 // Dependencies
 
-"use strict";
+'use strict';
 
 var builder = window.Focus.component.builder;
 var React = window.React;
-var keys = require("lodash/object/keys");
+var keys = require('lodash/object/keys');
 
 // Components
 
-var FacetData = require("./facet-data").component;
+var FacetData = require('./facet-data').component;
 
 var Facet = {
     /**
      * Component's mixins
      */
-    mixins: [require("../../common/i18n/mixin")],
+    mixins: [require('../../common/i18n/mixin')],
     /**
      * Display name.
      */
-    displayName: "facet",
+    displayName: 'facet',
     /**
      * Init the component state.
      * @returns {object} Initial state.
@@ -31872,17 +33559,17 @@ var Facet = {
      * @returns {XML} Html component code.
      */
     render: function render() {
-        var className = "facet";
+        var className = 'facet';
         if (this.props.selectedDataKey) {
-            className += "-selected";
+            className += '-selected';
         } else if (this.props.isExpanded) {
-            className += "-expanded";
+            className += '-expanded';
         } else {
-            className += "-collapsed";
+            className += '-collapsed';
         }
         return React.createElement(
-            "div",
-            { className: className, "data-focus": "facet" },
+            'div',
+            { className: className, 'data-focus': 'facet' },
             this._renderFacetTitle(),
             this._renderFacetDataList()
         );
@@ -31892,15 +33579,15 @@ var Facet = {
      * @returns {XML} Html component code.
      */
     _renderFacetTitle: function _renderFacetTitle() {
-        var title = this.i18n("live.filter.facets." + this.props.facetKey); // Default facet translation path is live.filter.facets.
+        var title = this.i18n('live.filter.facets.' + this.props.facetKey); // Default facet translation path is live.filter.facets.
         if (this.props.selectedDataKey) {
-            title += " : " + this.props.facet[this.props.selectedDataKey].label;
+            title += ' : ' + this.props.facet[this.props.selectedDataKey].label;
         }
         return React.createElement(
-            "div",
-            { "data-focus": "facet-title", onClick: this._facetTitleClickHandler },
+            'div',
+            { 'data-focus': 'facet-title', onClick: this._facetTitleClickHandler },
             React.createElement(
-                "h3",
+                'h3',
                 null,
                 title
             )
@@ -31927,18 +33614,18 @@ var Facet = {
         var _this = this;
 
         if (!this.props.isExpanded || this.props.selectedDataKey) {
-            return "";
+            return '';
         }
         var keysList = this.state.isShowAll ? keys(this.props.facet) : keys(this.props.facet).slice(0, this.props.nbDefaultDataList);
         return React.createElement(
-            "div",
-            { className: "", "data-focus": "facet-data-list" },
+            'div',
+            { className: '', 'data-focus': 'facet-data-list' },
             React.createElement(
-                "ul",
+                'ul',
                 null,
                 keysList.map(function (key) {
                     return React.createElement(
-                        "li",
+                        'li',
                         { key: key },
                         React.createElement(FacetData, { dataKey: key, data: _this.props.facet[key], selectHandler: _this._facetDataSelectionHandler,
                             type: _this.props.type })
@@ -31946,8 +33633,8 @@ var Facet = {
                 })
             ),
             React.createElement(
-                "div",
-                { "data-focus": "facet-data-show-all" },
+                'div',
+                { 'data-focus': 'facet-data-show-all' },
                 this._renderShowAllDataList()
             )
         );
@@ -31968,9 +33655,9 @@ var Facet = {
     _renderShowAllDataList: function _renderShowAllDataList() {
         if (!this.state.isShowAll && Object.keys(this.props.facet).length > this.props.nbDefaultDataList) {
             return React.createElement(
-                "a",
-                { href: "javascript:void(0);", "data-focus": "facet-show-all", onClick: this._showAllHandler },
-                this.i18n("show.all")
+                'a',
+                { href: 'javascript:void(0);', 'data-focus': 'facet-show-all', onClick: this._showAllHandler },
+                this.i18n('show.all')
             );
         }
     },
@@ -31984,28 +33671,26 @@ var Facet = {
 
 module.exports = builder(Facet);
 
-},{"../../common/i18n/mixin":331,"./facet-data":408,"lodash/object/keys":241}],410:[function(require,module,exports){
-"use strict";
-
-var _defineProperty = function (obj, key, value) { return Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); };
-
+},{"../../common/i18n/mixin":334,"./facet-data":411,"lodash/object/keys":241}],413:[function(require,module,exports){
 // Dependencies
+
+'use strict';
 
 var builder = window.Focus.component.builder;
 var React = window.React;
 var type = window.Focus.component.types;
-var assign = require("object-assign");
-var omit = require("lodash/object/omit");
+var assign = require('object-assign');
+var omit = require('lodash/object/omit');
 
 // Components
 
-var Facet = require("./facet").component;
-var Img = require("../../common/img").component;
+var Facet = require('./facet').component;
+var Img = require('../../common/img').component;
 
 // Mixins
 
-var stylable = require("../../mixin/stylable");
-var i18n = require("../../common/i18n/mixin");
+var stylable = require('../../mixin/stylable');
+var i18n = require('../../common/i18n/mixin');
 
 var FacetBox = {
     /**
@@ -32015,7 +33700,7 @@ var FacetBox = {
     /**
      * Display name.
      */
-    displayName: "facet-box",
+    displayName: 'facet-box',
     /**
      * Init the default properties
      * @returns {object} Initial properties.
@@ -32032,11 +33717,11 @@ var FacetBox = {
      * List property validation.
      */
     propTypes: {
-        facetList: type("object"),
-        selectedFacetList: type("object"),
-        openedFacetList: type("object"),
-        config: type("object"),
-        dataSelectionHandler: type("func")
+        facetList: type('object'),
+        selectedFacetList: type('object'),
+        openedFacetList: type('object'),
+        config: type('object'),
+        dataSelectionHandler: type('func')
     },
     /**
      * Init the state of the component.
@@ -32074,15 +33759,15 @@ var FacetBox = {
      * @returns {XML} Html code.
      */
     render: function render() {
-        var className = "";
+        var className = '';
         if (this.state.isExpanded) {
-            className += " expanded";
+            className += ' expanded';
         } else {
-            className += " collapsed";
+            className += ' collapsed';
         }
         return React.createElement(
-            "div",
-            { className: "" + (this._getStyleClassName() + className), "data-focus": "facet-box" },
+            'div',
+            { className: '' + (this._getStyleClassName() + className), 'data-focus': 'facet-box' },
             this._renderFacetBoxTitle(),
             this._renderFacetList()
         );
@@ -32092,13 +33777,13 @@ var FacetBox = {
      * @returns {XML} Html content.
      */
     _renderFacetBoxTitle: function _renderFacetBoxTitle() {
-        var title = this.state.isExpanded ? this.i18n("live.filter.title") : "";
+        var title = this.state.isExpanded ? this.i18n('live.filter.title') : '';
         //TODO onClick={this._facetBoxTitleClickHandler} (le repli doit aussi etre porté par le data-focus=advanced-search
         return React.createElement(
-            "div",
-            { "data-focus": "facet-box-heading", onClick: this._facetBoxTitleClickHandler },
+            'div',
+            { 'data-focus': 'facet-box-heading', onClick: this._facetBoxTitleClickHandler },
             React.createElement(
-                "h2",
+                'h2',
                 null,
                 title
             )
@@ -32112,11 +33797,11 @@ var FacetBox = {
         var _this = this;
 
         if (!this.state.isExpanded) {
-            return "";
+            return '';
         }
         return React.createElement(
-            "div",
-            { "data-focus": "facet-box-body" },
+            'div',
+            { 'data-focus': 'facet-box-body' },
             Object.keys(this.props.facetList).map(function (facetKey) {
                 var facet = _this.props.facetList[facetKey];
                 var selectedDataKey = _this.props.selectedFacetList[facetKey] ? _this.props.selectedFacetList[facetKey].key : undefined;
@@ -32151,7 +33836,9 @@ var FacetBox = {
         if (dataKey == undefined) {
             result.selectedFacetList = omit(this.props.selectedFacetList, facetKey);
         } else {
-            result.selectedFacetList = assign(this.props.selectedFacetList, _defineProperty({}, facetKey, { key: dataKey, data: data }));
+            var _assign;
+
+            result.selectedFacetList = assign(this.props.selectedFacetList, (_assign = {}, _assign[facetKey] = { key: dataKey, data: data }, _assign));
         }
         this.props.dataSelectionHandler(result);
     },
@@ -32169,32 +33856,32 @@ var FacetBox = {
 
 module.exports = builder(FacetBox);
 
-},{"../../common/i18n/mixin":331,"../../common/img":333,"../../mixin/stylable":384,"./facet":409,"lodash/object/omit":243,"object-assign":288}],411:[function(require,module,exports){
-"use strict";
+},{"../../common/i18n/mixin":334,"../../common/img":336,"../../mixin/stylable":387,"./facet":412,"lodash/object/omit":243,"object-assign":288}],414:[function(require,module,exports){
+'use strict';
 
 module.exports = {
-  facetBox: require("./facet-box"),
-  searchBar: require("./search-bar")
+  facetBox: require('./facet-box'),
+  searchBar: require('./search-bar')
 };
 
-},{"./facet-box":410,"./search-bar":412}],412:[function(require,module,exports){
+},{"./facet-box":413,"./search-bar":415}],415:[function(require,module,exports){
 // Dependencies
 
-"use strict";
+'use strict';
 
 var builder = window.Focus.component.builder;
 var type = window.Focus.component.types;
 var React = window.React;
-var actionWrapper = require("../../page/search/search-header/action-wrapper");
+var actionWrapper = require('../../page/search/search-header/action-wrapper');
 
 // Components
 
-var Scope = require("./scope").component;
+var Scope = require('./scope').component;
 
 // Mixins
 
-var stylable = require("../../mixin/stylable");
-var i18n = require("../../common/i18n/mixin");
+var stylable = require('../../mixin/stylable');
+var i18n = require('../../common/i18n/mixin');
 
 /**
  * SearchBar component
@@ -32202,14 +33889,14 @@ var i18n = require("../../common/i18n/mixin");
  */
 var SearchBar = {
     mixins: [i18n, stylable],
-    displayName: "SearchBar",
+    displayName: 'SearchBar',
     getDefaultProps: function getDefaultProps() {
         return {
-            placeholder: "Enter your search here...",
+            placeholder: 'Enter your search here...',
             scopes: [],
             minChar: 0,
             loading: false,
-            helpTranslationPath: "search.bar.help",
+            helpTranslationPath: 'search.bar.help',
             hasScopes: true,
             identifier: undefined,
             store: undefined,
@@ -32217,13 +33904,13 @@ var SearchBar = {
         };
     },
     propTypes: {
-        placeholder: type("string"),
-        value: type("string"),
-        scopes: type("array"),
-        minChar: type("number"),
-        loading: type("bool"),
-        helpTranslationPath: type("string"),
-        hasScopes: type("bool")
+        placeholder: type('string'),
+        value: type('string'),
+        scopes: type('array'),
+        minChar: type('number'),
+        loading: type('bool'),
+        helpTranslationPath: type('string'),
+        hasScopes: type('bool')
     },
     getInitialState: function getInitialState() {
         return {
@@ -32254,7 +33941,7 @@ var SearchBar = {
         });
     },
     _getClassName: function _getClassName() {
-        return "form-control";
+        return 'form-control';
     },
     _broadcastQueryChange: function _broadcastQueryChange() {
         var _this = this;
@@ -32281,20 +33968,20 @@ var SearchBar = {
         this.setState({ scope: scope });
     },
     _handleInputKeyPress: function _handleInputKeyPress(event) {
-        var _this = this;
+        var _this2 = this;
 
-        if (event.key === "Enter") {
+        if (event.key === 'Enter') {
             actionWrapper(function () {
-                _this.props.action.updateProperties({
-                    query: React.findDOMNode(_this.refs.query).value
+                _this2.props.action.updateProperties({
+                    query: React.findDOMNode(_this2.refs.query).value
                 });
             }, null, 0)();
         }
     },
     _renderHelp: function _renderHelp() {
         return React.createElement(
-            "div",
-            { className: "sb-help", ref: "help" },
+            'div',
+            { className: 'sb-help', ref: 'help' },
             this.i18n(this.props.helpTranslationPath)
         );
     },
@@ -32302,21 +33989,21 @@ var SearchBar = {
         React.findDOMNode(this.refs.query).focus();
     },
     render: function render() {
-        var loadingClassName = this.props.loading ? "sb-loading" : "";
-        var scopeClassName = this.props.hasScopes ? "withScopes" : "noScopes";
+        var loadingClassName = this.props.loading ? 'sb-loading' : '';
+        var scopeClassName = this.props.hasScopes ? 'withScopes' : 'noScopes';
         return React.createElement(
-            "div",
-            { className: "" + this._getStyleClassName() + " " + scopeClassName, "data-focus": "search-bar" },
+            'div',
+            { className: this._getStyleClassName() + ' ' + scopeClassName, 'data-focus': 'search-bar' },
             this.props.hasScopes && React.createElement(
-                "div",
-                { className: "sb-scope-choice" },
-                React.createElement(Scope, { onScopeSelection: this._onScopeSelection, list: this.props.scopes, ref: "scope", value: this.state.scope })
+                'div',
+                { className: 'sb-scope-choice' },
+                React.createElement(Scope, { onScopeSelection: this._onScopeSelection, list: this.props.scopes, ref: 'scope', value: this.state.scope })
             ),
             React.createElement(
-                "div",
-                { className: "sb-input-search" },
-                React.createElement("input", { autofocus: true, className: this._getClassName(), onKeyPress: this._handleInputKeyPress, onChange: this._onInputChange, ref: "query", type: "search", placeholder: this.props.placeholder, value: this.state.query }),
-                React.createElement("div", { className: "sb-spinner three-quarters-loader " + loadingClassName })
+                'div',
+                { className: 'sb-input-search' },
+                React.createElement('input', { autofocus: true, className: this._getClassName(), onKeyPress: this._handleInputKeyPress, onChange: this._onInputChange, ref: 'query', type: 'search', placeholder: this.props.placeholder, value: this.state.query }),
+                React.createElement('div', { className: 'sb-spinner three-quarters-loader ' + loadingClassName })
             ),
             this._renderHelp()
         );
@@ -32325,20 +34012,20 @@ var SearchBar = {
 
 module.exports = builder(SearchBar);
 
-},{"../../common/i18n/mixin":331,"../../mixin/stylable":384,"../../page/search/search-header/action-wrapper":403,"./scope":413}],413:[function(require,module,exports){
-"use strict";
+},{"../../common/i18n/mixin":334,"../../mixin/stylable":387,"../../page/search/search-header/action-wrapper":406,"./scope":416}],416:[function(require,module,exports){
+'use strict';
 
 var builder = window.Focus.component.builder;
 var type = window.Focus.component.types;
-var uuid = require("uuid");
-var find = require("lodash/collection/find");
+var uuid = require('uuid');
+var find = require('lodash/collection/find');
 
 var scopeMixin = {
     /**
      * Component tag name.
      * @type {String}
      */
-    displayName: "Scope",
+    displayName: 'Scope',
     /**
      * Component default properties.
      */
@@ -32355,9 +34042,9 @@ var scopeMixin = {
      * @type {Object}
      */
     propTypes: {
-        list: type("array"),
-        isDeployed: type("bool"),
-        value: type(["string", "number"])
+        list: type('array'),
+        isDeployed: type('bool'),
+        value: type(['string', 'number'])
     },
     /**
      * Get the initial state from the data.
@@ -32368,7 +34055,7 @@ var scopeMixin = {
         };
     },
     _getClassName: function _getClassName() {
-        return "form-control " + (this.props.className ? this.props.className : "");
+        return 'form-control ' + (this.props.className ? this.props.className : '');
     },
     _onScopeClickHandler: function _onScopeClickHandler(scope) {
         var _this = this;
@@ -32394,34 +34081,34 @@ var scopeMixin = {
     scopeStyle: function scopeStyle() {
         var activeScope = find(this.props.list, { code: this.props.value });
         if (!activeScope) {
-            return "sb-scope-none";
+            return 'sb-scope-none';
         }
-        return activeScope.style || "sb-scope sb-scope-" + activeScope.code;
+        return activeScope.style || 'sb-scope sb-scope-' + activeScope.code;
     },
     renderScopeList: function renderScopeList() {
-        var _this = this;
+        var _this2 = this;
 
         if (!this.state.isDeployed) {
             return;
         }
         var scopes = this.props.list.map(function (scope) {
-            var selectedValue = _this.props.value === scope.code ? "active" : "";
+            var selectedValue = _this2.props.value === scope.code ? 'active' : '';
             //Add defaut Style to scope if not define
             var scopeCss = scope.style;
             if (!scopeCss) {
-                scopeCss = "sb-scope sb-scope-" + scope.code;
+                scopeCss = 'sb-scope sb-scope-' + scope.code;
             }
             scope.style = scopeCss;
 
             return React.createElement(
-                "li",
-                { key: scope.code || uuid.v4(), className: "" + selectedValue + " " + scope.style, onClick: _this._onScopeClickHandler(scope) },
+                'li',
+                { key: scope.code || uuid.v4(), className: selectedValue + ' ' + scope.style, onClick: _this2._onScopeClickHandler(scope) },
                 scope.label
             );
         });
         return React.createElement(
-            "ul",
-            { className: "sb-scope-list" },
+            'ul',
+            { className: 'sb-scope-list' },
             scopes
         );
     },
@@ -32430,14 +34117,14 @@ var scopeMixin = {
      * @return {object} - The jsx element.
      */
     render: function render() {
-        var cssClass = "sb-scope-deploy " + (this.state.isDeployed ? "up" : "down");
+        var cssClass = 'sb-scope-deploy ' + (this.state.isDeployed ? 'up' : 'down');
         return React.createElement(
-            "div",
-            { className: this._getClassName(), "data-focus": "scope" },
+            'div',
+            { className: this._getClassName(), 'data-focus': 'scope' },
             React.createElement(
-                "div",
+                'div',
                 { className: cssClass, onClick: this._handleDeployClick },
-                React.createElement("div", { className: this.scopeStyle() })
+                React.createElement('div', { className: this.scopeStyle() })
             ),
             this.renderScopeList()
         );
@@ -32446,5 +34133,5 @@ var scopeMixin = {
 
 module.exports = builder(scopeMixin);
 
-},{"lodash/collection/find":57,"uuid":290}]},{},[1])(1)
+},{"lodash/collection/find":57,"uuid":293}]},{},[1])(1)
 });
