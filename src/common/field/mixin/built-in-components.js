@@ -1,24 +1,24 @@
 // Dependencies
 
-let React = require('react');
-let type = require('focus').component.types;
-let find = require('lodash/collection/find');
-let result = require('lodash/object/result');
-let assign = require('object-assign');
+const React = require('react');
+const type = require('focus').component.types;
+const find = require('lodash/collection/find');
+const result = require('lodash/object/result');
+const assign = require('object-assign');
 // Components
 
-let InputText = require('../../input/text').component;
-let DisplayText = require('../../display/text').component;
-let SelectClassic = require('../../select/classic').component;
-let Label = require('../../label').component;
+const InputText = require('../../input/text').component;
+const DisplayText = require('../../display/text').component;
+const SelectClassic = require('../../select/classic').component;
+const Label = require('../../label').component;
 
 // Mixins
 
-let fieldGridBehaviourMixin = require('../../mixin/field-grid-behaviour');
+const fieldGridBehaviourMixin = require('../../mixin/field-grid-behaviour');
 
-let fieldBuiltInComponentsMixin = {
+const fieldBuiltInComponentsMixin = {
     mixins: [fieldGridBehaviourMixin],
-    getDefaultProps() {
+    getDefaultProps(){
         return {
             /**
             * Does the component has a Label.
@@ -123,10 +123,9 @@ let fieldBuiltInComponentsMixin = {
         if (this.props.FieldComponent || this.props.InputLabelComponent) {
             return this.renderFieldComponent();
         }
-        let {value, values} = this.state;
+        let {value} = this.state;
         let buildedSelectProps = assign({}, this.props, {
             value: value,
-            values: values,
             style: this._buildStyle(),
             onChange: this.onInputChange,
             ref: 'input'

@@ -3,6 +3,8 @@ logs
 *.log
 .idea
 
+# ignore showcase
+showcase/*
 
 # Runtime data
 pids

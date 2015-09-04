@@ -1,22 +1,20 @@
 // Dependencies
 
-let builder = require('focus').component.builder;
-let React = require('react');
-let checkIsNotNull = require('focus').util.object.checkIsNotNull;
-let type = require('focus').component.types;
-let find = require('lodash/collection/find');
+const {checkIsNotNull} = require('focus').util.object;
+const {builder, types} = require('focus').component;
+const find = require('lodash/collection/find');
 
 // Mixins
 
-let translationMixin = require('../../common/i18n').mixin;
-let infiniteScrollMixin = require('../mixin/infinite-scroll').mixin;
-let referenceMixin = require('../../common/mixin/reference-property');
+const translationMixin = require('../../common/i18n').mixin;
+const infiniteScrollMixin = require('../mixin/infinite-scroll').mixin;
+const referenceMixin = require('../../common/mixin/reference-property');
 
 // Components
 
-let Button = require('../../common/button/action').component;
+const Button = require('../../common/button/action').component;
 
-let listMixin = {
+const listMixin = {
     /**
     * Display name.
     */
@@ -48,17 +46,18 @@ let listMixin = {
     * @type {Object}
     */
     propTypes: {
-        data: type('array'),
-        idField: type('string'),
-        isLoading: type('bool'),
-        isSelection: type('bool'),
-        lineComponent: type('func', true),
-        loader: type('func'),
-        onLineClick: type('func'),
-        onSelection: type('func'),
-        operationList: type('array'),
-        selectionData: type('array'),
-        selectionStatus: type('string')
+        buttonComponent: types('func'),
+        data: types('array'),
+        idField: types('string'),
+        isLoading: types('bool'),
+        isSelection: types('bool'),
+        lineComponent: types('func', true),
+        loader: types('func'),
+        onLineClick: types('func'),
+        onSelection: types('func'),
+        operationList: types('array'),
+        selectionData: types('array'),
+        selectionStatus: types('string')
     },
 
     /**
@@ -73,10 +72,10 @@ let listMixin = {
     * @return {Array} selected items
     */
     getSelectedItems() {
-        let selected = [];
+        const selected = [];
         for(let i = 1; i < this.props.data.length + 1; i++){
-            let lineName = 'line' + i;
-            let lineValue = this.refs[lineName].getValue();
+            const lineName = 'line' + i;
+            const lineValue = this.refs[lineName].getValue();
             if(lineValue.isSelected){
                 selected.push(lineValue.item);
             }
@@ -90,54 +89,62 @@ let listMixin = {
     */
     _renderLines() {
         let lineCount = 1;
-        let {data, lineComponent, selectionStatus, idField, isSelection, selectionData, onSelection, onLineClick, operationList} = this.props;
+        const {data, lineComponent: Line, selectionData, idField, selectionStatus} = this.props;
         return data.map((line) => {
             let isSelected;
-            let selection = find(selectionData, {[idField]: line[idField]});
+            const selection = find(selectionData, {[idField]: line[idField]});
             if (selection) {
                 isSelected = selection.isSelected;
             } else {
                 switch(selectionStatus){
                     case 'none':
                         isSelected = false;
-                        break;
+                    break;
                     case 'selected':
                         isSelected = true;
-                        break;
+                    break;
                     case 'partial':
                         isSelected = undefined;
-                        break;
+                    break;
                     default:
                         isSelected = false;
                 }
             }
-            return React.createElement(lineComponent, {
-                key: line[idField],
-                data: line,
-                ref: `line${lineCount++}`,
-                isSelection: isSelection,
-                isSelected: isSelected,
-                onSelection: onSelection,
-                onLineClick: onLineClick,
-                operationList: operationList,
-                reference: this._getReference()
-            });
+            return (
+                <Line
+                    data={line}
+                    isSelected={isSelected}
+                    key={line[idField]}
+                    ref={`line${lineCount++}`}
+                    reference={this._getReference()}
+                    {...this.props}
+                    />
+            );
         });
     },
+    /**
+    * Render loading state
+    * @return {HTML} the loading state
+    */
     _renderLoading() {
-        if(this.props.isLoading){
-            if(this.props.loader){
-                return this.props.loader();
+        const {isLoading, loader} = this.props;
+        if(isLoading){
+            if(loader){
+                return loader();
             }
             return (
                 <li className='sl-loading'>{this.i18n('list.loading')} ...</li>
             );
         }
     },
-
+    /**
+    * Render manual fetch state
+    * @return {HTML} the rendered manual fetch state
+    */
     _renderManualFetch() {
-        if(this.props.isManualFetch && this.props.hasMoreData){
-            let style = {className: 'primary'};
+        const {isManualFetch, hasMoreData} = this.props;
+        if(isManualFetch && hasMoreData){
+            const style = {className: 'primary'};
             return (
                 <li className='sl-button'>
                     <Button
@@ -145,7 +152,7 @@ let listMixin = {
                         label='list.button.showMore'
                         style={style}
                         type='button'
-                    />
+                        />
                 </li>
             );
         }

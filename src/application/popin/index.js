@@ -1,15 +1,15 @@
 // Dependencies
 
-let React = require('react');
-let builder = require('focus').component.builder;
-let types = require('focus').component.types;
-let ArgumentInvalidException = require('focus').exception.ArgumentInvalidException;
-let includes = require('lodash').includes;
+const React = require('react');
+const builder = require('focus').component.builder;
+const types = require('focus').component.types;
+const ArgumentInvalidException = require('focus').exception.ArgumentInvalidException;
+const includes = require('lodash').includes;
 
 /**
  * Small overlay component used to listen to scroll and prevent it to leave the Popin component
  */
-let Overlay = React.createClass({
+const Overlay = React.createClass({
     displayName: 'popin-overlay',
     propTypes: {
         children: types('object'),
@@ -51,8 +51,8 @@ let Overlay = React.createClass({
      * @private
      */
     _onScroll(event) {
-        let target = event.target;
-        let direction = 0 > event.wheelDeltaY ? 'down' : 'up';
+        const target = event.target;
+        const direction = 0 > event.wheelDeltaY ? 'down' : 'up';
         // Test if scrolling down the lower limit
         if (target.clientHeight + target.scrollTop === target.scrollHeight && 'down' === direction) {
             event.preventDefault();
@@ -80,7 +80,7 @@ let Overlay = React.createClass({
  * The popin component configuration
  * @type {Object}
  */
-let popin = {
+const popin = {
     /**
      * Init the component.
      * The popin is closed by default.
@@ -136,8 +136,8 @@ let popin = {
         const {opened} = this.state;
         const {onPopinClose} = this.props;
         if (opened) {
-            let popinWindow = React.findDOMNode(this.refs['popin-window']);
-            let popinOverlay = React.findDOMNode(this.refs['popin-overlay']);
+            const popinWindow = React.findDOMNode(this.refs['popin-window']);
+            const popinOverlay = React.findDOMNode(this.refs['popin-overlay']);
             popinWindow.classList.remove(popinWindow.getAttribute('data-animation'));
             popinWindow.classList.add(popinWindow.getAttribute('data-closing-animation'));
             popinOverlay.classList.remove(popinOverlay.getAttribute('data-animation'));
@@ -151,7 +151,7 @@ let popin = {
             // Store the current popin state
             const wasOpened = this.state.opened;
             // If it was  opened, then we are closing it, so restore the body overflow before closing.
-            if (wasOpened) {
+            if (wasOpened && this.refs['popin-overlay']) {
                 this.refs['popin-overlay']._restoreBodyOverflow();
             }
             this.setState({

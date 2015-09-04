@@ -1,19 +1,24 @@
-/**@jsx*/
-let React = require('react');
-let builder = require('focus').component.builder;
-let type = require('focus').component.types;
-let ContextualActions = require('../action-contextual').component;
-let CheckBox = require('../../common/input/checkbox').component;
-let translationMixin = require('../../common/i18n').mixin;
-let referenceMixin = require('../../common/mixin/reference-property');
-let definitionMixin = require('../../common/mixin/definition');
-let builtInComponentsMixin = require('../mixin/built-in-components');
+// Dependencies
 
-let lineMixin = {
+const {types} = require('focus').component;
+
+// Components
+
+const ContextualActions = require('../action-contextual').component;
+const CheckBox = require('../../common/input/checkbox').component;
+
+// Mixins
+
+const translationMixin = require('../../common/i18n').mixin;
+const referenceMixin = require('../../common/mixin/reference-property');
+const definitionMixin = require('../../common/mixin/definition');
+const builtInComponentsMixin = require('../mixin/built-in-components');
+
+const lineMixin = {
     /**
     * React component name.
     */
-    displayName: 'selection-line',
+    displayName: 'ListLine',
 
     /**
     * Mixin dependancies.
@@ -21,10 +26,10 @@ let lineMixin = {
     mixins: [translationMixin, definitionMixin, referenceMixin, builtInComponentsMixin],
 
     /**
-    * Default properties for the line.
-    * @returns {{isSelection: boolean}}
-    */
-    getDefaultProps: function getLineDefaultProps(){
+     * Get default props
+     * @return {object} default props
+     */
+    getDefaultProps(){
         return {
             isSelection: true,
             operationList: []
@@ -36,78 +41,78 @@ let lineMixin = {
     * @type {Object}
     */
     propTypes: {
-        data: type('object'),
-        isSelected: type('bool'),
-        isSelection: type('bool'),
-        onLineClick: type('func'),
-        onSelection: type('func'),
-        operationList: type('array')
+        data: types('object'),
+        isSelected: types('bool'),
+        isSelection: types('bool'),
+        onLineClick: types('func'),
+        onSelection: types('func'),
+        operationList: types('array')
     },
 
     /**
     * State initialization.
-    * @returns {{isSelected: boolean, lineItem: *}}
+    * @return {object} initial state
     */
-    getInitialState: function getLineInitialState(){
+    getInitialState() {
         return {
             isSelected: this.props.isSelected || false
         };
     },
 
     /**
-    * Update properties on component.
-    * @param nextProps next properties
-    */
-    componentWillReceiveProps: function(nextProps) {
-        if(nextProps.isSelected !== undefined){
-            this.setState({isSelected: nextProps.isSelected});
+     * Component will receive props
+     * @param  {object} nextProps new component's props
+     */
+    componentWillReceiveProps({isSelected}) {
+        if (isSelected !== undefined) {
+            this.setState({isSelected});
         }
     },
 
     /**
     * Get the line value.
-    * @returns {{item: *, isSelected: (*|isSelected|boolean)}}
+    * @return {object} the line value
     */
-    getValue: function getLineValue(){
-        return {
-            item : this.props.data,
-            isSelected: this.state.isSelected
-        };
+    getValue() {
+        const {data: item, isSelected} = this.props;
+        return {item, isSelected};
     },
 
     /**
     * Selection Click handler.
-    * @param event
     */
-    _handleSelectionClick: function handleSelectionClick(event){
-        let select = !this.state.isSelected;
-        this.setState({isSelected:select});
-        if(this.props.onSelection){
-            this.props.onSelection(this.props.data,select);
+    _handleSelectionClick() {
+        const isSelected = !this.state.isSelected;
+        const {data, onSelection} = this.props;
+        this.setState({isSelected});
+        if(onSelection){
+            onSelection(data, isSelected);
         }
     },
 
     /**
     * Line Click handler.
-    * @param event
     */
-    _handleLineClick: function handleLineClick(event){
-        if(this.props.onLineClick){
-            this.props.onLineClick(this.props.data);
+    _handleLineClick() {
+        const {data, onLineClick} = this.props;
+        if(onLineClick){
+            onLineClick(data);
         }
     },
 
     /**
     * Render the left box for selection
-    * @returns {XML}
+    * @return {XML} the rendered selection box
     */
-    _renderSelectionBox: function renderSelectionBox(){
-        if(this.props.isSelection){
-            let selectionClass = this.state.isSelected? 'selected' : 'no-selection';
-            //let image = this.state.isSelected? undefined : <img src={this.state.lineItem[this.props.iconfield]}/>
-            return(
+    _renderSelectionBox() {
+        const {isSelection} = this.props;
+        const {isSelected} = this.state;
+        if (isSelection) {
+            const selectionClass = isSelected ? 'selected' : 'no-selection';
+            //const image = this.state.isSelected? undefined : <img src={this.state.lineItem[this.props.iconfield]}/>
+            return (
                 <div className={`sl-selection ${selectionClass}`}>
-                    <CheckBox value={this.state.isSelected} onChange={this._handleSelectionClick}/>
+                    <CheckBox onChange={this._handleSelectionClick} value={isSelected}/>
                 </div>
             );
         }
@@ -116,29 +121,33 @@ let lineMixin = {
 
     /**
     * render content for a line.
-    * @returns {*}
+    * @return {XML} the rendered line content
     */
-    _renderLineContent: function renderLineContent(){
-        if(this.renderLineContent){
-            return this.renderLineContent(this.props.data);
-        }else{
+    _renderLineContent() {
+        const {data} = this.props;
+        const {title, body} = data;
+        if (this.renderLineContent) {
+            return this.renderLineContent(data);
+        } else {
             return (
                 <div>
-                    <div>{this.props.data.title}</div>
-                    <div>{this.props.data.body}</div>
+                    <div>{title}</div>
+                    <div>{body}</div>
                 </div>
             );
         }
     },
 
     /**
-    * Render actions wich can be applied on the line
+    * Render actions which can be applied on the line
+    * @return {XML} the rendered actions
     */
-    _renderActions: function renderLineActions(){
-        if(this.props.operationList.length > 0){
+    _renderActions() {
+        const props = {operationParam: this.props.data, ...this.props};
+        if (0 < props.operationList.length) {
             return (
                 <div className='sl-actions'>
-                    <ContextualActions operationList={this.props.operationList} operationParam={this.props.data}/>
+                    <ContextualActions {...props}/>
                 </div>
             );
         }
@@ -146,12 +155,12 @@ let lineMixin = {
 
     /**
     * Render line in list.
-    * @returns {*}
+    *  @return {XML} the rendered line
     */
-    render: function renderLine(){
+    render() {
         if(this.renderLine){
             return this.renderLine();
-        }else{
+        } else {
             return (
                 <li data-focus='sl-line'>
                     {this._renderSelectionBox()}
@@ -165,4 +174,4 @@ let lineMixin = {
     }
 };
 
-module.exports = {mixin : lineMixin};
+module.exports = {mixin: lineMixin};
