@@ -1,0 +1,22 @@
+{
+  "name": "facet-box",
+  "version": "1.0.0",
+  "description": "Facet box. Displayed as a panel where the user can select facet values.",
+  "main": "index.js",
+  "directories": {
+    "example": "example"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "facet",
+    "search",
+    "panel",
+    "input",
+    "filter",
+    "dumb"
+  ],
+  "author": "focus@kleegroup.com",
+  "license": "MIT"
+}
