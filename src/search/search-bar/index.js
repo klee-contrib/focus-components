@@ -23,7 +23,7 @@ let SearchBar = {
     displayName: 'SearchBar',
     getDefaultProps() {
         return {
-            placeholder: 'Enter your search here...',
+            placeholder: 'search.bar.placeholder',
             scopes: [],
             minChar: 0,
             loading: false,
@@ -124,7 +124,7 @@ let SearchBar = {
                     </div>
                 }
                 <div className='sb-input-search'>
-                    <input autofocus className={this._getClassName()} onKeyPress={this._handleInputKeyPress} onChange={this._onInputChange} ref='query' type='search' placeholder={this.props.placeholder} value={this.state.query}/>
+                    <input autofocus className={this._getClassName()} onKeyPress={this._handleInputKeyPress} onChange={this._onInputChange} ref='query' type='search' placeholder={this.i18n(this.props.placeholder)} value={this.state.query}/>
                     <div className={`sb-spinner three-quarters-loader ${loadingClassName}`}></div>
                 </div>
                 {this._renderHelp()}
