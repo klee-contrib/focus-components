@@ -45,6 +45,7 @@ const actionContextualMixin = {
         const {operationList, operationParam} = this.props;
         return event => {
             event.preventDefault();
+            event.stopPropagation();
             if (operationParam) {
                 operationList[key].action(operationParam);
             } else {
