@@ -245,7 +245,7 @@
     "dependencies": {
         "babel-core": "^5.8.22",
         "eslint-config-focus": "0.2.0",
-        "focusjs": "^0.8.2-beta",
+        "focusjs": "0.9.0-1",
         "immutable": "^3.7.4",
         "lodash": "^3.10.1",
         "moment": "^2.10.6",
