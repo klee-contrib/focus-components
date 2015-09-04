@@ -14,6 +14,8 @@ example/js/assets.js
 example/js/browser.js
 .idea
 
+# ignore showcase
+showcase/*
 
 # Runtime data
 pids
