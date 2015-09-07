@@ -1,0 +1,19 @@
+{
+  "name": "input-textarea",
+  "version": "1.0.0",
+  "description": "Example of input textarea use",
+  "main": "index.js",
+  "directories": {
+    "example": "example"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "input",
+    "text",
+    "textarea"
+  ],
+  "author": "focus@kleegroup",
+  "license": "MIT"
+}
