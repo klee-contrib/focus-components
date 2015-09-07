@@ -1,32 +1,33 @@
 // Dependencies
 
-let type = require('focus').component.types;
-let builder = require('focus').component.builder;
+const type = require('focus').component.types;
+const builder = require('focus').component.builder;
+const style = require('./style');
 
 // Components
 
-let SearchBar = require('../../../search/search-bar').component;
-let Results = require('../common/component/results').component;
+const SearchBar = require('../../../search/search-bar').component;
+const Results = require('../common/component/results').component;
 
 // Mixins
 
-let referenceBehaviour = require('../../../common/form/mixin/reference-behaviour');
-let storeBehaviour = require('../../../common/mixin/store-behaviour');
+const referenceBehaviour = require('../../../common/form/mixin/reference-behaviour');
+const storeBehaviour = require('../../../common/mixin/store-behaviour');
 
 // Actions
 
-let actionBuilder = Focus.search.actionBuilder;
+const actionBuilder = Focus.search.actionBuilder;
 
 // Stores
 
-let quickSearchStore = Focus.search.builtInStore.quickSearchStore;
+const quickSearchStore = Focus.search.builtInStore.quickSearchStore;
 
 /**
  * General search mixin.
  * Contains a search bar, and a results list.
  * @type {Object}
  */
-let QuickSearchComponent = {
+const QuickSearchComponent = {
     /**
      * Component's mixins
      * @type {Array}
@@ -79,24 +80,29 @@ let QuickSearchComponent = {
      * Register the store listeners
      */
     componentWillMount() {
-        this._action = this.props.action || actionBuilder({
-            service: this.props.service,
-            identifier: this.props.store.identifier,
-            getSearchOptions: () => {return this.props.store.getValue.call(this.props.store); } // Binding the store in the function call
+        const {action, service, store} = this.props;
+        this._action = action || actionBuilder({
+            service: service,
+            identifier: store.identifier,
+            getSearchOptions: () => {return store.getValue.call(store); } // Binding the store in the function call
         });
         this._loadReference();
-        this.props.store.addQueryChangeListener(this._triggerSearch);
-        this.props.store.addScopeChangeListener(this._triggerSearch);
-        this.props.store.addResultsChangeListener(this._onResultsChange);
+        store.addQueryChangeListener(this._triggerSearch);
+        store.addScopeChangeListener(this._triggerSearch);
+        store.addResultsChangeListener(this._onResultsChange);
     },
     /**
      * Unregister the store listeners
      */
     componentWillUnmount() {
-        this.props.store.removeQueryChangeListener(this._triggerSearch);
-        this.props.store.removeScopeChangeListener(this._triggerSearch);
-        this.props.store.removeResultsChangeListener(this._onResultsChange);
+        const {store} = this.props;
+        store.removeQueryChangeListener(this._triggerSearch);
+        store.removeScopeChangeListener(this._triggerSearch);
+        store.removeResultsChangeListener(this._onResultsChange);
     },
+    /**
+     * Trigger search
+     */
     _triggerSearch() {
         this._action.search();
     },
@@ -104,9 +110,10 @@ let QuickSearchComponent = {
      * Results change handler
      */
     _onResultsChange() {
-        let resultsMap = this.props.store.getResults();
-        let facets = this.props.store.getFacets();
-        let totalCount = this.props.store.getTotalCount();
+        const {store} = this.props;
+        const resultsMap = store.getResults();
+        const facets = store.getFacets();
+        const totalCount = store.getTotalCount();
         this.setState({resultsMap, facets, totalCount});
     },
     /**
@@ -123,14 +130,16 @@ let QuickSearchComponent = {
      * @returns {HTML} the rendered component
      */
     _renderSearchBar() {
+        const {store} = this.props;
+        const {isLoading, reference: {scopes}} = this.state;
         return (
             <SearchBar
-                data-focus='search-bar'
-                ref='searchBar'
-                scopes={this.state.reference.scopes}
-                loading={this.state.isLoading}
                 action={this._action}
-                store={this.props.store}
+                data-focus='search-bar'
+                loading={isLoading}
+                ref='searchBar'
+                scopes={scopes}
+                store={store}
                 />
         );
     },
@@ -139,20 +148,22 @@ let QuickSearchComponent = {
      * @returns {HTML} the rendered component
      */
     _renderResults() {
+        const {groupComponent, groupMaxRows, lineComponentMapper, lineOperationList, scrollParentSelector, scopeFacetKey} = this.props;
+        const {facets, resultsMap, totalCount} = this.state;
         return (
             <Results
-                resultsMap={this.state.resultsMap}
-                totalCount={this.state.totalCount}
-                resultsFacets={this.state.facets}
-                groupComponent={this.props.groupComponent}
-                lineComponentMapper={this.props.lineComponentMapper}
+                action={this._action}
+                groupComponent={groupComponent}
+                groupingKey={scopeFacetKey}
+                initialRowsCount={groupMaxRows}
                 isSelection={false}
                 lineClickHandler={this._lineClickHandler}
-                lineOperationList={this.props.lineOperationList}
-                groupingKey={this.props.scopeFacetKey}
-                initialRowsCount={this.props.groupMaxRows}
-                action={this._action}
-                scrollParentSelector={this.props.scrollParentSelector}
+                lineComponentMapper={lineComponentMapper}
+                lineOperationList={lineOperationList}
+                resultsFacets={facets}
+                resultsMap={resultsMap}
+                scrollParentSelector={scrollParentSelector}
+                totalCount={totalCount}
             />
         );
     },
@@ -162,9 +173,13 @@ let QuickSearchComponent = {
      */
     render() {
         return (
-            <div className='search-panel' data-focus='quick-search'>
-                {this._renderSearchBar()}
-                {this._renderResults()}
+            <div data-focus='quick-search'>
+                <div>
+                    {this._renderSearchBar()}
+                </div>
+                <div style={style.results}>
+                    {this._renderResults()}
+                </div>
             </div>
         );
     }
