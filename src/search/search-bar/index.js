@@ -1,24 +1,26 @@
 // Dependencies
 
-let builder = require('focus').component.builder;
-let type = require('focus').component.types;
-let React = require('react');
-let actionWrapper = require('../../page/search/search-header/action-wrapper');
+const builder = require('focus').component.builder;
+const type = require('focus').component.types;
+const React = require('react');
+const actionWrapper = require('../../page/search/search-header/action-wrapper');
+const {bar: style} = require('./style');
 
 // Components
 
-let Scope = require('./scope').component;
+const Scope = require('./scope').component;
+const Input = require('../../common/input/text').component;
 
 // Mixins
 
-let stylable = require('../../mixin/stylable');
-let i18n = require('../../common/i18n/mixin');
+const stylable = require('../../mixin/stylable');
+const i18n = require('../../common/i18n/mixin');
 
 /**
  * SearchBar component
  * @type {Object}
  */
-let SearchBar = {
+const SearchBar = {
     mixins: [i18n, stylable],
     displayName: 'SearchBar',
     getDefaultProps() {
@@ -71,9 +73,6 @@ let SearchBar = {
             scope: this.props.store.getScope()
         });
     },
-    _getClassName() {
-        return `form-control`;
-    },
     _broadcastQueryChange() {
         actionWrapper(() => {
             this.props.action.updateProperties({
@@ -81,9 +80,10 @@ let SearchBar = {
             });
         })();
     },
-    _onInputChange(event) {
-        this.setState({query: event.target.value});
-        if (event.target.value.length >= this.props.minChar) {
+    _onInputChange({target: {value: query}}) {
+        this.setState({query});
+        const {minChar} = this.props;
+        if (query.length >= minChar) {
             this._broadcastQueryChange();
         }
     },
@@ -97,7 +97,7 @@ let SearchBar = {
         this.setState({scope});
     },
     _handleInputKeyPress(event) {
-        if (event.key === 'Enter') {
+        if ('Enter' === event.key) {
             actionWrapper(() => {
                 this.props.action.updateProperties({
                     query: React.findDOMNode(this.refs.query).value
@@ -107,23 +107,25 @@ let SearchBar = {
     },
     _renderHelp() {
         return (
-            <div className='sb-help' ref='help'>{this.i18n(this.props.helpTranslationPath)}</div>
+            <div ref='help' style={style.help}>{this.i18n(this.props.helpTranslationPath)}</div>
         );
     },
     _focusQuery() {
         React.findDOMNode(this.refs.query).focus();
     },
     render() {
-        let loadingClassName = this.props.loading ? 'sb-loading' : '';
-        let scopeClassName = this.props.hasScopes ? 'withScopes' : 'noScopes';
+        const {loading, hasScopes, placeholder, scopes} = this.props;
+        const {query, scope} = this.state;
         return (
-            <div className={`${this._getStyleClassName()} ${scopeClassName}`} data-focus='search-bar'>
-                {this.props.hasScopes &&
-                    <Scope list={this.props.scopes} onScopeSelection={this._onScopeSelection} ref='scope' value={this.state.scope}/>
+            <div data-focus='search-bar' style={style.parent}>
+                {hasScopes &&
+                    <Scope list={scopes} onScopeSelection={this._onScopeSelection} ref='scope' value={scope}/>
                 }
-                <div className='sb-input-search'>
-                    <input autofocus className={this._getClassName()} onKeyPress={this._handleInputKeyPress} onChange={this._onInputChange} ref='query' type='search' placeholder={this.props.placeholder} value={this.state.query}/>
-                    <div className={`sb-spinner three-quarters-loader ${loadingClassName}`}></div>
+                <div style={style.inputZone}>
+                    <Input onChange={this._onInputChange} onKeyPress={this._handleInputKeyPress} placeholder={placeholder} ref='query' value={query}/>
+                    {loading &&
+                        <div className={`sb-spinner three-quarters-loader`} style={style.loader}/>
+                    }
                 </div>
                 {this._renderHelp()}
             </div>

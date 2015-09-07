@@ -120,7 +120,7 @@ const scopeMixin = {
     render() {
         const {isDeployed} = this.state;
         return (
-            <div data-focus='scope' style={style.parent}>
+            <div data-focus='scope'>
                 <div style={style.visible}>
                     <div onClick={this._handleDeployClick} style={style.selectedScope}>
                         <div className={this.getScopeClassname()} />
