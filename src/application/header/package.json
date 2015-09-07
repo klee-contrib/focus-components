@@ -1,0 +1,21 @@
+{
+  "name": "header",
+  "version": "1.0.0",
+  "description": "Header component listening to the scroll and dynamically changes the size with custom attributes.",
+  "main": "index.js",
+  "directories": {
+    "example": "example"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "header",
+    "resize",
+    "scroll",
+    "layout",
+    "app"
+  ],
+  "author": "fovus@kleegroup.com\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[c",
+  "license": "MIT"
+}
