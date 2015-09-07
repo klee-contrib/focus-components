@@ -3,7 +3,7 @@ const React = require('react');
 const types = require('focus').component.types;
 const i18nBehaviour = require('../../i18n/mixin');
 const mdlBehaviour = require('../../mixin/mdl-behaviour');
-const uuid = require('uuid').v4;
+const {uniqueId} = require('lodash/utility');
 const InputRadio = require('../../input/radio').component;
 
 const selectRadioMixin = {
@@ -33,7 +33,7 @@ const selectRadioMixin = {
     /** @inheritdoc */
     getInitialState() {
         return {
-            guid: uuid(),
+            uniqueName: uniqueId('options_'),
             value: this.props.value
         };
     },
@@ -80,13 +80,13 @@ const selectRadioMixin = {
     * @return {XML} the different radio values
     */
     renderSelectRadios() {
-        const {guid} = this.state;
+        const {uniqueName} = this.state;
         return this.props.values.map((val, idx)=>{
             const value = val[this.props.valueKey];
             const label = val[this.props.labelKey];
             const isChecked = value === this.state.value;
             return (
-                <InputRadio key={idx} label={this.i18n(label)} name={guid} onChange={this._getRadioChangeHandler(value)} value={isChecked} />
+                <InputRadio key={idx} label={this.i18n(label)} name={uniqueName} onChange={this._getRadioChangeHandler(value)} value={isChecked} />
             );
         });
     },
