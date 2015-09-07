@@ -12,6 +12,9 @@ const style = {
             paddingRight: '10px',
             backgroundColor: 'rgba(0, 0, 0, 0.1)'
         },
+        inputField: {
+            marginTop: '-3px'
+        },
         loader: {
             position: 'absolute',
             right: '10px',

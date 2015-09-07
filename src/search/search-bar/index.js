@@ -171,7 +171,7 @@ const SearchBar = {
                     <Scope list={scopes} onScopeSelection={this._onScopeSelection} ref='scope' value={scope}/>
                 }
                 <div style={style.inputZone}>
-                    <Input onChange={this._onInputChange} onKeyPress={this._handleInputKeyPress} placeholder={placeholder} ref='query' value={query}/>
+                    <Input onChange={this._onInputChange} onKeyPress={this._handleInputKeyPress} placeholder={placeholder} ref='query' style={style.inputField} value={query}/>
                     {loading &&
                         <div className={`sb-spinner three-quarters-loader`} style={style.loader}/>
                     }
