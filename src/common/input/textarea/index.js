@@ -1,13 +1,14 @@
 const {builder, types} = require('focus').component;
 const React = require('react');
 const i18nBehaviour = require('../../i18n/mixin');
+const mdlBehaviour = require('../../mixin/mdl-behaviour');
 
 /**
 *
 * @type {Object}
 */
 const textAreaMixin = {
-    mixins: [i18nBehaviour],
+    mixins: [i18nBehaviour, mdlBehaviour],
     /**
     * Gets the default props.
     * @return {object} default props
