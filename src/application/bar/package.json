@@ -1,0 +1,18 @@
+{
+  "name": "bar",
+  "version": "1.0.0",
+  "description": "bar component containing different components which can be updated dynamically. SummaryComponent, BarLeft,BarRight.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "summary",
+    "bar",
+    "header",
+    "barContentLeft",
+    "barContentRight."
+  ],
+  "author": "focus@kleegroup.com",
+  "license": "MIT"
+}
