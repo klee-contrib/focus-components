@@ -1,18 +1,16 @@
-const {builder, types} = require('focus').component;
 const React = require('react');
+const {builder, types} = require('focus').component;
 const i18nBehaviour = require('../../i18n/mixin');
-const fieldGridBehaviour = require('../../mixin/field-grid-behaviour');
+const fieldGridBehaviourMixin = require('../../mixin/field-grid-behaviour');
 const mdlBehaviour = require('../../mixin/mdl-behaviour');
 const {isUndefined} = require('lodash/lang');
 
-
-const checkBoxMixin = {
-    mixins: [i18nBehaviour, fieldGridBehaviour, mdlBehaviour],
-
+const radioMixin = {
+    mixins: [i18nBehaviour, fieldGridBehaviourMixin, mdlBehaviour],
     /**
     * Tag name.
     */
-    displayName: 'input-checkbox',
+    displayName: 'input-radio',
 
     /** @inheritdoc */
     getDefaultProps() {
@@ -25,8 +23,9 @@ const checkBoxMixin = {
     * @type {Object}
     */
     propTypes: {
+        label: types('string').isRequired,
+        name: types('string'),
         value: types('bool'),
-        label: types('string'),
         onChange: types('func')
     },
     /** @inheritdoc */
@@ -66,18 +65,17 @@ const checkBoxMixin = {
     */
     render() {
         const {isChecked} = this.state;
-        const {label} = this.props;
+        const {label, name} = this.props;
+        // we use inputProps to be able to display 'checked' property. it is required to be able to use MDL.
         const checkedProps = isChecked ? {checked: 'checked'} : {};
-        const inputProps = {...{className: 'mdl-checkbox__input', onChange: this._onChange, type: 'checkbox'}, ...checkedProps};
+        const inputProps = {...{className: 'mdl-radio__button', name: name, onChange: this._onChange, type: 'radio'}, ...checkedProps};
         return (
-            <label className="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" data-focus="input-checkbox">
+            <label className='mdl-radio mdl-js-radio mdl-js-ripple-effect' data-focus="input-radio">
                 <input {...inputProps} />
-                {label &&
-                    <span className="mdl-checkbox__label">{this.i18n(label)}</span>
-                }
+                <span className='mdl-radio__label'>{this.i18n(label)}</span>
             </label>
         );
     }
 };
 
-module.exports = builder(checkBoxMixin);
+module.exports = builder(radioMixin);

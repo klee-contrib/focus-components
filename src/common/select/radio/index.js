@@ -2,10 +2,12 @@ const builder = require('focus').component.builder;
 const React = require('react');
 const types = require('focus').component.types;
 const i18nBehaviour = require('../../i18n/mixin');
-const uuid = require('uuid').v4;
+const mdlBehaviour = require('../../mixin/mdl-behaviour');
+const {uniqueId} = require('lodash/utility');
+const InputRadio = require('../../input/radio').component;
 
 const selectRadioMixin = {
-    mixins: [i18nBehaviour],
+    mixins: [i18nBehaviour, mdlBehaviour],
     /**
     * Tag name.
     */
@@ -31,7 +33,7 @@ const selectRadioMixin = {
     /** @inheritdoc */
     getInitialState() {
         return {
-            guid: uuid(),
+            uniqueName: uniqueId('options_'),
             value: this.props.value
         };
     },
@@ -55,30 +57,35 @@ const selectRadioMixin = {
     * handle click on radio
     * @param {object} event - the click event
     */
-    _handleOnChange(event) {
+    _handleRadioChange(newValue) {
         //Set the state then call the change handler.
-        this.setState({value: event.target.value});
+        this.setState({value: newValue});
         if(this.props.onChange){
-            this.props.onChange(event);
+            this.props.onChange(newValue);
         }
     },
-
+    /**
+     * Closure to capture key and radio status.
+     * @param  {string} key the key of radio
+     * @return {func} status closure
+     */
+    _getRadioChangeHandler(key) {
+        return () => {
+            this._handleRadioChange(key);
+        };
+    },
     /**
     * Render radio for each values
     * @return {XML} the different radio values
     */
     renderSelectRadios() {
-        let key = 0;
-        const {guid} = this.state;
-        return this.props.values.map((val)=>{
+        const {uniqueName} = this.state;
+        return this.props.values.map((val, idx)=>{
             const value = val[this.props.valueKey];
             const label = val[this.props.labelKey];
             const isChecked = value === this.state.value;
             return (
-                <label className='mdl-radio mdl-js-radio mdl-js-ripple-effect' key={key++}>
-                    <input checked={isChecked} className='mdl-radio__button' name={guid} onChange={this._handleOnChange} type='radio' value={value} />
-                    <span className='mdl-radio__label'>{this.i18n(label)}</span>
-                </label>
+                <InputRadio key={idx} label={this.i18n(label)} name={uniqueName} onChange={this._getRadioChangeHandler(value)} value={isChecked} />
             );
         });
     },
