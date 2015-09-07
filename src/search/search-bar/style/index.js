@@ -1,8 +1,29 @@
 const style = {
-    scopes: {
+    bar: {
         parent: {
             position: 'absolute'
         },
+        inputZone: {
+            position: 'absolute',
+            left: '90px',
+            top: '0',
+            height: '50px',
+            paddingLeft: '10px',
+            paddingRight: '10px',
+            backgroundColor: 'rgba(0, 0, 0, 0.1)'
+        },
+        loader: {
+            position: 'absolute',
+            right: '10px',
+            top: '8px'
+        },
+        help: {
+            position: 'relative',
+            left: '10px',
+            top: '10px'
+        }
+    },
+    scopes: {
         visible: {
             cursor: 'pointer',
             height: '50px',
