@@ -119,9 +119,7 @@ let SearchBar = {
         return (
             <div className={`${this._getStyleClassName()} ${scopeClassName}`} data-focus='search-bar'>
                 {this.props.hasScopes &&
-                    <div className='sb-scope-choice'>
-                        <Scope onScopeSelection={this._onScopeSelection} list={this.props.scopes} ref='scope' value={this.state.scope}/>
-                    </div>
+                    <Scope list={this.props.scopes} onScopeSelection={this._onScopeSelection} ref='scope' value={this.state.scope}/>
                 }
                 <div className='sb-input-search'>
                     <input autofocus className={this._getClassName()} onKeyPress={this._handleInputKeyPress} onChange={this._onInputChange} ref='query' type='search' placeholder={this.props.placeholder} value={this.state.query}/>

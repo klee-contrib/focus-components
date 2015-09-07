@@ -15,11 +15,13 @@ const LODASH = 'https://cdnjs.cloudflare.com/ajax/libs/lodash.js/3.9.3/lodash.js
 //jquery
 const JQUERY = '//code.jquery.com/jquery-1.10.2.min.js';
 //Backbone
+//
 const BACKBONE = 'https://cdnjs.cloudflare.com/ajax/libs/backbone.js/1.2.1/backbone.js';
 const I18N = 'https://cdnjs.cloudflare.com/ajax/libs/i18next/1.6.3/i18next-1.6.3.min.js';
 const SHOWDOWN = 'https://cdnjs.cloudflare.com/ajax/libs/showdown/0.4.0/Showdown.js';
 const MOMENT = '//cdn.jsdelivr.net/momentjs/2.9.0/moment.min.js';
 const NUMERAL = '//cdnjs.cloudflare.com/ajax/libs/numeral.js/1.4.5/numeral.min.js';
+const CSS_LAYOUT = 'https://cdnjs.cloudflare.com/ajax/libs/css-layout/0.0.6/css-layout.min.js';
 
 const DATE_RANGE_PICKER_JS = '//cdn.jsdelivr.net/bootstrap.daterangepicker/1/daterangepicker.js',
 DATE_RANGE_PICKER_CSS = '//cdn.jsdelivr.net/bootstrap.daterangepicker/1/daterangepicker-bs3.css';
@@ -48,6 +50,7 @@ function loadJS(){
             loadScript(I18N),
             loadScript(MOMENT).then(()=>{return loadScript(DATE_RANGE_PICKER_JS); }),
             loadScript(NUMERAL),
+            loadScript(CSS_LAYOUT),
             loadScript(SHOWDOWN)
         ]);
     })
