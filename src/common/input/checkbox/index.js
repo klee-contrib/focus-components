@@ -7,6 +7,11 @@ const {isUndefined} = require('lodash/lang');
 const checkBoxMixin = {
     mixins: [i18nBehaviour, fieldGridBehaviourMixin],
 
+    /**
+    * Tag name.
+    */
+    displayName: 'input-checkbox',
+
     /** @inheritdoc */
     getDefaultProps() {
         return {
