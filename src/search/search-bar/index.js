@@ -23,6 +23,10 @@ const i18n = require('../../common/i18n/mixin');
 const SearchBar = {
     mixins: [i18n, stylable],
     displayName: 'SearchBar',
+    /**
+    * Component default properties.
+    * @return {Object} the default props.
+    */
     getDefaultProps() {
         return {
             placeholder: 'Enter your search here...',
@@ -45,6 +49,10 @@ const SearchBar = {
         helpTranslationPath: type('string'),
         hasScopes: type('bool')
     },
+    /**
+    * Get the initial state
+    * @return {Object} the initial state
+    */
     getInitialState() {
         return {
             loading: this.props.loading,
@@ -52,27 +60,45 @@ const SearchBar = {
             query: this.props.store.getQuery()
         };
     },
+    /**
+     * Component did mount handler
+     */
     componentDidMount() {
-        React.findDOMNode(this.refs.query).focus();
+        this._focusQuery();
     },
+    /**
+     * Component will mount handler
+     */
     componentWillMount() {
         this.props.store.addQueryChangeListener(this._onQueryChangeFromStore);
         this.props.store.addScopeChangeListener(this._onScopeChangeFromStore);
     },
-    componentWillUnmoun() {
+    /**
+     * Component did unmount handler
+     */
+    componentWillUnmount() {
         this.props.store.removeQueryChangeListener(this._onQueryChangeFromStore);
         this.props.store.removeScopeChangeListener(this._onScopeChangeFromStore);
     },
+    /**
+     * Query changed in store event handler
+     */
     _onQueryChangeFromStore() {
         this.setState({
             query: this.props.store.getQuery()
         });
     },
+    /**
+     * Scope changed in store event handler
+     */
     _onScopeChangeFromStore() {
         this.setState({
             scope: this.props.store.getScope()
         });
     },
+    /**
+     * Broadcast query change
+     */
     _broadcastQueryChange() {
         actionWrapper(() => {
             this.props.action.updateProperties({
@@ -80,6 +106,10 @@ const SearchBar = {
             });
         })();
     },
+    /**
+     * Input change handler
+     * @param  {String} query the new query
+     */
     _onInputChange({target: {value: query}}) {
         this.setState({query});
         const {minChar} = this.props;
@@ -87,6 +117,10 @@ const SearchBar = {
             this._broadcastQueryChange();
         }
     },
+    /**
+     * Scope selection handler
+     * @param  {Object} scope selected scope
+     */
     _onScopeSelection(scope) {
         this._focusQuery();
         this.props.action.updateProperties({
@@ -96,8 +130,12 @@ const SearchBar = {
         });
         this.setState({scope});
     },
-    _handleInputKeyPress(event) {
-        if ('Enter' === event.key) {
+    /**
+     * Input key press handler
+     * @param  {String} key pressed key
+     */
+    _handleInputKeyPress({key}) {
+        if ('Enter' === key) {
             actionWrapper(() => {
                 this.props.action.updateProperties({
                     query: React.findDOMNode(this.refs.query).value
@@ -105,14 +143,25 @@ const SearchBar = {
             }, null, 0)();
         }
     },
+    /**
+     * Render help message
+     * @return {HTML} rendered help message
+     */
     _renderHelp() {
         return (
             <div ref='help' style={style.help}>{this.i18n(this.props.helpTranslationPath)}</div>
         );
     },
+    /**
+     * Focus the query input field
+     */
     _focusQuery() {
         React.findDOMNode(this.refs.query).focus();
     },
+    /**
+    * Render the component.
+    * @return {HTML} - The rendered component
+    */
     render() {
         const {loading, hasScopes, placeholder, scopes} = this.props;
         const {query, scope} = this.state;
