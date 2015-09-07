@@ -1,11 +1,13 @@
 const {builder, types} = require('focus').component;
 const React = require('react');
 const i18nBehaviour = require('../../i18n/mixin');
-const fieldGridBehaviourMixin = require('../../mixin/field-grid-behaviour');
+const fieldGridBehaviour = require('../../mixin/field-grid-behaviour');
+const mdlBehaviour = require('../../mixin/mdl-behaviour');
 const {isUndefined} = require('lodash/lang');
 
+
 const checkBoxMixin = {
-    mixins: [i18nBehaviour, fieldGridBehaviourMixin],
+    mixins: [i18nBehaviour, fieldGridBehaviour, mdlBehaviour],
 
     /** @inheritdoc */
     getDefaultProps() {
@@ -60,9 +62,11 @@ const checkBoxMixin = {
     render() {
         const {isChecked} = this.state;
         const {label} = this.props;
+        const checkedProps = isChecked ? {checked: 'checked'} : {};
+        const inputProps = {...{className: 'mdl-checkbox__input', onChange: this._onChange, type: 'checkbox'}, ...checkedProps};
         return (
             <label className="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" data-focus="input-checkbox">
-                <input checked={isChecked} className="mdl-checkbox__input" onChange={this._onChange} type="checkbox" value={isChecked} />
+                <input {...inputProps} />
                 {label &&
                     <span className="mdl-checkbox__label">{this.i18n(label)}</span>
                 }
