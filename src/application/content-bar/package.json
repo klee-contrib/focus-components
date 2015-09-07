@@ -1,0 +1,15 @@
+{
+  "name": "content-bar",
+  "version": "1.0.0",
+  "description": "Content bar wrapper for the application header.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "header",
+    "wrapper"
+  ],
+  "author": "focus@kleegroup.com",
+  "license": "MIT"
+}
