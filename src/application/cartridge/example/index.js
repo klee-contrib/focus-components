@@ -1,7 +1,7 @@
 
-const Bar = FocusComponents.application.bar.component;
+const Cartridge = FocusComponents.application.cartridge.component;
 const dispatcher = Focus.dispatcher;
-const Cartridge = React.createClass({
+const CartridgeContent = React.createClass({
     render(){
         return <div>CARTOUCHE</div>;
     }
@@ -38,7 +38,7 @@ function updateComponents(cartridgeConf){
 //Add a defer in order to inject the props after the component is mounted
 _.defer(()=>{
     updateComponents({
-      cartridge: {component: Cartridge, props:{}},
+      cartridge: {component: CartridgeContent, props:{}},
       summary:{component: Summary, props:{}},
       actions: {
           primary: [],
