@@ -4,15 +4,6 @@ const applicationStore = require('focus').application.builtInStore;
 
 const barMixin = {
     /**
-    * Default props
-    * @return {object} Default props
-    */
-    getDefaultProps() {
-        return {
-            style: {}
-        };
-    },
-    /**
     * Get initial state
     * @return {object} Initial state
     */
@@ -28,7 +19,7 @@ const barMixin = {
         applicationStore.addBarContentRightComponentChangeListener(this._handleComponentChange);
     },
     /**
-    * Component will unmount
+    * Component will unmount.
     */
     componentWillUnMount() {
         applicationStore.removeSummaryComponentChangeListener(this._handleComponentChange);
@@ -47,7 +38,7 @@ const barMixin = {
         };
     },
     /**
-    * Component change handler
+    * Component change handler.
     */
     _handleComponentChange() {
         this.setState(this._getStateFromStore());
@@ -57,10 +48,9 @@ const barMixin = {
     * @return {HTML} Rendered component
     */
     render() {
-        const className = `bar ${this.props.style.className}`;
         const {barContentLeftComponent, barContentRightComponent, summaryComponent} = this.state;
         return (
-            <div className={className} data-focus='bar'>
+            <div data-focus='bar'>
                 <div data-focus='bar-content-left'>
                     {barContentLeftComponent &&
                         <barContentLeftComponent.component {...barContentLeftComponent.props}/>
