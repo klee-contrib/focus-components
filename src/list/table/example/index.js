@@ -9,13 +9,15 @@ const TableLineComponent = React.createClass({
     mixins: [lineBehaviour],
     definitionPath: 'contact',
     renderLineContent(data){
+        const {className} = this.props;
+        const cellProps = {className};
         return (
             <tr data-focus='table-line'>
-                <td>{this.textFor("firstName", {})}</td>
-                <td>{this.textFor("lastName", {})}</td>
-                <td>
-                {this.textFor("birthDate", {})}
-                {this.renderLineActions()}
+                <td {...cellProps}>{this.textFor("firstName", {})}</td>
+                <td {...cellProps}>{this.textFor("lastName", {})}</td>
+                <td {...cellProps}>
+                    {this.textFor("birthDate", {})}
+                    {this.renderLineActions()}
                 </td>
             </tr>
         );
@@ -35,6 +37,7 @@ const FAKE_DATA = [
 const tableProps = {
     data: FAKE_DATA,
     lineComponent: TableLineComponent,
+    //isSelectable: true,//Uncomment this line to have a selectable table
     columns: {
         firstName: {label: 'Prénom', sort:'asc'},
         lastName: {label: 'Nom', sort: 'desc'},

@@ -1,15 +1,21 @@
 // Dependencies
 
 const builder = require('focus').component.builder;
-const type = require('focus').component.types;
-const checkIsNotNull = require('focus').util.object.checkIsNotNull;
+const types = require('focus').component.types;
 const React = require('react');
+const {omit, keys} = require('lodash/object');
+const {reduce} = require('lodash/collection');
+
+// Table class.
+const TABLE_CSS_CLASS = 'mdl-data-table mdl-js-data-table mdl-shadow--2dp ';
+const TABLE_CELL_CLASS = 'mdl-data-table__cell--non-numeric';
 
 // Mixins
 
 const infiniteScrollMixin = require('../mixin/infinite-scroll').mixin;
 const translationMixin = require('../../common/i18n').mixin;
 const referenceMixin = require('../../common/mixin/reference-property');
+const mdlBehaviour = require('../../common/mixin/mdl-behaviour');
 
 // Components
 
@@ -24,126 +30,119 @@ const tableMixin = {
     /**
      * Mixin dependancies.
      */
-    mixins: [translationMixin, infiniteScrollMixin, referenceMixin],
+    mixins: [translationMixin, infiniteScrollMixin, referenceMixin, mdlBehaviour],
     /** inheriteddoc */
     getDefaultProps() {
         return {
             data: [],
             idField: 'id',
             isLoading: false,
-            operationList: []
+            operationList: [],
+            isSelectable: false
         };
     },
     /** inheriteddoc */
     proptypes: {
-        data: type('array'),
-        onLineClick: type('func'),
-        idField: type('string'),
-        lineComponent: type('func'),
-        operationList: type('array'),
-        columns: type('object'),
-        sortColumn: type('func'),
-        isloading: type('bool'),
-        loader: type('func')
+        data: types('array'),
+        isSelectable: types('bool'),
+        onLineClick: types('func'),
+        idField: types('string'),
+        lineComponent: types('func').isRequired,
+        operationList: types('array'),
+        columns: types('object'),
+        sortColumn: types('func'),
+        isloading: types('bool'),
+        loader: types('func')
     },
-
     /**
-     * called before component mount
+     * Render the table header.
+     * @return {Component} - Render the table header.
      */
-    componentWillMount(){
-        checkIsNotNull('lineComponent', this.props.lineComponent);
-    },
-
     _renderTableHeader(){
         const {columns} = this.props;
-        let headerCols = [];
-        for(let field in columns){
-            headerCols.push(
-                this._renderColumnHeader(field)
-            );
-        }
-        //{columns.map((col)=> this._renderColumnHeader(col))}
-        return (
-          <thead>
-              <tr>
-                {headerCols}
-              </tr>
-          </thead>
-        );
+        return <thead><tr>{reduce(columns, this._renderColumnHeader, [])}</tr></thead>;
     },
-
+    /**
+     * Build a function which is called when there is a click on a table column.
+     * @param  {string} column - Column name.
+     * @param  {string} order  - The order config.
+     * @return {function} - The function to be called when there is a click on it.
+     */
     _sortColumnAction(column, order) {
         let currentComponent = this;
-        return function(event) {
+        return (event)=>{
             event.preventDefault();
             currentComponent.props.sortColumn(column, order);
         };
     },
-
-    _renderColumnHeader(name) {
-        let colProperties = this.props.columns[name];
+    /**
+     * Render the column header.
+     * @param {array} accumulator - The array co,ntaining the accumulating component.
+     * @param  {object} colProperties - The column properties.
+     * @param  {string} name - The column name.
+     * @return {Component} - The component header.
+     */
+    _renderColumnHeader(accumulator, colProperties, name) {
         let sort;
         if(!this.props.isEdit && !colProperties.noSort ){
-            let order = colProperties.sort ? colProperties.sort : 'asc';
-            let iconClass = 'fa fa-sort-' + order;
-            let icon = <i className={iconClass}/>;
-            sort = <a className='sort' href='#' data-name={name} onClick={this._sortColumnAction(name, (order == 'asc' ? 'desc' : 'asc' ))}>{icon}</a>;
+            const order = colProperties.sort ? colProperties.sort : 'asc';
+            const iconName = 'asc' === order ? 'trending up' : 'trending down';
+            const icon = <i className='material-icons'>{iconName}</i>;
+            sort = <a className='sort' data-name={name} href='#' onClick={this._sortColumnAction(name, ('asc' === order ? 'desc' : 'asc' ))}>{icon}</a>;
         }
-        return (
-            <th>
-                {this.i18n(colProperties.label)}
-                {sort}
-            </th>
-        );
+        accumulator.push(<th className={TABLE_CELL_CLASS}>{this.i18n(colProperties.label)}{sort}</th>);
+        return accumulator;
     },
-
-    _renderTableBody: function renderTableBody(){
+    /**
+     * Render the tbody tag and the content.
+     * @return {Component} - The component containing the tbody.
+     */
+    _renderTableBody() {
+        const {data, lineComponent: TableLineComponent, idField} = this.props;
+        const reference = this._getReference();
         return (
-            <tbody className="table-body">
-                {this.props.data.map((line, index) => {
-                    return (
-                        <this.props.lineComponent
-                            key={line[this.props.idField]}
-                            data={line}
-                            ref={`line${index}`}
-                            reference={this._getReference()}
-                            onSelection={this.props.onSelection}
-                            onLineClick={this.props.onLineClick}
-                            operationList={this.props.operationList}
-                        />
-                    );
+            <tbody>
+                {data.map((line, index) => {
+                    const otherLineProps = omit(this.props, 'data');
+                    return <TableLineComponent className={TABLE_CELL_CLASS} data={line} key={line[idField]} ref={`line-${index}`} reference={reference} {...otherLineProps}/>;
                 })}
             </tbody>
         );
     },
-
-    _renderLoading: function renderLoading(){
-        if(this.props.isLoading){
-            if(this.props.loader){
-                return this.props.loader();
+    /**
+     * Render the loading table
+     * @return {Component} - The table in the loading mode.
+     */
+    _renderLoading() {
+        const {isLoading, loader} = this.props;
+        if(isLoading){
+            if(loader){
+                return loader();
             }
             return (
-                <tbody className="table-loading">
+                <tbody className={`table-loading`}>
                     <tr>
-                        <td>{`${this.i18n('list.loading')} ...`}</td>
+                        <td>{`${this.i18n('list.loading')}`}</td>
                     </tr>
                 </tbody>
             );
         }
     },
-
-    _renderManualFetch: function renderManualFetch(){
-        if(this.props.isManualFetch && this.props.hasMoreData){
-            let style = {className: 'primary'};
+    /**
+     * Render the manual fetch mode for the table.
+     * @return {Component} - The footer component when the mode is manual fetch , a show mode button is shown.
+     */
+    _renderManualFetch() {
+        const {isManualFetch, hasMoreData} = this.props;
+        if(isManualFetch && hasMoreData){
             return (
-                <tfoot className="table-manualFetch">
+                <tfoot className="table-manual-fetch">
                     <tr>
-                        <td colSpan={Object.keys(this.props.columns).length}>
+                        <td colSpan={keys(this.props.columns).length}>
                             <Button
+                                handleOnClick={this.handleShowMore}
                                 label="list.button.showMore"
                                 type="button"
-                                handleOnClick={this.handleShowMore}
-                                style={style}
                             />
                         </td>
                     </tr>
@@ -157,8 +156,9 @@ const tableMixin = {
      * @return {XML} the render of the table list.
      */
     render() {
+        const SELECTABLE_CSS = this.props.isSelectable ? 'mdl-data-table--selectable' : '';
         return (
-            <table className="table-list">
+            <table className={`${TABLE_CSS_CLASS} ${SELECTABLE_CSS}`}>
                 {this._renderTableHeader()}
                 {this._renderTableBody()}
                 {this._renderLoading()}
