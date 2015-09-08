@@ -3,6 +3,9 @@ logs
 *.log
 .idea
 
+lib/
+dist/
+
 # ignore showcase
 showcase/*
 
