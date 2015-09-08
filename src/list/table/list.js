@@ -1,31 +1,31 @@
 // Dependencies
 
-let builder = require('focus').component.builder;
-let type = require('focus').component.types;
-let checkIsNotNull = require('focus').util.object.checkIsNotNull;
-let React = require('react');
+const builder = require('focus').component.builder;
+const type = require('focus').component.types;
+const checkIsNotNull = require('focus').util.object.checkIsNotNull;
+const React = require('react');
 
 // Mixins
 
-let infiniteScrollMixin = require('../mixin/infinite-scroll').mixin;
-let translationMixin = require('../../common/i18n').mixin;
-let referenceMixin = require('../../common/mixin/reference-property');
+const infiniteScrollMixin = require('../mixin/infinite-scroll').mixin;
+const translationMixin = require('../../common/i18n').mixin;
+const referenceMixin = require('../../common/mixin/reference-property');
 
 // Components
 
-let Button = require('../../common/button/action').component;
+const Button = require('../../common/button/action').component;
 
-let tableMixin = {
+const tableMixin = {
     /**
      * React tag name.
      */
-    displayName: 'table-list',
+    displayName: 'Table',
 
     /**
      * Mixin dependancies.
      */
     mixins: [translationMixin, infiniteScrollMixin, referenceMixin],
-
+    /** inheriteddoc */
     getDefaultProps() {
         return {
             data: [],
@@ -34,12 +34,12 @@ let tableMixin = {
             operationList: []
         };
     },
-
+    /** inheriteddoc */
     proptypes: {
         data: type('array'),
         onLineClick: type('func'),
         idField: type('string'),
-        lineComponent: type('func', true),
+        lineComponent: type('func'),
         operationList: type('array'),
         columns: type('object'),
         sortColumn: type('func'),
@@ -55,16 +55,18 @@ let tableMixin = {
     },
 
     _renderTableHeader(){
+        const {columns} = this.props;
         let headerCols = [];
-        for(let field in this.props.columns){
+        for(let field in columns){
             headerCols.push(
                 this._renderColumnHeader(field)
             );
         }
+        //{columns.map((col)=> this._renderColumnHeader(col))}
         return (
           <thead>
               <tr>
-              {headerCols}
+                {headerCols}
               </tr>
           </thead>
         );
