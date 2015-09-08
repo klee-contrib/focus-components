@@ -3,6 +3,7 @@
 const {checkIsNotNull} = require('focus').util.object;
 const {builder, types} = require('focus').component;
 const find = require('lodash/collection/find');
+const {omit} = require('lodash/object');
 
 // Mixins
 
@@ -117,7 +118,7 @@ const listMixin = {
                     key={line[idField]}
                     ref={`line${lineCount++}`}
                     reference={this._getReference()}
-                    {...this.props}
+                    {...omit(this.props, 'data')}
                     />
             );
         });

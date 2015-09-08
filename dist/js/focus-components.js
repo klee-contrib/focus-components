@@ -35,7 +35,7 @@ module.exports = {
     infos: infosFn
 };
 
-},{"../package.json":294,"./application":303,"./common":337,"./list":370,"./message":386,"./page":391,"./search":414}],2:[function(require,module,exports){
+},{"../package.json":327,"./application":336,"./common":370,"./list":403,"./message":419,"./page":424,"./search":447}],2:[function(require,module,exports){
 module.exports = {
   'chunk': require('./array/chunk'),
   'compact': require('./array/compact'),
@@ -129,7 +129,7 @@ function chunk(array, size, guard) {
 
 module.exports = chunk;
 
-},{"../internal/baseSlice":137,"../internal/isIterateeCall":187}],4:[function(require,module,exports){
+},{"../internal/baseSlice":141,"../internal/isIterateeCall":196}],4:[function(require,module,exports){
 /**
  * Creates an array with all falsey values removed. The values `false`, `null`,
  * `0`, `""`, `undefined`, and `NaN` are falsey.
@@ -192,7 +192,7 @@ var difference = restParam(function(array, values) {
 
 module.exports = difference;
 
-},{"../function/restParam":85,"../internal/baseDifference":108,"../internal/baseFlatten":117,"../internal/isArrayLike":185,"../internal/isObjectLike":190}],6:[function(require,module,exports){
+},{"../function/restParam":85,"../internal/baseDifference":110,"../internal/baseFlatten":119,"../internal/isArrayLike":194,"../internal/isObjectLike":199}],6:[function(require,module,exports){
 var baseSlice = require('../internal/baseSlice'),
     isIterateeCall = require('../internal/isIterateeCall');
 
@@ -233,7 +233,7 @@ function drop(array, n, guard) {
 
 module.exports = drop;
 
-},{"../internal/baseSlice":137,"../internal/isIterateeCall":187}],7:[function(require,module,exports){
+},{"../internal/baseSlice":141,"../internal/isIterateeCall":196}],7:[function(require,module,exports){
 var baseSlice = require('../internal/baseSlice'),
     isIterateeCall = require('../internal/isIterateeCall');
 
@@ -275,7 +275,7 @@ function dropRight(array, n, guard) {
 
 module.exports = dropRight;
 
-},{"../internal/baseSlice":137,"../internal/isIterateeCall":187}],8:[function(require,module,exports){
+},{"../internal/baseSlice":141,"../internal/isIterateeCall":196}],8:[function(require,module,exports){
 var baseCallback = require('../internal/baseCallback'),
     baseWhile = require('../internal/baseWhile');
 
@@ -336,7 +336,7 @@ function dropRightWhile(array, predicate, thisArg) {
 
 module.exports = dropRightWhile;
 
-},{"../internal/baseCallback":104,"../internal/baseWhile":145}],9:[function(require,module,exports){
+},{"../internal/baseCallback":105,"../internal/baseWhile":149}],9:[function(require,module,exports){
 var baseCallback = require('../internal/baseCallback'),
     baseWhile = require('../internal/baseWhile');
 
@@ -397,7 +397,7 @@ function dropWhile(array, predicate, thisArg) {
 
 module.exports = dropWhile;
 
-},{"../internal/baseCallback":104,"../internal/baseWhile":145}],10:[function(require,module,exports){
+},{"../internal/baseCallback":105,"../internal/baseWhile":149}],10:[function(require,module,exports){
 var baseFill = require('../internal/baseFill'),
     isIterateeCall = require('../internal/isIterateeCall');
 
@@ -443,7 +443,7 @@ function fill(array, value, start, end) {
 
 module.exports = fill;
 
-},{"../internal/baseFill":113,"../internal/isIterateeCall":187}],11:[function(require,module,exports){
+},{"../internal/baseFill":115,"../internal/isIterateeCall":196}],11:[function(require,module,exports){
 var createFindIndex = require('../internal/createFindIndex');
 
 /**
@@ -498,7 +498,7 @@ var findIndex = createFindIndex();
 
 module.exports = findIndex;
 
-},{"../internal/createFindIndex":164}],12:[function(require,module,exports){
+},{"../internal/createFindIndex":169}],12:[function(require,module,exports){
 var createFindIndex = require('../internal/createFindIndex');
 
 /**
@@ -553,7 +553,7 @@ var findLastIndex = createFindIndex(true);
 
 module.exports = findLastIndex;
 
-},{"../internal/createFindIndex":164}],13:[function(require,module,exports){
+},{"../internal/createFindIndex":169}],13:[function(require,module,exports){
 /**
  * Gets the first element of `array`.
  *
@@ -611,7 +611,7 @@ function flatten(array, isDeep, guard) {
 
 module.exports = flatten;
 
-},{"../internal/baseFlatten":117,"../internal/isIterateeCall":187}],15:[function(require,module,exports){
+},{"../internal/baseFlatten":119,"../internal/isIterateeCall":196}],15:[function(require,module,exports){
 var baseFlatten = require('../internal/baseFlatten');
 
 /**
@@ -634,7 +634,7 @@ function flattenDeep(array) {
 
 module.exports = flattenDeep;
 
-},{"../internal/baseFlatten":117}],16:[function(require,module,exports){
+},{"../internal/baseFlatten":119}],16:[function(require,module,exports){
 module.exports = require('./first');
 
 },{"./first":13}],17:[function(require,module,exports){
@@ -692,7 +692,7 @@ function indexOf(array, value, fromIndex) {
 
 module.exports = indexOf;
 
-},{"../internal/baseIndexOf":125,"../internal/binaryIndex":146}],18:[function(require,module,exports){
+},{"../internal/baseIndexOf":127,"../internal/binaryIndex":150}],18:[function(require,module,exports){
 var dropRight = require('./dropRight');
 
 /**
@@ -774,7 +774,7 @@ var intersection = restParam(function(arrays) {
 
 module.exports = intersection;
 
-},{"../function/restParam":85,"../internal/baseIndexOf":125,"../internal/cacheIndexOf":150,"../internal/createCache":160,"../internal/isArrayLike":185}],20:[function(require,module,exports){
+},{"../function/restParam":85,"../internal/baseIndexOf":127,"../internal/cacheIndexOf":154,"../internal/createCache":164,"../internal/isArrayLike":194}],20:[function(require,module,exports){
 /**
  * Gets the last element of `array`.
  *
@@ -857,7 +857,7 @@ function lastIndexOf(array, value, fromIndex) {
 
 module.exports = lastIndexOf;
 
-},{"../internal/binaryIndex":146,"../internal/indexOfNaN":180}],22:[function(require,module,exports){
+},{"../internal/binaryIndex":150,"../internal/indexOfNaN":189}],22:[function(require,module,exports){
 module.exports = require('./zipObject');
 
 },{"./zipObject":43}],23:[function(require,module,exports){
@@ -914,7 +914,7 @@ function pull() {
 
 module.exports = pull;
 
-},{"../internal/baseIndexOf":125}],24:[function(require,module,exports){
+},{"../internal/baseIndexOf":127}],24:[function(require,module,exports){
 var baseAt = require('../internal/baseAt'),
     baseCompareAscending = require('../internal/baseCompareAscending'),
     baseFlatten = require('../internal/baseFlatten'),
@@ -956,7 +956,7 @@ var pullAt = restParam(function(array, indexes) {
 
 module.exports = pullAt;
 
-},{"../function/restParam":85,"../internal/baseAt":103,"../internal/baseCompareAscending":106,"../internal/baseFlatten":117,"../internal/basePullAt":134}],25:[function(require,module,exports){
+},{"../function/restParam":85,"../internal/baseAt":104,"../internal/baseCompareAscending":107,"../internal/baseFlatten":119,"../internal/basePullAt":138}],25:[function(require,module,exports){
 var baseCallback = require('../internal/baseCallback'),
     basePullAt = require('../internal/basePullAt');
 
@@ -1022,7 +1022,7 @@ function remove(array, predicate, thisArg) {
 
 module.exports = remove;
 
-},{"../internal/baseCallback":104,"../internal/basePullAt":134}],26:[function(require,module,exports){
+},{"../internal/baseCallback":105,"../internal/basePullAt":138}],26:[function(require,module,exports){
 var drop = require('./drop');
 
 /**
@@ -1077,7 +1077,7 @@ function slice(array, start, end) {
 
 module.exports = slice;
 
-},{"../internal/baseSlice":137,"../internal/isIterateeCall":187}],28:[function(require,module,exports){
+},{"../internal/baseSlice":141,"../internal/isIterateeCall":196}],28:[function(require,module,exports){
 var createSortedIndex = require('../internal/createSortedIndex');
 
 /**
@@ -1132,7 +1132,7 @@ var sortedIndex = createSortedIndex();
 
 module.exports = sortedIndex;
 
-},{"../internal/createSortedIndex":169}],29:[function(require,module,exports){
+},{"../internal/createSortedIndex":178}],29:[function(require,module,exports){
 var createSortedIndex = require('../internal/createSortedIndex');
 
 /**
@@ -1159,7 +1159,7 @@ var sortedLastIndex = createSortedIndex(true);
 
 module.exports = sortedLastIndex;
 
-},{"../internal/createSortedIndex":169}],30:[function(require,module,exports){
+},{"../internal/createSortedIndex":178}],30:[function(require,module,exports){
 module.exports = require('./rest');
 
 },{"./rest":26}],31:[function(require,module,exports){
@@ -1203,7 +1203,7 @@ function take(array, n, guard) {
 
 module.exports = take;
 
-},{"../internal/baseSlice":137,"../internal/isIterateeCall":187}],32:[function(require,module,exports){
+},{"../internal/baseSlice":141,"../internal/isIterateeCall":196}],32:[function(require,module,exports){
 var baseSlice = require('../internal/baseSlice'),
     isIterateeCall = require('../internal/isIterateeCall');
 
@@ -1245,7 +1245,7 @@ function takeRight(array, n, guard) {
 
 module.exports = takeRight;
 
-},{"../internal/baseSlice":137,"../internal/isIterateeCall":187}],33:[function(require,module,exports){
+},{"../internal/baseSlice":141,"../internal/isIterateeCall":196}],33:[function(require,module,exports){
 var baseCallback = require('../internal/baseCallback'),
     baseWhile = require('../internal/baseWhile');
 
@@ -1306,7 +1306,7 @@ function takeRightWhile(array, predicate, thisArg) {
 
 module.exports = takeRightWhile;
 
-},{"../internal/baseCallback":104,"../internal/baseWhile":145}],34:[function(require,module,exports){
+},{"../internal/baseCallback":105,"../internal/baseWhile":149}],34:[function(require,module,exports){
 var baseCallback = require('../internal/baseCallback'),
     baseWhile = require('../internal/baseWhile');
 
@@ -1367,7 +1367,7 @@ function takeWhile(array, predicate, thisArg) {
 
 module.exports = takeWhile;
 
-},{"../internal/baseCallback":104,"../internal/baseWhile":145}],35:[function(require,module,exports){
+},{"../internal/baseCallback":105,"../internal/baseWhile":149}],35:[function(require,module,exports){
 var baseFlatten = require('../internal/baseFlatten'),
     baseUniq = require('../internal/baseUniq'),
     restParam = require('../function/restParam');
@@ -1393,7 +1393,7 @@ var union = restParam(function(arrays) {
 
 module.exports = union;
 
-},{"../function/restParam":85,"../internal/baseFlatten":117,"../internal/baseUniq":143}],36:[function(require,module,exports){
+},{"../function/restParam":85,"../internal/baseFlatten":119,"../internal/baseUniq":147}],36:[function(require,module,exports){
 var baseCallback = require('../internal/baseCallback'),
     baseUniq = require('../internal/baseUniq'),
     isIterateeCall = require('../internal/isIterateeCall'),
@@ -1466,7 +1466,7 @@ function uniq(array, isSorted, iteratee, thisArg) {
 
 module.exports = uniq;
 
-},{"../internal/baseCallback":104,"../internal/baseUniq":143,"../internal/isIterateeCall":187,"../internal/sortedUniq":199}],37:[function(require,module,exports){
+},{"../internal/baseCallback":105,"../internal/baseUniq":147,"../internal/isIterateeCall":196,"../internal/sortedUniq":209}],37:[function(require,module,exports){
 module.exports = require('./uniq');
 
 },{"./uniq":36}],38:[function(require,module,exports){
@@ -1518,7 +1518,7 @@ function unzip(array) {
 
 module.exports = unzip;
 
-},{"../internal/arrayFilter":93,"../internal/arrayMap":94,"../internal/baseProperty":132,"../internal/isArrayLike":185}],39:[function(require,module,exports){
+},{"../internal/arrayFilter":93,"../internal/arrayMap":94,"../internal/baseProperty":136,"../internal/isArrayLike":194}],39:[function(require,module,exports){
 var arrayMap = require('../internal/arrayMap'),
     arrayReduce = require('../internal/arrayReduce'),
     bindCallback = require('../internal/bindCallback'),
@@ -1561,7 +1561,7 @@ function unzipWith(array, iteratee, thisArg) {
 
 module.exports = unzipWith;
 
-},{"../internal/arrayMap":94,"../internal/arrayReduce":96,"../internal/bindCallback":148,"./unzip":38}],40:[function(require,module,exports){
+},{"../internal/arrayMap":94,"../internal/arrayReduce":96,"../internal/bindCallback":152,"./unzip":38}],40:[function(require,module,exports){
 var baseDifference = require('../internal/baseDifference'),
     isArrayLike = require('../internal/isArrayLike'),
     restParam = require('../function/restParam');
@@ -1590,7 +1590,7 @@ var without = restParam(function(array, values) {
 
 module.exports = without;
 
-},{"../function/restParam":85,"../internal/baseDifference":108,"../internal/isArrayLike":185}],41:[function(require,module,exports){
+},{"../function/restParam":85,"../internal/baseDifference":110,"../internal/isArrayLike":194}],41:[function(require,module,exports){
 var arrayPush = require('../internal/arrayPush'),
     baseDifference = require('../internal/baseDifference'),
     baseUniq = require('../internal/baseUniq'),
@@ -1627,7 +1627,7 @@ function xor() {
 
 module.exports = xor;
 
-},{"../internal/arrayPush":95,"../internal/baseDifference":108,"../internal/baseUniq":143,"../internal/isArrayLike":185}],42:[function(require,module,exports){
+},{"../internal/arrayPush":95,"../internal/baseDifference":110,"../internal/baseUniq":147,"../internal/isArrayLike":194}],42:[function(require,module,exports){
 var restParam = require('../function/restParam'),
     unzip = require('./unzip');
 
@@ -1695,7 +1695,7 @@ function zipObject(props, values) {
 
 module.exports = zipObject;
 
-},{"../lang/isArray":213}],44:[function(require,module,exports){
+},{"../lang/isArray":223}],44:[function(require,module,exports){
 var restParam = require('../function/restParam'),
     unzipWith = require('./unzipWith');
 
@@ -1779,7 +1779,7 @@ module.exports = {
   'where': require('./collection/where')
 };
 
-},{"./collection/all":46,"./collection/any":47,"./collection/at":48,"./collection/collect":49,"./collection/contains":50,"./collection/countBy":51,"./collection/detect":52,"./collection/each":53,"./collection/eachRight":54,"./collection/every":55,"./collection/filter":56,"./collection/find":57,"./collection/findLast":58,"./collection/findWhere":59,"./collection/foldl":60,"./collection/foldr":61,"./collection/forEach":62,"./collection/forEachRight":63,"./collection/groupBy":64,"./collection/include":65,"./collection/includes":66,"./collection/indexBy":67,"./collection/inject":68,"./collection/invoke":69,"./collection/map":70,"./collection/partition":71,"./collection/pluck":72,"./collection/reduce":73,"./collection/reduceRight":74,"./collection/reject":75,"./collection/sample":76,"./collection/select":77,"./collection/shuffle":78,"./collection/size":79,"./collection/some":80,"./collection/sortBy":81,"./collection/sortByAll":82,"./collection/sortByOrder":83,"./collection/where":84,"./math/max":237,"./math/min":238,"./math/sum":239}],46:[function(require,module,exports){
+},{"./collection/all":46,"./collection/any":47,"./collection/at":48,"./collection/collect":49,"./collection/contains":50,"./collection/countBy":51,"./collection/detect":52,"./collection/each":53,"./collection/eachRight":54,"./collection/every":55,"./collection/filter":56,"./collection/find":57,"./collection/findLast":58,"./collection/findWhere":59,"./collection/foldl":60,"./collection/foldr":61,"./collection/forEach":62,"./collection/forEachRight":63,"./collection/groupBy":64,"./collection/include":65,"./collection/includes":66,"./collection/indexBy":67,"./collection/inject":68,"./collection/invoke":69,"./collection/map":70,"./collection/partition":71,"./collection/pluck":72,"./collection/reduce":73,"./collection/reduceRight":74,"./collection/reject":75,"./collection/sample":76,"./collection/select":77,"./collection/shuffle":78,"./collection/size":79,"./collection/some":80,"./collection/sortBy":81,"./collection/sortByAll":82,"./collection/sortByOrder":83,"./collection/where":84,"./math/max":247,"./math/min":248,"./math/sum":249}],46:[function(require,module,exports){
 module.exports = require('./every');
 
 },{"./every":55}],47:[function(require,module,exports){
@@ -1816,7 +1816,7 @@ var at = restParam(function(collection, props) {
 
 module.exports = at;
 
-},{"../function/restParam":85,"../internal/baseAt":103,"../internal/baseFlatten":117}],49:[function(require,module,exports){
+},{"../function/restParam":85,"../internal/baseAt":104,"../internal/baseFlatten":119}],49:[function(require,module,exports){
 module.exports = require('./map');
 
 },{"./map":70}],50:[function(require,module,exports){
@@ -1878,7 +1878,7 @@ var countBy = createAggregator(function(result, value, key) {
 
 module.exports = countBy;
 
-},{"../internal/createAggregator":156}],52:[function(require,module,exports){
+},{"../internal/createAggregator":160}],52:[function(require,module,exports){
 module.exports = require('./find');
 
 },{"./find":57}],53:[function(require,module,exports){
@@ -1955,7 +1955,7 @@ function every(collection, predicate, thisArg) {
 
 module.exports = every;
 
-},{"../internal/arrayEvery":91,"../internal/baseCallback":104,"../internal/baseEvery":111,"../internal/isIterateeCall":187,"../lang/isArray":213}],56:[function(require,module,exports){
+},{"../internal/arrayEvery":91,"../internal/baseCallback":105,"../internal/baseEvery":113,"../internal/isIterateeCall":196,"../lang/isArray":223}],56:[function(require,module,exports){
 var arrayFilter = require('../internal/arrayFilter'),
     baseCallback = require('../internal/baseCallback'),
     baseFilter = require('../internal/baseFilter'),
@@ -2018,7 +2018,7 @@ function filter(collection, predicate, thisArg) {
 
 module.exports = filter;
 
-},{"../internal/arrayFilter":93,"../internal/baseCallback":104,"../internal/baseFilter":114,"../lang/isArray":213}],57:[function(require,module,exports){
+},{"../internal/arrayFilter":93,"../internal/baseCallback":105,"../internal/baseFilter":116,"../lang/isArray":223}],57:[function(require,module,exports){
 var baseEach = require('../internal/baseEach'),
     createFind = require('../internal/createFind');
 
@@ -2076,7 +2076,7 @@ var find = createFind(baseEach);
 
 module.exports = find;
 
-},{"../internal/baseEach":109,"../internal/createFind":163}],58:[function(require,module,exports){
+},{"../internal/baseEach":111,"../internal/createFind":168}],58:[function(require,module,exports){
 var baseEachRight = require('../internal/baseEachRight'),
     createFind = require('../internal/createFind');
 
@@ -2103,7 +2103,7 @@ var findLast = createFind(baseEachRight, true);
 
 module.exports = findLast;
 
-},{"../internal/baseEachRight":110,"../internal/createFind":163}],59:[function(require,module,exports){
+},{"../internal/baseEachRight":112,"../internal/createFind":168}],59:[function(require,module,exports){
 var baseMatches = require('../internal/baseMatches'),
     find = require('./find');
 
@@ -2142,7 +2142,7 @@ function findWhere(collection, source) {
 
 module.exports = findWhere;
 
-},{"../internal/baseMatches":130,"./find":57}],60:[function(require,module,exports){
+},{"../internal/baseMatches":132,"./find":57}],60:[function(require,module,exports){
 module.exports = require('./reduce');
 
 },{"./reduce":73}],61:[function(require,module,exports){
@@ -2187,7 +2187,7 @@ var forEach = createForEach(arrayEach, baseEach);
 
 module.exports = forEach;
 
-},{"../internal/arrayEach":89,"../internal/baseEach":109,"../internal/createForEach":165}],63:[function(require,module,exports){
+},{"../internal/arrayEach":89,"../internal/baseEach":111,"../internal/createForEach":171}],63:[function(require,module,exports){
 var arrayEachRight = require('../internal/arrayEachRight'),
     baseEachRight = require('../internal/baseEachRight'),
     createForEach = require('../internal/createForEach');
@@ -2215,7 +2215,7 @@ var forEachRight = createForEach(arrayEachRight, baseEachRight);
 
 module.exports = forEachRight;
 
-},{"../internal/arrayEachRight":90,"../internal/baseEachRight":110,"../internal/createForEach":165}],64:[function(require,module,exports){
+},{"../internal/arrayEachRight":90,"../internal/baseEachRight":112,"../internal/createForEach":171}],64:[function(require,module,exports){
 var createAggregator = require('../internal/createAggregator');
 
 /** Used for native method references. */
@@ -2276,7 +2276,7 @@ var groupBy = createAggregator(function(result, value, key) {
 
 module.exports = groupBy;
 
-},{"../internal/createAggregator":156}],65:[function(require,module,exports){
+},{"../internal/createAggregator":160}],65:[function(require,module,exports){
 arguments[4][50][0].apply(exports,arguments)
 },{"./includes":66,"dup":50}],66:[function(require,module,exports){
 var baseIndexOf = require('../internal/baseIndexOf'),
@@ -2337,7 +2337,7 @@ function includes(collection, target, fromIndex, guard) {
 
 module.exports = includes;
 
-},{"../internal/baseIndexOf":125,"../internal/getLength":177,"../internal/isIterateeCall":187,"../internal/isLength":189,"../lang/isArray":213,"../lang/isString":230,"../object/values":246}],67:[function(require,module,exports){
+},{"../internal/baseIndexOf":127,"../internal/getLength":186,"../internal/isIterateeCall":196,"../internal/isLength":198,"../lang/isArray":223,"../lang/isString":240,"../object/values":278}],67:[function(require,module,exports){
 var createAggregator = require('../internal/createAggregator');
 
 /**
@@ -2392,7 +2392,7 @@ var indexBy = createAggregator(function(result, value, key) {
 
 module.exports = indexBy;
 
-},{"../internal/createAggregator":156}],68:[function(require,module,exports){
+},{"../internal/createAggregator":160}],68:[function(require,module,exports){
 arguments[4][60][0].apply(exports,arguments)
 },{"./reduce":73,"dup":60}],69:[function(require,module,exports){
 var baseEach = require('../internal/baseEach'),
@@ -2438,7 +2438,7 @@ var invoke = restParam(function(collection, path, args) {
 
 module.exports = invoke;
 
-},{"../function/restParam":85,"../internal/baseEach":109,"../internal/invokePath":184,"../internal/isArrayLike":185,"../internal/isKey":188}],70:[function(require,module,exports){
+},{"../function/restParam":85,"../internal/baseEach":111,"../internal/invokePath":193,"../internal/isArrayLike":194,"../internal/isKey":197}],70:[function(require,module,exports){
 var arrayMap = require('../internal/arrayMap'),
     baseCallback = require('../internal/baseCallback'),
     baseMap = require('../internal/baseMap'),
@@ -2508,7 +2508,7 @@ function map(collection, iteratee, thisArg) {
 
 module.exports = map;
 
-},{"../internal/arrayMap":94,"../internal/baseCallback":104,"../internal/baseMap":129,"../lang/isArray":213}],71:[function(require,module,exports){
+},{"../internal/arrayMap":94,"../internal/baseCallback":105,"../internal/baseMap":131,"../lang/isArray":223}],71:[function(require,module,exports){
 var createAggregator = require('../internal/createAggregator');
 
 /**
@@ -2576,7 +2576,7 @@ var partition = createAggregator(function(result, value, key) {
 
 module.exports = partition;
 
-},{"../internal/createAggregator":156}],72:[function(require,module,exports){
+},{"../internal/createAggregator":160}],72:[function(require,module,exports){
 var map = require('./map'),
     property = require('../utility/property');
 
@@ -2609,7 +2609,7 @@ function pluck(collection, path) {
 
 module.exports = pluck;
 
-},{"../utility/property":283,"./map":70}],73:[function(require,module,exports){
+},{"../utility/property":316,"./map":70}],73:[function(require,module,exports){
 var arrayReduce = require('../internal/arrayReduce'),
     baseEach = require('../internal/baseEach'),
     createReduce = require('../internal/createReduce');
@@ -2655,7 +2655,7 @@ var reduce = createReduce(arrayReduce, baseEach);
 
 module.exports = reduce;
 
-},{"../internal/arrayReduce":96,"../internal/baseEach":109,"../internal/createReduce":168}],74:[function(require,module,exports){
+},{"../internal/arrayReduce":96,"../internal/baseEach":111,"../internal/createReduce":177}],74:[function(require,module,exports){
 var arrayReduceRight = require('../internal/arrayReduceRight'),
     baseEachRight = require('../internal/baseEachRight'),
     createReduce = require('../internal/createReduce');
@@ -2686,7 +2686,7 @@ var reduceRight = createReduce(arrayReduceRight, baseEachRight);
 
 module.exports = reduceRight;
 
-},{"../internal/arrayReduceRight":97,"../internal/baseEachRight":110,"../internal/createReduce":168}],75:[function(require,module,exports){
+},{"../internal/arrayReduceRight":97,"../internal/baseEachRight":112,"../internal/createReduce":177}],75:[function(require,module,exports){
 var arrayFilter = require('../internal/arrayFilter'),
     baseCallback = require('../internal/baseCallback'),
     baseFilter = require('../internal/baseFilter'),
@@ -2738,7 +2738,7 @@ function reject(collection, predicate, thisArg) {
 
 module.exports = reject;
 
-},{"../internal/arrayFilter":93,"../internal/baseCallback":104,"../internal/baseFilter":114,"../lang/isArray":213}],76:[function(require,module,exports){
+},{"../internal/arrayFilter":93,"../internal/baseCallback":105,"../internal/baseFilter":116,"../lang/isArray":223}],76:[function(require,module,exports){
 var baseRandom = require('../internal/baseRandom'),
     isIterateeCall = require('../internal/isIterateeCall'),
     toArray = require('../lang/toArray'),
@@ -2790,7 +2790,7 @@ function sample(collection, n, guard) {
 
 module.exports = sample;
 
-},{"../internal/baseRandom":135,"../internal/isIterateeCall":187,"../internal/toIterable":200,"../lang/toArray":235}],77:[function(require,module,exports){
+},{"../internal/baseRandom":139,"../internal/isIterateeCall":196,"../internal/toIterable":210,"../lang/toArray":245}],77:[function(require,module,exports){
 module.exports = require('./filter');
 
 },{"./filter":56}],78:[function(require,module,exports){
@@ -2851,7 +2851,7 @@ function size(collection) {
 
 module.exports = size;
 
-},{"../internal/getLength":177,"../internal/isLength":189,"../object/keys":241}],80:[function(require,module,exports){
+},{"../internal/getLength":186,"../internal/isLength":198,"../object/keys":266}],80:[function(require,module,exports){
 var arraySome = require('../internal/arraySome'),
     baseCallback = require('../internal/baseCallback'),
     baseSome = require('../internal/baseSome'),
@@ -2920,7 +2920,7 @@ function some(collection, predicate, thisArg) {
 
 module.exports = some;
 
-},{"../internal/arraySome":98,"../internal/baseCallback":104,"../internal/baseSome":138,"../internal/isIterateeCall":187,"../lang/isArray":213}],81:[function(require,module,exports){
+},{"../internal/arraySome":98,"../internal/baseCallback":105,"../internal/baseSome":142,"../internal/isIterateeCall":196,"../lang/isArray":223}],81:[function(require,module,exports){
 var baseCallback = require('../internal/baseCallback'),
     baseMap = require('../internal/baseMap'),
     baseSortBy = require('../internal/baseSortBy'),
@@ -2993,7 +2993,7 @@ function sortBy(collection, iteratee, thisArg) {
 
 module.exports = sortBy;
 
-},{"../internal/baseCallback":104,"../internal/baseMap":129,"../internal/baseSortBy":139,"../internal/compareAscending":154,"../internal/isIterateeCall":187}],82:[function(require,module,exports){
+},{"../internal/baseCallback":105,"../internal/baseMap":131,"../internal/baseSortBy":143,"../internal/compareAscending":158,"../internal/isIterateeCall":196}],82:[function(require,module,exports){
 var baseFlatten = require('../internal/baseFlatten'),
     baseSortByOrder = require('../internal/baseSortByOrder'),
     isIterateeCall = require('../internal/isIterateeCall'),
@@ -3047,7 +3047,7 @@ var sortByAll = restParam(function(collection, iteratees) {
 
 module.exports = sortByAll;
 
-},{"../function/restParam":85,"../internal/baseFlatten":117,"../internal/baseSortByOrder":140,"../internal/isIterateeCall":187}],83:[function(require,module,exports){
+},{"../function/restParam":85,"../internal/baseFlatten":119,"../internal/baseSortByOrder":144,"../internal/isIterateeCall":196}],83:[function(require,module,exports){
 var baseSortByOrder = require('../internal/baseSortByOrder'),
     isArray = require('../lang/isArray'),
     isIterateeCall = require('../internal/isIterateeCall');
@@ -3104,7 +3104,7 @@ function sortByOrder(collection, iteratees, orders, guard) {
 
 module.exports = sortByOrder;
 
-},{"../internal/baseSortByOrder":140,"../internal/isIterateeCall":187,"../lang/isArray":213}],84:[function(require,module,exports){
+},{"../internal/baseSortByOrder":144,"../internal/isIterateeCall":196,"../lang/isArray":223}],84:[function(require,module,exports){
 var baseMatches = require('../internal/baseMatches'),
     filter = require('./filter');
 
@@ -3143,7 +3143,7 @@ function where(collection, source) {
 
 module.exports = where;
 
-},{"../internal/baseMatches":130,"./filter":56}],85:[function(require,module,exports){
+},{"../internal/baseMatches":132,"./filter":56}],85:[function(require,module,exports){
 /** Used as the `TypeError` message for "Functions" methods. */
 var FUNC_ERROR_TEXT = 'Expected a function';
 
@@ -15591,7 +15591,7 @@ SetCache.prototype.push = cachePush;
 module.exports = SetCache;
 
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{"./cachePush":151,"./getNative":179}],88:[function(require,module,exports){
+},{"./cachePush":155,"./getNative":188}],88:[function(require,module,exports){
 /**
  * Copies the values of `source` to `array`.
  *
@@ -15891,6 +15891,21 @@ function arraySum(array, iteratee) {
 module.exports = arraySum;
 
 },{}],100:[function(require,module,exports){
+/**
+ * Used by `_.defaults` to customize its `_.assign` use.
+ *
+ * @private
+ * @param {*} objectValue The destination object property value.
+ * @param {*} sourceValue The source object property value.
+ * @returns {*} Returns the value to assign to the destination object.
+ */
+function assignDefaults(objectValue, sourceValue) {
+  return objectValue === undefined ? sourceValue : objectValue;
+}
+
+module.exports = assignDefaults;
+
+},{}],101:[function(require,module,exports){
 /** Used for native method references. */
 var objectProto = Object.prototype;
 
@@ -15918,7 +15933,7 @@ function assignOwnDefaults(objectValue, sourceValue, key, object) {
 
 module.exports = assignOwnDefaults;
 
-},{}],101:[function(require,module,exports){
+},{}],102:[function(require,module,exports){
 var keys = require('../object/keys');
 
 /**
@@ -15952,7 +15967,7 @@ function assignWith(object, source, customizer) {
 
 module.exports = assignWith;
 
-},{"../object/keys":241}],102:[function(require,module,exports){
+},{"../object/keys":266}],103:[function(require,module,exports){
 var baseCopy = require('./baseCopy'),
     keys = require('../object/keys');
 
@@ -15973,7 +15988,7 @@ function baseAssign(object, source) {
 
 module.exports = baseAssign;
 
-},{"../object/keys":241,"./baseCopy":107}],103:[function(require,module,exports){
+},{"../object/keys":266,"./baseCopy":108}],104:[function(require,module,exports){
 var isArrayLike = require('./isArrayLike'),
     isIndex = require('./isIndex');
 
@@ -16007,7 +16022,7 @@ function baseAt(collection, props) {
 
 module.exports = baseAt;
 
-},{"./isArrayLike":185,"./isIndex":186}],104:[function(require,module,exports){
+},{"./isArrayLike":194,"./isIndex":195}],105:[function(require,module,exports){
 var baseMatches = require('./baseMatches'),
     baseMatchesProperty = require('./baseMatchesProperty'),
     bindCallback = require('./bindCallback'),
@@ -16044,7 +16059,7 @@ function baseCallback(func, thisArg, argCount) {
 
 module.exports = baseCallback;
 
-},{"../utility/identity":275,"../utility/property":283,"./baseMatches":130,"./baseMatchesProperty":131,"./bindCallback":148}],105:[function(require,module,exports){
+},{"../utility/identity":308,"../utility/property":316,"./baseMatches":132,"./baseMatchesProperty":133,"./bindCallback":152}],106:[function(require,module,exports){
 var arrayCopy = require('./arrayCopy'),
     arrayEach = require('./arrayEach'),
     baseAssign = require('./baseAssign'),
@@ -16174,7 +16189,7 @@ function baseClone(value, isDeep, customizer, key, object, stackA, stackB) {
 
 module.exports = baseClone;
 
-},{"../lang/isArray":213,"../lang/isObject":227,"./arrayCopy":88,"./arrayEach":89,"./baseAssign":102,"./baseForOwn":120,"./initCloneArray":181,"./initCloneByTag":182,"./initCloneObject":183}],106:[function(require,module,exports){
+},{"../lang/isArray":223,"../lang/isObject":237,"./arrayCopy":88,"./arrayEach":89,"./baseAssign":103,"./baseForOwn":122,"./initCloneArray":190,"./initCloneByTag":191,"./initCloneObject":192}],107:[function(require,module,exports){
 /**
  * The base implementation of `compareAscending` which compares values and
  * sorts them in ascending order without guaranteeing a stable sort.
@@ -16210,7 +16225,7 @@ function baseCompareAscending(value, other) {
 
 module.exports = baseCompareAscending;
 
-},{}],107:[function(require,module,exports){
+},{}],108:[function(require,module,exports){
 /**
  * Copies properties of `source` to `object`.
  *
@@ -16235,7 +16250,32 @@ function baseCopy(source, props, object) {
 
 module.exports = baseCopy;
 
-},{}],108:[function(require,module,exports){
+},{}],109:[function(require,module,exports){
+var isObject = require('../lang/isObject');
+
+/**
+ * The base implementation of `_.create` without support for assigning
+ * properties to the created object.
+ *
+ * @private
+ * @param {Object} prototype The object to inherit from.
+ * @returns {Object} Returns the new object.
+ */
+var baseCreate = (function() {
+  function object() {}
+  return function(prototype) {
+    if (isObject(prototype)) {
+      object.prototype = prototype;
+      var result = new object;
+      object.prototype = undefined;
+    }
+    return result || {};
+  };
+}());
+
+module.exports = baseCreate;
+
+},{"../lang/isObject":237}],110:[function(require,module,exports){
 var baseIndexOf = require('./baseIndexOf'),
     cacheIndexOf = require('./cacheIndexOf'),
     createCache = require('./createCache');
@@ -16292,7 +16332,7 @@ function baseDifference(array, values) {
 
 module.exports = baseDifference;
 
-},{"./baseIndexOf":125,"./cacheIndexOf":150,"./createCache":160}],109:[function(require,module,exports){
+},{"./baseIndexOf":127,"./cacheIndexOf":154,"./createCache":164}],111:[function(require,module,exports){
 var baseForOwn = require('./baseForOwn'),
     createBaseEach = require('./createBaseEach');
 
@@ -16309,7 +16349,7 @@ var baseEach = createBaseEach(baseForOwn);
 
 module.exports = baseEach;
 
-},{"./baseForOwn":120,"./createBaseEach":158}],110:[function(require,module,exports){
+},{"./baseForOwn":122,"./createBaseEach":162}],112:[function(require,module,exports){
 var baseForOwnRight = require('./baseForOwnRight'),
     createBaseEach = require('./createBaseEach');
 
@@ -16326,7 +16366,7 @@ var baseEachRight = createBaseEach(baseForOwnRight, true);
 
 module.exports = baseEachRight;
 
-},{"./baseForOwnRight":121,"./createBaseEach":158}],111:[function(require,module,exports){
+},{"./baseForOwnRight":123,"./createBaseEach":162}],113:[function(require,module,exports){
 var baseEach = require('./baseEach');
 
 /**
@@ -16350,7 +16390,7 @@ function baseEvery(collection, predicate) {
 
 module.exports = baseEvery;
 
-},{"./baseEach":109}],112:[function(require,module,exports){
+},{"./baseEach":111}],114:[function(require,module,exports){
 var baseEach = require('./baseEach');
 
 /**
@@ -16381,7 +16421,7 @@ function baseExtremum(collection, iteratee, comparator, exValue) {
 
 module.exports = baseExtremum;
 
-},{"./baseEach":109}],113:[function(require,module,exports){
+},{"./baseEach":111}],115:[function(require,module,exports){
 /**
  * The base implementation of `_.fill` without an iteratee call guard.
  *
@@ -16414,7 +16454,7 @@ function baseFill(array, value, start, end) {
 
 module.exports = baseFill;
 
-},{}],114:[function(require,module,exports){
+},{}],116:[function(require,module,exports){
 var baseEach = require('./baseEach');
 
 /**
@@ -16438,7 +16478,7 @@ function baseFilter(collection, predicate) {
 
 module.exports = baseFilter;
 
-},{"./baseEach":109}],115:[function(require,module,exports){
+},{"./baseEach":111}],117:[function(require,module,exports){
 /**
  * The base implementation of `_.find`, `_.findLast`, `_.findKey`, and `_.findLastKey`,
  * without support for callback shorthands and `this` binding, which iterates
@@ -16465,7 +16505,7 @@ function baseFind(collection, predicate, eachFunc, retKey) {
 
 module.exports = baseFind;
 
-},{}],116:[function(require,module,exports){
+},{}],118:[function(require,module,exports){
 /**
  * The base implementation of `_.findIndex` and `_.findLastIndex` without
  * support for callback shorthands and `this` binding.
@@ -16490,7 +16530,7 @@ function baseFindIndex(array, predicate, fromRight) {
 
 module.exports = baseFindIndex;
 
-},{}],117:[function(require,module,exports){
+},{}],119:[function(require,module,exports){
 var arrayPush = require('./arrayPush'),
     isArguments = require('../lang/isArguments'),
     isArray = require('../lang/isArray'),
@@ -16533,7 +16573,7 @@ function baseFlatten(array, isDeep, isStrict, result) {
 
 module.exports = baseFlatten;
 
-},{"../lang/isArguments":212,"../lang/isArray":213,"./arrayPush":95,"./isArrayLike":185,"./isObjectLike":190}],118:[function(require,module,exports){
+},{"../lang/isArguments":222,"../lang/isArray":223,"./arrayPush":95,"./isArrayLike":194,"./isObjectLike":199}],120:[function(require,module,exports){
 var createBaseFor = require('./createBaseFor');
 
 /**
@@ -16552,7 +16592,7 @@ var baseFor = createBaseFor();
 
 module.exports = baseFor;
 
-},{"./createBaseFor":159}],119:[function(require,module,exports){
+},{"./createBaseFor":163}],121:[function(require,module,exports){
 var baseFor = require('./baseFor'),
     keysIn = require('../object/keysIn');
 
@@ -16571,7 +16611,7 @@ function baseForIn(object, iteratee) {
 
 module.exports = baseForIn;
 
-},{"../object/keysIn":242,"./baseFor":118}],120:[function(require,module,exports){
+},{"../object/keysIn":267,"./baseFor":120}],122:[function(require,module,exports){
 var baseFor = require('./baseFor'),
     keys = require('../object/keys');
 
@@ -16590,7 +16630,7 @@ function baseForOwn(object, iteratee) {
 
 module.exports = baseForOwn;
 
-},{"../object/keys":241,"./baseFor":118}],121:[function(require,module,exports){
+},{"../object/keys":266,"./baseFor":120}],123:[function(require,module,exports){
 var baseForRight = require('./baseForRight'),
     keys = require('../object/keys');
 
@@ -16609,7 +16649,7 @@ function baseForOwnRight(object, iteratee) {
 
 module.exports = baseForOwnRight;
 
-},{"../object/keys":241,"./baseForRight":122}],122:[function(require,module,exports){
+},{"../object/keys":266,"./baseForRight":124}],124:[function(require,module,exports){
 var createBaseFor = require('./createBaseFor');
 
 /**
@@ -16626,7 +16666,7 @@ var baseForRight = createBaseFor(true);
 
 module.exports = baseForRight;
 
-},{"./createBaseFor":159}],123:[function(require,module,exports){
+},{"./createBaseFor":163}],125:[function(require,module,exports){
 var isFunction = require('../lang/isFunction');
 
 /**
@@ -16655,7 +16695,7 @@ function baseFunctions(object, props) {
 
 module.exports = baseFunctions;
 
-},{"../lang/isFunction":221}],124:[function(require,module,exports){
+},{"../lang/isFunction":231}],126:[function(require,module,exports){
 var toObject = require('./toObject');
 
 /**
@@ -16686,7 +16726,7 @@ function baseGet(object, path, pathKey) {
 
 module.exports = baseGet;
 
-},{"./toObject":201}],125:[function(require,module,exports){
+},{"./toObject":211}],127:[function(require,module,exports){
 var indexOfNaN = require('./indexOfNaN');
 
 /**
@@ -16715,7 +16755,7 @@ function baseIndexOf(array, value, fromIndex) {
 
 module.exports = baseIndexOf;
 
-},{"./indexOfNaN":180}],126:[function(require,module,exports){
+},{"./indexOfNaN":189}],128:[function(require,module,exports){
 var baseIsEqualDeep = require('./baseIsEqualDeep'),
     isObject = require('../lang/isObject'),
     isObjectLike = require('./isObjectLike');
@@ -16745,7 +16785,7 @@ function baseIsEqual(value, other, customizer, isLoose, stackA, stackB) {
 
 module.exports = baseIsEqual;
 
-},{"../lang/isObject":227,"./baseIsEqualDeep":127,"./isObjectLike":190}],127:[function(require,module,exports){
+},{"../lang/isObject":237,"./baseIsEqualDeep":129,"./isObjectLike":199}],129:[function(require,module,exports){
 var equalArrays = require('./equalArrays'),
     equalByTag = require('./equalByTag'),
     equalObjects = require('./equalObjects'),
@@ -16849,7 +16889,7 @@ function baseIsEqualDeep(object, other, equalFunc, customizer, isLoose, stackA, 
 
 module.exports = baseIsEqualDeep;
 
-},{"../lang/isArray":213,"../lang/isTypedArray":231,"./equalArrays":171,"./equalByTag":172,"./equalObjects":173}],128:[function(require,module,exports){
+},{"../lang/isArray":223,"../lang/isTypedArray":241,"./equalArrays":180,"./equalByTag":181,"./equalObjects":182}],130:[function(require,module,exports){
 var baseIsEqual = require('./baseIsEqual'),
     toObject = require('./toObject');
 
@@ -16903,7 +16943,7 @@ function baseIsMatch(object, matchData, customizer) {
 
 module.exports = baseIsMatch;
 
-},{"./baseIsEqual":126,"./toObject":201}],129:[function(require,module,exports){
+},{"./baseIsEqual":128,"./toObject":211}],131:[function(require,module,exports){
 var baseEach = require('./baseEach'),
     isArrayLike = require('./isArrayLike');
 
@@ -16928,7 +16968,7 @@ function baseMap(collection, iteratee) {
 
 module.exports = baseMap;
 
-},{"./baseEach":109,"./isArrayLike":185}],130:[function(require,module,exports){
+},{"./baseEach":111,"./isArrayLike":194}],132:[function(require,module,exports){
 var baseIsMatch = require('./baseIsMatch'),
     getMatchData = require('./getMatchData'),
     toObject = require('./toObject');
@@ -16960,7 +17000,7 @@ function baseMatches(source) {
 
 module.exports = baseMatches;
 
-},{"./baseIsMatch":128,"./getMatchData":178,"./toObject":201}],131:[function(require,module,exports){
+},{"./baseIsMatch":130,"./getMatchData":187,"./toObject":211}],133:[function(require,module,exports){
 var baseGet = require('./baseGet'),
     baseIsEqual = require('./baseIsEqual'),
     baseSlice = require('./baseSlice'),
@@ -17007,7 +17047,134 @@ function baseMatchesProperty(path, srcValue) {
 
 module.exports = baseMatchesProperty;
 
-},{"../array/last":20,"../lang/isArray":213,"./baseGet":124,"./baseIsEqual":126,"./baseSlice":137,"./isKey":188,"./isStrictComparable":192,"./toObject":201,"./toPath":202}],132:[function(require,module,exports){
+},{"../array/last":20,"../lang/isArray":223,"./baseGet":126,"./baseIsEqual":128,"./baseSlice":141,"./isKey":197,"./isStrictComparable":201,"./toObject":211,"./toPath":212}],134:[function(require,module,exports){
+var arrayEach = require('./arrayEach'),
+    baseMergeDeep = require('./baseMergeDeep'),
+    isArray = require('../lang/isArray'),
+    isArrayLike = require('./isArrayLike'),
+    isObject = require('../lang/isObject'),
+    isObjectLike = require('./isObjectLike'),
+    isTypedArray = require('../lang/isTypedArray'),
+    keys = require('../object/keys');
+
+/**
+ * The base implementation of `_.merge` without support for argument juggling,
+ * multiple sources, and `this` binding `customizer` functions.
+ *
+ * @private
+ * @param {Object} object The destination object.
+ * @param {Object} source The source object.
+ * @param {Function} [customizer] The function to customize merged values.
+ * @param {Array} [stackA=[]] Tracks traversed source objects.
+ * @param {Array} [stackB=[]] Associates values with source counterparts.
+ * @returns {Object} Returns `object`.
+ */
+function baseMerge(object, source, customizer, stackA, stackB) {
+  if (!isObject(object)) {
+    return object;
+  }
+  var isSrcArr = isArrayLike(source) && (isArray(source) || isTypedArray(source)),
+      props = isSrcArr ? undefined : keys(source);
+
+  arrayEach(props || source, function(srcValue, key) {
+    if (props) {
+      key = srcValue;
+      srcValue = source[key];
+    }
+    if (isObjectLike(srcValue)) {
+      stackA || (stackA = []);
+      stackB || (stackB = []);
+      baseMergeDeep(object, source, key, baseMerge, customizer, stackA, stackB);
+    }
+    else {
+      var value = object[key],
+          result = customizer ? customizer(value, srcValue, key, object, source) : undefined,
+          isCommon = result === undefined;
+
+      if (isCommon) {
+        result = srcValue;
+      }
+      if ((result !== undefined || (isSrcArr && !(key in object))) &&
+          (isCommon || (result === result ? (result !== value) : (value === value)))) {
+        object[key] = result;
+      }
+    }
+  });
+  return object;
+}
+
+module.exports = baseMerge;
+
+},{"../lang/isArray":223,"../lang/isObject":237,"../lang/isTypedArray":241,"../object/keys":266,"./arrayEach":89,"./baseMergeDeep":135,"./isArrayLike":194,"./isObjectLike":199}],135:[function(require,module,exports){
+var arrayCopy = require('./arrayCopy'),
+    isArguments = require('../lang/isArguments'),
+    isArray = require('../lang/isArray'),
+    isArrayLike = require('./isArrayLike'),
+    isPlainObject = require('../lang/isPlainObject'),
+    isTypedArray = require('../lang/isTypedArray'),
+    toPlainObject = require('../lang/toPlainObject');
+
+/**
+ * A specialized version of `baseMerge` for arrays and objects which performs
+ * deep merges and tracks traversed objects enabling objects with circular
+ * references to be merged.
+ *
+ * @private
+ * @param {Object} object The destination object.
+ * @param {Object} source The source object.
+ * @param {string} key The key of the value to merge.
+ * @param {Function} mergeFunc The function to merge values.
+ * @param {Function} [customizer] The function to customize merged values.
+ * @param {Array} [stackA=[]] Tracks traversed source objects.
+ * @param {Array} [stackB=[]] Associates values with source counterparts.
+ * @returns {boolean} Returns `true` if the objects are equivalent, else `false`.
+ */
+function baseMergeDeep(object, source, key, mergeFunc, customizer, stackA, stackB) {
+  var length = stackA.length,
+      srcValue = source[key];
+
+  while (length--) {
+    if (stackA[length] == srcValue) {
+      object[key] = stackB[length];
+      return;
+    }
+  }
+  var value = object[key],
+      result = customizer ? customizer(value, srcValue, key, object, source) : undefined,
+      isCommon = result === undefined;
+
+  if (isCommon) {
+    result = srcValue;
+    if (isArrayLike(srcValue) && (isArray(srcValue) || isTypedArray(srcValue))) {
+      result = isArray(value)
+        ? value
+        : (isArrayLike(value) ? arrayCopy(value) : []);
+    }
+    else if (isPlainObject(srcValue) || isArguments(srcValue)) {
+      result = isArguments(value)
+        ? toPlainObject(value)
+        : (isPlainObject(value) ? value : {});
+    }
+    else {
+      isCommon = false;
+    }
+  }
+  // Add the source value to the stack of traversed objects and associate
+  // it with its merged value.
+  stackA.push(srcValue);
+  stackB.push(result);
+
+  if (isCommon) {
+    // Recursively merge objects and arrays (susceptible to call stack limits).
+    object[key] = mergeFunc(result, srcValue, customizer, stackA, stackB);
+  } else if (result === result ? (result !== value) : (value === value)) {
+    object[key] = result;
+  }
+}
+
+module.exports = baseMergeDeep;
+
+},{"../lang/isArguments":222,"../lang/isArray":223,"../lang/isPlainObject":238,"../lang/isTypedArray":241,"../lang/toPlainObject":246,"./arrayCopy":88,"./isArrayLike":194}],136:[function(require,module,exports){
 /**
  * The base implementation of `_.property` without support for deep paths.
  *
@@ -17023,7 +17190,7 @@ function baseProperty(key) {
 
 module.exports = baseProperty;
 
-},{}],133:[function(require,module,exports){
+},{}],137:[function(require,module,exports){
 var baseGet = require('./baseGet'),
     toPath = require('./toPath');
 
@@ -17044,7 +17211,7 @@ function basePropertyDeep(path) {
 
 module.exports = basePropertyDeep;
 
-},{"./baseGet":124,"./toPath":202}],134:[function(require,module,exports){
+},{"./baseGet":126,"./toPath":212}],138:[function(require,module,exports){
 var isIndex = require('./isIndex');
 
 /** Used for native method references. */
@@ -17076,7 +17243,7 @@ function basePullAt(array, indexes) {
 
 module.exports = basePullAt;
 
-},{"./isIndex":186}],135:[function(require,module,exports){
+},{"./isIndex":195}],139:[function(require,module,exports){
 /* Native method references for those with the same name as other `lodash` methods. */
 var nativeFloor = Math.floor,
     nativeRandom = Math.random;
@@ -17096,7 +17263,7 @@ function baseRandom(min, max) {
 
 module.exports = baseRandom;
 
-},{}],136:[function(require,module,exports){
+},{}],140:[function(require,module,exports){
 /**
  * The base implementation of `_.reduce` and `_.reduceRight` without support
  * for callback shorthands and `this` binding, which iterates over `collection`
@@ -17122,7 +17289,7 @@ function baseReduce(collection, iteratee, accumulator, initFromCollection, eachF
 
 module.exports = baseReduce;
 
-},{}],137:[function(require,module,exports){
+},{}],141:[function(require,module,exports){
 /**
  * The base implementation of `_.slice` without an iteratee call guard.
  *
@@ -17156,7 +17323,7 @@ function baseSlice(array, start, end) {
 
 module.exports = baseSlice;
 
-},{}],138:[function(require,module,exports){
+},{}],142:[function(require,module,exports){
 var baseEach = require('./baseEach');
 
 /**
@@ -17181,7 +17348,7 @@ function baseSome(collection, predicate) {
 
 module.exports = baseSome;
 
-},{"./baseEach":109}],139:[function(require,module,exports){
+},{"./baseEach":111}],143:[function(require,module,exports){
 /**
  * The base implementation of `_.sortBy` which uses `comparer` to define
  * the sort order of `array` and replaces criteria objects with their
@@ -17204,7 +17371,7 @@ function baseSortBy(array, comparer) {
 
 module.exports = baseSortBy;
 
-},{}],140:[function(require,module,exports){
+},{}],144:[function(require,module,exports){
 var arrayMap = require('./arrayMap'),
     baseCallback = require('./baseCallback'),
     baseMap = require('./baseMap'),
@@ -17237,7 +17404,7 @@ function baseSortByOrder(collection, iteratees, orders) {
 
 module.exports = baseSortByOrder;
 
-},{"./arrayMap":94,"./baseCallback":104,"./baseMap":129,"./baseSortBy":139,"./compareMultiple":155}],141:[function(require,module,exports){
+},{"./arrayMap":94,"./baseCallback":105,"./baseMap":131,"./baseSortBy":143,"./compareMultiple":159}],145:[function(require,module,exports){
 var baseEach = require('./baseEach');
 
 /**
@@ -17259,7 +17426,7 @@ function baseSum(collection, iteratee) {
 
 module.exports = baseSum;
 
-},{"./baseEach":109}],142:[function(require,module,exports){
+},{"./baseEach":111}],146:[function(require,module,exports){
 /**
  * Converts `value` to a string if it's not one. An empty string is returned
  * for `null` or `undefined` values.
@@ -17274,7 +17441,7 @@ function baseToString(value) {
 
 module.exports = baseToString;
 
-},{}],143:[function(require,module,exports){
+},{}],147:[function(require,module,exports){
 var baseIndexOf = require('./baseIndexOf'),
     cacheIndexOf = require('./cacheIndexOf'),
     createCache = require('./createCache');
@@ -17336,7 +17503,7 @@ function baseUniq(array, iteratee) {
 
 module.exports = baseUniq;
 
-},{"./baseIndexOf":125,"./cacheIndexOf":150,"./createCache":160}],144:[function(require,module,exports){
+},{"./baseIndexOf":127,"./cacheIndexOf":154,"./createCache":164}],148:[function(require,module,exports){
 /**
  * The base implementation of `_.values` and `_.valuesIn` which creates an
  * array of `object` property values corresponding to the property names
@@ -17360,7 +17527,7 @@ function baseValues(object, props) {
 
 module.exports = baseValues;
 
-},{}],145:[function(require,module,exports){
+},{}],149:[function(require,module,exports){
 var baseSlice = require('./baseSlice');
 
 /**
@@ -17386,7 +17553,7 @@ function baseWhile(array, predicate, isDrop, fromRight) {
 
 module.exports = baseWhile;
 
-},{"./baseSlice":137}],146:[function(require,module,exports){
+},{"./baseSlice":141}],150:[function(require,module,exports){
 var binaryIndexBy = require('./binaryIndexBy'),
     identity = require('../utility/identity');
 
@@ -17427,7 +17594,7 @@ function binaryIndex(array, value, retHighest) {
 
 module.exports = binaryIndex;
 
-},{"../utility/identity":275,"./binaryIndexBy":147}],147:[function(require,module,exports){
+},{"../utility/identity":308,"./binaryIndexBy":151}],151:[function(require,module,exports){
 /* Native method references for those with the same name as other `lodash` methods. */
 var nativeFloor = Math.floor,
     nativeMin = Math.min;
@@ -17486,7 +17653,7 @@ function binaryIndexBy(array, value, iteratee, retHighest) {
 
 module.exports = binaryIndexBy;
 
-},{}],148:[function(require,module,exports){
+},{}],152:[function(require,module,exports){
 var identity = require('../utility/identity');
 
 /**
@@ -17527,7 +17694,7 @@ function bindCallback(func, thisArg, argCount) {
 
 module.exports = bindCallback;
 
-},{"../utility/identity":275}],149:[function(require,module,exports){
+},{"../utility/identity":308}],153:[function(require,module,exports){
 (function (global){
 /** Native method references. */
 var ArrayBuffer = global.ArrayBuffer,
@@ -17551,7 +17718,7 @@ function bufferClone(buffer) {
 module.exports = bufferClone;
 
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{}],150:[function(require,module,exports){
+},{}],154:[function(require,module,exports){
 var isObject = require('../lang/isObject');
 
 /**
@@ -17572,7 +17739,7 @@ function cacheIndexOf(cache, value) {
 
 module.exports = cacheIndexOf;
 
-},{"../lang/isObject":227}],151:[function(require,module,exports){
+},{"../lang/isObject":237}],155:[function(require,module,exports){
 var isObject = require('../lang/isObject');
 
 /**
@@ -17594,7 +17761,7 @@ function cachePush(value) {
 
 module.exports = cachePush;
 
-},{"../lang/isObject":227}],152:[function(require,module,exports){
+},{"../lang/isObject":237}],156:[function(require,module,exports){
 /**
  * Used by `_.trim` and `_.trimLeft` to get the index of the first character
  * of `string` that is not found in `chars`.
@@ -17614,7 +17781,7 @@ function charsLeftIndex(string, chars) {
 
 module.exports = charsLeftIndex;
 
-},{}],153:[function(require,module,exports){
+},{}],157:[function(require,module,exports){
 /**
  * Used by `_.trim` and `_.trimRight` to get the index of the last character
  * of `string` that is not found in `chars`.
@@ -17633,7 +17800,7 @@ function charsRightIndex(string, chars) {
 
 module.exports = charsRightIndex;
 
-},{}],154:[function(require,module,exports){
+},{}],158:[function(require,module,exports){
 var baseCompareAscending = require('./baseCompareAscending');
 
 /**
@@ -17651,7 +17818,7 @@ function compareAscending(object, other) {
 
 module.exports = compareAscending;
 
-},{"./baseCompareAscending":106}],155:[function(require,module,exports){
+},{"./baseCompareAscending":107}],159:[function(require,module,exports){
 var baseCompareAscending = require('./baseCompareAscending');
 
 /**
@@ -17697,7 +17864,7 @@ function compareMultiple(object, other, orders) {
 
 module.exports = compareMultiple;
 
-},{"./baseCompareAscending":106}],156:[function(require,module,exports){
+},{"./baseCompareAscending":107}],160:[function(require,module,exports){
 var baseCallback = require('./baseCallback'),
     baseEach = require('./baseEach'),
     isArray = require('../lang/isArray');
@@ -17734,7 +17901,7 @@ function createAggregator(setter, initializer) {
 
 module.exports = createAggregator;
 
-},{"../lang/isArray":213,"./baseCallback":104,"./baseEach":109}],157:[function(require,module,exports){
+},{"../lang/isArray":223,"./baseCallback":105,"./baseEach":111}],161:[function(require,module,exports){
 var bindCallback = require('./bindCallback'),
     isIterateeCall = require('./isIterateeCall'),
     restParam = require('../function/restParam');
@@ -17777,7 +17944,7 @@ function createAssigner(assigner) {
 
 module.exports = createAssigner;
 
-},{"../function/restParam":85,"./bindCallback":148,"./isIterateeCall":187}],158:[function(require,module,exports){
+},{"../function/restParam":85,"./bindCallback":152,"./isIterateeCall":196}],162:[function(require,module,exports){
 var getLength = require('./getLength'),
     isLength = require('./isLength'),
     toObject = require('./toObject');
@@ -17810,7 +17977,7 @@ function createBaseEach(eachFunc, fromRight) {
 
 module.exports = createBaseEach;
 
-},{"./getLength":177,"./isLength":189,"./toObject":201}],159:[function(require,module,exports){
+},{"./getLength":186,"./isLength":198,"./toObject":211}],163:[function(require,module,exports){
 var toObject = require('./toObject');
 
 /**
@@ -17839,7 +18006,7 @@ function createBaseFor(fromRight) {
 
 module.exports = createBaseFor;
 
-},{"./toObject":201}],160:[function(require,module,exports){
+},{"./toObject":211}],164:[function(require,module,exports){
 (function (global){
 var SetCache = require('./SetCache'),
     getNative = require('./getNative');
@@ -17864,7 +18031,7 @@ function createCache(values) {
 module.exports = createCache;
 
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{"./SetCache":87,"./getNative":179}],161:[function(require,module,exports){
+},{"./SetCache":87,"./getNative":188}],165:[function(require,module,exports){
 var deburr = require('../string/deburr'),
     words = require('../string/words');
 
@@ -17892,7 +18059,31 @@ function createCompounder(callback) {
 
 module.exports = createCompounder;
 
-},{"../string/deburr":250,"../string/words":270}],162:[function(require,module,exports){
+},{"../string/deburr":283,"../string/words":303}],166:[function(require,module,exports){
+var restParam = require('../function/restParam');
+
+/**
+ * Creates a `_.defaults` or `_.defaultsDeep` function.
+ *
+ * @private
+ * @param {Function} assigner The function to assign values.
+ * @param {Function} customizer The function to customize assigned values.
+ * @returns {Function} Returns the new defaults function.
+ */
+function createDefaults(assigner, customizer) {
+  return restParam(function(args) {
+    var object = args[0];
+    if (object == null) {
+      return object;
+    }
+    args.push(customizer);
+    return assigner.apply(undefined, args);
+  });
+}
+
+module.exports = createDefaults;
+
+},{"../function/restParam":85}],167:[function(require,module,exports){
 var arrayExtremum = require('./arrayExtremum'),
     baseCallback = require('./baseCallback'),
     baseExtremum = require('./baseExtremum'),
@@ -17927,7 +18118,7 @@ function createExtremum(comparator, exValue) {
 
 module.exports = createExtremum;
 
-},{"../lang/isArray":213,"./arrayExtremum":92,"./baseCallback":104,"./baseExtremum":112,"./isIterateeCall":187,"./toIterable":200}],163:[function(require,module,exports){
+},{"../lang/isArray":223,"./arrayExtremum":92,"./baseCallback":105,"./baseExtremum":114,"./isIterateeCall":196,"./toIterable":210}],168:[function(require,module,exports){
 var baseCallback = require('./baseCallback'),
     baseFind = require('./baseFind'),
     baseFindIndex = require('./baseFindIndex'),
@@ -17954,7 +18145,7 @@ function createFind(eachFunc, fromRight) {
 
 module.exports = createFind;
 
-},{"../lang/isArray":213,"./baseCallback":104,"./baseFind":115,"./baseFindIndex":116}],164:[function(require,module,exports){
+},{"../lang/isArray":223,"./baseCallback":105,"./baseFind":117,"./baseFindIndex":118}],169:[function(require,module,exports){
 var baseCallback = require('./baseCallback'),
     baseFindIndex = require('./baseFindIndex');
 
@@ -17977,7 +18168,27 @@ function createFindIndex(fromRight) {
 
 module.exports = createFindIndex;
 
-},{"./baseCallback":104,"./baseFindIndex":116}],165:[function(require,module,exports){
+},{"./baseCallback":105,"./baseFindIndex":118}],170:[function(require,module,exports){
+var baseCallback = require('./baseCallback'),
+    baseFind = require('./baseFind');
+
+/**
+ * Creates a `_.findKey` or `_.findLastKey` function.
+ *
+ * @private
+ * @param {Function} objectFunc The function to iterate over an object.
+ * @returns {Function} Returns the new find function.
+ */
+function createFindKey(objectFunc) {
+  return function(object, predicate, thisArg) {
+    predicate = baseCallback(predicate, thisArg, 3);
+    return baseFind(object, predicate, objectFunc, true);
+  };
+}
+
+module.exports = createFindKey;
+
+},{"./baseCallback":105,"./baseFind":117}],171:[function(require,module,exports){
 var bindCallback = require('./bindCallback'),
     isArray = require('../lang/isArray');
 
@@ -17999,7 +18210,78 @@ function createForEach(arrayFunc, eachFunc) {
 
 module.exports = createForEach;
 
-},{"../lang/isArray":213,"./bindCallback":148}],166:[function(require,module,exports){
+},{"../lang/isArray":223,"./bindCallback":152}],172:[function(require,module,exports){
+var bindCallback = require('./bindCallback'),
+    keysIn = require('../object/keysIn');
+
+/**
+ * Creates a function for `_.forIn` or `_.forInRight`.
+ *
+ * @private
+ * @param {Function} objectFunc The function to iterate over an object.
+ * @returns {Function} Returns the new each function.
+ */
+function createForIn(objectFunc) {
+  return function(object, iteratee, thisArg) {
+    if (typeof iteratee != 'function' || thisArg !== undefined) {
+      iteratee = bindCallback(iteratee, thisArg, 3);
+    }
+    return objectFunc(object, iteratee, keysIn);
+  };
+}
+
+module.exports = createForIn;
+
+},{"../object/keysIn":267,"./bindCallback":152}],173:[function(require,module,exports){
+var bindCallback = require('./bindCallback');
+
+/**
+ * Creates a function for `_.forOwn` or `_.forOwnRight`.
+ *
+ * @private
+ * @param {Function} objectFunc The function to iterate over an object.
+ * @returns {Function} Returns the new each function.
+ */
+function createForOwn(objectFunc) {
+  return function(object, iteratee, thisArg) {
+    if (typeof iteratee != 'function' || thisArg !== undefined) {
+      iteratee = bindCallback(iteratee, thisArg, 3);
+    }
+    return objectFunc(object, iteratee);
+  };
+}
+
+module.exports = createForOwn;
+
+},{"./bindCallback":152}],174:[function(require,module,exports){
+var baseCallback = require('./baseCallback'),
+    baseForOwn = require('./baseForOwn');
+
+/**
+ * Creates a function for `_.mapKeys` or `_.mapValues`.
+ *
+ * @private
+ * @param {boolean} [isMapKeys] Specify mapping keys instead of values.
+ * @returns {Function} Returns the new map function.
+ */
+function createObjectMapper(isMapKeys) {
+  return function(object, iteratee, thisArg) {
+    var result = {};
+    iteratee = baseCallback(iteratee, thisArg, 3);
+
+    baseForOwn(object, function(value, key, object) {
+      var mapped = iteratee(value, key, object);
+      key = isMapKeys ? mapped : key;
+      value = isMapKeys ? value : mapped;
+      result[key] = value;
+    });
+    return result;
+  };
+}
+
+module.exports = createObjectMapper;
+
+},{"./baseCallback":105,"./baseForOwn":122}],175:[function(require,module,exports){
 var baseToString = require('./baseToString'),
     createPadding = require('./createPadding');
 
@@ -18019,7 +18301,7 @@ function createPadDir(fromRight) {
 
 module.exports = createPadDir;
 
-},{"./baseToString":142,"./createPadding":167}],167:[function(require,module,exports){
+},{"./baseToString":146,"./createPadding":176}],176:[function(require,module,exports){
 (function (global){
 var repeat = require('../string/repeat');
 
@@ -18052,7 +18334,7 @@ function createPadding(string, length, chars) {
 module.exports = createPadding;
 
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{"../string/repeat":259}],168:[function(require,module,exports){
+},{"../string/repeat":292}],177:[function(require,module,exports){
 var baseCallback = require('./baseCallback'),
     baseReduce = require('./baseReduce'),
     isArray = require('../lang/isArray');
@@ -18076,7 +18358,7 @@ function createReduce(arrayFunc, eachFunc) {
 
 module.exports = createReduce;
 
-},{"../lang/isArray":213,"./baseCallback":104,"./baseReduce":136}],169:[function(require,module,exports){
+},{"../lang/isArray":223,"./baseCallback":105,"./baseReduce":140}],178:[function(require,module,exports){
 var baseCallback = require('./baseCallback'),
     binaryIndex = require('./binaryIndex'),
     binaryIndexBy = require('./binaryIndexBy');
@@ -18098,7 +18380,7 @@ function createSortedIndex(retHighest) {
 
 module.exports = createSortedIndex;
 
-},{"./baseCallback":104,"./binaryIndex":146,"./binaryIndexBy":147}],170:[function(require,module,exports){
+},{"./baseCallback":105,"./binaryIndex":150,"./binaryIndexBy":151}],179:[function(require,module,exports){
 /** Used to map latin-1 supplementary letters to basic latin letters. */
 var deburredLetters = {
   '\xc0': 'A',  '\xc1': 'A', '\xc2': 'A', '\xc3': 'A', '\xc4': 'A', '\xc5': 'A',
@@ -18133,7 +18415,7 @@ function deburrLetter(letter) {
 
 module.exports = deburrLetter;
 
-},{}],171:[function(require,module,exports){
+},{}],180:[function(require,module,exports){
 var arraySome = require('./arraySome');
 
 /**
@@ -18186,7 +18468,7 @@ function equalArrays(array, other, equalFunc, customizer, isLoose, stackA, stack
 
 module.exports = equalArrays;
 
-},{"./arraySome":98}],172:[function(require,module,exports){
+},{"./arraySome":98}],181:[function(require,module,exports){
 /** `Object#toString` result references. */
 var boolTag = '[object Boolean]',
     dateTag = '[object Date]',
@@ -18236,7 +18518,7 @@ function equalByTag(object, other, tag) {
 
 module.exports = equalByTag;
 
-},{}],173:[function(require,module,exports){
+},{}],182:[function(require,module,exports){
 var keys = require('../object/keys');
 
 /** Used for native method references. */
@@ -18305,7 +18587,7 @@ function equalObjects(object, other, equalFunc, customizer, isLoose, stackA, sta
 
 module.exports = equalObjects;
 
-},{"../object/keys":241}],174:[function(require,module,exports){
+},{"../object/keys":266}],183:[function(require,module,exports){
 /** Used to map characters to HTML entities. */
 var htmlEscapes = {
   '&': '&amp;',
@@ -18329,7 +18611,7 @@ function escapeHtmlChar(chr) {
 
 module.exports = escapeHtmlChar;
 
-},{}],175:[function(require,module,exports){
+},{}],184:[function(require,module,exports){
 /** Used to escape characters for inclusion in compiled regexes. */
 var regexpEscapes = {
   '0': 'x30', '1': 'x31', '2': 'x32', '3': 'x33', '4': 'x34',
@@ -18369,7 +18651,7 @@ function escapeRegExpChar(chr, leadingChar, whitespaceChar) {
 
 module.exports = escapeRegExpChar;
 
-},{}],176:[function(require,module,exports){
+},{}],185:[function(require,module,exports){
 /** Used to escape characters for inclusion in compiled string literals. */
 var stringEscapes = {
   '\\': '\\',
@@ -18393,7 +18675,7 @@ function escapeStringChar(chr) {
 
 module.exports = escapeStringChar;
 
-},{}],177:[function(require,module,exports){
+},{}],186:[function(require,module,exports){
 var baseProperty = require('./baseProperty');
 
 /**
@@ -18410,7 +18692,7 @@ var getLength = baseProperty('length');
 
 module.exports = getLength;
 
-},{"./baseProperty":132}],178:[function(require,module,exports){
+},{"./baseProperty":136}],187:[function(require,module,exports){
 var isStrictComparable = require('./isStrictComparable'),
     pairs = require('../object/pairs');
 
@@ -18433,7 +18715,7 @@ function getMatchData(object) {
 
 module.exports = getMatchData;
 
-},{"../object/pairs":244,"./isStrictComparable":192}],179:[function(require,module,exports){
+},{"../object/pairs":273,"./isStrictComparable":201}],188:[function(require,module,exports){
 var isNative = require('../lang/isNative');
 
 /**
@@ -18451,7 +18733,7 @@ function getNative(object, key) {
 
 module.exports = getNative;
 
-},{"../lang/isNative":224}],180:[function(require,module,exports){
+},{"../lang/isNative":234}],189:[function(require,module,exports){
 /**
  * Gets the index at which the first occurrence of `NaN` is found in `array`.
  *
@@ -18476,7 +18758,7 @@ function indexOfNaN(array, fromIndex, fromRight) {
 
 module.exports = indexOfNaN;
 
-},{}],181:[function(require,module,exports){
+},{}],190:[function(require,module,exports){
 /** Used for native method references. */
 var objectProto = Object.prototype;
 
@@ -18504,7 +18786,7 @@ function initCloneArray(array) {
 
 module.exports = initCloneArray;
 
-},{}],182:[function(require,module,exports){
+},{}],191:[function(require,module,exports){
 var bufferClone = require('./bufferClone');
 
 /** `Object#toString` result references. */
@@ -18569,7 +18851,7 @@ function initCloneByTag(object, tag, isDeep) {
 
 module.exports = initCloneByTag;
 
-},{"./bufferClone":149}],183:[function(require,module,exports){
+},{"./bufferClone":153}],192:[function(require,module,exports){
 /**
  * Initializes an object clone.
  *
@@ -18587,7 +18869,7 @@ function initCloneObject(object) {
 
 module.exports = initCloneObject;
 
-},{}],184:[function(require,module,exports){
+},{}],193:[function(require,module,exports){
 var baseGet = require('./baseGet'),
     baseSlice = require('./baseSlice'),
     isKey = require('./isKey'),
@@ -18615,7 +18897,7 @@ function invokePath(object, path, args) {
 
 module.exports = invokePath;
 
-},{"../array/last":20,"./baseGet":124,"./baseSlice":137,"./isKey":188,"./toPath":202}],185:[function(require,module,exports){
+},{"../array/last":20,"./baseGet":126,"./baseSlice":141,"./isKey":197,"./toPath":212}],194:[function(require,module,exports){
 var getLength = require('./getLength'),
     isLength = require('./isLength');
 
@@ -18632,7 +18914,7 @@ function isArrayLike(value) {
 
 module.exports = isArrayLike;
 
-},{"./getLength":177,"./isLength":189}],186:[function(require,module,exports){
+},{"./getLength":186,"./isLength":198}],195:[function(require,module,exports){
 /** Used to detect unsigned integer values. */
 var reIsUint = /^\d+$/;
 
@@ -18658,7 +18940,7 @@ function isIndex(value, length) {
 
 module.exports = isIndex;
 
-},{}],187:[function(require,module,exports){
+},{}],196:[function(require,module,exports){
 var isArrayLike = require('./isArrayLike'),
     isIndex = require('./isIndex'),
     isObject = require('../lang/isObject');
@@ -18688,7 +18970,7 @@ function isIterateeCall(value, index, object) {
 
 module.exports = isIterateeCall;
 
-},{"../lang/isObject":227,"./isArrayLike":185,"./isIndex":186}],188:[function(require,module,exports){
+},{"../lang/isObject":237,"./isArrayLike":194,"./isIndex":195}],197:[function(require,module,exports){
 var isArray = require('../lang/isArray'),
     toObject = require('./toObject');
 
@@ -18718,7 +19000,7 @@ function isKey(value, object) {
 
 module.exports = isKey;
 
-},{"../lang/isArray":213,"./toObject":201}],189:[function(require,module,exports){
+},{"../lang/isArray":223,"./toObject":211}],198:[function(require,module,exports){
 /**
  * Used as the [maximum length](http://ecma-international.org/ecma-262/6.0/#sec-number.max_safe_integer)
  * of an array-like value.
@@ -18740,7 +19022,7 @@ function isLength(value) {
 
 module.exports = isLength;
 
-},{}],190:[function(require,module,exports){
+},{}],199:[function(require,module,exports){
 /**
  * Checks if `value` is object-like.
  *
@@ -18754,7 +19036,7 @@ function isObjectLike(value) {
 
 module.exports = isObjectLike;
 
-},{}],191:[function(require,module,exports){
+},{}],200:[function(require,module,exports){
 /**
  * Used by `trimmedLeftIndex` and `trimmedRightIndex` to determine if a
  * character code is whitespace.
@@ -18770,7 +19052,7 @@ function isSpace(charCode) {
 
 module.exports = isSpace;
 
-},{}],192:[function(require,module,exports){
+},{}],201:[function(require,module,exports){
 var isObject = require('../lang/isObject');
 
 /**
@@ -18787,7 +19069,24 @@ function isStrictComparable(value) {
 
 module.exports = isStrictComparable;
 
-},{"../lang/isObject":227}],193:[function(require,module,exports){
+},{"../lang/isObject":237}],202:[function(require,module,exports){
+var merge = require('../object/merge');
+
+/**
+ * Used by `_.defaultsDeep` to customize its `_.merge` use.
+ *
+ * @private
+ * @param {*} objectValue The destination object property value.
+ * @param {*} sourceValue The source object property value.
+ * @returns {*} Returns the value to assign to the destination object.
+ */
+function mergeDefaults(objectValue, sourceValue) {
+  return objectValue === undefined ? sourceValue : merge(objectValue, sourceValue, mergeDefaults);
+}
+
+module.exports = mergeDefaults;
+
+},{"../object/merge":270}],203:[function(require,module,exports){
 var toObject = require('./toObject');
 
 /**
@@ -18817,7 +19116,7 @@ function pickByArray(object, props) {
 
 module.exports = pickByArray;
 
-},{"./toObject":201}],194:[function(require,module,exports){
+},{"./toObject":211}],204:[function(require,module,exports){
 var baseForIn = require('./baseForIn');
 
 /**
@@ -18841,25 +19140,25 @@ function pickByCallback(object, predicate) {
 
 module.exports = pickByCallback;
 
-},{"./baseForIn":119}],195:[function(require,module,exports){
+},{"./baseForIn":121}],205:[function(require,module,exports){
 /** Used to match template delimiters. */
 var reEscape = /<%-([\s\S]+?)%>/g;
 
 module.exports = reEscape;
 
-},{}],196:[function(require,module,exports){
+},{}],206:[function(require,module,exports){
 /** Used to match template delimiters. */
 var reEvaluate = /<%([\s\S]+?)%>/g;
 
 module.exports = reEvaluate;
 
-},{}],197:[function(require,module,exports){
+},{}],207:[function(require,module,exports){
 /** Used to match template delimiters. */
 var reInterpolate = /<%=([\s\S]+?)%>/g;
 
 module.exports = reInterpolate;
 
-},{}],198:[function(require,module,exports){
+},{}],208:[function(require,module,exports){
 var isArguments = require('../lang/isArguments'),
     isArray = require('../lang/isArray'),
     isIndex = require('./isIndex'),
@@ -18902,7 +19201,7 @@ function shimKeys(object) {
 
 module.exports = shimKeys;
 
-},{"../lang/isArguments":212,"../lang/isArray":213,"../object/keysIn":242,"./isIndex":186,"./isLength":189}],199:[function(require,module,exports){
+},{"../lang/isArguments":222,"../lang/isArray":223,"../object/keysIn":267,"./isIndex":195,"./isLength":198}],209:[function(require,module,exports){
 /**
  * An implementation of `_.uniq` optimized for sorted arrays without support
  * for callback shorthands and `this` binding.
@@ -18933,7 +19232,7 @@ function sortedUniq(array, iteratee) {
 
 module.exports = sortedUniq;
 
-},{}],200:[function(require,module,exports){
+},{}],210:[function(require,module,exports){
 var isArrayLike = require('./isArrayLike'),
     isObject = require('../lang/isObject'),
     values = require('../object/values');
@@ -18957,7 +19256,7 @@ function toIterable(value) {
 
 module.exports = toIterable;
 
-},{"../lang/isObject":227,"../object/values":246,"./isArrayLike":185}],201:[function(require,module,exports){
+},{"../lang/isObject":237,"../object/values":278,"./isArrayLike":194}],211:[function(require,module,exports){
 var isObject = require('../lang/isObject');
 
 /**
@@ -18973,7 +19272,7 @@ function toObject(value) {
 
 module.exports = toObject;
 
-},{"../lang/isObject":227}],202:[function(require,module,exports){
+},{"../lang/isObject":237}],212:[function(require,module,exports){
 var baseToString = require('./baseToString'),
     isArray = require('../lang/isArray');
 
@@ -19003,7 +19302,7 @@ function toPath(value) {
 
 module.exports = toPath;
 
-},{"../lang/isArray":213,"./baseToString":142}],203:[function(require,module,exports){
+},{"../lang/isArray":223,"./baseToString":146}],213:[function(require,module,exports){
 var isSpace = require('./isSpace');
 
 /**
@@ -19024,7 +19323,7 @@ function trimmedLeftIndex(string) {
 
 module.exports = trimmedLeftIndex;
 
-},{"./isSpace":191}],204:[function(require,module,exports){
+},{"./isSpace":200}],214:[function(require,module,exports){
 var isSpace = require('./isSpace');
 
 /**
@@ -19044,7 +19343,7 @@ function trimmedRightIndex(string) {
 
 module.exports = trimmedRightIndex;
 
-},{"./isSpace":191}],205:[function(require,module,exports){
+},{"./isSpace":200}],215:[function(require,module,exports){
 /** Used to map HTML entities to characters. */
 var htmlUnescapes = {
   '&amp;': '&',
@@ -19068,7 +19367,7 @@ function unescapeHtmlChar(chr) {
 
 module.exports = unescapeHtmlChar;
 
-},{}],206:[function(require,module,exports){
+},{}],216:[function(require,module,exports){
 module.exports = {
   'clone': require('./lang/clone'),
   'cloneDeep': require('./lang/cloneDeep'),
@@ -19102,7 +19401,7 @@ module.exports = {
   'toPlainObject': require('./lang/toPlainObject')
 };
 
-},{"./lang/clone":207,"./lang/cloneDeep":208,"./lang/eq":209,"./lang/gt":210,"./lang/gte":211,"./lang/isArguments":212,"./lang/isArray":213,"./lang/isBoolean":214,"./lang/isDate":215,"./lang/isElement":216,"./lang/isEmpty":217,"./lang/isEqual":218,"./lang/isError":219,"./lang/isFinite":220,"./lang/isFunction":221,"./lang/isMatch":222,"./lang/isNaN":223,"./lang/isNative":224,"./lang/isNull":225,"./lang/isNumber":226,"./lang/isObject":227,"./lang/isPlainObject":228,"./lang/isRegExp":229,"./lang/isString":230,"./lang/isTypedArray":231,"./lang/isUndefined":232,"./lang/lt":233,"./lang/lte":234,"./lang/toArray":235,"./lang/toPlainObject":236}],207:[function(require,module,exports){
+},{"./lang/clone":217,"./lang/cloneDeep":218,"./lang/eq":219,"./lang/gt":220,"./lang/gte":221,"./lang/isArguments":222,"./lang/isArray":223,"./lang/isBoolean":224,"./lang/isDate":225,"./lang/isElement":226,"./lang/isEmpty":227,"./lang/isEqual":228,"./lang/isError":229,"./lang/isFinite":230,"./lang/isFunction":231,"./lang/isMatch":232,"./lang/isNaN":233,"./lang/isNative":234,"./lang/isNull":235,"./lang/isNumber":236,"./lang/isObject":237,"./lang/isPlainObject":238,"./lang/isRegExp":239,"./lang/isString":240,"./lang/isTypedArray":241,"./lang/isUndefined":242,"./lang/lt":243,"./lang/lte":244,"./lang/toArray":245,"./lang/toPlainObject":246}],217:[function(require,module,exports){
 var baseClone = require('../internal/baseClone'),
     bindCallback = require('../internal/bindCallback'),
     isIterateeCall = require('../internal/isIterateeCall');
@@ -19174,7 +19473,7 @@ function clone(value, isDeep, customizer, thisArg) {
 
 module.exports = clone;
 
-},{"../internal/baseClone":105,"../internal/bindCallback":148,"../internal/isIterateeCall":187}],208:[function(require,module,exports){
+},{"../internal/baseClone":106,"../internal/bindCallback":152,"../internal/isIterateeCall":196}],218:[function(require,module,exports){
 var baseClone = require('../internal/baseClone'),
     bindCallback = require('../internal/bindCallback');
 
@@ -19231,10 +19530,10 @@ function cloneDeep(value, customizer, thisArg) {
 
 module.exports = cloneDeep;
 
-},{"../internal/baseClone":105,"../internal/bindCallback":148}],209:[function(require,module,exports){
+},{"../internal/baseClone":106,"../internal/bindCallback":152}],219:[function(require,module,exports){
 module.exports = require('./isEqual');
 
-},{"./isEqual":218}],210:[function(require,module,exports){
+},{"./isEqual":228}],220:[function(require,module,exports){
 /**
  * Checks if `value` is greater than `other`.
  *
@@ -19261,7 +19560,7 @@ function gt(value, other) {
 
 module.exports = gt;
 
-},{}],211:[function(require,module,exports){
+},{}],221:[function(require,module,exports){
 /**
  * Checks if `value` is greater than or equal to `other`.
  *
@@ -19288,7 +19587,7 @@ function gte(value, other) {
 
 module.exports = gte;
 
-},{}],212:[function(require,module,exports){
+},{}],222:[function(require,module,exports){
 var isArrayLike = require('../internal/isArrayLike'),
     isObjectLike = require('../internal/isObjectLike');
 
@@ -19324,7 +19623,7 @@ function isArguments(value) {
 
 module.exports = isArguments;
 
-},{"../internal/isArrayLike":185,"../internal/isObjectLike":190}],213:[function(require,module,exports){
+},{"../internal/isArrayLike":194,"../internal/isObjectLike":199}],223:[function(require,module,exports){
 var getNative = require('../internal/getNative'),
     isLength = require('../internal/isLength'),
     isObjectLike = require('../internal/isObjectLike');
@@ -19366,7 +19665,7 @@ var isArray = nativeIsArray || function(value) {
 
 module.exports = isArray;
 
-},{"../internal/getNative":179,"../internal/isLength":189,"../internal/isObjectLike":190}],214:[function(require,module,exports){
+},{"../internal/getNative":188,"../internal/isLength":198,"../internal/isObjectLike":199}],224:[function(require,module,exports){
 var isObjectLike = require('../internal/isObjectLike');
 
 /** `Object#toString` result references. */
@@ -19403,7 +19702,7 @@ function isBoolean(value) {
 
 module.exports = isBoolean;
 
-},{"../internal/isObjectLike":190}],215:[function(require,module,exports){
+},{"../internal/isObjectLike":199}],225:[function(require,module,exports){
 var isObjectLike = require('../internal/isObjectLike');
 
 /** `Object#toString` result references. */
@@ -19440,7 +19739,7 @@ function isDate(value) {
 
 module.exports = isDate;
 
-},{"../internal/isObjectLike":190}],216:[function(require,module,exports){
+},{"../internal/isObjectLike":199}],226:[function(require,module,exports){
 var isObjectLike = require('../internal/isObjectLike'),
     isPlainObject = require('./isPlainObject');
 
@@ -19466,7 +19765,7 @@ function isElement(value) {
 
 module.exports = isElement;
 
-},{"../internal/isObjectLike":190,"./isPlainObject":228}],217:[function(require,module,exports){
+},{"../internal/isObjectLike":199,"./isPlainObject":238}],227:[function(require,module,exports){
 var isArguments = require('./isArguments'),
     isArray = require('./isArray'),
     isArrayLike = require('../internal/isArrayLike'),
@@ -19515,7 +19814,7 @@ function isEmpty(value) {
 
 module.exports = isEmpty;
 
-},{"../internal/isArrayLike":185,"../internal/isObjectLike":190,"../object/keys":241,"./isArguments":212,"./isArray":213,"./isFunction":221,"./isString":230}],218:[function(require,module,exports){
+},{"../internal/isArrayLike":194,"../internal/isObjectLike":199,"../object/keys":266,"./isArguments":222,"./isArray":223,"./isFunction":231,"./isString":240}],228:[function(require,module,exports){
 var baseIsEqual = require('../internal/baseIsEqual'),
     bindCallback = require('../internal/bindCallback');
 
@@ -19571,7 +19870,7 @@ function isEqual(value, other, customizer, thisArg) {
 
 module.exports = isEqual;
 
-},{"../internal/baseIsEqual":126,"../internal/bindCallback":148}],219:[function(require,module,exports){
+},{"../internal/baseIsEqual":128,"../internal/bindCallback":152}],229:[function(require,module,exports){
 var isObjectLike = require('../internal/isObjectLike');
 
 /** `Object#toString` result references. */
@@ -19609,7 +19908,7 @@ function isError(value) {
 
 module.exports = isError;
 
-},{"../internal/isObjectLike":190}],220:[function(require,module,exports){
+},{"../internal/isObjectLike":199}],230:[function(require,module,exports){
 (function (global){
 /* Native method references for those with the same name as other `lodash` methods. */
 var nativeIsFinite = global.isFinite;
@@ -19648,7 +19947,7 @@ function isFinite(value) {
 module.exports = isFinite;
 
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{}],221:[function(require,module,exports){
+},{}],231:[function(require,module,exports){
 var isObject = require('./isObject');
 
 /** `Object#toString` result references. */
@@ -19688,7 +19987,7 @@ function isFunction(value) {
 
 module.exports = isFunction;
 
-},{"./isObject":227}],222:[function(require,module,exports){
+},{"./isObject":237}],232:[function(require,module,exports){
 var baseIsMatch = require('../internal/baseIsMatch'),
     bindCallback = require('../internal/bindCallback'),
     getMatchData = require('../internal/getMatchData');
@@ -19739,7 +20038,7 @@ function isMatch(object, source, customizer, thisArg) {
 
 module.exports = isMatch;
 
-},{"../internal/baseIsMatch":128,"../internal/bindCallback":148,"../internal/getMatchData":178}],223:[function(require,module,exports){
+},{"../internal/baseIsMatch":130,"../internal/bindCallback":152,"../internal/getMatchData":187}],233:[function(require,module,exports){
 var isNumber = require('./isNumber');
 
 /**
@@ -19775,7 +20074,7 @@ function isNaN(value) {
 
 module.exports = isNaN;
 
-},{"./isNumber":226}],224:[function(require,module,exports){
+},{"./isNumber":236}],234:[function(require,module,exports){
 var isFunction = require('./isFunction'),
     isObjectLike = require('../internal/isObjectLike');
 
@@ -19825,7 +20124,7 @@ function isNative(value) {
 
 module.exports = isNative;
 
-},{"../internal/isObjectLike":190,"./isFunction":221}],225:[function(require,module,exports){
+},{"../internal/isObjectLike":199,"./isFunction":231}],235:[function(require,module,exports){
 /**
  * Checks if `value` is `null`.
  *
@@ -19848,7 +20147,7 @@ function isNull(value) {
 
 module.exports = isNull;
 
-},{}],226:[function(require,module,exports){
+},{}],236:[function(require,module,exports){
 var isObjectLike = require('../internal/isObjectLike');
 
 /** `Object#toString` result references. */
@@ -19891,7 +20190,7 @@ function isNumber(value) {
 
 module.exports = isNumber;
 
-},{"../internal/isObjectLike":190}],227:[function(require,module,exports){
+},{"../internal/isObjectLike":199}],237:[function(require,module,exports){
 /**
  * Checks if `value` is the [language type](https://es5.github.io/#x8) of `Object`.
  * (e.g. arrays, functions, objects, regexes, `new Number(0)`, and `new String('')`)
@@ -19921,7 +20220,7 @@ function isObject(value) {
 
 module.exports = isObject;
 
-},{}],228:[function(require,module,exports){
+},{}],238:[function(require,module,exports){
 var baseForIn = require('../internal/baseForIn'),
     isArguments = require('./isArguments'),
     isObjectLike = require('../internal/isObjectLike');
@@ -19994,7 +20293,7 @@ function isPlainObject(value) {
 
 module.exports = isPlainObject;
 
-},{"../internal/baseForIn":119,"../internal/isObjectLike":190,"./isArguments":212}],229:[function(require,module,exports){
+},{"../internal/baseForIn":121,"../internal/isObjectLike":199,"./isArguments":222}],239:[function(require,module,exports){
 var isObject = require('./isObject');
 
 /** `Object#toString` result references. */
@@ -20031,7 +20330,7 @@ function isRegExp(value) {
 
 module.exports = isRegExp;
 
-},{"./isObject":227}],230:[function(require,module,exports){
+},{"./isObject":237}],240:[function(require,module,exports){
 var isObjectLike = require('../internal/isObjectLike');
 
 /** `Object#toString` result references. */
@@ -20068,7 +20367,7 @@ function isString(value) {
 
 module.exports = isString;
 
-},{"../internal/isObjectLike":190}],231:[function(require,module,exports){
+},{"../internal/isObjectLike":199}],241:[function(require,module,exports){
 var isLength = require('../internal/isLength'),
     isObjectLike = require('../internal/isObjectLike');
 
@@ -20144,7 +20443,7 @@ function isTypedArray(value) {
 
 module.exports = isTypedArray;
 
-},{"../internal/isLength":189,"../internal/isObjectLike":190}],232:[function(require,module,exports){
+},{"../internal/isLength":198,"../internal/isObjectLike":199}],242:[function(require,module,exports){
 /**
  * Checks if `value` is `undefined`.
  *
@@ -20167,7 +20466,7 @@ function isUndefined(value) {
 
 module.exports = isUndefined;
 
-},{}],233:[function(require,module,exports){
+},{}],243:[function(require,module,exports){
 /**
  * Checks if `value` is less than `other`.
  *
@@ -20194,7 +20493,7 @@ function lt(value, other) {
 
 module.exports = lt;
 
-},{}],234:[function(require,module,exports){
+},{}],244:[function(require,module,exports){
 /**
  * Checks if `value` is less than or equal to `other`.
  *
@@ -20221,7 +20520,7 @@ function lte(value, other) {
 
 module.exports = lte;
 
-},{}],235:[function(require,module,exports){
+},{}],245:[function(require,module,exports){
 var arrayCopy = require('../internal/arrayCopy'),
     getLength = require('../internal/getLength'),
     isLength = require('../internal/isLength'),
@@ -20255,7 +20554,7 @@ function toArray(value) {
 
 module.exports = toArray;
 
-},{"../internal/arrayCopy":88,"../internal/getLength":177,"../internal/isLength":189,"../object/values":246}],236:[function(require,module,exports){
+},{"../internal/arrayCopy":88,"../internal/getLength":186,"../internal/isLength":198,"../object/values":278}],246:[function(require,module,exports){
 var baseCopy = require('../internal/baseCopy'),
     keysIn = require('../object/keysIn');
 
@@ -20288,7 +20587,7 @@ function toPlainObject(value) {
 
 module.exports = toPlainObject;
 
-},{"../internal/baseCopy":107,"../object/keysIn":242}],237:[function(require,module,exports){
+},{"../internal/baseCopy":108,"../object/keysIn":267}],247:[function(require,module,exports){
 var createExtremum = require('../internal/createExtremum'),
     gt = require('../lang/gt');
 
@@ -20346,7 +20645,7 @@ var max = createExtremum(gt, NEGATIVE_INFINITY);
 
 module.exports = max;
 
-},{"../internal/createExtremum":162,"../lang/gt":210}],238:[function(require,module,exports){
+},{"../internal/createExtremum":167,"../lang/gt":220}],248:[function(require,module,exports){
 var createExtremum = require('../internal/createExtremum'),
     lt = require('../lang/lt');
 
@@ -20404,7 +20703,7 @@ var min = createExtremum(lt, POSITIVE_INFINITY);
 
 module.exports = min;
 
-},{"../internal/createExtremum":162,"../lang/lt":233}],239:[function(require,module,exports){
+},{"../internal/createExtremum":167,"../lang/lt":243}],249:[function(require,module,exports){
 var arraySum = require('../internal/arraySum'),
     baseCallback = require('../internal/baseCallback'),
     baseSum = require('../internal/baseSum'),
@@ -20456,7 +20755,40 @@ function sum(collection, iteratee, thisArg) {
 
 module.exports = sum;
 
-},{"../internal/arraySum":99,"../internal/baseCallback":104,"../internal/baseSum":141,"../internal/isIterateeCall":187,"../internal/toIterable":200,"../lang/isArray":213}],240:[function(require,module,exports){
+},{"../internal/arraySum":99,"../internal/baseCallback":105,"../internal/baseSum":145,"../internal/isIterateeCall":196,"../internal/toIterable":210,"../lang/isArray":223}],250:[function(require,module,exports){
+module.exports = {
+  'assign': require('./object/assign'),
+  'create': require('./object/create'),
+  'defaults': require('./object/defaults'),
+  'defaultsDeep': require('./object/defaultsDeep'),
+  'extend': require('./object/extend'),
+  'findKey': require('./object/findKey'),
+  'findLastKey': require('./object/findLastKey'),
+  'forIn': require('./object/forIn'),
+  'forInRight': require('./object/forInRight'),
+  'forOwn': require('./object/forOwn'),
+  'forOwnRight': require('./object/forOwnRight'),
+  'functions': require('./object/functions'),
+  'get': require('./object/get'),
+  'has': require('./object/has'),
+  'invert': require('./object/invert'),
+  'keys': require('./object/keys'),
+  'keysIn': require('./object/keysIn'),
+  'mapKeys': require('./object/mapKeys'),
+  'mapValues': require('./object/mapValues'),
+  'merge': require('./object/merge'),
+  'methods': require('./object/methods'),
+  'omit': require('./object/omit'),
+  'pairs': require('./object/pairs'),
+  'pick': require('./object/pick'),
+  'result': require('./object/result'),
+  'set': require('./object/set'),
+  'transform': require('./object/transform'),
+  'values': require('./object/values'),
+  'valuesIn': require('./object/valuesIn')
+};
+
+},{"./object/assign":251,"./object/create":252,"./object/defaults":253,"./object/defaultsDeep":254,"./object/extend":255,"./object/findKey":256,"./object/findLastKey":257,"./object/forIn":258,"./object/forInRight":259,"./object/forOwn":260,"./object/forOwnRight":261,"./object/functions":262,"./object/get":263,"./object/has":264,"./object/invert":265,"./object/keys":266,"./object/keysIn":267,"./object/mapKeys":268,"./object/mapValues":269,"./object/merge":270,"./object/methods":271,"./object/omit":272,"./object/pairs":273,"./object/pick":274,"./object/result":275,"./object/set":276,"./object/transform":277,"./object/values":278,"./object/valuesIn":279}],251:[function(require,module,exports){
 var assignWith = require('../internal/assignWith'),
     baseAssign = require('../internal/baseAssign'),
     createAssigner = require('../internal/createAssigner');
@@ -20501,7 +20833,542 @@ var assign = createAssigner(function(object, source, customizer) {
 
 module.exports = assign;
 
-},{"../internal/assignWith":101,"../internal/baseAssign":102,"../internal/createAssigner":157}],241:[function(require,module,exports){
+},{"../internal/assignWith":102,"../internal/baseAssign":103,"../internal/createAssigner":161}],252:[function(require,module,exports){
+var baseAssign = require('../internal/baseAssign'),
+    baseCreate = require('../internal/baseCreate'),
+    isIterateeCall = require('../internal/isIterateeCall');
+
+/**
+ * Creates an object that inherits from the given `prototype` object. If a
+ * `properties` object is provided its own enumerable properties are assigned
+ * to the created object.
+ *
+ * @static
+ * @memberOf _
+ * @category Object
+ * @param {Object} prototype The object to inherit from.
+ * @param {Object} [properties] The properties to assign to the object.
+ * @param- {Object} [guard] Enables use as a callback for functions like `_.map`.
+ * @returns {Object} Returns the new object.
+ * @example
+ *
+ * function Shape() {
+ *   this.x = 0;
+ *   this.y = 0;
+ * }
+ *
+ * function Circle() {
+ *   Shape.call(this);
+ * }
+ *
+ * Circle.prototype = _.create(Shape.prototype, {
+ *   'constructor': Circle
+ * });
+ *
+ * var circle = new Circle;
+ * circle instanceof Circle;
+ * // => true
+ *
+ * circle instanceof Shape;
+ * // => true
+ */
+function create(prototype, properties, guard) {
+  var result = baseCreate(prototype);
+  if (guard && isIterateeCall(prototype, properties, guard)) {
+    properties = undefined;
+  }
+  return properties ? baseAssign(result, properties) : result;
+}
+
+module.exports = create;
+
+},{"../internal/baseAssign":103,"../internal/baseCreate":109,"../internal/isIterateeCall":196}],253:[function(require,module,exports){
+var assign = require('./assign'),
+    assignDefaults = require('../internal/assignDefaults'),
+    createDefaults = require('../internal/createDefaults');
+
+/**
+ * Assigns own enumerable properties of source object(s) to the destination
+ * object for all destination properties that resolve to `undefined`. Once a
+ * property is set, additional values of the same property are ignored.
+ *
+ * **Note:** This method mutates `object`.
+ *
+ * @static
+ * @memberOf _
+ * @category Object
+ * @param {Object} object The destination object.
+ * @param {...Object} [sources] The source objects.
+ * @returns {Object} Returns `object`.
+ * @example
+ *
+ * _.defaults({ 'user': 'barney' }, { 'age': 36 }, { 'user': 'fred' });
+ * // => { 'user': 'barney', 'age': 36 }
+ */
+var defaults = createDefaults(assign, assignDefaults);
+
+module.exports = defaults;
+
+},{"../internal/assignDefaults":100,"../internal/createDefaults":166,"./assign":251}],254:[function(require,module,exports){
+var createDefaults = require('../internal/createDefaults'),
+    merge = require('./merge'),
+    mergeDefaults = require('../internal/mergeDefaults');
+
+/**
+ * This method is like `_.defaults` except that it recursively assigns
+ * default properties.
+ *
+ * **Note:** This method mutates `object`.
+ *
+ * @static
+ * @memberOf _
+ * @category Object
+ * @param {Object} object The destination object.
+ * @param {...Object} [sources] The source objects.
+ * @returns {Object} Returns `object`.
+ * @example
+ *
+ * _.defaultsDeep({ 'user': { 'name': 'barney' } }, { 'user': { 'name': 'fred', 'age': 36 } });
+ * // => { 'user': { 'name': 'barney', 'age': 36 } }
+ *
+ */
+var defaultsDeep = createDefaults(merge, mergeDefaults);
+
+module.exports = defaultsDeep;
+
+},{"../internal/createDefaults":166,"../internal/mergeDefaults":202,"./merge":270}],255:[function(require,module,exports){
+module.exports = require('./assign');
+
+},{"./assign":251}],256:[function(require,module,exports){
+var baseForOwn = require('../internal/baseForOwn'),
+    createFindKey = require('../internal/createFindKey');
+
+/**
+ * This method is like `_.find` except that it returns the key of the first
+ * element `predicate` returns truthy for instead of the element itself.
+ *
+ * If a property name is provided for `predicate` the created `_.property`
+ * style callback returns the property value of the given element.
+ *
+ * If a value is also provided for `thisArg` the created `_.matchesProperty`
+ * style callback returns `true` for elements that have a matching property
+ * value, else `false`.
+ *
+ * If an object is provided for `predicate` the created `_.matches` style
+ * callback returns `true` for elements that have the properties of the given
+ * object, else `false`.
+ *
+ * @static
+ * @memberOf _
+ * @category Object
+ * @param {Object} object The object to search.
+ * @param {Function|Object|string} [predicate=_.identity] The function invoked
+ *  per iteration.
+ * @param {*} [thisArg] The `this` binding of `predicate`.
+ * @returns {string|undefined} Returns the key of the matched element, else `undefined`.
+ * @example
+ *
+ * var users = {
+ *   'barney':  { 'age': 36, 'active': true },
+ *   'fred':    { 'age': 40, 'active': false },
+ *   'pebbles': { 'age': 1,  'active': true }
+ * };
+ *
+ * _.findKey(users, function(chr) {
+ *   return chr.age < 40;
+ * });
+ * // => 'barney' (iteration order is not guaranteed)
+ *
+ * // using the `_.matches` callback shorthand
+ * _.findKey(users, { 'age': 1, 'active': true });
+ * // => 'pebbles'
+ *
+ * // using the `_.matchesProperty` callback shorthand
+ * _.findKey(users, 'active', false);
+ * // => 'fred'
+ *
+ * // using the `_.property` callback shorthand
+ * _.findKey(users, 'active');
+ * // => 'barney'
+ */
+var findKey = createFindKey(baseForOwn);
+
+module.exports = findKey;
+
+},{"../internal/baseForOwn":122,"../internal/createFindKey":170}],257:[function(require,module,exports){
+var baseForOwnRight = require('../internal/baseForOwnRight'),
+    createFindKey = require('../internal/createFindKey');
+
+/**
+ * This method is like `_.findKey` except that it iterates over elements of
+ * a collection in the opposite order.
+ *
+ * If a property name is provided for `predicate` the created `_.property`
+ * style callback returns the property value of the given element.
+ *
+ * If a value is also provided for `thisArg` the created `_.matchesProperty`
+ * style callback returns `true` for elements that have a matching property
+ * value, else `false`.
+ *
+ * If an object is provided for `predicate` the created `_.matches` style
+ * callback returns `true` for elements that have the properties of the given
+ * object, else `false`.
+ *
+ * @static
+ * @memberOf _
+ * @category Object
+ * @param {Object} object The object to search.
+ * @param {Function|Object|string} [predicate=_.identity] The function invoked
+ *  per iteration.
+ * @param {*} [thisArg] The `this` binding of `predicate`.
+ * @returns {string|undefined} Returns the key of the matched element, else `undefined`.
+ * @example
+ *
+ * var users = {
+ *   'barney':  { 'age': 36, 'active': true },
+ *   'fred':    { 'age': 40, 'active': false },
+ *   'pebbles': { 'age': 1,  'active': true }
+ * };
+ *
+ * _.findLastKey(users, function(chr) {
+ *   return chr.age < 40;
+ * });
+ * // => returns `pebbles` assuming `_.findKey` returns `barney`
+ *
+ * // using the `_.matches` callback shorthand
+ * _.findLastKey(users, { 'age': 36, 'active': true });
+ * // => 'barney'
+ *
+ * // using the `_.matchesProperty` callback shorthand
+ * _.findLastKey(users, 'active', false);
+ * // => 'fred'
+ *
+ * // using the `_.property` callback shorthand
+ * _.findLastKey(users, 'active');
+ * // => 'pebbles'
+ */
+var findLastKey = createFindKey(baseForOwnRight);
+
+module.exports = findLastKey;
+
+},{"../internal/baseForOwnRight":123,"../internal/createFindKey":170}],258:[function(require,module,exports){
+var baseFor = require('../internal/baseFor'),
+    createForIn = require('../internal/createForIn');
+
+/**
+ * Iterates over own and inherited enumerable properties of an object invoking
+ * `iteratee` for each property. The `iteratee` is bound to `thisArg` and invoked
+ * with three arguments: (value, key, object). Iteratee functions may exit
+ * iteration early by explicitly returning `false`.
+ *
+ * @static
+ * @memberOf _
+ * @category Object
+ * @param {Object} object The object to iterate over.
+ * @param {Function} [iteratee=_.identity] The function invoked per iteration.
+ * @param {*} [thisArg] The `this` binding of `iteratee`.
+ * @returns {Object} Returns `object`.
+ * @example
+ *
+ * function Foo() {
+ *   this.a = 1;
+ *   this.b = 2;
+ * }
+ *
+ * Foo.prototype.c = 3;
+ *
+ * _.forIn(new Foo, function(value, key) {
+ *   console.log(key);
+ * });
+ * // => logs 'a', 'b', and 'c' (iteration order is not guaranteed)
+ */
+var forIn = createForIn(baseFor);
+
+module.exports = forIn;
+
+},{"../internal/baseFor":120,"../internal/createForIn":172}],259:[function(require,module,exports){
+var baseForRight = require('../internal/baseForRight'),
+    createForIn = require('../internal/createForIn');
+
+/**
+ * This method is like `_.forIn` except that it iterates over properties of
+ * `object` in the opposite order.
+ *
+ * @static
+ * @memberOf _
+ * @category Object
+ * @param {Object} object The object to iterate over.
+ * @param {Function} [iteratee=_.identity] The function invoked per iteration.
+ * @param {*} [thisArg] The `this` binding of `iteratee`.
+ * @returns {Object} Returns `object`.
+ * @example
+ *
+ * function Foo() {
+ *   this.a = 1;
+ *   this.b = 2;
+ * }
+ *
+ * Foo.prototype.c = 3;
+ *
+ * _.forInRight(new Foo, function(value, key) {
+ *   console.log(key);
+ * });
+ * // => logs 'c', 'b', and 'a' assuming `_.forIn ` logs 'a', 'b', and 'c'
+ */
+var forInRight = createForIn(baseForRight);
+
+module.exports = forInRight;
+
+},{"../internal/baseForRight":124,"../internal/createForIn":172}],260:[function(require,module,exports){
+var baseForOwn = require('../internal/baseForOwn'),
+    createForOwn = require('../internal/createForOwn');
+
+/**
+ * Iterates over own enumerable properties of an object invoking `iteratee`
+ * for each property. The `iteratee` is bound to `thisArg` and invoked with
+ * three arguments: (value, key, object). Iteratee functions may exit iteration
+ * early by explicitly returning `false`.
+ *
+ * @static
+ * @memberOf _
+ * @category Object
+ * @param {Object} object The object to iterate over.
+ * @param {Function} [iteratee=_.identity] The function invoked per iteration.
+ * @param {*} [thisArg] The `this` binding of `iteratee`.
+ * @returns {Object} Returns `object`.
+ * @example
+ *
+ * function Foo() {
+ *   this.a = 1;
+ *   this.b = 2;
+ * }
+ *
+ * Foo.prototype.c = 3;
+ *
+ * _.forOwn(new Foo, function(value, key) {
+ *   console.log(key);
+ * });
+ * // => logs 'a' and 'b' (iteration order is not guaranteed)
+ */
+var forOwn = createForOwn(baseForOwn);
+
+module.exports = forOwn;
+
+},{"../internal/baseForOwn":122,"../internal/createForOwn":173}],261:[function(require,module,exports){
+var baseForOwnRight = require('../internal/baseForOwnRight'),
+    createForOwn = require('../internal/createForOwn');
+
+/**
+ * This method is like `_.forOwn` except that it iterates over properties of
+ * `object` in the opposite order.
+ *
+ * @static
+ * @memberOf _
+ * @category Object
+ * @param {Object} object The object to iterate over.
+ * @param {Function} [iteratee=_.identity] The function invoked per iteration.
+ * @param {*} [thisArg] The `this` binding of `iteratee`.
+ * @returns {Object} Returns `object`.
+ * @example
+ *
+ * function Foo() {
+ *   this.a = 1;
+ *   this.b = 2;
+ * }
+ *
+ * Foo.prototype.c = 3;
+ *
+ * _.forOwnRight(new Foo, function(value, key) {
+ *   console.log(key);
+ * });
+ * // => logs 'b' and 'a' assuming `_.forOwn` logs 'a' and 'b'
+ */
+var forOwnRight = createForOwn(baseForOwnRight);
+
+module.exports = forOwnRight;
+
+},{"../internal/baseForOwnRight":123,"../internal/createForOwn":173}],262:[function(require,module,exports){
+var baseFunctions = require('../internal/baseFunctions'),
+    keysIn = require('./keysIn');
+
+/**
+ * Creates an array of function property names from all enumerable properties,
+ * own and inherited, of `object`.
+ *
+ * @static
+ * @memberOf _
+ * @alias methods
+ * @category Object
+ * @param {Object} object The object to inspect.
+ * @returns {Array} Returns the new array of property names.
+ * @example
+ *
+ * _.functions(_);
+ * // => ['after', 'ary', 'assign', ...]
+ */
+function functions(object) {
+  return baseFunctions(object, keysIn(object));
+}
+
+module.exports = functions;
+
+},{"../internal/baseFunctions":125,"./keysIn":267}],263:[function(require,module,exports){
+var baseGet = require('../internal/baseGet'),
+    toPath = require('../internal/toPath');
+
+/**
+ * Gets the property value at `path` of `object`. If the resolved value is
+ * `undefined` the `defaultValue` is used in its place.
+ *
+ * @static
+ * @memberOf _
+ * @category Object
+ * @param {Object} object The object to query.
+ * @param {Array|string} path The path of the property to get.
+ * @param {*} [defaultValue] The value returned if the resolved value is `undefined`.
+ * @returns {*} Returns the resolved value.
+ * @example
+ *
+ * var object = { 'a': [{ 'b': { 'c': 3 } }] };
+ *
+ * _.get(object, 'a[0].b.c');
+ * // => 3
+ *
+ * _.get(object, ['a', '0', 'b', 'c']);
+ * // => 3
+ *
+ * _.get(object, 'a.b.c', 'default');
+ * // => 'default'
+ */
+function get(object, path, defaultValue) {
+  var result = object == null ? undefined : baseGet(object, toPath(path), (path + ''));
+  return result === undefined ? defaultValue : result;
+}
+
+module.exports = get;
+
+},{"../internal/baseGet":126,"../internal/toPath":212}],264:[function(require,module,exports){
+var baseGet = require('../internal/baseGet'),
+    baseSlice = require('../internal/baseSlice'),
+    isArguments = require('../lang/isArguments'),
+    isArray = require('../lang/isArray'),
+    isIndex = require('../internal/isIndex'),
+    isKey = require('../internal/isKey'),
+    isLength = require('../internal/isLength'),
+    last = require('../array/last'),
+    toPath = require('../internal/toPath');
+
+/** Used for native method references. */
+var objectProto = Object.prototype;
+
+/** Used to check objects for own properties. */
+var hasOwnProperty = objectProto.hasOwnProperty;
+
+/**
+ * Checks if `path` is a direct property.
+ *
+ * @static
+ * @memberOf _
+ * @category Object
+ * @param {Object} object The object to query.
+ * @param {Array|string} path The path to check.
+ * @returns {boolean} Returns `true` if `path` is a direct property, else `false`.
+ * @example
+ *
+ * var object = { 'a': { 'b': { 'c': 3 } } };
+ *
+ * _.has(object, 'a');
+ * // => true
+ *
+ * _.has(object, 'a.b.c');
+ * // => true
+ *
+ * _.has(object, ['a', 'b', 'c']);
+ * // => true
+ */
+function has(object, path) {
+  if (object == null) {
+    return false;
+  }
+  var result = hasOwnProperty.call(object, path);
+  if (!result && !isKey(path)) {
+    path = toPath(path);
+    object = path.length == 1 ? object : baseGet(object, baseSlice(path, 0, -1));
+    if (object == null) {
+      return false;
+    }
+    path = last(path);
+    result = hasOwnProperty.call(object, path);
+  }
+  return result || (isLength(object.length) && isIndex(path, object.length) &&
+    (isArray(object) || isArguments(object)));
+}
+
+module.exports = has;
+
+},{"../array/last":20,"../internal/baseGet":126,"../internal/baseSlice":141,"../internal/isIndex":195,"../internal/isKey":197,"../internal/isLength":198,"../internal/toPath":212,"../lang/isArguments":222,"../lang/isArray":223}],265:[function(require,module,exports){
+var isIterateeCall = require('../internal/isIterateeCall'),
+    keys = require('./keys');
+
+/** Used for native method references. */
+var objectProto = Object.prototype;
+
+/** Used to check objects for own properties. */
+var hasOwnProperty = objectProto.hasOwnProperty;
+
+/**
+ * Creates an object composed of the inverted keys and values of `object`.
+ * If `object` contains duplicate values, subsequent values overwrite property
+ * assignments of previous values unless `multiValue` is `true`.
+ *
+ * @static
+ * @memberOf _
+ * @category Object
+ * @param {Object} object The object to invert.
+ * @param {boolean} [multiValue] Allow multiple values per key.
+ * @param- {Object} [guard] Enables use as a callback for functions like `_.map`.
+ * @returns {Object} Returns the new inverted object.
+ * @example
+ *
+ * var object = { 'a': 1, 'b': 2, 'c': 1 };
+ *
+ * _.invert(object);
+ * // => { '1': 'c', '2': 'b' }
+ *
+ * // with `multiValue`
+ * _.invert(object, true);
+ * // => { '1': ['a', 'c'], '2': ['b'] }
+ */
+function invert(object, multiValue, guard) {
+  if (guard && isIterateeCall(object, multiValue, guard)) {
+    multiValue = undefined;
+  }
+  var index = -1,
+      props = keys(object),
+      length = props.length,
+      result = {};
+
+  while (++index < length) {
+    var key = props[index],
+        value = object[key];
+
+    if (multiValue) {
+      if (hasOwnProperty.call(result, value)) {
+        result[value].push(key);
+      } else {
+        result[value] = [key];
+      }
+    }
+    else {
+      result[value] = key;
+    }
+  }
+  return result;
+}
+
+module.exports = invert;
+
+},{"../internal/isIterateeCall":196,"./keys":266}],266:[function(require,module,exports){
 var getNative = require('../internal/getNative'),
     isArrayLike = require('../internal/isArrayLike'),
     isObject = require('../lang/isObject'),
@@ -20548,7 +21415,7 @@ var keys = !nativeKeys ? shimKeys : function(object) {
 
 module.exports = keys;
 
-},{"../internal/getNative":179,"../internal/isArrayLike":185,"../internal/shimKeys":198,"../lang/isObject":227}],242:[function(require,module,exports){
+},{"../internal/getNative":188,"../internal/isArrayLike":194,"../internal/shimKeys":208,"../lang/isObject":237}],267:[function(require,module,exports){
 var isArguments = require('../lang/isArguments'),
     isArray = require('../lang/isArray'),
     isIndex = require('../internal/isIndex'),
@@ -20614,7 +21481,141 @@ function keysIn(object) {
 
 module.exports = keysIn;
 
-},{"../internal/isIndex":186,"../internal/isLength":189,"../lang/isArguments":212,"../lang/isArray":213,"../lang/isObject":227}],243:[function(require,module,exports){
+},{"../internal/isIndex":195,"../internal/isLength":198,"../lang/isArguments":222,"../lang/isArray":223,"../lang/isObject":237}],268:[function(require,module,exports){
+var createObjectMapper = require('../internal/createObjectMapper');
+
+/**
+ * The opposite of `_.mapValues`; this method creates an object with the
+ * same values as `object` and keys generated by running each own enumerable
+ * property of `object` through `iteratee`.
+ *
+ * @static
+ * @memberOf _
+ * @category Object
+ * @param {Object} object The object to iterate over.
+ * @param {Function|Object|string} [iteratee=_.identity] The function invoked
+ *  per iteration.
+ * @param {*} [thisArg] The `this` binding of `iteratee`.
+ * @returns {Object} Returns the new mapped object.
+ * @example
+ *
+ * _.mapKeys({ 'a': 1, 'b': 2 }, function(value, key) {
+ *   return key + value;
+ * });
+ * // => { 'a1': 1, 'b2': 2 }
+ */
+var mapKeys = createObjectMapper(true);
+
+module.exports = mapKeys;
+
+},{"../internal/createObjectMapper":174}],269:[function(require,module,exports){
+var createObjectMapper = require('../internal/createObjectMapper');
+
+/**
+ * Creates an object with the same keys as `object` and values generated by
+ * running each own enumerable property of `object` through `iteratee`. The
+ * iteratee function is bound to `thisArg` and invoked with three arguments:
+ * (value, key, object).
+ *
+ * If a property name is provided for `iteratee` the created `_.property`
+ * style callback returns the property value of the given element.
+ *
+ * If a value is also provided for `thisArg` the created `_.matchesProperty`
+ * style callback returns `true` for elements that have a matching property
+ * value, else `false`.
+ *
+ * If an object is provided for `iteratee` the created `_.matches` style
+ * callback returns `true` for elements that have the properties of the given
+ * object, else `false`.
+ *
+ * @static
+ * @memberOf _
+ * @category Object
+ * @param {Object} object The object to iterate over.
+ * @param {Function|Object|string} [iteratee=_.identity] The function invoked
+ *  per iteration.
+ * @param {*} [thisArg] The `this` binding of `iteratee`.
+ * @returns {Object} Returns the new mapped object.
+ * @example
+ *
+ * _.mapValues({ 'a': 1, 'b': 2 }, function(n) {
+ *   return n * 3;
+ * });
+ * // => { 'a': 3, 'b': 6 }
+ *
+ * var users = {
+ *   'fred':    { 'user': 'fred',    'age': 40 },
+ *   'pebbles': { 'user': 'pebbles', 'age': 1 }
+ * };
+ *
+ * // using the `_.property` callback shorthand
+ * _.mapValues(users, 'age');
+ * // => { 'fred': 40, 'pebbles': 1 } (iteration order is not guaranteed)
+ */
+var mapValues = createObjectMapper();
+
+module.exports = mapValues;
+
+},{"../internal/createObjectMapper":174}],270:[function(require,module,exports){
+var baseMerge = require('../internal/baseMerge'),
+    createAssigner = require('../internal/createAssigner');
+
+/**
+ * Recursively merges own enumerable properties of the source object(s), that
+ * don't resolve to `undefined` into the destination object. Subsequent sources
+ * overwrite property assignments of previous sources. If `customizer` is
+ * provided it's invoked to produce the merged values of the destination and
+ * source properties. If `customizer` returns `undefined` merging is handled
+ * by the method instead. The `customizer` is bound to `thisArg` and invoked
+ * with five arguments: (objectValue, sourceValue, key, object, source).
+ *
+ * @static
+ * @memberOf _
+ * @category Object
+ * @param {Object} object The destination object.
+ * @param {...Object} [sources] The source objects.
+ * @param {Function} [customizer] The function to customize assigned values.
+ * @param {*} [thisArg] The `this` binding of `customizer`.
+ * @returns {Object} Returns `object`.
+ * @example
+ *
+ * var users = {
+ *   'data': [{ 'user': 'barney' }, { 'user': 'fred' }]
+ * };
+ *
+ * var ages = {
+ *   'data': [{ 'age': 36 }, { 'age': 40 }]
+ * };
+ *
+ * _.merge(users, ages);
+ * // => { 'data': [{ 'user': 'barney', 'age': 36 }, { 'user': 'fred', 'age': 40 }] }
+ *
+ * // using a customizer callback
+ * var object = {
+ *   'fruits': ['apple'],
+ *   'vegetables': ['beet']
+ * };
+ *
+ * var other = {
+ *   'fruits': ['banana'],
+ *   'vegetables': ['carrot']
+ * };
+ *
+ * _.merge(object, other, function(a, b) {
+ *   if (_.isArray(a)) {
+ *     return a.concat(b);
+ *   }
+ * });
+ * // => { 'fruits': ['apple', 'banana'], 'vegetables': ['beet', 'carrot'] }
+ */
+var merge = createAssigner(baseMerge);
+
+module.exports = merge;
+
+},{"../internal/baseMerge":134,"../internal/createAssigner":161}],271:[function(require,module,exports){
+module.exports = require('./functions');
+
+},{"./functions":262}],272:[function(require,module,exports){
 var arrayMap = require('../internal/arrayMap'),
     baseDifference = require('../internal/baseDifference'),
     baseFlatten = require('../internal/baseFlatten'),
@@ -20663,7 +21664,7 @@ var omit = restParam(function(object, props) {
 
 module.exports = omit;
 
-},{"../function/restParam":85,"../internal/arrayMap":94,"../internal/baseDifference":108,"../internal/baseFlatten":117,"../internal/bindCallback":148,"../internal/pickByArray":193,"../internal/pickByCallback":194,"./keysIn":242}],244:[function(require,module,exports){
+},{"../function/restParam":85,"../internal/arrayMap":94,"../internal/baseDifference":110,"../internal/baseFlatten":119,"../internal/bindCallback":152,"../internal/pickByArray":203,"../internal/pickByCallback":204,"./keysIn":267}],273:[function(require,module,exports){
 var keys = require('./keys'),
     toObject = require('../internal/toObject');
 
@@ -20698,7 +21699,51 @@ function pairs(object) {
 
 module.exports = pairs;
 
-},{"../internal/toObject":201,"./keys":241}],245:[function(require,module,exports){
+},{"../internal/toObject":211,"./keys":266}],274:[function(require,module,exports){
+var baseFlatten = require('../internal/baseFlatten'),
+    bindCallback = require('../internal/bindCallback'),
+    pickByArray = require('../internal/pickByArray'),
+    pickByCallback = require('../internal/pickByCallback'),
+    restParam = require('../function/restParam');
+
+/**
+ * Creates an object composed of the picked `object` properties. Property
+ * names may be specified as individual arguments or as arrays of property
+ * names. If `predicate` is provided it's invoked for each property of `object`
+ * picking the properties `predicate` returns truthy for. The predicate is
+ * bound to `thisArg` and invoked with three arguments: (value, key, object).
+ *
+ * @static
+ * @memberOf _
+ * @category Object
+ * @param {Object} object The source object.
+ * @param {Function|...(string|string[])} [predicate] The function invoked per
+ *  iteration or property names to pick, specified as individual property
+ *  names or arrays of property names.
+ * @param {*} [thisArg] The `this` binding of `predicate`.
+ * @returns {Object} Returns the new object.
+ * @example
+ *
+ * var object = { 'user': 'fred', 'age': 40 };
+ *
+ * _.pick(object, 'user');
+ * // => { 'user': 'fred' }
+ *
+ * _.pick(object, _.isString);
+ * // => { 'user': 'fred' }
+ */
+var pick = restParam(function(object, props) {
+  if (object == null) {
+    return {};
+  }
+  return typeof props[0] == 'function'
+    ? pickByCallback(object, bindCallback(props[0], props[1], 3))
+    : pickByArray(object, baseFlatten(props));
+});
+
+module.exports = pick;
+
+},{"../function/restParam":85,"../internal/baseFlatten":119,"../internal/bindCallback":152,"../internal/pickByArray":203,"../internal/pickByCallback":204}],275:[function(require,module,exports){
 var baseGet = require('../internal/baseGet'),
     baseSlice = require('../internal/baseSlice'),
     isFunction = require('../lang/isFunction'),
@@ -20749,7 +21794,127 @@ function result(object, path, defaultValue) {
 
 module.exports = result;
 
-},{"../array/last":20,"../internal/baseGet":124,"../internal/baseSlice":137,"../internal/isKey":188,"../internal/toPath":202,"../lang/isFunction":221}],246:[function(require,module,exports){
+},{"../array/last":20,"../internal/baseGet":126,"../internal/baseSlice":141,"../internal/isKey":197,"../internal/toPath":212,"../lang/isFunction":231}],276:[function(require,module,exports){
+var isIndex = require('../internal/isIndex'),
+    isKey = require('../internal/isKey'),
+    isObject = require('../lang/isObject'),
+    toPath = require('../internal/toPath');
+
+/**
+ * Sets the property value of `path` on `object`. If a portion of `path`
+ * does not exist it's created.
+ *
+ * @static
+ * @memberOf _
+ * @category Object
+ * @param {Object} object The object to augment.
+ * @param {Array|string} path The path of the property to set.
+ * @param {*} value The value to set.
+ * @returns {Object} Returns `object`.
+ * @example
+ *
+ * var object = { 'a': [{ 'b': { 'c': 3 } }] };
+ *
+ * _.set(object, 'a[0].b.c', 4);
+ * console.log(object.a[0].b.c);
+ * // => 4
+ *
+ * _.set(object, 'x[0].y.z', 5);
+ * console.log(object.x[0].y.z);
+ * // => 5
+ */
+function set(object, path, value) {
+  if (object == null) {
+    return object;
+  }
+  var pathKey = (path + '');
+  path = (object[pathKey] != null || isKey(path, object)) ? [pathKey] : toPath(path);
+
+  var index = -1,
+      length = path.length,
+      lastIndex = length - 1,
+      nested = object;
+
+  while (nested != null && ++index < length) {
+    var key = path[index];
+    if (isObject(nested)) {
+      if (index == lastIndex) {
+        nested[key] = value;
+      } else if (nested[key] == null) {
+        nested[key] = isIndex(path[index + 1]) ? [] : {};
+      }
+    }
+    nested = nested[key];
+  }
+  return object;
+}
+
+module.exports = set;
+
+},{"../internal/isIndex":195,"../internal/isKey":197,"../internal/toPath":212,"../lang/isObject":237}],277:[function(require,module,exports){
+var arrayEach = require('../internal/arrayEach'),
+    baseCallback = require('../internal/baseCallback'),
+    baseCreate = require('../internal/baseCreate'),
+    baseForOwn = require('../internal/baseForOwn'),
+    isArray = require('../lang/isArray'),
+    isFunction = require('../lang/isFunction'),
+    isObject = require('../lang/isObject'),
+    isTypedArray = require('../lang/isTypedArray');
+
+/**
+ * An alternative to `_.reduce`; this method transforms `object` to a new
+ * `accumulator` object which is the result of running each of its own enumerable
+ * properties through `iteratee`, with each invocation potentially mutating
+ * the `accumulator` object. The `iteratee` is bound to `thisArg` and invoked
+ * with four arguments: (accumulator, value, key, object). Iteratee functions
+ * may exit iteration early by explicitly returning `false`.
+ *
+ * @static
+ * @memberOf _
+ * @category Object
+ * @param {Array|Object} object The object to iterate over.
+ * @param {Function} [iteratee=_.identity] The function invoked per iteration.
+ * @param {*} [accumulator] The custom accumulator value.
+ * @param {*} [thisArg] The `this` binding of `iteratee`.
+ * @returns {*} Returns the accumulated value.
+ * @example
+ *
+ * _.transform([2, 3, 4], function(result, n) {
+ *   result.push(n *= n);
+ *   return n % 2 == 0;
+ * });
+ * // => [4, 9]
+ *
+ * _.transform({ 'a': 1, 'b': 2 }, function(result, n, key) {
+ *   result[key] = n * 3;
+ * });
+ * // => { 'a': 3, 'b': 6 }
+ */
+function transform(object, iteratee, accumulator, thisArg) {
+  var isArr = isArray(object) || isTypedArray(object);
+  iteratee = baseCallback(iteratee, thisArg, 4);
+
+  if (accumulator == null) {
+    if (isArr || isObject(object)) {
+      var Ctor = object.constructor;
+      if (isArr) {
+        accumulator = isArray(object) ? new Ctor : [];
+      } else {
+        accumulator = baseCreate(isFunction(Ctor) ? Ctor.prototype : undefined);
+      }
+    } else {
+      accumulator = {};
+    }
+  }
+  (isArr ? arrayEach : baseForOwn)(object, function(value, index, object) {
+    return iteratee(accumulator, value, index, object);
+  });
+  return accumulator;
+}
+
+module.exports = transform;
+
+},{"../internal/arrayEach":89,"../internal/baseCallback":105,"../internal/baseCreate":109,"../internal/baseForOwn":122,"../lang/isArray":223,"../lang/isFunction":231,"../lang/isObject":237,"../lang/isTypedArray":241}],278:[function(require,module,exports){
 var baseValues = require('../internal/baseValues'),
     keys = require('./keys');
 
@@ -20784,7 +21949,40 @@ function values(object) {
 
 module.exports = values;
 
-},{"../internal/baseValues":144,"./keys":241}],247:[function(require,module,exports){
+},{"../internal/baseValues":148,"./keys":266}],279:[function(require,module,exports){
+var baseValues = require('../internal/baseValues'),
+    keysIn = require('./keysIn');
+
+/**
+ * Creates an array of the own and inherited enumerable property values
+ * of `object`.
+ *
+ * **Note:** Non-object values are coerced to objects.
+ *
+ * @static
+ * @memberOf _
+ * @category Object
+ * @param {Object} object The object to query.
+ * @returns {Array} Returns the array of property values.
+ * @example
+ *
+ * function Foo() {
+ *   this.a = 1;
+ *   this.b = 2;
+ * }
+ *
+ * Foo.prototype.c = 3;
+ *
+ * _.valuesIn(new Foo);
+ * // => [1, 2, 3] (iteration order is not guaranteed)
+ */
+function valuesIn(object) {
+  return baseValues(object, keysIn(object));
+}
+
+module.exports = valuesIn;
+
+},{"../internal/baseValues":148,"./keysIn":267}],280:[function(require,module,exports){
 module.exports = {
   'camelCase': require('./string/camelCase'),
   'capitalize': require('./string/capitalize'),
@@ -20811,7 +22009,7 @@ module.exports = {
   'words': require('./string/words')
 };
 
-},{"./string/camelCase":248,"./string/capitalize":249,"./string/deburr":250,"./string/endsWith":251,"./string/escape":252,"./string/escapeRegExp":253,"./string/kebabCase":254,"./string/pad":255,"./string/padLeft":256,"./string/padRight":257,"./string/parseInt":258,"./string/repeat":259,"./string/snakeCase":260,"./string/startCase":261,"./string/startsWith":262,"./string/template":263,"./string/templateSettings":264,"./string/trim":265,"./string/trimLeft":266,"./string/trimRight":267,"./string/trunc":268,"./string/unescape":269,"./string/words":270}],248:[function(require,module,exports){
+},{"./string/camelCase":281,"./string/capitalize":282,"./string/deburr":283,"./string/endsWith":284,"./string/escape":285,"./string/escapeRegExp":286,"./string/kebabCase":287,"./string/pad":288,"./string/padLeft":289,"./string/padRight":290,"./string/parseInt":291,"./string/repeat":292,"./string/snakeCase":293,"./string/startCase":294,"./string/startsWith":295,"./string/template":296,"./string/templateSettings":297,"./string/trim":298,"./string/trimLeft":299,"./string/trimRight":300,"./string/trunc":301,"./string/unescape":302,"./string/words":303}],281:[function(require,module,exports){
 var createCompounder = require('../internal/createCompounder');
 
 /**
@@ -20840,7 +22038,7 @@ var camelCase = createCompounder(function(result, word, index) {
 
 module.exports = camelCase;
 
-},{"../internal/createCompounder":161}],249:[function(require,module,exports){
+},{"../internal/createCompounder":165}],282:[function(require,module,exports){
 var baseToString = require('../internal/baseToString');
 
 /**
@@ -20863,7 +22061,7 @@ function capitalize(string) {
 
 module.exports = capitalize;
 
-},{"../internal/baseToString":142}],250:[function(require,module,exports){
+},{"../internal/baseToString":146}],283:[function(require,module,exports){
 var baseToString = require('../internal/baseToString'),
     deburrLetter = require('../internal/deburrLetter');
 
@@ -20894,7 +22092,7 @@ function deburr(string) {
 
 module.exports = deburr;
 
-},{"../internal/baseToString":142,"../internal/deburrLetter":170}],251:[function(require,module,exports){
+},{"../internal/baseToString":146,"../internal/deburrLetter":179}],284:[function(require,module,exports){
 var baseToString = require('../internal/baseToString');
 
 /* Native method references for those with the same name as other `lodash` methods. */
@@ -20936,7 +22134,7 @@ function endsWith(string, target, position) {
 
 module.exports = endsWith;
 
-},{"../internal/baseToString":142}],252:[function(require,module,exports){
+},{"../internal/baseToString":146}],285:[function(require,module,exports){
 var baseToString = require('../internal/baseToString'),
     escapeHtmlChar = require('../internal/escapeHtmlChar');
 
@@ -20986,7 +22184,7 @@ function escape(string) {
 
 module.exports = escape;
 
-},{"../internal/baseToString":142,"../internal/escapeHtmlChar":174}],253:[function(require,module,exports){
+},{"../internal/baseToString":146,"../internal/escapeHtmlChar":183}],286:[function(require,module,exports){
 var baseToString = require('../internal/baseToString'),
     escapeRegExpChar = require('../internal/escapeRegExpChar');
 
@@ -21020,7 +22218,7 @@ function escapeRegExp(string) {
 
 module.exports = escapeRegExp;
 
-},{"../internal/baseToString":142,"../internal/escapeRegExpChar":175}],254:[function(require,module,exports){
+},{"../internal/baseToString":146,"../internal/escapeRegExpChar":184}],287:[function(require,module,exports){
 var createCompounder = require('../internal/createCompounder');
 
 /**
@@ -21048,7 +22246,7 @@ var kebabCase = createCompounder(function(result, word, index) {
 
 module.exports = kebabCase;
 
-},{"../internal/createCompounder":161}],255:[function(require,module,exports){
+},{"../internal/createCompounder":165}],288:[function(require,module,exports){
 (function (global){
 var baseToString = require('../internal/baseToString'),
     createPadding = require('../internal/createPadding');
@@ -21099,7 +22297,7 @@ function pad(string, length, chars) {
 module.exports = pad;
 
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{"../internal/baseToString":142,"../internal/createPadding":167}],256:[function(require,module,exports){
+},{"../internal/baseToString":146,"../internal/createPadding":176}],289:[function(require,module,exports){
 var createPadDir = require('../internal/createPadDir');
 
 /**
@@ -21128,7 +22326,7 @@ var padLeft = createPadDir();
 
 module.exports = padLeft;
 
-},{"../internal/createPadDir":166}],257:[function(require,module,exports){
+},{"../internal/createPadDir":175}],290:[function(require,module,exports){
 var createPadDir = require('../internal/createPadDir');
 
 /**
@@ -21157,7 +22355,7 @@ var padRight = createPadDir(true);
 
 module.exports = padRight;
 
-},{"../internal/createPadDir":166}],258:[function(require,module,exports){
+},{"../internal/createPadDir":175}],291:[function(require,module,exports){
 (function (global){
 var isIterateeCall = require('../internal/isIterateeCall'),
     trim = require('./trim');
@@ -21207,7 +22405,7 @@ function parseInt(string, radix, guard) {
 module.exports = parseInt;
 
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{"../internal/isIterateeCall":187,"./trim":265}],259:[function(require,module,exports){
+},{"../internal/isIterateeCall":196,"./trim":298}],292:[function(require,module,exports){
 (function (global){
 var baseToString = require('../internal/baseToString');
 
@@ -21258,7 +22456,7 @@ function repeat(string, n) {
 module.exports = repeat;
 
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{"../internal/baseToString":142}],260:[function(require,module,exports){
+},{"../internal/baseToString":146}],293:[function(require,module,exports){
 var createCompounder = require('../internal/createCompounder');
 
 /**
@@ -21286,7 +22484,7 @@ var snakeCase = createCompounder(function(result, word, index) {
 
 module.exports = snakeCase;
 
-},{"../internal/createCompounder":161}],261:[function(require,module,exports){
+},{"../internal/createCompounder":165}],294:[function(require,module,exports){
 var createCompounder = require('../internal/createCompounder');
 
 /**
@@ -21314,7 +22512,7 @@ var startCase = createCompounder(function(result, word, index) {
 
 module.exports = startCase;
 
-},{"../internal/createCompounder":161}],262:[function(require,module,exports){
+},{"../internal/createCompounder":165}],295:[function(require,module,exports){
 var baseToString = require('../internal/baseToString');
 
 /* Native method references for those with the same name as other `lodash` methods. */
@@ -21352,7 +22550,7 @@ function startsWith(string, target, position) {
 
 module.exports = startsWith;
 
-},{"../internal/baseToString":142}],263:[function(require,module,exports){
+},{"../internal/baseToString":146}],296:[function(require,module,exports){
 var assignOwnDefaults = require('../internal/assignOwnDefaults'),
     assignWith = require('../internal/assignWith'),
     attempt = require('../utility/attempt'),
@@ -21580,7 +22778,7 @@ function template(string, options, otherOptions) {
 
 module.exports = template;
 
-},{"../internal/assignOwnDefaults":100,"../internal/assignWith":101,"../internal/baseAssign":102,"../internal/baseToString":142,"../internal/baseValues":144,"../internal/escapeStringChar":176,"../internal/isIterateeCall":187,"../internal/reInterpolate":197,"../lang/isError":219,"../object/keys":241,"../utility/attempt":272,"./templateSettings":264}],264:[function(require,module,exports){
+},{"../internal/assignOwnDefaults":101,"../internal/assignWith":102,"../internal/baseAssign":103,"../internal/baseToString":146,"../internal/baseValues":148,"../internal/escapeStringChar":185,"../internal/isIterateeCall":196,"../internal/reInterpolate":207,"../lang/isError":229,"../object/keys":266,"../utility/attempt":305,"./templateSettings":297}],297:[function(require,module,exports){
 var escape = require('./escape'),
     reEscape = require('../internal/reEscape'),
     reEvaluate = require('../internal/reEvaluate'),
@@ -21649,7 +22847,7 @@ var templateSettings = {
 
 module.exports = templateSettings;
 
-},{"../internal/reEscape":195,"../internal/reEvaluate":196,"../internal/reInterpolate":197,"./escape":252}],265:[function(require,module,exports){
+},{"../internal/reEscape":205,"../internal/reEvaluate":206,"../internal/reInterpolate":207,"./escape":285}],298:[function(require,module,exports){
 var baseToString = require('../internal/baseToString'),
     charsLeftIndex = require('../internal/charsLeftIndex'),
     charsRightIndex = require('../internal/charsRightIndex'),
@@ -21693,7 +22891,7 @@ function trim(string, chars, guard) {
 
 module.exports = trim;
 
-},{"../internal/baseToString":142,"../internal/charsLeftIndex":152,"../internal/charsRightIndex":153,"../internal/isIterateeCall":187,"../internal/trimmedLeftIndex":203,"../internal/trimmedRightIndex":204}],266:[function(require,module,exports){
+},{"../internal/baseToString":146,"../internal/charsLeftIndex":156,"../internal/charsRightIndex":157,"../internal/isIterateeCall":196,"../internal/trimmedLeftIndex":213,"../internal/trimmedRightIndex":214}],299:[function(require,module,exports){
 var baseToString = require('../internal/baseToString'),
     charsLeftIndex = require('../internal/charsLeftIndex'),
     isIterateeCall = require('../internal/isIterateeCall'),
@@ -21731,7 +22929,7 @@ function trimLeft(string, chars, guard) {
 
 module.exports = trimLeft;
 
-},{"../internal/baseToString":142,"../internal/charsLeftIndex":152,"../internal/isIterateeCall":187,"../internal/trimmedLeftIndex":203}],267:[function(require,module,exports){
+},{"../internal/baseToString":146,"../internal/charsLeftIndex":156,"../internal/isIterateeCall":196,"../internal/trimmedLeftIndex":213}],300:[function(require,module,exports){
 var baseToString = require('../internal/baseToString'),
     charsRightIndex = require('../internal/charsRightIndex'),
     isIterateeCall = require('../internal/isIterateeCall'),
@@ -21769,7 +22967,7 @@ function trimRight(string, chars, guard) {
 
 module.exports = trimRight;
 
-},{"../internal/baseToString":142,"../internal/charsRightIndex":153,"../internal/isIterateeCall":187,"../internal/trimmedRightIndex":204}],268:[function(require,module,exports){
+},{"../internal/baseToString":146,"../internal/charsRightIndex":157,"../internal/isIterateeCall":196,"../internal/trimmedRightIndex":214}],301:[function(require,module,exports){
 var baseToString = require('../internal/baseToString'),
     isIterateeCall = require('../internal/isIterateeCall'),
     isObject = require('../lang/isObject'),
@@ -21876,7 +23074,7 @@ function trunc(string, options, guard) {
 
 module.exports = trunc;
 
-},{"../internal/baseToString":142,"../internal/isIterateeCall":187,"../lang/isObject":227,"../lang/isRegExp":229}],269:[function(require,module,exports){
+},{"../internal/baseToString":146,"../internal/isIterateeCall":196,"../lang/isObject":237,"../lang/isRegExp":239}],302:[function(require,module,exports){
 var baseToString = require('../internal/baseToString'),
     unescapeHtmlChar = require('../internal/unescapeHtmlChar');
 
@@ -21911,7 +23109,7 @@ function unescape(string) {
 
 module.exports = unescape;
 
-},{"../internal/baseToString":142,"../internal/unescapeHtmlChar":205}],270:[function(require,module,exports){
+},{"../internal/baseToString":146,"../internal/unescapeHtmlChar":215}],303:[function(require,module,exports){
 var baseToString = require('../internal/baseToString'),
     isIterateeCall = require('../internal/isIterateeCall');
 
@@ -21951,7 +23149,7 @@ function words(string, pattern, guard) {
 
 module.exports = words;
 
-},{"../internal/baseToString":142,"../internal/isIterateeCall":187}],271:[function(require,module,exports){
+},{"../internal/baseToString":146,"../internal/isIterateeCall":196}],304:[function(require,module,exports){
 module.exports = {
   'attempt': require('./utility/attempt'),
   'callback': require('./utility/callback'),
@@ -21971,7 +23169,7 @@ module.exports = {
   'uniqueId': require('./utility/uniqueId')
 };
 
-},{"./utility/attempt":272,"./utility/callback":273,"./utility/constant":274,"./utility/identity":275,"./utility/iteratee":276,"./utility/matches":277,"./utility/matchesProperty":278,"./utility/method":279,"./utility/methodOf":280,"./utility/mixin":281,"./utility/noop":282,"./utility/property":283,"./utility/propertyOf":284,"./utility/range":285,"./utility/times":286,"./utility/uniqueId":287}],272:[function(require,module,exports){
+},{"./utility/attempt":305,"./utility/callback":306,"./utility/constant":307,"./utility/identity":308,"./utility/iteratee":309,"./utility/matches":310,"./utility/matchesProperty":311,"./utility/method":312,"./utility/methodOf":313,"./utility/mixin":314,"./utility/noop":315,"./utility/property":316,"./utility/propertyOf":317,"./utility/range":318,"./utility/times":319,"./utility/uniqueId":320}],305:[function(require,module,exports){
 var isError = require('../lang/isError'),
     restParam = require('../function/restParam');
 
@@ -22005,7 +23203,7 @@ var attempt = restParam(function(func, args) {
 
 module.exports = attempt;
 
-},{"../function/restParam":85,"../lang/isError":219}],273:[function(require,module,exports){
+},{"../function/restParam":85,"../lang/isError":229}],306:[function(require,module,exports){
 var baseCallback = require('../internal/baseCallback'),
     isIterateeCall = require('../internal/isIterateeCall'),
     isObjectLike = require('../internal/isObjectLike'),
@@ -22060,7 +23258,7 @@ function callback(func, thisArg, guard) {
 
 module.exports = callback;
 
-},{"../internal/baseCallback":104,"../internal/isIterateeCall":187,"../internal/isObjectLike":190,"./matches":277}],274:[function(require,module,exports){
+},{"../internal/baseCallback":105,"../internal/isIterateeCall":196,"../internal/isObjectLike":199,"./matches":310}],307:[function(require,module,exports){
 /**
  * Creates a function that returns `value`.
  *
@@ -22085,7 +23283,7 @@ function constant(value) {
 
 module.exports = constant;
 
-},{}],275:[function(require,module,exports){
+},{}],308:[function(require,module,exports){
 /**
  * This method returns the first argument provided to it.
  *
@@ -22107,10 +23305,10 @@ function identity(value) {
 
 module.exports = identity;
 
-},{}],276:[function(require,module,exports){
+},{}],309:[function(require,module,exports){
 module.exports = require('./callback');
 
-},{"./callback":273}],277:[function(require,module,exports){
+},{"./callback":306}],310:[function(require,module,exports){
 var baseClone = require('../internal/baseClone'),
     baseMatches = require('../internal/baseMatches');
 
@@ -22145,7 +23343,7 @@ function matches(source) {
 
 module.exports = matches;
 
-},{"../internal/baseClone":105,"../internal/baseMatches":130}],278:[function(require,module,exports){
+},{"../internal/baseClone":106,"../internal/baseMatches":132}],311:[function(require,module,exports){
 var baseClone = require('../internal/baseClone'),
     baseMatchesProperty = require('../internal/baseMatchesProperty');
 
@@ -22179,7 +23377,7 @@ function matchesProperty(path, srcValue) {
 
 module.exports = matchesProperty;
 
-},{"../internal/baseClone":105,"../internal/baseMatchesProperty":131}],279:[function(require,module,exports){
+},{"../internal/baseClone":106,"../internal/baseMatchesProperty":133}],312:[function(require,module,exports){
 var invokePath = require('../internal/invokePath'),
     restParam = require('../function/restParam');
 
@@ -22214,7 +23412,7 @@ var method = restParam(function(path, args) {
 
 module.exports = method;
 
-},{"../function/restParam":85,"../internal/invokePath":184}],280:[function(require,module,exports){
+},{"../function/restParam":85,"../internal/invokePath":193}],313:[function(require,module,exports){
 var invokePath = require('../internal/invokePath'),
     restParam = require('../function/restParam');
 
@@ -22248,7 +23446,7 @@ var methodOf = restParam(function(object, args) {
 
 module.exports = methodOf;
 
-},{"../function/restParam":85,"../internal/invokePath":184}],281:[function(require,module,exports){
+},{"../function/restParam":85,"../internal/invokePath":193}],314:[function(require,module,exports){
 var arrayCopy = require('../internal/arrayCopy'),
     arrayPush = require('../internal/arrayPush'),
     baseFunctions = require('../internal/baseFunctions'),
@@ -22332,7 +23530,7 @@ function mixin(object, source, options) {
 
 module.exports = mixin;
 
-},{"../internal/arrayCopy":88,"../internal/arrayPush":95,"../internal/baseFunctions":123,"../lang/isFunction":221,"../lang/isObject":227,"../object/keys":241}],282:[function(require,module,exports){
+},{"../internal/arrayCopy":88,"../internal/arrayPush":95,"../internal/baseFunctions":125,"../lang/isFunction":231,"../lang/isObject":237,"../object/keys":266}],315:[function(require,module,exports){
 /**
  * A no-operation function that returns `undefined` regardless of the
  * arguments it receives.
@@ -22353,7 +23551,7 @@ function noop() {
 
 module.exports = noop;
 
-},{}],283:[function(require,module,exports){
+},{}],316:[function(require,module,exports){
 var baseProperty = require('../internal/baseProperty'),
     basePropertyDeep = require('../internal/basePropertyDeep'),
     isKey = require('../internal/isKey');
@@ -22386,7 +23584,7 @@ function property(path) {
 
 module.exports = property;
 
-},{"../internal/baseProperty":132,"../internal/basePropertyDeep":133,"../internal/isKey":188}],284:[function(require,module,exports){
+},{"../internal/baseProperty":136,"../internal/basePropertyDeep":137,"../internal/isKey":197}],317:[function(require,module,exports){
 var baseGet = require('../internal/baseGet'),
     toPath = require('../internal/toPath');
 
@@ -22418,7 +23616,7 @@ function propertyOf(object) {
 
 module.exports = propertyOf;
 
-},{"../internal/baseGet":124,"../internal/toPath":202}],285:[function(require,module,exports){
+},{"../internal/baseGet":126,"../internal/toPath":212}],318:[function(require,module,exports){
 var isIterateeCall = require('../internal/isIterateeCall');
 
 /* Native method references for those with the same name as other `lodash` methods. */
@@ -22486,7 +23684,7 @@ function range(start, end, step) {
 
 module.exports = range;
 
-},{"../internal/isIterateeCall":187}],286:[function(require,module,exports){
+},{"../internal/isIterateeCall":196}],319:[function(require,module,exports){
 (function (global){
 var bindCallback = require('../internal/bindCallback');
 
@@ -22550,7 +23748,7 @@ function times(n, iteratee, thisArg) {
 module.exports = times;
 
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{"../internal/bindCallback":148}],287:[function(require,module,exports){
+},{"../internal/bindCallback":152}],320:[function(require,module,exports){
 var baseToString = require('../internal/baseToString');
 
 /** Used to generate unique IDs. */
@@ -22579,7 +23777,7 @@ function uniqueId(prefix) {
 
 module.exports = uniqueId;
 
-},{"../internal/baseToString":142}],288:[function(require,module,exports){
+},{"../internal/baseToString":146}],321:[function(require,module,exports){
 'use strict';
 
 function ToObject(val) {
@@ -22607,7 +23805,7 @@ module.exports = Object.assign || function (target, source) {
 	return to;
 };
 
-},{}],289:[function(require,module,exports){
+},{}],322:[function(require,module,exports){
 /**
 * @version: 2.0.8
 * @author: Dan Grossman http://www.dangrossman.info/
@@ -24041,7 +25239,7 @@ module.exports = Object.assign || function (target, source) {
 
 }));
 
-},{}],290:[function(require,module,exports){
+},{}],323:[function(require,module,exports){
 "use strict";
 /* generated by gulpfile.js */
 module.exports = exports = function () {
@@ -24071,7 +25269,7 @@ module.exports = exports = function () {
 		"timeZone"
 ];
 };
-},{}],291:[function(require,module,exports){
+},{}],324:[function(require,module,exports){
 'use strict';
 /**
  * react-bootstrap-daterangepicker.js
@@ -24144,7 +25342,7 @@ module.exports = React.createClass({
 	}
 });
 
-},{"./daterangepicker.js":289,"./get-options.js":290}],292:[function(require,module,exports){
+},{"./daterangepicker.js":322,"./get-options.js":323}],325:[function(require,module,exports){
 (function (global){
 
 var rng;
@@ -24179,7 +25377,7 @@ module.exports = rng;
 
 
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{}],293:[function(require,module,exports){
+},{}],326:[function(require,module,exports){
 //     uuid.js
 //
 //     Copyright (c) 2010-2012 Robert Kieffer
@@ -24364,10 +25562,10 @@ uuid.unparse = unparse;
 
 module.exports = uuid;
 
-},{"./rng":292}],294:[function(require,module,exports){
+},{"./rng":325}],327:[function(require,module,exports){
 module.exports={
     "name": "focusjs-components",
-    "version": "0.5.2",
+    "version": "0.5.2-2",
     "description": "Focus component repository.",
     "main": "index.js",
     "scripts": {
@@ -24655,7 +25853,7 @@ module.exports={
     }
 }
 
-},{}],295:[function(require,module,exports){
+},{}],328:[function(require,module,exports){
 'use strict';
 
 var builder = window.Focus.component.builder;
@@ -24747,7 +25945,7 @@ var barMixin = {
 
 module.exports = builder(barMixin);
 
-},{}],296:[function(require,module,exports){
+},{}],329:[function(require,module,exports){
 'use strict';
 
 var builder = window.Focus.component.builder;
@@ -24791,7 +25989,7 @@ var cartridgeMixin = {
 
 module.exports = builder(cartridgeMixin);
 
-},{}],297:[function(require,module,exports){
+},{}],330:[function(require,module,exports){
 // Dependencies
 
 'use strict';
@@ -24873,7 +26071,7 @@ var ConfirmationPopin = {
 
 module.exports = builder(ConfirmationPopin);
 
-},{"../../common/button/action":315,"../../common/i18n/mixin":334,"../popin":310}],298:[function(require,module,exports){
+},{"../../common/button/action":348,"../../common/i18n/mixin":367,"../popin":343}],331:[function(require,module,exports){
 'use strict';
 
 var builder = window.Focus.component.builder;
@@ -24918,7 +26116,7 @@ var contentActionsMixin = {
 
 module.exports = builder(contentActionsMixin);
 
-},{"../../common/button/action":315,"../../common/select-action":361,"../../mixin/stylable":387}],299:[function(require,module,exports){
+},{"../../common/button/action":348,"../../common/select-action":394,"../../mixin/stylable":420}],332:[function(require,module,exports){
 'use strict';
 
 var builder = window.Focus.component.builder;
@@ -24937,7 +26135,7 @@ var headerMixin = {
 
 module.exports = builder(headerMixin);
 
-},{}],300:[function(require,module,exports){
+},{}],333:[function(require,module,exports){
 'use strict';
 
 var builder = window.Focus.component.builder;
@@ -25036,7 +26234,7 @@ var errorCenter = {
 
 module.exports = builder(errorCenter);
 
-},{}],301:[function(require,module,exports){
+},{}],334:[function(require,module,exports){
 'use strict';
 
 var builder = window.Focus.component.builder;
@@ -25230,7 +26428,7 @@ var headerMixin = {
 
 module.exports = builder(headerMixin);
 
-},{"./mixin/application-state":302,"lodash/collection":45}],302:[function(require,module,exports){
+},{"./mixin/application-state":335,"lodash/collection":45}],335:[function(require,module,exports){
 'use strict';
 
 var applicationStore = window.Focus.application.builtInStore;
@@ -25264,7 +26462,7 @@ var applicationStateMixin = {
 
 module.exports = applicationStateMixin;
 
-},{}],303:[function(require,module,exports){
+},{}],336:[function(require,module,exports){
 'use strict';
 
 module.exports = {
@@ -25282,7 +26480,7 @@ module.exports = {
   loadingBar: require('./loading-bar')
 };
 
-},{"./bar":295,"./cartridge":296,"./confirmation-popin":297,"./content-actions":298,"./content-bar":299,"./error-center":300,"./header":301,"./layout":305,"./loading-bar":306,"./menu":307,"./message-center":308,"./popin":310}],304:[function(require,module,exports){
+},{"./bar":328,"./cartridge":329,"./confirmation-popin":330,"./content-actions":331,"./content-bar":332,"./error-center":333,"./header":334,"./layout":338,"./loading-bar":339,"./menu":340,"./message-center":341,"./popin":343}],337:[function(require,module,exports){
 //Needed components
 'use strict';
 
@@ -25308,7 +26506,7 @@ module.exports = React.createClass({
   }
 });
 
-},{"../bar":295,"../cartridge":296,"../content-actions":298,"../content-bar":299,"../header":301}],305:[function(require,module,exports){
+},{"../bar":328,"../cartridge":329,"../content-actions":331,"../content-bar":332,"../header":334}],338:[function(require,module,exports){
 // Dependencies
 
 'use strict';
@@ -25363,7 +26561,7 @@ var contentActionsMixin = {
 
 module.exports = builder(contentActionsMixin);
 
-},{"../../mixin/stylable":387,"../error-center":300,"../loading-bar":306,"../message-center":308,"./app-header":304}],306:[function(require,module,exports){
+},{"../../mixin/stylable":420,"../error-center":333,"../loading-bar":339,"../message-center":341,"./app-header":337}],339:[function(require,module,exports){
 'use strict';
 
 var builder = window.Focus.component.builder;
@@ -25454,7 +26652,7 @@ var LoadingBarMixin = {
 
 module.exports = builder(LoadingBarMixin);
 
-},{"../../common/icon":335,"../../common/progress-bar":358,"object-assign":288}],307:[function(require,module,exports){
+},{"../../common/icon":368,"../../common/progress-bar":391,"object-assign":321}],340:[function(require,module,exports){
 'use strict';
 
 var builder = window.Focus.component.builder;
@@ -25541,7 +26739,7 @@ var menuMixin = {
 
 module.exports = builder(menuMixin);
 
-},{"../../common/button/action":315,"../../common/icon":335,"../../mixin/stylable":387,"../mixin/popin-behaviour":309}],308:[function(require,module,exports){
+},{"../../common/button/action":348,"../../common/icon":368,"../../mixin/stylable":420,"../mixin/popin-behaviour":342}],341:[function(require,module,exports){
 'use strict';
 
 var builder = window.Focus.component.builder;
@@ -25615,7 +26813,7 @@ var messageCenterMixin = {
 
 module.exports = builder(messageCenterMixin);
 
-},{"../../message":386,"lodash/string/capitalize":249,"object-assign":288}],309:[function(require,module,exports){
+},{"../../message":419,"lodash/string/capitalize":282,"object-assign":321}],342:[function(require,module,exports){
 'use strict';
 
 var type = window.Focus.component.types;
@@ -25646,7 +26844,7 @@ var PopinProperties = {
 
 module.exports = { mixin: PopinProperties };
 
-},{}],310:[function(require,module,exports){
+},{}],343:[function(require,module,exports){
 // Dependencies
 
 'use strict';
@@ -25909,7 +27107,7 @@ var popin = {
 
 module.exports = builder(popin);
 
-},{"lodash":86}],311:[function(require,module,exports){
+},{"lodash":86}],344:[function(require,module,exports){
 /* globals Awesomplete */
 
 // Dependencies
@@ -26126,7 +27324,7 @@ var Autocomplete = {
 
 module.exports = builder(Autocomplete);
 
-},{"lodash/collection/find":57}],312:[function(require,module,exports){
+},{"lodash/collection/find":57}],345:[function(require,module,exports){
 // Dependencies
 
 'use strict';
@@ -26258,7 +27456,7 @@ var AutocompleteFor = {
 
 module.exports = builder(AutocompleteFor);
 
-},{"./awesomplete":311,"lodash/collection/find":57}],313:[function(require,module,exports){
+},{"./awesomplete":344,"lodash/collection/find":57}],346:[function(require,module,exports){
 'use strict';
 
 module.exports = {
@@ -26266,7 +27464,7 @@ module.exports = {
     field: require('./field')
 };
 
-},{"./awesomplete":311,"./field":312}],314:[function(require,module,exports){
+},{"./awesomplete":344,"./field":345}],347:[function(require,module,exports){
 'use strict';
 
 var React = window.React;
@@ -26342,7 +27540,7 @@ var blockMixin = {
 
 module.exports = builder(blockMixin);
 
-},{"../../common/i18n/mixin":334,"../../mixin/stylable":387,"../title":366,"lodash/string/trim":265}],315:[function(require,module,exports){
+},{"../../common/i18n/mixin":367,"../../mixin/stylable":420,"../title":399,"lodash/string/trim":298}],348:[function(require,module,exports){
 'use strict';
 
 var React = window.React;
@@ -26442,7 +27640,7 @@ var buttonMixin = {
 
 module.exports = builder(buttonMixin);
 
-},{"../../../mixin/stylable":387,"../../i18n/mixin":334,"../../icon":335,"../../img":336}],316:[function(require,module,exports){
+},{"../../../mixin/stylable":420,"../../i18n/mixin":367,"../../icon":368,"../../img":369}],349:[function(require,module,exports){
 'use strict';
 
 var React = window.React;
@@ -26541,7 +27739,7 @@ var buttonMixin = {
 
 module.exports = builder(buttonMixin);
 
-},{"../../../mixin/stylable":387,"../../i18n/mixin":334,"../../icon":335,"../../mixin/scroll":354}],317:[function(require,module,exports){
+},{"../../../mixin/stylable":420,"../../i18n/mixin":367,"../../icon":368,"../../mixin/scroll":387}],350:[function(require,module,exports){
 'use strict';
 
 var React = window.React;
@@ -26583,7 +27781,7 @@ var buttonBackMixin = {
 
 module.exports = builder(buttonBackMixin);
 
-},{"../../../mixin/stylable":387,"../../i18n/mixin":334,"../../icon":335,"../../mixin/scroll":354}],318:[function(require,module,exports){
+},{"../../../mixin/stylable":420,"../../i18n/mixin":367,"../../icon":368,"../../mixin/scroll":387}],351:[function(require,module,exports){
 'use strict';
 
 module.exports = {
@@ -26592,7 +27790,7 @@ module.exports = {
 	back: require('./back')
 };
 
-},{"./action":315,"./back":317,"./back-to-top":316}],319:[function(require,module,exports){
+},{"./action":348,"./back":350,"./back-to-top":349}],352:[function(require,module,exports){
 'use strict';
 
 var React = window.React;
@@ -26662,7 +27860,7 @@ var detailMixin = {
 
 module.exports = builder(detailMixin);
 
-},{"../../mixin/stylable":387,"../button/back-to-top":316,"../scrollspy":360}],320:[function(require,module,exports){
+},{"../../mixin/stylable":420,"../button/back-to-top":349,"../scrollspy":393}],353:[function(require,module,exports){
 //Dependencies.
 'use strict';
 
@@ -26717,7 +27915,7 @@ var displayCheckboxMixin = {
 
 module.exports = builder(displayCheckboxMixin);
 
-},{"../../i18n/mixin":334}],321:[function(require,module,exports){
+},{"../../i18n/mixin":367}],354:[function(require,module,exports){
 'use strict';
 
 module.exports = {
@@ -26725,7 +27923,7 @@ module.exports = {
   checkbox: require('./checkbox')
 };
 
-},{"./checkbox":320,"./text":322}],322:[function(require,module,exports){
+},{"./checkbox":353,"./text":355}],355:[function(require,module,exports){
 //Dependencies.
 'use strict';
 
@@ -26776,7 +27974,7 @@ var displayTextMixin = {
 
 module.exports = builder(displayTextMixin);
 
-},{}],323:[function(require,module,exports){
+},{}],356:[function(require,module,exports){
 'use strict';
 
 var builder = window.Focus.component.builder;
@@ -26789,7 +27987,7 @@ var emptyMixin = {
 
 module.exports = builder(emptyMixin);
 
-},{}],324:[function(require,module,exports){
+},{}],357:[function(require,module,exports){
 // Dependencies
 
 'use strict';
@@ -26884,7 +28082,7 @@ var FieldMixin = {
 };
 module.exports = builder(FieldMixin);
 
-},{"./mixin/built-in-components":325,"./mixin/validation-behaviour":326,"./mixin/value-behaviour":327}],325:[function(require,module,exports){
+},{"./mixin/built-in-components":358,"./mixin/validation-behaviour":359,"./mixin/value-behaviour":360}],358:[function(require,module,exports){
 // Dependencies
 
 'use strict';
@@ -27126,7 +28324,7 @@ var fieldBuiltInComponentsMixin = {
 
 module.exports = fieldBuiltInComponentsMixin;
 
-},{"../../display/text":322,"../../input/text":342,"../../label":345,"../../mixin/field-grid-behaviour":350,"../../select/classic":363,"lodash/collection/find":57,"lodash/object/result":245,"object-assign":288}],326:[function(require,module,exports){
+},{"../../display/text":355,"../../input/text":375,"../../label":378,"../../mixin/field-grid-behaviour":383,"../../select/classic":396,"lodash/collection/find":57,"lodash/object/result":275,"object-assign":321}],359:[function(require,module,exports){
 'use strict';
 
 var i18nMixin = require('../../i18n').mixin;
@@ -27203,7 +28401,7 @@ var validationMixin = {
 };
 module.exports = validationMixin;
 
-},{"../../i18n":333,"lodash/lang":206}],327:[function(require,module,exports){
+},{"../../i18n":366,"lodash/lang":216}],360:[function(require,module,exports){
 'use strict';
 
 var _require = require('lodash/lang');
@@ -27260,7 +28458,7 @@ var valueBehaviourMixin = {
 };
 module.exports = valueBehaviourMixin;
 
-},{"lodash/lang":206}],328:[function(require,module,exports){
+},{"lodash/lang":216}],361:[function(require,module,exports){
 'use strict';
 
 var builder = window.Focus.component.builder;
@@ -27423,7 +28621,7 @@ var formMixin = {
 
 module.exports = builder(formMixin);
 
-},{"../mixin/built-in-components":347,"../mixin/definition":348,"../mixin/own-identifier":352,"../mixin/store-behaviour":355,"./mixin":330}],329:[function(require,module,exports){
+},{"../mixin/built-in-components":380,"../mixin/definition":381,"../mixin/own-identifier":385,"../mixin/store-behaviour":388,"./mixin":363}],362:[function(require,module,exports){
 'use strict';
 
 var assign = require('object-assign');
@@ -27515,7 +28713,7 @@ var actionMixin = {
 
 module.exports = actionMixin;
 
-},{"lodash/lang/isFunction":221,"lodash/object/omit":243,"object-assign":288}],330:[function(require,module,exports){
+},{"lodash/lang/isFunction":231,"lodash/object/omit":272,"object-assign":321}],363:[function(require,module,exports){
 'use strict';
 
 var referenceBehaviour = require('./reference-behaviour');
@@ -27528,7 +28726,7 @@ module.exports = {
     validationBehaviour: validationBehaviour
 };
 
-},{"./action-behaviour":329,"./reference-behaviour":331,"./validation-behaviour":332}],331:[function(require,module,exports){
+},{"./action-behaviour":362,"./reference-behaviour":364,"./validation-behaviour":365}],364:[function(require,module,exports){
 //Focus.reference.builder.loadListByName('papas').then(function(data){Focus.dispatcher.dispatch({action: {type: "update",data: {papas: data}}})})
 
 'use strict';
@@ -27595,7 +28793,7 @@ var referenceMixin = {
 
 module.exports = referenceMixin;
 
-},{"lodash/lang/isEmpty":217}],332:[function(require,module,exports){
+},{"lodash/lang/isEmpty":227}],365:[function(require,module,exports){
 //Dependencies.
 'use strict';
 
@@ -27664,14 +28862,14 @@ module.exports = {
     validate: validate
 };
 
-},{"lodash/lang":206,"object-assign":288}],333:[function(require,module,exports){
+},{"lodash/lang":216,"object-assign":321}],366:[function(require,module,exports){
 'use strict';
 
 module.exports = {
   mixin: require('./mixin')
 };
 
-},{"./mixin":334}],334:[function(require,module,exports){
+},{"./mixin":367}],367:[function(require,module,exports){
 /*global window*/
 /*todo check the library presence*/
 "use strict";
@@ -27691,7 +28889,7 @@ module.exports = {
     }
 };
 
-},{}],335:[function(require,module,exports){
+},{}],368:[function(require,module,exports){
 'use strict';
 
 var builder = window.Focus.component.builder;
@@ -27732,7 +28930,7 @@ var iconMixin = {
 
 module.exports = builder(iconMixin);
 
-},{}],336:[function(require,module,exports){
+},{}],369:[function(require,module,exports){
 'use strict';
 
 var builder = window.Focus.component.builder;
@@ -27769,7 +28967,7 @@ var imgMixin = {
 
 module.exports = builder(imgMixin);
 
-},{}],337:[function(require,module,exports){
+},{}],370:[function(require,module,exports){
 'use strict';
 
 module.exports = {
@@ -27798,7 +28996,7 @@ module.exports = {
     role: require('./role')
 };
 
-},{"./autocomplete":313,"./block":314,"./button":318,"./detail":319,"./display":321,"./empty":323,"./field":324,"./form":328,"./i18n":333,"./icon":335,"./img":336,"./input":340,"./label":345,"./list":346,"./mixin":351,"./panel":357,"./progress-bar":358,"./role":359,"./scrollspy":360,"./select":364,"./select-action":361,"./title":366,"./topic-displayer":367}],338:[function(require,module,exports){
+},{"./autocomplete":346,"./block":347,"./button":351,"./detail":352,"./display":354,"./empty":356,"./field":357,"./form":361,"./i18n":366,"./icon":368,"./img":369,"./input":373,"./label":378,"./list":379,"./mixin":384,"./panel":390,"./progress-bar":391,"./role":392,"./scrollspy":393,"./select":397,"./select-action":394,"./title":399,"./topic-displayer":400}],371:[function(require,module,exports){
 //Target
 //http://codepen.io/Sambego/pen/zDLxe
 /*
@@ -27909,7 +29107,7 @@ var checkBoxMixin = {
 
 module.exports = builder(checkBoxMixin);
 
-},{"../../mixin/field-grid-behaviour":350,"lodash/lang/isBoolean":214,"uuid":293}],339:[function(require,module,exports){
+},{"../../mixin/field-grid-behaviour":383,"lodash/lang/isBoolean":224,"uuid":326}],372:[function(require,module,exports){
 // Dependencies.
 
 'use strict';
@@ -28086,7 +29284,7 @@ var InputDateMixin = {
 
 module.exports = builder(InputDateMixin);
 
-},{"../text":342,"react-bootstrap-daterangepicker":291}],340:[function(require,module,exports){
+},{"../text":375,"react-bootstrap-daterangepicker":324}],373:[function(require,module,exports){
 'use strict';
 
 module.exports = {
@@ -28098,7 +29296,7 @@ module.exports = {
     markdown: require('./markdown')
 };
 
-},{"./checkbox":338,"./date":339,"./markdown":341,"./text":342,"./textarea":343,"./toggle":344}],341:[function(require,module,exports){
+},{"./checkbox":371,"./date":372,"./markdown":374,"./text":375,"./textarea":376,"./toggle":377}],374:[function(require,module,exports){
 //Dependencies.
 'use strict';
 
@@ -28146,7 +29344,7 @@ var markdownEditorMixin = {
 
 module.exports = builder(markdownEditorMixin);
 
-},{}],342:[function(require,module,exports){
+},{}],375:[function(require,module,exports){
 //Dependencies.
 'use strict';
 
@@ -28248,7 +29446,7 @@ var inputTextMixin = {
 
 module.exports = builder(inputTextMixin);
 
-},{"object-assign":288}],343:[function(require,module,exports){
+},{"object-assign":321}],376:[function(require,module,exports){
 //Target
 /*
 <div class="checkbox">
@@ -28342,7 +29540,7 @@ var textAreaMixin = {
 
 module.exports = builder(textAreaMixin);
 
-},{}],344:[function(require,module,exports){
+},{}],377:[function(require,module,exports){
 //Target
 /*
 <label>
@@ -28429,7 +29627,7 @@ var toggleMixin = {
 
 module.exports = builder(toggleMixin);
 
-},{"../../mixin/field-grid-behaviour":350}],345:[function(require,module,exports){
+},{"../../mixin/field-grid-behaviour":383}],378:[function(require,module,exports){
 // Dependencies
 
 'use strict';
@@ -28467,7 +29665,7 @@ var labelMixin = {
 
 module.exports = builder(labelMixin);
 
-},{"../../mixin/stylable":387,"../i18n/mixin":334}],346:[function(require,module,exports){
+},{"../../mixin/stylable":420,"../i18n/mixin":367}],379:[function(require,module,exports){
 
 //var SelectionList = Focus.components.list.selection.list.component;
 'use strict';
@@ -28507,7 +29705,7 @@ var MemoryListMixin = {
 
 module.exports = builder(MemoryListMixin);
 
-},{"../../list/mixin/memory-scroll":374,"lodash/object/omit":243,"object-assign":288}],347:[function(require,module,exports){
+},{"../../list/mixin/memory-scroll":407,"lodash/object/omit":272,"object-assign":321}],380:[function(require,module,exports){
 // Dependencies
 
 'use strict';
@@ -28718,7 +29916,7 @@ module.exports = {
     }
 };
 
-},{"../../list/selection":376,"../../list/table":380,"../button/action":315,"../display/text":322,"../field":324,"../list":346,"./field-component-behaviour":349,"object-assign":288}],348:[function(require,module,exports){
+},{"../../list/selection":409,"../../list/table":413,"../button/action":348,"../display/text":355,"../field":357,"../list":379,"./field-component-behaviour":382,"object-assign":321}],381:[function(require,module,exports){
 //Dependencies.
 /**
  * Accessor on the entity informations.
@@ -28746,7 +29944,7 @@ var definitionMixin = {
 
 module.exports = definitionMixin;
 
-},{}],349:[function(require,module,exports){
+},{}],382:[function(require,module,exports){
 'use strict';
 
 var assign = require('object-assign');
@@ -28825,7 +30023,7 @@ var fieldBehaviourMixin = {
 
 module.exports = fieldBehaviourMixin;
 
-},{"object-assign":288}],350:[function(require,module,exports){
+},{"object-assign":321}],383:[function(require,module,exports){
 "use strict";
 
 var gridSize = 12;
@@ -28864,7 +30062,7 @@ var fieldGridBehaviourMixin = {
 };
 module.exports = fieldGridBehaviourMixin;
 
-},{}],351:[function(require,module,exports){
+},{}],384:[function(require,module,exports){
 'use strict';
 
 module.exports = {
@@ -28877,7 +30075,7 @@ module.exports = {
   ownIdentifier: require('./own-identifier')
 };
 
-},{"./built-in-components":347,"./definition":348,"./field-component-behaviour":349,"./field-grid-behaviour":350,"./own-identifier":352,"./reference-property":353,"./store-behaviour":355}],352:[function(require,module,exports){
+},{"./built-in-components":380,"./definition":381,"./field-component-behaviour":382,"./field-grid-behaviour":383,"./own-identifier":385,"./reference-property":386,"./store-behaviour":388}],385:[function(require,module,exports){
 'use strict';
 
 var uuid = require('uuid');
@@ -28897,7 +30095,7 @@ module.exports = {
     }
 };
 
-},{"uuid":293}],353:[function(require,module,exports){
+},{"uuid":326}],386:[function(require,module,exports){
 'use strict';
 
 var type = window.Focus.component.types;
@@ -28927,7 +30125,7 @@ var referenceMixin = {
 };
 module.exports = referenceMixin;
 
-},{}],354:[function(require,module,exports){
+},{}],387:[function(require,module,exports){
 'use strict';
 
 var _require = require('lodash/lang');
@@ -28968,7 +30166,7 @@ function scrollTo(element, to) {
 
 module.exports = { scrollTo: scrollTo, scrollPosition: scrollPosition };
 
-},{"lodash/lang":206}],355:[function(require,module,exports){
+},{"lodash/lang":216}],388:[function(require,module,exports){
 'use strict';
 
 var capitalize = require('lodash/string/capitalize');
@@ -29110,7 +30308,7 @@ var storeMixin = {
 
 module.exports = storeMixin;
 
-},{"./store-change-behaviour":356,"lodash/lang":206,"lodash/object/keys":241,"lodash/string/capitalize":249,"object-assign":288}],356:[function(require,module,exports){
+},{"./store-change-behaviour":389,"lodash/lang":216,"lodash/object/keys":266,"lodash/string/capitalize":282,"object-assign":321}],389:[function(require,module,exports){
 'use strict';
 
 var message = window.Focus.message;
@@ -29187,7 +30385,7 @@ var changeBehaviourMixin = {
 };
 module.exports = changeBehaviourMixin;
 
-},{}],357:[function(require,module,exports){
+},{}],390:[function(require,module,exports){
 'use strict';
 
 var React = window.React;
@@ -29234,7 +30432,7 @@ var panelMixin = {
 };
 module.exports = builder(panelMixin);
 
-},{}],358:[function(require,module,exports){
+},{}],391:[function(require,module,exports){
 //Code from https://raw.githubusercontent.com/paramaggarwal/react-progressbar/master/index.js
 //
 'use strict';
@@ -29277,7 +30475,7 @@ var progressMixin = {
 
 module.exports = builder(progressMixin);
 
-},{}],359:[function(require,module,exports){
+},{}],392:[function(require,module,exports){
 'use strict';
 
 var React = window.React;
@@ -29309,7 +30507,7 @@ var roleMixin = {
 
 module.exports = builder(roleMixin);
 
-},{"lodash/array/intersection":19,"lodash/lang/isArray":213}],360:[function(require,module,exports){
+},{"lodash/array/intersection":19,"lodash/lang/isArray":223}],393:[function(require,module,exports){
 // Dependencies
 'use strict';
 
@@ -29522,7 +30720,7 @@ var Scrollspy = {
 
 module.exports = builder(Scrollspy);
 
-},{"../../mixin/stylable":387,"../mixin/scroll":354,"lodash/array":2,"lodash/collection":45}],361:[function(require,module,exports){
+},{"../../mixin/stylable":420,"../mixin/scroll":387,"lodash/array":2,"lodash/collection":45}],394:[function(require,module,exports){
 'use strict';
 
 var builder = window.Focus.component.builder;
@@ -29625,7 +30823,7 @@ var selectActionMixin = {
 
 module.exports = builder(selectActionMixin);
 
-},{"../icon":335,"../img":336}],362:[function(require,module,exports){
+},{"../icon":368,"../img":369}],395:[function(require,module,exports){
 'use strict';
 
 var builder = window.Focus.component.builder;
@@ -29745,7 +30943,7 @@ var checkboxMixin = {
 
 module.exports = builder(checkboxMixin);
 
-},{"../../input/checkbox":338}],363:[function(require,module,exports){
+},{"../../input/checkbox":371}],396:[function(require,module,exports){
 //Dependencies.
 'use strict';
 
@@ -29902,7 +31100,7 @@ var selectTextMixin = {
 
 module.exports = builder(selectTextMixin);
 
-},{"../../../mixin/stylable":387,"../../i18n/mixin":334,"lodash/array/union":35,"lodash/lang":206}],364:[function(require,module,exports){
+},{"../../../mixin/stylable":420,"../../i18n/mixin":367,"lodash/array/union":35,"lodash/lang":216}],397:[function(require,module,exports){
 'use strict';
 
 module.exports = {
@@ -29911,7 +31109,7 @@ module.exports = {
   checkbox: require('./checkbox')
 };
 
-},{"./checkbox":362,"./classic":363,"./radio":365}],365:[function(require,module,exports){
+},{"./checkbox":395,"./classic":396,"./radio":398}],398:[function(require,module,exports){
 'use strict';
 
 var builder = window.Focus.component.builder;
@@ -30028,7 +31226,7 @@ var radioMixin = {
 
 module.exports = builder(radioMixin);
 
-},{}],366:[function(require,module,exports){
+},{}],399:[function(require,module,exports){
 // Dependencies
 'use strict';
 
@@ -30078,7 +31276,7 @@ var titleMixin = {
 
 module.exports = builder(titleMixin);
 
-},{"lodash/utility":271}],367:[function(require,module,exports){
+},{"lodash/utility":304}],400:[function(require,module,exports){
 'use strict';
 
 var builder = window.Focus.component.builder;
@@ -30147,7 +31345,7 @@ var topicDisplayerMixin = {
 
 module.exports = builder(topicDisplayerMixin);
 
-},{}],368:[function(require,module,exports){
+},{}],401:[function(require,module,exports){
 /**@jsx*/
 'use strict';
 
@@ -30343,7 +31541,7 @@ var actionBarMixin = {
 
 module.exports = builder(actionBarMixin);
 
-},{"../../common/i18n/mixin":334,"../../common/select-action":361,"../../common/topic-displayer":367,"../action-contextual":369}],369:[function(require,module,exports){
+},{"../../common/i18n/mixin":367,"../../common/select-action":394,"../../common/topic-displayer":400,"../action-contextual":402}],402:[function(require,module,exports){
 // Dependencies
 
 'use strict';
@@ -30463,7 +31661,7 @@ var actionContextualMixin = {
 
 module.exports = builder(actionContextualMixin);
 
-},{"../../common/button/action":315,"../../common/select-action":361,"lodash/collection":45}],370:[function(require,module,exports){
+},{"../../common/button/action":348,"../../common/select-action":394,"lodash/collection":45}],403:[function(require,module,exports){
 'use strict';
 
 module.exports = {
@@ -30476,7 +31674,7 @@ module.exports = {
 	mixin: require('./mixin')
 };
 
-},{"./action-bar":368,"./action-contextual":369,"./mixin":372,"./selection":376,"./summary":379,"./table":380,"./timeline":383}],371:[function(require,module,exports){
+},{"./action-bar":401,"./action-contextual":402,"./mixin":405,"./selection":409,"./summary":412,"./table":413,"./timeline":416}],404:[function(require,module,exports){
 'use strict';
 
 var React = window.React;
@@ -30570,7 +31768,7 @@ var builtInComponentsMixin = {
 
 module.exports = builtInComponentsMixin;
 
-},{"../../common/display/text":322,"../../common/field":324,"../../common/mixin/field-component-behaviour":349,"object-assign":288}],372:[function(require,module,exports){
+},{"../../common/display/text":355,"../../common/field":357,"../../common/mixin/field-component-behaviour":382,"object-assign":321}],405:[function(require,module,exports){
 'use strict';
 
 module.exports = {
@@ -30580,7 +31778,7 @@ module.exports = {
     pagination: require('./pagination')
 };
 
-},{"./built-in-components":371,"./infinite-scroll":373,"./memory-scroll":374,"./pagination":375}],373:[function(require,module,exports){
+},{"./built-in-components":404,"./infinite-scroll":406,"./memory-scroll":407,"./pagination":408}],406:[function(require,module,exports){
 'use strict';
 
 var topOfElement = function topOfElement(element) {
@@ -30688,7 +31886,7 @@ var InfiniteScrollMixin = {
 
 module.exports = { mixin: InfiniteScrollMixin };
 
-},{"../mixin/pagination":375}],374:[function(require,module,exports){
+},{"../mixin/pagination":408}],407:[function(require,module,exports){
 "use strict";
 
 var memoryMixin = {
@@ -30743,7 +31941,7 @@ var memoryMixin = {
 
 module.exports = memoryMixin;
 
-},{}],375:[function(require,module,exports){
+},{}],408:[function(require,module,exports){
 'use strict';
 
 var type = window.Focus.component.types;
@@ -30791,7 +31989,7 @@ var paginationMixin = {
 
 module.exports = { mixin: paginationMixin };
 
-},{}],376:[function(require,module,exports){
+},{}],409:[function(require,module,exports){
 'use strict';
 
 module.exports = {
@@ -30799,7 +31997,7 @@ module.exports = {
     list: require('./list')
 };
 
-},{"./line":377,"./list":378}],377:[function(require,module,exports){
+},{"./line":410,"./list":411}],410:[function(require,module,exports){
 // Dependencies
 
 'use strict';
@@ -31006,7 +32204,7 @@ var lineMixin = {
 
 module.exports = { mixin: lineMixin };
 
-},{"../../common/i18n":333,"../../common/input/checkbox":338,"../../common/mixin/definition":348,"../../common/mixin/reference-property":353,"../action-contextual":369,"../mixin/built-in-components":371}],378:[function(require,module,exports){
+},{"../../common/i18n":366,"../../common/input/checkbox":371,"../../common/mixin/definition":381,"../../common/mixin/reference-property":386,"../action-contextual":402,"../mixin/built-in-components":404}],411:[function(require,module,exports){
 // Dependencies
 
 'use strict';
@@ -31021,6 +32219,10 @@ var builder = _require$component.builder;
 var types = _require$component.types;
 
 var find = require('lodash/collection/find');
+
+var _require = require('lodash/object');
+
+var omit = _require.omit;
 
 // Mixins
 
@@ -31144,7 +32346,7 @@ var listMixin = {
                 key: line[idField],
                 ref: 'line' + lineCount++,
                 reference: _this._getReference()
-            }, _this.props));
+            }, omit(_this.props, 'data')));
         });
     },
     /**
@@ -31209,7 +32411,7 @@ var listMixin = {
 
 module.exports = builder(listMixin);
 
-},{"../../common/button/action":315,"../../common/i18n":333,"../../common/mixin/reference-property":353,"../mixin/infinite-scroll":373,"lodash/collection/find":57}],379:[function(require,module,exports){
+},{"../../common/button/action":348,"../../common/i18n":366,"../../common/mixin/reference-property":386,"../mixin/infinite-scroll":406,"lodash/collection/find":57,"lodash/object":250}],412:[function(require,module,exports){
 /**@jsx*/
 'use strict';
 
@@ -31311,7 +32513,7 @@ var listSummaryMixin = {
 
 module.exports = builder(listSummaryMixin);
 
-},{"../../common/button/action":315,"../../common/i18n/mixin":334,"../../common/topic-displayer":367,"../../mixin/stylable":387}],380:[function(require,module,exports){
+},{"../../common/button/action":348,"../../common/i18n/mixin":367,"../../common/topic-displayer":400,"../../mixin/stylable":420}],413:[function(require,module,exports){
 'use strict';
 
 module.exports = {
@@ -31319,7 +32521,7 @@ module.exports = {
     list: require('./list')
 };
 
-},{"./line":381,"./list":382}],381:[function(require,module,exports){
+},{"./line":414,"./list":415}],414:[function(require,module,exports){
 // Dependencies
 
 'use strict';
@@ -31397,7 +32599,7 @@ var lineMixin = {
 
 module.exports = { mixin: lineMixin };
 
-},{"../../common/i18n":333,"../../common/mixin/definition":348,"../../common/mixin/reference-property":353,"../action-contextual":369,"../mixin/built-in-components":371}],382:[function(require,module,exports){
+},{"../../common/i18n":366,"../../common/mixin/definition":381,"../../common/mixin/reference-property":386,"../action-contextual":402,"../mixin/built-in-components":404}],415:[function(require,module,exports){
 // Dependencies
 
 'use strict';
@@ -31585,7 +32787,7 @@ var tableMixin = {
 
 module.exports = builder(tableMixin);
 
-},{"../../common/button/action":315,"../../common/i18n":333,"../../common/mixin/reference-property":353,"../mixin/infinite-scroll":373}],383:[function(require,module,exports){
+},{"../../common/button/action":348,"../../common/i18n":366,"../../common/mixin/reference-property":386,"../mixin/infinite-scroll":406}],416:[function(require,module,exports){
 'use strict';
 
 module.exports = {
@@ -31593,7 +32795,7 @@ module.exports = {
     list: require('./list')
 };
 
-},{"./line":384,"./list":385}],384:[function(require,module,exports){
+},{"./line":417,"./list":418}],417:[function(require,module,exports){
 /**@jsx*/
 'use strict';
 
@@ -31713,7 +32915,7 @@ var lineMixin = {
 
 module.exports = { mixin: lineMixin };
 
-},{"../../common/i18n":333,"../../common/mixin/definition":348,"../../common/mixin/reference-property":353,"../mixin/built-in-components":371}],385:[function(require,module,exports){
+},{"../../common/i18n":366,"../../common/mixin/definition":381,"../../common/mixin/reference-property":386,"../mixin/built-in-components":404}],418:[function(require,module,exports){
 'use strict';
 
 var builder = window.Focus.component.builder;
@@ -31837,7 +33039,7 @@ var listMixin = {
 
 module.exports = builder(listMixin);
 
-},{"../../common/button/action":315,"../../common/i18n":333,"../../common/mixin/reference-property":353,"../mixin/infinite-scroll":373,"./line":384,"uuid":293}],386:[function(require,module,exports){
+},{"../../common/button/action":348,"../../common/i18n":366,"../../common/mixin/reference-property":386,"../mixin/infinite-scroll":406,"./line":417,"uuid":326}],419:[function(require,module,exports){
 'use strict';
 
 var _require$component = window.Focus.component;
@@ -31942,7 +33144,7 @@ var messageMixin = {
 };
 module.exports = builder(messageMixin);
 
-},{"../common/i18n/mixin":334}],387:[function(require,module,exports){
+},{"../common/i18n/mixin":367}],420:[function(require,module,exports){
 'use strict';
 
 var types = window.Focus.component.types;
@@ -31969,7 +33171,7 @@ module.exports = {
     }
 };
 
-},{}],388:[function(require,module,exports){
+},{}],421:[function(require,module,exports){
 'use strict';
 
 var saveBehaviour = require('./mixin/save-behaviour');
@@ -31981,7 +33183,7 @@ var detailMixin = {
 };
 module.exports = { mixin: detailMixin };
 
-},{"../mixin/cartridge-behaviour":393,"./mixin/save-behaviour":389,"./mixin/validate-behaviour":390}],389:[function(require,module,exports){
+},{"../mixin/cartridge-behaviour":426,"./mixin/save-behaviour":422,"./mixin/validate-behaviour":423}],422:[function(require,module,exports){
 'use strict';
 
 var isFunction = require('lodash/lang/isFunction');
@@ -32001,7 +33203,7 @@ module.exports = {
   }
 };
 
-},{"lodash/lang/isFunction":221,"object-assign":288}],390:[function(require,module,exports){
+},{"lodash/lang/isFunction":231,"object-assign":321}],423:[function(require,module,exports){
 'use strict';
 
 var _require = require('lodash/lang');
@@ -32031,7 +33233,7 @@ module.exports = {
   }
 };
 
-},{"lodash/lang":206,"object-assign":288}],391:[function(require,module,exports){
+},{"lodash/lang":216,"object-assign":321}],424:[function(require,module,exports){
 // Dependencies
 
 'use strict';
@@ -32061,7 +33263,7 @@ module.exports = {
   }
 };
 
-},{"./detail":388,"./list":392,"./mixin":394,"./search":404}],392:[function(require,module,exports){
+},{"./detail":421,"./list":425,"./mixin":427,"./search":437}],425:[function(require,module,exports){
 //The purpose of this module is to deal with autonomous lists.
 //If you need lists inside a form please see the listFor helper function in a form.
 //The following lists can
@@ -32192,7 +33394,7 @@ var listPageMixin = {
 
 module.exports = builder(listPageMixin);
 
-},{"../../list/table/list":382,"lodash/string":247,"object-assign":288}],393:[function(require,module,exports){
+},{"../../list/table/list":415,"lodash/string":280,"object-assign":321}],426:[function(require,module,exports){
 'use strict';
 
 var isFunction = require('lodash/lang/isFunction');
@@ -32226,14 +33428,14 @@ module.exports = {
   }
 };
 
-},{"../../common/empty":323,"lodash/lang/isFunction":221}],394:[function(require,module,exports){
+},{"../../common/empty":356,"lodash/lang/isFunction":231}],427:[function(require,module,exports){
 'use strict';
 
 module.exports = {
   cartridgeBehaviour: require('./cartridge-behaviour')
 };
 
-},{"./cartridge-behaviour":393}],395:[function(require,module,exports){
+},{"./cartridge-behaviour":426}],428:[function(require,module,exports){
 // Dependencies
 
 'use strict';
@@ -32339,7 +33541,7 @@ var Bar = {
 
 module.exports = builder(Bar);
 
-},{"../../../common/i18n/mixin":334,"../../../list/action-bar/index":368,"lodash/lang/clone":207}],396:[function(require,module,exports){
+},{"../../../common/i18n/mixin":367,"../../../list/action-bar/index":401,"lodash/lang/clone":217}],429:[function(require,module,exports){
 // Dependencies
 
 'use strict';
@@ -32405,7 +33607,7 @@ var Box = {
 
 module.exports = builder(Box);
 
-},{"../../../search/facet-box":413,"lodash/object/keys":241}],397:[function(require,module,exports){
+},{"../../../search/facet-box":446,"lodash/object/keys":266}],430:[function(require,module,exports){
 // Dependencies
 
 'use strict';
@@ -32679,7 +33881,7 @@ var AdvancedSearch = {
 
 module.exports = builder(AdvancedSearch);
 
-},{"../../../common/button/back-to-top":316,"../../mixin/cartridge-behaviour":393,"../common/component/results":402,"./action-bar":395,"./facet-box":396,"./list-summary":398,"lodash/string/camelCase":248,"lodash/string/capitalize":249}],398:[function(require,module,exports){
+},{"../../../common/button/back-to-top":349,"../../mixin/cartridge-behaviour":426,"../common/component/results":435,"./action-bar":428,"./facet-box":429,"./list-summary":431,"lodash/string/camelCase":281,"lodash/string/capitalize":282}],431:[function(require,module,exports){
 // Dependencies
 
 'use strict';
@@ -32738,7 +33940,7 @@ var Summary = {
 
 module.exports = builder(Summary);
 
-},{"../../../list/summary/index":379}],399:[function(require,module,exports){
+},{"../../../list/summary/index":412}],432:[function(require,module,exports){
 // Dependencies
 
 'use strict';
@@ -32762,7 +33964,7 @@ var DefaultEmpty = {
 
 module.exports = builder(DefaultEmpty);
 
-},{"../../../../common/i18n/mixin":334}],400:[function(require,module,exports){
+},{"../../../../common/i18n/mixin":367}],433:[function(require,module,exports){
 // Dependencies
 
 'use strict';
@@ -32805,7 +34007,7 @@ var GroupWrapper = {
 
 module.exports = builder(GroupWrapper);
 
-},{"lodash/lang/clone":207}],401:[function(require,module,exports){
+},{"lodash/lang/clone":217}],434:[function(require,module,exports){
 'use strict';
 
 module.exports = {
@@ -32814,7 +34016,7 @@ module.exports = {
     results: require('./results')
 };
 
-},{"./default-empty-component":399,"./group-wrapper":400,"./results":402}],402:[function(require,module,exports){
+},{"./default-empty-component":432,"./group-wrapper":433,"./results":435}],435:[function(require,module,exports){
 // Dependencies
 
 'use strict';
@@ -33118,14 +34320,14 @@ var Results = {
 
 module.exports = builder(Results);
 
-},{"../../../../common/i18n/mixin":334,"../../../../list/selection":376,"./default-empty-component":399,"./group-wrapper":400,"lodash/collection/forEach":62,"lodash/collection/map":70,"lodash/collection/reduce":73,"lodash/lang/clone":207,"lodash/lang/isEqual":218,"lodash/object/assign":240,"lodash/object/keys":241,"lodash/object/omit":243}],403:[function(require,module,exports){
+},{"../../../../common/i18n/mixin":367,"../../../../list/selection":409,"./default-empty-component":432,"./group-wrapper":433,"lodash/collection/forEach":62,"lodash/collection/map":70,"lodash/collection/reduce":73,"lodash/lang/clone":217,"lodash/lang/isEqual":228,"lodash/object/assign":251,"lodash/object/keys":266,"lodash/object/omit":272}],436:[function(require,module,exports){
 'use strict';
 
 module.exports = {
     component: require('./component')
 };
 
-},{"./component":401}],404:[function(require,module,exports){
+},{"./component":434}],437:[function(require,module,exports){
 'use strict';
 
 module.exports = {
@@ -33135,7 +34337,7 @@ module.exports = {
     common: require('./common')
 };
 
-},{"./advanced-search":397,"./common":403,"./quick-search":405,"./search-header":408}],405:[function(require,module,exports){
+},{"./advanced-search":430,"./common":436,"./quick-search":438,"./search-header":441}],438:[function(require,module,exports){
 // Dependencies
 
 'use strict';
@@ -33312,7 +34514,7 @@ var QuickSearchComponent = {
 
 module.exports = builder(QuickSearchComponent);
 
-},{"../../../common/form/mixin/reference-behaviour":331,"../../../common/mixin/store-behaviour":355,"../../../search/search-bar":415,"../common/component/results":402}],406:[function(require,module,exports){
+},{"../../../common/form/mixin/reference-behaviour":364,"../../../common/mixin/store-behaviour":388,"../../../search/search-bar":448,"../common/component/results":435}],439:[function(require,module,exports){
 "use strict";
 
 var DEFAULT_TIMEOUT = 500; // 0.5s
@@ -33343,7 +34545,7 @@ function actionWrapper(searchAction, context, timeout) {
 }
 module.exports = actionWrapper;
 
-},{}],407:[function(require,module,exports){
+},{}],440:[function(require,module,exports){
 // Components
 'use strict';
 
@@ -33367,7 +34569,7 @@ module.exports = React.createClass({
   }
 });
 
-},{"./mixin":409}],408:[function(require,module,exports){
+},{"./mixin":442}],441:[function(require,module,exports){
 'use strict';
 
 module.exports = {
@@ -33377,7 +34579,7 @@ module.exports = {
   mixin: require('./mixin')
 };
 
-},{"./action-wrapper":406,"./cartridge":407,"./mixin":409,"./summary":410}],409:[function(require,module,exports){
+},{"./action-wrapper":439,"./cartridge":440,"./mixin":442,"./summary":443}],442:[function(require,module,exports){
 // Mixins
 
 'use strict';
@@ -33447,7 +34649,7 @@ module.exports = {
     }
 };
 
-},{"../../../../common/form/mixin/reference-behaviour":331,"../../../../common/i18n":333,"../../../../common/mixin/store-behaviour":355,"../../../../search/search-bar":415}],410:[function(require,module,exports){
+},{"../../../../common/form/mixin/reference-behaviour":364,"../../../../common/i18n":366,"../../../../common/mixin/store-behaviour":388,"../../../../search/search-bar":448}],443:[function(require,module,exports){
 // Components
 'use strict';
 
@@ -33462,7 +34664,7 @@ module.exports = React.createClass({
     }
 });
 
-},{"./mixin":409}],411:[function(require,module,exports){
+},{"./mixin":442}],444:[function(require,module,exports){
 // Dependencies
 
 'use strict';
@@ -33514,7 +34716,7 @@ var FacetData = {
 
 module.exports = builder(FacetData);
 
-},{}],412:[function(require,module,exports){
+},{}],445:[function(require,module,exports){
 // Dependencies
 
 'use strict';
@@ -33671,7 +34873,7 @@ var Facet = {
 
 module.exports = builder(Facet);
 
-},{"../../common/i18n/mixin":334,"./facet-data":411,"lodash/object/keys":241}],413:[function(require,module,exports){
+},{"../../common/i18n/mixin":367,"./facet-data":444,"lodash/object/keys":266}],446:[function(require,module,exports){
 // Dependencies
 
 'use strict';
@@ -33856,7 +35058,7 @@ var FacetBox = {
 
 module.exports = builder(FacetBox);
 
-},{"../../common/i18n/mixin":334,"../../common/img":336,"../../mixin/stylable":387,"./facet":412,"lodash/object/omit":243,"object-assign":288}],414:[function(require,module,exports){
+},{"../../common/i18n/mixin":367,"../../common/img":369,"../../mixin/stylable":420,"./facet":445,"lodash/object/omit":272,"object-assign":321}],447:[function(require,module,exports){
 'use strict';
 
 module.exports = {
@@ -33864,7 +35066,7 @@ module.exports = {
   searchBar: require('./search-bar')
 };
 
-},{"./facet-box":413,"./search-bar":415}],415:[function(require,module,exports){
+},{"./facet-box":446,"./search-bar":448}],448:[function(require,module,exports){
 // Dependencies
 
 'use strict';
@@ -34012,7 +35214,7 @@ var SearchBar = {
 
 module.exports = builder(SearchBar);
 
-},{"../../common/i18n/mixin":334,"../../mixin/stylable":387,"../../page/search/search-header/action-wrapper":406,"./scope":416}],416:[function(require,module,exports){
+},{"../../common/i18n/mixin":367,"../../mixin/stylable":420,"../../page/search/search-header/action-wrapper":439,"./scope":449}],449:[function(require,module,exports){
 'use strict';
 
 var builder = window.Focus.component.builder;
@@ -34133,5 +35335,5 @@ var scopeMixin = {
 
 module.exports = builder(scopeMixin);
 
-},{"lodash/collection/find":57,"uuid":293}]},{},[1])(1)
+},{"lodash/collection/find":57,"uuid":326}]},{},[1])(1)
 });
