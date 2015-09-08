@@ -38,6 +38,13 @@ Affichage d'une liste par block avec la capacité de selectionner une ou plusieu
             <td>aucune.</td>
             <td>Définit le composant pour afficher les lignes de la liste.</td>
         </tr>
+		<tr>
+            <td><code>buttonComponent</code></td>
+            <td><i>React-component</i></td>
+            <td></td>
+            <td><code>FocusComponents.common.button.action</code></td>
+            <td>Définit le composant pour afficher un bouton.</td>
+        </tr>
         <tr>
             <td><code>isLoading</code></td>
             <td><i>boolean</i></td>
@@ -108,7 +115,7 @@ Affichage d'une liste par block avec la capacité de selectionner une ou plusieu
             <td><code>false</code></td>
             <td>Définit si la liste utilise le comportement de scroll infini ou non.</td>
         </tr>
-        
+
    </tbody>
 </table>
 

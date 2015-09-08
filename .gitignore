@@ -1,19 +1,10 @@
-lib
 # Logs
 logs
 *.log
-dist
-example/js/focus-components.js
-example/css/focus-components.css
-example/css/focus.css
-example/js/focus.js
-example/js/script-loader.js
-example/js/style-loader.js
-example/js/load-dependencies.js
-example/js/assets.js
-example/js/browser.js
 .idea
 
+# ignore showcase
+showcase/*
 
 # Runtime data
 pids

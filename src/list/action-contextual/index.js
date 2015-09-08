@@ -1,70 +1,95 @@
-/**@jsx*/
-var builder = require('focus').component.builder;
-var Button = require('../../common/button/action').component;
-var SelectAction = require('../../common/select-action').component;
+// Dependencies
 
-var actionContextualMixin = {
+const {builder} = require('focus').component;
+const {reduce} = require('lodash/collection');
+
+// Components
+
+const Button = require('../../common/button/action').component;
+const SelectAction = require('../../common/select-action').component;
+
+const actionContextualMixin = {
 
     /**
-     * Display name.
-     */
-    displayName: 'list-action-contextual',
+    * Display name.
+    */
+    displayName: 'ActionContextual',
 
     /**
-     * Init default props.
-     * @returns {object} Default props.
-     */
-    getDefaultProps: function() {
+    * Init default props.
+    * @returns {object} Default props.
+    */
+    getDefaultProps() {
         return {
+            buttonComponent: Button,
             operationList: [],
             operationParam: undefined
         };
     },
     /**
-     * Init default state.
-     * @returns {oject} Initial state.
-     */
-    getInitialState: function() {
+    * Init default state.
+    * @returns {oject} Initial state.
+    */
+    getInitialState() {
         return {
             isSecondaryActionListExpanded: false // true if secondary actionList is expanded.
         };
     },
 
     /**
-     * handle contextual action on click.
-     * @param {string} key Action key.
-     */
-    _handleAction: function handleContextualAction(key){
-        return (event)=> {
+    * Handle contextual action on click.
+    * @param {string} key Action key.
+    * @return {function} action handler.
+    */
+    _handleAction(key) {
+        const {operationList, operationParam} = this.props;
+        return event => {
             event.preventDefault();
-            if (this.props.operationParam) {
-                this.props.operationList[key].action(this.props.operationParam);
+            event.stopPropagation();
+            if (operationParam) {
+                operationList[key].action(operationParam);
             } else {
-                this.props.operationList[key].action();
+                operationList[key].action();
             }
         };
     },
 
 
     /**
-     * render the component.
-     * @returns {JSX} Html code.
-     */
-    render: function renderContextualAction() {
-        var primaryActionList = [];
-        var secondaryActionList = [];
-        for (var key in this.props.operationList) {
-            var operation = this.props.operationList[key];
-            if (operation.priority === 1) {
-                primaryActionList.push( <Button key={key} style={operation.style} handleOnClick={this._handleAction(key)} shape={operation.style.shape || 'raised'} label={operation.label}/> );
+    * render the component.
+    * @returns {JSX} Html code.
+    */
+    render() {
+        const {operationList, operationParam, buttonComponent} = this.props;
+        const {isSecondaryActionListExpanded} = this.state;
+        const {primaryActionList, secondaryActionList} = reduce(operationList, (actionLists, operation, key) => {
+            let {primaryActionList: primaryActions, secondaryActionList: secondaryActions} = actionLists;
+            if (1 === operation.priority) {
+                primaryActions.push(
+                    <buttonComponent
+                        handleOnClick={this._handleAction(key)}
+                        key={key}
+                        label={operation.label}
+                        shape={operation.style.shape || 'raised'}
+                        style={operation.style}
+                        {...this.props}
+                        />
+                );
             } else {
-                secondaryActionList.push(operation);
+                secondaryActions.push(operation);
             }
-        }
-        return ( <div className = "list-action-contextual" >
-                        <span> {primaryActionList}</span>
-                        <SelectAction operationList={secondaryActionList} operationParam={this.props.operationParam} isExpanded={this.state.isSecondaryActionListExpanded} />
-                </div>);
+            return actionLists;
+        }, {primaryActionList: [], secondaryActionList: []});
+        return (
+            <div className='list-action-contextual'>
+                <span>{primaryActionList}</span>
+                <SelectAction
+                    isExpanded={isSecondaryActionListExpanded}
+                    operationList={secondaryActionList}
+                    operationParam={operationParam}
+                    />
+            </div>
+        );
     }
 };
 
