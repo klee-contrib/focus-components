@@ -58,7 +58,7 @@ const FieldMixin = {
         const {label, input, select, display} = this;
         return (
             <div className={this._className()} data-domain={domain} data-focus='field' data-mode={isEdit ? 'edit' : 'consult'} data-required={isRequired}>
-                {isCustomComponent && this.renderFieldComponent()}
+                {isCustomComponent && this._renderFieldComponent()}
                 {!isCustomComponent && hasLabel && label()}
                 {!isCustomComponent &&
                     <div className ={`${this._getContentGridClassName()}`} data-focus='field-value-container'>
