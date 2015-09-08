@@ -3,22 +3,13 @@ const {builder, types} = require('focus').component;
 const i18nBehaviour = require('../../common/i18n/mixin');
 const styleBehaviour = require('../../mixin/stylable');
 const Title = require('../title').component;
-const trim = require('lodash/string/trim');
+
 /**
 * Mixin used in order to create a block.
 * @type {Object}
 */
 const blockMixin = {
     mixins: [i18nBehaviour, styleBehaviour],
-
-    /** @inheritedDoc */
-    getDefaultProps() {
-        return {
-            actions: function(){
-                return ; // override this to add actions.
-            }
-        };
-    },
     /** @inheritedDoc */
     propTypes: {
         title: types('string'),
@@ -40,14 +31,23 @@ const blockMixin = {
     render: function renderBlock(){
         const {actions, children} = this.props;
         return (
-            <div data-focus='block'>
-            <header>
-            <Title label={this.heading()} />
-            <div className="actions">{actions()}</div>
-            </header>
-            <div className="block-content">
-            {children}
-            </div>
+            <div>
+                <div className="mdl-card mdl-card--border mdl-shadow--8dp" data-focus='block'>
+                    <div className="mdl-card__title mdl-card--border" data-focus='block-title'>
+                        <Title label={this.heading()} />
+                        {actions &&
+                            <div className="actions">{actions()}</div>
+                        }
+                    </div>
+                    <div className="mdl-card__supporting-text">
+                        {children}
+                    </div>
+                    {actions &&
+                        <div className="mdl-card__actions mdl-card--border">
+                            {actions()}
+                        </div>
+                    }
+                </div>
             </div>
         );
     }
