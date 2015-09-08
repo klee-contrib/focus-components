@@ -86,7 +86,7 @@ const tableMixin = {
         let sort;
         if(!this.props.isEdit && !colProperties.noSort ){
             const order = colProperties.sort ? colProperties.sort : 'asc';
-            const iconName = 'asc' === order ? 'trending up' : 'trending down';
+            const iconName = 'asc' === order ? 'trending_up' : 'trending_down';
             const icon = <i className='material-icons'>{iconName}</i>;
             sort = <a className='sort' data-name={name} href='#' onClick={this._sortColumnAction(name, ('asc' === order ? 'desc' : 'asc' ))}>{icon}</a>;
         }
