@@ -1,32 +1,51 @@
-var builder = require('focus').component.builder;
-var React = require('react');
-var Img = require('../img').component;
-var Icon = require('../icon').component;
+const builder = require('focus').component.builder;
+const React = require('react');
+const Icon = require('../icon').component;
+const uuid = require('uuid');
 
-var selectActionMixin = {
+const {componentHandler} = window;
+
+const selectActionMixin = {
 
     /**
-     * Display name.
-     */
+    * Display name.
+    */
     displayName: 'select-action',
     /**
-     * Default props.
-     * @returns {object} Defauilt props.
-     */
-    getDefaultProps: function () {
+    * Default props.
+    * @returns {object} Defauilt props.
+    */
+    getDefaultProps() {
         return {
             operationList: [],
-            icon: 'ellipsis-v'
+            iconProps: {
+                name: 'ellipsis-v'
+            }
         };
     },
     /**
-     * Handle action on selected item.
-     * @param {function} action Action to call
-     * @returns {function} Function called when item is selected.
-     * @private
+     * Called when component is mounted.
      */
-    _handleAction: function (action) {
-        return (event)=> {
+    componentDidMount() {
+        componentHandler.upgradeElement(React.findDOMNode(this.refs.button));
+        componentHandler.upgradeElement(React.findDOMNode(this.refs.dropdown));
+    },
+
+    /**
+     * Called before component is unmounted.
+     */
+    componentWillUnmount() {
+        componentHandler.downgradeElements(React.findDOMNode(this.refs.button));
+        componentHandler.downgradeElements(React.findDOMNode(this.refs.dropdown));
+    },
+    /**
+    * Handle action on selected item.
+    * @param {function} action Action to call
+    * @returns {function} Function called when item is selected.
+    * @private
+    */
+    _handleAction(action) {
+        return () => {
             if (this.props.operationParam) {
                 action(this.props.operationParam);
             } else {
@@ -34,43 +53,30 @@ var selectActionMixin = {
             }
         };
     },
-
     /**
-     * Generate the list of actions.
-     * @param {object} operationList List of operations.
-     * @returns {Array} List of action in li component.
-     * @private
-     */
-    _getList: function (operationList) {
-        var liList = [];
-        for (var key in operationList) {
-            var operation = operationList[key];
-
-            liList.push(<li key={key} onClick={this._handleAction(operation.action)} className={operation.style}><a
-                href="javascript:void(0)">{operation.label}</a></li>);
-            if (operation.childOperationList) {
-                var subKey = 'sub_' + key;
-                liList.push(<li key={subKey}>
-                    <ul>{this._getList(operation.childOperationList)}</ul>
-                </li>);
-            }
+    * Render the component.
+    * @returns  {XML} Htm code.
+    */
+    render() {
+        const {iconProps, operationList} = this.props;
+        if (0 === operationList.length) {
+            return null;
         }
-        return liList;
-    },
-    /**
-     * Render the component.
-     * @returns  {XML} Htm code.
-     */
-    render: function renderSelectAcion() {
-        if (this.props.operationList.length == 0) {
-            return <div/>;
-        }
-        var liList = this._getList(this.props.operationList);
-        //todo : a revoir pour gérer les boutons d'action groupés
+        const id = uuid.v4();
         return (
-            <div data-focus="select-action" className=''>
-                <a className={`dropdown-toggle btn btn-fab btn-default fa fa-${this.props.icon}`} data-toggle="dropdown" ref='dropdown-toggle'></a>
-                <ul className="dropdown-menu">{liList}</ul>
+            <div>
+                <button className='mdl-button mdl-js-button mdl-button--icon' id={id} ref='button'>
+                    <Icon {...iconProps}/>
+                </button>
+                <ul className='mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect' htmlFor={id} ref='dropdown'>
+                    {operationList.map((operation, idx) => {
+                        return (
+                            <li className={`mdl-menu__item ${operation.style}`} key={idx} onClick={this._handleAction(operation.action)}>
+                                {operation.label}
+                            </li>
+                        );
+                    })}
+                </ul>
             </div>
         );
     }
