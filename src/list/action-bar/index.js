@@ -1,7 +1,8 @@
 // Dependencies
 
-const builder = require('focus').component.builder;
+const {builder} = require('focus').component;
 const style = require('./style');
+const {reduce} = require('lodash/collection');
 
 // Components
 
@@ -107,25 +108,19 @@ const ActionBar = {
     * @private
     */
     _getGroupObject() {
-        const groupList = [];
-        for (const key in this.props.groupableColumnList) {
-            groupList.push({
+        const {groupLabelPrefix, groupSelectedKey, groupableColumnList} = this.props;
+        const groupOperationList = reduce(groupableColumnList, (operationList, label, key) => {
+            operationList.push({
                 action: this._groupFunction(key),
-                label: this.i18n(this.props.groupLabelPrefix + this.props.groupableColumnList[key]),
-                style: this._getSelectedStyle(key, this.props.groupSelectedKey)
+                label: this.i18n(groupLabelPrefix + label),
+                style: this._getSelectedStyle(key, groupSelectedKey)
             });
-        }
-        const groupOperationList = [
-            {
-                label: this.i18n('list.actionBar.group'),
-                childOperationList: groupList
-            },
-            {
-                label: this.i18n('list.actionBar.ungroup'),
-                action: this._groupFunction()
-            }
-        ];
-        const groupIcon = this.props.groupSelectedKey ? 'folder-open-o' : 'folder-o';
+            return operationList;
+        }, []).concat([{
+            label: this.i18n('list.actionBar.ungroup'),
+            action: this._groupFunction()
+        }]);
+        const groupIcon = groupSelectedKey ? 'folder-open-o' : 'folder-o';
         return (
             <div style={style.actions.group}>
                 <Dropdown iconProps={{name: groupIcon}} operationList={groupOperationList}/>
