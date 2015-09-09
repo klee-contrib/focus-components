@@ -1,7 +1,6 @@
 // Dependencies
 
 const {builder} = require('focus').component;
-const style = require('./style');
 const {reduce} = require('lodash/collection');
 
 // Components
@@ -48,7 +47,8 @@ const ActionBar = {
             }, // Action on group function
             groupSelectedKey: undefined, // Defautl grouped key.
             operationList: [], // List of contextual operations
-            groupLabelPrefix: ''
+            groupLabelPrefix: '',
+            style: require('./style')
         };
     },
 
@@ -70,6 +70,7 @@ const ActionBar = {
                 style: this._getSelectedStyle(this.props.selectionStatus, 'none')
             }
         ];
+        const {style} = this.props;
         return (
             <div style={style.actions.select}>
                 <Dropdown iconProps={this._getSelectionObjectIcon()} operationList={selectionOperationList}/>
@@ -94,6 +95,7 @@ const ActionBar = {
                 });
             }
             const orderIcon = this.props.orderSelected.order ? 'sort-alpha-desc' : 'sort-alpha-asc';
+            const {style} = this.props;
             return (
                 <div style={style.actions.sort}>
                     <Dropdown iconProps={{name: orderIcon}} key='down' operationList={orderOperationList}/>
@@ -108,7 +110,7 @@ const ActionBar = {
     * @private
     */
     _getGroupObject() {
-        const {groupLabelPrefix, groupSelectedKey, groupableColumnList} = this.props;
+        const {groupLabelPrefix, groupSelectedKey, groupableColumnList, style} = this.props;
         const groupOperationList = reduce(groupableColumnList, (operationList, label, key) => {
             operationList.push({
                 action: this._groupFunction(key),
@@ -175,6 +177,7 @@ const ActionBar = {
     * @returns {JSX} Htm content.
     */
     render() {
+        const {style} = this.props;
         return (
             <div className='is-casting-shadow' data-focus='list-action-bar' style={style.bar}>
                 <div data-focus='global-list-content' style={style.actions}>

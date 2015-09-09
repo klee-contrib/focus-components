@@ -3,7 +3,6 @@
 const {builder} = require('focus').component;
 const {camelCase: camel} = require('lodash/string');
 const {capitalize} = require('lodash/string');
-const style = require('./style');
 
 // Components
 
@@ -61,7 +60,8 @@ const AdvancedSearch = {
             groupComponent: undefined,
             lineComponentMapper: undefined,
             scrollParentSelector: undefined,
-            onLineClick: undefined
+            onLineClick: undefined,
+            style: require('./style')
         };
     },
     /**
@@ -265,6 +265,7 @@ const AdvancedSearch = {
     * @return {HTML} the rendered component
     */
     render() {
+        const {style} = this.props;
         return (
             <div className='advanced-search' data-focus='advanced-search'>
                 <div data-focus='facet-container' style={style.facets}>
