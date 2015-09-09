@@ -21,7 +21,6 @@ const I18N = 'https://cdnjs.cloudflare.com/ajax/libs/i18next/1.6.3/i18next-1.6.3
 const SHOWDOWN = 'https://cdnjs.cloudflare.com/ajax/libs/showdown/0.4.0/Showdown.js';
 const MOMENT = '//cdn.jsdelivr.net/momentjs/2.9.0/moment.min.js';
 const NUMERAL = '//cdnjs.cloudflare.com/ajax/libs/numeral.js/1.4.5/numeral.min.js';
-const CSS_LAYOUT = 'https://cdnjs.cloudflare.com/ajax/libs/css-layout/0.0.6/css-layout.min.js';
 
 const DATE_RANGE_PICKER_JS = '//cdn.jsdelivr.net/bootstrap.daterangepicker/1/daterangepicker.js',
 DATE_RANGE_PICKER_CSS = '//cdn.jsdelivr.net/bootstrap.daterangepicker/1/daterangepicker-bs3.css';
@@ -50,7 +49,6 @@ function loadJS(){
             loadScript(I18N),
             loadScript(MOMENT).then(()=>{return loadScript(DATE_RANGE_PICKER_JS); }),
             loadScript(NUMERAL),
-            loadScript(CSS_LAYOUT),
             loadScript(SHOWDOWN)
         ]);
     })
