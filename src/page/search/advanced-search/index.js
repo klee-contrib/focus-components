@@ -1,8 +1,9 @@
 // Dependencies
 
-const builder = require('focus').component.builder;
-const camel = require('lodash/string/camelCase');
-const capitalize = require('lodash/string/capitalize');
+const {builder} = require('focus').component;
+const {camelCase: camel} = require('lodash/string');
+const {capitalize} = require('lodash/string');
+const style = require('./style');
 
 // Components
 
@@ -54,7 +55,7 @@ const AdvancedSearch = {
             store: advancedSearchStore,
             action: undefined,
             service: undefined,
-            orderableColumnList: {},
+            orderableColumnList: [],
             lineOperationList: {},
             exportAction: {},
             groupComponent: undefined,
@@ -106,15 +107,16 @@ const AdvancedSearch = {
             identifier: this.props.store.identifier,
             getSearchOptions: () => {return this.props.store.getValue.call(this.props.store); } // Binding the store in the function call
         });
+        this._action.search();
     },
     componentDidMount() {
-        this._action.search();
+
     },
     /**
     * Un-register the store listeners
     */
     componentWillUnmount() {
-        ['query', 'scope', 'selected-facets', 'grouping-key', 'sort-by', 'sort-asc'].forEach((node) => {
+        ['query', 'scope', 'selected-facets', 'grouping-key', 'sort-by', 'sort-asc'].forEach(node => {
             this.props.store[`remove${capitalize(camel(node))}ChangeListener`](this._onStoreChangeWithSearch);
         });
         ['facets', 'results', 'total-count'].forEach((node) => {
@@ -138,15 +140,16 @@ const AdvancedSearch = {
      * @return {[type]} [description]
      */
     _getNewStateFromStore() {
-        const query = this.props.store.getQuery();
-        const scope = this.props.store.getScope();
-        const selectedFacets = this.props.store.getSelectedFacets() || {};
-        const groupingKey = this.props.store.getGroupingKey();
-        const sortBy = this.props.store.getSortBy();
-        const sortAsc = this.props.store.getSortAsc();
-        const facets = this.props.store.getFacets();
-        const results = this.props.store.getResults();
-        const totalCount = this.props.store.getTotalCount();
+        const {store} = this.props;
+        const query = store.getQuery();
+        const scope = store.getScope();
+        const selectedFacets = store.getSelectedFacets() || {};
+        const groupingKey = store.getGroupingKey();
+        const sortBy = store.getSortBy();
+        const sortAsc = store.getSortAsc();
+        const facets = store.getFacets();
+        const results = store.getResults();
+        const totalCount = store.getTotalCount();
         return {query, scope, selectedFacets, groupingKey, sortBy, sortAsc, facets, results, totalCount};
     },
     /**
@@ -160,13 +163,15 @@ const AdvancedSearch = {
     * @returns {HTML} the rendered component
     */
     _renderFacetBox() {
+        const {facets, selectedFacets} = this.state;
+        const {facetConfig, scopesConfig} = this.props;
         return (
             <FacetBox
                 action={this._action}
-                facetConfig={this.props.facetConfig}
-                facets={this.state.facets}
-                scopesConfig={this.props.scopesConfig}
-                selectedFacets={this.state.selectedFacets}
+                facetConfig={facetConfig}
+                facets={facets}
+                scopesConfig={scopesConfig}
+                selectedFacets={selectedFacets}
                 />
         );
     },
@@ -175,12 +180,13 @@ const AdvancedSearch = {
     * @returns {HTML} the rendered component
     */
     _renderListSummary() {
+        const {query, scope, totalCount} = this.state;
         return (
             <ListSummary
                 action={this._action}
-                query={this.state.query}
-                scope={this.state.scope}
-                totalCount={this.state.totalCount}
+                query={query}
+                scope={scope}
+                totalCount={totalCount}
                 />
         );
     },
@@ -189,24 +195,26 @@ const AdvancedSearch = {
     * @returns {HTML} the rendered component
     */
     _renderActionBar() {
-        const groupableColumnList = this.state.facets ? Object.keys(this.state.facets).reduce((result, facetKey) => {
+        const {facets, groupingKey, selectedFacets, selectionStatus, sortBy} = this.state;
+        const {lineOperationList, orderableColumnList} = this.props;
+        const groupableColumnList = facets ? Object.keys(facets).reduce((result, facetKey) => {
             result[facetKey] = facetKey;
             return result;
         }, {}) : {};
-        const selectionAction = (selectionStatus) => {
-            this.setState({selectionStatus});
+        const selectionAction = (status) => {
+            this.setState({selectionStatus: status});
         };
         return (
             <ListActionBar
                 action={this._action}
-                groupSelectedKey={this.state.groupingKey}
+                groupSelectedKey={groupingKey}
                 groupableColumnList={groupableColumnList}
-                operationList={this.props.lineOperationList}
-                orderSelected={this.state.sortBy}
-                orderableColumnList={this.props.orderableColumnList}
-                selectedFacets={this.state.selectedFacets}
+                operationList={lineOperationList}
+                orderSelected={sortBy}
+                orderableColumnList={orderableColumnList}
+                selectedFacets={selectedFacets}
                 selectionAction={selectionAction}
-                selectionStatus={this.state.selectionStatus}
+                selectionStatus={selectionStatus}
                 />
         );
     },
@@ -215,23 +223,25 @@ const AdvancedSearch = {
     * @return {HTML} the rendered component
     */
     _renderResults() {
+        const {groupComponent, isSelection, lineComponentMapper, lineOperationList, scrollParentSelector, store} = this.props;
+        const {groupingKey, facets, results, selectionStatus, totalCount} = this.state;
         return (
             <Results
                 action={this._action}
-                groupComponent={this.props.groupComponent}
-                groupingKey={this.state.groupingKey}
-                isSelection={this.props.isSelection}
+                groupComponent={groupComponent}
+                groupingKey={groupingKey}
+                isSelection={isSelection}
                 lineClickHandler={this._lineClick}
-                lineComponentMapper={this.props.lineComponentMapper}
-                lineOperationList={this.props.lineOperationList}
+                lineComponentMapper={lineComponentMapper}
+                lineOperationList={lineOperationList}
                 lineSelectionHandler={this._selectItem}
                 renderSingleGroupDecoration={false}
-                resultsFacets={this.state.facets}
-                resultsMap={this.state.results}
-                scrollParentSelector={this.props.scrollParentSelector}
-                selectionStatus={this.state.selectionStatus}
-                store={this.props.store}
-                totalCount={this.state.totalCount}
+                resultsFacets={facets}
+                resultsMap={results}
+                scrollParentSelector={scrollParentSelector}
+                selectionStatus={selectionStatus}
+                store={store}
+                totalCount={totalCount}
                 />
         );
     },
@@ -256,11 +266,11 @@ const AdvancedSearch = {
     */
     render() {
         return (
-            <div className="advanced-search" data-focus="advanced-search">
-                <div data-focus="facet-container">
+            <div className='advanced-search' data-focus='advanced-search'>
+                <div data-focus='facet-container' style={style.facets}>
                     {this._renderFacetBox()}
                 </div>
-                <div data-focus="result-container">
+                <div data-focus='result-container' style={style.results}>
                     {this._renderListSummary()}
                     {this._renderActionBar()}
                     {this._renderResults()}
