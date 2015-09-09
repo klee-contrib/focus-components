@@ -1,17 +1,18 @@
 // Dependencies
 
-let builder = require('focus').component.builder;
-let clone = require('lodash/lang/clone');
+const builder = require('focus').component.builder;
+const {reduce} = require('lodash/collection');
+const {omit} = require('lodash/object');
 
 // Components
 
-let ListActionBar = require('../../../list/action-bar/index').component;
+const ListActionBar = require('../../../list/action-bar/index').component;
 
 //Mixins
 
-let i18nMixin = require('../../../common/i18n/mixin');
+const i18nMixin = require('../../../common/i18n/mixin');
 
-let Bar = {
+const Bar = {
     mixins: [i18nMixin],
     /**
      * Get the default props
@@ -35,26 +36,22 @@ let Bar = {
      * @return {object} The filtered facet list
      */
     _filterFacetList() {
-        let facetList = {};
-        for (let key in this.props.selectedFacets) {
-            if (key !== 'FCT_SCOPE') {
-                let facet = this.props.selectedFacets[key];
-                facetList[key] = {
-                    label: this.i18n(`live.filter.facets.${key}`),
-                    value: facet.data.label
-                };
-            }
-        }
-        return facetList;
+        const {selectedFacets} = this.props;
+        return reduce(selectedFacets, (result, facet, facetKey) => {
+            result[facetKey] = {
+                label: this.i18n(`live.filter.facets.${facetKey}`),
+                value: facet.data.label
+            };
+            return result;
+        }, {});
     },
     /**
      * On facet click, remove it from the selected facets, and update the store
      * @param  {string} key The facet key to remove
      */
     _onFacetClick(key) {
-        let selectedFacets = clone(this.props.selectedFacets);
-        delete selectedFacets[key];
-        this.props.action.updateProperties({selectedFacets});
+        const {selectedFacets, action: {updateProperties}} = this.props;
+        updateProperties({selectedFacets: omit(selectedFacets, key)});
     },
     /**
      * Update the store to ask for a new results order
@@ -84,18 +81,18 @@ let Bar = {
         return (
             <ListActionBar
                 data-focus='advanced-search-action-bar'
+                facetClickAction={this._onFacetClick}
+                facetList={this._filterFacetList()}
+                groupAction={this._groupAction}
                 groupLabelPrefix='live.filter.facets.'
-                selectionStatus={this.props.selectionStatus}
-                selectionAction={this.props.selectionAction}
-                orderableColumnList={this.props.orderableColumnList}
+                groupSelectedKey={this.props.groupingKey}
+                groupableColumnList={this.props.groupableColumnList}
+                operationList={this.props.lineOperationList}
                 orderAction={this._orderAction}
                 orderSelected={this.props.sortBy}
-                groupableColumnList={this.props.groupableColumnList}
-                groupAction={this._groupAction}
-                groupSelectedKey={this.props.groupingKey}
-                facetList={this._filterFacetList()}
-                facetClickAction={this._onFacetClick}
-                operationList={this.props.lineOperationList}
+                orderableColumnList={this.props.orderableColumnList}
+                selectionAction={this.props.selectionAction}
+                selectionStatus={this.props.selectionStatus}
             />
         );
     }

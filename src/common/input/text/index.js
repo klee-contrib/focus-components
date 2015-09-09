@@ -1,15 +1,15 @@
-//Dependencies.
+// Dependencies.
+
 const {builder, types} = require('focus').component;
-const React = require('react');
 const assign = require('object-assign');
 const mdlBehaviour = require('../../mixin/mdl-behaviour');
 
 /**
 * Identity function.
-* @param  {object} data - The data.
-* @return {object}   The data to save.
+* @param  {object} d - The data.
 */
-function identity(d){ return d; }
+const identity = d => d;
+
 /**
 * Input text mixin.
 * @type {Object}
@@ -37,6 +37,8 @@ const inputTextComponent = {
     },
     /** @inheritdoc */
     propTypes: {
+        onChange: types('func'),
+        onKeyPress: types('func'),
         error: types('string'),
         type: types('string'),
         value: types(['string', 'number']),
@@ -68,14 +70,24 @@ const inputTextComponent = {
     * Handle the change value of the input.
     * @param {object} event - The sanitize event of input.
     */
-    _handleOnChange(event){
+    _handleInputChange(event){
         //On change handler.
         const {onChange} = this.props;
         if(onChange) {
-            return onChange(event);
+            onChange(event);
         } else {
             //Set the state then call the change handler.
             this.setState({value: event.target.value});
+        }
+    },
+    /**
+     * Input key press handler.
+     * @param  {Object} event   event raised by the key press
+     */
+    _handleInputKeyPress(event) {
+        const {onKeyPress} = this.props;
+        if(onKeyPress) {
+            onKeyPress(event);
         }
     },
     /**
@@ -84,11 +96,11 @@ const inputTextComponent = {
     */
     render() {
         const {value} = this.state;
-        const {error, name, placeHolder} = this.props;
-        const inputProps = assign({}, this.props, {value}, {id: name, onChange: this._handleOnChange});
+        const {error, name, placeHolder, style} = this.props;
+        const inputProps = assign({}, this.props, {value}, {id: name, onChange: this._handleInputChange, onKeyPress: this._handleInputKeyPress});
         const pattern = error ? 'hasError' : null; //add pattern to overide mdl error style when displaying an focus error.
         return (
-            <div className='mdl-textfield mdl-js-textfield' data-focus='input-text' ref='inputText'>
+            <div className='mdl-textfield mdl-js-textfield' data-focus='input-text' ref='inputText' style={style}>
                 <input className='mdl-textfield__input' ref='inputText' {...inputProps} pattern={pattern} />
                 <label className='mdl-textfield__label' htmlFor={name}>{placeHolder}</label>
                 {error &&
