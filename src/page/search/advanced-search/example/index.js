@@ -133,7 +133,6 @@ const Group = React.createClass({
         };
     },
     render() {
-        console.log(this.props.groupKey);
         return (
             <div className="listResultContainer panel" data-focus="group-result-container">
                 <Title label={`${this.props.groupKey} (${this.props.count})`}/>

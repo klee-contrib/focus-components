@@ -1,8 +1,14 @@
-var builder = require('focus').component.builder;
-var React = require('react');
+// Dependencies
 
+const {builder} = require('focus').component;
+const React = require('react');
+const {map} = require('lodash/collection');
 
-var topicDisplayerMixin = {
+// Components
+
+const Button = require('../button/action').component;
+
+const TopicDisplayer = {
 
     /**
      * Display name.
@@ -11,12 +17,12 @@ var topicDisplayerMixin = {
 
     /**
      * Default props.
-     * @returns {object} Defautl props.
+     * @returns {object} default props.
      */
-    getDefaultProps: function(){
+    getDefaultProps() {
         return {
             style: undefined, // Component css style.
-            topicClickAction: function(key) {}, // Action when click on topic
+            topicClickAction() {}, // Action when click on topic
             topicList: {}, // {topic1: "Label of topic one", topic2:"Label of topic 2"} List f topics,
             displayLabels: false
         };
@@ -26,25 +32,32 @@ var topicDisplayerMixin = {
      * Render the component.
      * @returns {JSX} Htm code.
      */
-    render: function renderSelectAcion(){
-        var topicList = [];
-        var className = 'btn btn-primary btn-raised topic';
-        for(var key in this.props.topicList) {
-            var text = this.props.displayLabels ? `${this.props.topicList[key].label}: ${this.props.topicList[key].value}` : this.props.topicList[key].value;
-            topicList.push(<a key={key} href="javascript:void(0)" onClick={this.topicClickHandler(key)} className={className}>{text}</a>);
-        }
-        var style = 'topic-displayer bs-component ';
-        if(this.props.style) {
-            style += this.props.style;
-        }
-        return (<span data-focus='topic-displayer'>{topicList}</span>);
+    render() {
+        const {displayLabels, topicList} = this.props;
+        return (
+            <div data-focus='topic-displayer'>
+                {map(topicList, (topic, key) => {
+                    const text = displayLabels ? `${topic.label}: ${topic.value}` : topic.value;
+                    return (
+                        <Button
+                            handleOnClick={this.topicClickHandler(key)}
+                            icon='clear'
+                            key={key}
+                            label={text}
+                            />
+                    );
+                })}
+            </div>
+        );
     },
 
     /**
      * Action on the topic click.
+     * @param  {String} key  topic key
+     * @return {Function}     Click handler
      */
-    topicClickHandler: function topicClickHandler(key) {
-        return (event)=> {
+    topicClickHandler(key) {
+        return (event) => {
             if(event) {
                 event.preventDefault();
             }
@@ -53,4 +66,4 @@ var topicDisplayerMixin = {
     }
 };
 
-module.exports = builder(topicDisplayerMixin);
+module.exports = builder(TopicDisplayer);
