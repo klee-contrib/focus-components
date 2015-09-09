@@ -1,36 +1,38 @@
-var builder = require('focus').component.builder;
-var React = require('react');
+const builder = require('focus').component.builder;
+const React = require('react');
+const types = require('focus').component.types;
+const oneOf = React.PropTypes.oneOf;
 
-var type = require('focus').component.types;
-
-var iconMixin = {
-    /**
-     * Display name.
-     */
-    displayName: 'icon',
-    /**
-     * Default props.
-     * @returns {object} Initial props.
-     */
-    getDefaultProps(){
+const iconMixin = {
+    displayName: 'Icon',
+    getDefaultProps() {
         return {
-          prefix: 'fa fa-',
-          name: '',
-          other: ''
+            name: '',
+            library: 'material'
         };
     },
     propTypes: {
-      prefix: type('string'),
-      name: type('string'),
-      other: type('string')
+        handleOnClick: types('function'),
+        name: types('string'),
+        library: oneOf(['material', 'font-awesome', 'focus'])
     },
+
+
     /**
-     * Render the img.
-     * @returns {XML} Html code.
-     */
+    * Render the img.
+    * @returns {XML} Html code.
+    */
     render: function renderIcon(){
-        var className = `${this.props.prefix}${this.props.name} ${this.props.other}`;
-        return <i className={className} onClick={this.props.onClick}></i>;
+        const {name, library, onClick, style} = this.props;
+        switch (library) {
+            case 'material':
+                return <i className='material-icons' onClick={onClick} {...style}>{name}</i>;
+            case 'font-awesome':
+                const faCss = `fa fa-${name}`;
+                return <i className={faCss} onClick={onClick} {...style}></i>;
+            default:
+                return null;
+        }
     }
 };
 
