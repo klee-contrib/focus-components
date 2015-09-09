@@ -38,7 +38,7 @@ const SearchBar = {
             identifier: undefined,
             store: undefined,
             action: undefined,
-            style: require('./style').bar
+            styleJs: require('./style').bar
         };
     },
     propTypes: {
@@ -165,7 +165,7 @@ const SearchBar = {
     * @return {HTML} - The rendered component
     */
     render() {
-        const {loading, hasScopes, placeholder, scopes, style} = this.props;
+        const {loading, hasScopes, placeholder, scopes, styleJs: style} = this.props;
         const {query, scope} = this.state;
         return (
             <div data-focus='search-bar' style={style.parent}>

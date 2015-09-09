@@ -22,7 +22,6 @@ const buttonMixin = {
         return {
             type: 'submit',
             shape: 'raised',
-            action: undefined,
             label: '',
             icon: '',
             hasRipple: false,
@@ -32,7 +31,6 @@ const buttonMixin = {
     },
     propTypes: {
         label: types('string'),
-        action: types('function'),
         handleOnClick: types('function'),
         type: oneOf(['submit', 'button']),
         shape: oneOf([undefined, 'raised', 'fab', 'mini', 'icon']),
@@ -47,14 +45,10 @@ const buttonMixin = {
     * @return {Object} - Action call.
     */
     handleOnClick() {
-        const {handleOnClick, action} = this.props;
+        const {handleOnClick} = this.props;
         if (handleOnClick) {
             return handleOnClick.apply(this, arguments);
         }
-        if (!action || !this.action[action]) {
-            return console.warn('Your button action is not implemented');
-        }
-        return this.action[this.props.action].apply(this, arguments);
     },
     /**
     * Date de composant.
