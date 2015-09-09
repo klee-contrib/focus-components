@@ -4,7 +4,6 @@ const builder = require('focus').component.builder;
 const type = require('focus').component.types;
 const uuid = require('uuid');
 const find = require('lodash/collection/find');
-const {scopes: style} = require('./style');
 
 // Components
 
@@ -28,7 +27,8 @@ const scopeMixin = {
     getDefaultProps() {
         return {
             list: [],
-            isDeployed: false
+            isDeployed: false,
+            style: require('./style').scopes
         };
     },
     /**
@@ -90,7 +90,7 @@ const scopeMixin = {
     * @return {HTML} the rendered scope list
     */
     _renderScopeList() {
-        const {list: scopeList, value} = this.props;
+        const {list: scopeList, style, value} = this.props;
         return (
             <div style={style.list}>
                 {0 < scopeList.length && scopeList.map(scope => {
@@ -119,6 +119,7 @@ const scopeMixin = {
     */
     render() {
         const {isDeployed} = this.state;
+        const {style} = this.props;
         return (
             <div data-focus='scope'>
                 <div style={style.visible}>

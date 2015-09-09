@@ -4,7 +4,7 @@ const builder = require('focus').component.builder;
 const type = require('focus').component.types;
 const React = require('react');
 const actionWrapper = require('../../page/search/search-header/action-wrapper');
-const {bar: style} = require('./style');
+
 
 // Components
 
@@ -37,7 +37,8 @@ const SearchBar = {
             hasScopes: true,
             identifier: undefined,
             store: undefined,
-            action: undefined
+            action: undefined,
+            style: require('./style').bar
         };
     },
     propTypes: {
@@ -148,6 +149,7 @@ const SearchBar = {
      * @return {HTML} rendered help message
      */
     _renderHelp() {
+        const {style} = this.props;
         return (
             <div ref='help' style={style.help}>{this.i18n(this.props.helpTranslationPath)}</div>
         );
@@ -163,7 +165,7 @@ const SearchBar = {
     * @return {HTML} - The rendered component
     */
     render() {
-        const {loading, hasScopes, placeholder, scopes} = this.props;
+        const {loading, hasScopes, placeholder, scopes, style} = this.props;
         const {query, scope} = this.state;
         return (
             <div data-focus='search-bar' style={style.parent}>

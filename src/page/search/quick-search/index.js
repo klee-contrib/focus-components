@@ -2,7 +2,6 @@
 
 const type = require('focus').component.types;
 const builder = require('focus').component.builder;
-const style = require('./style');
 
 // Components
 
@@ -58,7 +57,8 @@ const QuickSearchComponent = {
             action: undefined,
             onLineClick: undefined,
             groupMaxRows: undefined,
-            scrollParentSelector: undefined
+            scrollParentSelector: undefined,
+            style: require('./style')
         };
     },
     /**
@@ -172,6 +172,7 @@ const QuickSearchComponent = {
      * @return {HTML} the rendered component
      */
     render() {
+        const {style} = this.props;
         return (
             <div data-focus='quick-search'>
                 <div>
