@@ -1,3 +1,6 @@
+const Title = FocusComponents.common.title.component;
+const Button = FocusComponents.common.button.action.component;
+
 Focus.reference.config.set({
     scopes() {
         return new Promise(success => {
@@ -67,7 +70,7 @@ const getSearchService = (scoped) => {
         return new Promise(success => {
             window.setTimeout(() => {
                 const groups = {
-                    Test: [
+                    FCT_PAYS: [
                         {
                             id: countId++,
                             firstName: 'toto',
@@ -79,7 +82,7 @@ const getSearchService = (scoped) => {
                             lastName: 'deuxieme test'
                         }
                     ],
-                    Autre: [
+                    FCT_STATUS: [
                         {
                             id: countId++,
                             firstName: 'toto',
@@ -93,23 +96,9 @@ const getSearchService = (scoped) => {
                     ]
                 };
 
-                const list = [
-                    {
-                        id: countId++,
-                        firstName: 'toto',
-                        lastName: 'ceci est un test'
-                    },
-                    {
-                        id: countId++,
-                        firstName: 'tata',
-                        lastName: 'deuxieme test'
-                    }
-                ];
-
-                const payload = scoped ? list : groups;
                 const data = {
                     facets,
-                    [scoped ? 'list' : 'groups']: payload,
+                    groups,
                     totalCount: 20
                 };
                 success(data);
@@ -137,16 +126,27 @@ const Line = React.createClass({
 });
 
 const Group = React.createClass({
+    mixins: [FocusComponents.common.i18n.mixin],
+    _getShowAllHandler(key) {
+        return () => {
+            this.props.showAllHandler(key);
+        };
+    },
     render() {
-        const Title = FocusComponents.common.title.component;
-        const Button = FocusComponents.common.button.action.component;
+        console.log(this.props.groupKey);
         return (
-            <div className='listResultContainer panel' data-focus='group-result-container'>
-                <Title title={this.props.groupKey}/>
-                <div className='resultContainer'>
+            <div className="listResultContainer panel" data-focus="group-result-container">
+                <Title label={`${this.props.groupKey} (${this.props.count})`}/>
+                <p>{this.i18n('search.mostRelevant')}</p>
+                <div className="resultContainer">
                     {this.props.children}
                 </div>
-                <Button  handleClickAction={this.props.showAll(this.props.groupKey)} label='Show all'/>
+                <div data-focus='group-actions'>
+                    {this.props.canShowMore &&
+                      <Button handleOnClick={this.props.showMoreHandler} label={this.i18n('show.more')}/>
+                    }
+                    <Button handleOnClick={this._getShowAllHandler(this.props.groupKey)} label={this.i18n('show.all')}/>
+                </div>
             </div>
         );
     }
@@ -256,5 +256,12 @@ const advancedSearchProps = {
 };
 
 const AdvancedSearch = FocusComponents.page.search.advancedSearch.component;
+
+// Mocked interaction
+
+setTimeout(() => {
+    service.scoped({query: '', scope: '', facets: ''});
+}, 2000);
+
 
 return <AdvancedSearch {...advancedSearchProps} />;
