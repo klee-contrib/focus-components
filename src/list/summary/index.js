@@ -53,7 +53,6 @@ const listSummaryMixin = {
      */
     render() {
         const {exportAction, scopeList, scopeClickAction} = this.props;
-        console.log(scopeList);
         return (
             <div data-focus="list-summary">
                 {exportAction &&
