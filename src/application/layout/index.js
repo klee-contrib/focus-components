@@ -1,46 +1,47 @@
 // Dependencies
 
-let builder = require('focus').component.builder;
+const builder = require('focus').component.builder;
 
 // Components
 
-let AppHeader = require('./app-header');
-let LoadingBar = require('../loading-bar').component;
-let MessageCenter = require('../message-center').component;
-let ErrorCenter = require('../error-center').component;
+const AppHeaderDefault = require('./app-header');
+const LoadingBarDefault = require('../loading-bar').component;
+const MessageCenterDefault = require('../message-center').component;
+const ErrorCenterDefault = require('../error-center').component;
 
 // Mixins
 
-let stylableBehaviour = require('../../mixin/stylable');
+const stylableBehaviour = require('../../mixin/stylable');
 
-let contentActionsMixin = {
+const contentActionsMixin = {
     mixins: [stylableBehaviour],
+    /** inheriteddoc */
     getDefaultProps(){
         return {
-            AppHeader: AppHeader,
-            LoadingBar: LoadingBar,
-            MessageCenter: MessageCenter,
-            ErrorCenter: ErrorCenter,
+            AppHeader: AppHeaderDefault,
+            LoadingBar: LoadingBarDefault,
+            MessageCenter: MessageCenterDefault,
+            ErrorCenter: ErrorCenterDefault,
             footerText: 'Please override the footer text by giving a "footerText" property to the Layout component.'
         };
     },
+    /** inheriteddoc */
     render() {
+        const {LoadingBar, MessageCenter, ErrorCenter, AppHeader, MenuLeft, footerText, children} = this.props;
         return (
             <div className={this._getStyleClassName()} data-focus='layout'>
-                <this.props.LoadingBar />
-                <this.props.MessageCenter />
-                <this.props.ErrorCenter />
-                <this.props.AppHeader />
+                <LoadingBar />
+                <MessageCenter />
+                <ErrorCenter />
+                <AppHeader />
                 <div data-focus='menu'>
-                    {this.props.MenuLeft &&
-                        <this.props.MenuLeft/>
-                    }
+                    {MenuLeft && <MenuLeft/>}
                 </div>
                 <div data-focus='page-content'></div>
                 <footer data-focus='footer'>
-                    {this.props.footerText}
+                    {footerText}
                 </footer>
-                {this.props.children}
+                {children}
             </div>
         );
     }

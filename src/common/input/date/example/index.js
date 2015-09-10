@@ -63,6 +63,7 @@ const InputDateSample = React.createClass({
 
                 <h3>Get the value</h3>
                 <InputDate name='fieldDate4' value={new Date().toISOString()} ref='myInputDate' />
+                <br />
                 <Button handleOnClick={this._handleGetValueClick} label='Display value' />
             </div>
         );

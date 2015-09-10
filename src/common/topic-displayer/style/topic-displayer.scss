@@ -1,16 +1,20 @@
 
 
 [data-focus='topic-displayer'] {
-  .btn, {
     position: relative;
+    top: -43px;
+    left: 145px;
 
-    &:after {
-      content: "\f00d";
-      font-family: FontAwesome;
-      position: absolute;
-      top: 6px;
-      right: 9px;
+    .btn, {
+        position: relative;
+
+        &:after {
+            content: "\f00d";
+            font-family: FontAwesome;
+            position: absolute;
+            top: 6px;
+            right: 9px;
+        }
     }
-  }
 
 }

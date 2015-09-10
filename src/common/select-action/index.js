@@ -1,32 +1,80 @@
-var builder = require('focus').component.builder;
-var React = require('react');
-var Img = require('../img').component;
-var Icon = require('../icon').component;
+const builder = require('focus').component.builder;
+const React = require('react');
+const uuid = require('uuid');
+const Button = require('../../common/button/action').component;
+const types = require('focus').component.types;
 
-var selectActionMixin = {
+const {componentHandler} = window;
+
+const Dropdown = {
 
     /**
-     * Display name.
-     */
-    displayName: 'select-action',
+    * Display name.
+    */
+    displayName: 'Dropdown',
     /**
-     * Default props.
-     * @returns {object} Defauilt props.
-     */
-    getDefaultProps: function () {
+    * Default props.
+    * @returns {object} Defauilt props.
+    */
+    getDefaultProps() {
         return {
-            operationList: [],
-            icon: 'ellipsis-v'
+            position: 'right',
+            iconProps: {
+                name: 'ellipsis-v'
+            },
+            shape: 'icon',
+            operationList: []
         };
     },
     /**
-     * Handle action on selected item.
-     * @param {function} action Action to call
-     * @returns {function} Function called when item is selected.
-     * @private
+    * Scope property validation.
+    * @type {Object}
+    */
+    propTypes: {
+        position: types('string'),
+        iconProps: types('object'),
+        operationList: types('array'),
+        shape: types('string')
+    },
+    /**
+     * Component will mount
      */
-    _handleAction: function (action) {
-        return (event)=> {
+    componentWillMount(){
+        this._htmlId = uuid.v4();
+    },
+    /**
+    * Called when component is mounted.
+    */
+    componentDidMount() {
+        if (0 !== this.props.operationList.length && React.findDOMNode(this.refs.dropdown)) {
+            componentHandler.upgradeElement(React.findDOMNode(this.refs.dropdown));
+        }
+    },
+    /**
+     * Component will receive props.
+     * @param {Object} nextProps the next props
+     */
+    componentWillReceiveProps(nextProps) {
+        if (0 !== nextProps.operationList.length && React.findDOMNode(this.refs.dropdown)) {
+            componentHandler.upgradeElement(React.findDOMNode(this.refs.dropdown));
+        }
+    },
+    /**
+    * Called before component is unmounted.
+    */
+    componentWillUnmount() {
+        if (0 !== this.props.operationList.length && React.findDOMNode(this.refs.dropdown)) {
+            componentHandler.downgradeElements(React.findDOMNode(this.refs.dropdown));
+        }
+    },
+    /**
+    * Handle action on selected item.
+    * @param {function} action Action to call
+    * @returns {function} Function called when item is selected.
+    * @private
+    */
+    _handleAction(action) {
+        return () => {
             if (this.props.operationParam) {
                 action(this.props.operationParam);
             } else {
@@ -34,46 +82,31 @@ var selectActionMixin = {
             }
         };
     },
-
     /**
-     * Generate the list of actions.
-     * @param {object} operationList List of operations.
-     * @returns {Array} List of action in li component.
-     * @private
-     */
-    _getList: function (operationList) {
-        var liList = [];
-        for (var key in operationList) {
-            var operation = operationList[key];
-
-            liList.push(<li key={key} onClick={this._handleAction(operation.action)} className={operation.style}><a
-                href="javascript:void(0)">{operation.label}</a></li>);
-            if (operation.childOperationList) {
-                var subKey = 'sub_' + key;
-                liList.push(<li key={subKey}>
-                    <ul>{this._getList(operation.childOperationList)}</ul>
-                </li>);
-            }
+    * Render the component.
+    * @returns  {XML} Htm code.
+    */
+    render() {
+        const {iconProps, operationList, shape} = this.props;
+        const id = this._htmlId;
+        if (0 === operationList.length) {
+            return null;
         }
-        return liList;
-    },
-    /**
-     * Render the component.
-     * @returns  {XML} Htm code.
-     */
-    render: function renderSelectAcion() {
-        if (this.props.operationList.length == 0) {
-            return <div/>;
-        }
-        var liList = this._getList(this.props.operationList);
-        //todo : a revoir pour gérer les boutons d'action groupés
         return (
-            <div data-focus="select-action" className=''>
-                <a className={`dropdown-toggle btn btn-fab btn-default fa fa-${this.props.icon}`} data-toggle="dropdown" ref='dropdown-toggle'></a>
-                <ul className="dropdown-menu">{liList}</ul>
+            <div>
+                <Button icon={iconProps.name} id={id} isJs={true} shape={shape} />
+                <ul className='mdl-menu mdl-menu--bottom-{position} mdl-js-menu mdl-js-ripple-effect' htmlFor={id} ref='dropdown'>
+                    {operationList.map((operation, idx) => {
+                        return (
+                            <li className={`mdl-menu__item ${operation.style}`} key={idx} onClick={this._handleAction(operation.action)}>
+                                {operation.label}
+                            </li>
+                        );
+                    })}
+                </ul>
             </div>
         );
     }
 };
 
-module.exports = builder(selectActionMixin);
+module.exports = builder(Dropdown);

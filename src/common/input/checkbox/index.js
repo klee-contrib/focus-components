@@ -1,100 +1,82 @@
-//Target
-//http://codepen.io/Sambego/pen/zDLxe
-/*
- <label>
- <input type="checkbox"><span class="ripple"></span><span class="check"></span> Checkbox
- </label>
- */
-var builder = require('focus').component.builder;
-var React = require('react');
-var type = require('focus').component.types;
-var fieldGridBehaviourMixin = require('../../mixin/field-grid-behaviour');
-var jQuery = require('jquery');
-var isBoolean = require('lodash/lang/isBoolean');
-var uuid = require('uuid').v4;
+const {builder, types} = require('focus').component;
+const React = require('react');
+const i18nBehaviour = require('../../i18n/mixin');
+const fieldGridBehaviour = require('../../mixin/field-grid-behaviour');
+const mdlBehaviour = require('../../mixin/mdl-behaviour');
+const {isUndefined} = require('lodash/lang');
 
-var checkBoxMixin = {
-    mixins: [fieldGridBehaviourMixin],
+
+const checkBoxMixin = {
+    mixins: [i18nBehaviour, fieldGridBehaviour, mdlBehaviour],
+
     /**
-     * Get the checkbox default attributes.
-     */
-    getDefaultProps: function getInputDefaultProps() {
+    * Tag name.
+    */
+    displayName: 'input-checkbox',
+
+    /** @inheritdoc */
+    getDefaultProps() {
         return {
-            value: undefined,
-            label: undefined,
-            style: {}
+            value: false
         };
     },
     /**
-     * Properties validation.
-     * @type {Object}
-     */
+    * Properties validation.
+    * @type {Object}
+    */
     propTypes: {
-        value: type('bool'),
-        label: type('string'),
-        style: type('object'),
-        onChange: type(['function', 'object'])
+        value: types('bool'),
+        label: types('string'),
+        onChange: types('func')
     },
-    getInitialState: function () {
+    /** @inheritdoc */
+    componentWillReceiveProps(newProps) {
+        this.setState({isChecked: newProps.value});
+    },
+    /** @inheritDoc */
+    getInitialState() {
+        const {value} = this.props;
         return {
-            uuid: uuid(),
-            isChecked: this.props.isChecked ? this.props.isChecked : this.props.value
+            isChecked: isUndefined(value) ? false : value
         };
     },
-    _onChange: function onChange(event) {
+    /**
+    * Executed actions on change event.
+    * @param  {event} event
+    */
+    _onChange() {
         this.setState({
             isChecked: !this.state.isChecked
-        }, this.props.onChange);
+        }, () => {
+            if(this.props.onChange) {
+                this.props.onChange(this.state.isChecked);
+            }
+        });
     },
     /**
-     * Get the value from the input in  the DOM.
-     * @returns The DOM node value.
-     */
-    getValue: function getValue() {
-        if (this.props.value === undefined || isBoolean(this.props.value)) {
-            return !!this.state.isChecked;
-        }
-        return !!(this.state.isChecked ? this.props.value : undefined);
+    * Get the value from the input in  the DOM.
+    * @returns The DOM node value.
+    */
+    getValue() {
+        return this.state.isChecked;
     },
     /**
-     * Build the label class name.
-     * @returns The label classame with the grid informations.
-     */
-    _labelClassName: function labelClassName() {
-        return `${this._getContentOffsetClassName()} ${this._getContentGridClassName()}`;
-    },
-    _matrerialize(){
-      jQuery.material.checkbox(`[data-focus="input-checkbox"][data-uid="${this.state.uuid}"] input[type="checkbox"]`);
-    },
-    componentDidUpdate(){
-      this._matrerialize();
-    },
-    componentDidMount(){
-      if(!jQuery.material.checkbox){
-        console.warn('You should install bootstrap material with your project in order to have a working checkbox see https://fezvrasta.github.io/bootstrap-material-design');
-      }
-      this._matrerialize();
-    },
-
-    /**
-     * Render the Checkbox HTML.
-     * @return {VirtualDOM} - The virtual DOM of the checkbox.
-     */
-    render: function renderCheckBox() {
+    * Render the Checkbox HTML.
+    * @return {VirtualDOM} - The virtual DOM of the checkbox.
+    */
+    render() {
+        const {isChecked} = this.state;
+        const {label} = this.props;
+        const checkedProps = isChecked ? {checked: 'checked'} : {};
+        const inputProps = {...{className: 'mdl-checkbox__input', onChange: this._onChange, type: 'checkbox'}, ...checkedProps};
         return (
-            <div className="checkbox" data-focus="input-checkbox" data-uid={this.state.uuid}>
-                <label>
-                    <input ref='checkbox' checked={this.state.isChecked} onChange={this._onChange} type='checkbox' value={this.props.value} />
-                    <span>{this.props.label ? this.props.label : ''}</span>
-                </label>
-            </div>
+            <label className="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" data-focus="input-checkbox">
+                <input {...inputProps} />
+                {label &&
+                    <span className="mdl-checkbox__label">{this.i18n(label)}</span>
+                }
+            </label>
         );
-    },
-    /** @inheritedDoc*/
-    componentWillReceiveProps: function checkBoxWillreceiveProps(nextProps) {
-        if (nextProps.value !== undefined) {
-            this.setState({isChecked: nextProps.value});
-        }
     }
 };
 

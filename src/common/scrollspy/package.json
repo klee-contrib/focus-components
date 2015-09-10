@@ -1,0 +1,22 @@
+{
+  "name": "scrollspy",
+  "version": "1.0.0",
+  "description": "Example of scrollspy use.",
+  "main": "index.js",
+  "directories": {
+    "example": "example"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "scroll",
+    "spy",
+    "menu",
+    "detail",
+    "block",
+    "nav"
+  ],
+  "author": "focus@kleegroup.com",
+  "license": "MIT"
+}

@@ -1,15 +1,15 @@
-var builder = require('focus').component.builder;
-var React = require('react');
+const builder = require('focus').component.builder;
+const React = require('react');
 
-var headerMixin = {
-  /** @inheriteddoc */
-  render: function renderContentBar() {
-    return (
-      <div data-focus='content-bar'>
-        {this.props.children}
-      </div>
-    );
-  }
+const headerMixin = {
+    /** @inheriteddoc */
+    render() {
+        return (
+            <div data-focus='content-bar'>
+                {this.props.children}
+            </div>
+        );
+    }
 };
 
 module.exports = builder(headerMixin);

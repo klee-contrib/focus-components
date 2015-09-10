@@ -1,0 +1,24 @@
+<!doctype html>
+<html class="no-js" lang="">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Focus component showcase</title>
+    <meta name="description" content="Example of the component.">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!--  BABEL-->
+    <script src="./js/browser.js"></script>
+    <!--  SCRIPT LOADING-->
+    <script src="./js/assets.js"></script>
+</head>
+<body>
+    <script type="text/babel">
+    loadAssets().then((d)=>{
+        const Showcase = FocusComponents.showcase.layout;
+        const Catalog = FocusComponents.showcase.catalog;
+        React.render(<Showcase title='Component catalog'><Catalog /></Showcase>, document.querySelector("body"));
+    });
+    </script>
+</body>
+</html>
