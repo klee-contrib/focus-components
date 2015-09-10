@@ -3,16 +3,16 @@ Focus.reference.config.set({
         return new Promise(success => {
             success([
                 {
-                    code: 'SCP1',
-                    label: 'Scope 1'
+                    code: 'face',
+                    label: 'Utilisateurs'
                 },
                 {
-                    code: 'SCP2',
-                    label: 'Scope 2'
+                    code: 'extension',
+                    label: 'Extensions'
                 },
                 {
-                    code: 'SCP3',
-                    label: 'Scope 3'
+                    code: 'contact_phone',
+                    label: 'Contacts'
                 }
             ]);
         });

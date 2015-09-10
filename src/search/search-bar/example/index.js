@@ -1,3 +1,26 @@
+//Components
+const SearchBar = FocusComponents.search.searchBar.component;
+
+//stores
+const store = Focus.search.builtInStore.quickSearchStore;
+
+//data
+const scopes = [
+    {
+        code: 'face',
+        label: 'Utilisateurs'
+    },
+    {
+        code: 'extension',
+        label: 'Extensions'
+    },
+    {
+        code: 'contact_phone',
+        label: 'Contacts'
+    }
+];
+
+//config
 Focus.reference.config.set({
     scopes() {
         return new Promise(success => {
@@ -21,4 +44,4 @@ Focus.reference.config.set({
 
 Focus.reference.builtInAction(['scopes'])();
 
-return <FocusComponents.search.searchBar.component store={Focus.search.builtInStore.quickSearchStore} />;
+return <SearchBar scopes={scopes} store={store} />;
