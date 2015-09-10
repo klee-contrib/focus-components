@@ -1,17 +1,38 @@
 // Dependencies
-
 const builder = require('focus').component.builder;
 const type = require('focus').component.types;
 const uuid = require('uuid');
 const find = require('lodash/collection/find');
 
 // Components
-
 const Icon = require('../../common/icon').component;
+const Dropdown = require('../../common/select-action').component;
+const {componentHandler} = window;
 
 // Mixins
-
 const i18nMixin = require('../../common/i18n/mixin');
+
+
+const operationList = [
+    {
+        label: 'Action_a',
+        action() {
+            alert('Actiona');
+        }
+    },
+    {
+        label: 'Action_b',
+        action() {
+            alert('Actionb');
+        }
+    },
+    {
+        label: 'Action_c',
+        action() {
+            alert('Actionc');
+        }
+    }
+];
 
 const scopeMixin = {
     /**
@@ -27,8 +48,7 @@ const scopeMixin = {
     getDefaultProps() {
         return {
             list: [],
-            isDeployed: false,
-            style: require('./style').scopes
+            isDeployed: false
         };
     },
     /**
@@ -48,6 +68,31 @@ const scopeMixin = {
         return {
             isDeployed: this.props.isDeployed
         };
+    },
+    /**
+    * Called when component is mounted.
+    */
+    componentDidMount() {
+        if (React.findDOMNode(this.refs.dropdown)) {
+            componentHandler.upgradeElement(React.findDOMNode(this.refs.dropdown));
+        }
+    },
+    /**
+     * Component will receive props.
+     * @param {Object} nextProps the next props
+     */
+    componentWillReceiveProps(nextProps) {
+        if (React.findDOMNode(this.refs.scopeDropdown)) {
+            componentHandler.upgradeElement(React.findDOMNode(this.refs.scopeDropdown));
+        }
+    },
+    /**
+    * Called before component is unmounted.
+    */
+    componentWillUnmount() {
+        if (React.findDOMNode(this.refs.scopeDropdown)) {
+            componentHandler.downgradeElements(React.findDOMNode(this.refs.scopeDropdown));
+        }
     },
     /**
     * Get the scope click handler, based on the scope given as an argument.
@@ -77,40 +122,39 @@ const scopeMixin = {
     * Return the css class for the scope.
     * @return {String} the current scope's classname
     */
-    getScopeClassname() {
+    getActiveScopeIcon() {
         const {list, value} = this.props;
         const activeScope = find(list, {code: value});
         if (!activeScope) {
-            return 'sb-scope-none';
+            return 'list';
         }
-        return `sb-scope-${activeScope.code}`;
+        return activeScope.code;
     },
     /**
     * Render the scope list if it is deployed
     * @return {HTML} the rendered scope list
     */
     _renderScopeList() {
-        const {list: scopeList, style, value} = this.props;
+        const {list: scopeList, value} = this.props;
         return (
-            <div style={style.list}>
+            <ul className={`mdl-menu mdl-menu--bottom-left mdl-js-menu mdl-js-ripple-effect`} data-focus='search-bar-scopes' htmlFor='dropdown' ref='scopeDropdown'>
                 {0 < scopeList.length && scopeList.map(scope => {
                     const isActive = value === scope.code;
-                    let scopeStyle = {...style.scope, ...scope.style};
-                    if (isActive) {
-                        scopeStyle = {...scopeStyle, ...style.activeScope};
-                    }
                     return (
-                        <div className={`sb-scope-${scope.code}`} data-focus='searchBarScope' key={scope.code || uuid.v4()} onClick={this._getScopeClickHandler(scope)} style={scopeStyle}>
-                            {scope.label}
-                        </div>
+                        <li className='mdl-menu__item' data-active={isActive} key={scope.code || uuid.v4()} onClick={this._getScopeClickHandler(scope)}>
+                            {scope.code &&
+                                <Icon name={scope.code} />
+                            }
+                            <span>{scope.label}</span>
+                        </li>
                     );
                 })}
                 {0 === scopeList.length &&
-                    <div data-focus='searchBarScope' style={style.scope}>
+                    <li className='mdl-menu__item'>
                         {this.i18n('scopes.empty')}
-                    </div>
+                    </li>
                 }
-            </div>
+            </ul>
         );
     },
     /**
@@ -119,21 +163,17 @@ const scopeMixin = {
     */
     render() {
         const {isDeployed} = this.state;
-        const {style} = this.props;
+        const activeIcon = this.getActiveScopeIcon();
+        const deployedIcon = isDeployed ? 'keyboard_arrow_up' : 'keyboard_arrow_down';
         return (
-            <div data-focus='scope'>
-                <div style={style.visible}>
-                    <div onClick={this._handleDeployClick} style={style.selectedScope}>
-                        <div className={this.getScopeClassname()} />
-                    </div>
-                    <div style={style.icon}>
-                        <Icon name={isDeployed ? 'caret-up' : 'caret-down'}/>
-                    </div>
-                </div>
-                {isDeployed && this._renderScopeList()}
+            <div data-focus='search-bar-scope'>
+                <button className='mdl-button mdl-js-button' id='dropdown'>
+                    <Icon name={deployedIcon} />
+                    <Icon name={activeIcon} />
+                </button>
+                {this._renderScopeList()}
             </div>
         );
     }
 };
-
 module.exports = builder(scopeMixin);

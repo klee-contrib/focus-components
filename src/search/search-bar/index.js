@@ -1,18 +1,14 @@
 // Dependencies
-
 const builder = require('focus').component.builder;
 const type = require('focus').component.types;
 const React = require('react');
 const actionWrapper = require('../../page/search/search-header/action-wrapper');
 
-
 // Components
-
 const Scope = require('./scope').component;
 const Input = require('../../common/input/text').component;
 
 // Mixins
-
 const stylable = require('../../mixin/stylable');
 const i18n = require('../../common/i18n/mixin');
 
@@ -37,8 +33,7 @@ const SearchBar = {
             hasScopes: true,
             identifier: undefined,
             store: undefined,
-            action: undefined,
-            styleJs: require('./style').bar
+            action: undefined
         };
     },
     propTypes: {
@@ -149,9 +144,8 @@ const SearchBar = {
      * @return {HTML} rendered help message
      */
     _renderHelp() {
-        const {style} = this.props;
         return (
-            <div ref='help' style={style.help}>{this.i18n(this.props.helpTranslationPath)}</div>
+            <div ref='help'>{this.i18n(this.props.helpTranslationPath)}</div>
         );
     },
     /**
@@ -165,20 +159,19 @@ const SearchBar = {
     * @return {HTML} - The rendered component
     */
     render() {
-        const {loading, hasScopes, placeholder, scopes, styleJs: style} = this.props;
+        const {loading, hasScopes, placeholder, scopes} = this.props;
         const {query, scope} = this.state;
         return (
-            <div data-focus='search-bar' style={style.parent}>
+            <div data-focus='search-bar'>
                 {hasScopes &&
                     <Scope list={scopes} onScopeSelection={this._onScopeSelection} ref='scope' value={scope}/>
                 }
-                <div style={style.inputZone}>
-                    <Input onChange={this._onInputChange} onKeyPress={this._handleInputKeyPress} placeholder={placeholder} ref='query' style={style.inputField} value={query}/>
+                <div data-focus='search-bar-input'>
+                    <Input onChange={this._onInputChange} onKeyPress={this._handleInputKeyPress} placeholder={placeholder} ref='query' value={query}/>
                     {loading &&
-                        <div className={`sb-spinner three-quarters-loader`} style={style.loader}/>
+                        <div className={`sb-spinner three-quarters-loader`} />
                     }
                 </div>
-                {this._renderHelp()}
             </div>
         );
     }
