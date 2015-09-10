@@ -1,0 +1,18 @@
+{
+  "name": "icon",
+  "version": "1.0.0",
+  "description": "Icon for all applications.",
+  "main": "index.js",
+  "directories": {
+    "example": "example"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "icon",
+    "dumb"
+  ],
+  "author": "focus@kleegroup.com",
+  "license": "MIT"
+}

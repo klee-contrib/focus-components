@@ -1,12 +1,19 @@
-let builder = require('focus').component.builder;
-let React = require('react');
-let Backbone = require('backbone');
-let types = require('focus').component.types;
-let popinProperties = require('../mixin/popin-behaviour').mixin;
-let stylabe =  require('../../mixin/stylable');
-let Icon = require('../../common/icon').component;
-let Button = require('../../common/button/action').component;
-let menuMixin = {
+// Dependencies
+
+const {builder} = require('focus').component;
+const Backbone = require('backbone');
+const {types} = require('focus').component;
+
+// Mixins
+
+const popinProperties = require('../mixin/popin-behaviour').mixin;
+const stylabe = require('../../mixin/stylable');
+
+// Components
+
+const Button = require('../../common/button/action').component;
+
+const Menu = {
     mixins: [stylabe, popinProperties],/** @inheritedProps*/
     /** @inheritedProps*/
     getDefaultProps() {
@@ -30,33 +37,34 @@ let menuMixin = {
     _renderMenuItems(){
         return this.props.items.map((link, idx)=> {
             let clickHandler;
-            if(link.route !== undefined ){
-                clickHandler = (event)=>{
-                    //event.preventDefault();
+            if (link.route !== undefined) {
+                clickHandler = () => {
                     link.onClick.call(this, arguments);
                     Backbone.history.navigate(link.route, true);
                 };
-            }else{
+            } else {
                 clickHandler = link.onClick;
             }
-            let buttonProps = {
+            const buttonProps = {
                 handleOnClick: clickHandler,
-                label: link.name,
                 icon: link.icon,
                 style: link.style,
                 option: 'link',
-                shape: 'flat',
+                shape: 'icon',
                 type: 'button'
             };
             return (
-                <li key={idx}><Button {...buttonProps} /></li>
+                <li key={idx}>
+                    <Button {...buttonProps} />
+                    <span>{link.name}</span>
+                </li>
             );
         });
     },
     /** @inheriteddoc */
     render(){
-        let {direction, position, children} = this.props;
-        let className = `menu menu-${direction} menu-${position} menu-${this.state.open ? 'open' : ''} ${this._getStyleClassName()}`;
+        const {direction, position, children} = this.props;
+        const className = `menu menu-${direction} menu-${position} menu-${this.state.open ? 'open' : ''} ${this._getStyleClassName()}`;
         return (
             <nav className={className} data-focus='menu'>
                 <div data-focus='menu-brand'></div>
@@ -67,4 +75,4 @@ let menuMixin = {
     }
 };
 
-module.exports = builder(menuMixin);
+module.exports = builder(Menu);

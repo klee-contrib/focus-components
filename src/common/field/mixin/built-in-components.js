@@ -73,91 +73,60 @@ const fieldBuiltInComponentsMixin = {
     * @returns {Component} - The builded label component.
     */
     label() {
-        if (this.props.FieldComponent || this.props.InputLabelComponent) {
-            return undefined;
-        }
-        if (this.props.hasLabel) {
-            //In the labelCasen there is no reason to pass all props.
-            let labelClassName = this._getLabelGridClassName();
-            let {isEdit, isRequired, name} = this.props;
-            return (
-                <Label
-                    isEdit={isEdit}
-                    isRequired={isRequired}
-                    key={name}
-                    name={name}
-                    style={{className: labelClassName}}
-                />
-            );
-        }
+        const {name} = this.props;
+        return (
+            <div className ={`${this._getLabelGridClassName()}`} data-focus='field-label-container'>
+                <Label name={name} />
+            </div>
+        );
     },
     /**
     * Rendet the input part of the component.
     * @return {Component} - The constructed input component.
     */
     input() {
-        if (this.props.FieldComponent || this.props.InputLabelComponent) {
-            return this.renderFieldComponent();
-        }
-        let {name, style} = this.props;
-        let {value} = this.state;
-        let inputClassName = `form-control ${style.className ? style.className : ''}`;
-        let inputBuildedProps = assign({}, this.props, {
-            id: name,
-            style: this._buildStyle(),
-            onChange: this.onInputChange,
-            value: value,
+        const {name: id, label: placeHolder} = this.props;
+        const {value, error} = this.state;
+        const {onInputChange: onChange} = this;
+        const inputBuildedProps = assign({}, this.props, {
+            id,
+            onChange,
+            value,
+            error,
+            placeHolder,
             ref: 'input'
         });
-        return (
-            <div className ={`${this._getContentGridClassName()} input-group`}>
-                <this.props.InputComponent {...inputBuildedProps}/>
-            </div>
-        );
+        return <this.props.InputComponent {...inputBuildedProps}/>;
     },
     /**
      * Build a select component depending on the domain, definition and props.
      * @return {Component} - The builded select component.
      */
     select() {
-        if (this.props.FieldComponent || this.props.InputLabelComponent) {
-            return this.renderFieldComponent();
-        }
-        let {value} = this.state;
-        let buildedSelectProps = assign({}, this.props, {
+        const {value} = this.state;
+        const buildedSelectProps = assign({}, this.props, {
             value: value,
             style: this._buildStyle(),
             onChange: this.onInputChange,
             ref: 'input'
         });
-        return (
-            <div className ={`input-group ${this._getContentGridClassName()}`}>
-                <this.props.SelectComponent {...buildedSelectProps} />
-            </div>
-        );
+        return <this.props.SelectComponent {...buildedSelectProps} />;
     },
     /**
     * Render the display part of the component.
     * @return {object} - The display part of the compoennt if the mode is not edit.
     */
     display() {
-        if (this.props.FieldComponent || this.props.InputLabelComponent) {
-            return this.renderFieldComponent();
-        }
-        let {values, value} = this.state;
-        let {name, valueKey, labelKey} = this.props;
-        let _processValue = values ? result(find(values, {[valueKey || 'code']: value}), labelKey || 'label') : value;
-        let buildedDislplayProps = assign({}, this.props, {
+        const {values, value} = this.state;
+        const {name, valueKey, labelKey} = this.props;
+        const _processValue = values ? result(find(values, {[valueKey || 'code']: value}), labelKey || 'label') : value;
+        const buildedDislplayProps = assign({}, this.props, {
             id: name,
             style: this._buildStyle(),
             value: _processValue,
             ref: 'display'
         });
-        return (
-            <div className ={`input-group ${this._getContentGridClassName()}`}>
-                <this.props.DisplayComponent {...buildedDislplayProps}/>
-            </div>
-        );
+        return <this.props.DisplayComponent {...buildedDislplayProps}/>;
     },
     /**
     * Render the error part of the component.
@@ -166,31 +135,24 @@ const fieldBuiltInComponentsMixin = {
     error() {
         let {error} = this.state;
         if (error) {
-            if (this.props.FieldComponent) {
-                return;
-            }
             return (
-                <span className='help-block'>
+                <span className='mdl-textfield__error'>
                     {error}
                 </span>
             );
         }
-        return;
     },
     /**
     * Render the help component.
     * @return {object} - The help part of the component.
     */
     help() {
-        let {help, FieldComponent} = this.props;
+        let {help, name} = this.props;
         if (help) {
-            if (FieldComponent) {
-                return;
-            }
             return (
-                <span className='help-block'>
+                <label className='mdl-textfield__label' htmFor={`${name}`}>
                     {help}
-                </span>
+                </label>
             );
         }
     },
@@ -198,12 +160,11 @@ const fieldBuiltInComponentsMixin = {
      * Render the field component if it is overriden in the component definition.
      * @return {Component} - The builded field component.
      */
-    renderFieldComponent() {
-        let FieldComponent = this.props.FieldComponent || this.props.InputLabelComponent;
-        let {value, error} = this.state;
-        let buildedProps = assign({}, this.props, {
+    _renderFieldComponent() {
+        const FieldComponent = this.props.FieldComponent || this.props.InputLabelComponent;
+        const {value, error} = this.state;
+        const buildedProps = assign({}, this.props, {
             id: this.props.name,
-            style: this._buildStyle(),
             value: value,
             error: error,
             onChange: this.onInputChange,

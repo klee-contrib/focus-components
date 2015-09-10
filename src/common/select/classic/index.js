@@ -13,7 +13,7 @@ const UNSELECTED_KEY = 'UNSELECTED_KEY';
 * Input text mixin.
 * @type {Object}
 */
-const selectTextMixin = {
+const selectMixin = {
     /** @inheritdoc */
     displayName: 'Select',
     /** @inheritdoc */
@@ -117,4 +117,4 @@ const selectTextMixin = {
     }
 };
 
-module.exports = builder(selectTextMixin);
+module.exports = builder(selectMixin);

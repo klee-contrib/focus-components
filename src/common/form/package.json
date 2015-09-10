@@ -1,0 +1,26 @@
+{
+  "name": "form",
+  "version": "1.0.0",
+  "description": "Example of Form use",
+  "main": "index.js",
+  "directories": {
+    "example": "example"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "form",
+    "input",
+    "field",
+    "text",
+    "textarea",
+    "date",
+    "select",
+    "radio",
+    "checkbox",
+    "block"
+  ],
+  "author": "focus@kleegroup.com",
+  "license": "MIT"
+}

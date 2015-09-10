@@ -1,4 +1,4 @@
-$tableBackgroundColor: #FFF;
+/*$tableBackgroundColor: #FFF;
 $table-highlight-color: #EAF3F3;
 $fontColor: black;
 
@@ -31,6 +31,20 @@ table.table-list {
   }
 }
 
+[data-focus='table-line'] {
+    position: relative;
+
+    [data-focus='table-line-actions'] {
+        display: none;
+    }
+
+    &:hover {
+        [data-focus='table-line-actions'] {
+            display: inline-block;
+        }
+    }
+}
+*/
 [data-focus='table-line'] {
     position: relative;
 

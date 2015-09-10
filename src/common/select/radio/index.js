@@ -1,15 +1,20 @@
-var builder = require('focus').component.builder;
-var React = require('react');
-var type = require('focus').component.types;
+const builder = require('focus').component.builder;
+const React = require('react');
+const types = require('focus').component.types;
+const i18nBehaviour = require('../../i18n/mixin');
+const mdlBehaviour = require('../../mixin/mdl-behaviour');
+const {uniqueId} = require('lodash/utility');
+const InputRadio = require('../../input/radio').component;
 
-var radioMixin = {
+const selectRadioMixin = {
+    mixins: [i18nBehaviour, mdlBehaviour],
     /**
-     * Tag name.
-     */
+    * Tag name.
+    */
     displayName: 'select-radio',
 
     /** @inheritdoc */
-    getDefaultProps: function getDefaultProps(){
+    getDefaultProps() {
         return {
             values: [],
             valueKey: 'value',
@@ -18,88 +23,80 @@ var radioMixin = {
     },
 
     /** @inheritdoc */
-    propTypes: function propTypes(){
-        return {
-            value: type(['number', 'string']),
-            values: type('array'),
-            valueKey: type('string'),
-            labelKey: type('string'),
-            name: type('string'),
-            style: type('object')
-        };
+    propTypes: {
+        values: types('array'),
+        value: types(['number', 'string']),
+        valueKey: types('string'),
+        labelKey: types('string')
     },
 
     /** @inheritdoc */
-    getInitialState: function getInitialStateSelect() {
+    getInitialState() {
         return {
+            uniqueName: uniqueId('options_'),
             value: this.props.value
         };
     },
 
     /** @inheritdoc */
-    componentWillReceiveProps: function selectWillReceiveProps(newProps){
-        this.setState({value: newProps.value});
+    componentWillReceiveProps (newProps){
+        this.setState({
+            value: newProps.value
+        });
     },
 
     /**
      * Get the value from the select in the DOM.
+     * @return {string, number} selected value
      */
-    getValue: function getSelectTextValue() {
+    getValue () {
         return this.state.value;
     },
 
     /**
-     * handle click on radio
-     * @param {object} event - the click event
-     */
-    _handleChange: function selectOnChange(event){
+    * handle click on radio
+    * @param {object} event - the click event
+    */
+    _handleRadioChange(newValue) {
+        //Set the state then call the change handler.
+        this.setState({value: newValue});
         if(this.props.onChange){
-            this.props.onChange(event);
-        }else {
-            //Set the state then call the change handler.
-            this.setState({value: event.target.value});
+            this.props.onChange(newValue);
         }
     },
-
     /**
-     * Render radio for each values
-     * @return {XML} the different radio values
+     * Closure to capture key and radio status.
+     * @param  {string} key the key of radio
+     * @return {func} status closure
      */
-    renderRadios: function renderRadio(){
-        var key = 0;
-        return this.props.values.map((val)=>{
-            var value = val[this.props.valueKey];
-            var label = val[this.props.labelKey];
-            var isChecked = value == this.state.value;
+    _getRadioChangeHandler(key) {
+        return () => {
+            this._handleRadioChange(key);
+        };
+    },
+    /**
+    * Render radio for each values
+    * @return {XML} the different radio values
+    */
+    renderSelectRadios() {
+        const {uniqueName} = this.state;
+        return this.props.values.map((val, idx)=>{
+            const value = val[this.props.valueKey];
+            const label = val[this.props.labelKey];
+            const isChecked = value === this.state.value;
             return (
-                <div className="radio radio-primary" key={key++}>
-                    <label>
-                        <input type="radio"
-                            name={this.props.name}
-                            value={value}
-                            checked={isChecked}
-                            onChange={this._handleChange}
-                        />
-                        <span className="circle"></span>
-                        <span className="check"></span>
-                        <div>{label}</div>
-                    </label>
-                </div>
+                <InputRadio key={idx} label={this.i18n(label)} name={uniqueName} onChange={this._getRadioChangeHandler(value)} value={isChecked} />
             );
         });
     },
-
     /** @inheritdoc */
-    render: function renderRadio(){
+    render() {
         return (
-            <div
-                className={this.props.style.className}
-                name={this.props.name}
-            >
-            {this.renderRadios()}
+            <div data-focus='select-radio'>
+                {this.renderSelectRadios()}
             </div>
         );
     }
 };
 
-module.exports = builder(radioMixin);
+module.exports = builder(selectRadioMixin);

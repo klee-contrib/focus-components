@@ -1,26 +1,26 @@
-//Dependencies.
-const builder = require('focus').component.builder;
-const React = require('react');
-const types = require('focus').component.types;
+// Dependencies.
+
+const {builder, types} = require('focus').component;
 const assign = require('object-assign');
+const mdlBehaviour = require('../../mixin/mdl-behaviour');
+
 /**
 * Identity function.
-* @param  {object} data - The data.
-* @return {object}   The data to save.
+* @param  {object} d - The data.
 */
-function identity(d){ return d; }
+const identity = d => d;
+
 /**
 * Input text mixin.
 * @type {Object}
 */
-let inputTextMixin = {
+const inputTextComponent = {
+    mixins: [mdlBehaviour],
+
     /** @inheritdoc */
     getDefaultProps() {
         return {
             type: 'text',
-            value: undefined,
-            name: undefined,
-            style: {},
             /**
             * Default formatter.
             * @param  {object} d - Data to format.
@@ -37,14 +37,17 @@ let inputTextMixin = {
     },
     /** @inheritdoc */
     propTypes: {
+        onChange: types('func'),
+        onKeyPress: types('func'),
+        error: types('string'),
         type: types('string'),
         value: types(['string', 'number']),
         name: types('string'),
-        style: types('object')
+        placeHolder: types('string')
     },
     /** @inheritdoc */
     getInitialState() {
-        let {formatter, value} = this.props;
+        const {formatter, value} = this.props;
         return {
             value: formatter(value)
         };
@@ -67,10 +70,10 @@ let inputTextMixin = {
     * Handle the change value of the input.
     * @param {object} event - The sanitize event of input.
     */
-    _handleOnChange(event){
+    _handleInputChange(event){
         //On change handler.
         const {onChange} = this.props;
-        if(onChange) {
+        if(onChange){
             return onChange(event);
         } else {
             //Set the state then call the change handler.
@@ -78,15 +81,35 @@ let inputTextMixin = {
         }
     },
     /**
+     * Input key press handler.
+     * @param  {Object} event   event raised by the key press
+     */
+    _handleInputKeyPress(event) {
+        const {onKeyPress} = this.props;
+        if(onKeyPress) {
+            onKeyPress(event);
+        }
+    },
+    /**
     * Render an input.
     * @return {DOM} - The dom of an input.
     */
-    render: function renderInput() {
+    render() {
         const {value} = this.state;
-        const inputProps = assign({}, this.props, {value}, {id: name, onChange: this._handleOnChange});
-        return <input {...inputProps}/>;
+        const {error, name, placeHolder, style} = this.props;
+        const inputProps = assign({}, this.props, {value}, {id: name, onChange: this._handleInputChange, onKeyPress: this._handleInputKeyPress});
+        const pattern = error ? 'hasError' : null; //add pattern to overide mdl error style when displaying an focus error.
+        return (
+            <div className='mdl-textfield mdl-js-textfield' data-focus='input-text' ref='inputText' style={style}>
+                <input className='mdl-textfield__input' ref='inputText' {...inputProps} pattern={pattern} />
+                <label className='mdl-textfield__label' htmlFor={name}>{placeHolder}</label>
+                {error &&
+                    <span className="mdl-textfield__error">{error}</span>
+                }
+            </div>
+        );
     }
 };
 
 
-module.exports = builder(inputTextMixin);
+module.exports = builder(inputTextComponent);

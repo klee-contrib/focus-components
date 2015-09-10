@@ -1,49 +1,49 @@
 // Dependencies
 
-let builder = require('focus').component.builder;
-let camel = require('lodash/string/camelCase');
-let capitalize = require('lodash/string/capitalize');
+const {builder} = require('focus').component;
+const {camelCase: camel} = require('lodash/string');
+const {capitalize} = require('lodash/string');
 
 // Components
 
-let FacetBox = require('./facet-box').component;
-let ListActionBar = require('./action-bar').component;
-let ListSummary = require('./list-summary').component;
-let Results = require('../common/component/results').component;
+const FacetBox = require('./facet-box').component;
+const ListActionBar = require('./action-bar').component;
+const ListSummary = require('./list-summary').component;
+const Results = require('../common/component/results').component;
 
-let BackToTopComponent = require('../../../common/button/back-to-top').component;
+const BackToTopComponent = require('../../../common/button/back-to-top').component;
 
 // Store
 
-let advancedSearchStore = Focus.search.builtInStore.advancedSearchStore;
+const advancedSearchStore = Focus.search.builtInStore.advancedSearchStore;
 
 // Mixins
 
-let CartridgeBehaviour = require('../../mixin/cartridge-behaviour');
-let type = require('focus').component.types;
+const CartridgeBehaviour = require('../../mixin/cartridge-behaviour');
+const type = require('focus').component.types;
 
 // Actions
 
-let actionBuilder = Focus.search.actionBuilder;
+const actionBuilder = Focus.search.actionBuilder;
 
 /**
- * Page mixin of the advanced search.
- * @type {Object}
- */
-let AdvancedSearch = {
+* Page mixin of the advanced search.
+* @type {Object}
+*/
+const AdvancedSearch = {
     /**
-     * Component's mixins
-      * @type {Array}
-     */
+    * Component's mixins
+    * @type {Array}
+    */
     mixins: [CartridgeBehaviour],
     /**
-     * Display name.
-     */
+    * Display name.
+    */
     displayName: 'advanced-search',
     /**
-     * Get the default props
-     * @return {object} the default props
-     */
+    * Get the default props
+    * @return {object} the default props
+    */
     getDefaultProps() {
         return {
             facetConfig: {},
@@ -54,19 +54,20 @@ let AdvancedSearch = {
             store: advancedSearchStore,
             action: undefined,
             service: undefined,
-            orderableColumnList: {},
+            orderableColumnList: [],
             lineOperationList: {},
             exportAction: {},
             groupComponent: undefined,
             lineComponentMapper: undefined,
             scrollParentSelector: undefined,
-            onLineClick: undefined
+            onLineClick: undefined,
+            style: require('./style')
         };
     },
     /**
-     * Props validation
-     * @type {Object}
-     */
+    * Props validation
+    * @type {Object}
+    */
     propTypes: {
         scopesConfig: type('object'),
         facetConfig: type('object'),
@@ -84,12 +85,16 @@ let AdvancedSearch = {
         scrollParentSelector: type('string'),
         onLineClick: type('func')
     },
+    /**
+     * Get initial state
+     * @return {Object} initial state
+     */
     getInitialState() {
         return (this._getNewStateFromStore());
     },
     /**
-     * Register the store listeners
-     */
+    * Register the store listeners
+    */
     componentWillMount() {
         ['query', 'scope', 'selected-facets', 'grouping-key', 'sort-by', 'sort-asc'].forEach((node) => {
             this.props.store[`add${capitalize(camel(node))}ChangeListener`](this._onStoreChangeWithSearch);
@@ -102,15 +107,16 @@ let AdvancedSearch = {
             identifier: this.props.store.identifier,
             getSearchOptions: () => {return this.props.store.getValue.call(this.props.store); } // Binding the store in the function call
         });
-    },
-    componentDidMount() {
         this._action.search();
     },
+    componentDidMount() {
+
+    },
     /**
-     * Un-register the store listeners
-     */
+    * Un-register the store listeners
+    */
     componentWillUnmount() {
-        ['query', 'scope', 'selected-facets', 'grouping-key', 'sort-by', 'sort-asc'].forEach((node) => {
+        ['query', 'scope', 'selected-facets', 'grouping-key', 'sort-by', 'sort-asc'].forEach(node => {
             this.props.store[`remove${capitalize(camel(node))}ChangeListener`](this._onStoreChangeWithSearch);
         });
         ['facets', 'results', 'total-count'].forEach((node) => {
@@ -118,141 +124,154 @@ let AdvancedSearch = {
         });
     },
     /**
-     * Store changed, update the state, trigger a search after update
-     */
+    * Store changed, update the state, trigger a search after update
+    */
     _onStoreChangeWithSearch() {
         this.setState(this._getNewStateFromStore(), this._action.search);
     },
     /**
-     * Store changed, update the state, do not trigger a search after update
-     */
+    * Store changed, update the state, do not trigger a search after update
+    */
     _onStoreChangeWithoutSearch() {
         this.setState(this._getNewStateFromStore());
     },
+    /**
+     * Compute a state object from the store values.
+     * @return {[type]} [description]
+     */
     _getNewStateFromStore() {
-        let query = this.props.store.getQuery();
-        let scope = this.props.store.getScope();
-        let selectedFacets = this.props.store.getSelectedFacets() || {};
-        let groupingKey = this.props.store.getGroupingKey();
-        let sortBy = this.props.store.getSortBy();
-        let sortAsc = this.props.store.getSortAsc();
-        let facets = this.props.store.getFacets();
-        let results = this.props.store.getResults();
-        let totalCount = this.props.store.getTotalCount();
+        const {store} = this.props;
+        const query = store.getQuery();
+        const scope = store.getScope();
+        const selectedFacets = store.getSelectedFacets() || {};
+        const groupingKey = store.getGroupingKey();
+        const sortBy = store.getSortBy();
+        const sortAsc = store.getSortAsc();
+        const facets = store.getFacets();
+        const results = store.getResults();
+        const totalCount = store.getTotalCount();
         return {query, scope, selectedFacets, groupingKey, sortBy, sortAsc, facets, results, totalCount};
     },
     /**
-     * Export action handler.
-     */
+    * Export action handler.
+    */
     _exportHandler() {
         this.props.exportAction();
     },
     /**
-     * Render the facet box.
-     * @returns {HTML} the rendered component
-     */
+    * Render the facet box.
+    * @returns {HTML} the rendered component
+    */
     _renderFacetBox() {
+        const {facets, selectedFacets} = this.state;
+        const {facetConfig, scopesConfig} = this.props;
         return (
             <FacetBox
-                facets={this.state.facets}
-                selectedFacets={this.state.selectedFacets}
-                facetConfig={this.props.facetConfig}
                 action={this._action}
-                scopesConfig={this.props.scopesConfig}
-            />
+                facetConfig={facetConfig}
+                facets={facets}
+                scopesConfig={scopesConfig}
+                selectedFacets={selectedFacets}
+                />
         );
     },
     /**
-     * Render the list summary component.
-     * @returns {HTML} the rendered component
-     */
+    * Render the list summary component.
+    * @returns {HTML} the rendered component
+    */
     _renderListSummary() {
+        const {query, scope, totalCount} = this.state;
         return (
             <ListSummary
-                totalCount={this.state.totalCount}
-                query={this.state.query}
                 action={this._action}
-                scope={this.state.scope}
-            />
+                query={query}
+                scope={scope}
+                totalCount={totalCount}
+                />
         );
     },
     /**
-     * Render the action bar.
-     * @returns {HTML} the rendered component
-     */
+    * Render the action bar.
+    * @returns {HTML} the rendered component
+    */
     _renderActionBar() {
-        let groupableColumnList = this.state.facets ? Object.keys(this.state.facets).reduce((result, facetKey) => {
+        const {facets, groupingKey, selectedFacets, selectionStatus, sortBy} = this.state;
+        const {lineOperationList, orderableColumnList} = this.props;
+        const groupableColumnList = facets ? Object.keys(facets).reduce((result, facetKey) => {
             result[facetKey] = facetKey;
             return result;
         }, {}) : {};
-        let selectionAction = (selectionStatus) => {
-            this.setState({selectionStatus});
+        const selectionAction = (status) => {
+            this.setState({selectionStatus: status});
         };
         return (
             <ListActionBar
-               selectionStatus={this.state.selectionStatus}
-               selectionAction={selectionAction}
-               orderableColumnList={this.props.orderableColumnList}
-               orderSelected={this.state.sortBy}
-               groupableColumnList={groupableColumnList}
-               groupSelectedKey={this.state.groupingKey}
-               selectedFacets={this.state.selectedFacets}
-               operationList={this.props.lineOperationList}
-               action={this._action}
-            />
+                action={this._action}
+                groupSelectedKey={groupingKey}
+                groupableColumnList={groupableColumnList}
+                operationList={lineOperationList}
+                orderSelected={sortBy}
+                orderableColumnList={orderableColumnList}
+                selectedFacets={selectedFacets}
+                selectionAction={selectionAction}
+                selectionStatus={selectionStatus}
+                />
         );
     },
     /**
-     * Render the results component
-     * @return {HTML} the rendered component
-     */
+    * Render the results component
+    * @return {HTML} the rendered component
+    */
     _renderResults() {
+        const {groupComponent, isSelection, lineComponentMapper, lineOperationList, scrollParentSelector, store} = this.props;
+        const {groupingKey, facets, results, selectionStatus, totalCount} = this.state;
         return (
             <Results
                 action={this._action}
-                store={this.props.store}
-                resultsMap={this.state.results}
-                totalCount={this.state.totalCount}
-                groupComponent={this.props.groupComponent}
-                lineComponentMapper={this.props.lineComponentMapper}
-                isSelection={this.props.isSelection}
-                lineSelectionHandler={this._selectItem}
+                groupComponent={groupComponent}
+                groupingKey={groupingKey}
+                isSelection={isSelection}
                 lineClickHandler={this._lineClick}
-                lineOperationList={this.props.lineOperationList}
-                scrollParentSelector={this.props.scrollParentSelector}
-                selectionStatus={this.state.selectionStatus}
-                groupingKey={this.state.groupingKey}
-                resultsFacets={this.state.facets}
+                lineComponentMapper={lineComponentMapper}
+                lineOperationList={lineOperationList}
+                lineSelectionHandler={this._selectItem}
                 renderSingleGroupDecoration={false}
-            />
+                resultsFacets={facets}
+                resultsMap={results}
+                scrollParentSelector={scrollParentSelector}
+                selectionStatus={selectionStatus}
+                store={store}
+                totalCount={totalCount}
+                />
         );
     },
     /**
-     * Line selection handler
-     */
+    * Line selection handler
+    */
     _selectItem() {
         this.setState({selectionStatus: 'partial'});
     },
     /**
-     * Action on line click.
-     * @param {object} item  the item clicked
-     */
+    * Action on line click.
+    * @param {object} item  the item clicked
+    */
     _lineClick(item) {
         if (this.props.onLineClick) {
             this.props.onLineClick(item);
         }
     },
     /**
-     * Render the component
-     * @return {HTML} the rendered component
-     */
+    * Render the component
+    * @return {HTML} the rendered component
+    */
     render() {
+        const {style} = this.props;
         return (
-            <div className="advanced-search" data-focus="advanced-search">
-                <div data-focus="facet-container">
+            <div className='advanced-search' data-focus='advanced-search'>
+                <div data-focus='facet-container' style={style.facets}>
                     {this._renderFacetBox()}
                 </div>
-                <div data-focus="result-container">
+                <div data-focus='result-container' style={style.results}>
                     {this._renderListSummary()}
                     {this._renderActionBar()}
                     {this._renderResults()}

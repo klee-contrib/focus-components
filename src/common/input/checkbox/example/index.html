@@ -7,43 +7,56 @@
     <meta name="description" content="Example of the component.">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <!-- Place favicon.ico in the root directory -->
-
-    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
-    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css" />
-    <script src="//code.jquery.com/jquery-1.10.2.min.js"></script>
-    <script src="https://fb.me/react-0.13.3.js"></script>
-    <script src="https://fb.me/JSXTransformer-0.13.3.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/3.9.3/lodash.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/backbone.js/1.2.1/backbone.js"></script>
-    <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
-
-    <!-- Material degign-->
-    <link rel="stylesheet" href="//cdn.jsdelivr.net/bootstrap.material-design/0.3.0/css/material-wfont.min.css">
-    <link rel="stylesheet" href="//cdn.jsdelivr.net/bootstrap.material-design/0.3.0/css/material.min.css">
-    <link rel="stylesheet" href="//cdn.jsdelivr.net/bootstrap.material-design/0.3.0/css/ripples.min.css">
-
-    <script src="//cdn.jsdelivr.net/bootstrap.material-design/0.3.0/js/material.min.js"></script>
-    <script src="//cdn.jsdelivr.net/bootstrap.material-design/0.3.0/js/ripples.min.js"></script>
-    <!-- Material degign-->
-
-    <script src="/focus-components/dist/js/focus.js"></script>
-    <script src="/focus-components/dist/js/focus-components.js"></script>
-    <script src="/focus-components/example/js/initFocus.js"></script>
-    <link rel="stylesheet" href="/focus-components/dist/css/focus-components.css"/>
-
+    <!--  BABEL-->
+    <script src="/focus-components/example/js/browser.js"></script>
+    <!--  SCRIPT LOADING-->
+    <script src="/focus-components/example/js/assets.js"></script>
 </head>
-
 <body>
+    <script type="text/babel">
+    loadAssets().then((d)=>{
+        const Template = FocusComponents.template.component;
+        const Checkbox = FocusComponents.common.input.checkbox.component;
 
-  <div id="form-container" class="container"></div>
-  <script type="text/jsx">
-  Focus.components = FocusComponents;
-  var Checkbox = Focus.components.common.input.checkbox.component;
-  React.render(
-    <Checkbox value={true} style={{className: "testClass"}} label="Ma super Checkbox"/>,
-    document.querySelector("#form-container")
-  );
-  </script>
+        const CheckboxSample = React.createClass({
 
+            /**
+            * Handle click action to get check value.
+            */
+            handleGetValueClick(){
+                const value = this.refs.cbTestGetValue.getValue();
+                alert('Checkbox value: ' + value);
+            },
+
+            /**
+            * Render the component.
+            * @return {object} React node
+            */
+            render() {
+                return <Template title="Input checkbox">
+                    <h3>Input checkbox</h3>
+                    <Checkbox value={true} label="My awsome checkbox"/>
+
+                    <h3>Unselected checkbox</h3>
+                    <Checkbox value={false} label="My awsome checkbox"/>
+
+                    <h3>Without label</h3>
+                    <Checkbox value={true} />
+
+                    <h3>Get Checkbox value</h3>
+                    <div style={{float:'left', width: '300px'}}>
+                        <Checkbox value={true} label="My awsome checkbox" ref="cbTestGetValue"/>
+                    </div>
+                    <div style={{marginLeft:'300px'}}>
+                        <button onClick={this.handleGetValueClick}>Get the checkbox value</button>
+                    </div>
+                </Template>
+            }
+        });
+
+        const mountNode = document.querySelector("body")
+        React.render(<CheckboxSample />, mountNode);
+    });
+    </script>
 </body>
-
 </html>
