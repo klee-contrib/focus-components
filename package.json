@@ -14,7 +14,8 @@
         "showcase:components": "node scripts/components-scanner.js",
         "showcase:dependencies": "cp ./node_modules/babel-core/browser.js showcase/js/ && cp dist/js/* showcase/js/ && cp -rf dist/css/* showcase/css/",
         "showcase:assets": "node ./node_modules/babel/bin/babel.js scripts/script-loader.js --out-file showcase/js/script-loader.js && node ./node_modules/babel/bin/babel.js scripts/style-loader.js --out-file showcase/js/style-loader.js && node ./node_modules/babel/bin/babel.js scripts/load-dependencies.js --out-file showcase/js/load-dependencies.js && cat showcase/js/script-loader.js showcase/js/style-loader.js showcase/js/load-dependencies.js > showcase/js/assets.js",
-        "showcase": "npm run showcase:components && npm run showcase:dependencies && npm run showcase:assets"
+        "showcase": "npm run showcase:components && npm run showcase:dependencies && npm run showcase:assets",
+        "postinstall": "node scripts/mdl-variables-copy.js"
     },
     "repository": {
         "type": "git",
@@ -24,7 +25,7 @@
         "react",
         "focus"
     ],
-    "author": "DT KLEE <direction.technique@kleegroup.com>",
+    "author": "Focus Team <focus@kleegroup.com>",
     "license": "MIT",
     "bugs": {
         "url": "https://github.com/KleeGroup/focus-components/issues"
@@ -42,6 +43,7 @@
         "immutable": "^3.7.4",
         "lodash": "^3.10.1",
         "material-design-icons": "^2.0.0",
+        "material-design-lite": "^1.0.4-2",
         "moment": "^2.10.6",
         "object-assign": "^2.0.0",
         "react": "^0.13.3",
