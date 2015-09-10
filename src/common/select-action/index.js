@@ -5,11 +5,6 @@ const Button = require('../../common/button/action').component;
 
 const {componentHandler} = window;
 
-<<<<<<< 2e1d02a7335df8847abd0ca788a40476fab098f7
-=======
-const Button = require('../../common/button/action').component;
-
->>>>>>> [advanced search] Fixes
 const Dropdown = {
 
     /**
@@ -86,13 +81,8 @@ const Dropdown = {
         }
         return (
             <div>
-<<<<<<< 2e1d02a7335df8847abd0ca788a40476fab098f7
                 <Button icon={iconProps.name} id={id} isJs={true} shape='icon' />
-                <ul className='mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect' htmlFor={id} ref='dropdown'>
-=======
-                <Button hasJs={true} icon={iconProps.name} id={id} shape='icon' type='button'/>
                 <ul className='mdl-menu mdl-menu--bottom-right mdl-js-menu' htmlFor={id} ref='dropdown'>
->>>>>>> [advanced search] Fixes
                     {operationList.map((operation, idx) => {
                         return (
                             <li className={`mdl-menu__item ${operation.style}`} key={idx} onClick={this._handleAction(operation.action)}>
