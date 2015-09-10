@@ -44,7 +44,7 @@ const blockMixin = {
         const shouldDisplayActionsTop = actions && includes(['both', 'top'], actionsPosition);
         const shouldDisplayActionsBottom = actions && includes(['both', 'bottom'], actionsPosition);
         return (
-            <div className="mdl-card mdl-card--border mdl-shadow--8dp" data-focus='block'>
+            <div className="mdl-card mdl-card--border mdl-shadow--4dp" data-focus='block'>
                 <div className="mdl-card__title mdl-card--border" data-focus='block-title'>
                     <Title label={this.heading()} />
                     {shouldDisplayActionsTop &&
