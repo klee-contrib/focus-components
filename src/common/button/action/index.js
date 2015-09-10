@@ -17,6 +17,7 @@ const materialBehaviour = require('../../mixin/mdl-behaviour');
 const buttonMixin = {
     /** inheritedDoc */
     mixins: [i18nMixin, stylableMixin, materialBehaviour],
+    displayName: 'Button',
     /** inheritedDoc */
     getDefaultProps() {
         return {
@@ -24,6 +25,7 @@ const buttonMixin = {
             shape: 'raised',
             label: '',
             icon: '',
+            id: '',
             hasRipple: false,
             isJs: false,
             iconLibrary: 'material'
@@ -37,6 +39,7 @@ const buttonMixin = {
         color: oneOf([undefined, 'colored', 'primary', 'accent']),
         hasRipple: types('bool'),
         isJs: types('bool'),
+        id: types('string'),
         icon: types('string'),
         iconLibrary: oneOf(['material', 'font-awesome', 'focus'])
     },
@@ -98,9 +101,9 @@ const buttonMixin = {
     },
     /** inheritedDoc */
     render() {
-        const {type, label} = this.props;
+        const {id, type, label} = this.props;
         return (
-            <button alt={label} className={this._className()} data-focus="button-action" onClick={this.handleOnClick} title={label} type={type}>
+            <button alt={label} className={this._className()} data-focus="button-action" id={id} onClick={this.handleOnClick} title={label} type={type}>
                 {this._renderIcon()}
                 {this._renderLabel()}
             </button>
