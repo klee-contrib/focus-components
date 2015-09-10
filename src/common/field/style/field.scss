@@ -1,23 +1,28 @@
 $field-input-width-long: 400px;
 $field-input-width-normal: 250px;
 $field-input-width-short: 150px;
-$field-input-width-date: 90px;
-$field-label-font-size:16px; //TODO TGN à revoir.
+$field-input-width-date: 100px;
+$field-label-font-size:13px; //TODO TGN à revoir.
 
 [data-focus="field"] {
+    padding: 0;
     [data-focus="field-label-container"] {
         text-align: right;
         label {
+            display: block;
             font-weight: bold;
             font-size: $field-label-font-size;
-            line-height: $field-label-font-size;
         }
     }
     &[data-mode="edit"] {
         [data-focus="field-label-container"] {
-            padding:24px 0; //TODO TGN à réduire par défaut.
             label {
-                padding:4px 0; //TODO TGN à réduire par défaut.
+                margin:4px 0;
+            }
+        }
+        [data-focus="field-value-container"]{
+            select {
+                margin: 2px 0;
             }
         }
         &[data-domain]{

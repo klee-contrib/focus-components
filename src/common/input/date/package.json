@@ -1,5 +1,5 @@
 {
-  "name": "Date input",
+  "name": "Input date",
   "version": "0.1.0",
   "description": "Date input component, with a dropdown picker.",
   "main": "index.js",

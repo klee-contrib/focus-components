@@ -180,7 +180,7 @@ const action = {
             return new Promise(function(s,e){
                 _.delay(function(){
                     s(jsonContact);
-                }, 5000);
+                }, 1);
             })//Promise.resolve(jsonContact);
         }
     }),

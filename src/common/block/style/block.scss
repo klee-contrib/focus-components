@@ -20,6 +20,9 @@ $bloc-title-color:#36b7b9;
             display: inline-block;
         }
     }
+    [data-focus='block-title'] {
+        //override color here.
+    }
     [data-focus='block-actions'] {
         text-align: center;
     }
