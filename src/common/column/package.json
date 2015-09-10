@@ -1,0 +1,21 @@
+{
+  "name": "column",
+  "version": "1.0.0",
+  "description": "Column component see http://www.getmdl.io/components/index.html#layout-section/grid.",
+  "main": "index.js",
+  "directories": {
+    "example": "example"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "grid",
+    "column",
+    "separation",
+    "detail",
+    "page"
+  ],
+  "author": "focus@kleegroup.com",
+  "license": "MIT"
+}
