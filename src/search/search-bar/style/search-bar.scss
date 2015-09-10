@@ -1,5 +1,34 @@
-[data-focus='searchBarScope'] {
-    &:hover {
-        background-color: rgba(0, 0, 0, 0.1);
+
+
+[data-focus="search-bar"]{
+    [data-focus="search-bar-scope"] {
+        float: left;
+        width: 80px;
+        padding: 12px 0;
+        button {
+            border-bottom: 1px solid rgba(0, 0, 0, 0.117647);
+            position: relative;
+            padding: 0 25px;
+            i:first-child {
+                position: absolute;
+                right: 0;
+                top: 12px;
+            }
+        }
+        .material-icons {
+            font-size: 20px;
+            position: relative;
+            top: 4px;
+            margin-right: 8px;
+        }
+    }
+    [data-focus='search-bar-input'] {
+        margin-left: 92px;
+        [data-focus="input-text"]{
+            width: 500px;
+            input {
+                font-size: 16px;
+            }
+        }
     }
 }
