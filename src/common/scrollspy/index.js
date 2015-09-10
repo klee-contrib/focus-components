@@ -41,9 +41,7 @@ const Scrollspy = {
             titleList: []
         };
     },
-    /**
-    * Component did mount, attach the scroll spy
-    */
+    /** @inheritDoc */
     componentDidMount() {
         this.setState({
             titleList: this._getTitleList()
@@ -53,6 +51,7 @@ const Scrollspy = {
         this._scrollCarrier.addEventListener('resize', this._scrollSpy);
         this._scrollSpy();
     },
+    /** @inheritDoc */
     componentWillUnMount() {
         this._scrollCarrier.removeEventListener('scroll', this._scrollSpy);
         this._scrollCarrier.removeEventListener('resize', this._scrollSpy);
@@ -63,13 +62,14 @@ const Scrollspy = {
     * @private
     */
     _getTitleList() {
-        const rawTitleList = document.querySelectorAll(this.props.titleSelector);
+        const {titleSelector} = this.props;
+        const rawTitleList = document.querySelectorAll(titleSelector);
         return [].map.call(rawTitleList, (titleElement, index) => {
             return {
                 index: index,
                 label: titleElement.innerHTML,
                 id: titleElement.getAttribute('data-spy'),
-                offsetTop: titleElement.offsetTop
+                offsetTop: titleElement.parentElement.parentElement.offsetTop // TODO TGN : to rewrite
             };
         });
     },
@@ -115,9 +115,9 @@ const Scrollspy = {
     render() {
         const {affix} = this.state;
         return (
-            <div data-focus="scrollspy" ref='scrollSpy'>
-            <nav data-affix={!!affix} style={affix ? {position: 'fixed', top: `${this.props.affixOffset}px`} : null}>{this._renderList()}</nav>
-            <div>{this.props.children}</div>
+            <div data-focus='scrollspy' ref='scrollSpy'>
+                <nav data-affix={!!affix} style={affix ? {position: 'fixed', top: `${this.props.affixOffset}px`} : null}>{this._renderList()}</nav>
+                <div>{this.props.children}</div>
             </div>
         );
     },
@@ -130,9 +130,11 @@ const Scrollspy = {
         if(0 === titleList.length) { return; }
         //---
         const scrollposition = scrollPosition();
+
         const nextTitles = filter(titleList, n => {
             return scrollposition.top < n.offsetTop - this.props.affixOffset;
         });
+
         //by default, first node is indexed
         let currentId = titleList[0].id;
         if(0 < nextTitles.length) {
