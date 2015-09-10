@@ -20,7 +20,8 @@ const Dropdown = {
             operationList: [],
             iconProps: {
                 name: 'ellipsis-v'
-            }
+            },
+            shape: 'icon'
         };
     },
     /**
@@ -74,14 +75,14 @@ const Dropdown = {
     * @returns  {XML} Htm code.
     */
     render() {
-        const {iconProps, operationList} = this.props;
+        const {iconProps, operationList, shape} = this.props;
         const id = this._htmlId;
         if (0 === operationList.length) {
             return null;
         }
         return (
             <div>
-                <Button icon={iconProps.name} id={id} isJs={true} shape='icon' />
+                <Button icon={iconProps.name} id={id} isJs={true} shape={shape} />
                 <ul className='mdl-menu mdl-menu--bottom-right mdl-js-menu' htmlFor={id} ref='dropdown'>
                     {operationList.map((operation, idx) => {
                         return (
