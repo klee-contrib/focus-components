@@ -2,6 +2,7 @@ const builder = require('focus').component.builder;
 const React = require('react');
 const uuid = require('uuid');
 const Button = require('../../common/button/action').component;
+const types = require('focus').component.types;
 
 const {componentHandler} = window;
 
@@ -17,12 +18,23 @@ const Dropdown = {
     */
     getDefaultProps() {
         return {
-            operationList: [],
+            position: 'right',
             iconProps: {
                 name: 'ellipsis-v'
             },
-            shape: 'icon'
+            shape: 'icon',
+            operationList: []
         };
+    },
+    /**
+    * Scope property validation.
+    * @type {Object}
+    */
+    propTypes: {
+        position: types('string'),
+        iconProps: types('object'),
+        operationList: types('array'),
+        shape: types('string')
     },
     /**
      * Component will mount
@@ -83,7 +95,7 @@ const Dropdown = {
         return (
             <div>
                 <Button icon={iconProps.name} id={id} isJs={true} shape={shape} />
-                <ul className='mdl-menu mdl-menu--bottom-right mdl-js-menu' htmlFor={id} ref='dropdown'>
+                <ul className='mdl-menu mdl-menu--bottom-{position} mdl-js-menu mdl-js-ripple-effect' htmlFor={id} ref='dropdown'>
                     {operationList.map((operation, idx) => {
                         return (
                             <li className={`mdl-menu__item ${operation.style}`} key={idx} onClick={this._handleAction(operation.action)}>
