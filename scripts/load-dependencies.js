@@ -61,7 +61,7 @@ function loadJS(){
  */
 function loadCSS(){
     return Promise.all([
-        loadStyle(GOOGLE_MATERIAL_CSS),
+        //loadStyle(GOOGLE_MATERIAL_CSS),
         loadStyle(GOOGLE_MATERIAL_FONT),
         loadStyle(GOOGLE_FONT_ROBOTO),
         loadStyle(FONTAWESOME_CSS)
