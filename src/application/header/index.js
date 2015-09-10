@@ -173,7 +173,7 @@ const headerMixin = {
     },
     /** @inheriteddoc */
     render: function renderBar() {
-        const className = `mdl-layout__header header-${this.state.size}`;
+        const className = `header-${this.state.size}`;
         return (
             <header className={className} data-focus='header' data-route={this.state.route} data-mode={this.state.mode} data-size={this.state.size}>
             {this.props.children}
