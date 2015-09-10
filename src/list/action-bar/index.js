@@ -149,11 +149,11 @@ const ActionBar = {
     */
     _getSelectionObjectIcon() {
         if ('none' === this.props.selectionStatus) {
-            return {name: 'square-o'};
+            return {name: 'check_box_outline_blank'};
         } else if ('selected' === this.props.selectionStatus) {
-            return {name: 'check-square-o'};
+            return {name: 'check_box'};
         }
-        return {name: 'minus-square-o'};
+        return {name: 'indeterminate_check_box'};
     },
 
     _selectionFunction(selectionStatus) {

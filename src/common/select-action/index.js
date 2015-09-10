@@ -5,6 +5,11 @@ const Button = require('../../common/button/action').component;
 
 const {componentHandler} = window;
 
+<<<<<<< 2e1d02a7335df8847abd0ca788a40476fab098f7
+=======
+const Button = require('../../common/button/action').component;
+
+>>>>>>> [advanced search] Fixes
 const Dropdown = {
 
     /**
@@ -24,14 +29,19 @@ const Dropdown = {
         };
     },
     /**
-     * Called when component is mounted.
+     * Component will mount
      */
+    componentWillMount(){
+        this._htmlId = uuid.v4();
+    },
+    /**
+    * Called when component is mounted.
+    */
     componentDidMount() {
-        if (0 !== this.props.operationList.length) {
+        if (0 !== this.props.operationList.length && React.findDOMNode(this.refs.dropdown)) {
             componentHandler.upgradeElement(React.findDOMNode(this.refs.dropdown));
         }
     },
-
     /**
      * Component will receive props.
      * @param {Object} nextProps the next props
@@ -70,14 +80,19 @@ const Dropdown = {
     */
     render() {
         const {iconProps, operationList} = this.props;
+        const id = this._htmlId;
         if (0 === operationList.length) {
             return null;
         }
-        const id = uuid.v4();
         return (
             <div>
+<<<<<<< 2e1d02a7335df8847abd0ca788a40476fab098f7
                 <Button icon={iconProps.name} id={id} isJs={true} shape='icon' />
                 <ul className='mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect' htmlFor={id} ref='dropdown'>
+=======
+                <Button hasJs={true} icon={iconProps.name} id={id} shape='icon' type='button'/>
+                <ul className='mdl-menu mdl-menu--bottom-right mdl-js-menu' htmlFor={id} ref='dropdown'>
+>>>>>>> [advanced search] Fixes
                     {operationList.map((operation, idx) => {
                         return (
                             <li className={`mdl-menu__item ${operation.style}`} key={idx} onClick={this._handleAction(operation.action)}>

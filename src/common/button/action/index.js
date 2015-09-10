@@ -32,6 +32,7 @@ const buttonMixin = {
         };
     },
     propTypes: {
+        id: types('string'),
         label: types('string'),
         handleOnClick: types('function'),
         type: oneOf(['submit', 'button']),
