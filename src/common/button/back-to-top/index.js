@@ -45,19 +45,16 @@ const backToTopMixin = {
         this._scrollCarrier.addEventListener('scroll', this._scrollSpy);
         this._scrollCarrier.addEventListener('resize', this._scrollSpy);
         this._scrollSpy();
-        console.debug('did mount');
     },
     componentWillUnMount() {
         this._scrollCarrier.removeEventListener('scroll', this._scrollSpy);
         this._scrollCarrier.removeEventListener('resize', this._scrollSpy);
-        console.debug('will unmount');
     },
     /**
     * The scroll event handler
     * @private
     */
     _scrollSpy() {
-        console.debug('scrollspy');
         const currentScrollPosition = scrollPosition();
         if (currentScrollPosition.top > this.props.scrollStart) {
             if (!this.state.isVisible) {
