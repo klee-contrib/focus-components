@@ -102,9 +102,9 @@ const buttonMixin = {
     },
     /** inheritedDoc */
     render() {
-        const {id, type, label} = this.props;
+        const {id, type, label, style} = this.props;
         return (
-            <button alt={label} className={this._className()} data-focus="button-action" id={id} onClick={this.handleOnClick} title={label} type={type}>
+            <button alt={label} className={this._className()} data-focus="button-action" id={id} onClick={this.handleOnClick} style={style} title={label} type={type}>
                 {this._renderIcon()}
                 {this._renderLabel()}
             </button>
