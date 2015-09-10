@@ -1,31 +1,62 @@
-//Code from https://raw.githubusercontent.com/paramaggarwal/react-progressbar/master/index.js
-//
-var React = require('react');
-var builder = require('focus').component.builder;
+// Dependencies
 
-var progressMixin = {
-  getDefaultProps(){
-    return {
-      type: 'info'
-    };
-  },
-  /**@inheritDoc**/
-  render() {
-    var completed = +this.props.completed;
-    if (completed < 0) {completed = 0; }
-    if (completed > 100) {completed = 100; }
+const {builder} = require('focus').component;
 
-    var style = {
-      width: completed + '%',
-      transition: 'width 200ms',
-      height: this.props.height || 4
-    };
-    return (
-      <div className='progress' data-focus='progress-bar' >
-        <div className={`progress-bar progress-bar-${this.props.type}`} style={style}>{this.props.children}</div>
-      </div>
-    );
-  }
+// Mixins
+
+const mdlBehaviour = require('../mixin/mdl-behaviour');
+
+const Progress = {
+    mixins: [mdlBehaviour],
+    /**
+     * Get default props
+     * @return {Object} the default props
+     */
+    getDefaultProps(){
+        return {
+            completed: 0
+        };
+    },
+    componentDidMount() {
+        const bar = React.findDOMNode(this.refs.bar);
+        if (bar) {
+            bar.MaterialProgress.setProgress(0);
+            bar.MaterialProgress.setBuffer(100);
+        }
+    },
+    /**
+     * Component will receive props
+     * @param  {Object} completed new completed prop
+     */
+    componentWillReceiveProps({completed}) {
+        if (0 > completed) {
+            completed = 0;
+        }
+        if (100 < completed) {
+            completed = 100;
+        }
+        const bar = React.findDOMNode(this.refs.bar);
+        if (bar) {
+            bar.MaterialProgress.setProgress(completed);
+            bar.MaterialProgress.setBuffer(100);
+        }
+    },
+    /**
+     * Render the component
+     * @return {Function} the rendered component
+     */
+    render() {
+        let completed = +this.props.completed;
+        if (0 > completed) {
+            completed = 0;
+        }
+        if (100 < completed) {
+            completed = 100;
+        }
+        return (
+            <div className='mdl-progress mdl-js-progress' data-focus='progress-bar' ref='bar' />
+        );
+    }
 };
 
-module.exports = builder(progressMixin);
+module.exports = builder(Progress);
