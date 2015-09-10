@@ -1,4 +1,9 @@
-$btt-position-size:100px;
+[data-focus='back-to-top'] {
+    position: fixed;
+    bottom: 8%;
+    right: 5%;
+}
+/*$btt-position-size:100px;
 
 [data-focus='back-to-top'] {
     cursor: pointer;
@@ -27,3 +32,4 @@ $btt-position-size:100px;
         font-size: 60px;
     }
 }
+*/

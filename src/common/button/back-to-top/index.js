@@ -76,7 +76,7 @@ const backToTopMixin = {
     /** inheritedDoc */
     render() {
         const {isVisible} = this.state;
-        return isVisible ? <div data-focus='back-to-top'><Button icon='expand_less' label={this.i18n('button.backTop')} onClick={this.goBackToTop} shape='icon' /></div> : null;
+        return isVisible ? <div data-focus='back-to-top'><Button color='colored' handleOnClick={this.goBackToTop} icon='expand_less' shape='fab' /></div> : null;
     }
 };
 
