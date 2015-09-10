@@ -1,7 +1,7 @@
 const React = require('react');
 const builder = require('focus').component.builder;
 const types = require('focus').component.types;
-const Icon = require('../../icon').component;
+const Button = require('../../button/action').component;
 const i18nMixin = require('../../i18n/mixin');
 const stylableMixin = require('../../../mixin/stylable');
 const {scrollTo, scrollPosition} = require('../../mixin/scroll');
@@ -11,6 +11,7 @@ const {scrollTo, scrollPosition} = require('../../mixin/scroll');
 * @type {Object}
 */
 const backToTopMixin = {
+    displayName: 'ButtonBackToTop',
     mixins: [i18nMixin, stylableMixin],
     /** inheritedDoc */
     getDefaultProps() {
@@ -77,13 +78,8 @@ const backToTopMixin = {
     },
     /** inheritedDoc */
     render() {
-        let className = `${this._getStyleClassName()} ${this.state.isVisible ? '' : 'invisible'}`;
-        return (
-            <button className={className} data-focus='back-to-top' onClick={this.goBackToTop}>
-            <Icon name={this.props.iconName} prefix={this.props.iconPrefix} />
-            <div>{this.i18n('button.backTop')}</div>
-            </button>
-        );
+        const {isVisible} = this.state;
+        return isVisible ? <div data-focus='back-to-top'><Button icon='expand_less' label={this.i18n('button.backTop')} onClick={this.goBackToTop} shape='icon' /></div> : null;
     }
 };
 

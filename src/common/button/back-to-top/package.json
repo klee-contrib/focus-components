@@ -1,0 +1,19 @@
+{
+  "name": "back-to-top",
+  "version": "1.0.0",
+  "description": "Button back to top.",
+  "main": "index.js",
+  "directories": {
+    "example": "example"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "button",
+    "top",
+    "scroll"
+  ],
+  "author": "focus@kleegroup.com",
+  "license": "MIT"
+}
