@@ -1,16 +1,16 @@
 const builder = require('focus').component.builder;
 const React = require('react');
-const Icon = require('../icon').component;
 const uuid = require('uuid');
+const Button = require('../../common/button/action').component;
 
 const {componentHandler} = window;
 
-const selectActionMixin = {
+const Dropdown = {
 
     /**
     * Display name.
     */
-    displayName: 'select-action',
+    displayName: 'Dropdown',
     /**
     * Default props.
     * @returns {object} Defauilt props.
@@ -27,16 +27,27 @@ const selectActionMixin = {
      * Called when component is mounted.
      */
     componentDidMount() {
-        componentHandler.upgradeElement(React.findDOMNode(this.refs.button));
-        componentHandler.upgradeElement(React.findDOMNode(this.refs.dropdown));
+        if (0 !== this.props.operationList.length) {
+            componentHandler.upgradeElement(React.findDOMNode(this.refs.dropdown));
+        }
     },
 
     /**
-     * Called before component is unmounted.
+     * Component will receive props.
+     * @param {Object} nextProps the next props
      */
+    componentWillReceiveProps(nextProps) {
+        if (0 !== nextProps.operationList.length && React.findDOMNode(this.refs.dropdown)) {
+            componentHandler.upgradeElement(React.findDOMNode(this.refs.dropdown));
+        }
+    },
+    /**
+    * Called before component is unmounted.
+    */
     componentWillUnmount() {
-        componentHandler.downgradeElements(React.findDOMNode(this.refs.button));
-        componentHandler.downgradeElements(React.findDOMNode(this.refs.dropdown));
+        if (0 !== this.props.operationList.length && React.findDOMNode(this.refs.dropdown)) {
+            componentHandler.downgradeElements(React.findDOMNode(this.refs.dropdown));
+        }
     },
     /**
     * Handle action on selected item.
@@ -65,9 +76,7 @@ const selectActionMixin = {
         const id = uuid.v4();
         return (
             <div>
-                <button className='mdl-button mdl-js-button mdl-button--icon' id={id} ref='button'>
-                    <Icon {...iconProps}/>
-                </button>
+                <Button icon={iconProps.name} id={id} isJs={true} shape='icon' />
                 <ul className='mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect' htmlFor={id} ref='dropdown'>
                     {operationList.map((operation, idx) => {
                         return (
@@ -82,4 +91,4 @@ const selectActionMixin = {
     }
 };
 
-module.exports = builder(selectActionMixin);
+module.exports = builder(Dropdown);
