@@ -40,7 +40,6 @@ const buttonMixin = {
         color: oneOf([undefined, 'colored', 'primary', 'accent']),
         hasRipple: types('bool'),
         isJs: types('bool'),
-        id: types('string'),
         icon: types('string'),
         iconLibrary: oneOf(['material', 'font-awesome', 'focus'])
     },
