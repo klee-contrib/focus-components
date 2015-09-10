@@ -21,5 +21,7 @@ module.exports = {
     display: require('./display'),
     detail: require('./detail'),
     progressBar: require('./progress-bar'),
-    role: require('./role')
+    role: require('./role'),
+    grid: require('./grid'),
+    column: require('./column')
 };
