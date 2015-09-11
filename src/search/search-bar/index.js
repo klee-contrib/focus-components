@@ -98,7 +98,7 @@ const SearchBar = {
     _broadcastQueryChange() {
         actionWrapper(() => {
             this.props.action.updateProperties({
-                query: React.findDOMNode(this.refs.query).value
+                query: this.refs.query.getValue()
             });
         })();
     },
@@ -134,7 +134,7 @@ const SearchBar = {
         if ('Enter' === key) {
             actionWrapper(() => {
                 this.props.action.updateProperties({
-                    query: React.findDOMNode(this.refs.query).value
+                    query: this.refs.query.getValue()
                 });
             }, null, 0)();
         }
