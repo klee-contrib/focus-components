@@ -71,7 +71,6 @@ function generateGulpBuildTask(name) {
 		//Pass desired output filename to vinyl-source-stream
 		.pipe(source('focus-components.js'))
 		.pipe(gulp.dest('./dist/js'))
-		.pipe(gulp.dest('./example/js'))
 		.pipe(gulp.dest('../focus-demo/ui/vendor'));
 	});
 }
@@ -89,7 +88,6 @@ gulp.task('style', function() {
 	gulp.src(['src/**/*.scss'])
 	.pipe(sass())
 	.pipe(concat('focus-components.css'))
-	.pipe(gulp.dest('./example/css/'))
 	.pipe(gulp.dest('./dist/css'))
 	.pipe(gulp.dest('../focus-demo/ui/vendor'));
 });
