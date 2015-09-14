@@ -64,7 +64,8 @@ function generateGulpBuildTask(name) {
 			focus: 'window.Focus',
 			jquery: 'window.jQuery',
 			backbone: 'window.Backbone',
-			moment: 'window.moment'
+			moment: 'window.moment',
+			i18n: 'window.i18n'
 		}))
 		.transform(babelify)
 		.bundle()
