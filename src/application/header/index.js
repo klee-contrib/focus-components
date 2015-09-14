@@ -1,5 +1,6 @@
 const builder = require('focusjs').component.builder;
 const React = require('react');
+const ReactDOM = require('react-dom');
 const type = require('focusjs').component.types;
 const {pluck, sortBy} = require('lodash/collection');
 const applicationStateBehaviour = require('./mixin/application-state');
@@ -94,7 +95,7 @@ const headerMixin = {
     * @returns {int} - The size in pixel of the current element in the browser.
     */
     _processElementSize: function processElementSize(){
-        return React.findDOMNode(this).offsetHeight;
+        return ReactDOM.findDOMNode(this).offsetHeight;
     },
     /**
     * Get the scroll position from the top of the screen.

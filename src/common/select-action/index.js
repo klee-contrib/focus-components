@@ -1,5 +1,7 @@
 const builder = require('focusjs').component.builder;
 const React = require('react');
+const ReactDOM = require('react-dom');
+
 const uuid = require('uuid');
 const Button = require('../../common/button/action').component;
 const types = require('focusjs').component.types;
@@ -44,8 +46,8 @@ const Dropdown = {
     * Called when component is mounted.
     */
     componentDidMount() {
-        if (0 !== this.props.operationList.length && React.findDOMNode(this.refs.dropdown)) {
-            componentHandler.upgradeElement(React.findDOMNode(this.refs.dropdown));
+        if (0 !== this.props.operationList.length && ReactDOM.findDOMNode(this.refs.dropdown)) {
+            componentHandler.upgradeElement(ReactDOM.findDOMNode(this.refs.dropdown));
         }
     },
     /**
@@ -53,16 +55,16 @@ const Dropdown = {
      * @param {Object} nextProps the next props
      */
     componentWillReceiveProps(nextProps) {
-        if (0 !== nextProps.operationList.length && React.findDOMNode(this.refs.dropdown)) {
-            componentHandler.upgradeElement(React.findDOMNode(this.refs.dropdown));
+        if (0 !== nextProps.operationList.length && ReactDOM.findDOMNode(this.refs.dropdown)) {
+            componentHandler.upgradeElement(ReactDOM.findDOMNode(this.refs.dropdown));
         }
     },
     /**
     * Called before component is unmounted.
     */
     componentWillUnmount() {
-        if (0 !== this.props.operationList.length && React.findDOMNode(this.refs.dropdown)) {
-            componentHandler.downgradeElements(React.findDOMNode(this.refs.dropdown));
+        if (0 !== this.props.operationList.length && ReactDOM.findDOMNode(this.refs.dropdown)) {
+            componentHandler.downgradeElements(ReactDOM.findDOMNode(this.refs.dropdown));
         }
     },
     /**

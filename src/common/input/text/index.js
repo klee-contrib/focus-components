@@ -1,5 +1,6 @@
 // Dependencies.
-
+const React = require('react');
+const ReactDOM = require('react-dom');
 const {builder, types} = require('focusjs').component;
 const assign = require('object-assign');
 const mdlBehaviour = require('../../mixin/mdl-behaviour');
@@ -65,7 +66,7 @@ const inputTextComponent = {
     * @return {object} - The value of the formatter.
     */
     getValue() {
-        return this.props.unformatter(React.findDOMNode(this.refs.inputText).value);
+        return this.props.unformatter(ReactDOM.findDOMNode(this.refs.inputText).value);
     },
     /**
     * Handle the change value of the input.

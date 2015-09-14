@@ -1,5 +1,6 @@
 import TranslationBehaviour from '../';
 import React from 'react';
+import {ReactDOM} from 'react-dom';
 import i18n from 'i18next';
 
 describe('The translation behaviour', () => {
@@ -22,6 +23,6 @@ describe('The translation behaviour', () => {
     });
     it('should add the translation function to the provided component', () => {
         const child = TestUtils.findRenderedDOMComponentWithTag(renderedComponent, 'div');
-        expect(React.findDOMNode(child).innerHTML).to.equal('my.translation.path');
+        expect(ReactDOM.findDOMNode(child).innerHTML).to.equal('my.translation.path');
     });
 });

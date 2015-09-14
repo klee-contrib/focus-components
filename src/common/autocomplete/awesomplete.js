@@ -1,9 +1,10 @@
 /* globals Awesomplete */
-
+const React = require('react');
+const ReactDOM = require('react-dom');
 // Dependencies
-let Focus = require('focusjs');
-let {builder, types} = Focus.component;
-let find = require('lodash/collection/find');
+const Focus = require('focusjs');
+const {builder, types} = Focus.component;
+const find = require('lodash/collection/find');
 
 /**
  * Autocomplete component.
@@ -29,7 +30,7 @@ let Autocomplete = {
     componentDidMount() {
         let {input} = this.refs;
         let {pickList} = this.props;
-        this._awesomeplete = new Awesomplete(React.findDOMNode(input), {
+        this._awesomeplete = new Awesomplete(ReactDOM.findDOMNode(input), {
             list: this._extractListFromData(pickList)
         });
         this._awesomeplete.input.addEventListener('awesomplete-select', event => this._selectionHandler(event.text));

@@ -1,7 +1,7 @@
 //Dependencies.
-const builder = require('focusjs').component.builder;
+const {builder, types} = require('focusjs').component;
 const React = require('react');
-const types = require('focusjs').component.types;
+const ReactDOM = require('react-dom');
 const i18nMixin = require('../../i18n/mixin');
 const stylableMixin = require('../../../mixin/stylable');
 const union = require('lodash/array/union');
@@ -62,7 +62,7 @@ const selectMixin = {
      */
     getValue() {
         const {select} = this.refs;
-        const domValue = React.findDOMNode(select).value;
+        const domValue = ReactDOM.findDOMNode(select).value;
         let value = this.state.isNumber ? +domValue : domValue;
         return value !== UNSELECTED_KEY ? value : null;
     },

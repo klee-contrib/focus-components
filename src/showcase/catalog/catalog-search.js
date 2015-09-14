@@ -1,5 +1,6 @@
 //dependencies
 const React = require('react');
+const ReactDOM = require('react-dom');
 const {Component} = React;
 const types = require('focusjs').component.types;
 const {dispatcher} = require('focusjs');
@@ -28,7 +29,7 @@ class ComponentSearch extends Component{
     }
     _handleOnChange(){
         const {store} = this.props;
-        const query = React.findDOMNode(this.refs.input).value;
+        const query = ReactDOM.findDOMNode(this.refs.input).value;
         //Dispatch the new criteria value..
         dispatcher.handleViewAction({
                data: {criteria: {query}},
