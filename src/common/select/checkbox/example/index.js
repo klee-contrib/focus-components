@@ -1,5 +1,7 @@
-
 const SelectCheckbox = FocusComponents.common.select.checkbox.component;
+const {pull} = _;
+
+const possibleValues = [{value: "A", label: "Value A"},{value: "B", label: "Value B"}, {value: "C", label: "Value C"}, {value: "D", label: "Value D"}];
 
 const SelectCheckboxSample = React.createClass({
 
@@ -7,8 +9,30 @@ const SelectCheckboxSample = React.createClass({
     * Handle click action to get check value.
     */
     handleGetValueClick(){
-        const values = this.refs.mySelectCheckbox.getValues();
+        const values = this.refs.mySelectCheckbox.getValue();
         alert('Selected values IDs: ' + values);
+    },
+
+
+    /** @inheritdoc */
+    getInitialState() {
+        return {
+            selectedValues: ['B']
+        };
+    },
+
+    /**
+    * Handle click action to get check value.
+    */
+    handleGetValueClick2(key, newStatus){
+        const selectedValues = this.state.selectedValues;
+        if(newStatus) {
+            selectedValues.push(key);
+        } else {
+            pull(selectedValues, key);
+        }
+        this.setState({value: selectedValues});
+        alert('Selected values IDs: ' + this.state.selectedValues);
     },
 
 
@@ -21,13 +45,17 @@ const SelectCheckboxSample = React.createClass({
             <div>
                 <h3>List of checkboxes</h3>
                 <SelectCheckbox
-                    values={[{value: "A", label: "Value A"},{value: "B", label: "Value B"}, {value: "C", label: "Value C"}, {value: "D", label: "Value D"}]} ref="mySelectCheckbox" />
+                    values={possibleValues} ref="mySelectCheckbox" />
                 <h3>List of checkboxes with preselected values</h3>
                 <SelectCheckbox
-                    value={["B"]}
-                    values={[{value: "A", label: "Value A"},{value: "B", label: "Value B"}, {value: "C", label: "Value C"}, {value: "D", label: "Value D"}]} ref="mySelectCheckbox" />
+                    value={['B']}
+                    values={possibleValues} ref="mySelectCheckbox" />
                 <br />
                 <button onClick={this.handleGetValueClick}>Get the selected values</button>
+                <h3>Add OnChange event</h3>
+                <SelectCheckbox
+                    value={this.state.selectedValues}
+                    values={possibleValues} ref="mySelectCheckbox2" onChange={this.handleGetValueClick2} />
             </div>
         );
     }
