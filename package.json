@@ -85,6 +85,7 @@
     "mocha": "^2.2.5",
     "mocha-lcov-reporter": "0.0.2",
     "node-dir": "^0.1.9",
+    "react-addons-test-utils": "^0.14.0-rc1",
     "reactify": "^1.0.0",
     "vinyl-source-stream": "^1.0.0",
     "watchify": "^2.4.0"
