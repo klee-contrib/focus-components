@@ -167,7 +167,7 @@ const scopeMixin = {
         const deployedIcon = isDeployed ? 'keyboard_arrow_up' : 'keyboard_arrow_down';
         return (
             <div data-focus='search-bar-scope'>
-                <button className='mdl-button mdl-js-button' id='dropdown'>
+                <button className='mdl-button mdl-js-button' id='dropdown' onClick={this._handleDeployClick}>
                     <Icon name={deployedIcon} />
                     <Icon name={activeIcon} />
                 </button>
