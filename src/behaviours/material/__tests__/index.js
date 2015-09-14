@@ -1,4 +1,4 @@
-import MaterialBehaviour from '../material';
+import MaterialBehaviour from '../';
 
 describe('The Material behaviour', () => {
     let mdlSpy;
@@ -6,7 +6,7 @@ describe('The Material behaviour', () => {
         mdlSpy = global.componentHandler = {
             upgradeElement: sinon.spy(),
             downgradeElement: sinon.spy()
-        }
+        };
     });
     describe('when called with no ref', () => {
         before(() => {

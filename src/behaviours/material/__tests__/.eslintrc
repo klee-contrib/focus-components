@@ -1,0 +1,18 @@
+{
+    "globals": {
+        "describe": true,
+        "it": true,
+        "before": true,
+        "beforeEach": true,
+        "sinon": true,
+        "TestUtils": true,
+        "expect": true
+    },
+    "rules": {
+        "react/display-name": 0,
+        "react/prop-types": 0,
+        "react/no-multi-comp": 0,
+        "new-cap": 0,
+        "no-unused-expressions": 0
+    }
+}
