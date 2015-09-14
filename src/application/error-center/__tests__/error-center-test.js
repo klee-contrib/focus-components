@@ -4,7 +4,6 @@ describe('api', ()=>{
     describe('GET /api/users', ()=>{
         it('respond with an array of users', ()=>{
             let a = 1;
-            a.should.equal(1);
         });
     });
 });
