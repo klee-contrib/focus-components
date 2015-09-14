@@ -1,5 +1,5 @@
 # Checklist for a clean component
-
+- Identify whether your component is **dumb** (does not have state) or **smart** (uses store to manage its state)
 - Write the component as a `class` extending `React.Component`.
 ```javascript
 class MyComponent extends React.Component {
