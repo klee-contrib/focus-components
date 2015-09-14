@@ -7,7 +7,7 @@
         "test": "node ./node_modules/mocha/bin/mocha src/**/__tests__/**/*.js",
         "build:server": "node ./node_modules/babel/bin/babel.js src --out-dir lib",
         "build:browser": "npm run material:override && node ./node_modules/gulp/bin/gulp.js build",
-        "build": "npm run build:server && npm run build:browser",
+        "build": "npm run showcase && npm run build:server && npm run build:browser",
         "watch": "node ./node_modules/gulp/bin/gulp.js watch",
         "prepublish": "npm run build",
         "serve": "npm run build:browser && npm run showcase && node static-server.js",
