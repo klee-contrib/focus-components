@@ -4,9 +4,16 @@ var components = [];
 var assign = require('object-assign');
 var exampleIndex = {};
 var fs = require('fs');
+var os = require('os');
+
 function _processFileName(fileName){
-    var path = fileName.split('src\\')[1];
-    return {dot: path.replace(/\\/g, '.'), path: './src/' + path.replace(/\\/g, '/')};
+    if (os.type() === 'Windows_NT') {
+        var path = fileName.split('src\\')[1];
+        return {dot: path.replace(/\\/g, '.'), path: './src/' + path.replace(/\\/g, '/')};
+    } else {
+        var path = fileName.split('src\/')[1];
+        return {dot: path.replace(/\//g, '.'), path: './src/' + path.replace(/\//g, '/')};
+    }
 }
 
 dir.readFiles('./src',
