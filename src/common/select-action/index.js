@@ -18,7 +18,7 @@ const Dropdown = {
         return {
             position: 'right',
             iconProps: {
-                name: 'ellipsis-v'
+                name: 'more_vert'
             },
             shape: 'icon',
             operationList: []
