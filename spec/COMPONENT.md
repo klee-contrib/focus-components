@@ -1,6 +1,6 @@
 # Checklist for a clean component
 
-1. Write the component as a `class` extending `React.Component`.
+- Write the component as a `class` extending `React.Component`.
 ```javascript
 class MyComponent extends React.Component {
     render() {
@@ -8,7 +8,7 @@ class MyComponent extends React.Component {
     }
 }
 ```
-2. Validate all props staticaly with `Focus.component.types`.
+- Validate all props staticaly with `Focus.component.types`.
 ```javascript
 class MyComponent extends React.Component {
     render() {
@@ -20,7 +20,7 @@ MyComponent.propTypes = {
     //...
 }
 ```
-3. Set default props staticaly.
+- Set default props staticaly.
 ```javascript
 class MyComponent extends React.Component {
     render() {
@@ -36,7 +36,7 @@ MyComponent.defaultProps = {
     //...
 }
 ```
-4. If you need to use a mixin, migrate to the decorator pattern :
+- If you need to use a mixin, migrate to the decorator pattern :
 ```javascript
 const MyDecorator = Component => class extends React.Component {
     // Any logic you want
@@ -52,9 +52,9 @@ class MyComponent extends React.Component {
 }
 export default MyComponent;
 ```
-5. **Unit test everything**. Use Mocha and Chai for this.
-6. Add a `package.json` in your component's root folder, with `npm init`.
-7. Write a test in `test/index.js`, as follows :
+- **Unit test everything**. Use Mocha and Chai for this.
+- Add a `package.json` in your component's root folder, with `npm init`.
+- Write a test in `test/index.js`, as follows :
 ```javascript
 const MyComponent = FocusComponents.path.to.my.component;
 // Any logic you want
