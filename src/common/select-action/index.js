@@ -4,8 +4,6 @@ const uuid = require('uuid');
 const Button = require('../../common/button/action').component;
 const types = require('focusjs').component.types;
 
-const {componentHandler} = window;
-
 const Dropdown = {
 
     /**
