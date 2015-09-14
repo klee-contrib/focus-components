@@ -1,7 +1,7 @@
 let assign = require('object-assign');
 let isFunction = require('lodash/lang/isFunction');
 let omit = require('lodash/object/omit');
-let {FocusException} = require('focus').exception;
+let {FocusException} = require('focusjs').exception;
 let actionMixin = {
 
 /**

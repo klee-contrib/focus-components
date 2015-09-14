@@ -1,8 +1,8 @@
 // Dependencies
 
-let builder = require('focus').component.builder;
+let builder = require('focusjs').component.builder;
 let React = require('react');
-let ArgumentInvalidException = require('focus').exception.ArgumentInvalidException;
+let ArgumentInvalidException = require('focusjs').exception.ArgumentInvalidException;
 let numberFormatter = Focus.definition.formatter.number;
 
 let FacetData = {

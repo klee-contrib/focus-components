@@ -1,6 +1,6 @@
 
 let i18nMixin = require('../../i18n').mixin;
-let validate = require('focus').definition.validator.validate;
+let validate = require('focusjs').definition.validator.validate;
 let {isNull, isUndefined} = require('lodash/lang');
 let validationMixin ={
     mixins: [i18nMixin],

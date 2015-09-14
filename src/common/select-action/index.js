@@ -1,10 +1,8 @@
-const builder = require('focus').component.builder;
+const builder = require('focusjs').component.builder;
 const React = require('react');
 const uuid = require('uuid');
 const Button = require('../../common/button/action').component;
-const types = require('focus').component.types;
-
-const {componentHandler} = window;
+const types = require('focusjs').component.types;
 
 const Dropdown = {
 

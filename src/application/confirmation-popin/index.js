@@ -1,7 +1,7 @@
 // Dependencies
 
-let builder = require('focus').component.builder;
-let type = require('focus').component.types;
+let builder = require('focusjs').component.builder;
+let type = require('focusjs').component.types;
 
 // Mixins
 

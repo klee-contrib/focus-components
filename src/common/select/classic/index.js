@@ -1,7 +1,7 @@
 //Dependencies.
-const builder = require('focus').component.builder;
+const builder = require('focusjs').component.builder;
 const React = require('react');
-const types = require('focus').component.types;
+const types = require('focusjs').component.types;
 const i18nMixin = require('../../i18n/mixin');
 const stylableMixin = require('../../../mixin/stylable');
 const union = require('lodash/array/union');

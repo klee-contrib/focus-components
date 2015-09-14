@@ -1,6 +1,6 @@
-const builder = require('focus').component.builder;
+const builder = require('focusjs').component.builder;
 const React = require('react');
-const type = require('focus').component.types;
+const type = require('focusjs').component.types;
 const {pluck, sortBy} = require('lodash/collection');
 const applicationStateBehaviour = require('./mixin/application-state');
 const headerMixin = {

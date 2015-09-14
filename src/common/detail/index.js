@@ -1,8 +1,8 @@
 const React = require('react');
-const builder = require('focus').component.builder;
+const builder = require('focusjs').component.builder;
 //var i18nMixin = require('../i18n').mixin;
 const Scrollspy = require('../scrollspy').component;
-const type = require('focus').component.types;
+const type = require('focusjs').component.types;
 const stylable = require('../../mixin/stylable');
 const DefaultBackToTopComponent = require('../button/back-to-top').component;
 /**

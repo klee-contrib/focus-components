@@ -3,7 +3,7 @@
  * Accessor on the entity informations.
  * @type {function} - Get the entity definition for a given key.
  */
-var getEntityDefinition = require('focus').definition.entity.builder.getEntityInformations;
+var getEntityDefinition = require('focusjs').definition.entity.builder.getEntityInformations;
 
 var definitionMixin = {
   /**

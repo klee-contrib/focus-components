@@ -1,12 +1,12 @@
-var builder =  require('focus').component.builder;
+var builder =  require('focusjs').component.builder;
 var React = require('react');
-var type = require('focus').component.types;
+var type = require('focusjs').component.types;
 var Line = require('./line').mixin;
 var uuid= require('uuid');
 var translationMixin = require('../../common/i18n').mixin;
 var infiniteScrollMixin = require('../mixin/infinite-scroll').mixin;
 var referenceMixin = require('../../common/mixin/reference-property');
-var checkIsNotNull = require('focus').util.object.checkIsNotNull;
+var checkIsNotNull = require('focusjs').util.object.checkIsNotNull;
 var Button = require('../../common/button/action').component;
 
 var listMixin = {

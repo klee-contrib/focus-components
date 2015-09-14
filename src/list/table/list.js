@@ -1,7 +1,7 @@
 // Dependencies
 
-const builder = require('focus').component.builder;
-const types = require('focus').component.types;
+const builder = require('focusjs').component.builder;
+const types = require('focusjs').component.types;
 const React = require('react');
 const {omit, keys} = require('lodash/object');
 const {reduce} = require('lodash/collection');

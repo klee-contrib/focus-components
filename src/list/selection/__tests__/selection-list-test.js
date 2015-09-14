@@ -8,7 +8,7 @@ let data = {
 };
 
 
-let Focus = require('focus');
+let Focus = require('focusjs');
 var domain =  {
   "DO_TEXT": {
       style: "do_text",

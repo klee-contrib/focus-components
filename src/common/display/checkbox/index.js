@@ -1,7 +1,7 @@
 //Dependencies.
-var builder = require('focus').component.builder;
+var builder = require('focusjs').component.builder;
 var React = require('react');
-var type = require('focus').component.types;
+var type = require('focusjs').component.types;
 var i18nBehaviour = require('../../i18n/mixin');
 /**
  * Input text mixin.

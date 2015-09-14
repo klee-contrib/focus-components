@@ -1,6 +1,6 @@
 // Dependencies
 
-let builder = require('focus').component.builder;
+let builder = require('focusjs').component.builder;
 let omit = require('lodash/object/omit');
 let map = require('lodash/collection/map');
 let reduce = require('lodash/collection/reduce');

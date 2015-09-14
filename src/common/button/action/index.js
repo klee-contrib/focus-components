@@ -1,5 +1,5 @@
 const React = require('react');
-const {builder, types} = require('focus').component;
+const {builder, types} = require('focusjs').component;
 const i18nMixin = require('../../i18n/mixin');
 const stylableMixin = require('../../../mixin/stylable');
 //const Icon = require('../../icon').component;

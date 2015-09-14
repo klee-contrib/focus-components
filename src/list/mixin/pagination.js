@@ -1,4 +1,4 @@
-var type = require('focus').component.types;
+var type = require('focusjs').component.types;
 
 var paginationMixin = {
     /**

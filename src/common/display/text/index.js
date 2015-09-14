@@ -1,7 +1,7 @@
 //Dependencies.
-const builder = require('focus').component.builder;
+const builder = require('focusjs').component.builder;
 const React = require('react');
-const type = require('focus').component.types;
+const type = require('focusjs').component.types;
 
 /**
  * Input text mixin.
