@@ -58,11 +58,13 @@ const selectRadioMixin = {
     * @param {object} event - the click event
     */
     _handleRadioChange(newValue) {
-        //Set the state then call the change handler.
-        this.setState({value: newValue});
         if(this.props.onChange){
             this.props.onChange(newValue);
+            return;
         }
+        //Set the state then call the change handler.
+        this.setState({value: newValue});
+
     },
     /**
      * Closure to capture key and radio status.
