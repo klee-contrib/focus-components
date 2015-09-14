@@ -49,7 +49,8 @@
     "material-design-lite": "^1.0.4-2",
     "moment": "^2.10.6",
     "object-assign": "^2.0.0",
-    "react": "^0.13.3",
+    "react": "^0.14.0-rc1",
+    "react-dom": "^0.14.0-rc1",
     "sinon": "^1.16.1",
     "sinon-chai": "^2.8.0",
     "uuid": "^2.0.1"
@@ -60,7 +61,6 @@
     "babel-eslint": "^3.1.26",
     "babel-plugin-runtime": "^1.0.7",
     "babelify": "^6.3.0",
-    "bootstrap-material": "^0.1.5",
     "brace": "^0.5.1",
     "browser-sync": "^2.2.1",
     "browserify": "^9.0.3",
@@ -85,9 +85,6 @@
     "mocha": "^2.2.5",
     "mocha-lcov-reporter": "0.0.2",
     "node-dir": "^0.1.9",
-    "react-ace": "^2.1.1",
-    "react-bootstrap-daterangepicker": "^0.3.0",
-    "react-tools": "^0.12.2",
     "reactify": "^1.0.0",
     "vinyl-source-stream": "^1.0.0",
     "watchify": "^2.4.0"
