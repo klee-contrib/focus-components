@@ -1,8 +1,8 @@
 //dependencies
 const React = require('react');
 const {Component} = React;
-const types = require('focus').component.types;
-const {dispatcher} = require('focus');
+const types = require('focusjs').component.types;
+const {dispatcher} = require('focusjs');
 /**
  * Component describing a component.
  */

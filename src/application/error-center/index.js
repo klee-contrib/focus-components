@@ -1,4 +1,4 @@
-const {builder} = require('focus').component;
+const {builder} = require('focusjs').component;
 const React = require('react');
 const REACT_NOT_COMPONENT_ERROR = 'Uncaught TypeError: undefined is not a function';
 const REACT_NOT_COMPONENT_MESSAGE = 'Check your console errors, it seems you are trying to create a component from something which is not a component.';

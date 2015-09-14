@@ -1,6 +1,6 @@
 // Dependencies
-const builder = require('focus').component.builder;
-const type = require('focus').component.types;
+const builder = require('focusjs').component.builder;
+const type = require('focusjs').component.types;
 const React = require('react');
 const actionWrapper = require('../../page/search/search-header/action-wrapper');
 

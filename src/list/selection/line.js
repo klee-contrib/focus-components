@@ -1,6 +1,6 @@
 // Dependencies
 
-const {types} = require('focus').component;
+const {types} = require('focusjs').component;
 
 // Components
 

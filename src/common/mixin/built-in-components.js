@@ -1,7 +1,7 @@
 // Dependencies
 
 const React = require('react');
-const changeMode = require('focus').application.changeMode;
+const changeMode = require('focusjs').application.changeMode;
 const assign = require('object-assign');
 
 // Components

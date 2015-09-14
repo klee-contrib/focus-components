@@ -1,7 +1,7 @@
 /* globals Awesomplete */
 
 // Dependencies
-let Focus = require('focus');
+let Focus = require('focusjs');
 let {builder, types} = Focus.component;
 let find = require('lodash/collection/find');
 

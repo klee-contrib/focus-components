@@ -1,7 +1,7 @@
 // Dependencies
 
 const React = require('react');
-const type = require('focus').component.types;
+const type = require('focusjs').component.types;
 const find = require('lodash/collection/find');
 const result = require('lodash/object/result');
 const assign = require('object-assign');

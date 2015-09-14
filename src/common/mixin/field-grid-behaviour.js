@@ -1,4 +1,4 @@
-const {types} = require('focus').component;
+const {types} = require('focusjs').component;
 const oneOf = React.PropTypes.oneOf;
 
 const GRID_SIZE = 12, CELL = 'mdl-cell';

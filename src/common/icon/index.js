@@ -1,6 +1,6 @@
-const builder = require('focus').component.builder;
+const builder = require('focusjs').component.builder;
 const React = require('react');
-const types = require('focus').component.types;
+const types = require('focusjs').component.types;
 const oneOf = React.PropTypes.oneOf;
 
 const iconMixin = {

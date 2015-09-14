@@ -1,5 +1,5 @@
 var isFunction = require('lodash/lang/isFunction');
-var dispatcher = require('focus').dispatcher;
+var dispatcher = require('focusjs').dispatcher;
 var Empty = require('../../common/empty').component;
 module.exports = {
     /**

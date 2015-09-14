@@ -4,9 +4,9 @@
   <input type="checkbox"><span class="ripple"></span><span class="check"></span> Checkbox
 </label>
  */
-var builder = require('focus').component.builder;
+var builder = require('focusjs').component.builder;
 var React = require('react');
-var type = require('focus').component.types;
+var type = require('focusjs').component.types;
 var fieldGridBehaviourMixin = require('../../mixin/field-grid-behaviour');
 
 var toggleMixin = {

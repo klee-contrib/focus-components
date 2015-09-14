@@ -1,6 +1,6 @@
 // Dependencies
-const builder = require('focus').component.builder;
-const types = require('focus').component.types;
+const builder = require('focusjs').component.builder;
+const types = require('focusjs').component.types;
 
 // Mixins
 const Stylabe = require('../../mixin/stylable');
