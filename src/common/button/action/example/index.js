@@ -16,9 +16,9 @@ const ButtonSample = React.createClass({
                 <br /><br />
                 <Button icon='build' color='accent' label='Bouton accent' type='button' handleOnClick={()=> alert('click bouton')}/>
                 <br /><br />
-                <Button icon='mood' color='colored' shape='icon' type='button' handleOnClick={()=> alert('click bouton')}/>
+                <Button icon='mood' color='colored' label='iconbutton' shape='icon' type='button' handleOnClick={()=> alert('click bouton')}/>
                 <br /><br />
-                <Button icon='mood' color='announcement' shape='mini-fab' type='button' handleOnClick={()=> alert('click bouton')}/>
+                <Button icon='mood' label='minifabbutton' color='announcement' shape='mini-fab' type='button' handleOnClick={()=> alert('click bouton')}/>
             </div>
         );
     }
