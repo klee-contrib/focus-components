@@ -68,6 +68,8 @@ const actionContextualMixin = {
                 primaryActions.push(
                     <this.props.buttonComponent
                         handleOnClick={this._handleAction(key)}
+                        icon={operation.icon}
+                        iconLibrary={operation.iconLibrary}
                         key={key}
                         label={operation.label}
                         shape={operation.style.shape || 'icon'}
