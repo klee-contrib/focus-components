@@ -4,6 +4,7 @@ const React = require('react');
 const changeMode = require('focus').application.changeMode;
 const assign = require('object-assign');
 const result = require('lodash/object/result');
+const find = require('lodash/collection/find');
 // Components
 
 const Field = require('../field').component;
