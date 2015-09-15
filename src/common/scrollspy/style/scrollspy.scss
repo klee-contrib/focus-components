@@ -1,14 +1,13 @@
 $scrollpsy-size:200px;
 $scrollpsy-content-padding:10px;
-$scrollpsy-font-size: 13pt;
-$scrollpsy-active-font-size: 16pt;
+$scrollpsy-font-size: 14px;
+$scrollpsy-active-font-size: 18px;
 $scrollpsy-active-color:#36b7b9;
 
 [data-focus="scrollspy"] {
     nav {
         float:left;
         width: $scrollpsy-size;
-        padding:$scrollpsy-content-padding;
         & + div {
             margin-left: $scrollpsy-size;
             padding:$scrollpsy-content-padding;
