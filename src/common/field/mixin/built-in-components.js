@@ -117,8 +117,8 @@ const fieldBuiltInComponentsMixin = {
     * @return {object} - The display part of the compoennt if the mode is not edit.
     */
     display() {
-        const {values, value} = this.state;
-        const {name, valueKey, labelKey} = this.props;
+        const {value} = this.state;
+        const {name, valueKey, labelKey, values} = this.props;
         const _processValue = values ? result(find(values, {[valueKey || 'code']: value}), labelKey || 'label') : value;
         const buildedDislplayProps = assign({}, this.props, {
             id: name,
