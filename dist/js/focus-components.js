@@ -36,7 +36,7 @@ module.exports = {
     infos: infosFn
 };
 
-},{"../package.json":394,"./application":403,"./common":439,"./list":475,"./message":491,"./page":496,"./search":521,"./showcase":529}],2:[function(require,module,exports){
+},{"../package.json":392,"./application":401,"./common":437,"./list":473,"./message":489,"./page":494,"./search":519,"./showcase":527}],2:[function(require,module,exports){
 /* ***** BEGIN LICENSE BLOCK *****
  * Distributed under the BSD license:
  *
@@ -45411,96 +45411,105 @@ module.exports = Object.assign || function (target, source) {
 };
 
 },{}],385:[function(require,module,exports){
-module.exports = require('./src/ace.jsx');
+module.exports = require('./lib/ace');
 
 
-},{"./src/ace.jsx":388}],386:[function(require,module,exports){
-arguments[4][2][0].apply(exports,arguments)
-},{"dup":2,"w3c-blob":387}],387:[function(require,module,exports){
-arguments[4][4][0].apply(exports,arguments)
-},{"dup":4}],388:[function(require,module,exports){
+},{"./lib/ace":386}],386:[function(require,module,exports){
+'use strict';
+
 var ace = require('brace');
 var React = window.React;
 
 module.exports = React.createClass({
   displayName: 'ReactAce',
-  
+
   propTypes: {
-    mode  : React.PropTypes.string,
-    theme : React.PropTypes.string,
-    name : React.PropTypes.string,
-    height : React.PropTypes.string,
-    width : React.PropTypes.string,
-    fontSize : React.PropTypes.number,
-    showGutter : React.PropTypes.bool,
+
+    mode: React.PropTypes.string,
+    theme: React.PropTypes.string,
+    name: React.PropTypes.string,
+    className: React.PropTypes.string,
+    height: React.PropTypes.string,
+    width: React.PropTypes.string,
+    fontSize: React.PropTypes.number,
+    showGutter: React.PropTypes.bool,
     onChange: React.PropTypes.func,
+    onPaste: React.PropTypes.func,
     value: React.PropTypes.string,
     onLoad: React.PropTypes.func,
-    maxLines : React.PropTypes.number,
-    readOnly : React.PropTypes.bool,
-    highlightActiveLine : React.PropTypes.bool,
-    showPrintMargin : React.PropTypes.bool,
+    maxLines: React.PropTypes.number,
+    readOnly: React.PropTypes.bool,
+    highlightActiveLine: React.PropTypes.bool,
+    showPrintMargin: React.PropTypes.bool,
     cursorStart: React.PropTypes.number,
     editorProps: React.PropTypes.object
   },
-  getDefaultProps: function() {
+  getDefaultProps: function getDefaultProps() {
     return {
-      name   : 'brace-editor',
-      mode   : '',
-      theme  : '',
-      height : '500px',
-      width  : '500px',
-      value  : '',
-      fontSize   : 12,
-      showGutter : true,
-      onChange   : null,
-      onLoad     : null,
-      maxLines   : null,
-      readOnly   : false,
-      highlightActiveLine : true,
-      showPrintMargin     : true,
+      name: 'brace-editor',
+      mode: '',
+      theme: '',
+      height: '500px',
+      width: '500px',
+      value: '',
+      fontSize: 12,
+      showGutter: true,
+      onChange: null,
+      onPaste: null,
+      onLoad: null,
+      maxLines: null,
+      readOnly: false,
+      highlightActiveLine: true,
+      showPrintMargin: true,
       cursorStart: 1,
-      editorProps : {}
+      editorProps: {}
     };
   },
-  onChange: function() {
+  onChange: function onChange() {
     var value = this.editor.getValue();
     if (this.props.onChange) {
       this.props.onChange(value);
     }
   },
-  componentDidMount: function() {
+  onPaste: function onPaste(text) {
+    if (this.props.onPaste) {
+      this.props.onPaste(text);
+    }
+  },
+  componentDidMount: function componentDidMount() {
     this.editor = ace.edit(this.props.name);
 
-    var editorProps = Object.getOwnPropertyNames(this.props.editorProps)
+    var editorProps = Object.keys(this.props.editorProps);
     for (var i = 0; i < editorProps.length; i++) {
-      this.editor[editorProps[i]] = this.props.editorProps[editorProps[i]]
+      this.editor[editorProps[i]] = this.props.editorProps[editorProps[i]];
     }
 
-    this.editor.getSession().setMode('ace/mode/'+this.props.mode);
-    this.editor.setTheme('ace/theme/'+this.props.theme);
+    this.editor.getSession().setMode('ace/mode/' + this.props.mode);
+    this.editor.setTheme('ace/theme/' + this.props.theme);
     this.editor.setFontSize(this.props.fontSize);
     this.editor.on('change', this.onChange);
+    this.editor.on('paste', this.onPaste);
     this.editor.setValue(this.props.value, this.props.cursorStart);
     this.editor.renderer.setShowGutter(this.props.showGutter);
     this.editor.setOption('maxLines', this.props.maxLines);
     this.editor.setOption('readOnly', this.props.readOnly);
     this.editor.setOption('highlightActiveLine', this.props.highlightActiveLine);
     this.editor.setShowPrintMargin(this.props.setShowPrintMargin);
+    this.editor.on('change', this.onChange);
 
     if (this.props.onLoad) {
       this.props.onLoad(this.editor);
     }
   },
-  
-  componentWillUnmount: function() {
+
+  componentWillUnmount: function componentWillUnmount() {
     this.editor = null;
   },
-  
-  componentWillReceiveProps: function(nextProps) {
+
+  componentWillReceiveProps: function componentWillReceiveProps(nextProps) {
     this.editor = ace.edit(nextProps.name);
-    this.editor.getSession().setMode('ace/mode/'+nextProps.mode);
-    this.editor.setTheme('ace/theme/'+nextProps.theme);
+    this.editor.getSession().setMode('ace/mode/' + nextProps.mode);
+    this.editor.setTheme('ace/theme/' + nextProps.theme);
     this.editor.setFontSize(nextProps.fontSize);
     this.editor.setOption('maxLines', nextProps.maxLines);
     this.editor.setOption('readOnly', nextProps.readOnly);
@@ -45515,17 +45524,21 @@ module.exports = React.createClass({
     }
   },
 
-  render: function() {
+  render: function render() {
     var divStyle = {
       width: this.props.width,
       height: this.props.height
     };
-    return (React.createElement("div", {id: this.props.name, onChange: this.onChange, style: divStyle}));
+    var className = this.props.className;
+    return React.createElement('div', { id: this.props.name,
+      className: className,
+      onChange: this.onChange,
+      onPaste: this.onPaste,
+      style: divStyle });
   }
 });
 
-
-},{"brace":386}],389:[function(require,module,exports){
+},{"brace":2}],387:[function(require,module,exports){
 /**
 * @version: 2.0.8
 * @author: Dan Grossman http://www.dangrossman.info/
@@ -46959,7 +46972,7 @@ module.exports = React.createClass({
 
 }));
 
-},{}],390:[function(require,module,exports){
+},{}],388:[function(require,module,exports){
 "use strict";
 /* generated by gulpfile.js */
 module.exports = exports = function () {
@@ -46989,7 +47002,7 @@ module.exports = exports = function () {
 		"timeZone"
 ];
 };
-},{}],391:[function(require,module,exports){
+},{}],389:[function(require,module,exports){
 'use strict';
 /**
  * react-bootstrap-daterangepicker.js
@@ -47062,7 +47075,7 @@ module.exports = React.createClass({
 	}
 });
 
-},{"./daterangepicker.js":389,"./get-options.js":390}],392:[function(require,module,exports){
+},{"./daterangepicker.js":387,"./get-options.js":388}],390:[function(require,module,exports){
 (function (global){
 
 var rng;
@@ -47097,7 +47110,7 @@ module.exports = rng;
 
 
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{}],393:[function(require,module,exports){
+},{}],391:[function(require,module,exports){
 //     uuid.js
 //
 //     Copyright (c) 2010-2012 Robert Kieffer
@@ -47282,95 +47295,104 @@ uuid.unparse = unparse;
 
 module.exports = uuid;
 
-},{"./rng":392}],394:[function(require,module,exports){
+},{"./rng":390}],392:[function(require,module,exports){
 module.exports={
-    "name": "focusjs-components",
-    "version": "0.6.1-1",
-    "description": "Focus component repository.",
-    "main": "index.js",
-    "scripts": {
-        "test": "node ./node_modules/mocha/bin/mocha src/**/__tests__/**/*.js",
-        "build:server": "node ./node_modules/babel/bin/babel.js src --out-dir lib",
-        "build:browser": "npm run material:override && node ./node_modules/gulp/bin/gulp.js build",
-        "build": "npm run build:server && npm run build:browser",
-        "watch": "node ./node_modules/gulp/bin/gulp.js watch",
-        "prepublish": "npm run build",
-        "serve": "npm run build:browser && npm run showcase && node static-server.js",
-        "showcase:components": "node scripts/components-scanner.js",
-        "showcase:dependencies": "cp ./node_modules/babel-core/browser.js showcase/js/ && cp dist/js/* showcase/js/ && cp -rf dist/css/* showcase/css/",
-        "showcase:assets": "node ./node_modules/babel/bin/babel.js scripts/script-loader.js --out-file showcase/js/script-loader.js && node ./node_modules/babel/bin/babel.js scripts/style-loader.js --out-file showcase/js/style-loader.js && node ./node_modules/babel/bin/babel.js scripts/load-dependencies.js --out-file showcase/js/load-dependencies.js && cat showcase/js/script-loader.js showcase/js/style-loader.js showcase/js/load-dependencies.js > showcase/js/assets.js",
-        "showcase": "npm run showcase:components && npm run showcase:dependencies && npm run showcase:assets",
-        "material:override": "node scripts/mdl-variables-copy.js"
-    },
-    "repository": {
-        "type": "git",
-        "url": "https://github.com/KleeGroup/focus-components.git"
-    },
-    "keywords": [
-        "react",
-        "focus"
-    ],
-    "author": "Focus Team <focus@kleegroup.com>",
-    "license": "MIT",
-    "bugs": {
-        "url": "https://github.com/KleeGroup/focus-components/issues"
-    },
-    "homepage": "https://github.com/KleeGroup/focus-components",
-    "dependencies": {
-        "babel-core": "^5.8.22",
-        "babel-eslint": "4.0.5",
-        "eslint": "0.24.1",
-        "eslint-plugin-filenames": "0.1.1",
-        "eslint-plugin-react": "2.7.1",
-        "eslint-plugin-require-jsdoc": "^1.0.4",
-        "eslint-plugin-require-jsdoc-focus": "0.1.0",
-        "focusjs": "0.10.1",
-        "immutable": "^3.7.4",
-        "lodash": "^3.10.1",
-        "material-design-icons": "^2.0.0",
-        "material-design-lite": "^1.0.4-2",
-        "moment": "^2.10.6",
-        "object-assign": "^2.0.0",
-        "react": "^0.13.3",
-        "uuid": "^2.0.1"
-    },
-    "devDependencies": {
-        "babel": "^5.8.21",
-        "babel-core": "^5.8.22",
-        "babel-eslint": "^3.1.26",
-        "babel-plugin-runtime": "^1.0.7",
-        "babelify": "^6.3.0",
-        "bootstrap-material": "^0.1.5",
-        "browser-sync": "^2.2.1",
-        "browserify": "^9.0.3",
-        "chai": "^3.2.0",
-        "chai-subset": "^1.0.1",
-        "eslint": "1.0.0-rc-1",
-        "eslint-config-focus": "git+https://github.com/KleeGroup/eslint-config-focus.git",
-        "eslint-plugin-react": "^2.7.1",
-        "express": "^4.12.0",
-        "focus": "git+https://git@github.com/KleeGroup/focus.git",
-        "gulp": "^3.8.11",
-        "gulp-babel": "^5.2.0",
-        "gulp-concat": "^2.5.2",
-        "gulp-if": "^1.2.5",
-        "gulp-react": "^3.0.0",
-        "gulp-sass": "^1.3.3",
-        "jquery": "^2.1.4",
-        "literalify": "^0.4.0",
-        "mocha": "^2.2.5",
-        "node-dir": "^0.1.9",
-        "react-bootstrap-daterangepicker": "^0.3.0",
-        "react-tools": "^0.12.2",
-        "reactify": "^1.0.0",
-        "vinyl-source-stream": "^1.0.0",
-        "watchify": "^2.4.0",
-        "brace": "^0.5.1",
-        "react-ace": "^2.1.1"
-    }
+  "name": "focusjs-components",
+  "version": "0.6.1-2",
+  "description": "Focus component repository.",
+  "main": "index.js",
+  "scripts": {
+    "test": "./node_modules/.bin/istanbul cover ./node_modules/mocha/bin/_mocha --report lcovonly -R spec src/**/__tests__/**/*.js && cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js && rm -rf ./coverage",
+    "test:local": "node ./node_modules/mocha/bin/mocha src/**/__tests__/**/*.js",
+    "build:server": "node ./node_modules/babel/bin/babel.js src --out-dir lib",
+    "build:browser": "npm run material:override && node ./node_modules/gulp/bin/gulp.js build",
+    "build": "npm run showcase:components && npm run build:server && npm run build:browser",
+    "watch": "node ./node_modules/gulp/bin/gulp.js watch",
+    "prepublish": "npm run build",
+    "serve": "npm run build:browser && npm run showcase && node static-server.js",
+    "showcase:components": "node scripts/components-scanner.js",
+    "showcase:dependencies": "cp ./node_modules/babel-core/browser.js showcase/js/ && cp dist/js/* showcase/js/ && cp -rf dist/css/* showcase/css/",
+    "showcase:assets": "node ./node_modules/babel/bin/babel.js scripts/script-loader.js --out-file showcase/js/script-loader.js && node ./node_modules/babel/bin/babel.js scripts/style-loader.js --out-file showcase/js/style-loader.js && node ./node_modules/babel/bin/babel.js scripts/load-dependencies.js --out-file showcase/js/load-dependencies.js && cat showcase/js/script-loader.js showcase/js/style-loader.js showcase/js/load-dependencies.js > showcase/js/assets.js",
+    "showcase": "npm run showcase:components && npm run showcase:dependencies && npm run showcase:assets",
+    "material:override": "node scripts/mdl-variables-copy.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/KleeGroup/focus-components.git"
+  },
+  "keywords": [
+    "react",
+    "focus"
+  ],
+  "author": "Focus Team <focus@kleegroup.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/KleeGroup/focus-components/issues"
+  },
+  "homepage": "https://github.com/KleeGroup/focus-components",
+  "dependencies": {
+    "babel-core": "^5.8.22",
+    "babel-eslint": "4.0.5",
+    "babel-runtime": "^5.8.24",
+    "eslint": "0.24.1",
+    "eslint-plugin-filenames": "0.1.1",
+    "eslint-plugin-react": "2.7.1",
+    "eslint-plugin-require-jsdoc": "^1.0.4",
+    "eslint-plugin-require-jsdoc-focus": "0.1.0",
+    "focusjs": "0.10.1",
+    "i18next": "^1.10.4",
+    "immutable": "^3.7.4",
+    "lodash": "^3.10.1",
+    "material-design-icons": "^2.0.0",
+    "material-design-lite": "^1.0.4-2",
+    "moment": "^2.10.6",
+    "object-assign": "^2.0.0",
+    "react": "^0.13.3",
+    "sinon": "^1.16.1",
+    "sinon-chai": "^2.8.0",
+    "uuid": "^2.0.1"
+  },
+  "devDependencies": {
+    "babel": "^5.8.21",
+    "babel-core": "^5.8.22",
+    "babel-eslint": "^3.1.26",
+    "babel-plugin-runtime": "^1.0.7",
+    "babelify": "^6.3.0",
+    "bootstrap-material": "^0.1.5",
+    "brace": "^0.5.1",
+    "browser-sync": "^2.2.1",
+    "browserify": "^9.0.3",
+    "chai": "^3.2.0",
+    "chai-subset": "^1.0.1",
+    "coveralls": "^2.11.4",
+    "eslint": "1.0.0-rc-1",
+    "eslint-config-focus": "git+https://github.com/KleeGroup/eslint-config-focus.git",
+    "eslint-plugin-react": "^2.7.1",
+    "express": "^4.12.0",
+    "focus": "git+https://git@github.com/KleeGroup/focus.git",
+    "gulp": "^3.8.11",
+    "gulp-babel": "^5.2.0",
+    "gulp-concat": "^2.5.2",
+    "gulp-if": "^1.2.5",
+    "gulp-react": "^3.0.0",
+    "gulp-sass": "^2.0.4",
+    "istanbul": "^0.3.20",
+    "jquery": "^2.1.4",
+    "jsdom": "^6.4.0",
+    "literalify": "^0.4.0",
+    "mocha": "^2.2.5",
+    "mocha-lcov-reporter": "0.0.2",
+    "node-dir": "^0.1.9",
+    "react-ace": "^2.1.1",
+    "react-bootstrap-daterangepicker": "^0.3.0",
+    "react-tools": "^0.12.2",
+    "reactify": "^1.0.0",
+    "vinyl-source-stream": "^1.0.0",
+    "watchify": "^2.4.0"
+  }
 }
 
-},{}],395:[function(require,module,exports){
+},{}],393:[function(require,module,exports){
 'use strict';
 
 var builder = window.Focus.component.builder;
@@ -47452,7 +47474,7 @@ var barMixin = {
 
 module.exports = builder(barMixin);
 
-},{}],396:[function(require,module,exports){
+},{}],394:[function(require,module,exports){
 'use strict';
 
 var builder = window.Focus.component.builder;
@@ -47501,7 +47523,7 @@ var cartridgeMixin = {
 
 module.exports = builder(cartridgeMixin);
 
-},{}],397:[function(require,module,exports){
+},{}],395:[function(require,module,exports){
 // Dependencies
 
 'use strict';
@@ -47583,7 +47605,7 @@ var ConfirmationPopin = {
 
 module.exports = builder(ConfirmationPopin);
 
-},{"../../common/button/action":415,"../../common/i18n/mixin":436,"../popin":410}],398:[function(require,module,exports){
+},{"../../common/button/action":413,"../../common/i18n/mixin":434,"../popin":408}],396:[function(require,module,exports){
 // Dependencies
 
 'use strict';
@@ -47648,7 +47670,7 @@ var ContentActions = {
 
 module.exports = builder(ContentActions);
 
-},{"../../common/button/action":415,"../../common/select-action":465,"../../mixin/stylable":492}],399:[function(require,module,exports){
+},{"../../common/button/action":413,"../../common/select-action":463,"../../mixin/stylable":490}],397:[function(require,module,exports){
 'use strict';
 
 var builder = window.Focus.component.builder;
@@ -47667,7 +47689,7 @@ var headerMixin = {
 
 module.exports = builder(headerMixin);
 
-},{}],400:[function(require,module,exports){
+},{}],398:[function(require,module,exports){
 'use strict';
 
 var builder = window.Focus.component.builder;
@@ -47766,7 +47788,7 @@ var errorCenter = {
 
 module.exports = builder(errorCenter);
 
-},{}],401:[function(require,module,exports){
+},{}],399:[function(require,module,exports){
 'use strict';
 
 var builder = window.Focus.component.builder;
@@ -47960,7 +47982,7 @@ var headerMixin = {
 
 module.exports = builder(headerMixin);
 
-},{"./mixin/application-state":402,"lodash/collection":50}],402:[function(require,module,exports){
+},{"./mixin/application-state":400,"lodash/collection":50}],400:[function(require,module,exports){
 'use strict';
 
 var applicationStore = window.Focus.application.builtInStore;
@@ -47994,7 +48016,7 @@ var applicationStateMixin = {
 
 module.exports = applicationStateMixin;
 
-},{}],403:[function(require,module,exports){
+},{}],401:[function(require,module,exports){
 'use strict';
 
 module.exports = {
@@ -48012,7 +48034,7 @@ module.exports = {
   loadingBar: require('./loading-bar')
 };
 
-},{"./bar":395,"./cartridge":396,"./confirmation-popin":397,"./content-actions":398,"./content-bar":399,"./error-center":400,"./header":401,"./layout":405,"./loading-bar":406,"./menu":407,"./message-center":408,"./popin":410}],404:[function(require,module,exports){
+},{"./bar":393,"./cartridge":394,"./confirmation-popin":395,"./content-actions":396,"./content-bar":397,"./error-center":398,"./header":399,"./layout":403,"./loading-bar":404,"./menu":405,"./message-center":406,"./popin":408}],402:[function(require,module,exports){
 //Needed components
 'use strict';
 
@@ -48064,7 +48086,7 @@ AppHeader.displayName = 'AppHeader';
 
 module.exports = AppHeader;
 
-},{"../bar":395,"../cartridge":396,"../content-actions":398,"../content-bar":399,"../header":401}],405:[function(require,module,exports){
+},{"../bar":393,"../cartridge":394,"../content-actions":396,"../content-bar":397,"../header":399}],403:[function(require,module,exports){
 // Dependencies
 
 'use strict';
@@ -48130,7 +48152,7 @@ var contentActionsMixin = {
 
 module.exports = builder(contentActionsMixin);
 
-},{"../../mixin/stylable":492,"../error-center":400,"../loading-bar":406,"../message-center":408,"./app-header":404}],406:[function(require,module,exports){
+},{"../../mixin/stylable":490,"../error-center":398,"../loading-bar":404,"../message-center":406,"./app-header":402}],404:[function(require,module,exports){
 'use strict';
 
 var builder = window.Focus.component.builder;
@@ -48221,7 +48243,7 @@ var LoadingBarMixin = {
 
 module.exports = builder(LoadingBarMixin);
 
-},{"../../common/icon":437,"../../common/progress-bar":462,"object-assign":384}],407:[function(require,module,exports){
+},{"../../common/icon":435,"../../common/progress-bar":460,"object-assign":384}],405:[function(require,module,exports){
 // Dependencies
 
 'use strict';
@@ -48320,7 +48342,7 @@ var Menu = {
 
 module.exports = builder(Menu);
 
-},{"../../common/button/action":415,"../../mixin/stylable":492,"../mixin/popin-behaviour":409}],408:[function(require,module,exports){
+},{"../../common/button/action":413,"../../mixin/stylable":490,"../mixin/popin-behaviour":407}],406:[function(require,module,exports){
 'use strict';
 
 var builder = window.Focus.component.builder;
@@ -48394,7 +48416,7 @@ var messageCenterMixin = {
 
 module.exports = builder(messageCenterMixin);
 
-},{"../../message":491,"lodash/string/capitalize":345,"object-assign":384}],409:[function(require,module,exports){
+},{"../../message":489,"lodash/string/capitalize":345,"object-assign":384}],407:[function(require,module,exports){
 'use strict';
 
 var type = window.Focus.component.types;
@@ -48425,7 +48447,7 @@ var PopinProperties = {
 
 module.exports = { mixin: PopinProperties };
 
-},{}],410:[function(require,module,exports){
+},{}],408:[function(require,module,exports){
 // Dependencies
 
 'use strict';
@@ -48688,7 +48710,7 @@ var popin = {
 
 module.exports = builder(popin);
 
-},{"lodash":118}],411:[function(require,module,exports){
+},{"lodash":118}],409:[function(require,module,exports){
 /* globals Awesomplete */
 
 // Dependencies
@@ -48905,7 +48927,7 @@ var Autocomplete = {
 
 module.exports = builder(Autocomplete);
 
-},{"lodash/collection/find":62}],412:[function(require,module,exports){
+},{"lodash/collection/find":62}],410:[function(require,module,exports){
 // Dependencies
 
 'use strict';
@@ -49037,7 +49059,7 @@ var AutocompleteFor = {
 
 module.exports = builder(AutocompleteFor);
 
-},{"./awesomplete":411,"lodash/collection/find":62}],413:[function(require,module,exports){
+},{"./awesomplete":409,"lodash/collection/find":62}],411:[function(require,module,exports){
 'use strict';
 
 module.exports = {
@@ -49045,7 +49067,7 @@ module.exports = {
     field: require('./field')
 };
 
-},{"./awesomplete":411,"./field":412}],414:[function(require,module,exports){
+},{"./awesomplete":409,"./field":410}],412:[function(require,module,exports){
 'use strict';
 
 var React = window.React;
@@ -49134,7 +49156,7 @@ var blockMixin = {
 
 module.exports = builder(blockMixin);
 
-},{"../../common/i18n/mixin":436,"../../mixin/stylable":492,"../title":470,"lodash/collection":50}],415:[function(require,module,exports){
+},{"../../common/i18n/mixin":434,"../../mixin/stylable":490,"../title":468,"lodash/collection":50}],413:[function(require,module,exports){
 'use strict';
 
 var React = window.React;
@@ -49180,7 +49202,7 @@ var buttonMixin = {
         label: types('string'),
         handleOnClick: types('function'),
         type: oneOf(['submit', 'button']),
-        shape: oneOf([undefined, 'raised', 'fab', 'mini', 'icon']),
+        shape: oneOf([undefined, 'raised', 'fab', 'mini', 'icon', 'mini-fab']),
         color: oneOf([undefined, 'colored', 'primary', 'accent']),
         hasRipple: types('bool'),
         isJs: types('bool'),
@@ -49258,10 +49280,10 @@ var buttonMixin = {
         var label = _props3.label;
         var shape = _props3.shape;
 
-        if (label && 'fab' !== shape) {
+        if (label && 'fab' !== shape && 'icon' !== shape && 'mini-fab' !== shape) {
             return this.i18n(label);
         }
-        return '';
+        return null;
     },
     /** inheritedDoc */
     render: function render() {
@@ -49282,7 +49304,7 @@ var buttonMixin = {
 
 module.exports = builder(buttonMixin);
 
-},{"../../../mixin/stylable":492,"../../i18n/mixin":436,"../../mixin/mdl-behaviour":455}],416:[function(require,module,exports){
+},{"../../../mixin/stylable":490,"../../i18n/mixin":434,"../../mixin/mdl-behaviour":453}],414:[function(require,module,exports){
 'use strict';
 
 var React = window.React;
@@ -49378,7 +49400,7 @@ var backToTopMixin = {
 
 module.exports = builder(backToTopMixin);
 
-},{"../../../mixin/stylable":492,"../../button/action":415,"../../i18n/mixin":436,"../../mixin/scroll":458}],417:[function(require,module,exports){
+},{"../../../mixin/stylable":490,"../../button/action":413,"../../i18n/mixin":434,"../../mixin/scroll":456}],415:[function(require,module,exports){
 // Dependencies
 
 'use strict';
@@ -49432,7 +49454,7 @@ var buttonBackMixin = {
 
 module.exports = builder(buttonBackMixin);
 
-},{"../../../mixin/stylable":492,"../../i18n/mixin":436,"../action":415}],418:[function(require,module,exports){
+},{"../../../mixin/stylable":490,"../../i18n/mixin":434,"../action":413}],416:[function(require,module,exports){
 'use strict';
 
 module.exports = {
@@ -49441,7 +49463,7 @@ module.exports = {
 	back: require('./back')
 };
 
-},{"./action":415,"./back":417,"./back-to-top":416}],419:[function(require,module,exports){
+},{"./action":413,"./back":415,"./back-to-top":414}],417:[function(require,module,exports){
 // see http://www.getmdl.io/components/index.html#layout-section/grid
 //dependencies
 'use strict';
@@ -49513,7 +49535,7 @@ Column.propTypes = {
 
 module.exports = Column;
 
-},{}],420:[function(require,module,exports){
+},{}],418:[function(require,module,exports){
 'use strict';
 
 var React = window.React;
@@ -49583,7 +49605,7 @@ var detailMixin = {
 
 module.exports = builder(detailMixin);
 
-},{"../../mixin/stylable":492,"../button/back-to-top":416,"../scrollspy":464}],421:[function(require,module,exports){
+},{"../../mixin/stylable":490,"../button/back-to-top":414,"../scrollspy":462}],419:[function(require,module,exports){
 //Dependencies.
 'use strict';
 
@@ -49638,7 +49660,7 @@ var displayCheckboxMixin = {
 
 module.exports = builder(displayCheckboxMixin);
 
-},{"../../i18n/mixin":436}],422:[function(require,module,exports){
+},{"../../i18n/mixin":434}],420:[function(require,module,exports){
 'use strict';
 
 module.exports = {
@@ -49646,7 +49668,7 @@ module.exports = {
   checkbox: require('./checkbox')
 };
 
-},{"./checkbox":421,"./text":423}],423:[function(require,module,exports){
+},{"./checkbox":419,"./text":421}],421:[function(require,module,exports){
 //Dependencies.
 'use strict';
 
@@ -49697,7 +49719,7 @@ var displayTextMixin = {
 
 module.exports = builder(displayTextMixin);
 
-},{}],424:[function(require,module,exports){
+},{}],422:[function(require,module,exports){
 'use strict';
 
 var builder = window.Focus.component.builder;
@@ -49710,7 +49732,7 @@ var emptyMixin = {
 
 module.exports = builder(emptyMixin);
 
-},{}],425:[function(require,module,exports){
+},{}],423:[function(require,module,exports){
 // Dependencies
 'use strict';
 
@@ -49798,7 +49820,7 @@ var FieldMixin = {
 };
 module.exports = builder(FieldMixin);
 
-},{"./mixin/built-in-components":426,"./mixin/validation-behaviour":427,"./mixin/value-behaviour":428}],426:[function(require,module,exports){
+},{"./mixin/built-in-components":424,"./mixin/validation-behaviour":425,"./mixin/value-behaviour":426}],424:[function(require,module,exports){
 // Dependencies
 
 'use strict';
@@ -49921,7 +49943,7 @@ var fieldBuiltInComponentsMixin = {
             onChange: this.onInputChange,
             ref: 'input'
         });
-        return React.createElement(this.props.SelectComponent, buildedSelectProps);
+        return React.createElement(this.props.InputComponent, buildedSelectProps);
     },
     /**
     * Render the display part of the component.
@@ -50002,7 +50024,7 @@ var fieldBuiltInComponentsMixin = {
 
 module.exports = fieldBuiltInComponentsMixin;
 
-},{"../../display/text":423,"../../input/text":445,"../../label":448,"../../mixin/field-grid-behaviour":453,"../../select/classic":467,"lodash/collection/find":62,"lodash/object/result":338,"object-assign":384}],427:[function(require,module,exports){
+},{"../../display/text":421,"../../input/text":443,"../../label":446,"../../mixin/field-grid-behaviour":451,"../../select/classic":465,"lodash/collection/find":62,"lodash/object/result":338,"object-assign":384}],425:[function(require,module,exports){
 'use strict';
 
 var i18nMixin = require('../../i18n').mixin;
@@ -50079,7 +50101,7 @@ var validationMixin = {
 };
 module.exports = validationMixin;
 
-},{"../../i18n":435,"lodash/lang":279}],428:[function(require,module,exports){
+},{"../../i18n":433,"lodash/lang":279}],426:[function(require,module,exports){
 'use strict';
 
 var _require = require('lodash/lang');
@@ -50136,7 +50158,7 @@ var valueBehaviourMixin = {
 };
 module.exports = valueBehaviourMixin;
 
-},{"lodash/lang":279}],429:[function(require,module,exports){
+},{"lodash/lang":279}],427:[function(require,module,exports){
 'use strict';
 
 var builder = window.Focus.component.builder;
@@ -50299,7 +50321,7 @@ var formMixin = {
 
 module.exports = builder(formMixin);
 
-},{"../mixin/built-in-components":450,"../mixin/definition":451,"../mixin/own-identifier":456,"../mixin/store-behaviour":459,"./mixin":431}],430:[function(require,module,exports){
+},{"../mixin/built-in-components":448,"../mixin/definition":449,"../mixin/own-identifier":454,"../mixin/store-behaviour":457,"./mixin":429}],428:[function(require,module,exports){
 'use strict';
 
 var assign = require('object-assign');
@@ -50391,7 +50413,7 @@ var actionMixin = {
 
 module.exports = actionMixin;
 
-},{"lodash/lang/isFunction":294,"lodash/object/omit":335,"object-assign":384}],431:[function(require,module,exports){
+},{"lodash/lang/isFunction":294,"lodash/object/omit":335,"object-assign":384}],429:[function(require,module,exports){
 'use strict';
 
 var referenceBehaviour = require('./reference-behaviour');
@@ -50404,7 +50426,7 @@ module.exports = {
     validationBehaviour: validationBehaviour
 };
 
-},{"./action-behaviour":430,"./reference-behaviour":432,"./validation-behaviour":433}],432:[function(require,module,exports){
+},{"./action-behaviour":428,"./reference-behaviour":430,"./validation-behaviour":431}],430:[function(require,module,exports){
 //Focus.reference.builder.loadListByName('papas').then(function(data){Focus.dispatcher.dispatch({action: {type: "update",data: {papas: data}}})})
 
 'use strict';
@@ -50471,7 +50493,7 @@ var referenceMixin = {
 
 module.exports = referenceMixin;
 
-},{"lodash/lang/isEmpty":290}],433:[function(require,module,exports){
+},{"lodash/lang/isEmpty":290}],431:[function(require,module,exports){
 //Dependencies.
 'use strict';
 
@@ -50540,7 +50562,7 @@ module.exports = {
     validate: validate
 };
 
-},{"lodash/lang":279,"object-assign":384}],434:[function(require,module,exports){
+},{"lodash/lang":279,"object-assign":384}],432:[function(require,module,exports){
 // see http://www.getmdl.io/components/index.html#layout-section/grid
 //dependencies
 'use strict';
@@ -50589,14 +50611,14 @@ Grid.propTypes = {
 Grid.displayName = 'Grid';
 module.exports = Grid;
 
-},{}],435:[function(require,module,exports){
+},{}],433:[function(require,module,exports){
 'use strict';
 
 module.exports = {
   mixin: require('./mixin')
 };
 
-},{"./mixin":436}],436:[function(require,module,exports){
+},{"./mixin":434}],434:[function(require,module,exports){
 /*global window*/
 /*todo check the library presence*/
 "use strict";
@@ -50616,7 +50638,7 @@ module.exports = {
     }
 };
 
-},{}],437:[function(require,module,exports){
+},{}],435:[function(require,module,exports){
 'use strict';
 
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
@@ -50669,7 +50691,7 @@ var iconMixin = {
 
 module.exports = builder(iconMixin);
 
-},{}],438:[function(require,module,exports){
+},{}],436:[function(require,module,exports){
 'use strict';
 
 var builder = window.Focus.component.builder;
@@ -50706,7 +50728,7 @@ var imgMixin = {
 
 module.exports = builder(imgMixin);
 
-},{}],439:[function(require,module,exports){
+},{}],437:[function(require,module,exports){
 'use strict';
 
 module.exports = {
@@ -50737,7 +50759,7 @@ module.exports = {
     column: require('./column')
 };
 
-},{"./autocomplete":413,"./block":414,"./button":418,"./column":419,"./detail":420,"./display":422,"./empty":424,"./field":425,"./form":429,"./grid":434,"./i18n":435,"./icon":437,"./img":438,"./input":442,"./label":448,"./list":449,"./mixin":454,"./panel":461,"./progress-bar":462,"./role":463,"./scrollspy":464,"./select":468,"./select-action":465,"./title":470,"./topic-displayer":471}],440:[function(require,module,exports){
+},{"./autocomplete":411,"./block":412,"./button":416,"./column":417,"./detail":418,"./display":420,"./empty":422,"./field":423,"./form":427,"./grid":432,"./i18n":433,"./icon":435,"./img":436,"./input":440,"./label":446,"./list":447,"./mixin":452,"./panel":459,"./progress-bar":460,"./role":461,"./scrollspy":462,"./select":466,"./select-action":463,"./title":468,"./topic-displayer":469}],438:[function(require,module,exports){
 'use strict';
 
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
@@ -50838,7 +50860,7 @@ var checkBoxMixin = {
 
 module.exports = builder(checkBoxMixin);
 
-},{"../../i18n/mixin":436,"../../mixin/field-grid-behaviour":453,"../../mixin/mdl-behaviour":455,"lodash/lang":279}],441:[function(require,module,exports){
+},{"../../i18n/mixin":434,"../../mixin/field-grid-behaviour":451,"../../mixin/mdl-behaviour":453,"lodash/lang":279}],439:[function(require,module,exports){
 // Dependencies.
 
 'use strict';
@@ -51015,7 +51037,7 @@ var InputDateMixin = {
 
 module.exports = builder(InputDateMixin);
 
-},{"../text":445,"react-bootstrap-daterangepicker":391}],442:[function(require,module,exports){
+},{"../text":443,"react-bootstrap-daterangepicker":389}],440:[function(require,module,exports){
 'use strict';
 
 module.exports = {
@@ -51028,7 +51050,7 @@ module.exports = {
     radio: require('./radio')
 };
 
-},{"./checkbox":440,"./date":441,"./markdown":443,"./radio":444,"./text":445,"./textarea":446,"./toggle":447}],443:[function(require,module,exports){
+},{"./checkbox":438,"./date":439,"./markdown":441,"./radio":442,"./text":443,"./textarea":444,"./toggle":445}],441:[function(require,module,exports){
 //Dependencies.
 'use strict';
 
@@ -51076,7 +51098,7 @@ var markdownEditorMixin = {
 
 module.exports = builder(markdownEditorMixin);
 
-},{}],444:[function(require,module,exports){
+},{}],442:[function(require,module,exports){
 'use strict';
 
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
@@ -51181,7 +51203,7 @@ var radioMixin = {
 
 module.exports = builder(radioMixin);
 
-},{"../../i18n/mixin":436,"../../mixin/field-grid-behaviour":453,"../../mixin/mdl-behaviour":455,"lodash/lang":279}],445:[function(require,module,exports){
+},{"../../i18n/mixin":434,"../../mixin/field-grid-behaviour":451,"../../mixin/mdl-behaviour":453,"lodash/lang":279}],443:[function(require,module,exports){
 // Dependencies.
 
 'use strict';
@@ -51323,7 +51345,7 @@ var inputTextComponent = {
 
 module.exports = builder(inputTextComponent);
 
-},{"../../mixin/mdl-behaviour":455,"object-assign":384}],446:[function(require,module,exports){
+},{"../../mixin/mdl-behaviour":453,"object-assign":384}],444:[function(require,module,exports){
 'use strict';
 
 var _require$component = window.Focus.component;
@@ -51421,7 +51443,7 @@ var textAreaMixin = {
 
 module.exports = builder(textAreaMixin);
 
-},{"../../i18n/mixin":436,"../../mixin/mdl-behaviour":455}],447:[function(require,module,exports){
+},{"../../i18n/mixin":434,"../../mixin/mdl-behaviour":453}],445:[function(require,module,exports){
 //Target
 /*
 <label>
@@ -51508,7 +51530,7 @@ var toggleMixin = {
 
 module.exports = builder(toggleMixin);
 
-},{"../../mixin/field-grid-behaviour":453}],448:[function(require,module,exports){
+},{"../../mixin/field-grid-behaviour":451}],446:[function(require,module,exports){
 // Dependencies
 
 'use strict';
@@ -51546,7 +51568,7 @@ var labelMixin = {
 
 module.exports = builder(labelMixin);
 
-},{"../../mixin/stylable":492,"../i18n/mixin":436}],449:[function(require,module,exports){
+},{"../../mixin/stylable":490,"../i18n/mixin":434}],447:[function(require,module,exports){
 
 //var SelectionList = Focus.components.list.selection.list.component;
 'use strict';
@@ -51586,7 +51608,7 @@ var MemoryListMixin = {
 
 module.exports = builder(MemoryListMixin);
 
-},{"../../list/mixin/memory-scroll":479,"lodash/object/omit":335,"object-assign":384}],450:[function(require,module,exports){
+},{"../../list/mixin/memory-scroll":477,"lodash/object/omit":335,"object-assign":384}],448:[function(require,module,exports){
 // Dependencies
 
 'use strict';
@@ -51801,7 +51823,7 @@ module.exports = {
     }
 };
 
-},{"../../list/selection":481,"../../list/table":485,"../button/action":415,"../display/text":423,"../field":425,"../list":449,"./field-component-behaviour":452,"object-assign":384}],451:[function(require,module,exports){
+},{"../../list/selection":479,"../../list/table":483,"../button/action":413,"../display/text":421,"../field":423,"../list":447,"./field-component-behaviour":450,"object-assign":384}],449:[function(require,module,exports){
 //Dependencies.
 /**
  * Accessor on the entity informations.
@@ -51829,7 +51851,7 @@ var definitionMixin = {
 
 module.exports = definitionMixin;
 
-},{}],452:[function(require,module,exports){
+},{}],450:[function(require,module,exports){
 'use strict';
 
 var assign = require('object-assign');
@@ -51898,7 +51920,7 @@ var fieldBehaviourMixin = {
         //Extend the options object in order to be able to specify more options to thie son's component.
         var fieldProps = assign(options, propsContainer);
         // Values list.
-        var refContainer = options.refContainer || context.state.reference;
+        var refContainer = options.refContainer || def.refContainer || context.state.reference;
         if (refContainer && refContainer[listName]) {
             assign(fieldProps, { values: refContainer[listName] });
         }
@@ -51908,7 +51930,7 @@ var fieldBehaviourMixin = {
 
 module.exports = fieldBehaviourMixin;
 
-},{"object-assign":384}],453:[function(require,module,exports){
+},{"object-assign":384}],451:[function(require,module,exports){
 'use strict';
 
 var types = window.Focus.component.types;
@@ -51971,7 +51993,7 @@ var fieldGridBehaviourMixin = {
 };
 module.exports = fieldGridBehaviourMixin;
 
-},{}],454:[function(require,module,exports){
+},{}],452:[function(require,module,exports){
 'use strict';
 
 module.exports = {
@@ -51984,7 +52006,7 @@ module.exports = {
   ownIdentifier: require('./own-identifier')
 };
 
-},{"./built-in-components":450,"./definition":451,"./field-component-behaviour":452,"./field-grid-behaviour":453,"./own-identifier":456,"./reference-property":457,"./store-behaviour":459}],455:[function(require,module,exports){
+},{"./built-in-components":448,"./definition":449,"./field-component-behaviour":450,"./field-grid-behaviour":451,"./own-identifier":454,"./reference-property":455,"./store-behaviour":457}],453:[function(require,module,exports){
 //https://github.com/google/material-design-lite/blob/master/src/mdlComponentHandler.js#L333
 "use strict";
 
@@ -52014,7 +52036,7 @@ var mdlBehaviourMixin = {
 
 module.exports = mdlBehaviourMixin;
 
-},{}],456:[function(require,module,exports){
+},{}],454:[function(require,module,exports){
 'use strict';
 
 var uuid = require('uuid');
@@ -52034,7 +52056,7 @@ module.exports = {
     }
 };
 
-},{"uuid":393}],457:[function(require,module,exports){
+},{"uuid":391}],455:[function(require,module,exports){
 'use strict';
 
 var type = window.Focus.component.types;
@@ -52064,7 +52086,7 @@ var referenceMixin = {
 };
 module.exports = referenceMixin;
 
-},{}],458:[function(require,module,exports){
+},{}],456:[function(require,module,exports){
 'use strict';
 
 var _require = require('lodash/lang');
@@ -52105,7 +52127,7 @@ function scrollTo(element, to) {
 
 module.exports = { scrollTo: scrollTo, scrollPosition: scrollPosition };
 
-},{"lodash/lang":279}],459:[function(require,module,exports){
+},{"lodash/lang":279}],457:[function(require,module,exports){
 'use strict';
 
 var capitalize = require('lodash/string/capitalize');
@@ -52247,7 +52269,7 @@ var storeMixin = {
 
 module.exports = storeMixin;
 
-},{"./store-change-behaviour":460,"lodash/lang":279,"lodash/object/keys":329,"lodash/string/capitalize":345,"object-assign":384}],460:[function(require,module,exports){
+},{"./store-change-behaviour":458,"lodash/lang":279,"lodash/object/keys":329,"lodash/string/capitalize":345,"object-assign":384}],458:[function(require,module,exports){
 'use strict';
 
 var message = window.Focus.message;
@@ -52328,7 +52350,7 @@ var changeBehaviourMixin = {
 };
 module.exports = changeBehaviourMixin;
 
-},{}],461:[function(require,module,exports){
+},{}],459:[function(require,module,exports){
 'use strict';
 
 var React = window.React;
@@ -52375,7 +52397,7 @@ var panelMixin = {
 };
 module.exports = builder(panelMixin);
 
-},{}],462:[function(require,module,exports){
+},{}],460:[function(require,module,exports){
 // Dependencies
 
 'use strict';
@@ -52441,7 +52463,7 @@ var Progress = {
 
 module.exports = builder(Progress);
 
-},{"../mixin/mdl-behaviour":455}],463:[function(require,module,exports){
+},{"../mixin/mdl-behaviour":453}],461:[function(require,module,exports){
 'use strict';
 
 var React = window.React;
@@ -52473,7 +52495,7 @@ var roleMixin = {
 
 module.exports = builder(roleMixin);
 
-},{"lodash/array/intersection":23,"lodash/lang/isArray":286}],464:[function(require,module,exports){
+},{"lodash/array/intersection":23,"lodash/lang/isArray":286}],462:[function(require,module,exports){
 // Dependencies
 'use strict';
 
@@ -52677,7 +52699,7 @@ var Scrollspy = {
 
 module.exports = builder(Scrollspy);
 
-},{"../../mixin/stylable":492,"../mixin/scroll":458,"lodash/array":6,"lodash/collection":50}],465:[function(require,module,exports){
+},{"../../mixin/stylable":490,"../mixin/scroll":456,"lodash/array":6,"lodash/collection":50}],463:[function(require,module,exports){
 'use strict';
 
 var builder = window.Focus.component.builder;
@@ -52702,7 +52724,7 @@ var Dropdown = {
         return {
             position: 'right',
             iconProps: {
-                name: 'ellipsis-v'
+                name: 'more_vert'
             },
             shape: 'icon',
             operationList: []
@@ -52803,7 +52825,7 @@ var Dropdown = {
 
 module.exports = builder(Dropdown);
 
-},{"../../common/button/action":415,"uuid":393}],466:[function(require,module,exports){
+},{"../../common/button/action":413,"uuid":391}],464:[function(require,module,exports){
 'use strict';
 
 var _require$component = window.Focus.component;
@@ -52841,7 +52863,8 @@ var selectCheckboxMixin = {
             values: types('array'),
             value: types('array'),
             valueKey: types('string'),
-            labelKey: types('string')
+            labelKey: types('string'),
+            onChange: types('func')
         };
     },
 
@@ -52854,14 +52877,16 @@ var selectCheckboxMixin = {
 
     /** @inheritdoc */
     componentWillReceiveProps: function componentWillReceiveProps(newProps) {
-        this.setState({ selectedValues: newProps.value });
+        if (newProps) {
+            this.setState({ selectedValues: newProps.value });
+        }
     },
 
     /**
     * Get the value from the select in the DOM.
     * @return {string} value
     */
-    getValues: function getValues() {
+    getValue: function getValue() {
         return this.state.selectedValues;
     },
 
@@ -52871,6 +52896,10 @@ var selectCheckboxMixin = {
      * @param  {[type]} newStatus the new status
      */
     _handleCheckboxChange: function _handleCheckboxChange(key, newStatus) {
+        if (this.props.onChange) {
+            this.props.onChange(key, newStatus);
+            return;
+        }
         var selectedValues = this.state.selectedValues;
         if (newStatus) {
             selectedValues.push(key);
@@ -52878,9 +52907,6 @@ var selectCheckboxMixin = {
             pull(selectedValues, key);
         }
         this.setState({ value: selectedValues });
-        if (this.props.onChange) {
-            this.props.onChange(event);
-        }
     },
     /**
      * Closure to capture key and checbox status.
@@ -52921,7 +52947,7 @@ var selectCheckboxMixin = {
 
 module.exports = builder(selectCheckboxMixin);
 
-},{"../../i18n/mixin":436,"../../input/checkbox":440,"lodash/array":6}],467:[function(require,module,exports){
+},{"../../i18n/mixin":434,"../../input/checkbox":438,"lodash/array":6}],465:[function(require,module,exports){
 //Dependencies.
 'use strict';
 
@@ -53078,7 +53104,7 @@ var selectMixin = {
 
 module.exports = builder(selectMixin);
 
-},{"../../../mixin/stylable":492,"../../i18n/mixin":436,"lodash/array/union":39,"lodash/lang":279}],468:[function(require,module,exports){
+},{"../../../mixin/stylable":490,"../../i18n/mixin":434,"lodash/array/union":39,"lodash/lang":279}],466:[function(require,module,exports){
 'use strict';
 
 module.exports = {
@@ -53087,7 +53113,7 @@ module.exports = {
   checkbox: require('./checkbox')
 };
 
-},{"./checkbox":466,"./classic":467,"./radio":469}],469:[function(require,module,exports){
+},{"./checkbox":464,"./classic":465,"./radio":467}],467:[function(require,module,exports){
 'use strict';
 
 var builder = window.Focus.component.builder;
@@ -53107,13 +53133,13 @@ var selectRadioMixin = {
     /**
     * Tag name.
     */
-    displayName: 'select-radio',
+    displayName: 'SelectRadio',
 
     /** @inheritdoc */
     getDefaultProps: function getDefaultProps() {
         return {
             values: [],
-            valueKey: 'value',
+            valueKey: 'code',
             labelKey: 'label'
         };
     },
@@ -53123,7 +53149,8 @@ var selectRadioMixin = {
         values: types('array'),
         value: types(['number', 'string']),
         valueKey: types('string'),
-        labelKey: types('string')
+        labelKey: types('string'),
+        handleOnChange: types('func')
     },
 
     /** @inheritdoc */
@@ -53154,11 +53181,14 @@ var selectRadioMixin = {
     * @param {object} event - the click event
     */
     _handleRadioChange: function _handleRadioChange(newValue) {
+        var handleOnChange = this.props.handleOnChange;
+
+        if (handleOnChange) {
+            handleOnChange(newValue);
+            return;
+        }
         //Set the state then call the change handler.
         this.setState({ value: newValue });
-        if (this.props.onChange) {
-            this.props.onChange(newValue);
-        }
     },
     /**
      * Closure to capture key and radio status.
@@ -53200,7 +53230,7 @@ var selectRadioMixin = {
 
 module.exports = builder(selectRadioMixin);
 
-},{"../../i18n/mixin":436,"../../input/radio":444,"../../mixin/mdl-behaviour":455,"lodash/utility":367}],470:[function(require,module,exports){
+},{"../../i18n/mixin":434,"../../input/radio":442,"../../mixin/mdl-behaviour":453,"lodash/utility":367}],468:[function(require,module,exports){
 // Dependencies
 'use strict';
 
@@ -53250,7 +53280,7 @@ var titleMixin = {
 
 module.exports = builder(titleMixin);
 
-},{"lodash/utility":367}],471:[function(require,module,exports){
+},{"lodash/utility":367}],469:[function(require,module,exports){
 // Dependencies
 
 'use strict';
@@ -53332,7 +53362,7 @@ var TopicDisplayer = {
 
 module.exports = builder(TopicDisplayer);
 
-},{"../button/action":415,"lodash/collection":50}],472:[function(require,module,exports){
+},{"../button/action":413,"lodash/collection":50}],470:[function(require,module,exports){
 // Dependencies
 
 'use strict';
@@ -53561,7 +53591,7 @@ var ActionBar = {
 
 module.exports = builder(ActionBar);
 
-},{"../../common/i18n/mixin":436,"../../common/select-action":465,"../../common/topic-displayer":471,"../action-contextual":474,"./style":473,"lodash/collection":50}],473:[function(require,module,exports){
+},{"../../common/i18n/mixin":434,"../../common/select-action":463,"../../common/topic-displayer":469,"../action-contextual":472,"./style":471,"lodash/collection":50}],471:[function(require,module,exports){
 'use strict';
 
 var style = {
@@ -53594,7 +53624,7 @@ var style = {
 
 module.exports = style;
 
-},{}],474:[function(require,module,exports){
+},{}],472:[function(require,module,exports){
 // Dependencies
 
 'use strict';
@@ -53679,18 +53709,19 @@ var actionContextualMixin = {
             var secondaryActions = actionLists.secondaryActionList;
 
             if (1 === operation.priority) {
-                primaryActions.push(React.createElement('buttonComponent', _extends({
+                primaryActions.push(React.createElement(_this.props.buttonComponent, _extends({
                     handleOnClick: _this._handleAction(key),
                     key: key,
                     label: operation.label,
-                    shape: operation.style.shape || 'raised',
-                    style: operation.style
+                    shape: operation.style.shape || 'icon',
+                    style: operation.style || {},
+                    type: 'button'
                 }, _this.props)));
             } else {
                 secondaryActions.push(operation);
             }
             return actionLists;
-        }, { primaryActionList: [], secondaryActionList: [] });
+        }, { primaryActionList: [], secondaryActionList: [] }, this);
 
         var primaryActionList = _reduce.primaryActionList;
         var secondaryActionList = _reduce.secondaryActionList;
@@ -53714,7 +53745,7 @@ var actionContextualMixin = {
 
 module.exports = builder(actionContextualMixin);
 
-},{"../../common/button/action":415,"../../common/select-action":465,"lodash/collection":50}],475:[function(require,module,exports){
+},{"../../common/button/action":413,"../../common/select-action":463,"lodash/collection":50}],473:[function(require,module,exports){
 'use strict';
 
 module.exports = {
@@ -53727,7 +53758,7 @@ module.exports = {
 	mixin: require('./mixin')
 };
 
-},{"./action-bar":472,"./action-contextual":474,"./mixin":477,"./selection":481,"./summary":484,"./table":485,"./timeline":488}],476:[function(require,module,exports){
+},{"./action-bar":470,"./action-contextual":472,"./mixin":475,"./selection":479,"./summary":482,"./table":483,"./timeline":486}],474:[function(require,module,exports){
 'use strict';
 
 var React = window.React;
@@ -53821,7 +53852,7 @@ var builtInComponentsMixin = {
 
 module.exports = builtInComponentsMixin;
 
-},{"../../common/display/text":423,"../../common/field":425,"../../common/mixin/field-component-behaviour":452,"object-assign":384}],477:[function(require,module,exports){
+},{"../../common/display/text":421,"../../common/field":423,"../../common/mixin/field-component-behaviour":450,"object-assign":384}],475:[function(require,module,exports){
 'use strict';
 
 module.exports = {
@@ -53831,7 +53862,7 @@ module.exports = {
     pagination: require('./pagination')
 };
 
-},{"./built-in-components":476,"./infinite-scroll":478,"./memory-scroll":479,"./pagination":480}],478:[function(require,module,exports){
+},{"./built-in-components":474,"./infinite-scroll":476,"./memory-scroll":477,"./pagination":478}],476:[function(require,module,exports){
 'use strict';
 
 var topOfElement = function topOfElement(element) {
@@ -53939,7 +53970,7 @@ var InfiniteScrollMixin = {
 
 module.exports = { mixin: InfiniteScrollMixin };
 
-},{"../mixin/pagination":480}],479:[function(require,module,exports){
+},{"../mixin/pagination":478}],477:[function(require,module,exports){
 "use strict";
 
 var memoryMixin = {
@@ -53994,7 +54025,7 @@ var memoryMixin = {
 
 module.exports = memoryMixin;
 
-},{}],480:[function(require,module,exports){
+},{}],478:[function(require,module,exports){
 'use strict';
 
 var type = window.Focus.component.types;
@@ -54042,7 +54073,7 @@ var paginationMixin = {
 
 module.exports = { mixin: paginationMixin };
 
-},{}],481:[function(require,module,exports){
+},{}],479:[function(require,module,exports){
 'use strict';
 
 module.exports = {
@@ -54050,7 +54081,7 @@ module.exports = {
     list: require('./list')
 };
 
-},{"./line":482,"./list":483}],482:[function(require,module,exports){
+},{"./line":480,"./list":481}],480:[function(require,module,exports){
 // Dependencies
 
 'use strict';
@@ -54257,7 +54288,7 @@ var lineMixin = {
 
 module.exports = { mixin: lineMixin };
 
-},{"../../common/i18n":435,"../../common/input/checkbox":440,"../../common/mixin/definition":451,"../../common/mixin/reference-property":457,"../action-contextual":474,"../mixin/built-in-components":476}],483:[function(require,module,exports){
+},{"../../common/i18n":433,"../../common/input/checkbox":438,"../../common/mixin/definition":449,"../../common/mixin/reference-property":455,"../action-contextual":472,"../mixin/built-in-components":474}],481:[function(require,module,exports){
 // Dependencies
 
 'use strict';
@@ -54464,7 +54495,7 @@ var listMixin = {
 
 module.exports = builder(listMixin);
 
-},{"../../common/button/action":415,"../../common/i18n":435,"../../common/mixin/reference-property":457,"../mixin/infinite-scroll":478,"lodash/collection/find":62,"lodash/object":313}],484:[function(require,module,exports){
+},{"../../common/button/action":413,"../../common/i18n":433,"../../common/mixin/reference-property":455,"../mixin/infinite-scroll":476,"lodash/collection/find":62,"lodash/object":313}],482:[function(require,module,exports){
 /**@jsx*/
 'use strict';
 
@@ -54566,7 +54597,7 @@ var listSummaryMixin = {
 
 module.exports = builder(listSummaryMixin);
 
-},{"../../common/button/action":415,"../../common/i18n/mixin":436,"../../common/topic-displayer":471,"../../mixin/stylable":492}],485:[function(require,module,exports){
+},{"../../common/button/action":413,"../../common/i18n/mixin":434,"../../common/topic-displayer":469,"../../mixin/stylable":490}],483:[function(require,module,exports){
 'use strict';
 
 module.exports = {
@@ -54574,7 +54605,7 @@ module.exports = {
     list: require('./list')
 };
 
-},{"./line":486,"./list":487}],486:[function(require,module,exports){
+},{"./line":484,"./list":485}],484:[function(require,module,exports){
 // Dependencies
 
 'use strict';
@@ -54652,7 +54683,7 @@ var lineMixin = {
 
 module.exports = { mixin: lineMixin };
 
-},{"../../common/i18n":435,"../../common/mixin/definition":451,"../../common/mixin/reference-property":457,"../action-contextual":474,"../mixin/built-in-components":476}],487:[function(require,module,exports){
+},{"../../common/i18n":433,"../../common/mixin/definition":449,"../../common/mixin/reference-property":455,"../action-contextual":472,"../mixin/built-in-components":474}],485:[function(require,module,exports){
 // Dependencies
 
 'use strict';
@@ -54881,7 +54912,7 @@ var tableMixin = {
 
 module.exports = builder(tableMixin);
 
-},{"../../common/button/action":415,"../../common/i18n":435,"../../common/mixin/mdl-behaviour":455,"../../common/mixin/reference-property":457,"../mixin/infinite-scroll":478,"lodash/collection":50,"lodash/object":313}],488:[function(require,module,exports){
+},{"../../common/button/action":413,"../../common/i18n":433,"../../common/mixin/mdl-behaviour":453,"../../common/mixin/reference-property":455,"../mixin/infinite-scroll":476,"lodash/collection":50,"lodash/object":313}],486:[function(require,module,exports){
 'use strict';
 
 module.exports = {
@@ -54889,7 +54920,7 @@ module.exports = {
     list: require('./list')
 };
 
-},{"./line":489,"./list":490}],489:[function(require,module,exports){
+},{"./line":487,"./list":488}],487:[function(require,module,exports){
 /**@jsx*/
 'use strict';
 
@@ -55009,7 +55040,7 @@ var lineMixin = {
 
 module.exports = { mixin: lineMixin };
 
-},{"../../common/i18n":435,"../../common/mixin/definition":451,"../../common/mixin/reference-property":457,"../mixin/built-in-components":476}],490:[function(require,module,exports){
+},{"../../common/i18n":433,"../../common/mixin/definition":449,"../../common/mixin/reference-property":455,"../mixin/built-in-components":474}],488:[function(require,module,exports){
 'use strict';
 
 var builder = window.Focus.component.builder;
@@ -55133,7 +55164,7 @@ var listMixin = {
 
 module.exports = builder(listMixin);
 
-},{"../../common/button/action":415,"../../common/i18n":435,"../../common/mixin/reference-property":457,"../mixin/infinite-scroll":478,"./line":489,"uuid":393}],491:[function(require,module,exports){
+},{"../../common/button/action":413,"../../common/i18n":433,"../../common/mixin/reference-property":455,"../mixin/infinite-scroll":476,"./line":487,"uuid":391}],489:[function(require,module,exports){
 'use strict';
 
 var _require$component = window.Focus.component;
@@ -55226,7 +55257,7 @@ var messageMixin = {
 };
 module.exports = builder(messageMixin);
 
-},{"../common/button/action":415,"../common/i18n/mixin":436}],492:[function(require,module,exports){
+},{"../common/button/action":413,"../common/i18n/mixin":434}],490:[function(require,module,exports){
 'use strict';
 
 var types = window.Focus.component.types;
@@ -55253,7 +55284,7 @@ module.exports = {
     }
 };
 
-},{}],493:[function(require,module,exports){
+},{}],491:[function(require,module,exports){
 'use strict';
 
 var saveBehaviour = require('./mixin/save-behaviour');
@@ -55265,7 +55296,7 @@ var detailMixin = {
 };
 module.exports = { mixin: detailMixin };
 
-},{"../mixin/cartridge-behaviour":498,"./mixin/save-behaviour":494,"./mixin/validate-behaviour":495}],494:[function(require,module,exports){
+},{"../mixin/cartridge-behaviour":496,"./mixin/save-behaviour":492,"./mixin/validate-behaviour":493}],492:[function(require,module,exports){
 'use strict';
 
 var isFunction = require('lodash/lang/isFunction');
@@ -55285,7 +55316,7 @@ module.exports = {
   }
 };
 
-},{"lodash/lang/isFunction":294,"object-assign":384}],495:[function(require,module,exports){
+},{"lodash/lang/isFunction":294,"object-assign":384}],493:[function(require,module,exports){
 'use strict';
 
 var _require = require('lodash/lang');
@@ -55315,7 +55346,7 @@ module.exports = {
   }
 };
 
-},{"lodash/lang":279,"object-assign":384}],496:[function(require,module,exports){
+},{"lodash/lang":279,"object-assign":384}],494:[function(require,module,exports){
 // Dependencies
 
 'use strict';
@@ -55345,7 +55376,7 @@ module.exports = {
   }
 };
 
-},{"./detail":493,"./list":497,"./mixin":499,"./search":510}],497:[function(require,module,exports){
+},{"./detail":491,"./list":495,"./mixin":497,"./search":508}],495:[function(require,module,exports){
 //The purpose of this module is to deal with autonomous lists.
 //If you need lists inside a form please see the listFor helper function in a form.
 //The following lists can
@@ -55476,7 +55507,7 @@ var listPageMixin = {
 
 module.exports = builder(listPageMixin);
 
-},{"../../list/table/list":487,"lodash/string":343,"object-assign":384}],498:[function(require,module,exports){
+},{"../../list/table/list":485,"lodash/string":343,"object-assign":384}],496:[function(require,module,exports){
 'use strict';
 
 var isFunction = require('lodash/lang/isFunction');
@@ -55510,14 +55541,14 @@ module.exports = {
   }
 };
 
-},{"../../common/empty":424,"lodash/lang/isFunction":294}],499:[function(require,module,exports){
+},{"../../common/empty":422,"lodash/lang/isFunction":294}],497:[function(require,module,exports){
 'use strict';
 
 module.exports = {
   cartridgeBehaviour: require('./cartridge-behaviour')
 };
 
-},{"./cartridge-behaviour":498}],500:[function(require,module,exports){
+},{"./cartridge-behaviour":496}],498:[function(require,module,exports){
 // Dependencies
 
 'use strict';
@@ -55632,7 +55663,7 @@ var Bar = {
 
 module.exports = builder(Bar);
 
-},{"../../../common/i18n/mixin":436,"../../../list/action-bar/index":472,"lodash/collection":50,"lodash/object":313}],501:[function(require,module,exports){
+},{"../../../common/i18n/mixin":434,"../../../list/action-bar/index":470,"lodash/collection":50,"lodash/object":313}],499:[function(require,module,exports){
 // Dependencies
 
 'use strict';
@@ -55698,7 +55729,7 @@ var Box = {
 
 module.exports = builder(Box);
 
-},{"../../../search/facet-box":520,"lodash/object/keys":329}],502:[function(require,module,exports){
+},{"../../../search/facet-box":518,"lodash/object/keys":329}],500:[function(require,module,exports){
 // Dependencies
 
 'use strict';
@@ -56026,7 +56057,7 @@ var AdvancedSearch = {
 
 module.exports = builder(AdvancedSearch);
 
-},{"../../../common/button/back-to-top":416,"../../mixin/cartridge-behaviour":498,"../common/component/results":508,"./action-bar":500,"./facet-box":501,"./list-summary":503,"./style":504,"lodash/string":343}],503:[function(require,module,exports){
+},{"../../../common/button/back-to-top":414,"../../mixin/cartridge-behaviour":496,"../common/component/results":506,"./action-bar":498,"./facet-box":499,"./list-summary":501,"./style":502,"lodash/string":343}],501:[function(require,module,exports){
 // Dependencies
 
 'use strict';
@@ -56085,7 +56116,7 @@ var Summary = {
 
 module.exports = builder(Summary);
 
-},{"../../../list/summary/index":484}],504:[function(require,module,exports){
+},{"../../../list/summary/index":482}],502:[function(require,module,exports){
 'use strict';
 
 var style = {
@@ -56104,7 +56135,7 @@ var style = {
 
 module.exports = style;
 
-},{}],505:[function(require,module,exports){
+},{}],503:[function(require,module,exports){
 // Dependencies
 
 'use strict';
@@ -56128,7 +56159,7 @@ var DefaultEmpty = {
 
 module.exports = builder(DefaultEmpty);
 
-},{"../../../../common/i18n/mixin":436}],506:[function(require,module,exports){
+},{"../../../../common/i18n/mixin":434}],504:[function(require,module,exports){
 // Dependencies
 
 'use strict';
@@ -56171,7 +56202,7 @@ var GroupWrapper = {
 
 module.exports = builder(GroupWrapper);
 
-},{"lodash/lang/clone":280}],507:[function(require,module,exports){
+},{"lodash/lang/clone":280}],505:[function(require,module,exports){
 'use strict';
 
 module.exports = {
@@ -56180,7 +56211,7 @@ module.exports = {
     results: require('./results')
 };
 
-},{"./default-empty-component":505,"./group-wrapper":506,"./results":508}],508:[function(require,module,exports){
+},{"./default-empty-component":503,"./group-wrapper":504,"./results":506}],506:[function(require,module,exports){
 // Dependencies
 
 'use strict';
@@ -56484,14 +56515,14 @@ var Results = {
 
 module.exports = builder(Results);
 
-},{"../../../../common/i18n/mixin":436,"../../../../list/selection":481,"./default-empty-component":505,"./group-wrapper":506,"lodash/collection/forEach":67,"lodash/collection/map":75,"lodash/collection/reduce":78,"lodash/lang/clone":280,"lodash/lang/isEqual":291,"lodash/object/assign":314,"lodash/object/keys":329,"lodash/object/omit":335}],509:[function(require,module,exports){
+},{"../../../../common/i18n/mixin":434,"../../../../list/selection":479,"./default-empty-component":503,"./group-wrapper":504,"lodash/collection/forEach":67,"lodash/collection/map":75,"lodash/collection/reduce":78,"lodash/lang/clone":280,"lodash/lang/isEqual":291,"lodash/object/assign":314,"lodash/object/keys":329,"lodash/object/omit":335}],507:[function(require,module,exports){
 'use strict';
 
 module.exports = {
     component: require('./component')
 };
 
-},{"./component":507}],510:[function(require,module,exports){
+},{"./component":505}],508:[function(require,module,exports){
 'use strict';
 
 module.exports = {
@@ -56501,7 +56532,7 @@ module.exports = {
     common: require('./common')
 };
 
-},{"./advanced-search":502,"./common":509,"./quick-search":511,"./search-header":515}],511:[function(require,module,exports){
+},{"./advanced-search":500,"./common":507,"./quick-search":509,"./search-header":513}],509:[function(require,module,exports){
 // Dependencies
 
 'use strict';
@@ -56716,7 +56747,7 @@ var QuickSearchComponent = {
 
 module.exports = builder(QuickSearchComponent);
 
-},{"../../../common/form/mixin/reference-behaviour":432,"../../../common/mixin/store-behaviour":459,"../../../search/search-bar":522,"../common/component/results":508,"./style":512}],512:[function(require,module,exports){
+},{"../../../common/form/mixin/reference-behaviour":430,"../../../common/mixin/store-behaviour":457,"../../../search/search-bar":520,"../common/component/results":506,"./style":510}],510:[function(require,module,exports){
 'use strict';
 
 var style = {
@@ -56728,7 +56759,7 @@ var style = {
 
 module.exports = style;
 
-},{}],513:[function(require,module,exports){
+},{}],511:[function(require,module,exports){
 "use strict";
 
 var DEFAULT_TIMEOUT = 500; // 0.5s
@@ -56759,7 +56790,7 @@ function actionWrapper(searchAction, context, timeout) {
 }
 module.exports = actionWrapper;
 
-},{}],514:[function(require,module,exports){
+},{}],512:[function(require,module,exports){
 // Components
 'use strict';
 
@@ -56783,7 +56814,7 @@ module.exports = React.createClass({
   }
 });
 
-},{"./mixin":516}],515:[function(require,module,exports){
+},{"./mixin":514}],513:[function(require,module,exports){
 'use strict';
 
 module.exports = {
@@ -56793,7 +56824,7 @@ module.exports = {
   mixin: require('./mixin')
 };
 
-},{"./action-wrapper":513,"./cartridge":514,"./mixin":516,"./summary":517}],516:[function(require,module,exports){
+},{"./action-wrapper":511,"./cartridge":512,"./mixin":514,"./summary":515}],514:[function(require,module,exports){
 // Mixins
 
 'use strict';
@@ -56863,7 +56894,7 @@ module.exports = {
     }
 };
 
-},{"../../../../common/form/mixin/reference-behaviour":432,"../../../../common/i18n":435,"../../../../common/mixin/store-behaviour":459,"../../../../search/search-bar":522}],517:[function(require,module,exports){
+},{"../../../../common/form/mixin/reference-behaviour":430,"../../../../common/i18n":433,"../../../../common/mixin/store-behaviour":457,"../../../../search/search-bar":520}],515:[function(require,module,exports){
 // Components
 'use strict';
 
@@ -56878,7 +56909,7 @@ module.exports = React.createClass({
     }
 });
 
-},{"./mixin":516}],518:[function(require,module,exports){
+},{"./mixin":514}],516:[function(require,module,exports){
 // Dependencies
 
 'use strict';
@@ -56930,7 +56961,7 @@ var FacetData = {
 
 module.exports = builder(FacetData);
 
-},{}],519:[function(require,module,exports){
+},{}],517:[function(require,module,exports){
 // Dependencies
 
 'use strict';
@@ -57087,7 +57118,7 @@ var Facet = {
 
 module.exports = builder(Facet);
 
-},{"../../common/i18n/mixin":436,"./facet-data":518,"lodash/object/keys":329}],520:[function(require,module,exports){
+},{"../../common/i18n/mixin":434,"./facet-data":516,"lodash/object/keys":329}],518:[function(require,module,exports){
 // Dependencies
 
 'use strict';
@@ -57272,7 +57303,7 @@ var FacetBox = {
 
 module.exports = builder(FacetBox);
 
-},{"../../common/i18n/mixin":436,"../../common/img":438,"../../mixin/stylable":492,"./facet":519,"lodash/object/omit":335,"object-assign":384}],521:[function(require,module,exports){
+},{"../../common/i18n/mixin":434,"../../common/img":436,"../../mixin/stylable":490,"./facet":517,"lodash/object/omit":335,"object-assign":384}],519:[function(require,module,exports){
 'use strict';
 
 module.exports = {
@@ -57280,7 +57311,7 @@ module.exports = {
   searchBar: require('./search-bar')
 };
 
-},{"./facet-box":520,"./search-bar":522}],522:[function(require,module,exports){
+},{"./facet-box":518,"./search-bar":520}],520:[function(require,module,exports){
 // Dependencies
 'use strict';
 
@@ -57480,7 +57511,7 @@ var SearchBar = {
 
 module.exports = builder(SearchBar);
 
-},{"../../common/i18n/mixin":436,"../../common/input/text":445,"../../mixin/stylable":492,"../../page/search/search-header/action-wrapper":513,"./scope":523}],523:[function(require,module,exports){
+},{"../../common/i18n/mixin":434,"../../common/input/text":443,"../../mixin/stylable":490,"../../page/search/search-header/action-wrapper":511,"./scope":521}],521:[function(require,module,exports){
 // Dependencies
 'use strict';
 
@@ -57665,7 +57696,7 @@ var scopeMixin = {
             { 'data-focus': 'search-bar-scope' },
             React.createElement(
                 'button',
-                { className: 'mdl-button mdl-js-button', id: 'dropdown' },
+                { className: 'mdl-button mdl-js-button', id: 'dropdown', onClick: this._handleDeployClick },
                 React.createElement(Icon, { name: deployedIcon }),
                 React.createElement(Icon, { name: activeIcon })
             ),
@@ -57675,7 +57706,7 @@ var scopeMixin = {
 };
 module.exports = builder(scopeMixin);
 
-},{"../../common/i18n/mixin":436,"../../common/icon":437,"../../common/select-action":465,"lodash/collection/find":62,"uuid":393}],524:[function(require,module,exports){
+},{"../../common/i18n/mixin":434,"../../common/icon":435,"../../common/select-action":463,"lodash/collection/find":62,"uuid":391}],522:[function(require,module,exports){
 //dependencies
 'use strict';
 
@@ -57733,7 +57764,7 @@ var CatalogListComponent = (function (_Component) {
 CatalogListComponent.displayName = 'Catalog';
 module.exports = CatalogListComponent;
 
-},{"./component-card":526}],525:[function(require,module,exports){
+},{"./component-card":524}],523:[function(require,module,exports){
 //dependencies
 'use strict';
 
@@ -57853,7 +57884,7 @@ ComponentSearch.propTypes = {
 
 module.exports = ComponentSearch;
 
-},{}],526:[function(require,module,exports){
+},{}],524:[function(require,module,exports){
 //dependencies
 'use strict';
 
@@ -57962,7 +57993,7 @@ ComponentCard.propTypes = {
 
 module.exports = ComponentCard;
 
-},{}],527:[function(require,module,exports){
+},{}],525:[function(require,module,exports){
 module.exports=[
     {
         "name": "bar",
@@ -58043,7 +58074,7 @@ module.exports=[
             "click",
             "shape"
         ],
-        "code": "const Button = FocusComponents.common.button.action.component;\n\nconst ButtonSample = React.createClass({\n    /**\n    * Render the component.\n    * @return {object} React node\n    */\n    render() {\n        return (\n            <div className='button-example'>\n                <Button label='Bouton primaire' type='button' handleOnClick={()=> alert('click bouton')}/>\n                <br /><br />\n                <Button icon='alarm' color='colored' label='Bouton primaire' shape='fab' type='button' handleOnClick={()=> alert('click bouton')}/>\n                <br /><br />\n                <Button icon='build' label='Bouton icone' type='button' handleOnClick={()=> alert('click bouton')}/>\n                <br /><br />\n                <Button icon='build' color='accent' label='Bouton accent' type='button' handleOnClick={()=> alert('click bouton')}/>\n                <br /><br />\n                <Button icon='mood' color='colored' shape='icon' type='button' handleOnClick={()=> alert('click bouton')}/>\n                <br /><br />\n                <Button icon='mood' color='announcement' shape='mini-fab' type='button' handleOnClick={()=> alert('click bouton')}/>\n            </div>\n        );\n    }\n});\n\nreturn <ButtonSample/>;\n"
+        "code": "const Button = FocusComponents.common.button.action.component;\n\nconst ButtonSample = React.createClass({\n    /**\n    * Render the component.\n    * @return {object} React node\n    */\n    render() {\n        return (\n            <div className='button-example'>\n                <Button label='Bouton primaire' type='button' handleOnClick={()=> alert('click bouton')}/>\n                <br /><br />\n                <Button icon='alarm' color='colored' label='Bouton primaire' shape='fab' type='button' handleOnClick={()=> alert('click bouton')}/>\n                <br /><br />\n                <Button icon='build' label='Bouton icone' type='button' handleOnClick={()=> alert('click bouton')}/>\n                <br /><br />\n                <Button icon='build' color='accent' label='Bouton accent' type='button' handleOnClick={()=> alert('click bouton')}/>\n                <br /><br />\n                <Button icon='mood' color='colored' label='iconbutton' shape='icon' type='button' handleOnClick={()=> alert('click bouton')}/>\n                <br /><br />\n                <Button icon='mood' label='minifabbutton' color='announcement' shape='mini-fab' type='button' handleOnClick={()=> alert('click bouton')}/>\n            </div>\n        );\n    }\n});\n\nreturn <ButtonSample/>;\n"
     },
     {
         "name": "back-to-top",
@@ -58115,7 +58146,7 @@ module.exports=[
             "checkbox",
             "block"
         ],
-        "code": "/***********************************************************************************************************************/\n// TODO PBN : refactor loading of init domains and ref in a global way\n//Load dependencies.\nvar domain = {\n  \"DO_TEXT\": {\n    style: \"do_text\",\n    type: \"text\",\n    component: \"PapaSinge\",\n    validator: [{\n      type: \"function\",\n      options:{\n          translationKey: 'domain.doTEXT.test'\n      },\n      value: function (d) {\n        return _.isString(d);\n      }\n    }]\n  },\n  \"DO_EMAIL\": {\n    style: \"do_email\",\n    type: \"email\",\n    component: \"PapaMail\",\n    validator: [{\n      type: \"function\",\n      value: function () {\n        return true;\n      }\n    }]\n  },\n  'DO_DATE': {\n    'InputComponent': FocusComponents.common.input.date.component,\n    'formatter': function (date) {\n      var monthNames = [\n        'January', \"February\", \"March\",\n        \"April\", \"May\", \"June\", \"July\",\n        \"August\", \"September\", \"October\",\n        \"November\", \"December\"\n      ];\n      date = new Date(date);\n      var day = date.getDate();\n      var monthIndex = date.getMonth();\n      var year = date.getFullYear();\n      return \"\" + day + \" \" + monthNames[monthIndex] + \" \" + year;\n    }\n\n  }\n};\nFocus.definition.domain.container.setAll(domain);\n/*global focus*/\nvar entities = {\n  \"contact\": {\n    \"firstName\": {\n      \"domain\": \"DO_TEXT\",\n      \"required\": false,\n      \"validator\": [{options:{translationKey: 'entityContactValidation.test'}, type:'function', value: function (data) {\n        return data.length <= 3 ? false : true;\n    }}]\n    },\n    \"lastName\": {\n      \"domain\": \"DO_TEXT\",\n      \"required\": true\n    },\n    \"age\": {\n      \"domain\": \"DO_NUMBER\",\n      \"required\": false,\n      \"type\": \"number\"\n    },\n    \"email\": {\n      \"domain\": \"DO_EMAIL\",\n      \"required\": false\n    },\n    \"bio\": {\n      \"domain\": \"DO_EMAIL\",\n      \"InputComponent\": FocusComponents.common.input.textarea.component\n    },\n    \"isCool\": {\n      \"domain\": \"DO_BOOLEAN\",\n      \"InputComponent\": FocusComponents.common.input.checkbox.component,\n      \"DisplayComponent\": FocusComponents.common.display.checkbox.component\n    },\n    \"isNice\": {\n      \"domain\": \"DO_BOOLEAN\",\n      \"FieldComponent\": FocusComponents.common.input.toggle.component\n    },\n    \"birthDate\": {\n      \"domain\": \"DO_DATE\",\n    }\n  },\n  \"commande\": {\n    \"name\": {\n      \"domain\": \"DO_TEXT\",\n      \"required\": true\n    },\n    \"number\": {\n      \"domain\": \"DO_NUMBER\",\n      \"required\": false,\n      \"type\": \"number\"\n    }\n  }\n};\nFocus.definition.entity.container.setEntityConfiguration(entities);\n\nfunction loadRefList(name) {\n  return function loadRef() {\n    var refLst = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9].map(function (cd) {\n      return {\n        code: ''+cd,\n        label: ('' + cd + ' ' + name)\n      };\n    });\n    return Promise.resolve(refLst);\n  };\n}\nfunction loadMonkeyList(){\n    return loadRefList('monkey')().then(function(data){\n        return data.map(function(element){\n            return {myCustomCode: element.code, myCustomLabel: element.label};\n        });\n    });\n}\n\nFocus.reference.config.set({papas: loadRefList('papas'), singe: loadRefList('singe'), monkeys: loadMonkeyList});\nFocus.definition.entity.container.setEntityConfiguration(entities);\n/***********************************************************************************************************************/\n\nconst actionBuilder = Focus.application.actionBuilder;\nconst Block = FocusComponents.common.block.component;\nconst formMixin = FocusComponents.common.form.mixin;\nconst Panel = FocusComponents.common.panel.component;\nconst MessageCenter = FocusComponents.application.messageCenter.component;\n\nconst ListLine = React.createClass({\n    mixins: [FocusComponents.list.selection.line.mixin],\n    definitionPath: \"commande\",\n    renderLineContent(data){\n        const firstName = this.displayFor(\"name\", {});\n        const lastName = this.displayFor(\"number\", {});\n        return <div>{firstName} {lastName}</div>;\n    }\n});\n\nconst contactStore = new Focus.store.CoreStore({\n    definition: {\n        'contact': 'contact',\n        'commandes': 'commande'\n    }\n});\n\nconst jsonContact= {\n    firstName: \"Zeus\",\n    lastName: \"God\",\n    isCool: true,\n    birthDate: new Date().toISOString(),\n    commandes: [{\n        name: \"commande1\",\n        number: \"1\"\n    }, {\n        name: \"commande2\",\n        number: \"2\"\n    }, {\n        name: \"commande3\",\n        number: \"3\"\n    }, {\n        name: \"commande4\",\n        number: \"4\"\n    }, {\n        name: \"commande5\",\n        number: \"5\"\n    }, {\n        name: \"commande6\",\n        number: \"6\"\n    }]\n};\n\nconst action = {\n    load: actionBuilder({\n        status: 'loaded',\n        node: 'contact',\n        service(){\n            return new Promise(function(s,e){\n                _.delay(function(){\n                    s(jsonContact);\n                }, 1);\n            })//Promise.resolve(jsonContact);\n        }\n    }),\n    save:actionBuilder({\n        status: 'saved',\n        preStatus: 'saving',\n        node: 'contact',\n        service(data){\n            console.log('save', data);\n            return Promise.resolve(data);\n        }\n    })\n};\n\nconst FormExample = React.createClass({\n    displayName: \"FormExample\",\n    mixins: [formMixin],\n    stores: [{\n        store: contactStore,\n        properties: [\"contact\", \"commandes\"],\n    }],\n    definitionPath: \"contact\",\n    action: action,\n    referenceNames: ['papas', 'monkeys'],\n\n    /**\n     * Render content form.\n     * @return {ReactDOMNode} node REACT\n     */\n    renderContent() {\n        return (\n            <Block title=\"Fiche de l'utilisateur\" actions={this._renderActions}>\n                {this.fieldFor(\"firstName\")}\n                {this.fieldFor(\"lastName\")}\n                {\n                    this.textFor(\"birthDate\", {\n                        formatter: function (date) {\n                            return \"formatted date\" + date\n                        }\n                    })\n                }\n                {this.fieldFor('papaCode', {listName: 'papas'})}\n                {this.fieldFor('monkeyCode', {listName: 'monkeys', valueKey: 'myCustomCode', labelKey: 'myCustomLabel' })}\n                {this.fieldFor(\"bio\")}\n                {this.fieldFor(\"isCool\")}\n                {this.fieldFor(\"isNice\")}\n                {this.fieldFor(\"birthDate\")}\n                {this.listFor(\"commandes\", {lineComponent: ListLine})}\n            </Block>\n        );\n    }\n});\n\nreturn (\n    <div>\n        <MessageCenter />\n        <FormExample isEdit={false}/>\n    </div>\n);\n"
+        "code": "/***********************************************************************************************************************/\n// TODO PBN : refactor loading of init domains and ref in a global way\n//Load dependencies.\nvar domain = {\n    \"DO_TEXT\": {\n        style: \"do_text\",\n        type: \"text\",\n        component: \"PapaSinge\",\n        validator: [{\n            type: \"function\",\n            options:{\n                translationKey: 'domain.doTEXT.test'\n            },\n            value: function (d) {\n                return _.isString(d);\n            }\n        }]\n    },\n    \"DO_EMAIL\": {\n        style: \"do_email\",\n        type: \"email\",\n        component: \"PapaMail\",\n        validator: [{\n            type: \"function\",\n            value: function () {\n                return true;\n            }\n        }]\n    },\n    'DO_DATE': {\n        'InputComponent': FocusComponents.common.input.date.component,\n        'formatter': function (date) {\n            var monthNames = [\n                'January', \"February\", \"March\",\n                \"April\", \"May\", \"June\", \"July\",\n                \"August\", \"September\", \"October\",\n                \"November\", \"December\"\n            ];\n            date = new Date(date);\n            var day = date.getDate();\n            var monthIndex = date.getMonth();\n            var year = date.getFullYear();\n            return \"\" + day + \" \" + monthNames[monthIndex] + \" \" + year;\n        }\n    },\n    'DO_OUI_NON': {\n        InputComponent: FocusComponents.common.select.radio.component,\n        refContainer: {ouiNonList: [{code: true, label: \"select.oui\"}, {code: false, label: \"select.non\"}]},\n        listName: 'ouiNonList'\n    }\n};\nFocus.definition.domain.container.setAll(domain);\n/*global focus*/\nvar entities = {\n    \"contact\": {\n        \"firstName\": {\n            \"domain\": \"DO_TEXT\",\n            \"required\": false,\n            \"validator\": [{options:{translationKey: 'entityContactValidation.test'}, type:'function', value: function (data) {\n                return data.length <= 3 ? false : true;\n            }}]\n        },\n        \"lastName\": {\n            \"domain\": \"DO_TEXT\",\n            \"required\": true\n        },\n        \"age\": {\n            \"domain\": \"DO_NUMBER\",\n            \"required\": false,\n            \"type\": \"number\"\n        },\n        \"email\": {\n            \"domain\": \"DO_EMAIL\",\n            \"required\": false\n        },\n        \"bio\": {\n            \"domain\": \"DO_EMAIL\",\n            \"InputComponent\": FocusComponents.common.input.textarea.component\n        },\n        \"isCool\": {\n            \"domain\": \"DO_OUI_NON\"\n        },\n        \"isNice\": {\n            \"domain\": \"DO_BOOLEAN\",\n            \"FieldComponent\": FocusComponents.common.input.toggle.component\n        },\n        \"birthDate\": {\n            \"domain\": \"DO_DATE\",\n        }\n    },\n    \"commande\": {\n        \"name\": {\n            \"domain\": \"DO_TEXT\",\n            \"required\": true\n        },\n        \"number\": {\n            \"domain\": \"DO_NUMBER\",\n            \"required\": false,\n            \"type\": \"number\"\n        }\n    }\n};\nFocus.definition.entity.container.setEntityConfiguration(entities);\n\nfunction loadRefList(name) {\n    return function loadRef() {\n        var refLst = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9].map(function (cd) {\n            return {\n                code: ''+cd,\n                label: ('' + cd + ' ' + name)\n            };\n        });\n        return Promise.resolve(refLst);\n    };\n}\nfunction loadMonkeyList(){\n    return loadRefList('monkey')().then(function(data){\n        return data.map(function(element){\n            return {myCustomCode: element.code, myCustomLabel: element.label};\n        });\n    });\n}\n\nFocus.reference.config.set({papas: loadRefList('papas'), singe: loadRefList('singe'), monkeys: loadMonkeyList});\nFocus.definition.entity.container.setEntityConfiguration(entities);\n/***********************************************************************************************************************/\n\nconst actionBuilder = Focus.application.actionBuilder;\nconst Block = FocusComponents.common.block.component;\nconst formMixin = FocusComponents.common.form.mixin;\nconst Panel = FocusComponents.common.panel.component;\nconst MessageCenter = FocusComponents.application.messageCenter.component;\n\nconst ListLine = React.createClass({\n    mixins: [FocusComponents.list.selection.line.mixin],\n    definitionPath: \"commande\",\n    renderLineContent(data){\n        const firstName = this.displayFor(\"name\", {});\n        const lastName = this.displayFor(\"number\", {});\n        return <div>{firstName} {lastName}</div>;\n    }\n});\n\nconst contactStore = new Focus.store.CoreStore({\n    definition: {\n        'contact': 'contact',\n        'commandes': 'commande'\n    }\n});\n\nconst jsonContact= {\n    firstName: \"Zeus\",\n    lastName: \"God\",\n    isCool: true,\n    birthDate: new Date().toISOString(),\n    commandes: [{\n        name: \"commande1\",\n        number: \"1\"\n    }, {\n        name: \"commande2\",\n        number: \"2\"\n    }, {\n        name: \"commande3\",\n        number: \"3\"\n    }, {\n        name: \"commande4\",\n        number: \"4\"\n    }, {\n        name: \"commande5\",\n        number: \"5\"\n    }, {\n        name: \"commande6\",\n        number: \"6\"\n    }]\n};\n\nconst action = {\n    load: actionBuilder({\n        status: 'loaded',\n        node: 'contact',\n        service(){\n            return new Promise(function(s,e){\n                _.delay(function(){\n                    s(jsonContact);\n                }, 1);\n            })//Promise.resolve(jsonContact);\n        }\n    }),\n    save:actionBuilder({\n        status: 'saved',\n        preStatus: 'saving',\n        node: 'contact',\n        service(data){\n            console.log('save', data);\n            return Promise.resolve(data);\n        }\n    })\n};\n\nconst FormExample = React.createClass({\n    displayName: \"FormExample\",\n    mixins: [formMixin],\n    stores: [{\n        store: contactStore,\n        properties: [\"contact\", \"commandes\"],\n    }],\n    definitionPath: \"contact\",\n    action: action,\n    referenceNames: ['papas', 'monkeys'],\n\n    /**\n    * Render content form.\n    * @return {ReactDOMNode} node REACT\n    */\n    renderContent() {\n        return (\n            <Block title=\"Fiche de l'utilisateur\" actions={this._renderActions}>\n            {this.fieldFor(\"firstName\")}\n            {this.fieldFor(\"lastName\")}\n            {\n                this.textFor(\"birthDate\", {\n                    formatter: function (date) {\n                        return \"formatted date\" + date\n                    }\n                })\n            }\n            {this.fieldFor('papaCode', {listName: 'papas'})}\n            {this.fieldFor('monkeyCode', {listName: 'monkeys', valueKey: 'myCustomCode', labelKey: 'myCustomLabel' })}\n            {this.fieldFor(\"bio\")}\n            {this.fieldFor(\"isCool\")}\n            {this.fieldFor(\"isNice\")}\n            {this.fieldFor(\"birthDate\")}\n            {this.listFor(\"commandes\", {lineComponent: ListLine})}\n            </Block>\n        );\n    }\n});\n\nreturn (\n    <div>\n    <MessageCenter />\n    <FormExample isEdit={false}/>\n    </div>\n);\n"
     },
     {
         "name": "icon",
@@ -58204,7 +58235,7 @@ module.exports=[
             "select",
             "checkbox"
         ],
-        "code": "\nconst SelectCheckbox = FocusComponents.common.select.checkbox.component;\n\nconst SelectCheckboxSample = React.createClass({\n\n    /**\n    * Handle click action to get check value.\n    */\n    handleGetValueClick(){\n        const values = this.refs.mySelectCheckbox.getValues();\n        alert('Selected values IDs: ' + values);\n    },\n\n\n    /**\n    * Render the component.\n    * @return {object} React node\n    */\n    render() {\n        return (\n            <div>\n                <h3>List of checkboxes</h3>\n                <SelectCheckbox\n                    values={[{value: \"A\", label: \"Value A\"},{value: \"B\", label: \"Value B\"}, {value: \"C\", label: \"Value C\"}, {value: \"D\", label: \"Value D\"}]} ref=\"mySelectCheckbox\" />\n                <h3>List of checkboxes with preselected values</h3>\n                <SelectCheckbox\n                    value={[\"B\"]}\n                    values={[{value: \"A\", label: \"Value A\"},{value: \"B\", label: \"Value B\"}, {value: \"C\", label: \"Value C\"}, {value: \"D\", label: \"Value D\"}]} ref=\"mySelectCheckbox\" />\n                <br />\n                <button onClick={this.handleGetValueClick}>Get the selected values</button>\n            </div>\n        );\n    }\n});\n\nreturn <SelectCheckboxSample />;\n"
+        "code": "const SelectCheckbox = FocusComponents.common.select.checkbox.component;\nconst {pull} = _;\n\nconst possibleValues = [{value: \"A\", label: \"Value A\"},{value: \"B\", label: \"Value B\"}, {value: \"C\", label: \"Value C\"}, {value: \"D\", label: \"Value D\"}];\n\nconst SelectCheckboxSample = React.createClass({\n\n    /**\n    * Handle click action to get check value.\n    */\n    handleGetValueClick(){\n        const values = this.refs.mySelectCheckbox.getValue();\n        alert('Selected values IDs: ' + values);\n    },\n\n\n    /** @inheritdoc */\n    getInitialState() {\n        return {\n            selectedValues: ['B']\n        };\n    },\n\n    /**\n    * Handle click action to get check value.\n    */\n    handleGetValueClick2(key, newStatus){\n        const selectedValues = this.state.selectedValues;\n        if(newStatus) {\n            selectedValues.push(key);\n        } else {\n            pull(selectedValues, key);\n        }\n        this.setState({value: selectedValues});\n        alert('Selected values IDs: ' + this.state.selectedValues);\n    },\n\n\n    /**\n    * Render the component.\n    * @return {object} React node\n    */\n    render() {\n        return (\n            <div>\n                <h3>List of checkboxes</h3>\n                <SelectCheckbox\n                    values={possibleValues} ref=\"mySelectCheckbox\" />\n                <h3>List of checkboxes with preselected values</h3>\n                <SelectCheckbox\n                    value={['B']}\n                    values={possibleValues} ref=\"mySelectCheckbox\" />\n                <br />\n                <button onClick={this.handleGetValueClick}>Get the selected values</button>\n                <h3>Add OnChange event</h3>\n                <SelectCheckbox\n                    value={this.state.selectedValues}\n                    values={possibleValues} ref=\"mySelectCheckbox2\" onChange={this.handleGetValueClick2} />\n            </div>\n        );\n    }\n});\n\nreturn <SelectCheckboxSample />;\n"
     },
     {
         "name": "select-radio",
@@ -58302,7 +58333,7 @@ module.exports=[
         "code": "//Components\nconst SearchBar = FocusComponents.search.searchBar.component;\n\n//stores\nconst store = Focus.search.builtInStore.quickSearchStore;\n\n//data\nconst scopes = [\n    {\n        code: 'face',\n        label: 'Utilisateurs'\n    },\n    {\n        code: 'extension',\n        label: 'Extensions'\n    },\n    {\n        code: 'contact_phone',\n        label: 'Contacts'\n    }\n];\n\n//config\nFocus.reference.config.set({\n    scopes() {\n        return new Promise(success => {\n            success([\n                {\n                    code: 'SCP1',\n                    label: 'Scope 1'\n                },\n                {\n                    code: 'SCP2',\n                    label: 'Scope 2'\n                },\n                {\n                    code: 'SCP3',\n                    label: 'Scope 3'\n                }\n            ]);\n        });\n    }\n});\n\nFocus.reference.builtInAction(['scopes'])();\n\nreturn <SearchBar scopes={scopes} store={store} />;\n"
     }
 ]
-},{}],528:[function(require,module,exports){
+},{}],526:[function(require,module,exports){
 // Dependencies
 
 'use strict';
@@ -58449,7 +58480,7 @@ ComponentCatalog.defaultProps = {
 
 module.exports = ComponentCatalog;
 
-},{"../../application/popin":410,"../../page/list":497,"../live-component":531,"./catalog-list":524,"./catalog-search":525,"./components.json":527,"lodash/collection":50}],529:[function(require,module,exports){
+},{"../../application/popin":408,"../../page/list":495,"../live-component":529,"./catalog-list":522,"./catalog-search":523,"./components.json":525,"lodash/collection":50}],527:[function(require,module,exports){
 'use strict';
 
 module.exports = {
@@ -58457,7 +58488,7 @@ module.exports = {
     layout: require('./layout')
 };
 
-},{"./catalog":528,"./layout":530}],530:[function(require,module,exports){
+},{"./catalog":526,"./layout":528}],528:[function(require,module,exports){
 // Dependencies
 
 'use strict';
@@ -58671,7 +58702,7 @@ var Layout = React.createClass({
 
 module.exports = Layout;
 
-},{"../../common/i18n/mixin":436}],531:[function(require,module,exports){
+},{"../../common/i18n/mixin":434}],529:[function(require,module,exports){
 // Dependencies
 
 'use strict';
@@ -58804,7 +58835,7 @@ var LiveExample = React.createClass({
 
 module.exports = LiveExample;
 
-},{"./live-editor":532,"./live-preview":533,"lodash/function":91}],532:[function(require,module,exports){
+},{"./live-editor":530,"./live-preview":531,"lodash/function":91}],530:[function(require,module,exports){
 // Dependencies
 
 'use strict';
@@ -58864,7 +58895,7 @@ var LiveEditor = React.createClass({
 
 module.exports = LiveEditor;
 
-},{"brace":2,"brace/mode/jsx":3,"brace/theme/github":5,"react-ace":385}],533:[function(require,module,exports){
+},{"brace":2,"brace/mode/jsx":3,"brace/theme/github":5,"react-ace":385}],531:[function(require,module,exports){
 /* globals babel */
 
 // Dependencies
