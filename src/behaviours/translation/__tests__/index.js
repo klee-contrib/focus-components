@@ -2,7 +2,7 @@ import TranslationBehaviour from '../';
 import React from 'react';
 import i18n from 'i18next';
 
-describe.only('The translation behaviour', () => {
+describe('The translation behaviour', () => {
     let renderedComponent;
     before((done) => {
         i18n.init({}, () => {
