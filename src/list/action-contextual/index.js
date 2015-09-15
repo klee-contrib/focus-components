@@ -66,12 +66,13 @@ const actionContextualMixin = {
             let {primaryActionList: primaryActions, secondaryActionList: secondaryActions} = actionLists;
             if (1 === operation.priority) {
                 primaryActions.push(
-                    <buttonComponent
+                    <this.props.buttonComponent
                         handleOnClick={this._handleAction(key)}
                         key={key}
                         label={operation.label}
-                        shape={operation.style.shape || 'raised'}
-                        style={operation.style}
+                        shape={operation.style.shape || 'icon'}
+                        style={operation.style || {}}
+                        type='button'
                         {...this.props}
                         />
                 );
@@ -79,7 +80,7 @@ const actionContextualMixin = {
                 secondaryActions.push(operation);
             }
             return actionLists;
-        }, {primaryActionList: [], secondaryActionList: []});
+        }, {primaryActionList: [], secondaryActionList: []}, this);
         return (
             <div className='list-action-contextual'>
                 <span>{primaryActionList}</span>
