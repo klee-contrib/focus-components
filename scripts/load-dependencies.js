@@ -53,7 +53,6 @@ function loadJS(){
         ]);
     })
     .then(()=>{return focusPromise(); })
-    .then(()=>{return loadScript(FOCUS_INIT); });
 }
 /**
  * Load all CSS dependencies.
