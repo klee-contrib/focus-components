@@ -28,7 +28,7 @@ const selectRadioMixin = {
         value: types(['number', 'string']),
         valueKey: types('string'),
         labelKey: types('string'),
-        handleOnChange: types('func')
+        onChange: types('func')
     },
 
     /** @inheritdoc */
@@ -59,9 +59,9 @@ const selectRadioMixin = {
     * @param {object} event - the click event
     */
     _handleRadioChange(newValue) {
-        const {handleOnChange} = this.props;
-        if(handleOnChange){
-            handleOnChange(newValue);
+        const {onChange} = this.props;
+        if(onChange){
+            onChange(newValue);
             return;
         }
         //Set the state then call the change handler.
