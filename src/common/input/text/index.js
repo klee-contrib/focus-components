@@ -3,6 +3,7 @@
 const {builder, types} = require('focusjs').component;
 const assign = require('object-assign');
 const mdlBehaviour = require('../../mixin/mdl-behaviour');
+const i18nBehaviour = require('../../i18n/mixin');
 
 /**
 * Identity function.
@@ -15,7 +16,7 @@ const identity = d => d;
 * @type {Object}
 */
 const inputTextComponent = {
-    mixins: [mdlBehaviour],
+    mixins: [mdlBehaviour, i18nBehaviour],
 
     /** @inheritdoc */
     getDefaultProps() {
@@ -102,7 +103,7 @@ const inputTextComponent = {
         return (
             <div className='mdl-textfield mdl-js-textfield' data-focus='input-text' style={style}>
                 <input className='mdl-textfield__input' ref='inputText' {...inputProps} pattern={pattern} />
-                <label className='mdl-textfield__label' htmlFor={name}>{placeHolder}</label>
+                <label className='mdl-textfield__label' htmlFor={name}>{this.i18n(placeHolder)}</label>
                 {error &&
                     <span className="mdl-textfield__error">{error}</span>
                 }
