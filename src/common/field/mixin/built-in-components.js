@@ -110,7 +110,7 @@ const fieldBuiltInComponentsMixin = {
             onChange: this.onInputChange,
             ref: 'input'
         });
-        return <this.props.InputComponent {...buildedSelectProps} />;
+        return <this.props.SelectComponent {...buildedSelectProps} />;
     },
     /**
     * Render the display part of the component.
