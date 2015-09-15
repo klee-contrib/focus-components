@@ -36,7 +36,7 @@ const buttonMixin = {
         label: types('string'),
         handleOnClick: types('function'),
         type: oneOf(['submit', 'button']),
-        shape: oneOf([undefined, 'raised', 'fab', 'mini', 'icon']),
+        shape: oneOf([undefined, 'raised', 'fab', 'mini', 'icon', 'mini-fab']),
         color: oneOf([undefined, 'colored', 'primary', 'accent']),
         hasRipple: types('bool'),
         isJs: types('bool'),
@@ -94,10 +94,10 @@ const buttonMixin = {
     */
     _renderLabel () {
         const {label, shape} = this.props;
-        if (label && 'fab' !== shape) {
+        if (label && 'fab' !== shape && 'icon' !== shape && 'mini-fab' !== shape ) {
             return this.i18n(label);
         }
-        return '';
+        return null;
     },
     /** inheritedDoc */
     render() {

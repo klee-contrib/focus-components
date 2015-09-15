@@ -30,6 +30,10 @@ $field-label-font-size:13px; //TODO TGN à revoir.
                 & > div {
                     width: $field-input-width-normal;
                 }
+
+                & > [data-focus="select-radio"] {
+                    width: auto;
+                }
             }
         }
         &[data-domain="DO_COMMENTAIRE"] {

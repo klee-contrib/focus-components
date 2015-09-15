@@ -26,7 +26,8 @@ const selectCheckboxMixin = {
             values: types('array'),
             value: types('array'),
             valueKey: types('string'),
-            labelKey: types('string')
+            labelKey: types('string'),
+            onChange: types('func')
         };
     },
 
@@ -39,14 +40,16 @@ const selectCheckboxMixin = {
 
     /** @inheritdoc */
     componentWillReceiveProps(newProps) {
-        this.setState({selectedValues: newProps.value});
+        if(newProps){
+            this.setState({selectedValues: newProps.value});
+        }
     },
 
     /**
     * Get the value from the select in the DOM.
     * @return {string} value
     */
-    getValues() {
+    getValue() {
         return this.state.selectedValues;
     },
 
@@ -56,6 +59,10 @@ const selectCheckboxMixin = {
      * @param  {[type]} newStatus the new status
      */
     _handleCheckboxChange(key, newStatus) {
+        if(this.props.onChange) {
+            this.props.onChange(key, newStatus);
+            return;
+        }
         const selectedValues = this.state.selectedValues;
         if(newStatus) {
             selectedValues.push(key);
@@ -63,9 +70,6 @@ const selectCheckboxMixin = {
             pull(selectedValues, key);
         }
         this.setState({value: selectedValues});
-        if(this.props.onChange) {
-            this.props.onChange(event);
-        }
     },
     /**
      * Closure to capture key and checbox status.
