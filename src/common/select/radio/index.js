@@ -11,13 +11,13 @@ const selectRadioMixin = {
     /**
     * Tag name.
     */
-    displayName: 'select-radio',
+    displayName: 'SelectRadio',
 
     /** @inheritdoc */
     getDefaultProps() {
         return {
             values: [],
-            valueKey: 'value',
+            valueKey: 'code',
             labelKey: 'label'
         };
     },
@@ -27,7 +27,8 @@ const selectRadioMixin = {
         values: types('array'),
         value: types(['number', 'string']),
         valueKey: types('string'),
-        labelKey: types('string')
+        labelKey: types('string'),
+        handleOnChange: types('func')
     },
 
     /** @inheritdoc */
@@ -58,13 +59,13 @@ const selectRadioMixin = {
     * @param {object} event - the click event
     */
     _handleRadioChange(newValue) {
-        if(this.props.onChange){
-            this.props.onChange(newValue);
+        const {handleOnChange} = this.props;
+        if(handleOnChange){
+            handleOnChange(newValue);
             return;
         }
         //Set the state then call the change handler.
         this.setState({value: newValue});
-
     },
     /**
      * Closure to capture key and radio status.
