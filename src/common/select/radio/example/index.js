@@ -19,7 +19,7 @@ const SelectRadioSample = React.createClass({
             <div>
                 <SelectRadio
                     value='B'
-                    values={[{value: "A", label: "Value A"}, {value: "B", label: "Value B"}, {value: "C", label: "Value C"}]} ref="mySelectRadio" />
+                    values={[{code: "A", label: "Value A"}, {code: "B", label: "Value B"}, {code: "C", label: "Value C"}]} ref="mySelectRadio" />
                 <br/>
                 <button onClick={this.handleGetValueClick}>Get the selected value</button>
             </div>);

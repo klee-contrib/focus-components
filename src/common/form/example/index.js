@@ -44,7 +44,7 @@ var domain = {
         }
     },
     'DO_OUI_NON': {
-        InputComponent: FocusComponents.common.select.radio.component,
+        SelectComponent: FocusComponents.common.select.radio.component,
         refContainer: {ouiNonList: [{code: true, label: "select.oui"}, {code: false, label: "select.non"}]},
         listName: 'ouiNonList'
     }
