@@ -3,7 +3,8 @@
 const React = require('react');
 const changeMode = require('focus').application.changeMode;
 const assign = require('object-assign');
-
+const result = require('lodash/object/result');
+const find = require('lodash/collection/find');
 // Components
 
 const Field = require('../field').component;
@@ -12,6 +13,7 @@ const Button = require('../button/action').component;
 const MemoryList = require('../list').component;
 const Table = require('../../list/table').list.component;
 const List = require('../../list/selection').list.component;
+
 
 // Mixins
 
@@ -72,13 +74,16 @@ module.exports = {
     textFor(name, options){
         options = options || {};
         const def = (this.definition && this.definition[name]) ? this.definition[name] : {};
+        const fieldProps = this._buildFieldProps(name, options, this);
+        const value = this.state[name];
+        const {valueKey, labelKey, values} = fieldProps;
+        const _processValue = values ? result(find(values, {[valueKey || 'code']: value}), labelKey || 'label') : value;
         return (
             <Text
-                FieldComponent={def.FieldComponent}
                 formatter={options.formatter || def.formatter}
                 name={options.name || `${this.definitionPath}.${name}`}
                 style={options.style}
-                value={this.state[name]}
+                value={_processValue}
                 />
         );
     },
