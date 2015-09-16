@@ -1,9 +1,11 @@
 //Dependencies.
-var builder = require('focusjs').component.builder;
-var React = require('react');
+const builder = require('focusjs').component.builder;
+const React = require('react');
+const ReactDOM = require('react-dom');
 
 
-var markdownEditorMixin = {
+
+const markdownEditorMixin = {
   /** @inherideddoc */
   getInitialState: function getMarkdownInitialState() {
     return {value: this.props.value};
@@ -18,11 +20,11 @@ var markdownEditorMixin = {
    * Handle the change of the value.
    */
   handleChange: function handleMarkdownChange() {
-    this.setState({value: React.findDOMNode(this.refs.textarea).value});
+    this.setState({value: ReactDOM.findDOMNode(this.refs.textarea).value});
   },
   /** @inherideddoc */
   render: function renderMarkdownComponent() {
-    var converter = window.Showdown ? function(data){ console.warn('showdown should be imported/'); return data; } : new window.Showdown.converter();
+    const converter = window.Showdown ? function(data){ console.warn('showdown should be imported/'); return data; } : new window.Showdown.converter();
     return (
       <div className="MarkdownEditor">
         <textarea

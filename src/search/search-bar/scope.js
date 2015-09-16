@@ -1,4 +1,7 @@
 // Dependencies
+const React = require('react');
+const ReactDOM = require('react-dom');
+ 
 const builder = require('focusjs').component.builder;
 const type = require('focusjs').component.types;
 const uuid = require('uuid');
@@ -73,8 +76,8 @@ const scopeMixin = {
     * Called when component is mounted.
     */
     componentDidMount() {
-        if (React.findDOMNode(this.refs.dropdown)) {
-            componentHandler.upgradeElement(React.findDOMNode(this.refs.dropdown));
+        if (ReactDOM.findDOMNode(this.refs.dropdown)) {
+            componentHandler.upgradeElement(ReactDOM.findDOMNode(this.refs.dropdown));
         }
     },
     /**
@@ -82,16 +85,16 @@ const scopeMixin = {
      * @param {Object} nextProps the next props
      */
     componentWillReceiveProps(nextProps) {
-        if (React.findDOMNode(this.refs.scopeDropdown)) {
-            componentHandler.upgradeElement(React.findDOMNode(this.refs.scopeDropdown));
+        if (ReactDOM.findDOMNode(this.refs.scopeDropdown)) {
+            componentHandler.upgradeElement(ReactDOM.findDOMNode(this.refs.scopeDropdown));
         }
     },
     /**
     * Called before component is unmounted.
     */
     componentWillUnmount() {
-        if (React.findDOMNode(this.refs.scopeDropdown)) {
-            componentHandler.downgradeElements(React.findDOMNode(this.refs.scopeDropdown));
+        if (ReactDOM.findDOMNode(this.refs.scopeDropdown)) {
+            componentHandler.downgradeElements(ReactDOM.findDOMNode(this.refs.scopeDropdown));
         }
     },
     /**

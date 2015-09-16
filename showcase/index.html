@@ -17,7 +17,7 @@
     loadAssets().then((d)=>{
         const Showcase = FocusComponents.showcase.layout;
         const Catalog = FocusComponents.showcase.catalog;
-        React.render(<Showcase title='Component catalog'><Catalog /></Showcase>, document.querySelector("body"));
+        ReactDOM.render(<Showcase title='Component catalog'><Catalog /></Showcase>, document.querySelector("body"));
     });
     </script>
 </body>

@@ -1,4 +1,6 @@
 // Dependencies
+const React = require('react');
+const ReactDOM = require('react-dom');
 
 const {builder} = require('focusjs').component;
 
@@ -18,7 +20,7 @@ const Progress = {
         };
     },
     componentDidMount() {
-        const bar = React.findDOMNode(this.refs.bar);
+        const bar = ReactDOM.findDOMNode(this.refs.bar);
         if (bar) {
             bar.MaterialProgress.setProgress(0);
             bar.MaterialProgress.setBuffer(100);
@@ -35,7 +37,7 @@ const Progress = {
         if (100 < completed) {
             completed = 100;
         }
-        const bar = React.findDOMNode(this.refs.bar);
+        const bar = ReactDOM.findDOMNode(this.refs.bar);
         if (bar) {
             bar.MaterialProgress.setProgress(completed);
             bar.MaterialProgress.setBuffer(100);

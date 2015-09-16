@@ -8,7 +8,8 @@ const GOOGLE_MATERIAL_JS = 'https://storage.googleapis.com/code.getmdl.io/1.0.4/
  GOOGLE_MATERIAL_FONT = 'https://fonts.googleapis.com/icon?family=Material+Icons',
  GOOGLE_FONT_ROBOTO = 'https://fonts.googleapis.com/css?family=Roboto:regular,bold,italic,thin,light,bolditalic,black,medium&amp;lang=en';
 //React
-const REACT_JS = 'https://fb.me/react-0.13.3.js',
+const REACT_JS = 'https://fb.me/react-with-addons-0.14.0-rc1.js',
+REACT_DOM_JS = 'https://fb.me/react-dom-0.14.0-rc1.js',
 BABEL_TRANSFORMER = 'https://cdnjs.cloudflare.com/ajax/libs/babel-core/5.6.15/browser.js';
 //Lodash
 const LODASH = 'https://cdnjs.cloudflare.com/ajax/libs/lodash.js/3.9.3/lodash.js';
@@ -44,6 +45,7 @@ function loadJS(){
     ])
     .then(()=>{
         return Promise.all([
+            loadScript(REACT_DOM_JS),
             loadScript(GOOGLE_MATERIAL_JS),
             loadScript(BACKBONE),
             loadScript(I18N),
@@ -76,7 +78,7 @@ function loadAssets(){
     return Promise.all([loadJS(), loadCSS()]).then((s)=>{
         console.info('All style and scripts loaded', s);
     }, (err)=>{
-        console.error('A problem occurs on the loadin of one or sevral scripts of style files.', err);
+        console.error('A problem occured while loading one or several style files scripts.', err);
     });
 }
 

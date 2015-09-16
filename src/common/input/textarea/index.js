@@ -1,5 +1,6 @@
 const {builder, types} = require('focusjs').component;
 const React = require('react');
+const ReactDOM = require('react-dom');
 const i18nBehaviour = require('../../i18n/mixin');
 const mdlBehaviour = require('../../mixin/mdl-behaviour');
 
@@ -56,7 +57,7 @@ const textAreaMixin = {
     * Get the value from the input in the DOM.
     */
     getValue: function getTextAreaValue() {
-        return this.getDOMNode().value;
+        return ReactDOM.findDOMNode(this).value;
     },
     /**
     * Render the Checkbox HTML.

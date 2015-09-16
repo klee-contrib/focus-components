@@ -1,6 +1,7 @@
 // Dependencies
 
 const React = require('react');
+const ReactDOM = require('react-dom');
 const builder = require('focusjs').component.builder;
 const types = require('focusjs').component.types;
 const ArgumentInvalidException = require('focusjs').exception.ArgumentInvalidException;
@@ -21,7 +22,7 @@ const Overlay = React.createClass({
      * Add a listener to the mouse wheel, to spy the scroll.
      */
     componentDidMount() {
-        React.findDOMNode(this.refs.overlay).addEventListener('mousewheel', this._onScroll);
+        ReactDOM.findDOMNode(this.refs.overlay).addEventListener('mousewheel', this._onScroll);
     },
     /**
      * Store the body overgflow property, and set it to hidden
@@ -43,7 +44,7 @@ const Overlay = React.createClass({
      * Remove the mouse wheel listener.
      */
     componentWillUnmount() {
-        React.findDOMNode(this.refs.overlay).removeEventListener('mousewheel', this._onScroll);
+        ReactDOM.findDOMNode(this.refs.overlay).removeEventListener('mousewheel', this._onScroll);
     },
     /**
      * Mouse wheel event handler.
@@ -126,7 +127,7 @@ const popin = {
      * @param  {object} event wheel event
      */
     _onWheel(event) {
-        React.findDOMNode(this.refs['popin-window']).scrollTop += 0 < event.deltaY ? 100 : -100;
+        ReactDOM.findDOMNode(this.refs['popin-window']).scrollTop += 0 < event.deltaY ? 100 : -100;
     },
     /**
      * Toggle the popin's open state
@@ -136,8 +137,8 @@ const popin = {
         const {opened} = this.state;
         const {onPopinClose} = this.props;
         if (opened) {
-            const popinWindow = React.findDOMNode(this.refs['popin-window']);
-            const popinOverlay = React.findDOMNode(this.refs['popin-overlay']);
+            const popinWindow = ReactDOM.findDOMNode(this.refs['popin-window']);
+            const popinOverlay = ReactDOM.findDOMNode(this.refs['popin-overlay']);
             popinWindow.classList.remove(popinWindow.getAttribute('data-animation'));
             popinWindow.classList.add(popinWindow.getAttribute('data-closing-animation'));
             popinOverlay.classList.remove(popinOverlay.getAttribute('data-animation'));

@@ -1,6 +1,7 @@
 // Dependencies
-const builder = require('focusjs').component.builder;
-const types = require('focusjs').component.types;
+const React = require('react');
+const ReactDOM = require('react-dom');
+const {builder, types} = require('focusjs').component;
 
 // Mixins
 const Stylabe = require('../../mixin/stylable');
@@ -151,7 +152,7 @@ const Scrollspy = {
         //save current state
         const {scrollSpy} = this.refs;
         if(scrollSpy){
-            const componentTopPosition = React.findDOMNode(scrollSpy).offsetTop;
+            const componentTopPosition = ReactDOM.findDOMNode(scrollSpy).offsetTop;
             this.setState({
                 activeTitleId: currentId,
                 affix: componentTopPosition + this.props.affixOffset < scrollposition.top
