@@ -103,7 +103,7 @@ const buttonMixin = {
     render() {
         const {id, type, label, style} = this.props;
         return (
-            <button alt={label} className={this._className()} data-focus="button-action" id={id} onClick={this.handleOnClick} style={style} title={label} type={type}>
+            <button alt={this.i18n(label)} className={this._className()} data-focus="button-action" id={id} onClick={this.handleOnClick} style={style} title={this.i18n(label)} type={type}>
                 {this._renderIcon()}
                 {this._renderLabel()}
             </button>
