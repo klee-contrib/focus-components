@@ -7,7 +7,7 @@ const InputTextExample =  React.createClass({
         };
     },
     getInitialState(){
-            return {inputWithValue: 'myAwesomeValue'};
+            return {inputWithValue: 'myAwesomeValue', inputWithError: 'errorValue'};
     },
     render(){
         const {inputWithValue, inputWithoutValue, inputWithError, inputGetTheValue} =  this.state;
