@@ -86,7 +86,7 @@ let listPageMixin = {
         let {props, state} = this;
         let {dataList, totalCount} = state;
         dataList = dataList || [];
-        return assign(props, state, {
+        return assign({}, props, state, {
             data: dataList,
             fetchNextPage: this._action.load,
             hasMoreData: dataList.length < totalCount
