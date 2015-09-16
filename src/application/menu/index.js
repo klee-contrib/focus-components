@@ -46,7 +46,6 @@ const Menu = {
                 clickHandler = link.onClick;
             }
             const buttonProps = {
-                handleOnClick: clickHandler,
                 icon: link.icon,
                 style: link.style,
                 option: 'link',
@@ -54,7 +53,7 @@ const Menu = {
                 type: 'button'
             };
             return (
-                <li key={idx}>
+                <li key={idx} onClick={clickHandler}>
                     <Button {...buttonProps} />
                     <span>{link.name}</span>
                 </li>

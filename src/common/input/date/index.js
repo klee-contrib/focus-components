@@ -97,7 +97,12 @@ const InputDateMixin = {
     * @return {object} selected date
     */
     getValue() {
-        return moment(this.state.rawDate).toISOString();
+        const {inputDate, rawDate} = this.state;
+        if (!inputDate) {
+            return null;
+        } else {
+            return moment(rawDate).toISOString();
+        }
     },
     /**
      * Get formatted value.
@@ -128,6 +133,10 @@ const InputDateMixin = {
             this.setState({
                 inputDate,
                 rawDate: moment(inputDate)
+            });
+        } else if ('' === inputDate) {
+            this.setState({
+                inputDate: null
             });
         } else {
             this.setState({

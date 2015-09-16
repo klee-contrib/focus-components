@@ -1,13 +1,50 @@
+const actionBuilder = Focus.application.actionBuilder;
+const Block = FocusComponents.common.block.component;
+const formMixin = FocusComponents.common.form.mixin;
+const Panel = FocusComponents.common.panel.component;
+const MessageCenter = FocusComponents.application.messageCenter.component;
+
+/***********************************************************************************************************************/
+/* to test internationalisation. */
+var resources = {
+  dev: {
+      translation: {
+          'button': {
+              'edit': 'Editer',
+              'save': 'Sauvegarder',
+              'cancel': 'Abandonner'
+          },
+          'select': {
+              'yes': 'Oui',
+              'no': 'Non',
+              'unSelected': '-'
+          },
+          'contact': {
+              'firstName': 'Prénom',
+              'lastName': 'Nom',
+              'papaCOde': 'Le code du papa',
+              'monkeyCode': 'Le code du singe',
+              'bio': 'Biography',
+              'isCool': 'Est-il cool ?',
+              'isNice': 'Est-il gentil ?',
+              'birthDate': 'Date de naissance'
+          }
+      }
+  }
+};
+
+i18n.init({resStore: resources});
+
 /***********************************************************************************************************************/
 // TODO PBN : refactor loading of init domains and ref in a global way
 //Load dependencies.
 var domain = {
-    "DO_TEXT": {
-        style: "do_text",
-        type: "text",
-        component: "PapaSinge",
+    'DO_TEXT': {
+        style: 'do_text',
+        type: 'text',
+        component: 'PapaSinge',
         validator: [{
-            type: "function",
+            type: 'function',
             options:{
                 translationKey: 'domain.doTEXT.test'
             },
@@ -16,12 +53,12 @@ var domain = {
             }
         }]
     },
-    "DO_EMAIL": {
-        style: "do_email",
-        type: "email",
-        component: "PapaMail",
+    'DO_EMAIL': {
+        style: 'do_email',
+        type: 'email',
+        component: 'PapaMail',
         validator: [{
-            type: "function",
+            type: 'function',
             value: function () {
                 return true;
             }
@@ -30,23 +67,23 @@ var domain = {
     'DO_DATE': {
         'InputComponent': FocusComponents.common.input.date.component,
         'formatter': function (date) {
-            var monthNames = [
-                'January', "February", "March",
-                "April", "May", "June", "July",
-                "August", "September", "October",
-                "November", "December"
+            const monthNames = [
+                'January', 'February', 'March',
+                'April', 'May', 'June', 'July',
+                'August', 'September', 'October',
+                'November', 'December'
             ];
             date = new Date(date);
-            var day = date.getDate();
-            var monthIndex = date.getMonth();
-            var year = date.getFullYear();
+            const day = date.getDate();
+            const monthIndex = date.getMonth();
+            const year = date.getFullYear();
             return "" + day + " " + monthNames[monthIndex] + " " + year;
         }
     },
     'DO_OUI_NON': {
-        InputComponent: FocusComponents.common.select.radio.component,
-        refContainer: {ouiNonList: [{code: true, label: "select.oui"}, {code: false, label: "select.non"}]},
-        listName: 'ouiNonList'
+        SelectComponent: FocusComponents.common.select.radio.component,
+        refContainer: {yesNoList: [{code: true, label: "select.yes"}, {code: false, label: "select.no"}]},
+        listName: 'yesNoList'
     }
 };
 Focus.definition.domain.container.setAll(domain);
@@ -121,15 +158,10 @@ function loadMonkeyList(){
     });
 }
 
+
 Focus.reference.config.set({papas: loadRefList('papas'), singe: loadRefList('singe'), monkeys: loadMonkeyList});
 Focus.definition.entity.container.setEntityConfiguration(entities);
 /***********************************************************************************************************************/
-
-const actionBuilder = Focus.application.actionBuilder;
-const Block = FocusComponents.common.block.component;
-const formMixin = FocusComponents.common.form.mixin;
-const Panel = FocusComponents.common.panel.component;
-const MessageCenter = FocusComponents.application.messageCenter.component;
 
 const ListLine = React.createClass({
     mixins: [FocusComponents.list.selection.line.mixin],
@@ -235,6 +267,7 @@ const FormExample = React.createClass({
         );
     }
 });
+
 
 return (
     <div>
