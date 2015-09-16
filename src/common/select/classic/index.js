@@ -25,7 +25,8 @@ const selectMixin = {
             multiple: false,
             values: [],
             valueKey: 'code',
-            hasUndefined: true
+            hasUndefined: true,
+            disabled: false
         };
     },
     /** @inheritdoc */
@@ -37,7 +38,8 @@ const selectMixin = {
         onChange: types('function'),
         value: types(['number', 'string', 'array']),
         values: types('array'),
-        valueKey: types('string')
+        valueKey: types('string'),
+        disabled: types('bool')
     },
     /** @inheritdoc */
     getInitialState() {
@@ -110,9 +112,12 @@ const selectMixin = {
     */
     render() {
         const {props, state, _getStyleClassName, _handleOnChange} = this;
-        const {multiple, name} = props;
+        const {disabled, multiple, name} = props;
         const {value} = state;
-        const selectProps = {multiple, value: `${value}`, name, onChange: _handleOnChange, className: _getStyleClassName(), ref: 'select'};
+
+        const disabledProps = disabled ? {disabled: 'disabled'} : {};
+        const selectProps = {...{multiple, value: `${value}`, name, onChange: _handleOnChange, className: _getStyleClassName(), ref: 'select'}, ...disabledProps};
+
         return <select {...selectProps}>{this.renderOptions()}</select>;
     }
 };
