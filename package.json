@@ -87,6 +87,7 @@
         "react-ace": "git+https://github.com/Bernardstanislas/react-ace.git",
         "react-addons-test-utils": "^0.14.0-rc1",
         "react-bootstrap-daterangepicker": "git+https://github.com/pierr/react-bootstrap-daterangepicker.git",
+        "reactify": "1.1.1",
         "vinyl-source-stream": "^1.0.0",
         "watchify": "^2.4.0"
     }
