@@ -1,6 +1,6 @@
 import TranslationBehaviour from '../';
 import React from 'react';
-import {ReactDOM} from 'react-dom';
+import ReactDOM from 'react-dom';
 import i18n from 'i18next';
 
 describe('The translation behaviour', () => {
