@@ -57,7 +57,7 @@ class InputText extends Component {
      * @override
     */
     render() {
-        const {error, name, placeHolder, style, value: rawValue, formatter} = this.props;
+        const {error, name, placeholder, style, value: rawValue, formatter} = this.props;
         const value = formatter(rawValue);
         const pattern = error ? 'hasError' : null; //add pattern to overide mdl error style when displaying an focus error.
         const inputProps = {...this.props, value, id: name, onChange: this._handleInputChange, pattern};
@@ -65,7 +65,7 @@ class InputText extends Component {
             <div ref='inputText' className='mdl-textfield mdl-js-textfield' data-focus='input-text' style={style}>
                 {JSON.stringify(inputProps)}
                 <input className='mdl-textfield__input' ref='htmlInput' {...inputProps} />
-                <label className='mdl-textfield__label' htmlFor={name}>{this.i18n(placeHolder)}</label>
+                <label className='mdl-textfield__label' htmlFor={name}>{this.i18n(placeholder)}</label>
                 {error &&
                     <span className="mdl-textfield__error">{error}</span>
                 }
