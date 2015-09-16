@@ -14025,6 +14025,13 @@ header [data-focus="content-actions"] div {
   header [data-focus="content-actions"] div .menu__container {
     margin-top: -50px; }
 
+[data-focus='content-bar'] {
+  -moz-box-shadow: 0px 1px 10px 2px #EAEAEA;
+  -webkit-box-shadow: 0px 1px 10px 2px #EAEAEA;
+  -o-box-shadow: 0px 1px 10px 2px #EAEAEA;
+  box-shadow: 0px 1px 10px 2px #EAEAEA;
+  filter: progid:DXImageTransform.Microsoft.Shadow(color=$content-bar-shadow-color, Direction=180, Strength=10); }
+
 [data-focus='error-center'] {
   position: fixed;
   bottom: 60px;
@@ -14065,13 +14072,6 @@ header [data-focus="content-actions"] div {
       font-weight: bold;
       font-size: 1em;
       text-align: center; }
-
-[data-focus='content-bar'] {
-  -moz-box-shadow: 0px 1px 10px 2px #EAEAEA;
-  -webkit-box-shadow: 0px 1px 10px 2px #EAEAEA;
-  -o-box-shadow: 0px 1px 10px 2px #EAEAEA;
-  box-shadow: 0px 1px 10px 2px #EAEAEA;
-  filter: progid:DXImageTransform.Microsoft.Shadow(color=$content-bar-shadow-color, Direction=180, Strength=10); }
 
 /*@mixin transition($transition-property, $transition-time) {
   -webkit-transition: $transition-property $transition-time;
@@ -14593,8 +14593,7 @@ form {
 
 [data-focus="scrollspy"] nav {
   float: left;
-  width: 200px;
-  padding: 10px; }
+  width: 200px; }
   [data-focus="scrollspy"] nav + div {
     margin-left: 200px;
     padding: 10px; }
@@ -14607,7 +14606,7 @@ form {
       color: black;
       border-left: 5px solid transparent;
       line-height: 20px;
-      font-size: 13pt;
+      font-size: 14px;
       color: #848484;
       cursor: pointer;
       background-color: transparent;
@@ -14618,7 +14617,7 @@ form {
       [data-focus="scrollspy"] nav ul li.active {
         border-color: #36b7b9;
         color: #36b7b9;
-        font-size: 16pt; }
+        font-size: 18px; }
 
 [data-focus="select-action"] {
   position: relative;

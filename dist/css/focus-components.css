@@ -14593,8 +14593,7 @@ form {
 
 [data-focus="scrollspy"] nav {
   float: left;
-  width: 200px;
-  padding: 10px; }
+  width: 200px; }
   [data-focus="scrollspy"] nav + div {
     margin-left: 200px;
     padding: 10px; }
@@ -14607,7 +14606,7 @@ form {
       color: black;
       border-left: 5px solid transparent;
       line-height: 20px;
-      font-size: 13pt;
+      font-size: 14px;
       color: #848484;
       cursor: pointer;
       background-color: transparent;
@@ -14618,7 +14617,7 @@ form {
       [data-focus="scrollspy"] nav ul li.active {
         border-color: #36b7b9;
         color: #36b7b9;
-        font-size: 16pt; }
+        font-size: 18px; }
 
 [data-focus="select-action"] {
   position: relative;
