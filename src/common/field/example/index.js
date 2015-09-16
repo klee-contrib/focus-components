@@ -1,5 +1,12 @@
 const Field = FocusComponents.common.field.component;
 
+const valuesExample = [
+    {code: "A", label: "aaaa"},
+    {code: "B", label: "bbbbb"},
+    {code: "C", label: "ccccc"},
+    {code: "D", label: "DDDD"}
+];
+
 const FieldSample = React.createClass({
     /**
     * Render the component.
@@ -20,6 +27,9 @@ const FieldSample = React.createClass({
                 <h3>Type number</h3>
                 <Field name='field3' value={3} type='number'/>
                 <Field name='field4' value='popop' isEdit={true} help='Here to help'/>
+                <h3>Select</h3>
+                <Field name='field5' value='A' values={valuesExample} />
+                <p>Ici, il devrait me rendre un select mais il ne le fait pas... Pierr ?</p>
                 <h3>Disable</h3>
                 <Field name='fieldDisabled' value='popop' isEdit={true} disabled={true}/>
             </form>
