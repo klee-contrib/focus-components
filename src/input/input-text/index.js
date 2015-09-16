@@ -63,7 +63,6 @@ class InputText extends Component {
         const inputProps = {...this.props, value, id: name, onChange: this._handleInputChange, pattern};
         return (
             <div ref='inputText' className='mdl-textfield mdl-js-textfield' data-focus='input-text' style={style}>
-                {JSON.stringify(inputProps)}
                 <input className='mdl-textfield__input' ref='htmlInput' {...inputProps} />
                 <label className='mdl-textfield__label' htmlFor={name}>{this.i18n(placeholder)}</label>
                 {error &&
