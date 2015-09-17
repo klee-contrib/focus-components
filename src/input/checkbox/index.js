@@ -1,6 +1,7 @@
 import React, {Component, PropTypes} from 'react';
 import ReactDOM from 'react-dom';
 import Translation from '../../behaviours/translation';
+import Material from '../../behaviours/material';
 
 const propTypes = {
     handleOnChange: PropTypes.func.isRequired,
@@ -15,6 +16,7 @@ const defaultProps = {
 const displayName = 'InputCheckBox';
 
 @Translation
+@Material('checkbox')
 class InputCheckBox extends Component {
     getValue = () => {
         const domElement = ReactDOM.findDOMNode(this.refs.checkbox);
