@@ -1,6 +1,6 @@
 const ReactDOM = require('react-dom');
 
-const Material = ref => Component => class MaterialComponent2 extends Component {
+const Material = ref => Component => class MaterialComponent extends Component {
     componentDidMount() {
         if (Component.prototype.componentDidMount) {
             Component.prototype.componentDidMount();
@@ -17,7 +17,7 @@ const Material = ref => Component => class MaterialComponent2 extends Component 
         }
         const refNode = ReactDOM.findDOMNode(this.refs[ref]);
         if (refNode) {
-            componentHandler.downgradeElement(refNode);
+            componentHandler.downgradeElements(refNode);
         }
     }
 };

@@ -5,7 +5,7 @@ describe('The Material behaviour', () => {
     before(() => {
         mdlSpy = global.componentHandler = {
             upgradeElement: sinon.spy(),
-            downgradeElement: sinon.spy()
+            downgradeElements: sinon.spy()
         };
     });
     describe('when called with no ref', () => {
