@@ -29,7 +29,7 @@ const LivePreview = React.createClass({
         let content;
         try {
             /* eslint-disable */
-            content = eval(babel.transform(`(function(){${code}})()`).code);
+            content = eval(babel.transform(`(function(){${code}})()`, {stage: 0}).code);
             /* eslint-enable */
         } catch (e) {
             content = e.toString();
