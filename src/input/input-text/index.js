@@ -47,7 +47,7 @@ class InputText extends Component {
      * @param  {object} evt - The react DOM event.
      * @return {object} - The function onChannge from the props, called.
      */
-    _handleOnChange = (evt) =>{
+    _handleInputChange = (evt) =>{
         const {unformatter, onChange} = this.props;
         const {value} = evt.target;
         return onChange(unformatter(value));
