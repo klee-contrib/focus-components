@@ -4,7 +4,7 @@ const {Component} = React;
 
 // Components
 
-const Checkbox = FocusComponents.input.checkbox;
+const Checkbox = FocusComponents.input.Checkbox;
 
 class InputCheckboxSample extends Component {
     /**
