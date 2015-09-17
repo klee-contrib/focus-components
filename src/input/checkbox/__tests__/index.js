@@ -2,15 +2,15 @@ import InputCheckBox from '../';
 
 global.componentHandler = {
     upgradeElement: sinon.stub(),
-    downgradeElement: sinon.stub()
+    downgradeElements: sinon.stub()
 };
 
 describe('The input checkbox', () => {
     describe('when mounted', () => {
         let renderedTest;
-        const handleOnChangeSpy = sinon.spy();
+        const onChangeSpy = sinon.spy();
         before(() => {
-            renderedTest = TestUtils.renderIntoDocument(<InputCheckBox handleOnChange={handleOnChangeSpy} value={true} />);
+            renderedTest = TestUtils.renderIntoDocument(<InputCheckBox onChange={onChangeSpy} value={true} />);
         });
 
         it('should hold the provided initial value', () => {
@@ -20,15 +20,15 @@ describe('The input checkbox', () => {
     describe('when clicked', () => {
         let renderedTest;
         let checkbox;
-        const handleOnChangeSpy = sinon.spy();
+        const onChangeSpy = sinon.spy();
         before(() => {
-            renderedTest = TestUtils.renderIntoDocument(<InputCheckBox handleOnChange={handleOnChangeSpy} value={false} />);
+            renderedTest = TestUtils.renderIntoDocument(<InputCheckBox onChange={onChangeSpy} value={false} />);
             checkbox = ReactDOM.findDOMNode(renderedTest.refs.checkbox);
             TestUtils.Simulate.change(checkbox, {target: {checked: true}});
         });
 
         it('should call the handeOnChange prop', () => {
-            expect(handleOnChangeSpy).to.be.called.once;
+            expect(onChangeSpy).to.be.called.once;
         });
 
         it('should not change the checkbox value if the parent does not explicitly change it', () => {

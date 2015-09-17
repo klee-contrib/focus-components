@@ -4,8 +4,8 @@ import Translation from '../../behaviours/translation';
 import Material from '../../behaviours/material';
 
 const propTypes = {
-    handleOnChange: PropTypes.func.isRequired,
     label: PropTypes.string,
+    onChange: PropTypes.func.isRequired,
     value: PropTypes.bool.isRequired
 };
 
@@ -16,7 +16,7 @@ const defaultProps = {
 const displayName = 'InputCheckBox';
 
 @Translation
-@Material('checkbox')
+@Material('mdlHolder')
 class InputCheckBox extends Component {
     getValue = () => {
         const domElement = ReactDOM.findDOMNode(this.refs.checkbox);
@@ -24,16 +24,16 @@ class InputCheckBox extends Component {
     }
 
     handleOnChange = ({target: {checked}}) => {
-        const {handleOnChange} = this.props;
-        handleOnChange(checked);
+        const {onChange} = this.props;
+        onChange(checked);
     }
 
     render() {
         const {label, value} = this.props;
         return (
-            <label className="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" data-focus="input-checkbox">
+            <label className='mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect' data-focus='input-checkbox' ref='mdlHolder'>
                 <input checked={value} className='mdl-checkbox__input' onChange={this.handleOnChange} ref='checkbox' type='checkbox' />
-                {label && <span className="mdl-checkbox__label">{this.i18n(label)}</span>}
+                {label && <span className='mdl-checkbox__label'>{this.i18n(label)}</span>}
             </label>
         );
     }
