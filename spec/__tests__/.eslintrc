@@ -6,6 +6,7 @@
         "beforeEach": true,
         "sinon": true,
         "TestUtils": true,
+        "ReactDOM": true,
         "expect": true
     },
     "rules": {

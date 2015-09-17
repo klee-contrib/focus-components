@@ -10,9 +10,11 @@ const chaiSubset = require('chai-subset');
 chai.use(chaiSubset);
 chai.use(sinonChai);
 const React = require('react');
+const ReactDOM = require('react-dom');
 
 // Globals
 global.React = React;
+global.ReactDOM = ReactDOM;
 global.expect = chai.expect;
 global.sinon = sinon;
 global.TestUtils = require('react-addons-test-utils');

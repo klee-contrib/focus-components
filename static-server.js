@@ -7,6 +7,7 @@ var port = 3000;
 
 // Add static path
 
+app.use('/images', express.static(__dirname + '/showcase/assets'));
 app.use('/', express.static(__dirname + '/showcase'));
 
 app.listen(port, function() {
