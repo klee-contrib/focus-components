@@ -6,6 +6,7 @@
     "scripts": {
         "test": "./node_modules/.bin/istanbul cover ./node_modules/mocha/bin/_mocha --report lcovonly -R spec src/**/__tests__/**/*.js && cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js && rm -rf ./coverage",
         "test:local": "node ./node_modules/mocha/bin/mocha src/**/__tests__/**/*.js",
+        "test:watch": "node ./node_modules/mocha/bin/mocha src/**/__tests__/**/*.js -w",
         "build:server": "node ./node_modules/babel/bin/babel.js src --out-dir lib",
         "build:browser": "npm run material:override && node ./node_modules/gulp/bin/gulp.js build",
         "build": "npm run showcase:components && npm run build:server && npm run build:browser",
