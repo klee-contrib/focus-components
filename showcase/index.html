@@ -17,6 +17,17 @@
     loadAssets().then((d)=>{
         const Showcase = FocusComponents.showcase.layout;
         const Catalog = FocusComponents.showcase.catalog;
+        const i18nConfig = {
+            resStore: {
+                'en-GB': {
+                    translation: {}
+                }
+            },
+            lng: 'en-GB'
+        };
+        i18n.init(i18nConfig, () => {
+            console.log('Translation correctly initialized.');
+        });
         ReactDOM.render(<Showcase title='Component catalog'><Catalog /></Showcase>, document.querySelector("body"));
     });
     </script>
