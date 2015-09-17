@@ -10,15 +10,15 @@ const chaiSubset = require('chai-subset');
 chai.use(chaiSubset);
 chai.use(sinonChai);
 const React = require('react');
-const ReactDOM = require('react-dom');
 
 // Globals
-global.React = React;
-global.ReactDOM = ReactDOM;
+global.React = require('react');
+global.ReactDOM = require('react-dom');
 global.expect = chai.expect;
 global.sinon = sinon;
 global.TestUtils = require('react-addons-test-utils');
-
+global.sandbox = require('./sandbox');
+global.componentHandler = {upgradeElement: function(){}};
 // Js dom
 import jsdom from 'jsdom';
 global.document = jsdom.jsdom('<!doctype html><html><body></body></html>');
