@@ -1,7 +1,9 @@
 import text from './text';
 import checkbox from './checkbox';
+import toggle from './toggle';
 
 export default {
     Checkbox: checkbox,
-    Text: text
+    Text: text,
+    Toggle: toggle
 };

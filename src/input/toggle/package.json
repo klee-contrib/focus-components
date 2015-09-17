@@ -1,0 +1,21 @@
+{
+  "name": "Input toggle",
+  "version": "1.0.0",
+  "description": "Input toggle component.",
+  "main": "index.js",
+  "directories": {
+    "example": "example"
+  },
+  "scripts": {
+    "test": "mocha __tests__/index.js"
+  },
+  "keywords": [
+    "dumb",
+    "input",
+    "boolean",
+    "toggle",
+    "material"
+  ],
+  "author": "focus@kleegroup.com",
+  "license": "MIT"
+}
