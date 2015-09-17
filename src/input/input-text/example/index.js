@@ -3,7 +3,7 @@ const Input = FocusComponents.input.inputText;
 const InputTextExample =  React.createClass({
     onChangeInput(name){
         return (value)=>{
-            this.setState({name, value});
+            this.setState({[name]: value});
         };
     },
     getInitialState(){
