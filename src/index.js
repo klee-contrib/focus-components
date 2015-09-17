@@ -1,5 +1,6 @@
 //Generator http://patorjk.com/software/taag/#p=display&h=1&f=Banner4&t=Focus-COMPONENTS
 const infos = require('../package.json');
+import input from './input';
 
 /**
 * Display information data for Focus-COMPONENTS
@@ -44,5 +45,6 @@ module.exports = {
     page: require('./page'),
     message: require('./message'),
     application: require('./application'),
-    infos: infosFn
+    infos: infosFn,
+    input
 };
