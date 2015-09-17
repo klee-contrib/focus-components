@@ -1,23 +1,24 @@
-const React = require('react');
 const ReactDOM = require('react-dom');
 
-const Material = ref => Component => class MaterialComponent extends React.Component {
+const Material = ref => Component => class MaterialComponent2 extends Component {
     componentDidMount() {
-        const refNode = ReactDOM.findDOMNode(this.refs.child.refs[ref]);
+        if (Component.prototype.componentDidMount) {
+            Component.prototype.componentDidMount();
+        }
+        const refNode = ReactDOM.findDOMNode(this.refs[ref]);
         if (refNode) {
             componentHandler.upgradeElement(refNode);
         }
     }
 
     componentWillUnmount() {
-        const refNode = ReactDOM.findDOMNode(this.refs.child.refs[ref]);
+        if (Component.prototype.componentWillUnmount) {
+            Component.prototype.componentWillUnmount();
+        }
+        const refNode = ReactDOM.findDOMNode(this.refs[ref]);
         if (refNode) {
             componentHandler.downgradeElement(refNode);
         }
-    }
-
-    render() {
-        return <Component ref='child' {...this.props}/>;
     }
 };
 
