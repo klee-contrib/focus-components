@@ -1,7 +1,7 @@
-import inputText from './input-text';
+import text from './text';
 import checkbox from './checkbox';
 
 export default {
-    checkbox,
-    inputText
+    Checkbox: checkbox,
+    Text: text
 };
