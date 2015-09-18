@@ -7,7 +7,7 @@ global.componentHandler = {
 
 describe.only('The input date', () => {
     describe('when mounted', () => {
-        const now = new Date();
+        const now = new Date().toISOString();
         let renderedTest;
         const onChangeSpy = sinon.spy();
         before(() => {
