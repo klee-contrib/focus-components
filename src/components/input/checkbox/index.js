@@ -1,7 +1,7 @@
 import React, {Component, PropTypes} from 'react';
 import ReactDOM from 'react-dom';
-import Translation from '../../behaviours/translation';
-import Material from '../../behaviours/material';
+import Translation from '../../../behaviours/translation';
+import Material from '../../../behaviours/material';
 
 const propTypes = {
     label: PropTypes.string,

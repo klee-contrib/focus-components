@@ -72,7 +72,7 @@
         "eslint-config-focus": "git+https://github.com/KleeGroup/eslint-config-focus.git",
         "eslint-plugin-react": "^2.7.1",
         "express": "^4.12.0",
-        "focus": "git+https://git@github.com/KleeGroup/focus.git",
+        "focus": "git+https://git@github.com/KleeGroup/focus-core.git",
         "gulp": "^3.8.11",
         "gulp-babel": "^5.2.0",
         "gulp-concat": "^2.5.2",
