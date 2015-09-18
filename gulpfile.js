@@ -82,7 +82,6 @@ generateGulpBuildTask("watchify");
 /*************************************
 STYLE BUILD
 *********************************/
-
 gulp.task('style', function() {
 	var sass = require('gulp-sass');
 	var concat = require('gulp-concat');

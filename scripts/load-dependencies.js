@@ -4,7 +4,6 @@ const loadStyle = window.loadStyle;
 const FONTAWESOME_CSS = '//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css';
 // google material
 const GOOGLE_MATERIAL_JS = 'https://storage.googleapis.com/code.getmdl.io/1.0.4/material.min.js',
- GOOGLE_MATERIAL_CSS = 'https://storage.googleapis.com/code.getmdl.io/1.0.4/material.indigo-pink.min.css',
  GOOGLE_MATERIAL_FONT = 'https://fonts.googleapis.com/icon?family=Material+Icons',
  GOOGLE_FONT_ROBOTO = 'https://fonts.googleapis.com/css?family=Roboto:regular,bold,italic,thin,light,bolditalic,black,medium&amp;lang=en';
 //React
@@ -17,13 +16,10 @@ const JQUERY = '//code.jquery.com/jquery-1.10.2.min.js';
 //Backbone
 //
 const BACKBONE = 'https://cdnjs.cloudflare.com/ajax/libs/backbone.js/1.2.1/backbone.js';
-const I18N = 'https://cdnjs.cloudflare.com/ajax/libs/i18next/1.6.3/i18next-1.6.3.min.js';
+const I18N = 'https://cdnjs.cloudflare.com/ajax/libs/i18next/1.9.0/i18next.min.js';
 const SHOWDOWN = 'https://cdnjs.cloudflare.com/ajax/libs/showdown/0.4.0/Showdown.js';
 const MOMENT = '//cdn.jsdelivr.net/momentjs/2.9.0/moment.min.js';
 const NUMERAL = '//cdnjs.cloudflare.com/ajax/libs/numeral.js/1.4.5/numeral.min.js';
-
-const DATE_RANGE_PICKER_JS = '//cdn.jsdelivr.net/bootstrap.daterangepicker/1/daterangepicker.js',
-DATE_RANGE_PICKER_CSS = '//cdn.jsdelivr.net/bootstrap.daterangepicker/1/daterangepicker-bs3.css';
 
 const FOCUS_JS = '/js/focus.js';
 const FOCUS_COMPONENTS_JS = '/js/focus-components.js',
@@ -47,7 +43,7 @@ function loadJS(){
             loadScript(GOOGLE_MATERIAL_JS),
             loadScript(BACKBONE),
             loadScript(I18N),
-            loadScript(MOMENT).then(()=>{return loadScript(DATE_RANGE_PICKER_JS); }),
+            loadScript(MOMENT),
             loadScript(NUMERAL),
             loadScript(SHOWDOWN)
         ]);
@@ -61,15 +57,10 @@ function loadJS(){
  */
 function loadCSS(){
     return Promise.all([
-        //loadStyle(GOOGLE_MATERIAL_CSS),
         loadStyle(GOOGLE_MATERIAL_FONT),
         loadStyle(GOOGLE_FONT_ROBOTO),
         loadStyle(FONTAWESOME_CSS)
     ]).then(()=>{
-        return Promise.all([
-            loadStyle(DATE_RANGE_PICKER_CSS)
-        ]);
-    }).then(()=>{
         return loadStyle(FOCUS_COMPONENTS_CSS);
     });
 }
