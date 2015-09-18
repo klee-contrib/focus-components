@@ -1,0 +1,20 @@
+{
+  "name": "Input date",
+  "version": "1.0.0",
+  "description": "Input Date component.",
+  "main": "index.js",
+  "directories": {
+    "example": "example"
+  },
+  "scripts": {
+    "test": "mocha __tests__/index.js"
+  },
+  "keywords": [
+    "dumb",
+    "input",
+    "date",
+    "material"
+  ],
+  "author": "focus@kleegroup.com",
+  "license": "MIT"
+}
