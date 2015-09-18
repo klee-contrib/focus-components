@@ -1,1 +1,1 @@
-{"extends": "../../../../spec/__tests__/.eslintrc"}
+{"extends": "../../../../../spec/__tests__/.eslintrc"}

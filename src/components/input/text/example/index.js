@@ -1,4 +1,4 @@
-const Input = FocusComponents.input.Text;
+const Input = FocusComponents.components.input.Text;
 
 const InputTextExample =  React.createClass({
     onChangeInput(name){

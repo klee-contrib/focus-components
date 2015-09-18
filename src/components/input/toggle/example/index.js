@@ -4,7 +4,7 @@ const {Component} = React;
 
 // Components
 
-const Toggle = FocusComponents.input.Toggle;
+const Toggle = FocusComponents.components.input.Toggle;
 
 class InputToggleSample extends Component {
     /**
