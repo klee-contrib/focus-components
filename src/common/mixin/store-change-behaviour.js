@@ -62,13 +62,14 @@ let changeBehaviourMixin = {
     /**
      * Event handler for 'error' events coming from the stores.
      */
-    _onError: function onFormErrorHandler() {
-        let errorState = this._getErrorStateFromStores();
+    _onError: function onFormErrorHandler(changeInfos) {
+        const errorState = this._getErrorStateFromStores();
         for (let key in errorState) {
             if (this.refs[key]) {
                 this.refs[key].setError(errorState[key]);
             }
         }
+        this.setState(this._getStateFromStores());
     }
 };
 module.exports = changeBehaviourMixin;
