@@ -61,10 +61,8 @@ class InputDate extends Component {
     }
 
     render() {
-        const {error, name}
         return (
             <div data-focus='input-date'>
-                <InputText error={error} name={name} onBlur={_onInputBlur} onChange={_onInputChange} placeHolder={placeHolder} ref='inputDateText' value={inputDate} />
             </div>
         );
     }
