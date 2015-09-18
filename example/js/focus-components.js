@@ -47298,7 +47298,7 @@ module.exports = uuid;
 },{"./rng":390}],392:[function(require,module,exports){
 module.exports={
     "name": "focusjs-components",
-    "version": "0.6.1-4",
+    "version": "0.6.1-5",
     "description": "Focus component repository.",
     "main": "index.js",
     "scripts": {
@@ -47390,7 +47390,6 @@ module.exports={
         "watchify": "^2.4.0"
     }
 }
-
 },{}],393:[function(require,module,exports){
 'use strict';
 
@@ -52363,13 +52362,14 @@ var changeBehaviourMixin = {
     /**
      * Event handler for 'error' events coming from the stores.
      */
-    _onError: function onFormErrorHandler() {
+    _onError: function onFormErrorHandler(changeInfos) {
         var errorState = this._getErrorStateFromStores();
         for (var key in errorState) {
             if (this.refs[key]) {
                 this.refs[key].setError(errorState[key]);
             }
         }
+        this.setState(this._getStateFromStores());
     }
 };
 module.exports = changeBehaviourMixin;
