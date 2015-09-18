@@ -14,7 +14,36 @@
 </head>
 <body>
     <script type="text/babel">
-    loadAssets().then((d)=>{
+    loadAssets().then(()=>{
+        const resources = {
+          dev: {
+              translation: {
+                  'button': {
+                      'edit': 'Editer',
+                      'save': 'Sauvegarder',
+                      'cancel': 'Abandonner'
+                  },
+                  'select': {
+                      'yes': 'Oui',
+                      'no': 'Non',
+                      'unSelected': '-'
+                  },
+                  'contact': {
+                      'firstName': 'Prénom',
+                      'lastName': 'Nom',
+                      'papaCOde': 'Le code du papa',
+                      'monkeyCode': 'Le code du singe',
+                      'bio': 'Biography',
+                      'isCool': 'Est-il cool ?',
+                      'isNice': 'Est-il gentil ?',
+                      'birthDate': 'Date de naissance'
+                  }
+              }
+          }
+        };
+
+        i18n.init({resStore: resources});
+    }).then((d)=>{
         const Showcase = FocusComponents.showcase.layout;
         const Catalog = FocusComponents.showcase.catalog;
         const i18nConfig = {
