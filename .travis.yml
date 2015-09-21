@@ -1,4 +1,13 @@
- language: node_js
- node_js:
-   - "iojs"
-   - "4.0"
+sudo: false
+language: node_js
+node_js:
+- '4.0'
+- '4.1'
+deploy:
+  provider: npm
+  email: pierre.besson7+npm@gmail.com
+  api_key:
+    secure: hUSwbyOa1f2COJbiH0CzvywG/SkS+jlB9RoMeLiwalG0BKWddq1AAVkAyXX59Qrnuo1mf+H+9svH4nJEUbTOOHksRpGrNn3xX8759GW43KNBEBsA0Z0swLl4bFeT3cQUmI0nSCSrf2qbwxJOQLknSHx3FwrmLGfOSApgYCV3U+A=
+  skip_cleanup: true
+  on:
+    branch: develop
