@@ -6,7 +6,7 @@ focus-components
 [![Join the chat at https://gitter.im/KleeGroup/focus-components](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/KleeGroup/focus-components?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
 ![Build Status](https://travis-ci.org/KleeGroup/focus-components.svg)
-[![Coverage Status](https://coveralls.io/repos/KleeGroup/focus-components/badge.svg?branch=develop&service=github)](https://coveralls.io/github/KleeGroup/focus-components?branch=develop)
+<img src="http://img15.hostingpics.net/pics/858529coverage.png" width="100">
 [![Issue Stats](http://issuestats.com/github/kleegroup/focus-components/badge/pr)](http://issuestats.com/github/kleegroup/focus-components)
 [![Issue Stats](http://issuestats.com/github/kleegroup/focus-components/badge/issue)](http://issuestats.com/github/kleegroup/focus-components)
 
