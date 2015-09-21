@@ -6,7 +6,7 @@ global.componentHandler = {
     downgradeElements: sinon.stub()
 };
 
-describe('The input date', () => {
+describe.only('The input date', () => {
     describe('when mounted', () => {
         const now = new Date().toISOString();
         let renderedTest;

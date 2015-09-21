@@ -2,7 +2,7 @@
 
 import {Component, PropTypes} from 'react';
 import moment from 'moment';
-import Base from '../../behaviours/component-base';
+import Base from '../../../behaviours/component-base';
 import defaultLocale from './default-locale';
 import DataRangePicker from 'react-bootstrap-daterangepicker';
 
