@@ -63,6 +63,7 @@ class InputDate extends Component {
     render() {
         return (
             <div data-focus='input-date'>
+
             </div>
         );
     }
