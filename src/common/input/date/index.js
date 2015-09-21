@@ -53,9 +53,9 @@ const InputDateMixin = {
     displayName: 'InputDate',
 
     /**
-     * Get default props
-     * @return {object} default props
-     */
+    * Get default props
+    * @return {object} default props
+    */
     getDefaultProps() {
         return {
             drops: 'down', // possible values: up, down
@@ -75,21 +75,24 @@ const InputDateMixin = {
         value: types('object').isRequired
     },
     /**
-     * Get initial state
-     * @return {object} initial state
-     */
+    * Get initial state
+    * @return {object} initial state
+    */
     getInitialState() {
-        const rawDate = moment(this.props.value).isValid() ? this.props.value : moment();
-        const inputDate = this.getFormattedDate(rawDate);
+        const {value} = this.props;
+        const momentValue = moment(value);
+        const rawDate = momentValue.isValid ? value : null;
+        const inputDate = momentValue.isValid ? this.getFormattedDate(value) : '';
         return {inputDate, rawDate};
     },
     /**
-     * New props handler
-     * @param  {object} value new value given as a prop
-     */
+    * New props handler
+    * @param  {object} value new value given as a prop
+    */
     componentWillReceiveProps({value}) {
-        const rawDate = moment(value).isValid() ? value : moment();
-        const inputDate = this.getFormattedDate(rawDate);
+        const momentValue = moment(value);
+        const rawDate = momentValue.isValid ? value : null;
+        const inputDate = momentValue.isValid ? this.getFormattedDate(value) : '';
         this.setState({inputDate, rawDate});
     },
     /**
@@ -105,13 +108,16 @@ const InputDateMixin = {
         }
     },
     /**
-     * Get formatted value.
-     * @param  {date} rawDate raw date
-     * @return {string} formatted date
-     */
-    getFormattedDate(rawDate = moment()) {
-        const {locale: {format}} = this.props;
-        return moment(rawDate).format(format);
+    * Get formatted value.
+    * @param  {date} rawDate raw date
+    * @return {string} formatted date
+    */
+    getFormattedDate(rawDate) {
+        if(rawDate) {
+            const {locale: {format}} = this.props;
+            return moment(rawDate).format(format);
+        }
+        return null;
     },
     /**
     * Action when selection date event.
@@ -125,9 +131,9 @@ const InputDateMixin = {
         });
     },
     /**
-     * Input blur handler
-     * @param  {object} inputDate input field value
-     */
+    * Input blur handler
+    * @param  {object} inputDate input field value
+    */
     _onInputBlur({target: {value: inputDate}}) {
         if (moment(inputDate).isValid()) {
             this.setState({
@@ -145,9 +151,9 @@ const InputDateMixin = {
         }
     },
     /**
-     * Input change handler
-     * @param  {object} inputDate input field value
-     */
+    * Input change handler
+    * @param  {object} inputDate input field value
+    */
     _onInputChange({target: {value: inputDate}}) {
         if (moment(inputDate).isValid()) {
             this.setState({inputDate, rawDate: inputDate});
@@ -156,18 +162,19 @@ const InputDateMixin = {
         }
     },
     /**
-     * Render the component
-     * @return {HTML} rendered component
-     */
+    * Render the component
+    * @return {HTML} rendered component
+    */
     render() {
         const {inputDate, rawDate} = this.state;
         const {drops, error, locale, name, placeHolder, showDropdowns} = this.props;
         const {_onInputBlur, _onInputChange, _onPickerApply} = this;
+        const calendarDate = rawDate ? moment(rawDate) : moment();
         return (
             <div data-focus='input-date'>
-            <DateRangePicker drops={drops} endDate={moment(rawDate)} locale={locale} onApply={_onPickerApply} opens='center' ref='daterangepicker' showDropdowns={showDropdowns} singleDatePicker={true} startDate={moment(rawDate)}>
-                <InputText error={error} name={name} onBlur={_onInputBlur} onChange={_onInputChange} placeHolder={placeHolder} ref='inputDateText' value={inputDate} />
-            </DateRangePicker>
+                <DateRangePicker drops={drops} endDate={calendarDate} locale={locale} onApply={_onPickerApply} opens='center' ref='daterangepicker' showDropdowns={showDropdowns} singleDatePicker={true} startDate={calendarDate}>
+                    <InputText error={error} name={name} onBlur={_onInputBlur} onChange={_onInputChange} placeHolder={placeHolder} ref='inputDateText' value={inputDate} />
+                </DateRangePicker>
             </div>
         );
     }
