@@ -1,5 +1,5 @@
 var React = require('react');
-var builder = require('focusjs').component.builder
+var builder = require('focus-core').component.builder
 /**
  * Mixin used in order to create a block.
  * @type {Object}

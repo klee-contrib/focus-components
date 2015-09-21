@@ -1,4 +1,4 @@
-var applicationStore = require('focusjs').application.builtInStore;
+var applicationStore = require('focus-core').application.builtInStore;
 var applicationStateMixin = {
   /** @inheriteddoc */
   getInitialState: function getCartridgeInitialState() {

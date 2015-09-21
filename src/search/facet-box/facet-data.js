@@ -1,11 +1,11 @@
 // Dependencies
 
-let builder = require('focusjs').component.builder;
-let React = require('react');
-let ArgumentInvalidException = require('focusjs').exception.ArgumentInvalidException;
-let numberFormatter = Focus.definition.formatter.number;
+const builder = require('focus-core').component.builder;
+const React = require('react');
+const ArgumentInvalidException = require('focus-core').exception.ArgumentInvalidException;
+const numberFormatter = require('focus-core').definition.formatter.number;
 
-let FacetData = {
+const FacetData = {
     getDefaultProps() {
         return ({
             type: 'text'

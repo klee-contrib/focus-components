@@ -2,8 +2,8 @@
 const React = require('react');
 const ReactDOM = require('react-dom');
 const {Component} = React;
-const types = require('focusjs').component.types;
-const {dispatcher} = require('focusjs');
+const types = require('focus-core').component.types;
+const {dispatcher} = require('focus-core');
 /**
  * Component describing a component.
  */

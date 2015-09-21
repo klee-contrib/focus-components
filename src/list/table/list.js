@@ -1,7 +1,7 @@
 // Dependencies
 
-const builder = require('focusjs').component.builder;
-const types = require('focusjs').component.types;
+const builder = require('focus-core').component.builder;
+const types = require('focus-core').component.types;
 const React = require('react');
 const {omit, keys} = require('lodash/object');
 const {reduce} = require('lodash/collection');
@@ -139,11 +139,7 @@ const tableMixin = {
                 <tfoot className="table-manual-fetch">
                     <tr>
                         <td colSpan={keys(this.props.columns).length}>
-                            <Button
-                                handleOnClick={this.handleShowMore}
-                                label="list.button.showMore"
-                                type="button"
-                            />
+                            <Button handleOnClick={this.fetchNextPage} label="list.button.showMore" type="button" />
                         </td>
                     </tr>
                 </tfoot>

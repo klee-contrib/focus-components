@@ -2,7 +2,7 @@
 const React = require('react');
 const ReactDOM = require('react-dom');
 
-const {builder} = require('focusjs').component;
+const {builder} = require('focus-core').component;
 
 // Mixins
 

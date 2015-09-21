@@ -1,4 +1,4 @@
-import {t} from 'i18next';
+import {t} from 'i18next-client';
 
 const Translation = Component => class TranslatedComponent extends Component {
     constructor(props) {

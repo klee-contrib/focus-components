@@ -1,18 +1,18 @@
 // Dependencies
-
-let builder = Focus.component.builder;
-let types = Focus.component.types;
-let find = require('lodash/collection/find');
+const React = require('react');
+const builder = require('focus-core').component.builder;
+const types = require('focus-core').component.types;
+const find = require('lodash/collection/find');
 
 // Components
 
-let Autocomplete = require('./awesomplete').component;
+const Autocomplete = require('./awesomplete').component;
 
 /**
  * Autocomplete for component
  * @type {Object}
  */
-let AutocompleteFor = {
+const AutocompleteFor = {
     /**
      * Default props
      * @return {Object} default props

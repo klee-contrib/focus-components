@@ -2,7 +2,7 @@
 //dependencies
 const React = require('react');
 const {Component} = React;
-const types = require('focusjs').component.types;
+const types = require('focus-core').component.types;
 /**
  * Grid component.
  */

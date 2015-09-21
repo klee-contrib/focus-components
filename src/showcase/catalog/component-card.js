@@ -1,7 +1,7 @@
 //dependencies
 const React = require('react');
 const {Component} = React;
-const types = require('focusjs').component.types;
+const types = require('focus-core').component.types;
 const liStyle = { flex: 1, minWidth: '20%', marginTop: '7px', marginRight: '7px'};
 
 /**

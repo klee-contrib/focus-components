@@ -1,6 +1,6 @@
 // Dependencies
 
-const {builder} = require('focusjs').component;
+const {builder} = require('focus-core').component;
 const {camelCase: camel} = require('lodash/string');
 const {capitalize} = require('lodash/string');
 
@@ -15,16 +15,16 @@ const BackToTopComponent = require('../../../common/button/back-to-top').compone
 
 // Store
 
-const advancedSearchStore = Focus.search.builtInStore.advancedSearchStore;
+const advancedSearchStore = require('focus-core').search.builtInStore.advancedSearchStore;
 
 // Mixins
 
 const CartridgeBehaviour = require('../../mixin/cartridge-behaviour');
-const type = require('focusjs').component.types;
+const type = require('focus-core').component.types;
 
 // Actions
 
-const actionBuilder = Focus.search.actionBuilder;
+const actionBuilder = require('focus-core').search.actionBuilder;
 
 /**
 * Page mixin of the advanced search.

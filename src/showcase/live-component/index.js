@@ -1,6 +1,6 @@
 // Dependencies
-
-const {types} = Focus.component;
+const React = require('react');
+const {types} = require('focus-core').component;
 const {debounce} = require('lodash/function');
 
 // Components
