@@ -53,7 +53,7 @@ const InputDateSample = React.createClass({
         return (
             <div>
                 <h3>Without value</h3>
-                <InputDate name='fieldDate1' value={undefined} />
+                <InputDate name='fieldDate1' value={null} />
 
                 <h3>With value</h3>
                 <InputDate name='fieldDate2' value={new Date().toISOString()} />
