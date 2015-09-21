@@ -1,11 +1,11 @@
 /**@jsx*/
-const {builder, types} = require('focusjs').component;
+const {builder, types} = require('focus-core').component;
 const i18nBehaviour = require('../../common/i18n/mixin');
 const styleBehaviour = require('../../mixin/stylable');
 
 const TopicDisplayer = require('../../common/topic-displayer').component;
 const Button = require('../../common/button/action').component;
-const numberFormatter = Focus.definition.formatter.number;
+const numberFormatter = require('focus-core').definition.formatter.number;
 
 const listSummaryMixin = {
     mixins: [i18nBehaviour, styleBehaviour],

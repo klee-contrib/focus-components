@@ -1,4 +1,4 @@
-let message = require('focusjs').message;
+let message = require('focus-core').message;
 let changeBehaviourMixin = {
     /**
      * Display a message when there is a change on a store property resulting from a component action call.

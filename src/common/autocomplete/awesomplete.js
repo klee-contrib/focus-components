@@ -2,7 +2,7 @@
 const React = require('react');
 const ReactDOM = require('react-dom');
 // Dependencies
-const Focus = require('focusjs');
+const Focus = require('focus-core');
 const {builder, types} = Focus.component;
 const find = require('lodash/collection/find');
 

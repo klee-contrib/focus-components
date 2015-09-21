@@ -1,7 +1,7 @@
 import ComponentBaseBehaviour from '../';
 import React from 'react';
 import ReactDOM from 'react-dom';
-import i18n from 'i18next';
+import i18n from 'i18next-client';
 
 describe('The component base behaviour', () => {
     let renderedComponent;

@@ -2,8 +2,8 @@
 const React = require('react');
 const ReactDOM = require('react-dom');
  
-const builder = require('focusjs').component.builder;
-const type = require('focusjs').component.types;
+const builder = require('focus-core').component.builder;
+const type = require('focus-core').component.types;
 const uuid = require('uuid');
 const find = require('lodash/collection/find');
 

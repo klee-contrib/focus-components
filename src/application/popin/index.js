@@ -2,9 +2,9 @@
 
 const React = require('react');
 const ReactDOM = require('react-dom');
-const builder = require('focusjs').component.builder;
-const types = require('focusjs').component.types;
-const ArgumentInvalidException = require('focusjs').exception.ArgumentInvalidException;
+const builder = require('focus-core').component.builder;
+const types = require('focus-core').component.types;
+const ArgumentInvalidException = require('focus-core').exception.ArgumentInvalidException;
 const includes = require('lodash').includes;
 
 /**

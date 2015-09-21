@@ -1,8 +1,8 @@
 /* globals babel */
 
 // Dependencies
-
-const {types} = Focus.component;
+const React = require('react');
+const {types} = require('focus-core').component;
 
 const LivePreview = React.createClass({
     displayName: 'LivePreview',

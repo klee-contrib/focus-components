@@ -1,8 +1,8 @@
 // Dependencies
 
-let builder = require('focusjs').component.builder;
+let builder = require('focus-core').component.builder;
 let React = require('react');
-let type = require('focusjs').component.types;
+let type = require('focus-core').component.types;
 let assign = require('object-assign');
 let omit = require('lodash/object/omit');
 

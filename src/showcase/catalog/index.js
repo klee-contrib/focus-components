@@ -3,7 +3,7 @@
 const {reduce, sortByOrder} = require('lodash/collection');
 const React = require('react');
 const {Component} = React;
-const ListStore = require('focusjs').store.ListStore;
+const ListStore = require('focus-core').store.ListStore;
 
 // Data
 

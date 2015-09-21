@@ -1,6 +1,6 @@
 // Dependencies
-const builder = require('focusjs').component.builder;
-const type = require('focusjs').component.types;
+const builder = require('focus-core').component.builder;
+const type = require('focus-core').component.types;
 // Mixins
 const valueBehaviour = require('./mixin/value-behaviour');
 const validationBehaviour = require('./mixin/validation-behaviour');

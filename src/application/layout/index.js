@@ -1,6 +1,6 @@
 // Dependencies
 
-const builder = require('focusjs').component.builder;
+const builder = require('focus-core').component.builder;
 
 // Components
 

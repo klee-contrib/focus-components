@@ -1,7 +1,7 @@
 // Dependencies
 
-const {checkIsNotNull} = require('focusjs').util.object;
-const {builder, types} = require('focusjs').component;
+const {checkIsNotNull} = require('focus-core').util.object;
+const {builder, types} = require('focus-core').component;
 const find = require('lodash/collection/find');
 const {omit} = require('lodash/object');
 

@@ -1,4 +1,4 @@
-const {builder, types} = require('focusjs').component;
+const {builder, types} = require('focus-core').component;
 const i18nBehaviour = require('../common/i18n/mixin');
 const Button = require('../common/button/action').component;
 const messageMixin = {

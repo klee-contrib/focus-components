@@ -1,5 +1,5 @@
 //Dependencies.
-const {builder, types} = require('focusjs').component;
+const {builder, types} = require('focus-core').component;
 const React = require('react');
 const i18nBehaviour = require('../../i18n/mixin');
 

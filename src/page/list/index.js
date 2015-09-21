@@ -5,8 +5,8 @@
 //- be paginated
 //- be displayed in any list container.
 let {camelCase, capitalize} = require('lodash/string');
-let {types, builder} = require('focusjs').component;
-let actionBuilder = require('focusjs').list.actionBuilder;
+let {types, builder} = require('focus-core').component;
+let actionBuilder = require('focus-core').list.actionBuilder;
 let type = types;
 let assign = require('object-assign');
 

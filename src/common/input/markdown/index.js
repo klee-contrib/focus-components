@@ -1,5 +1,5 @@
 //Dependencies.
-const builder = require('focusjs').component.builder;
+const builder = require('focus-core').component.builder;
 const React = require('react');
 const ReactDOM = require('react-dom');
 

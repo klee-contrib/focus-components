@@ -1,6 +1,6 @@
 // Dependencies
 
-let type = require('focusjs').component.types;
+let type = require('focus-core').component.types;
 
 // Mixins
 

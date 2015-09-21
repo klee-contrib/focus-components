@@ -10,11 +10,11 @@ let SearchBar = require('../../../../search/search-bar').component;
 
 // Actions
 
-let actionBuilder = Focus.search.actionBuilder;
+let actionBuilder = require('focus-core').search.actionBuilder;
 
 // Store
 
-let advancedSearchStore = Focus.search.builtInStore.advancedSearchStore;
+let advancedSearchStore = require('focus-core').search.builtInStore.advancedSearchStore;
 
 module.exports = {
     mixins: [i18nMixin, referenceBehaviour, storeBehaviour],

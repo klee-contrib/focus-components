@@ -1,7 +1,7 @@
 // Dependencies
 
-const type = require('focusjs').component.types;
-const builder = require('focusjs').component.builder;
+const type = require('focus-core').component.types;
+const builder = require('focus-core').component.builder;
 
 // Components
 
@@ -15,11 +15,11 @@ const storeBehaviour = require('../../../common/mixin/store-behaviour');
 
 // Actions
 
-const actionBuilder = Focus.search.actionBuilder;
+const actionBuilder = require('focus-core').search.actionBuilder;
 
 // Stores
 
-const quickSearchStore = Focus.search.builtInStore.quickSearchStore;
+const quickSearchStore = require('focus-core').search.builtInStore.quickSearchStore;
 
 /**
  * General search mixin.
