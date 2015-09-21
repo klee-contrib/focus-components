@@ -17,7 +17,8 @@
         "showcase:dependencies": "cp ./node_modules/babel-core/browser.js showcase/js/ && cp dist/js/* showcase/js/ && cp -rf dist/css/* showcase/css/",
         "showcase:assets": "node ./node_modules/babel/bin/babel.js scripts/script-loader.js --out-file showcase/js/script-loader.js && node ./node_modules/babel/bin/babel.js scripts/style-loader.js --out-file showcase/js/style-loader.js && node ./node_modules/babel/bin/babel.js scripts/load-dependencies.js --out-file showcase/js/load-dependencies.js && cat showcase/js/script-loader.js showcase/js/style-loader.js showcase/js/load-dependencies.js > showcase/js/assets.js",
         "showcase": "npm run showcase:components && npm run showcase:dependencies && npm run showcase:assets",
-        "material:override": "node scripts/mdl-variables-copy.js"
+        "material:override": "node scripts/mdl-variables-copy.js",
+        "webpack": "node server.js"
     },
     "repository": {
         "type": "git",
@@ -60,6 +61,7 @@
         "babel": "^5.8.21",
         "babel-core": "^5.8.22",
         "babel-eslint": "^3.1.26",
+        "babel-loader": "^5.3.2",
         "babel-plugin-runtime": "^1.0.7",
         "babelify": "^6.3.0",
         "brace": "^0.5.1",
@@ -69,7 +71,6 @@
         "chai-subset": "^1.0.1",
         "coveralls": "^2.11.4",
         "eslint": "1.0.0-rc-1",
-        "eslint-config-focus": "git+https://github.com/KleeGroup/eslint-config-focus.git",
         "eslint-plugin-react": "^2.7.1",
         "express": "^4.12.0",
         "focus": "git+https://git@github.com/KleeGroup/focus-core.git",
@@ -82,6 +83,7 @@
         "istanbul": "^0.3.20",
         "jquery": "^2.1.4",
         "jsdom": "^6.4.0",
+        "json-loader": "^0.5.3",
         "literalify": "^0.4.0",
         "mocha": "^2.2.5",
         "mocha-lcov-reporter": "0.0.2",
@@ -89,8 +91,11 @@
         "react-ace": "git+https://github.com/Bernardstanislas/react-ace.git",
         "react-addons-test-utils": "^0.14.0-rc1",
         "react-bootstrap-daterangepicker": "git+https://github.com/pierr/react-bootstrap-daterangepicker.git",
+        "react-hot-loader": "^1.3.0",
         "reactify": "1.1.1",
         "vinyl-source-stream": "^1.0.0",
-        "watchify": "^2.4.0"
+        "watchify": "^2.4.0",
+        "webpack": "^1.12.2",
+        "webpack-dev-server": "^1.11.0"
     }
 }
