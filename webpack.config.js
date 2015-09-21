@@ -8,17 +8,12 @@ module.exports = {
     './src/index'
   ],
   output: {
-    path: path.join(__dirname, 'dist'),
-    filename: 'bundle.js',
-    publicPath: '/static/'
-  },
-  externals:{
-    backbone: "Backbone",
-    i18n: "i18n",
-    i18next: "i18n",
-    react: 'React',
-    'react-dom': 'ReactDOM' 
-  },
+     path: path.join(__dirname, 'dist'),
+     filename: 'focus-components.js',
+     publicPath: '/dist/',
+     libraryTarget: 'var',
+     library: 'FocusComponents'
+    },
   plugins: [
     new webpack.HotModuleReplacementPlugin()
   ],
