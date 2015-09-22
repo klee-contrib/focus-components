@@ -32,7 +32,8 @@ const FOCUS_INIT = '/js/initFocus.js';
  */
 function loadJS(){
 
-    function focusPromise(){return loadScript(FOCUS_JS).then(()=>{return loadScript(FOCUS_COMPONENTS_JS); })}
+    function focusPromise(){ return loadScript(FOCUS_COMPONENTS_JS); }
+
     return Promise.all([
         loadScript(JQUERY),
         loadScript(REACT_JS),
