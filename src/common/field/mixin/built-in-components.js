@@ -7,6 +7,7 @@ const result = require('lodash/object/result');
 const assign = require('object-assign');
 // Components
 
+const Autocomplete = require('../../autocomplete/field').component;
 const InputText = require('../../input/text').component;
 const DisplayText = require('../../display/text').component;
 const SelectClassic = require('../../select/classic').component;
@@ -41,6 +42,11 @@ const fieldBuiltInComponentsMixin = {
             */
             InputComponent: InputText,
             /**
+             * Autocomplete component
+             * @type {Object}
+             */
+            AutocompleteComponent: Autocomplete,
+            /**
             * Component for the select.
             * @type {Object}
             */
@@ -58,6 +64,7 @@ const fieldBuiltInComponentsMixin = {
         labelSize: type('number'),
         FieldComponent: type(['object', 'function']),
         InputLabelComponent: type(['object', 'function']),
+        AutocompleteComponent: type(['object', 'function']),
         InputComponent: type(['object', 'function']),
         SelectComponent: type(['object', 'function']),
         DisplayComponent: type(['object', 'function'])
@@ -97,6 +104,25 @@ const fieldBuiltInComponentsMixin = {
             ref: 'input'
         });
         return <this.props.InputComponent {...inputBuildedProps}/>;
+    },
+    /**
+     * Autocomplete render
+     * @return {JSX} rendered component
+     */
+    autocomplete() {
+        const {name: id, label: placeHolder} = this.props;
+        const {value, error} = this.state;
+        const {onInputChange: onChange} = this;
+        const inputBuildedProps = {
+            ...this.props,
+            id,
+            onChange,
+            value,
+            error,
+            placeHolder,
+            ref: 'input'
+        };
+        return <this.props.AutocompleteComponent {...inputBuildedProps}/>;
     },
     /**
      * Build a select component depending on the domain, definition and props.
