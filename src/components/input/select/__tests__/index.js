@@ -55,11 +55,13 @@ describe('The select ', () => {
         before(
             () => {
                 onChangeSpy = sinon.spy();
-                component = renderIntoDocument(<Select name='selectName' onChange={identity} value={VALUE} values={VALUES} />);
+                component = renderIntoDocument(<Select name='selectName' onChange={onChangeSpy} value={VALUE} values={VALUES} />);
             }
         );
         it('should call onChange with the new value', ()=>{
             Simulate.change(ReactDOM.findDOMNode(component.refs.htmlSelect), {target: {value: VALUE}});
+            expect(onChangeSpy).to.have.been.called.once;
+            expect(onChangeSpy).to.have.been.calledWith(VALUE);
         });
     })
 });
