@@ -29,8 +29,11 @@ const propTypes = {
 const defaultProps = {
     drops: 'down',
     locale: defaultLocale,
+    /**
+     * Default onChange prop, that will log an error.
+     */
     onChange() {
-        console.error('You did not give an onChange method to an input date, please check your code.')
+        console.error('You did not give an onChange method to an input date, please check your code.');
     },
     showDropdowns: true,
     value: moment()
@@ -82,7 +85,6 @@ class InputDate extends Component {
 
     getValue = () => {
         const {dropDownDate, inputDate} = this.state;
-        debugger;
         return this._isDateValid(inputDate) ? dropDownDate.toISOString() : null;
     }
 
@@ -128,5 +130,6 @@ class InputDate extends Component {
 
 InputDate.propTypes = propTypes;
 InputDate.defaultProps = defaultProps;
+InputDate.displayName = 'InputDate';
 
 export default InputDate;
