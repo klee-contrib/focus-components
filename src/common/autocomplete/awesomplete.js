@@ -34,6 +34,8 @@ let Autocomplete = {
             list: this._extractListFromData(pickList)
         });
         this._awesomeplete.input.addEventListener('awesomplete-select', event => this._selectionHandler(event.text));
+        
+        this.init = false;
     },
     /**
      * Default props.
@@ -77,9 +79,10 @@ let Autocomplete = {
      */
     componentWillReceiveProps(nextProps) {
         let {pickList, code} = nextProps;
-        if (code) {
+        if (!this.init && code) {
             const value = this._getValueFromCode(code, pickList);
             this.setState({value});
+            this.init = true;
         }
         this._awesomeplete._list = this._extractListFromData(pickList);
     },
