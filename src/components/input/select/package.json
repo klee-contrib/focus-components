@@ -1,0 +1,19 @@
+{
+  "name": "select",
+  "version": "1.0.0",
+  "description": "Select HTML component.",
+  "main": "index.js",
+  "directories": {
+    "example": "example"
+  },
+  "scripts": {
+    "test": "mocha"
+  },
+  "keywords": [
+    "select",
+    "form",
+    "input"
+  ],
+  "author": "focus@kleegroup.com",
+  "license": "MIT"
+}
