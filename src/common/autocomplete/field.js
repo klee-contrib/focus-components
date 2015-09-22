@@ -19,7 +19,7 @@ const AutocompleteFor = {
      */
     getDefaultProps() {
         return {
-            AutocompleteComponent: Autocomplete,
+            AutocompleteComp: Autocomplete,
             pickList: [],
             value: ''
         };
@@ -29,13 +29,14 @@ const AutocompleteFor = {
      * @type {Object}
      */
     propTypes: {
-        AutocompleteComponent: types('func'),
+        AutocompleteComp: types('func'),
         allowUnmatchedValue: types('bool'),
-        code: types('string'),
+        value: types('string'),
+        codeResolver: types('func'),
         isEdit: types('bool'),
-        loader: types('func'),
         pickList: types('array'),
-        selectionHandler: types('func')
+        selectionHandler: types('func'),
+        searcher: types('func')
     },
     /**
      * Get initial state
@@ -49,16 +50,26 @@ const AutocompleteFor = {
      * Component will mount, load the list
      */
     componentWillMount() {
-        this._doLoad();
+        const {value, codeResolver} = this.props;
+        if (value && codeResolver) {
+            codeResolver(value).then(resolvedCode => this.setState({value: resolvedCode}));
+        } else {
+            this._doLoad();
+        }
+    },
+    componentWillReceiveProps({codeResolver, value}) {
+        if (value !== this.props.value) {
+            codeResolver(value).then(resolvedCode => this.setState({value: resolvedCode}));
+        }
     },
     /**
      * List loader
      * @param  {string} text='' input text to search from
      */
     _doLoad(text='') {
-        let {loader} = this.props;
-        if (loader) {
-            loader(text).then(pickList => this.setState({pickList}));
+        const {searcher} = this.props;
+        if (searcher) {
+            searcher(text).then(pickList => this.setState({pickList}));
         }
     },
     /**
@@ -74,16 +85,17 @@ const AutocompleteFor = {
      * @return {HTML} rendered element
      */
     _renderEdit() {
-        let {AutocompleteComponent, allowUnmatchedValue, selectionHandler, value} = this.props;
-        let {pickList} = this.state;
+        let {AutocompleteComp, allowUnmatchedValue, selectionHandler, value: code} = this.props;
+        let {pickList, value} = this.state;
         return (
-            <AutocompleteComponent
+            <AutocompleteComp
                 allowUnmatchedValue={allowUnmatchedValue}
-                code={value}
+                code={code}
                 inputChangeHandler={this._doLoad}
                 pickList={pickList}
                 ref='autocomplete'
                 selectionHandler={selectionHandler}
+                value={value}
             />
         );
     },
@@ -92,12 +104,10 @@ const AutocompleteFor = {
      * @return {HTML} rendered element
      */
     _renderConsult() {
-        let {value} = this.props;
-        let {pickList} = this.state;
-        let pick = find(pickList, {code: value});
-        let text = pick ? pick.value : value;
+        const {value} = this.state;
+        const {value: code} = this.props;
         return (
-            <span>{text}</span>
+            <span>{value ? value : code}</span>
         );
     },
     /**
@@ -106,7 +116,7 @@ const AutocompleteFor = {
      */
     render() {
         let {isEdit} = this.props;
-        return isEdit ? this._renderEdit() : this._renderConsult();
+        return false === isEdit ? this._renderConsult() : this._renderEdit();
     }
 };
 
