@@ -94,7 +94,7 @@ const ActionBar = {
                     style: this._getSelectedStyle(description.key + description.order, orderSelectedParsedKey)
                 });
             }
-            const orderIcon = this.props.orderSelected.order ? 'sort-alpha-desc' : 'sort-alpha-asc';
+            const orderIcon = 'sort_by_alpha';
             const {style} = this.props;
             return (
                 <div style={style.actions.sort}>
