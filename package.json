@@ -2,7 +2,7 @@
   "name": "focus-components",
   "version": "0.7.0-beta",
   "description": "Focus component repository.",
-  "main": "index.js",
+  "main": "lib/index.js",
   "scripts": {
     "test": "node ./node_modules/mocha/bin/mocha src/**/__tests__/**/*.js",
     "test:watch": "node ./node_modules/mocha/bin/mocha src/**/__tests__/**/*.js -w",
