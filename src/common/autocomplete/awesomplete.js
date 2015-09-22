@@ -43,7 +43,7 @@ let Autocomplete = {
             code: '',
             pickList: [],
             timeoutDuration: 200,
-            allowUnmatchedValue: false
+            allowUnmatchedValue: true
         };
     },
     /**
@@ -144,7 +144,7 @@ let Autocomplete = {
         const {value} = this.state;
         const {allowUnmatchedValue} = this.props;
         const code = this._getCodeFromValue(value);
-        if (!code && allowUnmatchedValue && !this._isSelecting) {
+        if (!code && !allowUnmatchedValue && !this._isSelecting) {
             this.setState({value: ''});
         }
         this._isSelecting = false;
