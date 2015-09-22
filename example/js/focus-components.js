@@ -45540,7 +45540,7 @@ module.exports = React.createClass({
 
 },{"brace":2}],387:[function(require,module,exports){
 /**
-* @version: 2.0.8
+* @version: 2.0.9
 * @author: Dan Grossman http://www.dangrossman.info/
 * @copyright: Copyright (c) 2012-2015 Dan Grossman. All rights reserved.
 * @license: Licensed under the MIT license. See http://www.opensource.org/licenses/mit-license.php
@@ -45594,6 +45594,7 @@ module.exports = React.createClass({
         this.timePickerIncrement = 1;
         this.timePickerSeconds = false;
         this.linkedCalendars = true;
+        this.autoUpdateInput = true;
         this.ranges = {};
 
         this.opens = 'right';
@@ -45786,8 +45787,14 @@ module.exports = React.createClass({
         if (typeof options.autoApply === 'boolean')
             this.autoApply = options.autoApply;
 
+        if (typeof options.autoUpdateInput === 'boolean')
+            this.autoUpdateInput = options.autoUpdateInput;
+
         if (typeof options.linkedCalendars === 'boolean')
             this.linkedCalendars = options.linkedCalendars;
+
+        if (typeof options.isInvalidDate === 'function')
+            this.isInvalidDate = options.isInvalidDate;
 
         // update day names order to firstDay
         if (this.locale.firstDay != 0) {
@@ -45937,8 +45944,8 @@ module.exports = React.createClass({
             .on('change.daterangepicker', 'select.monthselect', $.proxy(this.monthOrYearChanged, this))
             .on('change.daterangepicker', 'select.hourselect,select.minuteselect,select.secondselect,select.ampmselect', $.proxy(this.timeChanged, this))
             .on('click.daterangepicker', '.daterangepicker_input input', $.proxy(this.showCalendars, this))
-            .on('keyup.daterangepicker', '.daterangepicker_input input', $.proxy(this.formInputsChanged, this))
-            .on('change.daterangepicker', '.daterangepicker_input input', $.proxy(this.updateFormInputs, this));
+            //.on('keyup.daterangepicker', '.daterangepicker_input input', $.proxy(this.formInputsChanged, this))
+            .on('change.daterangepicker', '.daterangepicker_input input', $.proxy(this.formInputsChanged, this));
 
         this.container.find('.ranges')
             .on('click.daterangepicker', 'button.applyBtn', $.proxy(this.clickApply, this))
@@ -45962,10 +45969,10 @@ module.exports = React.createClass({
         // if attached to a text input, set the initial value
         //
 
-        if (this.element.is('input') && !this.singleDatePicker) {
+        if (this.element.is('input') && !this.singleDatePicker && this.autoUpdateInput) {
             this.element.val(this.startDate.format(this.locale.format) + this.locale.separator + this.endDate.format(this.locale.format));
             this.element.trigger('change');
-        } else if (this.element.is('input')) {
+        } else if (this.element.is('input') && this.autoUpdateInput) {
             this.element.val(this.startDate.format(this.locale.format));
             this.element.trigger('change');
         }
@@ -46023,6 +46030,10 @@ module.exports = React.createClass({
             this.updateMonthsInView();
         },
 
+        isInvalidDate: function() {
+            return false;
+        },
+
         updateView: function() {
             if (this.timePicker) {
                 this.renderTimePicker('left');
@@ -46047,12 +46058,23 @@ module.exports = React.createClass({
 
         updateMonthsInView: function() {
             if (this.endDate) {
+
+                //if both dates are visible already, do nothing
+                if (this.leftCalendar.month && this.rightCalendar.month &&
+                    (this.startDate.format('YYYY-MM') == this.leftCalendar.month.format('YYYY-MM') || this.startDate.format('YYYY-MM') == this.rightCalendar.month.format('YYYY-MM'))
+                    &&
+                    (this.endDate.format('YYYY-MM') == this.leftCalendar.month.format('YYYY-MM') || this.endDate.format('YYYY-MM') == this.rightCalendar.month.format('YYYY-MM'))
+                    ) {
+                    return;
+                }
+
                 this.leftCalendar.month = this.startDate.clone().date(2);
                 if (!this.linkedCalendars && (this.endDate.month() != this.startDate.month() || this.endDate.year() != this.startDate.year())) {
                     this.rightCalendar.month = this.endDate.clone().date(2);
                 } else {
                     this.rightCalendar.month = this.startDate.clone().date(2).add(1, 'month');
                 }
+                
             } else {
                 if (this.leftCalendar.month.format('YYYY-MM') != this.startDate.format('YYYY-MM') && this.rightCalendar.month.format('YYYY-MM') != this.startDate.format('YYYY-MM')) {
                     this.leftCalendar.month = this.startDate.clone().date(2);
@@ -46308,6 +46330,10 @@ module.exports = React.createClass({
 
                     //don't allow selection of dates after the maximum date
                     if (maxDate && calendar[row][col].isAfter(maxDate, 'day'))
+                        classes.push('off', 'disabled');
+
+                    //don't allow selection of date if a custom function decides it's invalid
+                    if (this.isInvalidDate(calendar[row][col]))
                         classes.push('off', 'disabled');
 
                     //highlight the currently selected start date
@@ -46585,10 +46611,10 @@ module.exports = React.createClass({
                 this.callback(this.startDate, this.endDate, this.chosenLabel);
 
             //if picker is attached to a text input, update it
-            if (this.element.is('input') && !this.singleDatePicker) {
+            if (this.element.is('input') && !this.singleDatePicker && this.autoUpdateInput) {
                 this.element.val(this.startDate.format(this.locale.format) + this.locale.separator + this.endDate.format(this.locale.format));
                 this.element.trigger('change');
-            } else if (this.element.is('input')) {
+            } else if (this.element.is('input') && this.autoUpdateInput) {
                 this.element.val(this.startDate.format(this.locale.format));
                 this.element.trigger('change');
             }
@@ -46711,7 +46737,7 @@ module.exports = React.createClass({
             var startDate = this.startDate;
             if (!this.endDate) {
                 this.container.find('.calendar td').each(function(index, el) {
-                    
+
                     //skip week numbers, only look at dates
                     if ($(el).hasClass('week')) return;
 
@@ -46896,8 +46922,8 @@ module.exports = React.createClass({
 
         formInputsChanged: function(e) {
             var isRight = $(e.target).closest('.calendar').hasClass('right');
-            var start = moment(this.container.find('input[name="daterangepicker_start"]').val(), this.locale.format);
-            var end = moment(this.container.find('input[name="daterangepicker_end"]').val(), this.locale.format);
+            var start = moment(this.container.find('input[name="daterangepicker_start"]').val(), this.locale.format).utcOffset(this.timeZone);
+            var end = moment(this.container.find('input[name="daterangepicker_end"]').val(), this.locale.format).utcOffset(this.timeZone);
 
             if (start.isValid() && end.isValid()) {
 
@@ -46977,13 +47003,16 @@ module.exports = React.createClass({
 /* generated by gulpfile.js */
 module.exports = exports = function () {
 	return [
+		"<input>",
 		"applyClass",
 		"autoApply",
+		"autoUpdateInput",
 		"buttonClasses",
 		"cancelClass",
 		"dateLimit",
 		"drops",
 		"endDate",
+		"isInvalidDate",
 		"linkedCalendars",
 		"locale",
 		"maxDate",
@@ -47298,7 +47327,7 @@ module.exports = uuid;
 },{"./rng":390}],392:[function(require,module,exports){
 module.exports={
     "name": "focusjs-components",
-    "version": "0.6.1-5",
+    "version": "0.6.1-6",
     "description": "Focus component repository.",
     "main": "index.js",
     "scripts": {
@@ -47390,6 +47419,7 @@ module.exports={
         "watchify": "^2.4.0"
     }
 }
+
 },{}],393:[function(require,module,exports){
 'use strict';
 
@@ -48719,6 +48749,7 @@ var builder = _Focus$component.builder;
 var types = _Focus$component.types;
 
 var find = require('lodash/collection/find');
+var InputText = require('../input/text').component;
 
 /**
  * Autocomplete component.
@@ -48744,7 +48775,7 @@ var Autocomplete = {
     componentDidMount: function componentDidMount() {
         var _this = this;
 
-        var input = this.refs.input;
+        var input = this.refs.input.refs.inputText;
         var pickList = this.props.pickList;
 
         this._awesomeplete = new Awesomplete(React.findDOMNode(input), {
@@ -48763,7 +48794,7 @@ var Autocomplete = {
             code: '',
             pickList: [],
             timeoutDuration: 200,
-            allowUnmatchedValue: false
+            allowUnmatchedValue: true
         };
     },
     /**
@@ -48801,7 +48832,7 @@ var Autocomplete = {
         var pickList = nextProps.pickList;
         var code = nextProps.code;
 
-        if (code) {
+        if (code !== this.props.code) {
             var value = this._getValueFromCode(code, pickList);
             this.setState({ value: value });
         }
@@ -48875,10 +48906,17 @@ var Autocomplete = {
      */
     _onInputBlur: function _onInputBlur() {
         var value = this.state.value;
-        var allowUnmatchedValue = this.props.allowUnmatchedValue;
+        var _props2 = this.props;
+        var allowUnmatchedValue = _props2.allowUnmatchedValue;
+        var pickList = _props2.pickList;
+        var selectionHandler = _props2.selectionHandler;
 
+        var selectedPick = find(pickList, { value: value });
         var code = this._getCodeFromValue(value);
-        if (!code && allowUnmatchedValue && !this._isSelecting) {
+        if (selectedPick && !this._isSelecting && selectionHandler) {
+            selectionHandler(selectedPick);
+        }
+        if (!code && !allowUnmatchedValue && !this._isSelecting) {
             this.setState({ value: '' });
         }
         this._isSelecting = false;
@@ -48917,14 +48955,14 @@ var Autocomplete = {
         return React.createElement(
             'div',
             { 'data-focus': 'autocomplete' },
-            React.createElement('input', { onBlur: _onInputBlur, onChange: _onInputChange, ref: 'input', value: value })
+            React.createElement(InputText, { onBlur: _onInputBlur, onChange: _onInputChange, ref: 'input', value: value })
         );
     }
 };
 
 module.exports = builder(Autocomplete);
 
-},{"lodash/collection/find":62}],410:[function(require,module,exports){
+},{"../input/text":443,"lodash/collection/find":62}],410:[function(require,module,exports){
 // Dependencies
 
 'use strict';
@@ -48948,7 +48986,7 @@ var AutocompleteFor = {
      */
     getDefaultProps: function getDefaultProps() {
         return {
-            AutocompleteComponent: Autocomplete,
+            AutocompleteComp: Autocomplete,
             pickList: [],
             value: ''
         };
@@ -48958,13 +48996,14 @@ var AutocompleteFor = {
      * @type {Object}
      */
     propTypes: {
-        AutocompleteComponent: types('func'),
+        AutocompleteComp: types('func'),
         allowUnmatchedValue: types('bool'),
-        code: types('string'),
+        value: types('string'),
+        codeResolver: types('func'),
         isEdit: types('bool'),
-        loader: types('func'),
         pickList: types('array'),
-        selectionHandler: types('func')
+        selectionHandler: types('func'),
+        searcher: types('func')
     },
     /**
      * Get initial state
@@ -48979,21 +49018,45 @@ var AutocompleteFor = {
      * Component will mount, load the list
      */
     componentWillMount: function componentWillMount() {
-        this._doLoad();
+        var _this = this;
+
+        var _props = this.props;
+        var value = _props.value;
+        var codeResolver = _props.codeResolver;
+
+        if (value && codeResolver) {
+            codeResolver(value).then(function (resolvedCode) {
+                return _this.setState({ value: resolvedCode });
+            });
+        } else {
+            this._doLoad();
+        }
+    },
+    componentWillReceiveProps: function componentWillReceiveProps(_ref) {
+        var _this2 = this;
+
+        var codeResolver = _ref.codeResolver;
+        var value = _ref.value;
+
+        if (value !== this.props.value) {
+            codeResolver(value).then(function (resolvedCode) {
+                return _this2.setState({ value: resolvedCode });
+            });
+        }
     },
     /**
      * List loader
      * @param  {string} text='' input text to search from
      */
     _doLoad: function _doLoad() {
-        var _this = this;
+        var _this3 = this;
 
         var text = arguments.length <= 0 || arguments[0] === undefined ? '' : arguments[0];
-        var loader = this.props.loader;
+        var searcher = this.props.searcher;
 
-        if (loader) {
-            loader(text).then(function (pickList) {
-                return _this.setState({ pickList: pickList });
+        if (searcher) {
+            searcher(text).then(function (pickList) {
+                return _this3.setState({ pickList: pickList });
             });
         }
     },
@@ -49011,20 +49074,23 @@ var AutocompleteFor = {
      * @return {HTML} rendered element
      */
     _renderEdit: function _renderEdit() {
-        var _props = this.props;
-        var AutocompleteComponent = _props.AutocompleteComponent;
-        var allowUnmatchedValue = _props.allowUnmatchedValue;
-        var selectionHandler = _props.selectionHandler;
-        var value = _props.value;
-        var pickList = this.state.pickList;
+        var _props2 = this.props;
+        var AutocompleteComp = _props2.AutocompleteComp;
+        var allowUnmatchedValue = _props2.allowUnmatchedValue;
+        var selectionHandler = _props2.selectionHandler;
+        var code = _props2.value;
+        var _state = this.state;
+        var pickList = _state.pickList;
+        var value = _state.value;
 
-        return React.createElement(AutocompleteComponent, {
+        return React.createElement(AutocompleteComp, {
             allowUnmatchedValue: allowUnmatchedValue,
-            code: value,
+            code: code,
             inputChangeHandler: this._doLoad,
             pickList: pickList,
             ref: 'autocomplete',
-            selectionHandler: selectionHandler
+            selectionHandler: selectionHandler,
+            value: value
         });
     },
     /**
@@ -49032,15 +49098,13 @@ var AutocompleteFor = {
      * @return {HTML} rendered element
      */
     _renderConsult: function _renderConsult() {
-        var value = this.props.value;
-        var pickList = this.state.pickList;
+        var value = this.state.value;
+        var code = this.props.value;
 
-        var pick = find(pickList, { code: value });
-        var text = pick ? pick.value : value;
         return React.createElement(
             'span',
             null,
-            text
+            value ? value : code
         );
     },
     /**
@@ -49050,7 +49114,7 @@ var AutocompleteFor = {
     render: function render() {
         var isEdit = this.props.isEdit;
 
-        return isEdit ? this._renderEdit() : this._renderConsult();
+        return false === isEdit ? this._renderConsult() : this._renderEdit();
     }
 };
 
@@ -49795,12 +49859,15 @@ var FieldMixin = {
         var FieldComponent = _props.FieldComponent;
         var InputLabelComponent = _props.InputLabelComponent;
         var domain = _props.domain;
+        var codeResolver = _props.codeResolver;
+        var searcher = _props.searcher;
         var isRequired = _props.isRequired;
         var values = _props.values;
         var hasLabel = _props.hasLabel;
         var isEdit = _props.isEdit;
 
         var isCustomComponent = FieldComponent || InputLabelComponent;
+        var autocomplete = this.autocomplete;
         var label = this.label;
         var input = this.input;
         var select = this.select;
@@ -49814,7 +49881,7 @@ var FieldMixin = {
             !isCustomComponent && React.createElement(
                 'div',
                 { className: '' + this._getContentGridClassName(), 'data-focus': 'field-value-container' },
-                isEdit ? values ? select() : input() : display()
+                codeResolver && searcher ? autocomplete() : isEdit ? values ? select() : input() : display()
             )
         );
     }
@@ -49826,6 +49893,8 @@ module.exports = builder(FieldMixin);
 
 'use strict';
 
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
 var React = window.React;
 var type = window.Focus.component.types;
 var find = require('lodash/collection/find');
@@ -49833,6 +49902,7 @@ var result = require('lodash/object/result');
 var assign = require('object-assign');
 // Components
 
+var Autocomplete = require('../../autocomplete/field').component;
 var InputText = require('../../input/text').component;
 var DisplayText = require('../../display/text').component;
 var SelectClassic = require('../../select/classic').component;
@@ -49867,6 +49937,11 @@ var fieldBuiltInComponentsMixin = {
             */
             InputComponent: InputText,
             /**
+             * Autocomplete component
+             * @type {Object}
+             */
+            AutocompleteComponent: Autocomplete,
+            /**
             * Component for the select.
             * @type {Object}
             */
@@ -49884,6 +49959,7 @@ var fieldBuiltInComponentsMixin = {
         labelSize: type('number'),
         FieldComponent: type(['object', 'function']),
         InputLabelComponent: type(['object', 'function']),
+        AutocompleteComponent: type(['object', 'function']),
         InputComponent: type(['object', 'function']),
         SelectComponent: type(['object', 'function']),
         DisplayComponent: type(['object', 'function'])
@@ -49932,6 +50008,29 @@ var fieldBuiltInComponentsMixin = {
         return React.createElement(this.props.InputComponent, inputBuildedProps);
     },
     /**
+     * Autocomplete render
+     * @return {JSX} rendered component
+     */
+    autocomplete: function autocomplete() {
+        var _props2 = this.props;
+        var id = _props2.name;
+        var placeHolder = _props2.label;
+        var _state2 = this.state;
+        var value = _state2.value;
+        var error = _state2.error;
+        var onChange = this.onInputChange;
+
+        var inputBuildedProps = _extends({}, this.props, {
+            id: id,
+            onChange: onChange,
+            value: value,
+            error: error,
+            placeHolder: placeHolder,
+            ref: 'input'
+        });
+        return React.createElement(this.props.AutocompleteComponent, inputBuildedProps);
+    },
+    /**
      * Build a select component depending on the domain, definition and props.
      * @return {Component} - The builded select component.
      */
@@ -49954,11 +50053,11 @@ var fieldBuiltInComponentsMixin = {
         var _find;
 
         var value = this.state.value;
-        var _props2 = this.props;
-        var name = _props2.name;
-        var valueKey = _props2.valueKey;
-        var labelKey = _props2.labelKey;
-        var values = _props2.values;
+        var _props3 = this.props;
+        var name = _props3.name;
+        var valueKey = _props3.valueKey;
+        var labelKey = _props3.labelKey;
+        var values = _props3.values;
 
         var _processValue = values ? result(find(values, (_find = {}, _find[valueKey || 'code'] = value, _find)), labelKey || 'label') : value;
         var buildedDislplayProps = assign({}, this.props, {
@@ -49989,9 +50088,9 @@ var fieldBuiltInComponentsMixin = {
     * @return {object} - The help part of the component.
     */
     help: function help() {
-        var _props3 = this.props;
-        var help = _props3.help;
-        var name = _props3.name;
+        var _props4 = this.props;
+        var help = _props4.help;
+        var name = _props4.name;
 
         if (help) {
             return React.createElement(
@@ -50007,9 +50106,9 @@ var fieldBuiltInComponentsMixin = {
      */
     _renderFieldComponent: function _renderFieldComponent() {
         var FieldComponent = this.props.FieldComponent || this.props.InputLabelComponent;
-        var _state2 = this.state;
-        var value = _state2.value;
-        var error = _state2.error;
+        var _state3 = this.state;
+        var value = _state3.value;
+        var error = _state3.error;
 
         var buildedProps = assign({}, this.props, {
             id: this.props.name,
@@ -50024,7 +50123,7 @@ var fieldBuiltInComponentsMixin = {
 
 module.exports = fieldBuiltInComponentsMixin;
 
-},{"../../display/text":421,"../../input/text":443,"../../label":446,"../../mixin/field-grid-behaviour":451,"../../select/classic":465,"lodash/collection/find":62,"lodash/object/result":338,"object-assign":384}],425:[function(require,module,exports){
+},{"../../autocomplete/field":410,"../../display/text":421,"../../input/text":443,"../../label":446,"../../mixin/field-grid-behaviour":451,"../../select/classic":465,"lodash/collection/find":62,"lodash/object/result":338,"object-assign":384}],425:[function(require,module,exports){
 'use strict';
 
 var i18nMixin = require('../../i18n').mixin;
@@ -50901,9 +51000,9 @@ var InputDateMixin = {
     displayName: 'InputDate',
 
     /**
-     * Get default props
-     * @return {object} default props
-     */
+    * Get default props
+    * @return {object} default props
+    */
     getDefaultProps: function getDefaultProps() {
         return {
             drops: 'down', // possible values: up, down
@@ -50923,23 +51022,27 @@ var InputDateMixin = {
         value: types('object').isRequired
     },
     /**
-     * Get initial state
-     * @return {object} initial state
-     */
+    * Get initial state
+    * @return {object} initial state
+    */
     getInitialState: function getInitialState() {
-        var rawDate = moment(this.props.value).isValid() ? this.props.value : moment();
-        var inputDate = this.getFormattedDate(rawDate);
+        var value = this.props.value;
+
+        var momentValue = moment(value);
+        var rawDate = momentValue.isValid ? value : null;
+        var inputDate = momentValue.isValid ? this.getFormattedDate(value) : '';
         return { inputDate: inputDate, rawDate: rawDate };
     },
     /**
-     * New props handler
-     * @param  {object} value new value given as a prop
-     */
+    * New props handler
+    * @param  {object} value new value given as a prop
+    */
     componentWillReceiveProps: function componentWillReceiveProps(_ref) {
         var value = _ref.value;
 
-        var rawDate = moment(value).isValid() ? value : moment();
-        var inputDate = this.getFormattedDate(rawDate);
+        var momentValue = moment(value);
+        var rawDate = momentValue.isValid ? value : null;
+        var inputDate = momentValue.isValid ? this.getFormattedDate(value) : '';
         this.setState({ inputDate: inputDate, rawDate: rawDate });
     },
     /**
@@ -50958,15 +51061,17 @@ var InputDateMixin = {
         }
     },
     /**
-     * Get formatted value.
-     * @param  {date} rawDate raw date
-     * @return {string} formatted date
-     */
-    getFormattedDate: function getFormattedDate() {
-        var rawDate = arguments.length <= 0 || arguments[0] === undefined ? moment() : arguments[0];
-        var format = this.props.locale.format;
+    * Get formatted value.
+    * @param  {date} rawDate raw date
+    * @return {string} formatted date
+    */
+    getFormattedDate: function getFormattedDate(rawDate) {
+        if (rawDate) {
+            var format = this.props.locale.format;
 
-        return moment(rawDate).format(format);
+            return moment(rawDate).format(format);
+        }
+        return null;
     },
     /**
     * Action when selection date event.
@@ -50982,9 +51087,9 @@ var InputDateMixin = {
         });
     },
     /**
-     * Input blur handler
-     * @param  {object} inputDate input field value
-     */
+    * Input blur handler
+    * @param  {object} inputDate input field value
+    */
     _onInputBlur: function _onInputBlur(_ref3) {
         var inputDate = _ref3.target.value;
 
@@ -51004,9 +51109,9 @@ var InputDateMixin = {
         }
     },
     /**
-     * Input change handler
-     * @param  {object} inputDate input field value
-     */
+    * Input change handler
+    * @param  {object} inputDate input field value
+    */
     _onInputChange: function _onInputChange(_ref4) {
         var inputDate = _ref4.target.value;
 
@@ -51017,9 +51122,9 @@ var InputDateMixin = {
         }
     },
     /**
-     * Render the component
-     * @return {HTML} rendered component
-     */
+    * Render the component
+    * @return {HTML} rendered component
+    */
     render: function render() {
         var _state2 = this.state;
         var inputDate = _state2.inputDate;
@@ -51035,12 +51140,13 @@ var InputDateMixin = {
         var _onInputChange = this._onInputChange;
         var _onPickerApply = this._onPickerApply;
 
+        var calendarDate = rawDate ? moment(rawDate) : moment();
         return React.createElement(
             'div',
             { 'data-focus': 'input-date' },
             React.createElement(
                 DateRangePicker,
-                { drops: drops, endDate: moment(rawDate), locale: locale, onApply: _onPickerApply, opens: 'center', ref: 'daterangepicker', showDropdowns: showDropdowns, singleDatePicker: true, startDate: moment(rawDate) },
+                { drops: drops, endDate: calendarDate, locale: locale, onApply: _onPickerApply, opens: 'center', ref: 'daterangepicker', showDropdowns: showDropdowns, singleDatePicker: true, startDate: calendarDate },
                 React.createElement(InputText, { error: error, name: name, onBlur: _onInputBlur, onChange: _onInputChange, placeHolder: placeHolder, ref: 'inputDateText', value: inputDate })
             )
         );
@@ -51657,14 +51763,25 @@ module.exports = {
         var fieldProps = this._buildFieldProps(name, options, this);
         return this._renderField(fieldProps);
     },
+    autocompleteFor: function autocompleteFor(name, _ref) {
+        var codeResolver = _ref.codeResolver;
+        var searcher = _ref.searcher;
+        var options = arguments.length <= 2 || arguments[2] === undefined ? {} : arguments[2];
+
+        options = assign({}, options);
+        options.codeResolver = codeResolver;
+        options.searcher = searcher;
+        var fieldProps = this._buildFieldProps(name, options, this);
+        return this._renderField(fieldProps);
+    },
     /**
     * Display two different fields, depending on wheter the user is editing the form or not
     * @param  {Object} config the configuration, with the structure {consultField: ..., editField: ...}
     * @return {Object} the rendered resulting field
     */
-    dualFieldFor: function dualFieldFor(_ref) {
-        var consultField = _ref.consultField;
-        var editField = _ref.editField;
+    dualFieldFor: function dualFieldFor(_ref2) {
+        var consultField = _ref2.consultField;
+        var editField = _ref2.editField;
 
         return this.state.isEdit ? editField : consultField;
     },
@@ -51941,7 +52058,7 @@ var fieldBehaviourMixin = {
             options: options.options || def.options //Add options to the fields
         };
         //Extend the options object in order to be able to specify more options to thie son's component.
-        var fieldProps = assign(options, propsContainer);
+        var fieldProps = assign(options, propsContainer, options.options || def.options);
         // Values list.
         var refContainer = options.refContainer || def.refContainer || context.state.reference;
         if (refContainer && refContainer[listName]) {
@@ -58032,7 +58149,7 @@ module.exports=[
             "barContentLeft",
             "barContentRight."
         ],
-        "code": "\r\nconst Bar = FocusComponents.application.bar.component;\r\nconst dispatcher = Focus.dispatcher;\r\nconst Cartridge = React.createClass({\r\n    render(){\r\n        return <div>CARTOUCHE</div>;\r\n    }\r\n});\r\nconst Summary = React.createClass({\r\n    render(){\r\n        return <div>SUMMARY</div>;\r\n    }\r\n});\r\nconst BarContentRight = React.createClass({\r\n    render(){\r\n        return <div>BAR RIGHT</div>;\r\n    }\r\n});\r\nconst BarContentLeft = React.createClass({\r\n    render(){\r\n        return <div>BAR LEFT</div>;\r\n    }\r\n});\r\n//Simple function to update components in the bar.\r\nfunction updateComponents(cartridgeConf){\r\n    const {cartridge: cartridgeComponent, summary: summaryComponent, actions: actions, barLeft: barContentLeftComponent, barRight: barContentRightComponent} = cartridgeConf;\r\n    dispatcher.handleViewAction({\r\n      data: {\r\n        cartridgeComponent,\r\n        summaryComponent,\r\n        actions,\r\n        barContentLeftComponent,\r\n        barContentRightComponent\r\n      },\r\n      type: 'update'\r\n    });\r\n}\r\n//Add a defer in order to inject the props after the component is mounted\r\n_.defer(()=>{\r\n    updateComponents({\r\n      cartridge: {component: Cartridge, props:{}},\r\n      summary:{component: Summary, props:{}},\r\n      actions: {\r\n          primary: [],\r\n          secondary: []\r\n      },\r\n      barLeft: {component: BarContentLeft, props:{}},\r\n      barRight: {component: BarContentRight, props:{}}\r\n    })\r\n});\r\n\r\n\r\nconst BarExample =  React.createClass({\r\n    render(){\r\n        return (\r\n            <header>\r\n                <Bar/>\r\n            </header>\r\n        );\r\n    }\r\n});\r\n\r\nreturn <BarExample/>;\r\n"
+        "code": "\nconst Bar = FocusComponents.application.bar.component;\nconst dispatcher = Focus.dispatcher;\nconst Cartridge = React.createClass({\n    render(){\n        return <div>CARTOUCHE</div>;\n    }\n});\nconst Summary = React.createClass({\n    render(){\n        return <div>SUMMARY</div>;\n    }\n});\nconst BarContentRight = React.createClass({\n    render(){\n        return <div>BAR RIGHT</div>;\n    }\n});\nconst BarContentLeft = React.createClass({\n    render(){\n        return <div>BAR LEFT</div>;\n    }\n});\n//Simple function to update components in the bar.\nfunction updateComponents(cartridgeConf){\n    const {cartridge: cartridgeComponent, summary: summaryComponent, actions: actions, barLeft: barContentLeftComponent, barRight: barContentRightComponent} = cartridgeConf;\n    dispatcher.handleViewAction({\n      data: {\n        cartridgeComponent,\n        summaryComponent,\n        actions,\n        barContentLeftComponent,\n        barContentRightComponent\n      },\n      type: 'update'\n    });\n}\n//Add a defer in order to inject the props after the component is mounted\n_.defer(()=>{\n    updateComponents({\n      cartridge: {component: Cartridge, props:{}},\n      summary:{component: Summary, props:{}},\n      actions: {\n          primary: [],\n          secondary: []\n      },\n      barLeft: {component: BarContentLeft, props:{}},\n      barRight: {component: BarContentRight, props:{}}\n    })\n});\n\n\nconst BarExample =  React.createClass({\n    render(){\n        return (\n            <header>\n                <Bar/>\n            </header>\n        );\n    }\n});\n\nreturn <BarExample/>;\n"
     },
     {
         "name": "cartridge",
@@ -58043,7 +58160,7 @@ module.exports=[
             "expanded",
             "cartridge"
         ],
-        "code": "\r\nconst Cartridge = FocusComponents.application.cartridge.component;\r\nconst dispatcher = Focus.dispatcher;\r\nconst CartridgeContent = React.createClass({\r\n    render(){\r\n        return <div>CARTOUCHE</div>;\r\n    }\r\n});\r\nconst Summary = React.createClass({\r\n    render(){\r\n        return <div>SUMMARY</div>;\r\n    }\r\n});\r\nconst BarContentRight = React.createClass({\r\n    render(){\r\n        return <div>BAR RIGHT</div>;\r\n    }\r\n});\r\nconst BarContentLeft = React.createClass({\r\n    render(){\r\n        return <div>BAR LEFT</div>;\r\n    }\r\n});\r\n//Simple function to update components in the bar.\r\nfunction updateComponents(cartridgeConf){\r\n    const {cartridge: cartridgeComponent, summary: summaryComponent, actions: actions, barLeft: barContentLeftComponent, barRight: barContentRightComponent} = cartridgeConf;\r\n    dispatcher.handleViewAction({\r\n      data: {\r\n        cartridgeComponent,\r\n        summaryComponent,\r\n        actions,\r\n        barContentLeftComponent,\r\n        barContentRightComponent\r\n      },\r\n      type: 'update'\r\n    });\r\n}\r\n//Add a defer in order to inject the props after the component is mounted\r\n_.defer(()=>{\r\n    updateComponents({\r\n      cartridge: {component: CartridgeContent, props:{}},\r\n      summary:{component: Summary, props:{}},\r\n      actions: {\r\n          primary: [],\r\n          secondary: []\r\n      },\r\n      barLeft: {component: BarContentLeft, props:{}},\r\n      barRight: {component: BarContentRight, props:{}}\r\n    })\r\n});\r\n\r\nconst CartridgeExample =  React.createClass({\r\n    render(){\r\n        return (\r\n            <header>\r\n                <Cartridge/>\r\n            </header>\r\n        );\r\n    }\r\n});\r\n\r\nreturn <CartridgeExample/>;\r\n"
+        "code": "\nconst Cartridge = FocusComponents.application.cartridge.component;\nconst dispatcher = Focus.dispatcher;\nconst CartridgeContent = React.createClass({\n    render(){\n        return <div>CARTOUCHE</div>;\n    }\n});\nconst Summary = React.createClass({\n    render(){\n        return <div>SUMMARY</div>;\n    }\n});\nconst BarContentRight = React.createClass({\n    render(){\n        return <div>BAR RIGHT</div>;\n    }\n});\nconst BarContentLeft = React.createClass({\n    render(){\n        return <div>BAR LEFT</div>;\n    }\n});\n//Simple function to update components in the bar.\nfunction updateComponents(cartridgeConf){\n    const {cartridge: cartridgeComponent, summary: summaryComponent, actions: actions, barLeft: barContentLeftComponent, barRight: barContentRightComponent} = cartridgeConf;\n    dispatcher.handleViewAction({\n      data: {\n        cartridgeComponent,\n        summaryComponent,\n        actions,\n        barContentLeftComponent,\n        barContentRightComponent\n      },\n      type: 'update'\n    });\n}\n//Add a defer in order to inject the props after the component is mounted\n_.defer(()=>{\n    updateComponents({\n      cartridge: {component: CartridgeContent, props:{}},\n      summary:{component: Summary, props:{}},\n      actions: {\n          primary: [],\n          secondary: []\n      },\n      barLeft: {component: BarContentLeft, props:{}},\n      barRight: {component: BarContentRight, props:{}}\n    })\n});\n\nconst CartridgeExample =  React.createClass({\n    render(){\n        return (\n            <header>\n                <Cartridge/>\n            </header>\n        );\n    }\n});\n\nreturn <CartridgeExample/>;\n"
     },
     {
         "name": "content-bar",
@@ -58053,7 +58170,7 @@ module.exports=[
             "header",
             "wrapper"
         ],
-        "code": "const ContentBar = FocusComponents.application.contentBar.component;\r\nconst ContentBarExample =  React.createClass({\r\n    render(){\r\n        return (\r\n            <ContentBar>\r\n                <img src=\"http://lorempixel.com/400/200\" />\r\n                <img src=\"http://lorempixel.com/400/200\" />\r\n                <img src=\"http://lorempixel.com/400/200\" />\r\n                <img src=\"http://lorempixel.com/400/200\" />\r\n                <img src=\"http://lorempixel.com/400/200\" />\r\n                <img src=\"http://lorempixel.com/400/200\" />\r\n            </ContentBar>\r\n        );\r\n    }\r\n});\r\n\r\nreturn <ContentBarExample/>;\r\n"
+        "code": "const ContentBar = FocusComponents.application.contentBar.component;\nconst ContentBarExample =  React.createClass({\n    render(){\n        return (\n            <ContentBar>\n                <img src=\"http://lorempixel.com/400/200\" />\n                <img src=\"http://lorempixel.com/400/200\" />\n                <img src=\"http://lorempixel.com/400/200\" />\n                <img src=\"http://lorempixel.com/400/200\" />\n                <img src=\"http://lorempixel.com/400/200\" />\n                <img src=\"http://lorempixel.com/400/200\" />\n            </ContentBar>\n        );\n    }\n});\n\nreturn <ContentBarExample/>;\n"
     },
     {
         "name": "header",
@@ -58066,7 +58183,7 @@ module.exports=[
             "layout",
             "app"
         ],
-        "code": "\r\nconst Header = FocusComponents.application.header.component;\r\nconst HeaderExample =  React.createClass({\r\n    render(){\r\n        return (\r\n            <div>\r\n                <Header>\r\n                    <div className=\"mdl-layout__header-row\">\r\n                    <span className=\"mdl-layout-title\">Title</span>\r\n                    <div className=\"mdl-layout-spacer\"></div>\r\n                        <nav className=\"mdl-navigation\">\r\n                            <a className=\"mdl-navigation__link\" href=\"\">Link</a>\r\n                            <a className=\"mdl-navigation__link\" href=\"\">Link</a>\r\n                            <a className=\"mdl-navigation__link\" href=\"\">Link</a>\r\n                            <a className=\"mdl-navigation__link\" href=\"\">Link</a>\r\n                        </nav>\r\n                    </div>\r\n                </Header>\r\n                <img src=\"http://lorempixel.com/400/200\" />\r\n                <img src=\"http://lorempixel.com/400/200\" />\r\n                <img src=\"http://lorempixel.com/400/200\" />\r\n                <img src=\"http://lorempixel.com/400/200\" />\r\n                <img src=\"http://lorempixel.com/400/200\" />\r\n                <img src=\"http://lorempixel.com/400/200\" />\r\n            </div>\r\n        );\r\n    }\r\n});\r\n\r\nreturn <HeaderExample/>;\r\n"
+        "code": "\nconst Header = FocusComponents.application.header.component;\nconst HeaderExample =  React.createClass({\n    render(){\n        return (\n            <div>\n                <Header>\n                    <div className=\"mdl-layout__header-row\">\n                    <span className=\"mdl-layout-title\">Title</span>\n                    <div className=\"mdl-layout-spacer\"></div>\n                        <nav className=\"mdl-navigation\">\n                            <a className=\"mdl-navigation__link\" href=\"\">Link</a>\n                            <a className=\"mdl-navigation__link\" href=\"\">Link</a>\n                            <a className=\"mdl-navigation__link\" href=\"\">Link</a>\n                            <a className=\"mdl-navigation__link\" href=\"\">Link</a>\n                        </nav>\n                    </div>\n                </Header>\n                <img src=\"http://lorempixel.com/400/200\" />\n                <img src=\"http://lorempixel.com/400/200\" />\n                <img src=\"http://lorempixel.com/400/200\" />\n                <img src=\"http://lorempixel.com/400/200\" />\n                <img src=\"http://lorempixel.com/400/200\" />\n                <img src=\"http://lorempixel.com/400/200\" />\n            </div>\n        );\n    }\n});\n\nreturn <HeaderExample/>;\n"
     },
     {
         "name": "layout",
@@ -58076,7 +58193,17 @@ module.exports=[
             "layout",
             "dumb"
         ],
-        "code": "const {dispatcher} = Focus;\r\nconst CartridgeContent = React.createClass({\r\n    render(){\r\n        return <div>CARTOUCHE</div>;\r\n    }\r\n});\r\nconst Summary = React.createClass({\r\n    render(){\r\n        return <div>SUMMARY</div>;\r\n    }\r\n});\r\nconst BarContentRight = React.createClass({\r\n    render(){\r\n        return <div>BAR RIGHT</div>;\r\n    }\r\n});\r\nconst BarContentLeft = React.createClass({\r\n    render(){\r\n        return <div>BAR LEFT</div>;\r\n    }\r\n});\r\nconst MENU = React.createClass({\r\n    render(){\r\n        return <nav>MENU</nav>;\r\n    }\r\n});\r\n//Simple function to update components in the bar.\r\nfunction updateComponents(cartridgeConf){\r\n    const {cartridge: cartridgeComponent, summary: summaryComponent, actions: actions, barLeft: barContentLeftComponent, barRight: barContentRightComponent} = cartridgeConf;\r\n    dispatcher.handleViewAction({\r\n      data: {\r\n        cartridgeComponent,\r\n        summaryComponent,\r\n        actions,\r\n        barContentLeftComponent,\r\n        barContentRightComponent\r\n      },\r\n      type: 'update'\r\n    });\r\n}\r\n//Add a defer in order to inject the props after the component is mounted\r\n_.defer(()=>{\r\n    updateComponents({\r\n      cartridge: {component: CartridgeContent, props:{}},\r\n      summary:{component: Summary, props:{}},\r\n      actions: {\r\n          primary: [],\r\n          secondary: []\r\n      },\r\n      barLeft: {component: BarContentLeft, props:{}},\r\n      barRight: {component: BarContentRight, props:{}}\r\n    })\r\n});\r\n\r\n\r\nconst Layout = FocusComponents.application.layout.component;\r\nconst LayoutExample =  React.createClass({\r\n    render(){\r\n        return (\r\n            <Layout MenuLeft={MENU}>Test</Layout>\r\n        );\r\n    }\r\n});\r\n\r\nreturn <LayoutExample/>;\r\n"
+        "code": "const {dispatcher} = Focus;\nconst CartridgeContent = React.createClass({\n    render(){\n        return <div>CARTOUCHE</div>;\n    }\n});\nconst Summary = React.createClass({\n    render(){\n        return <div>SUMMARY</div>;\n    }\n});\nconst BarContentRight = React.createClass({\n    render(){\n        return <div>BAR RIGHT</div>;\n    }\n});\nconst BarContentLeft = React.createClass({\n    render(){\n        return <div>BAR LEFT</div>;\n    }\n});\nconst MENU = React.createClass({\n    render(){\n        return <nav>MENU</nav>;\n    }\n});\n//Simple function to update components in the bar.\nfunction updateComponents(cartridgeConf){\n    const {cartridge: cartridgeComponent, summary: summaryComponent, actions: actions, barLeft: barContentLeftComponent, barRight: barContentRightComponent} = cartridgeConf;\n    dispatcher.handleViewAction({\n      data: {\n        cartridgeComponent,\n        summaryComponent,\n        actions,\n        barContentLeftComponent,\n        barContentRightComponent\n      },\n      type: 'update'\n    });\n}\n//Add a defer in order to inject the props after the component is mounted\n_.defer(()=>{\n    updateComponents({\n      cartridge: {component: CartridgeContent, props:{}},\n      summary:{component: Summary, props:{}},\n      actions: {\n          primary: [],\n          secondary: []\n      },\n      barLeft: {component: BarContentLeft, props:{}},\n      barRight: {component: BarContentRight, props:{}}\n    })\n});\n\n\nconst Layout = FocusComponents.application.layout.component;\nconst LayoutExample =  React.createClass({\n    render(){\n        return (\n            <Layout MenuLeft={MENU}>Test</Layout>\n        );\n    }\n});\n\nreturn <LayoutExample/>;\n"
+    },
+    {
+        "name": "autocomplete",
+        "version": "1.0.0",
+        "description": "Autocomplete component",
+        "keywords": [
+            "input",
+            "dumb"
+        ],
+        "code": "const AutocompleteFor = FocusComponents.common.autocomplete.field.component;\n\nconst listLoader = text => {\n    return new Promise(resolve => {\n        setTimeout(() => {\n            resolve([\n                {\n                    code: 'RIRI',\n                    value: 'Riri'\n                },\n                {\n                    code: 'FIFI',\n                    value: 'Fifi'\n                },\n                {\n                    code: 'LOULOU',\n                    value: 'Loulou'\n                }\n            ]);\n        }, 500);\n    });\n};\n\nclass AutocompleteSample extends React.Component {\n    render() {\n        return (\n            <div>\n                <AutocompleteFor\n                    isEdit={true}\n                    loader={listLoader}\n                />\n                <AutocompleteFor\n                    isEdit={true}\n                    loader={listLoader}\n                    value='RIRI'\n                />\n            </div>\n        );\n    }\n}\n\nreturn <AutocompleteSample />;\n"
     },
     {
         "name": "block",
@@ -58088,7 +58215,7 @@ module.exports=[
             "model",
             "title"
         ],
-        "code": "const Block = FocusComponents.common.block.component;\r\nconst formMixin = FocusComponents.common.form.mixin;\r\n\r\nconst domain =  {\r\n    \"DO_TEXT\": {\r\n        style: \"do_text\",\r\n        type: \"text\",\r\n        component: \"PapaSinge\",\r\n        validation: [{\r\n            type: \"function\",\r\n            value: function() {\r\n                return false;\r\n            }\r\n        }]\r\n    }\r\n};\r\n\r\nFocus.definition.domain.container.setAll(domain);\r\nconst entities = {\r\n    \"contact\": {\r\n        \"firstName\": {\r\n            \"domain\": \"DO_TEXT\",\r\n            \"required\": false\r\n        }\r\n    }\r\n};\r\nFocus.definition.entity.container.setEntityConfiguration(entities);\r\n\r\nconst BlockSample1 = React.createClass({\r\n    definitionPath: 'contact',\r\n    mixins: [formMixin],\r\n    hasLoad: false,\r\n    /**\r\n    * Render the component.\r\n    * @return {object} React node\r\n    */\r\n    renderContent() {\r\n        return (\r\n            <div>\r\n                <h3>Block without actions</h3>\r\n                <Block title=\"Here is the title\">\r\n                    <br/>\r\n                    <br/>\r\n                    <p>Here is the content.</p>\r\n                    <br/>\r\n                    <br/>\r\n                </Block>\r\n            </div>\r\n        );\r\n    }\r\n});\r\n\r\nconst BlockSample2 = React.createClass({\r\n    definitionPath: 'contact',\r\n    mixins: [formMixin],\r\n    hasLoad: false,\r\n    /**\r\n    * Render the component.\r\n    * @return {object} React node\r\n    */\r\n    renderContent() {\r\n        return (\r\n            <div>\r\n                <h3>Block with actions (default)</h3>\r\n                <Block title=\"Here is the title\" actions={this._renderActions}>\r\n                    <br/>\r\n                    <br/>\r\n                    <p>Here is the content.</p>\r\n                    <br/>\r\n                    <br/>\r\n                </Block>\r\n            </div>\r\n        );\r\n    }\r\n});\r\n\r\nconst BlockSample3 = React.createClass({\r\n    definitionPath: 'contact',\r\n    mixins: [formMixin],\r\n    hasLoad: false,\r\n    /**\r\n    * Render the component.\r\n    * @return {object} React node\r\n    */\r\n    renderContent() {\r\n        return (\r\n            <div>\r\n                <h3>Block with actions (bottom)</h3>\r\n                <Block title=\"Here is the title\" actions={this._renderActions} actionsPosition=\"bottom\">\r\n                    <br/>\r\n                    <br/>\r\n                    <p>Here is the content.</p>\r\n                    <br/>\r\n                    <br/>\r\n                </Block>\r\n            </div>\r\n        );\r\n    }\r\n});\r\n\r\nconst BlockSample4 = React.createClass({\r\n    definitionPath: 'contact',\r\n    mixins: [formMixin],\r\n    hasLoad: false,\r\n    /**\r\n    * Render the component.\r\n    * @return {object} React node\r\n    */\r\n    renderContent() {\r\n        return (\r\n            <div>\r\n                <h3>Block with actions (both)</h3>\r\n                <Block title=\"Here is the title\" actions={this._renderActions} actionsPosition=\"both\">\r\n                    <br/>\r\n                    <br/>\r\n                    <p>Here is the content.</p>\r\n                    <br/>\r\n                    <br/>\r\n                </Block>\r\n            </div>\r\n        );\r\n    }\r\n});\r\n\r\nreturn (\r\n    <div>\r\n        <BlockSample1 />\r\n        <br/>\r\n        <BlockSample2 />\r\n        <br/>\r\n        <BlockSample3 />\r\n        <br/>\r\n        <BlockSample4 />\r\n    </div>\r\n);\r\n"
+        "code": "const Block = FocusComponents.common.block.component;\nconst formMixin = FocusComponents.common.form.mixin;\n\nconst domain =  {\n    \"DO_TEXT\": {\n        style: \"do_text\",\n        type: \"text\",\n        component: \"PapaSinge\",\n        validation: [{\n            type: \"function\",\n            value: function() {\n                return false;\n            }\n        }]\n    }\n};\n\nFocus.definition.domain.container.setAll(domain);\nconst entities = {\n    \"contact\": {\n        \"firstName\": {\n            \"domain\": \"DO_TEXT\",\n            \"required\": false\n        }\n    }\n};\nFocus.definition.entity.container.setEntityConfiguration(entities);\n\nconst BlockSample1 = React.createClass({\n    definitionPath: 'contact',\n    mixins: [formMixin],\n    hasLoad: false,\n    /**\n    * Render the component.\n    * @return {object} React node\n    */\n    renderContent() {\n        return (\n            <div>\n                <h3>Block without actions</h3>\n                <Block title=\"Here is the title\">\n                    <br/>\n                    <br/>\n                    <p>Here is the content.</p>\n                    <br/>\n                    <br/>\n                </Block>\n            </div>\n        );\n    }\n});\n\nconst BlockSample2 = React.createClass({\n    definitionPath: 'contact',\n    mixins: [formMixin],\n    hasLoad: false,\n    /**\n    * Render the component.\n    * @return {object} React node\n    */\n    renderContent() {\n        return (\n            <div>\n                <h3>Block with actions (default)</h3>\n                <Block title=\"Here is the title\" actions={this._renderActions}>\n                    <br/>\n                    <br/>\n                    <p>Here is the content.</p>\n                    <br/>\n                    <br/>\n                </Block>\n            </div>\n        );\n    }\n});\n\nconst BlockSample3 = React.createClass({\n    definitionPath: 'contact',\n    mixins: [formMixin],\n    hasLoad: false,\n    /**\n    * Render the component.\n    * @return {object} React node\n    */\n    renderContent() {\n        return (\n            <div>\n                <h3>Block with actions (bottom)</h3>\n                <Block title=\"Here is the title\" actions={this._renderActions} actionsPosition=\"bottom\">\n                    <br/>\n                    <br/>\n                    <p>Here is the content.</p>\n                    <br/>\n                    <br/>\n                </Block>\n            </div>\n        );\n    }\n});\n\nconst BlockSample4 = React.createClass({\n    definitionPath: 'contact',\n    mixins: [formMixin],\n    hasLoad: false,\n    /**\n    * Render the component.\n    * @return {object} React node\n    */\n    renderContent() {\n        return (\n            <div>\n                <h3>Block with actions (both)</h3>\n                <Block title=\"Here is the title\" actions={this._renderActions} actionsPosition=\"both\">\n                    <br/>\n                    <br/>\n                    <p>Here is the content.</p>\n                    <br/>\n                    <br/>\n                </Block>\n            </div>\n        );\n    }\n});\n\nreturn (\n    <div>\n        <BlockSample1 />\n        <br/>\n        <BlockSample2 />\n        <br/>\n        <BlockSample3 />\n        <br/>\n        <BlockSample4 />\n    </div>\n);\n"
     },
     {
         "name": "bouton-action",
@@ -58100,7 +58227,7 @@ module.exports=[
             "click",
             "shape"
         ],
-        "code": "const Button = FocusComponents.common.button.action.component;\r\n\r\nconst ButtonSample = React.createClass({\r\n    /**\r\n    * Render the component.\r\n    * @return {object} React node\r\n    */\r\n    render() {\r\n        return (\r\n            <div className='button-example'>\r\n                <Button label='Bouton primaire' type='button' handleOnClick={()=> alert('click bouton')}/>\r\n                <br /><br />\r\n                <Button icon='alarm' color='colored' label='Bouton primaire' shape='fab' type='button' handleOnClick={()=> alert('click bouton')}/>\r\n                <br /><br />\r\n                <Button icon='build' label='Bouton icone' type='button' handleOnClick={()=> alert('click bouton')}/>\r\n                <br /><br />\r\n                <Button icon='build' color='accent' label='Bouton accent' type='button' handleOnClick={()=> alert('click bouton')}/>\r\n                <br /><br />\r\n                <Button icon='mood' color='colored' label='iconbutton' shape='icon' type='button' handleOnClick={()=> alert('click bouton')}/>\r\n                <br /><br />\r\n                <Button icon='mood' label='minifabbutton' color='announcement' shape='mini-fab' type='button' handleOnClick={()=> alert('click bouton')}/>\r\n            </div>\r\n        );\r\n    }\r\n});\r\n\r\nreturn <ButtonSample/>;\r\n"
+        "code": "const Button = FocusComponents.common.button.action.component;\n\nconst ButtonSample = React.createClass({\n    /**\n    * Render the component.\n    * @return {object} React node\n    */\n    render() {\n        return (\n            <div className='button-example'>\n                <Button label='Bouton primaire' type='button' handleOnClick={()=> alert('click bouton')}/>\n                <br /><br />\n                <Button icon='alarm' color='colored' label='Bouton primaire' shape='fab' type='button' handleOnClick={()=> alert('click bouton')}/>\n                <br /><br />\n                <Button icon='build' label='Bouton icone' type='button' handleOnClick={()=> alert('click bouton')}/>\n                <br /><br />\n                <Button icon='build' color='accent' label='Bouton accent' type='button' handleOnClick={()=> alert('click bouton')}/>\n                <br /><br />\n                <Button icon='mood' color='colored' label='iconbutton' shape='icon' type='button' handleOnClick={()=> alert('click bouton')}/>\n                <br /><br />\n                <Button icon='mood' label='minifabbutton' color='announcement' shape='mini-fab' type='button' handleOnClick={()=> alert('click bouton')}/>\n            </div>\n        );\n    }\n});\n\nreturn <ButtonSample/>;\n"
     },
     {
         "name": "back-to-top",
@@ -58111,7 +58238,7 @@ module.exports=[
             "top",
             "scroll"
         ],
-        "code": "const ButtonBackToTop = FocusComponents.common.button.backToTop.component;\r\n\r\nconst ButtonBTSample = React.createClass({\r\n    /**\r\n    * Render the component.\r\n    * @return {object} React node\r\n    */\r\n    render() {\r\n        return (\r\n            <div className='button-bt-example'>\r\n                <img src=\"http://lorempixel.com/800/600/sports/\"/>\r\n                <img src=\"http://lorempixel.com/800/600/abstract/\"/>\r\n                <img src=\"http://lorempixel.com/800/600/city/\"/>\r\n                <img src=\"http://lorempixel.com/800/600/technics/\"/>\r\n                <img src=\"http://lorempixel.com/800/600/sports/\"/>\r\n                <img src=\"http://lorempixel.com/800/600/abstract/\"/>\r\n                <img src=\"http://lorempixel.com/800/600/city/\"/>\r\n                <img src=\"http://lorempixel.com/800/600/technics/\"/>\r\n                <ButtonBackToTop />\r\n            </div>\r\n        );\r\n    }\r\n});\r\n\r\nreturn <ButtonBTSample/>;\r\n"
+        "code": "const ButtonBackToTop = FocusComponents.common.button.backToTop.component;\n\nconst ButtonBTSample = React.createClass({\n    /**\n    * Render the component.\n    * @return {object} React node\n    */\n    render() {\n        return (\n            <div className='button-bt-example'>\n                <img src=\"http://lorempixel.com/800/600/sports/\"/>\n                <img src=\"http://lorempixel.com/800/600/abstract/\"/>\n                <img src=\"http://lorempixel.com/800/600/city/\"/>\n                <img src=\"http://lorempixel.com/800/600/technics/\"/>\n                <img src=\"http://lorempixel.com/800/600/sports/\"/>\n                <img src=\"http://lorempixel.com/800/600/abstract/\"/>\n                <img src=\"http://lorempixel.com/800/600/city/\"/>\n                <img src=\"http://lorempixel.com/800/600/technics/\"/>\n                <ButtonBackToTop />\n            </div>\n        );\n    }\n});\n\nreturn <ButtonBTSample/>;\n"
     },
     {
         "name": "column",
@@ -58124,7 +58251,7 @@ module.exports=[
             "detail",
             "page"
         ],
-        "code": "const {column: Column, grid: Grid} = FocusComponents.common;\r\n// Blue square to  fill the grid.\r\nconst BlueSquare = React.createClass({\r\n    render(){\r\n        const label = this.props.label;\r\n        const style = {backgroundColor: '#BDBDBD', height: '200px', color: 'white'};\r\n        return <div style={style}>{label}</div>;\r\n    }\r\n});\r\n\r\n\r\nconst GridColumnSample = React.createClass({\r\n    /**\r\n    * Render the component.\r\n    * @return {object} React node\r\n    */\r\n    render() {\r\n        return (\r\n            <Grid>\r\n                <Column size='4'><BlueSquare label='size4'/></Column>\r\n                <Column size='3'><BlueSquare label='size3'/></Column>\r\n                <Column size='5'><BlueSquare label='size5'/></Column>\r\n                <Column size='4'><BlueSquare label='size4'/></Column>\r\n            </Grid>\r\n        );\r\n    }\r\n});\r\n\r\nreturn <GridColumnSample/>;\r\n"
+        "code": "const {column: Column, grid: Grid} = FocusComponents.common;\n// Blue square to  fill the grid.\nconst BlueSquare = React.createClass({\n    render(){\n        const label = this.props.label;\n        const style = {backgroundColor: '#BDBDBD', height: '200px', color: 'white'};\n        return <div style={style}>{label}</div>;\n    }\n});\n\n\nconst GridColumnSample = React.createClass({\n    /**\n    * Render the component.\n    * @return {object} React node\n    */\n    render() {\n        return (\n            <Grid>\n                <Column size='4'><BlueSquare label='size4'/></Column>\n                <Column size='3'><BlueSquare label='size3'/></Column>\n                <Column size='5'><BlueSquare label='size5'/></Column>\n                <Column size='4'><BlueSquare label='size4'/></Column>\n            </Grid>\n        );\n    }\n});\n\nreturn <GridColumnSample/>;\n"
     },
     {
         "name": "detail",
@@ -58136,7 +58263,7 @@ module.exports=[
             "nav",
             "block"
         ],
-        "code": "const Detail = FocusComponents.common.detail.component;\r\nconst Block = FocusComponents.common.block.component;\r\n\r\nconst DetailSample = React.createClass({\r\n    render() {\r\n        return (\r\n            <div>\r\n                <h1>Detail sample</h1>\r\n                <Detail>\r\n                    <Block title=\"Sports\">\r\n                        <img alt=\"lorempixel\" src=\"http://lorempixel.com/800/600/sports\" title=\"lorempixel\" />\r\n                    </Block>\r\n\r\n                    <Block title=\"Animals\">\r\n                        <img alt=\"lorempixel\" src=\"http://lorempixel.com/800/600/animals\" title=\"lorempixel\" />\r\n                    </Block>\r\n\r\n                    <Block title=\"Business\">\r\n                        <img alt=\"lorempixel\" src=\"http://lorempixel.com/800/600/business\" title=\"lorempixel\" />\r\n                    </Block>\r\n\r\n                    <Block title=\"Cats\">\r\n                        <img alt=\"lorempixel\" src=\"http://lorempixel.com/800/600/cats\" title=\"lorempixel\" />\r\n                    </Block>\r\n\r\n                    <Block title=\"City\">\r\n                        <img alt=\"lorempixel\" src=\"http://lorempixel.com/800/600/city\" title=\"lorempixel\" />\r\n                    </Block>\r\n\r\n                    <Block title=\"Food\">\r\n                        <img alt=\"lorempixel\" src=\"http://lorempixel.com/800/600/food\" title=\"lorempixel\" />\r\n                    </Block>\r\n\r\n                    <Block title=\"Nightlife\">\r\n                        <img alt=\"lorempixel\" src=\"http://lorempixel.com/800/600/nightlife\" title=\"lorempixel\" />\r\n                    </Block>\r\n\r\n                    <Block title=\"Fashion\">\r\n                        <img alt=\"lorempixel\" src=\"http://lorempixel.com/800/600/fashion\" title=\"lorempixel\" />\r\n                    </Block>\r\n\r\n                    <Block title=\"People\">\r\n                        <img alt=\"lorempixel\" src=\"http://lorempixel.com/800/600/people\" title=\"lorempixel\" />\r\n                    </Block>\r\n\r\n                    <Block title=\"Nature\">\r\n                        <img src=\"http://lorempixel.com/800/600/nature\" title=\"lorempixel\" alt=\"lorempixel\" />\r\n                    </Block>\r\n\r\n                    <Block title=\"Technics\">\r\n                        <img src=\"http://lorempixel.com/800/600/technics\" title=\"lorempixel\" alt=\"lorempixel\" />\r\n                    </Block>\r\n\r\n                    <Block title=\"Transport\">\r\n                        <img src=\"http://lorempixel.com/800/600/transport\" title=\"lorempixel\" alt=\"lorempixel\" />\r\n                    </Block>\r\n                </Detail>\r\n            </div>\r\n        );\r\n    }\r\n});\r\n\r\nreturn <DetailSample />;\r\n"
+        "code": "const Detail = FocusComponents.common.detail.component;\nconst Block = FocusComponents.common.block.component;\n\nconst DetailSample = React.createClass({\n    render() {\n        return (\n            <div>\n                <h1>Detail sample</h1>\n                <Detail>\n                    <Block title=\"Sports\">\n                        <img alt=\"lorempixel\" src=\"http://lorempixel.com/800/600/sports\" title=\"lorempixel\" />\n                    </Block>\n\n                    <Block title=\"Animals\">\n                        <img alt=\"lorempixel\" src=\"http://lorempixel.com/800/600/animals\" title=\"lorempixel\" />\n                    </Block>\n\n                    <Block title=\"Business\">\n                        <img alt=\"lorempixel\" src=\"http://lorempixel.com/800/600/business\" title=\"lorempixel\" />\n                    </Block>\n\n                    <Block title=\"Cats\">\n                        <img alt=\"lorempixel\" src=\"http://lorempixel.com/800/600/cats\" title=\"lorempixel\" />\n                    </Block>\n\n                    <Block title=\"City\">\n                        <img alt=\"lorempixel\" src=\"http://lorempixel.com/800/600/city\" title=\"lorempixel\" />\n                    </Block>\n\n                    <Block title=\"Food\">\n                        <img alt=\"lorempixel\" src=\"http://lorempixel.com/800/600/food\" title=\"lorempixel\" />\n                    </Block>\n\n                    <Block title=\"Nightlife\">\n                        <img alt=\"lorempixel\" src=\"http://lorempixel.com/800/600/nightlife\" title=\"lorempixel\" />\n                    </Block>\n\n                    <Block title=\"Fashion\">\n                        <img alt=\"lorempixel\" src=\"http://lorempixel.com/800/600/fashion\" title=\"lorempixel\" />\n                    </Block>\n\n                    <Block title=\"People\">\n                        <img alt=\"lorempixel\" src=\"http://lorempixel.com/800/600/people\" title=\"lorempixel\" />\n                    </Block>\n\n                    <Block title=\"Nature\">\n                        <img src=\"http://lorempixel.com/800/600/nature\" title=\"lorempixel\" alt=\"lorempixel\" />\n                    </Block>\n\n                    <Block title=\"Technics\">\n                        <img src=\"http://lorempixel.com/800/600/technics\" title=\"lorempixel\" alt=\"lorempixel\" />\n                    </Block>\n\n                    <Block title=\"Transport\">\n                        <img src=\"http://lorempixel.com/800/600/transport\" title=\"lorempixel\" alt=\"lorempixel\" />\n                    </Block>\n                </Detail>\n            </div>\n        );\n    }\n});\n\nreturn <DetailSample />;\n"
     },
     {
         "name": "field",
@@ -58154,7 +58281,7 @@ module.exports=[
             "error",
             "label"
         ],
-        "code": "const Field = FocusComponents.common.field.component;\r\n\r\nconst FieldSample = React.createClass({\r\n    /**\r\n    * Render the component.\r\n    * @return {object} React node\r\n    */\r\n    render() {\r\n        return (\r\n            <form>\r\n                <h3>Champ en mode consultation</h3>\r\n                <Field name='fieldConsult' value='fieldConsultValue' isEdit={false} label=\"My awsome field\" />\r\n                <Field name='fieldConsultFormatted' value='fieldConsultValue' isEdit={false} formatter={function(data){return data + \" formatter applied\";}} label=\"My awsome field formatted\" />\r\n                <h3>Champ en mode édition</h3>\r\n                <Field name='field1' value='fieldValue' isEdit={true}/>\r\n                <h3>Champ en mode édition avec domaine</h3>\r\n                <Field name='field1' value='fieldValue' isEdit={true} domain=\"DO_NOM\"/>\r\n                <h3>Champ en erreur</h3>\r\n                <Field name='field2' value='field2Value' error='error in field2' isEdit={true} />\r\n                <h3>Type number</h3>\r\n                <Field name='field3' value={3} type='number'/>\r\n                <Field name='field4' value='popop' isEdit={true} help='Here to help'/>\r\n                <h3>Disable</h3>\r\n                <Field name='fieldDisabled' value='popop' isEdit={true} disabled={true}/>\r\n            </form>\r\n        );\r\n    }\r\n});\r\n\r\nreturn <FieldSample/>;\r\n"
+        "code": "const Field = FocusComponents.common.field.component;\n\nconst FieldSample = React.createClass({\n    /**\n    * Render the component.\n    * @return {object} React node\n    */\n    render() {\n        return (\n            <form>\n                <h3>Champ en mode consultation</h3>\n                <Field name='fieldConsult' value='fieldConsultValue' isEdit={false} label=\"My awsome field\" />\n                <Field name='fieldConsultFormatted' value='fieldConsultValue' isEdit={false} formatter={function(data){return data + \" formatter applied\";}} label=\"My awsome field formatted\" />\n                <h3>Champ en mode édition</h3>\n                <Field name='field1' value='fieldValue' isEdit={true}/>\n                <h3>Champ en mode édition avec domaine</h3>\n                <Field name='field1' value='fieldValue' isEdit={true} domain=\"DO_NOM\"/>\n                <h3>Champ en erreur</h3>\n                <Field name='field2' value='field2Value' error='error in field2' isEdit={true} />\n                <h3>Type number</h3>\n                <Field name='field3' value={3} type='number'/>\n                <Field name='field4' value='popop' isEdit={true} help='Here to help'/>\n                <h3>Disable</h3>\n                <Field name='fieldDisabled' value='popop' isEdit={true} disabled={true}/>\n            </form>\n        );\n    }\n});\n\nreturn <FieldSample/>;\n"
     },
     {
         "name": "form",
@@ -58172,7 +58299,7 @@ module.exports=[
             "checkbox",
             "block"
         ],
-        "code": "const actionBuilder = Focus.application.actionBuilder;\r\nconst Block = FocusComponents.common.block.component;\r\nconst formMixin = FocusComponents.common.form.mixin;\r\nconst Panel = FocusComponents.common.panel.component;\r\nconst MessageCenter = FocusComponents.application.messageCenter.component;\r\n\r\n/***********************************************************************************************************************/\r\n/* to test internationalisation. */\r\nvar resources = {\r\n  dev: {\r\n      translation: {\r\n          'button': {\r\n              'edit': 'Editer',\r\n              'save': 'Sauvegarder',\r\n              'cancel': 'Abandonner'\r\n          },\r\n          'select': {\r\n              'yes': 'Oui',\r\n              'no': 'Non',\r\n              'unSelected': '-'\r\n          },\r\n          'contact': {\r\n              'firstName': 'Prénom',\r\n              'lastName': 'Nom',\r\n              'papaCOde': 'Le code du papa',\r\n              'monkeyCode': 'Le code du singe',\r\n              'bio': 'Biography',\r\n              'isCool': 'Est-il cool ?',\r\n              'isNice': 'Est-il gentil ?',\r\n              'birthDate': 'Date de naissance'\r\n          }\r\n      }\r\n  }\r\n};\r\n\r\ni18n.init({resStore: resources});\r\n\r\n/***********************************************************************************************************************/\r\n// TODO PBN : refactor loading of init domains and ref in a global way\r\n//Load dependencies.\r\nvar domain = {\r\n    'DO_TEXT': {\r\n        style: 'do_text',\r\n        type: 'text',\r\n        component: 'PapaSinge',\r\n        validator: [{\r\n            type: 'function',\r\n            options:{\r\n                translationKey: 'domain.doTEXT.test'\r\n            },\r\n            value: function (d) {\r\n                return _.isString(d);\r\n            }\r\n        }]\r\n    },\r\n    'DO_EMAIL': {\r\n        style: 'do_email',\r\n        type: 'email',\r\n        component: 'PapaMail',\r\n        validator: [{\r\n            type: 'function',\r\n            value: function () {\r\n                return true;\r\n            }\r\n        }]\r\n    },\r\n    'DO_DATE': {\r\n        'InputComponent': FocusComponents.common.input.date.component,\r\n        'formatter': function (date) {\r\n            const monthNames = [\r\n                'January', 'February', 'March',\r\n                'April', 'May', 'June', 'July',\r\n                'August', 'September', 'October',\r\n                'November', 'December'\r\n            ];\r\n            date = new Date(date);\r\n            const day = date.getDate();\r\n            const monthIndex = date.getMonth();\r\n            const year = date.getFullYear();\r\n            return \"\" + day + \" \" + monthNames[monthIndex] + \" \" + year;\r\n        }\r\n    },\r\n    'DO_OUI_NON': {\r\n        SelectComponent: FocusComponents.common.select.radio.component,\r\n        refContainer: {yesNoList: [{code: true, label: \"select.yes\"}, {code: false, label: \"select.no\"}]},\r\n        listName: 'yesNoList'\r\n    }\r\n};\r\nFocus.definition.domain.container.setAll(domain);\r\n/*global focus*/\r\nvar entities = {\r\n    \"contact\": {\r\n        \"firstName\": {\r\n            \"domain\": \"DO_TEXT\",\r\n            \"required\": false,\r\n            \"validator\": [{options:{translationKey: 'entityContactValidation.test'}, type:'function', value: function (data) {\r\n                return data.length <= 3 ? false : true;\r\n            }}]\r\n        },\r\n        \"lastName\": {\r\n            \"domain\": \"DO_TEXT\",\r\n            \"required\": true\r\n        },\r\n        \"age\": {\r\n            \"domain\": \"DO_NUMBER\",\r\n            \"required\": false,\r\n            \"type\": \"number\"\r\n        },\r\n        \"email\": {\r\n            \"domain\": \"DO_EMAIL\",\r\n            \"required\": false\r\n        },\r\n        \"bio\": {\r\n            \"domain\": \"DO_EMAIL\",\r\n            \"InputComponent\": FocusComponents.common.input.textarea.component\r\n        },\r\n        \"isCool\": {\r\n            \"domain\": \"DO_OUI_NON\"\r\n        },\r\n        \"isNice\": {\r\n            \"domain\": \"DO_BOOLEAN\",\r\n            \"FieldComponent\": FocusComponents.common.input.toggle.component\r\n        },\r\n        \"birthDate\": {\r\n            \"domain\": \"DO_DATE\",\r\n        }\r\n    },\r\n    \"commande\": {\r\n        \"name\": {\r\n            \"domain\": \"DO_TEXT\",\r\n            \"required\": true\r\n        },\r\n        \"number\": {\r\n            \"domain\": \"DO_NUMBER\",\r\n            \"required\": false,\r\n            \"type\": \"number\"\r\n        }\r\n    }\r\n};\r\nFocus.definition.entity.container.setEntityConfiguration(entities);\r\n\r\nfunction loadRefList(name) {\r\n    return function loadRef() {\r\n        var refLst = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9].map(function (cd) {\r\n            return {\r\n                code: ''+cd,\r\n                label: ('' + cd + ' ' + name)\r\n            };\r\n        });\r\n        return Promise.resolve(refLst);\r\n    };\r\n}\r\nfunction loadMonkeyList(){\r\n    return loadRefList('monkey')().then(function(data){\r\n        return data.map(function(element){\r\n            return {myCustomCode: element.code, myCustomLabel: element.label};\r\n        });\r\n    });\r\n}\r\n\r\n\r\nFocus.reference.config.set({papas: loadRefList('papas'), singe: loadRefList('singe'), monkeys: loadMonkeyList});\r\nFocus.definition.entity.container.setEntityConfiguration(entities);\r\n/***********************************************************************************************************************/\r\n\r\nconst ListLine = React.createClass({\r\n    mixins: [FocusComponents.list.selection.line.mixin],\r\n    definitionPath: \"commande\",\r\n    renderLineContent(data){\r\n        const firstName = this.displayFor(\"name\", {});\r\n        const lastName = this.displayFor(\"number\", {});\r\n        return <div>{firstName} {lastName}</div>;\r\n    }\r\n});\r\n\r\nconst contactStore = new Focus.store.CoreStore({\r\n    definition: {\r\n        'contact': 'contact',\r\n        'commandes': 'commande'\r\n    }\r\n});\r\n\r\nconst jsonContact= {\r\n    firstName: \"Zeus\",\r\n    lastName: \"God\",\r\n    isCool: true,\r\n    birthDate: new Date().toISOString(),\r\n    commandes: [{\r\n        name: \"commande1\",\r\n        number: \"1\"\r\n    }, {\r\n        name: \"commande2\",\r\n        number: \"2\"\r\n    }, {\r\n        name: \"commande3\",\r\n        number: \"3\"\r\n    }, {\r\n        name: \"commande4\",\r\n        number: \"4\"\r\n    }, {\r\n        name: \"commande5\",\r\n        number: \"5\"\r\n    }, {\r\n        name: \"commande6\",\r\n        number: \"6\"\r\n    }]\r\n};\r\n\r\nconst action = {\r\n    load: actionBuilder({\r\n        status: 'loaded',\r\n        node: 'contact',\r\n        service(){\r\n            return new Promise(function(s,e){\r\n                _.delay(function(){\r\n                    s(jsonContact);\r\n                }, 1);\r\n            })//Promise.resolve(jsonContact);\r\n        }\r\n    }),\r\n    save:actionBuilder({\r\n        status: 'saved',\r\n        preStatus: 'saving',\r\n        node: 'contact',\r\n        service(data){\r\n            console.log('save', data);\r\n            return Promise.resolve(data);\r\n        }\r\n    })\r\n};\r\n\r\nconst FormExample = React.createClass({\r\n    displayName: \"FormExample\",\r\n    mixins: [formMixin],\r\n    stores: [{\r\n        store: contactStore,\r\n        properties: [\"contact\", \"commandes\"],\r\n    }],\r\n    definitionPath: \"contact\",\r\n    action: action,\r\n    referenceNames: ['papas', 'monkeys'],\r\n\r\n    /**\r\n    * Render content form.\r\n    * @return {ReactDOMNode} node REACT\r\n    */\r\n    renderContent() {\r\n        return (\r\n            <Block title=\"Fiche de l'utilisateur\" actions={this._renderActions}>\r\n            {this.fieldFor(\"firstName\")}\r\n            {this.fieldFor(\"lastName\")}\r\n            {\r\n                this.textFor(\"birthDate\", {\r\n                    formatter: function (date) {\r\n                        return \"formatted date\" + date\r\n                    }\r\n                })\r\n            }\r\n            {this.fieldFor('papaCode', {listName: 'papas'})}\r\n            {this.fieldFor('monkeyCode', {listName: 'monkeys', valueKey: 'myCustomCode', labelKey: 'myCustomLabel' })}\r\n            {this.fieldFor(\"bio\")}\r\n            {this.fieldFor(\"isCool\")}\r\n            {this.fieldFor(\"isNice\")}\r\n            {this.fieldFor(\"birthDate\")}\r\n            {this.listFor(\"commandes\", {lineComponent: ListLine})}\r\n            </Block>\r\n        );\r\n    }\r\n});\r\n\r\n\r\nreturn (\r\n    <div>\r\n    <MessageCenter />\r\n    <FormExample isEdit={false}/>\r\n    </div>\r\n);\r\n"
+        "code": "const actionBuilder = Focus.application.actionBuilder;\nconst Block = FocusComponents.common.block.component;\nconst formMixin = FocusComponents.common.form.mixin;\nconst Panel = FocusComponents.common.panel.component;\nconst MessageCenter = FocusComponents.application.messageCenter.component;\n\n/***********************************************************************************************************************/\n/* to test internationalisation. */\nvar resources = {\n  dev: {\n      translation: {\n          'button': {\n              'edit': 'Editer',\n              'save': 'Sauvegarder',\n              'cancel': 'Abandonner'\n          },\n          'select': {\n              'yes': 'Oui',\n              'no': 'Non',\n              'unSelected': '-'\n          },\n          'contact': {\n              'firstName': 'Prénom',\n              'lastName': 'Nom',\n              'papaCOde': 'Le code du papa',\n              'monkeyCode': 'Le code du singe',\n              'bio': 'Biography',\n              'isCool': 'Est-il cool ?',\n              'isNice': 'Est-il gentil ?',\n              'birthDate': 'Date de naissance',\n              'city': 'Lieu de naissance'\n          }\n      }\n  }\n};\n\ni18n.init({resStore: resources});\n\n/***********************************************************************************************************************/\n// TODO PBN : refactor loading of init domains and ref in a global way\n//Load dependencies.\nvar domain = {\n    'DO_TEXT': {\n        style: 'do_text',\n        type: 'text',\n        component: 'PapaSinge',\n        validator: [{\n            type: 'function',\n            options:{\n                translationKey: 'domain.doTEXT.test'\n            },\n            value: function (d) {\n                return _.isString(d);\n            }\n        }]\n    },\n    'DO_EMAIL': {\n        style: 'do_email',\n        type: 'email',\n        component: 'PapaMail',\n        validator: [{\n            type: 'function',\n            value: function () {\n                return true;\n            }\n        }]\n    },\n    'DO_DATE': {\n        'InputComponent': FocusComponents.common.input.date.component,\n        'formatter': function (date) {\n            const monthNames = [\n                'January', 'February', 'March',\n                'April', 'May', 'June', 'July',\n                'August', 'September', 'October',\n                'November', 'December'\n            ];\n            date = new Date(date);\n            const day = date.getDate();\n            const monthIndex = date.getMonth();\n            const year = date.getFullYear();\n            return \"\" + day + \" \" + monthNames[monthIndex] + \" \" + year;\n        }\n    },\n    'DO_OUI_NON': {\n        SelectComponent: FocusComponents.common.select.radio.component,\n        refContainer: {yesNoList: [{code: true, label: \"select.yes\"}, {code: false, label: \"select.no\"}]},\n        listName: 'yesNoList'\n    }\n};\nFocus.definition.domain.container.setAll(domain);\n/*global focus*/\nvar entities = {\n    \"contact\": {\n        \"firstName\": {\n            \"domain\": \"DO_TEXT\",\n            \"required\": false,\n            \"validator\": [{options:{translationKey: 'entityContactValidation.test'}, type:'function', value: function (data) {\n                return data.length <= 3 ? false : true;\n            }}]\n        },\n        \"lastName\": {\n            \"domain\": \"DO_TEXT\",\n            \"required\": true\n        },\n        \"age\": {\n            \"domain\": \"DO_NUMBER\",\n            \"required\": false,\n            \"type\": \"number\"\n        },\n        \"email\": {\n            \"domain\": \"DO_EMAIL\",\n            \"required\": false\n        },\n        \"bio\": {\n            \"domain\": \"DO_EMAIL\",\n            \"InputComponent\": FocusComponents.common.input.textarea.component\n        },\n        \"isCool\": {\n            \"domain\": \"DO_OUI_NON\"\n        },\n        \"isNice\": {\n            \"domain\": \"DO_BOOLEAN\",\n            \"FieldComponent\": FocusComponents.common.input.toggle.component\n        },\n        \"birthDate\": {\n            \"domain\": \"DO_DATE\",\n        },\n        \"city\": {\n            \"domain\": \"DO_TEXT\"\n        }\n    },\n    \"commande\": {\n        \"name\": {\n            \"domain\": \"DO_TEXT\",\n            \"required\": true\n        },\n        \"number\": {\n            \"domain\": \"DO_NUMBER\",\n            \"required\": false,\n            \"type\": \"number\"\n        }\n    }\n};\nFocus.definition.entity.container.setEntityConfiguration(entities);\n\nfunction loadRefList(name) {\n    return function loadRef() {\n        var refLst = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9].map(function (cd) {\n            return {\n                code: ''+cd,\n                label: ('' + cd + ' ' + name)\n            };\n        });\n        return Promise.resolve(refLst);\n    };\n}\nfunction loadMonkeyList(){\n    return loadRefList('monkey')().then(function(data){\n        return data.map(function(element){\n            return {myCustomCode: element.code, myCustomLabel: element.label};\n        });\n    });\n}\n\n\nFocus.reference.config.set({papas: loadRefList('papas'), singe: loadRefList('singe'), monkeys: loadMonkeyList});\nFocus.definition.entity.container.setEntityConfiguration(entities);\n/***********************************************************************************************************************/\n\nconst ListLine = React.createClass({\n    mixins: [FocusComponents.list.selection.line.mixin],\n    definitionPath: \"commande\",\n    renderLineContent(data){\n        const firstName = this.displayFor(\"name\", {});\n        const lastName = this.displayFor(\"number\", {});\n        return <div>{firstName} {lastName}</div>;\n    }\n});\n\nconst contactStore = new Focus.store.CoreStore({\n    definition: {\n        'contact': 'contact',\n        'commandes': 'commande'\n    }\n});\n\nconst jsonContact= {\n    firstName: \"Zeus\",\n    lastName: \"God\",\n    isCool: true,\n    birthDate: new Date().toISOString(),\n    commandes: [{\n        name: \"commande1\",\n        number: \"1\"\n    }, {\n        name: \"commande2\",\n        number: \"2\"\n    }, {\n        name: \"commande3\",\n        number: \"3\"\n    }, {\n        name: \"commande4\",\n        number: \"4\"\n    }, {\n        name: \"commande5\",\n        number: \"5\"\n    }, {\n        name: \"commande6\",\n        number: \"6\"\n    }],\n    city: 'PAR'\n};\n\nconst action = {\n    load: actionBuilder({\n        status: 'loaded',\n        node: 'contact',\n        service(){\n            return new Promise(function(s,e){\n                _.delay(function(){\n                    s(jsonContact);\n                }, 1);\n            })//Promise.resolve(jsonContact);\n        }\n    }),\n    save:actionBuilder({\n        status: 'saved',\n        preStatus: 'saving',\n        node: 'contact',\n        service(data){\n            console.log('save', data);\n            return Promise.resolve(data);\n        }\n    })\n};\n\nconst autocompleteData = [\n    {\n        code: 'PAR',\n        value: 'Paris'\n    },\n    {\n        code: 'LON',\n        value: 'Londres'\n    },\n    {\n        code: 'NY',\n        value: 'New york'\n    }\n];\n\nconst codeResolver = code =>  {\n    return new Promise(success => {\n        const candidate = _.find(autocompleteData, {code});\n        success(candidate ? candidate.value : 'Unresolved code');\n    });\n};\n\nconst searcher = text => {\n    return new Promise(success => {\n        _.delay(() => {\n            const result = autocompleteData.filter(item => {\n                return text === '' || item.value.toLowerCase().indexOf(text.toLowerCase()) !== -1;\n            });\n            success(result);\n        }, 1);\n    });\n}\n\nconst FormExample = React.createClass({\n    displayName: \"FormExample\",\n    mixins: [formMixin],\n    stores: [{\n        store: contactStore,\n        properties: [\"contact\", \"commandes\"],\n    }],\n    definitionPath: \"contact\",\n    action: action,\n    referenceNames: ['papas', 'monkeys'],\n\n    /**\n    * Render content form.\n    * @return {ReactDOMNode} node REACT\n    */\n    renderContent() {\n        return (\n            <Block title=\"Fiche de l'utilisateur\" actions={this._renderActions}>\n            {this.fieldFor(\"firstName\")}\n            {this.fieldFor(\"lastName\")}\n            {\n                this.textFor(\"birthDate\", {\n                    formatter: function (date) {\n                        return \"formatted date\" + date\n                    }\n                })\n            }\n            {this.fieldFor('papaCode', {listName: 'papas'})}\n            {this.fieldFor('monkeyCode', {listName: 'monkeys', valueKey: 'myCustomCode', labelKey: 'myCustomLabel' })}\n            {this.fieldFor(\"bio\")}\n            {this.fieldFor(\"isCool\")}\n            {this.fieldFor(\"isNice\")}\n            {this.fieldFor(\"birthDate\")}\n            {this.autocompleteFor('city', {codeResolver, searcher}, {selectionHandler(data) {alert(`Code : ${data.code}, value: ${data.value}`)}})}\n            {this.listFor(\"commandes\", {lineComponent: ListLine})}\n            </Block>\n        );\n    }\n});\n\n\nreturn (\n    <div>\n    <MessageCenter />\n    <FormExample isEdit={false}/>\n    </div>\n);\n"
     },
     {
         "name": "icon",
@@ -58182,7 +58309,7 @@ module.exports=[
             "icon",
             "dumb"
         ],
-        "code": "const Icon = FocusComponents.common.icon.component;\r\n\r\nconst IconSample = React.createClass({\r\n    /**\r\n    * Render the component.\r\n    * @return {object} React node\r\n    */\r\n    render() {\r\n        return (\r\n            <div className='icon-example'>\r\n                <h2>Material</h2>\r\n                <Icon name='account_circle'/>\r\n                <br /><br />\r\n                 <Icon name='loyalty' style={{color: 'tomato'}}/>\r\n                 <br />\r\n                 <h2>Font awesome </h2>\r\n                 <Icon name='circle' library='font-awesome'/>\r\n            </div>\r\n        );\r\n    }\r\n});\r\n\r\nreturn <IconSample/>;\r\n"
+        "code": "const Icon = FocusComponents.common.icon.component;\n\nconst IconSample = React.createClass({\n    /**\n    * Render the component.\n    * @return {object} React node\n    */\n    render() {\n        return (\n            <div className='icon-example'>\n                <h2>Material</h2>\n                <Icon name='account_circle'/>\n                <br /><br />\n                 <Icon name='loyalty' style={{color: 'tomato'}}/>\n                 <br />\n                 <h2>Font awesome </h2>\n                 <Icon name='circle' library='font-awesome'/>\n            </div>\n        );\n    }\n});\n\nreturn <IconSample/>;\n"
     },
     {
         "name": "checkbox",
@@ -58192,7 +58319,7 @@ module.exports=[
             "input",
             "checkbox"
         ],
-        "code": "// Components\r\nconst Checkbox = FocusComponents.common.input.checkbox.component;\r\n\r\nconst InputCheckboxSample = React.createClass({\r\n    /**\r\n    * Handle click action to get check value.\r\n    */\r\n    handleGetValueClick(){\r\n        const value = this.refs.cbTestGetValue.getValue();\r\n        alert('Checkbox value: ' + value);\r\n    },\r\n\r\n    /**\r\n    * Render the component.\r\n    * @return {object} React node\r\n    */\r\n    render() {\r\n        return (\r\n            <div>\r\n                <h3>Input checkbox</h3>\r\n                <Checkbox value={true} label=\"My awsome checkbox\"/>\r\n\r\n                <h3>Unselected checkbox</h3>\r\n                <Checkbox value={false} label=\"My awsome checkbox\"/>\r\n\r\n                <h3>Without label</h3>\r\n                <Checkbox value={true} />\r\n\r\n                <h3>Get Checkbox value</h3>\r\n                <div style={{float:'left', width: '300px'}}>\r\n                    <Checkbox value={true} label=\"My awsome checkbox\" ref=\"cbTestGetValue\"/>\r\n                </div>\r\n                <div style={{marginLeft:'300px'}}>\r\n                    <button onClick={this.handleGetValueClick}>Get the checkbox value</button>\r\n                </div>\r\n        </div>);\r\n    }\r\n});\r\n\r\nreturn <InputCheckboxSample />;\r\n"
+        "code": "// Components\nconst Checkbox = FocusComponents.common.input.checkbox.component;\n\nconst InputCheckboxSample = React.createClass({\n    /**\n    * Handle click action to get check value.\n    */\n    handleGetValueClick(){\n        const value = this.refs.cbTestGetValue.getValue();\n        alert('Checkbox value: ' + value);\n    },\n\n    /**\n    * Render the component.\n    * @return {object} React node\n    */\n    render() {\n        return (\n            <div>\n                <h3>Input checkbox</h3>\n                <Checkbox value={true} label=\"My awsome checkbox\"/>\n\n                <h3>Unselected checkbox</h3>\n                <Checkbox value={false} label=\"My awsome checkbox\"/>\n\n                <h3>Without label</h3>\n                <Checkbox value={true} />\n\n                <h3>Get Checkbox value</h3>\n                <div style={{float:'left', width: '300px'}}>\n                    <Checkbox value={true} label=\"My awsome checkbox\" ref=\"cbTestGetValue\"/>\n                </div>\n                <div style={{marginLeft:'300px'}}>\n                    <button onClick={this.handleGetValueClick}>Get the checkbox value</button>\n                </div>\n        </div>);\n    }\n});\n\nreturn <InputCheckboxSample />;\n"
     },
     {
         "name": "Input date",
@@ -58205,7 +58332,7 @@ module.exports=[
             "field",
             "swag"
         ],
-        "code": "// Components\r\n\r\nconst InputDate = FocusComponents.common.input.date.component;\r\nconst Button = FocusComponents.common.button.action.component;\r\n\r\n// Definition of moment's locale.\r\nmoment.locale('en');\r\n\r\nconst datePickerFrenchLocale = {\r\n    format: 'll',\r\n    separator: ' - ',\r\n    applyLabel: 'Appliquer',\r\n    cancelLabel: 'Abandonner',\r\n    fromLabel: 'De',\r\n    toLabel: 'à',\r\n    customRangeLabel: 'Personnalisé',\r\n    daysOfWeek: [\r\n        'Di',\r\n        'Lu',\r\n        'Ma',\r\n        'Me',\r\n        'Je',\r\n        'Ve',\r\n        'Sa'\r\n    ],\r\n    monthNames: [\r\n        'Janvier',\r\n        'Fevrier',\r\n        'Mars',\r\n        'Avril',\r\n        'Mai',\r\n        'Juin',\r\n        'Juillet',\r\n        'Août',\r\n        'Septembre',\r\n        'Octobre',\r\n        'Novembre',\r\n        'Decembre'\r\n    ],\r\n    firstDay: 1\r\n};\r\n\r\nconst InputDateSample = React.createClass({\r\n    _handleGetValueClick() {\r\n        const value = moment(this.refs.myInputDate.getValue());\r\n        alert(value);\r\n    },\r\n    /**\r\n    * Render the component.\r\n    * @return {object} React node\r\n    */\r\n    render() {\r\n        return (\r\n            <div>\r\n                <h3>Without value</h3>\r\n                <InputDate name='fieldDate1' value={undefined} />\r\n\r\n                <h3>With value</h3>\r\n                <InputDate name='fieldDate2' value={new Date().toISOString()} />\r\n\r\n                <h3>Define a different locale (and formatter)</h3>\r\n                <InputDate name='fieldDate3' locale={datePickerFrenchLocale} value={new Date().toISOString()} />\r\n\r\n                <h3>Get the value</h3>\r\n                <InputDate name='fieldDate4' value={new Date().toISOString()} ref='myInputDate' />\r\n                <br />\r\n                <Button handleOnClick={this._handleGetValueClick} label='Display value' />\r\n            </div>\r\n        );\r\n    }\r\n});\r\n\r\nreturn <InputDateSample/>;\r\n"
+        "code": "// Components\n\nconst InputDate = FocusComponents.common.input.date.component;\nconst Button = FocusComponents.common.button.action.component;\n\n// Definition of moment's locale.\nmoment.locale('en');\n\nconst datePickerFrenchLocale = {\n    format: 'll',\n    separator: ' - ',\n    applyLabel: 'Appliquer',\n    cancelLabel: 'Abandonner',\n    fromLabel: 'De',\n    toLabel: 'à',\n    customRangeLabel: 'Personnalisé',\n    daysOfWeek: [\n        'Di',\n        'Lu',\n        'Ma',\n        'Me',\n        'Je',\n        'Ve',\n        'Sa'\n    ],\n    monthNames: [\n        'Janvier',\n        'Fevrier',\n        'Mars',\n        'Avril',\n        'Mai',\n        'Juin',\n        'Juillet',\n        'Août',\n        'Septembre',\n        'Octobre',\n        'Novembre',\n        'Decembre'\n    ],\n    firstDay: 1\n};\n\nconst InputDateSample = React.createClass({\n    _handleGetValueClick() {\n        const value = moment(this.refs.myInputDate.getValue());\n        alert(value);\n    },\n    /**\n    * Render the component.\n    * @return {object} React node\n    */\n    render() {\n        return (\n            <div>\n                <h3>Without value</h3>\n                <InputDate name='fieldDate1' value={null} />\n\n                <h3>With value</h3>\n                <InputDate name='fieldDate2' value={new Date().toISOString()} />\n\n                <h3>Define a different locale (and formatter)</h3>\n                <InputDate name='fieldDate3' locale={datePickerFrenchLocale} value={new Date().toISOString()} />\n\n                <h3>Get the value</h3>\n                <InputDate name='fieldDate4' value={new Date().toISOString()} ref='myInputDate' />\n                <br />\n                <Button handleOnClick={this._handleGetValueClick} label='Display value' />\n            </div>\n        );\n    }\n});\n\nreturn <InputDateSample/>;\n"
     },
     {
         "name": "input-radio",
@@ -58215,7 +58342,7 @@ module.exports=[
             "input",
             "radio"
         ],
-        "code": "const InputRadio = FocusComponents.common.input.radio.component;\r\n\r\nconst InputRadioSample = React.createClass({\r\n    /**\r\n    * Render the component.\r\n    * @return {object} React node\r\n    */\r\n    render() {\r\n        return (\r\n            <div>\r\n                <h3>With value : False</h3>\r\n                <div>\r\n                    <InputRadio name=\"options1\" value={false} label=\"Value False\" />\r\n                </div>\r\n                <h3>With value : True</h3>\r\n                <div>\r\n                    <InputRadio name=\"options2\" value={true} label=\"Value True\" />\r\n                </div>\r\n            </div>\r\n        );\r\n    }\r\n});\r\n\r\nreturn <InputRadioSample />;\r\n"
+        "code": "const InputRadio = FocusComponents.common.input.radio.component;\n\nconst InputRadioSample = React.createClass({\n    /**\n    * Render the component.\n    * @return {object} React node\n    */\n    render() {\n        return (\n            <div>\n                <h3>With value : False</h3>\n                <div>\n                    <InputRadio name=\"options1\" value={false} label=\"Value False\" />\n                </div>\n                <h3>With value : True</h3>\n                <div>\n                    <InputRadio name=\"options2\" value={true} label=\"Value True\" />\n                </div>\n            </div>\n        );\n    }\n});\n\nreturn <InputRadioSample />;\n"
     },
     {
         "name": "input-text",
@@ -58225,7 +58352,7 @@ module.exports=[
             "input",
             "text"
         ],
-        "code": "const InputText = FocusComponents.common.input.text.component;\r\n\r\nconst InputTextSample = React.createClass({\r\n    /**\r\n    * Render the component.\r\n    * @return {object} React node\r\n    */\r\n    render() {\r\n        return (\r\n            <div>\r\n                <h3>Without value</h3>\r\n                <div><InputText placeHolder=\"Put your value here...\" /></div>\r\n\r\n                <h3>With value</h3>\r\n                <InputText value=\"Lorem Ipsum\" />\r\n\r\n                <h3>Input with error</h3>\r\n                <InputText value=\"Lorem Ipsum\" error=\"Hey! you've done someting wrong!\" />\r\n\r\n                <h3>Get the value</h3>\r\n                <InputText value=\"Lorem Ipsum\" ref=\"myInputText\"/>\r\n                <button onClick={()=>{alert(this.refs.myInputText.getValue())}}>Get the input value</button>\r\n            </div>\r\n        );\r\n    }\r\n});\r\n\r\nreturn <InputTextSample />;\r\n"
+        "code": "const InputText = FocusComponents.common.input.text.component;\n\nconst InputTextSample = React.createClass({\n    /**\n    * Render the component.\n    * @return {object} React node\n    */\n    render() {\n        return (\n            <div>\n                <h3>Without value</h3>\n                <div><InputText placeHolder=\"Put your value here...\" /></div>\n\n                <h3>With value</h3>\n                <InputText value=\"Lorem Ipsum\" />\n\n                <h3>Input with error</h3>\n                <InputText value=\"Lorem Ipsum\" error=\"Hey! you've done someting wrong!\" />\n\n                <h3>Get the value</h3>\n                <InputText value=\"Lorem Ipsum\" ref=\"myInputText\"/>\n                <button onClick={()=>{alert(this.refs.myInputText.getValue())}}>Get the input value</button>\n            </div>\n        );\n    }\n});\n\nreturn <InputTextSample />;\n"
     },
     {
         "name": "input-textarea",
@@ -58236,7 +58363,7 @@ module.exports=[
             "text",
             "textarea"
         ],
-        "code": "\r\nconst TextArea = FocusComponents.common.input.textarea.component;\r\n\r\nconst InputTextAreaSample = React.createClass({\r\n    render() {\r\n        const value = \"Lorem ipsum dolor sit amet, consectetur adipiscing elit. In a accumsan dolor. Nullam in euismod risus. Integer finibus tellus porta tristique tincidunt. Mauris ac velit a nulla ultricies aliquet vitae facilisis lectus. Praesent eget eleifend augue. Curabitur vel metus feugiat, faucibus elit eu, mollis mi. Integer viverra finibus est, a tristique sem pharetra ut. Aenean dignissim, leo eu eleifend tincidunt, ex erat vulputate purus, nec commodo felis velit ac augue. Duis sed iaculis quam, quis dictum augue. Duis ac leo dolor. Integer sit amet quam metus. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Vestibulum aliquam mollis felis, non consectetur sem fermentum ac. Vivamus facilisis eleifend leo non tincidunt. Nam orci eros, blandit aliquam sodales vitae, ultrices ac sem. Nunc quis dui a est fringilla faucibus.\";\r\n        return (\r\n            <TextArea\r\n                value={value}\r\n                label=\"My awsome textarea\"\r\n                cols={5}\r\n                rows={5}\r\n                maxLength={1000}\r\n                maxLength={3} />\r\n        );\r\n    }\r\n});\r\n\r\nreturn <InputTextAreaSample />;\r\n"
+        "code": "\nconst TextArea = FocusComponents.common.input.textarea.component;\n\nconst InputTextAreaSample = React.createClass({\n    render() {\n        const value = \"Lorem ipsum dolor sit amet, consectetur adipiscing elit. In a accumsan dolor. Nullam in euismod risus. Integer finibus tellus porta tristique tincidunt. Mauris ac velit a nulla ultricies aliquet vitae facilisis lectus. Praesent eget eleifend augue. Curabitur vel metus feugiat, faucibus elit eu, mollis mi. Integer viverra finibus est, a tristique sem pharetra ut. Aenean dignissim, leo eu eleifend tincidunt, ex erat vulputate purus, nec commodo felis velit ac augue. Duis sed iaculis quam, quis dictum augue. Duis ac leo dolor. Integer sit amet quam metus. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Vestibulum aliquam mollis felis, non consectetur sem fermentum ac. Vivamus facilisis eleifend leo non tincidunt. Nam orci eros, blandit aliquam sodales vitae, ultrices ac sem. Nunc quis dui a est fringilla faucibus.\";\n        return (\n            <TextArea\n                value={value}\n                label=\"My awsome textarea\"\n                cols={5}\n                rows={5}\n                maxLength={1000}\n                maxLength={3} />\n        );\n    }\n});\n\nreturn <InputTextAreaSample />;\n"
     },
     {
         "name": "scrollspy",
@@ -58250,7 +58377,7 @@ module.exports=[
             "block",
             "nav"
         ],
-        "code": "const Scrollspy = FocusComponents.common.scrollspy.component;\r\nconst Title = FocusComponents.common.title.component;\r\n\r\nconst ScrollspySample = React.createClass({\r\n    /**\r\n    * Render the component.\r\n    * @return {object} React node\r\n    */\r\n    render() {\r\n        return (\r\n            <div>\r\n                <h1>Scrollspy</h1>\r\n                <Scrollspy>\r\n                    <Title label=\"Sports\" />\r\n                    <img alt=\"lorempixel\" src=\"http://lorempixel.com/800/600/sports\" title=\"lorempixel\" />\r\n\r\n                    <Title label=\"Animals\" />\r\n                    <img alt=\"lorempixel\" src=\"http://lorempixel.com/800/600/animals\" title=\"lorempixel\" />\r\n\r\n                    <Title label=\"Business\" />\r\n                    <img alt=\"lorempixel\" src=\"http://lorempixel.com/800/600/business\" title=\"lorempixel\" />\r\n\r\n                    <Title label=\"Cats\" />\r\n                    <img alt=\"lorempixel\" src=\"http://lorempixel.com/800/600/cats\" title=\"lorempixel\" />\r\n\r\n                    <Title label=\"City\" />\r\n                    <img alt=\"lorempixel\" src=\"http://lorempixel.com/800/600/city\" title=\"lorempixel\" />\r\n\r\n                    <Title label=\"Food\" />\r\n                    <img alt=\"lorempixel\" src=\"http://lorempixel.com/800/600/food\" title=\"lorempixel\" />\r\n\r\n                    <Title label=\"Nightlife\" />\r\n                    <img alt=\"lorempixel\" src=\"http://lorempixel.com/800/600/nightlife\" title=\"lorempixel\" />\r\n\r\n                    <Title label=\"Fashion\" />\r\n                    <img alt=\"lorempixel\" src=\"http://lorempixel.com/800/600/fashion\" title=\"lorempixel\" />\r\n\r\n                    <Title label=\"People\" />\r\n                    <img alt=\"lorempixel\" src=\"http://lorempixel.com/800/600/people\" title=\"lorempixel\" />\r\n\r\n                    <Title label=\"Nature\" />\r\n                    <img alt=\"lorempixel\" src=\"http://lorempixel.com/800/600/nature\" title=\"lorempixel\" />\r\n\r\n                    <Title label=\"Technics\" />\r\n                    <img alt=\"lorempixel\" src=\"http://lorempixel.com/800/600/technics\" title=\"lorempixel\" />\r\n\r\n                    <Title label=\"Transport\" />\r\n                    <img alt=\"lorempixel\" src=\"http://lorempixel.com/800/600/transport\" title=\"lorempixel\" />\r\n                </Scrollspy>\r\n            </div>\r\n        );\r\n    }\r\n});\r\n\r\nreturn <ScrollspySample />;\r\n"
+        "code": "const Scrollspy = FocusComponents.common.scrollspy.component;\nconst Title = FocusComponents.common.title.component;\n\nconst ScrollspySample = React.createClass({\n    /**\n    * Render the component.\n    * @return {object} React node\n    */\n    render() {\n        return (\n            <div>\n                <h1>Scrollspy</h1>\n                <Scrollspy>\n                    <Title label=\"Sports\" />\n                    <img alt=\"lorempixel\" src=\"http://lorempixel.com/800/600/sports\" title=\"lorempixel\" />\n\n                    <Title label=\"Animals\" />\n                    <img alt=\"lorempixel\" src=\"http://lorempixel.com/800/600/animals\" title=\"lorempixel\" />\n\n                    <Title label=\"Business\" />\n                    <img alt=\"lorempixel\" src=\"http://lorempixel.com/800/600/business\" title=\"lorempixel\" />\n\n                    <Title label=\"Cats\" />\n                    <img alt=\"lorempixel\" src=\"http://lorempixel.com/800/600/cats\" title=\"lorempixel\" />\n\n                    <Title label=\"City\" />\n                    <img alt=\"lorempixel\" src=\"http://lorempixel.com/800/600/city\" title=\"lorempixel\" />\n\n                    <Title label=\"Food\" />\n                    <img alt=\"lorempixel\" src=\"http://lorempixel.com/800/600/food\" title=\"lorempixel\" />\n\n                    <Title label=\"Nightlife\" />\n                    <img alt=\"lorempixel\" src=\"http://lorempixel.com/800/600/nightlife\" title=\"lorempixel\" />\n\n                    <Title label=\"Fashion\" />\n                    <img alt=\"lorempixel\" src=\"http://lorempixel.com/800/600/fashion\" title=\"lorempixel\" />\n\n                    <Title label=\"People\" />\n                    <img alt=\"lorempixel\" src=\"http://lorempixel.com/800/600/people\" title=\"lorempixel\" />\n\n                    <Title label=\"Nature\" />\n                    <img alt=\"lorempixel\" src=\"http://lorempixel.com/800/600/nature\" title=\"lorempixel\" />\n\n                    <Title label=\"Technics\" />\n                    <img alt=\"lorempixel\" src=\"http://lorempixel.com/800/600/technics\" title=\"lorempixel\" />\n\n                    <Title label=\"Transport\" />\n                    <img alt=\"lorempixel\" src=\"http://lorempixel.com/800/600/transport\" title=\"lorempixel\" />\n                </Scrollspy>\n            </div>\n        );\n    }\n});\n\nreturn <ScrollspySample />;\n"
     },
     {
         "name": "select-checkbox",
@@ -58261,7 +58388,7 @@ module.exports=[
             "select",
             "checkbox"
         ],
-        "code": "const SelectCheckbox = FocusComponents.common.select.checkbox.component;\r\nconst {pull} = _;\r\n\r\nconst possibleValues = [{value: \"A\", label: \"Value A\"},{value: \"B\", label: \"Value B\"}, {value: \"C\", label: \"Value C\"}, {value: \"D\", label: \"Value D\"}];\r\n\r\nconst SelectCheckboxSample = React.createClass({\r\n\r\n    /**\r\n    * Handle click action to get check value.\r\n    */\r\n    handleGetValueClick(){\r\n        const values = this.refs.mySelectCheckbox.getValue();\r\n        alert('Selected values IDs: ' + values);\r\n    },\r\n\r\n\r\n    /** @inheritdoc */\r\n    getInitialState() {\r\n        return {\r\n            selectedValues: ['B']\r\n        };\r\n    },\r\n\r\n    /**\r\n    * Handle click action to get check value.\r\n    */\r\n    handleGetValueClick2(key, newStatus){\r\n        const selectedValues = this.state.selectedValues;\r\n        if(newStatus) {\r\n            selectedValues.push(key);\r\n        } else {\r\n            pull(selectedValues, key);\r\n        }\r\n        this.setState({value: selectedValues});\r\n        alert('Selected values IDs: ' + this.state.selectedValues);\r\n    },\r\n\r\n\r\n    /**\r\n    * Render the component.\r\n    * @return {object} React node\r\n    */\r\n    render() {\r\n        return (\r\n            <div>\r\n                <h3>List of checkboxes</h3>\r\n                <SelectCheckbox\r\n                    values={possibleValues} ref=\"mySelectCheckbox\" />\r\n                <h3>List of checkboxes with preselected values</h3>\r\n                <SelectCheckbox\r\n                    value={['B']}\r\n                    values={possibleValues} ref=\"mySelectCheckbox\" />\r\n                <br />\r\n                <button onClick={this.handleGetValueClick}>Get the selected values</button>\r\n                <h3>Add OnChange event</h3>\r\n                <SelectCheckbox\r\n                    value={this.state.selectedValues}\r\n                    values={possibleValues} ref=\"mySelectCheckbox2\" onChange={this.handleGetValueClick2} />\r\n            </div>\r\n        );\r\n    }\r\n});\r\n\r\nreturn <SelectCheckboxSample />;\r\n"
+        "code": "const SelectCheckbox = FocusComponents.common.select.checkbox.component;\nconst {pull} = _;\n\nconst possibleValues = [{value: \"A\", label: \"Value A\"},{value: \"B\", label: \"Value B\"}, {value: \"C\", label: \"Value C\"}, {value: \"D\", label: \"Value D\"}];\n\nconst SelectCheckboxSample = React.createClass({\n\n    /**\n    * Handle click action to get check value.\n    */\n    handleGetValueClick(){\n        const values = this.refs.mySelectCheckbox.getValue();\n        alert('Selected values IDs: ' + values);\n    },\n\n\n    /** @inheritdoc */\n    getInitialState() {\n        return {\n            selectedValues: ['B']\n        };\n    },\n\n    /**\n    * Handle click action to get check value.\n    */\n    handleGetValueClick2(key, newStatus){\n        const selectedValues = this.state.selectedValues;\n        if(newStatus) {\n            selectedValues.push(key);\n        } else {\n            pull(selectedValues, key);\n        }\n        this.setState({value: selectedValues});\n        alert('Selected values IDs: ' + this.state.selectedValues);\n    },\n\n\n    /**\n    * Render the component.\n    * @return {object} React node\n    */\n    render() {\n        return (\n            <div>\n                <h3>List of checkboxes</h3>\n                <SelectCheckbox\n                    values={possibleValues} ref=\"mySelectCheckbox\" />\n                <h3>List of checkboxes with preselected values</h3>\n                <SelectCheckbox\n                    value={['B']}\n                    values={possibleValues} ref=\"mySelectCheckbox\" />\n                <br />\n                <button onClick={this.handleGetValueClick}>Get the selected values</button>\n                <h3>Add OnChange event</h3>\n                <SelectCheckbox\n                    value={this.state.selectedValues}\n                    values={possibleValues} ref=\"mySelectCheckbox2\" onChange={this.handleGetValueClick2} />\n            </div>\n        );\n    }\n});\n\nreturn <SelectCheckboxSample />;\n"
     },
     {
         "name": "select-radio",
@@ -58272,7 +58399,7 @@ module.exports=[
             "select",
             "radio"
         ],
-        "code": "const SelectRadio = FocusComponents.common.select.radio.component;\r\n\r\nconst values = [{code: \"A\", label: \"Value A\"}, {code: \"B\", label: \"Value B\"}, {code: \"C\", label: \"Value C\"}];\r\n\r\nconst SelectRadioSample = React.createClass({\r\n\r\n    /**\r\n    * Handle click action to get check value.\r\n    */\r\n    handleGetValueClick(){\r\n        const value = this.refs.mySelectRadio.getValue();\r\n        alert('Selected values ID: ' + value);\r\n    },\r\n\r\n    /** @inheritdoc */\r\n    getInitialState() {\r\n        return {\r\n            value: 'A'\r\n        };\r\n    },\r\n\r\n    /**\r\n    * Handle click action to get check value.\r\n    */\r\n    handleOnChange(newValue){\r\n        this.setState({value: newValue});\r\n        alert('Selected values ID: ' + newValue);\r\n    },\r\n\r\n    /**\r\n    * Render the component.\r\n    * @return {object} React node\r\n    */\r\n    render() {\r\n        return (\r\n            <div>\r\n                <h3>Classic select radio</h3>\r\n                <SelectRadio\r\n                    value='B'\r\n                    values={values} />\r\n                <h3>Classic select radio</h3>\r\n                <SelectRadio\r\n                    value='B'\r\n                    values={values} ref=\"mySelectRadio\" />\r\n                <br/>\r\n                <button onClick={this.handleGetValueClick}>Get the selected value</button>\r\n                <h3>OnChange event overload</h3>\r\n                <SelectRadio\r\n                    value={this.state.value}\r\n                    values={values} onChange={this.handleOnChange} />\r\n            </div>);\r\n    }\r\n});\r\n\r\n\r\nreturn <SelectRadioSample />;\r\n"
+        "code": "const SelectRadio = FocusComponents.common.select.radio.component;\n\nconst values = [{code: \"A\", label: \"Value A\"}, {code: \"B\", label: \"Value B\"}, {code: \"C\", label: \"Value C\"}];\n\nconst SelectRadioSample = React.createClass({\n\n    /**\n    * Handle click action to get check value.\n    */\n    handleGetValueClick(){\n        const value = this.refs.mySelectRadio.getValue();\n        alert('Selected values ID: ' + value);\n    },\n\n    /** @inheritdoc */\n    getInitialState() {\n        return {\n            value: 'A'\n        };\n    },\n\n    /**\n    * Handle click action to get check value.\n    */\n    handleOnChange(newValue){\n        this.setState({value: newValue});\n        alert('Selected values ID: ' + newValue);\n    },\n\n    /**\n    * Render the component.\n    * @return {object} React node\n    */\n    render() {\n        return (\n            <div>\n                <h3>Classic select radio</h3>\n                <SelectRadio\n                    value='B'\n                    values={values} />\n                <h3>Classic select radio</h3>\n                <SelectRadio\n                    value='B'\n                    values={values} ref=\"mySelectRadio\" />\n                <br/>\n                <button onClick={this.handleGetValueClick}>Get the selected value</button>\n                <h3>OnChange event overload</h3>\n                <SelectRadio\n                    value={this.state.value}\n                    values={values} onChange={this.handleOnChange} />\n            </div>);\n    }\n});\n\n\nreturn <SelectRadioSample />;\n"
     },
     {
         "name": "select-action",
@@ -58284,7 +58411,7 @@ module.exports=[
             "actions",
             "selection"
         ],
-        "code": "const Dropdown = FocusComponents.common.selectAction.component;\r\nconst operationList = [\r\n    {\r\n        label: 'Action_a',\r\n        action() {\r\n            alert('Actiona');\r\n        }\r\n    },\r\n    {\r\n        label: 'Action_b',\r\n        action() {\r\n            alert('Actionb');\r\n        }\r\n    },\r\n    {\r\n        label: 'Action_c',\r\n        action() {\r\n            alert('Actionc');\r\n        }\r\n    }\r\n];\r\n\r\nreturn <Dropdown operationList={operationList}/>;\r\n"
+        "code": "const Dropdown = FocusComponents.common.selectAction.component;\nconst operationList = [\n    {\n        label: 'Action_a',\n        action() {\n            alert('Actiona');\n        }\n    },\n    {\n        label: 'Action_b',\n        action() {\n            alert('Actionb');\n        }\n    },\n    {\n        label: 'Action_c',\n        action() {\n            alert('Actionc');\n        }\n    }\n];\n\nreturn <Dropdown operationList={operationList}/>;\n"
     },
     {
         "name": "table",
@@ -58298,7 +58425,7 @@ module.exports=[
             "sort",
             "dumb"
         ],
-        "code": "FocusExampleInitializers();\r\n//Line behaviour\r\nconst lineBehaviour = FocusComponents.list.table.line.mixin;\r\n//Table component\r\nconst Table = FocusComponents.list.table.list.component;\r\n\r\n//Line creation (should be in a separated file on a project)\r\nconst TableLineComponent = React.createClass({\r\n    mixins: [lineBehaviour],\r\n    definitionPath: 'contact',\r\n    renderLineContent(data){\r\n        const {className} = this.props;\r\n        const cellProps = {className};\r\n        return (\r\n            <tr data-focus='table-line'>\r\n                <td {...cellProps}>{this.textFor(\"firstName\", {})}</td>\r\n                <td {...cellProps}>{this.textFor(\"lastName\", {})}</td>\r\n                <td {...cellProps}>\r\n                    {this.textFor(\"birthDate\", {})}\r\n                    {this.renderLineActions()}\r\n                </td>\r\n            </tr>\r\n        );\r\n    }\r\n});\r\n//Dake data for the table.\r\nconst FAKE_DATA = [\r\n    {id: 1, firstName: 'Zeus', lastName: 'God', birthDate: Date.now()},\r\n    {id: 2, firstName: 'Ares', lastName: 'God', birthDate: Date.now()},\r\n    {id: 3, firstName: 'Athena', lastName: 'Godess', birthDate: Date.now()},\r\n    {id: 4, firstName: 'Poseidon', lastName: 'God', birthDate: Date.now()},\r\n    {id: 5, firstName: 'Hades', lastName: 'God', birthDate: Date.now()},\r\n]\r\n\r\n// As table needs many props to be able to be functional.\r\n// Props are created before and the given to the component using destructing asignement.\r\nconst tableProps = {\r\n    data: FAKE_DATA,\r\n    lineComponent: TableLineComponent,\r\n    //isSelectable: true,//Uncomment this line to have a selectable table\r\n    columns: {\r\n        firstName: {label: 'Prénom', sort:'asc'},\r\n        lastName: {label: 'Nom', sort: 'desc'},\r\n        birthDate: {label: \"date\", noSort: true}\r\n    },\r\n    onLineClick : function onLineClick(line){\r\n        //Should open a popin\r\n        alert('click sur la ligne ' + line.title);\r\n    },\r\n    sortColumn: function sortColumn(name, order){\r\n        //Should call an action which sorts the list.\r\n        alert('Order ' + order + ' on column ' + name);\r\n    },\r\n    operationList: [\r\n        {\r\n            label: \"Button1_a\",\r\n            action: function(data) {alert(data.title);},\r\n            style: {className: 'fa fa-eye', shape: 'fab'},\r\n            priority: 1\r\n        }\r\n    ],\r\n    isLoading: true,\r\n    hasMoreData: true,\r\n    isManualFetch: true\r\n};\r\n\r\n\r\nconst TableSample = React.createClass({\r\n    /**\r\n    * Render the component.\r\n    * @return {object} React node\r\n    */\r\n    render() {\r\n        return <Table {...tableProps} />;\r\n    }\r\n});\r\n\r\nreturn <TableSample />;\r\n"
+        "code": "FocusExampleInitializers();\n//Line behaviour\nconst lineBehaviour = FocusComponents.list.table.line.mixin;\n//Table component\nconst Table = FocusComponents.list.table.list.component;\n\n//Line creation (should be in a separated file on a project)\nconst TableLineComponent = React.createClass({\n    mixins: [lineBehaviour],\n    definitionPath: 'contact',\n    renderLineContent(data){\n        const {className} = this.props;\n        const cellProps = {className};\n        return (\n            <tr data-focus='table-line'>\n                <td {...cellProps}>{this.textFor(\"firstName\", {})}</td>\n                <td {...cellProps}>{this.textFor(\"lastName\", {})}</td>\n                <td {...cellProps}>\n                    {this.textFor(\"birthDate\", {})}\n                    {this.renderLineActions()}\n                </td>\n            </tr>\n        );\n    }\n});\n//Dake data for the table.\nconst FAKE_DATA = [\n    {id: 1, firstName: 'Zeus', lastName: 'God', birthDate: Date.now()},\n    {id: 2, firstName: 'Ares', lastName: 'God', birthDate: Date.now()},\n    {id: 3, firstName: 'Athena', lastName: 'Godess', birthDate: Date.now()},\n    {id: 4, firstName: 'Poseidon', lastName: 'God', birthDate: Date.now()},\n    {id: 5, firstName: 'Hades', lastName: 'God', birthDate: Date.now()},\n]\n\n// As table needs many props to be able to be functional.\n// Props are created before and the given to the component using destructing asignement.\nconst tableProps = {\n    data: FAKE_DATA,\n    lineComponent: TableLineComponent,\n    //isSelectable: true,//Uncomment this line to have a selectable table\n    columns: {\n        firstName: {label: 'Prénom', sort:'asc'},\n        lastName: {label: 'Nom', sort: 'desc'},\n        birthDate: {label: \"date\", noSort: true}\n    },\n    onLineClick : function onLineClick(line){\n        //Should open a popin\n        alert('click sur la ligne ' + line.title);\n    },\n    sortColumn: function sortColumn(name, order){\n        //Should call an action which sorts the list.\n        alert('Order ' + order + ' on column ' + name);\n    },\n    operationList: [\n        {\n            label: \"Button1_a\",\n            action: function(data) {alert(data.title);},\n            style: {className: 'fa fa-eye', shape: 'fab'},\n            priority: 1\n        }\n    ],\n    isLoading: true,\n    hasMoreData: true,\n    isManualFetch: true\n};\n\n\nconst TableSample = React.createClass({\n    /**\n    * Render the component.\n    * @return {object} React node\n    */\n    render() {\n        return <Table {...tableProps} />;\n    }\n});\n\nreturn <TableSample />;\n"
     },
     {
         "name": "message",
@@ -58308,7 +58435,7 @@ module.exports=[
             "message",
             "notification"
         ],
-        "code": "const Message = FocusComponents.message.component;\r\n\r\nconst MessageSample = React.createClass({\r\n    getInitialState(){\r\n        return {isVisible: true};\r\n    },\r\n    _handleOnClick: function(){\r\n        this.setState({isVisible: false});\r\n    },\r\n    /**\r\n    * Render the component.\r\n    * @return {object} React node.\r\n    */\r\n    render() {\r\n        const messageProps = {\r\n            title: 'Alert',\r\n            type: 'error', // success, info, warning, none\r\n            content: 'An error has been encountered.',\r\n            ttl: 1,\r\n            handleOnClick: this._handleOnClick\r\n        };\r\n        const isVisible = this.state.isVisible;\r\n        return (\r\n            <div className='message-example'>\r\n                {isVisible &&\r\n                    <Message {...messageProps} />\r\n                }\r\n            </div>\r\n        );\r\n    }\r\n});\r\n\r\nreturn <MessageSample/>;\r\n"
+        "code": "const Message = FocusComponents.message.component;\n\nconst MessageSample = React.createClass({\n    getInitialState(){\n        return {isVisible: true};\n    },\n    _handleOnClick: function(){\n        this.setState({isVisible: false});\n    },\n    /**\n    * Render the component.\n    * @return {object} React node.\n    */\n    render() {\n        const messageProps = {\n            title: 'Alert',\n            type: 'error', // success, info, warning, none\n            content: 'An error has been encountered.',\n            ttl: 1,\n            handleOnClick: this._handleOnClick\n        };\n        const isVisible = this.state.isVisible;\n        return (\n            <div className='message-example'>\n                {isVisible &&\n                    <Message {...messageProps} />\n                }\n            </div>\n        );\n    }\n});\n\nreturn <MessageSample/>;\n"
     },
     {
         "name": "Advanced search",
@@ -58319,7 +58446,7 @@ module.exports=[
             "advanced",
             "smart"
         ],
-        "code": "const Title = FocusComponents.common.title.component;\r\nconst Button = FocusComponents.common.button.action.component;\r\n\r\nFocus.reference.config.set({\r\n    scopes() {\r\n        return new Promise(success => {\r\n            success([\r\n                {\r\n                    code: 'SCP1',\r\n                    label: 'Scope 1'\r\n                },\r\n                {\r\n                    code: 'SCP2',\r\n                    label: 'Scope 2'\r\n                },\r\n                {\r\n                    code: 'SCP3',\r\n                    label: 'Scope 3'\r\n                }\r\n            ]);\r\n        });\r\n    }\r\n});\r\n\r\nFocus.definition.entity.container.setEntityConfiguration({\r\n    contact: {\r\n        firstName: {\r\n            domain: 'DO_TEXT',\r\n            required: false\r\n        },\r\n        lastName: {\r\n            domain: 'DO_TEXT',\r\n            required: true\r\n        },\r\n        age: {\r\n            domain: 'DO_NUMBER',\r\n            required: false\r\n        },\r\n        email: {\r\n            domain: 'DO_EMAIL',\r\n            required: false\r\n        }\r\n    }\r\n});\r\n\r\nlet countId = 0;\r\n\r\nconst facets = {\r\n    FCT_PAYS: {\r\n        France: 5,\r\n        Germany: 8\r\n    },\r\n    FCT_STATUS: {\r\n        Open: 7,\r\n        Closed: 2,\r\n        'Status 1': 2,\r\n        'Status 2': 2,\r\n        'Status 3': 2,\r\n        'Status 4': 2,\r\n        'Status 5': 2\r\n    },\r\n    FCT_REGION: {\r\n        'Ile de France': 11,\r\n        'Nord - Pas de Calais': 6\r\n    }\r\n};\r\n\r\nconst getSearchService = (scoped) => {\r\n    return (criteria) => {\r\n        return new Promise(success => {\r\n            window.setTimeout(() => {\r\n                const groups = {\r\n                    FCT_PAYS: [\r\n                        {\r\n                            id: countId++,\r\n                            firstName: 'toto',\r\n                            lastName: 'ceci est un test'\r\n                        },\r\n                        {\r\n                            id: countId++,\r\n                            firstName: 'tata',\r\n                            lastName: 'deuxieme test'\r\n                        }\r\n                    ],\r\n                    FCT_STATUS: [\r\n                        {\r\n                            id: countId++,\r\n                            firstName: 'toto',\r\n                            lastName: 'ceci est un test'\r\n                        },\r\n                        {\r\n                            id: countId++,\r\n                            firstName: 'tata',\r\n                            lastName: 'deuxieme test'\r\n                        }\r\n                    ]\r\n                };\r\n\r\n                const data = {\r\n                    facets,\r\n                    groups,\r\n                    totalCount: 20\r\n                };\r\n                success(data);\r\n            }, 1000);\r\n        });\r\n    }\r\n};\r\n\r\nconst service = {\r\n    unscoped: getSearchService(false),\r\n    scoped: getSearchService(true)\r\n};\r\n\r\nconst Line = React.createClass({\r\n    mixins: [FocusComponents.list.selection.line.mixin],\r\n    definitionPath: 'contact',\r\n    renderLineContent(data) {\r\n        return (\r\n            <div>\r\n                {this.displayFor('firstName', {})}\r\n                {this.displayFor('lastName', {})}\r\n            </div>\r\n        );\r\n    }\r\n});\r\n\r\nconst Group = React.createClass({\r\n    mixins: [FocusComponents.common.i18n.mixin],\r\n    _getShowAllHandler(key) {\r\n        return () => {\r\n            this.props.showAllHandler(key);\r\n        };\r\n    },\r\n    render() {\r\n        return (\r\n            <div className=\"listResultContainer panel\" data-focus=\"group-result-container\">\r\n                <Title label={`${this.props.groupKey} (${this.props.count})`}/>\r\n                <p>{this.i18n('search.mostRelevant')}</p>\r\n                <div className=\"resultContainer\">\r\n                    {this.props.children}\r\n                </div>\r\n                <div data-focus='group-actions'>\r\n                    {this.props.canShowMore &&\r\n                      <Button handleOnClick={this.props.showMoreHandler} label={this.i18n('show.more')}/>\r\n                    }\r\n                    <Button handleOnClick={this._getShowAllHandler(this.props.groupKey)} label={this.i18n('show.all')}/>\r\n                </div>\r\n            </div>\r\n        );\r\n    }\r\n});\r\n\r\nconst advancedSearchProps = {\r\n    facetConfig: {\r\n        FCT_PAYS: 'text',\r\n        FCT_STATUS: 'text',\r\n        FCT_REGION: 'text'\r\n    },\r\n    orderableColumnList: [\r\n        {key: 'col1', order: 'desc', label: 'Colonne 1 desc'},\r\n        {key: 'col1', order: 'asc', label: 'Colonne 1 asc'},\r\n        {key: 'col2', order: 'desc', label: 'Colonne 2 desc'},\r\n        {key: 'col2', order: 'asc', label: 'Colonne 2 asc'}\r\n    ],\r\n    operationList: [\r\n        {\r\n            label: 'Button1_a',\r\n            action() {\r\n                alert('Button1a');\r\n            },\r\n            style: {},\r\n            priority: 1\r\n        },\r\n        {\r\n            label: 'Button1_b',\r\n            action() {\r\n                alert('Button1b');\r\n            },\r\n            style: {},\r\n            priority: 1\r\n        },\r\n        {\r\n            label: 'Button2_a',\r\n            action() {\r\n                alert('Button2a');\r\n            },\r\n            style: {},\r\n            priority: 2\r\n        },\r\n        {\r\n            label: 'Button2_b',\r\n            action() {\r\n                alert('Button2b');\r\n            },\r\n            style: {},\r\n            priority: 2\r\n        }\r\n    ],\r\n    onLineClick({id}) {\r\n        alert('click sur la ligne ' + id);\r\n    },\r\n    isSelection: true,\r\n    lineOperationList: [\r\n        {\r\n            label: 'Button1_a',\r\n            action({tile}) {\r\n                alert(title);\r\n            },\r\n            style: {},\r\n            priority: 1\r\n        },\r\n        {\r\n            label: 'Button1_b',\r\n            action({tile}) {\r\n                alert(title);\r\n            },\r\n            style: {},\r\n            priority: 1\r\n        },\r\n        {\r\n            label: 'Button2_a',\r\n            action({tile}) {\r\n                alert(title);\r\n            },\r\n            style: {},\r\n            priority: 2\r\n        },\r\n        {\r\n            label: 'Button2_b',\r\n            action({tile}) {\r\n                alert(title);\r\n            },\r\n            style: {},\r\n            priority: 2\r\n        }\r\n    ],\r\n    criteria: {\r\n        scope: 'Scope',\r\n        searchText: 'value'\r\n    },\r\n    idField: 'id',\r\n    unselectedScopeAction() {\r\n        alert('unselect scope')\r\n    },\r\n    exportAction() {\r\n        alert('export')\r\n    },\r\n    service,\r\n    lineComponentMapper: function(list) {\r\n        return Line;\r\n    },\r\n    groupComponent: Group,\r\n    groupMaxRows: 1\r\n};\r\n\r\nconst AdvancedSearch = FocusComponents.page.search.advancedSearch.component;\r\n\r\n// Mocked interaction\r\n\r\nsetTimeout(() => {\r\n    service.scoped({query: '', scope: '', facets: ''});\r\n}, 2000);\r\n\r\n\r\nreturn <AdvancedSearch {...advancedSearchProps} />;\r\n"
+        "code": "const Title = FocusComponents.common.title.component;\nconst Button = FocusComponents.common.button.action.component;\n\nFocus.reference.config.set({\n    scopes() {\n        return new Promise(success => {\n            success([\n                {\n                    code: 'SCP1',\n                    label: 'Scope 1'\n                },\n                {\n                    code: 'SCP2',\n                    label: 'Scope 2'\n                },\n                {\n                    code: 'SCP3',\n                    label: 'Scope 3'\n                }\n            ]);\n        });\n    }\n});\n\nFocus.definition.entity.container.setEntityConfiguration({\n    contact: {\n        firstName: {\n            domain: 'DO_TEXT',\n            required: false\n        },\n        lastName: {\n            domain: 'DO_TEXT',\n            required: true\n        },\n        age: {\n            domain: 'DO_NUMBER',\n            required: false\n        },\n        email: {\n            domain: 'DO_EMAIL',\n            required: false\n        }\n    }\n});\n\nlet countId = 0;\n\nconst facets = {\n    FCT_PAYS: {\n        France: 5,\n        Germany: 8\n    },\n    FCT_STATUS: {\n        Open: 7,\n        Closed: 2,\n        'Status 1': 2,\n        'Status 2': 2,\n        'Status 3': 2,\n        'Status 4': 2,\n        'Status 5': 2\n    },\n    FCT_REGION: {\n        'Ile de France': 11,\n        'Nord - Pas de Calais': 6\n    }\n};\n\nconst getSearchService = (scoped) => {\n    return (criteria) => {\n        return new Promise(success => {\n            window.setTimeout(() => {\n                const groups = {\n                    FCT_PAYS: [\n                        {\n                            id: countId++,\n                            firstName: 'toto',\n                            lastName: 'ceci est un test'\n                        },\n                        {\n                            id: countId++,\n                            firstName: 'tata',\n                            lastName: 'deuxieme test'\n                        }\n                    ],\n                    FCT_STATUS: [\n                        {\n                            id: countId++,\n                            firstName: 'toto',\n                            lastName: 'ceci est un test'\n                        },\n                        {\n                            id: countId++,\n                            firstName: 'tata',\n                            lastName: 'deuxieme test'\n                        }\n                    ]\n                };\n\n                const data = {\n                    facets,\n                    groups,\n                    totalCount: 20\n                };\n                success(data);\n            }, 1000);\n        });\n    }\n};\n\nconst service = {\n    unscoped: getSearchService(false),\n    scoped: getSearchService(true)\n};\n\nconst Line = React.createClass({\n    mixins: [FocusComponents.list.selection.line.mixin],\n    definitionPath: 'contact',\n    renderLineContent(data) {\n        return (\n            <div>\n                {this.displayFor('firstName', {})}\n                {this.displayFor('lastName', {})}\n            </div>\n        );\n    }\n});\n\nconst Group = React.createClass({\n    mixins: [FocusComponents.common.i18n.mixin],\n    _getShowAllHandler(key) {\n        return () => {\n            this.props.showAllHandler(key);\n        };\n    },\n    render() {\n        return (\n            <div className=\"listResultContainer panel\" data-focus=\"group-result-container\">\n                <Title label={`${this.props.groupKey} (${this.props.count})`}/>\n                <p>{this.i18n('search.mostRelevant')}</p>\n                <div className=\"resultContainer\">\n                    {this.props.children}\n                </div>\n                <div data-focus='group-actions'>\n                    {this.props.canShowMore &&\n                      <Button handleOnClick={this.props.showMoreHandler} label={this.i18n('show.more')}/>\n                    }\n                    <Button handleOnClick={this._getShowAllHandler(this.props.groupKey)} label={this.i18n('show.all')}/>\n                </div>\n            </div>\n        );\n    }\n});\n\nconst advancedSearchProps = {\n    facetConfig: {\n        FCT_PAYS: 'text',\n        FCT_STATUS: 'text',\n        FCT_REGION: 'text'\n    },\n    orderableColumnList: [\n        {key: 'col1', order: 'desc', label: 'Colonne 1 desc'},\n        {key: 'col1', order: 'asc', label: 'Colonne 1 asc'},\n        {key: 'col2', order: 'desc', label: 'Colonne 2 desc'},\n        {key: 'col2', order: 'asc', label: 'Colonne 2 asc'}\n    ],\n    operationList: [\n        {\n            label: 'Button1_a',\n            action() {\n                alert('Button1a');\n            },\n            style: {},\n            priority: 1\n        },\n        {\n            label: 'Button1_b',\n            action() {\n                alert('Button1b');\n            },\n            style: {},\n            priority: 1\n        },\n        {\n            label: 'Button2_a',\n            action() {\n                alert('Button2a');\n            },\n            style: {},\n            priority: 2\n        },\n        {\n            label: 'Button2_b',\n            action() {\n                alert('Button2b');\n            },\n            style: {},\n            priority: 2\n        }\n    ],\n    onLineClick({id}) {\n        alert('click sur la ligne ' + id);\n    },\n    isSelection: true,\n    lineOperationList: [\n        {\n            label: 'Button1_a',\n            action({tile}) {\n                alert(title);\n            },\n            style: {},\n            priority: 1\n        },\n        {\n            label: 'Button1_b',\n            action({tile}) {\n                alert(title);\n            },\n            style: {},\n            priority: 1\n        },\n        {\n            label: 'Button2_a',\n            action({tile}) {\n                alert(title);\n            },\n            style: {},\n            priority: 2\n        },\n        {\n            label: 'Button2_b',\n            action({tile}) {\n                alert(title);\n            },\n            style: {},\n            priority: 2\n        }\n    ],\n    criteria: {\n        scope: 'Scope',\n        searchText: 'value'\n    },\n    idField: 'id',\n    unselectedScopeAction() {\n        alert('unselect scope')\n    },\n    exportAction() {\n        alert('export')\n    },\n    service,\n    lineComponentMapper: function(list) {\n        return Line;\n    },\n    groupComponent: Group,\n    groupMaxRows: 1\n};\n\nconst AdvancedSearch = FocusComponents.page.search.advancedSearch.component;\n\n// Mocked interaction\n\nsetTimeout(() => {\n    service.scoped({query: '', scope: '', facets: ''});\n}, 2000);\n\n\nreturn <AdvancedSearch {...advancedSearchProps} />;\n"
     },
     {
         "name": "quick-search",
@@ -58330,7 +58457,7 @@ module.exports=[
             "page",
             "smart"
         ],
-        "code": "Focus.reference.config.set({\r\n    scopes() {\r\n        return new Promise(success => {\r\n            success([\r\n                {\r\n                    code: 'face',\r\n                    label: 'Utilisateurs'\r\n                },\r\n                {\r\n                    code: 'extension',\r\n                    label: 'Extensions'\r\n                },\r\n                {\r\n                    code: 'contact_phone',\r\n                    label: 'Contacts'\r\n                }\r\n            ]);\r\n        });\r\n    }\r\n});\r\n\r\nFocus.definition.entity.container.setEntityConfiguration({\r\n    contact: {\r\n        firstName: {\r\n            domain: 'DO_TEXT',\r\n            required: false\r\n        },\r\n        lastName: {\r\n            domain: 'DO_TEXT',\r\n            required: true\r\n        },\r\n        age: {\r\n            domain: 'DO_NUMBER',\r\n            required: false\r\n        },\r\n        email: {\r\n            domain: 'DO_EMAIL',\r\n            required: false\r\n        }\r\n    }\r\n});\r\n\r\nlet countId = 0;\r\n\r\nconst getSearchService = (scoped) => {\r\n    return (criteria) => {\r\n        return new Promise(success => {\r\n            window.setTimeout(() => {\r\n                const groups = {\r\n                    Test: [\r\n                        {\r\n                            id: countId++,\r\n                            firstName: 'toto',\r\n                            lastName: 'ceci est un test'\r\n                        },\r\n                        {\r\n                            id: countId++,\r\n                            firstName: 'tata',\r\n                            lastName: 'deuxieme test'\r\n                        }\r\n                    ],\r\n                    Autre: [\r\n                        {\r\n                            id: countId++,\r\n                            firstName: 'toto',\r\n                            lastName: 'ceci est un test'\r\n                        },\r\n                        {\r\n                            id: countId++,\r\n                            firstName: 'tata',\r\n                            lastName: 'deuxieme test'\r\n                        }\r\n                    ]\r\n                };\r\n\r\n                const list = [\r\n                    {\r\n                        id: countId++,\r\n                        firstName: 'toto',\r\n                        lastName: 'ceci est un test'\r\n                    },\r\n                    {\r\n                        id: countId++,\r\n                        firstName: 'tata',\r\n                        lastName: 'deuxieme test'\r\n                    }\r\n                ];\r\n\r\n                const payload = scoped ? list : groups;\r\n                const data = {\r\n                    facets: {},\r\n                    [scoped ? 'list' : 'groups']: payload,\r\n                    totalCount: 20\r\n                };\r\n                success(data);\r\n                // Focus.dispatcher.handleServerAction({\r\n                //     data: data, type: 'update'\r\n                // });\r\n            }, 1000);\r\n        });\r\n    }\r\n};\r\n\r\nconst service = {\r\n    unscoped: getSearchService(false),\r\n    scoped: getSearchService(true)\r\n};\r\n\r\nconst Line = React.createClass({\r\n    mixins: [FocusComponents.list.selection.line.mixin],\r\n    displayName: 'ResultLine',\r\n    definitionPath: 'contact',\r\n    renderLineContent(data) {\r\n        return (\r\n            <div>\r\n                {`${data.firstName} ${data.lastName}`}\r\n            </div>\r\n        );\r\n    }\r\n});\r\n\r\nconst Group = React.createClass({\r\n    displayName: 'ResultGroup',\r\n    render() {\r\n        return (\r\n            <div>\r\n                <h2>{this.props.groupKey}</h2>\r\n                {this.props.children}\r\n            </div>\r\n        );\r\n    }\r\n});\r\n\r\nconst quickSearchProps = {\r\n    onLineClick(line) {\r\n        alert('click sur la ligne ' + line.id);\r\n    },\r\n    scope: 'SCP2',\r\n    groupMaxRows: 3,\r\n    lineComponentMapper(list) {\r\n        return Line;\r\n    },\r\n    service,\r\n    groupComponent: Group\r\n};\r\n\r\nconst QuickSearchComponent = FocusComponents.page.search.quickSearch.component;\r\n\r\nreturn <QuickSearchComponent {...quickSearchProps}/>;\r\n"
+        "code": "Focus.reference.config.set({\n    scopes() {\n        return new Promise(success => {\n            success([\n                {\n                    code: 'face',\n                    label: 'Utilisateurs'\n                },\n                {\n                    code: 'extension',\n                    label: 'Extensions'\n                },\n                {\n                    code: 'contact_phone',\n                    label: 'Contacts'\n                }\n            ]);\n        });\n    }\n});\n\nFocus.definition.entity.container.setEntityConfiguration({\n    contact: {\n        firstName: {\n            domain: 'DO_TEXT',\n            required: false\n        },\n        lastName: {\n            domain: 'DO_TEXT',\n            required: true\n        },\n        age: {\n            domain: 'DO_NUMBER',\n            required: false\n        },\n        email: {\n            domain: 'DO_EMAIL',\n            required: false\n        }\n    }\n});\n\nlet countId = 0;\n\nconst getSearchService = (scoped) => {\n    return (criteria) => {\n        return new Promise(success => {\n            window.setTimeout(() => {\n                const groups = {\n                    Test: [\n                        {\n                            id: countId++,\n                            firstName: 'toto',\n                            lastName: 'ceci est un test'\n                        },\n                        {\n                            id: countId++,\n                            firstName: 'tata',\n                            lastName: 'deuxieme test'\n                        }\n                    ],\n                    Autre: [\n                        {\n                            id: countId++,\n                            firstName: 'toto',\n                            lastName: 'ceci est un test'\n                        },\n                        {\n                            id: countId++,\n                            firstName: 'tata',\n                            lastName: 'deuxieme test'\n                        }\n                    ]\n                };\n\n                const list = [\n                    {\n                        id: countId++,\n                        firstName: 'toto',\n                        lastName: 'ceci est un test'\n                    },\n                    {\n                        id: countId++,\n                        firstName: 'tata',\n                        lastName: 'deuxieme test'\n                    }\n                ];\n\n                const payload = scoped ? list : groups;\n                const data = {\n                    facets: {},\n                    [scoped ? 'list' : 'groups']: payload,\n                    totalCount: 20\n                };\n                success(data);\n                // Focus.dispatcher.handleServerAction({\n                //     data: data, type: 'update'\n                // });\n            }, 1000);\n        });\n    }\n};\n\nconst service = {\n    unscoped: getSearchService(false),\n    scoped: getSearchService(true)\n};\n\nconst Line = React.createClass({\n    mixins: [FocusComponents.list.selection.line.mixin],\n    displayName: 'ResultLine',\n    definitionPath: 'contact',\n    renderLineContent(data) {\n        return (\n            <div>\n                {`${data.firstName} ${data.lastName}`}\n            </div>\n        );\n    }\n});\n\nconst Group = React.createClass({\n    displayName: 'ResultGroup',\n    render() {\n        return (\n            <div>\n                <h2>{this.props.groupKey}</h2>\n                {this.props.children}\n            </div>\n        );\n    }\n});\n\nconst quickSearchProps = {\n    onLineClick(line) {\n        alert('click sur la ligne ' + line.id);\n    },\n    scope: 'SCP2',\n    groupMaxRows: 3,\n    lineComponentMapper(list) {\n        return Line;\n    },\n    service,\n    groupComponent: Group\n};\n\nconst QuickSearchComponent = FocusComponents.page.search.quickSearch.component;\n\nreturn <QuickSearchComponent {...quickSearchProps}/>;\n"
     },
     {
         "name": "facet-box",
@@ -58344,7 +58471,7 @@ module.exports=[
             "filter",
             "dumb"
         ],
-        "code": "const FacetBox = FocusComponents.search.facetBox.component;\r\n\r\nconst Demo = React.createClass({\r\n    getInitialState() {\r\n        return ({\r\n            selectedFacetList: {},\r\n            openedFacetList: {}\r\n        })\r\n    },\r\n    config: {\r\n        FCT_PAYS: 'text',\r\n        FCT_STATUS: 'text',\r\n        FCT_REGION: 'text',\r\n        FCT_ONLY_ONE: 'text'\r\n    },\r\n    facetList: {\r\n        FCT_PAYS: {\r\n            FRA: {label: 'France', count: 5},\r\n            GER: {label: 'Germany', count: 8}\r\n        },\r\n        FCT_STATUS: {\r\n            OPE: {label: 'Open', count: 7},\r\n            CLO: {label: 'Closed', count: 2},\r\n            ST1: {label: 'Status 1', count: 2},\r\n            ST2: {label: 'Status 2', count: 2},\r\n            ST3: {label: 'Status 3', count: 2},\r\n            ST4: {label: 'Status 4', count: 2},\r\n            ST5: {label: 'Status 5', count: 2},\r\n            ST6: {label: 'Status 6', count: 2},\r\n            ST7: {label: 'Status 7', count: 2},\r\n            ST8: {label: 'Status 8', count: 2},\r\n            ST9: {label: 'Status 9', count: 2}\r\n        },\r\n        FCT_REGION: {\r\n            IDF: {label: 'Ile de France', count: 11},\r\n            NPC: {label: 'Nord - Pas de Calais', count: 6}\r\n        },\r\n        FCT_ONLY_ONE: {\r\n            IDF: {label: 'Ile de France', count: 11}\r\n        }\r\n    },\r\n    dataSelectionHandler({selectedFacetList, openedFacetList}) {\r\n        this.setState({selectedFacetList, openedFacetList});\r\n    },\r\n    render() {\r\n        const {config, dataSelectionHandler, facetList} = this;\r\n        const {selectedFacetList, openedFacetList} = this.state;\r\n        return (\r\n            <FacetBox\r\n                config={config}\r\n                dataSelectionHandler={dataSelectionHandler}\r\n                facetList={facetList}\r\n                openedFacetList={openedFacetList}\r\n                selectedFacetList={selectedFacetList}\r\n                />\r\n        )\r\n    }\r\n});\r\n\r\nreturn <Demo/>;\r\n"
+        "code": "const FacetBox = FocusComponents.search.facetBox.component;\n\nconst Demo = React.createClass({\n    getInitialState() {\n        return ({\n            selectedFacetList: {},\n            openedFacetList: {}\n        })\n    },\n    config: {\n        FCT_PAYS: 'text',\n        FCT_STATUS: 'text',\n        FCT_REGION: 'text',\n        FCT_ONLY_ONE: 'text'\n    },\n    facetList: {\n        FCT_PAYS: {\n            FRA: {label: 'France', count: 5},\n            GER: {label: 'Germany', count: 8}\n        },\n        FCT_STATUS: {\n            OPE: {label: 'Open', count: 7},\n            CLO: {label: 'Closed', count: 2},\n            ST1: {label: 'Status 1', count: 2},\n            ST2: {label: 'Status 2', count: 2},\n            ST3: {label: 'Status 3', count: 2},\n            ST4: {label: 'Status 4', count: 2},\n            ST5: {label: 'Status 5', count: 2},\n            ST6: {label: 'Status 6', count: 2},\n            ST7: {label: 'Status 7', count: 2},\n            ST8: {label: 'Status 8', count: 2},\n            ST9: {label: 'Status 9', count: 2}\n        },\n        FCT_REGION: {\n            IDF: {label: 'Ile de France', count: 11},\n            NPC: {label: 'Nord - Pas de Calais', count: 6}\n        },\n        FCT_ONLY_ONE: {\n            IDF: {label: 'Ile de France', count: 11}\n        }\n    },\n    dataSelectionHandler({selectedFacetList, openedFacetList}) {\n        this.setState({selectedFacetList, openedFacetList});\n    },\n    render() {\n        const {config, dataSelectionHandler, facetList} = this;\n        const {selectedFacetList, openedFacetList} = this.state;\n        return (\n            <FacetBox\n                config={config}\n                dataSelectionHandler={dataSelectionHandler}\n                facetList={facetList}\n                openedFacetList={openedFacetList}\n                selectedFacetList={selectedFacetList}\n                />\n        )\n    }\n});\n\nreturn <Demo/>;\n"
     },
     {
         "name": "search-bar",
@@ -58356,7 +58483,7 @@ module.exports=[
             "input",
             "dumb"
         ],
-        "code": "//Components\r\nconst SearchBar = FocusComponents.search.searchBar.component;\r\n\r\n//stores\r\nconst store = Focus.search.builtInStore.quickSearchStore;\r\n\r\n//data\r\nconst scopes = [\r\n    {\r\n        code: 'face',\r\n        label: 'Utilisateurs'\r\n    },\r\n    {\r\n        code: 'extension',\r\n        label: 'Extensions'\r\n    },\r\n    {\r\n        code: 'contact_phone',\r\n        label: 'Contacts'\r\n    }\r\n];\r\n\r\n//config\r\nFocus.reference.config.set({\r\n    scopes() {\r\n        return new Promise(success => {\r\n            success([\r\n                {\r\n                    code: 'SCP1',\r\n                    label: 'Scope 1'\r\n                },\r\n                {\r\n                    code: 'SCP2',\r\n                    label: 'Scope 2'\r\n                },\r\n                {\r\n                    code: 'SCP3',\r\n                    label: 'Scope 3'\r\n                }\r\n            ]);\r\n        });\r\n    }\r\n});\r\n\r\nFocus.reference.builtInAction(['scopes'])();\r\n\r\nreturn <SearchBar scopes={scopes} store={store} />;\r\n"
+        "code": "//Components\nconst SearchBar = FocusComponents.search.searchBar.component;\n\n//stores\nconst store = Focus.search.builtInStore.quickSearchStore;\n\n//data\nconst scopes = [\n    {\n        code: 'face',\n        label: 'Utilisateurs'\n    },\n    {\n        code: 'extension',\n        label: 'Extensions'\n    },\n    {\n        code: 'contact_phone',\n        label: 'Contacts'\n    }\n];\n\n//config\nFocus.reference.config.set({\n    scopes() {\n        return new Promise(success => {\n            success([\n                {\n                    code: 'SCP1',\n                    label: 'Scope 1'\n                },\n                {\n                    code: 'SCP2',\n                    label: 'Scope 2'\n                },\n                {\n                    code: 'SCP3',\n                    label: 'Scope 3'\n                }\n            ]);\n        });\n    }\n});\n\nFocus.reference.builtInAction(['scopes'])();\n\nreturn <SearchBar scopes={scopes} store={store} />;\n"
     }
 ]
 },{}],526:[function(require,module,exports){

@@ -14164,39 +14164,6 @@ header[data-focus='header'] {
     text-align: right;
     padding-right: 200px; }
 
-[data-focus="loading-bar"] {
-  position: fixed;
-  z-index: 999999;
-  width: 100%; }
-  [data-focus="loading-bar"] [data-focus="progress-bar"] {
-    margin: 0;
-    background-color: transparent;
-    overflow: visible; }
-    [data-focus="loading-bar"] [data-focus="progress-bar"] .progress-bar {
-      -moz-box-shadow: 0px 0px 6px 0px #03A9F4;
-      -webkit-box-shadow: 0px 0px 6px 0px #03A9F4;
-      -o-box-shadow: 0px 0px 6px 0px #03A9F4;
-      box-shadow: 0px 0px 6px 0px #03A9F4; }
-  [data-focus="loading-bar"] ul {
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    background-color: rgba(255, 255, 255, 0.8);
-    padding: 0 0 0 60px;
-    list-style: none;
-    width: 100%;
-    margin: 0; }
-    [data-focus="loading-bar"] ul li {
-      width: 200px;
-      display: inline-block;
-      padding: 10px;
-      font-size: 18px; }
-      [data-focus="loading-bar"] ul li i {
-        position: relative;
-        top: 5px; }
-      [data-focus="loading-bar"] ul li span {
-        margin: 0 5px; }
-
 html {
   position: relative;
   min-height: 100%; }
@@ -14231,6 +14198,39 @@ body {
 
 ::-webkit-scrollbar-thumb:hover {
   background-color: #6AB2E5; }
+
+[data-focus="loading-bar"] {
+  position: fixed;
+  z-index: 999999;
+  width: 100%; }
+  [data-focus="loading-bar"] [data-focus="progress-bar"] {
+    margin: 0;
+    background-color: transparent;
+    overflow: visible; }
+    [data-focus="loading-bar"] [data-focus="progress-bar"] .progress-bar {
+      -moz-box-shadow: 0px 0px 6px 0px #03A9F4;
+      -webkit-box-shadow: 0px 0px 6px 0px #03A9F4;
+      -o-box-shadow: 0px 0px 6px 0px #03A9F4;
+      box-shadow: 0px 0px 6px 0px #03A9F4; }
+  [data-focus="loading-bar"] ul {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    background-color: rgba(255, 255, 255, 0.8);
+    padding: 0 0 0 60px;
+    list-style: none;
+    width: 100%;
+    margin: 0; }
+    [data-focus="loading-bar"] ul li {
+      width: 200px;
+      display: inline-block;
+      padding: 10px;
+      font-size: 18px; }
+      [data-focus="loading-bar"] ul li i {
+        position: relative;
+        top: 5px; }
+      [data-focus="loading-bar"] ul li span {
+        margin: 0 5px; }
 
 /* Transitions */
 /* General styles for all menus */
