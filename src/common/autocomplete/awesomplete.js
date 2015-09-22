@@ -76,7 +76,7 @@ let Autocomplete = {
      */
     componentWillReceiveProps(nextProps) {
         let {pickList, code} = nextProps;
-        if (code) {
+        if (code !== this.props.code) {
             const value = this._getValueFromCode(code, pickList);
             this.setState({value});
         }
@@ -142,8 +142,12 @@ let Autocomplete = {
      */
     _onInputBlur() {
         const {value} = this.state;
-        const {allowUnmatchedValue} = this.props;
+        const {allowUnmatchedValue, pickList, selectionHandler} = this.props;
+        const selectedPick = find(pickList, {value});
         const code = this._getCodeFromValue(value);
+        if (selectedPick && !this._isSelecting && selectionHandler) {
+            selectionHandler(selectedPick);
+        }
         if (!code && !allowUnmatchedValue && !this._isSelecting) {
             this.setState({value: ''});
         }
