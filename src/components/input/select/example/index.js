@@ -1,4 +1,4 @@
-const SelectInput = FocusComponents.components.input.select;
+const SelectInput = FocusComponents.components.input.Select;
 
 const valuesExample = [
     {code: "A", label: "aaaa"},
@@ -21,6 +21,7 @@ const valuesInt = [
 const SelectSample = React.createClass({
     onChangeSelect(name){
         return (value)=>{
+            console.log('change', name, value);
             this.setState({[name]: value});
         };
     },
@@ -43,30 +44,31 @@ const SelectSample = React.createClass({
         const {valueHasUndefined, valueNonRequis, valueRequis, valueWithoutValue, valueCodeRedefined, valueIntValues, valueListDesactive} = this.state;
         return (
             <div>
+                <pre>{JSON.stringify(this.state)}</pre>
                 <h3>Liste simple avec valeur préselectionnée</h3>
                 <p>
                     <span>hasUndefined forcé</span>
-                    <SelectInput value={valueHasUndefined} hasUndefined={false} onChange={this.onChangeSelect('valueHasUndefined')} values={valuesExample}/>
+                    <SelectInput hasUndefined={false} name='valueHasUndefined' onChange={this.onChangeSelect('valueHasUndefined')} values={valuesExample} value={valueHasUndefined}/>
                 </p>
                 <p>
                     <span>Non requis</span>
-                    <SelectInput value={valueNonRequis} isRequired={false} onChange={this.onChangeSelect('valueNonRequis')} values={valuesExample}/>
+                    <SelectInput isRequired={false} name='valueNonRequis' onChange={this.onChangeSelect('valueNonRequis')} value={valueNonRequis} values={valuesExample}/>
                 </p>
                 <p>
-                    <span>Requis</span>
-                    <SelectInput value={valueRequis} onChange={this.onChangeSelect('valueRequis')} isRequired={true} values={valuesExample}/>
+                <span>Requis</span>
+                    <SelectInput name='valueRequis' onChange={this.onChangeSelect('valueRequis')} isRequired={true} value={valueRequis}  values={valuesExample}/>
                 </p>
                 <h3>Liste simple sans valeur préselectionnée</h3>
-                <SelectInput value={valueWithoutValue} values={valuesExample} onChange={this.onChangeSelect('valueWithoutValue')}/>
+                <SelectInput name='valueWithoutValue' onChange={this.onChangeSelect('valueWithoutValue')} value={valueWithoutValue} values={valuesExample} />
 
                 <h3>Liste simple avec redéfinition des code /value</h3>
-                <SelectInput value={valueCodeRedefined} values={valuesCustomExample}  onChange={this.onChangeSelect('valueCodeRedefined')} valueKey='id' labelKey='name'/>
+                <SelectInput name='valueCodeRedefined' labelKey='name'  onChange={this.onChangeSelect('valueCodeRedefined')} valueKey='id' value={valueCodeRedefined} values={valuesCustomExample} />
 
                 <h3>Liste simple avec valeurs entières</h3>
-                <SelectInput value={valueIntValues} onChange={this.onChangeSelect('valueIntValues')} values={valuesInt} />
+                <SelectInput name='valueIntValues' onChange={this.onChangeSelect('valueIntValues')} value={valueIntValues}  values={valuesInt} />
 
                 <h3>Liste désactivée</h3>
-                <SelectInput value={valueListDesactive}  onChange={this.onChangeSelect('valueListDesactive')} values={valuesInt} disabled={true} />
+                <SelectInput  disabled={true} name='valueListDesactive' onChange={this.onChangeSelect('valueListDesactive')} value={valueListDesactive}  values={valuesInt} />
             </div>
         );
     }
