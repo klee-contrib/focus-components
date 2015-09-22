@@ -11,7 +11,7 @@ const UNSELECTED_KEY = 'UNSELECTED_KEY';
  * @param  {string} rawValue   - The raw string value.
  * @return {strint | number}  - The parsed value.
  */
-function _parseValue(propsValue, rawValue){
+function _valueParser(propsValue, rawValue){
     return isNumber(propsValue) ? +rawValue : rawValue;
 }
 const propTypes = {
@@ -39,7 +39,7 @@ const defaultProps = {
     multiple: false,
     values: [],
     valueKey: 'code',
-    parseValue: _parseValue
+    valueParser: _valueParser
 };
 
 /**
@@ -62,9 +62,9 @@ class Select extends Component {
      * @return {object} - The function onChange from the props, called.
      */
     _handleSelectChange = (evt) =>{
-        const {onChange, parseValue, value: propsValue} = this.props;
+        const {onChange, valueParser, value: propsValue} = this.props;
         const {value} = evt.target;
-        return onChange(parseValue(propsValue, value));
+        return onChange(valueParser(propsValue, value));
     }
     /** inheritdoc */
     _renderOptions({hasUndefined, labelKey, isRequired, value, values = [], valueKey}){
@@ -77,7 +77,7 @@ class Select extends Component {
         return values.map((val, idx)=>{
             const optVal = `${val[valueKey]}`;
             const optLabel = val[labelKey] || 'select.noLabel';
-            return <option key={idx} value={optVal}>{this.i18n(optLabel)}</option>;
+            return <option key={idx} value={optVal}>{optLabel}</option>;
         });
     }
     /**
@@ -85,7 +85,7 @@ class Select extends Component {
      * @override
     */
     render() {
-        const {error, name, placeholder, style, value, values, disabled, ...otherProps} = this.props;
+        const {error, name, placeholder, style, value, values, disabled, onChange, ...otherProps} = this.props;
         //const pattern = error ? 'hasError' : null; //add pattern to overide mdl error style when displaying an focus error.
         let selectOtherProps = disabled ? {disabled: 'disabled', ...otherProps} : otherProps;
         return (
