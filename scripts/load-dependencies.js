@@ -6,6 +6,9 @@ const FONTAWESOME_CSS = '//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-a
 const GOOGLE_MATERIAL_JS = 'https://storage.googleapis.com/code.getmdl.io/1.0.4/material.min.js',
  GOOGLE_MATERIAL_FONT = 'https://fonts.googleapis.com/icon?family=Material+Icons',
  GOOGLE_FONT_ROBOTO = 'https://fonts.googleapis.com/css?family=Roboto:regular,bold,italic,thin,light,bolditalic,black,medium&amp;lang=en';
+// Awesomplete
+const AWESOMPLETE_JS = 'https://rawgit.com/LeaVerou/awesomplete/gh-pages/awesomplete.js',
+    AWESOMPLETE_CSS = 'https://rawgit.com/LeaVerou/awesomplete/gh-pages/awesomplete.css';
 //React
 const REACT_JS = 'https://fb.me/react-with-addons-0.14.0-rc1.js',
 REACT_DOM_JS = 'https://fb.me/react-dom-0.14.0-rc1.js',
@@ -37,6 +40,7 @@ function loadJS(){
     return Promise.all([
         loadScript(JQUERY),
         loadScript(REACT_JS),
+        loadScript(AWESOMPLETE_JS),
         loadScript(LODASH),
         loadScript(BABEL_TRANSFORMER)
     ])
@@ -61,7 +65,8 @@ function loadCSS(){
     return Promise.all([
         loadStyle(GOOGLE_MATERIAL_FONT),
         loadStyle(GOOGLE_FONT_ROBOTO),
-        loadStyle(FONTAWESOME_CSS)
+        loadStyle(FONTAWESOME_CSS),
+        loadStyle(AWESOMPLETE_CSS)
     ]).then(()=>{
         return loadStyle(FOCUS_COMPONENTS_CSS);
     });
