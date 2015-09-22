@@ -35,6 +35,7 @@ const propTypes = {
 const defaultProps = {
     disabled: false,
     hasUndefined: true,
+    isRequired: false,
     labelKey: 'label',
     multiple: false,
     values: [],
@@ -68,7 +69,7 @@ class Select extends Component {
     }
     /** inheritdoc */
     _renderOptions({hasUndefined, labelKey, isRequired, value, values = [], valueKey}){
-        if(false === hasUndefined || (true === isRequired && !isUndefined(value) && !isNull(value))){
+        if(true === hasUndefined || (true === isRequired && !isUndefined(value) && !isNull(value))){
             values = union(
                 [{[labelKey]: 'select.unSelected', [valueKey]: UNSELECTED_KEY}],
                 values

@@ -30,7 +30,12 @@ describe('The select ', () => {
         it('should render an empty select', () => {
             expect(domNode.tagName).to.equal('DIV');
             expect(domNode.getAttribute('data-focus')).to.equal('select');
-            expect(ReactDOM.findDOMNode(component.refs.htmlSelect).tagName).to.equal('SELECT');
+            const domSelect = ReactDOM.findDOMNode(component.refs.htmlSelect);
+            expect(domSelect.tagName).to.equal('SELECT');
+            expect(domSelect.options.length).to.equal(mockValues.length + 1);
+            expect(domSelect.options[0].innerHTML).to.equal('select.unSelected');
+            expect(+domSelect.options[1].value).to.equal(mockValues[0].code);
+            expect(domSelect.options[1].innerHTML).to.equal(mockValues[0].label);
         });
         it('should not have a value', () => {
             expect(component.getValue()).to.equal(null);
