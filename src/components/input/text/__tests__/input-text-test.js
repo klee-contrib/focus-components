@@ -1,7 +1,7 @@
 import Input from '../';
 const {renderIntoDocument, Simulate} = TestUtils;
 import {identity} from 'lodash/utility';
-describe.only('The input text', () => {
+describe('The input text', () => {
     describe('when called with no props', () => {
         let component;
         before(

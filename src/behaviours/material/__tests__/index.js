@@ -1,6 +1,6 @@
 import MaterialBehaviour from '../';
 
-describe('The Material behaviour', () => {
+describe.skip('The Material behaviour', () => {
     let mdlSpy;
     before(() => {
         mdlSpy = global.componentHandler = {
