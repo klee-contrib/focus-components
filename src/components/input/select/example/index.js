@@ -71,7 +71,7 @@ const SelectSample = React.createClass({
 
                 <h3>Select avec une erreur</h3>
                 <h3>Liste simple avec redéfinition des code /value</h3>
-                <SelectInput error={errorValueError} name='valueError' onChange={this.onChangeSelect('valueError')} value={valueError} values={valuesCustomExample} />
+                <SelectInput error={errorValueError} name='valueError' onChange={this.onChangeSelect('valueError')} value={valueError} values={valuesExample} />
 
                 <h3>Liste simple avec valeurs entières</h3>
                 <SelectInput name='valueIntValues' onChange={this.onChangeSelect('valueIntValues')} value={valueIntValues}  values={valuesInt} />

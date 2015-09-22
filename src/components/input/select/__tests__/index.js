@@ -68,5 +68,20 @@ describe('The select ', () => {
             expect(onChangeSpy).to.have.been.called.once;
             expect(onChangeSpy).to.have.been.calledWith(VALUE);
         });
+    });
+    describe('when there is an error', ()=>{
+        const {VALUE, VALUES} = fixture;
+        const error = 'MY ERROR';
+        let component;
+        before(
+            () => {
+                component = renderIntoDocument(<Select error={error} name='selectName' onChange={identity} value={VALUE} values={VALUES} />);
+            }
+        );
+        it('it should be displayed', ()=>{
+            const errorDOMNode = ReactDOM.findDOMNode(component.refs.error);
+            expect(errorDOMNode).to.exist;
+            expect(errorDOMNode.innerHTML).to.equal(error);
+        });
     })
 });
