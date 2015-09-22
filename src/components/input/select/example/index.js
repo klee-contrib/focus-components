@@ -16,13 +16,16 @@ const valuesInt = [
     {code: 2, label: "bInt"},
     {code: 3, label: "cInt"}
 ];
+function _capitalize(string){
+      return string && (string.charAt(0).toUpperCase() + string.slice(1));
+}
 
 
 const SelectSample = React.createClass({
     onChangeSelect(name){
         return (value)=>{
             console.log('change', name, value);
-            this.setState({[name]: value});
+            this.setState({[name]: value, [`error${_capitalize(name)}`]: null});
         };
     },
     getInitialState(){
@@ -33,7 +36,9 @@ const SelectSample = React.createClass({
                 valueWithoutValue: null,
                 valueCodeRedefined: null,
                 valueIntValues: 1,
-                valueListDesactive: 1
+                valueListDesactive: 1,
+                valueError: '1111',
+                errorValueError: 'Erreur sur le champ select'
             };
     },
     /**
@@ -41,7 +46,7 @@ const SelectSample = React.createClass({
     * @return {object} React node
     */
     render() {
-        const {valueHasUndefined, valueNonRequis, valueRequis, valueWithoutValue, valueCodeRedefined, valueIntValues, valueListDesactive} = this.state;
+        const {valueHasUndefined, valueNonRequis, valueRequis, valueWithoutValue, valueCodeRedefined, valueIntValues, valueListDesactive, valueError,errorValueError} = this.state;
         return (
             <div>
                 <pre>{JSON.stringify(this.state)}</pre>
@@ -63,6 +68,10 @@ const SelectSample = React.createClass({
 
                 <h3>Liste simple avec redéfinition des code /value</h3>
                 <SelectInput name='valueCodeRedefined' labelKey='name'  onChange={this.onChangeSelect('valueCodeRedefined')} valueKey='id' value={valueCodeRedefined} values={valuesCustomExample} />
+
+                <h3>Select avec une erreur</h3>
+                <h3>Liste simple avec redéfinition des code /value</h3>
+                <SelectInput error={errorValueError} name='valueError' onChange={this.onChangeSelect('valueError')} value={valueError} values={valuesCustomExample} />
 
                 <h3>Liste simple avec valeurs entières</h3>
                 <SelectInput name='valueIntValues' onChange={this.onChangeSelect('valueIntValues')} value={valueIntValues}  values={valuesInt} />

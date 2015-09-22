@@ -94,7 +94,7 @@ class Select extends Component {
                 <select name={name} onChange={this._handleSelectChange} ref='htmlSelect' value={value} {...selectOtherProps} >
                     {this._renderOptions(this.props)}
                 </select>
-                {error && <span className='mdl-textfield__error'>{error}</span>}
+                {error && <span>{error}</span>}
             </div>
         );
     }
