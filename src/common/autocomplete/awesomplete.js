@@ -4,6 +4,7 @@
 let Focus = require('focus');
 let {builder, types} = Focus.component;
 let find = require('lodash/collection/find');
+const InputText = require('../input/text').component;
 
 /**
  * Autocomplete component.
@@ -27,7 +28,7 @@ let Autocomplete = {
      * Initiates the Awesomplete object.
      */
     componentDidMount() {
-        let {input} = this.refs;
+        let {inputText: input} = this.refs.input.refs;
         let {pickList} = this.props;
         this._awesomeplete = new Awesomplete(React.findDOMNode(input), {
             list: this._extractListFromData(pickList)
@@ -180,7 +181,7 @@ let Autocomplete = {
         let {_onInputBlur, _onInputChange} = this;
         return (
             <div data-focus='autocomplete'>
-                <input onBlur={_onInputBlur} onChange={_onInputChange} ref='input' value={value}/>
+                <InputText onBlur={_onInputBlur} onChange={_onInputChange} ref='input' value={value}/>
             </div>
         );
     }

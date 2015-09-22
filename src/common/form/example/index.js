@@ -27,7 +27,8 @@ var resources = {
               'bio': 'Biography',
               'isCool': 'Est-il cool ?',
               'isNice': 'Est-il gentil ?',
-              'birthDate': 'Date de naissance'
+              'birthDate': 'Date de naissance',
+              'city': 'Lieu de naissance'
           }
       }
   }
@@ -123,6 +124,9 @@ var entities = {
         },
         "birthDate": {
             "domain": "DO_DATE",
+        },
+        "city": {
+            "domain": "DO_TEXT"
         }
     },
     "commande": {
@@ -203,7 +207,8 @@ const jsonContact= {
     }, {
         name: "commande6",
         number: "6"
-    }]
+    }],
+    city: 'PAR'
 };
 
 const action = {
@@ -228,6 +233,39 @@ const action = {
         }
     })
 };
+
+const autocompleteData = [
+    {
+        code: 'PAR',
+        value: 'Paris'
+    },
+    {
+        code: 'LON',
+        value: 'Londres'
+    },
+    {
+        code: 'NY',
+        value: 'New york'
+    }
+];
+
+const codeResolver = code =>  {
+    return new Promise(success => {
+        const candidate = _.find(autocompleteData, {code});
+        success(candidate ? candidate.value : 'Unresolved code');
+    });
+};
+
+const searcher = text => {
+    return new Promise(success => {
+        _.delay(() => {
+            const result = autocompleteData.filter(item => {
+                return text === '' || item.value.toLowerCase().indexOf(text.toLowerCase()) !== -1;
+            });
+            success(result);
+        }, 1);
+    });
+}
 
 const FormExample = React.createClass({
     displayName: "FormExample",
@@ -262,6 +300,7 @@ const FormExample = React.createClass({
             {this.fieldFor("isCool")}
             {this.fieldFor("isNice")}
             {this.fieldFor("birthDate")}
+            {this.autocompleteFor('city', {codeResolver, searcher}, {selectionHandler(data) {alert(`Code : ${data.code}, value: ${data.value}`)}})}
             {this.listFor("commandes", {lineComponent: ListLine})}
             </Block>
         );
