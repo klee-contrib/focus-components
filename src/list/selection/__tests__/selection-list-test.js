@@ -71,28 +71,3 @@ let Line = React.createClass({
 let line = shallowRenderer.render(
     React.createElement(Line, {data: data})
 );
-
-describe("##selection list", function(){
-    it('the initial state should be not selected', function() {
-
-        shallowRenderer.render(React.createElement(Line, {data: data}));
-        let component = shallowRenderer.getRenderOutput();
-        console.log('LINE', component);
-        /*var boxEmpty = TestUtils.findRenderedDOMComponentWithClass(
-            line, 'sl-selection no-selection');
-        expect(boxEmpty).toBeDefined();
-
-        var boxSelected = TestUtils.findRenderedDOMComponentWithClass(
-            line, 'sl-selection selected');
-        expect(boxSelected).toBeUndefined();*/
-    });
-
-    it.skip('the line should be selected on click on the box', function(){
-        /*var boxEmpty = TestUtils.findRenderedDOMComponentWithClass(
-            line, 'sl-selection no-selection');
-        TestUtils.Simulate.click(boxEmpty);
-        var boxSelected = TestUtils.findRenderedDOMComponentWithClass(
-            line, 'sl-selection selected');
-        expect(boxSelected).toBeDefined();*/
-    })
-});

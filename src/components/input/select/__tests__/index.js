@@ -23,7 +23,6 @@ describe('The select ', () => {
         const mockValues = fixture.VALUES;
         before(
             () => {
-
                 component = renderIntoDocument(<Select name='selectName' values={mockValues} onChange={identity}/>);
                 domNode = ReactDOM.findDOMNode(component);
             }

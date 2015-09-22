@@ -5,7 +5,7 @@ global.componentHandler = {
     downgradeElements: sinon.stub()
 };
 
-describe.only('The input toggle', () => {
+describe('The input toggle', () => {
     describe('when mounted', () => {
         let renderedTest;
         const onChangeSpy = sinon.spy();
