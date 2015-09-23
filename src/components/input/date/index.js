@@ -8,6 +8,9 @@ import defaultLocale from './default-locale';
 import InputText from '../text';
 import jQuery from 'jquery';
 import DateRangePicker from 'daterangepicker'; //eslint-disable-line
+import {compose} from 'lodash/function';
+
+const isDateStringValid = compose(bool => !bool, isNaN, Date.parse);
 
 const propTypes = {
     drops: PropTypes.oneOf(['up', 'down']).isRequired,
@@ -18,9 +21,10 @@ const propTypes = {
     onChange: PropTypes.func.isRequired,
     placeHolder: PropTypes.string.isRequired,
     showDropdowns: PropTypes.bool.isRequired,
+    validate: PropTypes.func,
     value: (props, propName, componentName) => {
         const prop = props[propName];
-        if (prop && isNaN(Date.parse(prop))) {
+        if (prop && !isDateStringValid(prop)) {
             throw new Error(`The date (${prop}) is invalid for component ${componentName}. Please provide a valid date string.`);
         }
     }
@@ -36,6 +40,7 @@ const defaultProps = {
         console.error('You did not give an onChange method to an input date, please check your code.');
     },
     showDropdowns: true,
+    validate: isDateStringValid,
     value: moment()
 };
 
@@ -45,7 +50,7 @@ class InputDate extends Component {
         super(props);
         const {value} = props;
         const state = {
-            dropDownDate: this._isDateValid(value) ? moment(Date.parse(value)) : moment(),
+            dropDownDate: isDateStringValid(value) ? moment(Date.parse(value)) : moment(),
             inputDate: this._formatDate(value)
         };
         this.state = state;
@@ -53,7 +58,7 @@ class InputDate extends Component {
 
     componentWillReceiveProps = ({value}) => {
         if (value !== this.state.inputDate) {
-            if (this._isDateValid(value)) {
+            if (isDateStringValid(value)) {
                 this.setState({
                     dropDownDate: moment(Date.parse(value)),
                     inputDate: this._formatDate(value)
@@ -78,21 +83,19 @@ class InputDate extends Component {
 
     componentDidUpdate = () => {
         const {inputDate} = this.state;
-        if (this._isDateValid(inputDate)) {
+        if (isDateStringValid(inputDate)) {
             jQuery(ReactDOM.findDOMNode(this.refs.input.refs.htmlInput)).data('daterangepicker').setStartDate(Date.parse(inputDate));
         }
     }
 
     getValue = () => {
         const {dropDownDate, inputDate} = this.state;
-        return this._isDateValid(inputDate) ? dropDownDate.toISOString() : null;
+        return isDateStringValid(inputDate) ? dropDownDate.toISOString() : null;
     }
-
-    _isDateValid = date => !isNaN(Date.parse(date))
 
     _formatDate = unformatedDate => {
         const {locale: {format}} = this.props;
-        if (this._isDateValid(unformatedDate)) {
+        if (isDateStringValid(unformatedDate)) {
             return moment(Date.parse(unformatedDate)).format(format);
         } else {
             return unformatedDate;
@@ -100,7 +103,7 @@ class InputDate extends Component {
     }
 
     _onInputChange = inputDate => {
-        if (this._isDateValid(inputDate)) {
+        if (isDateStringValid(inputDate)) {
             const dropDownDate = moment(Date.parse(inputDate));
             this.setState({dropDownDate, inputDate});
         } else {
@@ -113,7 +116,17 @@ class InputDate extends Component {
     }
 
     _onDropDownChange = date => {
-        this._onInputChange(this._formatDate(moment(date).add(12, 'hours'))); // Add 12 hours to avoid skipping a day due to different locales
+        if (date._isValid) {
+            this._onInputChange(this._formatDate(moment(date).add(12, 'hours'))); // Add 12 hours to avoid skipping a day due to different locales
+        }
+    }
+
+    validate = (inputDate = this.state.inputDate) => {
+        const isValid = isDateStringValid(inputDate);
+        return {
+            isValid,
+            message: isValid ? '' : `${inputDate} is not a valid date.`
+        };
     }
 
     render() {
