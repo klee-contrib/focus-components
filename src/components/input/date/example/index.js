@@ -12,17 +12,11 @@ class InputDateSample extends React.Component {
 
     changeHandler = (id) => {
         return value => {
-            const validation = this.refs[`date${id}`].validate(value);
-            if (validation.isValid) {
-                this.setState({
-                    [`date${id}`]: value
-                });
-            } else {
+            const {isValid, message} = this.refs[`date${id}`].validate(value);
                 this.setState({
                     [`date${id}`]: value,
-                    [`error${id}`]: validation.message
+                    [`error${id}`]: isValid ? null : message
                 });
-            }
         }
     }
 
