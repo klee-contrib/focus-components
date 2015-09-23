@@ -61,7 +61,7 @@ const fieldBehaviourMixin = {
             options: options.options || def.options //Add options to the fields
         };
         //Extend the options object in order to be able to specify more options to thie son's component.
-        let fieldProps = assign(options, propsContainer);
+        let fieldProps = assign(options, propsContainer, options.options || def.options);
         // Values list.
         const refContainer = options.refContainer || def.refContainer || context.state.reference;
         if(refContainer && refContainer[listName]){

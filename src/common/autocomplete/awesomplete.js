@@ -3,8 +3,9 @@ const React = require('react');
 const ReactDOM = require('react-dom');
 // Dependencies
 const Focus = require('focus-core');
-const {builder, types} = Focus.component;
-const find = require('lodash/collection/find');
+let {builder, types} = Focus.component;
+let find = require('lodash/collection/find');
+const InputText = require('../input/text').component;
 
 /**
  * Autocomplete component.
@@ -28,7 +29,7 @@ let Autocomplete = {
      * Initiates the Awesomplete object.
      */
     componentDidMount() {
-        let {input} = this.refs;
+        let {inputText: input} = this.refs.input.refs;
         let {pickList} = this.props;
         this._awesomeplete = new Awesomplete(ReactDOM.findDOMNode(input), {
             list: this._extractListFromData(pickList)
@@ -44,7 +45,7 @@ let Autocomplete = {
             code: '',
             pickList: [],
             timeoutDuration: 200,
-            allowUnmatchedValue: false
+            allowUnmatchedValue: true
         };
     },
     /**
@@ -77,7 +78,7 @@ let Autocomplete = {
      */
     componentWillReceiveProps(nextProps) {
         let {pickList, code} = nextProps;
-        if (code) {
+        if (code !== this.props.code) {
             const value = this._getValueFromCode(code, pickList);
             this.setState({value});
         }
@@ -143,9 +144,13 @@ let Autocomplete = {
      */
     _onInputBlur() {
         const {value} = this.state;
-        const {allowUnmatchedValue} = this.props;
+        const {allowUnmatchedValue, pickList, selectionHandler} = this.props;
+        const selectedPick = find(pickList, {value});
         const code = this._getCodeFromValue(value);
-        if (!code && allowUnmatchedValue && !this._isSelecting) {
+        if (selectedPick && !this._isSelecting && selectionHandler) {
+            selectionHandler(selectedPick);
+        }
+        if (!code && !allowUnmatchedValue && !this._isSelecting) {
             this.setState({value: ''});
         }
         this._isSelecting = false;
@@ -177,7 +182,7 @@ let Autocomplete = {
         let {_onInputBlur, _onInputChange} = this;
         return (
             <div data-focus='autocomplete'>
-                <input onBlur={_onInputBlur} onChange={_onInputChange} ref='input' value={value}/>
+                <InputText onBlur={_onInputBlur} onChange={_onInputChange} ref='input' value={value}/>
             </div>
         );
     }
