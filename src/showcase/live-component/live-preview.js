@@ -3,6 +3,7 @@
 // Dependencies
 const React = require('react');
 const {types} = require('focus-core').component;
+import babel from 'babel-core/browser';
 
 const LivePreview = React.createClass({
     displayName: 'LivePreview',
