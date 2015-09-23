@@ -1,14 +1,7 @@
 //Generator http://patorjk.com/software/taag/#p=display&h=1&f=Banner4&t=Focus-COMPONENTS
 const infos = require('../package.json');
 import components from './components';
-
-// Expose React and ReactDOM to the window, for the showcase
-
-import React from 'react';
-import ReactDOM from 'react-dom';
-window.React = React;
-window.ReactDOM = ReactDOM;
-
+import style from'./style';
 /**
 * Display information data for Focus-COMPONENTS
 */
