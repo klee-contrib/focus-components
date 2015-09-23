@@ -3,6 +3,8 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import i18n from 'i18next-client';
 //Import focus components
+import '../style';
+import FocusCore from 'focus-core'
 import FocusComponents from '../';
 import Catalog from './catalog';
 import Layout from './layout';
@@ -13,6 +15,7 @@ import './style/demo.scss';
 // exposing in windows
 window.React = React;
 window.ReactDOM = ReactDOM;
+window.Focus = FocusCore;
 window.FocusComponents = FocusComponents;
 
 document.addEventListener('DOMContentLoaded', ()=> {
