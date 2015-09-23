@@ -60,8 +60,8 @@ function generateGulpBuildTask(name) {
 		.transform({
 			global: true
 		}, literalify.configure({
-			react: 'window.React',
-			focusjs: 'window.Focus',
+			//react: 'window.React',
+			//focusjs: 'window.Focus',
 			jquery: 'window.jQuery',
 			backbone: 'window.Backbone',
 			moment: 'window.moment',
