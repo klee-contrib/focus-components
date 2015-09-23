@@ -16,7 +16,7 @@ const InputTextAreaSample = React.createClass({
     },
 
     render() {
-        const {inputWithValue0, inputWithValue4, inputWithError} = this.state;
+        const {inputWithValue0, inputWithValue1, inputWithValue2, inputWithValue3, inputWithValue4, inputWithError} = this.state;
         return (
             <div>
                 <h3>Default textarea</h3>
@@ -27,21 +27,21 @@ const InputTextAreaSample = React.createClass({
                 <h3>Default textarea with placeholder</h3>
                 <TextArea
                     name='ta1'
-                    value=''
+                    value={inputWithValue1}
                     placeholder='Enter you text here'
                     onChange={this.onChangeInput('inputWithValue1')} />
                 <h3>With specified cols and rows props</h3>
                 <TextArea
                     name='ta2'
-                    value=''
+                    value={inputWithValue2}
                     placeholder='Enter you text here'
-                    cols={500}
-                    rows={500}
+                    cols={50}
+                    rows={8}
                     onChange={this.onChangeInput('inputWithValue2')} />
                 <h3>With specified maxLength props</h3>
                 <TextArea
                     name='ta3'
-                    value=''
+                    value={inputWithValue3}
                     placeholder="Enter you text here"
                     maxLength={10}
                     onChange={this.onChangeInput('inputWithValue3')} />
@@ -54,7 +54,11 @@ const InputTextAreaSample = React.createClass({
                 <TextArea
                     name='ta5'
                     value={inputWithError}
-                    onChange={this.onChangeInput('inputWithError')} />
+                    onChange={this.onChangeInput('inputWithError')}
+                    error='This field has an error' />
+                <br/>
+                <br/>
+                <br/>
             </div>
         );
     }
