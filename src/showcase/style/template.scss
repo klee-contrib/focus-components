@@ -26,7 +26,7 @@
                 h1 {
                     margin: 0;
                     font-size: 22px;
-                    background-image: url('/assets/logo-focus.png');
+                    background-image: url('../assets/logo-focus.png');
                     background-position: 50%;
                     background-repeat: no-repeat;
                     padding-top: 90px;
@@ -91,7 +91,7 @@
         }
         .brand-powered{
             a {
-                background: url(' /assets/logo-klee.png') no-repeat bottom left;
+                background: url('../assets/logo-klee.png') no-repeat bottom left;
                 display: block;
                 width: 110px;
                 color: #FFF;
