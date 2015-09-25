@@ -125,10 +125,12 @@ const InputDateMixin = {
     * @param  {date} pickerDate date picker date value
     */
     _onPickerApply(event, {startDate: pickerDate}) {
-        this.setState({
-            inputDate: this.getFormattedDate(pickerDate),
-            rawDate: pickerDate
-        });
+        if (pickerDate._isValid) {
+            this.setState({
+                inputDate: this.getFormattedDate(moment(pickerDate).add(12, 'hours')),
+                rawDate: pickerDate
+            });
+        }
     },
     /**
     * Input blur handler
