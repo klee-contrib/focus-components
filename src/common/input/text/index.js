@@ -101,8 +101,9 @@ const inputTextComponent = {
         const {error, name, placeHolder, style} = this.props;
         const inputProps = assign({}, this.props, {value}, {id: name, onChange: this._handleInputChange, onKeyPress: this._handleInputKeyPress});
         const pattern = error ? 'hasError' : null; //add pattern to overide mdl error style when displaying an focus error.
+        const cssClass = `mdl-textfield mdl-js-textfield ${error ? 'is-invalid' : ''}`;
         return (
-            <div className='mdl-textfield mdl-js-textfield' data-focus='input-text' style={style}>
+            <div className={cssClass} data-focus='input-text' style={style}>
                 <input className='mdl-textfield__input' ref='inputText' {...inputProps} pattern={pattern} />
                 <label className='mdl-textfield__label' htmlFor={name}>{value ? '' : this.i18n(placeHolder)}</label>
                 {error &&

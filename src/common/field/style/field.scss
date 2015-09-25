@@ -3,6 +3,7 @@ $field-input-width-normal: 250px;
 $field-input-width-short: 150px;
 $field-input-width-date: 100px;
 $field-label-font-size:13px; //TODO TGN à revoir.
+$field-label-error-color:rgb(222, 50, 38);
 
 [data-focus="field"] {
     padding: 0;
@@ -15,6 +16,14 @@ $field-label-font-size:13px; //TODO TGN à revoir.
         }
     }
     &[data-mode="edit"] {
+        &[data-valid="false"] {
+            [data-focus="field-label-container"] {
+                label {
+                    color:$field-label-error-color;
+                }
+            }
+        }
+
         [data-focus="field-label-container"] {
             label {
                 margin:4px 0;
