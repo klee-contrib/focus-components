@@ -2,7 +2,7 @@ const path = require('path');
 const ExtractTextPlugin = require("extract-text-webpack-plugin");
 const webpack = require('webpack');
 module.exports = {
-    devtool: 'eval',
+    devtool: 'source-map',
     entry: [
         'webpack-dev-server/client?http://localhost:3001',
         'webpack/hot/only-dev-server',
@@ -11,13 +11,22 @@ module.exports = {
     ],
     output: {
         path: path.join(__dirname, 'dist'),
-        filename: 'focus-components.js',
+        filename: 'focus-components.min.js',
         publicPath: '/dist/',
         libraryTarget: 'var',
         library: 'FocusComponents'
     },
     plugins: [
-        new webpack.HotModuleReplacementPlugin()
+        new webpack.optimize.OccurenceOrderPlugin(),
+        new webpack.DefinePlugin({
+            'process.env.NODE_ENV': JSON.stringify('production')
+        }),
+        new webpack.optimize.UglifyJsPlugin({
+            compressor: {
+                'screw_ie8': true,
+                warnings: false
+            }
+        })
     ],
     module: {
         loaders: [{
