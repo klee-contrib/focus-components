@@ -110,10 +110,17 @@ const selectMixin = {
     */
     render() {
         const {props, state, _getStyleClassName, _handleOnChange} = this;
-        const {multiple, name} = props;
+        const {error, multiple, name} = props;
         const {value} = state;
         const selectProps = {multiple, value: `${value}`, name, onChange: _handleOnChange, className: _getStyleClassName(), ref: 'select'};
-        return <select {...selectProps}>{this.renderOptions()}</select>;
+        return (
+            <div data-focus='select' data-valid={!error}>
+                <select {...selectProps}>
+                    {this.renderOptions()}
+                </select>
+                {error && <div className='label-error' ref='error'>{error}</div>}
+            </div>
+        );
     }
 };
 
