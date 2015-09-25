@@ -65,10 +65,11 @@ const textAreaMixin = {
     */
     render: function renderTextArea() {
         const {cols, label, maxlength, minlength, rows} = this.props;
+        const {value} = this.state;
         return (
             <div className="mdl-textfield mdl-js-textfield" data-focus="input-textarea">
-                <textarea className="mdl-textfield__input" cols={cols} maxLength={maxlength} minLength={minlength} onChange={this._onChange} ref='textarea' rows={rows} type="text">{this.state.value}</textarea>
-                <label className="mdl-textfield__label">{this.i18n(label)}</label>
+                <textarea className="mdl-textfield__input" cols={cols} maxLength={maxlength} minLength={minlength} onChange={this._onChange} ref='textarea' rows={rows} type="text">{value}</textarea>
+                <label className="mdl-textfield__label">{value ? '' : this.i18n(label)}</label>
             </div>
         );
     }
