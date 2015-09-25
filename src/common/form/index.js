@@ -131,15 +131,8 @@ let formMixin = {
         //console.log('state form', this.state);
         if(this.props.hasForm){
             return (
-                <form
-                    onSubmit={this._handleSubmitForm}
-                    className={this._className()}
-                    data-mode={this._mode()}
-                    data-loading={this.state.isLoading}
-                    >
-                    <fieldset>
-                        {this.renderContent()}
-                    </fieldset>
+                <form className={this._className()} data-loading={this.state.isLoading} data-mode={this._mode()} noValidate={true} onSubmit={this._handleSubmitForm} >
+                    <fieldset>{this.renderContent()}</fieldset>
                 </form>
             );
         }
