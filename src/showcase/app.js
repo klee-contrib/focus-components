@@ -4,7 +4,8 @@ import ReactDOM from 'react-dom';
 import i18n from 'i18next-client';
 //Import focus components
 import '../style';
-import FocusCore from 'focus-core'
+import moment from 'moment';
+import FocusCore from 'focus-core';
 import FocusComponents from '../';
 import Catalog from './catalog';
 import Layout from './layout';
@@ -17,6 +18,7 @@ window.React = React;
 window.ReactDOM = ReactDOM;
 window.Focus = FocusCore;
 window.FocusComponents = FocusComponents;
+window.moment = moment;
 
 document.addEventListener('DOMContentLoaded', ()=> {
     // Render the showcase
