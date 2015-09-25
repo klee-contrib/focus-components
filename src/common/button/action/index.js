@@ -27,7 +27,7 @@ const buttonMixin = {
             icon: '',
             id: '',
             hasRipple: false,
-            isJs: true,
+            isJs: false,
             iconLibrary: 'material'
         };
     },
