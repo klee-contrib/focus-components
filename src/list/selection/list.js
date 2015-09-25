@@ -4,6 +4,7 @@ const {checkIsNotNull} = require('focus-core').util.object;
 const {builder, types} = require('focus-core').component;
 const find = require('lodash/collection/find');
 const {omit} = require('lodash/object');
+const {isArray} = require('lodash/lang');
 
 // Mixins
 
@@ -91,6 +92,11 @@ const listMixin = {
     _renderLines() {
         let lineCount = 1;
         const {data, lineComponent: Line, selectionData, idField, selectionStatus} = this.props;
+        if(!isArray(data)){
+            console.error(
+                'List: Lines: it seems data is not an array, please check the value in your store, it could also be related to your action in case of a load (have a look to shouldDumpStoreOnActionCall option).'
+            );
+        }
         return data.map((line) => {
             let isSelected;
             const selection = find(selectionData, {[idField]: line[idField]});
