@@ -47327,7 +47327,7 @@ module.exports = uuid;
 },{"./rng":390}],392:[function(require,module,exports){
 module.exports={
     "name": "focusjs-components",
-    "version": "0.6.1-6",
+    "version": "0.6.2",
     "description": "Focus component repository.",
     "main": "index.js",
     "scripts": {
@@ -49230,7 +49230,7 @@ var types = _require$component.types;
 var i18nMixin = require('../../i18n/mixin');
 var stylableMixin = require('../../../mixin/stylable');
 //const Icon = require('../../icon').component;
-var BTN_JS = 'mdl-button-js';
+var BTN_JS = 'mdl-js-button';
 var BTN_CLASS = 'mdl-button';
 var BUTTON_PRFX = 'mdl-button--';
 var RIPPLE_EFFECT = 'mdl-js-ripple-effect';
@@ -49855,6 +49855,7 @@ var FieldMixin = {
     },
     /** @inheritdoc */
     render: function render() {
+        var error = this.state.error;
         var _props = this.props;
         var FieldComponent = _props.FieldComponent;
         var InputLabelComponent = _props.InputLabelComponent;
@@ -49875,7 +49876,7 @@ var FieldMixin = {
 
         return React.createElement(
             'div',
-            { className: this._className(), 'data-domain': domain, 'data-focus': 'field', 'data-mode': isEdit ? 'edit' : 'consult', 'data-required': isRequired },
+            { className: 'mdl-grid', 'data-domain': domain, 'data-focus': 'field', 'data-mode': isEdit ? 'edit' : 'consult', 'data-required': isRequired, 'data-valid': !error },
             isCustomComponent && this._renderFieldComponent(),
             !isCustomComponent && hasLabel && label(),
             !isCustomComponent && React.createElement(
@@ -50035,13 +50036,16 @@ var fieldBuiltInComponentsMixin = {
      * @return {Component} - The builded select component.
      */
     select: function select() {
-        var value = this.state.value;
+        var _state3 = this.state;
+        var error = _state3.error;
+        var value = _state3.value;
 
         var buildedSelectProps = assign({}, this.props, {
             value: value,
             style: this._buildStyle(),
             onChange: this.onInputChange,
-            ref: 'input'
+            ref: 'input',
+            error: error
         });
         return React.createElement(this.props.SelectComponent, buildedSelectProps);
     },
@@ -50106,9 +50110,9 @@ var fieldBuiltInComponentsMixin = {
      */
     _renderFieldComponent: function _renderFieldComponent() {
         var FieldComponent = this.props.FieldComponent || this.props.InputLabelComponent;
-        var _state3 = this.state;
-        var value = _state3.value;
-        var error = _state3.error;
+        var _state4 = this.state;
+        var value = _state4.value;
+        var error = _state4.error;
 
         var buildedProps = assign({}, this.props, {
             id: this.props.name,
@@ -50401,12 +50405,7 @@ var formMixin = {
         if (this.props.hasForm) {
             return React.createElement(
                 'form',
-                {
-                    onSubmit: this._handleSubmitForm,
-                    className: this._className(),
-                    'data-mode': this._mode(),
-                    'data-loading': this.state.isLoading
-                },
+                { className: this._className(), 'data-loading': this.state.isLoading, 'data-mode': this._mode(), noValidate: true, onSubmit: this._handleSubmitForm },
                 React.createElement(
                     'fieldset',
                     null,
@@ -51081,10 +51080,12 @@ var InputDateMixin = {
     _onPickerApply: function _onPickerApply(event, _ref2) {
         var pickerDate = _ref2.startDate;
 
-        this.setState({
-            inputDate: this.getFormattedDate(pickerDate),
-            rawDate: pickerDate
-        });
+        if (pickerDate._isValid) {
+            this.setState({
+                inputDate: this.getFormattedDate(moment(pickerDate).add(12, 'hours')),
+                rawDate: pickerDate
+            });
+        }
     },
     /**
     * Input blur handler
@@ -51444,14 +51445,15 @@ var inputTextComponent = {
 
         var inputProps = assign({}, this.props, { value: value }, { id: name, onChange: this._handleInputChange, onKeyPress: this._handleInputKeyPress });
         var pattern = error ? 'hasError' : null; //add pattern to overide mdl error style when displaying an focus error.
+        var cssClass = 'mdl-textfield mdl-js-textfield ' + (error ? 'is-invalid' : '');
         return React.createElement(
             'div',
-            { className: 'mdl-textfield mdl-js-textfield', 'data-focus': 'input-text', style: style },
+            { className: cssClass, 'data-focus': 'input-text', style: style },
             React.createElement('input', _extends({ className: 'mdl-textfield__input', ref: 'inputText' }, inputProps, { pattern: pattern })),
             React.createElement(
                 'label',
                 { className: 'mdl-textfield__label', htmlFor: name },
-                this.i18n(placeHolder)
+                value ? '' : this.i18n(placeHolder)
             ),
             error && React.createElement(
                 'span',
@@ -51542,6 +51544,7 @@ var textAreaMixin = {
         var maxlength = _props.maxlength;
         var minlength = _props.minlength;
         var rows = _props.rows;
+        var value = this.state.value;
 
         return React.createElement(
             'div',
@@ -51549,12 +51552,12 @@ var textAreaMixin = {
             React.createElement(
                 'textarea',
                 { className: 'mdl-textfield__input', cols: cols, maxLength: maxlength, minLength: minlength, onChange: this._onChange, ref: 'textarea', rows: rows, type: 'text' },
-                this.state.value
+                value
             ),
             React.createElement(
                 'label',
                 { className: 'mdl-textfield__label' },
-                this.i18n(label)
+                value ? '' : this.i18n(label)
             )
         );
     }
@@ -51994,6 +51997,11 @@ module.exports = definitionMixin;
 'use strict';
 
 var assign = require('object-assign');
+
+var _require = require('lodash/lang');
+
+var isUndefined = _require.isUndefined;
+
 /**
  * Identity function
  * @param  {object} d - data to treat.
@@ -52041,7 +52049,7 @@ var fieldBehaviourMixin = {
             //Mode
             isEdit: isEdit,
             hasLabel: hasLabel,
-            isRequired: def.isRequired || def.required, //legacy on required on model generation.
+            isRequired: !isUndefined(options.isRequired) && options.isRequired || def.isRequired || def.required, //legacy on required on model generation.
             //Style
             style: options.style,
             //Methods
@@ -52070,7 +52078,7 @@ var fieldBehaviourMixin = {
 
 module.exports = fieldBehaviourMixin;
 
-},{"object-assign":384}],451:[function(require,module,exports){
+},{"lodash/lang":279,"object-assign":384}],451:[function(require,module,exports){
 'use strict';
 
 var types = window.Focus.component.types;
@@ -53230,15 +53238,25 @@ var selectMixin = {
         var state = this.state;
         var _getStyleClassName = this._getStyleClassName;
         var _handleOnChange = this._handleOnChange;
+        var error = props.error;
         var multiple = props.multiple;
         var name = props.name;
         var value = state.value;
 
         var selectProps = { multiple: multiple, value: '' + value, name: name, onChange: _handleOnChange, className: _getStyleClassName(), ref: 'select' };
         return React.createElement(
-            'select',
-            selectProps,
-            this.renderOptions()
+            'div',
+            { 'data-focus': 'select', 'data-valid': !error },
+            React.createElement(
+                'select',
+                selectProps,
+                this.renderOptions()
+            ),
+            error && React.createElement(
+                'div',
+                { className: 'label-error', ref: 'error' },
+                error
+            )
         );
     }
 };
@@ -54451,6 +54469,10 @@ var _require = require('lodash/object');
 
 var omit = _require.omit;
 
+var _require2 = require('lodash/lang');
+
+var isArray = _require2.isArray;
+
 // Mixins
 
 var translationMixin = require('../../common/i18n').mixin;
@@ -54545,6 +54567,9 @@ var listMixin = {
         var idField = _props.idField;
         var selectionStatus = _props.selectionStatus;
 
+        if (!isArray(data)) {
+            console.error('List: Lines: it seems data is not an array, please check the value in your store, it could also be related to your action in case of a load (have a look to shouldDumpStoreOnActionCall option).');
+        }
         return data.map(function (line) {
             var _find;
 
@@ -54638,7 +54663,7 @@ var listMixin = {
 
 module.exports = builder(listMixin);
 
-},{"../../common/button/action":413,"../../common/i18n":433,"../../common/mixin/reference-property":455,"../mixin/infinite-scroll":476,"lodash/collection/find":62,"lodash/object":313}],482:[function(require,module,exports){
+},{"../../common/button/action":413,"../../common/i18n":433,"../../common/mixin/reference-property":455,"../mixin/infinite-scroll":476,"lodash/collection/find":62,"lodash/lang":279,"lodash/object":313}],482:[function(require,module,exports){
 /**@jsx*/
 'use strict';
 
@@ -58299,7 +58324,7 @@ module.exports=[
             "checkbox",
             "block"
         ],
-        "code": "const actionBuilder = Focus.application.actionBuilder;\nconst Block = FocusComponents.common.block.component;\nconst formMixin = FocusComponents.common.form.mixin;\nconst Panel = FocusComponents.common.panel.component;\nconst MessageCenter = FocusComponents.application.messageCenter.component;\n\n/***********************************************************************************************************************/\n/* to test internationalisation. */\nvar resources = {\n  dev: {\n      translation: {\n          'button': {\n              'edit': 'Editer',\n              'save': 'Sauvegarder',\n              'cancel': 'Abandonner'\n          },\n          'select': {\n              'yes': 'Oui',\n              'no': 'Non',\n              'unSelected': '-'\n          },\n          'contact': {\n              'firstName': 'Prénom',\n              'lastName': 'Nom',\n              'papaCOde': 'Le code du papa',\n              'monkeyCode': 'Le code du singe',\n              'bio': 'Biography',\n              'isCool': 'Est-il cool ?',\n              'isNice': 'Est-il gentil ?',\n              'birthDate': 'Date de naissance',\n              'city': 'Lieu de naissance'\n          }\n      }\n  }\n};\n\ni18n.init({resStore: resources});\n\n/***********************************************************************************************************************/\n// TODO PBN : refactor loading of init domains and ref in a global way\n//Load dependencies.\nvar domain = {\n    'DO_TEXT': {\n        style: 'do_text',\n        type: 'text',\n        component: 'PapaSinge',\n        validator: [{\n            type: 'function',\n            options:{\n                translationKey: 'domain.doTEXT.test'\n            },\n            value: function (d) {\n                return _.isString(d);\n            }\n        }]\n    },\n    'DO_EMAIL': {\n        style: 'do_email',\n        type: 'email',\n        component: 'PapaMail',\n        validator: [{\n            type: 'function',\n            value: function () {\n                return true;\n            }\n        }]\n    },\n    'DO_DATE': {\n        'InputComponent': FocusComponents.common.input.date.component,\n        'formatter': function (date) {\n            const monthNames = [\n                'January', 'February', 'March',\n                'April', 'May', 'June', 'July',\n                'August', 'September', 'October',\n                'November', 'December'\n            ];\n            date = new Date(date);\n            const day = date.getDate();\n            const monthIndex = date.getMonth();\n            const year = date.getFullYear();\n            return \"\" + day + \" \" + monthNames[monthIndex] + \" \" + year;\n        }\n    },\n    'DO_OUI_NON': {\n        SelectComponent: FocusComponents.common.select.radio.component,\n        refContainer: {yesNoList: [{code: true, label: \"select.yes\"}, {code: false, label: \"select.no\"}]},\n        listName: 'yesNoList'\n    }\n};\nFocus.definition.domain.container.setAll(domain);\n/*global focus*/\nvar entities = {\n    \"contact\": {\n        \"firstName\": {\n            \"domain\": \"DO_TEXT\",\n            \"required\": false,\n            \"validator\": [{options:{translationKey: 'entityContactValidation.test'}, type:'function', value: function (data) {\n                return data.length <= 3 ? false : true;\n            }}]\n        },\n        \"lastName\": {\n            \"domain\": \"DO_TEXT\",\n            \"required\": true\n        },\n        \"age\": {\n            \"domain\": \"DO_NUMBER\",\n            \"required\": false,\n            \"type\": \"number\"\n        },\n        \"email\": {\n            \"domain\": \"DO_EMAIL\",\n            \"required\": false\n        },\n        \"bio\": {\n            \"domain\": \"DO_EMAIL\",\n            \"InputComponent\": FocusComponents.common.input.textarea.component\n        },\n        \"isCool\": {\n            \"domain\": \"DO_OUI_NON\"\n        },\n        \"isNice\": {\n            \"domain\": \"DO_BOOLEAN\",\n            \"FieldComponent\": FocusComponents.common.input.toggle.component\n        },\n        \"birthDate\": {\n            \"domain\": \"DO_DATE\",\n        },\n        \"city\": {\n            \"domain\": \"DO_TEXT\"\n        }\n    },\n    \"commande\": {\n        \"name\": {\n            \"domain\": \"DO_TEXT\",\n            \"required\": true\n        },\n        \"number\": {\n            \"domain\": \"DO_NUMBER\",\n            \"required\": false,\n            \"type\": \"number\"\n        }\n    }\n};\nFocus.definition.entity.container.setEntityConfiguration(entities);\n\nfunction loadRefList(name) {\n    return function loadRef() {\n        var refLst = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9].map(function (cd) {\n            return {\n                code: ''+cd,\n                label: ('' + cd + ' ' + name)\n            };\n        });\n        return Promise.resolve(refLst);\n    };\n}\nfunction loadMonkeyList(){\n    return loadRefList('monkey')().then(function(data){\n        return data.map(function(element){\n            return {myCustomCode: element.code, myCustomLabel: element.label};\n        });\n    });\n}\n\n\nFocus.reference.config.set({papas: loadRefList('papas'), singe: loadRefList('singe'), monkeys: loadMonkeyList});\nFocus.definition.entity.container.setEntityConfiguration(entities);\n/***********************************************************************************************************************/\n\nconst ListLine = React.createClass({\n    mixins: [FocusComponents.list.selection.line.mixin],\n    definitionPath: \"commande\",\n    renderLineContent(data){\n        const firstName = this.displayFor(\"name\", {});\n        const lastName = this.displayFor(\"number\", {});\n        return <div>{firstName} {lastName}</div>;\n    }\n});\n\nconst contactStore = new Focus.store.CoreStore({\n    definition: {\n        'contact': 'contact',\n        'commandes': 'commande'\n    }\n});\n\nconst jsonContact= {\n    firstName: \"Zeus\",\n    lastName: \"God\",\n    isCool: true,\n    birthDate: new Date().toISOString(),\n    commandes: [{\n        name: \"commande1\",\n        number: \"1\"\n    }, {\n        name: \"commande2\",\n        number: \"2\"\n    }, {\n        name: \"commande3\",\n        number: \"3\"\n    }, {\n        name: \"commande4\",\n        number: \"4\"\n    }, {\n        name: \"commande5\",\n        number: \"5\"\n    }, {\n        name: \"commande6\",\n        number: \"6\"\n    }],\n    city: 'PAR'\n};\n\nconst action = {\n    load: actionBuilder({\n        status: 'loaded',\n        node: 'contact',\n        service(){\n            return new Promise(function(s,e){\n                _.delay(function(){\n                    s(jsonContact);\n                }, 1);\n            })//Promise.resolve(jsonContact);\n        }\n    }),\n    save:actionBuilder({\n        status: 'saved',\n        preStatus: 'saving',\n        node: 'contact',\n        service(data){\n            console.log('save', data);\n            return Promise.resolve(data);\n        }\n    })\n};\n\nconst autocompleteData = [\n    {\n        code: 'PAR',\n        value: 'Paris'\n    },\n    {\n        code: 'LON',\n        value: 'Londres'\n    },\n    {\n        code: 'NY',\n        value: 'New york'\n    }\n];\n\nconst codeResolver = code =>  {\n    return new Promise(success => {\n        const candidate = _.find(autocompleteData, {code});\n        success(candidate ? candidate.value : 'Unresolved code');\n    });\n};\n\nconst searcher = text => {\n    return new Promise(success => {\n        _.delay(() => {\n            const result = autocompleteData.filter(item => {\n                return text === '' || item.value.toLowerCase().indexOf(text.toLowerCase()) !== -1;\n            });\n            success(result);\n        }, 1);\n    });\n}\n\nconst FormExample = React.createClass({\n    displayName: \"FormExample\",\n    mixins: [formMixin],\n    stores: [{\n        store: contactStore,\n        properties: [\"contact\", \"commandes\"],\n    }],\n    definitionPath: \"contact\",\n    action: action,\n    referenceNames: ['papas', 'monkeys'],\n\n    /**\n    * Render content form.\n    * @return {ReactDOMNode} node REACT\n    */\n    renderContent() {\n        return (\n            <Block title=\"Fiche de l'utilisateur\" actions={this._renderActions}>\n            {this.fieldFor(\"firstName\")}\n            {this.fieldFor(\"lastName\")}\n            {\n                this.textFor(\"birthDate\", {\n                    formatter: function (date) {\n                        return \"formatted date\" + date\n                    }\n                })\n            }\n            {this.fieldFor('papaCode', {listName: 'papas'})}\n            {this.fieldFor('monkeyCode', {listName: 'monkeys', valueKey: 'myCustomCode', labelKey: 'myCustomLabel' })}\n            {this.fieldFor(\"bio\")}\n            {this.fieldFor(\"isCool\")}\n            {this.fieldFor(\"isNice\")}\n            {this.fieldFor(\"birthDate\")}\n            {this.autocompleteFor('city', {codeResolver, searcher}, {selectionHandler(data) {alert(`Code : ${data.code}, value: ${data.value}`)}})}\n            {this.listFor(\"commandes\", {lineComponent: ListLine})}\n            </Block>\n        );\n    }\n});\n\n\nreturn (\n    <div>\n    <MessageCenter />\n    <FormExample isEdit={false}/>\n    </div>\n);\n"
+        "code": "const actionBuilder = Focus.application.actionBuilder;\nconst Block = FocusComponents.common.block.component;\nconst formMixin = FocusComponents.common.form.mixin;\nconst Panel = FocusComponents.common.panel.component;\nconst MessageCenter = FocusComponents.application.messageCenter.component;\n\n/***********************************************************************************************************************/\n/* to test internationalisation. */\nvar resources = {\n  dev: {\n      translation: {\n          'button': {\n              'edit': 'Editer',\n              'save': 'Sauvegarder',\n              'cancel': 'Abandonner'\n          },\n          'select': {\n              'yes': 'Oui',\n              'no': 'Non',\n              'unSelected': '-'\n          },\n          'contact': {\n              'firstName': 'Prénom',\n              'lastName': 'Nom',\n              'papaCOde': 'Le code du papa',\n              'monkeyCode': 'Le code du singe',\n              'bio': 'Biography',\n              'isCool': 'Est-il cool ?',\n              'isNice': 'Est-il gentil ?',\n              'birthDate': 'Date de naissance',\n              'city': 'Lieu de naissance'\n          }\n      }\n  }\n};\n\ni18n.init({resStore: resources});\n\n/***********************************************************************************************************************/\n// TODO PBN : refactor loading of init domains and ref in a global way\n//Load dependencies.\nvar domain = {\n    'DO_TEXT': {\n        style: 'do_text',\n        type: 'text',\n        component: 'PapaSinge',\n        validator: [{\n            type: 'function',\n            options:{\n                translationKey: 'domain.doTEXT.test'\n            },\n            value: function (d) {\n                return _.isString(d);\n            }\n        }]\n    },\n    'DO_EMAIL': {\n        style: 'do_email',\n        type: 'email',\n        component: 'PapaMail',\n        validator: [{\n            type: 'function',\n            value: function () {\n                return true;\n            }\n        }]\n    },\n    'DO_DATE': {\n        'InputComponent': FocusComponents.common.input.date.component,\n        'formatter': function (date) {\n            const monthNames = [\n                'January', 'February', 'March',\n                'April', 'May', 'June', 'July',\n                'August', 'September', 'October',\n                'November', 'December'\n            ];\n            date = new Date(date);\n            const day = date.getDate();\n            const monthIndex = date.getMonth();\n            const year = date.getFullYear();\n            return \"\" + day + \" \" + monthNames[monthIndex] + \" \" + year;\n        }\n    },\n    'DO_OUI_NON': {\n        SelectComponent: FocusComponents.common.select.radio.component,\n        refContainer: {yesNoList: [{code: true, label: \"select.yes\"}, {code: false, label: \"select.no\"}]},\n        listName: 'yesNoList'\n    }\n};\nFocus.definition.domain.container.setAll(domain);\n/*global focus*/\nvar entities = {\n    \"contact\": {\n        \"firstName\": {\n            \"domain\": \"DO_TEXT\",\n            \"required\": false,\n            \"validator\": [{options:{translationKey: 'entityContactValidation.test'}, type:'function', value: function (data) {\n                return data.length <= 3 ? false : true;\n            }}]\n        },\n        \"lastName\": {\n            \"domain\": \"DO_TEXT\",\n            \"required\": true\n        },\n        \"papaCode\": {\n            \"domain\": \"DO_TEXT\",\n            \"required\": true\n        },\n        \"age\": {\n            \"domain\": \"DO_NUMBER\",\n            \"required\": false,\n            \"type\": \"number\"\n        },\n        \"email\": {\n            \"domain\": \"DO_EMAIL\",\n            \"required\": false\n        },\n        \"bio\": {\n            \"domain\": \"DO_EMAIL\",\n            \"InputComponent\": FocusComponents.common.input.textarea.component\n        },\n        \"isCool\": {\n            \"domain\": \"DO_OUI_NON\"\n        },\n        \"isNice\": {\n            \"domain\": \"DO_BOOLEAN\",\n            \"FieldComponent\": FocusComponents.common.input.toggle.component\n        },\n        \"birthDate\": {\n            \"domain\": \"DO_DATE\",\n        },\n        \"city\": {\n            \"domain\": \"DO_TEXT\"\n        }\n    },\n    \"commande\": {\n        \"name\": {\n            \"domain\": \"DO_TEXT\",\n            \"required\": true\n        },\n        \"number\": {\n            \"domain\": \"DO_NUMBER\",\n            \"required\": false,\n            \"type\": \"number\"\n        }\n    }\n};\nFocus.definition.entity.container.setEntityConfiguration(entities);\n\nfunction loadRefList(name) {\n    return function loadRef() {\n        var refLst = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9].map(function (cd) {\n            return {\n                code: ''+cd,\n                label: ('' + cd + ' ' + name)\n            };\n        });\n        return Promise.resolve(refLst);\n    };\n}\nfunction loadMonkeyList(){\n    return loadRefList('monkey')().then(function(data){\n        return data.map(function(element){\n            return {myCustomCode: element.code, myCustomLabel: element.label};\n        });\n    });\n}\n\n\nFocus.reference.config.set({papas: loadRefList('papas'), singe: loadRefList('singe'), monkeys: loadMonkeyList});\nFocus.definition.entity.container.setEntityConfiguration(entities);\n/***********************************************************************************************************************/\n\nconst ListLine = React.createClass({\n    mixins: [FocusComponents.list.selection.line.mixin],\n    definitionPath: \"commande\",\n    renderLineContent(data){\n        const firstName = this.displayFor(\"name\", {});\n        const lastName = this.displayFor(\"number\", {});\n        return <div>{firstName} {lastName}</div>;\n    }\n});\n\nconst contactStore = new Focus.store.CoreStore({\n    definition: {\n        'contact': 'contact',\n        'commandes': 'commande'\n    }\n});\n\nconst jsonContact= {\n    firstName: \"Zeus\",\n    lastName: \"God\",\n    isCool: true,\n    birthDate: new Date().toISOString(),\n    commandes: [{\n        name: \"commande1\",\n        number: \"1\"\n    }, {\n        name: \"commande2\",\n        number: \"2\"\n    }, {\n        name: \"commande3\",\n        number: \"3\"\n    }, {\n        name: \"commande4\",\n        number: \"4\"\n    }, {\n        name: \"commande5\",\n        number: \"5\"\n    }, {\n        name: \"commande6\",\n        number: \"6\"\n    }],\n    city: 'PAR'\n};\n\nconst action = {\n    load: actionBuilder({\n        status: 'loaded',\n        node: 'contact',\n        service(){\n            return new Promise(function(s,e){\n                _.delay(function(){\n                    s(jsonContact);\n                }, 1);\n            })//Promise.resolve(jsonContact);\n        }\n    }),\n    save:actionBuilder({\n        status: 'saved',\n        preStatus: 'saving',\n        node: 'contact',\n        service(data){\n            console.log('save', data);\n            return Promise.resolve(data);\n        }\n    })\n};\n\nconst autocompleteData = [\n    {\n        code: 'PAR',\n        value: 'Paris'\n    },\n    {\n        code: 'LON',\n        value: 'Londres'\n    },\n    {\n        code: 'NY',\n        value: 'New york'\n    }\n];\n\nconst codeResolver = code =>  {\n    return new Promise(success => {\n        const candidate = _.find(autocompleteData, {code});\n        success(candidate ? candidate.value : 'Unresolved code');\n    });\n};\n\nconst searcher = text => {\n    return new Promise(success => {\n        _.delay(() => {\n            const result = autocompleteData.filter(item => {\n                return text === '' || item.value.toLowerCase().indexOf(text.toLowerCase()) !== -1;\n            });\n            success(result);\n        }, 1);\n    });\n}\n\nconst FormExample = React.createClass({\n    displayName: \"FormExample\",\n    mixins: [formMixin],\n    stores: [{\n        store: contactStore,\n        properties: [\"contact\", \"commandes\"],\n    }],\n    definitionPath: \"contact\",\n    action: action,\n    referenceNames: ['papas', 'monkeys'],\n\n    /**\n    * Render content form.\n    * @return {ReactDOMNode} node REACT\n    */\n    renderContent() {\n        return (\n            <Block title=\"Fiche de l'utilisateur\" actions={this._renderActions}>\n            {this.fieldFor(\"firstName\")}\n            {this.fieldFor(\"lastName\")}\n            {\n                this.textFor(\"birthDate\", {\n                    formatter: function (date) {\n                        return \"formatted date\" + date\n                    }\n                })\n            }\n            {this.fieldFor('papaCode', {listName: 'papas'})}\n            {this.fieldFor('monkeyCode', {listName: 'monkeys', valueKey: 'myCustomCode', labelKey: 'myCustomLabel' })}\n            {this.fieldFor(\"bio\")}\n            {this.fieldFor(\"isCool\")}\n            {this.fieldFor(\"isNice\")}\n            {this.fieldFor(\"birthDate\")}\n            {this.autocompleteFor('city', {codeResolver, searcher}, {selectionHandler(data) {alert(`Code : ${data.code}, value: ${data.value}`)}})}\n            {this.listFor(\"commandes\", {lineComponent: ListLine})}\n            </Block>\n        );\n    }\n});\n\n\nreturn (\n    <div>\n    <MessageCenter />\n    <FormExample isEdit={false}/>\n    </div>\n);\n"
     },
     {
         "name": "icon",
