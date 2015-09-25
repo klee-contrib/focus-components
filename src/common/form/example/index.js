@@ -102,6 +102,10 @@ var entities = {
             "domain": "DO_TEXT",
             "required": true
         },
+        "papaCode": {
+            "domain": "DO_TEXT",
+            "required": true
+        },
         "age": {
             "domain": "DO_NUMBER",
             "required": false,

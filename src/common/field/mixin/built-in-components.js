@@ -129,12 +129,13 @@ const fieldBuiltInComponentsMixin = {
      * @return {Component} - The builded select component.
      */
     select() {
-        const {value} = this.state;
+        const {error, value} = this.state;
         const buildedSelectProps = assign({}, this.props, {
-            value: value,
+            value,
             style: this._buildStyle(),
             onChange: this.onInputChange,
-            ref: 'input'
+            ref: 'input',
+            error
         });
         return <this.props.SelectComponent {...buildedSelectProps} />;
     },
