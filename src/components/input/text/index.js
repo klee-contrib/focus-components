@@ -6,6 +6,7 @@ import ComponentBaseBehaviour from '../../../behaviours/component-base';
 import MDBehaviour from '../../../behaviours/material';
 const MODE = {isEdit: true};
 const propTypes = {
+    disabled: PropTypes.bool,
     error: PropTypes.string,
     name: PropTypes.string.isRequired,
     onChange: PropTypes.func.isRequired,
@@ -21,9 +22,10 @@ const propTypes = {
 };
 
 const defaultProps = {
-    type: 'text',
+    disabled: false,
     formatter: identity,
-    unformatter: identity
+    unformatter: identity,
+    type: 'text'
 };
 
 /**
