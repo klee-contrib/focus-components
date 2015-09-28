@@ -80,10 +80,10 @@ const fieldBuiltInComponentsMixin = {
     * @returns {Component} - The builded label component.
     */
     label() {
-        const {name} = this.props;
+        const {name, label} = this.props;
         return (
             <div className ={`${this._getLabelGridClassName()}`} data-focus='field-label-container'>
-                <Label name={name} />
+                <Label name={name} text={label} />
             </div>
         );
     },
