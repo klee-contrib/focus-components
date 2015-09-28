@@ -63,8 +63,8 @@ const selectMixin = {
     getValue() {
         const {select} = this.refs;
         const domValue = ReactDOM.findDOMNode(select).value;
-        let value = this.state.isNumber ? +domValue : domValue;
-        return value !== UNSELECTED_KEY ? value : null;
+        if(domValue === UNSELECTED_KEY){ return null; }
+        return this.state.isNumber ? +domValue : domValue;
     },
     /**
     * Handle the change value of the input.
