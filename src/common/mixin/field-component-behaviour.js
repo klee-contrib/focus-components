@@ -1,4 +1,5 @@
 const assign = require('object-assign');
+const {isUndefined} = require('lodash/lang');
 /**
  * Identity function
  * @param  {object} d - data to treat.
@@ -44,7 +45,7 @@ const fieldBehaviourMixin = {
             //Mode
             isEdit: isEdit,
             hasLabel: hasLabel,
-            isRequired: def.isRequired || def.required, //legacy on required on model generation.
+            isRequired: (!isUndefined(options.isRequired) && options.isRequired) || def.isRequired || def.required, //legacy on required on model generation.
             //Style
             style: options.style,
             //Methods
