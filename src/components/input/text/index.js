@@ -4,7 +4,7 @@ import ReactDOM from 'react-dom';
 import {identity} from 'lodash/utility';
 import ComponentBaseBehaviour from '../../../behaviours/component-base';
 import MDBehaviour from '../../../behaviours/material';
-
+const MODE = {isEdit: true};
 const propTypes = {
     error: PropTypes.string,
     name: PropTypes.string.isRequired,
@@ -40,7 +40,7 @@ class InputText extends Component {
     getValue = () => {
         const {unformatter} = this.props;
         const domEl = ReactDOM.findDOMNode(this.refs.htmlInput);
-        return unformatter(domEl.value);
+        return unformatter(domEl.value, MODE);
     }
     /**
      * Handle the change on the input text, it only propagate the value.
@@ -50,7 +50,7 @@ class InputText extends Component {
     _handleInputChange = (evt) =>{
         const {unformatter, onChange} = this.props;
         const {value} = evt.target;
-        return onChange(unformatter(value));
+        return onChange(unformatter(value, MODE));
     }
     /**
      * @inheritdoc
@@ -58,7 +58,7 @@ class InputText extends Component {
     */
     render() {
         const {error, name, placeholder, style, value: rawValue, formatter, ...otherProps} = this.props;
-        const value = formatter(rawValue);
+        const value = formatter(rawValue, MODE);
         const pattern = error ? 'hasError' : null; //add pattern to overide mdl error style when displaying an focus error.
         const inputProps = {...otherProps, value, id: name, onChange: this._handleInputChange, pattern};
         return (

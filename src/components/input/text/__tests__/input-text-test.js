@@ -67,17 +67,18 @@ describe('The input text', () => {
         });
     });
     describe('when a formatter is provided', () => {
-        let component, htmlInput, onChange;
+        let component, htmlInput, onChange, isEditFormatterSpy;
         const testValue = 'MY_TEST_VALUE';
         const formatedValue = 'MY_FORMATED_VALUE';
         before(
             () => {
                 onChange = identity;
+                isEditFormatterSpy = sinon.spy();
                 /**
                  * The formatter test.
                  * @return {string} - The formated value
                  */
-                function formatter(){return formatedValue; }
+                function formatter(value, mode){ isEditFormatterSpy(mode); return formatedValue; } // eslint-disable-line
                 component = renderIntoDocument(<Input formatter={formatter} name='inputName' onChange={onChange} value={testValue}/>);
                 htmlInput = ReactDOM.findDOMNode(component.refs.htmlInput);
 
@@ -86,24 +87,34 @@ describe('The input text', () => {
         it('should format the value in the DOM', () => {
             expect(htmlInput.value).to.equal(formatedValue);
         });
+        it('should call the isEdit formatter with the mode', () => {
+            expect(isEditFormatterSpy).to.have.been.calledOnce;
+            expect(isEditFormatterSpy).to.have.been.calledWith({isEdit: true});
+        });
     });
     describe('when an unformatter is provided', () => {
-        let component, onChange;
+        let component, onChange, unFormatterSpy, componentValue;
         const testValue = 'MY_TEST_VALUE';
         const unformatedValue = 'MY_UN_FORMATED_VALUE';
         before(
             () => {
+                unFormatterSpy = sinon.spy();
                 onChange = identity;
                 /**
                  * The unformatter test.
                  * @return {string} - The formated value
                  */
-                function unformatter(){return unformatedValue; }
+                function unformatter(value, mode){ unFormatterSpy(mode);  return unformatedValue; }//eslint-disable-line
                 component = renderIntoDocument(<Input name='inputName' onChange={onChange} unformatter={unformatter} value={testValue}/>);
+                componentValue = component.getValue();
             }
         );
         it('should unformat the getValue', () => {
-            expect(component.getValue()).to.equal(unformatedValue);
+            expect(componentValue).to.equal(unformatedValue);
+        });
+        it('should call unformatter with mode', ()=>{
+            expect(unFormatterSpy).to.have.been.calledOnce;
+            expect(unFormatterSpy).to.have.been.calledWith({isEdit: true});
         });
     });
     describe('when an error is provided', () => {
