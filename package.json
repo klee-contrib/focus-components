@@ -47,6 +47,7 @@
     "eslint-plugin-require-jsdoc-focus": "0.1.0",
     "file-loader": "^0.8.4",
     "focus-core": "^0.11.0-beta4",
+    "font-awesome": "^4.4.0",
     "i18next-client": "^1.10.2",
     "immutable": "^3.7.4",
     "lodash": "^3.10.1",
