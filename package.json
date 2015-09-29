@@ -59,7 +59,7 @@
     "chai-subset": "^1.0.1",
     "daterangepicker": "0.0.3",
     "eslint": "1.0.0-rc-1",
-    "eslint-config-focus": "git+https://github.com/KleeGroup/eslint-config-focus.git",
+    "eslint-config-focus": "0.2.0",
     "eslint-plugin-react": "2.7.1",
     "eslint-plugin-filenames": "0.1.1",
     "eslint-plugin-require-jsdoc": "git+https://github.com/Bernardstanislas/eslint-plugin-require-jsdoc.git",
