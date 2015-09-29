@@ -1,0 +1,16 @@
+const path = require('path');
+module.exports = {
+    entry: [
+        './src/index',
+        './src/style'
+    ],
+    output: {
+        path: path.join(__dirname, 'dist'),
+        filename: 'focus-components.js',
+        publicPath: '/dist/',
+        libraryTarget: 'var',
+        library: 'FocusComponents'
+    },
+    directory: path.join(__dirname, 'src'),
+    port: 3001
+};
