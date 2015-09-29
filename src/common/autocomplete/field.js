@@ -78,7 +78,7 @@ const AutocompleteFor = {
      */
     getValue() {
         let {autocomplete} = this.refs;
-        return autocomplete.getValue();
+        return autocomplete ? autocomplete.getValue() : this.state.value;
     },
     /**
      * Render the edit mode
