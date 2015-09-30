@@ -1,10 +1,9 @@
 // Dependencies
 
-const {reduce, sortByOrder} = require('lodash/collection');
+const {reduce, sortByOrder, find} = require('lodash/collection');
 const React = require('react');
 const {Component} = React;
 const ListStore = require('focus-core').store.ListStore;
-
 // Data
 
 const componentsMetas = require('./components.json');
@@ -32,8 +31,8 @@ function _synchronousSearch(query){
     }, {});
     const sortedMatch = sortByOrder(matchQuery, ['count'], ['desc']);
     const sortedComponents = sortedMatch.map((comp) => componentsMetas[comp.index]);
-    console.log('Match', matchQuery);
-    console.log('Sorted ', sortedComponents);
+    //console.log('Match', matchQuery);
+    //console.log('Sorted ', sortedComponents);
     return sortedComponents;
 }
 
@@ -63,27 +62,38 @@ const LiveComponent = require('../live-component');
 class ComponentCatalog extends Component{
     constructor(props){
         super(props);
-        this.state = {};
+        if(props.component){
+            const component = find(componentsMetas, (comp)=>{
+                return comp.name === props.component;
+            });
+            if(component){
+                this.state = {component};
+            }
+        }else {
+            this.state = {};
+        }
     }
 
-    _showLiveComponent(component) {
-        this.setState({component}, this.refs.liveComponentPopin.toggleOpen);
+    _showLiveComponent(component = {}) {
+        this.setState({component}, ()=>{
+            Backbone.history.navigate(`component/${component.name}`);
+            //this.refs.liveComponentPopin.toggleOpen();
+        });
     }
 
     /** @inheriteDoc */
     render(){
-        const {store} = this.props;
+        const {store, query} = this.props;
         const props = {...this.props, showLiveComponent: this._showLiveComponent.bind(this)};
         const {component} = this.state;
         return (
             <div data-focus='catalog'>
-                <CatalogSearch store={store}/>
-                <ListPage {...props}/>
+                {!component && <CatalogSearch store={store} query={query}/>}
+                {!component && <ListPage {...props}/>}
                 <div data-focus='live-component-popin'>
-                    <Popin ref='liveComponentPopin' type='from-right'>
-                        <LiveComponent component={component}/>
-                    </Popin>
-                </div>
+                    {component && <button onClick={()=>{Backbone.history.navigate(`query/${this.props.store.getValue().criteria.query}`, true); }}>Back to search</button>}
+                    {component && <LiveComponent component={component}/>}
+                    </div>
             </div>
         );
     }
@@ -94,6 +104,7 @@ class ComponentCatalog extends Component{
 ComponentCatalog.displayName = 'ComponentCatalog';
 ComponentCatalog.defaultProps = {
     store: new ListStore({identifier: 'COMPONENT_CATALOG'}),
+    query: '',
     service: searchService,
     ListComponent: CatalogList
 };
