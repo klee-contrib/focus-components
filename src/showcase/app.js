@@ -19,6 +19,7 @@ window.ReactDOM = ReactDOM;
 window.Focus = FocusCore;
 window.FocusComponents = FocusComponents;
 window.moment = moment;
+window.i18n = i18n;
 
 document.addEventListener('DOMContentLoaded', ()=> {
     // Render the showcase
