@@ -32,8 +32,8 @@ function _synchronousSearch(query){
     }, {});
     const sortedMatch = sortByOrder(matchQuery, ['count'], ['desc']);
     const sortedComponents = sortedMatch.map((comp) => componentsMetas[comp.index]);
-    console.log('Match', matchQuery);
-    console.log('Sorted ', sortedComponents);
+    //console.log('Match', matchQuery);
+    //console.log('Sorted ', sortedComponents);
     return sortedComponents;
 }
 
@@ -72,12 +72,12 @@ class ComponentCatalog extends Component{
 
     /** @inheriteDoc */
     render(){
-        const {store} = this.props;
+        const {store, query} = this.props;
         const props = {...this.props, showLiveComponent: this._showLiveComponent.bind(this)};
         const {component} = this.state;
         return (
             <div data-focus='catalog'>
-                <CatalogSearch store={store}/>
+                <CatalogSearch store={store} query={query}/>
                 <ListPage {...props}/>
                 <div data-focus='live-component-popin'>
                     <Popin ref='liveComponentPopin' type='from-right'>
@@ -94,6 +94,7 @@ class ComponentCatalog extends Component{
 ComponentCatalog.displayName = 'ComponentCatalog';
 ComponentCatalog.defaultProps = {
     store: new ListStore({identifier: 'COMPONENT_CATALOG'}),
+    query: '',
     service: searchService,
     ListComponent: CatalogList
 };
