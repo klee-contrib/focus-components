@@ -132,7 +132,7 @@ module.exports = {
     */
     buttonDelete() {
         const handleOnClick = () => {
-            this.action.delete(this._getEntity());
+            this.action.delete.call(this, this._getEntity());
         };
         return (
             <Button
