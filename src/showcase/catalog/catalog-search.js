@@ -61,7 +61,7 @@ class ComponentSearch extends Component{
             <i className='material-icons'>search</i>
             </label>
             <div className='mdl-textfield__expandable-holder'>
-            <input className='mdl-textfield__input' id='search-catalog' onChange={this._handleOnChange} ref='input' type='text' value={query}/>
+            <input className='mdl-textfield__input' id='search-catalog' onChange={this._handleOnChange} ref='input' type='text' value={query} autoFocus={true}/>
             <label className='mdl-textfield__label' htmlFor='search-expandable'>Expandable search</label>
             </div>
             </div>

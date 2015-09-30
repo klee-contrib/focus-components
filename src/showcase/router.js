@@ -23,7 +23,7 @@ const ShowCaseRouter =  Backbone.Router.extend({
     component(name){
         console.log('component', name);
         return ReactDOM.render(
-            <Layout title={`component ${name}`}><Catalog /></Layout>,
+            <Layout title={`component ${name}`}><Catalog component={name} /></Layout>,
             document.querySelector('body')
         );
     },
