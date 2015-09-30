@@ -11,3 +11,11 @@ deploy:
   skip_cleanup: true
   on:
     branch: develop
+notifications:
+  slack:
+    secure: H7kOv9XJ70UUMd+j2V/DgmFV4bjBmOanFkHu8bloBrAcSOex0kE/mFQI4ysNRMORBTuWETFs9L+ilVLMHakFmF29043MIu/XGdK0hUNZypwNDsZyIPYQwQn6qbQ+Lyw4VFJLW7/myNwSJzTxUDUSgCI4dwCWz34CljVSLS/Yw30=
+branches:
+  only:
+    - master
+    - develop
+    - /^hotfix-.*$/
