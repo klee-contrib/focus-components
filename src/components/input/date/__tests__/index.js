@@ -17,11 +17,11 @@ describe('The input date', () => {
         });
 
         it('should hold the provided initial value', () => {
-            expect(renderedTest.getValue()).to.equal(now);
+            expect(moment(renderedTest.getValue()).isSame(now, 'day')).to.be.true;
         });
 
         it('should display the provided date in the dropdown', () => {
-            expect(renderedTest.state.dropDownDate.toISOString()).to.equal(now);
+            expect(moment(renderedTest.state.dropDownDate.toISOString()).isSame(now, 'day')).to.be.true;
         });
     });
 
@@ -37,7 +37,7 @@ describe('The input date', () => {
         });
 
         it('should display today\'s date in the dropdown', () => {
-            expect(moment().diff(renderedTest.state.dropDownDate, 'days')).to.equal(0);
+            expect(moment().isSame(renderedTest.state.dropDownDate, 'day')).to.be.true;
         });
 
     });
@@ -54,7 +54,7 @@ describe('The input date', () => {
         });
 
         it('should display today\'s date in the dropdown', () => {
-            expect(moment().diff(renderedTest.state.dropDownDate, 'days')).to.equal(0);
+            expect(moment().isSame(renderedTest.state.dropDownDate, 'day')).to.be.true;
         });
     });
 
@@ -82,7 +82,7 @@ describe('The input date', () => {
         });
 
         it('should change its internal value', () => {
-            expect(renderedTest.refs.date.getValue()).to.equal(now);
+            expect(moment(renderedTest.refs.date.getValue()).isSame(now, 'day')).to.be.true;
         });
     });
 
@@ -126,7 +126,7 @@ describe('The input date', () => {
             TestUtils.Simulate.blur(input);
         });
         it('should give the provided value', () => {
-            expect(renderedTest.refs.date.getValue()).to.equal(moment(Date.parse(validDateString)).toISOString());
+            expect(moment(renderedTest.refs.date.getValue()).isSame(moment(Date.parse(validDateString)).toISOString())).to.be.true;
         });
     });
 

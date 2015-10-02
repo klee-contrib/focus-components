@@ -50,7 +50,7 @@ class InputDate extends Component {
         const {value} = props;
         const state = {
             dropDownDate: isDateStringValid(value) ? moment(Date.parse(value)) : moment(),
-            inputDate: this._formatDate(value),
+            inputDate: this._formatDate(value, props.locale),
             displayPicker: false
         };
         this.state = state;
@@ -61,40 +61,41 @@ class InputDate extends Component {
     }
 
     componentDidMount = () => {
-        const {drops, locale, showDropdowns} = this.props;
+        const {drops, showDropdowns} = this.props;
         const {inputDate: startDate} = this.state;
     }
 
     componentWillReceiveProps = ({value}) => {
-        if (value !== this.state.inputDate) {
-            if (isDateStringValid(value)) {
-                this.setState({
-                    dropDownDate: moment(Date.parse(value)),
-                    inputDate: this._formatDate(value)
-                });
-            } else {
-                this.setState({inputDate: this._formatDate(value)});
-            }
-        }
+        this.setState({
+            dropDownDate: moment(Date.parse(value)),
+            inputDate: this._formatDate(value)
+        });
     }
+
+    isDateStringValid = (value, locale=this.props.locale) => moment(value, locale.longDateFormat[locale.format]).isValid();
 
     getValue = () => {
-        const {dropDownDate, inputDate} = this.state;
-        return isDateStringValid(inputDate) ? dropDownDate.toISOString() : null;
+        const {inputDate} = this.state;
+        const {locale} = this.props;
+        const format = locale.longDateFormat[locale.format];
+        return this.isDateStringValid(inputDate) ? moment(inputDate, format).toISOString() : null;
     }
 
-    _formatDate = unformatedDate => {
-        const {locale: {format}} = this.props;
-        if (isDateStringValid(unformatedDate)) {
-            return moment(Date.parse(unformatedDate)).format(format);
+    _formatDate = isoDate => {
+        const {locale} = this.props;
+        const format = locale.longDateFormat[locale.format];
+        if (isDateStringValid(isoDate)) {
+            return moment(isoDate).format(format);
         } else {
-            return unformatedDate;
+            return isoDate;
         }
     }
 
     _onInputChange = inputDate => {
-        if (isDateStringValid(inputDate)) {
-            const dropDownDate = moment(Date.parse(inputDate));
+        if (this.isDateStringValid(inputDate)) {
+            const {locale} = this.props;
+            const format = locale.longDateFormat[locale.format];
+            const dropDownDate = moment(inputDate, format);
             this.setState({dropDownDate, inputDate});
         } else {
             this.setState({inputDate});
@@ -102,13 +103,16 @@ class InputDate extends Component {
     }
 
     _onInputBlur = () => {
-        this.props.onChange(this.state.inputDate);
+        const {inputDate} = this.state;
+        const {locale} = this.props;
+        const format = locale.longDateFormat[locale.format];
+        this.props.onChange(moment(inputDate, format).toISOString());
     }
 
     _onDropDownChange = (text, date) => {
         if (date._isValid) {
             this.setState({displayPicker: false}, () => {
-                this._onInputChange(this._formatDate(moment(date).add(12, 'hours'))); // Add 12 hours to avoid skipping a day due to different locales
+                this._onInputChange(this._formatDate(date.toISOString())); // Add 12 hours to avoid skipping a day due to different locales
             });
         }
     }
@@ -121,8 +125,8 @@ class InputDate extends Component {
         this.setState({displayPicker: false});
     }
 
-    validate = (inputDate = this.state.inputDate) => {
-        const isValid = isDateStringValid(inputDate);
+    validate = (inputDate=this.state.inputDate) => {
+        const isValid = this.isDateStringValid(inputDate);
         return {
             isValid,
             message: isValid ? '' : `${inputDate} is not a valid date.`
