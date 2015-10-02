@@ -44,4 +44,6 @@ import '../search/search-bar/style/search-bar.scss';
 import '../style/animation.scss';
 import '../style/mdl.scss';
 import '../style/spinner.scss';
+import 'react-date-picker/index.css';
+import '../components/input/date/style/index.scss';
 //import '../style/_mdl_variables.scss';
