@@ -66,7 +66,7 @@ var domain = {
         }]
     },
     'DO_DATE': {
-        'InputComponent': FocusComponents.common.input.date.component,
+        'InputComponent': FocusComponents.components.input.Date,
         'formatter': function (date) {
             const monthNames = [
                 'January', 'February', 'March',
@@ -304,8 +304,6 @@ const FormExample = React.createClass({
             {this.fieldFor("isCool")}
             {this.fieldFor("isNice")}
             {this.fieldFor("birthDate")}
-            {this.autocompleteFor('city', {codeResolver, searcher}, {selectionHandler(data) {alert(`Code : ${data.code}, value: ${data.value}`)}})}
-            {this.listFor("commandes", {lineComponent: ListLine})}
             </Block>
         );
     }
