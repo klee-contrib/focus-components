@@ -1,9 +1,7 @@
 import React, {Component, PropTypes} from 'react';
-const {builder} = require('focus-core').component;
-const Title = require('../../common/title').component;
-const {includes} = require('lodash/collection');
-const {uniqueId} = require('lodash/utility');
 import Translation from '../../behaviours/translation';
+import {includes} from 'lodash/collection';
+import {uniqueId} from 'lodash/utility';
 
 const defaultProps = {
     actionsPosition: 'top'
@@ -28,22 +26,20 @@ class Panel extends Component {
         this.state = state;
     }
 
-
-
     /**
     * Render the a block container and the cild content of the block.
     * @return {DOM} React DOM element
     */
     render() {
-        const {actions, actionsPosition, children, title} = this.props;
+        const {actions, actionsPosition, children, title, ...otherProps} = this.props;
         const {spyId} = this.state;
         const shouldDisplayActionsTop = actions && includes(['both', 'top'], actionsPosition);
         const shouldDisplayActionsBottom = actions && includes(['both', 'bottom'], actionsPosition);
         return (
-            <div className='mdl-card mdl-card--border mdl-shadow--4dp' data-focus='panel'>
+            <div className='mdl-card mdl-card--border mdl-shadow--4dp' data-spy={spyId} data-focus='panel' {...otherProps}>
                 <div className='mdl-card__title mdl-card--border' data-focus='panel-title'>
                     {title &&
-                        <h3 data-spy={spyId}>{this.i18n(title)}</h3>
+                        <h3 data-spy-title>{this.i18n(title)}</h3>
                     }
                     {shouldDisplayActionsTop &&
                         <div className='actions'>{actions()}</div>
