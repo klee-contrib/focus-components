@@ -1,0 +1,17 @@
+{
+  "name": "ScrollspyContainer",
+  "version": "1.0.0",
+  "description": "navigation panel, used on detail with back-to-top",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "nvaigation",
+    "detail",
+    "scrollable",
+    "container"
+  ],
+  "author": "focus@kleegroup.com",
+  "license": "MIT"
+}

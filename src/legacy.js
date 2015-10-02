@@ -1,7 +1,10 @@
 import {clone} from 'lodash/lang';
-import {InputCheckbox} from './input/checkbox';
-import {InputToggle} from './input/toggle';
-import {Select} from './input/select';
+import {InputCheckbox} from './components/input/checkbox';
+import {InputToggle} from './components/input/toggle';
+import {Select} from './components/input/select';
+import {ScrollspyContainer} from './components/scrollspy-container'
+import {Panel} from './components/panel'
+
 const legacy = {
     common: {
         input: {
@@ -11,6 +14,8 @@ const legacy = {
         },
         select: {
             classic: {component: Select, mixin: Select}
-        }
+        },
+        detail: { component: ScrollspyContainer },
+        block: { component: Panel }
     }
 }

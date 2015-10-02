@@ -12,9 +12,9 @@ class Grid extends Component{
     }
     /** @inheriteDoc */
     render() {
-        const {children} = this.props;
+        const {children, ...otherProps} = this.props;
         return (
-            <div className='mdl-grid'>
+            <div className='mdl-grid' {...otherProps}>
                 {children}
             </div>
         );
