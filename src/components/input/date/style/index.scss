@@ -1,0 +1,22 @@
+[data-focus='input-date'] {
+    height: 26px;
+    [data-focus='picker-zone'] {
+        position: relative;
+
+        [data-focus='picker-closer'] {
+            background-color: pink;
+            position: absolute;
+            left: 305px;
+            cursor: pointer;
+        }
+    }
+    .date-picker {
+        display: block;
+        width: 300px;
+    }
+
+    div.is-focused + div.date-picker {
+        display: block;
+        width: 300px;
+    }
+}

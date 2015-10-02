@@ -1,7 +1,6 @@
 // Components
 
 const InputDate = FocusComponents.components.input.Date;
-import moment from 'moment';
 
 class InputDateSample extends React.Component {
     constructor(props) {

@@ -6,8 +6,7 @@ import moment from 'moment';
 import Base from '../../../behaviours/component-base';
 import defaultLocale from './default-locale';
 import InputText from '../text';
-import jQuery from 'jquery';
-import DateRangePicker from 'daterangepicker'; //eslint-disable-line
+import DatePicker from 'react-date-picker/dist/react-date-picker.nomoment';
 import {compose} from 'lodash/function';
 
 const isDateStringValid = compose(bool => !bool, isNaN, Date.parse);
@@ -34,8 +33,8 @@ const defaultProps = {
     drops: 'down',
     locale: defaultLocale,
     /**
-     * Default onChange prop, that will log an error.
-     */
+    * Default onChange prop, that will log an error.
+    */
     onChange() {
         console.error('You did not give an onChange method to an input date, please check your code.');
     },
@@ -51,9 +50,19 @@ class InputDate extends Component {
         const {value} = props;
         const state = {
             dropDownDate: isDateStringValid(value) ? moment(Date.parse(value)) : moment(),
-            inputDate: this._formatDate(value)
+            inputDate: this._formatDate(value),
+            displayPicker: false
         };
         this.state = state;
+    }
+
+    componentWillMount = () => {
+        moment.locale('focus', this.props.locale);
+    }
+
+    componentDidMount = () => {
+        const {drops, locale, showDropdowns} = this.props;
+        const {inputDate: startDate} = this.state;
     }
 
     componentWillReceiveProps = ({value}) => {
@@ -66,25 +75,6 @@ class InputDate extends Component {
             } else {
                 this.setState({inputDate: this._formatDate(value)});
             }
-        }
-    }
-
-    componentDidMount = () => {
-        const {drops, locale, showDropdowns} = this.props;
-        const {inputDate: startDate} = this.state;
-        jQuery(ReactDOM.findDOMNode(this.refs.input.refs.htmlInput)).daterangepicker({
-            singleDatePicker: true,
-            showDropdowns,
-            drops,
-            startDate,
-            locale
-        }, this._onDropDownChange);
-    }
-
-    componentDidUpdate = () => {
-        const {inputDate} = this.state;
-        if (isDateStringValid(inputDate)) {
-            jQuery(ReactDOM.findDOMNode(this.refs.input.refs.htmlInput)).data('daterangepicker').setStartDate(Date.parse(inputDate));
         }
     }
 
@@ -115,10 +105,20 @@ class InputDate extends Component {
         this.props.onChange(this.state.inputDate);
     }
 
-    _onDropDownChange = date => {
+    _onDropDownChange = (text, date) => {
         if (date._isValid) {
-            this._onInputChange(this._formatDate(moment(date).add(12, 'hours'))); // Add 12 hours to avoid skipping a day due to different locales
+            this.setState({displayPicker: false}, () => {
+                this._onInputChange(this._formatDate(moment(date).add(12, 'hours'))); // Add 12 hours to avoid skipping a day due to different locales
+            });
         }
+    }
+
+    _onInputFocus = () => {
+        this.setState({displayPicker: true});
+    }
+
+    _onPickerCloserClick = () => {
+        this.setState({displayPicker: false});
     }
 
     validate = (inputDate = this.state.inputDate) => {
@@ -131,11 +131,22 @@ class InputDate extends Component {
 
     render() {
         const {error, name, placeHolder} = this.props;
-        const {inputDate} = this.state;
-        const {_onInputBlur, _onInputChange} = this;
+        const {dropDownDate, inputDate, displayPicker} = this.state;
+        const {_onInputBlur, _onInputChange, _onInputFocus, _onDropDownChange, _onPickerCloserClick} = this;
         return (
             <div data-focus='input-date'>
-                <InputText error={error} name={name} onBlur={_onInputBlur} onChange={_onInputChange} placeHolder={placeHolder} ref='input' value={inputDate} />
+                <InputText error={error} name={name} onBlur={_onInputBlur} onChange={_onInputChange} onFocus={_onInputFocus} placeHolder={placeHolder} ref='input' value={inputDate} />
+                {displayPicker &&
+                    <div data-focus='picker-zone'>
+                        <div data-focus='picker-closer' onClick={_onPickerCloserClick}>X</div>
+                        <DatePicker
+                            date={dropDownDate}
+                            hideFooter={true}
+                            locale='focus'
+                            onChange={_onDropDownChange}
+                            />
+                    </div>
+                }
             </div>
         );
     }
