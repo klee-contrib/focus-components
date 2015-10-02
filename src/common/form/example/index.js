@@ -303,8 +303,6 @@ const FormExample = React.createClass({
             {this.fieldFor("bio")}
             {this.fieldFor("isCool")}
             {this.fieldFor("isNice")}
-            {this.fieldFor("birthDate")}
-            {this.autocompleteFor('city', {codeResolver, searcher}, {selectionHandler(data) {alert(`Code : ${data.code}, value: ${data.value}`)}})}
             {this.listFor("commandes", {lineComponent: ListLine})}
             </Block>
         );

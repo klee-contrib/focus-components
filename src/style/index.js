@@ -24,6 +24,7 @@ import '../common/input/radio/style/radio.scss';
 import '../common/label/style/label.scss';
 import '../common/progress-bar/style/progress-bar.scss';
 import '../common/scrollspy/style/scrollspy.scss';
+import '../common/select/classic/style/select.scss'
 import '../common/select/radio/style/select-radio.scss';
 import '../common/select-action/style/select-action.scss';
 import '../common/topic-displayer/style/topic-displayer.scss';
