@@ -13,16 +13,16 @@ class Column extends Component{
     }
     _className(){
         const {size, className} = this.props;
-        if(className){return className; }
+        if(className) { return className; }
         const SIZE_CSS = size ? `mdl-cell--${size}-col` : '';
         return `mdl-cell ${SIZE_CSS} `;
     }
     /** @inheriteDoc */
     render() {
-        const {children, style} = this.props;
+        const {children, ...otherProps} = this.props;
         const className = this._className();
         return (
-            <div className={className} style={style}>
+            <div className={className} {...otherProps}>
                 {children}
             </div>
         );
@@ -37,8 +37,7 @@ Column.defaultProps = {
 Column.propTypes = {
     size: types('number'),
     children: types('element'),
-    className: types('string'),
-    style: types('object')
+    className: types('string')
 };
 
 module.exports = Column;
