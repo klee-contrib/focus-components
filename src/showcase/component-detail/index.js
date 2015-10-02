@@ -13,11 +13,18 @@ class ComponentDetail extends Component{
     }
     /** @inheriteDoc */
     render() {
-        const {name, description, example, photo, keywords} = this.props;
+        const {name, description, example, photo, keywords, version} = this.props;
         return (
             <div>
-                <h1>{name}</h1>
-                <section className="section--center mdl-grid mdl-grid--no-spacing mdl-shadow--2dp">
+                    <h1>{name}</h1><h3>{version}</h3>
+                    <button
+                        className='mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored'
+                        onClick={()=>{Backbone.history.navigate(`component/${name}/detail`, true)}}
+                        style={{position: 'absolute', top: '100px', right: '50px', width: '100px', height: '100px'}}
+                    >
+                       <i className="material-icons">code</i>
+                    </button>
+                    <section className="section--center mdl-grid mdl-grid--no-spacing mdl-shadow--2dp">
                     <div className="mdl-card mdl-cell mdl-cell--12-col">
                       <div className="mdl-card__supporting-text">
                         <h4>Description</h4>
@@ -48,14 +55,6 @@ class ComponentDetail extends Component{
                             </div>
 
                 </section>
-                <br />
-                <h3>
-                    View code &nbsp; &nbsp; &nbsp;
-                    <button className='mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored' onClick={()=>{Backbone.history.navigate(`component/${name}/detail`, true)}}>
-                       <i className="material-icons">code</i>
-                    </button>
-                </h3>
-                <br/>
             </div>
         );
     }
