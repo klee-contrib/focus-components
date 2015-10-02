@@ -92,7 +92,9 @@ let Autocomplete = {
         } else if (codeResolver) {
             codeResolver(code).then(resolvedValue => {
                 if ('' !== resolvedValue) {
-                    this.setState({value: resolvedValue}); // eslint-disable-line
+                    this.setState({value: resolvedValue}, () => {
+                        this.props.inputChangeHandler(resolvedValue);
+                    }); // eslint-disable-line
                 }
             });
         }
