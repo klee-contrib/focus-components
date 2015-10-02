@@ -21,7 +21,7 @@ class ComponentCatalog extends Component{
     }
 
     _showLiveComponent(component = {}) {
-        Backbone.history.navigate(`component/${component.name}/detail`, true);
+        Backbone.history.navigate(`component/${component.name}`, true);
     }
 
     /** @inheriteDoc */

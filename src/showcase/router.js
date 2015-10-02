@@ -8,6 +8,7 @@ import Layout from './layout';
 import Sandbox from './live-component';
 import componentsStore from './store/components';
 import findComponent from './service/getComponentFromIndex';
+import Detail from './component-detail';
 const ShowCaseRouter =  Backbone.Router.extend({
     routes: {
         '': 'showcase',
@@ -27,7 +28,7 @@ const ShowCaseRouter =  Backbone.Router.extend({
         console.log('component', name);
         const component = findComponent(name);
         return ReactDOM.render(
-            <Layout title={`component ${name}`}><Detail component={component} /></Layout>,
+            <Layout title={`component ${name}`}><Detail {...component} /></Layout>,
             document.querySelector('body')
         );
     },
