@@ -5,6 +5,8 @@ import StickyMenu from './sticky-menu';
 import Scroll from '../../behaviours/scroll';
 import {filter} from 'lodash/collection';
 import {first, last} from 'lodash/array';
+import Grid from '../../common/grid';
+import Column from '../../common/column'
 
 const BackToTopComponent = BackToTop.component;
 
@@ -12,14 +14,18 @@ const BackToTopComponent = BackToTop.component;
 const defaultProps = {
     hasMenu: true, //Activate the presence of the sticky navigation component.
     hasBackToTop: true, //Activate the presence of BackToTop button
-    offset: 80 //offset position when affix
+    offset: 80, //offset position when affix
+    gridMenuSize: 3, //default grid size of the menu
+    gridContentSize: 9 //default content size of the menu
 };
 
 // component props definition.
 const propTypes = {
     hasMenu: PropTypes.bool,
     hasBackToTop: PropTypes.bool,
-    offset: PropTypes.number
+    offset: PropTypes.number,
+    gridMenuSize: PropTypes.number,
+    gridContentSize: PropTypes.number
 };
 
 /**
@@ -179,20 +185,25 @@ class ScrollspyContainer extends Component {
 
     /** @inheritedDoc */
     render() {
-        const {children, hasMenu, hasBackToTop, offset, ...otherProps} = this.props;
+        const {children, gridMenuSize, hasMenu, hasBackToTop, offset, ...otherProps} = this.props;
         const {affix, menuList} = this.state;
+        let {gridContentSize} = this.props;
+        gridContentSize = hasMenu ? gridContentSize : 12;
         return (
-            <div data-focus='scrollspy-container' {...otherProps}>
-            {hasMenu &&
-                <StickyMenu affix={affix} affixOffset={offset} menuList={menuList} ref="stickyMenu" />
-            }
-            <div data-focus='scrollspy-container-content'>
-            {children}
-            </div>
-            {hasBackToTop &&
-                <BackToTopComponent />
-            }
-            </div>
+
+            <Grid data-focus='scrollspy-container' {...otherProps}>
+                {hasMenu &&
+                    <Column size={gridMenuSize}>
+                        <StickyMenu affix={affix} affixOffset={offset} menuList={menuList} ref="stickyMenu" />
+                    </Column>
+                }
+                <Column data-focus='scrollspy-container-content' size={gridContentSize}>
+                    {children}
+                </Column>
+                {hasBackToTop &&
+                    <BackToTopComponent />
+                }
+            </Grid>
         );
     }
 }
