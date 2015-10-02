@@ -36,7 +36,8 @@ let validationMixin ={
         //The validation is performed only when the field has a value, otherwise, only the required validation is performed.
         if (validator && !isUndefined(value) && !isNull(value)) {
             let validStat = this._computeValidationStatus(
-                validate(
+                validate.call(
+                    this,
                     {value: value, name: this.i18n(label)},
                     validator
                 )
