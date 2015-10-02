@@ -1,5 +1,5 @@
 {
-  "name": "ScrollableContainer",
+  "name": "ScrollspyContainer",
   "version": "1.0.0",
   "description": "navigation panel, used on detail with back-to-top",
   "main": "index.js",

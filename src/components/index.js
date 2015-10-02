@@ -1,9 +1,9 @@
 import input from './input';
 import panel from './panel';
-import scrollableContainer from './scrollableContainer';
+import scrollspyContainer from './scrollspy-container';
 
 export default {
     input,
     Panel: panel,
-    ScrollableContainer: scrollableContainer
+    ScrollspyContainer: scrollspyContainer
 }

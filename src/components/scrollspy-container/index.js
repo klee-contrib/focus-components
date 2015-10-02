@@ -23,10 +23,10 @@ const propTypes = {
 };
 
 /**
-* ScrollableContainer component.
+* ScrollspyContainer component.
 */
 @Scroll
-class ScrollableContainer extends Component {
+class ScrollspyContainer extends Component {
     constructor(props) {
         super(props);
         const state = {
@@ -182,11 +182,11 @@ class ScrollableContainer extends Component {
         const {children, hasMenu, hasBackToTop, offset, ...otherProps} = this.props;
         const {affix, menuList} = this.state;
         return (
-            <div data-focus='scrollable-container' {...otherProps}>
+            <div data-focus='scrollspy-container' {...otherProps}>
             {hasMenu &&
                 <StickyMenu affix={affix} affixOffset={offset} menuList={menuList} ref="stickyMenu" />
             }
-            <div data-focus='scrollable-container-content'>
+            <div data-focus='scrollspy-container-content'>
             {children}
             </div>
             {hasBackToTop &&
@@ -198,8 +198,8 @@ class ScrollableContainer extends Component {
 }
 
 //Static props.
-ScrollableContainer.displayName = 'ScrollableContainer';
-ScrollableContainer.defaultProps = defaultProps;
-ScrollableContainer.propTypes = propTypes;
+ScrollspyContainer.displayName = 'ScrollspyContainer';
+ScrollspyContainer.defaultProps = defaultProps;
+ScrollspyContainer.propTypes = propTypes;
 
-export default ScrollableContainer;
+export default ScrollspyContainer;

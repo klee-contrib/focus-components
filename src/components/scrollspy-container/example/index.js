@@ -1,4 +1,4 @@
-const ScrollableContainer = FocusComponents.components.ScrollableContainer;
+const ScrollspyContainer = FocusComponents.components.ScrollspyContainer;
 const Panel = FocusComponents.components.Panel;
 
 const headerHeigth = 100;
@@ -14,7 +14,7 @@ const headerStyles = {
     textAlign: 'center'
 };
 
-const ScrollableContainerSample = React.createClass({
+const ScrollspyContainerSample = React.createClass({
 
     getInitialState(){
         return {
@@ -42,7 +42,7 @@ const ScrollableContainerSample = React.createClass({
                 <br />
                 <br />
                 <br />
-                <ScrollableContainer offset={headerHeigth + 10}>
+                <ScrollspyContainer offset={headerHeigth + 10}>
                     <Panel title="Sports">
                         <img alt="lorempixel" src="http://lorempixel.com/800/600/sports" title="lorempixel" />
                     </Panel>
@@ -100,11 +100,11 @@ const ScrollableContainerSample = React.createClass({
                     <Panel title="Transport">
                         <img src="http://lorempixel.com/800/600/transport" title="lorempixel" alt="lorempixel" />
                     </Panel>
-                </ScrollableContainer>
+                </ScrollspyContainer>
             </div>
         );
     }
 });
 
 
-return <ScrollableContainerSample />;
+return <ScrollspyContainerSample />;
