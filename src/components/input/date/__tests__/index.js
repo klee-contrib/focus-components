@@ -1,5 +1,5 @@
 import InputDate from '../';
-const {Component} = React;
+import {Component} from 'react';
 import moment from 'moment';
 
 global.componentHandler = {
