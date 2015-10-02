@@ -56,15 +56,15 @@ class ComponentSearch extends Component{
         const {query} = criteria;
         return (
             <form action="#">
-            <div className='mdl-textfield mdl-js-textfield mdl-textfield--expandable'>
-            <label className='mdl-button mdl-js-button mdl-button--icon' htmlFor='search-catalog'>
-            <i className='material-icons'>search</i>
-            </label>
-            <div className='mdl-textfield__expandable-holder'>
-            <input className='mdl-textfield__input' id='search-catalog' onChange={this._handleOnChange} ref='input' type='text' value={query} autoFocus={true}/>
-            <label className='mdl-textfield__label' htmlFor='search-expandable'>Expandable search</label>
-            </div>
-            </div>
+                <div className='mdl-textfield mdl-js-textfield mdl-textfield--expandable'>
+                    <label className='mdl-button mdl-js-button mdl-button--icon' htmlFor='search-catalog'>
+                        <i className='material-icons'>search</i>
+                    </label>
+                    <div className='mdl-textfield__expandable-holder'>
+                        <input className='mdl-textfield__input' id='search-catalog' onChange={this._handleOnChange} ref='input' type='text' value={query} autoFocus={true}/>
+                        <label className='mdl-textfield__label' htmlFor='search-expandable'>Expandable search</label>
+                    </div>
+                </div>
             </form>
         );
     }
