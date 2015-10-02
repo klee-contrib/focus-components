@@ -11,6 +11,9 @@ const CodeEditor = require('react-ace');
 
 const LiveEditor = React.createClass({
     displayName: 'LiveEditor',
+    getInitialState(){
+        return {isVisible: false};
+    },
     style: {
         title: {
             margin: '15px',
@@ -28,12 +31,13 @@ const LiveEditor = React.createClass({
     */
     render() {
         const {code, onChange, style: mainStyle} = this.props;
+        const {isVisible} = this.state;
         const {style} = this;
         return (
             <div className='mdl-shadow--2dp' style={mainStyle}>
-                <h1 style={style.title}>Code <i>éditable</i></h1>
+                <h3 onClick={()=>{this.setState({isVisible: !this.state.isVisible})}} style={style.title}>Live code <i className='material-icons'>code</i></h3>
                 <hr/>
-                <CodeEditor editorProps={{$blockScrolling: 'Infinity'}} mode='jsx' name='codeEditor' onChange={onChange} theme='github' value={code}/>
+                {isVisible && <CodeEditor editorProps={{$blockScrolling: 'Infinity'}} mode='jsx' name='codeEditor' onChange={onChange} theme='github' value={code}/>}
             </div>
         );
     }

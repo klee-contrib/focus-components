@@ -38,8 +38,11 @@ const LiveExample = React.createClass({
             width: '100%'
         },
         editor: {
-            marginRight: '10px',
-            flex: '1'
+            width: '50%',
+            position: 'absolute',
+            bottom: '0px',
+            left: '0px',
+            zIndex: '10000'
         },
         preview: {
             flex: '1'
@@ -78,17 +81,10 @@ const LiveExample = React.createClass({
         const {_handleCodeChange, style} = this;
         const {component: {name, description, version, keywords}} = this.props;
         return (
-            <div style={style.parent}>
-                <h1 style={style.name}>{name}</h1>
-                <h2 style={style.version}>{version}</h2>
-                {keywords.map((keyword, idx) => {
-                    return <span key={idx} style={style.keyword}><b>{keyword.toUpperCase()}</b></span>;
-                })}
-                <div style={style.description}>{description}</div>
-                <div style={style.previewZone}>
-                    <LiveEditor code={codeText} onChange={debounce(_handleCodeChange, 100)} style={style.editor} />
-                    <LivePreview code={codeText} style={style.preview} />
-                </div>
+            <div>
+                <header style={{position: 'absolute', top: '0px', right: '30%', zIndex: 9999 }}><h1 style={{color: 'tomato'}}>{name}{version}</h1></header>
+                <LiveEditor code={codeText} onChange={debounce(_handleCodeChange, 100)} style={style.editor} />
+                <LivePreview code={codeText}  />
             </div>
         );
     }
