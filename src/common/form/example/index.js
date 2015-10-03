@@ -338,6 +338,12 @@ const ListLine = React.createClass({
                 <Block title="Fiche de l'utilisateur" actions={this._renderActions}>
                     {this.fieldFor("firstName")}
                     {this.fieldFor("lastName")}
+                    {this.fieldFor("birthDate")}
+                    {this.fieldFor('papaCode', {listName: 'papas'})}
+                    {this.fieldFor('monkeyCode', {listName: 'monkeys', valueKey: 'myCustomCode', labelKey: 'myCustomLabel' })}
+                    {this.fieldFor("bio")}
+                    {this.fieldFor("isCool")}
+                    {this.fieldFor("isNice")}
                     {
                         this.textFor("birthDate", {
                             formatter: function (date) {
@@ -345,12 +351,6 @@ const ListLine = React.createClass({
                             }
                         })
                     }
-                    {this.fieldFor('papaCode', {listName: 'papas'})}
-                    {this.fieldFor('monkeyCode', {listName: 'monkeys', valueKey: 'myCustomCode', labelKey: 'myCustomLabel' })}
-                    {this.fieldFor("bio")}
-                    {this.fieldFor("isCool")}
-                    {this.fieldFor("isNice")}
-                    {this.fieldFor("birthDate")}
                 </Block>
             );
         }
