@@ -27,6 +27,7 @@ import '../common/scrollspy/style/scrollspy.scss';
 import '../common/select/radio/style/select-radio.scss';
 import '../common/select-action/style/select-action.scss';
 import '../common/topic-displayer/style/topic-displayer.scss';
+import '../components/input/select/style/select.scss'
 import '../components/panel/style/panel.scss'
 import '../components/scrollspy-container/style/scrollspy-container.scss'
 import '../components/scrollspy-container/style/sticky-menu.scss'
