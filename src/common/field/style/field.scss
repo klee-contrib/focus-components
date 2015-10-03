@@ -9,7 +9,7 @@ $field-label-error-color:rgb(222, 50, 38);
     padding: 0;
     [data-focus="field-label-container"] {
         text-align: right;
-        label {
+        [data-focus="label"] {
             display: block;
             font-weight: bold;
             font-size: $field-label-font-size;
@@ -18,14 +18,23 @@ $field-label-error-color:rgb(222, 50, 38);
     &[data-mode="edit"] {
         &[data-valid="false"] {
             [data-focus="field-label-container"] {
-                label {
+                [data-focus="label"] {
                     color:$field-label-error-color;
                 }
             }
         }
-
+        &[data-required="true"] {
+            [data-focus="field-label-container"] {
+                [data-focus="label"] {
+                    &:after {
+                        content: "*";
+                        margin-left: 3px;
+                    }
+                }
+            }
+        }
         [data-focus="field-label-container"] {
-            label {
+            [data-focus="label"] {
                 margin:4px 0;
             }
         }
