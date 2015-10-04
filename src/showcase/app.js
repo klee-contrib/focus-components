@@ -24,6 +24,16 @@ window.moment = moment;
 import './router';
 window.i18n = i18n;
 document.addEventListener('DOMContentLoaded', ()=> {
+    jQuery(document).on('click', 'a:not([data-bypass])', function touchHandler(evt) {
+    const href = { prop: jQuery(this).prop('href'), attr: jQuery(this).attr('href') };
+    const root = location.protocol + '//' + location.host + '/';
+
+    if (href.prop && href.prop.slice(0, root.length) === root) {
+        evt.preventDefault();
+        Backbone.history.navigate(href.attr, true);
+    }
+});
+
     //Init index
     // Render the showcase
     i18n.init({resStore, lng: 'dev'}, ()=>{
