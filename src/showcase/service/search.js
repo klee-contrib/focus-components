@@ -1,4 +1,4 @@
-import _synchronousSearch from './synchronousSearchComponent';
+import _synchronousSearch from './search-component';
 export default function searchService(options){
     return new Promise((success, failure) => {
         try {
