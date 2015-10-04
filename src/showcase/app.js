@@ -13,7 +13,7 @@ import FocusComponents from '../';
 import resStore from './resources';
 import './style/template.scss';
 import './style/demo.scss';
-
+import './service/create-index';
 // exposing in windows
 window.React = React;
 window.ReactDOM = ReactDOM;
@@ -23,8 +23,8 @@ window.moment = moment;
 //Import the router
 import './router';
 window.i18n = i18n;
-
 document.addEventListener('DOMContentLoaded', ()=> {
+    //Init index
     // Render the showcase
     i18n.init({resStore, lng: 'dev'}, ()=>{
         console.log('Translation correctlyzzz.');

@@ -7,26 +7,27 @@ import Catalog from './catalog';
 import Layout from './layout';
 import Sandbox from './live-component';
 import componentsStore from './store/components';
-import findComponent from './service/getComponentFromIndex';
+import getComponentFromName  from './service/get-component-from-name';
 import Detail from './component-detail';
 const ShowCaseRouter =  Backbone.Router.extend({
     routes: {
         '': 'showcase',
         'component/:name': 'component',
         'component/:name/detail': 'componentDetail',
+        'query': 'showcase',
         'query/:query': 'query'
     },
     showcase(){
         console.log('showcase');
         // render the showcase into the document
         return ReactDOM.render(
-            <Layout title='Component catalog'><Catalog store={componentsStore}/></Layout>,
+            <Layout title='Component catalog'><Catalog store={componentsStore} query=''/></Layout>,
             document.querySelector('body')
         );
     },
     component(name){
         console.log('component', name);
-        const component = findComponent(name);
+        const component = getComponentFromName(name);
         return ReactDOM.render(
             <Layout title={`component ${name}`}><Detail {...component} /></Layout>,
             document.querySelector('body')
@@ -34,7 +35,7 @@ const ShowCaseRouter =  Backbone.Router.extend({
     },
     componentDetail(name){
             console.log('component detail', name);
-            const component = findComponent(name);
+            const component = getComponentFromName(name);
             return ReactDOM.render(
                 <Sandbox component={component} />,
                 document.querySelector('body')
