@@ -41,7 +41,7 @@ const LiveExample = React.createClass({
             width: '50%',
             position: 'absolute',
             bottom: '0px',
-            left: '0px',
+            right: '0px',
             zIndex: '10000'
         },
         preview: {
@@ -82,8 +82,7 @@ const LiveExample = React.createClass({
         const {component: {name, description, version, keywords}} = this.props;
         return (
             <div>
-                <header style={{position: 'absolute', top: '0px', right: '30%', zIndex: 9999 }}><h1 style={{color: 'tomato'}}>{name}{version}</h1></header>
-                <LiveEditor code={codeText} onChange={debounce(_handleCodeChange, 100)} style={style.editor} />
+                <LiveEditor  code={codeText} name={name} onChange={debounce(_handleCodeChange, 100)} style={style.editor} version={version} />
                 <LivePreview code={codeText}  />
             </div>
         );
