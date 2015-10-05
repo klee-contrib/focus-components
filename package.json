@@ -38,7 +38,7 @@
     "immutable": "^3.7.4",
     "lodash": "^3.10.1",
     "material-design-icons": "^2.0.0",
-    "material-design-lite": "^1.0.4-2",
+    "material-design-lite": "1.0.4-2",
     "moment": "^2.10.6",
     "object-assign": "^2.0.0",
     "react": "^0.14.0-rc1",
