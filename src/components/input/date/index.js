@@ -58,7 +58,9 @@ class InputDate extends Component {
 
     componentWillMount = () => {
         moment.locale('focus', this.props.locale);
+        document.addEventListener('click', this._onDocumentClick);
     }
+
 
     componentDidMount = () => {
         const {drops, showDropdowns} = this.props;
@@ -70,6 +72,10 @@ class InputDate extends Component {
             dropDownDate: moment(Date.parse(value)),
             inputDate: this._formatDate(value)
         });
+    }
+
+    componentWillUnmount = () => {
+        document.removeEventListener('click', this._onDocumentClick);
     }
 
     isDateStringValid = (value, locale=this.props.locale) => moment(value, locale.longDateFormat[locale.format]).isValid();
@@ -121,8 +127,14 @@ class InputDate extends Component {
         this.setState({displayPicker: true});
     }
 
-    _onPickerCloserClick = () => {
-        this.setState({displayPicker: false});
+    _onDocumentClick = ({target}) => {
+        const dataset = target ? target.dataset: null;
+        const reactid = dataset ? dataset.reactid : null;
+        const pickerId = ReactDOM.findDOMNode(this.refs.picker).dataset.reactid;
+        const inputId = ReactDOM.findDOMNode(this.refs.input).dataset.reactid;
+        if (reactid && !reactid.startsWith(pickerId) && !reactid.startsWith(inputId)) {
+            this.setState({displayPicker: false});
+        }
     }
 
     validate = (inputDate=this.state.inputDate) => {
@@ -142,12 +154,12 @@ class InputDate extends Component {
                 <InputText error={error} name={name} onBlur={_onInputBlur} onChange={_onInputChange} onFocus={_onInputFocus} placeHolder={placeHolder} ref='input' value={inputDate} />
                 {displayPicker &&
                     <div data-focus='picker-zone'>
-                        <div data-focus='picker-closer' onClick={_onPickerCloserClick}>X</div>
                         <DatePicker
                             date={dropDownDate}
                             hideFooter={true}
                             locale='focus'
                             onChange={_onDropDownChange}
+                            ref='picker'
                             />
                     </div>
                 }
