@@ -151,7 +151,7 @@ let Autocomplete = {
         const {value} = this.state;
         const {allowUnmatchedValue} = this.props;
         const computedValue = this._getCodeFromValue(value);
-        return computedValue ? computedValue : allowUnmatchedValue ? value : undefined;
+        return computedValue ? computedValue : allowUnmatchedValue ? value : this.props.code;
     },
     /**
      * On input blur.
