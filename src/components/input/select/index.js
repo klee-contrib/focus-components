@@ -78,7 +78,7 @@ class Select extends Component {
         return values.map((val, idx)=>{
             const optVal = `${val[valueKey]}`;
             const optLabel = val[labelKey] || 'select.noLabel';
-            return <option key={idx} value={optVal}>{optLabel}</option>;
+            return <option key={idx} value={optVal}>{this.i18n(optLabel)}</option>;
         });
     }
     /**
@@ -91,7 +91,7 @@ class Select extends Component {
         const selectOtherProps = disabled ? {disabled: 'disabled', ...otherProps} : otherProps;
         return (
             <div data-focus='select' ref='select' data-valid={!error} style={style}>
-                <select name={name} onChange={this._handleSelectChange} ref='htmlSelect' value={value} {...selectOtherProps} >
+                <select name={name} onChange={this._handleSelectChange} ref='htmlSelect' value={value} {...selectOtherProps}>
                     {this._renderOptions(this.props)}
                 </select>
                 {error && <div className='label-error' ref='error'>{error}</div>}
