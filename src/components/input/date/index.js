@@ -14,7 +14,6 @@ const isDateStringValid = compose(bool => !bool, isNaN, Date.parse);
 const propTypes = {
     drops: PropTypes.oneOf(['up', 'down']).isRequired,
     error: PropTypes.string,
-    formatter: PropTypes.func.isRequired,
     locale: PropTypes.object.isRequired,
     name: PropTypes.string.isRequired,
     onChange: PropTypes.func.isRequired,
@@ -69,7 +68,7 @@ class InputDate extends Component {
 
     componentWillReceiveProps = ({value}) => {
         this.setState({
-            dropDownDate: moment(Date.parse(value)),
+            dropDownDate: isDateStringValid(value) ? moment(Date.parse(value)) : moment(),
             inputDate: this._formatDate(value)
         });
     }
@@ -112,7 +111,11 @@ class InputDate extends Component {
         const {inputDate} = this.state;
         const {locale} = this.props;
         const format = locale.longDateFormat[locale.format];
-        this.props.onChange(moment(inputDate, format).toISOString());
+        if (this.isDateStringValid(inputDate)) {
+            this.props.onChange(moment(inputDate, format).toISOString());
+        } else {
+            this.props.onChange(inputDate);
+        }
     }
 
     _onDropDownChange = (text, date) => {
@@ -130,15 +133,21 @@ class InputDate extends Component {
     _onDocumentClick = ({target}) => {
         const dataset = target ? target.dataset: null;
         const reactid = dataset ? dataset.reactid : null;
-        const pickerId = ReactDOM.findDOMNode(this.refs.picker).dataset.reactid;
-        const inputId = ReactDOM.findDOMNode(this.refs.input).dataset.reactid;
-        if (reactid && !reactid.startsWith(pickerId) && !reactid.startsWith(inputId)) {
+        const [picker, input] = ['picker', 'input'].map(ref => ReactDOM.findDOMNode(this.refs[ref]));
+        const pickerId = picker ? picker.dataset.reactid : null;
+        const inputId = input ? input.dataset.reactid : null;
+        if (reactid && pickerId && inputId && !reactid.startsWith(pickerId) && !reactid.startsWith(inputId)) {
             this.setState({displayPicker: false});
         }
     }
 
-    validate = (inputDate=this.state.inputDate) => {
-        const isValid = this.isDateStringValid(inputDate);
+    validate = inputDate => {
+        let isValid;
+        if (inputDate) {
+            isValid = '' === inputDate ? true : isDateStringValid(inputDate);
+        } else {
+            isValid = '' === this.state.inputDate ? true : this.isDateStringValid(this.state.inputDate);
+        }
         return {
             isValid,
             message: isValid ? '' : `${inputDate} is not a valid date.`

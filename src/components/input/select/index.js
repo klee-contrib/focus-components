@@ -11,7 +11,7 @@ const UNSELECTED_KEY = 'UNSELECTED_KEY';
  * @param  {string} rawValue   - The raw string value.
  * @return {strint | number}  - The parsed value.
  */
-function _valueParser(propsValue, rawValue){
+function _valueParser(propsValue, rawValue) {
     return isNumber(propsValue) ? +rawValue : rawValue;
 }
 const propTypes = {
@@ -55,7 +55,7 @@ class Select extends Component {
      */
     getValue = () => {
         const {value} = this.props;
-        return isUndefined(value) ? null : value;
+        return isUndefined(value) || UNSELECTED_KEY === value ? null : value;
     }
     /**
      * Handle the change on the select, it only propagates the value.

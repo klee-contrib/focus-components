@@ -41,21 +41,25 @@ let validationMixin ={
                     validator
                 )
             );
-            if(true !== validStat){
+            if(true !== validStat) {
                 validStat = this.i18n(validStat);
             }
             return validStat;
         }
         return true;
     },
+    _customValidate({validate: componentValidation}) {
+        const {isValid, message} = componentValidation();
+        return isValid ? true : this.i18n(message);
+    },
     /**
     * Validate the field.
     * @return {object} - undefined if valid, {name: "errors"} if not valid.
     */
-    validate: function validateField() {
-        const isComponentValidation = this.refs && this.refs.input && isFunction(this.refs.input.validate);
-        let validationStatus = isComponentValidation ? this.refs.input.validate() : this.validateInput();
-        if(true !== validationStatus){
+    validate() {
+        const shouldComponentHandleValidation = this.refs && this.refs.input && isFunction(this.refs.input.validate);
+        let validationStatus = shouldComponentHandleValidation ? this._customValidate(this.refs.input) : this.validateInput();
+        if(true !== validationStatus) {
             this.setError(validationStatus);
             return validationStatus;
         }
