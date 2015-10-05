@@ -11,5 +11,4 @@ focusComponentsConf.externals = {
     'i18next-client': 'i18n'
 };
 const prodConf = prodConfBuilder(focusComponentsConf);
-console.log(prodConf);
 module.exports = prodConf;
