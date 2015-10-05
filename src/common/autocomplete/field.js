@@ -31,12 +31,13 @@ const AutocompleteFor = {
     propTypes: {
         AutocompleteComp: types('func'),
         allowUnmatchedValue: types('bool'),
-        value: types('string'),
         codeResolver: types('func'),
         isEdit: types('bool'),
+        onInputBlur: types('func'),
         pickList: types('array'),
+        searcher: types('func'),
         selectionHandler: types('func'),
-        searcher: types('func')
+        value: types('string')
     },
     /**
      * Get initial state
@@ -50,8 +51,8 @@ const AutocompleteFor = {
      * Component will mount, load the list
      */
     componentWillMount() {
-        const {value, codeResolver} = this.props;
-        if (value && codeResolver) {
+        const {isEdit, value, codeResolver} = this.props;
+        if (!isEdit && value && codeResolver) { // Resolve the code if in consult
             codeResolver(value).then(resolvedCode => this.setState({value: resolvedCode}));
         } else {
             this._doLoad();
@@ -85,17 +86,18 @@ const AutocompleteFor = {
      * @return {HTML} rendered element
      */
     _renderEdit() {
-        let {AutocompleteComp, allowUnmatchedValue, selectionHandler, value: code} = this.props;
-        let {pickList, value} = this.state;
+        let {AutocompleteComp, allowUnmatchedValue, codeResolver, onInputBlur, selectionHandler, value: code} = this.props;
+        let {pickList} = this.state;
         return (
             <AutocompleteComp
                 allowUnmatchedValue={allowUnmatchedValue}
                 code={code}
+                codeResolver={codeResolver}
                 inputChangeHandler={this._doLoad}
+                onInputBlur={onInputBlur}
                 pickList={pickList}
                 ref='autocomplete'
                 selectionHandler={selectionHandler}
-                value={value}
             />
         );
     },
