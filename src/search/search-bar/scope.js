@@ -1,7 +1,7 @@
 // Dependencies
 const React = require('react');
 const ReactDOM = require('react-dom');
- 
+
 const builder = require('focus-core').component.builder;
 const type = require('focus-core').component.types;
 const uuid = require('uuid');
@@ -76,8 +76,8 @@ const scopeMixin = {
     * Called when component is mounted.
     */
     componentDidMount() {
-        if (ReactDOM.findDOMNode(this.refs.dropdown)) {
-            componentHandler.upgradeElement(ReactDOM.findDOMNode(this.refs.dropdown));
+        if (ReactDOM.findDOMNode(this.refs.scopeDropdown)) {
+            componentHandler.upgradeElement(ReactDOM.findDOMNode(this.refs.scopeDropdown));
         }
     },
     /**
@@ -167,11 +167,9 @@ const scopeMixin = {
     render() {
         const {isDeployed} = this.state;
         const activeIcon = this.getActiveScopeIcon();
-        const deployedIcon = isDeployed ? 'keyboard_arrow_up' : 'keyboard_arrow_down';
         return (
             <div data-focus='search-bar-scope'>
                 <button className='mdl-button mdl-js-button' id='dropdown' onClick={this._handleDeployClick}>
-                    <Icon name={deployedIcon} />
                     <Icon name={activeIcon} />
                 </button>
                 {this._renderScopeList()}
