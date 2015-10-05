@@ -6,8 +6,7 @@ import moment from 'moment';
 import Base from '../../../behaviours/component-base';
 import defaultLocale from './default-locale';
 import InputText from '../text';
-import jQuery from 'jquery';
-import DateRangePicker from 'daterangepicker'; //eslint-disable-line
+import DatePicker from 'react-date-picker';
 import {compose} from 'lodash/function';
 
 const isDateStringValid = compose(bool => !bool, isNaN, Date.parse);
@@ -15,7 +14,6 @@ const isDateStringValid = compose(bool => !bool, isNaN, Date.parse);
 const propTypes = {
     drops: PropTypes.oneOf(['up', 'down']).isRequired,
     error: PropTypes.string,
-    formatter: PropTypes.func.isRequired,
     locale: PropTypes.object.isRequired,
     name: PropTypes.string.isRequired,
     onChange: PropTypes.func.isRequired,
@@ -34,8 +32,8 @@ const defaultProps = {
     drops: 'down',
     locale: defaultLocale,
     /**
-     * Default onChange prop, that will log an error.
-     */
+    * Default onChange prop, that will log an error.
+    */
     onChange() {
         console.error('You did not give an onChange method to an input date, please check your code.');
     },
@@ -51,60 +49,58 @@ class InputDate extends Component {
         const {value} = props;
         const state = {
             dropDownDate: isDateStringValid(value) ? moment(Date.parse(value)) : moment(),
-            inputDate: this._formatDate(value)
+            inputDate: this._formatDate(value, props.locale),
+            displayPicker: false
         };
         this.state = state;
     }
 
-    componentWillReceiveProps = ({value}) => {
-        if (value !== this.state.inputDate) {
-            if (isDateStringValid(value)) {
-                this.setState({
-                    dropDownDate: moment(Date.parse(value)),
-                    inputDate: this._formatDate(value)
-                });
-            } else {
-                this.setState({inputDate: this._formatDate(value)});
-            }
-        }
+    componentWillMount = () => {
+        moment.locale('focus', this.props.locale);
+        document.addEventListener('click', this._onDocumentClick);
     }
+
 
     componentDidMount = () => {
-        const {drops, locale, showDropdowns} = this.props;
+        const {drops, showDropdowns} = this.props;
         const {inputDate: startDate} = this.state;
-        jQuery(ReactDOM.findDOMNode(this.refs.input.refs.htmlInput)).daterangepicker({
-            singleDatePicker: true,
-            showDropdowns,
-            drops,
-            startDate,
-            locale
-        }, this._onDropDownChange);
     }
 
-    componentDidUpdate = () => {
-        const {inputDate} = this.state;
-        if (isDateStringValid(inputDate)) {
-            jQuery(ReactDOM.findDOMNode(this.refs.input.refs.htmlInput)).data('daterangepicker').setStartDate(Date.parse(inputDate));
-        }
+    componentWillReceiveProps = ({value}) => {
+        this.setState({
+            dropDownDate: isDateStringValid(value) ? moment(Date.parse(value)) : moment(),
+            inputDate: this._formatDate(value)
+        });
     }
+
+    componentWillUnmount = () => {
+        document.removeEventListener('click', this._onDocumentClick);
+    }
+
+    isDateStringValid = (value, locale=this.props.locale) => moment(value, locale.longDateFormat[locale.format]).isValid();
 
     getValue = () => {
-        const {dropDownDate, inputDate} = this.state;
-        return isDateStringValid(inputDate) ? dropDownDate.toISOString() : null;
+        const {inputDate} = this.state;
+        const {locale} = this.props;
+        const format = locale.longDateFormat[locale.format];
+        return this.isDateStringValid(inputDate) ? moment(inputDate, format).toISOString() : null;
     }
 
-    _formatDate = unformatedDate => {
-        const {locale: {format}} = this.props;
-        if (isDateStringValid(unformatedDate)) {
-            return moment(Date.parse(unformatedDate)).format(format);
+    _formatDate = isoDate => {
+        const {locale} = this.props;
+        const format = locale.longDateFormat[locale.format];
+        if (isDateStringValid(isoDate)) {
+            return moment(isoDate).format(format);
         } else {
-            return unformatedDate;
+            return isoDate;
         }
     }
 
     _onInputChange = inputDate => {
-        if (isDateStringValid(inputDate)) {
-            const dropDownDate = moment(Date.parse(inputDate));
+        if (this.isDateStringValid(inputDate)) {
+            const {locale} = this.props;
+            const format = locale.longDateFormat[locale.format];
+            const dropDownDate = moment(inputDate, format);
             this.setState({dropDownDate, inputDate});
         } else {
             this.setState({inputDate});
@@ -112,17 +108,46 @@ class InputDate extends Component {
     }
 
     _onInputBlur = () => {
-        this.props.onChange(this.state.inputDate);
-    }
-
-    _onDropDownChange = date => {
-        if (date._isValid) {
-            this._onInputChange(this._formatDate(moment(date).add(12, 'hours'))); // Add 12 hours to avoid skipping a day due to different locales
+        const {inputDate} = this.state;
+        const {locale} = this.props;
+        const format = locale.longDateFormat[locale.format];
+        if (this.isDateStringValid(inputDate)) {
+            this.props.onChange(moment(inputDate, format).toISOString());
+        } else {
+            this.props.onChange(inputDate);
         }
     }
 
-    validate = (inputDate = this.state.inputDate) => {
-        const isValid = isDateStringValid(inputDate);
+    _onDropDownChange = (text, date) => {
+        if (date._isValid) {
+            this.setState({displayPicker: false}, () => {
+                this._onInputChange(this._formatDate(date.toISOString())); // Add 12 hours to avoid skipping a day due to different locales
+            });
+        }
+    }
+
+    _onInputFocus = () => {
+        this.setState({displayPicker: true});
+    }
+
+    _onDocumentClick = ({target}) => {
+        const dataset = target ? target.dataset: null;
+        const reactid = dataset ? dataset.reactid : null;
+        const [picker, input] = ['picker', 'input'].map(ref => ReactDOM.findDOMNode(this.refs[ref]));
+        const pickerId = picker ? picker.dataset.reactid : null;
+        const inputId = input ? input.dataset.reactid : null;
+        if (reactid && pickerId && inputId && !reactid.startsWith(pickerId) && !reactid.startsWith(inputId)) {
+            this.setState({displayPicker: false});
+        }
+    }
+
+    validate = inputDate => {
+        let isValid;
+        if (inputDate) {
+            isValid = '' === inputDate ? true : isDateStringValid(inputDate);
+        } else {
+            isValid = '' === this.state.inputDate ? true : this.isDateStringValid(this.state.inputDate);
+        }
         return {
             isValid,
             message: isValid ? '' : `${inputDate} is not a valid date.`
@@ -131,11 +156,22 @@ class InputDate extends Component {
 
     render() {
         const {error, name, placeHolder} = this.props;
-        const {inputDate} = this.state;
-        const {_onInputBlur, _onInputChange} = this;
+        const {dropDownDate, inputDate, displayPicker} = this.state;
+        const {_onInputBlur, _onInputChange, _onInputFocus, _onDropDownChange, _onPickerCloserClick} = this;
         return (
             <div data-focus='input-date'>
-                <InputText error={error} name={name} onBlur={_onInputBlur} onChange={_onInputChange} placeHolder={placeHolder} ref='input' value={inputDate} />
+                <InputText error={error} name={name} onBlur={_onInputBlur} onChange={_onInputChange} onFocus={_onInputFocus} placeHolder={placeHolder} ref='input' value={inputDate} />
+                {displayPicker &&
+                    <div data-focus='picker-zone'>
+                        <DatePicker
+                            date={dropDownDate}
+                            hideFooter={true}
+                            locale='focus'
+                            onChange={_onDropDownChange}
+                            ref='picker'
+                            />
+                    </div>
+                }
             </div>
         );
     }

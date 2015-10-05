@@ -24,7 +24,7 @@ const Layout = React.createClass({
     * @return {VirtualDOM} - The virtual DOM of the layout.
     */
     render() {
-
+        const {links} = this.props;
         return (
             <div className='demo-layout mdl-layout mdl-layout--fixed-drawer mdl-layout--fixed-header' data-focus='template'>
               <header className='demo-header mdl-layout__header mdl-color--white mdl-color--grey-100 mdl-color-text--grey-600'>
@@ -65,13 +65,10 @@ const Layout = React.createClass({
                     </div>
                 </header>
                 <nav className='demo-navigation mdl-navigation mdl-color--blue-grey-800'>
-                    <h3>Composants</h3>
-                    <a className='mdl-navigation__link' href='/'><i className='mdl-color-text--blue-grey-400 fa fa-cube' role='presentation'></i>My awsome component 1</a>
-                    <a className='mdl-navigation__link' href='/'><i className='mdl-color-text--blue-grey-400 fa fa-cube' role='presentation'></i>My awsome component 2</a>
-                    <a className='mdl-navigation__link' href='/'><i className='mdl-color-text--blue-grey-400 fa fa-cube' role='presentation'></i>My awsome component 3</a>
-                    <a className='mdl-navigation__link' href='/'><i className='mdl-color-text--blue-grey-400 fa fa-cube' role='presentation'></i>My awsome component 5</a>
-                    <a className='mdl-navigation__link' href='/'><i className='mdl-color-text--blue-grey-400 fa fa-cubes' role='presentation'></i>My awsome component 4</a>
-                    <a className='mdl-navigation__link' href='/'><i className='mdl-color-text--blue-grey-400 fa fa-cubes' role='presentation'></i>My awsome component 6</a>
+                    <h3>Tags</h3>
+                    {links.map((link)=>{
+                        return <a className='mdl-navigation__link' href={link.url || '/'}><i className='mdl-color-text--blue-grey-400 fa fa-cube' role='presentation'></i>{link.content}</a>
+                    })}
                     <div className='mdl-layout-spacer'></div>
                     <div className='brand-powered'><a href="http://www.kleegroup.com">Propulsé par</a></div>
                 </nav>

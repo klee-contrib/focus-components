@@ -14,11 +14,12 @@ class ComponentCard extends Component{
     /** @inheriteDoc */
     render() {
         const {name, description, example, photo, keywords} = this.props;
-        const style = {background: `url('${photo}') bottom right  no-repeat #46B6AC`, height: '320px'};
+        const style = { background: `url('${photo}') bottom right  no-repeat rgb(33, 150, 243)`, height: '320px'};
+        const titleStyle = {color: 'white'};
         return (
                 <li className='demo-card-wide mdl-card mdl-shadow--2dp' style={liStyle}>
                 <div className='mdl-card__title' style={style}>
-                    <h2 className='mdl-card__title-text'>{name}</h2>
+                    <h2 className='mdl-card__title-text' style={titleStyle}>{name}</h2>
                     </div>
                     <div className='mdl-card__supporting-text'>
                         {description}
@@ -33,7 +34,7 @@ class ComponentCard extends Component{
                         </div>
                     <div className='mdl-card__menu'>
                         <button className='mdl-button mdl-button--icon mdl-js-button mdl-js-ripple-effect'>
-                          <i className='material-icons'>share</i>
+                          <i className='material-icons' style={titleStyle}>share</i>
                         </button>
                     </div>
                 </li>

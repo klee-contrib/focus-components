@@ -1,13 +1,4 @@
 
-[data-focus="field"] {
-    &[data-mode="edit"] {
-        &[data-required="true"] {
-            label {
-                &:after {
-                    content: "*";
-                    margin-left: 3px;
-                }
-            }
-        }
-    }
+[data-focus="label"] {
+    //override CSS here
 }
