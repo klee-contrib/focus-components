@@ -20,7 +20,7 @@ const labelMixin = {
         const {name, text, style} = this.props;
         const content = text || name;
         return (
-            <label className={style.className} htmlFor={name}>
+            <label className={style.className} data-focus="label" htmlFor={name}>
                 {this.i18n(content)}
             </label>
         );
