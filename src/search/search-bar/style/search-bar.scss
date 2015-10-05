@@ -1,31 +1,41 @@
-
+$search-bar-height:40px;
+$search-bar-background-color: rgba(255, 255, 255, 0.6);
 
 [data-focus="search-bar"]{
+    position: relative;
+    height: $search-bar-height;
     [data-focus="search-bar-scope"] {
-        float: left;
+        position: absolute;
+        top:0;
+        left: 0;
         width: 80px;
-        padding: 12px 0;
+        height: $search-bar-height;
         button {
             border-bottom: 1px solid rgba(0, 0, 0, 0.117647);
             position: relative;
             padding: 0 25px;
+            height: $search-bar-height - 1;
+            background-color: $search-bar-background-color;
             i:first-child {
                 position: absolute;
                 right: 0;
-                top: 12px;
+                top: 10px;
             }
         }
         .material-icons {
             font-size: 20px;
             position: relative;
-            top: 4px;
             margin-right: 8px;
         }
     }
     [data-focus='search-bar-input'] {
-        margin-left: 92px;
+        left: 85px;
+        position: absolute;
+        height: $search-bar-height;
+        background-color: $search-bar-background-color;
         [data-focus="input-text"]{
             width: 500px;
+            margin-top: 10px;
             input {
                 font-size: 16px;
             }
