@@ -6,7 +6,7 @@ import moment from 'moment';
 import Base from '../../../behaviours/component-base';
 import defaultLocale from './default-locale';
 import InputText from '../text';
-import DatePicker from 'react-date-picker/dist/react-date-picker.nomoment';
+import DatePicker from 'react-date-picker';
 import {compose} from 'lodash/function';
 
 const isDateStringValid = compose(bool => !bool, isNaN, Date.parse);
