@@ -18,7 +18,8 @@ const ShowCaseRouter =  Backbone.Router.extend({
         'component/:name': 'component',
         'component/:name/detail': 'componentDetail',
         'query': 'showcase',
-        'query/:query': 'query'
+        'query/:query': 'query',
+        '*notFound': 'showcase'
     },
     showcase(){
         console.log('showcase');
