@@ -68,7 +68,7 @@ class InputDate extends Component {
 
     componentWillReceiveProps = ({value}) => {
         this.setState({
-            dropDownDate: moment(Date.parse(value)),
+            dropDownDate: isDateStringValid(value) ? moment(Date.parse(value)) : moment(),
             inputDate: this._formatDate(value)
         });
     }
@@ -141,8 +141,13 @@ class InputDate extends Component {
         }
     }
 
-    validate = (inputDate=this.state.inputDate) => {
-        const isValid = '' === inputDate ? true : isDateStringValid(inputDate);
+    validate = inputDate => {
+        let isValid;
+        if (inputDate) {
+            isValid = '' === inputDate ? true : isDateStringValid(inputDate);
+        } else {
+            isValid = '' === this.state.inputDate ? true : this.isDateStringValid(this.state.inputDate);
+        }
         return {
             isValid,
             message: isValid ? '' : `${inputDate} is not a valid date.`
