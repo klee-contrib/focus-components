@@ -1,6 +1,7 @@
 //dependencies
-const React = require('react');
-const {Component} = React;
+import React , {Component} from 'react';
+import ReactDOM from 'react-dom';
+import hjs from 'highlight.js';
 const types = require('focus-core').component.types;
 const liStyle = { flex: 1, minWidth: '20%', marginTop: '7px', marginRight: '7px'};
 
@@ -11,9 +12,12 @@ class ComponentDetail extends Component{
     constructor(props){
         super(props);
     }
+    componentDidMount(){
+        hjs.highlightBlock(ReactDOM.findDOMNode(this.refs.code));
+    }
     /** @inheriteDoc */
     render() {
-        const {name, description, example, photo, keywords, version} = this.props;
+        const {name, description, example, photo, keywords, version, code} = this.props;
         return (
             <div>
                     <h1>{name}</h1><h3>{version}</h3>
@@ -55,6 +59,23 @@ class ComponentDetail extends Component{
                             </div>
 
                 </section>
+                <br />
+                <br />
+                <br />
+                <section className="section--center mdl-grid mdl-grid--no-spacing mdl-shadow--2dp">
+                <div className="mdl-card mdl-cell mdl-cell--12-col">
+                  <div className="mdl-card__supporting-text">
+                    <h4>Example code</h4>
+                    <pre ref='code'>
+                        <code className='javascript'>{code}</code>
+                    </pre>
+                  </div>
+                  <div className="mdl-card__actions">
+                    <button onClick={()=>{Backbone.history.navigate(`component/${name}/detail`, true)}} className="mdl-button">Play with the code</button>
+                  </div>
+                </div>
+              </section>
+
             </div>
         );
     }

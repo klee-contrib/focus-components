@@ -12,13 +12,13 @@ const CodeEditor = require('react-ace');
 const LiveEditor = React.createClass({
     displayName: 'LiveEditor',
     getInitialState(){
-        return {isVisible: false};
+        return {isVisible: true};
     },
     style: {
         title: {
             color: '#fff',
             height: 70,
-            background:'url("http://www.getmdl.io/assets/demos/welcome_card.jpg") center / cover'
+            'background-color':'rgb(33, 150, 243)'
         },
     },
     propTypes: {
