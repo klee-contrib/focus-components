@@ -4,6 +4,12 @@ const SearchBar = FocusComponents.search.searchBar.component;
 //stores
 const store = Focus.search.builtInStore.quickSearchStore;
 
+const action = {
+    updateProperties (props) {
+        return alert('Cette action a lancé une recherche et vous avez choisi le scope "' + props.scope + '".');
+    }
+}
+
 //data
 const scopes = [
     {
@@ -44,4 +50,18 @@ Focus.reference.config.set({
 
 Focus.reference.builtInAction(['scopes'])();
 
-return <SearchBar scopes={scopes} store={store} />;
+const SearchBarExample =  React.createClass({
+    render(){
+        return (
+            <div>
+                <h3>Search bar with scope</h3>
+                <SearchBar scopes={scopes} store={store} action={action} />
+
+                <h3>Search bar without scope</h3>
+                <SearchBar scopes={scopes} store={store} hasScopes={false} />
+            </div>
+        );
+    }
+});
+
+return <SearchBarExample/>;
