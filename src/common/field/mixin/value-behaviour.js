@@ -38,11 +38,11 @@ let valueBehaviourMixin = {
     * Handler called when the input Change its value.
     * @param {event} event - The event to set.
     */
-    onInputChange(event){
+    onInputChange(newValue){
         if(this.props.onChange){
-            return this.props.onChange(event);
+            return this.props.onChange(newValue);
         }
-        this.setState({error: undefined, value: this.getValue()});
+        this.setState({error: undefined, value: newValue});
     }
 };
 module.exports = valueBehaviourMixin;
