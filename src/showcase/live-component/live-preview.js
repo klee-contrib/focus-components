@@ -11,7 +11,7 @@ const LivePreview = React.createClass({
         code: types('string'),
         style: types('object')
     },
-    style: {
+    /*style: {
         title: {
             margin: '15px',
             color: '#372B3F'
@@ -19,7 +19,7 @@ const LivePreview = React.createClass({
         component: {
             padding: '5px'
         }
-    },
+    },*/
     /**
     * Render the component.
     * @return {HTML} the rendered component
@@ -36,15 +36,7 @@ const LivePreview = React.createClass({
             content = e.toString();
         }
 
-        return (
-            <div className='mdl-shadow--2dp' style={mainStyle}>
-                <h1 style={style.title}>Aperçu du composant</h1>
-                <hr/>
-                <div style={style.component}>
-                    {content}
-                </div>
-            </div>
-        );
+        return <div>{content}</div>;
     }
 });
 
