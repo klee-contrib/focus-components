@@ -42,7 +42,8 @@ const LiveExample = React.createClass({
             position: 'absolute',
             bottom: '0px',
             right: '0px',
-            zIndex: '10000'
+            zIndex: '10000',
+            minHeight: '0'
         },
         preview: {
             flex: '1'
