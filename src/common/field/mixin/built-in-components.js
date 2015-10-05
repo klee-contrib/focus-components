@@ -8,9 +8,9 @@ const assign = require('object-assign');
 // Components
 
 const Autocomplete = require('../../autocomplete/field').component;
-const InputText = require('../../input/text').component;
+const InputText = require('../../../components/input/text');
 const DisplayText = require('../../display/text').component;
-const SelectClassic = require('../../select/classic').component;
+const SelectClassic = require('../../../components/input/select');
 const Label = require('../../label').component;
 
 // Mixins
