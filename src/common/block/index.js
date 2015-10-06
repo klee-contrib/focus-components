@@ -35,6 +35,9 @@ const blockMixin = {
             return this.i18n(this.props.title);
         }
     },
+    componentWillMount(){
+      console.warn('FocusComponents 0.7.0: this component is deprecated, please use FocusComponents.components.Panel');
+     },
     /**
     * Render the a block container and the cild content of the block.
     * @return {DOM} React DOM element
