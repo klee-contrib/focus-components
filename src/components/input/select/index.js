@@ -71,14 +71,14 @@ class Select extends Component {
     _renderOptions({hasUndefined, labelKey, isRequired, value, values = [], valueKey}){
         if(true === hasUndefined || (true === isRequired && !isUndefined(value) && !isNull(value))){
             values = union(
-                [{[labelKey]: 'select.unSelected', [valueKey]: UNSELECTED_KEY}],
+                [{[labelKey]: this.i18n('select.unSelected'), [valueKey]: UNSELECTED_KEY}],
                 values
             );
         }
         return values.map((val, idx)=>{
             const optVal = `${val[valueKey]}`;
             const optLabel = val[labelKey] || 'select.noLabel';
-            return <option key={idx} value={optVal}>{this.i18n(optLabel)}</option>;
+            return <option key={idx} value={optVal}>{optLabel}</option>;
         });
     }
     /**
