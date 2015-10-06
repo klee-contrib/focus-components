@@ -41,6 +41,9 @@ const selectMixin = {
         valueKey: types('string'),
         disabled: types('bool')
     },
+    componentWillMount(){
+        console.warn('FocusComponents 0.7.0: this component is deprecated, please use FocusComponents.components.input.select');
+    },
     /** @inheritdoc */
     getInitialState() {
         const {hasUndefined, value, values, valueKey, isRequired} = this.props;
