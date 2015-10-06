@@ -54,6 +54,9 @@ const inputTextComponent = {
             value: formatter(value)
         };
     },
+    componentWillMount(){
+        console.warn('FocusComponents 0.7.0: this component is deprecated, please use FocusComponents.components.input.text');
+    },
     /**
     * Update the component.
     * @param {object} newProps - The new props to update.
