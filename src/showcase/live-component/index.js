@@ -39,7 +39,7 @@ const LiveExample = React.createClass({
         },
         editor: {
             width: '50%',
-            position: 'absolute',
+            position: 'fixed',
             bottom: '0px',
             right: '0px',
             zIndex: '10000',

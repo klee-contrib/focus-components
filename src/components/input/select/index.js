@@ -71,13 +71,14 @@ class Select extends Component {
     _renderOptions({hasUndefined, labelKey, isRequired, value, values = [], valueKey}){
         if(true === hasUndefined || (true === isRequired && !isUndefined(value) && !isNull(value))){
             values = union(
-                [{[labelKey]: 'select.unSelected', [valueKey]: UNSELECTED_KEY}],
+                [{[labelKey]: this.i18n('select.unSelected'), [valueKey]: UNSELECTED_KEY}],
                 values
             );
         }
-        return values.map((val, idx)=>{
+        return values.map((val, idx) => {
             const optVal = `${val[valueKey]}`;
-            const optLabel = val[labelKey] || 'select.noLabel';
+            const elementValue = val[labelKey];
+            const optLabel = isUndefined(elementValue) || isNull(elementValue) ? this.i18n('select.noLabel') : elementValue;
             return <option key={idx} value={optVal}>{optLabel}</option>;
         });
     }
@@ -91,7 +92,7 @@ class Select extends Component {
         const selectOtherProps = disabled ? {disabled: 'disabled', ...otherProps} : otherProps;
         return (
             <div data-focus='select' ref='select' data-valid={!error} style={style}>
-                <select name={name} onChange={this._handleSelectChange} ref='htmlSelect' value={value} {...selectOtherProps} >
+                <select name={name} onChange={this._handleSelectChange} ref='htmlSelect' value={value} {...selectOtherProps}>
                     {this._renderOptions(this.props)}
                 </select>
                 {error && <div className='label-error' ref='error'>{error}</div>}
