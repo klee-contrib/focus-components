@@ -4,11 +4,13 @@ import BackToTop from '../../common/button/back-to-top'
 import StickyMenu from './sticky-menu';
 import Scroll from '../../behaviours/scroll';
 import {filter} from 'lodash/collection';
+import {debounce} from 'lodash/function';
 import {first, last} from 'lodash/array';
 import Grid from '../../common/grid';
 import Column from '../../common/column'
 
 const BackToTopComponent = BackToTop.component;
+const debounceDelay = 50;
 
 // component default props.
 const defaultProps = {
@@ -45,15 +47,15 @@ class ScrollspyContainer extends Component {
     /** @inheritDoc */
     componentDidMount = () => {
         this._scrollCarrier = window;
-        this._scrollCarrier.addEventListener('scroll', this._refreshMenu);
-        this._scrollCarrier.addEventListener('resize', this._refreshMenu);
+        this._scrollCarrier.addEventListener('scroll', debounce(this._refreshMenu, debounceDelay));
+        this._scrollCarrier.addEventListener('resize', debounce(this._refreshMenu, debounceDelay));
         this._executeRefreshMenu(10);
     }
 
     /** @inheritDoc */
     componentWillUnMount = () => {
-        this._scrollCarrier.removeEventListener('scroll', this._refreshMenu);
-        this._scrollCarrier.removeEventListener('resize', this._refreshMenu);
+        this._scrollCarrier.removeEventListener('scroll', debounce(this._refreshMenu, debounceDelay));
+        this._scrollCarrier.removeEventListener('resize', debounce(this._refreshMenu, debounceDelay));
     }
 
     /**
@@ -61,6 +63,7 @@ class ScrollspyContainer extends Component {
     * @param  {number} time number of execution
     */
     _executeRefreshMenu = (time) => {
+        //TODO : to rewrite becuase of memory leak
         for (let i = 0; i < time; i++) {
             setTimeout(() => {
                 this._refreshMenu();
