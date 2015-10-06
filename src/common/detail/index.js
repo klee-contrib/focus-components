@@ -42,6 +42,9 @@ var detailMixin = {
             </div>
         );
     },
+     componentWillMount(){
+     console.warn('FocusComponents 0.7.0: this component is deprecated, please use FocusComponents.components.ScrollspyContainer');
+    },
     /** @inheritedDoc */
     render() {
         const {hasNavigation, hasBackToTop, BackToTopComponent, navigationAffixOffset} = this.props;
