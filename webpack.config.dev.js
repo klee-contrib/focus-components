@@ -1,8 +1,7 @@
 const path = require('path');
 module.exports = {
     entry: [
-        './src/index',
-        './src/style'
+        './src/index'
     ],
     output: {
         path: path.join(__dirname, 'dist'),
