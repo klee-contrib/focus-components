@@ -6,7 +6,7 @@ $field-label-font-size:13px; //TODO TGN à revoir.
 $field-label-error-color:rgb(222, 50, 38);
 
 [data-focus="field"] {
-    padding: 0;
+    padding: 0 !important;
     [data-focus="field-label-container"] {
         text-align: right;
         [data-focus="label"] {
