@@ -39,7 +39,7 @@ const defaultProps = {
     },
     showDropdowns: true,
     validate: isDateStringValid,
-    value: moment()
+    value: ''
 };
 
 @Base
