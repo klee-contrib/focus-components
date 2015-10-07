@@ -1,6 +1,6 @@
 {
   "name": "focus-components",
-  "version": "0.7.0-rc4",
+  "version": "0.8.0-beta1",
   "description": "Focus component repository.",
   "main": "lib/index.js",
   "scripts": {
@@ -83,6 +83,6 @@
     "url-loader": "^0.5.6",
     "webpack": "^1.12.2",
     "webpack-dev-server": "^1.11.0",
-    "webpack-focus": "^0.6.0"
+    "webpack-focus": "^0.6.3"
   }
 }

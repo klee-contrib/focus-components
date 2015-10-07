@@ -64,6 +64,9 @@ const InputDateMixin = {
             value: moment()
         };
     },
+     componentWillMount(){
+        console.warn('FocusComponents 0.7.0: this component is deprecated, please use FocusComponents.components.input.Date');
+    },
     /** @inheritdoc */
     propTypes: {
         drops: types('string'),
