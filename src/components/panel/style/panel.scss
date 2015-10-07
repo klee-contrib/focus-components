@@ -8,6 +8,10 @@ $panel-border-size:3px;
     z-index: auto !important;
     border:$panel-border-size solid transparent;
 
+    &.mdl-card {
+        overflow: inherit;
+    }
+
     [data-focus='panel-title'] {
         h1,h2,h3,h4 {
             margin: 0;
@@ -28,6 +32,13 @@ $panel-border-size:3px;
         text-align: center;
         height: 50px;
     }
+
+    [data-focus='panel-content'] {
+        &.mdl-card__supporting-text {
+            width: inherit;
+        }
+    }
+
     &:hover {
         .actions {
             display: block;
