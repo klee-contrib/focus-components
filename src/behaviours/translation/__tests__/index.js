@@ -3,10 +3,10 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import i18n from 'i18next-client';
 
-describe.skip('The translation behaviour', () => {
+describe('The translation behaviour', () => {
     let renderedComponent;
     before((done) => {
-        i18n.init({}, () => {
+        i18n.init({resStore: {}}, () => {
             @TranslationBehaviour
             class TestComponent extends React.Component {
                 render() {

@@ -19,3 +19,6 @@ branches:
     - master
     - develop
     - /^hotfix-.*$/
+cache:
+  directories:
+    - node_modules
