@@ -32,7 +32,7 @@
   },
   "homepage": "https://github.com/KleeGroup/focus-components",
   "dependencies": {
-    "focus-core": "^0.11.0-beta4",
+    "focus-core": "^0.11.0",
     "i18next-client": "^1.10.2",
     "immutable": "^3.7.4",
     "lodash": "^3.10.1",
@@ -40,8 +40,8 @@
     "material-design-lite": "1.0.4-2",
     "moment": "^2.10.6",
     "object-assign": "^2.0.0",
-    "react": "^0.14.0-rc1",
-    "react-dom": "^0.14.0-rc1",
+    "react": "^0.14.0",
+    "react-dom": "^0.14.0",
     "uuid": "^2.0.1"
   },
   "devDependencies": {
@@ -72,7 +72,7 @@
     "node-dir": "^0.1.9",
     "node-sass": "^3.3.3",
     "react-ace": "git+https://github.com/Bernardstanislas/react-ace.git",
-    "react-addons-test-utils": "^0.14.0-rc1",
+    "react-addons-test-utils": "^0.14.0",
     "react-bootstrap-daterangepicker": "git+https://github.com/pierr/react-bootstrap-daterangepicker.git",
     "react-date-picker": "^3.1.6",
     "react-hot-loader": "^1.3.0",
