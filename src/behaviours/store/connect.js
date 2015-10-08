@@ -1,6 +1,7 @@
 import {isArray, isFunction, isObject} from 'lodash/lang';
 import {capitalize} from 'lodash/string'
 import {keys} from 'lodash/object';
+import React, {Component} from 'react';
 
 export default function connectToStores(storesConfiguration, getState) {
     // Validate the stores object
