@@ -4,7 +4,7 @@ import {store, dispatcher} from 'focus-core';
 const {CoreStore} = store;
 
 
-describe.only('The store connect behaviour', () => {
+describe('The store connect behaviour', () => {
     describe('when called without storeConf', () => {
         it('should throw an error', () => {
             expect(() => storeConnectBehaviour()).to.throw('connectToStores: you need to provide an array of store config.');
@@ -38,7 +38,9 @@ describe.only('The store connect behaviour', () => {
         );
         it('should call the getState method on mounting', () => {
             expect(storeChangeSpy).to.have.been.called.once;
+            expect(storeChangeSpy).to.have.been.calledWith({});
             expect(conectedComponentRenderSpy).to.have.been.called.once;
+            expect(conectedComponentRenderSpy).to.have.been.calledWith({testProps: 'testPropsValue'});
         });
         it('should render the component with the state value', (done) => {
             dispatcher.handleViewAction({
@@ -50,6 +52,7 @@ describe.only('The store connect behaviour', () => {
             });
             Promise.resolve().then(() => {
                 expect(storeChangeSpy).to.have.been.called.thrice; //Mounting, joe, singe
+                //expect(storeChangeSpy.getCall(0)).to.equal({ lopez: 'joe', papa: 'singe'});
                 // expect(storeChangeSpy).to.have.been.calledWith({ lopez: 'joe', papa: 'singe'});//
                 expect(conectedComponentRenderSpy).to.have.been.called.twice;
             }).then(() => {done();});
