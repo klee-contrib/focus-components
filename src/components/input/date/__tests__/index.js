@@ -40,13 +40,22 @@ describe('The input date', () => {
             expect(moment().isSame(renderedTest.state.dropDownDate, 'day')).to.be.true;
         });
 
+        it('should not display anything in the input', () => {
+            expect(ReactDOM.findDOMNode(renderedTest.refs.input.refs.htmlInput).value).to.equal('');
+        });
+
     });
 
     describe('when mounted with an invalid value', () => {
         let renderedTest;
         const onChangeSpy = sinon.spy();
+        const invalidDateString = 'invalid date';
         before(() => {
-            renderedTest = TestUtils.renderIntoDocument(<InputDate onChange={onChangeSpy} value='invalid date' />);
+            renderedTest = TestUtils.renderIntoDocument(<InputDate onChange={onChangeSpy} value={invalidDateString} />);
+        });
+
+        it('should display the invalid value in the input', () => {
+            expect(ReactDOM.findDOMNode(renderedTest.refs.input.refs.htmlInput).value).to.equal(invalidDateString);
         });
 
         it('should give a null value', () => {
@@ -59,7 +68,8 @@ describe('The input date', () => {
     });
 
     describe('when the value given as a prop changes', () => {
-        let now = new Date().toISOString();
+        const now = new Date().toISOString();
+        const past = new Date('01/10/1995').toISOString();
         let renderedTest;
         const onChangeSpy = sinon.spy();
         class TestComponent extends Component {
@@ -71,18 +81,17 @@ describe('The input date', () => {
             }
 
             render() {
-                return <InputDate onChange={onChangeSpy} ref='date' value={now} />;
+                return <InputDate onChange={onChangeSpy} ref='date' value={this.state.value} />;
             }
         }
 
-        before(() => {
+        before(done => {
             renderedTest = TestUtils.renderIntoDocument(<TestComponent />);
-            now = new Date().toISOString();
-            renderedTest.setState({value: now});
+            renderedTest.setState({value: past}, done);
         });
 
         it('should change its internal value', () => {
-            expect(moment(renderedTest.refs.date.getValue()).isSame(now, 'day')).to.be.true;
+            expect(moment(renderedTest.refs.date.getValue()).isSame(moment(past), 'day')).to.be.true;
         });
     });
 
@@ -101,7 +110,7 @@ describe('The input date', () => {
     });
 
     describe('when the user enters a valid input', () => {
-        const validDateString = '02/03/10';
+        const validDateString = '02/03/2010';
         let renderedTest;
         class TestComponent extends Component {
             constructor() {
@@ -126,7 +135,7 @@ describe('The input date', () => {
             TestUtils.Simulate.blur(input);
         });
         it('should give the provided value', () => {
-            expect(moment(renderedTest.refs.date.getValue()).isSame(moment(Date.parse(validDateString)).toISOString())).to.be.true;
+            expect(moment(renderedTest.refs.date.getValue()).isSame(moment(validDateString, 'MM/DD/YYYY').toISOString())).to.be.true;
         });
     });
 
