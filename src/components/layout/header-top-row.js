@@ -1,4 +1,4 @@
-import React, {Component, PropTypes} from 'react';
+import React, {Component} from 'react';
 import Focus from 'focus-core';
 
 //variables
@@ -57,23 +57,23 @@ class HeaderTopRow extends Component {
         const {barContentLeftComponent, barContentRightComponent, summaryComponent} = this.state;
         return (
             <div data-focus='header-top-row'>
-              <div>
-                <div data-focus='header-top-row-left'>
-                {barContentLeftComponent &&
-                    <barContentLeftComponent.component {...barContentLeftComponent.props}/>
-                }
+                <div>
+                    <div data-focus='header-top-row-left'>
+                        {barContentLeftComponent &&
+                            <barContentLeftComponent.component {...barContentLeftComponent.props}/>
+                        }
+                    </div>
+                    <div data-focus='header-top-row-right'>
+                        {barContentRightComponent &&
+                            <barContentRightComponent.component {...barContentRightComponent.props}/>
+                        }
+                    </div>
+                    <div data-focus='header-top-row-middle'>
+                        {summaryComponent &&
+                            <summaryComponent.component {...summaryComponent.props}/>
+                        }
+                    </div>
                 </div>
-                <div data-focus='header-top-row-right'>
-                {barContentRightComponent &&
-                    <barContentRightComponent.component {...barContentRightComponent.props}/>
-                }
-                </div>
-                <div data-focus='header-top-row-middle'>
-                {summaryComponent &&
-                    <summaryComponent.component {...summaryComponent.props}/>
-                }
-                </div>
-              </div>
             </div>
         );
     }

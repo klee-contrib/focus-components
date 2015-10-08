@@ -1,4 +1,4 @@
-import React, {Component, PropTypes} from 'react';
+import React, {Component} from 'react';
 import Focus from 'focus-core';
 import Button from '../../common/button/action';
 import Dropdown from '../../common/select-action';

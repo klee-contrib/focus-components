@@ -5,30 +5,30 @@ $layout-scrollbar-background-color: #e2e2e2;
 $layout-menu-left-width: 60px;
 
 html {
-  position: relative;
-  min-height: 100%;
+    position: relative;
+    min-height: 100%;
 }
 
 body {
-  height: 100%;
+    height: 100%;
 }
 
 /* color of the scrollbar */
 ::-webkit-scrollbar {
-  width: 10px;
-  height: 10px;
+    width: 10px;
+    height: 10px;
 }
 
 ::-webkit-scrollbar-track {
-  background-color: $layout-scrollbar-background-color;
+    background-color: $layout-scrollbar-background-color;
 }
 
 ::-webkit-scrollbar-thumb {
-  background-color: $layout-scrollbar-color;
+    background-color: $layout-scrollbar-color;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background-color: $layout-scrollbar-hover-color;
+    background-color: $layout-scrollbar-hover-color;
 }
 
 [data-focus='layout'] {
@@ -37,8 +37,8 @@ body {
     min-height: 100%;
 
     [data-focus='page-content'] {
-      margin-left: 0;
-      padding: 10px 25px;
+        margin-left: 0;
+        padding: 10px 25px;
     }
 
     &[data-menu='left'] {
@@ -51,12 +51,12 @@ body {
     }
 
     [data-focus='footer'] {
-      position: fixed;
-      bottom: 0;
-      margin-top: 30px;
-      padding: 10px;
-      text-align: center;
-      padding-left: 70px;
-      width: 100%;
+        position: fixed;
+        bottom: 0;
+        margin-top: 30px;
+        padding: 10px;
+        text-align: center;
+        padding-left: 70px;
+        width: 100%;
     }
 }
