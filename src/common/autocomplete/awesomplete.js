@@ -57,7 +57,6 @@ let Autocomplete = {
         allowUnmatchedValue: types('bool'), // restrict user input to values of the list, or allow freestyle
         code: types('string'), // the field code value
         inputChangeHandler: types('func'), // callback when input changed
-        onInputBlur: types('func'),
         pickList: types('array'), // list of values, looking like [{code: '', value: ''}, {code: '', value: ''}, ...]
         selectionHandler: types('func'), // selection callback
         timeoutDuration: types('number') // the throttle duration of the input rate
@@ -159,7 +158,7 @@ let Autocomplete = {
      */
     _onInputBlur() {
         const {value} = this.state;
-        const {allowUnmatchedValue, onInputBlur, pickList, selectionHandler} = this.props;
+        const {allowUnmatchedValue, pickList, selectionHandler} = this.props;
         const selectedPick = find(pickList, {value});
         const code = this._getCodeFromValue(value);
         if (selectedPick && !this._isSelecting && selectionHandler) {
@@ -167,10 +166,9 @@ let Autocomplete = {
         }
         if (!code && !allowUnmatchedValue && !this._isSelecting) {
             this.setState({value: ''});
+            selectionHandler({code: '', value: ''});
         }
-        if (onInputBlur) {
-            onInputBlur();
-        }
+        
         this._isSelecting = false;
     },
     /**
