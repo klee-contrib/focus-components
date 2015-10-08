@@ -141,17 +141,19 @@ class InputDate extends Component {
         }
     }
 
-    validate = inputDate => {
-        let isValid;
-        if (inputDate) {
-            isValid = '' === inputDate ? true : isDateStringValid(inputDate);
+    validate = (inputDate = this.state.inputDate) => {
+        const {isRequired} = this.props;
+        if ('' === inputDate) {
+            return ({
+                isValid: !isRequired,
+                message: 'date.is.required'
+            });
         } else {
-            isValid = '' === this.state.inputDate ? true : this.isDateStringValid(this.state.inputDate);
+            return ({
+                isValid: isDateStringValid(inputDate),
+                message: `${inputDate} is not a valid date.`
+            });
         }
-        return {
-            isValid,
-            message: isValid ? '' : `${inputDate} is not a valid date.`
-        };
     }
 
     render() {

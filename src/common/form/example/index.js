@@ -175,6 +175,7 @@ var entities = {
         },
         "birthDate": {
             "domain": "DO_DATE",
+            "required": true
         },
         "city": {
             "domain": "DO_TEXT"
