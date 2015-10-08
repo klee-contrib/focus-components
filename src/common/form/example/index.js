@@ -1,7 +1,6 @@
 const actionBuilder = Focus.application.actionBuilder;
-const Block = FocusComponents.common.block.component;
+const Panel = FocusComponents.components.Panel;
 const formMixin = FocusComponents.common.form.mixin;
-const Panel = FocusComponents.common.panel.component;
 const MessageCenter = FocusComponents.application.messageCenter.component;
 
 /***********************************************************************************************************************/
@@ -279,10 +278,9 @@ const ListLine = React.createClass({
         */
         renderContent() {
             return (
-                <Block title="Fiche de l'utilisateur" actions={this._renderActions}>
+                <Panel title="Fiche de l'utilisateur" actions={this._renderActions}>
                     {this.fieldFor("firstName")}
                     {this.fieldFor("lastName")}
-                    {this.fieldFor("birthDate")}
                     {this.fieldFor('papaCode', {listName: 'papas'})}
                     {this.fieldFor('monkeyCode', {listName: 'monkeys', valueKey: 'myCustomCode', labelKey: 'myCustomLabel' })}
                     {this.fieldFor("bio")}
@@ -295,7 +293,8 @@ const ListLine = React.createClass({
                             }
                         })
                     }
-                </Block>
+                    {this.fieldFor("birthDate")}
+                </Panel>
             );
         }
     });
