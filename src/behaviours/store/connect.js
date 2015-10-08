@@ -4,13 +4,13 @@ import {keys} from 'lodash/object';
 
 export default function connectToStores(storesConfiguration, getState) {
     // Validate the stores object
-    if(!isArray(stores)) {
+    if(!isArray(storesConfiguration)) {
         throw new Error('connectToStores: you need to provide an array of store config.');
     }
 
     // Validate .
     if(!isFunction(getState)) {
-        throw new Error('connectToStores: you need to provide an array of store config.');
+        throw new Error('connectToStores: you need to provide function to read state from store.');
     }
     // Return a wrapper function around the component
     return function connectComponent(DecoratedComponent) {
@@ -69,6 +69,7 @@ export default function connectToStores(storesConfiguration, getState) {
             handleStoresChanged = () => {
                 this.setState(getState(this.props));
             }
+
             // Render the component with only props, some from the real props some from the state
             render() {
                 const {props, state} = this;
