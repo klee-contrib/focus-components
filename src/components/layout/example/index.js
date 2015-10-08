@@ -53,8 +53,8 @@ _.defer(()=>{
         cartridge: {component: CartridgeContent, props:{}},
         summary:{component: Summary, props:{}},
         actions: {
-            primary: [],
-            secondary: []
+            primary: [{label:'Action 1', icon:'alarm_on', action:() => {console.log("click !")}}, {label:'Action 2', icon:'build', action:() => {console.log("click !")}}],
+            secondary: [{label:'Action 3', icon:'print', action:() => {console.log("click !")}}, {label:'Action 4', icon:'print', action:() => {console.log("click !")}}, {label:'Action 5', icon:'print', action:() => {console.log("click !")}}]
         },
         barLeft: {component: BarContentLeft, props:{}},
         barRight: {component: BarContentRight, props:{}}

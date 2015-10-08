@@ -5,11 +5,8 @@ import {pluck, sortBy} from 'lodash/collection';
 import Scroll from '../../behaviours/scroll';
 
 import HeaderTopRow from './header-top-row';
-import Cartridge from '../../application/cartridge';
-import ContentActions from '../../application/content-actions';
-
-const CartridgeComponent = Cartridge.component;
-const ContentActionsComponent = ContentActions.component;
+import HeaderContent from './header-content';
+import HeaderActions from './header-actions';
 
 // variables
 const applicationStore = Focus.application.builtInStore;
@@ -40,7 +37,7 @@ const propTypes = {
 };
 
 /**
-* Layout component.
+* HeaderScrolling component.
 */
 @Scroll
 class HeaderScrolling extends Component {
@@ -173,12 +170,10 @@ class HeaderScrolling extends Component {
         const {mode, route, size} = this.state;
         const {children} = this.props;
         return (
-            <header data-focus='header' data-mode={mode} data-route={route} data-size={size}>
-                <div data-focus='header-layout-content'>
-                    <HeaderTopRow />
-                    <CartridgeComponent />
-                </div>
-                <ContentActionsComponent />
+            <header data-focus='header-scrolling' data-mode={mode} data-route={route} data-size={size}>
+                <HeaderTopRow />
+                <HeaderContent />
+                <HeaderActions />
             </header>
         );
     }

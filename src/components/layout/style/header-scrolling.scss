@@ -6,12 +6,15 @@
 -o-transition: $transition-property $transition-time;
 transition: $transition-property $transition-time;
 }*/
-$header-scrollspy-shadow-color: #EAEAEA;
+$header-scrolling-shadow-color: #EAEAEA;
+$header-actions-height: 56px;
+$header-top-row-height: 60px;
+$header-top-row-zindex: 1001;
 @mixin shadow() {
-    -moz-box-shadow: 0px 1px 10px 2px $header-scrollspy-shadow-color;
-    -webkit-box-shadow: 0px 1px 10px 2px $header-scrollspy-shadow-color;
-    -o-box-shadow: 0px 1px 10px 2px $header-scrollspy-shadow-color;
-    box-shadow: 0px 1px 10px 2px $header-scrollspy-shadow-color;
+    -moz-box-shadow: 0px 1px 10px 2px $header-scrolling-shadow-color;
+    -webkit-box-shadow: 0px 1px 10px 2px $header-scrolling-shadow-color;
+    -o-box-shadow: 0px 1px 10px 2px $header-scrolling-shadow-color;
+    box-shadow: 0px 1px 10px 2px $header-scrolling-shadow-color;
     filter: progid:DXImageTransform.Microsoft.Shadow(color=$header-scrollspy-shadow-color, Direction=180, Strength=10);
 }
 /*
@@ -26,69 +29,67 @@ to { height: auto; }
 }*/
 
 /*---------------------------------------------------------------*/
-$duration: 0.5s;
-$action-bar-height: 56px;
-$menu-bar-size: 60px;
 
-header[data-focus='header'] {
 
-    div[data-focus="header-layout-content"] {
-        background-color: white;
-        color: black;
-        @include shadow();
+[data-focus='header-scrolling'] {
+    position: relative;
+    @include shadow();
 
-        div[data-focus="cartridge"] {
-            padding: 70px 50px 35px $menu-bar-size+50;
-        }
-    }
-
-    div[data-focus="header-bar"] {
-        z-index: 1001;
-        position: fixed;
+    [data-focus="header-top-row"] {
+        z-index: $header-top-row-zindex;
         background-color: rgba(255, 255, 255, 1);
     }
 
-    [data-focus="content-actions"] {
-        margin: 0 0 0 60px;
-        position: relative;
-        top: -29px;
-        text-align: right;
-        padding-right: 200px;
+    [data-focus="header-actions"] {
+        display: inline;
+        margin-right: 200px;
     }
-
-    //When the size is small, the cartridge is not visible.
-    //min-height: 60px;
 
     //When the size is medium, the summary-bar is not visible.
     &[data-size="medium"] {
-        [data-focus="header-layout-content"] {
-            div[data-focus="header-bar"] {
-                div[data-focus="bar-content-middle"] {
-                    display: none;
-                }
+        div[data-focus="header-top-row"] {
+            div[data-focus="bar-content-middle"] {
+                display: none;
             }
-            div[data-focus="cartridge"] {
-                display: block;
-            }
+        }
+        [data-focus="header-actions"] {
+            position: absolute;
+            right: 0;
+            bottom: -($header-actions-height / 2);
         }
     }
 
     //When the size is min  don't show the cartridge
     &[data-size="small"] {
-        height: 120px;
-        [data-focus="header-layout-content"] {
-            div[data-focus="cartridge"] {
-                display: none;
-            }
-            div[data-focus="header-bar"] {
-                @include shadow();
-            }
-        }
-        [data-focus="content-actions"] {
+        height: $header-top-row-height;
+        overflow-y: hidden;
+        [data-focus="header-top-row"] {
+            @include shadow();
             position: fixed;
-            top: 30px;
+            top: 0;
+            left: 0;
+            width: 100%;
+        }
+
+        [data-focus="header-actions"] {
+            position: fixed;
+            top: $header-top-row-height / 2;
             right: 0;
-            z-index: 1010;
+            z-index: $header-top-row-zindex + 1;
+        }
+    }
+}
+
+&[data-focus="layout"] {
+    &[data-menu="left"] {
+        [data-focus="header-scrolling"] {
+            &[data-size="small"] {
+                [data-focus="header-top-row"] {
+                    & > div {
+                        margin-left: $header-top-row-height;
+                    }
+                }
+            }
         }
     }
 }

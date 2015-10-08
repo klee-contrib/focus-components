@@ -56,22 +56,24 @@ class HeaderTopRow extends Component {
     render() {
         const {barContentLeftComponent, barContentRightComponent, summaryComponent} = this.state;
         return (
-            <div data-focus='header-bar'>
-                <div data-focus='header-bar-left'>
+            <div data-focus='header-top-row'>
+              <div>
+                <div data-focus='header-top-row-left'>
                 {barContentLeftComponent &&
                     <barContentLeftComponent.component {...barContentLeftComponent.props}/>
                 }
                 </div>
-                <div data-focus='header-bar-right'>
+                <div data-focus='header-top-row-right'>
                 {barContentRightComponent &&
                     <barContentRightComponent.component {...barContentRightComponent.props}/>
                 }
                 </div>
-                <div data-focus='header-bar-middle'>
+                <div data-focus='header-top-row-middle'>
                 {summaryComponent &&
                     <summaryComponent.component {...summaryComponent.props}/>
                 }
                 </div>
+              </div>
             </div>
         );
     }
