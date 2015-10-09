@@ -3,6 +3,9 @@ import {capitalize} from 'lodash/string'
 import {keys} from 'lodash/object';
 import React, {Component} from 'react';
 
+// - Provide the component
+// - Provide the store configuration `[{store: yourStore, properties: ['property1', 'property2']}]`
+// - Provide a function to read state from your store
 export default function connectToStores(storesConfiguration, getState) {
     // Validate the stores object
     if(!isArray(storesConfiguration)) {
@@ -86,3 +89,34 @@ export default function connectToStores(storesConfiguration, getState) {
         return StoreConnector;
     };
 }
+
+// Add a function to connect a store to a component .
+// All the store properties values will be provided to the component as props.
+// This could be use as an ES7 annotation or as a function.
+
+
+// ### ES6 version
+// ```jsx
+// store
+// const newStore = new CoreStore({definition: {name: 'name', email: 'email'}});
+//Component
+// const Component = props => <div>{JSON.stringify(props)}</div>;
+// create a connector function
+// const connector = storeConnectBehaviour(
+//     [{store: newStore, properties: ['name', 'email']}],
+//     (props) => {return newStore.getValue()}
+// );
+// Component connected to the store
+// const ConnectedComponent = connector(Component);
+// ```
+
+// ### ES7 version
+// ```jsx
+//    Class version
+// @connect( [{store: newStore, properties: ['name', 'email']}],(props) => newStore.getValue())
+// class YourComponent extends Component{
+//     render(){
+//          return  <div>{JSON.stringify(props)}</div>;
+//     }
+// }
+// ```
