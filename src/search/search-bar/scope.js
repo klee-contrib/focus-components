@@ -40,7 +40,9 @@ const scopeMixin = {
         list: type('array'),
         value: type(['string', 'number'])
     },
-
+    /**
+    * Called when component will mount.
+    */
     componentWillMount() {
         this.scopesId = uniqueId('scopes_');
     },
