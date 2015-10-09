@@ -1,0 +1,95 @@
+//Header.css
+/*@mixin transition($transition-property, $transition-time) {
+-webkit-transition: $transition-property $transition-time;
+-moz-transition: $transition-property $transition-time;
+-ms-transition: $transition-property $transition-time;
+-o-transition: $transition-property $transition-time;
+transition: $transition-property $transition-time;
+}*/
+$header-scrolling-shadow-color: #EAEAEA;
+$header-actions-height: 56px;
+$header-top-row-height: 60px;
+$header-top-row-zindex: 1001;
+@mixin shadow() {
+    -moz-box-shadow: 0px 1px 10px 2px $header-scrolling-shadow-color;
+    -webkit-box-shadow: 0px 1px 10px 2px $header-scrolling-shadow-color;
+    -o-box-shadow: 0px 1px 10px 2px $header-scrolling-shadow-color;
+    box-shadow: 0px 1px 10px 2px $header-scrolling-shadow-color;
+    filter: progid:DXImageTransform.Microsoft.Shadow(color=$header-scrollspy-shadow-color, Direction=180, Strength=10);
+}
+/*
+@keyframes shrink {
+from { height: auto; }
+to { height: 0; }
+}
+
+@keyframes expend {
+from { height: 0; }
+to { height: auto; }
+}*/
+
+/*---------------------------------------------------------------*/
+
+
+[data-focus='header-scrolling'] {
+    position: relative;
+    @include shadow();
+
+    [data-focus="header-top-row"] {
+        z-index: $header-top-row-zindex;
+        background-color: rgba(255, 255, 255, 1);
+    }
+
+    [data-focus="header-actions"] {
+        display: inline;
+        margin-right: 200px;
+    }
+
+    //When the size is medium, the summary-bar is not visible.
+    &[data-size="medium"] {
+        div[data-focus="header-top-row"] {
+            div[data-focus="bar-content-middle"] {
+                display: none;
+            }
+        }
+        [data-focus="header-actions"] {
+            position: absolute;
+            right: 0;
+            bottom: -($header-actions-height / 2);
+        }
+    }
+
+    //When the size is min  don't show the cartridge
+    &[data-size="small"] {
+        height: $header-top-row-height;
+        overflow-y: hidden;
+        [data-focus="header-top-row"] {
+            @include shadow();
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+        }
+
+        [data-focus="header-actions"] {
+            position: fixed;
+            top: $header-top-row-height / 2;
+            right: 0;
+            z-index: $header-top-row-zindex + 1;
+        }
+    }
+}
+
+&[data-focus="layout"] {
+    &[data-menu="left"] {
+        [data-focus="header-scrolling"] {
+            &[data-size="small"] {
+                [data-focus="header-top-row"] {
+                    & > div {
+                        margin-left: $header-top-row-height;
+                    }
+                }
+            }
+        }
+    }
+}

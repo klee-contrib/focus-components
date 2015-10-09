@@ -45,6 +45,10 @@ const LiveExample = React.createClass({
             zIndex: '10000',
             minHeight: '0'
         },
+        showcase: {
+            height: '100%',
+            //backgroundColor: 'blue'
+        },
         preview: {
             flex: '1'
         }
@@ -82,9 +86,9 @@ const LiveExample = React.createClass({
         const {_handleCodeChange, style} = this;
         const {component: {name, description, version, keywords}} = this.props;
         return (
-            <div>
-                <LiveEditor  code={codeText} name={name} onChange={debounce(_handleCodeChange, 100)} style={style.editor} version={version} />
-                <LivePreview code={codeText}  />
+            <div data-focus="showcase" style={style.showcase}>
+                <LiveEditor code={codeText} name={name} onChange={debounce(_handleCodeChange, 100)} style={style.editor} version={version} />
+                <LivePreview code={codeText} />
             </div>
         );
     }

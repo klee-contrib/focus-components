@@ -38,7 +38,7 @@ const LiveEditor = React.createClass({
         const {isVisible} = this.state;
         const {style} = this;
         return (
-            <div className='demo-card-wide mdl-card mdl-shadow--2dp' style={mainStyle}>
+            <div className='demo-card-wide mdl-card mdl-shadow--2dp' data-focus='showcase-live-editor' style={mainStyle}>
                 <div className='mdl-card__title' style={style.title} onClick={this._toggleVisible}>
                     <h2 className='mdl-card__title-text'>Component &nbsp; {name} &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; v {version}</h2>
                 </div>

@@ -11,6 +11,12 @@ const LivePreview = React.createClass({
         code: types('string'),
         style: types('object')
     },
+    style: {
+        livePreview: {
+            height: '100%',
+            //backgroundColor: 'yellow'
+        }
+    },
     /*style: {
         title: {
             margin: '15px',
@@ -36,7 +42,7 @@ const LivePreview = React.createClass({
             content = e.toString();
         }
 
-        return <div>{content}</div>;
+        return <div data-focus="showcase-live-preview" style={style.livePreview}>{content}</div>;
     }
 });
 

@@ -29,6 +29,12 @@ import '../common/select/radio/style/select-radio.scss';
 import '../common/select-action/style/select-action.scss';
 import '../common/topic-displayer/style/topic-displayer.scss';
 import '../components/input/select/style/select.scss'
+import '../components/layout/style/layout.scss';
+import '../components/layout/style/header-content.scss';
+import '../components/layout/style/header-top-row.scss';
+import '../components/layout/style/header-actions.scss';
+import '../components/layout/style/header-scrolling.scss';
+import '../components/menu/style/menu.scss';
 import '../components/panel/style/panel.scss'
 import '../components/scrollspy-container/style/scrollspy-container.scss'
 import '../components/scrollspy-container/style/sticky-menu.scss'
