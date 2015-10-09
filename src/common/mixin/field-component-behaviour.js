@@ -43,6 +43,7 @@ const fieldBehaviourMixin = {
             domain: options.domain || def.domain,
             error: context.state.error ? context.state.error[name] : undefined,
             locale: def.locale,
+            format: def.format,
             //Mode
             isEdit: isEdit,
             hasLabel: hasLabel,

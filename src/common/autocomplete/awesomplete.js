@@ -167,10 +167,11 @@ let Autocomplete = {
         }
         if (!code && !allowUnmatchedValue && !this._isSelecting) {
             this.setState({value: ''});
+            selectionHandler({code: '', value: ''});
         }
-        if (onInputBlur) {
-            onInputBlur();
-        }
+        
+        onInputBlur && onInputBlur();
+        
         this._isSelecting = false;
     },
     /**
