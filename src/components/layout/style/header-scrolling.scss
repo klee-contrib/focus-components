@@ -6,7 +6,7 @@
 -o-transition: $transition-property $transition-time;
 transition: $transition-property $transition-time;
 }*/
-$header-scrolling-shadow-color: #EAEAEA;
+$header-scrolling-shadow-color: #D0D0D0;
 $header-actions-height: 56px;
 $header-top-row-height: 60px;
 $header-top-row-zindex: 1001;
@@ -34,6 +34,7 @@ to { height: auto; }
 [data-focus='header-scrolling'] {
     position: relative;
     @include shadow();
+    margin-bottom: 50px;
 
     [data-focus="header-top-row"] {
         z-index: $header-top-row-zindex;

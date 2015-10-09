@@ -1,38 +1,47 @@
 $header-top-row-menu-size:60px;
 $header-top-row-padding:10px;
+$header-top-cell-padding:15px;
 $header-top-row-element-height:($header-top-row-menu-size) - ($header-top-row-padding * 2);
-
-$header-top-row-summary-left:200px;
-$header-top-row-summary-right:200px;
 
 [data-focus='header-top-row'] {
     & > div {
         padding:$header-top-row-padding;
-    }
+        display: flex;
+        flex-direction: row;
+        flex-wrap: nowrap;
+        justify-content:space-between;
+        align-items: stretch;
+        align-content: center;
 
-    [data-focus='header-top-row-left'] {
-        float:left;
-        height:$header-top-row-element-height;
-        line-height: $header-top-row-element-height;
-        width:$header-top-row-summary-left;
-        overflow: hidden;
-        white-space: nowrap;
-    }
-    [data-focus='header-top-row-right'] {
-        float:right;
-        height:$header-top-row-element-height;
-        line-height: $header-top-row-element-height;
-        background: transparent;
-        text-align: right;
-        white-space: nowrap;
-        padding-left: 20px;
-    }
-    [data-focus='header-top-row-middle'] {
-        height:$header-top-row-element-height;
-        line-height: $header-top-row-element-height;
-        background: transparent;
-        margin: 0 0 0 $header-top-row-summary-right;
-        overflow: hidden;
-        white-space: nowrap;
+        [data-focus='header-top-row-left'] {
+            height:$header-top-row-element-height;
+            line-height: $header-top-row-element-height;
+            overflow: hidden;
+            white-space: nowrap;
+            order:1;
+            flex-grow: 0;
+            padding: 0 $header-top-cell-padding 0 0;
+        }
+        [data-focus='header-top-row-middle'] {
+            height:$header-top-row-element-height;
+            line-height: $header-top-row-element-height;
+            //margin: 0 0 0 $header-top-row-summary-right;
+            overflow: hidden;
+            white-space: nowrap;
+            order:2;
+            flex-grow: 4;
+            padding: 0 $header-top-cell-padding 0 $header-top-cell-padding;
+        }
+        [data-focus='header-top-row-right'] {
+            //float:right;
+            height:$header-top-row-element-height;
+            line-height: $header-top-row-element-height;
+            padding: 0 0 0 $header-top-cell-padding;
+            text-align: right;
+            white-space: nowrap;
+            padding-left: 20px;
+            order:3;
+            flex-grow: 0;
+        }
     }
 }
