@@ -16,28 +16,6 @@ const {componentHandler} = window;
 // Mixins
 const i18nMixin = require('../../common/i18n/mixin');
 
-
-const operationList = [
-    {
-        label: 'Action_a',
-        action() {
-            alert('Actiona');
-        }
-    },
-    {
-        label: 'Action_b',
-        action() {
-            alert('Actionb');
-        }
-    },
-    {
-        label: 'Action_c',
-        action() {
-            alert('Actionc');
-        }
-    }
-];
-
 const scopeMixin = {
     /**
     * Component tag name.
@@ -51,8 +29,7 @@ const scopeMixin = {
     */
     getDefaultProps() {
         return {
-            list: [],
-            isDeployed: false
+            list: []
         };
     },
     /**
@@ -61,18 +38,11 @@ const scopeMixin = {
     */
     propTypes: {
         list: type('array'),
-        isDeployed: type('bool'),
         value: type(['string', 'number'])
     },
-    /**
-    * Get the initial state from the data.
-    * @return {Object} the initial state
-    */
-    getInitialState() {
-        return {
-            isDeployed: this.props.isDeployed,
-            scopeId: uniqueId('scope_')
-        };
+
+    componentWillMount() {
+        this.scopesId = uniqueId('scopes_');
     },
     /**
     * Called when component is mounted.
@@ -107,21 +77,10 @@ const scopeMixin = {
     _getScopeClickHandler({code}) {
         const {onScopeSelection} = this.props;
         return () => {
-            this.setState({
-                isDeployed: false
-            });
             if (onScopeSelection) {
                 onScopeSelection(code);
             }
         };
-    },
-    /**
-    * Handle the click on the scope element.
-    */
-    _handleDeployClick() {
-        this.setState({
-            isDeployed: !this.state.isDeployed
-        });
     },
     /**
     * Return the css class for the scope.
@@ -140,14 +99,15 @@ const scopeMixin = {
     * @return {HTML} the rendered scope list
     */
     _renderScopeList() {
-        const {scopeId} = this.state;
+        const {scopesId} = this;
         const {list: scopeList, value} = this.props;
         return (
-            <ul className={`mdl-menu mdl-menu--bottom-left mdl-js-menu mdl-js-ripple-effect`} data-focus='search-bar-scopes' htmlFor={scopeId} ref='scopeDropdown'>
+            <ul className={`mdl-menu mdl-menu--bottom-left mdl-js-menu mdl-js-ripple-effect`} data-focus='search-bar-scopes' htmlFor={scopesId} ref='scopeDropdown'>
                 {0 < scopeList.length && scopeList.map(scope => {
+                    const scopeId = uniqueId('scopes_');
                     const isActive = value === scope.code;
                     return (
-                        <li className='mdl-menu__item' data-active={isActive} key={scope.code || uuid.v4()} onClick={this._getScopeClickHandler(scope)}>
+                        <li className='mdl-menu__item' data-active={isActive} key={scope.code || scopeId} onClick={this._getScopeClickHandler(scope)}>
                             {scope.code &&
                                 <Icon name={scope.code} />
                             }
@@ -168,11 +128,11 @@ const scopeMixin = {
     * @return {object} - The jsx element.
     */
     render() {
-        const {isDeployed, scopeId} = this.state;
+        const {scopesId} = this;
         const activeIcon = this.getActiveScopeIcon();
         return (
             <div data-focus='search-bar-scope'>
-                <button className='mdl-button mdl-js-button' id={scopeId} onClick={this._handleDeployClick}>
+                <button className='mdl-button mdl-js-button' id={scopesId}>
                     <Icon name={activeIcon} />
                 </button>
                 {this._renderScopeList()}
