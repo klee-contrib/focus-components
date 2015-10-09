@@ -49,7 +49,7 @@ to { height: auto; }
     //When the size is medium, the summary-bar is not visible.
     &[data-size="medium"] {
         div[data-focus="header-top-row"] {
-            div[data-focus="bar-content-middle"] {
+            div[data-focus="header-top-row-middle"] {
                 display: none;
             }
         }
@@ -76,7 +76,7 @@ to { height: auto; }
             position: fixed;
             top: $header-top-row-height / 2;
             right: 0;
-            z-index: $header-top-row-zindex + 1;
+            z-index: $header-top-row-zindex;
         }
     }
 }
