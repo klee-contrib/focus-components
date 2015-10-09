@@ -29,7 +29,7 @@ describe('The store connect behaviour', () => {
             [{store: newStore, properties: ['papa', 'lopez']}],
             (props) => {const storeValue = newStore.getValue(); storeChangeSpy(storeValue); return storeValue; }
         );
-        const Component = (props) => { conectedComponentRenderSpy(props); return <div>{JSON.stringify(props)}</div>;};
+        const Component = (props) => { console.log(props); conectedComponentRenderSpy(props); return <div>{JSON.stringify(props)}</div>;};
         const ConnectedComponent = connector(Component);
         before(
             () => {
@@ -42,20 +42,31 @@ describe('The store connect behaviour', () => {
             expect(conectedComponentRenderSpy).to.have.been.called.once;
             expect(conectedComponentRenderSpy).to.have.been.calledWith({testProps: 'testPropsValue'});
         });
-        it('should render the component with the state value', (done) => {
-            dispatcher.handleViewAction({
-                data: {
-                    lopez: 'joe',
-                    papa: 'singe'
-                },
-                type: 'update'
+        describe('when a value is dispatched' , () => {
+            before(() => {
+                dispatcher.handleViewAction({
+                    data: {
+                        lopez: 'joe',
+                        papa: 'singe'
+                    },
+                    type: 'update'
+                });
             });
-            Promise.resolve().then(() => {
+            it('should render the component with the state value', () => {
                 expect(storeChangeSpy).to.have.been.called.thrice; //Mounting, joe, singe
                 //expect(storeChangeSpy.getCall(0)).to.equal({ lopez: 'joe', papa: 'singe'});
                 // expect(storeChangeSpy).to.have.been.calledWith({ lopez: 'joe', papa: 'singe'});//
                 expect(conectedComponentRenderSpy).to.have.been.called.twice;
-            }).then(() => {done();});
+            });
+            it('should render the component with the state value', () => {
+                expect(storeChangeSpy).to.have.been.called.thrice; //Mounting, joe, singe
+                expect(conectedComponentRenderSpy).to.have.been.called.twice;
+            });
+            it('should render the component with the state value', () => {
+                const domNode = ReactDOM.findDOMNode(renderComponent);
+                expect(JSON.parse(domNode.innerHTML)).to.deep.equal({lopez: 'joe', papa: 'singe', testProps: 'testPropsValue'});
+            });
         });
+
     });
 });
