@@ -6,6 +6,7 @@ const builder = require('focus-core').component.builder;
 const type = require('focus-core').component.types;
 const uuid = require('uuid');
 const find = require('lodash/collection/find');
+const {uniqueId} = require('lodash/utility');
 
 // Components
 const Icon = require('../../common/icon').component;
@@ -69,7 +70,8 @@ const scopeMixin = {
     */
     getInitialState() {
         return {
-            isDeployed: this.props.isDeployed
+            isDeployed: this.props.isDeployed,
+            scopeId: uniqueId('scope_')
         };
     },
     /**
@@ -138,9 +140,10 @@ const scopeMixin = {
     * @return {HTML} the rendered scope list
     */
     _renderScopeList() {
+        const {scopeId} = this.state;
         const {list: scopeList, value} = this.props;
         return (
-            <ul className={`mdl-menu mdl-menu--bottom-left mdl-js-menu mdl-js-ripple-effect`} data-focus='search-bar-scopes' htmlFor='dropdown' ref='scopeDropdown'>
+            <ul className={`mdl-menu mdl-menu--bottom-left mdl-js-menu mdl-js-ripple-effect`} data-focus='search-bar-scopes' htmlFor={scopeId} ref='scopeDropdown'>
                 {0 < scopeList.length && scopeList.map(scope => {
                     const isActive = value === scope.code;
                     return (
@@ -165,11 +168,11 @@ const scopeMixin = {
     * @return {object} - The jsx element.
     */
     render() {
-        const {isDeployed} = this.state;
+        const {isDeployed, scopeId} = this.state;
         const activeIcon = this.getActiveScopeIcon();
         return (
             <div data-focus='search-bar-scope'>
-                <button className='mdl-button mdl-js-button' id='dropdown' onClick={this._handleDeployClick}>
+                <button className='mdl-button mdl-js-button' id={scopeId} onClick={this._handleDeployClick}>
                     <Icon name={activeIcon} />
                 </button>
                 {this._renderScopeList()}
