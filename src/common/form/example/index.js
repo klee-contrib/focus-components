@@ -74,7 +74,7 @@ var domain = {
         SelectComponent: FocusComponents.common.select.radio.component,
         refContainer: {yesNoList: [{code: true, label: "select.yes"}, {code: false, label: "select.no"}]},
         listName: 'yesNoList',
-        formatter: i18n.t(value)
+        formatter: i18n.t
     }
 };
 Focus.definition.domain.container.setAll(domain);
