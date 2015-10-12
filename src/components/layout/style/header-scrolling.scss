@@ -6,7 +6,7 @@
 -o-transition: $transition-property $transition-time;
 transition: $transition-property $transition-time;
 }*/
-$header-scrolling-shadow-color: #EAEAEA;
+$header-scrolling-shadow-color: #D0D0D0;
 $header-actions-height: 56px;
 $header-top-row-height: 60px;
 $header-top-row-zindex: 1001;
@@ -34,6 +34,7 @@ to { height: auto; }
 [data-focus='header-scrolling'] {
     position: relative;
     @include shadow();
+    margin-bottom: 50px;
 
     [data-focus="header-top-row"] {
         z-index: $header-top-row-zindex;
@@ -48,7 +49,7 @@ to { height: auto; }
     //When the size is medium, the summary-bar is not visible.
     &[data-size="medium"] {
         div[data-focus="header-top-row"] {
-            div[data-focus="bar-content-middle"] {
+            div[data-focus="header-top-row-middle"] {
                 display: none;
             }
         }
@@ -75,7 +76,7 @@ to { height: auto; }
             position: fixed;
             top: $header-top-row-height / 2;
             right: 0;
-            z-index: $header-top-row-zindex + 1;
+            z-index: $header-top-row-zindex;
         }
     }
 }
