@@ -73,7 +73,8 @@ var domain = {
     'DO_OUI_NON': {
         SelectComponent: FocusComponents.common.select.radio.component,
         refContainer: {yesNoList: [{code: true, label: "select.yes"}, {code: false, label: "select.no"}]},
-        listName: 'yesNoList'
+        listName: 'yesNoList',
+        formatter: i18n.t(value)
     }
 };
 Focus.definition.domain.container.setAll(domain);
