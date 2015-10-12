@@ -1,5 +1,5 @@
 const assign = require('object-assign');
-const {isUndefined} = require('lodash/lang');
+const {isUndefined, isObject} = require('lodash/lang');
 /**
  * Identity function
  * @param  {object} d - data to treat.
@@ -69,8 +69,10 @@ const fieldBehaviourMixin = {
         let fieldProps = assign(options, propsContainer, options.options || def.options);
         // Values list.
         const refContainer = options.refContainer || def.refContainer || context.state.reference;
-        if(refContainer && refContainer[listName]){
-            assign(fieldProps, {values: refContainer[listName]});
+
+        // case no props.values and then
+        if(!(options.hasOwnProperty('values')) && isObject(refContainer) && refContainer.hasOwnProperty(listName)){
+            assign(fieldProps, {values: refContainer[listName] || [] });
         }
         return fieldProps;
     }
