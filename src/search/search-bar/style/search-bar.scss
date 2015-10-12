@@ -1,11 +1,12 @@
 $search-bar-font-size:16px;
-$search-bar-background-color: rgba(255, 255, 255, 0.6);
+$search-bar-background-color: rgba(255, 255, 255, 0.4);
 $search-bar-border-bottom:1px solid rgba(0, 0, 0, 0.117647);
 
 [data-focus="search-bar"]{
+    text-align: center;
     [data-focus="search-bar-scope"] {
         padding:0 10px 0 0;
-        display: table-cell;
+        display: inline-block;
         background-color: $search-bar-background-color;
         button {
             border-bottom: $search-bar-border-bottom
@@ -21,7 +22,8 @@ $search-bar-border-bottom:1px solid rgba(0, 0, 0, 0.117647);
         }
     }
     [data-focus='search-bar-input'] {
-        display: table-cell;
+        display: inline-block;
+        padding: 3px 0;
         background-color: $search-bar-background-color;
         [data-focus="input-text"]{
             position: relative;
