@@ -137,6 +137,10 @@ var entities = {
 };
 Focus.definition.entity.container.setEntityConfiguration(entities);
 
+function loadEmptyList() {
+    return Promise.resolve([]);
+}
+
 function loadRefList(name) {
     return function loadRef() {
         var refLst = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9].map(function (cd) {
@@ -157,7 +161,7 @@ function loadMonkeyList(){
 }
 
 
-Focus.reference.config.set({papas: loadRefList('papas'), singe: loadRefList('singe'), monkeys: loadMonkeyList});
+Focus.reference.config.set({papas: loadEmptyList, singe: loadRefList('singe'), monkeys: loadMonkeyList});
 Focus.definition.entity.container.setEntityConfiguration(entities);
 /***********************************************************************************************************************/
 
@@ -168,141 +172,142 @@ const ListLine = React.createClass({
         const firstName = this.displayFor("name", {});
         const lastName = this.displayFor("number", {});
         return <div>{firstName} {lastName}</div>;
-        }
-    });
-
-    const contactStore = new Focus.store.CoreStore({
-        definition: {
-            'contact': 'contact',
-            'commandes': 'commande'
-        }
-    });
-
-    const jsonContact= {
-        firstName: "Zeus",
-        lastName: "God",
-        isCool: true,
-        birthDate: null,
-        commandes: [{
-            name: "commande1",
-            number: "1"
-        }, {
-            name: "commande2",
-            number: "2"
-        }, {
-            name: "commande3",
-            number: "3"
-        }, {
-            name: "commande4",
-            number: "4"
-        }, {
-            name: "commande5",
-            number: "5"
-        }, {
-            name: "commande6",
-            number: "6"
-        }],
-        city: 'PAR'
-    };
-
-    const action = {
-        load: actionBuilder({
-            status: 'loaded',
-            node: 'contact',
-            service(){
-                return new Promise(function(s,e){
-                    _.delay(function(){
-                        s(jsonContact);
-                    }, 1);
-                })//Promise.resolve(jsonContact);
-            }
-        }),
-        save:actionBuilder({
-            status: 'saved',
-            preStatus: 'saving',
-            node: 'contact',
-            service(data){
-                console.log('save', data);
-                return Promise.resolve(data);
-            }
-        })
-    };
-
-    const autocompleteData = [
-        {
-            code: 'PAR',
-            value: 'Paris'
-        },
-        {
-            code: 'LON',
-            value: 'Londres'
-        },
-        {
-            code: 'NY',
-            value: 'New york'
-        }
-    ];
-
-    const codeResolver = code =>  {
-        return new Promise(success => {
-            const candidate = _.find(autocompleteData, {code});
-            success(candidate ? candidate.value : 'Unresolved code');
-        });
-    };
-
-    const searcher = text => {
-        return new Promise(success => {
-            _.delay(() => {
-                const result = autocompleteData.filter(item => {
-                    return text === '' || item.value.toLowerCase().indexOf(text.toLowerCase()) !== -1;
-                });
-                success(result);
-            }, 1);
-        });
     }
+});
 
-    const FormExample = React.createClass({
-        displayName: "FormExample",
-        mixins: [formMixin],
-        stores: [{
-            store: contactStore,
-            properties: ["contact", "commandes"],
-        }],
-        definitionPath: "contact",
-        action: action,
-        referenceNames: ['papas', 'monkeys'],
+const contactStore = new Focus.store.CoreStore({
+    definition: {
+        'contact': 'contact',
+        'commandes': 'commande'
+    }
+});
 
-        /**
-        * Render content form.
-        * @return {ReactDOMNode} node REACT
-        */
-        renderContent() {
-            return (
-                <Panel title="Fiche de l'utilisateur" actions={this._renderActions}>
-                    {this.fieldFor("firstName")}
-                    {this.fieldFor("lastName")}
-                    {this.fieldFor('papaCode', {listName: 'papas'})}
-                    {this.fieldFor('monkeyCode', {listName: 'monkeys', valueKey: 'myCustomCode', labelKey: 'myCustomLabel' })}
-                    {this.fieldFor("bio")}
-                    {this.fieldFor("isCool")}
-                    {this.fieldFor("isNice")}
-                    {
-                        this.textFor("birthDate", {
-                            formatter: function (date) {
-                                return "formatted date" + date
-                            }
-                        })
-                    }
-                    {this.fieldFor("birthDate")}
-                </Panel>
-            );
+const jsonContact= {
+    firstName: "Zeus",
+    lastName: "God",
+    isCool: true,
+    birthDate: null,
+    commandes: [{
+        name: "commande1",
+        number: "1"
+    }, {
+        name: "commande2",
+        number: "2"
+    }, {
+        name: "commande3",
+        number: "3"
+    }, {
+        name: "commande4",
+        number: "4"
+    }, {
+        name: "commande5",
+        number: "5"
+    }, {
+        name: "commande6",
+        number: "6"
+    }],
+    city: 'PAR'
+};
+
+const action = {
+    load: actionBuilder({
+        status: 'loaded',
+        node: 'contact',
+        service(){
+            return new Promise(function(s,e){
+                _.delay(function(){
+                    s(jsonContact);
+                }, 1);
+            })//Promise.resolve(jsonContact);
         }
+    }),
+    save:actionBuilder({
+        status: 'saved',
+        preStatus: 'saving',
+        node: 'contact',
+        service(data){
+            console.log('save', data);
+            return Promise.resolve(data);
+        }
+    })
+};
+
+const autocompleteData = [
+    {
+        code: 'PAR',
+        value: 'Paris'
+    },
+    {
+        code: 'LON',
+        value: 'Londres'
+    },
+    {
+        code: 'NY',
+        value: 'New york'
+    }
+];
+
+const codeResolver = code =>  {
+    return new Promise(success => {
+        const candidate = _.find(autocompleteData, {code});
+        success(candidate ? candidate.value : 'Unresolved code');
     });
+};
+
+const searcher = text => {
+    return new Promise(success => {
+        _.delay(() => {
+            const result = autocompleteData.filter(item => {
+                return text === '' || item.value.toLowerCase().indexOf(text.toLowerCase()) !== -1;
+            });
+            success(result);
+        }, 1);
+    });
+}
+
+const FormExample = React.createClass({
+    displayName: "FormExample",
+    mixins: [formMixin],
+    stores: [{
+        store: contactStore,
+        properties: ["contact", "commandes"],
+    }],
+    definitionPath: "contact",
+    action: action,
+    referenceNames: ['papas', 'monkeys'],
+
+    /**
+    * Render content form.
+    * @return {ReactDOMNode} node REACT
+    */
+    renderContent() {
+        return (
+            <Panel title="Fiche de l'utilisateur" actions={this._renderActions}>
+            {this.fieldFor("firstName")}
+            {this.fieldFor("lastName")}
+            {this.fieldFor('papaCode', {listName: 'papas'})}
+            {this.fieldFor('monkeyCode', {listName: 'monkeys', valueKey: 'myCustomCode', labelKey: 'myCustomLabel' })}
+            {this.fieldFor('lopezCode', {values: [{code: 'JOE', label: 'Joe Lopez'}, {code: 'DAVE', label: 'David Lopez'}]})}
+            {this.fieldFor("bio")}
+            {this.fieldFor("isCool")}
+            {this.fieldFor("isNice")}
+            {
+                this.textFor("birthDate", {
+                    formatter: function (date) {
+                        return "formatted date" + date
+                    }
+                })
+            }
+            {this.fieldFor("birthDate")}
+            </Panel>
+        );
+    }
+});
 
 
-    return (
-        <div>
-            <MessageCenter />
-            <FormExample isEdit={false}/>
-        </div>
-    );
+return (
+    <div>
+        <MessageCenter />
+        <FormExample isEdit={false}/>
+    </div>
+);
