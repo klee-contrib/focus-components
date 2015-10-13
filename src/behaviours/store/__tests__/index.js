@@ -42,7 +42,7 @@ describe('The store connect behaviour', () => {
             expect(conectedComponentRenderSpy).to.have.been.called.once;
             expect(conectedComponentRenderSpy).to.have.been.calledWith({testProps: 'testPropsValue'});
         });
-        describe('when a value with two nodes is dispatched' , () => {
+        describe.skip('when a value with two nodes is dispatched' , () => {
             before(() => {
                 dispatcher.handleViewAction({
                     data: {
