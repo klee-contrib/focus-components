@@ -1,6 +1,13 @@
 
 [data-focus="input-textarea"] {
-    &.mdl-textfield {
+    .mdl-textfield {
         width: auto;
+    }
+
+    &[data-error="true"] {
+        .mdl-textfield .mdl-textfield__input {
+            border-color: rgb(222, 50, 38);
+            box-shadow: none;
+        }
     }
 }

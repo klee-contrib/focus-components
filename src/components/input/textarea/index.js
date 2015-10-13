@@ -59,7 +59,7 @@ class InputTextarea extends Component {
     * @param  {object} evt - The react DOM event.
     * @return {object} - The function onChannge from the props, called.
     */
-    _handleInputChange = (evt) =>{
+    _handleInputChange = (evt) => {
         const {unformatter, onChange} = this.props;
         const {value} = evt.target;
         return onChange(unformatter(value));
@@ -75,10 +75,12 @@ class InputTextarea extends Component {
         const inputProps = {...otherProps, value, id: name, onChange: this._handleInputChange, pattern};
         const mdlClasses = `mdl-textfield mdl-js-textfield${error ? ' is-invalid' : ''}`;
         return (
-            <div className={mdlClasses} data-focus='input-textarea' ref='inputTextarea' style={style}>
-                <textarea className='mdl-textfield__input' ref='htmlInput' {...inputProps} />
-                <label className='mdl-textfield__label' htmlFor={name}>{this.i18n(placeholder)}</label>
-                {error && <span className='error'>{error}</span>}
+            <div data-error={!!error} data-focus='input-textarea'>
+                <div className={mdlClasses} ref='inputTextarea' style={style}>
+                    <textarea className='mdl-textfield__input' ref='htmlInput' {...inputProps} />
+                    <label className='mdl-textfield__label' htmlFor={name}>{this.i18n(placeholder)}</label>
+                </div>
+                {error && <div className='label-error' ref='error'>{error}</div>}
             </div>
         );
     }
