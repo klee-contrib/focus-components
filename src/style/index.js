@@ -28,6 +28,7 @@ import '../common/select/classic/style/select.scss'
 import '../common/select/radio/style/select-radio.scss';
 import '../common/select-action/style/select-action.scss';
 import '../common/topic-displayer/style/topic-displayer.scss';
+import '../components/input/textarea/style/textarea.scss'
 import '../components/input/select/style/select.scss'
 import '../components/layout/style/layout.scss';
 import '../components/layout/style/header-content.scss';
