@@ -117,7 +117,7 @@ const PanelSample4 = React.createClass({
     }
 });
 
-return (
+module.exports = () => (
     <div>
         <PanelSample1 hasLoad={false} />
         <br/>
