@@ -7,7 +7,7 @@ function fake() {
     }
 }
 
-describe.only('The input textarea', () => {
+describe('The input textarea', () => {
     describe('when mounted with no props', () => {
         let reactComponent;
         let domNode;
