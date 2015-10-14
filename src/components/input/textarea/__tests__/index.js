@@ -23,13 +23,13 @@ describe('The input textarea', () => {
             expect(domNode.tagName).to.equal('DIV');
             expect(domNode.getAttribute('data-focus')).to.equal('input-textarea');
         });
-        it('should render a node with mdlClasses', () => {
+        it('should be material designed', () => {
             const divMdl = domNode.firstChild;
             expect(divMdl).to.exist;
             expect(divMdl.tagName).to.equal('DIV');
             expect(divMdl.className).to.equal('mdl-textfield mdl-js-textfield');
         });
-        it('should render a textarea input with mdlClasses', () => {
+        it('should have a material designed textarea', () => {
             expect(inputNode.getAttribute('class')).to.equal('mdl-textfield__input');
         });
         it('should render an empty textarea', () => {
