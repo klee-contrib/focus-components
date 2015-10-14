@@ -5,6 +5,7 @@ import {identity} from 'lodash/utility';
 import ComponentBaseBehaviour from '../../../behaviours/component-base';
 import MDBehaviour from '../../../behaviours/material';
 const MODE = {isEdit: true};
+
 const propTypes = {
     disabled: PropTypes.bool,
     error: PropTypes.string,
@@ -49,7 +50,7 @@ class InputText extends Component {
      * @param  {object} evt - The react DOM event.
      * @return {object} - The function onChannge from the props, called.
      */
-    _handleInputChange = (evt) =>{
+    _handleInputChange = (evt) => {
         const {unformatter, onChange} = this.props;
         const {value} = evt.target;
         return onChange(unformatter(value, MODE));
