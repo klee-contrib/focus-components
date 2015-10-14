@@ -1,6 +1,6 @@
 {
   "name": "focus-components",
-  "version": "0.7.2",
+  "version": "0.7.3-beta1",
   "description": "Focus component repository.",
   "main": "lib/index.js",
   "scripts": {
@@ -61,12 +61,10 @@
     "eslint-plugin-react": "3.5.0",
     "extract-text-webpack-plugin": "^0.8.2",
     "file-loader": "^0.8.4",
-    "highlight.js": "^8.8.0",
     "jquery": "^2.1.4",
     "jsdom": "^6.4.0",
     "json-loader": "^0.5.3",
     "mocha": "^2.2.5",
-    "node-dir": "^0.1.9",
     "node-sass": "^3.3.3",
     "react-addons-test-utils": "^0.14.0",
     "react-hot-loader": "^1.3.0",
