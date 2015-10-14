@@ -2,7 +2,7 @@ import Panel from '../';
 import i18n from 'i18next-client';
 const {findRenderedDOMComponentWithClass, renderIntoDocument, Simulate} = TestUtils;
 
-describe.only('The Panel', () => {
+describe('The Panel', () => {
     describe('when mounted with no props', () => {
         let reactComponent, domNode;
         before(() => {
