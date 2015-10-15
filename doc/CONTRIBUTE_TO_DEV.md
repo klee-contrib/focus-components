@@ -95,11 +95,20 @@ git push
 
 ### 6. Create a pull request
 
-Once you pushed your commits online, github.com propose you to create a pull request. Consult https://github.com/KleeGroup/focus-components
+Once you finished your developments and commited it, you can create a [pull request](https://help.github.com/articles/using-pull-requests/) so your work can be merged to the `develop` branch, so that the FOCUS community enjoys.
+
+## 1. Create the pull request
+
+Two ways of creating it :
+
+When you consult project's Github page https://github.com/KleeGroup/focus-components, a message is displayed encouraging you to create a pull request. Then click on `Compare & pull request` button.
 
 ![github_create_pr](https://cloud.githubusercontent.com/assets/5349745/10515715/03969b34-7355-11e5-96db-db651a17bcb4.PNG)
 
-Click on `Compare & pull request`.
+Other solution to create a pull request, by clicking on pull request icon : 
+
+![image](https://cloud.githubusercontent.com/assets/5349745/10517633/e3c27b3a-735d-11e5-9677-13edcec43bab.png)
+
 
 > Follow the following Pull request template, depending on the type of content you wish to submit:
 >
