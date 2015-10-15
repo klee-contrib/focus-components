@@ -112,3 +112,4 @@ Click on `Compare & pull request`.
 2. Read the pull request
 3. Comment the code, or open discution with the developer if needed
 4. If the pull request suits the FOCUS team, validate it and merge it.
+5. Complete the current draft release note to add the feature / fix to the note.
