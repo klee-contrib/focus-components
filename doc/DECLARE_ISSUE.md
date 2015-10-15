@@ -52,7 +52,7 @@ __Preview :__
 
 ## Example of a well described issue
 
-> You need a good example ? please read this issue written by Sebez:
+> You need a good example ? please read this issue written by [Sebez](https://github.com/sebez):
 > [issue 537](https://github.com/KleeGroup/focus-components/issues/537)
 
 ![github_good_issue](https://cloud.githubusercontent.com/assets/5349745/10515834/93d172be-7355-11e5-9a1f-05a5bb77e453.PNG)
