@@ -66,3 +66,14 @@ It is free... it is simple... And makes screen shots more understandable and con
 Don't hesitate to use it. 
 
 > Git limitation: the size of the attachments should not exceed 10 MB
+
+# Someone has already déclared my issue
+
+This means that someone has also asked the same question, or has already encountered the same problem.
+
+If 
+* the issue is still open
+* no response has yet been made
+you can indicate that you are also waiting for a response. To do so, use the code `:+1:`. This will tell the FOCUS team he must prioritize a response to the request.
+
+If you wish to clarify or complete the outcome, do not hesitate to communicate through comments.
