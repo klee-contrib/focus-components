@@ -16,7 +16,7 @@ Click on `New issue` button.
 
 ![github_create_issue0](https://cloud.githubusercontent.com/assets/5349745/10515814/76961e5c-7355-11e5-8dfb-33ca944cff5b.PNG)
 
-## How can I describe my issue the best ?
+## What is the best description for my issue ?
 
 To clarify / standardize the declaration a maximum of your issues, we invite you very strongly to follow the pattern below:
 
