@@ -106,8 +106,11 @@ Click on `Compare & pull request`.
 > * You propose a new feature, please read [how to write a pull request to share a new feature](https://github.com/KleeGroup/focus-components/tree/develop/doc/PR_FEATURE_TEMPLATE.md)
 > * You propose a fix, please read [how to write a pull request to share a fix](https://github.com/KleeGroup/focus-components/tree/develop/doc/PR_FIX_TEMPLATE.md)
 
-## You are a *FOCUS administrator* and you want to validate requests
+## You are a *FOCUS administrator*
 
+Role of FOCUS administrator is to validate pull requests.
+
+Below the procedure of validation:
 1. Add a label `Review needed`
 2. Read the pull request
 3. Comment the code, or open discution with the developer if needed
