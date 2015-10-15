@@ -26,6 +26,8 @@ __Preview__
 
 ![github_create_issue2](https://cloud.githubusercontent.com/assets/5349745/10515825/8a60e188-7355-11e5-85bd-43893ce61ce2.PNG)
 
+## Example of a well described issue
+
 > You need a good example ? please read this issue written by Sebez:
 > [issue 537](https://github.com/KleeGroup/focus-components/issues/537)
 
