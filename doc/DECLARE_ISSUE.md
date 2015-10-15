@@ -74,6 +74,7 @@ This means that someone has also asked the same question, or has already encount
 If 
 * the issue is still open
 * no response has yet been made
+
 you can indicate that you are also waiting for a response. To do so, use the code `:+1:`. This will tell the FOCUS team he must prioritize a response to the request.
 
 If you wish to clarify or complete the outcome, do not hesitate to communicate through comments.
