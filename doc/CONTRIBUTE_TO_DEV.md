@@ -1,6 +1,6 @@
 # How to contribute ?
 
-## You are *developer*
+## You are a *developer*
 
 ### Prerequisites
 
