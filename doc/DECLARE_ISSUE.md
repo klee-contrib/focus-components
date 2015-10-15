@@ -57,3 +57,12 @@ __Preview :__
 
 ![github_good_issue](https://cloud.githubusercontent.com/assets/5349745/10515834/93d172be-7355-11e5-9a1f-05a5bb77e453.PNG)
 
+
+# How to make an animated gifs ?
+
+There is a lot of tools on the Internet. The Focus team uses this one : https://screentogif.codeplex.com/
+It is free... it is simple... And makes screen shots more understandable and contextualized.
+
+Don't hesitate to use it. 
+
+> Git limitation: the size of the attachments should not exceed 10 MB
