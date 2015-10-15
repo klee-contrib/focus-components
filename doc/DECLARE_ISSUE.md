@@ -45,7 +45,7 @@ Focus-components: [version]
 
 ```
 
-Preview :
+__Preview :__
 ![image](https://cloud.githubusercontent.com/assets/5349745/10516004/7335985e-7356-11e5-876b-d0ec17a9a26c.png)
 
 ## Example of a well described issue
