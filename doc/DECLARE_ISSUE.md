@@ -48,6 +48,8 @@ Focus-components: [version]
 __Preview :__
 ![image](https://cloud.githubusercontent.com/assets/5349745/10516004/7335985e-7356-11e5-876b-d0ec17a9a26c.png)
 
+> GitHub uses "GitHub Flavored Markdown," or GFM, across the site--in issues, comments, and pull requests. It differs from standard Markdown (SM) in a few significant ways, and adds some additional functionality. For more informations, please consult https://help.github.com/articles/github-flavored-markdown/.
+
 ## Example of a well described issue
 
 > You need a good example ? please read this issue written by Sebez:
