@@ -20,10 +20,11 @@ Click on `New issue` button.
 
 To clarify / standardize the declaration a maximum of your issues, we invite you very strongly to follow the pattern below:
 
-Title : `[Component] very short resume of the issue`
+__Title :__ `[Component] very short resume of the issue`
 
 > it is important that everyone can understand and know the affected component your issue by reading this sentence
 
+__Body / description :__
 ```markdown
 # Actual behaviour
 
