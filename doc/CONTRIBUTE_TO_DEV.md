@@ -97,7 +97,7 @@ git push
 
 Once you pushed your commits online, github.com propose you to create a pull request. Consult https://github.com/KleeGroup/focus-components
 
-![Create a pull request](https://github.com/KleeGroup/focus-components/tree/develop/doc/images/github_create_pr.PNG)
+![github_create_pr](https://cloud.githubusercontent.com/assets/5349745/10515715/03969b34-7355-11e5-96db-db651a17bcb4.PNG)
 
 Click on `Compare & pull request`.
 
