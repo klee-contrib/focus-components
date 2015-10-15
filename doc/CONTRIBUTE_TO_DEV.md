@@ -58,8 +58,8 @@ Choose the branch name you prefer. However, we recommend using the following pre
 
 ### 3. Realize your developments : update / fix / add new feature
 
-1. develop your new feature. Fix the issue you've detected.
-2. update the __tests__. *That's really important as we want to guarantee the best developer and user exeprience.*
+1. develop your new feature or fix the issue you've detected
+2. update the __tests__; *that's really important as we want to guarantee the best developer and user exeprience*
 3. before pushing the result of your work, please increase the version number of FOCUS-COMPONENTS in the `package.json` file. For example:
 
 ```JSON
