@@ -5,7 +5,7 @@
 ### Prerequisites
 
 You must have installed the following softwares on you computer:
-* `Git bash`
+* [`Git bash`](https://git-for-windows.github.io/)
 * `Atom` or `Webstorm` or your favorite IDE
 
 First, the project must be cloned on you local machine. To do it, use the following command line.
