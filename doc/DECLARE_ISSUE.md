@@ -20,10 +20,10 @@ Click on `New issue` button.
 
 To clarify / standardize the declaration a maximum of your issues, we invite you very strongly to follow the pattern below:
 
-Format
 ![github_create_issue1](https://cloud.githubusercontent.com/assets/5349745/10515819/81f80c4c-7355-11e5-9562-6ab8c586d20c.PNG)
 
-Preview
+__Preview__
+
 ![github_create_issue2](https://cloud.githubusercontent.com/assets/5349745/10515825/8a60e188-7355-11e5-85bd-43893ce61ce2.PNG)
 
 > You need a good example ? please read this issue written by Sebez:
