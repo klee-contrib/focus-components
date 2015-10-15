@@ -18,7 +18,7 @@ __Title__ : [Component] Brieve resume of the fix
 ## Patch
 
 [description of the patch]
-[an code example of how to use it]
+[an code example of how to use it if needed]
 [new animated pictures of issues if needed]
 ```
 
