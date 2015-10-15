@@ -38,7 +38,9 @@ Your are "up-to-date" on the `develop` branch.
 
 ### 2. Fork the branch develop
 
-As we don't want FOCUS developers to commit directly on this branch, you have to fork it. You can use this command:
+As we don't want FOCUS developers to commit directly on this branch, you have to fork it and submit Git pull requests.
+
+To create a new branch, you can use this command:
 
 ```bash
 git checkout -b fix-panel
