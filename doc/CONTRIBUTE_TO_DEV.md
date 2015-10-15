@@ -1,4 +1,4 @@
-# How to contribute to Focus ?
+# How to contribute to FOCUS ?
 
 ## You are *developer* and you want to contribute
 
