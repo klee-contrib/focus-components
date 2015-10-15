@@ -4,7 +4,9 @@
 * Have a question about how focus-components works.
 * You do not know how to approach a development.
 
-__Have the reflex to enter an issue. We try to respond as soon as possible.__
+__Have the reflex to create an issue. We try to respond as soon as possible.__
+
+> Don't hesitate to search for an existing issue before. Someone else may have already encountered the problem. The question has been asked before may be ... A response may already have been made ...
 
 ## Where is it ?
 
@@ -12,19 +14,20 @@ Open your browser and consult this page : https://github.com/KleeGroup/focus-com
 
 Click on `New issue` button.
 
-[New issue button]
+![github_create_issue0](https://cloud.githubusercontent.com/assets/5349745/10515814/76961e5c-7355-11e5-8dfb-33ca944cff5b.PNG)
 
 ## How can I describe my issue the best ?
 
 To clarify / standardize the declaration a maximum of your issues, we invite you very strongly to follow the pattern below:
 
 Format
-[1]
+![github_create_issue1](https://cloud.githubusercontent.com/assets/5349745/10515819/81f80c4c-7355-11e5-9562-6ab8c586d20c.PNG)
 
 Preview
-[2]
+![github_create_issue2](https://cloud.githubusercontent.com/assets/5349745/10515825/8a60e188-7355-11e5-85bd-43893ce61ce2.PNG)
 
 > You need a good example ? please read this issue written by Sebez:
 > [issue 537](https://github.com/KleeGroup/focus-components/issues/537)
 
-[exemple Sebez]
+![github_good_issue](https://cloud.githubusercontent.com/assets/5349745/10515834/93d172be-7355-11e5-9a1f-05a5bb77e453.PNG)
+
