@@ -6,7 +6,7 @@
 
 You must have installed the following softwares on you computer:
 * [`Git bash`](https://git-for-windows.github.io/)
-* `Atom` or `Webstorm` or your favorite IDE
+* [`Atom`](https://atom.io/) or [`Webstorm`](https://www.jetbrains.com/webstorm/) or your favorite IDE
 
 First, the project must be cloned on you local machine. To do it, use the following command line.
 
