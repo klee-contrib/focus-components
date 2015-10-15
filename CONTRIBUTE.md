@@ -1,4 +1,4 @@
-# How to contribute to FOCUS-COMPONENTS ?
+# How to contribute ?
 
 ## Declare an issue
 
