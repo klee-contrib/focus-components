@@ -111,6 +111,7 @@ Click on `Compare & pull request`.
 Role of FOCUS administrator is to validate pull requests.
 
 Below the procedure of validation:
+
 1. Add a label `Review needed`
 2. Read the pull request
 3. Comment the code, or open discution with the developer if needed
