@@ -1,6 +1,6 @@
-# How to contribute to FOCUS ?
+# How to contribute ?
 
-## You are *developer* and you want to contribute
+## You are *developer*
 
 ### Prerequisites
 
@@ -38,7 +38,7 @@ Your are "up-to-date" on the `develop` branch.
 
 ### 2. Fork the branch develop
 
-As we don't want FOCUS developers to commit directly on this branch, you have to fork it and submit Git pull requests.
+As we don't want FOCUS developers to commit directly on this branch, you have to fork it and submit [Git pull requests](https://help.github.com/articles/using-pull-requests/).
 
 To create a new branch, you can use this command:
 
