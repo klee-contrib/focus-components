@@ -19,7 +19,27 @@ Click on `New issue` button.
 ## How can I describe my issue the best ?
 
 To clarify / standardize the declaration a maximum of your issues, we invite you very strongly to follow the pattern below:
+```markdown
+# Actual behaviour
 
+[Description of the actual behaviour and what is the problem / issue for you]
+
+[Screen shots : if possible, use animated gifs for a better illustration]
+
+# Expected behaviour
+
+[Description of the exprected behaviour]
+
+[if you judge it necessary, add a wireframe]
+
+# Versions
+
+Focus-core: [version]
+Focus-components: [version]
+
+```
+
+Preview :
 ![image](https://cloud.githubusercontent.com/assets/5349745/10516004/7335985e-7356-11e5-876b-d0ec17a9a26c.png)
 
 ## Example of a well described issue
