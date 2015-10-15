@@ -67,7 +67,7 @@ Don't hesitate to use it.
 
 > Git limitation: the size of the attachments should not exceed 10 MB
 
-# Someone has already déclared my issue
+# Someone has already declared my issue
 
 This means that someone has also asked the same question, or has already encountered the same problem.
 
