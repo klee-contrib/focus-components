@@ -19,12 +19,12 @@ const defaultProps = {
 
 // component props definition.
 const propTypes = {
-    AppHeader: PropTypes.element,
-    ErrorCenter: PropTypes.element,
+    AppHeader: PropTypes.oneOfType([PropTypes.func,PropTypes.element]),
+    ErrorCenter: PropTypes.oneOfType([PropTypes.func,PropTypes.element]),
     Footer: PropTypes.string,
-    LoadingBar: PropTypes.element,
-    MenuLeft: PropTypes.element,
-    MessageCenter: PropTypes.element
+    LoadingBar: PropTypes.oneOfType([PropTypes.func,PropTypes.element]),
+    MenuLeft: PropTypes.oneOfType([PropTypes.func,PropTypes.element]),
+    MessageCenter: PropTypes.oneOfType([PropTypes.func,PropTypes.element])
 };
 
 /**
