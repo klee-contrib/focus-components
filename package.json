@@ -31,7 +31,7 @@
   "dependencies": {
     "backbone": "^1.2.3",
     "daterangepicker": "0.0.3",
-    "focus-core": "^0.11.0",
+    "focus-core": "^0.11.2",
     "i18next-client": "^1.10.2",
     "immutable": "^3.7.4",
     "lodash": "^3.10.1",
