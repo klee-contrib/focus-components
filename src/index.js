@@ -2,6 +2,7 @@
 const infos = require('../package.json');
 import './style';
 import components from './components';
+import behaviours from './behaviours';
 /**
 * Display information data for Focus-COMPONENTS
 */
@@ -44,5 +45,6 @@ module.exports = {
     message: require('./message'),
     application: require('./application'),
     infos: infosFn,
-    components
+    components,
+    behaviours
 };
