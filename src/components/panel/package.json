@@ -1,17 +1,14 @@
 {
   "name": "panel",
   "version": "1.0.0",
-  "description": "",
+  "description": "Panel component, used to make a card with a title and some content inside. Used to be called Block in the past.",
   "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
   "keywords": [
-    "panel",
-    "block",
     "edit",
     "consult",
-    "form"
+    "form",
+    "container",
+    "dumb"
   ],
   "author": "focus@kleegroup.com",
   "license": "MIT"

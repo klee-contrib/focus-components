@@ -1,16 +1,14 @@
 {
-  "name": "ScrollspyContainer",
+  "name": "Scrollspy container",
   "version": "1.0.0",
-  "description": "navigation panel, used on detail with back-to-top",
+  "description": "Scrollable container which displays a navigation pane on the left hand side. The navigation pane is used as a quick access to the page's panels.",
   "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
   "keywords": [
-    "nvaigation",
-    "detail",
-    "scrollable",
-    "container"
+    "scroll",
+    "container",
+    "navigation",
+    "dynamic",
+    "dumb"
   ],
   "author": "focus@kleegroup.com",
   "license": "MIT"
