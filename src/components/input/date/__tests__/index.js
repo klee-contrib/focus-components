@@ -170,4 +170,48 @@ describe('The input date', () => {
             expect(ReactDOM.findDOMNode(renderedTest.refs.date.refs.input.refs.htmlInput).value).to.equal(invalidDateString);
         });
     });
+    describe('when blurred with a valid date', () => {
+        const validDate = (moment('10/10/2015')).toISOString();
+        const onChangeSpy = sinon.spy();
+        class TestComponent extends Component {
+            render = () => {
+                return <InputDate onChange={onChangeSpy} ref='date' value={validDate} />;
+            }
+        }
+        let renderedTest;
+        before(() => {
+            renderedTest = TestUtils.renderIntoDocument(<TestComponent />);
+            const input = ReactDOM.findDOMNode(renderedTest.refs.date.refs.input.refs.htmlInput);
+            TestUtils.Simulate.blur(input);
+        });
+        it('should call the onChange prop with the corresponding ISOString', () => {
+            expect(onChangeSpy).to.have.been.calledWith(validDate);
+        });
+    });
+    describe('when a date is chosen in the date picker', () => {
+        const validDate = (moment('10/10/2015')).toISOString();
+        const onChangeSpy = sinon.spy();
+        let renderedTest;
+        before(done => {
+            const onChange = cb => {
+                return data => {
+                    onChangeSpy(data);
+                    cb();
+                }
+            };
+            class TestComponent extends Component {
+                render = () => {
+                    return <InputDate onChange={onChange(done)} ref='date' value={validDate} />;
+                }
+            }
+            renderedTest = TestUtils.renderIntoDocument(<TestComponent />);
+            const input = ReactDOM.findDOMNode(renderedTest.refs.date.refs.input.refs.htmlInput);
+            TestUtils.Simulate.focus(input);
+            const firstDay = ReactDOM.findDOMNode(TestUtils.scryRenderedDOMComponentsWithClass(renderedTest, 'dp-day')[0]);
+            TestUtils.Simulate.click(firstDay);
+        });
+        it('should call the onChange prop with the corresponding ISOString', () => {
+            expect(onChangeSpy).to.have.been.calledWith((moment('09/27/2015')).toISOString());
+        });
+    });
 });
