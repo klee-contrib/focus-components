@@ -1,25 +1,14 @@
 {
   "name": "form",
   "version": "1.0.0",
-  "description": "Example of Form use",
+  "description": "Form component, used to display entities and edit them. Comes with two modes, a consult and an edit mode. Mainly used with panels.",
   "main": "index.js",
-  "directories": {
-    "example": "example"
-  },
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
   "keywords": [
+    "edit",
+    "consult",
     "form",
-    "input",
-    "field",
-    "text",
-    "textarea",
-    "date",
-    "select",
-    "radio",
-    "checkbox",
-    "block"
+    "store",
+    "smart"
   ],
   "author": "focus@kleegroup.com",
   "license": "MIT"

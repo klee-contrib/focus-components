@@ -1,28 +1,31 @@
-const Panel = FocusComponents.components.Panel;
+const {Panel} = FocusComponents.components;
 const formMixin = FocusComponents.common.form.mixin;
 
-const domain =  {
-    "DO_TEXT": {
-        style: "do_text",
-        type: "text",
-        component: "PapaSinge",
+const domain = {
+    DO_TEXT: {
+        style: 'do_text',
+        type: 'text',
+        component: 'PapaSinge',
         validation: [{
-            type: "function",
-            value: function() {
+            type: 'function',
+            value: () => {
                 return false;
             }
         }]
     }
 };
+
 Focus.definition.domain.container.setAll(domain);
+
 const entities = {
-    "contact": {
-        "firstName": {
-            "domain": "DO_TEXT",
-            "required": false
+    contact: {
+        firstName: {
+            domain: 'DO_TEXT',
+            required: false
         }
     }
 };
+
 Focus.definition.entity.container.setEntityConfiguration(entities);
 
 const PanelSample1 = React.createClass({
@@ -35,8 +38,8 @@ const PanelSample1 = React.createClass({
     renderContent() {
         return (
             <div>
-                <h3>Block without actions</h3>
-                <Panel title="Here is the title">
+                <h3>Panel without actions</h3>
+                <Panel title='Here is the title'>
                     <br/>
                     <br/>
                     <p>Here is the content.</p>
@@ -58,8 +61,8 @@ const PanelSample2 = React.createClass({
     renderContent() {
         return (
             <div>
-                <h3>Block with actions (default)</h3>
-                <Panel title="Here is the title" actions={this._renderActions}>
+                <h3>Panel with actions (default)</h3>
+                <Panel title='Here is the title' actions={this._renderActions}>
                     <br/>
                     <br/>
                     <p>Here is the content.</p>
@@ -81,8 +84,8 @@ const PanelSample3 = React.createClass({
     renderContent() {
         return (
             <div>
-                <h3>Block with actions (bottom)</h3>
-                <Panel title="Here is the title" actions={this._renderActions} actionsPosition="bottom">
+                <h3>Panel with actions (bottom)</h3>
+                <Panel title='Here is the title' actions={this._renderActions} actionsPosition='bottom'>
                     <br/>
                     <br/>
                     <p>Here is the content.</p>
@@ -104,8 +107,8 @@ const PanelSample4 = React.createClass({
     renderContent() {
         return (
             <div>
-                <h3>Block with actions (both)</h3>
-                <Panel title="Here is the title" actions={this._renderActions} actionsPosition="both">
+                <h3>Panel with actions (both)</h3>
+                <Panel title='Here is the title' actions={this._renderActions} actionsPosition='both'>
                     <br/>
                     <br/>
                     <p>Here is the content.</p>
