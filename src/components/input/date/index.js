@@ -117,6 +117,7 @@ class InputDate extends Component {
     _onDropDownChange = (text, date) => {
         if (date._isValid) {
             this.setState({displayPicker: false}, () => {
+                this.props.onChange(date.toISOString());
                 this._onInputChange(this._formatDate(date.toISOString())); // Add 12 hours to avoid skipping a day due to different locales
             });
         }
