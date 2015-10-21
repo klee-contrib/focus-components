@@ -196,7 +196,7 @@ const AdvancedSearch = {
     */
     _renderActionBar() {
         const {facets, groupingKey, selectedFacets, selectionStatus, sortBy} = this.state;
-        const {lineOperationList, orderableColumnList} = this.props;
+        const {isSelection, lineOperationList, orderableColumnList} = this.props;
         const groupableColumnList = facets ? Object.keys(facets).reduce((result, facetKey) => {
             result[facetKey] = facetKey;
             return result;
@@ -209,6 +209,7 @@ const AdvancedSearch = {
                 action={this._action}
                 groupSelectedKey={groupingKey}
                 groupableColumnList={groupableColumnList}
+                isSelection={isSelection}
                 operationList={lineOperationList}
                 orderSelected={sortBy}
                 orderableColumnList={orderableColumnList}

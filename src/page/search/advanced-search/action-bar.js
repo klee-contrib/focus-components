@@ -87,6 +87,7 @@ const Bar = {
                 groupLabelPrefix='live.filter.facets.'
                 groupSelectedKey={this.props.groupingKey}
                 groupableColumnList={this.props.groupableColumnList}
+                isSelection={this.props.isSelection}
                 operationList={this.props.operationList}
                 orderAction={this._orderAction}
                 orderSelected={this.props.sortBy}
