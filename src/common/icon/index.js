@@ -14,7 +14,7 @@ const iconMixin = {
     propTypes: {
         handleOnClick: types('function'),
         name: types('string'),
-        library: oneOf(['material', 'font-awesome', 'focus'])
+        library: oneOf(['material', 'font-awesome', 'font-custom'])
     },
 
 
@@ -30,6 +30,8 @@ const iconMixin = {
             case 'font-awesome':
                 const faCss = `fa fa-${name}`;
                 return <i className={faCss} onClick={onClick} {...style}></i>;
+            case 'font-custom':
+                return <span className={`icon-${name}`}></span>;
             default:
                 return null;
         }
