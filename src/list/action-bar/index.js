@@ -28,6 +28,7 @@ const ActionBar = {
     */
     getDefaultProps() {
         return {
+            isSelection: true,
             selectionStatus: 'none', // none, selected, partial
             selectionAction(selectionStatus) {
                 console.warn(selectionStatus);
@@ -71,11 +72,11 @@ const ActionBar = {
             }
         ];
         const {style} = this.props;
-        return (
+        return this.props.isSelection ? (
             <div style={style.actions.select}>
                 <Dropdown iconProps={this._getSelectionObjectIcon()} operationList={selectionOperationList}/>
             </div>
-        );
+        ) : null;
     },
 
     /**
