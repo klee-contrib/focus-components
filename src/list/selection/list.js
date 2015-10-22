@@ -91,7 +91,7 @@ const listMixin = {
     */
     _renderLines() {
         let lineCount = 1;
-        const {data, lineComponent: Line, selectionData, idField, selectionStatus} = this.props;
+        const {data, lineComponent: Line, selectionData, idField, selectionStatus, ...otherProps} = this.props;
         if(!isArray(data)){
             console.error(
                 'List: Lines: it seems data is not an array, please check the value in your store, it could also be related to your action in case of a load (have a look to shouldDumpStoreOnActionCall option).'
@@ -124,7 +124,7 @@ const listMixin = {
                     key={line[idField]}
                     ref={`line${lineCount++}`}
                     reference={this._getReference()}
-                    {...omit(this.props, 'data')}
+                    {...otherProps}
                     />
             );
         });

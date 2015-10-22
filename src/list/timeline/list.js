@@ -11,19 +11,19 @@ var Button = require('../../common/button/action').component;
 
 var listMixin = {
     /**
-     * Tag name
-     */
+    * Tag name
+    */
     displayName: 'timeline',
 
     /**
-     * Mixin dependancies.
-     */
+    * Mixin dependancies.
+    */
     mixins: [translationMixin, infiniteScrollMixin, referenceMixin],
 
     /**
-     * Default properties for the list.
-     * @return {object} default props.
-     */
+    * Default properties for the list.
+    * @return {object} default props.
+    */
     getDefaultProps: function getDefaultProps(){
         return {
             data: [],
@@ -34,8 +34,8 @@ var listMixin = {
     },
 
     /**
-     * list property validation.
-     */
+    * list property validation.
+    */
     propTypes: {
         data: type('array'),
         idField: type('string'),
@@ -48,27 +48,30 @@ var listMixin = {
     },
 
     /**
-     * called before component mount
-     */
+    * called before component mount
+    */
     componentWillMount: function componentWillMount(){
         checkIsNotNull('lineComponent', this.props.lineComponent);
     },
 
     /**
-     * Render lines of the list.
-     * @returns {*} the lines
-     */
-    _renderLines: function renderLines() {
-        var lineCount = 1;
-        var LineComponent = this.props.lineComponent || React.createClass(Line);
-        return this.props.data.map((line)=> {
-            return React.createElement(LineComponent, {
-                key: line[this.props.idField] || uuid.v4(),
-                data: line,
-                ref: 'line' + lineCount++,
-                dateField: this.props.dateField,
-                onLineClick: this.props.onLineClick
-            });
+    * Render lines of the list.
+    * @returns {*} the lines
+    */
+    _renderLines() {
+        const {LineComponent = React.createClass(Line), idField, dateField, onLineClick, data, ...otherProps} = this.props;
+        return data.map((line, idx) => {
+            return (
+                <LineComponent
+                    data={line}
+                    dateField={dateField}
+                    key={line[idField] || uuid.v4()}
+                    onLineClick={onLineClick}
+                    ref={idx}
+                    reference={this._getReference()}
+                    {...otherProps}
+                    />
+            );
         });
     },
 
@@ -89,24 +92,24 @@ var listMixin = {
             return (
                 <li className="timeline-button">
                     <Button label="list.button.showMore"
-                            type="button"
-                            handleOnClick={this.handleShowMore}
-                            style={style}/>
+                        type="button"
+                        handleOnClick={this.handleShowMore}
+                        style={style}/>
                 </li>
             );
         }
     },
 
     /**
-     * Render the list.
-     * @returns {XML} the list component
-     */
+    * Render the list.
+    * @returns {XML} the list component
+    */
     render: function renderList(){
         return (
             <ul className="timeline">
-              {this._renderLines()}
-              {this._renderLoading()}
-              {this._renderManualFetch()}
+                {this._renderLines()}
+                {this._renderLoading()}
+                {this._renderManualFetch()}
             </ul>
         );
     }
