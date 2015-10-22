@@ -123,7 +123,7 @@ const ActionBar = {
             label: this.i18n('list.actionBar.ungroup'),
             action: this._groupFunction()
         }]);
-        const groupIcon = groupSelectedKey ? 'folder-open-o' : 'folder-o';
+        const groupIcon ='folder_open';
         return (
             <div style={style.actions.group}>
                 <Dropdown iconProps={{name: groupIcon}} operationList={groupOperationList}/>
@@ -168,7 +168,7 @@ const ActionBar = {
         };
     },
     _groupFunction(key) {
-        return ()=> {
+        return () => {
             this.props.groupAction(key);
         };
     },
