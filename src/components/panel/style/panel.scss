@@ -36,6 +36,7 @@ $panel-border-size:3px;
     [data-focus='panel-content'] {
         &.mdl-card__supporting-text {
             width: auto;
+            overflow: inherit;
         }
     }
 
