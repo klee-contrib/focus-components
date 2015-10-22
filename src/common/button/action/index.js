@@ -41,7 +41,7 @@ const buttonMixin = {
         hasRipple: types('bool'),
         isJs: types('bool'),
         icon: types('string'),
-        iconLibrary: oneOf(['material', 'font-awesome', 'focus'])
+        iconLibrary: oneOf(['material', 'font-awesome', 'font-custom'])
     },
     /**
     * Handle click event.
