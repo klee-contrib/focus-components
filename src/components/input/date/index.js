@@ -17,6 +17,7 @@ const propTypes = {
     locale: PropTypes.object.isRequired,
     name: PropTypes.string.isRequired,
     onChange: PropTypes.func.isRequired,
+    beforeValueGetter: PropTypes.func.isRequired,
     placeHolder: PropTypes.string.isRequired,
     showDropdowns: PropTypes.bool.isRequired,
     validate: PropTypes.func,
@@ -32,6 +33,7 @@ const defaultProps = {
     drops: 'down',
     locale: 'en',
     format: 'MM/DD/YYYY',
+    beforeValueGetter: value => value,
     /**
     * Default onChange prop, that will log an error.
     */
@@ -140,7 +142,8 @@ class InputDate extends Component {
 
     getValue = () => {
         const {inputDate} = this.state;
-        return this._isInputFormatCorrect(inputDate) ? this._parseInputDate(inputDate).toISOString() : null;
+        const rawValue = this._isInputFormatCorrect(inputDate) ? this._parseInputDate(inputDate).toISOString() : null;
+        return this.props.beforeValueGetter(rawValue);
     }
 
     validate = () => {
