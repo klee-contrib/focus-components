@@ -1,5 +1,6 @@
 import headerActions from './layout/header-actions';
 import headerContent from './layout/header-content';
+import headerDefaultTemplate from './layout/header-default-template';
 import headerScrolling from './layout/header-scrolling';
 import headerTopRow from './layout/header-top-row';
 import input from './input';
@@ -11,6 +12,7 @@ import scrollspyContainer from './scrollspy-container';
 export default {
     HeaderActions: headerActions,
     HeaderContent: headerContent,
+    HeaderDefaultTemplate: headerDefaultTemplate,
     HeaderScrolling: headerScrolling,
     HeaderTopRow: headerTopRow,
     input,

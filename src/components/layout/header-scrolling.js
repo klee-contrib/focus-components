@@ -4,10 +4,6 @@ import ReactDom from 'react-dom';
 import {pluck, sortBy} from 'lodash/collection';
 import Scroll from '../../behaviours/scroll';
 
-import HeaderTopRow from './header-top-row';
-import HeaderContent from './header-content';
-import HeaderActions from './header-actions';
-
 // variables
 const applicationStore = Focus.application.builtInStore;
 
@@ -171,9 +167,7 @@ class HeaderScrolling extends Component {
         const {children} = this.props;
         return (
             <header data-focus='header-scrolling' data-mode={mode} data-route={route} data-size={size}>
-                <HeaderTopRow />
-                <HeaderContent />
-                <HeaderActions />
+                {this.props.children}
             </header>
         );
     }

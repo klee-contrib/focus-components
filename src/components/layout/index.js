@@ -1,5 +1,5 @@
 import React, {Component, PropTypes} from 'react';
-import HeaderLayoutDefault from './header-scrolling';
+import HeaderDefaultTemplate from './header-default-template';
 import LoadingBar from '../../application/loading-bar';
 import MessageCenter from '../../application/message-center';
 import ErrorCenter from '../../application/error-center';
@@ -11,7 +11,7 @@ const ErrorCenterDefault = ErrorCenter.component;
 
 // component default props.
 const defaultProps = {
-    AppHeader: HeaderLayoutDefault, //default app header.
+    AppHeader: HeaderDefaultTemplate, //default app header.
     ErrorCenter: ErrorCenterDefault, // default error center
     LoadingBar: LoadingBarDefault, // default loading bar
     MessageCenter: MessageCenterDefault // default message center
