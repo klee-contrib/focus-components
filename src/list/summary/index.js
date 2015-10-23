@@ -20,11 +20,7 @@ const listSummaryMixin = {
      */
     getDefaultProps () {
         return {
-            scopeList: {},
-            /**
-             * Action on click on scope.
-             */
-            scopeClickAction() {}
+            scopeList: []
         };
     },
     /** @inheritdoc */
