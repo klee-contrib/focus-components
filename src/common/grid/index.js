@@ -22,7 +22,7 @@ class Grid extends Component{
 }
 
 Grid.propTypes = {
-    children: types('element')
+    children: types('func')
 };
 
 //Static props.

@@ -1,7 +1,7 @@
 const builder = require('focus-core').component.builder;
 const React = require('react');
 const types = require('focus-core').component.types;
-const oneOf = React.PropTypes.oneOf;
+const {PropTypes} = React;
 
 const iconMixin = {
     displayName: 'Icon',
@@ -12,12 +12,10 @@ const iconMixin = {
         };
     },
     propTypes: {
-        handleOnClick: types('function'),
-        name: types('string'),
-        library: oneOf(['material', 'font-awesome', 'font-custom'])
+        handleOnClick: PropTypes.func,
+        library: PropTypes.oneOf(['material', 'font-awesome', 'font-custom']),
+        name: PropTypes.string
     },
-
-
     /**
     * Render the img.
     * @returns {XML} Html code.

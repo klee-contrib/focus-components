@@ -8,8 +8,22 @@ const BTN_CLASS = 'mdl-button';
 const BUTTON_PRFX = 'mdl-button--';
 const RIPPLE_EFFECT = 'mdl-js-ripple-effect';
 
-const oneOf = React.PropTypes.oneOf;
+const PropTypes = React.PropTypes;
 const materialBehaviour = require('../../mixin/mdl-behaviour');
+
+const propTypes = {
+    id: PropTypes.string,
+    label: PropTypes.string,
+    handleOnClick: PropTypes.func.isRequired,
+    type: PropTypes.oneOf(['submit', 'button']),
+    shape: PropTypes.oneOf([undefined, 'raised', 'fab', 'icon', 'mini-fab']),
+    color: PropTypes.oneOf([undefined, 'colored', 'primary', 'accent']),
+    hasRipple: PropTypes.bool,
+    isJs: PropTypes.bool,
+    icon: PropTypes.string,
+    iconLibrary: PropTypes.oneOf(['material', 'font-awesome', 'font-custom'])
+};
+
 /**
 * Mixin button.
 * @type {Object}
@@ -31,18 +45,7 @@ const buttonMixin = {
             iconLibrary: 'material'
         };
     },
-    propTypes: {
-        id: types('string'),
-        label: types('string'),
-        handleOnClick: types('function'),
-        type: oneOf(['submit', 'button']),
-        shape: oneOf([undefined, 'raised', 'fab', 'icon', 'mini-fab']),
-        color: oneOf([undefined, 'colored', 'primary', 'accent']),
-        hasRipple: types('bool'),
-        isJs: types('bool'),
-        icon: types('string'),
-        iconLibrary: oneOf(['material', 'font-awesome', 'font-custom'])
-    },
+    propTypes: propTypes,
     /**
     * Handle click event.
     * @return {Object} - Action call.
@@ -97,14 +100,14 @@ const buttonMixin = {
         const {icon, iconLibrary} = this.props;
         switch (iconLibrary) {
             case 'material':
-                return <i className='material-icons'>{icon}</i>;
+            return <i className='material-icons'>{icon}</i>;
             case 'font-awesome':
-                const faCss = `fa fa-${icon}`;
-                return <i className={faCss}></i>;
+            const faCss = `fa fa-${icon}`;
+            return <i className={faCss}></i>;
             case 'font-custom':
-                return <span className={`icon-${icon}`}></span>;
+            return <span className={`icon-${icon}`}></span>;
             default:
-                return null;
+            return null;
         }
     },
     /**

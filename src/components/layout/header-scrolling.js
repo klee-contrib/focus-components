@@ -32,8 +32,8 @@ const propTypes = {
     size: PropTypes.oneOf(['small', 'medium']),
     scrollTargetSelector: PropTypes.string,
     sizeMap: PropTypes.object,
-    notifySizeChange: PropTypes.oneOfType([PropTypes.fuction, PropTypes.object]),
-    processSize: PropTypes.oneOfType([PropTypes.fuction, PropTypes.object])
+    notifySizeChange: PropTypes.oneOfType([PropTypes.func, PropTypes.object]),
+    processSize: PropTypes.oneOfType([PropTypes.func, PropTypes.object])
 };
 
 /**
