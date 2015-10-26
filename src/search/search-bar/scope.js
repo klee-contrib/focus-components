@@ -55,9 +55,9 @@ const scopeMixin = {
         }
     },
     /**
-     * Component will receive props.
-     * @param {Object} nextProps the next props
-     */
+    * Component will receive props.
+    * @param {Object} nextProps the next props
+    */
     componentWillReceiveProps(nextProps) {
         if (ReactDOM.findDOMNode(this.refs.scopeDropdown)) {
             componentHandler.upgradeElement(ReactDOM.findDOMNode(this.refs.scopeDropdown));
@@ -106,14 +106,15 @@ const scopeMixin = {
         return (
             <ul className={`mdl-menu mdl-menu--bottom-left mdl-js-menu mdl-js-ripple-effect`} data-focus='search-bar-scopes' htmlFor={scopesId} ref='scopeDropdown'>
                 {0 < scopeList.length && scopeList.map(scope => {
+                    const {code, label, ...otherScopeProps} = scope;
                     const scopeId = uniqueId('scopes_');
-                    const isActive = value === scope.code;
+                    const isActive = value === code;
                     return (
                         <li className='mdl-menu__item' data-active={isActive} key={scope.code || scopeId} onClick={this._getScopeClickHandler(scope)}>
                             {scope.code &&
-                                <Icon name={scope.code} />
+                                <Icon name={code} {...otherScopeProps}/>
                             }
-                            <span>{scope.label}</span>
+                            <span>{label}</span>
                         </li>
                     );
                 })}
