@@ -63,13 +63,6 @@ const listMixin = {
     },
 
     /**
-    * called before component mount
-    */
-    componentWillMount() {
-        checkIsNotNull('lineComponent', this.props.lineComponent);
-    },
-
-    /**
     * Return selected items in the list.
     * @return {Array} selected items
     */
