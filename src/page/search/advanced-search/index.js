@@ -197,7 +197,9 @@ const AdvancedSearch = {
         const {facets, groupingKey, selectedFacets, selectionStatus, sortBy} = this.state;
         const {isSelection, lineOperationList, orderableColumnList} = this.props;
         const groupableColumnList = facets ? Object.keys(facets).reduce((result, facetKey) => {
-            result[facetKey] = facetKey;
+            if (Object.keys(facets[facetKey]).length > 1) {
+                result[facetKey] = facetKey;
+            }
             return result;
         }, {}) : {};
         const selectionAction = (status) => {

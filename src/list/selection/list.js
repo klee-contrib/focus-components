@@ -91,7 +91,14 @@ const listMixin = {
     */
     _renderLines() {
         let lineCount = 1;
-        const {data, lineComponent: Line, selectionData, idField, selectionStatus, ...otherProps} = this.props;
+        const {data, LineComponent: Line, selectionData, idField, selectionStatus, ...otherProps} = this.props;
+        // LEGACY CODE
+        const customLineComponent = otherProps.lineComponent;
+        if (customLineComponent) {
+            console.warn(`%c DEPRECATED : You are using the lineComponent prop in a list component, this will be removed in the next release of Focus Components. Please use LineComponent prop instead.`, `color: #FF9C00; font-weight: bold`);
+        }
+        const FinalLineComponent = customLineComponent || Line;
+        // END OF LEGACY CODE
         if(!isArray(data)){
             console.error(
                 'List: Lines: it seems data is not an array, please check the value in your store, it could also be related to your action in case of a load (have a look to shouldDumpStoreOnActionCall option).'
@@ -118,7 +125,7 @@ const listMixin = {
                 }
             }
             return (
-                <Line
+                <FinalLineComponent
                     data={line}
                     isSelected={isSelected}
                     key={line[idField]}

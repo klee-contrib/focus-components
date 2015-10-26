@@ -106,7 +106,7 @@ module.exports = {
         options.listComponent = options.listComponent || List;
         const listForProps = assign({}, options, {
             data: this.state[name],
-            lineComponent: options.lineComponent || this.props.lineComponent || this.lineComponent,
+            LineComponent: options.lineComponent || this.props.lineComponent || this.lineComponent,
             perPage: options.perPage || 5,
             reference: options.reference,
             isEdit: options.isEdit !== undefined ? options.isEdit : false
@@ -122,7 +122,7 @@ module.exports = {
     * @param {object} options - Options object.
     * @returns {object} - The react component for the list.
     */
-    tableFor(name, options){
+    tableFor(name, options) {
         options.listComponent = options.listComponent || Table;
         return this.listFor(name, options);
     },
