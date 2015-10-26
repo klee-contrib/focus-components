@@ -48,13 +48,6 @@ var listMixin = {
     },
 
     /**
-    * called before component mount
-    */
-    componentWillMount: function componentWillMount(){
-        checkIsNotNull('lineComponent', this.props.lineComponent);
-    },
-
-    /**
     * Render lines of the list.
     * @returns {*} the lines
     */
