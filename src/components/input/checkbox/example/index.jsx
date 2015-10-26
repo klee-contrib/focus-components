@@ -4,7 +4,7 @@ const {Component} = React;
 
 // Components
 
-const Checkbox = FocusComponents.components.input.Checkbox;
+const {Checkbox} = FocusComponents.components.input;
 
 class InputCheckboxSample extends Component {
     /**
@@ -16,15 +16,7 @@ class InputCheckboxSample extends Component {
     }
 
     state = {
-        test: true
-    }
-
-    componentDidMount = () => {
-        setTimeout(() => {
-            this.setState({
-                test: false
-            });
-        }, 3000);
+        controllableCheckbox: true
     }
 
     /**
@@ -32,26 +24,29 @@ class InputCheckboxSample extends Component {
     * @return {object} React node
     */
     render() {
+        const {controllableCheckbox} = this.state;
         return (
             <div>
-                <h3>Input checkbox</h3>
-                <Checkbox label='My awsome checkbox' value={this.state.test}/>
+                <h1>Input checkbox</h1>
+                <h3>Standard checkbox</h3>
+                <Checkbox label='My awsome checkbox' value={true}/>
 
-                <h3>Unselected checkbox</h3>
-                <Checkbox label='My awsome checkbox' value={false} />
-
+                <h3>Controllable checkbox</h3>
+                <Checkbox label='My awsome checkbox' value={controllableCheckbox} />
+                <button className='mdl-button mdl-js-button mdl-button--raised mdl-button--colored' onClick={() => {this.setState({controllableCheckbox: !controllableCheckbox})}}>
+                    Toggle the checkbox value
+                </button>
                 <h3>Without label</h3>
                 <Checkbox value={true} />
 
                 <h3>Get Checkbox value</h3>
-                <div style={{float: 'left', width: '300px'}}>
-                    <Checkbox label='My awsome checkbox' ref='cbTestGetValue' value={true}/>
-                </div>
-                <div style={{marginLeft: '300px'}}>
-                    <button onClick={this.handleGetValueClick}>Get the checkbox value</button>
-                </div>
-        </div>);
+                <Checkbox label='My awsome checkbox' ref='cbTestGetValue' value={true}/>
+                <button className='mdl-button mdl-js-button mdl-button--raised mdl-button--colored' onClick={this.handleGetValueClick}>
+                    Get the checkbox value
+                </button>
+            </div>
+        );
     }
 }
 
-return <InputCheckboxSample />;
+module.exports = InputCheckboxSample;
