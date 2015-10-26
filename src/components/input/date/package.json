@@ -1,14 +1,8 @@
 {
   "name": "Input date",
-  "version": "1.0.0",
-  "description": "Input Date component.",
+  "version": "2.0.0",
+  "description": "Input date component. Uses moment.js locales, in order to handle internationalization. Works with ISOStrings only.",
   "main": "index.js",
-  "directories": {
-    "example": "example"
-  },
-  "scripts": {
-    "test": "mocha __tests__/index.js"
-  },
   "keywords": [
     "dumb",
     "input",
