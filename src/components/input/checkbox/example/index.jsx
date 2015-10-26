@@ -15,6 +15,18 @@ class InputCheckboxSample extends Component {
         alert('Checkbox value: ' + value);
     }
 
+    state = {
+        test: true
+    }
+
+    componentDidMount = () => {
+        setTimeout(() => {
+            this.setState({
+                test: false
+            });
+        }, 3000);
+    }
+
     /**
     * Render the component.
     * @return {object} React node
@@ -23,7 +35,7 @@ class InputCheckboxSample extends Component {
         return (
             <div>
                 <h3>Input checkbox</h3>
-                <Checkbox label='My awsome checkbox' value={true}/>
+                <Checkbox label='My awsome checkbox' value={this.state.test}/>
 
                 <h3>Unselected checkbox</h3>
                 <Checkbox label='My awsome checkbox' value={false} />
