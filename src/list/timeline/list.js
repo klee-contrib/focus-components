@@ -60,9 +60,16 @@ var listMixin = {
     */
     _renderLines() {
         const {LineComponent = React.createClass(Line), idField, dateField, onLineClick, data, ...otherProps} = this.props;
+        // LEGACY CODE
+        const customLineComponent = otherProps.lineComponent;
+        if (customLineComponent) {
+            console.warn(`%c DEPRECATED : You are using the lineComponent prop in a timeline component, this will be removed in the next release of Focus Components. Please use LineComponent prop instead.`, `color: #FF9C00; font-weight: bold`);
+        }
+        const FinalLineComponent = customLineComponent || LineComponent;
+        // END OF LEGACY CODE
         return data.map((line, idx) => {
             return (
-                <LineComponent
+                <FinalLineComponent
                     data={line}
                     dateField={dateField}
                     key={line[idField] || uuid.v4()}
@@ -75,9 +82,9 @@ var listMixin = {
         });
     },
 
-    _renderLoading: function renderLoading(){
-        if(this.props.isLoading){
-            if(this.props.loader){
+    _renderLoading: function renderLoading() {
+        if(this.props.isLoading) {
+            if(this.props.loader) {
                 return this.props.loader();
             }
             return (
