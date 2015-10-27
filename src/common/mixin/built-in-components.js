@@ -137,11 +137,9 @@ module.exports = {
         return (
             <Button
                 handleOnClick={handleOnClick}
-                icon='trash'
-                iconLibrary='font-awesome'
+                icon='delete'
                 label='button.delete'
                 shape={null}
-                style={{className: 'delete'}}
                 type='button'
                 />
         );
@@ -159,11 +157,9 @@ module.exports = {
         return (
             <Button
                 handleOnClick={handleOnClick}
-                icon='pencil'
-                iconLibrary='font-awesome'
+                icon='edit'
                 label='button.edit'
                 shape={null}
-                style={{className: 'edit'}}
                 type='button'
                 />
         );
@@ -183,10 +179,8 @@ module.exports = {
             <Button
                 handleOnClick={handleOnClick}
                 icon='undo'
-                iconLibrary='font-awesome'
                 label='button.cancel'
                 shape={null}
-                style={{className: 'cancel'}}
                 type='button'
                 />
         );
@@ -204,11 +198,9 @@ module.exports = {
         return (
             <Button
                 handleOnClick={handleOnClick}
-                icon='floppy-o'
-                iconLibrary='font-awesome'
+                icon='save'
                 label='button.save'
                 shape={null}
-                style={{className: 'delete'}}
                 type='button'
                 />
         );
