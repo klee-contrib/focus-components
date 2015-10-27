@@ -23,7 +23,7 @@ let MemoryListMixin = {
             <this.props.listComponent
                 data={this.getDataToUse()}
                 hasMoreData={hasMoreData}
-                LineComponent={this.props.lineComponent}
+                LineComponent={this.props.LineComponent}
                 isSelection={false}
                 isManualFetch={true}
                 fetchNextPage={this.fetchNextPage}

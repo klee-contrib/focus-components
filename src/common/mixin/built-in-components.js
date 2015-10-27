@@ -106,7 +106,7 @@ module.exports = {
         options.listComponent = options.listComponent || List;
         const listForProps = assign({}, options, {
             data: this.state[name],
-            LineComponent: options.lineComponent || this.props.lineComponent || this.lineComponent,
+            LineComponent: options.lineComponent || options.LineComponent || this.props.LineComponent || this.LineComponent || this.lineComponent,
             perPage: options.perPage || 5,
             reference: options.reference,
             isEdit: options.isEdit !== undefined ? options.isEdit : false
