@@ -98,7 +98,7 @@ const tableMixin = {
      * @return {Component} - The component containing the tbody.
      */
     _renderTableBody() {
-        const {data, lineComponent: TableLineComponent, idField} = this.props;
+        const {data, LineComponent: TableLineComponent, idField} = this.props;
         const reference = this._getReference();
         return (
             <tbody>
