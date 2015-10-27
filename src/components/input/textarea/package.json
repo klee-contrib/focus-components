@@ -1,18 +1,12 @@
 {
-  "name": "new input-textarea",
+  "name": "Input textarea",
   "version": "1.0.0",
-  "description": "Example of input textarea use",
-  "main": "index.js",
-  "directories": {
-    "example": "example"
-  },
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
+  "description": "Input textarea, used in forms to let the users enter long texts.",
   "keywords": [
+    "dumb",
     "input",
     "text",
-    "textarea"
+    "material"
   ],
   "author": "focus@kleegroup",
   "license": "MIT"

@@ -1,23 +1,23 @@
-const SelectInput = FocusComponents.components.input.Select;
+const {Select: SelectInput} = FocusComponents.components.input;
 
 const valuesExample = [
-    {code: "A", label: "aaaa"},
-    {code: "B", label: "bbbbb"},
-    {code: "C", label: "ccccc"},
-    {code: "D", label: "DDDD"}
+    {code: 'A', label: 'aaaa'},
+    {code: 'B', label: 'bbbbb'},
+    {code: 'C', label: 'ccccc'},
+    {code: 'D', label: 'DDDD'}
 ];
 const valuesCustomExample = [
-    {id: "custom", name: "aaaaCustom"},
-    {id: "BCustom", name: "bbbbbCustom"},
-    {id: "CCustom", name: "cccccCustom"}
+    {id: 'custom', name: 'aaaaCustom'},
+    {id: 'BCustom', name: 'bbbbbCustom'},
+    {id: 'CCustom', name: 'cccccCustom'}
 ];
 const valuesInt = [
-    {code: 1, label: "aInt"},
-    {code: 2, label: "bInt"},
-    {code: 3, label: "cInt"}
+    {code: 1, label: 'aInt'},
+    {code: 2, label: 'bInt'},
+    {code: 3, label: 'cInt'}
 ];
-function _capitalize(string){
-      return string && (string.charAt(0).toUpperCase() + string.slice(1));
+function _capitalize(string) {
+    return string && (string.charAt(0).toUpperCase() + string.slice(1));
 }
 
 
@@ -29,17 +29,17 @@ const SelectSample = React.createClass({
         };
     },
     getInitialState(){
-            return {
-                valueHasUndefined: 'B',
-                valueNonRequis: 'B',
-                valueRequis: 'B',
-                valueWithoutValue: null,
-                valueCodeRedefined: null,
-                valueIntValues: 1,
-                valueListDesactive: 1,
-                valueError: '1111',
-                errorValueError: 'Erreur sur le champ select'
-            };
+        return {
+            valueHasUndefined: 'B',
+            valueNonRequis: 'B',
+            valueRequis: 'B',
+            valueWithoutValue: null,
+            valueCodeRedefined: null,
+            valueIntValues: 1,
+            valueListDesactive: 1,
+            valueError: '1111',
+            errorValueError: 'Erreur sur le champ select'
+        };
     },
     /**
     * Render the component.
@@ -49,7 +49,6 @@ const SelectSample = React.createClass({
         const {valueHasUndefined, valueNonRequis, valueRequis, valueWithoutValue, valueCodeRedefined, valueIntValues, valueListDesactive, valueError,errorValueError} = this.state;
         return (
             <div>
-                <pre>{JSON.stringify(this.state)}</pre>
                 <h3>Liste simple avec valeur préselectionnée</h3>
                 <p>
                     <span>hasUndefined forcé</span>
@@ -60,7 +59,7 @@ const SelectSample = React.createClass({
                     <SelectInput isRequired={false} name='valueNonRequis' onChange={this.onChangeSelect('valueNonRequis')} value={valueNonRequis} values={valuesExample}/>
                 </p>
                 <p>
-                <span>Requis</span>
+                    <span>Requis</span>
                     <SelectInput name='valueRequis' onChange={this.onChangeSelect('valueRequis')} isRequired={true} value={valueRequis}  values={valuesExample}/>
                 </p>
                 <h3>Liste simple sans valeur préselectionnée</h3>
@@ -83,4 +82,4 @@ const SelectSample = React.createClass({
     }
 });
 
-return <SelectSample />;
+module.exports = SelectSample;

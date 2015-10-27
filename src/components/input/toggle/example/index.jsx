@@ -35,11 +35,9 @@ class InputToggleSample extends Component {
                 <div style={{float: 'left', width: '300px'}}>
                     <Toggle label='My awsome toggle' ref='toggleTestGetValue' value={true}/>
                 </div>
-                <div style={{marginLeft: '300px'}}>
-                    <button onClick={this.handleGetValueClick}>Get the toggle value</button>
-                </div>
-        </div>);
+                <button className='mdl-button mdl-js-button mdl-button--raised mdl-button--colored' onClick={this.handleGetValueClick}>Get the toggle value</button>                
+            </div>);
+        }
     }
-}
 
-return <InputToggleSample />;
+    module.exports = InputToggleSample;

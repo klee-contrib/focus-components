@@ -64,4 +64,4 @@ const InputTextAreaSample = React.createClass({
     }
 });
 
-return <InputTextAreaSample />;
+module.exports = InputTextAreaSample;
