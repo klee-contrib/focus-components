@@ -49,6 +49,9 @@ const Overlay = React.createClass({
      */
     componentWillUnmount() {
         ReactDOM.findDOMNode(this.refs.overlay).removeEventListener('mousewheel', this._onScroll);
+        if (this._oldScroll !== undefined) {
+            this._restoreBodyOverflow();
+        }
     },
     /**
      * Mouse wheel event handler.
