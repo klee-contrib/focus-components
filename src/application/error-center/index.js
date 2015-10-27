@@ -47,12 +47,12 @@ const errorCenter = {
         return (
             <div data-focus='error-center'>
                 <div data-focus='error-counter'>
-                    <i className="fa fa-times-circle"></i>{errorLength}
+                    <i className='material-icons' style={{cursor: 'pointer', fontSize: '28px', padding: '15px 5px 5px 5px'}}>error</i>{errorLength}
                 </div>
                 <div data-focus='error-actions'>
-                    <i className='fa fa-refresh' onClick={()=>{window.location.reload(); }}></i>
-                    <i className={`fa fa-arrow-circle-o-${isErrorsVisible ? 'up' : 'down'}`} onClick={this._toggleVisible}></i>
-                    <i className='fa fa-trash-o' onClick={()=>{this.setState({errors: []}); }}></i>
+                    <i className='material-icons' style={{cursor: 'pointer', fontSize: '36px', padding: '10px'}} onClick={()=>{window.location.reload(); }}>refresh</i>
+                    <i className='material-icons' style={{cursor: 'pointer', fontSize: '36px', padding: '10px'}} onClick={this._toggleVisible}>{`keyboard_arrow_${isErrorsVisible ? 'down' : 'up'}`}</i>
+                    <i className='material-icons' style={{cursor: 'pointer', fontSize: '36px', padding: '10px'}} onClick={()=>{this.setState({errors: []}); }}>delete</i>
                 </div>
                 <ul data-focus='error-stack'>
                   {isErrorsVisible ? errors.slice(errorLength - numberDisplayed, errorLength).map((err)=>{ const e = REACT_NOT_COMPONENT_ERROR === err ? REACT_NOT_COMPONENT_MESSAGE : err; return <li>{e}</li>; }) : null}
