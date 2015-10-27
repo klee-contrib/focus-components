@@ -1,19 +1,12 @@
 {
-  "name": "input-text",
+  "name": "Input text",
   "version": "1.0.0",
-  "description": "Input standard html",
-  "main": "index.js",
-  "directories": {
-    "example": "example"
-  },
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
+  "description": "Standard html input. Used to display anything that is not specific, ie not a date nor a boolean.",
   "keywords": [
+    "dumb",
     "input",
-    "html",
     "text",
-    "attribute"
+    "material"
   ],
   "author": "focus@kleegroup.com",
   "license": "MIT"

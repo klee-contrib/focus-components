@@ -7,7 +7,7 @@ class InputTextExample extends React.Component {
     }
 
     onChangeInput(name) {
-        return (value) => {
+        return value => {
             this.setState({[name]: value});
         };
     }
@@ -27,7 +27,9 @@ class InputTextExample extends React.Component {
 
                 <h3>Get the value</h3>
                 <Input value='Lorem Ipsum' ref='myInputText' name='inputGetTheValue' value={inputGetTheValue} onChange={this.onChangeInput('inputGetTheValue')}/>
-                <button onClick={() => {alert(this.refs.myInputText.getValue())}}>Get the input value</button>
+                <button className='mdl-button mdl-js-button mdl-button--raised mdl-button--colored' onClick={() => {alert(this.refs.myInputText.getValue())}}>
+                    Get the input value
+                </button>
             </form>
         );
     }
