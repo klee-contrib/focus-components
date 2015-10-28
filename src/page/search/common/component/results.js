@@ -84,6 +84,7 @@ let Results = {
      * @return {HMTL}      the rendered group
      */
     _renderSingleGroup(list, key, count, isUnique) {
+        const {initialRowsCount} = this.props;
         if(this.props.renderSingleGroupDecoration && !this.props.groupComponent) {
             console.warn('You are trying to wrap your list in a group without a groupComponent. Please give one or set "renderSingleGroupDecoration" to false.');
         }
@@ -95,6 +96,7 @@ let Results = {
                         count={count}
                         groupComponent={this.props.groupComponent}
                         groupKey={key}
+                        initialRowsCount={initialRowsCount}
                         isUnique={true}
                         list={list}
                         renderResultsList={this._renderResultsList}
@@ -109,6 +111,7 @@ let Results = {
                     count={count}
                     groupComponent={this.props.groupComponent}
                     groupKey={key}
+                    initialRowsCount={initialRowsCount}
                     list={list}
                     renderResultsList={this._renderResultsList}
                     showAllHandler={this._showAllHandler}
