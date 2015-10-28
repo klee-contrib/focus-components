@@ -137,6 +137,7 @@ class InputDate extends Component {
         const inputId = input ? input.dataset.reactid : null;
         if (reactid && pickerId && inputId && !reactid.startsWith(pickerId) && !reactid.startsWith(inputId)) {
             this.setState({displayPicker: false});
+            this._onInputBlur();
         }
     }
 
@@ -168,7 +169,7 @@ class InputDate extends Component {
         const {_onInputBlur, _onInputChange, _onInputFocus, _onDropDownChange, _onPickerCloserClick} = this;
         return (
             <div data-focus='input-date'>
-                <InputText error={error} name={name} onBlur={_onInputBlur} onChange={_onInputChange} onFocus={_onInputFocus} placeHolder={placeHolder} ref='input' value={inputDate} />
+                <InputText error={error} name={name} onChange={_onInputChange} onFocus={_onInputFocus} placeHolder={placeHolder} ref='input' value={inputDate} />
                 {displayPicker &&
                     <div data-focus='picker-zone'>
                         <DatePicker
