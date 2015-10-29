@@ -17,7 +17,7 @@ let GroupWrapper = {
     },
     getInitialState() {
         return ({
-            resultsDisplayedCount: 3
+            resultsDisplayedCount: this.props.initialRowsCount || 3
         });
     },
     _showMoreHandler() {
