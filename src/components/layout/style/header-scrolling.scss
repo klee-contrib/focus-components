@@ -81,7 +81,7 @@ to { height: auto; }
     }
 }
 
-&[data-focus="layout"] {
+[data-focus="layout"] {
     &[data-menu="left"] {
         [data-focus="header-scrolling"] {
             &[data-size="small"] {
