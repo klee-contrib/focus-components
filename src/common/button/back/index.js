@@ -1,5 +1,6 @@
-// Dependencies
+import React from 'react';
 
+// Dependencies
 const {builder} = require('focus-core').component;
 const backbone = require('backbone');
 
