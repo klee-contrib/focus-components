@@ -54,7 +54,8 @@ class ScrollspyContainer extends Component {
     }
 
     /** @inheritDoc */
-    componentWillUnMount() {
+    componentWillUnmount() {
+        this._timeouts.map(clearTimeout);
         this._scrollCarrier.removeEventListener('scroll', this._debounceRefreshMenu);
         this._scrollCarrier.removeEventListener('resize', this._debounceRefreshMenu);
     }
@@ -63,10 +64,10 @@ class ScrollspyContainer extends Component {
     * Refresh screen X times.
     * @param  {number} time number of execution
     */
-    _executeRefreshMenu = (time) => {
-        //TODO : to rewrite becuase of memory leak
+    _executeRefreshMenu = time => {
+        this._timeouts = [];
         for (let i = 0; i < time; i++) {
-            setTimeout(this._refreshMenu.bind(this), i * 1000);
+            this._timeouts.push(setTimeout(this._refreshMenu.bind(this), i * 1000));
         }
     }
 
