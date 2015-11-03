@@ -102,19 +102,30 @@ class ScrollspyContainer extends Component {
         }
         const currentScrollPosition = this.scrollPosition();
 
-        //get menu list
-        const selectionList = document.querySelectorAll('[data-spy]');
+        //get menu list$
+        const thisReactId = ReactDOM.findDOMNode(this).getAttribute('data-reactid');
+        const selectionList = Array.prototype.slice.call(document.querySelectorAll('[data-spy]')).filter(element => {
+            let cursorElement = element;
+            let isInPopin = false;
+            while (cursorElement.getAttribute('data-reactid') !== thisReactId && !isInPopin) {
+                cursorElement = cursorElement.parentElement;
+                if (cursorElement.getAttribute('data-focus') === 'popin-window') {
+                    isInPopin = true;
+                }
+            }
+            return !isInPopin;
+        });
         if(selectionList.length === 0) {
             return;
         }
-        const menuList = [].map.call(selectionList, (selection, index) => {
+        const menuList = selectionList.map((selection, index) => {
             const title = selection.querySelector('[data-spy-title]');
             const nodeId = selection.getAttribute('data-spy');
             return {
                 index: index,
                 label: title.innerHTML,
                 nodeId: nodeId,
-                offsetTop: selection.offsetTop, // offset of 10 to ensure
+                offsetTop: selection.offsetTop, // offset of 10 to be safe
                 isActive: false,
                 onClick: this._handleMenuItemClick(nodeId)
             };
