@@ -105,7 +105,7 @@ class ScrollspyContainer extends Component {
 
         //get menu list$
         const thisReactId = ReactDOM.findDOMNode(this).getAttribute('data-reactid');
-        let selectionList = Array.prototype.slice.call(document.querySelectorAll('[data-spy]')).filter(element => {
+        const selectionList = Array.prototype.slice.call(document.querySelectorAll('[data-spy]')).filter(element => {
             let cursorElement = element;
             let isInPopin = false;
             while (cursorElement.getAttribute('data-reactid') !== thisReactId && !isInPopin) {
