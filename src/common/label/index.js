@@ -1,4 +1,5 @@
 // Dependencies
+import React from 'react';
 
 const {builder, types} = require('focus-core').component;
 const i18nBehaviour = require('../i18n/mixin');
