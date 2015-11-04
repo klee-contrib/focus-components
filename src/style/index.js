@@ -52,5 +52,5 @@ import '../style/animation.scss';
 import '../style/spinner.scss';
 import '../components/input/date/style/index.scss';
 import 'react-date-picker/index.css';
-import 'material-design-lite/src/material-design-lite';
+import 'material-design-lite/src/material-design-lite.scss';
 //import '../style/_mdl_variables.scss';
