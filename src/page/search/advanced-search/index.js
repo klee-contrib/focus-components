@@ -3,6 +3,8 @@
 const {builder} = require('focus-core').component;
 const {camelCase: camel} = require('lodash/string');
 const {capitalize} = require('lodash/string');
+const {isFunction} = require('lodash/lang');
+const {reduce} = require('lodash/collection');
 
 // Components
 
@@ -122,6 +124,24 @@ const AdvancedSearch = {
             this.props.store[`remove${capitalize(camel(node))}ChangeListener`](this._onStoreChangeWithoutSearch);
         });
     },
+
+    getSelectedItems() {
+        const results = this.refs.resultList;
+        const selectedItems = reduce(results.refs, (selectedItems, ref) => {
+            if (isFunction(ref.getSelectedItems)) {
+                selectedItems = selectedItems.concat(ref.getSelectedItems());
+            } else if (ref.refs) {
+                selectedItems = selectedItems.concat(reduce(ref.refs, (subSelectedItems, subRef) => {
+                    if (isFunction(subRef.getSelectedItems)) {
+                        subSelectedItems = subSelectedItems.concat(subRef.getSelectedItems());
+                    }
+                    return subSelectedItems;
+                }, []));
+            }
+            return selectedItems;
+        }, []);
+        return selectedItems;
+    },
     /**
     * Store changed, update the state, trigger a search after update
     */
@@ -169,6 +189,7 @@ const AdvancedSearch = {
                 action={this._action}
                 facetConfig={facetConfig}
                 facets={facets}
+                ref='facetBox'
                 scopesConfig={scopesConfig}
                 selectedFacets={selectedFacets}
                 />
@@ -184,6 +205,7 @@ const AdvancedSearch = {
             <ListSummary
                 action={this._action}
                 query={query}
+                ref='summary'
                 scope={scope}
                 totalCount={totalCount}
                 />
@@ -214,6 +236,7 @@ const AdvancedSearch = {
                 operationList={lineOperationList}
                 orderSelected={sortBy}
                 orderableColumnList={orderableColumnList}
+                ref='actionBar'
                 selectedFacets={selectedFacets}
                 selectionAction={selectionAction}
                 selectionStatus={selectionStatus}
@@ -237,6 +260,7 @@ const AdvancedSearch = {
                 lineComponentMapper={lineComponentMapper}
                 lineOperationList={lineOperationList}
                 lineSelectionHandler={this._selectItem}
+                ref='resultList'
                 renderSingleGroupDecoration={false}
                 resultsFacets={facets}
                 resultsMap={results}

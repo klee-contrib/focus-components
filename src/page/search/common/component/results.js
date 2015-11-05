@@ -99,6 +99,7 @@ let Results = {
                         initialRowsCount={initialRowsCount}
                         isUnique={true}
                         list={list}
+                        ref={`group-${key}`}
                         renderResultsList={this._renderResultsList}
                     />
                 );
@@ -113,6 +114,7 @@ let Results = {
                     groupKey={key}
                     initialRowsCount={initialRowsCount}
                     list={list}
+                    ref={`group-${key}`}
                     renderResultsList={this._renderResultsList}
                     showAllHandler={this._showAllHandler}
                 />
@@ -164,6 +166,7 @@ let Results = {
                     onSelection={lineSelectionHandler}
                     operationList={lineOperationList}
                     parentSelector={scrollParentSelector}
+                    ref={`list-${key}`}
                     selectionData={selectionData}
                     selectionStatus={selectionStatus}
                     {...otherProps}
