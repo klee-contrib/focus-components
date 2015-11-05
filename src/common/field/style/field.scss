@@ -5,7 +5,7 @@ $field-input-width-date: 100px;
 $field-label-font-size:13px; //TODO TGN à revoir.
 $field-label-error-color:rgb(222, 50, 38);
 
-[data-focus="field"] {
+div[data-focus="field"] {
     padding: 0;
     [data-focus="field-label-container"] {
         text-align: right;
