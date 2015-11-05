@@ -48,12 +48,12 @@ const listMixin = {
     * @type {Object}
     */
     propTypes: {
+        LineComponent: types('func', true),
         buttonComponent: types('func'),
         data: types('array'),
         idField: types('string'),
         isLoading: types('bool'),
         isSelection: types('bool'),
-        lineComponent: types('func', true),
         loader: types('func'),
         onLineClick: types('func'),
         onSelection: types('func'),
