@@ -174,7 +174,7 @@ let Autocomplete = {
         }
         if (!code && !allowUnmatchedValue && !this._isSelecting) {
             this.setState({value: ''});
-            selectionHandler({code: '', value: ''});
+            selectionHandler && selectionHandler({code: '', value: ''});
         }
 
         onInputBlur && onInputBlur();
