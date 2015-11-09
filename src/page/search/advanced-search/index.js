@@ -183,11 +183,12 @@ const AdvancedSearch = {
     */
     _renderFacetBox() {
         const {facets, selectedFacets} = this.state;
-        const {facetConfig, scopesConfig} = this.props;
+        const {facetConfig, scopesConfig, openedFacetList} = this.props;
         return (
             <FacetBox
                 action={this._action}
                 facetConfig={facetConfig}
+            	openedFacetList={openedFacetList}
                 facets={facets}
                 ref='facetBox'
                 scopesConfig={scopesConfig}
