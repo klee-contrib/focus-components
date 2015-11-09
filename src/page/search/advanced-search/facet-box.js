@@ -56,6 +56,7 @@ let Box = {
                 facetList={this.props.facets}
                 selectedFacetList={this.props.selectedFacets}
                 config={this.props.facetConfig}
+                openedFacetList={this.props.openedFacetList}
                 dataSelectionHandler={this._onFacetSelection}
             />
         );
