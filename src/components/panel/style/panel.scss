@@ -50,5 +50,8 @@ $panel-border-size:3px;
 [data-mode="edit"] {
     [data-focus='panel'] {
         border:$panel-border-size solid $panel-title-color;
+        .actions {
+            display: block;
+        }
     }
 }
