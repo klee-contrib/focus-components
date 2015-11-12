@@ -1,14 +1,7 @@
 {
   "name": "Input toggle",
   "version": "1.0.0",
-  "description": "Input toggle component.",
-  "main": "index.js",
-  "directories": {
-    "example": "example"
-  },
-  "scripts": {
-    "test": "mocha __tests__/index.js"
-  },
+  "description": "Input toggle component. Used to display boolean values, follows the material design specification.",
   "keywords": [
     "dumb",
     "input",

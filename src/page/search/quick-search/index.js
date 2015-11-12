@@ -5,7 +5,7 @@ const builder = require('focus-core').component.builder;
 
 // Components
 
-const SearchBar = require('../../../search/search-bar').component;
+const DefaultSearchBar = require('../../../search/search-bar').component;
 const Results = require('../common/component/results').component;
 
 // Mixins
@@ -22,29 +22,29 @@ const actionBuilder = require('focus-core').search.actionBuilder;
 const quickSearchStore = require('focus-core').search.builtInStore.quickSearchStore;
 
 /**
- * General search mixin.
- * Contains a search bar, and a results list.
- * @type {Object}
- */
+* General search mixin.
+* Contains a search bar, and a results list.
+* @type {Object}
+*/
 const QuickSearchComponent = {
     /**
-     * Component's mixins
-     * @type {Array}
-     */
+    * Component's mixins
+    * @type {Array}
+    */
     mixins: [referenceBehaviour, storeBehaviour],
     /**
-     * Tag name.
-     */
+    * Tag name.
+    */
     displayName: 'quick-search',
     /**
-     * Reference names to be fetched by the reference behaviour
-     * @type {Array}
-     */
+    * Reference names to be fetched by the reference behaviour
+    * @type {Array}
+    */
     referenceNames: ['scopes'],
     /**
-     * Get the default props
-     * @return {object} the default props
-     */
+    * Get the default props
+    * @return {object} the default props
+    */
     getDefaultProps() {
         return {
             scopeSelectionHandler: this._scopeSelectionHandler,
@@ -58,27 +58,28 @@ const QuickSearchComponent = {
             onLineClick: undefined,
             groupMaxRows: undefined,
             scrollParentSelector: undefined,
-            style: require('./style')
+            style: require('./style'),
+            SearchBar: DefaultSearchBar
         };
     },
     /**
-     * Prop validation
-     * @type {Object}
-     */
+    * Prop validation
+    * @type {Object}
+    */
     propTypes: {
-        scopeSelectionHandler: type('func'),
-        store: type('object'),
-        scopeFacetKey: type('string'),
-        lineComponentMapper: type('func'),
-        groupComponent: type('object'),
-        service: type('object'),
         action: type('object'),
+        groupComponent: type('object'),
+        groupMaxRows: type('number'),
+        lineComponentMapper: type('func'),
         onLineClick: type('func'),
-        groupMaxRows: type('number')
+        scopeFacetKey: type('string'),
+        scopeSelectionHandler: type('func'),
+        service: type('object'),
+        store: type('object')
     },
     /**
-     * Register the store listeners
-     */
+    * Register the store listeners
+    */
     componentWillMount() {
         const {action, service, store} = this.props;
         this._action = action || actionBuilder({
@@ -92,8 +93,8 @@ const QuickSearchComponent = {
         store.addResultsChangeListener(this._onResultsChange);
     },
     /**
-     * Unregister the store listeners
-     */
+    * Unregister the store listeners
+    */
     componentWillUnmount() {
         const {store} = this.props;
         store.removeQueryChangeListener(this._triggerSearch);
@@ -101,14 +102,14 @@ const QuickSearchComponent = {
         store.removeResultsChangeListener(this._onResultsChange);
     },
     /**
-     * Trigger search
-     */
+    * Trigger search
+    */
     _triggerSearch() {
         this._action.search();
     },
     /**
-     * Results change handler
-     */
+    * Results change handler
+    */
     _onResultsChange() {
         const {store} = this.props;
         const resultsMap = store.getResults();
@@ -117,36 +118,37 @@ const QuickSearchComponent = {
         this.setState({resultsMap, facets, totalCount});
     },
     /**
-     * Action on line click.
-     * @param {object} item  the item clicked
-     */
+    * Action on line click.
+    * @param {object} item  the item clicked
+    */
     _lineClickHandler(item) {
         if (this.props.onLineClick) {
             this.props.onLineClick(item);
         }
     },
     /**
-     * redner the SearchBar
-     * @returns {HTML} the rendered component
-     */
+    * redner the SearchBar
+    * @returns {HTML} the rendered component
+    */
     _renderSearchBar() {
-        const {store} = this.props;
+        const {placeholder, SearchBar, store} = this.props;
         const {isLoading, reference: {scopes}} = this.state;
         return (
             <SearchBar
                 action={this._action}
                 data-focus='search-bar'
                 loading={isLoading}
+                placeholder={placeholder}
                 ref='searchBar'
                 scopes={scopes}
                 store={store}
-                />
+            />
         );
     },
     /**
-     * redner the results
-     * @returns {HTML} the rendered component
-     */
+    * redner the results
+    * @returns {HTML} the rendered component
+    */
     _renderResults() {
         const {groupComponent, groupMaxRows, lineComponentMapper, lineOperationList, scrollParentSelector, scopeFacetKey} = this.props;
         const {facets, resultsMap, totalCount} = this.state;
@@ -168,9 +170,9 @@ const QuickSearchComponent = {
         );
     },
     /**
-     * Render the component
-     * @return {HTML} the rendered component
-     */
+    * Render the component
+    * @return {HTML} the rendered component
+    */
     render() {
         const {style} = this.props;
         return (

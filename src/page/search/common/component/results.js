@@ -84,6 +84,11 @@ let Results = {
      * @return {HMTL}      the rendered group
      */
     _renderSingleGroup(list, key, count, isUnique) {
+        const {initialRowsCount} = this.props;
+        if(this.props.renderSingleGroupDecoration && !this.props.groupComponent) {
+            console.warn('You are trying to wrap your list in a group without a groupComponent. Please give one or set "renderSingleGroupDecoration" to false.');
+        }
+
         if (isUnique) {
             if (this.props.renderSingleGroupDecoration) {
                 return (
@@ -91,8 +96,10 @@ let Results = {
                         count={count}
                         groupComponent={this.props.groupComponent}
                         groupKey={key}
+                        initialRowsCount={initialRowsCount}
                         isUnique={true}
                         list={list}
+                        ref={`group-${key}`}
                         renderResultsList={this._renderResultsList}
                     />
                 );
@@ -105,7 +112,9 @@ let Results = {
                     count={count}
                     groupComponent={this.props.groupComponent}
                     groupKey={key}
+                    initialRowsCount={initialRowsCount}
                     list={list}
+                    ref={`group-${key}`}
                     renderResultsList={this._renderResultsList}
                     showAllHandler={this._showAllHandler}
                 />
@@ -137,7 +146,8 @@ let Results = {
             lineOperationList,
             scrollParentSelector,
             selectionStatus,
-            selectionResultsMap
+            selectionResultsMap,
+            ...otherProps
         } = this.props;
         let selectionData = selectionResultsMap ? selectionResultsMap[key] || [] : [];
         let LineComponent = lineComponentMapper(key, list);
@@ -156,8 +166,10 @@ let Results = {
                     onSelection={lineSelectionHandler}
                     operationList={lineOperationList}
                     parentSelector={scrollParentSelector}
+                    ref={`list-${key}`}
                     selectionData={selectionData}
                     selectionStatus={selectionStatus}
+                    {...otherProps}
                 />
                 {this.state.loading &&
                     <div data-focus='loading-more-results'>

@@ -1,0 +1,13 @@
+{
+  "name": "Input textarea",
+  "version": "1.0.0",
+  "description": "Input textarea, used in forms to let the users enter long texts.",
+  "keywords": [
+    "dumb",
+    "input",
+    "text",
+    "material"
+  ],
+  "author": "focus@kleegroup",
+  "license": "MIT"
+}

@@ -51,12 +51,19 @@ module.exports = {
         }
     },
     _SearchBarComponent() {
-        return <SearchBar
-            ref='searchBar'
-            scopes={this.state.reference.scopes}
-            loading={this.state.isLoading}
-            action={this._action}
-            store={advancedSearchStore}
-            />;
+        const {helpTranslationPath, minChar, placeholder} = this.props;
+        const {isLoading, reference: {scopes}} = this.state;
+        return (
+            <SearchBar
+                action={this._action}
+                helpTranslationPath={helpTranslationPath}
+                loading={isLoading}
+                minChar={minChar}
+                placeholder={placeholder}
+                ref='searchBar'
+                scopes={scopes}
+                store={advancedSearchStore}
+                />
+        );
     }
 };

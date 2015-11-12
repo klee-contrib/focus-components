@@ -113,7 +113,7 @@ $fill-height-popin-margin: 200px;
       @include all-popin-sizes('from-menu', '0');
 
       &>[data-focus='popin-overlay'] {
-        z-index: 997;
+        z-index: 1001;
 
         &>[data-focus='popin-window'] {
           z-index: 1002;

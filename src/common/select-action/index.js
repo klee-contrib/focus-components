@@ -87,7 +87,7 @@ const Dropdown = {
     * @returns  {XML} Htm code.
     */
     render() {
-        const {iconProps, operationList, shape} = this.props;
+        const {iconProps, operationList, position, shape} = this.props;
         const id = this._htmlId;
         if (0 === operationList.length) {
             return null;
@@ -95,7 +95,7 @@ const Dropdown = {
         return (
             <div>
                 <Button icon={iconProps.name} id={id} isJs={true} shape={shape} />
-                <ul className='mdl-menu mdl-menu--bottom-{position} mdl-js-menu mdl-js-ripple-effect' htmlFor={id} ref='dropdown'>
+                <ul className={`mdl-menu mdl-menu--bottom-${position} mdl-js-menu mdl-js-ripple-effect`} htmlFor={id} ref='dropdown'>
                     {operationList.map((operation, idx) => {
                         return (
                             <li className={`mdl-menu__item ${operation.style}`} key={idx} onClick={this._handleAction(operation.action)}>

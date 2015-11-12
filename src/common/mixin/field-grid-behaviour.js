@@ -1,6 +1,7 @@
 const {types} = require('focus-core').component;
 const React = require('react');
-const oneOf = React.PropTypes.oneOf;
+const {PropTypes} = React;
+
 
 const GRID_SIZE = 12, CELL = 'mdl-cell';
 
@@ -29,9 +30,9 @@ const fieldGridBehaviourMixin = {
     },
     /** @inheritdoc */
     propTypes: {
-        labelSize: types('number'),
-        labelCellPosition: oneOf(['string', 'number']),
-        contentCellPosition: oneOf(['string', 'number'])
+        contentCellPosition: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
+        labelCellPosition: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
+        labelSize: PropTypes.number
     },
     /**
     * Get the label gridClass.

@@ -3,6 +3,8 @@
 const {builder} = require('focus-core').component;
 const {camelCase: camel} = require('lodash/string');
 const {capitalize} = require('lodash/string');
+const {isFunction} = require('lodash/lang');
+const {reduce} = require('lodash/collection');
 
 // Components
 
@@ -55,8 +57,7 @@ const AdvancedSearch = {
             action: undefined,
             service: undefined,
             orderableColumnList: [],
-            lineOperationList: {},
-            exportAction: {},
+            lineOperationList: [],
             groupComponent: undefined,
             lineComponentMapper: undefined,
             scrollParentSelector: undefined,
@@ -73,14 +74,14 @@ const AdvancedSearch = {
         facetConfig: type('object'),
         isSelection: type('bool'),
         hasBackToTop: type('bool'),
-        backToTopComponent: type('object'),
+        backToTopComponent: type('func'),
         store: type('object'),
         action: type('object'),
         service: type('object'),
-        orderableColumnList: type('object'),
+        orderableColumnList: type('array'),
         lineOperationList: type('object'),
         exportAction: type('func'),
-        groupComponent: type('object'),
+        groupComponent: type('func'),
         lineComponentMapper: type('func'),
         scrollParentSelector: type('string'),
         onLineClick: type('func')
@@ -123,6 +124,24 @@ const AdvancedSearch = {
             this.props.store[`remove${capitalize(camel(node))}ChangeListener`](this._onStoreChangeWithoutSearch);
         });
     },
+
+    getSelectedItems() {
+        const results = this.refs.resultList;
+        const selectedItems = reduce(results.refs, (selectedItems, ref) => {
+            if (isFunction(ref.getSelectedItems)) {
+                selectedItems = selectedItems.concat(ref.getSelectedItems());
+            } else if (ref.refs) {
+                selectedItems = selectedItems.concat(reduce(ref.refs, (subSelectedItems, subRef) => {
+                    if (isFunction(subRef.getSelectedItems)) {
+                        subSelectedItems = subSelectedItems.concat(subRef.getSelectedItems());
+                    }
+                    return subSelectedItems;
+                }, []));
+            }
+            return selectedItems;
+        }, []);
+        return selectedItems;
+    },
     /**
     * Store changed, update the state, trigger a search after update
     */
@@ -164,12 +183,14 @@ const AdvancedSearch = {
     */
     _renderFacetBox() {
         const {facets, selectedFacets} = this.state;
-        const {facetConfig, scopesConfig} = this.props;
+        const {facetConfig, scopesConfig, openedFacetList} = this.props;
         return (
             <FacetBox
                 action={this._action}
                 facetConfig={facetConfig}
+            	openedFacetList={openedFacetList}
                 facets={facets}
+                ref='facetBox'
                 scopesConfig={scopesConfig}
                 selectedFacets={selectedFacets}
                 />
@@ -185,6 +206,7 @@ const AdvancedSearch = {
             <ListSummary
                 action={this._action}
                 query={query}
+                ref='summary'
                 scope={scope}
                 totalCount={totalCount}
                 />
@@ -196,9 +218,11 @@ const AdvancedSearch = {
     */
     _renderActionBar() {
         const {facets, groupingKey, selectedFacets, selectionStatus, sortBy} = this.state;
-        const {lineOperationList, orderableColumnList} = this.props;
+        const {isSelection, lineOperationList, orderableColumnList} = this.props;
         const groupableColumnList = facets ? Object.keys(facets).reduce((result, facetKey) => {
-            result[facetKey] = facetKey;
+            if (Object.keys(facets[facetKey]).length > 1) {
+                result[facetKey] = facetKey;
+            }
             return result;
         }, {}) : {};
         const selectionAction = (status) => {
@@ -209,9 +233,11 @@ const AdvancedSearch = {
                 action={this._action}
                 groupSelectedKey={groupingKey}
                 groupableColumnList={groupableColumnList}
+                isSelection={isSelection}
                 operationList={lineOperationList}
                 orderSelected={sortBy}
                 orderableColumnList={orderableColumnList}
+                ref='actionBar'
                 selectedFacets={selectedFacets}
                 selectionAction={selectionAction}
                 selectionStatus={selectionStatus}
@@ -235,6 +261,7 @@ const AdvancedSearch = {
                 lineComponentMapper={lineComponentMapper}
                 lineOperationList={lineOperationList}
                 lineSelectionHandler={this._selectItem}
+                ref='resultList'
                 renderSingleGroupDecoration={false}
                 resultsFacets={facets}
                 resultsMap={results}

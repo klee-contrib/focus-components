@@ -1,11 +1,12 @@
 //Generator http://patorjk.com/software/taag/#p=display&h=1&f=Banner4&t=Focus-COMPONENTS
-const infos = require('../package.json');
 import './style';
+import infos from '../package.json';
 import components from './components';
+import behaviours from './behaviours';
 /**
 * Display information data for Focus-COMPONENTS
 */
-const infosFn = function infos(){
+const infosFn = function infos() {
     console.log(
         `
         _____   _____   _____   _   _   _____        _____   _____       ___  ___   _____   _____   __   _   _____   __   _   _____   _____
@@ -30,7 +31,7 @@ module.exports = {
     /**
      * Display documentation data
      */
-    DOCUMENTATION: function(){
+    DOCUMENTATION: function() {
         console.log('documentation: http://kleegroup.github.io/focus-components');
         console.log('components available');
         console.table(infos.components);
@@ -44,5 +45,6 @@ module.exports = {
     message: require('./message'),
     application: require('./application'),
     infos: infosFn,
-    components
+    components,
+    behaviours
 };

@@ -7,7 +7,7 @@ const Scroll = Component => class ScrollComponent extends Component {
 
     /**
     * Get the scroll position from the top of the screen.
-    * @param {object} node
+    * @param {object} domNode domNoe to get the position from
     * @returns {int} - The position in pixel from the top of the scroll container.
     */
     scrollPosition(domNode) {
@@ -29,7 +29,7 @@ const Scroll = Component => class ScrollComponent extends Component {
     * @param {number} duration duration of animation
     */
     scrollTo(element, to, duration = 500) {
-        if(isUndefined(element)){
+        if(isUndefined(element)) {
             window.scrollTo(0, to);
             return;
         }

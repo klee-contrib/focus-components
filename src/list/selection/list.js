@@ -48,25 +48,18 @@ const listMixin = {
     * @type {Object}
     */
     propTypes: {
+        LineComponent: types('func', true),
         buttonComponent: types('func'),
         data: types('array'),
         idField: types('string'),
         isLoading: types('bool'),
         isSelection: types('bool'),
-        lineComponent: types('func', true),
         loader: types('func'),
         onLineClick: types('func'),
         onSelection: types('func'),
         operationList: types('array'),
         selectionData: types('array'),
         selectionStatus: types('string')
-    },
-
-    /**
-    * called before component mount
-    */
-    componentWillMount() {
-        checkIsNotNull('lineComponent', this.props.lineComponent);
     },
 
     /**
@@ -91,7 +84,14 @@ const listMixin = {
     */
     _renderLines() {
         let lineCount = 1;
-        const {data, lineComponent: Line, selectionData, idField, selectionStatus} = this.props;
+        const {data, LineComponent: Line, selectionData, idField, selectionStatus, ...otherProps} = this.props;
+        // LEGACY CODE
+        const customLineComponent = otherProps.lineComponent;
+        if (customLineComponent) {
+            console.warn(`%c DEPRECATED : You are using the lineComponent prop in a list component, this will be removed in the next release of Focus Components. Please use LineComponent prop instead.`, `color: #FF9C00; font-weight: bold`);
+        }
+        const FinalLineComponent = customLineComponent || Line;
+        // END OF LEGACY CODE
         if(!isArray(data)){
             console.error(
                 'List: Lines: it seems data is not an array, please check the value in your store, it could also be related to your action in case of a load (have a look to shouldDumpStoreOnActionCall option).'
@@ -118,13 +118,13 @@ const listMixin = {
                 }
             }
             return (
-                <Line
+                <FinalLineComponent
                     data={line}
                     isSelected={isSelected}
                     key={line[idField]}
                     ref={`line${lineCount++}`}
                     reference={this._getReference()}
-                    {...omit(this.props, 'data')}
+                    {...otherProps}
                     />
             );
         });

@@ -106,7 +106,7 @@ module.exports = {
         options.listComponent = options.listComponent || List;
         const listForProps = assign({}, options, {
             data: this.state[name],
-            lineComponent: options.lineComponent || this.props.lineComponent || this.lineComponent,
+            LineComponent: options.lineComponent || options.LineComponent || this.props.LineComponent || this.LineComponent || this.lineComponent,
             perPage: options.perPage || 5,
             reference: options.reference,
             isEdit: options.isEdit !== undefined ? options.isEdit : false
@@ -122,7 +122,7 @@ module.exports = {
     * @param {object} options - Options object.
     * @returns {object} - The react component for the list.
     */
-    tableFor(name, options){
+    tableFor(name, options) {
         options.listComponent = options.listComponent || Table;
         return this.listFor(name, options);
     },
@@ -137,11 +137,9 @@ module.exports = {
         return (
             <Button
                 handleOnClick={handleOnClick}
-                icon='trash'
-                iconLibrary='font-awesome'
+                icon='delete'
                 label='button.delete'
                 shape={null}
-                style={{className: 'delete'}}
                 type='button'
                 />
         );
@@ -159,11 +157,9 @@ module.exports = {
         return (
             <Button
                 handleOnClick={handleOnClick}
-                icon='pencil'
-                iconLibrary='font-awesome'
+                icon='edit'
                 label='button.edit'
                 shape={null}
-                style={{className: 'edit'}}
                 type='button'
                 />
         );
@@ -183,10 +179,8 @@ module.exports = {
             <Button
                 handleOnClick={handleOnClick}
                 icon='undo'
-                iconLibrary='font-awesome'
                 label='button.cancel'
                 shape={null}
-                style={{className: 'cancel'}}
                 type='button'
                 />
         );
@@ -204,11 +198,9 @@ module.exports = {
         return (
             <Button
                 handleOnClick={handleOnClick}
-                icon='floppy-o'
-                iconLibrary='font-awesome'
+                icon='save'
                 label='button.save'
                 shape={null}
-                style={{className: 'delete'}}
                 type='button'
                 />
         );

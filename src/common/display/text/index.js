@@ -29,8 +29,7 @@ const displayTextMixin = {
     */
     renderValue(){
         const {formatter, value} = this.props;
-        const translatedValue = value ? this.i18n(value) : value;
-        return formatter(translatedValue);
+        return formatter(value);
     },
     /** @inheritdoc */
     render: function renderInput() {

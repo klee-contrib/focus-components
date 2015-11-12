@@ -1,6 +1,7 @@
 // Dependencies
 
 const React = require('react');
+const {PropTypes} = React;
 const type = require('focus-core').component.types;
 const find = require('lodash/collection/find');
 const result = require('lodash/object/result');
@@ -60,14 +61,14 @@ const fieldBuiltInComponentsMixin = {
     },
     /** @inheriteDoc */
     propTypes: {
-        hasLabel: type('bool'),
-        labelSize: type('number'),
-        FieldComponent: type(['object', 'function']),
-        InputLabelComponent: type(['object', 'function']),
-        AutocompleteComponent: type(['object', 'function']),
-        InputComponent: type(['object', 'function']),
-        SelectComponent: type(['object', 'function']),
-        DisplayComponent: type(['object', 'function'])
+        AutocompleteComponent: PropTypes.func,
+        DisplayComponent: PropTypes.func,
+        FieldComponent: PropTypes.func,
+        InputComponent: PropTypes.func,
+        InputLabelComponent: PropTypes.func,
+        SelectComponent: PropTypes.func,
+        hasLabel: PropTypes.bool,
+        labelSize: PropTypes.number
     },
     _buildStyle(){
         let {style} = this.props;

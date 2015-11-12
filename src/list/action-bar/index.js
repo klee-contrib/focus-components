@@ -28,6 +28,7 @@ const ActionBar = {
     */
     getDefaultProps() {
         return {
+            isSelection: true,
             selectionStatus: 'none', // none, selected, partial
             selectionAction(selectionStatus) {
                 console.warn(selectionStatus);
@@ -71,11 +72,11 @@ const ActionBar = {
             }
         ];
         const {style} = this.props;
-        return (
+        return this.props.isSelection ? (
             <div style={style.actions.select}>
                 <Dropdown iconProps={this._getSelectionObjectIcon()} operationList={selectionOperationList}/>
             </div>
-        );
+        ) : null;
     },
 
     /**
@@ -122,7 +123,7 @@ const ActionBar = {
             label: this.i18n('list.actionBar.ungroup'),
             action: this._groupFunction()
         }]);
-        const groupIcon = groupSelectedKey ? 'folder-open-o' : 'folder-o';
+        const groupIcon ='folder_open';
         return (
             <div style={style.actions.group}>
                 <Dropdown iconProps={{name: groupIcon}} operationList={groupOperationList}/>
@@ -167,7 +168,7 @@ const ActionBar = {
         };
     },
     _groupFunction(key) {
-        return ()=> {
+        return () => {
             this.props.groupAction(key);
         };
     },

@@ -33,6 +33,7 @@ let LoadingBarMixin = {
     render: function renderProgressBar() {
         var completed  = +((this.state.total - this.state.pending)/this.state.total)*100;
         var visible = false;
+        const {displayDevBar} = this.props;
         if(completed < 100){
             visible = true;
         }
@@ -40,13 +41,15 @@ let LoadingBarMixin = {
         return (
             <div data-focus='loading-bar'>
                 {visible && <ProgressBar completed={completed} />}
-                <ul className='fa-ul'>
-                    <li><Icon name='swap_vert'/> pending {this.state.pending}</li>
-                    <li><Icon name='not_interested'/> cancelled {this.state.cancelled}</li>
-                    <li><Icon name='check_circle'/> success {this.state.success}</li>
-                    <li><Icon name='error'/> error {this.state.error}</li>
-                    <li><Icon name='functions'/> total {this.state.total}</li>
-                </ul>
+                {displayDevBar &&
+                    <ul className='fa-ul'>
+                        <li><Icon name='swap_vert'/> pending {this.state.pending}</li>
+                        <li><Icon name='not_interested'/> cancelled {this.state.cancelled}</li>
+                        <li><Icon name='check_circle'/> success {this.state.success}</li>
+                        <li><Icon name='error'/> error {this.state.error}</li>
+                        <li><Icon name='functions'/> total {this.state.total}</li>
+                    </ul>
+                }
             </div>
         );
     }

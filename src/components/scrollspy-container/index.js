@@ -10,7 +10,6 @@ import Grid from '../../common/grid';
 import Column from '../../common/column'
 
 const BackToTopComponent = BackToTop.component;
-const debounceDelay = 50;
 
 // component default props.
 const defaultProps = {
@@ -18,7 +17,8 @@ const defaultProps = {
     hasBackToTop: true, //Activate the presence of BackToTop button
     offset: 80, //offset position when affix
     gridMenuSize: 3, //default grid size of the menu
-    gridContentSize: 9 //default content size of the menu
+    gridContentSize: 9, //default content size of the menu
+    scrollDelay: 10 //defaut debounce delay for scroll spy call
 };
 
 // component props definition.
@@ -27,7 +27,8 @@ const propTypes = {
     hasBackToTop: PropTypes.bool,
     offset: PropTypes.number,
     gridMenuSize: PropTypes.number,
-    gridContentSize: PropTypes.number
+    gridContentSize: PropTypes.number,
+    scrollDelay: PropTypes.number
 };
 
 /**
@@ -45,30 +46,33 @@ class ScrollspyContainer extends Component {
     }
 
     /** @inheritDoc */
-    componentDidMount = () => {
+    componentDidMount() {
         this._scrollCarrier = window;
-        this._scrollCarrier.addEventListener('scroll', debounce(this._refreshMenu, debounceDelay));
-        this._scrollCarrier.addEventListener('resize', debounce(this._refreshMenu, debounceDelay));
+        this._scrollCarrier.addEventListener('scroll', this._debounceRefreshMenu);
+        this._scrollCarrier.addEventListener('resize', this._debounceRefreshMenu);
         this._executeRefreshMenu(10);
     }
 
     /** @inheritDoc */
-    componentWillUnMount = () => {
-        this._scrollCarrier.removeEventListener('scroll', debounce(this._refreshMenu, debounceDelay));
-        this._scrollCarrier.removeEventListener('resize', debounce(this._refreshMenu, debounceDelay));
+    componentWillUnmount() {
+        this._timeouts.map(clearTimeout);
+        this._scrollCarrier.removeEventListener('scroll', this._debounceRefreshMenu);
+        this._scrollCarrier.removeEventListener('resize', this._debounceRefreshMenu);
     }
 
     /**
     * Refresh screen X times.
     * @param  {number} time number of execution
     */
-    _executeRefreshMenu = (time) => {
-        //TODO : to rewrite becuase of memory leak
+    _executeRefreshMenu = time => {
+        this._timeouts = [];
         for (let i = 0; i < time; i++) {
-            setTimeout(() => {
-                this._refreshMenu();
-            }, i * 1000);
+            this._timeouts.push(setTimeout(this._refreshMenu.bind(this), i * 1000));
         }
+    }
+
+    _debounceRefreshMenu = () => {
+        debounce(this._refreshMenu, this.props.scrollDelay)();
     }
 
     /**
@@ -77,9 +81,13 @@ class ScrollspyContainer extends Component {
     */
     _refreshMenu = () => {
         if(!this.props.hasMenu) { return; }
+        const {stickyMenu} = this.refs;
+        const menus = this._buildMenuList(); //build the menu list
+        //TODO remove this check
+        const affix = stickyMenu ? this._isMenuAffix() : this.state.affix; //Calculate menu position (affix or not)
         this.setState({
-            menuList: this._buildMenuList(), //build the menu list
-            affix: this._isMenuAffix() //Calculate menu position (affix or not)
+            menuList: menus,
+            affix: affix
         });
     }
 
@@ -95,19 +103,30 @@ class ScrollspyContainer extends Component {
         }
         const currentScrollPosition = this.scrollPosition();
 
-        //get menu list
-        const selectionList = document.querySelectorAll('[data-spy]');
+        //get menu list$
+        const thisReactId = ReactDOM.findDOMNode(this).getAttribute('data-reactid');
+        const selectionList = Array.prototype.slice.call(document.querySelectorAll('[data-spy]')).filter(element => {
+            let cursorElement = element;
+            let isInPopin = false;
+            while (cursorElement.getAttribute('data-reactid') !== thisReactId && !isInPopin) {
+                cursorElement = cursorElement.parentElement;
+                if (cursorElement.getAttribute('data-focus') === 'popin-window') {
+                    isInPopin = true;
+                }
+            }
+            return !isInPopin;
+        });
         if(selectionList.length === 0) {
             return;
         }
-        const menuList = [].map.call(selectionList, (selection, index) => {
+        const menuList = selectionList.map((selection, index) => {
             const title = selection.querySelector('[data-spy-title]');
             const nodeId = selection.getAttribute('data-spy');
             return {
                 index: index,
                 label: title.innerHTML,
                 nodeId: nodeId,
-                offsetTop: selection.offsetTop, // offset of 10 to ensure
+                offsetTop: selection.offsetTop, // offset of 10 to be safe
                 isActive: false,
                 onClick: this._handleMenuItemClick(nodeId)
             };
@@ -160,6 +179,7 @@ class ScrollspyContainer extends Component {
         const menu = ReactDOM.findDOMNode(this.refs.stickyMenu);
         const menuTopPosition = menu.offsetTop;
         return menuTopPosition < currentScrollPosition.top + offset;
+
     }
 
     /**

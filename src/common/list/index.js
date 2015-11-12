@@ -8,30 +8,30 @@ let omit = require('lodash/object/omit');
 let memoryMixin = require('../../list/mixin/memory-scroll');
 
 let MemoryListMixin = {
-  mixins: [memoryMixin],
+    mixins: [memoryMixin],
 
-  propTypes: {
-    listComponent: type(['function', 'object'])
-  },
+    propTypes: {
+        listComponent: type(['function', 'object'])
+    },
 
-  /** @inheritdoc */
-  render: function renderFormList() {
-    var data = this.props.data || [];
-    var hasMoreData = data.length > this.state.maxElements;
-    var childProps = omit(this.props, ['lineComponent', 'data']);
-    return (
-      <this.props.listComponent
-          data={this.getDataToUse()}
-          hasMoreData={hasMoreData}
-          lineComponent={this.props.lineComponent}
-          isSelection={false}
-          isManualFetch={true}
-          fetchNextPage={this.fetchNextPage}
-          reference={this.getReference()}
-          {...childProps}
-      />
-    );
-  }
+    /** @inheritdoc */
+    render: function renderFormList() {
+        var data = this.props.data || [];
+        var hasMoreData = data.length > this.state.maxElements;
+        var childProps = omit(this.props, ['lineComponent', 'data']);
+        return (
+            <this.props.listComponent
+                data={this.getDataToUse()}
+                hasMoreData={hasMoreData}
+                LineComponent={this.props.LineComponent}
+                isSelection={false}
+                isManualFetch={true}
+                fetchNextPage={this.fetchNextPage}
+                reference={this.getReference()}
+                {...childProps}
+                />
+        );
+    }
 };
 
 module.exports = builder(MemoryListMixin);

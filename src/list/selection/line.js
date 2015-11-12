@@ -6,7 +6,7 @@ const React = require('react');
 // Components
 
 const ContextualActions = require('../action-contextual').component;
-const CheckBox = require('../../common/input/checkbox').component;
+const {Checkbox} = require('../../components/input');
 
 // Mixins
 
@@ -30,7 +30,7 @@ const lineMixin = {
      * Get default props
      * @return {object} default props
      */
-    getDefaultProps(){
+    getDefaultProps() {
         return {
             isSelection: true,
             operationList: []
@@ -75,7 +75,8 @@ const lineMixin = {
     * @return {object} the line value
     */
     getValue() {
-        const {data: item, isSelected} = this.props;
+        const {data: item} = this.props;
+        const {isSelected} = this.state;
         return {item, isSelected};
     },
 
@@ -86,7 +87,7 @@ const lineMixin = {
         const isSelected = !this.state.isSelected;
         const {data, onSelection} = this.props;
         this.setState({isSelected});
-        if(onSelection){
+        if(onSelection) {
             onSelection(data, isSelected);
         }
     },
@@ -96,7 +97,7 @@ const lineMixin = {
     */
     _handleLineClick() {
         const {data, onLineClick} = this.props;
-        if(onLineClick){
+        if(onLineClick) {
             onLineClick(data);
         }
     },
@@ -113,7 +114,7 @@ const lineMixin = {
             //const image = this.state.isSelected? undefined : <img src={this.state.lineItem[this.props.iconfield]}/>
             return (
                 <div className={`sl-selection ${selectionClass}`}>
-                    <CheckBox onChange={this._handleSelectionClick} value={isSelected}/>
+                    <Checkbox onChange={this._handleSelectionClick} value={isSelected}/>
                 </div>
             );
         }

@@ -1,7 +1,7 @@
 {
   "name": "Input checkbox",
-  "version": "1.0.0",
-  "description": "Input checkbox component.",
+  "version": "1.1.0",
+  "description": "Input checkbox component. Used to display boolean values, follows the material design specification.",
   "main": "index.js",
   "directories": {
     "example": "example"

@@ -35,7 +35,7 @@ const selectMixin = {
         labelKey: types('string'),
         name: types('string'),
         isRequired: types('bool'),
-        onChange: types('function'),
+        onChange: types('func'),
         value: types(['number', 'string', 'array']),
         values: types('array'),
         valueKey: types('string'),

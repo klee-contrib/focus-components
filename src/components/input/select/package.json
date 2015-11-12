@@ -1,18 +1,13 @@
 {
-  "name": "select",
-  "version": "1.0.0",
-  "description": "Select HTML component.",
+  "name": "Input select",
+  "version": "1.1.0",
+  "description": "Select component, used in form to pick from a given list.",
   "main": "index.js",
-  "directories": {
-    "example": "example"
-  },
-  "scripts": {
-    "test": "mocha"
-  },
   "keywords": [
-    "select",
-    "form",
-    "input"
+    "dumb",
+    "input",
+    "multiple",
+    "material"
   ],
   "author": "focus@kleegroup.com",
   "license": "MIT"

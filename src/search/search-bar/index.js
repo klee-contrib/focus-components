@@ -39,13 +39,13 @@ const SearchBar = {
         };
     },
     propTypes: {
-        placeholder: type('string'),
-        value: type('string'),
-        scopes: type('array'),
-        minChar: type('number'),
-        loading: type('bool'),
+        hasScopes: type('bool'),
         helpTranslationPath: type('string'),
-        hasScopes: type('bool')
+        loading: type('bool'),
+        minChar: type('number'),
+        placeholder: type('string'),
+        scopes: type('array'),
+        value: type('string')
     },
     /**
     * Get the initial state
@@ -169,7 +169,7 @@ const SearchBar = {
                     <Scope list={scopes} onScopeSelection={this._onScopeSelection} ref='scope' value={scope}/>
                 }
                 <div data-focus='search-bar-input'>
-                    <Input onChange={this._onInputChange} onKeyPress={this._handleInputKeyPress} placeholder={placeholder} ref='query' value={query}/>
+                    <Input onChange={this._onInputChange} onKeyPress={this._handleInputKeyPress} placeholder={this.i18n(placeholder)} ref='query' value={query}/>
                     {loading &&
                         <div className={`sb-spinner three-quarters-loader`} />
                     }

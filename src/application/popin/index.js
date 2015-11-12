@@ -2,6 +2,7 @@
 
 const React = require('react');
 const ReactDOM = require('react-dom');
+const {PropTypes} = React;
 const builder = require('focus-core').component.builder;
 const types = require('focus-core').component.types;
 const ArgumentInvalidException = require('focus-core').exception.ArgumentInvalidException;
@@ -11,11 +12,14 @@ const includes = require('lodash').includes;
  * Small overlay component used to listen to scroll and prevent it to leave the Popin component
  */
 const Overlay = React.createClass({
-    displayName: 'popin-overlay',
+    displayName: 'PopinOverlay',
     propTypes: {
-        children: types('object'),
-        clickHandler: types('func'),
-        show: types('boolean')
+        children: PropTypes.object,
+        clickHandler: PropTypes.func,
+        show: PropTypes.bool
+    },
+    getDefaultProps() {
+        return {show: false};
     },
     /**
      * Component did mount event handler.
@@ -45,6 +49,9 @@ const Overlay = React.createClass({
      */
     componentWillUnmount() {
         ReactDOM.findDOMNode(this.refs.overlay).removeEventListener('mousewheel', this._onScroll);
+        if (this._oldScroll !== undefined) {
+            this._restoreBodyOverflow();
+        }
     },
     /**
      * Mouse wheel event handler.

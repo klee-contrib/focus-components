@@ -22,15 +22,16 @@ const contentActionsMixin = {
             LoadingBar: LoadingBarDefault,
             MessageCenter: MessageCenterDefault,
             ErrorCenter: ErrorCenterDefault,
+            displayDevBar: true,
             footerText: 'Please override the footer text by giving a "footerText" property to the Layout component.'
         };
     },
     /** inheriteddoc */
     render() {
-        const {LoadingBar, MessageCenter, ErrorCenter, AppHeader, MenuLeft, footerText, children} = this.props;
+        const {LoadingBar, MessageCenter, ErrorCenter, AppHeader, MenuLeft, footerText, displayDevBar, children} = this.props;
         return (
             <div className={this._getStyleClassName()} data-focus='layout'>
-                <LoadingBar />
+                <LoadingBar displayDevBar={displayDevBar} />
                 <MessageCenter />
                 <ErrorCenter />
                 <AppHeader />

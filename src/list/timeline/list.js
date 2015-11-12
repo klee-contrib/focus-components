@@ -11,19 +11,19 @@ var Button = require('../../common/button/action').component;
 
 var listMixin = {
     /**
-     * Tag name
-     */
+    * Tag name
+    */
     displayName: 'timeline',
 
     /**
-     * Mixin dependancies.
-     */
+    * Mixin dependancies.
+    */
     mixins: [translationMixin, infiniteScrollMixin, referenceMixin],
 
     /**
-     * Default properties for the list.
-     * @return {object} default props.
-     */
+    * Default properties for the list.
+    * @return {object} default props.
+    */
     getDefaultProps: function getDefaultProps(){
         return {
             data: [],
@@ -34,8 +34,8 @@ var listMixin = {
     },
 
     /**
-     * list property validation.
-     */
+    * list property validation.
+    */
     propTypes: {
         data: type('array'),
         idField: type('string'),
@@ -48,33 +48,36 @@ var listMixin = {
     },
 
     /**
-     * called before component mount
-     */
-    componentWillMount: function componentWillMount(){
-        checkIsNotNull('lineComponent', this.props.lineComponent);
-    },
-
-    /**
-     * Render lines of the list.
-     * @returns {*} the lines
-     */
-    _renderLines: function renderLines() {
-        var lineCount = 1;
-        var LineComponent = this.props.lineComponent || React.createClass(Line);
-        return this.props.data.map((line)=> {
-            return React.createElement(LineComponent, {
-                key: line[this.props.idField] || uuid.v4(),
-                data: line,
-                ref: 'line' + lineCount++,
-                dateField: this.props.dateField,
-                onLineClick: this.props.onLineClick
-            });
+    * Render lines of the list.
+    * @returns {*} the lines
+    */
+    _renderLines() {
+        const {LineComponent = React.createClass(Line), idField, dateField, onLineClick, data, ...otherProps} = this.props;
+        // LEGACY CODE
+        const customLineComponent = otherProps.lineComponent;
+        if (customLineComponent) {
+            console.warn(`%c DEPRECATED : You are using the lineComponent prop in a timeline component, this will be removed in the next release of Focus Components. Please use LineComponent prop instead.`, `color: #FF9C00; font-weight: bold`);
+        }
+        const FinalLineComponent = customLineComponent || LineComponent;
+        // END OF LEGACY CODE
+        return data.map((line, idx) => {
+            return (
+                <FinalLineComponent
+                    data={line}
+                    dateField={dateField}
+                    key={line[idField] || uuid.v4()}
+                    onLineClick={onLineClick}
+                    ref={idx}
+                    reference={this._getReference()}
+                    {...otherProps}
+                    />
+            );
         });
     },
 
-    _renderLoading: function renderLoading(){
-        if(this.props.isLoading){
-            if(this.props.loader){
+    _renderLoading: function renderLoading() {
+        if(this.props.isLoading) {
+            if(this.props.loader) {
                 return this.props.loader();
             }
             return (
@@ -89,24 +92,24 @@ var listMixin = {
             return (
                 <li className="timeline-button">
                     <Button label="list.button.showMore"
-                            type="button"
-                            handleOnClick={this.handleShowMore}
-                            style={style}/>
+                        type="button"
+                        handleOnClick={this.handleShowMore}
+                        style={style}/>
                 </li>
             );
         }
     },
 
     /**
-     * Render the list.
-     * @returns {XML} the list component
-     */
+    * Render the list.
+    * @returns {XML} the list component
+    */
     render: function renderList(){
         return (
             <ul className="timeline">
-              {this._renderLines()}
-              {this._renderLoading()}
-              {this._renderManualFetch()}
+                {this._renderLines()}
+                {this._renderLoading()}
+                {this._renderManualFetch()}
             </ul>
         );
     }

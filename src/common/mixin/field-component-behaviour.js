@@ -1,5 +1,5 @@
 const assign = require('object-assign');
-const {isUndefined} = require('lodash/lang');
+const {isUndefined, isObject} = require('lodash/lang');
 /**
  * Identity function
  * @param  {object} d - data to treat.
@@ -43,12 +43,15 @@ const fieldBehaviourMixin = {
             domain: options.domain || def.domain,
             error: context.state.error ? context.state.error[name] : undefined,
             locale: def.locale,
+            format: def.format,
             //Mode
             isEdit: isEdit,
             hasLabel: hasLabel,
             isRequired: (!isUndefined(options.isRequired) && options.isRequired) || def.isRequired || def.required, //legacy on required on model generation.
             //Style
             style: options.style,
+			// Type
+			type: def.type,
             //Methods
             validator: def.validator,
             formatter: def.formatter || identity,
@@ -63,11 +66,13 @@ const fieldBehaviourMixin = {
             options: options.options || def.options //Add options to the fields
         };
         //Extend the options object in order to be able to specify more options to thie son's component.
-        let fieldProps = assign(options, propsContainer, options.options || def.options);
+        let fieldProps = assign(propsContainer, options, options.options || def.options);
         // Values list.
         const refContainer = options.refContainer || def.refContainer || context.state.reference;
-        if(refContainer && refContainer[listName]){
-            assign(fieldProps, {values: refContainer[listName]});
+
+        // case no props.values and then
+        if(!(options.hasOwnProperty('values')) && isObject(refContainer) && refContainer.hasOwnProperty(listName)){
+            assign(fieldProps, {values: refContainer[listName] || [] });
         }
         return fieldProps;
     }

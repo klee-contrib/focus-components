@@ -1,0 +1,17 @@
+{
+  "name": "layout",
+  "version": "1.1.0",
+  "description": "Main layout of a Focus application. Sets a menu, a header and a content zone. Listens to the scroll on the page and changes the header size accordingly.",
+  "main": "index.js",
+  "fullscreen": true,
+  "keywords": [
+    "container",
+    "page",
+    "dynamic",
+    "scroll",
+    "store",
+    "smart"
+  ],
+  "author": "focus@kleegroup.com",
+  "license": "MIT"
+}
