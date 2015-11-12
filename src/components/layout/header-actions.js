@@ -58,7 +58,7 @@ class HeaderActions extends Component {
             <div data-focus='header-actions' {...otherProps}>
                 {actions.primary.map((primary)=>{
                     return (
-                        <ButtonComponent handleOnClick={primary.action} icon={primary.icon} label={primary.label} shape='fab' style={{className: primary.className}} type='button'/>
+                        <ButtonComponent handleOnClick={primary.action} icon={primary.icon} iconLibrary={primary.iconLibrary} label={primary.label} shape='fab' style={{className: primary.className}} type='button'/>
                     );
                 })}
                 <DropdownComponent iconProps={{name: 'more_vert'}} operationList={actions.secondary} shape='fab'/>
