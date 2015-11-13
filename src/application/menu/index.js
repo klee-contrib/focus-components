@@ -47,7 +47,7 @@ const Menu = {
             }
             const buttonProps = {
                 icon: link.icon,
-                iconLibray: link.iconLibray,
+                iconLibrary: link.iconLibrary,
                 style: link.style,
                 option: 'link',
                 shape: 'icon',
