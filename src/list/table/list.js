@@ -88,7 +88,7 @@ const tableMixin = {
             const order = colProperties.sort ? colProperties.sort : 'asc';
             const iconName = 'asc' === order ? 'arrow_drop_up' : 'arrow_drop_down';
             const icon = <i className='material-icons'>{iconName}</i>;
-            sort = <a className='sort' data-name={name} href='#' onClick={this._sortColumnAction(name, ('asc' === order ? 'desc' : 'asc' ))}>{icon}</a>;
+            sort = <a className='sort' data-bypass={true} data-name={name} href='#' onClick={this._sortColumnAction(name, ('asc' === order ? 'desc' : 'asc' ))}>{icon}</a>;
         }
         accumulator.push(<th className={TABLE_CELL_CLASS}>{this.i18n(colProperties.label)}{sort}</th>);
         return accumulator;
