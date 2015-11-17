@@ -1,3 +1,7 @@
+import 'react-date-picker/index.css';
+import 'material-design-lite/src/material-design-lite.scss';
+//import '../style/_mdl_variables.scss';
+//---------------------------------------------------------------------------------------
 import '../application/bar/style/bar.scss';
 import '../application/cartridge/style/cartridge.scss';
 import '../application/confirmation-popin/style/confirmation-popin.scss';
@@ -28,6 +32,7 @@ import '../common/select/classic/style/select.scss'
 import '../common/select/radio/style/select-radio.scss';
 import '../common/select-action/style/select-action.scss';
 import '../common/topic-displayer/style/topic-displayer.scss';
+import '../components/input/date/style/index.scss';
 import '../components/input/textarea/style/textarea.scss';
 import '../components/input/select/style/select.scss';
 import '../components/layout/style/layout.scss';
@@ -50,7 +55,3 @@ import '../search/facet-box/style/facet-box.scss';
 import '../search/search-bar/style/search-bar.scss';
 import '../style/animation.scss';
 import '../style/spinner.scss';
-import '../components/input/date/style/index.scss';
-import 'react-date-picker/index.css';
-import 'material-design-lite/src/material-design-lite.scss';
-//import '../style/_mdl_variables.scss';
