@@ -1,6 +1,5 @@
 // Dependencies
-
-import {Component, PropTypes} from 'react';
+import React, {Component, PropTypes} from 'react';
 import ReactDOM from 'react-dom';
 import moment from 'moment';
 import Base from '../../../behaviours/component-base';
