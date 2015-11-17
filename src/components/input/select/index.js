@@ -69,7 +69,8 @@ class Select extends Component {
     }
     /** inheritdoc */
     _renderOptions({hasUndefined, labelKey, isRequired, value, values = [], valueKey}){
-        if(true === hasUndefined || (true === isRequired && !isUndefined(value) && !isNull(value))){
+        const isRequiredAndNoValue = isRequired && (isUndefined(value) || isNull(value));
+        if(hasUndefined || isRequiredAndNoValue){
             values = union(
                 [{[labelKey]: this.i18n('select.unSelected'), [valueKey]: UNSELECTED_KEY}],
                 values
