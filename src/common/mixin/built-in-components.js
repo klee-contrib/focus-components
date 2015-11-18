@@ -87,11 +87,11 @@ module.exports = {
         const _processValue = values ? result(find(values, {[valueKey || 'code']: value}), labelKey || 'label') : value;
         return (
             <Text
-                formatter={options.formatter || def.formatter}
-                name={options.name || `${this.definitionPath}.${name}`}
-                style={options.style}
-                value={_processValue}
-                />
+            formatter={options.formatter || def.formatter}
+            name={options.name || `${this.definitionPath}.${name}`}
+            style={options.style}
+            value={_processValue}
+            />
         );
     },
     /**
@@ -136,12 +136,12 @@ module.exports = {
         };
         return (
             <Button
-                handleOnClick={handleOnClick}
-                icon='delete'
-                label='button.delete'
-                shape={null}
-                type='button'
-                />
+            handleOnClick={handleOnClick}
+            icon='delete'
+            label='button.delete'
+            shape={null}
+            type='button'
+            />
         );
     },
     /**
@@ -156,12 +156,12 @@ module.exports = {
         };
         return (
             <Button
-                handleOnClick={handleOnClick}
-                icon='edit'
-                label='button.edit'
-                shape={null}
-                type='button'
-                />
+            handleOnClick={handleOnClick}
+            icon='edit'
+            label='button.edit'
+            shape={null}
+            type='button'
+            />
         );
     },
     /**
@@ -171,18 +171,17 @@ module.exports = {
     buttonCancel() {
         const handleOnClick = () => {
             this.clearError();
-            this.setState({isEdit: !this.state.isEdit}, () => {
+            this.setState({
+                // Change the mode.
+                isEdit: !this.state.isEdit,
+                // Read the state from the stores, it should contain the last data from the server.
+                ...this._getStateFromStores()
+            }, () => {
                 changeMode('consult', 'edit');
             });
         };
         return (
-            <Button
-                handleOnClick={handleOnClick}
-                icon='undo'
-                label='button.cancel'
-                shape={null}
-                type='button'
-                />
+            <Button handleOnClick={handleOnClick} icon='undo' label='button.cancel' shape={null} type='button' />
         );
     },
     /**
@@ -197,12 +196,12 @@ module.exports = {
         };
         return (
             <Button
-                handleOnClick={handleOnClick}
-                icon='save'
-                label='button.save'
-                shape={null}
-                type='button'
-                />
+            handleOnClick={handleOnClick}
+            icon='save'
+            label='button.save'
+            shape={null}
+            type='button'
+            />
         );
     },
     /**
