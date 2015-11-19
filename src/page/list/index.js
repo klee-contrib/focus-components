@@ -101,7 +101,7 @@ let listPageMixin = {
     /** @inheritdoc */
     render(){
         let listProps = this._buildListProps();
-        return <this.props.ListComponent {...listProps} />;
+        return <this.props.ListComponent {...listProps} ref='list'/>;
     }
 };
 
