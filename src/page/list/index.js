@@ -73,7 +73,7 @@ let listPageMixin = {
      */
      _reload(){
          this._action.load();
-     }
+     },
     _registerStoreNode(){
         STORE_NODE.forEach((node)=>{
             //Maybe this is a bit too much, a global change event could be more efficient as almost all store props change.
@@ -112,7 +112,7 @@ let listPageMixin = {
     },
     componentWillUnMount(){
         this._unRegisterStoreNode();
-    }
+    },
     /** @inheritdoc */
     render(){
         let listProps = this._buildListProps();
