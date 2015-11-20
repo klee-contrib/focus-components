@@ -1,10 +1,10 @@
-var capitalize = require('lodash/string/capitalize');
-var assign = require('object-assign');
-var {isObject, isArray} = require('lodash/lang');
-var keys = require('lodash/object/keys');
-var storeChangeBehaviour = require('./store-change-behaviour');
+const capitalize = require('lodash/string/capitalize');
+const assign = require('object-assign');
+const {isObject, isArray} = require('lodash/lang');
+const keys = require('lodash/object/keys');
+const storeChangeBehaviour = require('./store-change-behaviour');
 
-var storeMixin = {
+const storeMixin = {
   mixins: [storeChangeBehaviour],
   /**
    * Get the state informations from the store.
@@ -14,13 +14,13 @@ var storeMixin = {
     if (this.getStateFromStore) {
       return this.getStateFromStore();
     }
-    var newState = {};
+    let newState = {};
     this.stores.map((storeConf) => {
       storeConf.properties.map((property)=>{
         newState[property] = storeConf.store[`get${capitalize(property)}`]();
       });
     });
-    let computedState = assign(this._computeEntityFromStoresData(newState), this._getLoadingStateFromStores());
+    const computedState = assign(this._computeEntityFromStoresData(newState), this._getLoadingStateFromStores());
     return computedState;
   },
     /**
@@ -28,16 +28,19 @@ var storeMixin = {
      * @returns {object} - The js error object constructed from the store data.
      */
   _getErrorStateFromStores: function formGetErrorStateFromStore() {
-      if (this.getErrorStateFromStore) {
+         if (this.getErrorStateFromStore) {
           return this.getErrorStateFromStore();
-      }
-      var newState = {};
-      this.stores.map((storeConf) => {
-          storeConf.properties.map((property)=>{
-              newState[property] = storeConf.store[`getError${capitalize(property)}`]();
+        }
+        let newState = {};
+        this.stores.map( storeConf => {
+          storeConf.properties.map( property => {
+            var errorState = storeConf.store[`getError${capitalize(property)}`]();
+            for(var prop in errorState){
+                newState[`${property}.${prop}`] = errorState[prop];
+            }
           });
-      });
-      return this._computeEntityFromStoresData(newState);
+        });
+        return newState;
   },
   /**
    * Get the isLoading state from  all the store.
