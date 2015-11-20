@@ -20,6 +20,9 @@ const DEFAULT_LIST_COMPONENT = require('../../list/table/list').component;
 function _listenerProp(node){
     return `add${capitalize(camelCase(node))}ChangeListener`;
 }
+function _unListenerProp(node){
+    return `remove${capitalize(camelCase(node))}ChangeListener`;
+}
 /**
  * Mixin to deal the list page.
  * @type {Object}
@@ -68,15 +71,24 @@ let listPageMixin = {
     /**
      * Register the store nodes.
      */
+     _reload(){
+         this._action.load();
+     },
     _registerStoreNode(){
         STORE_NODE.forEach((node)=>{
             //Maybe this is a bit too much, a global change event could be more efficient as almost all store props change.
-            this.props.store[_listenerProp(node)](this._handleStoreChanged)
+            this.props.store[_listenerProp(node)](this._handleStoreChanged);
         });
         //When the criteria is changed, the search is triggered.
-        this.props.store.addCriteriaChangeListener(()=>{
-            this._action.load();
-        })
+        this.props.store.addCriteriaChangeListener(this._reload);
+    },
+    _unRegisterStoreNode(){
+          STORE_NODE.forEach((node)=>{
+            //Maybe this is a bit too much, a global change event could be more efficient as almost all store props change.
+            this.props.store[_unListenerProp(node)](this._handleStoreChanged);
+        });
+        //When the criteria is changed, the search is triggered.
+        this.props.store.removeCriteriaChangeListener(this._reload);
     },
     /**
      * build the list props.
@@ -97,6 +109,9 @@ let listPageMixin = {
         this._registerStoreNode();
         this._buildAction();
         this._action.load();
+    },
+    componentWillUnMount(){
+        this._unRegisterStoreNode();
     },
     /** @inheritdoc */
     render(){

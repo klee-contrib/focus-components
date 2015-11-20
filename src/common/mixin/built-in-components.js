@@ -112,7 +112,7 @@ module.exports = {
             isEdit: options.isEdit !== undefined ? options.isEdit : false
         });
         return (
-            <MemoryList {...listForProps}/>
+            <MemoryList ref='list' {...listForProps}/>
         );
     },
 
