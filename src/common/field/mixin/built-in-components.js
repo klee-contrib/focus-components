@@ -1,26 +1,23 @@
 // Dependencies
 
-const React = require('react');
-const {PropTypes} = React;
-const type = require('focus-core').component.types;
-const find = require('lodash/collection/find');
-const result = require('lodash/object/result');
-const assign = require('object-assign');
-// Components
+import React, {PropTypes} from 'react';
+import find from 'lodash/collection/find';
+import result from 'lodash/object/result';
+import assign from 'object-assign';
 
-const Autocomplete = require('../../autocomplete/field').component;
-const InputText = require('../../../components/input/text');
-const DisplayText = require('../../display/text').component;
-const SelectClassic = require('../../../components/input/select');
-const Label = require('../../label').component;
+// Components
+import {component as Autocomplete} from '../../autocomplete/field';
+import InputText from '../../../components/input/text';
+import {component as DisplayText} from '../../display/text';
+import SelectClassic from '../../../components/input/select';
+import {component as Label} from '../../label';
 
 // Mixins
-
-const fieldGridBehaviourMixin = require('../../mixin/field-grid-behaviour');
+import fieldGridBehaviourMixin from '../../mixin/field-grid-behaviour';
 
 const fieldBuiltInComponentsMixin = {
     mixins: [fieldGridBehaviourMixin],
-    getDefaultProps(){
+    getDefaultProps() {
         return {
             /**
             * Does the component has a Label.
@@ -56,7 +53,12 @@ const fieldBuiltInComponentsMixin = {
             * Component for the display.
             * @type {Object}
             */
-            DisplayComponent: DisplayText
+            DisplayComponent: DisplayText,
+            /**
+            * Component for the label.
+            * @type {Object}
+            */
+            LabelComponent: Label
         };
     },
     /** @inheriteDoc */
@@ -66,11 +68,12 @@ const fieldBuiltInComponentsMixin = {
         FieldComponent: PropTypes.func,
         InputComponent: PropTypes.func,
         InputLabelComponent: PropTypes.func,
+        LabelComponent: PropTypes.func,
         SelectComponent: PropTypes.func,
         hasLabel: PropTypes.bool,
         labelSize: PropTypes.number
     },
-    _buildStyle(){
+    _buildStyle() {
         let {style} = this.props;
         style = style || {};
         style.className = style && style.className ? style.className : '';
@@ -81,10 +84,16 @@ const fieldBuiltInComponentsMixin = {
     * @returns {Component} - The builded label component.
     */
     label() {
-        const {name, label} = this.props;
+        const {name, label, LabelComponent} = this.props;
         return (
-            <div className ={`${this._getLabelGridClassName()}`} data-focus='field-label-container'>
-                <Label name={name} text={label} />
+            <div
+                className ={`${this._getLabelGridClassName()}`}
+                data-focus='field-label-container'
+            >
+                <LabelComponent
+                    name={name}
+                    text={label}
+                />
             </div>
         );
     },
@@ -178,7 +187,10 @@ const fieldBuiltInComponentsMixin = {
         let {help, name} = this.props;
         if (help) {
             return (
-                <label className='mdl-textfield__label' htmFor={`${name}`}>
+                <label
+                    className='mdl-textfield__label'
+                    htmFor={`${name}`}
+                >
                     {help}
                 </label>
             );
@@ -202,4 +214,4 @@ const fieldBuiltInComponentsMixin = {
     }
 };
 
-module.exports = fieldBuiltInComponentsMixin;
+export default fieldBuiltInComponentsMixin;
