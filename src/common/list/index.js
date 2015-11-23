@@ -21,6 +21,7 @@ let MemoryListMixin = {
         var childProps = omit(this.props, ['lineComponent', 'data']);
         return (
             <this.props.listComponent
+                ref='list'
                 data={this.getDataToUse()}
                 hasMoreData={hasMoreData}
                 LineComponent={this.props.LineComponent}
