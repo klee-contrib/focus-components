@@ -53,7 +53,7 @@ const Scrollspy = {
         this._scrollSpy();
     },
     /** @inheritDoc */
-    componentWillUnMount() {
+    componentWillUnmount() {
         this._scrollCarrier.removeEventListener('scroll', this._scrollSpy);
         this._scrollCarrier.removeEventListener('resize', this._scrollSpy);
     },

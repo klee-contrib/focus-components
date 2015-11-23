@@ -28,7 +28,7 @@ class HeaderTopRow extends Component {
     }
 
     /** @inheriteddoc */
-    componentWillUnMount() {
+    componentWillUnmount() {
         applicationStore.removeSummaryComponentChangeListener(this._handleComponentChange);
         applicationStore.removeBarContentLeftComponentChangeListener(this._handleComponentChange);
         applicationStore.removeBarContentRightComponentChangeListener(this._handleComponentChange);

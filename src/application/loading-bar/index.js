@@ -16,7 +16,7 @@ let LoadingBarMixin = {
         requestStore.addClearRequestsListener(this._handleClearRequests);
     },
     /** @inheriteddoc */
-    componentWillUnMount: function cartridgeWillUnMount(){
+    componentWillUnmount: function cartridgeWillUnMount(){
         requestStore.removeUpdateRequestListener(this._handleRequestsUpdate);
         requestStore.removeClearRequestsListener(this._handleClearRequests);
     },

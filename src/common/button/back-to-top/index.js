@@ -46,7 +46,7 @@ const backToTopMixin = {
         this._scrollCarrier.addEventListener('resize', this._scrollSpy);
         this._scrollSpy();
     },
-    componentWillUnMount() {
+    componentWillUnmount() {
         this._scrollCarrier.removeEventListener('scroll', this._scrollSpy);
         this._scrollCarrier.removeEventListener('resize', this._scrollSpy);
     },

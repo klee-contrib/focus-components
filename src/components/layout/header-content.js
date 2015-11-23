@@ -25,7 +25,7 @@ class HeaderContent extends Component {
     }
 
     /** @inheriteddoc */
-    componentWillUnMount() {
+    componentWillUnmount() {
         applicationStore.removeCartridgeComponentChangeListener(this._handleComponentChange);
     }
 

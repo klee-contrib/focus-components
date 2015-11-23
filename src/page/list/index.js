@@ -110,7 +110,7 @@ let listPageMixin = {
         this._buildAction();
         this._action.load();
     },
-    componentWillUnMount(){
+    componentWillUnmount(){
         this._unRegisterStoreNode();
     },
     /** @inheritdoc */
