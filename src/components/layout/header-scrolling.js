@@ -77,7 +77,7 @@ class HeaderScrolling extends Component {
     }
 
     /** @inheriteddoc */
-    componentWillUnMount() {
+    componentWillUnmount() {
         this.scrollTargetNode.removeEventListener('scroll', this.handleScroll);
         this.scrollTargetNode.removeEventListener('resize', this.handleScroll);
         applicationStore.removeModeChangeListener(this._handleChangeApplicationStatus);

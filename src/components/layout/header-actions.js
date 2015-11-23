@@ -31,7 +31,7 @@ class HeaderActions extends Component {
     }
 
     /** @inheriteddoc */
-    componentWillUnMount() {
+    componentWillUnmount() {
         applicationStore.removeActionsChangeListener(this._handleComponentChange);
     }
 

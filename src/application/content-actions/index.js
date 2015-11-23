@@ -26,7 +26,7 @@ const ContentActions = {
         applicationStore.addActionsChangeListener(this._handleComponentChange);
     },
     /** @inheriteddoc */
-    componentWillUnMount() {
+    componentWillUnmount() {
         applicationStore.removeActionsChangeListener(this._handleComponentChange);
     },
     /**

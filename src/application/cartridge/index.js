@@ -12,7 +12,7 @@ const cartridgeMixin = {
         applicationStore.addCartridgeComponentChangeListener(this._handleComponentChange);
     },
     /** @inheriteddoc */
-    componentWillUnMount() {
+    componentWillUnmount() {
         applicationStore.removeCartridgeComponentChangeListener(this._handleComponentChange);
     },
     /**

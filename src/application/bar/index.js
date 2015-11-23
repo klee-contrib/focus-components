@@ -21,7 +21,7 @@ const barMixin = {
     /**
     * Component will unmount.
     */
-    componentWillUnMount() {
+    componentWillUnmount() {
         applicationStore.removeSummaryComponentChangeListener(this._handleComponentChange);
         applicationStore.removeBarContentLeftComponentChangeListener(this._handleComponentChange);
         applicationStore.removeBarContentRightComponentChangeListener(this._handleComponentChange);

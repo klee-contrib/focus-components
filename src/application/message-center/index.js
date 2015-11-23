@@ -23,7 +23,7 @@ var messageCenterMixin = {
     messageStore.addClearMessagesListener(this._handleClearMessage);
   },
   /** @inheriteddoc */
-  componentWillUnMount: function cartridgeWillUnMount(){
+  componentWillUnmount: function cartridgeWillUnMount(){
     messageStore.removePushedMessageListener(this._handlePushMessage);
     messageStore.removeClearMessagesListener(this._handleClearMessage);
   },

@@ -76,7 +76,7 @@ const headerMixin = {
         this.attachScrollListener();
     },
     /** @inheriteddoc */
-    componentWillUnMount: function barWillUnMount(){
+    componentWillUnmount: function barWillUnMount(){
         this.detachScrollListener();
         this.appStateWillUnmount();
     },
