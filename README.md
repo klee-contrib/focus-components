@@ -1,7 +1,7 @@
 focus-components
 ========================
 
-[![NPM](https://nodei.co/npm/focusjs-components.png?downloads=true&downloadRank=true&stars=true)](https://nodei.co/npm/focusjs-components/)
+[![NPM](https://nodei.co/npm/focus-components.png?downloads=true&downloadRank=true&stars=true)](https://nodei.co/npm/focus-components/)
 
 [![Join the chat at https://gitter.im/KleeGroup/focus-components](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/KleeGroup/focus-components?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
