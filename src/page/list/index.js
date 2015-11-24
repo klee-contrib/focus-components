@@ -97,7 +97,7 @@ const listPageMixin = {
      */
     _buildListProps(){
         const {props, state} = this;
-        const {dataList, totalCount} = state;
+        let {dataList, totalCount} = state;
         dataList = dataList || [];
         return assign({}, props, state, {
             data: dataList,
