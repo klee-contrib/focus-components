@@ -4,11 +4,12 @@
 //- be loaded from a criteria (or without) (the criteria can be the result of a form)
 //- be paginated
 //- be displayed in any list container.
-let {camelCase, capitalize} = require('lodash/string');
-let {types, builder} = require('focus-core').component;
-let actionBuilder = require('focus-core').list.actionBuilder;
-let type = types;
-let assign = require('object-assign');
+const React = require('react');
+const {camelCase, capitalize} = require('lodash/string');
+const {types, builder} = require('focus-core').component;
+const actionBuilder = require('focus-core').list.actionBuilder;
+const type = types;
+const assign = require('object-assign');
 
 const STORE_NODE = ['criteria', 'groupingKey', 'sortBy', 'sortAsc', 'dataList', 'totalCount'];
 const DEFAULT_LIST_COMPONENT = require('../../list/table/list').component;
@@ -27,7 +28,7 @@ function _unListenerProp(node){
  * Mixin to deal the list page.
  * @type {Object}
  */
-let listPageMixin = {
+const listPageMixin = {
     getDefaultProps(){
         return {
             ListComponent: DEFAULT_LIST_COMPONENT,
@@ -59,7 +60,7 @@ let listPageMixin = {
      * @return {object} - The object read from the store.
      */
     _getStateFromStore(){
-        let store = this.props.store;
+        const store = this.props.store;
         return store.getValue();
     },
     /**
@@ -95,8 +96,8 @@ let listPageMixin = {
      * @return {object} - the list property.
      */
     _buildListProps(){
-        let {props, state} = this;
-        let {dataList, totalCount} = state;
+        const {props, state} = this;
+        const {dataList, totalCount} = state;
         dataList = dataList || [];
         return assign({}, props, state, {
             data: dataList,
@@ -115,7 +116,7 @@ let listPageMixin = {
     },
     /** @inheritdoc */
     render(){
-        let listProps = this._buildListProps();
+        const listProps = this._buildListProps();
         return <this.props.ListComponent {...listProps} ref='list'/>;
     }
 };
