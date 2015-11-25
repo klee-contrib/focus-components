@@ -9,7 +9,7 @@ const InputTextSample = React.createClass({
         return (
             <div>
                 <h3>Without value</h3>
-                <div><InputText placeHolder="Put your value here..." /></div>
+                <div><InputText placeholder="Put your value here..." /></div>
 
                 <h3>With value</h3>
                 <InputText value="Lorem Ipsum" />

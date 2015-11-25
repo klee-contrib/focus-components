@@ -12,7 +12,7 @@ const propTypes = {
     name: PropTypes.string.isRequired,
     onChange: PropTypes.func.isRequired,
     onKeyPress: PropTypes.func,
-    placeHolder: PropTypes.string,
+    placeholder: PropTypes.string,
     unformatter: PropTypes.func,
     formatter: PropTypes.func,
     type: PropTypes.string,

@@ -17,7 +17,7 @@ const propTypes = {
     name: PropTypes.string.isRequired,
     onChange: PropTypes.func.isRequired,
     beforeValueGetter: PropTypes.func.isRequired,
-    placeHolder: PropTypes.string.isRequired,
+    placeholder: PropTypes.string.isRequired,
     showDropdowns: PropTypes.bool.isRequired,
     validate: PropTypes.func,
     value: (props, propName, componentName) => {
@@ -163,12 +163,12 @@ class InputDate extends Component {
     }
 
     render() {
-        const {error, locale, name, placeHolder} = this.props;
+        const {error, locale, name, placeholder} = this.props;
         const {dropDownDate, inputDate, displayPicker} = this.state;
         const {_onInputBlur, _onInputChange, _onInputFocus, _onDropDownChange, _onPickerCloserClick} = this;
         return (
             <div data-focus='input-date'>
-                <InputText error={error} name={name} onChange={_onInputChange} onFocus={_onInputFocus} placeHolder={placeHolder} ref='input' value={inputDate} />
+                <InputText error={error} name={name} onChange={_onInputChange} onFocus={_onInputFocus} placeholder={placeholder} ref='input' value={inputDate} />
                 {displayPicker &&
                     <div data-focus='picker-zone'>
                         <DatePicker

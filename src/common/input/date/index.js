@@ -74,7 +74,7 @@ const InputDateMixin = {
         formatter: types('func'),
         locale: types('object').isRequired,
         name: types('string').isRequired,
-        placeHolder: types('string'),
+        placeholder: types('string'),
         value: types('object').isRequired
     },
     /**
@@ -172,13 +172,13 @@ const InputDateMixin = {
     */
     render() {
         const {inputDate, rawDate} = this.state;
-        const {drops, error, locale, name, placeHolder, showDropdowns} = this.props;
+        const {drops, error, locale, name, placeholder, showDropdowns} = this.props;
         const {_onInputBlur, _onInputChange, _onPickerApply} = this;
         const calendarDate = rawDate ? moment(rawDate) : moment();
         return (
             <div data-focus='input-date'>
                 <DateRangePicker drops={drops} endDate={calendarDate} locale={locale} onApply={_onPickerApply} opens='center' ref='daterangepicker' showDropdowns={showDropdowns} singleDatePicker={true} startDate={calendarDate}>
-                    <InputText error={error} name={name} onBlur={_onInputBlur} onChange={_onInputChange} placeHolder={placeHolder} ref='inputDateText' value={inputDate} />
+                    <InputText error={error} name={name} onBlur={_onInputBlur} onChange={_onInputChange} placeholder={placeholder} ref='inputDateText' value={inputDate} />
                 </DateRangePicker>
             </div>
         );
