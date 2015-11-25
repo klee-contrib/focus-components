@@ -12,14 +12,12 @@ const UNSELECTED_KEY = 'UNSELECTED_KEY';
  * @return {strint | number}  - The parsed value.
  */
 function _valueParser(propsValue, rawValue) {
-    function _valueParser(propsValue, rawValue) {
-		if(UNSELECTED_KEY === rawValue) {
-			return undefined;
-		}
-	    return _lodashLang.isNumber(propsValue) ? +rawValue : rawValue;
+	if(UNSELECTED_KEY === rawValue) {
+		return undefined;
 	}
     return isNumber(propsValue) ? +rawValue : rawValue;
 }
+return isNumber(propsValue) ? +rawValue : rawValue;
 const propTypes = {
     disabled: PropTypes.bool,
     error: PropTypes.string,
