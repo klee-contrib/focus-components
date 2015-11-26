@@ -64,8 +64,10 @@ const lineMixin = {
      * Component will receive props
      * @param  {object} nextProps new component's props
      */
-    componentWillReceiveProps({isSelected}) {
-        if (isSelected !== undefined) {
+    componentWillReceiveProps({isSelected, data}) {
+        if (data !== this.props.data) {
+            this.setState({isSelected: false});
+        } else if (isSelected !== undefined) {
             this.setState({isSelected});
         }
     },
