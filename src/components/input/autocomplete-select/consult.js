@@ -1,0 +1,38 @@
+import {Component} from 'react';
+import ComponentBaseBehaviour from '../../../behaviours/component-base';
+
+@ComponentBaseBehaviour
+class AutocompleteSelectConsult extends Component {
+    state = {}
+
+    componentDidMount() {
+        this._callKeyResolver(this.props.value);
+    }
+
+    componentWillReceiveProps({value}) {
+        if (value !== this.props.value) this._callKeyResolver(value);
+    }
+
+    _callKeyResolver(value) {
+        const {keyResolver} = this.props;
+        keyResolver(value).then(label => {
+            this.setState({resolvedLabel: label});
+        }).catch(() => {});
+    }
+
+    render() {
+        const {label, name, type, value} = this.props;
+        const {resolvedLabel = value} = this.state;
+        return (
+            <div
+                label={label}
+                name={name}
+                type={type}
+            >
+                {this.i18n(resolvedLabel)}
+            </div>
+        );
+    }
+}
+
+export default AutocompleteSelectConsult;
