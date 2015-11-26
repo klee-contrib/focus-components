@@ -58,7 +58,7 @@ class Select extends Component {
     */
     getValue = () => {
         const {value} = this.props;
-        return isUndefined(value) || UNSELECTED_KEY === value ? null : (isNaN(value) ? value : +value));
+        return isUndefined(value) || UNSELECTED_KEY === value ? null : (isNaN(value) ? value : +value);
     }
     /**
     * Handle the change on the select, it only propagates the value.
@@ -72,7 +72,7 @@ class Select extends Component {
     }
     /** inheritdoc */
     _renderOptions({hasUndefined, labelKey, isRequired, value, values = [], valueKey}){
-        const isRequiredAndNoValue = isRequired && (isUndefined(value) || isNull(value);
+        const isRequiredAndNoValue = isRequired && (isUndefined(value) || isNull(value));
         if(hasUndefined || isRequiredAndNoValue){
             values = union(
                 [{[labelKey]: this.i18n('select.unSelected'), [valueKey]: UNSELECTED_KEY}],
