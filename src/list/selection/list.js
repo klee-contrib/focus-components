@@ -5,6 +5,8 @@ const {builder, types} = require('focus-core').component;
 const find = require('lodash/collection/find');
 const {omit} = require('lodash/object');
 const {isArray} = require('lodash/lang');
+import {clone} from 'lodash/lang';
+import {reduce} from 'lodash/collection';
 
 // Mixins
 
@@ -62,20 +64,40 @@ const listMixin = {
         selectionStatus: types('string')
     },
 
+    getInitialState() {
+        return {
+            selectedItems: null
+        }
+    },
+
     /**
     * Return selected items in the list.
     * @return {Array} selected items
     */
     getSelectedItems() {
-        const selected = [];
-        for(let i = 1; i < this.props.data.length + 1; i++){
-            const lineName = 'line' + i;
-            const lineValue = this.refs[lineName].getValue();
-            if(lineValue.isSelected){
-                selected.push(lineValue.item);
+        const {selectedItems} = this.state;
+        if (selectedItems !== null) {
+            const selectedItems = [];
+            for (let [item, isSelected] of this.state.selectedItems) {
+                if (isSelected) selectedItems.push(item);
             }
+            return selectedItems;
+        } else {
+            return reduce(this.refs, (acc, ref) => {
+                if (ref.getValue) {
+                    const {item, isSelected} = ref.getValue();
+                    if (isSelected) acc.push(item);
+                }
+                return acc;
+            }, []);
         }
-        return selected;
+    },
+
+    _handleLineSelection(data, isSelected) {
+        const {selectedItems} = this.state;
+        const newSelectedItems = clone(selectedItems);
+        newSelectedItems.set(data, isSelected);
+        this.setState({selectedItems: newSelectedItems});
     },
 
     /**
@@ -83,7 +105,6 @@ const listMixin = {
     * @returns {*} DOM for lines
     */
     _renderLines() {
-        let lineCount = 1;
         const {data, LineComponent: Line, selectionData, idField, selectionStatus, ...otherProps} = this.props;
         // LEGACY CODE
         const customLineComponent = otherProps.lineComponent;
@@ -97,7 +118,7 @@ const listMixin = {
                 'List: Lines: it seems data is not an array, please check the value in your store, it could also be related to your action in case of a load (have a look to shouldDumpStoreOnActionCall option).'
             );
         }
-        return data.map((line) => {
+        return data.map((line, idx) => {
             let isSelected;
             const selection = find(selectionData, {[idField]: line[idField]});
             if (selection) {
@@ -122,7 +143,8 @@ const listMixin = {
                     data={line}
                     isSelected={isSelected}
                     key={line[idField]}
-                    ref={`line${lineCount++}`}
+                    onSelection={this._handleLineSelection}
+                    ref={`line${idx}`}
                     reference={this._getReference()}
                     {...otherProps}
                     />
