@@ -1,6 +1,6 @@
 const {builder, types} = require('focus-core').component;
 const React = require('react');
-const Checkbox = require('../../input/checkbox').component;
+const Checkbox = require('../../../components/input/checkbox');
 const i18nBehaviour = require('../../i18n/mixin');
 const {pull} = require('lodash/array');
 
