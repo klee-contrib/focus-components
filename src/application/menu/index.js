@@ -34,8 +34,8 @@ const Menu = {
     /**
     * Render the links of the menu
     */
-    _renderMenuItems(){
-        return this.props.items.map((link, idx)=> {
+    _renderMenuItems() {
+        return this.props.items.map((link, idx) => {
             let clickHandler;
             if (link.route !== undefined) {
                 clickHandler = () => {
@@ -46,12 +46,11 @@ const Menu = {
                 clickHandler = link.onClick;
             }
             const buttonProps = {
-                icon: link.icon,
-                iconLibrary: link.iconLibrary,
-                style: link.style,
                 option: 'link',
                 shape: 'icon',
-                type: 'button'
+                type: 'button',
+                handleOnClik: clickHandler,
+                ...link
             };
             return (
                 <li key={idx} onClick={clickHandler}>
