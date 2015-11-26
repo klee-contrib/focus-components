@@ -26,7 +26,7 @@ const propTypes = {
     mubtiple: PropTypes.bool,
     name: PropTypes.string.isRequired,
     onChange: PropTypes.func.isRequired,
-    placeHolder: PropTypes.string,
+    placeholder: PropTypes.string,
     value: PropTypes.oneOfType([
         PropTypes.string,
         PropTypes.number

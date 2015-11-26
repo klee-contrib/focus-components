@@ -103,7 +103,7 @@ const fieldBuiltInComponentsMixin = {
     * @return {Component} - The constructed input component.
     */
     input() {
-        const {name: id, label: placeHolder} = this.props;
+        const {name: id, label: placeholder} = this.props;
         const {value, error} = this.state;
         const {onInputChange: onChange} = this;
         const inputBuildedProps = assign({}, this.props, {
@@ -111,7 +111,7 @@ const fieldBuiltInComponentsMixin = {
             onChange,
             value,
             error,
-            placeHolder,
+            placeholder,
             ref: 'input'
         });
         return <this.props.InputComponent {...inputBuildedProps}/>;
@@ -121,7 +121,7 @@ const fieldBuiltInComponentsMixin = {
      * @return {JSX} rendered component
      */
     autocomplete() {
-        const {name: id, label: placeHolder} = this.props;
+        const {name: id, label: placeholder} = this.props;
         const {value, error} = this.state;
         const {onInputChange: onChange} = this;
         const inputBuildedProps = {
@@ -130,7 +130,7 @@ const fieldBuiltInComponentsMixin = {
             onChange,
             value,
             error,
-            placeHolder,
+            placeholder,
             ref: 'input'
         };
         return <this.props.AutocompleteComponent {...inputBuildedProps}/>;

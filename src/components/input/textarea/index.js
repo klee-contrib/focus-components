@@ -13,7 +13,7 @@ const propTypes = {
     name: PropTypes.string.isRequired,
     onChange: PropTypes.func.isRequired,
     onKeyPress: PropTypes.func,
-    placeHolder: PropTypes.string,
+    placeholder: PropTypes.string,
     //required: PropTypes.bool,
     rows: PropTypes.number,
     type: PropTypes.string,
