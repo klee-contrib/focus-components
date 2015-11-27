@@ -98,6 +98,7 @@ const storeMixin = {
           }
           storeConf.store[`add${capitalize(property)}ChangeListener`](this._onChange);
           storeConf.store[`add${capitalize(property)}ErrorListener`](this._onError);
+          storeConf.store[`add${capitalize(property)}StatusListener`](this._onError);
         });
       });
     }
@@ -111,6 +112,7 @@ const storeMixin = {
         storeConf.properties.map((property)=>{
           storeConf.store[`remove${capitalize(property)}ChangeListener`](this._onChange);
           storeConf.store[`remove${capitalize(property)}ErrorListener`](this._onError);
+          storeConf.store[`remove${capitalize(property)}StatusListener`](this._onStatus);
         });
       });
     }
