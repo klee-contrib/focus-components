@@ -79,7 +79,7 @@ const AdvancedSearch = {
         action: type('object'),
         service: type('object'),
         orderableColumnList: type('array'),
-        lineOperationList: type('object'),
+        lineOperationList: type('array'),
         exportAction: type('func'),
         groupComponent: type('func'),
         lineComponentMapper: type('func'),

@@ -47,7 +47,7 @@ const lineMixin = {
         isSelection: types('bool'),
         onLineClick: types('func'),
         onSelection: types('func'),
-        operationList: types('object')
+        operationList: types(['array', 'object'])
     },
 
     /**
