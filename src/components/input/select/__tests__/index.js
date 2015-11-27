@@ -66,6 +66,48 @@ describe('The select ', () => {
             expect(ReactDOM.findDOMNode(component.refs.htmlSelect).value).to.equal(`${VALUE}`);
         });
     });
+    describe.only('when there is a isActive in the select list', () => {
+        const {VALUES, VALUE} = fixture;
+        let component;
+        before(()=>{
+            component = renderIntoDocument(<Select isRequired={true} hasUndefined={false} name='selectName' onChange={identity} value={VALUE} values={VALUES} />);
+        });
+        describe('when there is list without isActive present', () => {
+            it('shoud not filter the select list', () => {
+                expect(ReactDOM.findDOMNode(component.refs.htmlSelect).options.length).to.equal(VALUES.length);
+            });
+        });
+        describe('when there is list with isActive present', () => {
+            const {VALUES_ACTIVE, VALUE} = fixture;
+            let component;
+            before(()=>{
+                component = renderIntoDocument(<Select isRequired={true} hasUndefined={false} name='selectName' onChange={identity} value={VALUE} values={VALUES_ACTIVE} />);
+            });
+            it('shoud filter the select list', () => {
+                expect(ReactDOM.findDOMNode(component.refs.htmlSelect).options.length).to.equal(2);
+            });
+        });
+        describe('when there is list with a custom isActive present', () => {
+            const {VALUES_CUSTOM_ACTIVE, VALUE} = fixture;
+            let component;
+            before(()=>{
+                component = renderIntoDocument(<Select isRequired={true} hasUndefined={false} isActiveProperty='isActiveCustom' name='selectName' onChange={identity} value={VALUE} values={VALUES_CUSTOM_ACTIVE} />);
+            });
+            it('shoud filter the select list according to the custom value', () => {
+                expect(ReactDOM.findDOMNode(component.refs.htmlSelect).options.length).to.equal(2);
+            });
+        });
+        describe('when there is list with a wrong custom isActive present', () => {
+            const {VALUES_CUSTOM_ACTIVE, VALUE} = fixture;
+            let component;
+            before(()=>{
+                component = renderIntoDocument(<Select isActiveProperty='isActiveCustomPAPA' isRequired={true} hasUndefined={false} name='selectName' onChange={identity} value={VALUE} values={VALUES_CUSTOM_ACTIVE} />);
+            });
+            it('shoud not filter the select list', () => {
+                expect(ReactDOM.findDOMNode(component.refs.htmlSelect).options.length).to.equal(VALUES_CUSTOM_ACTIVE.length);
+            });
+        });
+    });
     describe('when the user select a new value', ()=>{
         const {VALUE, VALUES} = fixture;
         let onChangeSpy, component;
