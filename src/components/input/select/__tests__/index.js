@@ -66,7 +66,7 @@ describe('The select ', () => {
             expect(ReactDOM.findDOMNode(component.refs.htmlSelect).value).to.equal(`${VALUE}`);
         });
     });
-    describe.only('when there is a isActive in the select list', () => {
+    describe('when there is a isActive in the select list', () => {
         const {VALUES, VALUE} = fixture;
         let component;
         before(()=>{
