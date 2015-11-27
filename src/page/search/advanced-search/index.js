@@ -78,7 +78,7 @@ const AdvancedSearch = {
         store: type('object'),
         action: type('object'),
         service: type('object'),
-        orderableColumnList: type('array'),
+        orderableColumnList: type(['array', 'object']),
         lineOperationList: type(['array', 'object']),
         exportAction: type('func'),
         groupComponent: type('func'),
