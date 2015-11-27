@@ -59,7 +59,7 @@ const listMixin = {
         loader: types('func'),
         onLineClick: types('func'),
         onSelection: types('func'),
-        operationList: types('object'),
+        operationList: types(['array', 'object']),
         selectionData: types('array'),
         selectionStatus: types('string')
     },
