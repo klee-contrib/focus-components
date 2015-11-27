@@ -58,7 +58,7 @@ class Select extends Component {
     */
     getValue = () => {
         const {value} = this.props;
-        return isUndefined(value) || UNSELECTED_KEY === value || "null" === value? null : (isNaN(value) || value === null ? value : +value);
+        return isUndefined(value) || UNSELECTED_KEY === value ||isNull(value)? null : (isNaN(value) ? value : +value);
     }
     /**
     * Handle the change on the select, it only propagates the value.
