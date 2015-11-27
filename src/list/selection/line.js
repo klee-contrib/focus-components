@@ -33,7 +33,7 @@ const lineMixin = {
     getDefaultProps() {
         return {
             isSelection: true,
-            operationList: []
+            operationList: {}
         };
     },
 
@@ -47,7 +47,7 @@ const lineMixin = {
         isSelection: types('bool'),
         onLineClick: types('func'),
         onSelection: types('func'),
-        operationList: types('array')
+        operationList: types('object')
     },
 
     /**

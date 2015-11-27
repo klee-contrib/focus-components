@@ -20,14 +20,14 @@ const listSummaryMixin = {
      */
     getDefaultProps () {
         return {
-            scopeList: []
+            scopeList: {}
         };
     },
     /** @inheritdoc */
     propTypes: {
         nb: types('number'),
         queryText: types('string'),
-        scopeList: types('array').isRequired,
+        scopeList: types('object').isRequired,
         scopeClickAction: types('func'),
         exportAction: types('func')
     },
