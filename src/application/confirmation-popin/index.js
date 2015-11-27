@@ -28,8 +28,8 @@ let ConfirmationPopin = {
   propTypes: {
     cancelButtonLabel: type('string'),
     confirmButtonLabel: type('string'),
-    cancelHandler: type(['function', 'object']),
-    confirmHandler: type(['function', 'object'])
+    cancelHandler: type(['func', 'object']),
+    confirmHandler: type(['func', 'object'])
   },
 
   /**
