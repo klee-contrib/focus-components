@@ -39,7 +39,7 @@ const Menu = {
             let clickHandler;
             if (link.route !== undefined) {
                 clickHandler = () => {
-                    link.onClick.call(this, arguments);
+                    if (link.onClick) link.onClick.call(this, arguments);
                     Backbone.history.navigate(link.route, true);
                 };
             } else {
@@ -49,7 +49,7 @@ const Menu = {
                 option: 'link',
                 shape: 'icon',
                 type: 'button',
-                handleOnClik: clickHandler,
+                handleOnClick: clickHandler,
                 ...link
             };
             return (

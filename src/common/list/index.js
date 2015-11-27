@@ -11,7 +11,7 @@ let MemoryListMixin = {
     mixins: [memoryMixin],
 
     propTypes: {
-        listComponent: type(['function', 'object'])
+        listComponent: type(['func', 'object'])
     },
 
     /** @inheritdoc */

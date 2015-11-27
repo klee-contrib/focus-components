@@ -21,9 +21,7 @@ class Grid extends Component{
     }
 }
 
-Grid.propTypes = {
-    children: types('func')
-};
+Grid.propTypes = {};
 
 //Static props.
 Grid.displayName = 'Grid';

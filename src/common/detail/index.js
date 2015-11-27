@@ -28,7 +28,7 @@ var detailMixin = {
     propTypes: {
         hasNavigation: type('bool'),
         hasBackToTop: type('bool'),
-        BackToTopComponent: type(['function', 'object']),
+        BackToTopComponent: type(['func', 'object']),
         navigationAffixOffset: type('number')
     },
     /**

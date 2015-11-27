@@ -39,6 +39,15 @@ const radioMixin = {
             isChecked: isUndefined(value) ? false : value
         };
     },
+    componentDidUpdate() {
+        const {inputMdl} = this.refs;
+        const {isChecked} = this.state;
+        if (inputMdl) {
+            const {classList} = inputMdl;
+            if (isChecked === true) classList.add('is-checked');
+            if (isChecked === false) classList.remove('is-checked');
+        }
+    },
     /**
     * Executed actions on change event.
     * @param  {event} event
@@ -70,7 +79,7 @@ const radioMixin = {
         const checkedProps = isChecked ? {checked: 'checked'} : {};
         const inputProps = {...{className: 'mdl-radio__button', name: name, onChange: this._onChange, type: 'radio'}, ...checkedProps};
         return (
-            <label className='mdl-radio mdl-js-radio mdl-js-ripple-effect' data-focus="input-radio">
+            <label className='mdl-radio mdl-js-radio mdl-js-ripple-effect' data-focus="input-radio" ref='inputMdl'>
                 <input {...inputProps} />
                 <span className='mdl-radio__label'>{this.i18n(label)}</span>
             </label>

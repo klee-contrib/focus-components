@@ -14,7 +14,7 @@ const materialBehaviour = require('../../mixin/mdl-behaviour');
 const propTypes = {
     id: PropTypes.string,
     label: PropTypes.string,
-    handleOnClick: PropTypes.func.isRequired,
+    handleOnClick: PropTypes.func,
     type: PropTypes.oneOf(['submit', 'button']),
     shape: PropTypes.oneOf([undefined, 'raised', 'fab', 'icon', 'mini-fab']),
     color: PropTypes.oneOf([undefined, 'colored', 'primary', 'accent']),

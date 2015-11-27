@@ -41,7 +41,7 @@ var listMixin = {
         idField: type('string'),
         dateField: type('string'),
         dateComponent: type('object'),
-        lineComponent: type('func', true),
+        lineComponent: type('func'),
         isloading: type('bool'),
         loader: type('func'),
         onLineClick: type('func')
