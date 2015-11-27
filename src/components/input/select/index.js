@@ -21,6 +21,7 @@ const propTypes = {
     disabled: PropTypes.bool,
     error: PropTypes.string,
     hasUndefined: PropTypes.bool,
+    isActiveProperty: PropTypes.string,
     isRequired: PropTypes.bool,
     labelKey: PropTypes.string,
     mubtiple: PropTypes.bool,
@@ -38,6 +39,7 @@ const propTypes = {
 const defaultProps = {
     disabled: false,
     hasUndefined: true,
+    isActiveProperty: 'isActive',
     isRequired: false,
     labelKey: 'label',
     multiple: false,
@@ -71,7 +73,7 @@ class Select extends Component {
         return onChange(valueParser(propsValue, value));
     }
     /** inheritdoc */
-    _renderOptions({hasUndefined, labelKey, isRequired, value, values = [], valueKey}){
+    _renderOptions({hasUndefined, labelKey, isRequired, value, values = [], valueKey, isActiveProperty}){
         const isRequiredAndNoValue = isRequired && (isUndefined(value) || isNull(value));
         if(hasUndefined || isRequiredAndNoValue){
             values = union(
@@ -79,12 +81,14 @@ class Select extends Component {
                 values
             );
         }
-        return values.map((val, idx) => {
-            const optVal = `${val[valueKey]}`;
-            const elementValue = val[labelKey];
-            const optLabel = isUndefined(elementValue) || isNull(elementValue) ? this.i18n('select.noLabel') : elementValue;
-            return <option key={idx} value={optVal}>{optLabel}</option>;
-            });
+        return values
+               .filter(v => isUndefined(v[isActiveProperty]) || v[isActiveProperty] === true) // Filter on the
+               .map((val, idx) => {
+                    const optVal = `${val[valueKey]}`;
+                    const elementValue = val[labelKey];
+                    const optLabel = isUndefined(elementValue) || isNull(elementValue) ? this.i18n('select.noLabel') : elementValue;
+                    return <option key={idx} value={optVal}>{optLabel}</option>;
+                });
         }
         /**
         * @inheritdoc
