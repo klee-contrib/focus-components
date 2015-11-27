@@ -42,9 +42,8 @@ const buttonBackMixin = {
                 handleOnClick={this.goBackHistory}
                 icon='keyboard_backspace'
                 label={this.i18n('button.back')}
-                shape='fakeShapeToDisplayNothing'
-                type='icon'
-                />
+                shape={null}
+                type='icon' />
         );
     }
 };
