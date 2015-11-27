@@ -28,18 +28,18 @@ class MenuLeft extends Component {
             let clickHandler;
             if (link.route !== undefined) {
                 clickHandler = () => {
-                    link.onClick.call(this, arguments);
+                    if (link.onClick) link.onClick.call(this, arguments);
                     Backbone.history.navigate(link.route, true);
                 };
             } else {
                 clickHandler = link.onClick;
             }
             const buttonProps = {
-                icon: link.icon,
-                style: link.style,
                 option: 'link',
                 shape: 'icon',
-                type: 'button'
+                type: 'button',
+                handleOnClick: clickHandler,
+                ...link
             };
             return (
                 <li key={idx} onClick={clickHandler}>
