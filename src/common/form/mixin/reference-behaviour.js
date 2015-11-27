@@ -22,8 +22,10 @@ const referenceMixin = {
     * Build actions associated to the reference.
     */
     _buildReferenceActions(){
-        this.action = this.action || {};
-        this.action.loadReference = builtInActionReferenceLoader(this.referenceNames);
+        this.action = {
+            loadReference: builtInActionReferenceLoader(this.referenceNames),
+            ...this.action
+        };
     },
     _loadReference(){
         return this.action.loadReference();
