@@ -43,7 +43,7 @@ const buttonBackMixin = {
                 icon='keyboard_backspace'
                 label={this.i18n('button.back')}
                 shape={null}
-                type='icon' />
+                type='button' />
         );
     }
 };
