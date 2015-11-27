@@ -59,6 +59,7 @@ class HeaderActions extends Component {
                 {actions.primary.map((primary, index) => {
                     return (
                         <ButtonComponent key={`header-action-${index}`} handleOnClick={primary.action} icon={primary.icon} iconLibrary={primary.iconLibrary} label={primary.label} shape='fab' style={{className: primary.className}} type='button'/>
+
                     );
                 })}
                 <DropdownComponent iconProps={{name: 'more_vert'}} operationList={actions.secondary} shape='fab'/>
