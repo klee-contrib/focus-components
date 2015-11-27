@@ -25,7 +25,7 @@ const selectRadioMixin = {
     /** @inheritdoc */
     propTypes: {
         values: types('array'),
-        value: types(['number', 'string']),
+        value: types(['number', 'string', 'array']),
         valueKey: types('string'),
         labelKey: types('string'),
         onChange: types('func')
