@@ -29,7 +29,7 @@ module.exports = {
         data: {
           cartridgeComponent: cartridgeConf.cartridge || {component: Empty},
           summaryComponent: cartridgeConf.summary|| {component: Empty},
-          actions: cartridgeConf.actions|| {primary: [], secondary: Empty},
+          actions: cartridgeConf.actions|| {primary: [], secondary: []},
           barContentLeftComponent: cartridgeConf.barLeft || {component: Empty}
         },
         type: 'update'
