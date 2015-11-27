@@ -36,7 +36,6 @@ Column.defaultProps = {
 };
 Column.propTypes = {
     size: types('number'),
-    children: types('func'),
     className: types('string')
 };
 
