@@ -50,7 +50,7 @@ const listMixin = {
     * @type {Object}
     */
     propTypes: {
-        LineComponent: types('func', true),
+        LineComponent: types('func'),
         buttonComponent: types('func'),
         data: types('array'),
         idField: types('string'),
@@ -59,7 +59,7 @@ const listMixin = {
         loader: types('func'),
         onLineClick: types('func'),
         onSelection: types('func'),
-        operationList: types('array'),
+        operationList: types(['array', 'object']),
         selectionData: types('array'),
         selectionStatus: types('string')
     },
@@ -142,7 +142,7 @@ const listMixin = {
                 <FinalLineComponent
                     data={line}
                     isSelected={isSelected}
-                    key={line[idField]}
+                    key={line[idField] || idx}
                     onSelection={this._handleLineSelection}
                     ref={`line${idx}`}
                     reference={this._getReference()}

@@ -13,7 +13,7 @@ const isISOString = value => moment(value, moment.ISO_8601).isValid();
 const propTypes = {
     drops: PropTypes.oneOf(['up', 'down']).isRequired,
     error: PropTypes.string,
-    locale: PropTypes.object.isRequired,
+    locale: PropTypes.string.isRequired,
     name: PropTypes.string.isRequired,
     onChange: PropTypes.func.isRequired,
     beforeValueGetter: PropTypes.func.isRequired,

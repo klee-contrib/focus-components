@@ -54,8 +54,8 @@ const headerMixin = {
         scrollTargetSelector: type('string'),
         style: type('object'),
         sizeMap: type('object'),
-        notifySizeChange: type(['function', 'object']),
-        processSize: type(['function', 'object'])
+        notifySizeChange: type(['func', 'object']),
+        processSize: type(['func', 'object'])
     },
     /** @inheritdoc */
     getInitialState: function getMenuDefaultState() {

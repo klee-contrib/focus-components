@@ -68,7 +68,7 @@ const QuickSearchComponent = {
     */
     propTypes: {
         action: type('object'),
-        groupComponent: type('object'),
+        groupComponent: type('func'),
         groupMaxRows: type('number'),
         lineComponentMapper: type('func'),
         onLineClick: type('func'),

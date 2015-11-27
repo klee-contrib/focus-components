@@ -44,8 +44,8 @@ const radioMixin = {
         const {isChecked} = this.state;
         if (inputMdl) {
             const {classList} = inputMdl;
-            const method = isChecked ? 'add' : 'remove'
-            classList[method]('is-checked');
+            if (isChecked === true) classList.add('is-checked');
+            if (isChecked === false) classList.remove('is-checked');
         }
     },
     /**
