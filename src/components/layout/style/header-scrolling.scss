@@ -43,7 +43,6 @@ to { height: auto; }
 
     [data-focus="header-actions"] {
         display: inline;
-        margin-right: 200px;
     }
 
     //When the size is medium, the summary-bar is not visible.
@@ -91,6 +90,27 @@ to { height: auto; }
                     }
                 }
             }
+        }
+    }
+}
+
+// TODO: put this variable in a global variable.scss
+$media-tablet-breakpoint: 480px !default;
+$media-desktop-breakpoint: 840px !default;
+
+
+@media (max-width: $media-desktop-breakpoint - 1) {
+    [data-focus='header-scrolling'] {
+        [data-focus="header-actions"] {
+            margin-right: 20px;
+        }
+    }
+}
+
+@media (min-width: $media-desktop-breakpoint - 1) {
+    [data-focus='header-scrolling'] {
+        [data-focus="header-actions"] {
+            margin-right: 200px;
         }
     }
 }

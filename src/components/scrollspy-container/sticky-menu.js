@@ -3,7 +3,7 @@ import React, {Component, PropTypes} from 'react';
 // component default props.
 const defaultProps = {
     affix: false,
-    affixOffset: 100,
+    affixOffset: 0,
     menuList: []
 };
 
@@ -25,7 +25,7 @@ class StickyMenu extends Component {
     render() {
         const {affix, affixOffset, menuList, ...otherProps} = this.props;
         return (
-            <nav data-affix={affix} data-focus='sticky-menu' style={affix ? {position: 'fixed', top: `${affixOffset}px`} : null} {...otherProps}>
+            <nav data-affix={affix} data-focus='sticky-menu' data-offset={affixOffset} {...otherProps}>
                 <ul>
                     {menuList.map((menu)=>{
                         const {label, nodeId, isActive, onClick} = menu;
