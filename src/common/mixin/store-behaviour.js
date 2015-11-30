@@ -98,7 +98,7 @@ const storeMixin = {
           }
           storeConf.store[`add${capitalize(property)}ChangeListener`](this._onChange);
           storeConf.store[`add${capitalize(property)}ErrorListener`](this._onError);
-          storeConf.store[`add${capitalize(property)}StatusListener`](this._onError);
+          storeConf.store[`add${capitalize(property)}StatusListener`](this._onStatus);
         });
       });
     }
