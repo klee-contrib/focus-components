@@ -137,11 +137,18 @@ class HeaderScrolling extends Component {
         const {size} = this.state;
         const currentIndex = this.sizes.indexOf(size);
         const currentScrollPosition = this.scrollPosition();
-        //Process increase treatement.
-        if(currentIndex < (this.sizes.length - 1)) {
-            const increaseBorder = this.props.sizeMap[this.sizes[currentIndex + 1]].sizeBorder;
-            if(currentScrollPosition.top > increaseBorder) {
-                return this._changeSize(this.sizes[currentIndex + 1]);
+
+        const node = ReactDom.findDOMNode(this);
+        const bodyNode = document.body;
+        const value = bodyNode.scrollHeight - node.scrollHeight - bodyNode.clientHeight;
+
+        if(value > 0) {
+            //Process increase treatement.
+            if(currentIndex < (this.sizes.length - 1)) {
+                const increaseBorder = this.props.sizeMap[this.sizes[currentIndex + 1]].sizeBorder;
+                if(currentScrollPosition.top > increaseBorder) {
+                    return this._changeSize(this.sizes[currentIndex + 1]);
+                }
             }
         }
         //Process decrease treatement.
@@ -151,6 +158,7 @@ class HeaderScrolling extends Component {
                 return this._changeSize(this.sizes[currentIndex - 1]);
             }
         }
+
     }
 
     /**
