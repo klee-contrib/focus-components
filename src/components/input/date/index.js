@@ -140,6 +140,13 @@ class InputDate extends Component {
         }
     }
 
+    _handleKeyDown = ({key}) => {
+        if (key === 'Tab') {
+            this.setState({displayPicker: false});
+            this._onInputBlur();
+        }
+    }
+
     getValue = () => {
         const {inputDate} = this.state;
         const rawValue = this._isInputFormatCorrect(inputDate) ? this._parseInputDate(inputDate).toISOString() : null;
@@ -165,10 +172,10 @@ class InputDate extends Component {
     render() {
         const {error, locale, name, placeholder} = this.props;
         const {dropDownDate, inputDate, displayPicker} = this.state;
-        const {_onInputBlur, _onInputChange, _onInputFocus, _onDropDownChange, _onPickerCloserClick} = this;
+        const {_onInputBlur, _onInputChange, _onInputFocus, _onDropDownChange, _onPickerCloserClick, _handleKeyDown} = this;
         return (
             <div data-focus='input-date'>
-                <InputText error={error} name={name} onChange={_onInputChange} onFocus={_onInputFocus} placeholder={placeholder} ref='input' value={inputDate} />
+                <InputText error={error} name={name} onChange={_onInputChange} onKeyDown={_handleKeyDown} onFocus={_onInputFocus} placeholder={placeholder} ref='input' value={inputDate} />
                 {displayPicker &&
                     <div data-focus='picker-zone'>
                         <DatePicker
