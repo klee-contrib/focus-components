@@ -70,6 +70,14 @@ let changeBehaviourMixin = {
             }
         }
         this.setState(this._getStateFromStores());
+    },
+    /**
+     * Read
+     * @param  {[type]} changeInfos [description]
+     * @return {[type]}             [description]
+     */
+    _onStatus(changeInfos) {
+        this.setState(this._getLoadingStateFromStores())
     }
 };
 module.exports = changeBehaviourMixin;
