@@ -60,7 +60,7 @@ const buttonMixin = {
     * Date de composant.
     * @return {string} Classe.
     */
-    _className() {
+    _getComponentClassName() {
         const {shape, color, hasRipple, isJs} = this.props;
         let SHAPE_CLASS;
         switch (shape) {
@@ -123,11 +123,11 @@ const buttonMixin = {
     },
     /** inheritedDoc */
     render() {
-        const {id, type, label, style, ...otherProps} = this.props;
+        const {className, id, type, label, style, ...otherProps} = this.props;
         return (
-            <button alt={this.i18n(label)} className={this._className()} data-focus="button-action" id={id} onClick={this.handleOnClick} style={style} title={this.i18n(label)} type={type} {...otherProps}>
-            {this._renderIcon()}
-            {this._renderLabel()}
+            <button alt={this.i18n(label)} className={`${className} ${this._getComponentClassName()}`} data-focus='button-action' id={id} onClick={this.handleOnClick} title={this.i18n(label)} type={type} {...otherProps}>
+                {this._renderIcon()}
+                {this._renderLabel()}
             </button>
         );
     }
