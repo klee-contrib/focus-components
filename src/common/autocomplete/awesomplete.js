@@ -157,6 +157,7 @@ let Autocomplete = {
     */
     getValue() {
         const {value} = this.state;
+        if (value === '') return null;
         const {allowUnmatchedValue} = this.props;
         const computedValue = this._getCodeFromValue(value);
         return computedValue ? computedValue : allowUnmatchedValue ? value : this.props.code;
