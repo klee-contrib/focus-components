@@ -62,7 +62,7 @@
     "file-loader": "^0.8.4",
     "i18next-client": "^1.10.3",
     "jquery": "^2.1.4",
-    "jsdom": "^6.4.0",
+    "jsdom": "^7.1.1",
     "json-loader": "^0.5.3",
     "mocha": "^2.2.5",
     "node-sass": "^3.3.3",
