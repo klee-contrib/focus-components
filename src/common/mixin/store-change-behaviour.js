@@ -69,7 +69,6 @@ let changeBehaviourMixin = {
                 this.refs[key].setError(errorState[key]);
             }
         }
-        this.setState(this._getStateFromStores());
     },
     /**
      * Read
@@ -77,7 +76,7 @@ let changeBehaviourMixin = {
      * @return {[type]}             [description]
      */
     _onStatus(changeInfos) {
-        this.setState(this._getLoadingStateFromStores())
+        this.setState(this._getLoadingStateFromStores());
     }
 };
 module.exports = changeBehaviourMixin;
