@@ -6,7 +6,8 @@
   "scripts": {
     "test": "node ./node_modules/mocha/bin/mocha src/**/__tests__/**/*.js",
     "test:watch": "node ./node_modules/mocha/bin/mocha src/**/__tests__/**/*.js -w",
-    "build:server": "npm run material:override && node ./node_modules/babel/bin/babel.js src --out-dir lib",
+    "build:server": "npm run material:override && node ./node_modules/babel/bin/babel.js src --out-dir lib && npm run build:sass",
+    "build:sass": "echo 'build sass to lib ' && node ./node_modules/cpx/lib/command.js src/**/*.scss lib",
     "build:browser": "npm run material:override && npm run webpack:production",
     "start": "node server.js",
     "build": "npm run build:server && npm run build:browser",
@@ -53,6 +54,7 @@
     "babel-runtime": "^5.8.24",
     "chai": "^3.2.0",
     "chai-subset": "^1.0.1",
+    "cpx": "^1.2.1",
     "css-loader": "^0.19.0",
     "eslint": "1.5.1",
     "eslint-config-focus": "0.3.0",
