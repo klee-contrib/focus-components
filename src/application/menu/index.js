@@ -49,7 +49,6 @@ const Menu = {
                 option: 'link',
                 shape: 'icon',
                 type: 'button',
-                handleOnClick: clickHandler,
                 ...link
             };
             return (
