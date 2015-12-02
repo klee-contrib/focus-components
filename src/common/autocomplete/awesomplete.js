@@ -77,7 +77,8 @@ let Autocomplete = {
     getInitialState() {
         const {code, pickList} = this.props;
         return ({
-            value: 0 < pickList.length ? this._getValueFromCode(code) : code
+            value: 0 < pickList.length ? this._getValueFromCode(code) : code,
+            fromCodeResolver: false
         });
     },
     /**
@@ -99,7 +100,7 @@ let Autocomplete = {
         } else if (codeResolver) {
             codeResolver(code).then(resolvedValue => {
                 if ('' !== resolvedValue) {
-                    this.setState({value: resolvedValue}, () => {
+                    this.setState({value: resolvedValue, fromCodeResolver: true}, () => {
                         this.props.inputChangeHandler(resolvedValue);
                     }); // eslint-disable-line
                 }
@@ -165,14 +166,14 @@ let Autocomplete = {
     * If allowUnmatchedValue is set in the props, validate the current value and erase it if not valid.
     */
     _onInputBlur() {
-        const {value} = this.state;
+        const {value, fromCodeResolver} = this.state;
         const {allowUnmatchedValue, onInputBlur, pickList, selectionHandler} = this.props;
         const selectedPick = find(pickList, {value});
         const code = this._getCodeFromValue(value);
         if (selectedPick && !this._isSelecting && selectionHandler) {
             selectionHandler(selectedPick);
         }
-        if (!code && !allowUnmatchedValue && !this._isSelecting) {
+        if (!code && !allowUnmatchedValue && !this._isSelecting && !fromCodeResolver) {
             this.setState({value: ''});
             selectionHandler && selectionHandler({code: '', value: ''});
         }
@@ -186,7 +187,7 @@ let Autocomplete = {
     * @param  {Object} event change event
     */
     _onInputChange({target: {value}}) {
-        this.setState({value});
+        this.setState({value, fromCodeResolver: false});
         this._debouncedInputChangeHandler(value);
     },
     /**
