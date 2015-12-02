@@ -185,7 +185,7 @@ const popin = {
                 {this.state.opened &&
                     <Overlay clickHandler={modal && this.toggleOpen} ref='popin-overlay' resize={'full' === type} show={overlay}>
                         <div {...this._getAnimationProps()} data-focus='popin-window' onClick={this._preventPopinClose} ref='popin-window'>
-                            <i className='material-icons' onClick={this.toggleOpen}>close</i>
+                            <i className='material-icons' data-focus='popin-window-close' onClick={this.toggleOpen}>close</i>
                             <div onWheel={this._onWheel}>
                                 {children}
                             </div>

@@ -190,13 +190,15 @@ $fill-height-popin-margin: 200px;
 
     &>[data-focus='popin-window'] {
       background-color: white;
+      position: relative;
       /*padding: 10px;*/
       @include animation-duration(0.2s);
 
-      .fa-close {
-        padding: 5px;
-        float: right;
+      i[data-focus='popin-window-close'] {
         cursor: pointer;
+        position: absolute;
+        top: 5px;
+        right: 5px;
       }
     }
   }
