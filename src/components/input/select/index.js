@@ -15,7 +15,8 @@ function _valueParser(propsValue, rawValue) {
     if(UNSELECTED_KEY === rawValue) {
         return undefined;
     }
-    return isNumber(propsValue) ? +rawValue : rawValue;
+    const {type} = this.props;
+    return type === 'number' ? +rawValue : rawValue;
 }
 const propTypes = {
     disabled: PropTypes.bool,
@@ -59,8 +60,9 @@ class Select extends Component {
     * @return {object} - The unformated dom value.
     */
     getValue = () => {
-        const {value} = this.props;
-        return isUndefined(value) || UNSELECTED_KEY === value ||isNull(value)? null : (isNaN(value) ? value : +value);
+        const {type, value} = this.props;
+        if (isNull(value) || isUndefined(value) || UNSELECTED_KEY === value) return undefined;
+        return type === 'number' ? +value : value;
     }
     /**
     * Handle the change on the select, it only propagates the value.
@@ -70,7 +72,7 @@ class Select extends Component {
     _handleSelectChange = (evt) =>{
         const {onChange, valueParser, value: propsValue} = this.props;
         const {value} = evt.target;
-        return onChange(valueParser(propsValue, value));
+        return onChange(valueParser.call(this, propsValue, value));
     }
     /** inheritdoc */
     _renderOptions({hasUndefined, labelKey, isRequired, value, values = [], valueKey, isActiveProperty}){
@@ -82,36 +84,36 @@ class Select extends Component {
             );
         }
         return values
-               .filter(v => isUndefined(v[isActiveProperty]) || v[isActiveProperty] === true) // Filter on the
-               .map((val, idx) => {
-                    const optVal = `${val[valueKey]}`;
-                    const elementValue = val[labelKey];
-                    const optLabel = isUndefined(elementValue) || isNull(elementValue) ? this.i18n('select.noLabel') : elementValue;
-                    return <option key={idx} value={optVal}>{optLabel}</option>;
-                });
-        }
-        /**
-        * @inheritdoc
-        * @override
-        */
-        render() {
-            const {error, name, placeholder, style, value, values, disabled, onChange, ...otherProps} = this.props;
-            //const pattern = error ? 'hasError' : null; //add pattern to overide mdl error style when displaying an focus error.
-            const selectOtherProps = disabled ? {disabled: 'disabled', ...otherProps} : otherProps;
-            return (
-                <div data-focus='select' ref='select' data-valid={!error} style={style}>
-                    <select name={name} onChange={this._handleSelectChange} ref='htmlSelect' value={value} {...selectOtherProps}>
-                        {this._renderOptions(this.props)}
-                    </select>
-                    {error && <div className='label-error' ref='error'>{error}</div>}
-                </div>
-            );
-        }
+        .filter(v => isUndefined(v[isActiveProperty]) || v[isActiveProperty] === true) // Filter on the
+        .map((val, idx) => {
+            const optVal = `${val[valueKey]}`;
+            const elementValue = val[labelKey];
+            const optLabel = isUndefined(elementValue) || isNull(elementValue) ? this.i18n('select.noLabel') : elementValue;
+            return (<option key={idx} value={optVal}>{optLabel}</option>);
+        });
     }
+    /**
+    * @inheritdoc
+    * @override
+    */
+    render() {
+        const {error, name, placeholder, style, value, values, disabled, onChange, ...otherProps} = this.props;
+        //const pattern = error ? 'hasError' : null; //add pattern to overide mdl error style when displaying an focus error.
+        const selectOtherProps = disabled ? {disabled: 'disabled', ...otherProps} : otherProps;
+        return (
+            <div data-focus='select' ref='select' data-valid={!error} style={style}>
+                <select name={name} onChange={this._handleSelectChange} ref='htmlSelect' value={value} {...selectOtherProps}>
+                    {this._renderOptions(this.props)}
+                </select>
+                {error && <div className='label-error' ref='error'>{error}</div>}
+            </div>
+        );
+    }
+}
 
-    //Static props.
-    Select.displayName = 'Select';
-    Select.defaultProps = defaultProps;
-    Select.propTypes = propTypes;
+//Static props.
+Select.displayName = 'Select';
+Select.defaultProps = defaultProps;
+Select.propTypes = propTypes;
 
-    export default Select;
+export default Select;
