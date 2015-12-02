@@ -31,7 +31,6 @@
   "dependencies": {
     "backbone": "^1.2.3",
     "daterangepicker": "0.0.3",
-    "focus-core": "^0.11.0",
     "immutable": "^3.7.4",
     "lodash": "^3.10.1",
     "material-design-icons": "^2.0.0",
@@ -76,5 +75,8 @@
     "webpack": "^1.12.2",
     "webpack-dev-server": "^1.11.0",
     "webpack-focus": "^0.6.3"
+  },
+  "peerDependencies": {
+    "focus-core": ">= focus-core@0.12.0-rc1"
   }
 }
