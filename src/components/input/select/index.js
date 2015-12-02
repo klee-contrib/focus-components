@@ -61,7 +61,7 @@ class Select extends Component {
     */
     getValue = () => {
         const {type, value} = this.props;
-        if (isNull(value) || isUndefined(value) || UNSELECTED_KEY === value) return undefined;
+        if (isNull(value) || isUndefined(value) || UNSELECTED_KEY === value) return null;
         return type === 'number' ? +value : value;
     }
     /**
