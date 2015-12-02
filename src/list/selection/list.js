@@ -95,7 +95,7 @@ const listMixin = {
 
     _handleLineSelection(data, isSelected) {
         const {selectedItems} = this.state;
-        const newSelectedItems = clone(selectedItems);
+        const newSelectedItems = selectedItems === null ? new Map() : clone(selectedItems);
         newSelectedItems.set(data, isSelected);
         this.setState({selectedItems: newSelectedItems});
     },
