@@ -152,6 +152,7 @@ module.exports = {
         const handleOnClick = () => {
             this.setState({isEdit: !this.state.isEdit}, () => {
                 changeMode('edit', 'consult');
+                this.clearError();
             });
         };
         return (
