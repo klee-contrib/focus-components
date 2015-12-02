@@ -16,8 +16,6 @@ const defaultProps = {
     hasMenu: true, //Activate the presence of the sticky navigation component.
     hasBackToTop: true, //Activate the presence of BackToTop button
     offset: 80, //offset position when affix
-    //gridMenuSize: 3, //default grid size of the menu
-    //gridContentSize: 9, //default content size of the menu
     scrollDelay: 10 //defaut debounce delay for scroll spy call
 };
 
@@ -26,8 +24,6 @@ const propTypes = {
     hasMenu: PropTypes.bool,
     hasBackToTop: PropTypes.bool,
     offset: PropTypes.number,
-    //gridMenuSize: PropTypes.number,
-    //gridContentSize: PropTypes.number,
     scrollDelay: PropTypes.number
 };
 
