@@ -71,6 +71,27 @@ describe('The definition behaviour', () => {
         it('shoud not throw an error when the param is a string and in the definition map',  () => {
             expect(() => DefinitionBehaviour('contact')).to.not.throw(Error);
         });
+        it.only('Annotation test', () => {
+
+
+            class TestComponent extends React.Component {
+                render() {
+                    return (
+                        <div ref='myRef'>
+                            {this.props.test}
+                        </div>
+                    );
+                }
+            }
+
+			const CompWithDef = DefinitionBehaviour('contact')(TestComponent);
+			console.log('CompWithDef')
+			console.log(CompWithDef)
+            const renderedComponent = TestUtils.renderIntoDocument(<CompWithDef test='hello'/>);
+            console.log(renderedComponent);
+            expect(renderedComponent.props).to.have.property('contact')
+
+        })
         /*before(() => {
             @DefinitionBehaviour('contact')
             class TestComponent extends React.Component {

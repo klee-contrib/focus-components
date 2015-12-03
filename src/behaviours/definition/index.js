@@ -28,10 +28,10 @@ export default function definitionBehaviout(definitionPath, additionalDefinition
 
     // annotation
     // The wrapped component should have a props containing the definition object.
-    return function wrapWithDefinition(ComponentToWrap){
+    return function wrapWithDefinition(ComponentToWrap) {
 
         // Save the display name for later
-        const displayName = DecoratedComponent.displayName || 'Component';
+        const displayName = ComponentToWrap.displayName || 'Component';
 
         // Wrapped component
         function DefinitionWrappedComponent(props) {
@@ -39,8 +39,8 @@ export default function definitionBehaviout(definitionPath, additionalDefinition
         }
 
         DefinitionWrappedComponent.displayName =  `${displayName}WithDefinition`;
-
-        return DefinitionWrappedComponent
+        console.log(DefinitionWrappedComponent);
+        return DefinitionWrappedComponent;
     }
 }
 
