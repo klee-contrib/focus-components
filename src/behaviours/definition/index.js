@@ -1,5 +1,6 @@
 import React, {PropTypes} from 'react';
-import {getEntityInformations} from 'focus-core/definition/entity/builder';
+import {definition} from 'focus-core';
+const getEntityInformations =  definition.entity.builder.getEntityInformations;
 import {isNull, isUndefined, isArray, isString} from 'lodash/lang';
 
 /**
@@ -14,7 +15,7 @@ import {isNull, isUndefined, isArray, isString} from 'lodash/lang';
 export default function definitionBehaviout(definitionPath, additionalDefinition){
 
     // Arguments validation
-    if(isUndefined(definitionPath) || isNull(definitionPath)|| !isString(definitionPath) || !isArray(definitionPath)){
+    if(isUndefined(definitionPath) || isNull(definitionPath)|| (!isString(definitionPath) && !isArray(definitionPath))){
         throw new Error('the definition path should be givent in order to to know the domain of your entity property.');
     }
     if(!isUndefined(additionalDefinition) && !isNull(additionalDefinition) && !isObject(additionalDefinition)){
