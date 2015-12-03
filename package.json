@@ -1,6 +1,6 @@
 {
   "name": "focus-components",
-  "version": "0.7.8-celeris",
+  "version": "0.7.9-rc1",
   "description": "Focus component repository.",
   "main": "lib/index.js",
   "scripts": {
