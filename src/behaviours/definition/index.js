@@ -26,6 +26,7 @@ export default function definitionBehaviout(definitionPath, additionalDefinition
     const definition = definitionConf.reduce((valeurPrecedente, valeurCourante) => ({...valeurPrecedente, ...getEntityInformations(definitionPath, additionalDefinition)}), {});
 
     // annotation
+    // The wrapped component should have a props containing the definition object.
     return function wrapWithDefinition(ComponentToWrap){
 
         // Save the display name for later
