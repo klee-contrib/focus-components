@@ -19,7 +19,7 @@ const getEntityInformations =  definition.entity.builder.getEntityInformations;
  * @return {function} - A function to commect a component to a definition.
  * @example please read the end of the file.
  */
-export default function definitionBehaviout(definitionPath, additionalDefinition){
+export default function definitionBehaviour(definitionPath, additionalDefinition){
 
     // Arguments validation
     if(isUndefined(definitionPath) || isNull(definitionPath)|| (!isString(definitionPath) && !isArray(definitionPath))){
@@ -35,7 +35,7 @@ export default function definitionBehaviout(definitionPath, additionalDefinition
 
     // annotation
     // The wrapped component should have a props containing the definition object.
-    return function wrapWithDefinition(ComponentToWrap) {
+    return function wrapComponentWithDefinition(ComponentToWrap) {
 
         // Save the display name for later
         const displayName = ComponentToWrap.displayName || 'Component';
