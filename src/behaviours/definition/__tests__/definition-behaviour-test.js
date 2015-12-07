@@ -104,6 +104,7 @@ describe('The definition behaviour', () => {
             const renderedComponent = TestUtils.renderIntoDocument(<CompWithDef test='hello'/>);
 			expect(renderedComponent.refs.wrappedComponent.props.definition)
 				  .to.have.property('firstName');
+				// console.log('firstName %j', renderedComponent.refs.wrappedComponent.props.definition.firstName)
         });
         /*before(() => {
             @DefinitionBehaviour('contact')
