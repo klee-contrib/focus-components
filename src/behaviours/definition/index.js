@@ -1,7 +1,13 @@
+//Dependencies
 import React, {Component, PropTypes} from 'react';
+import {isNull, isUndefined, isArray, isString} from 'lodash/lang';
+
+// Import from focus-core
+// We need to investigate why import {getEntityInformations} from 'focus-core/entity/builder' didn't work, maybe an ES2015 related issue with babel.
+// Maybe because the node modules reads from the builded lib  instead of src.
 import {definition} from 'focus-core';
 const getEntityInformations =  definition.entity.builder.getEntityInformations;
-import {isNull, isUndefined, isArray, isString} from 'lodash/lang';
+
 
 /**
  * This function is a behaviour. It aims to comment a component to a definition.
@@ -11,6 +17,7 @@ import {isNull, isUndefined, isArray, isString} from 'lodash/lang';
  * @param  {string | array} definitionPath - A string or an array of the definition path to the configuration.
  * @param  {object} additionalDefinition - If you need to override a definition for a specific component, you can use this object.
  * @return {function} - A function to commect a component to a definition.
+ * @example please read the end of the file.
  */
 export default function definitionBehaviout(definitionPath, additionalDefinition){
 
@@ -33,18 +40,31 @@ export default function definitionBehaviout(definitionPath, additionalDefinition
         // Save the display name for later
         const displayName = ComponentToWrap.displayName || 'Component';
 
-        // Wrapped component
-//        function DefinitionWrappedComponent(props) {
-//            return <ComponentToWrap definition={definition} {...props}/>;
-//        }
+        // TODO: @reviewer
+        // It could have been nice to have a pure function for this.
+        // Except for the tests, do we need a React.Component class and a ref.
+        // I think it is safer to have it instead of a pure function.
+        // Maybe we should have a look on `ownPropertyDescriptor` instead of wrapping class aruoud component for this case.
+        // But having everything as props is really clean.
+
+        // # Wrapped component
+        //        function DefinitionWrappedComponent(props) {
+        //            return <ComponentToWrap definition={definition} {...props}/>;
+        //        }
+
+        /**
+         * This class stands for the wrapped component with its props plus the definition object as props.
+         * It has a reference to the wrapped component in `this.refs.wrappedComponent`
+         */
         class DefinitionWrappedComponent extends Component {
             render(){
                 return <ComponentToWrap ref='wrappedComponent' definition={definition} {...this.props}/>;
             }
         }
 
+        // Add with definition to the name of the component.
         DefinitionWrappedComponent.displayName =  `${displayName}WithDefinition`;
-        //console.log(DefinitionWrappedComponent);
+
         return DefinitionWrappedComponent;
     }
 }
@@ -59,7 +79,7 @@ class MyComponent{
 
     }
 }
-
+// The annotation is just a function, you compose your component with a definition builder.
 const MyComponentWithDefinition = definition('path.to.my.awesome.entity')(MyComponent);
 
  // ES7
