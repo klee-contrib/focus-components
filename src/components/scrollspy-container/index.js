@@ -15,7 +15,7 @@ const BackToTopComponent = BackToTop.component;
 const defaultProps = {
     hasMenu: true, //Activate the presence of the sticky navigation component.
     hasBackToTop: true, //Activate the presence of BackToTop button
-    offset: 80, //offset position when affix
+    offset: 100, //offset position when affix
     scrollDelay: 10 //defaut debounce delay for scroll spy call
 };
 
@@ -122,14 +122,14 @@ class ScrollspyContainer extends Component {
                 index: index,
                 label: title.innerHTML,
                 nodeId: nodeId,
-                offsetTop: selection.offsetTop, // offset of 10 to be safe
+                scrollTop: this.scrollPosition(selection).top, // offset of 10 to be safe
                 isActive: false,
                 onClick: this._handleMenuItemClick(nodeId)
             };
         });
 
         const nextTitles = filter(menuList, n => {
-            return currentScrollPosition.top < this._getElementRealPosition(n.offsetTop);
+            return currentScrollPosition.top < this._getElementRealPosition(n.scrollTop);
         });
 
         //Calculate current node
@@ -157,8 +157,9 @@ class ScrollspyContainer extends Component {
     * @return {number} the real position
     */
     _getElementRealPosition = (position) => {
-        const {offset} = this.props;
-        return position - offset - 10;
+        const sscDomNode = ReactDOM.findDOMNode(this);
+        const sscPosition = this.scrollPosition(sscDomNode);
+        return position - sscPosition.top;
     }
 
     /**
@@ -167,12 +168,23 @@ class ScrollspyContainer extends Component {
     * @return {Boolean} true is menu must be affix, else false
     */
     _isMenuAffix = () => {
-        const {hasMenu, offset} = this.props;
+        let {offset} = this.props;
+        const {hasMenu} = this.props;
         if(!hasMenu) {
             return false;
         }
-        const currentScrollPosition = this.scrollPosition();
-        return currentScrollPosition.top > offset;
+        const sscDomNode = ReactDOM.findDOMNode(this);
+        const currentViewPosition = sscDomNode.getBoundingClientRect();
+        const containerPaddingTop = this._getPaddingTopValue();
+        offset -= containerPaddingTop;
+        return currentViewPosition.top <= offset;
+    }
+
+    _getPaddingTopValue = () => {
+        const sscDomNode = ReactDOM.findDOMNode(this);
+        const computedStyles = window.getComputedStyle(sscDomNode, null);
+        const paddingTop = computedStyles.getPropertyValue('padding-top');
+        return paddingTop ? parseInt(paddingTop, 0) : 0;
     }
 
     /**
@@ -181,7 +193,7 @@ class ScrollspyContainer extends Component {
     * @param  {string} menuId  node spyId in DOM to scroll to
     * @return {function}        function to call
     */
-    _handleMenuItemClick(menuId){
+    _handleMenuItemClick(menuId) {
         return () => {
             this._onMenuItemClick(menuId);
         }
@@ -195,7 +207,8 @@ class ScrollspyContainer extends Component {
     _onMenuItemClick(menuId) {
         const selector = `[data-spy='${menuId}']`;
         const node = document.querySelector(selector);
-        const positionTop = this._getElementRealPosition(node.offsetTop);
+        const nodePosition = this.scrollPosition(node);
+        const positionTop = this._getElementRealPosition(nodePosition.top);
         this.scrollTo(undefined, positionTop);
     }
 
