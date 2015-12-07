@@ -1,4 +1,4 @@
-import React, {PropTypes} from 'react';
+import React, {Component, PropTypes} from 'react';
 import {definition} from 'focus-core';
 const getEntityInformations =  definition.entity.builder.getEntityInformations;
 import {isNull, isUndefined, isArray, isString} from 'lodash/lang';
@@ -34,12 +34,17 @@ export default function definitionBehaviout(definitionPath, additionalDefinition
         const displayName = ComponentToWrap.displayName || 'Component';
 
         // Wrapped component
-        function DefinitionWrappedComponent(props) {
-            return <ComponentToWrap definition={definition} {...props}/>;
+//        function DefinitionWrappedComponent(props) {
+//            return <ComponentToWrap definition={definition} {...props}/>;
+//        }
+        class DefinitionWrappedComponent extends Component {
+            render(){
+                return <ComponentToWrap ref='wrappedComponent' definition={definition} {...this.props}/>;
+            }
         }
 
         DefinitionWrappedComponent.displayName =  `${displayName}WithDefinition`;
-        console.log(DefinitionWrappedComponent);
+        //console.log(DefinitionWrappedComponent);
         return DefinitionWrappedComponent;
     }
 }
