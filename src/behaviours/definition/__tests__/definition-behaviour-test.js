@@ -106,22 +106,6 @@ describe('The definition behaviour', () => {
 				  .to.have.property('firstName');
 				// console.log('firstName %j', renderedComponent.refs.wrappedComponent.props.definition.firstName)
         });
-        /*before(() => {
-            @DefinitionBehaviour('contact')
-            class TestComponent extends React.Component {
-                render() {
-                    return (
-                        <div ref='myRef'>
-                        {this.props.test}
-                        </div>
-                    );
-                }
-            }
-            TestUtils.renderIntoDocument(<TestComponent test='hello'/>);
-        });
-        it('should not bind mdl JS', () => {
-            expect(mdlSpy.upgradeElement).not.to.be.called;
-        });*/
     });
 
 
