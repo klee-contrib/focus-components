@@ -38,8 +38,8 @@ class MenuLeft extends Component {
                 option: 'link',
                 shape: 'icon',
                 type: 'button',
-                handleOnClick: clickHandler,
-                ...link
+                ...link,
+                onClick: null
             };
             return (
                 <li key={idx} onClick={clickHandler}>
