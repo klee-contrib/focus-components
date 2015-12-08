@@ -76,12 +76,11 @@ let changeBehaviourMixin = {
      * @return {[type]}             [description]
      */
     _onStatus(changeInfos) {
-        if (this._getEntity) {
-            this.setState({...this._getEntity(), ...this._getLoadingStateFromStores()});
-        } else {
-            this.setState(this._getLoadingStateFromStores());
-        }
-
+        // if (this._getEntity) {
+        //     this.setState({...this._getEntity(), ...this._getLoadingStateFromStores()});
+        // } else {
+        //     this.setState(this._getLoadingStateFromStores());
+        // }
     }
 };
 module.exports = changeBehaviourMixin;
