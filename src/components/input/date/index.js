@@ -141,7 +141,7 @@ class InputDate extends Component {
     }
 
     _handleKeyDown = ({key}) => {
-        if (key === 'Tab') {
+        if (key === 'Tab' || key === 'Enter') {
             this.setState({displayPicker: false});
             this._onInputBlur();
         }
