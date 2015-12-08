@@ -4,6 +4,7 @@ import textarea from './textarea';
 import checkbox from './checkbox';
 import toggle from './toggle';
 import select from './select';
+import AutocompleteSelect from './autocomplete-select/field';
 
 export default {
     Checkbox: checkbox,
@@ -11,5 +12,6 @@ export default {
     Text: text,
     Toggle: toggle,
     Select: select,
-    Textarea: textarea
+    Textarea: textarea,
+    AutocompleteSelect
 };
