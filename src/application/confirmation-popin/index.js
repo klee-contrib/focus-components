@@ -20,6 +20,7 @@ let ConfirmationPopin = {
   mixins: [i18nMixin],
   getDefaultProps() {
     return {
+      open: false,
       cancelButtonLabel: 'popin.confirmation.cancel',
       confirmButtonLabel: 'popin.confirmation.confirm'
     };
@@ -59,7 +60,7 @@ let ConfirmationPopin = {
   render() {
     return (
       <div data-focus='confirmation-popin'>
-        <Popin  ref='popin'>
+        <Popin open={this.props.open} ref='popin'>
           {this.props.children}
           <div data-focus='button-stack'>
             <Button handleOnClick={this._handleCancel} label={this.i18n(this.props.cancelButtonLabel)}/>
