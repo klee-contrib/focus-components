@@ -74,11 +74,13 @@ class Autocomplete extends Component {
         const {labelName, keyName, value} = this.props;
         const {inputValue, selected, options, fromKeyResolver} = this.state;
         const resolvedLabel = options.get(selected);
-        if (fromKeyResolver) {
-            return value
-        } else if (resolvedLabel !== inputValue) {
+        if (inputValue === '') { // The user cleared the field, return a null
             return null;
-        } else {
+        } else if (fromKeyResolver) { // Value was received from the keyResolver, give it firectly
+            return value;
+        } else if (resolvedLabel !== inputValue) { // The user typed something without selecting any option, return a null
+            return null;
+        } else { // The user selected an option, return it
             return selected;
         }
     }
@@ -103,15 +105,18 @@ class Autocomplete extends Component {
     };
 
     _handleQueryChange = ({target: {value}}) => {
-        this.setState({inputValue: value, fromKeyResolver: false});
-        this._debouncedQuerySearcher(value);
-        this.setState({isLoading: true});
+        if (value === '') { // the user cleared the input, don't call the querySearcher
+            this.setState({inputValue: value, fromKeyResolver: false});
+        } else {
+            this.setState({inputValue: value, fromKeyResolver: false, isLoading: true});
+            this._debouncedQuerySearcher(value);
+        }
     };
 
     _querySearcher = value => {
         const {querySearcher, keyName, labelName} = this.props;
         querySearcher(value).then(({data, totalCount}) => {
-            // TODO handle the incomplete case
+            // TODO handle the incomplete option list case
             const options = new Map();
             data.forEach(item => {
                 options.set(item[keyName], item[labelName]);
@@ -189,7 +194,6 @@ class Autocomplete extends Component {
         const {customError, placeholder, renderOptions, ...inputProps} = this.props;
         const {inputValue, isLoading} = this.state;
         const {_handleQueryFocus, _handleQueryKeyUp, _handleQueryChange} = this;
-        console.log('Is it loading ? ', isLoading);
         return (
             <div data-focus='autocomplete'>
                 <div className={`mdl-textfield mdl-js-textfield${customError ? ' is-invalid' : ''}`} data-focus='input-text' ref='inputText'>
