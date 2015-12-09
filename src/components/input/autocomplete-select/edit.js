@@ -80,8 +80,8 @@ class Autocomplete extends Component {
             return value;
         } else if (resolvedLabel !== inputValue) { // The user typed something without selecting any option, return a null
             return null;
-        } else { // The user selected an option, return it
-            return selected;
+        } else { // The user selected an option (or no value was provided), return it
+            return selected || null;
         }
     }
 
@@ -130,7 +130,7 @@ class Autocomplete extends Component {
         this.setState({active: '', focus: true});
     };
 
-    _handleQueryKeyUp = (event) => {
+    _handleQueryKeyDown = (event) => {
         event.stopPropagation();
         const {which} = event;
         const {active, options} = this.state;
@@ -193,7 +193,7 @@ class Autocomplete extends Component {
     render () {
         const {customError, placeholder, renderOptions, ...inputProps} = this.props;
         const {inputValue, isLoading} = this.state;
-        const {_handleQueryFocus, _handleQueryKeyUp, _handleQueryChange} = this;
+        const {_handleQueryFocus, _handleQueryKeyDown, _handleQueryChange} = this;
         return (
             <div data-focus='autocomplete'>
                 <div className={`mdl-textfield mdl-js-textfield${customError ? ' is-invalid' : ''}`} data-focus='input-text' ref='inputText'>
@@ -203,7 +203,7 @@ class Autocomplete extends Component {
                         {...inputProps}
                         onChange={_handleQueryChange}
                         onFocus={_handleQueryFocus}
-                        onKeyUp={_handleQueryKeyUp}
+                        onKeyDown={_handleQueryKeyDown}
                         ref='htmlInput'
                         value={inputValue}
                     />
