@@ -108,7 +108,7 @@ const SearchBar = {
      * Input change handler
      * @param  {String} query the new query
      */
-    _onInputChange({target: {value: query}}) {
+    _onInputChange(query) {
         this.setState({query});
         const {minChar} = this.props;
         if (query.length >= minChar) {
