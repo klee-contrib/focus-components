@@ -40,50 +40,66 @@ describe.only('The autocomplete select', () => {
         before(() => {
             renderedTest = TestUtils.renderIntoDocument(<AutocompleteSelect keyResolver={keyResolver} querySearcher={querySearcher} inputTimeout={0}/>);
         });
-        it('should give an empty object when getValue is called', () => {
-            expect(renderedTest.getValue()).to.be.undefined;
+        it('should give an null object when getValue is called', () => {
+            expect(renderedTest.getValue()).to.be.null;
         });
     });
     describe('when mounted with a value', () => {
         const value = 'value';
+        const keyResolverSpy = sinon.spy();
+        const keyResolverSpied = data => {
+            keyResolverSpy(data);
+            return keyResolver(data);
+        };
         before(() => {
-            renderedTest = TestUtils.renderIntoDocument(<AutocompleteSelect keyResolver={keyResolver} querySearcher={querySearcher} value={value} inputTimeout={0}/>);
+            renderedTest = TestUtils.renderIntoDocument(<AutocompleteSelect keyResolver={keyResolverSpied} querySearcher={querySearcher} value={value} inputTimeout={0}/>);
         });
         it('should give a resolved value when getValue is called', () => {
             expect(renderedTest.getValue()).to.equal(value);
         });
-    });
-    describe('when mounted', () => {
-        const value = 'value';
-        const keyResolverSpy = sinon.spy();
-        const keyResolver = data => {
-            keyResolverSpy(data);
-            return Promise.resolve(data);
-        };
-        before(() => {
-            renderedTest = TestUtils.renderIntoDocument(<AutocompleteSelect keyResolver={keyResolver} querySearcher={querySearcher} value={value} inputTimeout={0}/>);
-        });
-        it('should call the key resolver', () => {
+        it('should call the key resolver with the provided value', () => {
+            expect(keyResolverSpy).to.have.been.calledOnce;
             expect(keyResolverSpy).to.have.been.calledWith(value);
         });
     });
     describe('when the user types in the field', () => {
         const query = 'query';
         const querySearcherSpy = sinon.spy();
-        const querySearcher = data => {
+        const querySearcherSpied = data => {
             querySearcherSpy(data);
-            return Promise.resolve({data: [], totalCount: 0});
+            return querySearcher(data);
         };
         before(() => {
-            renderedTest = TestUtils.renderIntoDocument(<AutocompleteSelect keyResolver={keyResolver} querySearcher={querySearcher} inputTimeout={0}/>);
+            renderedTest = TestUtils.renderIntoDocument(<AutocompleteSelect keyResolver={keyResolver} querySearcher={querySearcherSpied} inputTimeout={0}/>);
             const input = ReactDOM.findDOMNode(renderedTest.refs.htmlInput);
             TestUtils.Simulate.change(input, {target: {value: query}});
         });
-        it('should call the query searcher', () => {
+        it('should call the query searcher once, with the user input', () => {
+            expect(querySearcherSpy).to.have.been.calledOnce;
             expect(querySearcherSpy).to.have.been.calledWith(query);
         });
-        it('should give a null value since the user did not select anything', () => {
+        it('should give a null value on the getValue since the user did not select anything', () => {
             expect(renderedTest.getValue()).to.be.null;
+        });
+    });
+    describe('when the user types in the field and selects an option', () => {
+        const query = 'query';
+        before(done => {
+            const querySearcherCustom = data => {
+                setTimeout(() => {
+                    TestUtils.Simulate.keyDown(input, {key: 'Down', keyCode: 40, which: 40});
+                    TestUtils.Simulate.keyDown(input, {key: 'Down', keyCode: 40, which: 40});
+                    TestUtils.Simulate.keyDown(input, {key: 'Enter', keyCode: 13, which: 13});
+                    setTimeout(done, 0);
+                }, 0);
+                return querySearcher(data);
+            };
+            renderedTest = TestUtils.renderIntoDocument(<AutocompleteSelect keyResolver={keyResolver} querySearcher={querySearcherCustom} inputTimeout={0}/>);
+            const input = ReactDOM.findDOMNode(renderedTest.refs.htmlInput);
+            TestUtils.Simulate.change(input, {target: {value: query}});
+        });
+        it('should give the selected option when the getValue is called', () => {
+            expect(renderedTest.getValue()).to.equal('PAR');
         });
     });
     describe('when the user clears the input', () => {
@@ -101,6 +117,33 @@ describe.only('The autocomplete select', () => {
         });
         it('should give a null value when getValue is called', () => {
             expect(renderedTest.getValue()).to.be.null;
+        });
+    });
+    describe('when the given value changes', () => {
+        const keyResolverSpy = sinon.spy();
+        const secondValue = 'secondValue';
+        const keyResolverSpied = data => {
+            keyResolverSpy(data);
+            return keyResolver(data);
+        };
+        class Parent extends React.Component {
+            state = {value: 'value'}
+            render() {
+                const {value} = this.state;
+                return <AutocompleteSelect keyResolver={keyResolverSpied} querySearcher={querySearcher} value={value} ref='child' inputTimeout={0}/>;
+            }
+        }
+        before(done => {
+            renderedTest = TestUtils.renderIntoDocument(<Parent/>);
+            renderedTest.setState({value: secondValue}, done);
+        });
+        it('should call the keyResolver twice', () => {
+            expect(keyResolverSpy).to.have.been.calledTwice;
+            expect(keyResolverSpy).to.have.been.calledWith('value');
+            expect(keyResolverSpy).to.have.been.calledWith(secondValue);
+        });
+        it('should give the second value on a getValue', () => {
+            expect(renderedTest.refs.child.getValue()).to.equal(secondValue);
         });
     });
 });
