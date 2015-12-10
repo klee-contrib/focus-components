@@ -8,10 +8,12 @@ import layout from './layout';
 import menuLeft from './menu';
 import panel from './panel';
 import scrollspyContainer from './scrollspy-container';
+import Confirm from './confirm';
 
 export default {
     HeaderActions: headerActions,
     HeaderContent: headerContent,
+    Confirm,
     HeaderDefaultTemplate: headerDefaultTemplate,
     HeaderScrolling: headerScrolling,
     HeaderTopRow: headerTopRow,
