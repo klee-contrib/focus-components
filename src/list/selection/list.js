@@ -61,6 +61,7 @@ const listMixin = {
         onSelection: types('func'),
         operationList: types(['array', 'object']),
         selectionData: types('array'),
+        selectionHandler: types('func'),
         selectionStatus: types('string')
     },
 
@@ -103,6 +104,10 @@ const listMixin = {
         }
         newSelectedItems.set(data, value);
         this.setState({selectedItems: newSelectedItems});
+        
+        if (this.props.selectionHandler) {
+            this.props.selectionHandler(data, isSelected);
+        }
     },
 
     /**
