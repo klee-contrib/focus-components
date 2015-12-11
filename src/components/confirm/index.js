@@ -1,5 +1,6 @@
 import React, {Component, PropTypes} from 'react';
 import ReactDOM from 'react-dom';
+import {isString} from 'lodash/lang';
 import {component as ConfirmationModal} from '../../application/confirmation-popin';
 import Connect from '../../behaviours/store/connect';
 import {application} from 'focus-core';
@@ -28,7 +29,8 @@ class ConfirmWrapper extends Component {
     render() {
         console.log('confirm wrapper', this.props);
         const {isVisible, ConfirmContentComponent, cancelHandler, confirmHandler} = this.props;
-        return isVisible ? <ConfirmationModal open={true} cancelHandler={cancelHandler} confirmHandler={confirmHandler}>{ConfirmContentComponent ? <ConfirmContentComponent /> : null}</ConfirmationModal> : null;
+        const ConfirmContent = isString(ConfirmContentComponent) ? (() => <span>{ConfirmContentComponent}</span>) : ConfirmContentComponent;
+        return isVisible ? <ConfirmationModal open={true} cancelHandler={cancelHandler} confirmHandler={confirmHandler}>{ConfirmContent ? <ConfirmContent /> : null}</ConfirmationModal> : null;
     }
 }
 
