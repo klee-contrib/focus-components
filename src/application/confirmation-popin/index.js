@@ -1,3 +1,4 @@
+import React from 'react';
 // Dependencies
 
 let builder = require('focus-core').component.builder;
