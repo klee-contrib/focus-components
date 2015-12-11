@@ -8,8 +8,8 @@ const {builtInStore: applicationStore} = application;
 const propTypes = {
     isVisible: PropTypes.bool,
     ConfirmContentComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.string]),
-    handleCancel: PropTypes.func.isRequired,
-    handleConfirm: PropTypes.func.isRequired
+    handleCancel: PropTypes.func,
+    handleConfirm: PropTypes.func
 };
 
 const defaultProps = {
