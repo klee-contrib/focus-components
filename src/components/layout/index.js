@@ -3,6 +3,7 @@ import HeaderDefaultTemplate from './header-default-template';
 import LoadingBar from '../../application/loading-bar';
 import MessageCenter from '../../application/message-center';
 import ErrorCenter from '../../application/error-center';
+import ConfirmWrapperDefault from '../confirm';
 
 // Components
 const LoadingBarDefault = LoadingBar.component;
@@ -14,12 +15,14 @@ const defaultProps = {
     AppHeader: HeaderDefaultTemplate, //default app header.
     ErrorCenter: ErrorCenterDefault, // default error center
     LoadingBar: LoadingBarDefault, // default loading bar
-    MessageCenter: MessageCenterDefault // default message center
+    MessageCenter: MessageCenterDefault, // default message center
+    ConfirmWrapper: ConfirmWrapperDefault // default confirm wrapper
 };
 
 // component props definition.
 const propTypes = {
     AppHeader: PropTypes.func,
+    ConfirmWrapper: PropTypes.func,
     ErrorCenter: PropTypes.func,
     Footer: PropTypes.func,
     LoadingBar: PropTypes.func,
@@ -34,13 +37,14 @@ class Layout extends Component {
 
     /** @inheritDoc */
     render() {
-        const {AppHeader, children, ErrorCenter, Footer, LoadingBar, MenuLeft, MessageCenter, ...otherProps} = this.props;
+        const {AppHeader, children, ConfirmWrapper, ErrorCenter, Footer, LoadingBar, MenuLeft, MessageCenter, ...otherProps} = this.props;
         const menuType = MenuLeft ? 'left' : 'other';
         return (
             <div data-focus='layout' data-menu={menuType} {...otherProps}>
                 <LoadingBar />
                 <MessageCenter />
                 <ErrorCenter />
+                <ConfirmWrapper />
                 <AppHeader />
                 {MenuLeft &&
                     <MenuLeft />
