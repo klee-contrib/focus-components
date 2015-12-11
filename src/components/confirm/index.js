@@ -27,7 +27,6 @@ const defaultProps = {
 )
 class ConfirmWrapper extends Component {
     render() {
-        console.log('confirm wrapper', this.props);
         const {isVisible, ConfirmContentComponent, cancelHandler, confirmHandler} = this.props;
         const ConfirmContent = isString(ConfirmContentComponent) ? (() => <span>{ConfirmContentComponent}</span>) : ConfirmContentComponent;
         return isVisible ? <ConfirmationModal open={true} cancelHandler={cancelHandler} confirmHandler={confirmHandler}>{ConfirmContent ? <ConfirmContent /> : null}</ConfirmationModal> : null;
