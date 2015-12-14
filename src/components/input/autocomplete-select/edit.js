@@ -36,7 +36,8 @@ class Autocomplete extends Component {
         selected: this.props.value,
         fromKeyResolver: false,
         isLoading: false,
-        customError: this.props.customError
+        customError: this.props.customError,
+        totalCount: 0
     };
 
     componentDidMount() {
@@ -56,7 +57,7 @@ class Autocomplete extends Component {
             this.setState({inputValue: value, customError}, () => keyResolver(value).then(inputValue => {
                 this.setState({inputValue, fromKeyResolver: true});
             }).catch(error => this.setState({customError: error.message})));
-        } else {
+        } else if (customError !== this.props.customError) {
             this.setState({customError});
         }
     }
@@ -109,7 +110,9 @@ class Autocomplete extends Component {
 
     _handleQueryChange = ({target: {value}}) => {
         if (value === '') { // the user cleared the input, don't call the querySearcher
+            const {onChange} = this.props;
             this.setState({inputValue: value, fromKeyResolver: false});
+            if (onChange) onChange(null);
         } else {
             this.setState({inputValue: value, fromKeyResolver: false, isLoading: true});
             this._debouncedQuerySearcher(value);
@@ -124,7 +127,7 @@ class Autocomplete extends Component {
             data.forEach(item => {
                 options.set(item[keyName], item[labelName]);
             });
-            this.setState({options, isLoading: false});
+            this.setState({options, isLoading: false, totalCount});
         }).catch(error => this.setState({customError: error.message}));
     };
 
