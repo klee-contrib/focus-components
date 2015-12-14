@@ -35,7 +35,8 @@ class Autocomplete extends Component {
         active: null,
         selected: this.props.value,
         fromKeyResolver: false,
-        isLoading: false
+        isLoading: false,
+        customError: this.props.customError
     };
 
     componentDidMount() {
@@ -43,18 +44,20 @@ class Autocomplete extends Component {
         if (value !== undefined && value !== null) { // value is defined, call the keyResolver to get the associated label
             keyResolver(value).then(inputValue => {
                 this.setState({inputValue, fromKeyResolver: true});
-            }).catch(() => {});
+            }).catch(error => this.setState({customError: error.message}));
         }
         document.addEventListener('click', this._handleDocumentClick);
         this._debouncedQuerySearcher = debounce(this._querySearcher, inputTimeout);
     }
 
-    componentWillReceiveProps({value}) {
+    componentWillReceiveProps({value, customError}) {
         const {keyResolver} = this.props;
         if (value !== this.props.value && value !== undefined && value !== null) { // value is defined, call the keyResolver to get the associated label
-            this.setState({inputValue: value}, () => keyResolver(value).then(inputValue => {
+            this.setState({inputValue: value, customError}, () => keyResolver(value).then(inputValue => {
                 this.setState({inputValue, fromKeyResolver: true});
-            }).catch(() => {}));
+            }).catch(error => this.setState({customError: error.message})));
+        } else {
+            this.setState({customError});
         }
     }
 
@@ -122,7 +125,7 @@ class Autocomplete extends Component {
                 options.set(item[keyName], item[labelName]);
             });
             this.setState({options, isLoading: false});
-        }).catch(() => {});
+        }).catch(error => this.setState({customError: error.message}));
     };
 
     _handleQueryFocus = () => {
