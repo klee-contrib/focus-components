@@ -21,15 +21,15 @@ const defaultProps = {
 @Connect(
     [{store: applicationStore, properties: ['confirmConfig']}],
     () => {
-        const {isVisible = false, Content: ConfirmContentComponent = null, handleCancel: cancelHandler, handleConfirm: confirmHandler} = applicationStore.getConfirmConfig() || {};
-        return {isVisible, ConfirmContentComponent, cancelHandler, confirmHandler};
+        const {isVisible = false, Content: ConfirmContentComponent = null, handleCancel: cancelHandler, handleConfirm: confirmHandler, contentProps} = applicationStore.getConfirmConfig() || {};
+        return {isVisible, ConfirmContentComponent, cancelHandler, confirmHandler, contentProps};
     }
 )
 class ConfirmWrapper extends Component {
     render() {
-        const {isVisible, ConfirmContentComponent, cancelHandler, confirmHandler} = this.props;
+        const {isVisible, ConfirmContentComponent, cancelHandler, confirmHandler, contentProps} = this.props;
         const ConfirmContent = isString(ConfirmContentComponent) ? (() => <span>{ConfirmContentComponent}</span>) : ConfirmContentComponent;
-        return isVisible ? <ConfirmationModal open={true} cancelHandler={cancelHandler} confirmHandler={confirmHandler}>{ConfirmContent ? <ConfirmContent /> : null}</ConfirmationModal> : null;
+        return isVisible ? <ConfirmationModal open={true} cancelHandler={cancelHandler} confirmHandler={confirmHandler} {...contentProps}>{ConfirmContent ? <ConfirmContent /> : null}</ConfirmationModal> : null;
     }
 }
 
