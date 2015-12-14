@@ -139,14 +139,13 @@ const fieldBuiltInComponentsMixin = {
     },
     autocompleteSelect() {
         const {name: id, label: placeHolder} = this.props;
-        const {value, error} = this.state;
+        const {value} = this.state;
         const {onInputChange: onChange} = this;
         const inputBuildedProps = {
             ...this.props,
             id,
             onChange,
             value,
-            error,
             placeHolder,
             ref: 'input'
         };
