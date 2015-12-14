@@ -33,5 +33,16 @@ $search-bar-border-bottom:1px solid rgba(0, 0, 0, 0.117647);
                 font-size: $search-bar-font-size;
             }
         }
+
+        [data-role="spinner"] {
+            position: relative;
+            right: 62px;
+            top: 5px;
+            border: 2px solid #38e;
+            border-right-color: transparent;
+            border-radius: 16px;
+            width: 25px;
+            height: 25px;
+        }
     }
 }

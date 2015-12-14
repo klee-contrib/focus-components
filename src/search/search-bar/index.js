@@ -70,6 +70,7 @@ const SearchBar = {
     componentWillMount() {
         this.props.store.addQueryChangeListener(this._onQueryChangeFromStore);
         this.props.store.addScopeChangeListener(this._onScopeChangeFromStore);
+        this.props.store.addResultsChangeListener(this._onResultsChangeFromStore);
     },
     /**
      * Component did unmount handler
@@ -77,6 +78,7 @@ const SearchBar = {
     componentWillUnmount() {
         this.props.store.removeQueryChangeListener(this._onQueryChangeFromStore);
         this.props.store.removeScopeChangeListener(this._onScopeChangeFromStore);
+        this.props.store.removeResultsChangeListener(this._onResultsChangeFromStore);
     },
     /**
      * Query changed in store event handler
@@ -94,6 +96,10 @@ const SearchBar = {
             scope: this.props.store.getScope()
         });
     },
+
+    _onResultsChangeFromStore() {
+        this.setState({loading: false});
+    },
     /**
      * Broadcast query change
      */
@@ -101,6 +107,9 @@ const SearchBar = {
         actionWrapper(() => {
             this.props.action.updateProperties({
                 query: this.refs.query.getValue()
+            });
+            this.setState({
+                loading: true
             });
         })();
     },
@@ -161,8 +170,8 @@ const SearchBar = {
     * @return {HTML} - The rendered component
     */
     render() {
-        const {loading, hasScopes, placeholder, scopes} = this.props;
-        const {query, scope} = this.state;
+        const {hasScopes, placeholder, scopes} = this.props;
+        const {loading, query, scope} = this.state;
         return (
             <div data-focus='search-bar'>
                 {hasScopes &&
@@ -171,7 +180,7 @@ const SearchBar = {
                 <div data-focus='search-bar-input'>
                     <Input onChange={this._onInputChange} onKeyPress={this._handleInputKeyPress} placeholder={this.i18n(placeholder)} ref='query' value={query}/>
                     {loading &&
-                        <div className={`sb-spinner three-quarters-loader`} />
+                        <div className='three-quarters-loader' data-role='spinner'></div>
                     }
                 </div>
             </div>
