@@ -6,6 +6,7 @@ import result from 'lodash/object/result';
 import assign from 'object-assign';
 
 // Components
+import AutocompleteSelectComponent from '../../../components/input/autocomplete-select/field';
 import {component as Autocomplete} from '../../autocomplete/field';
 import InputText from '../../../components/input/text';
 import {component as DisplayText} from '../../display/text';
@@ -44,6 +45,7 @@ const fieldBuiltInComponentsMixin = {
              * @type {Object}
              */
             AutocompleteComponent: Autocomplete,
+            AutocompleteSelectComponent,
             /**
             * Component for the select.
             * @type {Object}
@@ -134,6 +136,21 @@ const fieldBuiltInComponentsMixin = {
             ref: 'input'
         };
         return <this.props.AutocompleteComponent {...inputBuildedProps}/>;
+    },
+    autocompleteSelect() {
+        const {name: id, label: placeHolder} = this.props;
+        const {value, error} = this.state;
+        const {onInputChange: onChange} = this;
+        const inputBuildedProps = {
+            ...this.props,
+            id,
+            onChange,
+            value,
+            error,
+            placeHolder,
+            ref: 'input'
+        };
+        return <this.props.AutocompleteSelectComponent {...inputBuildedProps}/>;
     },
     /**
      * Build a select component depending on the domain, definition and props.

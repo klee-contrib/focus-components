@@ -39,6 +39,13 @@ module.exports = {
         const fieldProps = this._buildFieldProps(name, options, this);
         return this._renderField(fieldProps);
     },
+    autocompleteSelectFor(name, {keyResolver, querySearcher}, options = {}) {
+        options = assign({}, options);
+        options.keyResolver = keyResolver;
+        options.querySearcher = querySearcher;
+        const fieldProps = this._buildFieldProps(name, options, this);
+        return this._renderField(fieldProps);
+    },
     /**
     * Display two different fields, depending on wheter the user is editing the form or not
     * @param  {Object} config the configuration, with the structure {consultField: ..., editField: ...}
