@@ -21,7 +21,7 @@ const defaultProps = {
 @Connect(
     [{store: applicationStore, properties: ['confirmConfig']}],
     () => {
-        const {isVisible = false, Content: ConfirmContentComponent = null, handleCancel: cancelHandler, handleConfirm: confirmHandler, contentProps} = applicationStore.getConfirmConfig() || {};
+        const {isVisible = false, Content: ConfirmContentComponent = null, handleCancel: cancelHandler, handleConfirm: confirmHandler, ...contentProps} = applicationStore.getConfirmConfig() || {};
         return {isVisible, ConfirmContentComponent, cancelHandler, confirmHandler, contentProps};
     }
 )
