@@ -84,17 +84,10 @@ const scopeMixin = {
             }
         };
     },
-    /**
-    * Return the css class for the scope.
-    * @return {String} the current scope's classname
-    */
-    getActiveScopeIcon() {
+    _getActiveScope() {
         const {list, value} = this.props;
         const activeScope = find(list, {code: value});
-        if (!activeScope) {
-            return 'list';
-        }
-        return activeScope.code;
+        return activeScope || {};
     },
     /**
     * Render the scope list if it is deployed
@@ -110,7 +103,7 @@ const scopeMixin = {
                     const scopeId = uniqueId('scopes_');
                     const isActive = value === code;
                     return (
-                        <li className='mdl-menu__item' data-active={isActive} key={scope.code || scopeId} onClick={this._getScopeClickHandler(scope)}>
+                        <li className='mdl-menu__item' data-active={isActive} key={scope.code || scopeId} data-scope={scope.code || scopeId} onClick={this._getScopeClickHandler(scope)}>
                             {scope.code &&
                                 <Icon name={code} {...otherScopeProps}/>
                             }
@@ -132,11 +125,13 @@ const scopeMixin = {
     */
     render() {
         const {scopesId} = this;
-        const activeIcon = this.getActiveScopeIcon();
+        const activeScope = this._getActiveScope();
+        const {code, label, ...otherScopeProps} = activeScope;
         return (
             <div data-focus='search-bar-scope'>
-                <button className='mdl-button mdl-js-button' id={scopesId}>
-                    <Icon name={activeIcon} />
+                <button className='mdl-button mdl-js-button' id={scopesId} data-scope={code}>
+                    <Icon name={code} {...otherScopeProps}/>
+                    <span>{label}</span>
                 </button>
                 {this._renderScopeList()}
             </div>
