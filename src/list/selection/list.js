@@ -101,7 +101,7 @@ const listMixin = {
                 newSelectedItems.set(key, value);
             }
         }
-        newSelectedItems.set(data, value);
+        newSelectedItems.set(data, isSelected);
         this.setState({selectedItems: newSelectedItems});
     },
 
