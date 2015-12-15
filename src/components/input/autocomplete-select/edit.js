@@ -216,6 +216,7 @@ class Autocomplete extends Component {
                         onFocus={_handleQueryFocus}
                         onKeyDown={_handleQueryKeyDown}
                         ref='htmlInput'
+                        type='text'
                         value={inputValue}
                     />
                     <label className='mdl-textfield__label'>{this.i18n(placeholder)}</label>
