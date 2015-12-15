@@ -34,7 +34,7 @@ const querySearcher = query => {
     });
 };
 
-describe.only('The autocomplete select', () => {
+describe('The autocomplete select', () => {
     let renderedTest;
     describe('when mounted with no value', () => {
         before(() => {
@@ -84,6 +84,7 @@ describe.only('The autocomplete select', () => {
     });
     describe('when the user types in the field and selects an option', () => {
         const query = 'query';
+        const onChangeSpy = sinon.spy();
         before(done => {
             const querySearcherCustom = data => {
                 setTimeout(() => {
@@ -94,16 +95,21 @@ describe.only('The autocomplete select', () => {
                 }, 0);
                 return querySearcher(data);
             };
-            renderedTest = TestUtils.renderIntoDocument(<AutocompleteSelect keyResolver={keyResolver} querySearcher={querySearcherCustom} inputTimeout={0}/>);
+            renderedTest = TestUtils.renderIntoDocument(<AutocompleteSelect onChange={onChangeSpy} keyResolver={keyResolver} querySearcher={querySearcherCustom} inputTimeout={0}/>);
             const input = ReactDOM.findDOMNode(renderedTest.refs.htmlInput);
             TestUtils.Simulate.change(input, {target: {value: query}});
         });
         it('should give the selected option when the getValue is called', () => {
             expect(renderedTest.getValue()).to.equal('PAR');
         });
+        it('should call the onChange with the selected value', () => {
+            expect(onChangeSpy).to.have.been.called.once;
+            expect(onChangeSpy).to.have.been.calledWith('PAR');
+        });
     });
     describe('when the user clears the input', () => {
         const value = 'value';
+        const onChangeSpy = sinon.spy();
         before(done => {
             const keyResolverStub = key => {
                 setTimeout(() => {
@@ -113,10 +119,14 @@ describe.only('The autocomplete select', () => {
                 }, 0);
                 return keyResolver(key);
             }
-            renderedTest = TestUtils.renderIntoDocument(<AutocompleteSelect keyResolver={keyResolverStub} querySearcher={querySearcher} value={value} inputTimeout={0}/>);
+            renderedTest = TestUtils.renderIntoDocument(<AutocompleteSelect onChange={onChangeSpy} keyResolver={keyResolverStub} querySearcher={querySearcher} value={value} inputTimeout={0}/>);
         });
         it('should give a null value when getValue is called', () => {
             expect(renderedTest.getValue()).to.be.null;
+        });
+        it('should call the onChange with the a null value', () => {
+            expect(onChangeSpy).to.have.been.called.once;
+            expect(onChangeSpy).to.have.been.calledWith(null);
         });
     });
     describe('when the given value changes', () => {
