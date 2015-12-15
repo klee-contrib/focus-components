@@ -4,6 +4,11 @@ import debounce from 'lodash/function/debounce';
 import ComponentBaseBehaviour from '../../../behaviours/component-base';
 import MDBehaviour from '../../../behaviours/material';
 
+const ENTER_KEY_CODE = 13;
+const TAB_KEY_CODE = 27;
+const UP_ARROW_KEY_CODE = 38;
+const DOWN_ARROW_KEY_CODE = 40;
+
 @MDBehaviour('loader')
 @MDBehaviour('inputText')
 @ComponentBaseBehaviour
@@ -140,15 +145,15 @@ class Autocomplete extends Component {
         event.stopPropagation();
         const {which} = event;
         const {active, options} = this.state;
-        if (which === 13 && active) this._select(active);
-        if (which === 27) this.setState({focus: false}, () => this.refs.htmlInput.blur());
-        if ([40, 38].indexOf(which) !== -1) { // the user pressed on an arrow key, change the active key
+        if (which === ENTER_KEY_CODE && active) this._select(active);
+        if (which === TAB_KEY_CODE) this.setState({focus: false}, () => this.refs.htmlInput.blur());
+        if ([DOWN_ARROW_KEY_CODE, UP_ARROW_KEY_CODE].indexOf(which) !== -1) { // the user pressed on an arrow key, change the active key
             const optionKeys = [];
             for (let key of options.keys()) {
                 optionKeys.push(key);
             }
             const currentIndex = optionKeys.indexOf(active);
-            let newIndex = currentIndex + (which === 40 ? 1 : -1);
+            let newIndex = currentIndex + (which === DOWN_ARROW_KEY_CODE ? 1 : -1);
             if (newIndex >= options.size) {
                 newIndex -= options.size
             }
