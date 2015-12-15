@@ -55,3 +55,4 @@ import '../search/facet-box/style/facet-box.scss';
 import '../search/search-bar/style/search-bar.scss';
 import '../style/animation.scss';
 import '../style/spinner.scss';
+import '../components/input/autocomplete-select/style.scss';

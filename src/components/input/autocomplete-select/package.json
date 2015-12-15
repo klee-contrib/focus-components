@@ -1,0 +1,13 @@
+{
+  "name": "Autocomplete select",
+  "version": "1.0.0",
+  "description": "Autocomplete component with a select flavor. Used for select with too many options.",
+  "keywords": [
+    "dumb",
+    "select",
+    "autocomplete",
+    "material"
+  ],
+  "author": "focus@kleegroup.com",
+  "license": "MIT"
+}
