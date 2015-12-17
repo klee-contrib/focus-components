@@ -1,0 +1,20 @@
+[data-focus='icon-dropdown'] {
+    [data-focus='dropdown-menu'] {
+        [data-role='dropdown-item'] {
+            padding: 10px;
+            cursor: pointer;
+            white-space: nowrap;
+            width: 100%;
+            text-align: left;
+
+            &:hover {
+                background-color: #EEE;
+            }
+        }
+    }
+
+    // A bit hackish but necessary to override material-ui's inline style
+    div > span > div > div > div {
+        padding: 0 !important;
+    }
+}
