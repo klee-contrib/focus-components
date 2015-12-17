@@ -44,6 +44,7 @@ class ScrollspyContainer extends Component {
     /** @inheritDoc */
     componentDidMount() {
         this._scrollCarrier = window;
+        this._debouncedRefresh = debounce(this._refreshMenu, this.props.scrollDelay);
         this._scrollCarrier.addEventListener('scroll', this._debounceRefreshMenu);
         this._scrollCarrier.addEventListener('resize', this._debounceRefreshMenu);
         this._executeRefreshMenu(10);
@@ -54,6 +55,7 @@ class ScrollspyContainer extends Component {
         this._timeouts.map(clearTimeout);
         this._scrollCarrier.removeEventListener('scroll', this._debounceRefreshMenu);
         this._scrollCarrier.removeEventListener('resize', this._debounceRefreshMenu);
+        this._debouncedRefresh.cancel();
     }
 
     /**
@@ -68,7 +70,7 @@ class ScrollspyContainer extends Component {
     }
 
     _debounceRefreshMenu = () => {
-        debounce(this._refreshMenu, this.props.scrollDelay)();
+        this._debouncedRefresh();
     }
 
     /**

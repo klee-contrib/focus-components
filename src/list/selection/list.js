@@ -102,6 +102,11 @@ const listMixin = {
             }
         }
         newSelectedItems.set(data, isSelected);
+        
+        if (this.props.onSelection) {
+            this.props.onSelection(data, isSelected);
+        }
+        
         this.setState({selectedItems: newSelectedItems});
     },
 
