@@ -1,20 +1,19 @@
 import React, {Component} from 'react';
 import Focus from 'focus-core';
-import Button from '../../common/button/action';
-import Dropdown from '../../common/select-action';
+import {component as Button} from '../../common/button/action';
+import Dropdown from '../../components/icon-dropdown';
 
 // variables
 const applicationStore = Focus.application.builtInStore;
 
-// Components
-const ButtonComponent = Button.component;
-const DropdownComponent = Dropdown.component;
 
 // component default props.
 //const defaultProps = {};
 
 // component props definition.
 //const propTypes = {};
+
+const Test = ({clickHandler}) => (<div onClick={clickHandler}>Ouvrir</div>);
 
 /**
 * HeaderActions component.
@@ -59,10 +58,10 @@ class HeaderActions extends Component {
                 {actions.primary.map((primary, index) => {
                     const {action, className, icon, iconLibrary, label, ...otherProps} = primary;
                     return (
-                        <ButtonComponent key={`header-action-${index}`} className={className} handleOnClick={action} icon={icon} iconLibrary={iconLibrary} label={label} shape='fab' type='button' {...otherProps}/>
+                        <Button key={`header-action-${index}`} className={className} handleOnClick={action} icon={icon} iconLibrary={iconLibrary} label={label} shape='fab' type='button' {...otherProps}/>
                     );
                 })}
-                <DropdownComponent iconProps={{name: 'more_vert'}} operationList={actions.secondary} shape='fab'/>
+                {actions.secondary.length > 0 && <Dropdown operationList={actions.secondary}/>}
             </div>
         );
     }
