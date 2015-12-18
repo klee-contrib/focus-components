@@ -107,7 +107,7 @@ const scopeMixin = {
                             {scope.code &&
                                 <Icon name={code} {...otherScopeProps}/>
                             }
-                            <span>{label}</span>
+                            <span>{this.i18n(label)}</span>
                         </li>
                     );
                 })}
@@ -131,7 +131,7 @@ const scopeMixin = {
             <div data-focus='search-bar-scope'>
                 <button className='mdl-button mdl-js-button' id={scopesId} data-scope={code}>
                     <Icon name={code} {...otherScopeProps}/>
-                    <span>{label}</span>
+                    <span>{this.i18n(label)}</span>
                 </button>
                 {this._renderScopeList()}
             </div>
