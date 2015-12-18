@@ -1,20 +1,17 @@
 // Mixins
-
-let i18nMixin = require('../../../../common/i18n').mixin;
-let referenceBehaviour = require('../../../../common/form/mixin/reference-behaviour');
-let storeBehaviour = require('../../../../common/mixin/store-behaviour');
+const React = require('react');
+const i18nMixin = require('../../../../common/i18n').mixin;
+const referenceBehaviour = require('../../../../common/form/mixin/reference-behaviour');
+const storeBehaviour = require('../../../../common/mixin/store-behaviour');
 
 // Components
-
-let SearchBar = require('../../../../search/search-bar').component;
+const SearchBar = require('../../../../search/search-bar').component;
 
 // Actions
-
-let actionBuilder = require('focus-core').search.actionBuilder;
+const actionBuilder = require('focus-core').search.actionBuilder;
 
 // Store
-
-let advancedSearchStore = require('focus-core').search.builtInStore.advancedSearchStore;
+const advancedSearchStore = require('focus-core').search.builtInStore.advancedSearchStore;
 
 module.exports = {
     mixins: [i18nMixin, referenceBehaviour, storeBehaviour],
