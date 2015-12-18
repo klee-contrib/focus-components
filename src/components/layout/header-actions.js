@@ -61,7 +61,7 @@ class HeaderActions extends Component {
                         <Button key={`header-action-${index}`} className={className} handleOnClick={action} icon={icon} iconLibrary={iconLibrary} label={label} shape='fab' type='button' {...otherProps}/>
                     );
                 })}
-                {actions.secondary.length > 0 && <Dropdown operationList={actions.secondary}/>}
+                {actions.secondary && actions.secondary.length > 0 && <Dropdown operationList={actions.secondary}/>}
             </div>
         );
     }
