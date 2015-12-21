@@ -23,6 +23,10 @@ const Scroll = Component => class ScrollComponent extends Component {
         return { left: nodeRect.left + x, top: nodeRect.top + y };
     }
 
+    isAtPageBottom(domNode) {
+        return this.scrollPosition().top >= document.scrollingElement.scrollHeight - window.innerHeight;
+    }
+
 
     /**
     * Set scrollbar position with smooth animation.
