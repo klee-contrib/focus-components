@@ -1,6 +1,6 @@
 {
   "name": "focus-components",
-  "version": "0.8.3-beta1",
+  "version": "0.8.3",
   "description": "Focus component repository.",
   "main": "lib/index.js",
   "scripts": {
@@ -36,7 +36,6 @@
     "lodash": "^3.10.1",
     "material-design-icons": "^2.0.0",
     "material-design-lite": "1.0.5",
-    "material-ui": "^0.13.4",
     "moment": "^2.10.6",
     "object-assign": "^2.0.0",
     "react": "^0.14.3",
