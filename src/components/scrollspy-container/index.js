@@ -80,12 +80,25 @@ class ScrollspyContainer extends Component {
     _refreshMenu = () => {
         if(!this.props.hasMenu) { return; }
         const {stickyMenu} = this.refs;
+        const {clickedId} = this.state;
         const menus = this._buildMenuList(); //build the menu list
         //TODO remove this check
         const affix = stickyMenu ? this._isMenuAffix() : this.state.affix; //Calculate menu position (affix or not)
+        // Check if scroll is at cliked item level
+        let isAtClickedItem;
+        if (clickedId !== undefined) {
+            const selector = `[data-spy='${clickedId}']`;
+            const node = document.querySelector(selector);
+            const nodePosition = this.scrollPosition(node);
+            const positionTop = this._getElementRealPosition(nodePosition.top);
+            isAtClickedItem = this.scrollPosition().top === positionTop;
+            console.log('Position attendue du scroll', positionTop);
+            console.log('Position réelle du scroll', this.scrollPosition().top);
+        }
         this.setState({
             menuList: menus,
-            affix: affix
+            clickedId: isAtClickedItem ? undefined : clickedId,
+            affix
         });
     }
 
@@ -99,7 +112,10 @@ class ScrollspyContainer extends Component {
         if(!hasMenu) {
             return [];
         }
-        const currentScrollPosition = this.scrollPosition();
+        const detectionOffset = window.screen.height / 5;
+        let currentScrollPosition = {top: this.scrollPosition().top, left: this.scrollPosition().left};
+        let isAtPageBottom = this.isAtPageBottom();
+
 
         //get menu list$
         const thisReactId = ReactDOM.findDOMNode(this).getAttribute('data-reactid');
@@ -117,7 +133,7 @@ class ScrollspyContainer extends Component {
         if(selectionList.length === 0) {
             return;
         }
-        const menuList = selectionList.map((selection, index) => {
+        let menuList = selectionList.map((selection, index) => {
             const title = selection.querySelector('[data-spy-title]');
             const nodeId = selection.getAttribute('data-spy');
             return {
@@ -126,13 +142,11 @@ class ScrollspyContainer extends Component {
                 nodeId: nodeId,
                 scrollTop: this.scrollPosition(selection).top, // offset of 10 to be safe
                 isActive: false,
-                onClick: this._handleMenuItemClick(nodeId)
+                onClick: this._getMenuItemClickHandler(nodeId)
             };
         });
 
-        const nextTitles = filter(menuList, n => {
-            return currentScrollPosition.top < this._getElementRealPosition(n.scrollTop);
-        });
+        const nextTitles = filter(menuList, n => (currentScrollPosition.top + detectionOffset < this._getElementRealPosition(n.scrollTop)));
 
         //Calculate current node
         //by default, first node is indexed
@@ -148,7 +162,18 @@ class ScrollspyContainer extends Component {
             //means that the position is the last title
             currentIndex = last(menuList).index;
         }
-        menuList[currentIndex].isActive = true;
+        let clickedId = this.state.clickedId;
+        if(isAtPageBottom && undefined !== clickedId) {
+            menuList = menuList.map(item => {
+                if (item.nodeId === clickedId) {
+                    item.isActive = true;
+                }
+                return item;
+            });
+            this.setState({clickedId: undefined});
+        }else {
+            menuList[currentIndex].isActive = true;
+        }
         return menuList;
     }
 
@@ -195,9 +220,14 @@ class ScrollspyContainer extends Component {
     * @param  {string} menuId  node spyId in DOM to scroll to
     * @return {function}        function to call
     */
-    _handleMenuItemClick(menuId) {
+    _getMenuItemClickHandler(menuId) {
         return () => {
-            this._onMenuItemClick(menuId);
+            this.setState({
+                clickedId: menuId
+            }, () => {
+                this._refreshMenu();
+                this._onMenuItemClick(menuId);
+            });
         }
     }
 
