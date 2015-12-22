@@ -28,17 +28,19 @@ export default {
 
         let cartridgeConf = this.cartridgeConfiguration();
 
-        dispatcher.handleViewAction({
-            data: {
-                cartridgeComponent: cartridgeConf.cartridge || {component: Empty},
-                summaryComponent: cartridgeConf.summary || {component: Empty},
-                actions: cartridgeConf.actions || {primary: [], secondary: []},
-                barContentLeftComponent: cartridgeConf.barLeft || {component: Empty},
-                barContentRightComponent: cartridgeConf.barRight || {component: Empty},
-                headerSize: cartridgeConf.headerSize || 'medium'
-            },
-            type: 'update'
-        });
+        let data = {
+            cartridgeComponent: cartridgeConf.cartridge || {component: Empty},
+            summaryComponent: cartridgeConf.summary || {component: Empty},
+            actions: cartridgeConf.actions || {primary: [], secondary: []},
+            barContentLeftComponent: cartridgeConf.barLeft || {component: Empty},
+            headerSize: cartridgeConf.headerSize || 'medium'
+        };
+
+        if (cartridgeConf.barRight) {
+            data.barContentRightComponent = cartridgeConf.barRight;
+        }
+
+        dispatcher.handleViewAction({data, type: 'update'});
     },
 
     /**
