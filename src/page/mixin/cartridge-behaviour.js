@@ -33,7 +33,7 @@ export default {
             summaryComponent: cartridgeConf.summary || {component: Empty},
             actions: cartridgeConf.actions || {primary: [], secondary: []},
             barContentLeftComponent: cartridgeConf.barLeft || {component: Empty},
-            headerSize: cartridgeConf.headerSize || 'medium'
+            isDeployed: cartridgeConf.isDeployed || true
         };
 
         if (cartridgeConf.barRight) {
