@@ -46,7 +46,7 @@ to { height: auto; }
     }
 
     //When the size is medium, the summary-bar is not visible.
-    &[data-size="medium"] {
+    &[data-deployed="true"] {
         div[data-focus="header-top-row"] {
             div[data-focus="header-top-row-middle"] {
                 display: none;
@@ -60,7 +60,7 @@ to { height: auto; }
     }
 
     //When the size is min  don't show the cartridge
-    &[data-size="small"] {
+    &[data-deployed="false"] {
         height: $header-top-row-height;
         overflow-y: hidden;
         [data-focus="header-top-row"] {
@@ -83,7 +83,7 @@ to { height: auto; }
 [data-focus="layout"] {
     &[data-menu="left"] {
         [data-focus="header-scrolling"] {
-            &[data-size="small"] {
+            &[data-deployed="false"] {
                 [data-focus="header-top-row"] {
                     & > div {
                         margin-left: $header-top-row-height;
