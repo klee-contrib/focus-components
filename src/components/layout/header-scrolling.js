@@ -9,27 +9,18 @@ const applicationStore = Focus.application.builtInStore;
 
 // component default props.
 const defaultProps = {
-    notifySizeChange: undefined, // A handler to notify other elements that the size has changed.
-    processSize: undefined, // A way to redefine the process size of the element.
-    sizeMap: { // Map which defines sizes exists for the components and their border.
-        small: {
-            sizeBorder: 5
-        },
-        medium: {
-            sizeBorder: 0
-        }
-    },
-    scrollTargetSelector: undefined, // Selector for the domNode on which the scroll is attached.
-    size: 'medium' // Default size of the bar. Should be present in sizeMap.
+    canDeploy: true, // Determines if the header can be deployed (revealing the cartridge component) or not.
+    deployThreshold: 150, // The y-scrolling threshold that shows/hides the cartridge.
+    notifySizeChange: undefined, // A handler to notify other elements that the header has added/removed the cartridge.
+    scrollTargetSelector: undefined // Selector for the domNode on which the scroll is attached.
 };
 
 // component props definition.
 const propTypes = {
-    size: PropTypes.oneOf(['small', 'medium']),
-    scrollTargetSelector: PropTypes.string,
-    sizeMap: PropTypes.object,
+    canDeploy: PropTypes.bool,
+    deployThreshold: PropTypes.number,
     notifySizeChange: PropTypes.oneOfType([PropTypes.func, PropTypes.object]),
-    processSize: PropTypes.oneOfType([PropTypes.func, PropTypes.object])
+    scrollTargetSelector: PropTypes.string
 };
 
 /**
@@ -39,19 +30,20 @@ const propTypes = {
 class HeaderScrolling extends Component {
     constructor(props) {
         super(props);
-        const {size} = props;
-        const storeState = this._getStateFromStore();
-        storeState.size = size;
+        let storeState = this._getStateFromStore()
+        storeState.canDeploy = props.canDeploy;
+        storeState.isDeployed = props.canDeploy;
         this.state = storeState;
     }
 
     /** @inheriteddoc */
     componentWillMount() {
-        this._processSizes();
+        this.handleScroll();
         const {scrollTargetSelector} = this.props;
         this.scrollTargetNode = (scrollTargetSelector && scrollTargetSelector !== '') ? document.querySelector(scrollTargetSelector) : window;
         applicationStore.addModeChangeListener(this._handleChangeApplicationStatus);
-        applicationStore.addRouteChangeListener(this._handleChangeApplicationStatus)
+        applicationStore.addRouteChangeListener(this._handleChangeApplicationStatus);
+        applicationStore.addCanDeployChangeListener(this._handleChangeApplicationStatus);
     }
 
     /** @inheriteddoc */
@@ -61,20 +53,24 @@ class HeaderScrolling extends Component {
     }
 
     _handleChangeApplicationStatus = () => {
-        const {size} = this.state;
-        const storeState = this._getStateFromStore();
-        storeState.size = size;
-        this.setState(storeState);
-    };
+        this.handleScroll();
+        this.setState(this._getStateFromStore());
+    }
 
     _getStateFromStore = () => {
         const processMode = applicationStore.getMode();
         let mode = 'consult';
-        if(processMode && processMode.edit && processMode.edit > 0) {
+
+        if (processMode && processMode.edit && processMode.edit > 0) {
             mode = 'edit';
         }
-        return {mode: mode, route: applicationStore.getRoute()};
-    };
+
+        return {
+            mode: mode,
+            route: applicationStore.getRoute(),
+            canDeploy: applicationStore.getCanDeploy()
+        };
+    }
 
     /** @inheriteddoc */
     componentWillUnmount() {
@@ -82,105 +78,46 @@ class HeaderScrolling extends Component {
         this.scrollTargetNode.removeEventListener('resize', this.handleScroll);
         applicationStore.removeModeChangeListener(this._handleChangeApplicationStatus);
         applicationStore.removeRouteChangeListener(this._handleChangeApplicationStatus);
+        applicationStore.removeCanDeployChangeListener(this._handleChangeApplicationStatus);
     }
 
-    /**
-    * Process the sizeMap in order to sort them by border size and create a sizes array.
-    */
-    _processSizes = () => {
-        const sizes = [];
-        for(const sz in this.props.sizeMap) {
-            sizes.push({name: sz, sizeBorder: this.props.sizeMap[sz].sizeBorder});
-        }
-        this.sizes = pluck(sortBy(sizes, 'sizeBorder'), 'name');
-    };
-
-    /**
-    * Get the current element size.
-    * @returns {int} - The size in pixel of the current element in the browser.
-    */
-    _processElementSize = () => {
-        return ReactDOM.findDOMNode(this).offsetHeight;
-    };
-
-    /**
-    * Notify other elements that the size has changed.
+   /**
+    * Notify other elements that the header has added/removed the cartridge.
     */
     _notifySizeChange = () => {
         const {notifySizeChange} = this.props;
-        const {size} = this.state;
-        if(notifySizeChange) {
-            this.props.notifySizeChange(size);
+        const {isDeployed} = this.state;
+        if (notifySizeChange) {
+            notifySizeChange(isDeployed);
         }
-    };
+    }
 
     /**
-    * Change the size of the bar.
-    * @param {string} newSize - The new size.
-    * @returns {undefined} -  A way to stop the propagation.
-    */
-    _changeSize = (newSize) => {
-        // Todo: see if the notification of the changed size can be called before.
-        return this.setState({size: newSize}, this._notifySizeChange);
-    };
-
-    /**
-    * Process the size in order to know if the size should be changed depending on the scroll position and the border of each zone.
-    * @returns {object} - The return is used to stop the treatement.
-    */
-    _processSize = () => {
-        //Allow the user to redefine the process size function.
-        const {processSize} = this.props;
-        if(processSize) {
-            return processSize();
-        }
-        const {size} = this.state;
-        const currentIndex = this.sizes.indexOf(size);
-        const currentScrollPosition = this.scrollPosition();
-
-        const node = ReactDom.findDOMNode(this);
-        const bodyNode = document.body;
-        const value = bodyNode.scrollHeight - node.scrollHeight - bodyNode.clientHeight;
-
-        if(value > 0) {
-            //Process increase treatement.
-            if(currentIndex < (this.sizes.length - 1)) {
-                const increaseBorder = this.props.sizeMap[this.sizes[currentIndex + 1]].sizeBorder;
-                if(currentScrollPosition.top > increaseBorder) {
-                    return this._changeSize(this.sizes[currentIndex + 1]);
-                }
-            }
-        }
-        //Process decrease treatement.
-        if(currentIndex > 0) {
-            const decreaseBorder = this.props.sizeMap[this.sizes[currentIndex - 1]].sizeBorder;
-            if(currentScrollPosition.top <= decreaseBorder) {
-                return this._changeSize(this.sizes[currentIndex - 1]);
-            }
-        }
-    };
-
-    /**
-    * Handle the scroll event in order to resize the page.
+    * Handle the scroll event in order to show/hide the cartridge.
     * @param {object} event [description]
     */
-    handleScroll = () => {
-        this._processSize();
-    };
+    handleScroll = (event) => {
+        const {top} = this.scrollPosition();
+        let isDeployed = this.state.canDeploy ? top < this.props.deployThreshold : false;
+
+        if (isDeployed !== this.state.isDeployed) {
+            this.setState({isDeployed}, this._notifySizeChange);
+        }
+    }
 
     /** @inheriteddoc */
     render() {
-        const {mode, route, size} = this.state;
+        const {mode, route, isDeployed} = this.state;
         const {children} = this.props;
         return (
-            <header data-focus='header-scrolling' data-mode={mode} data-route={route} data-size={size}>
-                {this.props.children}
+            <header data-focus='header-scrolling' data-mode={mode} data-route={route} data-deployed={isDeployed}>
+                {children}
             </header>
         );
     }
 }
 
-//Static props.
+// Static props.
 HeaderScrolling.displayName = 'HeaderScrolling';
 HeaderScrolling.defaultProps = defaultProps;
 HeaderScrolling.propTypes = propTypes;
