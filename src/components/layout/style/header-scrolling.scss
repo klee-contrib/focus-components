@@ -61,7 +61,6 @@ to { height: auto; }
 
     //When the size is min  don't show the cartridge
     &[data-deployed="false"] {
-        height: $header-top-row-height;
         overflow-y: hidden;
         [data-focus="header-top-row"] {
             @include shadow();
@@ -77,6 +76,8 @@ to { height: auto; }
             right: 0;
             z-index: $header-top-row-zindex;
         }
+
+        box-shadow: none;
     }
 }
 
