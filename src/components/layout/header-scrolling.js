@@ -10,7 +10,6 @@ const applicationStore = Focus.application.builtInStore;
 // component default props.
 const defaultProps = {
     canDeploy: true, // Determines if the header can be deployed (revealing the cartridge component) or not.
-    deployThreshold: 150, // The y-scrolling threshold that shows/hides the cartridge.
     notifySizeChange: undefined, // A handler to notify other elements that the header has added/removed the cartridge.
     scrollTargetSelector: undefined // Selector for the domNode on which the scroll is attached.
 };
@@ -18,7 +17,6 @@ const defaultProps = {
 // component props definition.
 const propTypes = {
     canDeploy: PropTypes.bool,
-    deployThreshold: PropTypes.number,
     notifySizeChange: PropTypes.oneOfType([PropTypes.func, PropTypes.object]),
     scrollTargetSelector: PropTypes.string
 };
@@ -97,8 +95,17 @@ class HeaderScrolling extends Component {
     * @param {object} event [description]
     */
     handleScroll = (event) => {
+        let {deployThreshold, placeholderHeight} = this.state;
+
+        if (this.state.isDeployed) {
+            let content = document.querySelector('header');
+            deployThreshold = content ? content.offsetHeight - 60 : 1000;
+            placeholderHeight = content ? content.clientHeight - 125 : 1000;
+            this.setState({deployThreshold, placeholderHeight});
+        }
+
         const {top} = this.scrollPosition();
-        let isDeployed = this.state.canDeploy ? top < this.props.deployThreshold : false;
+        let isDeployed = this.state.canDeploy ? top < deployThreshold : false;
 
         if (isDeployed !== this.state.isDeployed) {
             this.setState({isDeployed}, this._notifySizeChange);
@@ -107,11 +114,12 @@ class HeaderScrolling extends Component {
 
     /** @inheriteddoc */
     render() {
-        const {mode, route, isDeployed} = this.state;
+        const {mode, route, isDeployed, placeholderHeight} = this.state;
         const {children} = this.props;
         return (
             <header data-focus='header-scrolling' data-mode={mode} data-route={route} data-deployed={isDeployed}>
                 {children}
+                {!isDeployed ? <div style={{height: placeholderHeight, width: '100%'}} /> : ''}
             </header>
         );
     }
