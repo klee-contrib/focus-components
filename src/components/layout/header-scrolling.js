@@ -99,8 +99,8 @@ class HeaderScrolling extends Component {
 
         if (this.state.isDeployed) {
             let content = document.querySelector('header');
-            deployThreshold = content ? content.offsetHeight - 60 : 1000;
-            placeholderHeight = content ? content.clientHeight - 125 : 1000;
+            deployThreshold = content ? content.clientHeight - 60 : 1000;
+            placeholderHeight = content ? content.clientHeight : 1000;
             this.setState({deployThreshold, placeholderHeight});
         }
 
@@ -114,12 +114,12 @@ class HeaderScrolling extends Component {
 
     /** @inheriteddoc */
     render() {
-        const {mode, route, isDeployed, placeholderHeight} = this.state;
+        const {mode, route, isDeployed, canDeploy, placeholderHeight} = this.state;
         const {children} = this.props;
         return (
             <header data-focus='header-scrolling' data-mode={mode} data-route={route} data-deployed={isDeployed}>
                 {children}
-                {!isDeployed ? <div style={{height: placeholderHeight, width: '100%'}} /> : ''}
+                {!isDeployed ? <div style={{height: canDeploy ? placeholderHeight : 60, width: '100%'}} /> : ''}
             </header>
         );
     }
