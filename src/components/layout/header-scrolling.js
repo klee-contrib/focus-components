@@ -1,20 +1,18 @@
 import React, {Component, PropTypes} from 'react';
 import Focus from 'focus-core';
-import ReactDom from 'react-dom';
-import {pluck, sortBy} from 'lodash/collection';
 import Scroll from '../../behaviours/scroll';
 
-// variables
+// Variables
 const applicationStore = Focus.application.builtInStore;
 
-// component default props.
+// Component default props.
 const defaultProps = {
     canDeploy: true, // Determines if the header can be deployed (revealing the cartridge component) or not.
     notifySizeChange: undefined, // A handler to notify other elements that the header has added/removed the cartridge.
     scrollTargetSelector: undefined // Selector for the domNode on which the scroll is attached.
 };
 
-// component props definition.
+// Component props definition.
 const propTypes = {
     canDeploy: PropTypes.bool,
     notifySizeChange: PropTypes.oneOfType([PropTypes.func, PropTypes.object]),
@@ -51,8 +49,8 @@ class HeaderScrolling extends Component {
     }
 
     _handleChangeApplicationStatus = () => {
-        this.handleScroll();
         this.setState(this._getStateFromStore());
+        this.handleScroll();
     }
 
     _getStateFromStore = () => {
@@ -66,7 +64,8 @@ class HeaderScrolling extends Component {
         return {
             mode: mode,
             route: applicationStore.getRoute(),
-            canDeploy: applicationStore.getCanDeploy()
+            canDeploy: applicationStore.getCanDeploy(),
+            isDeployed: applicationStore.getCanDeploy()
         };
     }
 
