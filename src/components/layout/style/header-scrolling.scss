@@ -45,8 +45,10 @@ to { height: auto; }
         display: inline;
     }
 
-    //When the size is medium, the summary-bar is not visible.
+    // When the header is deployed, don't show the summary.
     &[data-deployed="true"] {
+        z-index: $header-top-row-zindex;
+
         div[data-focus="header-top-row"] {
             div[data-focus="header-top-row-middle"] {
                 display: none;
@@ -59,15 +61,21 @@ to { height: auto; }
         }
     }
 
-    //When the size is min  don't show the cartridge
+    // When the header is collasped, don't show the cartridge.
     &[data-deployed="false"] {
+        z-index: inherit;
         overflow-y: hidden;
+
         [data-focus="header-top-row"] {
             @include shadow();
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
+        }
+
+        [data-focus="header-content"] {
+            display: none;
         }
 
         [data-focus="header-actions"] {
