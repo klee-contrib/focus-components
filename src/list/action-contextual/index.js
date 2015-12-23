@@ -76,6 +76,7 @@ const actionContextualMixin = {
                         style={operation.style || {}}
                         type='button'
                         {...this.props}
+                        {...operation}
                         />
                 );
             } else {
