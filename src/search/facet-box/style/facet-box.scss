@@ -17,7 +17,7 @@ $advanced-search-facet-box-width: 275px;
             h2 {
                 border: 0;
                 &:after {
-                    content: "\f054";
+                    content: "\E5CB";
                 }
             }
         }
@@ -27,7 +27,7 @@ $advanced-search-facet-box-width: 275px;
         [data-focus="facet-box-heading"] {
             h2 {
                 &:after {
-                    content: "\f053";
+                    content: "\E5CC";
                 }
             }
         }
@@ -43,13 +43,13 @@ $advanced-search-facet-box-width: 275px;
             border-bottom: 1px solid #e2e2e2;
 
             &:after {
-                font-family: FontAwesome;
+                font-family: 'Material Icons';
                 display: inline-block;
                 vertical-align: middle;
                 position: absolute;
                 right: 0;
                 top: 21px;
-                font-size: 20px;
+                font-size: 30px;
             }
         }
     }
@@ -60,7 +60,7 @@ $advanced-search-facet-box-width: 275px;
                 [data-focus='facet-title'] {
                     h3 {
                         &:after {
-                            content: "\f068";
+                            content: "\E15B";
                         }
                     }
                 }
@@ -69,7 +69,7 @@ $advanced-search-facet-box-width: 275px;
                 [data-focus='facet-title'] {
                     h3 {
                         &:after {
-                            content: "\f067";
+                            content: "\E145";
                         }
                     }
                 }
@@ -78,7 +78,7 @@ $advanced-search-facet-box-width: 275px;
                 [data-focus='facet-title'] {
                     h3 {
                         &:after {
-                            content: "\f00d";
+                            content: "\E5CD";
                         }
                     }
                 }
@@ -95,10 +95,10 @@ $advanced-search-facet-box-width: 275px;
                     font-size: 18px;
                     font-weight: bolder;
                     &:after {
-                        font-family: FontAwesome;
+                        font-family: 'Material Icons';
                         position: absolute;
                         right: 0;
-                        font-size: 13px;
+                        font-size: 30px;
                     }
                 }
             }
