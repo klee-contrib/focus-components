@@ -26,7 +26,7 @@ const propTypes = {
 class HeaderScrolling extends Component {
     constructor(props) {
         super(props);
-        let storeState = this._getStateFromStore()
+        const storeState = this._getStateFromStore()
         storeState.canDeploy = props.canDeploy;
         storeState.isDeployed = props.canDeploy;
         this.state = storeState;
@@ -97,14 +97,14 @@ class HeaderScrolling extends Component {
         let {deployThreshold, placeholderHeight} = this.state;
 
         if (this.state.isDeployed) {
-            let content = document.querySelector('header');
-            deployThreshold = content ? content.clientHeight - 60 : 1000;
+            const content = document.querySelector('header');
+            deployThreshold = content ? content.clientHeight - 60 : 1000; // 1000 is arbitrary, but a value high enough is required by default.
             placeholderHeight = content ? content.clientHeight : 1000;
             this.setState({deployThreshold, placeholderHeight});
         }
 
         const {top} = this.scrollPosition();
-        let isDeployed = this.state.canDeploy ? top < deployThreshold : false;
+        const isDeployed = this.state.canDeploy ? top < deployThreshold : false;
 
         if (isDeployed !== this.state.isDeployed) {
             this.setState({isDeployed}, this._notifySizeChange);
