@@ -1,12 +1,11 @@
 // Dependencies
-
-let builder = require('focus-core').component.builder;
+const React = require('react');
+const builder = require('focus-core').component.builder;
 
 // Mixins
+const i18nMixin = require('../../../../common/i18n/mixin');
 
-let i18nMixin = require('../../../../common/i18n/mixin');
-
-let DefaultEmpty = {
+const DefaultEmpty = {
     mixins: [i18nMixin],
     render() {
         return (
