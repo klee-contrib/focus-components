@@ -100,12 +100,13 @@ const scopeMixin = {
             <ul className={`mdl-menu mdl-menu--bottom-left mdl-js-menu mdl-js-ripple-effect`} data-focus='search-bar-scopes' htmlFor={scopesId} ref='scopeDropdown'>
                 {0 < scopeList.length && scopeList.map(scope => {
                     const {code, label, ...otherScopeProps} = scope;
+                    const icon = scope.icon ? scope.icon : code; //legacy
                     const scopeId = uniqueId('scopes_');
                     const isActive = value === code;
                     return (
                         <li className='mdl-menu__item' data-active={isActive} key={scope.code || scopeId} data-scope={scope.code || scopeId} onClick={this._getScopeClickHandler(scope)}>
                             {scope.code &&
-                                <Icon name={code} {...otherScopeProps}/>
+                                <Icon name={icon} {...otherScopeProps}/>
                             }
                             <span>{this.i18n(label)}</span>
                         </li>
@@ -127,10 +128,11 @@ const scopeMixin = {
         const {scopesId} = this;
         const activeScope = this._getActiveScope();
         const {code, label, ...otherScopeProps} = activeScope;
+        const icon = activeScope.icon ? activeScope.icon : code; //legacy
         return (
             <div data-focus='search-bar-scope'>
                 <button className='mdl-button mdl-js-button' id={scopesId} data-scope={code}>
-                    <Icon name={code} {...otherScopeProps}/>
+                    <Icon name={icon} {...otherScopeProps}/>
                     <span>{this.i18n(label)}</span>
                 </button>
                 {this._renderScopeList()}
