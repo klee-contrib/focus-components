@@ -1,4 +1,5 @@
 /**@jsx*/
+const React = require('react');
 const {builder, types} = require('focus-core').component;
 const i18nBehaviour = require('../../common/i18n/mixin');
 const styleBehaviour = require('../../mixin/stylable');

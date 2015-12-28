@@ -1,5 +1,5 @@
 // Dependencies
-
+const React = require('react');
 const {builder} = require('focus-core').component;
 const {reduce} = require('lodash/collection');
 

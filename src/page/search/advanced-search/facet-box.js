@@ -1,15 +1,15 @@
 // Dependencies
-
-let builder = require('focus-core').component.builder;
-let keys = require('lodash/object/keys');
+const React = require('react');
+const builder = require('focus-core').component.builder;
+const keys = require('lodash/object/keys');
 
 // Components
 
-let FacetBox = require('../../../search/facet-box').component;
+const FacetBox = require('../../../search/facet-box').component;
 
 const scopeFacetKey = 'FCT_SCOPE';
 
-let Box = {
+const Box = {
     /**
      * Get the default props
      * @return {object} the default props
@@ -35,7 +35,7 @@ let Box = {
             });
         } else {
             delete facetComponentData.selectedFacetList[scopeFacetKey];
-            let newProperties = {
+            const newProperties = {
                 selectedFacets: facetComponentData.selectedFacetList
             };
             if (isDisableGroup) {

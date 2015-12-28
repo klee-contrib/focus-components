@@ -1,30 +1,30 @@
 // Dependencies
-
-let builder = require('focus-core').component.builder;
-let omit = require('lodash/object/omit');
-let map = require('lodash/collection/map');
-let reduce = require('lodash/collection/reduce');
-let clone = require('lodash/lang/clone');
-let keys = require('lodash/object/keys');
-let forEach = require('lodash/collection/forEach');
-let isEqual = require('lodash/lang/isEqual');
-let assign = require('lodash/object/assign');
+const React = require('react');
+const builder = require('focus-core').component.builder;
+const omit = require('lodash/object/omit');
+const map = require('lodash/collection/map');
+const reduce = require('lodash/collection/reduce');
+const clone = require('lodash/lang/clone');
+const keys = require('lodash/object/keys');
+const forEach = require('lodash/collection/forEach');
+const isEqual = require('lodash/lang/isEqual');
+const assign = require('lodash/object/assign');
 
 // Components
 
-let DefaultEmpty = require('./default-empty-component').component;
-let ListSelection = require('../../../../list/selection').list.component;
-let GroupWrapper = require('./group-wrapper').component;
+const DefaultEmpty = require('./default-empty-component').component;
+const ListSelection = require('../../../../list/selection').list.component;
+const GroupWrapper = require('./group-wrapper').component;
 
 // Mixins
 
-let i18nMixin = require('../../../../common/i18n/mixin');
+const i18nMixin = require('../../../../common/i18n/mixin');
 
 /**
  * Results component, used to render the results, grouped or ungrouped
  * @type {Object}
  */
-let Results = {
+const Results = {
     mixins: [i18nMixin],
     /**
      * By default, an empty component is picked.
