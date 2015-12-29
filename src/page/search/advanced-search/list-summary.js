@@ -1,14 +1,14 @@
 // Dependencies
-
-let builder = require('focus-core').component.builder;
+const React = require('react');
+const builder = require('focus-core').component.builder;
 
 // Components
 
-let ListSummary = require('../../../list/summary/index').component;
+const ListSummary = require('../../../list/summary/index').component;
 
 const scopeAll = 'ALL';
 
-let Summary = {
+const Summary = {
     /**
      * Get the default props
      * @return {object} the default props
@@ -37,7 +37,7 @@ let Summary = {
      * @return {HTML} the rendered component
      */
     render() {
-        let scope = this.props.scope !== scopeAll ? {scope: {
+        const scope = this.props.scope !== scopeAll ? {scope: {
             code: this.props.scope,
             label: 'Scope',
             value: this.props.scope

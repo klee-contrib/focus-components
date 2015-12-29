@@ -1,5 +1,5 @@
 // Dependencies
-
+const React = require('react');
 const {builder} = require('focus-core').component;
 const {camelCase: camel} = require('lodash/string');
 const {capitalize} = require('lodash/string');
