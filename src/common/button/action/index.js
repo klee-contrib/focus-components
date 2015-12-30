@@ -38,7 +38,7 @@ const buttonMixin = {
             type: 'submit',
             shape: 'raised',
             label: '',
-            icon: '',
+            icon: null,
             id: '',
             hasRipple: false,
             isJs: false,
