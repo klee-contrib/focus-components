@@ -1,5 +1,5 @@
 // Dependencies
-
+const React = require('react');
 const {checkIsNotNull} = require('focus-core').util.object;
 const {builder, types} = require('focus-core').component;
 const find = require('lodash/collection/find');
@@ -102,11 +102,11 @@ const listMixin = {
             }
         }
         newSelectedItems.set(data, isSelected);
-        
+
         if (this.props.onSelection) {
             this.props.onSelection(data, isSelected);
         }
-        
+
         this.setState({selectedItems: newSelectedItems});
     },
 
