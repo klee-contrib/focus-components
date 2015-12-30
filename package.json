@@ -38,10 +38,10 @@
     "material-design-lite": "1.0.5",
     "moment": "^2.10.6",
     "object-assign": "^2.0.0",
-    "react": "^0.14.3",
+    "react": "^0.14.4",
     "react-bootstrap-daterangepicker": "git+https://github.com/pierr/react-bootstrap-daterangepicker.git",
     "react-date-picker": "^3.1.6",
-    "react-dom": "^0.14.3",
+    "react-dom": "^0.14.4",
     "react-tap-event-plugin": "^0.2.1",
     "uuid": "^2.0.1"
   },
