@@ -4,15 +4,26 @@
   "description": "Focus component repository.",
   "main": "lib/index.js",
   "scripts": {
-    "test": "node ./node_modules/mocha/bin/mocha src/**/__tests__/**/*.js",
-    "test:watch": "node ./node_modules/mocha/bin/mocha src/**/__tests__/**/*.js -w",
-    "build:server": "npm run material:override && node ./node_modules/babel/bin/babel.js src --out-dir lib",
-    "build:browser": "npm run material:override && npm run webpack:production",
-    "start": "node server.js",
-    "build": "npm run build:server && npm run build:browser",
     "prepublish": "npm run build",
-    "material:override": "node scripts/mdl-variables-copy.js",
-    "webpack:production": "npm run material:override && node ./node_modules/webpack/bin/webpack.js --config webpack.config.prod.js"
+    "babelify": "better-npm-run babelify",
+    "bundle": "better-npm-run bundle",
+    "build": "node scripts/mdl-variables-copy.js && better-npm-run babelify && better-npm-run bundle",
+    "test": "node ./node_modules/mocha/bin/mocha src/**/__tests__/**/*.js",
+    "test:watch": "node ./node_modules/mocha/bin/mocha src/**/__tests__/**/*.js -w"
+  },
+  "betterScripts": {
+    "babelify": {
+      "command": "node ./node_modules/babel/bin/babel.js src --out-dir lib --source-maps inline"
+    },
+    "bundle": {
+      "command": "webpack --progress",
+      "env": {
+        "DEV": false,
+        "NODE_ENV": "production",
+        "LIBRARY_NAME": "FocusComponents",
+        "MINIMIFY": false
+      }
+    }
   },
   "repository": {
     "type": "git",
@@ -52,6 +63,7 @@
     "babel-loader": "^5.3.2",
     "babel-plugin-runtime": "^1.0.7",
     "babel-runtime": "^5.8.24",
+    "better-npm-run": "0.0.5",
     "chai": "^3.2.0",
     "chai-subset": "^1.0.1",
     "css-loader": "^0.19.0",
@@ -76,6 +88,6 @@
     "url-loader": "^0.5.6",
     "webpack": "^1.12.2",
     "webpack-dev-server": "^1.11.0",
-    "webpack-focus": "^0.6.3"
+    "webpack-focus": "^0.7.0"
   }
 }
