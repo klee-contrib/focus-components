@@ -1,19 +1,23 @@
 {
   "name": "focus-components",
-  "version": "0.8.4-beta6",
+  "version": "0.8.4-beta7",
   "description": "Focus component repository.",
   "main": "lib/index.js",
   "scripts": {
     "prepublish": "npm run build",
     "babelify": "better-npm-run babelify",
     "bundle": "better-npm-run bundle",
-    "build": "node scripts/mdl-variables-copy.js && better-npm-run babelify && better-npm-run bundle",
-    "test": "node ./node_modules/mocha/bin/mocha src/**/__tests__/**/*.js",
-    "test:watch": "node ./node_modules/mocha/bin/mocha src/**/__tests__/**/*.js -w"
+    "copy-sass": "better-npm-run copy-sass",
+    "build": "node scripts/mdl-variables-copy.js && better-npm-run babelify && better-npm-run copy-sass && better-npm-run bundle",
+    "test": "mocha src/**/__tests__/**/*.js",
+    "test:watch": "mocha src/**/__tests__/**/*.js -w"
   },
   "betterScripts": {
     "babelify": {
-      "command": "node ./node_modules/babel/bin/babel.js src --out-dir lib --source-maps inline"
+      "command": "babel src --out-dir lib --source-maps inline"
+    },
+    "copy-sass": {
+      "command": "cd src && find . -name \\*.scss -exec cp --parents {} ../lib ; && cd .."
     },
     "bundle": {
       "command": "webpack --progress",
@@ -88,6 +92,6 @@
     "url-loader": "^0.5.6",
     "webpack": "^1.12.2",
     "webpack-dev-server": "^1.11.0",
-    "webpack-focus": "^0.7.0"
+    "webpack-focus": "^0.8.1"
   }
 }
