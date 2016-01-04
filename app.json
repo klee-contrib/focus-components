@@ -1,7 +1,0 @@
-{
-    "name": "Focus components showcase",
-    "description": "Demonstration website to showcase the components built for Focus",
-    "repository": "https://github.com/KleeGroup/focus-components",
-    "keywords": ["node", "express", "github", "heroku", "javascript", "focu", "components"],
-    "image": "heroku/nodejs"
-}

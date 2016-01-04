@@ -4,15 +4,26 @@
   "description": "Focus component repository.",
   "main": "lib/index.js",
   "scripts": {
-    "test": "node ./node_modules/mocha/bin/mocha src/**/__tests__/**/*.js",
-    "test:watch": "node ./node_modules/mocha/bin/mocha src/**/__tests__/**/*.js -w",
-    "build:server": "npm run material:override && node ./node_modules/babel/bin/babel.js src --out-dir lib",
-    "build:browser": "npm run material:override && npm run webpack:production",
-    "start": "node server.js",
-    "build": "npm run build:server && npm run build:browser",
     "prepublish": "npm run build",
-    "material:override": "node scripts/mdl-variables-copy.js",
-    "webpack:production": "npm run material:override && node ./node_modules/webpack/bin/webpack.js --config webpack.config.prod.js"
+    "babelify": "better-npm-run babelify",
+    "bundle": "better-npm-run bundle",
+    "build": "node scripts/mdl-variables-copy.js && better-npm-run babelify && better-npm-run bundle",
+    "test": "node ./node_modules/mocha/bin/mocha src/**/__tests__/**/*.js",
+    "test:watch": "node ./node_modules/mocha/bin/mocha src/**/__tests__/**/*.js -w"
+  },
+  "betterScripts": {
+    "babelify": {
+      "command": "node ./node_modules/babel/bin/babel.js src --out-dir lib --source-maps inline"
+    },
+    "bundle": {
+      "command": "webpack --progress",
+      "env": {
+        "DEV": false,
+        "NODE_ENV": "production",
+        "LIBRARY_NAME": "FocusComponents",
+        "MINIMIFY": false
+      }
+    }
   },
   "repository": {
     "type": "git",
@@ -29,19 +40,14 @@
   },
   "homepage": "https://github.com/KleeGroup/focus-components",
   "dependencies": {
-    "backbone": "^1.2.3",
     "daterangepicker": "0.0.3",
-    "focus-core": "0.12.1",
     "immutable": "^3.7.4",
     "lodash": "^3.10.1",
     "material-design-icons": "^2.0.0",
     "material-design-lite": "1.0.5",
-    "moment": "^2.10.6",
     "object-assign": "^2.0.0",
-    "react": "^0.14.4",
     "react-bootstrap-daterangepicker": "git+https://github.com/pierr/react-bootstrap-daterangepicker.git",
     "react-date-picker": "^3.1.6",
-    "react-dom": "^0.14.4",
     "react-tap-event-plugin": "^0.2.1",
     "uuid": "^2.0.1"
   },
@@ -52,6 +58,8 @@
     "babel-loader": "^5.3.2",
     "babel-plugin-runtime": "^1.0.7",
     "babel-runtime": "^5.8.24",
+    "backbone": "^1.2.3",
+    "better-npm-run": "0.0.5",
     "chai": "^3.2.0",
     "chai-subset": "^1.0.1",
     "css-loader": "^0.19.0",
@@ -61,13 +69,17 @@
     "eslint-plugin-react": "3.5.0",
     "extract-text-webpack-plugin": "^0.8.2",
     "file-loader": "^0.8.4",
+    "focus-core": "0.12.1",
     "i18next-client": "^1.10.3",
     "jquery": "^2.1.4",
     "jsdom": "^6.4.0",
     "json-loader": "^0.5.3",
     "mocha": "^2.2.5",
+    "moment": "^2.10.6",
     "node-sass": "^3.3.3",
+    "react": "^0.14.4",
     "react-addons-test-utils": "^0.14.3",
+    "react-dom": "^0.14.4",
     "react-hot-loader": "^1.3.0",
     "sass-loader": "^2.0.1",
     "sinon": "^1.16.1",
@@ -76,6 +88,6 @@
     "url-loader": "^0.5.6",
     "webpack": "^1.12.2",
     "webpack-dev-server": "^1.11.0",
-    "webpack-focus": "^0.6.3"
+    "webpack-focus": "^0.7.0"
   }
 }
