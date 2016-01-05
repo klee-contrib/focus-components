@@ -1,9 +1,7 @@
 import React, {Component, PropTypes} from 'react';
-import Focus from 'focus-core';
+import {builtInStore as applicationStore} from 'focus-core/application';
 import Scroll from '../../behaviours/scroll';
-
-// Variables
-const applicationStore = Focus.application.builtInStore;
+import connect from '../../behaviours/store/connect';
 
 // Component default props.
 const defaultProps = {
@@ -19,17 +17,33 @@ const propTypes = {
     scrollTargetSelector: PropTypes.string
 };
 
+
+// getState function.
+function getState() {
+    const processMode = applicationStore.getMode();
+    let mode = 'consult';
+
+    if (processMode && processMode.edit && processMode.edit > 0) {
+        mode = 'edit';
+    }
+
+    return {
+        mode: mode,
+        route: applicationStore.getRoute(),
+        canDeploy: applicationStore.getCanDeploy(),
+        isDeployed: applicationStore.getCanDeploy()
+    };
+}
+
 /**
 * HeaderScrolling component.
 */
+@connect([{store: applicationStore, properties: ['mode', 'route', 'canDeploy']}], getState)
 @Scroll
 class HeaderScrolling extends Component {
     constructor(props) {
         super(props);
-        const storeState = this._getStateFromStore()
-        storeState.canDeploy = props.canDeploy;
-        storeState.isDeployed = props.canDeploy;
-        this.state = storeState;
+        this.state = getState();
     }
 
     /** @inheriteddoc */
@@ -37,9 +51,6 @@ class HeaderScrolling extends Component {
         this.handleScroll();
         const {scrollTargetSelector} = this.props;
         this.scrollTargetNode = (scrollTargetSelector && scrollTargetSelector !== '') ? document.querySelector(scrollTargetSelector) : window;
-        applicationStore.addModeChangeListener(this._handleChangeApplicationStatus);
-        applicationStore.addRouteChangeListener(this._handleChangeApplicationStatus);
-        applicationStore.addCanDeployChangeListener(this._handleChangeApplicationStatus);
     }
 
     /** @inheriteddoc */
@@ -48,34 +59,15 @@ class HeaderScrolling extends Component {
         this.scrollTargetNode.addEventListener('resize', this.handleScroll);
     }
 
-    _handleChangeApplicationStatus = () => {
-        this.setState(this._getStateFromStore());
-        this.handleScroll();
-    }
-
-    _getStateFromStore = () => {
-        const processMode = applicationStore.getMode();
-        let mode = 'consult';
-
-        if (processMode && processMode.edit && processMode.edit > 0) {
-            mode = 'edit';
-        }
-
-        return {
-            mode: mode,
-            route: applicationStore.getRoute(),
-            canDeploy: applicationStore.getCanDeploy(),
-            isDeployed: applicationStore.getCanDeploy()
-        };
+    /** @inheriteddoc */
+    componentWillReceiveProps({isDeployed}) {
+        this.setState({isDeployed}, this.handleScroll());
     }
 
     /** @inheriteddoc */
     componentWillUnmount() {
         this.scrollTargetNode.removeEventListener('scroll', this.handleScroll);
         this.scrollTargetNode.removeEventListener('resize', this.handleScroll);
-        applicationStore.removeModeChangeListener(this._handleChangeApplicationStatus);
-        applicationStore.removeRouteChangeListener(this._handleChangeApplicationStatus);
-        applicationStore.removeCanDeployChangeListener(this._handleChangeApplicationStatus);
     }
 
    /**
@@ -104,7 +96,7 @@ class HeaderScrolling extends Component {
         }
 
         const {top} = this.scrollPosition();
-        const isDeployed = this.state.canDeploy ? top < deployThreshold : false;
+        const isDeployed = this.props.canDeploy ? top < deployThreshold : false;
 
         if (isDeployed !== this.state.isDeployed) {
             this.setState({isDeployed}, this._notifySizeChange);
@@ -113,8 +105,8 @@ class HeaderScrolling extends Component {
 
     /** @inheriteddoc */
     render() {
-        const {mode, route, isDeployed, canDeploy, placeholderHeight} = this.state;
-        const {children} = this.props;
+        const {isDeployed, placeholderHeight} = this.state;
+        const {children, canDeploy, mode, route} = this.props;
         return (
             <header data-focus='header-scrolling' data-mode={mode} data-route={route} data-deployed={isDeployed}>
                 {children}

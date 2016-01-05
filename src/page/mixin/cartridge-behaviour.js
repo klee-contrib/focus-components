@@ -1,4 +1,4 @@
-import {isFunction} from 'lodash/lang';
+import {isFunction, isUndefined} from 'lodash/lang';
 import {dispatcher} from 'focus-core';
 import {component as Empty} from '../../common/empty';
 
@@ -33,7 +33,7 @@ export default {
             summaryComponent: cartridgeConf.summary || {component: Empty},
             actions: cartridgeConf.actions || {primary: [], secondary: []},
             barContentLeftComponent: cartridgeConf.barLeft || {component: Empty},
-            canDeploy: _.isUndefined(cartridgeConf.canDeploy) ? true : cartridgeConf.canDeploy
+            canDeploy: isUndefined(cartridgeConf.canDeploy) ? true : cartridgeConf.canDeploy
         };
 
         if (cartridgeConf.barRight) {
