@@ -2,7 +2,7 @@
   "name": "focus-components",
   "version": "0.8.4-beta7",
   "description": "Focus component repository.",
-  "main": "lib/index.js",
+  "main": "index.js",
   "scripts": {
     "prepublish": "npm run build",
     "babelify": "better-npm-run babelify",
@@ -14,10 +14,10 @@
   },
   "betterScripts": {
     "babelify": {
-      "command": "babel src --out-dir lib --source-maps inline"
+      "command": "babel src --out-dir ./ --source-maps inline"
     },
     "copy-sass": {
-      "command": "cd src && find . -name *.scss | xargs tar cvf - | tar xfp - -C ../lib"
+      "command": "cd src && find . -name *.scss | xargs tar cvf - | tar xfp - -C ../"
     },
     "bundle": {
       "command": "webpack --progress",
