@@ -1,6 +1,10 @@
 //Generator http://patorjk.com/software/taag/#p=display&h=1&f=Banner4&t=Focus-COMPONENTS
 import './style';
-import infos from '../package.json';
+
+// Check if we are bundling. If yes, package.json is found in ../ If no, then we are babelifying so it is in ./
+const packageJsonPath = process.env.BUNDLING ? '..' : '.'
+const infos = require(`${packageJsonPath}/package.json`);
+
 import components from './components';
 import behaviours from './behaviours';
 /**
@@ -9,12 +13,7 @@ import behaviours from './behaviours';
 const infosFn = function infos() {
     console.log(
         `
-        _____   _____   _____   _   _   _____        _____   _____       ___  ___   _____   _____   __   _   _____   __   _   _____   _____
-        |  ___| /  _  \\ /  ___| | | | | /  ___/      /  ___| /  _  \\     /   |/   | |  _  \\ /  _  \\ |  \\ | | | ____| |  \\ | | |_   _| /  ___/
-        | |__   | | | | | |     | | | | | |___       | |     | | | |    / /|   /| | | |_| | | | | | |   \| |  | |__   |   \\| |   | |   | |___
-        |  __|  | | | | | |     | | | | \\___  \\      | |     | | | |   / / |__/ | | |  ___/ | | | | | |\\   | |  __|  | |\\   |   | |   \\___  \\
-        | |     | |_| | | |___  | |_| |  ___| |      | |___  | |_| |  / /       | | | |     | |_| | | | \\  | | |___  | | \\  |   | |    ___| |
-        |_|     \\_____/ \\_____| \\_____/ /_____/      \\_____| \\_____/ /_/        |_| |_|     \\_____/ |_|  \\_| |_____| |_|  \\_|   |_|   /_____/
+        FOCUS COMPONENTS
 
         version: ${infos.version}
         focus-components: ${infos.homepage}
@@ -29,8 +28,8 @@ module.exports = {
     NAME: infos.name,
 
     /**
-     * Display documentation data
-     */
+    * Display documentation data
+    */
     DOCUMENTATION: function() {
         console.log('documentation: http://kleegroup.github.io/focus-components');
         console.log('components available');
