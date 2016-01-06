@@ -13,9 +13,7 @@ import behaviours from './behaviours';
 const infosFn = function infos() {
     console.log(
         `
-        ╔═╗┌─┐┌─┐┬ ┬┌─┐  ╔═╗┌─┐┌┬┐┌─┐┌─┐┌┐┌┌─┐┌┐┌┌┬┐┌─┐
-        ╠╣ │ ││  │ │└─┐  ║  │ ││││├─┘│ ││││├┤ │││ │ └─┐
-        ╚  └─┘└─┘└─┘└─┘  ╚═╝└─┘┴ ┴┴  └─┘┘└┘└─┘┘└┘ ┴ └─┘
+        FOCUS COMPONENTS
 
         version: ${infos.version}
         focus-components: ${infos.homepage}
@@ -30,8 +28,8 @@ module.exports = {
     NAME: infos.name,
 
     /**
-     * Display documentation data
-     */
+    * Display documentation data
+    */
     DOCUMENTATION: function() {
         console.log('documentation: http://kleegroup.github.io/focus-components');
         console.log('components available');
