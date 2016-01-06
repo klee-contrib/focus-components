@@ -25,7 +25,8 @@
         "DEV": false,
         "NODE_ENV": "production",
         "LIBRARY_NAME": "FocusComponents",
-        "MINIMIFY": false
+        "MINIMIFY": false,
+        "BUNDLING": true
       }
     }
   },
