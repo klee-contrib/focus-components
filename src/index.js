@@ -1,9 +1,7 @@
 //Generator http://patorjk.com/software/taag/#p=display&h=1&f=Banner4&t=Focus-COMPONENTS
 import './style';
 
-// Check if we are bundling. If yes, package.json is found in ../ If no, then we are babelifying so it is in ./
-const packageJsonPath = process.env.BUNDLING ? '..' : '.'
-const infos = require(`${packageJsonPath}/package.json`);
+const infos = require(`${__PACKAGE_JSON_PATH__}/package.json`);
 
 import components from './components';
 import behaviours from './behaviours';
