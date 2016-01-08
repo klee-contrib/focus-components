@@ -1,6 +1,14 @@
 // Global configuration uese for tests.
-require('babel/register')({
-    optional: ['runtime', 'es7.asyncFunctions']
+require('babel-core/register')({
+    presets: [
+        'stage-0',
+        'react',
+        'es2015'
+    ],
+    plugins: [
+        'transform-class-properties',
+        'transform-decorators-legacy'
+    ]
 });
 
 const chai = require('chai');

@@ -4,7 +4,7 @@
   "description": "Focus component repository.",
   "main": "index.js",
   "scripts": {
-    "prepublish": "npm run build",
+    "prepublish": "in-publish && npm run build || exit 0",
     "babelify": "better-npm-run babelify",
     "bundle": "better-npm-run bundle",
     "copy-sass": "better-npm-run copy-sass",
@@ -37,7 +37,8 @@
       "es2015"
     ],
     "plugins": [
-      "transform-class-properties"
+      "transform-class-properties",
+      "transform-decorators-legacy"
     ]
   },
   "repository": {
@@ -68,11 +69,13 @@
   },
   "devDependencies": {
     "babel": "^6.3.26",
+    "babel-cli": "^6.4.0",
     "babel-core": "^6.4.0",
     "babel-eslint": "4.1.3",
     "babel-loader": "^6.2.1",
     "babel-plugin-runtime": "^1.0.7",
     "babel-plugin-transform-class-properties": "^6.4.0",
+    "babel-plugin-transform-decorators-legacy": "^1.3.4",
     "babel-preset-es2015": "^6.3.13",
     "babel-preset-react": "^6.3.13",
     "babel-preset-stage-0": "^6.3.13",
@@ -90,6 +93,7 @@
     "file-loader": "^0.8.4",
     "focus-core": "0.12.1",
     "i18next-client": "^1.10.3",
+    "in-publish": "^2.0.0",
     "jquery": "^2.1.4",
     "jsdom": "^6.4.0",
     "json-loader": "^0.5.3",
