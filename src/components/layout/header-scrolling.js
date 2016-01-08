@@ -65,7 +65,7 @@ class HeaderScrolling extends Component {
         const storeState = this._getStateFromStore();
         storeState.size = size;
         this.setState(storeState);
-    }
+    };
 
     _getStateFromStore = () => {
         const processMode = applicationStore.getMode();
@@ -74,7 +74,7 @@ class HeaderScrolling extends Component {
             mode = 'edit';
         }
         return {mode: mode, route: applicationStore.getRoute()};
-    }
+    };
 
     /** @inheriteddoc */
     componentWillUnmount() {
@@ -93,7 +93,7 @@ class HeaderScrolling extends Component {
             sizes.push({name: sz, sizeBorder: this.props.sizeMap[sz].sizeBorder});
         }
         this.sizes = pluck(sortBy(sizes, 'sizeBorder'), 'name');
-    }
+    };
 
     /**
     * Get the current element size.
@@ -101,7 +101,7 @@ class HeaderScrolling extends Component {
     */
     _processElementSize = () => {
         return ReactDOM.findDOMNode(this).offsetHeight;
-    }
+    };
 
     /**
     * Notify other elements that the size has changed.
@@ -112,7 +112,7 @@ class HeaderScrolling extends Component {
         if(notifySizeChange) {
             this.props.notifySizeChange(size);
         }
-    }
+    };
 
     /**
     * Change the size of the bar.
@@ -122,7 +122,7 @@ class HeaderScrolling extends Component {
     _changeSize = (newSize) => {
         // Todo: see if the notification of the changed size can be called before.
         return this.setState({size: newSize}, this._notifySizeChange);
-    }
+    };
 
     /**
     * Process the size in order to know if the size should be changed depending on the scroll position and the border of each zone.
@@ -158,16 +158,15 @@ class HeaderScrolling extends Component {
                 return this._changeSize(this.sizes[currentIndex - 1]);
             }
         }
-
-    }
+    };
 
     /**
     * Handle the scroll event in order to resize the page.
     * @param {object} event [description]
     */
-    handleScroll = (event) => {
+    handleScroll = () => {
         this._processSize();
-    }
+    };
 
     /** @inheriteddoc */
     render() {

@@ -63,7 +63,8 @@ class Select extends Component {
         const {type, value} = this.props;
         if (isNull(value) || isUndefined(value) || UNSELECTED_KEY === value) return null;
         return type === 'number' ? +value : value;
-    }
+    };
+
     /**
     * Handle the change on the select, it only propagates the value.
     * @param  {object} evt - The react DOM event.
@@ -73,9 +74,10 @@ class Select extends Component {
         const {onChange, valueParser, value: propsValue} = this.props;
         const {value} = evt.target;
         return onChange(valueParser.call(this, propsValue, value));
-    }
+    };
+
     /** inheritdoc */
-    _renderOptions({hasUndefined, labelKey, isRequired, value, values = [], valueKey, isActiveProperty}){
+    _renderOptions({hasUndefined, labelKey, isRequired, value, values = [], valueKey, isActiveProperty}) {
         const isRequiredAndNoValue = isRequired && (isUndefined(value) || isNull(value));
         if(hasUndefined || isRequiredAndNoValue){
             values = union(
@@ -92,6 +94,7 @@ class Select extends Component {
             return (<option key={idx} value={optVal}>{optLabel}</option>);
         });
     }
+    
     /**
     * @inheritdoc
     * @override

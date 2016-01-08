@@ -3,7 +3,7 @@ import ComponentBaseBehaviour from '../../../behaviours/component-base';
 
 @ComponentBaseBehaviour
 class AutocompleteSelectConsult extends Component {
-    state = {}
+    state = {};
 
     componentDidMount() {
         this._callKeyResolver(this.props.value);

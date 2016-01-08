@@ -72,7 +72,7 @@ export default function connectToStores(storesConfiguration, getState) {
             //Handle the store changes
             handleStoresChanged = () => {
                 this.setState(getState(this.props));
-            }
+            };
 
             // Render the component with only props, some from the real props some from the state
             render() {

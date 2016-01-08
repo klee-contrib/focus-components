@@ -35,14 +35,14 @@ class HeaderContent extends Component {
     */
     _getStateFromStore = () => {
         return {cartridgeComponent: applicationStore.getCartridgeComponent() || {component: 'div', props: {}}};
-    }
+    };
 
     /**
     * Handle the component change cb.
     */
     _handleComponentChange = () => {
         this.setState(this._getStateFromStore());
-    }
+    };
 
     /** @inheriteddoc */
     render() {

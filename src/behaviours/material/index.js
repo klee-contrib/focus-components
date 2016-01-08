@@ -21,7 +21,7 @@ const Material = (ref, watchedProp: 'error') => Component => class MaterialCompo
         }
     }
 
-    componentWillReceiveProps = nextProps => {
+    componentWillReceiveProps(nextProps) {
         const newWatchedProp = nextProps[watchedProp];
         if (newWatchedProp !== this.props[watchedProp]) {
             const refNode = ReactDOM.findDOMNode(this.refs[ref]);

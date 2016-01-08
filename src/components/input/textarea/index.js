@@ -53,7 +53,7 @@ class InputTextarea extends Component {
         const {unformatter} = this.props;
         const domEl = ReactDOM.findDOMNode(this.refs.htmlInput);
         return unformatter(domEl.value);
-    }
+    };
     /**
     * Handle the change on the input text, it only propagate the value.
     * @param  {object} evt - The react DOM event.
@@ -63,7 +63,7 @@ class InputTextarea extends Component {
         const {unformatter, onChange} = this.props;
         const {value} = evt.target;
         return onChange(unformatter(value));
-    }
+    };
     /**
     * @inheritdoc
     * @override
