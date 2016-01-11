@@ -1,15 +1,2 @@
 dist
 node_modules
-
-/application
-/behaviours
-/common
-/components
-/index.js
-/legacy.js
-/list
-/message
-/mixin
-/page
-/search
-/style
