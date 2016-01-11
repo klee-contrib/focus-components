@@ -2,7 +2,7 @@ form {
     margin: 0;
     padding: 0;
     &[data-loading='true'] {
-        [data-focus="block"]{
+        [data-focus='panel']{
             position: relative;
             &:after {
                 content: 'Loading...';
