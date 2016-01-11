@@ -51,18 +51,11 @@ class MenuLeft extends Component {
         });
     };
 
-    /**
-     * Render the brand
-     */
-    _renderBrandMenu = () => {
-        if(this.props.handleBrandClick) {
-            return (
-                <div data-focus='menu-brand'
-                    onClick={this.props.handleBrandClick}
-                />
-            );
+    _handleBrandClick() {
+        const {handleBrandClick} = this.props;
+        if(handleBrandClick) {
+            handleBrandClick();
         }
-        return <div data-focus='menu-brand'></div>
     }
 
     /** @inheritDoc */
@@ -70,7 +63,7 @@ class MenuLeft extends Component {
         const {direction, position, children, ...otherProps} = this.props;
         return (
             <nav data-focus='menu-left' {...otherProps}>
-                {this._renderBrandMenu()}
+                <div data-focus='menu-brand' onClick={::this._handleBrandClick} />
                 <ul data-focus='menu-items'>{this._renderMenuItems()}</ul>
                 {children}
             </nav>
