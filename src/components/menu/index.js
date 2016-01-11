@@ -12,7 +12,8 @@ const defaultProps = {
 
 // props types
 const propTypes = {
-    items: PropTypes.array
+    items: PropTypes.array,
+    handleBrandClick: PropTypes.func
 };
 
 /**
@@ -50,12 +51,19 @@ class MenuLeft extends Component {
         });
     };
 
+    _handleBrandClick() {
+        const {handleBrandClick} = this.props;
+        if(handleBrandClick) {
+            handleBrandClick();
+        }
+    }
+
     /** @inheritDoc */
     render() {
         const {direction, position, children, ...otherProps} = this.props;
         return (
             <nav data-focus='menu-left' {...otherProps}>
-                <div data-focus='menu-brand'></div>
+                <div data-focus='menu-brand' onClick={::this._handleBrandClick} />
                 <ul data-focus='menu-items'>{this._renderMenuItems()}</ul>
                 {children}
             </nav>
