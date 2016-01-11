@@ -47,7 +47,7 @@ class HeaderTopRow extends Component {
     */
     _handleComponentChange = () => {
         this.setState(this._getStateFromStore());
-    }
+    };
 
     /**
     * Render the component

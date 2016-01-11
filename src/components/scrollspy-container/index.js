@@ -67,11 +67,11 @@ class ScrollspyContainer extends Component {
         for (let i = 0; i < time; i++) {
             this._timeouts.push(setTimeout(this._refreshMenu.bind(this), i * 1000));
         }
-    }
+    };
 
     _debounceRefreshMenu = () => {
         this._debouncedRefresh();
-    }
+    };
 
     /**
     * The scroll event handler
@@ -100,7 +100,7 @@ class ScrollspyContainer extends Component {
             clickedId: isAtClickedItem ? undefined : clickedId,
             affix
         });
-    }
+    };
 
     /**
     * Build the list of menus.
@@ -175,7 +175,7 @@ class ScrollspyContainer extends Component {
             menuList[currentIndex].isActive = true;
         }
         return menuList;
-    }
+    };
 
     /**
     * Calculate the real position of an element, depending on declared offset in props.
@@ -187,7 +187,7 @@ class ScrollspyContainer extends Component {
         const sscDomNode = ReactDOM.findDOMNode(this);
         const sscPosition = this.scrollPosition(sscDomNode);
         return position - sscPosition.top;
-    }
+    };
 
     /**
     * Calculate menu position (affix or not)
@@ -205,14 +205,14 @@ class ScrollspyContainer extends Component {
         const containerPaddingTop = this._getPaddingTopValue();
         offset -= containerPaddingTop;
         return currentViewPosition.top <= offset;
-    }
+    };
 
     _getPaddingTopValue = () => {
         const sscDomNode = ReactDOM.findDOMNode(this);
         const computedStyles = window.getComputedStyle(sscDomNode, null);
         const paddingTop = computedStyles.getPropertyValue('padding-top');
         return paddingTop ? parseInt(paddingTop, 0) : 0;
-    }
+    };
 
     /**
     * Handle click on item menu function.

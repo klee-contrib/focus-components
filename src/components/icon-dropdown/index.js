@@ -16,7 +16,7 @@ function isDescendant(parent, child) {
 class Dropdown extends Component {
     static propTypes = {
         openDirection: PropTypes.oneOf(['bottom-left', 'bottom-right', 'top-left', 'top-right']),
-    }
+    };
 
     static defaultProps = {
         openDirection: 'bottom-left',
@@ -26,11 +26,11 @@ class Dropdown extends Component {
         },
         shape: 'fab',
         operationList: []
-    }
+    };
 
     state = {
         visible: false
-    }
+    };
 
     componentDidMount() {
         document.addEventListener('click', this._handleDocumentClick.bind(this));

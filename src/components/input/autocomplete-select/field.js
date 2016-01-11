@@ -3,14 +3,14 @@ import AutocompleteSelectEdit from './edit';
 import AutocompleteSelectConsult from './consult';
 
 class AutocompleteSelectField extends Component {
-    state = {}
+    state = {};
 
     static propTypes = {
         isEdit: PropTypes.bool.isRequired,
         keyResolver: PropTypes.func.isRequired,
         onChange: PropTypes.func.isRequired,
         querySearcher: PropTypes.func.isRequired
-    }
+    };
 
     componentWillReceiveProps({error}) {
         this.setState({customError: error});
@@ -23,18 +23,18 @@ class AutocompleteSelectField extends Component {
         } else {
             return value;
         }
-    }
+    };
 
     _handleAutocompleteBadInput = value => {
         this.setState({customError: `${value} is not a valid entry.`});
-    }
+    };
 
     _handleAutocompleteChange = value => {
         const {onChange} = this.props;
         this.setState({customError: null}, () => {
             if (onChange) onChange(value);
         });
-    }
+    };
 
     _renderEdit = () => {
         const {customError} = this.state;
@@ -47,7 +47,7 @@ class AutocompleteSelectField extends Component {
                 {...this.props}
             />
         );
-    }
+    };
 
     _renderConsult = () => {
         return (
@@ -55,7 +55,7 @@ class AutocompleteSelectField extends Component {
                 {...this.props}
             />
         );
-    }
+    };
 
     render() {
         const {isEdit} = this.props;

@@ -21,12 +21,12 @@ class InputToggle extends Component {
     getValue = () => {
         const domElement = ReactDOM.findDOMNode(this.refs.toggle);
         return domElement.checked;
-    }
+    };
 
     handleOnChange = ({target: {checked}}) => {
         const {onChange} = this.props;
         onChange(checked);
-    }
+    };
 
     render() {
         const {label, value} = this.props;

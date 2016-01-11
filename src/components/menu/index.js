@@ -48,7 +48,7 @@ class MenuLeft extends Component {
                 </li>
             );
         });
-    }
+    };
 
     /** @inheritDoc */
     render() {

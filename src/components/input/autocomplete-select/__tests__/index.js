@@ -137,7 +137,7 @@ describe('The autocomplete select', () => {
             return keyResolver(data);
         };
         class Parent extends React.Component {
-            state = {value: 'value'}
+            state = {value: 'value'};
             render() {
                 const {value} = this.state;
                 return <AutocompleteSelect keyResolver={keyResolverSpied} querySearcher={querySearcher} value={value} ref='child' inputTimeout={0}/>;

@@ -199,7 +199,7 @@ class Autocomplete extends Component {
                 {renderedOptions}
             </ul>
         );
-    }
+    };
 
     render () {
         const {customError, placeholder, renderOptions, ...inputProps} = this.props;

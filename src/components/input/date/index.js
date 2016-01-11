@@ -56,25 +56,25 @@ class InputDate extends Component {
         this.state = state;
     }
 
-    componentWillMount = () => {
+    componentWillMount() {
         moment.locale(this.props.locale);
         document.addEventListener('click', this._onDocumentClick);
     }
 
 
-    componentDidMount = () => {
+    componentDidMount() {
         const {drops, showDropdowns} = this.props;
         const {inputDate: startDate} = this.state;
     }
 
-    componentWillReceiveProps = ({value}) => {
+    componentWillReceiveProps({value}) {
         this.setState({
             dropDownDate: isISOString(value) ? moment(value, moment.ISO_8601) : moment(),
             inputDate: this._formatDate(value)
         });
     }
 
-    componentWillUnmount = () => {
+    componentWillUnmount() {
         document.removeEventListener('click', this._onDocumentClick);
     }
 
@@ -83,7 +83,7 @@ class InputDate extends Component {
     _parseInputDate = inputDate => {
         const {format} = this.props;
         return moment(inputDate, format);
-    }
+    };
 
     _formatDate = isoDate => {
         let {format} = this.props;
@@ -95,7 +95,7 @@ class InputDate extends Component {
         } else {
             return isoDate;
         }
-    }
+    };
 
     _onInputChange = inputDate => {
         if (this._isInputFormatCorrect(inputDate)) {
@@ -104,7 +104,7 @@ class InputDate extends Component {
         } else {
             this.setState({inputDate});
         }
-    }
+    };
 
     _onInputBlur = () => {
         const {inputDate} = this.state;
@@ -113,7 +113,7 @@ class InputDate extends Component {
         } else {
             this.props.onChange(inputDate);
         }
-    }
+    };
 
     _onDropDownChange = (text, date) => {
         if (date._isValid) {
@@ -122,11 +122,11 @@ class InputDate extends Component {
                 this._onInputChange(this._formatDate(date.toISOString())); // Add 12 hours to avoid skipping a day due to different locales
             });
         }
-    }
+    };
 
     _onInputFocus = () => {
         this.setState({displayPicker: true});
-    }
+    };
 
     _onDocumentClick = ({target}) => {
         const dataset = target ? target.dataset: null;
@@ -138,20 +138,20 @@ class InputDate extends Component {
             this.setState({displayPicker: false});
             this._onInputBlur();
         }
-    }
+    };
 
     _handleKeyDown = ({key}) => {
         if (key === 'Tab' || key === 'Enter') {
             this.setState({displayPicker: false});
             this._onInputBlur();
         }
-    }
+    };
 
     getValue = () => {
         const {inputDate} = this.state;
         const rawValue = this._isInputFormatCorrect(inputDate) ? this._parseInputDate(inputDate).toISOString() : null;
         return this.props.beforeValueGetter(rawValue);
-    }
+    };
 
     validate = () => {
         const {inputDate} = this.state;
@@ -167,7 +167,7 @@ class InputDate extends Component {
                 message: this.i18n('input.date.invalid', {date: inputDate})
             });
         }
-    }
+    };
 
     render() {
         const {error, locale, name, placeholder} = this.props;

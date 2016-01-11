@@ -40,14 +40,14 @@ class HeaderActions extends Component {
     */
     _getStateFromStore = () => {
         return {actions: applicationStore.getActions() || {primary: [], secondary: []}};
-    }
+    };
 
     /**
     * Component change handler
     */
     _handleComponentChange = () => {
         this.setState(this._getStateFromStore());
-    }
+    };
 
     /** @inheriteddoc */
     render() {

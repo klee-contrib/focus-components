@@ -122,9 +122,9 @@ describe('The input date', () => {
 
             onDateChange = (value) => {
                 this.setState({value});
-            }
+            };
 
-            render = () => {
+            render() {
                 return <InputDate onChange={this.onDateChange} ref='date' value={this.state.value} />;
             }
         }
@@ -152,9 +152,9 @@ describe('The input date', () => {
 
             onDateChange = (value) => {
                 this.setState({value});
-            }
+            };
 
-            render = () => {
+            render() {
                 return <InputDate onChange={this.onDateChange} ref='date' value={this.state.value} />;
             }
         }
@@ -174,7 +174,7 @@ describe('The input date', () => {
         const validDate = (moment('10/10/2015')).toISOString();
         const onChangeSpy = sinon.spy();
         class TestComponent extends Component {
-            render = () => {
+            render() {
                 return <InputDate onChange={onChangeSpy} ref='date' value={validDate} />;
             }
         }
@@ -200,7 +200,7 @@ describe('The input date', () => {
                 }
             };
             class TestComponent extends Component {
-                render = () => {
+                render() {
                     return <InputDate onChange={onChange(done)} ref='date' value={validDate} />;
                 }
             }
