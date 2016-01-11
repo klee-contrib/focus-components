@@ -39,7 +39,7 @@ const Summary = {
         });
     },
     /** @inheritdoc */
-    componentDidMount: function formDidMount() {
+    componentDidMount () {
         this._loadReference();
     },
     /**
@@ -55,10 +55,10 @@ const Summary = {
     },
     _getScopeLabel() {
         if(this.state && this.state.reference.scopes) {
-            const scope = this.state.reference.scopes.find(scope =>
+            const selectedScope = this.state.reference.scopes.find(scope =>
                 scope.code === this.props.scope
             )
-            return scope.label || this.props.scope;
+            return selectedScope.label || this.props.scope;
         }
         return this.props.scope;
     },
