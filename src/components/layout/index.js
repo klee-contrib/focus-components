@@ -4,7 +4,7 @@ import LoadingBar from '../../application/loading-bar';
 import MessageCenter from '../../application/message-center';
 import ErrorCenter from '../../application/error-center';
 import ConfirmWrapperDefault from '../confirm';
-
+import LoadingStatusBarDefault from '../../dev-tools/loading-status-bar';
 // Components
 const LoadingBarDefault = LoadingBar.component;
 const MessageCenterDefault = MessageCenter.component;
@@ -15,8 +15,9 @@ const defaultProps = {
     AppHeader: HeaderDefaultTemplate, //default app header.
     ErrorCenter: ErrorCenterDefault, // default error center
     LoadingBar: LoadingBarDefault, // default loading bar
+    LoadingStatusBar: LoadingStatusBarDefault
     MessageCenter: MessageCenterDefault, // default message center
-    ConfirmWrapper: ConfirmWrapperDefault // default confirm wrapper
+    ConfirmWrapper: ConfirmWrapperDefault // default confirm wrapper,
 };
 
 // component props definition.
@@ -27,7 +28,8 @@ const propTypes = {
     Footer: PropTypes.func,
     LoadingBar: PropTypes.func,
     MenuLeft: PropTypes.func,
-    MessageCenter: PropTypes.func
+    MessageCenter: PropTypes.func,
+    LoadingStatusBar: PropTypes.func
 };
 
 /**
@@ -45,6 +47,7 @@ class Layout extends Component {
                 <MessageCenter />
                 <ErrorCenter />
                 <ConfirmWrapper />
+                <LoadingStatusBar />
                 <AppHeader />
                 {MenuLeft &&
                     <MenuLeft />
