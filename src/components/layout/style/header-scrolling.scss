@@ -45,8 +45,10 @@ to { height: auto; }
         display: inline;
     }
 
-    //When the size is medium, the summary-bar is not visible.
-    &[data-size="medium"] {
+    // When the header is deployed, don't show the summary.
+    &[data-deployed="true"] {
+        z-index: $header-top-row-zindex;
+
         div[data-focus="header-top-row"] {
             div[data-focus="header-top-row-middle"] {
                 display: none;
@@ -59,10 +61,11 @@ to { height: auto; }
         }
     }
 
-    //When the size is min  don't show the cartridge
-    &[data-size="small"] {
-        height: $header-top-row-height;
+    // When the header is collasped, don't show the cartridge.
+    &[data-deployed="false"] {
+        z-index: inherit;
         overflow-y: hidden;
+
         [data-focus="header-top-row"] {
             @include shadow();
             position: fixed;
@@ -71,19 +74,25 @@ to { height: auto; }
             width: 100%;
         }
 
+        [data-focus="header-content"] {
+            display: none;
+        }
+
         [data-focus="header-actions"] {
             position: fixed;
             top: $header-top-row-height / 2;
             right: 0;
             z-index: $header-top-row-zindex;
         }
+
+        box-shadow: none;
     }
 }
 
 [data-focus="layout"] {
     &[data-menu="left"] {
         [data-focus="header-scrolling"] {
-            &[data-size="small"] {
+            &[data-deployed="false"] {
                 [data-focus="header-top-row"] {
                     & > div {
                         margin-left: $header-top-row-height;
