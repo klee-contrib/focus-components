@@ -22,7 +22,7 @@ const listMixin = {
     /**
     * Display name.
     */
-    displayName: 'selection-list',
+    displayName: 'SelectionList',
 
     /**
     * Mixin dependancies.

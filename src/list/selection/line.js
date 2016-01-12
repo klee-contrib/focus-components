@@ -19,7 +19,7 @@ const lineMixin = {
     /**
     * React component name.
     */
-    displayName: 'ListLine',
+    displayName: 'SelectionLine',
 
     /**
     * Mixin dependancies.
@@ -55,9 +55,25 @@ const lineMixin = {
     * @return {object} initial state
     */
     getInitialState() {
+        const {data} = this.props;
+        let {isSelected} = this.props;
+        if(this.selectedInitializer) { // this allows to initiate a data specific value for isSelected
+            isSelected = this.selectedInitializer(data);
+        }
         return {
-            isSelected: this.props.isSelected || false
+            isSelected: isSelected || false
         };
+    },
+
+    /**
+     * Before component is mounted.
+     */
+    componentWillMount() {
+        const {data, isSelection} = this.props;
+        this._isSelectionnable = isSelection;
+        if(this.selectionnableInitializer) {
+            this._isSelectionnable = this.selectionnableInitializer(data);
+        }
     },
 
     /**
@@ -109,11 +125,9 @@ const lineMixin = {
     * @return {XML} the rendered selection box
     */
     _renderSelectionBox() {
-        const {isSelection} = this.props;
         const {isSelected} = this.state;
-        if (isSelection) {
+        if (this._isSelectionnable) {
             const selectionClass = isSelected ? 'selected' : 'no-selection';
-            //const image = this.state.isSelected? undefined : <img src={this.state.lineItem[this.props.iconfield]}/>
             return (
                 <div className={`sl-selection ${selectionClass}`}>
                     <Checkbox onChange={this._handleSelectionClick} value={isSelected}/>
