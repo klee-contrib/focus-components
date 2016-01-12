@@ -14,63 +14,80 @@ let Popin = require('../popin').component;
 let Button = require('../../common/button/action').component;
 
 let ConfirmationPopin = {
-  /**
-   * Display name.
-   */
-  displayName: 'confirmation-popin',
-  mixins: [i18nMixin],
-  getDefaultProps() {
-    return {
-      open: false,
-      cancelButtonLabel: 'popin.confirmation.cancel',
-      confirmButtonLabel: 'popin.confirmation.confirm'
-    };
-  },
+    /**
+    * Display name.
+    */
+    displayName: 'confirmation-popin',
+    mixins: [i18nMixin],
+    getDefaultProps() {
+        return {
+            open: false,
+            cancelButtonLabel: 'popin.confirmation.cancel',
+            confirmButtonLabel: 'popin.confirmation.confirm'
+        };
+    },
 
-  propTypes: {
-    cancelButtonLabel: type('string'),
-    confirmButtonLabel: type('string'),
-    cancelHandler: type(['func', 'object']),
-    confirmHandler: type(['func', 'object'])
-  },
+    getInitialState() {
+        return ({
+            fromButtonClick: false
+        });
+    },
 
-  /**
-   * Confirmation action handler
-   */
-  _handleConfirm() {
-    this.toggleOpen();
-    if (this.props.confirmHandler) {
-      this.props.confirmHandler();
+    propTypes: {
+        cancelButtonLabel: type('string'),
+        cancelHandler: type(['func', 'object']),
+        confirmButtonLabel: type('string'),
+        confirmHandler: type(['func', 'object'])
+    },
+
+    /**
+    * Confirmation action handler
+    */
+    _handleConfirm() {
+        this.toggleOpen();
+        if (this.props.confirmHandler) {
+            this.props.confirmHandler();
+        }
+    },
+
+    /**
+    * Cancel action handler
+    */
+    _handleCancel() {
+        this.toggleOpen();
+        if (this.props.cancelHandler) {
+            this.props.cancelHandler();
+        }
+    },
+
+    _handlePopinClose() {
+        if (this.props.cancelHandler && !this.state.fromButtonClick) {
+            this.props.cancelHandler();
+        }
+        this.setState({fromButtonClick: false});
+    },
+
+    toggleOpen() {
+        this.setState({
+            fromButtonClick: true
+        }, () => {
+            this.refs.popin.toggleOpen();
+        });
+    },
+
+    render() {
+        return (
+            <div data-focus='confirmation-popin'>
+                <Popin onPopinClose={::this._handlePopinClose} open={this.props.open} ref='popin'>
+                    {this.props.children}
+                    <div data-focus='button-stack'>
+                        <Button handleOnClick={this._handleCancel} label={this.i18n(this.props.cancelButtonLabel)}/>
+                        <Button handleOnClick={this._handleConfirm} label={this.i18n(this.props.confirmButtonLabel)} option='primary'/>
+                    </div>
+                </Popin>
+            </div>
+        );
     }
-  },
-
-  /**
-   * Cancel action handler
-   */
-  _handleCancel() {
-    this.toggleOpen();
-    if (this.props.cancelHandler) {
-      this.props.cancelHandler();
-    }
-  },
-
-  toggleOpen() {
-    this.refs.popin.toggleOpen();
-  },
-
-  render() {
-    return (
-      <div data-focus='confirmation-popin'>
-        <Popin open={this.props.open} ref='popin'>
-          {this.props.children}
-          <div data-focus='button-stack'>
-            <Button handleOnClick={this._handleCancel} label={this.i18n(this.props.cancelButtonLabel)}/>
-            <Button handleOnClick={this._handleConfirm} label={this.i18n(this.props.confirmButtonLabel)} option='primary'/>
-          </div>
-        </Popin>
-      </div>
-    );
-  }
 };
 
 module.exports = builder(ConfirmationPopin);
