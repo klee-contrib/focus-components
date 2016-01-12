@@ -70,9 +70,9 @@ class HeaderScrolling extends Component {
         this.scrollTargetNode.removeEventListener('resize', this.handleScroll);
     }
 
-   /**
-    * Notify other elements that the header has added/removed the cartridge.
-    */
+    /**
+     * Notify other elements that the header has added/removed the cartridge.
+     */
     _notifySizeChange = () => {
         const {notifySizeChange} = this.props;
         const {isDeployed} = this.state;
@@ -82,14 +82,14 @@ class HeaderScrolling extends Component {
     }
 
     /**
-    * Handle the scroll event in order to show/hide the cartridge.
-    * @param {object} event [description]
-    */
+     * Handle the scroll event in order to show/hide the cartridge.
+     * @param {object} event [description]
+     */
     handleScroll = (event) => {
         let {deployThreshold, placeholderHeight} = this.state;
 
         if (this.state.isDeployed) {
-            const content = document.querySelector('header');
+            const content = this.refs ? this.refs.header : undefined;
             deployThreshold = content ? content.clientHeight - 60 : 1000; // 1000 is arbitrary, but a value high enough is required by default.
             placeholderHeight = content ? content.clientHeight : 1000;
             this.setState({deployThreshold, placeholderHeight});
@@ -108,7 +108,7 @@ class HeaderScrolling extends Component {
         const {isDeployed, placeholderHeight} = this.state;
         const {children, canDeploy, mode, route} = this.props;
         return (
-            <header data-focus='header-scrolling' data-mode={mode} data-route={route} data-deployed={isDeployed}>
+            <header ref='header' data-focus='header-scrolling' data-mode={mode} data-route={route} data-deployed={isDeployed}>
                 {children}
                 {!isDeployed ? <div style={{height: canDeploy ? placeholderHeight : 60, width: '100%'}} /> : ''}
             </header>

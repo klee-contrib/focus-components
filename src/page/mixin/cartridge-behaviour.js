@@ -26,9 +26,9 @@ export default {
             `);
         }
 
-        let cartridgeConf = this.cartridgeConfiguration();
+        const cartridgeConf = this.cartridgeConfiguration();
 
-        let data = {
+        const data = {
             cartridgeComponent: cartridgeConf.cartridge || {component: Empty},
             summaryComponent: cartridgeConf.summary || {component: Empty},
             actions: cartridgeConf.actions || {primary: [], secondary: []},
