@@ -6,9 +6,26 @@ const builder = require('focus-core').component.builder;
 
 const ListSummary = require('../../../list/summary/index').component;
 
+// Mixins
+
+const referenceBehaviour = require('../../../common/form/mixin/reference-behaviour');
+const storeBehaviour = require('../../../common/mixin/store-behaviour');
+
 const scopeAll = 'ALL';
 
 const Summary = {
+    /**
+    * Component's mixins
+    * @type {Array}
+    */
+    mixins: [referenceBehaviour, storeBehaviour],
+
+    /**
+    * Reference names to be fetched by the reference behaviour
+    * @type {Array}
+    */
+    referenceNames: ['scopes'],
+
     /**
      * Get the default props
      * @return {object} the default props
@@ -21,6 +38,10 @@ const Summary = {
             scope: undefined
         });
     },
+    /** @inheritdoc */
+    componentDidMount () {
+        this._loadReference();
+    },
     /**
      * Scope click handler
      * Set the scope to ALL.
@@ -32,6 +53,15 @@ const Summary = {
             groupingKey: undefined
         });
     },
+    _getScopeLabel() {
+        if(this.state && this.state.reference.scopes) {
+            const selectedScope = this.state.reference.scopes.find(scope =>
+                scope.code === this.props.scope
+            )
+            return selectedScope.label || this.props.scope;
+        }
+        return this.props.scope;
+    },
     /**
      * Render the component
      * @return {HTML} the rendered component
@@ -40,7 +70,7 @@ const Summary = {
         const scope = this.props.scope !== scopeAll ? {scope: {
             code: this.props.scope,
             label: 'Scope',
-            value: this.props.scope
+            value: this._getScopeLabel()
         }} : undefined;
         return (
             <ListSummary
