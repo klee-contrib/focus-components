@@ -32,8 +32,7 @@ const Overlay = React.createClass({
     * Store the body overgflow property, and set it to hidden
     * @private
     */
-    _storeAndHideBodyOverflow() {
-        this._oldScroll = document.body.style['overflow-y'];
+    _hideBodyOverflow() {
         document.body.style['overflow-y'] = 'hidden';
     },
     /**
@@ -41,7 +40,7 @@ const Overlay = React.createClass({
     * @private
     */
     _restoreBodyOverflow() {
-        document.body.style['overflow-y'] = this._oldScroll;
+        document.body.style['overflow-y'] = 'auto';
     },
     /**
     * Component will unmount event handler.
@@ -49,9 +48,7 @@ const Overlay = React.createClass({
     */
     componentWillUnmount() {
         ReactDOM.findDOMNode(this.refs.overlay).removeEventListener('mousewheel', this._onScroll);
-        if (this._oldScroll !== undefined) {
-            this._restoreBodyOverflow();
-        }
+        this._restoreBodyOverflow();
     },
     /**
     * Mouse wheel event handler.
@@ -78,7 +75,7 @@ const Overlay = React.createClass({
         const {children, clickHandler, show} = this.props;
         return (
             <div className='animated fadeIn' data-animation='fadeIn' data-closing-animation='fadeOut' data-focus='popin-overlay' data-visible={show} onClick={clickHandler} ref='overlay'>
-            {children}
+                {children}
             </div>
         );
     }
@@ -168,7 +165,7 @@ const popin = {
                 if (this.refs['popin-overlay']) {
                     if (!wasOpened) {
                         // We just opened the popin, so store and hide the body overflow.
-                        this.refs['popin-overlay']._storeAndHideBodyOverflow();
+                        this.refs['popin-overlay']._hideBodyOverflow();
                     }
                 }
             });
@@ -185,16 +182,16 @@ const popin = {
         const {type, level, modal, overlay, children} = this.props;
         return (
             <div data-focus='popin' data-level={level} data-size={this._validateSize()} data-type={type} >
-            {this.state.opened &&
-                <Overlay clickHandler={modal && this.toggleOpen} ref='popin-overlay' resize={'full' === type} show={overlay}>
-                <div {...this._getAnimationProps()} data-focus='popin-window' onClick={this._preventPopinClose} ref='popin-window'>
-                <i className='material-icons' data-focus='popin-window-close' onClick={this.toggleOpen}>close</i>
-                <div onWheel={this._onWheel}>
-                {children}
-                </div>
-                </div>
-                </Overlay>
-            }
+                {this.state.opened &&
+                    <Overlay clickHandler={modal && this.toggleOpen} ref='popin-overlay' resize={'full' === type} show={overlay}>
+                        <div {...this._getAnimationProps()} data-focus='popin-window' onClick={this._preventPopinClose} ref='popin-window'>
+                            <i className='material-icons' data-focus='popin-window-close' onClick={this.toggleOpen}>close</i>
+                            <div onWheel={this._onWheel}>
+                                {children}
+                            </div>
+                        </div>
+                    </Overlay>
+                }
             </div>
         );
     },
@@ -208,17 +205,17 @@ const popin = {
         let closingAnimation;
         switch (this.props.type) {
             case 'from-menu':
-            openingAnimation = 'slideInLeft';
-            closingAnimation = 'slideOutLeft';
-            break;
+                openingAnimation = 'slideInLeft';
+                closingAnimation = 'slideOutLeft';
+                break;
             case 'from-right':
-            openingAnimation = 'slideInRight';
-            closingAnimation = 'slideOutRight';
-            break;
+                openingAnimation = 'slideInRight';
+                closingAnimation = 'slideOutRight';
+                break;
             default:
-            openingAnimation = 'zoomIn';
-            closingAnimation = 'zoomOut';
-            break;
+                openingAnimation = 'zoomIn';
+                closingAnimation = 'zoomOut';
+                break;
         }
         return ({
             className: `animated ${openingAnimation}`,
