@@ -1,7 +1,9 @@
 import React, {Component, PropTypes} from 'react';
-import {builtInStore as applicationStore} from 'focus-core/application';
+import FocusCore from 'focus-core';
 import Scroll from '../../behaviours/scroll';
 import connect from '../../behaviours/store/connect';
+
+const applicationStore = FocusCore.application.builtInStore;
 
 // Component default props.
 const defaultProps = {
@@ -79,7 +81,7 @@ class HeaderScrolling extends Component {
         if (notifySizeChange) {
             notifySizeChange(isDeployed);
         }
-    }
+    };
 
     /**
      * Handle the scroll event in order to show/hide the cartridge.
@@ -101,7 +103,7 @@ class HeaderScrolling extends Component {
         if (isDeployed !== this.state.isDeployed) {
             this.setState({isDeployed}, this._notifySizeChange);
         }
-    }
+    };
 
     /** @inheriteddoc */
     render() {
