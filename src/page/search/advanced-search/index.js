@@ -97,9 +97,10 @@ const AdvancedSearch = {
     * Register the store listeners
     */
     componentWillMount() {
-        ['query', 'scope', 'selected-facets', 'grouping-key', 'sort-by', 'sort-asc'].forEach((node) => {
-            this.props.store[`add${capitalize(camel(node))}ChangeListener`](this._onStoreChangeWithSearch);
-        });
+        //listen to search event
+        this.props.store.on('advanced-search-criterias:change', this._onStoreChangeWithSearch);
+
+        //listen to data changes
         ['facets', 'results', 'total-count'].forEach((node) => {
             this.props.store[`add${capitalize(camel(node))}ChangeListener`](this._onStoreChangeWithoutSearch);
         });
@@ -110,16 +111,12 @@ const AdvancedSearch = {
         });
         this._action.search();
     },
-    componentDidMount() {
-
-    },
     /**
     * Un-register the store listeners
     */
     componentWillUnmount() {
-        ['query', 'scope', 'selected-facets', 'grouping-key', 'sort-by', 'sort-asc'].forEach(node => {
-            this.props.store[`remove${capitalize(camel(node))}ChangeListener`](this._onStoreChangeWithSearch);
-        });
+        // remove listeners
+        this.props.store.removeListener('advanced-search-criterias:change', this._onStoreChangeWithSearch);
         ['facets', 'results', 'total-count'].forEach((node) => {
             this.props.store[`remove${capitalize(camel(node))}ChangeListener`](this._onStoreChangeWithoutSearch);
         });
