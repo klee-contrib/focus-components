@@ -15,7 +15,7 @@ const defaultProps = {
     AppHeader: HeaderDefaultTemplate, //default app header.
     ErrorCenter: ErrorCenterDefault, // default error center
     LoadingBar: LoadingBarDefault, // default loading bar
-    LoadingStatusBar: () => {},
+    LoadingStatusBar: () => null,
     MessageCenter: MessageCenterDefault, // default message center
     ConfirmWrapper: ConfirmWrapperDefault // default confirm wrapper,
 };
