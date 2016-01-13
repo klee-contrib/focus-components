@@ -138,6 +138,9 @@ class Autocomplete extends Component {
 
     _handleQueryFocus = () => {
         this.refs.options.scrollTop = 0;
+        if (this.props.onFocus) {
+            this.props.onFocus.call(this);
+        }
         this.setState({active: '', focus: true});
     };
 
