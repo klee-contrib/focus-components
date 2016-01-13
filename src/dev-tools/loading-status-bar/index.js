@@ -1,10 +1,9 @@
-import React, {PropTypes} from 'react';
-import FocusCore from 'focus-core';
+import React, {Component, PropTypes} from 'react';
+import requestStore from 'focus-core/network/built-in-store';
 import LoadingStatus from './loading-status';
 
-const requestStore = FocusCore.network.builtInStore;
 
-class LoadingStatusWrapper {
+class LoadingStatusWrapper extends Component{
   componentWillMount() {
       requestStore.addUpdateRequestListener(this._handleRequestsUpdate);
       requestStore.addClearRequestsListener(this._handleClearRequests);
