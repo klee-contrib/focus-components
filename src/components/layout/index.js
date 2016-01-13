@@ -39,7 +39,7 @@ class Layout extends Component {
 
     /** @inheritDoc */
     render() {
-        const {AppHeader, children, ConfirmWrapper, ErrorCenter, Footer, LoadingBar, MenuLeft, MessageCenter, ...otherProps} = this.props;
+        const {AppHeader, children, ConfirmWrapper, ErrorCenter, Footer, LoadingBar, MenuLeft, MessageCenter, LoadingStatusBar, ...otherProps} = this.props;
         const menuType = MenuLeft ? 'left' : 'other';
         return (
             <div data-focus='layout' data-menu={menuType} {...otherProps}>
