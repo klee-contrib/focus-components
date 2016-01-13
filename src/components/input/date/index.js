@@ -134,7 +134,7 @@ class InputDate extends Component {
         const [picker, input] = ['picker', 'input'].map(ref => ReactDOM.findDOMNode(this.refs[ref]));
         const pickerId = picker ? picker.dataset.reactid : null;
         const inputId = input ? input.dataset.reactid : null;
-        if (reactid && pickerId && inputId && !reactid.indexOf(pickerId) !== -1 && !reactid.indexOf(inputId) !== -1) {
+        if (reactid && pickerId && inputId && reactid.indexOf(pickerId) === -1 && reactid.indexOf(inputId) === -1) {
             this.setState({displayPicker: false});
             this._onInputBlur();
         }
