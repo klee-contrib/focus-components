@@ -12,6 +12,12 @@ class LoadingStatusWrapper extends Component{
       requestStore.removeUpdateRequestListener(this._handleRequestsUpdate);
       requestStore.removeClearRequestsListener(this._handleClearRequests);
   }
+  getInitialState(){
+    return {
+      total: 0,
+      pending: 0
+    }
+  }
   _getStateFromStore(){
       return requestStore.getRequests();
   }
