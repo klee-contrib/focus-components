@@ -103,7 +103,7 @@ class Autocomplete extends Component {
             const [options, input] = ['options', 'htmlInput'].map(ref => ReactDOM.findDOMNode(this.refs[ref]));
             const optionsId = options ? options.dataset.reactid : null;
             const inputId = input ? input.dataset.reactid : null;
-            if (reactid && optionsId && inputId && !reactid.indexOf(optionsId) !== -1 && !reactid.indexOf(inputId) !== -1) {
+            if (reactid && optionsId && inputId && reactid.indexOf(optionsId) === -1 && reactid.indexOf(inputId) === -1) {
                 this.setState({focus: false}, () => {
                     if (onBadInput && this.getValue() === null && inputValue !== '') {
                         onBadInput(inputValue);
