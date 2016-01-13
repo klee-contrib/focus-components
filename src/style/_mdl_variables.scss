@@ -303,11 +303,11 @@ $footer-underline-color: $footer-color !default;
 
 /* TEXTFIELD */
 
-$input-text-font-size: 16px;
+$input-text-font-size: 13px;
 $input-text-width: 100%;
 $input-text-padding: 4px;
 $input-text-ripple-size: 32px;
-$input-text-vertical-spacing: 20px;
+$input-text-vertical-spacing: 0px;
 
 $input-text-button-size: 32px;
 $input-text-floating-label-fontsize: 12px;
@@ -344,7 +344,7 @@ $spinner-duration: 360 * $spinner-arc-time / (
 
 /* RADIO */
 
-$radio-label-font-size: 16px;
+$radio-label-font-size: 13px;
 $radio-label-height: 24px;
 $radio-button-size: 16px;
 $radio-inner-margin: $radio-button-size / 4;
