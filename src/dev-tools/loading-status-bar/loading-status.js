@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import MaterialBebaviour from '../..behaviours/material';
+import MaterialBebaviour from '../../behaviours/material';
 
 
 @MaterialBebaviour('spinner')
