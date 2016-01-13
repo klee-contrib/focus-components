@@ -4,6 +4,13 @@ import LoadingStatus from './loading-status';
 
 
 class LoadingStatusWrapper extends Component{
+  constructor(props) {
+      super(props);
+      this.state = {
+        total: 0,
+        pending: 0
+      };
+  }
   componentWillMount() {
       requestStore.addUpdateRequestListener(this._handleRequestsUpdate);
       requestStore.addClearRequestsListener(this._handleClearRequests);
@@ -11,12 +18,6 @@ class LoadingStatusWrapper extends Component{
   componentWillUnmount(){
       requestStore.removeUpdateRequestListener(this._handleRequestsUpdate);
       requestStore.removeClearRequestsListener(this._handleClearRequests);
-  }
-  getInitialState(){
-    return {
-      total: 0,
-      pending: 0
-    }
   }
   _getStateFromStore(){
       return requestStore.getRequests();
