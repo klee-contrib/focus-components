@@ -1,10 +1,9 @@
 {
   "name": "focus-components",
-  "version": "0.8.4-beta11",
+  "version": "0.8.4-beta12",
   "description": "Focus component repository.",
   "main": "index.js",
   "scripts": {
-    "prepublish": "in-publish && npm run build || exit 0",
     "babelify": "better-npm-run babelify",
     "bundle": "better-npm-run bundle",
     "copy-sass": "better-npm-run copy-sass",
