@@ -60,10 +60,11 @@ class MenuLeft extends Component {
 
     /** @inheritDoc */
     render() {
-        const {direction, position, children, ...otherProps} = this.props;
+        const {direction, handleBrandClick, position, children, ...otherProps} = this.props;
+        const hasBrandClickHandler = !!handleBrandClick;
         return (
             <nav data-focus='menu-left' {...otherProps}>
-                <div data-focus='menu-brand' onClick={::this._handleBrandClick} />
+                <div data-focus='menu-brand' data-click={hasBrandClickHandler} onClick={::this._handleBrandClick} />
                 <ul data-focus='menu-items'>{this._renderMenuItems()}</ul>
                 {children}
             </nav>
