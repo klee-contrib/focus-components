@@ -22,6 +22,9 @@ $menu-brand-background-color: #424950;
         text-align: center;
         background-color: $menu-brand-background-color;
         height: $menu-size;
+        &[data-click="true"] {
+            cursor: pointer;
+        }
     }
 
     [data-focus="menu-items"] {
