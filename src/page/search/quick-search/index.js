@@ -35,7 +35,7 @@ const QuickSearchComponent = {
     /**
     * Tag name.
     */
-    displayName: 'quick-search',
+    displayName: 'QuickSearch',
     /**
     * Reference names to be fetched by the reference behaviour
     * @type {Array}
@@ -88,8 +88,10 @@ const QuickSearchComponent = {
             getSearchOptions: () => {return store.getValue.call(store); } // Binding the store in the function call
         });
         this._loadReference();
-        store.addQueryChangeListener(this._triggerSearch);
-        store.addScopeChangeListener(this._triggerSearch);
+
+        store.on('quick-search-criterias:change', this._triggerSearch);
+        // store.addQueryChangeListener(this._triggerSearch);
+        // store.addScopeChangeListener(this._triggerSearch);
         store.addResultsChangeListener(this._onResultsChange);
     },
     /**
@@ -97,8 +99,9 @@ const QuickSearchComponent = {
     */
     componentWillUnmount() {
         const {store} = this.props;
-        store.removeQueryChangeListener(this._triggerSearch);
-        store.removeScopeChangeListener(this._triggerSearch);
+        store.removeListener('quick-search-criterias:change', this._triggerSearch);
+        // store.removeQueryChangeListener(this._triggerSearch);
+        // store.removeScopeChangeListener(this._triggerSearch);
         store.removeResultsChangeListener(this._onResultsChange);
     },
     /**
