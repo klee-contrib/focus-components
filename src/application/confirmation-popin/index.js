@@ -78,7 +78,7 @@ let ConfirmationPopin = {
     render() {
         return (
             <div data-focus='confirmation-popin'>
-                <Popin onPopinClose={::this._handlePopinClose} open={this.props.open} ref='popin'>
+                <Popin onPopinClose={this._handlePopinClose} open={this.props.open} ref='popin'>
                     {this.props.children}
                     <div data-focus='button-stack'>
                         <Button handleOnClick={this._handleCancel} label={this.i18n(this.props.cancelButtonLabel)}/>
