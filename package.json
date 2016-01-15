@@ -90,6 +90,7 @@
     "eslint-config-focus": "0.3.0",
     "eslint-plugin-filenames": "0.1.1",
     "eslint-plugin-react": "3.5.0",
+    "exports-loader": "^0.6.2",
     "extract-text-webpack-plugin": "^0.8.2",
     "file-loader": "^0.8.4",
     "focus-core": "0.12.1",
