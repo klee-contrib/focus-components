@@ -69,6 +69,7 @@ let changeBehaviourMixin = {
                 this.refs[key].setError(errorState[key]);
             }
         }
+        this.setState(this._getLoadingStateFromStores()); // update status after errors
     },
     /**
      * Read
