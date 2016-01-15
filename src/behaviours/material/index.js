@@ -1,4 +1,5 @@
-const ReactDOM = require('react-dom');
+import ReactDOM from 'react-dom';
+import {componentHandler} from 'exports?componentHandler!material-design-lite/material';
 
 const Material = (ref, watchedProp: 'error') => Component => class MaterialComponent extends Component {
     componentDidMount() {
@@ -32,5 +33,7 @@ const Material = (ref, watchedProp: 'error') => Component => class MaterialCompo
         }
     }
 };
+
+Material.componentHandler = componentHandler;
 
 export default Material;

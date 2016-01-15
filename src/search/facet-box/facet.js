@@ -1,6 +1,6 @@
 // Dependencies
 
-let builder = require('focus-core').component.builder;
+import builder from 'focus-core/component/builder';
 let React = require('react');
 let keys = require('lodash/object/keys');
 

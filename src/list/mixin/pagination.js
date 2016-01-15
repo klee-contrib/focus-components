@@ -1,4 +1,4 @@
-var type = require('focus-core').component.types;
+import type from 'focus-core/component/types';
 
 var paginationMixin = {
     /**

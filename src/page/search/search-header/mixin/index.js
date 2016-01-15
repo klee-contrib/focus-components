@@ -8,10 +8,10 @@ const storeBehaviour = require('../../../../common/mixin/store-behaviour');
 const SearchBar = require('../../../../search/search-bar').component;
 
 // Actions
-const actionBuilder = require('focus-core').search.actionBuilder;
+import actionBuilder from 'focus-core/search/action-builder';
 
 // Store
-const advancedSearchStore = require('focus-core').search.builtInStore.advancedSearchStore;
+import {advancedSearchStore} from 'focus-core/search/built-in-store';
 
 module.exports = {
     mixins: [i18nMixin, referenceBehaviour, storeBehaviour],

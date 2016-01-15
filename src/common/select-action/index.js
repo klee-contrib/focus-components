@@ -1,10 +1,10 @@
-const builder = require('focus-core').component.builder;
+import builder from 'focus-core/component/builder';
 const React = require('react');
 const ReactDOM = require('react-dom');
 
 const uuid = require('uuid');
 const Button = require('../../common/button/action').component;
-const types = require('focus-core').component.types;
+import types from 'focus-core/component/types';
 
 const Dropdown = {
 

@@ -1,8 +1,6 @@
 import React, {Component, PropTypes} from 'react';
-import FocusCore from 'focus-core';
+import requestStore from 'focus-core/network/built-in-store';
 import LoadingStatus from './loading-status';
-
-const requestStore = FocusCore.network.builtInStore;
 
 class LoadingStatusWrapper extends Component{
   constructor(props) {

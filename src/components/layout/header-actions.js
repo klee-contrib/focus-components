@@ -1,19 +1,7 @@
 import React, {Component} from 'react';
-import Focus from 'focus-core';
+import applicationStore from 'focus-core/application/built-in-store';
 import {component as Button} from '../../common/button/action';
 import Dropdown from '../../components/icon-dropdown';
-
-// variables
-const applicationStore = Focus.application.builtInStore;
-
-
-// component default props.
-//const defaultProps = {};
-
-// component props definition.
-//const propTypes = {};
-
-const Test = ({clickHandler}) => (<div onClick={clickHandler}>Ouvrir</div>);
 
 /**
 * HeaderActions component.

@@ -1,9 +1,9 @@
 let React = require('react');
-let builder = require('focus-core').component.builder;
-let user = require('focus-core').user;
+import builder from 'focus-core/component/builder';
+import user from 'focus-core/user';
 let intersection = require('lodash/array/intersection');
 let isArray = require('lodash/lang/isArray');
-let type = require('focus-core').component.types;
+import type from 'focus-core/component/types';
 
 /**
  * Mixin button.

@@ -1,6 +1,6 @@
 // Dependencies
 const React = require('react');
-const builder = require('focus-core').component.builder;
+import builder from 'focus-core/component/builder';
 
 // Mixins
 const i18nMixin = require('../../../../common/i18n/mixin');

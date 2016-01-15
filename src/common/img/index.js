@@ -1,4 +1,4 @@
-var builder = require('focus-core').component.builder;
+import builder from 'focus-core/component/builder';
 var React = require('react');
 
 

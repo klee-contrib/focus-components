@@ -1,6 +1,7 @@
 // Dependencies.
 
-const {builder, types} = require('focus-core').component;
+import builder from 'focus-core/component/builder';
+import types from 'focus-core/component/types';
 const moment = require('moment');
 
 // Components

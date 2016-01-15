@@ -2,8 +2,8 @@
 const React = require('react');
 const ReactDOM = require('react-dom');
 // Dependencies
-const Focus = require('focus-core');
-let {builder, types} = Focus.component;
+import builder from 'focus-core/component/builder';
+import types from 'focus-core/component/types';
 let find = require('lodash/collection/find');
 const InputText = require('../input/text').component;
 const {debounce} = require('lodash/function');

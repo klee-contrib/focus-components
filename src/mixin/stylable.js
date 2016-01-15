@@ -1,4 +1,4 @@
-const types = require('focus-core').component.types;
+import types from 'focus-core/component/types';
 module.exports = {
     /** @inheritedDocs */
     getDefaultProps(){

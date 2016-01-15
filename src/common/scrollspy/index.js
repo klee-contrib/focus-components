@@ -1,7 +1,8 @@
 // Dependencies
 const React = require('react');
 const ReactDOM = require('react-dom');
-const {builder, types} = require('focus-core').component;
+import builder from 'focus-core/component/builder';
+import types from 'focus-core/component/types';
 
 // Mixins
 const Stylabe = require('../../mixin/stylable');

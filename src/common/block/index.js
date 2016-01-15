@@ -1,6 +1,7 @@
 const React = require('react');
 const oneOf = React.PropTypes.oneOf;
-const {builder, types} = require('focus-core').component;
+import builder from 'focus-core/component/builder';
+import types from 'focus-core/component/types';
 const i18nBehaviour = require('../../common/i18n/mixin');
 const styleBehaviour = require('../../mixin/stylable');
 const Title = require('../title').component;

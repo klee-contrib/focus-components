@@ -1,7 +1,7 @@
 // Dependencies
 
 const React = require('react');
-const changeMode = require('focus-core').application.changeMode;
+import {changeMode} from 'focus-core/application';
 const assign = require('object-assign');
 const result = require('lodash/object/result');
 const find = require('lodash/collection/find');

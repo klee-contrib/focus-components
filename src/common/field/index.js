@@ -1,6 +1,6 @@
 import React from 'react';
-const builder = require('focus-core').component.builder;
-const type = require('focus-core').component.types;
+import builder from 'focus-core/component/builder';
+import type from 'focus-core/component/types';
 // Mixins
 const valueBehaviour = require('./mixin/value-behaviour');
 const validationBehaviour = require('./mixin/validation-behaviour');
