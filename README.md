@@ -9,7 +9,7 @@ focus-components
 <img src="http://img15.hostingpics.net/pics/858529coverage.png" width="100">
 [![Issue Stats](http://issuestats.com/github/kleegroup/focus-components/badge/pr)](http://issuestats.com/github/kleegroup/focus-components)
 [![Issue Stats](http://issuestats.com/github/kleegroup/focus-components/badge/issue)](http://issuestats.com/github/kleegroup/focus-components)
-
+[![Package Quality](http://npm.packagequality.com/badge/focus-components.png)](http://packagequality.com/#?package=focus-components)
 Components for focus application.
 
 ## Components
