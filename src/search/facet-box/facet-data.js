@@ -1,9 +1,9 @@
 // Dependencies
 
-const builder = require('focus-core').component.builder;
+import builder from 'focus-core/component/builder';
 const React = require('react');
-const ArgumentInvalidException = require('focus-core').exception.ArgumentInvalidException;
-const numberFormatter = require('focus-core').definition.formatter.number;
+import ArgumentInvalidException from 'focus-core/exception/argument-invalid-exception';
+import numberFormatter from 'focus-core/definition/formatter/number';
 
 const FacetData = {
     getDefaultProps() {

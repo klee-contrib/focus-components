@@ -7,8 +7,9 @@ let data = {
     body: 'body test'
 };
 
+import domainContainer from 'focus-core/definition/domain/container';
+import entityContainer from 'focus-core/definition/entity/container';
 
-let Focus = require('focus-core');
 var domain =  {
   "DO_TEXT": {
       style: "do_text",
@@ -33,7 +34,7 @@ var domain =  {
       }]
   }
 };
-Focus.definition.domain.container.setAll(domain);
+domainContainer.setAll(domain);
 var entities ={
 "contact": {
   "firstName": {
@@ -53,7 +54,7 @@ var entities ={
     "required": false
   }
 }};
-Focus.definition.entity.container.setEntityConfiguration(entities);
+entityContainer.setEntityConfiguration(entities);
 
 
 let Line = React.createClass({

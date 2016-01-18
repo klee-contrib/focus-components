@@ -1,7 +1,7 @@
 //Dependencies.
-var builder = require('focus-core').component.builder;
+import builder from 'focus-core/component/builder';
 var React = require('react');
-var type = require('focus-core').component.types;
+import type from 'focus-core/component/types';
 var i18nBehaviour = require('../../i18n/mixin');
 /**
  * Input text mixin.

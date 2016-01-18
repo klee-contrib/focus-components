@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import {isString} from 'lodash/lang';
 import {component as ConfirmationModal} from '../../application/confirmation-popin';
 import Connect from '../../behaviours/store/connect';
-import {application} from 'focus-core';
+import application from 'focus-core/application';
 const {builtInStore: applicationStore} = application;
 const propTypes = {
     isVisible: PropTypes.bool,

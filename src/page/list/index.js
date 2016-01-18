@@ -6,8 +6,9 @@
 //- be displayed in any list container.
 const React = require('react');
 const {camelCase, capitalize} = require('lodash/string');
-const {types, builder} = require('focus-core').component;
-const actionBuilder = require('focus-core').list.actionBuilder;
+import builder from 'focus-core/component/builder';
+import types from 'focus-core/component/types';
+import actionBuilder from 'focus-core/list/action-builder';
 const type = types;
 const assign = require('object-assign');
 

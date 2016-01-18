@@ -1,7 +1,7 @@
 //Focus.reference.builder.loadListByName('papas').then(function(data){Focus.dispatcher.dispatch({action: {type: "update",data: {papas: data}}})})
 
-const refStoreGetter = require('focus-core').reference.getStore;
-const builtInActionReferenceLoader = require('focus-core').reference.builtInAction;
+import referenceStore from 'focus-core/reference/built-in-store';
+import builtInActionReferenceLoader from 'focus-core/reference/built-in-action';
 const isEmpty = require('lodash/lang/isEmpty');
 const referenceMixin = {
     /** @inheritdoc */
@@ -34,8 +34,6 @@ const referenceMixin = {
     * Build the reference names and set the store into the application.
     */
     _buildReferenceStoreConfig(){
-        //Get the store for references.
-        const referenceStore = refStoreGetter();
 
         //If the reference store is empty don't do anything.
         if(isEmpty(this.referenceNames)){

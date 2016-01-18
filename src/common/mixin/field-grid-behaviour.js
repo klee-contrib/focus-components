@@ -1,4 +1,4 @@
-const {types} = require('focus-core').component;
+import types from 'focus-core/component/types';
 const React = require('react');
 const {PropTypes} = React;
 

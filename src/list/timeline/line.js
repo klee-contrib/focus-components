@@ -1,7 +1,7 @@
 /**@jsx*/
 var React = require('react');
-var builder = require('focus-core').component.builder;
-var type = require('focus-core').component.types;
+import builder from 'focus-core/component/builder';
+import type from 'focus-core/component/types';
 var translationMixin = require('../../common/i18n').mixin;
 var referenceMixin = require('../../common/mixin/reference-property');
 var definitionMixin = require('../../common/mixin/definition');

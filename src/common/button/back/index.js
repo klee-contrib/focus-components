@@ -1,8 +1,8 @@
 import React from 'react';
 
 // Dependencies
-const {builder} = require('focus-core').component;
-const backbone = require('backbone');
+import builder from 'focus-core/component/builder';
+import Backbone from 'backbone';
 
 // Mixins
 
@@ -26,14 +26,14 @@ const buttonBackMixin = {
     */
     getDefaultProps(){
         return {
-            back: backbone.history.history.back
+            back: Backbone.history.history.back
         };
     },
     /**
     * Go back to the top of the page.
     */
     goBackHistory() {
-        backbone.history.history.back();
+        Backbone.history.history.back();
     },
     /** inheritedDoc */
     render() {

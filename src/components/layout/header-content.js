@@ -1,14 +1,5 @@
 import React, {Component} from 'react';
-import Focus from 'focus-core';
-
-//variables
-const applicationStore = Focus.application.builtInStore;
-
-// component default props.
-//const defaultProps = {};
-
-// component props definition.
-//const propTypes = {};
+import applicationStore from 'focus-core/application/built-in-store';
 
 /**
 * HeaderContent component.

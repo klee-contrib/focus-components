@@ -1,5 +1,6 @@
 const React = require('react');
-const {builder, types} = require('focus-core').component;
+import builder from 'focus-core/component/builder';
+import types from 'focus-core/component/types';
 const i18nBehaviour = require('../../i18n/mixin');
 const fieldGridBehaviourMixin = require('../../mixin/field-grid-behaviour');
 const mdlBehaviour = require('../../mixin/mdl-behaviour');

@@ -1,9 +1,7 @@
 import React, {Component, PropTypes} from 'react';
-import FocusCore from 'focus-core';
+import applicationStore from 'focus-core/application/built-in-store';
 import Scroll from '../../behaviours/scroll';
 import connect from '../../behaviours/store/connect';
-
-const applicationStore = FocusCore.application.builtInStore;
 
 // Component default props.
 const defaultProps = {

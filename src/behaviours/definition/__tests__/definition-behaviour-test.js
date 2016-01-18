@@ -1,5 +1,5 @@
 import DefinitionBehaviour from '../';
-import {definition} from 'focus-core';
+import definition from 'focus-core/definition';
 const DOMAIN = {
 	DO_TEXT: {
 		style: "do_text",

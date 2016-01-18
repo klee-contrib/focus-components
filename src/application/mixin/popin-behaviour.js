@@ -1,4 +1,4 @@
-var type = require('focus-core').component.types;
+import type from 'focus-core/component/types';
 /**
  * Mixin used in order to create a popin or a menu.
  * @type {Object} - popin behavour mixin

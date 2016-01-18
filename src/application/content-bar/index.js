@@ -1,4 +1,4 @@
-const builder = require('focus-core').component.builder;
+import builder from 'focus-core/component/builder';
 const React = require('react');
 
 const headerMixin = {

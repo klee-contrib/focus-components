@@ -1,7 +1,7 @@
 // Dependencies
 const React = require('react');
-const builder = require('focus-core').component.builder;
-const types = require('focus-core').component.types;
+import builder from 'focus-core/component/builder';
+import types from 'focus-core/component/types';
 const find = require('lodash/collection/find');
 
 // Components

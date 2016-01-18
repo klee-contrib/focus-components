@@ -1,6 +1,6 @@
 // Dependencies
 const React = require('react');
-const builder = require('focus-core').component.builder;
+import builder from 'focus-core/component/builder';
 const clone = require('lodash/lang/clone');
 
 const GroupWrapper = {

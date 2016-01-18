@@ -1,6 +1,6 @@
-const builder = require('focus-core').component.builder;
+import builder from 'focus-core/component/builder';
 const React = require('react');
-const types = require('focus-core').component.types;
+import types from 'focus-core/component/types';
 const {PropTypes} = React;
 
 const iconMixin = {

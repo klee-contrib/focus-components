@@ -1,6 +1,6 @@
 // Dependencies
-const builder = require('focus-core').component.builder;
-const type = require('focus-core').component.types;
+import builder from 'focus-core/component/builder';
+import type from 'focus-core/component/types';
 const React = require('react');
 const ReactDOM = require('react-dom');
 

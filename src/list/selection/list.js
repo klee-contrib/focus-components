@@ -1,7 +1,8 @@
 // Dependencies
 const React = require('react');
-const {checkIsNotNull} = require('focus-core').util.object;
-const {builder, types} = require('focus-core').component;
+import {checkIsNotNull} from 'focus-core/util/object';
+import builder from 'focus-core/component/builder';
+import types from 'focus-core/component/types';
 const find = require('lodash/collection/find');
 const {omit} = require('lodash/object');
 const {isArray} = require('lodash/lang');

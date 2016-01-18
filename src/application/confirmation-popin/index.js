@@ -1,8 +1,8 @@
 import React from 'react';
 // Dependencies
 
-let builder = require('focus-core').component.builder;
-let type = require('focus-core').component.types;
+import builder from 'focus-core/component/builder';
+import type from 'focus-core/component/types';
 
 // Mixins
 
