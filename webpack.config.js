@@ -6,7 +6,6 @@ const customConfig = {
         'react-dom': 'ReactDOM',
         moment: 'moment',
         jquery: 'jQuery',
-        backbone: 'Backbone',
         numeral: 'numeral',
         'i18next-client': 'i18n'
     },
