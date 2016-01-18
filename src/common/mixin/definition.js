@@ -1,24 +1,24 @@
 //Dependencies.
 /**
- * Accessor on the entity informations.
- * @type {function} - Get the entity definition for a given key.
- */
-import {getEntityDefinition} from 'focus-core/definition/entity/builder';
+* Accessor on the entity informations.
+* @type {function} - Get the entity definition for a given key.
+*/
+import {getEntityInformations} from 'focus-core/definition/entity/builder';
 
-var definitionMixin = {
-  /**
-   * Build the entity definition givent the path of the definition.
-   */
-  _buildDefinition: function buildFormDefinition(){
-    if(!this.definitionPath){
-      throw new Error('the definition path should be defined to know the domain of your entity property.');
+const definitionMixin = {
+    /**
+    * Build the entity definition givent the path of the definition.
+    */
+    _buildDefinition: function buildFormDefinition(){
+        if(!this.definitionPath){
+            throw new Error('the definition path should be defined to know the domain of your entity property.');
+        }
+        this.definition = getEntityInformations(this.definitionPath, this.additionalDefinition);
+    },
+    /** @inheritdoc */
+    componentWillMount: function definitionWillMount(){
+        this._buildDefinition();
     }
-    this.definition = getEntityDefinition(this.definitionPath, this.additionalDefinition);
-  },
-  /** @inheritdoc */
-  componentWillMount: function definitionWillMount(){
-    this._buildDefinition();
-  }
 };
 
 module.exports = definitionMixin;

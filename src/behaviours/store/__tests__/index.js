@@ -1,6 +1,7 @@
 import storeConnectBehaviour from '../connect';
 const {renderIntoDocument, Simulate} = TestUtils;
-import {store, dispatcher} from 'focus-core';
+import store from 'focus-core/store';
+import dispatcher from 'focus-core/dispatcher';
 const {CoreStore} = store;
 
 

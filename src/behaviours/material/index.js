@@ -1,5 +1,13 @@
 import ReactDOM from 'react-dom';
-import {componentHandler} from 'exports?componentHandler!material-design-lite/material';
+let {componentHandler} = require('material-design-lite/material');
+
+// For tests only, @anyone feel free to suggest any improvement to this dirty hack
+if (!componentHandler) {
+    componentHandler = {
+        upgradeElement() {},
+        downgradeElements() {}
+    }
+}
 
 const Material = (ref, watchedProp: 'error') => Component => class MaterialComponent extends Component {
     componentDidMount() {

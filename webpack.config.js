@@ -9,6 +9,17 @@ const customConfig = {
         backbone: 'Backbone',
         numeral: 'numeral',
         'i18next-client': 'i18n'
+    },
+    module: {
+        loaders: [
+            {
+                test: /material-design-lite\/material.js$/,
+                loader: DEV ? 'react-hot!babel!exports?componentHandler' : 'babel!exports?componentHandler',
+                include: [
+                    path.resolve(process.cwd(), BABELIFIED_PATH)
+                ]
+            }
+        ]
     }
 };
 
