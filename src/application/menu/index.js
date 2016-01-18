@@ -1,7 +1,7 @@
 // Dependencies
 
 import builder from 'focus-core/component/builder';
-import Backbone from 'backbone';
+import historic from 'focus-core/history';
 import types from 'focus-core/component/types';
 
 // Mixins
@@ -40,7 +40,7 @@ const Menu = {
             if (link.route !== undefined) {
                 clickHandler = () => {
                     if (link.onClick) link.onClick.call(this, arguments);
-                    Backbone.history.navigate(link.route, true);
+                    historic.navigate(link.route, true);
                 };
             } else {
                 clickHandler = link.onClick;

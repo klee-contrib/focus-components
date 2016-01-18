@@ -1,5 +1,5 @@
 import React, {Component, PropTypes} from 'react';
-import Backbone from 'backbone';
+import historic from 'focus-core/history';
 import Button from '../../common/button/action';
 
 // definition of components
@@ -30,7 +30,7 @@ class MenuLeft extends Component {
             if (link.route !== undefined) {
                 clickHandler = () => {
                     if (link.onClick) link.onClick.call(this, arguments);
-                    Backbone.history.navigate(link.route, true);
+                    historic.navigate(link.route, true);
                 };
             } else {
                 clickHandler = link.onClick;
