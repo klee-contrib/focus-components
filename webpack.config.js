@@ -1,4 +1,6 @@
 const configBuilder = require('webpack-focus').configBuilder;
+const path = require('path');
+
 const customConfig = {
     externals: {
         'focus-core': 'FocusCore',
@@ -10,16 +12,12 @@ const customConfig = {
         'i18next-client': 'i18n'
     },
     module: {
-        loaders: [
+        preLoaders: [
             {
-                test: /material-design-lite\/material.js$/,
-                loader: DEV ? 'react-hot!babel!exports?componentHandler' : 'babel!exports?componentHandler',
-                include: [
-                    path.resolve(process.cwd(), BABELIFIED_PATH)
-                ]
+                test: /material-design-lite\/material/,
+                loader: 'exports?componentHandler'
             }
         ]
     }
 };
-
 module.exports = configBuilder(customConfig);
