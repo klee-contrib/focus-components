@@ -1,5 +1,7 @@
-import message from 'focus-core/message';
-let changeBehaviourMixin = {
+const message = require('focus-core').message;
+const changeMode = require('focus-core').application.changeMode;
+
+const changeBehaviourMixin = {
     /**
      * Display a message when there is a change on a store property resulting from a component action call.
      * @param  {object} changeInfos - An object containing all the event informations, without the data.
@@ -24,7 +26,9 @@ let changeBehaviourMixin = {
                     //Maybe the action result or the event should have a caller notion.
                     message.addSuccessMessage('detail.saved');
                     //Change the page mode as edit
-                    this.setState({isEdit: false});
+                    this.setState({isEdit: false}, () => {
+                      changeMode('consult', 'edit');
+                    });
                     break;
                 default:
                     break;
