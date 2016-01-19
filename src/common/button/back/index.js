@@ -24,7 +24,7 @@ const buttonBackMixin = {
     render() {
         return (
             <Button
-                handleOnClick={historic.history.back}
+                handleOnClick={() => {historic.history.back()}}
                 icon='keyboard_backspace'
                 label={this.i18n('button.back')}
                 shape={null}

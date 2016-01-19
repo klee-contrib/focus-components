@@ -1,5 +1,5 @@
 import {isFunction, isUndefined} from 'lodash/lang';
-import dispatcher from 'focus-core/dispatcher';
+import {dispatcher} from 'focus-core';
 import {component as Empty} from '../../common/empty';
 
 module.exports = {

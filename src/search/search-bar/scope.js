@@ -11,7 +11,6 @@ const {uniqueId} = require('lodash/utility');
 // Components
 const Icon = require('../../common/icon').component;
 const Dropdown = require('../../common/select-action').component;
-const {componentHandler} = window;
 
 // Mixins
 const i18nMixin = require('../../common/i18n/mixin');
