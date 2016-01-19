@@ -1,5 +1,7 @@
-import message from 'focus-core/message';
-let changeBehaviourMixin = {
+const message = require('focus-core').message;
+const changeMode = require('focus-core').application.changeMode;
+
+const changeBehaviourMixin = {
     /**
      * Display a message when there is a change on a store property resulting from a component action call.
      * @param  {object} changeInfos - An object containing all the event informations, without the data.
