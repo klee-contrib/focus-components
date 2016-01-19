@@ -24,7 +24,9 @@ let changeBehaviourMixin = {
                     //Maybe the action result or the event should have a caller notion.
                     message.addSuccessMessage('detail.saved');
                     //Change the page mode as edit
-                    this.setState({isEdit: false});
+                    this.setState({isEdit: false}, () => {
+                      changeMode('consult', 'edit');
+                    });
                     break;
                 default:
                     break;
