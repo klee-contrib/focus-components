@@ -60,8 +60,11 @@ class HeaderScrolling extends Component {
     }
 
     /** @inheriteddoc */
-    componentWillReceiveProps({isDeployed}) {
-        this.setState({isDeployed}, this.handleScroll());
+    componentWillReceiveProps({mode, route, canDeploy, isDeployed}) {
+        this.setState({mode, route, canDeploy});
+        if (mode === this.state.mode) {
+            this.setState({isDeployed}, this.handleScroll());
+        }
     }
 
     /** @inheriteddoc */
@@ -71,8 +74,8 @@ class HeaderScrolling extends Component {
     }
 
     /**
-     * Notify other elements that the header has added/removed the cartridge.
-     */
+    * Notify other elements that the header has added/removed the cartridge.
+    */
     _notifySizeChange = () => {
         const {notifySizeChange} = this.props;
         const {isDeployed} = this.state;
@@ -82,9 +85,9 @@ class HeaderScrolling extends Component {
     };
 
     /**
-     * Handle the scroll event in order to show/hide the cartridge.
-     * @param {object} event [description]
-     */
+    * Handle the scroll event in order to show/hide the cartridge.
+    * @param {object} event [description]
+    */
     handleScroll = (event) => {
         let {deployThreshold, placeholderHeight} = this.state;
 
