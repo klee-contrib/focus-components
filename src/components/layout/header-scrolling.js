@@ -62,9 +62,9 @@ class HeaderScrolling extends Component {
     /** @inheriteddoc */
     componentWillReceiveProps({mode, route, canDeploy, isDeployed}) {
         this.setState({mode, route, canDeploy});
-        let routeChanged = route !== this.state.route;
-        let modeChanged = mode !== this.state.mode;
-        if (routeChanged || !modeChanged) {
+        const hasRouteChanged = route !== this.state.route;
+        const hasModeChanged = mode !== this.state.mode;
+        if (hasRouteChanged || !hasModeChanged) {
             this.setState({isDeployed}, this.handleScroll());
         }
     }
