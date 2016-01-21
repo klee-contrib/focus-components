@@ -32,7 +32,8 @@ const fieldGridBehaviourMixin = {
     propTypes: {
         contentCellPosition: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
         labelCellPosition: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
-        labelSize: PropTypes.number
+        labelSize: PropTypes.number,
+        contentSize: PropTypes.number
     },
     /**
     * Get the label gridClass.
@@ -46,14 +47,14 @@ const fieldGridBehaviourMixin = {
     * @returns {string} - The content gridSize.
     */
     _getContentGridClassName(){
-        return `${CELL} mdl-cell--${this.props.contentCellPosition} mdl-cell--${GRID_SIZE - this.props.labelSize}-col`;
+        return `${CELL} mdl-cell--${this.props.contentCellPosition} mdl-cell--${this.props.contentSize || (GRID_SIZE - this.props.labelSize)}-col`;
     },
     /**
     * Get the content offset className.
     * @returns {string} - The label gridSize.
     */
     _getContentOffsetClassName(){
-        return `${CELL} mdl-cell--${this.props.labelSize}-offset-col`;
+        return `${CELL} mdl-cell--${this.props.labelSize}-offset`;
     }
 };
 module.exports = fieldGridBehaviourMixin;
