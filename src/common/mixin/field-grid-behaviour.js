@@ -33,21 +33,33 @@ const fieldGridBehaviourMixin = {
         contentCellPosition: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
         labelCellPosition: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
         labelSize: PropTypes.number,
-        contentSize: PropTypes.number
+        contentSize: PropTypes.number,
+        labelOffset: PropTypes.number,
+        contentOffset: PropTypes.number
     },
-    /**
+    _buildGridClassName : function _buildGridClassName (prop, suffix){
+		return prop?(' mdl-cell--' + prop + (suffix ? suffix : '')):'';
+	},
+    _getCellGridClassName: function _getCellGridClassName(position,size, offset) {
+		const cellPosition = this._buildGridClassName(position);
+		const cellSize = this._buildGridClassName(size, '-col');
+		const cellOffset = this._buildGridClassName(offset, '-offset');
+
+        return CELL + cellPosition + cellSize + cellOffset;
+    },
+	/**
     * Get the label gridClass.
     * @returns {string} - The label gridSize.
     */
-    _getLabelGridClassName(){
-        return `${CELL} mdl-cell--${this.props.labelCellPosition} mdl-cell--${this.props.labelSize}-col`;
-    },
+    _getLabelGridClassName: function _getLabelGridClassName() {
+		return this._getCellGridClassName(this.props.labelCellPosition, this.props.labelSize, this.props.labelOffset);
+	},
     /**
     * Get the content class Name.
     * @returns {string} - The content gridSize.
     */
-    _getContentGridClassName(){
-        return `${CELL} mdl-cell--${this.props.contentCellPosition} mdl-cell--${this.props.contentSize || (GRID_SIZE - this.props.labelSize)}-col`;
+    _getContentGridClassName: function _getContentGridClassName() {
+		return this._getCellGridClassName(this.props.contentCellPosition, (this.props.contentSize || (GRID_SIZE - this.props.labelSize)), this.props.contentOffset);
     },
     /**
     * Get the content offset className.
