@@ -1,6 +1,6 @@
 {
   "name": "focus-components",
-  "version": "0.8.6-beta3",
+  "version": "0.8.6-beta4",
   "description": "Focus component repository.",
   "main": "index.js",
   "scripts": {
@@ -94,7 +94,6 @@
     "extract-text-webpack-plugin": "^0.8.2",
     "file-loader": "^0.8.4",
     "focus-core": "0.12.3",
-    "i18next-client": "^1.10.3",
     "in-publish": "^2.0.0",
     "jquery": "^2.1.4",
     "jsdom": "^6.4.0",
