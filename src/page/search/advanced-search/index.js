@@ -104,6 +104,10 @@ const AdvancedSearch = {
         ['facets', 'results', 'total-count'].forEach((node) => {
             this.props.store[`add${capitalize(camel(node))}ChangeListener`](this._onStoreChangeWithoutSearch);
         });
+        
+        // listen to scope change
+        this.props.store.addScopeChangeListener(this._onScopeChange);
+        
         this._action = this.props.action || actionBuilder({
             service: this.props.service,
             identifier: this.props.store.identifier,
@@ -120,6 +124,7 @@ const AdvancedSearch = {
         ['facets', 'results', 'total-count'].forEach((node) => {
             this.props.store[`remove${capitalize(camel(node))}ChangeListener`](this._onStoreChangeWithoutSearch);
         });
+        this.props.store.removeScopeChangeListener(this._onScopeChange);
     },
 
     getSelectedItems() {
@@ -151,6 +156,13 @@ const AdvancedSearch = {
     _onStoreChangeWithoutSearch() {
         this.setState(this._getNewStateFromStore());
     },
+    /**
+     * Scope changed, need to remove all existing sort.
+     */
+	_onScopeChange: function _onScopeChange() {
+		this.props.store.updateSortBy(null);
+		this.props.store.updateSortAsc(null);
+	},
     /**
      * Compute a state object from the store values.
      * @return {[type]} [description]
