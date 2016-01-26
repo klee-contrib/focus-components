@@ -1,5 +1,5 @@
-const message = require('focus-core').message;
-const changeMode = require('focus-core').application.changeMode;
+import message from 'focus-core/message';
+import {changeMode} from 'focus-core/application';
 
 const changeBehaviourMixin = {
     /**
