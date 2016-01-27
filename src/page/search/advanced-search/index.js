@@ -1,6 +1,7 @@
 // Dependencies
 const React = require('react');
 import builder from 'focus-core/component/builder';
+import dispatcher from 'focus-core/dispatcher';
 const {camelCase: camel} = require('lodash/string');
 const {capitalize} = require('lodash/string');
 const {isFunction} = require('lodash/lang');
@@ -160,8 +161,9 @@ const AdvancedSearch = {
      * Scope changed, need to remove all existing sort.
      */
 	_onScopeChange: function _onScopeChange() {
-		this.props.store.updateSortBy(null);
-		this.props.store.updateSortAsc(null);
+		dispatcher.handleViewAction({data:{sortBy: null, sortAsc: null},
+    			type: 'update',
+    			identifier: FocusCore.search.builtInStore.advancedSearchStore.identifier});    
 	},
     /**
      * Compute a state object from the store values.
