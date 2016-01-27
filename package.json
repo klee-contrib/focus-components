@@ -14,7 +14,7 @@
   },
   "betterScripts": {
     "babelify": {
-      "command": "babel src --out-dir ./ --ignore \"example/index.js,__tests__\" --source-maps inline"
+      "command": "node scripts/babelify.js"
     },
     "copy-sass": {
       "command": "cd src && find . -name *.scss | xargs tar cvf - | tar xfp - -C ../"
