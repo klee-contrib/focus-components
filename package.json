@@ -93,7 +93,7 @@
     "exports-loader": "^0.6.2",
     "extract-text-webpack-plugin": "^0.8.2",
     "file-loader": "^0.8.4",
-    "focus-core": "0.12.3",
+    "focus-core": "0.12.4-beta5",
     "in-publish": "^2.0.0",
     "jquery": "^2.1.4",
     "jsdom": "^6.4.0",
