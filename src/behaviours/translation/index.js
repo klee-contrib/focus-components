@@ -1,9 +1,9 @@
-import {t} from 'i18next-client';
+import {translate} from 'focus-core/translation';
 
 const Translation = Component => class TranslatedComponent extends Component {
     constructor(props) {
         super(props);
-        this.i18n = t;
+        this.i18n = translate;
     }
 };
 
