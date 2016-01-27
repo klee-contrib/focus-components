@@ -8,8 +8,7 @@ const customConfig = {
         'react-dom': 'ReactDOM',
         moment: 'moment',
         jquery: 'jQuery',
-        numeral: 'numeral',
-        'i18next-client': 'i18n'
+        numeral: 'numeral'
     },
     module: {
         preLoaders: [
