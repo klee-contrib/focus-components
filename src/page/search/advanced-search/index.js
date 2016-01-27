@@ -160,11 +160,11 @@ const AdvancedSearch = {
     /**
      * Scope changed, need to remove all existing sort.
      */
-	_onScopeChange: function _onScopeChange() {
-		dispatcher.handleViewAction({data:{sortBy: null, sortAsc: null},
-    			type: 'update',
-    			identifier: FocusCore.search.builtInStore.advancedSearchStore.identifier});    
-	},
+    _onScopeChange: function _onScopeChange() {
+        dispatcher.handleViewAction({data:{sortBy: null, sortAsc: null},
+            type: 'update',
+            identifier: advancedSearchStore.identifier});    
+    },
     /**
      * Compute a state object from the store values.
      * @return {[type]} [description]
