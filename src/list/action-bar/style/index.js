@@ -15,13 +15,15 @@ const style = {
             position: 'relative',
             top: '-33px',
             left: '40px',
-            width: '40px'
+            width: '40px',
+            height: '30px'
         },
         group: {
             position: 'relative',
             top: '-64px',
             left: '80px',
-            width: '40px'
+            width: '40px',
+            height: '30px'
         }
     }
 };
