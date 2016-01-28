@@ -1,5 +1,5 @@
 import Panel from '../';
-import i18n from 'i18next-client';
+import {init, translate} from 'focus-core/translation';
 const {findRenderedDOMComponentWithClass, renderIntoDocument, Simulate} = TestUtils;
 
 describe('The Panel', () => {
@@ -42,7 +42,7 @@ describe('The Panel', () => {
         });
     });
     describe('when mounted with title props', () => {
-        i18n.init({resStore: {dev: {translation: {panel: {title: 'This is a title'}}}}}, () => {
+        init({resStore: {dev: {translation: {panel: {title: 'This is a title'}}}}}, () => {
             let reactComponent, domNode;
             const title = 'panel.title';
             before(() => {
@@ -54,7 +54,7 @@ describe('The Panel', () => {
                 expect(titleContent).to.exist;
                 expect(titleContent.tagName).to.equal('H3');
                 expect(titleContent.getAttribute('data-spy-title')).to.exist;
-                expect(titleContent.innerHTML).to.equal(i18n.t(title));
+                expect(titleContent.innerHTML).to.equal(translate(title));
             });
         });
     });
