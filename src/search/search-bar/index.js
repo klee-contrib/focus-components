@@ -1,6 +1,7 @@
 // Dependencies
 import builder from 'focus-core/component/builder';
 import type from 'focus-core/component/types';
+import {translate} from 'focus-core/translation';
 const React = require('react');
 const ReactDOM = require('react-dom');
 
@@ -12,14 +13,13 @@ const Input = require('../../components/input/text');
 
 // Mixins
 const stylable = require('../../mixin/stylable');
-const i18n = require('../../common/i18n/mixin');
 
 /**
  * SearchBar component
  * @type {Object}
  */
 const SearchBar = {
-    mixins: [i18n, stylable],
+    mixins: [stylable],
     displayName: 'SearchBar',
     /**
     * Component default properties.
@@ -156,7 +156,7 @@ const SearchBar = {
      */
     _renderHelp() {
         return (
-            <div ref='help'>{this.i18n(this.props.helpTranslationPath)}</div>
+            <div ref='help'>{translate(this.props.helpTranslationPath)}</div>
         );
     },
     /**
@@ -178,7 +178,7 @@ const SearchBar = {
                     <Scope list={scopes} onScopeSelection={this._onScopeSelection} ref='scope' value={scope}/>
                 }
                 <div data-focus='search-bar-input'>
-                    <Input onChange={this._onInputChange} onKeyPress={this._handleInputKeyPress} placeholder={this.i18n(placeholder)} ref='query' value={query}/>
+                    <Input onChange={this._onInputChange} onKeyPress={this._handleInputKeyPress} placeholder={translate(placeholder)} ref='query' value={query}/>
                     {loading &&
                         <div className='three-quarters-loader' data-role='spinner'></div>
                     }
