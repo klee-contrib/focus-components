@@ -4,7 +4,18 @@ const {PropTypes} = React;
 
 
 const GRID_SIZE = 12, CELL = 'mdl-cell';
-
+/**
+ * An example of the label and content size, and of label and content offset, with function fieldFor
+ * 
+ * I want to have the label on the first row of the grid, the field on the second one,
+ * with a 'padding' (offset) of one cell on each row.
+ * 
+ * const fieldOptions = { labelSize: 10, contentSize: 10, labelOffset:1, contentOffset:1 };
+ * ...
+ * {this.fieldFor('nom', fieldOptions)}
+ * 
+ **/
+ 
 const fieldGridBehaviourMixin = {
     /** @inheritdoc */
     getDefaultProps(){
@@ -39,7 +50,7 @@ const fieldGridBehaviourMixin = {
     },
     _buildGridClassName : function _buildGridClassName (prop, suffix){
 		return prop?(' mdl-cell--' + prop + (suffix ? suffix : '')):'';
-	},
+    },
     _getCellGridClassName: function _getCellGridClassName(position,size, offset) {
 		const cellPosition = this._buildGridClassName(position);
 		const cellSize = this._buildGridClassName(size, '-col');
@@ -47,7 +58,7 @@ const fieldGridBehaviourMixin = {
 
         return CELL + cellPosition + cellSize + cellOffset;
     },
-	/**
+    /**
     * Get the label gridClass.
     * @returns {string} - The label gridSize.
     */
