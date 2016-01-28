@@ -25,10 +25,8 @@ module.exports = {
                 }
             `);
         }
-
-        const cartridgeConf = this.cartridgeConfiguration();
-
-        setHeader(cartridgeConf);
+        
+        setHeader(this.cartridgeConfiguration());
     },
 
     /**
