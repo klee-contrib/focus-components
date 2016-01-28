@@ -1,5 +1,5 @@
 import {isFunction, isUndefined} from 'lodash/lang';
-import {dispatcher} from 'focus-core';
+import {setHeader} from 'focus-core/application';
 import {component as Empty} from '../../common/empty';
 
 module.exports = {
@@ -28,19 +28,7 @@ module.exports = {
 
         const cartridgeConf = this.cartridgeConfiguration();
 
-        const data = {
-            cartridgeComponent: cartridgeConf.cartridge || {component: Empty},
-            summaryComponent: cartridgeConf.summary || {component: Empty},
-            actions: cartridgeConf.actions || {primary: [], secondary: []},
-            barContentLeftComponent: cartridgeConf.barLeft || {component: Empty},
-            canDeploy: isUndefined(cartridgeConf.canDeploy) ? true : cartridgeConf.canDeploy
-        };
-
-        if (cartridgeConf.barRight) {
-            data.barContentRightComponent = cartridgeConf.barRight;
-        }
-
-        dispatcher.handleViewAction({data, type: 'update'});
+        setHeader(cartridgeConf);
     },
 
     /**
