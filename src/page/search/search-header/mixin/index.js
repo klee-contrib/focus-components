@@ -1,6 +1,4 @@
-// Mixins
 const React = require('react');
-const i18nMixin = require('../../../../common/i18n').mixin;
 const referenceBehaviour = require('../../../../common/form/mixin/reference-behaviour');
 const storeBehaviour = require('../../../../common/mixin/store-behaviour');
 
@@ -14,7 +12,7 @@ import actionBuilder from 'focus-core/search/action-builder';
 import {advancedSearchStore} from 'focus-core/search/built-in-store';
 
 module.exports = {
-    mixins: [i18nMixin, referenceBehaviour, storeBehaviour],
+    mixins: [referenceBehaviour, storeBehaviour],
     referenceNames: ['scopes'],
     getDefaultProps() {
         return {

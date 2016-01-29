@@ -1,22 +1,16 @@
-// Dependencies
-
+import React from 'react';
 import builder from 'focus-core/component/builder';
-let React = require('react');
-let keys = require('lodash/object/keys');
+import {keys} from 'lodash/object';
+import {translate} from 'focus-core/translation';
 
 // Components
-
 let FacetData = require('./facet-data').component;
 
 let Facet = {
     /**
-     * Component's mixins
-     */
-    mixins: [require('../../common/i18n/mixin')],
-    /**
      * Display name.
      */
-    displayName: 'facet',
+    displayName: 'Facet',
     /**
      * Init the component state.
      * @returns {object} Initial state.
@@ -59,7 +53,7 @@ let Facet = {
      * @returns {XML} Html component code.
      */
     _renderFacetTitle() {
-        let title = this.i18n('live.filter.facets.' + this.props.facetKey); // Default facet translation path is live.filter.facets.
+        let title = translate('live.filter.facets.' + this.props.facetKey); // Default facet translation path is live.filter.facets.
         if (this.props.selectedDataKey) {
             title += ' : ' + this.props.facet[this.props.selectedDataKey].label;
         }
@@ -125,7 +119,7 @@ let Facet = {
         if (!this.state.isShowAll && Object.keys(this.props.facet).length > this.props.nbDefaultDataList) {
             return (
                 <a href='javascript:void(0);' data-focus='facet-show-all' onClick={this._showAllHandler}>
-                    {this.i18n('show.all')}
+                    {translate('show.all')}
                 </a>
             );
         }
