@@ -53,7 +53,6 @@ const QuickSearchComponent = {
             onLineClick: undefined,
             groupMaxRows: undefined,
             scrollParentSelector: undefined,
-            style: require('./style'),
             SearchBar: DefaultSearchBar
         };
     },
@@ -172,13 +171,12 @@ const QuickSearchComponent = {
     * @return {HTML} the rendered component
     */
     render() {
-        const {style} = this.props;
         return (
             <div data-focus='quick-search'>
-                <div>
+                <div data-focus='quick-search-bar'>
                     {this._renderSearchBar()}
                 </div>
-                <div style={style.results}>
+                <div data-focus='quick-search-results'>
                     {this._renderResults()}
                 </div>
             </div>
