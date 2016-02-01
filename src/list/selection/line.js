@@ -2,6 +2,7 @@
 
 import types from 'focus-core/component/types';
 const React = require('react');
+import isEqual from 'lodash/lang/isEqual';
 
 // Components
 
@@ -81,10 +82,12 @@ const lineMixin = {
      * @param  {object} nextProps new component's props
      */
     componentWillReceiveProps({isSelected, data}) {
-        if (data !== this.props.data) {
+        if (isEqual(data,this.props.data)) {
+            if (isSelected !== undefined) {
+                this.setState({isSelected});
+            }
+        } else {
             this.setState({isSelected: false});
-        } else if (isSelected !== undefined) {
-            this.setState({isSelected});
         }
     },
 
