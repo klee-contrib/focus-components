@@ -33,6 +33,7 @@ import '../common/select/classic/style/select.scss'
 import '../common/select/radio/style/select-radio.scss';
 import '../common/select-action/style/select-action.scss';
 import '../common/topic-displayer/style/topic-displayer.scss';
+import '../components/input/autocomplete-select/style.scss';
 import '../components/input/date/style/index.scss';
 import '../components/input/textarea/style/textarea.scss';
 import '../components/input/select/style/select.scss';
@@ -58,4 +59,3 @@ import '../search/facet-box/style/facet-box.scss';
 import '../search/search-bar/style/search-bar.scss';
 import '../style/animation.scss';
 import '../style/spinner.scss';
-import '../components/input/autocomplete-select/style.scss';
