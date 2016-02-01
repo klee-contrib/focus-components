@@ -53,6 +53,7 @@ import '../list/table/style/table.scss';
 import '../list/timeline/style/timeline.scss';
 import '../message/style/message.scss';
 import '../page/search/advanced-search/style/advanced-search.scss';
+import '../page/search/quick-search/style/quick-search.scss';
 import '../search/facet-box/style/facet-box.scss';
 import '../search/search-bar/style/search-bar.scss';
 import '../style/animation.scss';
