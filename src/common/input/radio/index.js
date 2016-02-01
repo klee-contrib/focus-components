@@ -75,13 +75,15 @@ const radioMixin = {
     */
     render() {
         const {isChecked} = this.state;
-        const {label, name} = this.props;
+        const {label, name, disabled} = this.props;
         // we use inputProps to be able to display 'checked' property. it is required to be able to use MDL.
         const checkedProps = isChecked ? {checked: 'checked'} : {};
-        const inputProps = {...{className: 'mdl-radio__button', name: name, onChange: this._onChange, type: 'radio'}, ...checkedProps};
+        const disabledProps = disabled ? {disabled: 'disabled'} : {};
+        const inputProps = {...{className: 'mdl-radio__button', name: name, onChange: this._onChange, type: 'radio'}, ...checkedProps, ...disabledProps};
+
         return (
             <label className='mdl-radio mdl-js-radio mdl-js-ripple-effect' data-focus="input-radio" ref='inputMdl'>
-                <input {...inputProps} />
+                <input {...inputProps}/>
                 <span className='mdl-radio__label'>{this.i18n(label)}</span>
             </label>
         );
