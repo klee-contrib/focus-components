@@ -35,7 +35,7 @@ const SearchBar = {
             identifier: undefined,
             store: undefined,
             action: undefined,
-            onScopeSelection: undefined
+            onSearchCriteriaChangeByUser: undefined
         };
     },
     propTypes: {
@@ -46,7 +46,7 @@ const SearchBar = {
         placeholder: PropTypes.string,
         scopes: PropTypes.array,
         value: PropTypes.string,
-        onScopeSelection: PropTypes.func
+        onSearchCriteriaChangeByUser: PropTypes.func
     },
     /**
     * Get the initial state
@@ -120,9 +120,12 @@ const SearchBar = {
     */
     _onInputChange(query) {
         this.setState({query});
-        const {minChar} = this.props;
+        const {minChar, onSearchCriteriaChangeByUser} = this.props;
         if (query.length >= minChar) {
             this._broadcastQueryChange();
+        }
+        if(onSearchCriteriaChangeByUser) {
+            onSearchCriteriaChangeByUser();
         }
     },
     /**
@@ -131,15 +134,15 @@ const SearchBar = {
     */
     _onScopeSelection(scope) {
         this._focusQuery();
-        const {action, onScopeSelection} = this.props;
+        const {action, onSearchCriteriaChangeByUser} = this.props;
         action.updateProperties({
             scope,
             selectedFacets: {},
             groupingKey: undefined
         });
         this.setState({scope});
-        if(onScopeSelection) {
-            onScopeSelection();
+        if(onSearchCriteriaChangeByUser) {
+            onSearchCriteriaChangeByUser();
         }
     },
     /**
