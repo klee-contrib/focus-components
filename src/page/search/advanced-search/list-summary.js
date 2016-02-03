@@ -67,7 +67,7 @@ const Summary = {
      * @return {HTML} the rendered component
      */
     render() {
-        const scope = this.props.scope !== scopeAll ? {scope: {
+        const scope = this.props.scope && this.props.scope !== scopeAll ? {scope: {
             code: this.props.scope,
             label: 'Scope',
             value: this._getScopeLabel()
