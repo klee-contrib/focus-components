@@ -151,14 +151,14 @@ const SearchBar = {
     */
     _handleInputKeyPress({key}) {
         if ('Enter' === key) {
-            const {onScopeSelection} = this.props;
+            const {onSearchCriteriaChangeByUser} = this.props;
             actionWrapper(() => {
                 this.props.action.updateProperties({
                     query: this.refs.query.getValue()
                 });
             }, null, 0)();
-            if(onScopeSelection) {
-                onScopeSelection();
+            if(onSearchCriteriaChangeByUser) {
+                onSearchCriteriaChangeByUser();
             }
         }
     },
