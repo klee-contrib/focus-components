@@ -151,11 +151,15 @@ const SearchBar = {
     */
     _handleInputKeyPress({key}) {
         if ('Enter' === key) {
+            const {onSearchCriteriaChangeByUser} = this.props;
             actionWrapper(() => {
                 this.props.action.updateProperties({
                     query: this.refs.query.getValue()
                 });
             }, null, 0)();
+            if(onSearchCriteriaChangeByUser) {
+                onSearchCriteriaChangeByUser();
+            }
         }
     },
     /**
@@ -186,11 +190,11 @@ const SearchBar = {
                 <Scope list={scopes} onScopeSelection={this._onScopeSelection} ref='scope' value={scope}/>
             }
             <div data-focus='search-bar-input'>
-                <Input name='searchbarinput' onChange={this._onInputChange} onKeyPress={this._handleInputKeyPress} placeholder={translate(placeholder)} ref='query' value={query}/>
-                {loading &&
-                    <div className='three-quarters-loader' data-role='spinner'></div>
-                }
-                </div>
+            <Input name='searchbarinput' onChange={this._onInputChange} onKeyPress={this._handleInputKeyPress} placeholder={translate(placeholder)} ref='query' value={query}/>
+            {loading &&
+                <div className='three-quarters-loader' data-role='spinner'></div>
+            }
+            </div>
             </div>
         );
     }
