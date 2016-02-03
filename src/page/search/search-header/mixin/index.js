@@ -19,7 +19,7 @@ module.exports = {
             service: undefined,
             store: advancedSearchStore,
             onSearchCriteriaChange: undefined,
-            onScopeSelection: undefined
+            onSearchCriteriaChangeByUser: undefined
         };
     },
     getInitialState() {
@@ -48,7 +48,7 @@ module.exports = {
         }
     },
     _SearchBarComponent() {
-        const {helpTranslationPath, minChar, onScopeSelection, placeholder} = this.props;
+        const {helpTranslationPath, minChar, onSearchCriteriaChangeByUser, placeholder} = this.props;
         const {isLoading, reference: {scopes}} = this.state;
         return (
             <SearchBar
@@ -60,7 +60,7 @@ module.exports = {
                 ref='searchBar'
                 scopes={scopes}
                 store={advancedSearchStore}
-                onScopeSelection={onScopeSelection} />
+                onSearchCriteriaChangeByUser={onSearchCriteriaChangeByUser} />
         );
     }
 };
