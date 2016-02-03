@@ -78,6 +78,12 @@ const scopeMixin = {
             if (onScopeSelection) {
                 onScopeSelection(code);
             }
+            // Fix MDL issue with closing a dropdown
+            const parentRef = this.refs.parent;
+            if (parentRef) {
+                const dropdownDiv = parentRef.getElementsByTagName('div')[0];
+                dropdownDiv.className = dropdownDiv.className.replace(' is-visible', '');
+            }
         };
     },
     _getActiveScope() {
@@ -124,7 +130,7 @@ const scopeMixin = {
         const activeScope = this._getActiveScope();
         const {code, icon, label, ...otherScopeProps} = activeScope;
         return (
-            <div data-focus='search-bar-scope'>
+            <div data-focus='search-bar-scope' ref='parent'>
                 <button className='mdl-button mdl-js-button' id={scopesId} data-scope={code}>
                     <Icon name={icon || code} {...otherScopeProps}/>
                     <span>{translate(label)}</span>
