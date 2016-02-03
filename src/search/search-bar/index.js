@@ -1,9 +1,8 @@
 // Dependencies
+import React, {PropTypes} from 'react';
+import ReactDOM from 'react-dom';
 import builder from 'focus-core/component/builder';
-import type from 'focus-core/component/types';
 import {translate} from 'focus-core/translation';
-const React = require('react');
-const ReactDOM = require('react-dom');
 
 const actionWrapper = require('../../page/search/search-header/action-wrapper');
 
@@ -15,9 +14,9 @@ const Input = require('../../components/input/text');
 const stylable = require('../../mixin/stylable');
 
 /**
- * SearchBar component
- * @type {Object}
- */
+* SearchBar component
+* @type {Object}
+*/
 const SearchBar = {
     mixins: [stylable],
     displayName: 'SearchBar',
@@ -35,17 +34,19 @@ const SearchBar = {
             hasScopes: true,
             identifier: undefined,
             store: undefined,
-            action: undefined
+            action: undefined,
+            onScopeSelection: undefined
         };
     },
     propTypes: {
-        hasScopes: type('bool'),
-        helpTranslationPath: type('string'),
-        loading: type('bool'),
-        minChar: type('number'),
-        placeholder: type('string'),
-        scopes: type('array'),
-        value: type('string')
+        hasScopes: PropTypes.bool,
+        helpTranslationPath: PropTypes.string,
+        loading: PropTypes.bool,
+        minChar: PropTypes.number,
+        placeholder: PropTypes.string,
+        scopes: PropTypes.array,
+        value: PropTypes.string,
+        onScopeSelection: PropTypes.func
     },
     /**
     * Get the initial state
@@ -59,38 +60,38 @@ const SearchBar = {
         };
     },
     /**
-     * Component did mount handler
-     */
+    * Component did mount handler
+    */
     componentDidMount() {
         this._focusQuery();
     },
     /**
-     * Component will mount handler
-     */
+    * Component will mount handler
+    */
     componentWillMount() {
         this.props.store.addQueryChangeListener(this._onQueryChangeFromStore);
         this.props.store.addScopeChangeListener(this._onScopeChangeFromStore);
         this.props.store.addResultsChangeListener(this._onResultsChangeFromStore);
     },
     /**
-     * Component did unmount handler
-     */
+    * Component did unmount handler
+    */
     componentWillUnmount() {
         this.props.store.removeQueryChangeListener(this._onQueryChangeFromStore);
         this.props.store.removeScopeChangeListener(this._onScopeChangeFromStore);
         this.props.store.removeResultsChangeListener(this._onResultsChangeFromStore);
     },
     /**
-     * Query changed in store event handler
-     */
+    * Query changed in store event handler
+    */
     _onQueryChangeFromStore() {
         this.setState({
             query: this.props.store.getQuery()
         });
     },
     /**
-     * Scope changed in store event handler
-     */
+    * Scope changed in store event handler
+    */
     _onScopeChangeFromStore() {
         this.setState({
             scope: this.props.store.getScope()
@@ -101,8 +102,8 @@ const SearchBar = {
         this.setState({loading: false});
     },
     /**
-     * Broadcast query change
-     */
+    * Broadcast query change
+    */
     _broadcastQueryChange() {
         actionWrapper(() => {
             this.props.action.updateProperties({
@@ -114,9 +115,9 @@ const SearchBar = {
         })();
     },
     /**
-     * Input change handler
-     * @param  {String} query the new query
-     */
+    * Input change handler
+    * @param  {String} query the new query
+    */
     _onInputChange(query) {
         this.setState({query});
         const {minChar} = this.props;
@@ -125,22 +126,26 @@ const SearchBar = {
         }
     },
     /**
-     * Scope selection handler
-     * @param  {Object} scope selected scope
-     */
+    * Scope selection handler
+    * @param  {Object} scope selected scope
+    */
     _onScopeSelection(scope) {
         this._focusQuery();
-        this.props.action.updateProperties({
+        const {action, onScopeSelection} = this.props;
+        action.updateProperties({
             scope,
             selectedFacets: {},
             groupingKey: undefined
         });
         this.setState({scope});
+        if(onScopeSelection) {
+            onScopeSelection();
+        }
     },
     /**
-     * Input key press handler
-     * @param  {String} key pressed key
-     */
+    * Input key press handler
+    * @param  {String} key pressed key
+    */
     _handleInputKeyPress({key}) {
         if ('Enter' === key) {
             actionWrapper(() => {
@@ -151,17 +156,17 @@ const SearchBar = {
         }
     },
     /**
-     * Render help message
-     * @return {HTML} rendered help message
-     */
+    * Render help message
+    * @return {HTML} rendered help message
+    */
     _renderHelp() {
         return (
             <div ref='help'>{translate(this.props.helpTranslationPath)}</div>
         );
     },
     /**
-     * Focus the query input field
-     */
+    * Focus the query input field
+    */
     _focusQuery() {
         ReactDOM.findDOMNode(this.refs.query).focus();
     },
@@ -174,14 +179,14 @@ const SearchBar = {
         const {loading, query, scope} = this.state;
         return (
             <div data-focus='search-bar'>
-                {hasScopes &&
-                    <Scope list={scopes} onScopeSelection={this._onScopeSelection} ref='scope' value={scope}/>
+            {hasScopes &&
+                <Scope list={scopes} onScopeSelection={this._onScopeSelection} ref='scope' value={scope}/>
+            }
+            <div data-focus='search-bar-input'>
+                <Input name='searchbarinput' onChange={this._onInputChange} onKeyPress={this._handleInputKeyPress} placeholder={translate(placeholder)} ref='query' value={query}/>
+                {loading &&
+                    <div className='three-quarters-loader' data-role='spinner'></div>
                 }
-                <div data-focus='search-bar-input'>
-                    <Input onChange={this._onInputChange} onKeyPress={this._handleInputKeyPress} placeholder={translate(placeholder)} ref='query' value={query}/>
-                    {loading &&
-                        <div className='three-quarters-loader' data-role='spinner'></div>
-                    }
                 </div>
             </div>
         );
