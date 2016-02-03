@@ -47,6 +47,7 @@ import '../components/panel/style/panel.scss'
 import '../components/scrollspy-container/style/scrollspy-container.scss';
 import '../components/scrollspy-container/style/sticky-menu.scss';
 import '../components/icon-dropdown/style.scss';
+import '../list/action-bar/style/action-bar.scss';
 import '../list/action-contextual/style/contextual-ation.scss';
 import '../list/selection/style/list.scss';
 import '../list/summary/style/list-summary.scss';
