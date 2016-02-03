@@ -44,7 +44,7 @@ const listSummaryMixin = {
                 <strong>{numberFormatter.format(nb)}&nbsp;</strong>
                 <span>{translate('result.for')}
                 {hasText &&
-                    <span class="search-text">&#171;&nbsp;{queryText}&nbsp;&#187;</span>
+                    <span className='search-text'>&#171;&nbsp;{queryText}&nbsp;&#187;</span>
                 }
                 </span>
             </span>
