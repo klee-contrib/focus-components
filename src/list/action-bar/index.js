@@ -9,6 +9,9 @@ const Dropdown = require('../../common/select-action').component;
 const ActionContextual = require('../action-contextual').component;
 const TopicDisplayer = require('../../common/topic-displayer').component;
 
+import Grid from 'focus-components/common/grid';
+import Column from 'focus-components/common/column';
+
 // Mixins
 
 const translationMixin = require('../../common/i18n/mixin');
@@ -18,7 +21,7 @@ const ActionBar = {
     /**
     * Display name.
     */
-    displayName: 'list-action-bar',
+    displayName: 'ListActionBar',
 
     mixins: [translationMixin],
 
@@ -48,8 +51,7 @@ const ActionBar = {
             }, // Action on group function
             groupSelectedKey: undefined, // Defautl grouped key.
             operationList: [], // List of contextual operations
-            groupLabelPrefix: '',
-            style: require('./style')
+            groupLabelPrefix: ''
         };
     },
 
@@ -71,11 +73,8 @@ const ActionBar = {
                 style: this._getSelectedStyle(this.props.selectionStatus, 'none')
             }
         ];
-        const {style} = this.props;
         return this.props.isSelection ? (
-            <div style={style.actions.select}>
-                <Dropdown iconProps={this._getSelectionObjectIcon()} operationList={selectionOperationList}/>
-            </div>
+            <Dropdown iconProps={this._getSelectionObjectIcon()} operationList={selectionOperationList} />
         ) : null;
     },
 
@@ -96,11 +95,8 @@ const ActionBar = {
                 });
             }
             const orderIcon = 'sort_by_alpha';
-            const {style} = this.props;
             return (
-                <div style={style.actions.sort}>
-                    <Dropdown iconProps={{name: orderIcon}} key='down' operationList={orderOperationList}/>
-                </div>
+                <Dropdown iconProps={{name: orderIcon}} key='down' operationList={orderOperationList}/>
             );
         }
         return null;
@@ -125,9 +121,7 @@ const ActionBar = {
         }]);
         const groupIcon ='folder_open';
         return (
-            <div style={style.actions.group}>
-                <Dropdown iconProps={{name: groupIcon}} operationList={groupOperationList}/>
-            </div>
+            <Dropdown iconProps={{name: groupIcon}} operationList={groupOperationList}/>
         );
     },
 
@@ -178,23 +172,21 @@ const ActionBar = {
     * @returns {JSX} Htm content.
     */
     render() {
-        const {style} = this.props;
         return (
-            <div className='is-casting-shadow' data-focus='list-action-bar' style={style.bar}>
-                <div data-focus='global-list-content' style={style.actions}>
+            <div className='mdl-grid' data-focus='list-action-bar'>
+                <div className='mdl-cell' data-focus='global-list-content'>
                     {this._getSelectionObject()}
                     {this._getOrderObject()}
                     {this._getGroupObject()}
                 </div>
-                <div data-focus='contextual-action-content'>
-                    <ActionContextual operationList={this.props.operationList}/>
-                </div>
-                <div data-focus='selected-facet-content'>
+                <div className='mdl-cell mdl-cell--hide-tablet mdl-cell--hide-phone' data-focus='selected-facet-content'>
                     <TopicDisplayer
                         displayLabels={true}
                         topicClickAction={this.props.facetClickAction}
-                        topicList={this.props.facetList}
-                        />
+                        topicList={this.props.facetList} />
+                </div>
+                <div className='mdl-cell' data-focus='contextual-action-content'>
+                    <ActionContextual operationList={this.props.operationList}/>
                 </div>
             </div>
         );
