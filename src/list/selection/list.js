@@ -203,8 +203,9 @@ const listMixin = {
     * @returns {XML} DOM of the component
     */
     render() {
+        const {isSelection} = this.props;
         return (
-            <ul data-focus='selection-list'>
+            <ul data-focus='selection-list' data-selection={isSelection}>
                 {this._renderLines()}
                 {this._renderLoading()}
                 {this._renderManualFetch()}
