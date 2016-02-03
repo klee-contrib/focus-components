@@ -22,13 +22,6 @@ const Overlay = React.createClass({
         return {show: false};
     },
     /**
-    * Component did mount event handler.
-    * Add a listener to the mouse wheel, to spy the scroll.
-    */
-    componentDidMount() {
-        ReactDOM.findDOMNode(this.refs.overlay).addEventListener('mousewheel', this._onScroll);
-    },
-    /**
     * Store the body overgflow property, and set it to hidden
     * @private
     */
@@ -47,25 +40,8 @@ const Overlay = React.createClass({
     * Remove the mouse wheel listener.
     */
     componentWillUnmount() {
-        ReactDOM.findDOMNode(this.refs.overlay).removeEventListener('mousewheel', this._onScroll);
+        // ReactDOM.findDOMNode(this.refs.overlay).removeEventListener('mousewheel', this._onScroll);
         this._restoreBodyOverflow();
-    },
-    /**
-    * Mouse wheel event handler.
-    * @param {Object} event - raised by the mouse wheel.
-    * @private
-    */
-    _onScroll(event) {
-        const target = event.target;
-        const direction = 0 > event.wheelDeltaY ? 'down' : 'up';
-        // Test if scrolling down the lower limit
-        if (target.clientHeight + target.scrollTop === target.scrollHeight && 'down' === direction) {
-            event.preventDefault();
-        }
-        // Test if scrolling up the upper limit
-        if (0 === target.scrollTop && 'up' === direction) {
-            event.preventDefault();
-        }
     },
     /**
     * Render the component
