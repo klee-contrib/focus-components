@@ -9,8 +9,8 @@ const Dropdown = require('../../common/select-action').component;
 const ActionContextual = require('../action-contextual').component;
 const TopicDisplayer = require('../../common/topic-displayer').component;
 
-import Grid from 'focus-components/common/grid';
-import Column from 'focus-components/common/column';
+import Grid from '../../common/grid';
+import Column from '../../common/column';
 
 // Mixins
 
