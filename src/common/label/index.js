@@ -1,9 +1,9 @@
 // Dependencies
-import React from 'react';
-
+import React, {PropTypes} from 'react';
 import builder from 'focus-core/component/builder';
 import types from 'focus-core/component/types';
-const i18nBehaviour = require('../i18n/mixin');
+import {translate} from 'focus-core/translation';
+
 const styleBehaviour = require('../../mixin/stylable');
 
 /**
@@ -11,19 +11,21 @@ const styleBehaviour = require('../../mixin/stylable');
 * @type {Object}
 */
 const labelMixin = {
-    mixins: [i18nBehaviour, styleBehaviour],
+    mixins: [styleBehaviour],
+
     /** @inheritdoc */
     propTypes: {
-        name: types('string').isRequired,
-        text: types('string')
+        name: PropTypes.string.isRequired,
+        text: PropTypes.string
     },
+
     /** @inheritdoc */
     render() {
         const {name, text, style} = this.props;
         const content = text || name;
         return (
             <label className={style.className} data-focus="label" htmlFor={name}>
-                {this.i18n(content)}
+                {translate(content)}
             </label>
         );
     }

@@ -1,4 +1,5 @@
-// Dependencies
+import {translate} from 'focus-core/translation';
+
 const React = require('react');
 const ReactDOM = require('react-dom');
 
@@ -12,16 +13,12 @@ const {uniqueId} = require('lodash/utility');
 const Icon = require('../../common/icon').component;
 const Dropdown = require('../../common/select-action').component;
 
-// Mixins
-const i18nMixin = require('../../common/i18n/mixin');
-
 const scopeMixin = {
     /**
     * Component tag name.
     * @type {String}
     */
     displayName: 'Scope',
-    mixins: [i18nMixin],
     /**
     * Component default properties.
     * @return {Object} the default props.
@@ -81,6 +78,12 @@ const scopeMixin = {
             if (onScopeSelection) {
                 onScopeSelection(code);
             }
+            // Fix MDL issue with closing a dropdown
+            const parentRef = this.refs.parent;
+            if (parentRef) {
+                const dropdownDiv = parentRef.getElementsByTagName('div')[0];
+                dropdownDiv.className = dropdownDiv.className.replace(' is-visible', '');
+            }
         };
     },
     _getActiveScope() {
@@ -106,13 +109,13 @@ const scopeMixin = {
                             {scope.code &&
                                 <Icon name={icon || code} {...otherScopeProps}/>
                             }
-                            <span>{this.i18n(label)}</span>
+                            <span>{translate(label)}</span>
                         </li>
                     );
                 })}
                 {0 === scopeList.length &&
                     <li className='mdl-menu__item'>
-                        {this.i18n('scopes.empty')}
+                        {translate('scopes.empty')}
                     </li>
                 }
             </ul>
@@ -127,10 +130,10 @@ const scopeMixin = {
         const activeScope = this._getActiveScope();
         const {code, icon, label, ...otherScopeProps} = activeScope;
         return (
-            <div data-focus='search-bar-scope'>
+            <div data-focus='search-bar-scope' ref='parent'>
                 <button className='mdl-button mdl-js-button' id={scopesId} data-scope={code}>
                     <Icon name={icon || code} {...otherScopeProps}/>
-                    <span>{this.i18n(label)}</span>
+                    <span>{translate(label)}</span>
                 </button>
                 {this._renderScopeList()}
             </div>

@@ -1,20 +1,16 @@
 
 
-[data-focus='topic-displayer'] {
-    position: relative;
-    top: -43px;
-    left: 145px;
-
-    .btn, {
-        position: relative;
-
-        &:after {
-            content: "\f00d";
-            font-family: FontAwesome;
-            position: absolute;
-            top: 6px;
-            right: 9px;
+[data-focus="topic-displayer"] {
+    display: inline-block;
+    [data-focus="button-action"] {
+        font-size: 12px;
+        margin: 0 5px;
+        text-transform: capitalize;
+        padding: 3px 10px;
+        height: auto;
+        line-height: 25px;
+        i {
+            font-size: 16px;
         }
     }
-
 }

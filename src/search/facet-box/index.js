@@ -1,26 +1,23 @@
-// Dependencies
-
+import React from 'react';
 import builder from 'focus-core/component/builder';
-let React = require('react');
 import type from 'focus-core/component/types';
+import {translate} from 'focus-core/translation';
+
 let assign = require('object-assign');
 let omit = require('lodash/object/omit');
 
 // Components
-
 let Facet = require('./facet').component;
 let Img = require('../../common/img').component;
 
 // Mixins
-
 let stylable = require('../../mixin/stylable');
-let i18n = require('../../common/i18n/mixin');
 
 let FacetBox = {
     /**
      * Component's mixins
      */
-    mixins: [stylable, i18n],
+    mixins: [stylable],
     /**
      * Display name.
      */
@@ -101,7 +98,7 @@ let FacetBox = {
      * @returns {XML} Html content.
      */
     _renderFacetBoxTitle() {
-        let title = this.state.isExpanded ? this.i18n('live.filter.title') : '';
+        let title = this.state.isExpanded ? translate('live.filter.title') : '';
         //TODO onClick={this._facetBoxTitleClickHandler} (le repli doit aussi etre porté par le data-focus=advanced-search
         return (
             <div data-focus="facet-box-heading" onClick={this._facetBoxTitleClickHandler}>

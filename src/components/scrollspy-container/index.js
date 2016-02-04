@@ -92,8 +92,6 @@ class ScrollspyContainer extends Component {
             const nodePosition = this.scrollPosition(node);
             const positionTop = this._getElementRealPosition(nodePosition.top);
             isAtClickedItem = this.scrollPosition().top === positionTop;
-            console.log('Position attendue du scroll', positionTop);
-            console.log('Position réelle du scroll', this.scrollPosition().top);
         }
         this.setState({
             menuList: menus,

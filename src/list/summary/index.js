@@ -1,20 +1,19 @@
-/**@jsx*/
-const React = require('react');
+import React from 'react';
 import builder from 'focus-core/component/builder';
 import types from 'focus-core/component/types';
-const i18nBehaviour = require('../../common/i18n/mixin');
-const styleBehaviour = require('../../mixin/stylable');
+import {translate} from 'focus-core/translation';
 
+const styleBehaviour = require('../../mixin/stylable');
 const TopicDisplayer = require('../../common/topic-displayer').component;
 const Button = require('../../common/button/action').component;
 import numberFormatter from 'focus-core/definition/formatter/number';
 
 const listSummaryMixin = {
-    mixins: [i18nBehaviour, styleBehaviour],
+    mixins: [styleBehaviour],
     /**
      * Display name.
      */
-    displayName: 'list-summary',
+    displayName: 'ListSummary',
 
     /**
      * Init the default props.
@@ -39,9 +38,15 @@ const listSummaryMixin = {
      */
     _getResultSentence() {
         const {nb, queryText} = this.props;
+        const hasText = queryText && queryText.trim().length > 0;
         return (
             <span>
-                <strong>{numberFormatter.format(nb)}</strong> {this.i18n('result.for')} &#34;{queryText}&#34;
+                <strong>{numberFormatter.format(nb)}&nbsp;</strong>
+                <span>{translate('result.for')}
+                {hasText &&
+                    <span className='search-text'>&#171;&nbsp;{queryText}&nbsp;&#187;</span>
+                }
+                </span>
             </span>
         );
     },

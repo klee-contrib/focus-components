@@ -1,6 +1,4 @@
-// Mixins
 const React = require('react');
-const i18nMixin = require('../../../../common/i18n').mixin;
 const referenceBehaviour = require('../../../../common/form/mixin/reference-behaviour');
 const storeBehaviour = require('../../../../common/mixin/store-behaviour');
 
@@ -14,13 +12,14 @@ import actionBuilder from 'focus-core/search/action-builder';
 import {advancedSearchStore} from 'focus-core/search/built-in-store';
 
 module.exports = {
-    mixins: [i18nMixin, referenceBehaviour, storeBehaviour],
+    mixins: [referenceBehaviour, storeBehaviour],
     referenceNames: ['scopes'],
     getDefaultProps() {
         return {
             service: undefined,
             store: advancedSearchStore,
-            onSearchCriteriaChange: undefined
+            onSearchCriteriaChange: undefined,
+            onSearchCriteriaChangeByUser: undefined
         };
     },
     getInitialState() {
@@ -43,12 +42,13 @@ module.exports = {
         advancedSearchStore.removeScopeChangeListener(this._onSearchCriteriaChange);
     },
     _onSearchCriteriaChange() {
-        if (this.props.onSearchCriteriaChange) {
-            this.props.onSearchCriteriaChange();
+        const {onSearchCriteriaChange} = this.props;
+        if (onSearchCriteriaChange) {
+            onSearchCriteriaChange();
         }
     },
     _SearchBarComponent() {
-        const {helpTranslationPath, minChar, placeholder} = this.props;
+        const {helpTranslationPath, minChar, onSearchCriteriaChangeByUser, placeholder} = this.props;
         const {isLoading, reference: {scopes}} = this.state;
         return (
             <SearchBar
@@ -60,7 +60,7 @@ module.exports = {
                 ref='searchBar'
                 scopes={scopes}
                 store={advancedSearchStore}
-                />
+                onSearchCriteriaChangeByUser={onSearchCriteriaChangeByUser} />
         );
     }
 };

@@ -1,10 +1,11 @@
+import React, {PropTypes} from 'react';
+import ReactDOM from 'react-dom';
 import builder from 'focus-core/component/builder';
-const React = require('react');
-const ReactDOM = require('react-dom');
+import {translate} from 'focus-core/translation';
+import uuid from 'uuid';
 
-const uuid = require('uuid');
-const Button = require('../../common/button/action').component;
-import types from 'focus-core/component/types';
+import {component as Button} from '../../common/button/action';
+
 
 const Dropdown = {
 
@@ -31,10 +32,10 @@ const Dropdown = {
     * @type {Object}
     */
     propTypes: {
-        position: types('string'),
-        iconProps: types('object'),
-        operationList: types('array'),
-        shape: types('string')
+        position: PropTypes.string,
+        iconProps: PropTypes.object,
+        operationList: PropTypes.array,
+        shape: PropTypes.string
     },
     /**
      * Component will mount
@@ -99,7 +100,7 @@ const Dropdown = {
                     {operationList.map((operation, idx) => {
                         return (
                             <li className={`mdl-menu__item ${operation.style}`} key={idx} onClick={this._handleAction(operation.action)}>
-                                {operation.label}
+                                {translate(operation.label)}
                             </li>
                         );
                     })}

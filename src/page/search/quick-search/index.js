@@ -1,24 +1,19 @@
 // Dependencies
-
-import type from 'focus-core/component/types';
+import React, {PropTypes} from 'react';
 import builder from 'focus-core/component/builder';
 
 // Components
-
 const DefaultSearchBar = require('../../../search/search-bar').component;
 const Results = require('../common/component/results').component;
 
 // Mixins
-
 const referenceBehaviour = require('../../../common/form/mixin/reference-behaviour');
 const storeBehaviour = require('../../../common/mixin/store-behaviour');
 
 // Actions
-
 import actionBuilder from 'focus-core/search/action-builder';
 
 // Stores
-
 import {quickSearchStore} from 'focus-core/search/built-in-store';
 
 /**
@@ -58,7 +53,6 @@ const QuickSearchComponent = {
             onLineClick: undefined,
             groupMaxRows: undefined,
             scrollParentSelector: undefined,
-            style: require('./style'),
             SearchBar: DefaultSearchBar
         };
     },
@@ -67,15 +61,15 @@ const QuickSearchComponent = {
     * @type {Object}
     */
     propTypes: {
-        action: type('object'),
-        groupComponent: type('func'),
-        groupMaxRows: type('number'),
-        lineComponentMapper: type('func'),
-        onLineClick: type('func'),
-        scopeFacetKey: type('string'),
-        scopeSelectionHandler: type('func'),
-        service: type('object'),
-        store: type('object')
+        action: PropTypes.object,
+        groupComponent: PropTypes.func,
+        groupMaxRows: PropTypes.number,
+        lineComponentMapper: PropTypes.func,
+        onLineClick: PropTypes.func,
+        scopeFacetKey: PropTypes.string,
+        scopeSelectionHandler: PropTypes.func,
+        service: PropTypes.object,
+        store: PropTypes.object
     },
     /**
     * Register the store listeners
@@ -177,13 +171,12 @@ const QuickSearchComponent = {
     * @return {HTML} the rendered component
     */
     render() {
-        const {style} = this.props;
         return (
             <div data-focus='quick-search'>
-                <div>
+                <div data-focus='quick-search-bar'>
                     {this._renderSearchBar()}
                 </div>
-                <div style={style.results}>
+                <div data-focus='quick-search-results'>
                     {this._renderResults()}
                 </div>
             </div>

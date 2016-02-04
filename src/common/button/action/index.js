@@ -1,15 +1,13 @@
-const React = require('react');
+import React, {PropTypes} from 'react';
 import builder from 'focus-core/component/builder';
-import types from 'focus-core/component/types';
-const i18nMixin = require('../../i18n/mixin');
+import {translate} from 'focus-core/translation';
 const stylableMixin = require('../../../mixin/stylable');
-//const Icon = require('../../icon').component;
+
 const BTN_JS = 'mdl-js-button';
 const BTN_CLASS = 'mdl-button';
 const BUTTON_PRFX = 'mdl-button--';
 const RIPPLE_EFFECT = 'mdl-js-ripple-effect';
 
-const PropTypes = React.PropTypes;
 const materialBehaviour = require('../../mixin/mdl-behaviour');
 
 const propTypes = {
@@ -31,7 +29,7 @@ const propTypes = {
 */
 const buttonMixin = {
     /** inheritedDoc */
-    mixins: [i18nMixin, stylableMixin, materialBehaviour],
+    mixins: [stylableMixin, materialBehaviour],
     displayName: 'Button',
     /** inheritedDoc */
     getDefaultProps() {
@@ -118,7 +116,7 @@ const buttonMixin = {
     _renderLabel () {
         const {label, shape} = this.props;
         if (label && 'fab' !== shape && 'icon' !== shape && 'mini-fab' !== shape ) {
-            return this.i18n(label);
+            return translate(label);
         }
         return null;
     },
@@ -126,7 +124,7 @@ const buttonMixin = {
     render() {
         const {className, icon, id, type, label, style, ...otherProps} = this.props;
         return (
-            <button alt={this.i18n(label)} className={`${className} ${this._getComponentClassName()}`} data-focus='button-action' id={id} onClick={this.handleOnClick} title={this.i18n(label)} type={type} {...otherProps}>
+            <button alt={translate(label)} className={`${className} ${this._getComponentClassName()}`} data-focus='button-action' id={id} onClick={this.handleOnClick} title={translate(label)} type={type} {...otherProps}>
                 {icon && this._renderIcon()}
                 {this._renderLabel()}
             </button>

@@ -1,7 +1,5 @@
-// Dependencies
-
+import React from 'react';
 import builder from 'focus-core/component/builder';
-const React = require('react');
 import ArgumentInvalidException from 'focus-core/exception/argument-invalid-exception';
 import numberFormatter from 'focus-core/definition/formatter/number';
 
@@ -14,7 +12,7 @@ const FacetData = {
     /**
      * Display name.
      */
-    displayName: 'facet-data',
+    displayName: 'FacetData',
     /**
      * Render the component.
      * @returns {XML} Html code of the component.

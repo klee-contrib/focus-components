@@ -1,6 +1,6 @@
 {
   "name": "focus-components",
-  "version": "0.8.6-beta4",
+  "version": "0.8.6-beta11",
   "description": "Focus component repository.",
   "main": "index.js",
   "scripts": {
@@ -14,7 +14,7 @@
   },
   "betterScripts": {
     "babelify": {
-      "command": "babel src --out-dir ./ --ignore \"example/index.js,__tests__\" --source-maps inline"
+      "command": "node scripts/babelify.js"
     },
     "copy-sass": {
       "command": "cd src && find . -name *.scss | xargs tar cvf - | tar xfp - -C ../"
@@ -69,6 +69,7 @@
     "uuid": "^2.0.1"
   },
   "devDependencies": {
+    "autoprefixer-loader": "^3.2.0",
     "babel": "^6.3.26",
     "babel-cli": "^6.4.0",
     "babel-core": "^6.4.0",
@@ -114,6 +115,6 @@
     "url-loader": "^0.5.6",
     "webpack": "^1.12.2",
     "webpack-dev-server": "^1.11.0",
-    "webpack-focus": "0.8.5"
+    "webpack-focus": "^0.10.1"
   }
 }

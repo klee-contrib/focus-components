@@ -1,19 +1,13 @@
-// Dependencies
-
+import React from 'react';
 import builder from 'focus-core/component/builder';
-const React = require('react');
-const {map} = require('lodash/collection');
+import {translate} from 'focus-core/translation';
+import {map} from 'lodash/collection';
 
 // Components
-
-const Button = require('../button/action').component;
+import {component as Button} from '../button/action';
 
 const TopicDisplayer = {
-
-    /**
-     * Display name.
-     */
-    displayName: 'topic-displayer',
+    displayName: 'TopicDisplayer',
 
     /**
      * Default props.
@@ -37,7 +31,7 @@ const TopicDisplayer = {
         return (
             <div data-focus='topic-displayer'>
                 {map(topicList, (topic, key) => {
-                    const text = displayLabels ? `${topic.label}: ${topic.value}` : topic.value;
+                    const text = displayLabels ? `${translate(topic.label)}: ${translate(topic.value)}` : translate(topic.value);
                     return (
                         <Button
                             handleOnClick={this.topicClickHandler(key)}
