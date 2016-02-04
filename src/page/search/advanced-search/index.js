@@ -1,6 +1,7 @@
 // Dependencies
 const React = require('react');
 import builder from 'focus-core/component/builder';
+import dispatcher from 'focus-core/dispatcher';
 const {camelCase: camel} = require('lodash/string');
 const {capitalize} = require('lodash/string');
 const {isFunction} = require('lodash/lang');
@@ -104,6 +105,10 @@ const AdvancedSearch = {
         ['facets', 'results', 'total-count'].forEach((node) => {
             this.props.store[`add${capitalize(camel(node))}ChangeListener`](this._onStoreChangeWithoutSearch);
         });
+        
+        // listen to scope change
+        this.props.store.addScopeChangeListener(this._onScopeChange);
+        
         this._action = this.props.action || actionBuilder({
             service: this.props.service,
             identifier: this.props.store.identifier,
@@ -120,6 +125,7 @@ const AdvancedSearch = {
         ['facets', 'results', 'total-count'].forEach((node) => {
             this.props.store[`remove${capitalize(camel(node))}ChangeListener`](this._onStoreChangeWithoutSearch);
         });
+        this.props.store.removeScopeChangeListener(this._onScopeChange);
     },
 
     getSelectedItems() {
@@ -150,6 +156,14 @@ const AdvancedSearch = {
     */
     _onStoreChangeWithoutSearch() {
         this.setState(this._getNewStateFromStore());
+    },
+    /**
+     * Scope changed, need to remove all existing sort.
+     */
+    _onScopeChange: function _onScopeChange() {
+        dispatcher.handleViewAction({data:{sortBy: null, sortAsc: null},
+            type: 'update',
+            identifier: advancedSearchStore.identifier});    
     },
     /**
      * Compute a state object from the store values.
