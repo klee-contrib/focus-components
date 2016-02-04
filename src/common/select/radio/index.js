@@ -85,10 +85,10 @@ const selectRadioMixin = {
     */
     renderSelectRadios() {
         const {uniqueName} = this.state;
-        return this.props.values.map((val, idx)=>{
+        return this.props.values.map((val, idx) => {
             const value = val[this.props.valueKey];
             const label = val[this.props.labelKey];
-            const disabled = this.props.disabled;;
+            const disabled = this.props.disabled;
             const isChecked = value === this.state.value;
             return (
                 <InputRadio key={idx} label={this.i18n(label)} name={uniqueName} onChange={this._getRadioChangeHandler(value)} value={isChecked} disabled={disabled} />
