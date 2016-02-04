@@ -10,7 +10,8 @@
     "build": "node scripts/mdl-variables-copy.js && better-npm-run babelify && better-npm-run copy-sass && better-npm-run bundle",
     "test": "mocha src/**/__tests__/**/*.js",
     "test:watch": "mocha src/**/__tests__/**/*.js -w",
-    "postinstall": "node scripts/mdl-variables-copy.js"
+    "postinstall": "node scripts/mdl-variables-copy.js",
+    "profile": "better-npm-run profile"
   },
   "betterScripts": {
     "babelify": {
@@ -28,6 +29,16 @@
         "MINIMIFY": false,
         "PACKAGE_JSON_PATH": "../"
       }
+    },
+    "profile": {
+        "command": "webpack --progress --json --profile > profile.json",
+        "env": {
+            "DEV": false,
+            "NODE_ENV": "production",
+            "LIBRARY_NAME": "FocusComponents",
+            "MINIMIFY": false,
+            "PACKAGE_JSON_PATH": "../"
+        }
     }
   },
   "babel": {

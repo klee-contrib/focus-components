@@ -1,6 +1,5 @@
 //Generator http://patorjk.com/software/taag/#p=display&h=1&f=Banner4&t=Focus-COMPONENTS
 import './style';
-
 const infos = require(`${__PACKAGE_JSON_PATH__}/package.json`);
 
 import components from './components';

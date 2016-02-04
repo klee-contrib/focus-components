@@ -1,7 +1,7 @@
 import builder from 'focus-core/component/builder';
 let React = require('react');
 import type from 'focus-core/component/types';
-import requestStore from 'focus-core/network/built-in-store';
+import {builtInStore as requestStore} from 'focus-core/network';
 let assign = require('object-assign');
 let ProgressBar = require('../../common/progress-bar').component;
 let Icon = require('../../common/icon').component;
