@@ -117,6 +117,9 @@ const listMixin = {
     */
     _renderLines() {
         const {data, LineComponent: Line, selectionData, idField, selectionStatus, ...otherProps} = this.props;
+        if(selectionData && selectionData.length > 0) {
+            console.warn('[DEPRECATED] You are using \'selectionData\' prop which is now DEPRECATED. Please use \'selectionnableInitializer\' on line component.');
+        }
         // LEGACY CODE
         const customLineComponent = otherProps.lineComponent;
         if (customLineComponent) {
