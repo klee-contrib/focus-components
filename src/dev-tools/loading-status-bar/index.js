@@ -1,5 +1,5 @@
 import React, {Component, PropTypes} from 'react';
-import requestStore from 'focus-core/network/built-in-store';
+import {builtInStore as requestStore} from 'focus-core/network';
 import LoadingStatus from './loading-status';
 
 class LoadingStatusWrapper extends Component{

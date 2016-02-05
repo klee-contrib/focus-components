@@ -1,10 +1,22 @@
 //Generator http://patorjk.com/software/taag/#p=display&h=1&f=Banner4&t=Focus-COMPONENTS
 import './style';
+import translation from 'focus-core/translation';
+import history from 'focus-core/history';
 
 const infos = require(`${__PACKAGE_JSON_PATH__}/package.json`);
 
 import components from './components';
 import behaviours from './behaviours';
+
+/** LEGACY DIRTY HACKISH RUBBISH TRICK */
+window.i18n = {
+    t: translation.translate,
+    init: translation.init
+};
+window.Backbone = {
+    history
+};
+
 /**
 * Display information data for Focus-COMPONENTS
 */

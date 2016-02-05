@@ -7,8 +7,8 @@ let data = {
     body: 'body test'
 };
 
-import domainContainer from 'focus-core/definition/domain/container';
-import entityContainer from 'focus-core/definition/entity/container';
+import {container as domainContainer} from 'focus-core/definition/domain';
+import {container as entityContainer} from 'focus-core/definition/entity';
 
 var domain =  {
   "DO_TEXT": {

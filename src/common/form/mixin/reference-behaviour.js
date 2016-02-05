@@ -1,6 +1,6 @@
 //Focus.reference.builder.loadListByName('papas').then(function(data){Focus.dispatcher.dispatch({action: {type: "update",data: {papas: data}}})})
 
-import referenceStore from 'focus-core/reference/built-in-store';
+import storeGetter from 'focus-core/reference/built-in-store';
 import builtInActionReferenceLoader from 'focus-core/reference/built-in-action';
 const isEmpty = require('lodash/lang/isEmpty');
 const referenceMixin = {
@@ -42,7 +42,7 @@ const referenceMixin = {
         this.stores = this.stores || [];
         //Set as referencestore the referencestore of the application.
         this.stores.push({
-            store: referenceStore,
+            store: storeGetter(),
             properties: this.referenceNames
         });
     },

@@ -1,6 +1,6 @@
 import React from 'react';
 import builder from 'focus-core/component/builder';
-import ArgumentInvalidException from 'focus-core/exception/argument-invalid-exception';
+import {ArgumentInvalidException} from 'focus-core/exception';
 import numberFormatter from 'focus-core/definition/formatter/number';
 
 const FacetData = {
