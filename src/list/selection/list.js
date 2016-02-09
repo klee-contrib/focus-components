@@ -154,13 +154,13 @@ const listMixin = {
             }
             return (
                 <FinalLineComponent
+                    {...otherProps}
                     data={line}
                     isSelected={isSelected}
                     key={line[idField] || idx}
                     onSelection={this._handleLineSelection}
                     ref={`line${idx}`}
                     reference={this._getReference()}
-                    {...otherProps}
                     />
             );
         });
