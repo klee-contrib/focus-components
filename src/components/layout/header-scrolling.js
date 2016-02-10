@@ -17,7 +17,6 @@ const propTypes = {
     scrollTargetSelector: PropTypes.string
 };
 
-
 // getState function.
 function getState() {
     const processMode = applicationStore.getMode();
@@ -30,8 +29,7 @@ function getState() {
     return {
         mode: mode,
         route: applicationStore.getRoute(),
-        canDeploy: applicationStore.getCanDeploy(),
-        isDeployed: applicationStore.getCanDeploy()
+        canDeploy: applicationStore.getCanDeploy()
     };
 }
 
@@ -43,7 +41,7 @@ function getState() {
 class HeaderScrolling extends Component {
     constructor(props) {
         super(props);
-        this.state = getState();
+        this.state = {...getState(), isDeployed: true};
     }
 
     /** @inheriteddoc */
@@ -60,13 +58,8 @@ class HeaderScrolling extends Component {
     }
 
     /** @inheriteddoc */
-    componentWillReceiveProps({mode, route, canDeploy, isDeployed}) {
-        this.setState({mode, route, canDeploy});
-        const hasRouteChanged = route !== this.state.route;
-        const hasModeChanged = mode !== this.state.mode;
-        if (hasRouteChanged || !hasModeChanged) {
-            this.setState({isDeployed}, this.handleScroll());
-        }
+    componentWillReceiveProps({canDeploy}) {
+        this.setState({isDeployed: true}, () => this.handleScroll(null, canDeploy));
     }
 
     /** @inheriteddoc */
@@ -90,7 +83,7 @@ class HeaderScrolling extends Component {
      * Handle the scroll event in order to show/hide the cartridge.
      * @param {object} event [description]
      */
-    handleScroll = (event) => {
+    handleScroll = (event, canDeploy) => {
         let {deployThreshold, placeholderHeight} = this.state;
 
         if (this.state.isDeployed) {
@@ -101,7 +94,7 @@ class HeaderScrolling extends Component {
         }
 
         const {top} = this.scrollPosition();
-        const isDeployed = this.props.canDeploy ? top < deployThreshold : false;
+        const isDeployed = (canDeploy !== undefined ? canDeploy : this.props.canDeploy) ? top < deployThreshold : false;
 
         if (isDeployed !== this.state.isDeployed) {
             this.setState({isDeployed}, this._notifySizeChange);
