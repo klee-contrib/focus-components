@@ -60,16 +60,20 @@ class InputText extends Component {
      * @override
     */
     render() {
-        const {error, name, placeholder, style, value: rawValue, formatter, ...otherProps} = this.props;
+        const {error, name, placeholder, style, value: rawValue, formatter, unit, inputWidth, ...otherProps} = this.props;
         const value = formatter(rawValue, MODE);
         const pattern = error ? 'hasError' : null; //add pattern to overide mdl error style when displaying an focus error.
         const inputProps = {...otherProps, value, id: name, onChange: this._handleInputChange, pattern};
         const cssClass = `mdl-textfield mdl-js-textfield${error ? ' is-invalid' : ''}`;
+        const computedStyle = inputWidth ? {...style, width: `${inputWidth}px`} : style;
         return (
-            <div className={cssClass} data-focus='input-text' ref='inputText' style={style}>
-                <input className='mdl-textfield__input' ref='htmlInput' {...inputProps} />
-                <label className='mdl-textfield__label' htmlFor={name}>{this.i18n(placeholder)}</label>
-                {error && <span className='mdl-textfield__error'>{error}</span>}
+            <div style={{display: 'flex'}}>
+                <div className={cssClass} data-focus='input-text' ref='inputText' style={computedStyle}>
+                    <input className='mdl-textfield__input' ref='htmlInput' {...inputProps} />
+                    <label className='mdl-textfield__label' htmlFor={name}>{this.i18n(placeholder)}</label>
+                    {error && <span className='mdl-textfield__error'>{error}</span>}
+                </div>
+                <div style={{margin: '5px 0 0 5px'}}>{unit}</div>
             </div>
         );
     }
