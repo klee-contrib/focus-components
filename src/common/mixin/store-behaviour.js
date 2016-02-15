@@ -1,6 +1,7 @@
 const capitalize = require('lodash/string/capitalize');
 const assign = require('object-assign');
 const {isObject, isArray} = require('lodash/lang');
+const contains = require('lodash/array/contains');
 const keys = require('lodash/object/keys');
 const storeChangeBehaviour = require('./store-change-behaviour');
 
@@ -8,17 +9,18 @@ const storeMixin = {
   mixins: [storeChangeBehaviour],
   /**
    * Get the state informations from the store.
+   * @param {string} property - The name of the store property.
    * @returns {object} - The js object constructed from store data.
    */
-  _getStateFromStores: function formGetStateFromStore() {
+  _getStateFromStores: function formGetStateFromStore(property) {
     if (this.getStateFromStore) {
-      return this.getStateFromStore();
+      return this.getStateFromStore(property);
     }
     let newState = {};
     this.stores.map((storeConf) => {
-      storeConf.properties.map((property)=>{
-        newState[property] = storeConf.store[`get${capitalize(property)}`]();
-      });
+        if (contains(storeConf.properties, property)) {
+            newState[property] = storeConf.store[`get${capitalize(property)}`]();
+        }
     });
     const computedState = assign(this._computeEntityFromStoresData(newState), this._getLoadingStateFromStores());
     return computedState;
@@ -72,7 +74,7 @@ const storeMixin = {
     if(this.computeEntityFromStoresData){
       return this.computeEntityFromStoresData(data);
     }
-    var entity = {reference: {}};
+    var entity = {reference: this.state && this.state.reference || {}};
     for(var key in data){
       if(this.referenceNames && this.referenceNames.indexOf(key) !== -1 ){
         entity.reference[key] = data[key];
