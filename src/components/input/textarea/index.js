@@ -29,7 +29,6 @@ const defaultProps = {
     type: 'text',
     formatter: identity,
     unformatter: identity,
-    maxLength: -1,
     minLength: 0,
     wrap: 'soft',
     //required: false,
