@@ -29,6 +29,7 @@ const propTypes = {
     name: PropTypes.string.isRequired,
     onChange: PropTypes.func.isRequired,
     placeholder: PropTypes.string,
+    unSelectedLabel: PropTypes.string,
     value: PropTypes.oneOfType([
         PropTypes.string,
         PropTypes.number
@@ -44,6 +45,7 @@ const defaultProps = {
     isRequired: false,
     labelKey: 'label',
     multiple: false,
+    unSelectedLabel: 'select.unSelected',
     values: [],
     valueKey: 'code',
     valueParser: _valueParser
@@ -77,11 +79,11 @@ class Select extends Component {
     };
 
     /** inheritdoc */
-    _renderOptions({hasUndefined, labelKey, isRequired, value, values = [], valueKey, isActiveProperty}) {
+    _renderOptions({hasUndefined, labelKey, isRequired, value, values = [], valueKey, isActiveProperty, unSelectedLabel}) {
         const isRequiredAndNoValue = isRequired && (isUndefined(value) || isNull(value));
         if(hasUndefined || isRequiredAndNoValue){
             values = union(
-                [{[labelKey]: this.i18n('select.unSelected'), [valueKey]: UNSELECTED_KEY}],
+                [{[labelKey]: this.i18n(unSelectedLabel), [valueKey]: UNSELECTED_KEY}],
                 values
             );
         }
