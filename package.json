@@ -31,14 +31,14 @@
       }
     },
     "profile": {
-        "command": "webpack --progress --json --profile > profile.json",
-        "env": {
-            "DEV": false,
-            "NODE_ENV": "production",
-            "LIBRARY_NAME": "FocusComponents",
-            "MINIMIFY": false,
-            "PACKAGE_JSON_PATH": "../"
-        }
+      "command": "webpack --progress --json --profile > profile.json",
+      "env": {
+        "DEV": false,
+        "NODE_ENV": "production",
+        "LIBRARY_NAME": "FocusComponents",
+        "MINIMIFY": false,
+        "PACKAGE_JSON_PATH": "../"
+      }
     }
   },
   "babel": {
