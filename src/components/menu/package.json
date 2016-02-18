@@ -1,0 +1,12 @@
+{
+  "name": "Menu",
+  "version": "1.0.0",
+  "description": "TO ADD.",
+  "fullscreen": true,
+  "keywords": [
+    "menu",
+    "material"
+  ],
+  "author": "focus@kleegroup.com",
+  "license": "MIT"
+}
