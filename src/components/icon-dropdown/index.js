@@ -2,6 +2,9 @@ import React, {Component, PropTypes} from 'react';
 import ReactDOM from 'react-dom';
 import {component as Button} from '../../common/button/action';
 
+// Mixins
+let i18nMixin = require('../../common/i18n/mixin');
+
 function isDescendant(parent, child) {
      let node = child.parentNode;
      while (node != null) {
@@ -16,8 +19,8 @@ function isDescendant(parent, child) {
 class Dropdown extends Component {
     static propTypes = {
         openDirection: PropTypes.oneOf(['bottom-left', 'bottom-right', 'top-left', 'top-right']),
-    }
-
+    },
+    mixins: [i18nMixin],
     static defaultProps = {
         openDirection: 'bottom-left',
         iconProps: {
@@ -74,7 +77,7 @@ class Dropdown extends Component {
                     />
                 {visible &&
                     <div data-focus='dropdown-menu' data-position={openDirection} ref='dropdown'>
-                        {operationList.map(({label, action}, idx) => (<div key={idx} data-role='dropdown-item' onClick={this._operationActionWrapper(action)}>{label}</div>))}
+                        {operationList.map(({label, action}, idx) => (<div key={idx} data-role='dropdown-item' onClick={this._operationActionWrapper(action)}>{this.i18n.t(label)}</div>))}
                     </div>
                 }
             </div>
