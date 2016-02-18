@@ -70,15 +70,17 @@ const changeBehaviourMixin = {
     _onError: function onFormErrorHandler(changeInfos) {
         const errorState = this._getErrorStateFromStores();
         if (this.definitionPath) {
+            // In case we have a definitionPath, we might want to trigger a setError on the corresponding field
             for (let key in errorState) {
+                // Let's find that corresponding field, considering that the ref might not directly be 'storeNode.fieldName', but in fact 'entityPath.fieldName'
                 const ref = reduce(this.refs, (acc, value, candidateRef) => {
-                    const candidate = candidateRef.replace(`${this.definitionPath}.`, '');
-                    if (candidate === key.match(/([^\.]*)$/)[0]) {
+                    const candidate = candidateRef.replace(`${this.definitionPath}.`, ''); // Remove the 'definitionPath.'
+                    if (candidate === key.match(/([^\.]*)$/)[0]) { // Look for the 'fieldName' part of 'storeNode.fieldName'
                         acc = value;
                     }
                     return acc;
                 }, null);
-                if (ref) {
+                if (ref) { // If we found it, then bingo
                     ref.setError(errorState[key]);
                 }
             }
