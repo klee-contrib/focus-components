@@ -1,6 +1,7 @@
 import React, {Component, PropTypes} from 'react';
 import ReactDOM from 'react-dom';
 import {component as Button} from '../../common/button/action';
+import Translation from '../../behaviours/translation';
 
 function isDescendant(parent, child) {
      let node = child.parentNode;
@@ -12,7 +13,7 @@ function isDescendant(parent, child) {
      }
      return false;
 }
-
+@Translation
 class Dropdown extends Component {
     static propTypes = {
         openDirection: PropTypes.oneOf(['bottom-left', 'bottom-right', 'top-left', 'top-right']),
@@ -74,7 +75,7 @@ class Dropdown extends Component {
                     />
                 {visible &&
                     <div data-focus='dropdown-menu' data-position={openDirection} ref='dropdown'>
-                        {operationList.map(({label, action}, idx) => (<div key={idx} data-role='dropdown-item' onClick={this._operationActionWrapper(action)}>{label}</div>))}
+                        {operationList.map(({label, action}, idx) => (<div key={idx} data-role='dropdown-item' onClick={this._operationActionWrapper(action)}>{this.i18n(label)}</div>))}
                     </div>
                 }
             </div>
