@@ -4,8 +4,8 @@
   "description": "Simple popin component with all its behaviours",
   "fullscreen": true,
   "keywords": [
-    "popin",
-    "material"
+    "material",
+    "popin"
   ],
   "author": "focus@kleegroup.com",
   "license": "MIT"

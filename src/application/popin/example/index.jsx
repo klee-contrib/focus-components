@@ -99,7 +99,7 @@ const MyPopin = React.createClass({
                     Hello there,
                     <br/>
                     <br/>
-                    Here, you have a <i>"small"</i> Poping coming <i>"from-menu"</i> with a <i>"false"</i> modal !
+                    Here, you have a <i>"small"</i> Poping coming <i>"from-menu"</i> with a  modal set to <i>"false"</i> !
                     <br/>
                     Click on the <b>settings</b> button near Superman to display a last Popin.
                 </h4>

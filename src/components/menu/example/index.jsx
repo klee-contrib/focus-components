@@ -15,7 +15,7 @@ const MyMenu = React.createClass({
                 }
             },
             {
-                icon:'chat bubble',
+                icon:'chat',
                 onClick() {
                     self.refs.popin.togglePopin();
                 }
@@ -63,7 +63,7 @@ const MyPopin = React.createClass({
     },
     render() {
         return (
-            <Popin ref='popin' size='small'>
+            <Popin ref='popin' size='small' type='from-menu'>
                 <h2>
                     News
                 </h2>
