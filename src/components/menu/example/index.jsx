@@ -11,7 +11,7 @@ const MyMenu = React.createClass({
             {
                 icon:'home',
                 onClick() {
-                    self.GoHome();
+                    self.goHome();
                 }
             },
             {
@@ -37,7 +37,7 @@ const MyMenu = React.createClass({
     render() {
         return (
             <div>
-                <MenuLeft items={this.itemsBuilder()} handleBrandClick={this.GoHome}>
+                <MenuLeft items={this.itemsBuilder()} handleBrandClick={this.goHome}>
                 </MenuLeft>
                 <div style={this.style} className='demo-card-wide mdl-card mdl-shadow--2dp'>
                     <div className='mdl-card__title'>
