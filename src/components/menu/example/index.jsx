@@ -2,7 +2,7 @@ const {MenuLeft} = FocusComponents.components;
 const Popin = FocusComponents.application.popin.component;
 
 const MyMenu = React.createClass({
-    GoHome() {
+    goHome() {
         window.location.href = '#'
     },
     itemsBuilder() {
@@ -67,14 +67,16 @@ const MyPopin = React.createClass({
                     News
                 </h2><br/>
                 <h4>
-                    Hello there, <br/>
-                I'm a Popin component.<br/>
-            I Hope our demos are helpful...
-        </h4>
-        And I hope I'll got my demo page soon 😐 <br/>
-    <h5><i>Focus.</i></h5>
-</Popin>
-);
+                    Hello there,
+                    <br/>
+                    I'm a Popin component.
+                    <br/>
+                    I Hope our demos are helpful...
+                </h4>
+                And I hope I'll got my demo page soon 😐 <br/>
+            <h5><i>Focus.</i></h5>
+        </Popin>
+    );
 }
 });
 
