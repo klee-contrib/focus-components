@@ -45,15 +45,16 @@ const MyMenu = React.createClass({
                     </div>
                     <div className='mdl-card__supporting-text'>
                         <h6>
-                            Here you can see a Focus menu bar example.<br/>
-                        You can easily define actions to your icons and stay on the same wavelength as your application's logic.
-                    </h6>
+                            Here you can see a Focus menu bar example.
+                            <br/>
+                            You can easily define actions to your icons and stay on the same wavelength as your application's logic.
+                        </h6>
+                    </div>
                 </div>
+                <MyPopin ref='popin'/>
             </div>
-            <MyPopin ref='popin'/>
-        </div>
-    );
-}
+        );
+    }
 });
 
 const MyPopin = React.createClass({
@@ -65,7 +66,8 @@ const MyPopin = React.createClass({
             <Popin ref='popin' size='small'>
                 <h2>
                     News
-                </h2><br/>
+                </h2>
+                <br/>
                 <h4>
                     Hello there,
                     <br/>
@@ -73,11 +75,12 @@ const MyPopin = React.createClass({
                     <br/>
                     I Hope our demos are helpful...
                 </h4>
-                And I hope I'll got my demo page soon 😐 <br/>
-            <h5><i>Focus.</i></h5>
-        </Popin>
-    );
-}
+                And I hope I'll got my demo page soon 😐
+                <br/>
+                <h5><i>Focus.</i></h5>
+            </Popin>
+        );
+    }
 });
 
 module.exports = MyMenu;
