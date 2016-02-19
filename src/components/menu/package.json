@@ -1,0 +1,12 @@
+{
+  "name": "Menu",
+  "version": "1.0.0",
+  "description": "Menu component with multiple icons and different actions.",
+  "fullscreen": true,
+  "keywords": [
+    "menu",
+    "material"
+  ],
+  "author": "focus@kleegroup.com",
+  "license": "MIT"
+}

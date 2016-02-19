@@ -58,8 +58,6 @@ class Sample extends React.Component {
         const {delayedValue, isEdit} = this.state;
         return (
             <div>
-                <button onClick={() => {this.setState({isEdit: !this.state.isEdit})}}>Toggle edit</button>
-                <button onClick={() => {alert(this.refs.first.getValue())}}>Get value of first one</button>
                 <AutocompleteSelect
                     isEdit={isEdit}
                     keyResolver={keyResolver}
@@ -67,12 +65,15 @@ class Sample extends React.Component {
                     ref='first'
                     value='lol'
                     />
+                <br />
                 <AutocompleteSelect
                     isEdit={isEdit}
                     keyResolver={keyResolver}
                     querySearcher={querySearcher}
                     value={delayedValue}
-                    />
+                /> <br />
+                <button className='mdl-button mdl-js-button mdl-button--raised mdl-button--colored' onClick={() => {this.setState({isEdit: !this.state.isEdit})}}>Toggle edit</button>
+                <button className='mdl-button mdl-js-button mdl-button--raised mdl-button--colored' onClick={() => {alert(this.refs.first.getValue())}}>Get value of first one</button>
             </div>
         );
     }
