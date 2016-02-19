@@ -44,6 +44,7 @@ import '../components/layout/style/header-top-row.scss';
 import '../components/layout/style/header-actions.scss';
 import '../components/layout/style/header-scrolling.scss';
 import '../components/menu/style/menu.scss';
+import '../components/message-center/style/message-center.scss';
 import '../components/panel/style/panel.scss'
 import '../components/scrollspy-container/style/scrollspy-container.scss';
 import '../components/scrollspy-container/style/sticky-menu.scss';
