@@ -1,0 +1,12 @@
+{
+  "name": "Popin",
+  "version": "1.0.0",
+  "description": "Simple popin component with all its behaviours",
+  "fullscreen": true,
+  "keywords": [
+    "material",
+    "popin"
+  ],
+  "author": "focus@kleegroup.com",
+  "license": "MIT"
+}
