@@ -12,14 +12,16 @@ const ConfirmExample = React.createClass({
         return 'Hey there do you want to continue';
     },
     firstConfirm() {
-        return console.log('Ok');
+        const self = this;
+        const value = self.refs.textName.textValue();
+        alert('Welcome to Focus ' + value);
     },
     firstCancel() {
-        return console.log('KO');
+        console.log('KO');
     },
     renderTextValue() {
         const self = this;
-        return 'So, your name is ' + self.refs.textName.textValue() + '?'; 
+        return 'So, your name is ' + self.refs.textName.textValue() + ' ?';
     },
 
     // This one is for the second confirm example (will contain a component inside the popin)
@@ -44,7 +46,7 @@ const ConfirmExample = React.createClass({
                 </button>
 
                 <h1>Second example</h1>
-                <h5>Here you can put your Component to display it trough a Popin</h5>
+                <h5>Here you can put your Component to display it trough a Confirm Popin</h5>
                 <button className='mdl-button mdl-js-button mdl-button--raised mdl-button--colored' onClick={() => confirm(this.secondDataBuilder()).then(() => this.secondConfirm(), () => this.secondCancel())}>
                     Save
                 </button>
@@ -99,7 +101,7 @@ const MyAutocomplete = React.createClass({
             <div>
                 <h1> Enter your city name</h1>
                 <h5>Here is the AutocompleteSelect imported to give a customized confirm popin. You'll have the posibility to get the data you want from it.</h5>
-                <AutocompleteSelect ref='autocomp' isEdit={isEdit} keyResolver={keyResolver} querySearcher={querySearcher} />
+                <AutocompleteSelect ref='autocomp' isEdit={isEdit} keyResolver={keyResolver} querySearcher={querySearcher} onChange={ () => console.log('Autocomplete text is changing')} />
             </div>
         );
     }
@@ -111,7 +113,7 @@ const NameText = React.createClass({
     },
     render() {
         return(
-            <Input ref='textName' />
+            <Input name='myInput' onChange={() => console.log('Changing the input')} ref='textName' />
         );
     }
 });
