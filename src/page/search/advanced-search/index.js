@@ -59,6 +59,7 @@ const AdvancedSearch = {
             service: undefined,
             orderableColumnList: [],
             lineOperationList: [],
+            openedFacetList: {},
             groupComponent: undefined,
             lineComponentMapper: undefined,
             scrollParentSelector: undefined,
@@ -79,6 +80,7 @@ const AdvancedSearch = {
         store: type('object'),
         action: type('object'),
         service: type('object'),
+        openedFacetList: type('object'),
         orderableColumnList: type(['array', 'object']),
         lineOperationList: type(['array', 'object']),
         exportAction: type('func'),
@@ -105,10 +107,10 @@ const AdvancedSearch = {
         ['facets', 'results', 'total-count'].forEach((node) => {
             this.props.store[`add${capitalize(camel(node))}ChangeListener`](this._onStoreChangeWithoutSearch);
         });
-        
+
         // listen to scope change
         this.props.store.addScopeChangeListener(this._onScopeChange);
-        
+
         this._action = this.props.action || actionBuilder({
             service: this.props.service,
             identifier: this.props.store.identifier,
@@ -163,7 +165,7 @@ const AdvancedSearch = {
     _onScopeChange: function _onScopeChange() {
         dispatcher.handleViewAction({data:{sortBy: null, sortAsc: null},
             type: 'update',
-            identifier: advancedSearchStore.identifier});    
+            identifier: advancedSearchStore.identifier});
     },
     /**
      * Compute a state object from the store values.
@@ -303,13 +305,14 @@ const AdvancedSearch = {
     * @return {HTML} the rendered component
     */
     render() {
-        const {style} = this.props;
+        // true if a facet is collapsed
+        const facetCollapsedClassName = Object.keys(this.props.openedFacetList).length === 0 ? 'facet-collapsed' : '';
         return (
             <div className='advanced-search' data-focus='advanced-search'>
-                <div data-focus='facet-container' style={style.facets}>
+                <div data-focus={`facet-container ${facetCollapsedClassName}`}>
                     {this._renderFacetBox()}
                 </div>
-                <div data-focus='result-container' style={style.results}>
+                <div data-focus='result-container'>
                     {this._renderListSummary()}
                     {this._renderActionBar()}
                     {this._renderResults()}
