@@ -309,7 +309,7 @@ const AdvancedSearch = {
         const facetCollapsedClassName = Object.keys(this.props.openedFacetList).length === 0 ? 'facet-collapsed' : '';
         return (
             <div className='advanced-search' data-focus='advanced-search'>
-                <div data-focus={`facet-container ${facetCollapsedClassName}`}>
+                <div data-focus='facet-container' className={facetCollapsedClassName}>
                     {this._renderFacetBox()}
                 </div>
                 <div data-focus='result-container'>
