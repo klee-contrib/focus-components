@@ -29,16 +29,6 @@ $boxSize:60px;
             background-color: $sl-line-bg-hover;
         }
 
-        [data-focus="sl-icon"] {
-            position: absolute;
-            top: 50%;
-            transform: translateY(-50%);
-            left: 0;
-            text-align: center;
-            width: $boxSize + 10px;
-            font-size: 30px;
-        }
-
         .level1 {
             font-size: 15pt;
             color: $sl-line-level1-color;
@@ -78,10 +68,9 @@ $boxSize:60px;
 
         div.sl-actions {
             position: absolute;
-            top : 50%;
+            top : 25%;
             right : 0px;
             display: none;
-            transform: translateY(-50%);
             .btn {
                 margin-right: 10px;
             }
