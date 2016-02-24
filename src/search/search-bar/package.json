@@ -1,19 +1,15 @@
 {
-  "name": "search-bar",
+  "name": "Search Bar",
   "version": "1.0.0",
-  "description": "Search bar.",
+  "description": "Search bar with its different styles of usage.",
   "main": "index.js",
   "directories": {
     "example": "example"
   },
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
   "keywords": [
+    "material",
     "search",
-    "bar",
-    "input",
-    "dumb"
+    "bar"
   ],
   "author": "focus@kleegroup.com",
   "license": "MIT"
