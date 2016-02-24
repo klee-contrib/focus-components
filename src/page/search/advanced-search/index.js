@@ -63,8 +63,7 @@ const AdvancedSearch = {
             groupComponent: undefined,
             lineComponentMapper: undefined,
             scrollParentSelector: undefined,
-            onLineClick: undefined,
-            style: require('./style')
+            onLineClick: undefined
         };
     },
     /**
