@@ -79,7 +79,7 @@ const MySearchBarWithScopes = React.createClass({
                 store={searchBarWithScopesStore}
                 placeholder={`Enter your search here...`}
                 action={this._action}
-            />
+                />
         );
     }
 });
