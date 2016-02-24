@@ -34,12 +34,12 @@ module.exports = {
             identifier: this.props.store.identifier,
             getSearchOptions: () => {return this.props.store.getValue.call(this.props.store); } // Binding the store in the function call
         });
-        advancedSearchStore.addQueryChangeListener(this._onSearchCriteriaChange);
-        advancedSearchStore.addScopeChangeListener(this._onSearchCriteriaChange);
+        this.props.store.addQueryChangeListener(this._onSearchCriteriaChange);
+        this.props.store.addScopeChangeListener(this._onSearchCriteriaChange);
     },
     componentWillUnmount() {
-        advancedSearchStore.removeQueryChangeListener(this._onSearchCriteriaChange);
-        advancedSearchStore.removeScopeChangeListener(this._onSearchCriteriaChange);
+        this.props.store.removeQueryChangeListener(this._onSearchCriteriaChange);
+        this.props.store.removeScopeChangeListener(this._onSearchCriteriaChange);
     },
     _onSearchCriteriaChange() {
         const {onSearchCriteriaChange} = this.props;
@@ -48,7 +48,7 @@ module.exports = {
         }
     },
     _SearchBarComponent() {
-        const {helpTranslationPath, minChar, onSearchCriteriaChangeByUser, placeholder} = this.props;
+        const {helpTranslationPath, minChar, onSearchCriteriaChangeByUser, placeholder, store} = this.props;
         const {isLoading, reference: {scopes}} = this.state;
         return (
             <SearchBar
@@ -59,7 +59,7 @@ module.exports = {
                 placeholder={placeholder}
                 ref='searchBar'
                 scopes={scopes}
-                store={advancedSearchStore}
+                store={store}
                 onSearchCriteriaChangeByUser={onSearchCriteriaChangeByUser} />
         );
     }
