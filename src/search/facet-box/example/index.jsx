@@ -1,5 +1,24 @@
 const FacetBox = FocusComponents.search.facetBox.component;
-console.log(FacetBox);
+const i18nInitializer = FocusCore.translation.init;
+
+const resources = {
+    dev: {
+        translation: {
+            live: {
+                filter: {
+                    title: 'FACETS',
+                    facets: {
+                        FCT_CONTRIES: 'Contries',
+                        FCT_REGIONS: 'Regions',
+                        FCT_CITIES: 'Cities'
+                    }
+                }
+            }
+        }
+    }
+};
+
+i18nInitializer({resStore: resources});
 
 const FacetsExample = React.createClass({
     render() {
@@ -19,35 +38,32 @@ const MyFacetBox = React.createClass({
         })
     },
     config: {
-        FCT_PAYS: 'text',
-        FCT_STATUS: 'text',
-        FCT_REGION: 'text',
-        FCT_ONLY_ONE: 'text'
+        FCT_CONTRIES: 'text',
+        FCT_REGIONS: 'text',
+        FCT_CITIES: 'text'
     },
     facetList: {
-        FCT_PAYS: {
-            FRA: {label: 'France', count: 5},
-            GER: {label: 'Germany', count: 8}
+        FCT_CONTRIES: {
+            FRA: {label: 'France', count: 43},
+            GER: {label: 'Germany', count: 18},
+            ENG: {label: 'England', count: 12}
         },
-        FCT_STATUS: {
-            OPE: {label: 'Open', count: 7},
-            CLO: {label: 'Closed', count: 2},
-            ST1: {label: 'Status 1', count: 2},
-            ST2: {label: 'Status 2', count: 2},
-            ST3: {label: 'Status 3', count: 2},
-            ST4: {label: 'Status 4', count: 2},
-            ST5: {label: 'Status 5', count: 2},
-            ST6: {label: 'Status 6', count: 2},
-            ST7: {label: 'Status 7', count: 2},
-            ST8: {label: 'Status 8', count: 2},
-            ST9: {label: 'Status 9', count: 2}
-        },
-        FCT_REGION: {
+        FCT_REGIONS: {
             IDF: {label: 'Ile de France', count: 11},
-            NPC: {label: 'Nord - Pas de Calais', count: 6}
+            RHA: {label: 'Rhône-Alpes', count: 25},
+            LRN: {label: 'Lorraine', count: 7},
+            BDB: {label: 'Brandenburg', count: 2},
+            HMB: {label: 'Hamburg', count: 5},
+            WML: {label: 'West Midlands', count: 8},
+            HPS: {label: 'Hampshire', count: 5}
         },
-        FCT_ONLY_ONE: {
-            IDF: {label: 'Ile de France', count: 11}
+        FCT_CITIES: {
+            Par: {label: 'Paris', count: 11},
+            LYO: {label: 'Lyon', count: 25},
+            BRL: {label: 'Hennigsdorf', count: 2},
+            MNC: {label: 'Hamburg', count: 5},
+            LND: {label: 'Birmingham', count: 8},
+            SHN: {label: 'Southampton', count: 5}
         }
     },
     dataSelectionHandler({selectedFacetList, openedFacetList}) {
