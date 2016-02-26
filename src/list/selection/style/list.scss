@@ -55,14 +55,14 @@ $boxSize:60px;
             -webkit-transform-style: preserve-3d;
             -moz-transform-style: preserve-3d;
             transform-style: preserve-3d;
-            [data-focus="input-checkbox"] {
-                position: relative;
-                top: 50%;
-                left:20px;
-                transform: translateY(-50%);
-                text-align: center;
-                margin: 0;
-                height: 27px;
+            [data-focus="input-checkbox-container"] {
+                height: 100%;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                [data-focus="input-checkbox"] {
+                    width: auto;
+                }
             }
         }
 
