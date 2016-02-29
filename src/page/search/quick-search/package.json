@@ -1,19 +1,20 @@
 {
-  "name": "quick-search",
-  "version": "1.0.0",
-  "description": "Quick search page. Puts a search bar and the corresponding results list�.",
-  "main": "index.js",
-  "directories": {
-    "example": "example"
-  },
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "keywords": [
-    "search",
-    "page",
-    "smart"
-  ],
-  "author": "focus@kleegroup.com",
-  "license": "MIT"
+    "name": "Quick Search",
+    "version": "1.0.0",
+    "description": "Quick search page. Puts a search bar and the corresponding results list.",
+    "main": "index.js",
+    "directories": {
+        "example": "example"
+    },
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "keywords": [
+        "material",
+        "search",
+        "page",
+        "smart"
+    ],
+    "author": "focus@kleegroup.com",
+    "license": "MIT"
 }
