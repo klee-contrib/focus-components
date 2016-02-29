@@ -1,26 +1,25 @@
+$checkobox-with-error-color: #de3226;
+
 // Gestion CSS de l'erreur sur les checkboxs
-[data-focus="input-checkbox-container"] {
-  .mdl-checkbox {
-    padding-bottom: 20px;
-    height:100%;
-    margin:7px 0;
-  }
-
-  .mdl-checkbox__error {
-      color: rgb(222, 50, 38);
-      position: absolute;
-      font-size: 12px;
-      margin-top: 3px;
-      visibility: hidden;
-      display: block;
-  }
-}
-
-[data-focus="input-checkbox-container"][data-error="true"] {
-    .mdl-checkbox {
-      color: #de3226;
-      .mdl-checkbox__error{
-        visibility: visible;
-      }
+[data-focus="input-checkbox-with-error-container"] {
+    [data-focus="input-checkbox"] {
+        height: auto;
+    }
+    .input-checkbox__error {
+        color: $checkobox-with-error-color;
+        font-size: 12px;
+        display: block;
+    }
+    &[data-error="true"] {
+        .mdl-checkbox {
+            &.is-checked {
+                .mdl-checkbox__tick-outline {
+                    background-color: $checkobox-with-error-color;
+                }
+            }
+        }
+        .mdl-checkbox__box-outline {
+            border-color: $checkobox-with-error-color;
+        }
     }
 }
