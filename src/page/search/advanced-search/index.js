@@ -8,25 +8,21 @@ const {isFunction} = require('lodash/lang');
 const {reduce} = require('lodash/collection');
 
 // Components
-
 const FacetBox = require('./facet-box').component;
 const ListActionBar = require('./action-bar').component;
 const ListSummary = require('./list-summary').component;
 const Results = require('../common/component/results').component;
-
 const BackToTopComponent = require('../../../common/button/back-to-top').component;
+import DefaultGroupComponent from './group';
 
 // Store
-
 import {advancedSearchStore} from 'focus-core/search/built-in-store';
 
 // Mixins
-
 const CartridgeBehaviour = require('../../mixin/cartridge-behaviour');
 import type from 'focus-core/component/types';
 
 // Actions
-
 import actionBuilder from 'focus-core/search/action-builder';
 
 /**
@@ -49,21 +45,21 @@ const AdvancedSearch = {
     */
     getDefaultProps() {
         return {
-            facetConfig: {},
-            scopesConfig: {},
-            isSelection: true,
-            hasBackToTop: true,
-            backToTopComponent: BackToTopComponent,
-            store: advancedSearchStore,
             action: undefined,
-            service: undefined,
-            orderableColumnList: [],
+            backToTopComponent: BackToTopComponent,
+            facetConfig: {},
+            groupComponent: DefaultGroupComponent,
+            hasBackToTop: true,
+            isSelection: true,
             lineOperationList: [],
-            openedFacetList: {},
-            groupComponent: undefined,
             lineComponentMapper: undefined,
+            orderableColumnList: [],
+            onLineClick: undefined,
+            openedFacetList: {},
+            scopesConfig: {},
             scrollParentSelector: undefined,
-            onLineClick: undefined
+            service: undefined,
+            store: advancedSearchStore
         };
     },
     /**
@@ -71,22 +67,22 @@ const AdvancedSearch = {
     * @type {Object}
     */
     propTypes: {
-        scopesConfig: type('object'),
-        facetConfig: type('object'),
-        isSelection: type('bool'),
-        hasBackToTop: type('bool'),
-        backToTopComponent: type('func'),
-        store: type('object'),
         action: type('object'),
-        service: type('object'),
-        openedFacetList: type('object'),
-        orderableColumnList: type(['array', 'object']),
-        lineOperationList: type(['array', 'object']),
+        backToTopComponent: type('func'),
         exportAction: type('func'),
+        facetConfig: type('object'),
         groupComponent: type('func'),
+        hasBackToTop: type('bool'),
+        isSelection: type('bool'),
         lineComponentMapper: type('func'),
+        lineOperationList: type(['array', 'object']),
+        onLineClick: type('func'),
+        orderableColumnList: type(['array', 'object']),
+        openedFacetList: type('object'),
+        scopesConfig: type('object'),
         scrollParentSelector: type('string'),
-        onLineClick: type('func')
+        service: type('object'),
+        store: type('object')
     },
     /**
      * Get initial state
