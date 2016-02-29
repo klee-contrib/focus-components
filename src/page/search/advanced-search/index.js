@@ -181,7 +181,19 @@ const AdvancedSearch = {
         const facets = store.getFacets();
         const results = store.getResults();
         const totalCount = store.getTotalCount();
-        return {query, scope, selectedFacets, groupingKey, sortBy, sortAsc, facets, results, totalCount};
+        const hasGrouping = scope !== undefined && scope !== 'ALL';
+        return {
+            facets,
+            groupingKey,
+            hasGrouping,
+            query,
+            scope,
+            selectedFacets,
+            sortBy,
+            sortAsc,
+            results,
+            totalCount
+        };
     },
     /**
     * Export action handler.
@@ -229,7 +241,7 @@ const AdvancedSearch = {
     * @returns {HTML} the rendered component
     */
     _renderActionBar() {
-        const {facets, groupingKey, selectedFacets, selectionStatus, sortBy} = this.state;
+        const {facets, groupingKey, hasGrouping, selectedFacets, selectionStatus, sortBy} = this.state;
         const {isSelection, lineOperationList, orderableColumnList} = this.props;
         const groupableColumnList = facets ? Object.keys(facets).reduce((result, facetKey) => {
             if (Object.keys(facets[facetKey]).length > 1) {
@@ -245,6 +257,7 @@ const AdvancedSearch = {
                 action={this._action}
                 groupSelectedKey={groupingKey}
                 groupableColumnList={groupableColumnList}
+                hasGrouping={hasGrouping}
                 isSelection={isSelection}
                 operationList={lineOperationList}
                 orderSelected={sortBy}
@@ -253,7 +266,7 @@ const AdvancedSearch = {
                 selectedFacets={selectedFacets}
                 selectionAction={selectionAction}
                 selectionStatus={selectionStatus}
-                />
+            />
         );
     },
     /**

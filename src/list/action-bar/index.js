@@ -32,6 +32,7 @@ const ActionBar = {
     getDefaultProps() {
         return {
             isSelection: true,
+            hasGrouping: true,
             selectionStatus: 'none', // none, selected, partial
             selectionAction(selectionStatus) {
                 console.warn(selectionStatus);
@@ -107,22 +108,26 @@ const ActionBar = {
     * @private
     */
     _getGroupObject() {
-        const {groupLabelPrefix, groupSelectedKey, groupableColumnList, style} = this.props;
-        const groupOperationList = reduce(groupableColumnList, (operationList, label, key) => {
-            operationList.push({
-                action: this._groupFunction(key),
-                label: this.i18n(groupLabelPrefix + label),
-                style: this._getSelectedStyle(key, groupSelectedKey)
-            });
-            return operationList;
-        }, []).concat([{
-            label: this.i18n('list.actionBar.ungroup'),
-            action: this._groupFunction()
-        }]);
-        const groupIcon ='folder_open';
-        return (
-            <Dropdown iconProps={{name: groupIcon}} operationList={groupOperationList}/>
-        );
+        const {hasGrouping} = this.props;
+        if(hasGrouping){
+            const {groupLabelPrefix, groupSelectedKey, groupableColumnList, style} = this.props;
+            const groupOperationList = reduce(groupableColumnList, (operationList, label, key) => {
+                operationList.push({
+                    action: this._groupFunction(key),
+                    label: this.i18n(groupLabelPrefix + label),
+                    style: this._getSelectedStyle(key, groupSelectedKey)
+                });
+                return operationList;
+            }, []).concat([{
+                label: this.i18n('list.actionBar.ungroup'),
+                action: this._groupFunction()
+            }]);
+            const groupIcon ='folder_open';
+            return (
+                <Dropdown iconProps={{name: groupIcon}} operationList={groupOperationList}/>
+            );
+        }
+        return null;
     },
 
     /**
@@ -181,9 +186,9 @@ const ActionBar = {
                 </div>
                 <div className='mdl-cell mdl-cell--hide-tablet mdl-cell--hide-phone' data-focus='selected-facet-content'>
                     <TopicDisplayer
-                        displayLabels={true}
-                        topicClickAction={this.props.facetClickAction}
-                        topicList={this.props.facetList} />
+                    displayLabels={true}
+                    topicClickAction={this.props.facetClickAction}
+                    topicList={this.props.facetList} />
                 </div>
                 <div className='mdl-cell' data-focus='contextual-action-content'>
                     <ActionContextual operationList={this.props.operationList}/>

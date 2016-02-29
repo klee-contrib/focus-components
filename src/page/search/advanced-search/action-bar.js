@@ -20,15 +20,16 @@ const Bar = {
      */
     getDefaultProps() {
         return ({
-            orderableColumnList: {},
-            groupableColumnList: {},
-            orderSelected: undefined,
-            selectionStatus: undefined,
-            selectionAction: undefined,
-            groupingKey: undefined,
-            selectedFacets: {},
             action: undefined,
-            lineOperationList: undefined
+            groupableColumnList: {},
+            groupingKey: undefined,
+            hasGrouping: true,
+            lineOperationList: undefined,
+            orderableColumnList: {},
+            orderSelected: undefined,
+            selectionAction: undefined,
+            selectionStatus: undefined,
+            selectedFacets: {}
         });
     },
     /**
@@ -78,22 +79,24 @@ const Bar = {
      * @return {HTML} the rendered component
      */
     render() {
+        const {groupableColumnList, groupingKey, hasGrouping, isSelection, operationList, orderableColumnList, selectionAction, selectionStatus, sortBy} = this.props;
         return (
             <ListActionBar
                 data-focus='advanced-search-action-bar'
                 facetClickAction={this._onFacetClick}
                 facetList={this._filterFacetList()}
                 groupAction={this._groupAction}
+                groupableColumnList={groupableColumnList}
                 groupLabelPrefix='live.filter.facets.'
-                groupSelectedKey={this.props.groupingKey}
-                groupableColumnList={this.props.groupableColumnList}
-                isSelection={this.props.isSelection}
-                operationList={this.props.operationList}
+                groupSelectedKey={groupingKey}
+                hasGrouping={hasGrouping}
+                isSelection={isSelection}
+                operationList={operationList}
                 orderAction={this._orderAction}
-                orderSelected={this.props.sortBy}
-                orderableColumnList={this.props.orderableColumnList}
-                selectionAction={this.props.selectionAction}
-                selectionStatus={this.props.selectionStatus}
+                orderSelected={sortBy}
+                orderableColumnList={orderableColumnList}
+                selectionAction={selectionAction}
+                selectionStatus={selectionStatus}
             />
         );
     }
