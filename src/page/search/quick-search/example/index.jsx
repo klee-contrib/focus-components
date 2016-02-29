@@ -4,56 +4,64 @@ const QuickSearchExample = React.createClass({
     render() {
         return(
             <div>
-                <h1>Hello</h1>
+                <center>
+                    <h3>Quicksearch</h3>
+                </center>
                 <MyQuickSearch />
             </div>
         );
     }
 });
 
+const scopes = [
+    {
+        icon: 'face',
+        code: 'USERS',
+        label: 'Users'
+    },
+    {
+        icon: 'extension',
+        code: 'EXTENSIONS',
+        label: 'Extensions'
+    },
+    {
+        icon: 'contact_phone',
+        code: 'CONTACTS',
+        label: 'Contacts'
+    }
+];
+
+Focus.reference.config.set({
+    scopes() {
+        return new Promise(success => {
+            success(scopes);
+        });
+    }
+});
+
+Focus.definition.entity.container.setEntityConfiguration({
+    contact: {
+        firstName: {
+            domain: 'DO_TEXT',
+            required: false
+        },
+        lastName: {
+            domain: 'DO_TEXT',
+            required: true
+        },
+        age: {
+            domain: 'DO_NUMBER',
+            required: false
+        },
+        email: {
+            domain: 'DO_EMAIL',
+            required: false
+        }
+    }
+});
+
 const MyQuickSearch = React.createClass({
     render() {
-        Focus.reference.config.set({
-            scopes() {
-                return new Promise(success => {
-                    success([
-                        {
-                            code: 'face',
-                            label: 'Utilisateurs'
-                        },
-                        {
-                            code: 'extension',
-                            label: 'Extensions'
-                        },
-                        {
-                            code: 'contact_phone',
-                            label: 'Contacts'
-                        }
-                    ]);
-                });
-            }
-        });
-
-        Focus.definition.entity.container.setEntityConfiguration({
-            contact: {
-                firstName: {
-                    domain: 'DO_TEXT',
-                    required: false
-                },
-                lastName: {
-                    domain: 'DO_TEXT',
-                    required: true
-                },
-                age: {
-                    domain: 'DO_NUMBER',
-                    required: false
-                },
-                email: {
-                    domain: 'DO_EMAIL',
-                    required: false
-                }
-            }
-        });
         let countId = 0;
 
         const getSearchService = (scoped) => {
@@ -61,36 +69,53 @@ const MyQuickSearch = React.createClass({
                 return new Promise(success => {
                     setTimeout(() => {
                         const groups = {
-                            Test: [
-                            ],
-                            Autre: [
-                            ]
+                            Test: [],
+                            Autre: []
                         };
 
                         const list = [
                             {
                                 id: countId++,
-                                firstName: 'toto',
-                                lastName: 'ceci est un test'
+                                firstName: 'Ali',
+                                lastName: 'Gator'
                             },
                             {
                                 id: countId++,
-                                firstName: 'tata',
-                                lastName: 'deuxieme test'
-                            }
+                                firstName: 'Farah',
+                                lastName: 'Paupière'
+                            },
+                            {
+                                id: countId++,
+                                firstName: 'Perry',
+                                lastName: 'Scope'
+                            },
+                            {
+                                id: countId++,
+                                firstName: 'Jean',
+                                lastName: 'Bonneau'
+                            },
+                            {
+                                id: countId++,
+                                firstName: 'Cho',
+                                lastName: 'Kaze'
+                            },
+                            {
+                                id: countId++,
+                                firstName: 'Guénolé',
+                                lastName: 'Kikabou'
+                            },
                         ];
 
-                        const payload = scoped ? list : groups;
+                        const payload = list;
                         const data = {
                             facets: {},
-                            [scoped ? 'list' : 'groups']: payload,
-                            totalCount: 20
+                            'list': payload
                         };
                         success(data);
                         // Focus.dispatcher.handleServerAction({
                         //     data: data, type: 'update'
                         // });
-                    }, 300);
+                    }, 70);
                 });
             }
         };
@@ -115,10 +140,15 @@ const MyQuickSearch = React.createClass({
 
         const Group = React.createClass({
             displayName: 'ResultGroup',
+            showName() {
+                let scopeName = 'test';
+                this.props.groupKey != 'undefined' ? scopeName = this.props.groupKey : scopeName = 'Your search';
+                return(scopeName);
+            },
             render() {
                 return (
                     <div>
-                        <h2>{this.props.groupKey}</h2>
+                        <h2>{this.showName()}</h2>
                         {this.props.children}
                     </div>
                 );
@@ -127,9 +157,22 @@ const MyQuickSearch = React.createClass({
 
         const quickSearchProps = {
             onLineClick(line) {
-                alert('click sur la ligne ' + line.id);
+                const name = line.firstName + ' ' + line.lastName;
+                switch (name) {
+                    case 'Ali Gator':
+                    alert('Grrr grrr, does the ' + name + '.');
+                    break;
+                    case 'Perry Scope':
+                    alert(name + ' now everybody know you.');
+                    break;
+                    case 'Cho Case':
+                    alert('You are actualy on the ' + name + '... Showcase => Cho Kaze... Ok, I\'m done for tonight.');
+                    break;
+                    default:
+                    alert('It\'s ' + name + '.');
+                }
             },
-            scope: 'SCP2',
+            placeholder:'Enter your search here...',
             groupMaxRows: 3,
             lineComponentMapper(list) {
                 return Line;
@@ -137,8 +180,9 @@ const MyQuickSearch = React.createClass({
             service,
             groupComponent: Group
         };
+
         return(
-            <QuickSearch {...quickSearchProps} placeholder={`Enter your search here...`}/>
+            <QuickSearch {...quickSearchProps}/>
         );
     }
 });
