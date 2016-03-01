@@ -18,7 +18,7 @@ const defaultProps = {
     LoadingStatusBar: LoadingStatusBarDefault,
     MessageCenter: MessageCenterDefault, // default message center
     ConfirmWrapper: ConfirmWrapperDefault, // default confirm wrapper,
-    errorCenterDisplay: true // ErrorCenter displayed by default.
+    displayErrorCenter: true // ErrorCenter displayed by default.
 };
 
 // component props definition.
@@ -31,7 +31,7 @@ const propTypes = {
     MenuLeft: PropTypes.func,
     MessageCenter: PropTypes.func,
     LoadingStatusBar: PropTypes.func,
-    errorCenterDisplay: PropTypes.bool
+    displayErrorCenter: PropTypes.bool
 };
 
 /**
@@ -41,13 +41,13 @@ class Layout extends Component {
 
     /** @inheritDoc */
     render() {
-        const {AppHeader, children, ConfirmWrapper, ErrorCenter, Footer, LoadingBar, MenuLeft, MessageCenter, LoadingStatusBar, errorCenterDisplay, ...otherProps} = this.props;
+        const {AppHeader, children, ConfirmWrapper, ErrorCenter, Footer, LoadingBar, MenuLeft, MessageCenter, LoadingStatusBar, displayErrorCenter, ...otherProps} = this.props;
         const menuType = MenuLeft ? 'left' : 'other';
         return (
             <div data-focus='layout' data-menu={menuType} {...otherProps}>
                 <LoadingBar />
                 <MessageCenter />
-                {errorCenterDisplay && 
+                {displayErrorCenter && 
                     <ErrorCenter />
                 }
                 <ConfirmWrapper />
