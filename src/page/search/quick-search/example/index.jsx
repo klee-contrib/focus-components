@@ -66,14 +66,11 @@ const MyQuickSearch = React.createClass({
 
         const getSearchService = (scoped) => {
             return (criteria) => {
+                console.log(criteria);
                 return new Promise(success => {
                     setTimeout(() => {
-                        const groups = {
-                            Test: [],
-                            Autre: []
-                        };
 
-                        const list = [
+                        const listUsers = [
                             {
                                 id: countId++,
                                 firstName: 'Ali',
@@ -106,10 +103,34 @@ const MyQuickSearch = React.createClass({
                             },
                         ];
 
-                        const payload = list;
+                        const listDevices = [
+                            {
+                                id: countId++,
+                                firstName: 'Nexus 5X',
+                                lastName: ''
+                            },
+                            {
+                                id: countId++,
+                                firstName: 'Nexus 6P',
+                                lastName: ''
+                            },
+                            {
+                                id: countId++,
+                                firstName: 'iPhone 6S',
+                                lastName: ''
+                            },
+                            {
+                                id: countId++,
+                                firstName: 'iPhone 6S Plus',
+                                lastName: ''
+                            }
+                        ];
+
+                        const payload = listUsers;
                         const data = {
                             facets: {},
-                            'list': payload
+                            'list': payload,
+                            totalCount: listUsers.length
                         };
                         success(data);
                         // Focus.dispatcher.handleServerAction({

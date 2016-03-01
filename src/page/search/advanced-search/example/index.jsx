@@ -6,7 +6,7 @@ const resources = {
         translation: {
             live: {
                 filter: {
-                    title: 'FACETS',
+                    title: 'FILTERS',
                     facets: {
                         FCT_PAYS: 'Contries',
                         FCT_STATUS: 'Status',
@@ -31,8 +31,13 @@ i18nInitializer({resStore: resources});
 const facets = {
     FCT_PAYS:
     {
-        France: 5,
-        Germany: 8
+        France: 10,
+        Germany: 7
+    },
+    FCT_REGION:
+    {
+        'IDF': 7,
+        'Gironde': 3
     },
     FCT_STATUS:
     {
@@ -43,11 +48,6 @@ const facets = {
         'Status 3': 2,
         'Status 4': 2,
         'Status 5': 2
-    },
-    FCT_REGION:
-    {
-        'Ile de France': 11,
-        'Gironde': 6
     }
 };
 
@@ -122,88 +122,177 @@ const getSearchService = (scoped) => {
         return new Promise(success => {
             setTimeout(() => {
                 const groups = {
-                    Countries: [
+                    France: [
                         {
                             id: countId++,
-                            firstName: 'France',
-                            lastName: 'Gator'
+                            firstName: 'Paris',
+                            lastName: ''
                         },
                         {
                             id: countId++,
                             firstName: 'Lyon',
-                            lastName: 'Paupière'
+                            lastName: ''
                         },
                         {
                             id: countId++,
-                            firstName: 'Marseille',
-                            lastName: 'Scope'
+                            firstName: 'Limeil',
+                            lastName: ''
+                        },
+                        {
+                            id: countId++,
+                            firstName: 'Le Plessis-Robinson',
+                            lastName: ''
+                        },
+                        {
+                            id: countId++,
+                            firstName: 'Bordeaux',
+                            lastName: ''
+                        },
+                        {
+                            id: countId++,
+                            firstName: 'Mérignac',
+                            lastName: ''
+                        },
+                        {
+                            id: countId++,
+                            firstName: 'Langon',
+                            lastName: ''
+                        },
+                        {
+                            id: countId++,
+                            firstName: 'Bercy',
+                            lastName: ''
+                        },
+                        {
+                            id: countId++,
+                            firstName: 'Marne la Vallée',
+                            lastName: ''
+                        },
+                        {
+                            id: countId++,
+                            firstName: 'Antony',
+                            lastName: ''
                         }
                     ],
-                    Regions: [
+                    Germany: [
                         {
                             id: countId++,
-                            firstName: 'Ile de France',
-                            lastName: 'Gator'
+                            firstName: 'Berlin',
+                            lastName: ''
                         },
                         {
                             id: countId++,
-                            firstName: 'Gironde',
-                            lastName: 'Paupière'
+                            firstName: 'Hamburg',
+                            lastName: ''
                         },
                         {
                             id: countId++,
-                            firstName: 'Lorraine',
-                            lastName: 'Scope'
+                            firstName: 'Munich',
+                            lastName: ''
+                        },
+                        {
+                            id: countId++,
+                            firstName: 'Cologne',
+                            lastName: ''
+                        },
+                        {
+                            id: countId++,
+                            firstName: 'Frankfurt',
+                            lastName: ''
+                        },
+                        {
+                            id: countId++,
+                            firstName: 'Essen',
+                            lastName: ''
+                        },
+                        {
+                            id: countId++,
+                            firstName: 'Dortmund',
+                            lastName: ''
+                        }
+                    ],
+                    IDF: [
+                        {
+                            id: countId++,
+                            firstName: 'Paris',
+                            lastName: ''
+                        },
+                        {
+                            id: countId++,
+                            firstName: 'Lyon',
+                            lastName: ''
+                        },
+                        {
+                            id: countId++,
+                            firstName: 'Limeil',
+                            lastName: ''
+                        },
+                        {
+                            id: countId++,
+                            firstName: 'Le Plessis-Robinson',
+                            lastName: ''
+                        },
+                        {
+                            id: countId++,
+                            firstName: 'Bercy',
+                            lastName: ''
+                        },
+                        {
+                            id: countId++,
+                            firstName: 'Marne la Vallée',
+                            lastName: ''
+                        },
+                        {
+                            id: countId++,
+                            firstName: 'Antony',
+                            lastName: ''
+                        }
+                    ],
+                    Gironde: [
+                        {
+                            id: countId++,
+                            firstName: 'Bordeaux',
+                            lastName: ''
+                        },
+                        {
+                            id: countId++,
+                            firstName: 'Mérignac',
+                            lastName: ''
+                        },
+                        {
+                            id: countId++,
+                            firstName: 'Langon',
+                            lastName: ''
                         }
                     ]
                 };
 
-                const list = [
-                    {
-                        id: countId++,
-                        firstName: 'Ali',
-                        lastName: 'Gator'
-                    },
-                    {
-                        id: countId++,
-                        firstName: 'Farah',
-                        lastName: 'Paupière'
-                    },
-                    {
-                        id: countId++,
-                        firstName: 'Perry',
-                        lastName: 'Scope'
-                    },
-                    {
-                        id: countId++,
-                        firstName: 'Jean',
-                        lastName: 'Bonneau'
-                    },
-                    {
-                        id: countId++,
-                        firstName: 'Cho',
-                        lastName: 'Kaze'
-                    },
-                    {
-                        id: countId++,
-                        firstName: 'Guénolé',
-                        lastName: 'Kikabou'
-                    },
-                ];
+                let list = [];
 
-                const payload = crit.data.facets.length > 0 ? groups : list;
-                console.log(payload);
+                for(let i = 0; i< groups.France.length; i++)
+                    list.push(groups.France[i]);
+
+                for(let i = 0; i< groups.Germany.length; i++)
+                    list.push(groups.Germany[i]);
+
+                let name = '';
+                const showGroup = crit.data.facets.length > 0 ? true : false;
+                let group = [];
+
+                if(showGroup) {
+                    name = crit.data.facets[0].value;
+                    group = groups[name];
+                }
+                else
+                group = list;
 
                 const data = {
-                    facets,
-                    list,
-                    totalCount: 15
+                    facets: facets,
+                    'list': group,
+                    totalCount: group.length
                 };
                 success(data);
-                // Focus.dispatcher.handleServerAction({
-                //     data: data, type: 'update'
-                // });
-            }, 150);
+            }, 300);
         });
     }
 };
@@ -252,19 +341,16 @@ const MyAdvancedSearch = React.createClass({
                 FCT_REGION: 'text'
             },
             onLineClick(line) {
-                const name = line.firstName + ' ' + line.lastName;
+                const name = line.firstName;
                 switch (name) {
-                    case 'Ali Gator':
-                    alert('Grrr grrr, does the ' + name + '.');
-                    break;
-                    case 'Perry Scope':
-                    alert(name + ' now everybody know you.');
-                    break;
-                    case 'Cho Case':
-                    alert('You are actualy on the ' + name + '... Showcase => Cho Kaze... Ok, I\'m done for tonight.');
-                    break;
+                    case 'Paris':
+                        alert('Achetez votre baguette et vos croissants à ' + name + '.');
+                        break;
+                    case 'Marne la Vallée':
+                        alert('Have you ever been to ' + name + '\'s Disneyland® Resort Paris ?');
+                        break;
                     default:
-                    alert('It\'s ' + name + '.');
+                        alert('You clicked on ' + name + '.');
                 }
             },
             placeholder:'Enter your search here...',
