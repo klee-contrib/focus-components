@@ -1,4 +1,4 @@
-const QuickSearch = FocusComponents.page.search.quickSearch.component;
+const AdvancedSearch = FocusComponents.page.search.advancedSearch.component;
 const i18nInitializer = FocusCore.translation.init;
 
 const resources = {
@@ -11,6 +11,14 @@ const resources = {
                         FCT_PAYS: 'Contries',
                         FCT_STATUS: 'Status',
                         FCT_REGION: 'Regions'
+                    }
+                }
+            },
+            list: {
+                actionBar: {
+                    selection: {
+                        all: 'ALL',
+                        none: 'NONE'
                     }
                 }
             }
@@ -39,19 +47,19 @@ const facets = {
     FCT_REGION:
     {
         'Ile de France': 11,
-        'Nord - Pas de Calais': 6
+        'Gironde': 6
     }
 };
 
 
-const QuickSearchExample = React.createClass({
+const AdvancedSearchExample = React.createClass({
     render() {
         return(
             <div>
                 <center>
                     <h3>Advanced Search</h3>
                 </center>
-                <MyQuickSearch />
+                <MyAdvancedSearch />
             </div>
         );
     }
@@ -104,102 +112,145 @@ Focus.definition.entity.container.setEntityConfiguration({
     }
 });
 
-const MyQuickSearch = React.createClass({
+let countId = 0;
+
+let crit = null;
+const getSearchService = (scoped) => {
+    return (criteria) => {
+        console.log(criteria);
+        crit = criteria
+        return new Promise(success => {
+            setTimeout(() => {
+                const groups = {
+                    Countries: [
+                        {
+                            id: countId++,
+                            firstName: 'France',
+                            lastName: 'Gator'
+                        },
+                        {
+                            id: countId++,
+                            firstName: 'Lyon',
+                            lastName: 'Paupière'
+                        },
+                        {
+                            id: countId++,
+                            firstName: 'Marseille',
+                            lastName: 'Scope'
+                        }
+                    ],
+                    Regions: [
+                        {
+                            id: countId++,
+                            firstName: 'Ile de France',
+                            lastName: 'Gator'
+                        },
+                        {
+                            id: countId++,
+                            firstName: 'Gironde',
+                            lastName: 'Paupière'
+                        },
+                        {
+                            id: countId++,
+                            firstName: 'Lorraine',
+                            lastName: 'Scope'
+                        }
+                    ]
+                };
+
+                const list = [
+                    {
+                        id: countId++,
+                        firstName: 'Ali',
+                        lastName: 'Gator'
+                    },
+                    {
+                        id: countId++,
+                        firstName: 'Farah',
+                        lastName: 'Paupière'
+                    },
+                    {
+                        id: countId++,
+                        firstName: 'Perry',
+                        lastName: 'Scope'
+                    },
+                    {
+                        id: countId++,
+                        firstName: 'Jean',
+                        lastName: 'Bonneau'
+                    },
+                    {
+                        id: countId++,
+                        firstName: 'Cho',
+                        lastName: 'Kaze'
+                    },
+                    {
+                        id: countId++,
+                        firstName: 'Guénolé',
+                        lastName: 'Kikabou'
+                    },
+                ];
+
+                const payload = crit.data.facets.length > 0 ? groups : list;
+                console.log(payload);
+
+                const data = {
+                    facets,
+                    list,
+                    totalCount: 15
+                };
+                success(data);
+                // Focus.dispatcher.handleServerAction({
+                //     data: data, type: 'update'
+                // });
+            }, 150);
+        });
+    }
+};
+
+const service = {
+    unscoped: getSearchService(false),
+    scoped: getSearchService(true)
+};
+
+const Line = React.createClass({
+    mixins: [FocusComponents.list.selection.line.mixin],
+    displayName: 'ResultLine',
+    definitionPath: 'contact',
+    renderLineContent(data) {
+        return (
+            <div>
+                {`${data.firstName} ${data.lastName}`}
+            </div>
+        );
+    }
+});
+
+const Group = React.createClass({
+    displayName: 'ResultGroup',
+    showName() {
+        let scopeName = 'test';
+        this.props.groupKey != 'undefined' ? scopeName = this.props.groupKey : scopeName = 'Your search';
+        return(scopeName);
+    },
     render() {
-        let countId = 0;
+        return (
+            <div>
+                <h2>{this.showName()}</h2>
+                {this.props.children}
+            </div>
+        );
+    }
+});
 
-        const getSearchService = (scoped) => {
-            return (criteria) => {
-                return new Promise(success => {
-                    setTimeout(() => {
-                        const groups = {
-                            Test: [],
-                            Autre: []
-                        };
-
-                        const list = [
-                            {
-                                id: countId++,
-                                firstName: 'Ali',
-                                lastName: 'Gator'
-                            },
-                            {
-                                id: countId++,
-                                firstName: 'Farah',
-                                lastName: 'Paupière'
-                            },
-                            {
-                                id: countId++,
-                                firstName: 'Perry',
-                                lastName: 'Scope'
-                            },
-                            {
-                                id: countId++,
-                                firstName: 'Jean',
-                                lastName: 'Bonneau'
-                            },
-                            {
-                                id: countId++,
-                                firstName: 'Cho',
-                                lastName: 'Kaze'
-                            },
-                            {
-                                id: countId++,
-                                firstName: 'Guénolé',
-                                lastName: 'Kikabou'
-                            },
-                        ];
-
-                        const payload = list;
-                        const data = {
-                            facets: {},
-                            'list': payload
-                        };
-                        success(data);
-                        // Focus.dispatcher.handleServerAction({
-                        //     data: data, type: 'update'
-                        // });
-                    }, 70);
-                });
-            }
-        };
-
-        const service = {
-            unscoped: getSearchService(false),
-            scoped: getSearchService(true)
-        };
-
-        const Line = React.createClass({
-            mixins: [FocusComponents.list.selection.line.mixin],
-            displayName: 'ResultLine',
-            definitionPath: 'contact',
-            renderLineContent(data) {
-                return (
-                    <div>
-                        {`${data.firstName} ${data.lastName}`}
-                    </div>
-                );
-            }
-        });
-
-        const Group = React.createClass({
-            displayName: 'ResultGroup',
-            showName() {
-                let scopeName = 'test';
-                this.props.groupKey != 'undefined' ? scopeName = this.props.groupKey : scopeName = 'Your search';
-                return(scopeName);
+const MyAdvancedSearch = React.createClass({
+    render() {
+        const advancedSearchProps = {
+            facetConfig: {
+                FCT_PAYS: 'text',
+                FCT_STATUS: 'text',
+                FCT_REGION: 'text'
             },
-            render() {
-                return (
-                    <div>
-                        <h2>{this.showName()}</h2>
-                        {this.props.children}
-                    </div>
-                );
-            }
-        });
-
-        const quickSearchProps = {
             onLineClick(line) {
                 const name = line.firstName + ' ' + line.lastName;
                 switch (name) {
@@ -226,9 +277,9 @@ const MyQuickSearch = React.createClass({
         };
 
         return(
-            <QuickSearch {...quickSearchProps}/>
+            <AdvancedSearch {...advancedSearchProps}/>
         );
     }
 });
 
-module.exports = QuickSearchExample;
+module.exports = AdvancedSearchExample;
