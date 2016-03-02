@@ -1,5 +1,6 @@
 const AdvancedSearch = FocusComponents.page.search.advancedSearch.component;
 const i18nInitializer = FocusCore.translation.init;
+const linePreset = [FocusComponents.list.selection.line.mixin];
 
 const resources = {
     dev: {
@@ -113,148 +114,62 @@ Focus.definition.entity.container.setEntityConfiguration({
 });
 
 let countId = 0;
-
 let crit = null;
+const indexPopulate = gpName => (el, idx) => ({name: el, id: `${gpName}_${idx}`})
+const groups = {
+    France:
+    ['Paris', 'Lyon', 'Limeil', 'Le Plessis-Robinson', 'Bordeaux', 'Mérignac', 'Langon', 'Bercy', 'Marne la Vallée', 'Antony'].map(indexPopulate('FRA')),
+    Germany:
+    ['Berlin', 'Hamburg', 'Munich', 'Cologne', 'Frankfurt', 'Essen', 'Dortmund'].map(indexPopulate('GER')),
+    IDF:
+    ['Paris', 'Lyon', 'Limeil', 'Le Plessis-Robinson', 'Bercy', 'Marne la Vallée', 'Antony'].map(indexPopulate('IDF')),
+    Gironde:
+    ['Bordeaux', 'Mérignac', 'Pessac'].map(indexPopulate('GIR'))
+}
+
 const getSearchService = (scoped) => {
     return (criteria) => {
-        console.log(criteria);
-        crit = criteria
+        crit = criteria;
+        console.log(crit);
         return new Promise(success => {
             setTimeout(() => {
-                const groups = {
-                    France: [
-                        {
-                            id: countId++,
-                            name: 'Paris'
-                        },
-                        {
-                            id: countId++,
-                            name: 'Lyon'
-                        },
-                        {
-                            id: countId++,
-                            name: 'Limeil'
-                        },
-                        {
-                            id: countId++,
-                            name: 'Le Plessis-Robinson'
-                        },
-                        {
-                            id: countId++,
-                            name: 'Bordeaux'
-                        },
-                        {
-                            id: countId++,
-                            name: 'Mérignac'
-                        },
-                        {
-                            id: countId++,
-                            name: 'Langon'
-                        },
-                        {
-                            id: countId++,
-                            name: 'Bercy'
-                        },
-                        {
-                            id: countId++,
-                            name: 'Marne la Vallée'
-                        },
-                        {
-                            id: countId++,
-                            name: 'Antony'
-                        }
-                    ],
-                    Germany: [
-                        {
-                            id: countId++,
-                            name: 'Berlin'
-                        },
-                        {
-                            id: countId++,
-                            name: 'Hamburg'
-                        },
-                        {
-                            id: countId++,
-                            name: 'Munich'
-                        },
-                        {
-                            id: countId++,
-                            name: 'Cologne'
-                        },
-                        {
-                            id: countId++,
-                            name: 'Frankfurt'
-                        },
-                        {
-                            id: countId++,
-                            name: 'Essen'
-                        },
-                        {
-                            id: countId++,
-                            name: 'Dortmund'
-                        }
-                    ],
-                    IDF: [
-                        {
-                            id: countId++,
-                            name: 'Paris'
-                        },
-                        {
-                            id: countId++,
-                            name: 'Lyon'
-                        },
-                        {
-                            id: countId++,
-                            name: 'Limeil'
-                        },
-                        {
-                            id: countId++,
-                            name: 'Le Plessis-Robinson'
-                        },
-                        {
-                            id: countId++,
-                            name: 'Bercy'
-                        },
-                        {
-                            id: countId++,
-                            name: 'Marne la Vallée'
-                        },
-                        {
-                            id: countId++,
-                            name: 'Antony'
-                        }
-                    ],
-                    Gironde: [
-                        {
-                            id: countId++,
-                            name: 'Bordeaux'
-                        },
-                        {
-                            id: countId++,
-                            name: 'Mérignac'
-                        },
-                        {
-                            id: countId++,
-                            name: 'Langon'
-                        }
-                    ]
-                };
-
                 let list = [];
 
                 for(let i = 0; i< groups.France.length; i++)
-                    list.push(groups.France[i]);
+                list.push(groups.France[i]);
 
                 for(let i = 0; i< groups.Germany.length; i++)
-                    list.push(groups.Germany[i]);
+                list.push(groups.Germany[i]);
 
                 let name = '';
                 const showGroup = crit.data.facets.length > 0 ? true : false;
                 let group = [];
 
+                let facetsCount = crit.data.facets.length;
                 if(showGroup) {
-                    name = crit.data.facets[0].value;
-                    group = groups[name];
+                    if(facetsCount > 1) {
+                        name = crit.data.facets[0].value;
+                        let tempID = facetsCount-1
+                        let secondName = crit.data.facets[tempID].value;
+                        if(name == 'Germany') {
+                            for(let i =0; i < facetsCount; i ++) {
+                                name = crit.data.facets[i].value;
+                                for(let j = 0; j < groups[name].length; j++) {
+                                    group.push(groups[name][j]);
+                                }
+                            }
+                        }
+                        else
+                            group = groups[secondName];
+                    }
+                    else {
+                        for(let i =0; i < facetsCount; i ++) {
+                            name = crit.data.facets[i].value;
+                            for(let j = 0; j < groups[name].length; j++) {
+                                group.push(groups[name][j]);
+                            }
+                        }
+                    }
                 }
                 else
                 group = list;
@@ -276,7 +191,7 @@ const service = {
 };
 
 const Line = React.createClass({
-    mixins: [FocusComponents.list.selection.line.mixin],
+    mixins: linePreset,
     displayName: 'ResultLine',
     definitionPath: 'contact',
     renderLineContent(data) {
@@ -317,13 +232,13 @@ const MyAdvancedSearch = React.createClass({
                 const name = line.name;
                 switch (name) {
                     case 'Paris':
-                        alert('Achetez votre baguette et vos croissants à ' + name + '.');
-                        break;
+                    alert('Achetez votre baguette et vos croissants à ' + name + '.');
+                    break;
                     case 'Marne la Vallée':
-                        alert('Have you ever been to ' + name + '\'s Disneyland® Resort Paris ?');
-                        break;
+                    alert('Have you ever been to ' + name + '\'s Disneyland® Resort Paris ?');
+                    break;
                     default:
-                        alert('You clicked on ' + name + '.');
+                    alert('You clicked on ' + name + '.');
                 }
             },
             placeholder:'Enter your search here...',
