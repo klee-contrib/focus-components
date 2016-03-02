@@ -1,19 +1,20 @@
 {
-  "name": "Advanced search",
-  "version": "1.0.0",
-  "description": "Advanced search component.",
-  "main": "index.js",
-  "directories": {
-    "example": "example"
-  },
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "keywords": [
-    "search",
-    "advanced",
-    "smart"
-  ],
-  "author": "focus@kleegroup.com",
-  "license": "MIT"
+    "name": "advanced-search",
+    "version": "1.0.0",
+    "description": "Advanced search component.",
+    "main": "index.js",
+    "directories": {
+        "example": "example"
+    },
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "keywords": [
+        "material",
+        "search",
+        "advanced",
+        "smart"
+    ],
+    "author": "focus@kleegroup.com",
+    "license": "MIT"
 }

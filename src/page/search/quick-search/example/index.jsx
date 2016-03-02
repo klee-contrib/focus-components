@@ -20,9 +20,9 @@ const scopes = [
         label: 'Users'
     },
     {
-        icon: 'extension',
-        code: 'EXTENSIONS',
-        label: 'Extensions'
+        icon: 'devices other',
+        code: 'DEVICES',
+        label: 'Devices'
     },
     {
         icon: 'contact_phone',
@@ -60,20 +60,18 @@ Focus.definition.entity.container.setEntityConfiguration({
     }
 });
 
+let crit = null;
 const MyQuickSearch = React.createClass({
     render() {
         let countId = 0;
 
         const getSearchService = (scoped) => {
             return (criteria) => {
+                console.log(criteria);
+                crit = criteria;
                 return new Promise(success => {
                     setTimeout(() => {
-                        const groups = {
-                            Test: [],
-                            Autre: []
-                        };
-
-                        const list = [
+                        const listUsers = [
                             {
                                 id: countId++,
                                 firstName: 'Ali',
@@ -106,10 +104,37 @@ const MyQuickSearch = React.createClass({
                             },
                         ];
 
-                        const payload = list;
+                        const listDevices = [
+                            {
+                                id: countId++,
+                                firstName: 'Nexus 5X',
+                                lastName: ''
+                            },
+                            {
+                                id: countId++,
+                                firstName: 'Nexus 6P',
+                                lastName: ''
+                            },
+                            {
+                                id: countId++,
+                                firstName: 'iPhone 6S',
+                                lastName: ''
+                            },
+                            {
+                                id: countId++,
+                                firstName: 'iPhone 6S Plus',
+                                lastName: ''
+                            }
+                        ];
+
+
+                        let chosenScope = '';
+                        let payload = criteria.data.criteria.scope == 'DEVICES' ? payload = listDevices : payload = listUsers;
+
                         const data = {
                             facets: {},
-                            'list': payload
+                            'list': payload,
+                            totalCount: payload.length
                         };
                         success(data);
                         // Focus.dispatcher.handleServerAction({
