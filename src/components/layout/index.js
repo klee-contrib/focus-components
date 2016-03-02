@@ -45,7 +45,9 @@ class Layout extends Component {
             <div data-focus='layout' data-menu={menuType} {...otherProps}>
                 <LoadingBar />
                 <MessageCenter />
-                <ErrorCenter />
+                {ErrorCenter && 
+                    <ErrorCenter />
+                }
                 <ConfirmWrapper />
                 <AppHeader />
                 {MenuLeft &&
