@@ -20,9 +20,9 @@ const scopes = [
         label: 'Users'
     },
     {
-        icon: 'extension',
-        code: 'EXTENSIONS',
-        label: 'Extensions'
+        icon: 'devices other',
+        code: 'DEVICES',
+        label: 'Devices'
     },
     {
         icon: 'contact_phone',
@@ -60,6 +60,7 @@ Focus.definition.entity.container.setEntityConfiguration({
     }
 });
 
+let crit = null;
 const MyQuickSearch = React.createClass({
     render() {
         let countId = 0;
@@ -67,9 +68,9 @@ const MyQuickSearch = React.createClass({
         const getSearchService = (scoped) => {
             return (criteria) => {
                 console.log(criteria);
+                crit = criteria;
                 return new Promise(success => {
                     setTimeout(() => {
-
                         const listUsers = [
                             {
                                 id: countId++,
@@ -126,11 +127,14 @@ const MyQuickSearch = React.createClass({
                             }
                         ];
 
-                        const payload = listUsers;
+
+                        let chosenScope = '';
+                        let payload = criteria.data.criteria.scope == 'DEVICES' ? payload = listDevices : payload = listUsers;
+
                         const data = {
                             facets: {},
                             'list': payload,
-                            totalCount: listUsers.length
+                            totalCount: payload.length
                         };
                         success(data);
                         // Focus.dispatcher.handleServerAction({

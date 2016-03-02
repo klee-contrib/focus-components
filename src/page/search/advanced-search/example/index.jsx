@@ -125,144 +125,117 @@ const getSearchService = (scoped) => {
                     France: [
                         {
                             id: countId++,
-                            firstName: 'Paris',
-                            lastName: ''
+                            name: 'Paris'
                         },
                         {
                             id: countId++,
-                            firstName: 'Lyon',
-                            lastName: ''
+                            name: 'Lyon'
                         },
                         {
                             id: countId++,
-                            firstName: 'Limeil',
-                            lastName: ''
+                            name: 'Limeil'
                         },
                         {
                             id: countId++,
-                            firstName: 'Le Plessis-Robinson',
-                            lastName: ''
+                            name: 'Le Plessis-Robinson'
                         },
                         {
                             id: countId++,
-                            firstName: 'Bordeaux',
-                            lastName: ''
+                            name: 'Bordeaux'
                         },
                         {
                             id: countId++,
-                            firstName: 'Mérignac',
-                            lastName: ''
+                            name: 'Mérignac'
                         },
                         {
                             id: countId++,
-                            firstName: 'Langon',
-                            lastName: ''
+                            name: 'Langon'
                         },
                         {
                             id: countId++,
-                            firstName: 'Bercy',
-                            lastName: ''
+                            name: 'Bercy'
                         },
                         {
                             id: countId++,
-                            firstName: 'Marne la Vallée',
-                            lastName: ''
+                            name: 'Marne la Vallée'
                         },
                         {
                             id: countId++,
-                            firstName: 'Antony',
-                            lastName: ''
+                            name: 'Antony'
                         }
                     ],
                     Germany: [
                         {
                             id: countId++,
-                            firstName: 'Berlin',
-                            lastName: ''
+                            name: 'Berlin'
                         },
                         {
                             id: countId++,
-                            firstName: 'Hamburg',
-                            lastName: ''
+                            name: 'Hamburg'
                         },
                         {
                             id: countId++,
-                            firstName: 'Munich',
-                            lastName: ''
+                            name: 'Munich'
                         },
                         {
                             id: countId++,
-                            firstName: 'Cologne',
-                            lastName: ''
+                            name: 'Cologne'
                         },
                         {
                             id: countId++,
-                            firstName: 'Frankfurt',
-                            lastName: ''
+                            name: 'Frankfurt'
                         },
                         {
                             id: countId++,
-                            firstName: 'Essen',
-                            lastName: ''
+                            name: 'Essen'
                         },
                         {
                             id: countId++,
-                            firstName: 'Dortmund',
-                            lastName: ''
+                            name: 'Dortmund'
                         }
                     ],
                     IDF: [
                         {
                             id: countId++,
-                            firstName: 'Paris',
-                            lastName: ''
+                            name: 'Paris'
                         },
                         {
                             id: countId++,
-                            firstName: 'Lyon',
-                            lastName: ''
+                            name: 'Lyon'
                         },
                         {
                             id: countId++,
-                            firstName: 'Limeil',
-                            lastName: ''
+                            name: 'Limeil'
                         },
                         {
                             id: countId++,
-                            firstName: 'Le Plessis-Robinson',
-                            lastName: ''
+                            name: 'Le Plessis-Robinson'
                         },
                         {
                             id: countId++,
-                            firstName: 'Bercy',
-                            lastName: ''
+                            name: 'Bercy'
                         },
                         {
                             id: countId++,
-                            firstName: 'Marne la Vallée',
-                            lastName: ''
+                            name: 'Marne la Vallée'
                         },
                         {
                             id: countId++,
-                            firstName: 'Antony',
-                            lastName: ''
+                            name: 'Antony'
                         }
                     ],
                     Gironde: [
                         {
                             id: countId++,
-                            firstName: 'Bordeaux',
-                            lastName: ''
+                            name: 'Bordeaux'
                         },
                         {
                             id: countId++,
-                            firstName: 'Mérignac',
-                            lastName: ''
+                            name: 'Mérignac'
                         },
                         {
                             id: countId++,
-                            firstName: 'Langon',
-                            lastName: ''
+                            name: 'Langon'
                         }
                     ]
                 };
@@ -309,7 +282,7 @@ const Line = React.createClass({
     renderLineContent(data) {
         return (
             <div>
-                {`${data.firstName} ${data.lastName}`}
+                {`${data.name}`}
             </div>
         );
     }
@@ -341,7 +314,7 @@ const MyAdvancedSearch = React.createClass({
                 FCT_REGION: 'text'
             },
             onLineClick(line) {
-                const name = line.firstName;
+                const name = line.name;
                 switch (name) {
                     case 'Paris':
                         alert('Achetez votre baguette et vos croissants à ' + name + '.');
