@@ -1,0 +1,3 @@
+{
+  "extends": "../../../../spec/__tests__/.eslintrc"
+}
