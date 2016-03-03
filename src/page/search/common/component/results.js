@@ -147,9 +147,11 @@ const Results = {
             selectionResultsMap,
             ...otherProps
         } = this.props;
-        let selectionData = selectionResultsMap ? selectionResultsMap[key] || [] : [];
-        let LineComponent = lineComponentMapper(key, list);
-        let hasMoreData = isUnique !== undefined && isUnique && list.length < count;
+        const selectionData = selectionResultsMap ? selectionResultsMap[key] || [] : [];
+        const scope = otherProps.store.getScope();
+        const lineKey = scope === undefined || scope === 'ALL' ? key : scope;
+        const LineComponent = lineComponentMapper(lineKey, list);
+        const hasMoreData = isUnique !== undefined && isUnique && list.length < count;
         return (
             <div>
                 <ListSelection

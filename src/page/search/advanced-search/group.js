@@ -1,5 +1,6 @@
 import React, {Component, PropTypes} from 'react';
 import Translation from '../../../behaviours/translation';
+import formatter from  'focus-core/definition/formatter/number';
 
 //web components
 import {component as Button} from '../../../common/button/action';
@@ -8,7 +9,6 @@ import Grid from '../../../common/grid';
 
 const propTypes = {
     canShowMore: PropTypes.bool.isRequired,
-    children: PropTypes.array.isRequired,
     count: PropTypes.number.isRequired,
     groupKey: PropTypes.string.isRequired,
     showAllHandler: PropTypes.func.isRequired,
@@ -24,12 +24,11 @@ class AdvancedSearchGroup extends Component {
 
     render() {
         const {canShowMore, count, children, groupKey, showAllHandler, showMoreHandler} = this.props;
-        const traductionGroupKey = `search.group.${groupKey.toLowerCase()}`;
         return (
             <div data-focus='group-container'>
                 <h3>
-                    <span>{this.i18n(traductionGroupKey)}</span>
-                    <span>{count}</span>
+                    <span>{groupKey}</span>
+                    <span>{formatter.format(count)}</span>
                 </h3>
                 <p>{this.i18n('search.mostRelevant')}</p>
                 <div data-focus="group-container-results">
