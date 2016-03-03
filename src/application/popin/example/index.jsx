@@ -135,90 +135,35 @@ const ThirdPopin = React.createClass({
         return (
             <Popin ref='thirdPopin' size='small' type='from-right'>
                 <h2>
-                    Right article
+                    Material Design Videos
                 </h2>
                 <br/>
-                <h4>
-                    Post hanc adclinis Libano monti
+                <center>
+                    <b>Material design</b>
                     <br/>
-                    Phoenice, regio plena gratiarum et venustatis,
+                    <iframe width="560" height="315" src="https://www.youtube.com/embed/Q8TXgCzxEnw" frameborder="0" allowfullscreen></iframe>
                     <br/>
-                    urbibus decorata magnis et pulchris; in quibus
                     <br/>
-                    amoenitate celebritateque nominum
+                </center>
+                <center>
+                    <b>Making Material Design: Crafting Material</b>
                     <br/>
-                    Tyros excellit, Sidon et Berytus
+                    <iframe width="560" height="315" src="https://www.youtube.com/embed/Y0UEGsvcYvk" frameborder="0" allowfullscreen></iframe>
                     <br/>
-                    isdemque pares Emissa et Damascus
                     <br/>
-                    saeculis condita priscis.
-
-                    Cum autem commodis intervallata
+                </center>
+                <center>
+                    <b>Material Design : Palette Perfect</b>
                     <br/>
-                    temporibus convivia longa et noxia
+                    <iframe width="560" height="315" src="https://www.youtube.com/embed/xYkz0Ueg0L4" frameborder="0" allowfullscreen></iframe>
                     <br/>
-                    coeperint apparari vel distributio
                     <br/>
-                    sollemnium sportularum,
+                </center>
+                <center>
+                    <b>Material Desing : Story</b>
                     <br/>
-                    anxia deliberatione tractatur an
-                    <br/>
-                    exceptis his quibus vicissitudo
-                    <br/>
-                    debetur, peregrinum invitari
-                    <br/>
-                    conveniet, et si digesto plene
-                    <br/>
-                    consilio id placuerit fieri, is
-                    <br/>
-                    adhibetur qui pro domibus excubat
-                    <br/>
-                    aurigarum aut artem tesserariam
-                    <br/>
-                    profitetur aut secretiora quaedam
-                    <br/>
-                    se nosse confingit.
-                    <br/>
-                    Hinc ille commotus ut iniusta
-                    <br/>
-                    perferens et indigna praefecti
-                    <br/>
-                    custodiam protectoribus
-                    <br/>
-                    mandaverat fidis. quo
-                    <br/>
-                    conperto Montius tunc quaestor
-                    <br/>
-                    acer quidem sed ad lenitatem
-                    <br/>
-                    propensior, consulens in commune
-                    <br/>
-                    advocatos palatinarum
-                    <br/>
-                    primos scholarum adlocutus
-                    <br/>
-                    est mollius docens nec decere
-                    <br/>
-                    haec fieri nec prodesse addensque
-                    <br/>
-                    vocis obiurgatorio sonu quod si id
-                    <br/>
-                    placeret, post
-                    <br/>
-                    statuas Constantii deiectas super
-                    <br/>
-                    adimenda vita praefecto conveniet
-                    <br/>
-                    securius cogitari.
-                    <br/>
-                    Equitis Romani autem esse filium
-                    <br/>
-                    criminis loco poni ab accusatoribus neque his
-                    <br/>
-                    iudicantibus oportuit neque defendentibus
-                    <br/>
-                    nobis. Nam quod de
-                </h4>
+                    <iframe width="560" height="315" src="https://www.youtube.com/embed/rrT6v5sOwJg" frameborder="0" allowfullscreen></iframe>
+                </center>
             </Popin>
         );
     }

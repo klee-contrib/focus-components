@@ -26,14 +26,50 @@ const SearchBarExample = React.createClass({
 });
 
 const MySearchBarWithoutScopes = React.createClass({
+    MyFunction() {
+        this.setState({loading: false});
+    },
+    setTimeLoad() {
+        setTimeout(this.myFunction(), 3000 );
+    },
+    componentWillMount() {
+        this._action = actionBuilder({
+            service: this.props.service,
+            identifier: searchBarStore.identifier,
+            getSearchOptions: () => {return searchBarStore.getValue.call(searchBarStore); } // Binding the store in the function call
+        });
+        searchBarStore.addQueryChangeListener(this._onSearchCriteriaChange);
+        searchBarStore.addScopeChangeListener(this._onSearchCriteriaChange);
+    },
+    componentWillUnmount() {
+        searchBarStore.removeQueryChangeListener(this._onSearchCriteriaChange);
+        searchBarStore.removeScopeChangeListener(this._onSearchCriteriaChange);
+    },
+    _onSearchCriteriaChange() {
+        const {onSearchCriteriaChange} = this.props;
+        if (onSearchCriteriaChange) {
+            onSearchCriteriaChange();
+        }
+        this.MyFunction();
+    },
     render() {
         return(
-            <SearchBar hasScopes={false} store={searchBarStore} placeholder={`Enter your search here...`} />
+            <SearchBar
+                hasScopes={false}
+                store={searchBarStore}
+                placeholder={`Enter your search here...`}
+                action={this._action}
+                />
         );
     }
 });
 
 const MySearchBarWithScopes = React.createClass({
+    getInitialState() {
+        return ({
+            loading: false
+        });
+    },
     componentWillMount() {
         this._action = actionBuilder({
             service: this.props.service,
@@ -42,6 +78,10 @@ const MySearchBarWithScopes = React.createClass({
         });
         searchBarWithScopesStore.addQueryChangeListener(this._onSearchCriteriaChange);
         searchBarWithScopesStore.addScopeChangeListener(this._onSearchCriteriaChange);
+        setTimeout(
+            () => this.setState({loading: false}),
+            3000
+        );
     },
     componentWillUnmount() {
         searchBarWithScopesStore.removeQueryChangeListener(this._onSearchCriteriaChange);
@@ -55,6 +95,7 @@ const MySearchBarWithScopes = React.createClass({
     },
     render() {
         const self = this;
+        const {loading} = this.state;
         const searchBarScopes = [
             {
                 code: 'movie',
