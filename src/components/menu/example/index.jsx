@@ -45,9 +45,8 @@ const MyMenu = React.createClass({
                     </div>
                     <div className='mdl-card__supporting-text'>
                         <h6>
-                            Here you can see a Focus menu bar example.
                             <br/>
-                            You can easily define actions to your icons and stay on the same wavelength as your application's logic.
+                            On the left menu bar the <div className="mdl-button mdl-button--icon mdl-js-button mdl-js-ripple-effect"><i  className="material-icons">home</i></div> button will make you go on the home page, the <b><div className="mdl-button mdl-button--icon mdl-js-button mdl-js-ripple-effect"><i className="material-icons">chat</i></div></b> button will show you an action (here it will show a popin) and  <b><div className="mdl-button mdl-button--icon mdl-js-button mdl-js-ripple-effect"><i className="material-icons">info</i></div></b> button will make you go to the menu's sample code page.
                         </h6>
                     </div>
                 </div>
@@ -71,11 +70,8 @@ const MyPopin = React.createClass({
                 <h4>
                     Hello there,
                     <br/>
-                    I'm a Popin component.
-                    <br/>
-                    I Hope our demos are helpful...
+                    I'm a Popin component..
                 </h4>
-                And I hope I'll got my demo page soon 😐
                 <br/>
                 <h5><i>Focus.</i></h5>
             </Popin>
