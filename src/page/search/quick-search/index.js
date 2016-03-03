@@ -5,6 +5,7 @@ import builder from 'focus-core/component/builder';
 // Components
 const DefaultSearchBar = require('../../../search/search-bar').component;
 const Results = require('../common/component/results').component;
+import DefaultGroupComponent from './group';
 
 // Mixins
 const referenceBehaviour = require('../../../common/form/mixin/reference-behaviour');
@@ -42,18 +43,18 @@ const QuickSearchComponent = {
     */
     getDefaultProps() {
         return {
-            scopeSelectionHandler: this._scopeSelectionHandler,
-            store: quickSearchStore,
-            scopeFacetKey: 'FCT_SCOPE',
+            action: undefined,
+            groupComponent: DefaultGroupComponent,
+            groupMaxRows: undefined,
             lineComponentMapper: undefined,
             lineOperationList: undefined,
-            groupComponent: undefined,
-            service: undefined,
-            action: undefined,
             onLineClick: undefined,
-            groupMaxRows: undefined,
+            scopeFacetKey: 'FCT_SCOPE',
+            scopeSelectionHandler: this._scopeSelectionHandler,
             scrollParentSelector: undefined,
-            SearchBar: DefaultSearchBar
+            SearchBar: DefaultSearchBar,
+            service: undefined,
+            store: quickSearchStore
         };
     },
     /**
