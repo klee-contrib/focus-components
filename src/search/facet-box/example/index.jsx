@@ -30,6 +30,31 @@ const FacetsExample = React.createClass({
     }
 });
 
+const facets = {
+    FCT_CONTRIES: {
+        FRA: {label: 'France', count: 43},
+        GER: {label: 'Germany', count: 18},
+        ENG: {label: 'England', count: 12}
+    },
+    FCT_REGIONS: {
+        IDF: {label: 'Ile de France', count: 11},
+        RHA: {label: 'Rhône-Alpes', count: 25},
+        LRN: {label: 'Lorraine', count: 7},
+        BDB: {label: 'Brandenburg', count: 2},
+        HMB: {label: 'Hamburg', count: 5},
+        WML: {label: 'West Midlands', count: 8},
+        HPS: {label: 'Hampshire', count: 5}
+    },
+    FCT_CITIES: {
+        Par: {label: 'Paris', count: 11},
+        LYO: {label: 'Lyon', count: 25},
+        BRL: {label: 'Hennigsdorf', count: 2},
+        MNC: {label: 'Hamburg', count: 5},
+        LND: {label: 'Birmingham', count: 8},
+        SHN: {label: 'Southampton', count: 5}
+    }
+};
+
 const MyFacetBox = React.createClass({
     getInitialState() {
         return ({
@@ -42,30 +67,7 @@ const MyFacetBox = React.createClass({
         FCT_REGIONS: 'text',
         FCT_CITIES: 'text'
     },
-    facetList: {
-        FCT_CONTRIES: {
-            FRA: {label: 'France', count: 43},
-            GER: {label: 'Germany', count: 18},
-            ENG: {label: 'England', count: 12}
-        },
-        FCT_REGIONS: {
-            IDF: {label: 'Ile de France', count: 11},
-            RHA: {label: 'Rhône-Alpes', count: 25},
-            LRN: {label: 'Lorraine', count: 7},
-            BDB: {label: 'Brandenburg', count: 2},
-            HMB: {label: 'Hamburg', count: 5},
-            WML: {label: 'West Midlands', count: 8},
-            HPS: {label: 'Hampshire', count: 5}
-        },
-        FCT_CITIES: {
-            Par: {label: 'Paris', count: 11},
-            LYO: {label: 'Lyon', count: 25},
-            BRL: {label: 'Hennigsdorf', count: 2},
-            MNC: {label: 'Hamburg', count: 5},
-            LND: {label: 'Birmingham', count: 8},
-            SHN: {label: 'Southampton', count: 5}
-        }
-    },
+    facetList: facets,
     dataSelectionHandler({selectedFacetList, openedFacetList}) {
         this.setState({selectedFacetList, openedFacetList});
     },
@@ -77,12 +79,11 @@ const MyFacetBox = React.createClass({
                 config={config}
                 dataSelectionHandler={dataSelectionHandler}
                 facetList={facetList}
-                openedFacetList={openedFacetList}
+                openedFacetList={{FCT_CONTRIES:true}}
                 selectedFacetList={selectedFacetList}
                 />
         );
     }
 });
-
 
 module.exports = FacetsExample;

@@ -39,9 +39,6 @@ const MyMenu = React.createClass({
         height:' 176px',
         backgroundImage: 'url(http://media.dcentertainment.com/sites/default/files/character_bio_576_superman_0.jpg)'
     },
-    cardMenu: {
-        color: 'white'
-    },
     makeTheSecondPopinPop() {
         const self = this;
         return self.refs.secondPopin.togglePopin();
@@ -67,19 +64,9 @@ const MyMenu = React.createClass({
                             <br/>
                             Click on <div className="mdl-button mdl-button--icon mdl-js-button mdl-js-ripple-effect"><i  className="material-icons">chat</i></div> icon to have a right slidding popin
                             <br/>
-                            And click the <b>"Click here"</b> button to have a fade-in popin example.
+                            And <button className="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent" onClick={this.makeTheSecondPopinPop}><b>Click here</b></button> to display a fade-in popin example.
                             <br/>
                         </h5>
-                    </div>
-                    <div className="mdl-card__actions mdl-card--border">
-                        <button className="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent" onClick={this.makeTheSecondPopinPop}>
-                            Click here
-                        </button>
-                    </div>
-                    <div className="mdl-card__menu" style={this.cardMenu}>
-                        <button className="mdl-button mdl-button--icon mdl-js-button mdl-js-ripple-effect" onClick={this.makeTheThirdPopinPop}>
-                            <i className="material-icons">settings</i>
-                        </button>
                     </div>
                 </div>
                 <MyPopin ref='popin'/>
