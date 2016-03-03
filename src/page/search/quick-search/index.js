@@ -147,7 +147,7 @@ const QuickSearchComponent = {
     * @returns {HTML} the rendered component
     */
     _renderResults() {
-        const {groupComponent, groupMaxRows, lineComponentMapper, lineOperationList, scrollParentSelector, scopeFacetKey} = this.props;
+        const {groupComponent, groupMaxRows, lineComponentMapper, lineOperationList, scrollParentSelector, scopeFacetKey, store} = this.props;
         const {facets, resultsMap, totalCount} = this.state;
         return (
             <Results
@@ -162,6 +162,7 @@ const QuickSearchComponent = {
                 resultsFacets={facets}
                 resultsMap={resultsMap}
                 scrollParentSelector={scrollParentSelector}
+                store={store}
                 totalCount={totalCount}
             />
         );
