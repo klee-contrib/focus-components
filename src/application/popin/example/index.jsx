@@ -19,6 +19,12 @@ const MyMenu = React.createClass({
                 onClick() {
                     self.refs.popin.togglePopin();
                 }
+            },
+            {
+                icon:'chat',
+                onClick() {
+                    self.refs.thirdPopin.togglePopin();
+                }
             }
         ]
     },
@@ -56,19 +62,19 @@ const MyMenu = React.createClass({
                     <div className="mdl-card__supporting-text" style={this.divSupportText}>
                         <h5>
                             Through this example you'll find the different possibilities you got with the Focus Popin component.
+                            <br/><br/>
+                            Click on <div className="mdl-button mdl-button--icon mdl-js-button mdl-js-ripple-effect"><i  className="material-icons">notifications</i></div> icon to have a menu slidding popin
                             <br/>
-                            The popin have different animations and different sizes.
+                            Click on <div className="mdl-button mdl-button--icon mdl-js-button mdl-js-ripple-effect"><i  className="material-icons">chat</i></div> icon to have a right slidding popin
                             <br/>
-                            You can <b><i>size</i></b> them with keywords "small", "medium" & "large". You can also make theme animate with different by specifying what you want in the <b><i>type</i></b> attribute. In fact by default you'll have a zoomIn/zoomOut animation if you dont set the type props to the Popin.
+                            And click the <b>"Click here"</b> button to have a fade-in popin example.
                             <br/>
-                            <br/>
-                            Click the button bellow to have an example and more tips about the Focus Popin.
                         </h5>
                     </div>
                     <div className="mdl-card__actions mdl-card--border">
-                        <a className="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect raised" onClick={this.makeTheSecondPopinPop}>
-                            Read more
-                        </a>
+                        <button className="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent" onClick={this.makeTheSecondPopinPop}>
+                            Click here
+                        </button>
                     </div>
                     <div className="mdl-card__menu" style={this.cardMenu}>
                         <button className="mdl-button mdl-button--icon mdl-js-button mdl-js-ripple-effect" onClick={this.makeTheThirdPopinPop}>
@@ -128,7 +134,6 @@ const SecondPopin = React.createClass({
                     <br/>
                     Check the notification icon which is in the Focus menu bar now.
                 </h4>
-                Yeah, the Popin finally have its demo page 😄
                 <br/>
             </Popin>
         );
