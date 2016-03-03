@@ -47,8 +47,6 @@ to { height: auto; }
 
     // When the header is deployed, don't show the summary.
     &[data-deployed="true"] {
-        z-index: $header-top-row-zindex;
-
         div[data-focus="header-top-row"] {
             div[data-focus="header-top-row-middle"] {
                 display: none;
