@@ -10,6 +10,7 @@ import panel from './panel';
 import scrollspyContainer from './scrollspy-container';
 import Confirm from './confirm';
 import IconDropdown from './icon-dropdown';
+import role from './role';
 
 export default {
     HeaderActions: headerActions,
@@ -23,5 +24,6 @@ export default {
     MenuLeft: menuLeft,
     Panel: panel,
     ScrollspyContainer: scrollspyContainer,
-    IconDropdown
+    IconDropdown,
+    Role: role,
 }
