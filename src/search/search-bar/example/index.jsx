@@ -25,12 +25,15 @@ const SearchBarExample = React.createClass({
     }
 });
 
+const showMessage = function(searchBar) {
+    searchBar.refs.popin.togglePopin();
+};
+
 const MySearchBarWithoutScopes = React.createClass({
     MyFunction() {
-        this.setState({loading: false});
-    },
-    setTimeLoad() {
-        setTimeout(this.myFunction(), 3000 );
+        setTimeout(() => {
+            this.refs.searchBar.setState({loading: false});
+        }, 1700);
     },
     componentWillMount() {
         this._action = actionBuilder({
@@ -38,37 +41,34 @@ const MySearchBarWithoutScopes = React.createClass({
             identifier: searchBarStore.identifier,
             getSearchOptions: () => {return searchBarStore.getValue.call(searchBarStore); } // Binding the store in the function call
         });
-        searchBarStore.addQueryChangeListener(this._onSearchCriteriaChange);
-        searchBarStore.addScopeChangeListener(this._onSearchCriteriaChange);
+        searchBarStore.addQueryChangeListener(this._onQueryChangeFromStore);
     },
-    componentWillUnmount() {
-        searchBarStore.removeQueryChangeListener(this._onSearchCriteriaChange);
-        searchBarStore.removeScopeChangeListener(this._onSearchCriteriaChange);
-    },
-    _onSearchCriteriaChange() {
-        const {onSearchCriteriaChange} = this.props;
-        if (onSearchCriteriaChange) {
-            onSearchCriteriaChange();
-        }
+    _onQueryChangeFromStore() {
+        this.setState({
+            query: searchBarStore.getQuery()
+        });
         this.MyFunction();
     },
     render() {
         return(
-            <SearchBar
-                hasScopes={false}
-                store={searchBarStore}
-                placeholder={`Enter your search here...`}
-                action={this._action}
-                />
+            <div>
+                <SearchBar
+                    hasScopes={false}
+                    store={searchBarStore}
+                    placeholder={`Enter your search here...`}
+                    action={this._action}
+                    ref='searchBar'
+                    />
+            </div>
         );
     }
 });
 
 const MySearchBarWithScopes = React.createClass({
-    getInitialState() {
-        return ({
-            loading: false
-        });
+    MyFunction() {
+        setTimeout(() => {
+            this.refs.searchBarScopes.setState({loading: false});
+        }, 1700);
     },
     componentWillMount() {
         this._action = actionBuilder({
@@ -76,26 +76,15 @@ const MySearchBarWithScopes = React.createClass({
             identifier: searchBarWithScopesStore.identifier,
             getSearchOptions: () => {return searchBarWithScopesStore.getValue.call(searchBarWithScopesStore); } // Binding the store in the function call
         });
-        searchBarWithScopesStore.addQueryChangeListener(this._onSearchCriteriaChange);
-        searchBarWithScopesStore.addScopeChangeListener(this._onSearchCriteriaChange);
-        setTimeout(
-            () => this.setState({loading: false}),
-            3000
-        );
+        searchBarWithScopesStore.addQueryChangeListener(this._onQueryChangeFromStore);
     },
-    componentWillUnmount() {
-        searchBarWithScopesStore.removeQueryChangeListener(this._onSearchCriteriaChange);
-        searchBarWithScopesStore.removeScopeChangeListener(this._onSearchCriteriaChange);
-    },
-    _onSearchCriteriaChange() {
-        const {onSearchCriteriaChange} = this.props;
-        if (onSearchCriteriaChange) {
-            onSearchCriteriaChange();
-        }
+    _onQueryChangeFromStore() {
+        this.setState({
+            query: searchBarWithScopesStore.getQuery()
+        });
+        this.MyFunction();
     },
     render() {
-        const self = this;
-        const {loading} = this.state;
         const searchBarScopes = [
             {
                 code: 'movie',
@@ -115,12 +104,15 @@ const MySearchBarWithScopes = React.createClass({
             },
         ];
         return(
-            <SearchBar
-                scopes={searchBarScopes}
-                store={searchBarWithScopesStore}
-                placeholder={`Enter your search here...`}
-                action={this._action}
-                />
+            <div>
+                <SearchBar
+                    scopes={searchBarScopes}
+                    store={searchBarWithScopesStore}
+                    placeholder={`Enter your search here...`}
+                    ref='searchBarScopes'
+                    action={this._action}
+                    />
+            </div>
         );
     }
 });
