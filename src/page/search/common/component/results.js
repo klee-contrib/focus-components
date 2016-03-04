@@ -1,5 +1,7 @@
 // Dependencies
 const React = require('react');
+
+import {translate} from 'focus-core/translation';
 import builder from 'focus-core/component/builder';
 
 const assign = require('lodash/object/assign');
@@ -15,15 +17,11 @@ const DefaultEmpty = require('./default-empty-component').component;
 const ListSelection = require('../../../../list/selection').list.component;
 const GroupWrapper = require('./group-wrapper').component;
 
-// Mixins
-const i18nMixin = require('../../../../common/i18n/mixin');
-
 /**
 * Results component, used to render the results, grouped or ungrouped
 * @type {Object}
 */
 const Results = {
-    mixins: [i18nMixin],
     /**
     * By default, an empty component is picked.
     * @return {Object} the default props
@@ -173,8 +171,7 @@ const Results = {
                 />
                 {this.state.loading &&
                     <div data-focus='loading-more-results'>
-                    <i className='fa fa-spinner'></i>
-                    {this.i18n('search.loadingMore')}
+                        {translate('search.loadingMore')}
                     </div>
                 }
             </div>
