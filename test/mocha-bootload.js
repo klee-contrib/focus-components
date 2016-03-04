@@ -34,6 +34,7 @@ global.sinon = sinon;
 global.TestUtils = require('react-addons-test-utils');
 global.sandbox = require('./sandbox');
 global.componentHandler = {upgradeElement: function(){}};
+global.__DEV__ = process.env.DEV ? JSON.parse(process.env.DEV) : true;
 
 // take all properties of the window object and also attach it to the
 // from mocha-jsdom https://github.com/rstacruz/mocha-jsdom/blob/master/index.js#L80
