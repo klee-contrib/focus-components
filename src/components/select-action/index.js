@@ -40,6 +40,25 @@ class SelectAction extends Component {
             componentHandler.downgradeElements(ReactDOM.findDOMNode(this.refs.dropdown));
         }
     }
+
+    /**
+     * Render the component.
+     * @returns  {XML} Htm code.
+     */
+    render() {
+        const {iconProps, operationList, position, shape} = this.props;
+        const id = this._htmlId;
+        if (0 === operationList.length) {
+            return null;
+        }
+        return (
+           <ActionMenu id={id} iconProps={iconProps} operationList={operationList} position={position} shape={shape}/>
+        );
+    }
+
+}
+
+class ActionMenu extends React.Component {
     /**
      * Handle action on selected item.
      * @param {function} action Action to call
@@ -55,16 +74,9 @@ class SelectAction extends Component {
             }
         };
     }
-    /**
-     * Render the component.
-     * @returns  {XML} Htm code.
-     */
+
     render() {
-        const {iconProps, operationList, position, shape} = this.props;
-        const id = this._htmlId;
-        if (0 === operationList.length) {
-            return null;
-        }
+        const {id,iconProps, operationList, position, shape} = this.props;
         return (
             <div>
                 <Button icon={iconProps.name} id={id} isJs={true} shape={shape} />
@@ -80,10 +92,10 @@ class SelectAction extends Component {
             </div>
         );
     }
-
 }
 
-SelectAction.displayName = 'Dropdown';
+
+SelectAction.displayName = 'SelectAction';
 SelectAction.defaultProps = {
     position: 'right',
     iconProps: {
