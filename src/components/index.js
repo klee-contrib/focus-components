@@ -27,7 +27,7 @@ export default {
     MenuLeft: menuLeft,
     MessageCenter,
     Panel: panel,
-    Role,
     Dropdown,
-    ScrollspyContainer: scrollspyContainer
+    ScrollspyContainer: scrollspyContainer,
+    Role
 }

@@ -1,7 +1,10 @@
 import React, {Component, PropTypes} from 'react';
+import ReactDOM from 'react-dom';
 import {component as Button} from '../../common/button/action';
+import {translate} from 'focus-core/translation';
+import uuid from 'uuid';
 
-class Dropdown extends Component {
+class SelectAction extends Component {
     constructor(props) {
         super(props);
     }
@@ -80,8 +83,8 @@ class Dropdown extends Component {
 
 }
 
-Dropdown.displayName = 'Dropdown';
-Dropdown.defaultProps = {
+SelectAction.displayName = 'Dropdown';
+SelectAction.defaultProps = {
     position: 'right',
     iconProps: {
         name: 'more_vert'
@@ -89,10 +92,10 @@ Dropdown.defaultProps = {
     shape: 'icon',
     operationList: []
 };
-Dropdown.propTypes =  {
+SelectAction.propTypes =  {
     position: PropTypes.string,
         iconProps: PropTypes.object,
         operationList: PropTypes.array,
         shape: PropTypes.string
 };
-export default Dropdown;
+export default SelectAction;
