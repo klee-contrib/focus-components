@@ -29,7 +29,7 @@ affichage d'une liste en tableau avec la possibilité de trier par colonnes.
             <td>Définit la liste des colonnes à afficher dans le tableau.</td>
         </tr>
         <tr>
-            <td><code>lineComponent</code></td>
+            <td><code>LineComponent</code></td>
             <td><i>React-component</i></td>
             <td></td>
             <td>aucune.</td>
