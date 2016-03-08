@@ -61,7 +61,7 @@ module.exports = {
     * @param {object} options - options object.
     * @returns {object} - A React Field.
     */
-    selectFor(name, listName, options){
+    selectFor(name, listName, options) {
         options = options || {};
         options.listName = listName || options.listName;
         const fieldProps = this._buildFieldProps(name, options, this);
@@ -73,7 +73,7 @@ module.exports = {
     * @param {object} options - options object.
     * @returns {object} - A React Field.
     */
-    displayFor(name, options){
+    displayFor(name, options) {
         options = options || {};
         options.isEdit = false;
         const fieldProps = this._buildFieldProps(name, options, this);
@@ -85,7 +85,7 @@ module.exports = {
     * @param {object} options - Option object
     * @returns {object} - A React component.
     */
-    textFor(name, options){
+    textFor(name, options) {
         options = options || {};
         const def = (this.definition && this.definition[name]) ? this.definition[name] : {};
         const fieldProps = this._buildFieldProps(name, options, this);
@@ -94,10 +94,10 @@ module.exports = {
         const _processValue = values ? result(find(values, {[valueKey || 'code']: value}), labelKey || 'label') : value;
         return (
             <Text
-            formatter={options.formatter || def.formatter}
-            name={options.name || `${this.definitionPath}.${name}`}
-            style={options.style}
-            value={_processValue}
+                formatter={options.formatter || def.formatter}
+                name={options.name || `${this.definitionPath}.${name}`}
+                style={options.style}
+                value={_processValue}
             />
         );
     },
@@ -143,11 +143,11 @@ module.exports = {
         };
         return (
             <Button
-            handleOnClick={handleOnClick}
-            icon='delete'
-            label='button.delete'
-            shape={null}
-            type='button'
+                handleOnClick={handleOnClick}
+                icon='delete'
+                label='button.delete'
+                shape={null}
+                type='button'
             />
         );
     },
@@ -164,11 +164,11 @@ module.exports = {
         };
         return (
             <Button
-            handleOnClick={handleOnClick}
-            icon='edit'
-            label='button.edit'
-            shape={null}
-            type='button'
+                handleOnClick={handleOnClick}
+                icon='edit'
+                label='button.edit'
+                shape={null}
+                type='button'
             />
         );
     },
@@ -204,11 +204,11 @@ module.exports = {
         };
         return (
             <Button
-            handleOnClick={handleOnClick}
-            icon='save'
-            label='button.save'
-            shape={null}
-            type='button'
+                handleOnClick={handleOnClick}
+                icon='save'
+                label='button.save'
+                shape={null}
+                type='button'
             />
         );
     },

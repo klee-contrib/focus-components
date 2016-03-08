@@ -1,3 +1,3 @@
 module.exports ={
-  mixin: require('./mixin')
+    mixin: require('./mixin')
 };

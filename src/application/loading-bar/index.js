@@ -16,25 +16,25 @@ let LoadingBarMixin = {
         requestStore.addClearRequestsListener(this._handleClearRequests);
     },
     /** @inheriteddoc */
-    componentWillUnmount: function cartridgeWillUnMount(){
+    componentWillUnmount: function cartridgeWillUnMount() {
         requestStore.removeUpdateRequestListener(this._handleRequestsUpdate);
         requestStore.removeClearRequestsListener(this._handleClearRequests);
     },
-    _getStateFromStore: function getCartridgeStateFromStore(){
+    _getStateFromStore: function getCartridgeStateFromStore() {
         return requestStore.getRequests();
     },
-    _handleRequestsUpdate: function _handlePushMessage(messageId){
+    _handleRequestsUpdate: function _handlePushMessage(messageId) {
         this.setState(this._getStateFromStore());
     },
-    _handleClearRequests(){
+    _handleClearRequests() {
         this.setState({requests: {}});
     },
     /** @inheriteddoc */
     render: function renderProgressBar() {
-        var completed  = +((this.state.total - this.state.pending)/this.state.total)*100;
+        var completed = +((this.state.total - this.state.pending)/this.state.total)*100;
         var visible = false;
         const {displayDevBar} = this.props;
-        if(completed < 100){
+        if(completed < 100) {
             visible = true;
         }
         //Else empty the loading list?

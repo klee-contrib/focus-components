@@ -152,7 +152,7 @@ const Scrollspy = {
         }
         //save current state
         const {scrollSpy} = this.refs;
-        if(scrollSpy){
+        if(scrollSpy) {
             const componentTopPosition = ReactDOM.findDOMNode(scrollSpy).offsetTop;
             this.setState({
                 activeTitleId: currentId,

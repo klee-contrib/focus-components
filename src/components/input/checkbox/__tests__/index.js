@@ -10,7 +10,7 @@ describe('The input checkbox', () => {
         let renderedTest;
         const onChangeSpy = sinon.spy();
         before(() => {
-            renderedTest = TestUtils.renderIntoDocument(<InputCheckBox onChange={onChangeSpy} value={true} />);
+            renderedTest = TestUtils.renderIntoDocument(<InputCheckBox onChange={onChangeSpy} value />);
         });
 
         it('should hold the provided initial value', () => {

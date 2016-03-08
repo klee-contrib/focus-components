@@ -55,14 +55,14 @@ const inputTextComponent = {
             value: formatter(value)
         };
     },
-    componentWillMount(){
+    componentWillMount() {
         console.warn('FocusComponents 0.7.0: this component is deprecated, please use FocusComponents.components.input.Text');
     },
     /**
     * Update the component.
     * @param {object} newProps - The new props to update.
     */
-    componentWillReceiveProps(newProps){
+    componentWillReceiveProps(newProps) {
         this.setState({value: this.props.formatter(newProps.value)});
     },
     /**
@@ -76,10 +76,10 @@ const inputTextComponent = {
     * Handle the change value of the input.
     * @param {object} event - The sanitize event of input.
     */
-    _handleInputChange(event){
+    _handleInputChange(event) {
         //On change handler.
         const {onChange} = this.props;
-        if(onChange){
+        if(onChange) {
             return onChange(event);
         } else {
             //Set the state then call the change handler.

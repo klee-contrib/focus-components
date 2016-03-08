@@ -35,15 +35,15 @@ var detailMixin = {
     * Returns detail content.
     * @return {object} detail content
     */
-    _detailContent(){
+    _detailContent() {
         return (
             <div data-focus='detail-content'>
             {this.props.children}
             </div>
         );
     },
-     componentWillMount(){
-     console.warn('FocusComponents 0.7.0: this component is deprecated, please use FocusComponents.components.ScrollspyContainer');
+    componentWillMount() {
+        console.warn('FocusComponents 0.7.0: this component is deprecated, please use FocusComponents.components.ScrollspyContainer');
     },
     /** @inheritedDoc */
     render() {

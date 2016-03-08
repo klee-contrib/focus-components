@@ -29,7 +29,7 @@ class ConfirmWrapper extends Component {
     render() {
         const {isVisible, ConfirmContentComponent, cancelHandler, confirmHandler, contentProps} = this.props;
         const ConfirmContent = isString(ConfirmContentComponent) ? (() => <span>{ConfirmContentComponent}</span>) : ConfirmContentComponent;
-        return isVisible ? <ConfirmationModal open={true} cancelHandler={cancelHandler} confirmHandler={confirmHandler} {...contentProps}>{ConfirmContent ? <ConfirmContent /> : null}</ConfirmationModal> : null;
+        return isVisible ? <ConfirmationModal open cancelHandler={cancelHandler} confirmHandler={confirmHandler} {...contentProps}>{ConfirmContent ? <ConfirmContent /> : null}</ConfirmationModal> : null;
     }
 }
 

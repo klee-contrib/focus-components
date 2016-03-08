@@ -4,14 +4,14 @@ import {component as Button} from '../../common/button/action';
 import Translation from '../../behaviours/translation';
 
 function isDescendant(parent, child) {
-     let node = child.parentNode;
-     while (node != null) {
-         if (node == parent) {
-             return true;
-         }
-         node = node.parentNode;
-     }
-     return false;
+    let node = child.parentNode;
+    while (node != null) {
+        if (node == parent) {
+            return true;
+        }
+        node = node.parentNode;
+    }
+    return false;
 }
 @Translation
 class Dropdown extends Component {

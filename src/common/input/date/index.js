@@ -65,7 +65,7 @@ const InputDateMixin = {
             value: moment()
         };
     },
-     componentWillMount(){
+    componentWillMount() {
         console.warn('FocusComponents 0.7.0: this component is deprecated, please use FocusComponents.components.input.Date');
     },
     /** @inheritdoc */
@@ -178,7 +178,7 @@ const InputDateMixin = {
         const calendarDate = rawDate ? moment(rawDate) : moment();
         return (
             <div data-focus='input-date'>
-                <DateRangePicker drops={drops} endDate={calendarDate} locale={locale} onApply={_onPickerApply} opens='center' ref='daterangepicker' showDropdowns={showDropdowns} singleDatePicker={true} startDate={calendarDate}>
+                <DateRangePicker drops={drops} endDate={calendarDate} locale={locale} onApply={_onPickerApply} opens='center' ref='daterangepicker' showDropdowns={showDropdowns} singleDatePicker startDate={calendarDate}>
                     <InputText error={error} name={name} onBlur={_onInputBlur} onChange={_onInputChange} placeholder={placeholder} ref='inputDateText' value={inputDate} />
                 </DateRangePicker>
             </div>

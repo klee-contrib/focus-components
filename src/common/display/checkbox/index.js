@@ -8,42 +8,42 @@ var i18nBehaviour = require('../../i18n/mixin');
  * @type {Object}
  */
 var displayCheckboxMixin = {
-  mixins: [i18nBehaviour],
+    mixins: [i18nBehaviour],
   /** @inheritdoc */
-  getDefaultProps: function getInputDefaultProps() {
-    return {
-      value: undefined,
-      name: undefined,
-      style: {}
-    };
-  },
+    getDefaultProps: function getInputDefaultProps() {
+        return {
+            value: undefined,
+            name: undefined,
+            style: {}
+        };
+    },
   /** @inheritdoc */
-  propTypes: {
-    type: type('string'),
-    value: type('bool'),
-    name: type('string'),
-    style: type('object')
-  },
+    propTypes: {
+        type: type('string'),
+        value: type('bool'),
+        name: type('string'),
+        style: type('object')
+    },
   /**
    * Render the boolean value.
    */
-  renderValue: function renderValueDisplayText(){
-    var stringValue = this.props.value === true ? 'true' : 'false';
-    return this.i18n(`display.checkbox.${stringValue}`);
-  },
+    renderValue: function renderValueDisplayText() {
+        var stringValue = this.props.value === true ? 'true' : 'false';
+        return this.i18n(`display.checkbox.${stringValue}`);
+    },
   /**
    * Render a display field.
    * @return {DOM} - The dom of an input.
    */
-  render: function renderInput() {
-    return (
+    render: function renderInput() {
+        return (
       <div
-        id={this.props.name}
-        name={this.props.name}
-        className={this.props.style.class}
+          id={this.props.name}
+          name={this.props.name}
+          className={this.props.style.class}
       >{this.renderValue()}</div>
     );
-  }
+    }
 };
 
 

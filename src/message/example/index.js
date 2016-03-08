@@ -1,10 +1,10 @@
 const Message = FocusComponents.message.component;
 
 const MessageSample = React.createClass({
-    getInitialState(){
+    getInitialState() {
         return {isVisible: true};
     },
-    _handleOnClick: function(){
+    _handleOnClick: function() {
         this.setState({isVisible: false});
     },
     /**

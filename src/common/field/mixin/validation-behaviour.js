@@ -5,7 +5,7 @@ let {isNull, isUndefined, isFunction} = require('lodash/lang');
 let validationMixin ={
     mixins: [i18nMixin],
     /** @inheritdoc */
-    getDefaultProps: function getDefaultProps(){
+    getDefaultProps: function getDefaultProps() {
         return {
             isRequired: false,
             validator: undefined
@@ -16,8 +16,8 @@ let validationMixin ={
     * @param  {object} validationStatus - The result from the validation.
     * @return {true | string} - true if the validation is ok and a message if it is not the case.
     */
-    _computeValidationStatus(validationStatus){
-        if(validationStatus.isValid){
+    _computeValidationStatus(validationStatus) {
+        if(validationStatus.isValid) {
             return true;
         }
         return validationStatus.errors.join(', ');

@@ -19,7 +19,7 @@ const InputTextSample = React.createClass({
 
                 <h3>Get the value</h3>
                 <InputText value="Lorem Ipsum" ref="myInputText"/>
-                <button onClick={()=>{alert(this.refs.myInputText.getValue())}}>Get the input value</button>
+                <button onClick={() => {alert(this.refs.myInputText.getValue())}}>Get the input value</button>
             </div>
         );
     }

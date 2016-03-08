@@ -4,7 +4,7 @@ var paginationMixin = {
     /**
      * @inheritDoc
      */
-    getDefaultProps: function getPaginationDefaultProps(){
+    getDefaultProps: function getPaginationDefaultProps() {
         return {
             hasMoreData: false,
             isManualFetch: false
@@ -22,11 +22,11 @@ var paginationMixin = {
      * @param {number} page the page to fetch
      * @return {*} the next page
      */
-    fetchNextPage: function fetchNextPage(page){
-        if(!this.props.hasMoreData){
+    fetchNextPage: function fetchNextPage(page) {
+        if(!this.props.hasMoreData) {
             return;
         }
-        if(this.props.fetchNextPage){
+        if(this.props.fetchNextPage) {
             return this.props.fetchNextPage(page);
         }
     },
@@ -35,7 +35,7 @@ var paginationMixin = {
      * handle manual fetch.
      * @param {object} event event received
      */
-    handleShowMore: function handleShowMore(event){
+    handleShowMore: function handleShowMore(event) {
         this.nextPage++;
         this.fetchNextPage(this.nextPage);
     }

@@ -22,7 +22,7 @@ class TestComponent extends React.Component {
         const {rolesForHasOne,rolesForHasAll, ...otherProps} = this.props;
         return (
             <TestWrapper mockedValue="header">
-                <Role  hasOne={rolesForHasOne} hasAll={rolesForHasAll} emptyBlock={<div/>}>
+                <Role hasOne={rolesForHasOne} hasAll={rolesForHasAll} emptyBlock={<div/>}>
                     <TestWrapper mockedValue={childBlock}>
                         <div>Test</div>
                     </TestWrapper>

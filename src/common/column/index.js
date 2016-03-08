@@ -6,12 +6,12 @@ import types from 'focus-core/component/types';
 /**
  * Column component.
  */
-class Column extends Component{
-    constructor(props){
+class Column extends Component {
+    constructor(props) {
         super(props);
         this._className = this._className.bind(this);
     }
-    _className(){
+    _className() {
         const {size, className} = this.props;
         if(className) { return className; }
         const SIZE_CSS = size ? `mdl-cell--${size}-col` : '';

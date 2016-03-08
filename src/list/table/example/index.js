@@ -8,15 +8,15 @@ const Table = FocusComponents.list.table.list.component;
 const TableLineComponent = React.createClass({
     mixins: [lineBehaviour],
     definitionPath: 'contact',
-    renderLineContent(data){
+    renderLineContent(data) {
         const {className} = this.props;
         const cellProps = {className};
         return (
             <tr data-focus='table-line'>
-                <td {...cellProps}>{this.textFor("firstName", {})}</td>
-                <td {...cellProps}>{this.textFor("lastName", {})}</td>
+                <td {...cellProps}>{this.textFor('firstName', {})}</td>
+                <td {...cellProps}>{this.textFor('lastName', {})}</td>
                 <td {...cellProps}>
-                    {this.textFor("birthDate", {})}
+                    {this.textFor('birthDate', {})}
                     {this.renderLineActions()}
                 </td>
             </tr>
@@ -41,19 +41,19 @@ const tableProps = {
     columns: {
         firstName: {label: 'Prénom', sort:'asc'},
         lastName: {label: 'Nom', sort: 'desc'},
-        birthDate: {label: "date", noSort: true}
+        birthDate: {label: 'date', noSort: true}
     },
-    onLineClick : function onLineClick(line){
+    onLineClick : function onLineClick(line) {
         //Should open a popin
         alert('click sur la ligne ' + line.title);
     },
-    sortColumn: function sortColumn(name, order){
+    sortColumn: function sortColumn(name, order) {
         //Should call an action which sorts the list.
         alert('Order ' + order + ' on column ' + name);
     },
     operationList: [
         {
-            label: "Button1_a",
+            label: 'Button1_a',
             action: function(data) {alert(data.title);},
             style: {className: 'fa fa-eye', shape: 'fab'},
             priority: 1

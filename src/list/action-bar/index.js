@@ -109,7 +109,7 @@ const ActionBar = {
     */
     _getGroupObject() {
         const {hasGrouping} = this.props;
-        if(hasGrouping){
+        if(hasGrouping) {
             const {groupLabelPrefix, groupSelectedKey, groupableColumnList, style} = this.props;
             const groupOperationList = reduce(groupableColumnList, (operationList, label, key) => {
                 operationList.push({
@@ -157,12 +157,12 @@ const ActionBar = {
     },
 
     _selectionFunction(selectionStatus) {
-        return ()=> {
+        return () => {
             this.props.selectionAction(selectionStatus);
         };
     },
     _orderFunction(key, order) {
-        return ()=> {
+        return () => {
             this.props.orderAction(key, order);
         };
     },
@@ -186,9 +186,9 @@ const ActionBar = {
                 </div>
                 <div className='mdl-cell mdl-cell--hide-tablet mdl-cell--hide-phone' data-focus='selected-facet-content'>
                     <TopicDisplayer
-                    displayLabels={true}
-                    topicClickAction={this.props.facetClickAction}
-                    topicList={this.props.facetList} />
+                        displayLabels
+                        topicClickAction={this.props.facetClickAction}
+                        topicList={this.props.facetList} />
                 </div>
                 <div className='mdl-cell' data-focus='contextual-action-content'>
                     <ActionContextual operationList={this.props.operationList}/>

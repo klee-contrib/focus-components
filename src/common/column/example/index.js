@@ -1,7 +1,7 @@
 const {column: Column, grid: Grid} = FocusComponents.common;
 // Blue square to  fill the grid.
 const BlueSquare = React.createClass({
-    render(){
+    render() {
         const label = this.props.label;
         const style = {backgroundColor: '#BDBDBD', height: '200px', color: 'white'};
         return <div style={style}>{label}</div>;

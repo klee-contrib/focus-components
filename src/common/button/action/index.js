@@ -64,20 +64,20 @@ const buttonMixin = {
         let SHAPE_CLASS;
         switch (shape) {
             case 'raised':
-            SHAPE_CLASS = `${BUTTON_PRFX}raised`;
-            break;
+                SHAPE_CLASS = `${BUTTON_PRFX}raised`;
+                break;
             case 'fab':
-            SHAPE_CLASS = `${BUTTON_PRFX}fab`;
-            break;
+                SHAPE_CLASS = `${BUTTON_PRFX}fab`;
+                break;
             case 'icon':
-            SHAPE_CLASS = `${BUTTON_PRFX}icon`;
-            break;
+                SHAPE_CLASS = `${BUTTON_PRFX}icon`;
+                break;
             case 'mini-fab':
-            SHAPE_CLASS = `${BUTTON_PRFX}mini-fab ${BUTTON_PRFX}fab`;
-            break;
+                SHAPE_CLASS = `${BUTTON_PRFX}mini-fab ${BUTTON_PRFX}fab`;
+                break;
             default:
-            SHAPE_CLASS = null;
-            break;
+                SHAPE_CLASS = null;
+                break;
         }
         const COLOR_CLASS = color ? `${BUTTON_PRFX}${color}` : '';
         const JS_CLASS = isJs ? BTN_JS : '';
@@ -99,14 +99,14 @@ const buttonMixin = {
         const {icon, iconLibrary} = this.props;
         switch (iconLibrary) {
             case 'material':
-            return <i className='material-icons'>{icon}</i>;
+                return <i className='material-icons'>{icon}</i>;
             case 'font-awesome':
-            const faCss = `fa fa-${icon}`;
-            return <i className={faCss}></i>;
+                const faCss = `fa fa-${icon}`;
+                return <i className={faCss}></i>;
             case 'font-custom':
-            return <span className={`icon-${icon}`}></span>;
+                return <span className={`icon-${icon}`}></span>;
             default:
-            return null;
+                return null;
         }
     },
     /**

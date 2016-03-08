@@ -28,12 +28,12 @@ const Scroll = Component => class ScrollComponent extends Component {
     }
 
     _getScrollingElement() {
-      if(document.scrollingElement){
-        return document.scrollingElement;
-      } else if(document.documentElement) {
-        return document.documentElement;
-      }
-      return document.querySelector("body");
+        if(document.scrollingElement) {
+            return document.scrollingElement;
+        } else if(document.documentElement) {
+            return document.documentElement;
+        }
+        return document.querySelector('body');
     }
 
     /**

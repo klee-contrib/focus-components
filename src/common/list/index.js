@@ -26,7 +26,7 @@ let MemoryListMixin = {
                 hasMoreData={hasMoreData}
                 LineComponent={this.props.LineComponent}
                 isSelection={false}
-                isManualFetch={true}
+                isManualFetch
                 fetchNextPage={this.fetchNextPage}
                 reference={this.getReference()}
                 {...childProps}

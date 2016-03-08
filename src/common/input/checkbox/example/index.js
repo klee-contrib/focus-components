@@ -5,7 +5,7 @@ const InputCheckboxSample = React.createClass({
     /**
     * Handle click action to get check value.
     */
-    handleGetValueClick(){
+    handleGetValueClick() {
         const value = this.refs.cbTestGetValue.getValue();
         alert('Checkbox value: ' + value);
     },
@@ -18,17 +18,17 @@ const InputCheckboxSample = React.createClass({
         return (
             <div>
                 <h3>Input checkbox</h3>
-                <Checkbox value={true} label="My awsome checkbox"/>
+                <Checkbox value label="My awsome checkbox"/>
 
                 <h3>Unselected checkbox</h3>
                 <Checkbox value={false} label="My awsome checkbox"/>
 
                 <h3>Without label</h3>
-                <Checkbox value={true} />
+                <Checkbox value />
 
                 <h3>Get Checkbox value</h3>
                 <div style={{float:'left', width: '300px'}}>
-                    <Checkbox value={true} label="My awsome checkbox" ref="cbTestGetValue"/>
+                    <Checkbox value label="My awsome checkbox" ref="cbTestGetValue"/>
                 </div>
                 <div style={{marginLeft:'300px'}}>
                     <button onClick={this.handleGetValueClick}>Get the checkbox value</button>

@@ -180,7 +180,7 @@ class InputDate extends Component {
                     <div data-focus='picker-zone'>
                         <DatePicker
                             date={dropDownDate}
-                            hideFooter={true}
+                            hideFooter
                             locale={locale}
                             onChange={_onDropDownChange}
                             ref='picker'

@@ -9,7 +9,7 @@ const ContentActions = require('../content-actions').component;
 /**
  * Application header
  */
-class AppHeader extends Component{
+class AppHeader extends Component {
     render() {
         return (
             <Header>

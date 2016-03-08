@@ -5,12 +5,12 @@ let uuid = require('uuid');
  */
 module.exports = {
     /** @inheriteDoc */
-    componentWillMount(){
+    componentWillMount() {
         Object.defineProperty( this, '_identifier', {
             value: uuid.v4(),
             writable: false,
             enumerable: true,
             configurable: false
-         });
+        });
     }
 };

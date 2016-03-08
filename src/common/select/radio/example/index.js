@@ -1,13 +1,13 @@
 const SelectRadio = FocusComponents.common.select.radio.component;
 
-const values = [{code: "A", label: "Value A"}, {code: "B", label: "Value B"}, {code: "C", label: "Value C"}];
+const values = [{code: 'A', label: 'Value A'}, {code: 'B', label: 'Value B'}, {code: 'C', label: 'Value C'}];
 
 const SelectRadioSample = React.createClass({
 
     /**
     * Handle click action to get check value.
     */
-    handleGetValueClick(){
+    handleGetValueClick() {
         const value = this.refs.mySelectRadio.getValue();
         alert('Selected values ID: ' + value);
     },
@@ -22,7 +22,7 @@ const SelectRadioSample = React.createClass({
     /**
     * Handle click action to get check value.
     */
-    handleOnChange(newValue){
+    handleOnChange(newValue) {
         this.setState({value: newValue});
         alert('Selected values ID: ' + newValue);
     },

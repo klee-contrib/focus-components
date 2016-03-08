@@ -6,7 +6,7 @@ import {isNull, isUndefined, isArray, isString} from 'lodash/lang';
 // We need to investigate why import {getEntityInformations} from 'focus-core/entity/builder' didn't work, maybe an ES2015 related issue with babel.
 // Maybe because the node modules reads from the builded lib  instead of src.
 import definition from 'focus-core/definition';
-const getEntityInformations =  definition.entity.builder.getEntityInformations;
+const getEntityInformations = definition.entity.builder.getEntityInformations;
 
 
 /**
@@ -19,13 +19,13 @@ const getEntityInformations =  definition.entity.builder.getEntityInformations;
  * @return {function} - A function to commect a component to a definition.
  * @example please read the end of the file.
  */
-export default function definitionBehaviour(definitionPath, additionalDefinition){
+export default function definitionBehaviour(definitionPath, additionalDefinition) {
 
     // Arguments validation
-    if(isUndefined(definitionPath) || isNull(definitionPath)|| (!isString(definitionPath) && !isArray(definitionPath))){
+    if(isUndefined(definitionPath) || isNull(definitionPath)|| (!isString(definitionPath) && !isArray(definitionPath))) {
         throw new Error('the definition path should be givent in order to to know the domain of your entity property.');
     }
-    if(!isUndefined(additionalDefinition) && !isNull(additionalDefinition) && !isObject(additionalDefinition)){
+    if(!isUndefined(additionalDefinition) && !isNull(additionalDefinition) && !isObject(additionalDefinition)) {
         throw new Error('The additional definition if is defined should be an object');
     }
 
@@ -57,13 +57,13 @@ export default function definitionBehaviour(definitionPath, additionalDefinition
          * It has a reference to the wrapped component in `this.refs.wrappedComponent`
          */
         class DefinitionWrappedComponent extends Component {
-            render(){
+            render() {
                 return <ComponentToWrap ref='wrappedComponent' definition={definition} {...this.props}/>;
             }
         }
 
         // Add with definition to the name of the component.
-        DefinitionWrappedComponent.displayName =  `${displayName}WithDefinition`;
+        DefinitionWrappedComponent.displayName = `${displayName}WithDefinition`;
 
         return DefinitionWrappedComponent;
     }

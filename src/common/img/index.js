@@ -11,7 +11,7 @@ var imgMixin = {
      * Default props.
      * @returns {object} Initial props.
      */
-    getDefaultProps: function(){
+    getDefaultProps: function() {
         return {
             src: undefined,
             onClick: undefined
@@ -21,10 +21,10 @@ var imgMixin = {
      * Render the img.
      * @returns {XML} Html code.
      */
-    render: function renderImg(){
+    render: function renderImg() {
         var className = 'icon ' + this.props.src;
         return <span className={className} onClick={this.props.onClick}>&nbsp;</span>;
     }
 };
 
-module.exports =  builder(imgMixin);
+module.exports = builder(imgMixin);

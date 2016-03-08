@@ -72,7 +72,7 @@ class Select extends Component {
     * @param  {object} evt - The react DOM event.
     * @return {object} - The function onChange from the props, called.
     */
-    _handleSelectChange = (evt) =>{
+    _handleSelectChange = (evt) => {
         const {onChange, valueParser, value: propsValue} = this.props;
         const {value} = evt.target;
         return onChange(valueParser.call(this, propsValue, value));
@@ -81,7 +81,7 @@ class Select extends Component {
     /** inheritdoc */
     _renderOptions({hasUndefined, labelKey, isRequired, value, values = [], valueKey, isActiveProperty, unSelectedLabel}) {
         const isRequiredAndNoValue = isRequired && (isUndefined(value) || isNull(value));
-        if(hasUndefined || isRequiredAndNoValue){
+        if(hasUndefined || isRequiredAndNoValue) {
             values = union(
                 [{[labelKey]: this.i18n(unSelectedLabel), [valueKey]: UNSELECTED_KEY}],
                 values

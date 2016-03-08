@@ -40,7 +40,7 @@ const Dropdown = {
     /**
      * Component will mount
      */
-    componentWillMount(){
+    componentWillMount() {
         this._htmlId = uuid.v4();
     },
     /**
@@ -95,7 +95,7 @@ const Dropdown = {
         }
         return (
             <div>
-                <Button icon={iconProps.name} id={id} isJs={true} shape={shape} />
+                <Button icon={iconProps.name} id={id} isJs shape={shape} />
                 <ul className={`mdl-menu mdl-menu--bottom-${position} mdl-js-menu mdl-js-ripple-effect`} htmlFor={id} ref='dropdown'>
                     {operationList.map((operation, idx) => {
                         return (

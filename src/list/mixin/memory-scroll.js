@@ -9,7 +9,7 @@ let memoryMixin = {
     },
 
     /** @inheritdoc */
-    getInitialState(){
+    getInitialState() {
         return {
             page: 1,
             maxElements: this.props.perPage
@@ -20,7 +20,7 @@ let memoryMixin = {
      * Calculate the number of element to display in the memory list.
      * @param page the current page to fetch
      */
-    fetchNextPage(){
+    fetchNextPage() {
         let currentPage = this.state.page + 1;
         this.setState({
             page: currentPage,
@@ -32,8 +32,8 @@ let memoryMixin = {
      * Calculate the data to display.
      * @return data list
      */
-    getDataToUse(){
-        if(!this.props.data){
+    getDataToUse() {
+        if(!this.props.data) {
             return [];
         }
         return this.props.data.slice(0, this.state.maxElements);
@@ -43,7 +43,7 @@ let memoryMixin = {
      * Get the reference lists.
      * @return {object} object wich contains all reference lists.
      */
-    getReference(){
+    getReference() {
         return this.state.reference || this.props.reference;
     }
 };

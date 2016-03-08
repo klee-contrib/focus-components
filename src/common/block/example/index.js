@@ -1,13 +1,13 @@
 const Block = FocusComponents.common.block.component;
 const formMixin = FocusComponents.common.form.mixin;
 
-const domain =  {
-    "DO_TEXT": {
-        style: "do_text",
-        type: "text",
-        component: "PapaSinge",
+const domain = {
+    'DO_TEXT': {
+        style: 'do_text',
+        type: 'text',
+        component: 'PapaSinge',
         validation: [{
-            type: "function",
+            type: 'function',
             value: function() {
                 return false;
             }
@@ -17,10 +17,10 @@ const domain =  {
 
 Focus.definition.domain.container.setAll(domain);
 const entities = {
-    "contact": {
-        "firstName": {
-            "domain": "DO_TEXT",
-            "required": false
+    'contact': {
+        'firstName': {
+            'domain': 'DO_TEXT',
+            'required': false
         }
     }
 };

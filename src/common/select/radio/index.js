@@ -42,7 +42,7 @@ const selectRadioMixin = {
     },
 
     /** @inheritdoc */
-    componentWillReceiveProps (newProps){
+    componentWillReceiveProps (newProps) {
         this.setState({
             value: newProps.value
         });
@@ -62,7 +62,7 @@ const selectRadioMixin = {
     */
     _handleRadioChange(newValue) {
         const {onChange} = this.props;
-        if(onChange){
+        if(onChange) {
             onChange(newValue);
             return;
         }

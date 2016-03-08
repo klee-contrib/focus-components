@@ -147,7 +147,7 @@ const popin = {
             });
         }, timeout);
     },
-    componentWillUnmount(){
+    componentWillUnmount() {
         window.clearTimeout(this._openTimeoutID);
     },
     /**

@@ -1,7 +1,7 @@
 // libraires
 import React, {PropTypes, Component} from 'react';
 import Translation from '../../../behaviours/translation';
-import formatter from  'focus-core/definition/formatter/number';
+import formatter from 'focus-core/definition/formatter/number';
 
 //web components
 import {component as Button} from '../../../common/button/action';

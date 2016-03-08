@@ -1,3 +1,3 @@
 /*global describe, it*/
 
-describe.skip('action-bar', ()=>{});
+describe.skip('action-bar', () => {});
