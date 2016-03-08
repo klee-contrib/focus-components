@@ -62,7 +62,7 @@ const changeBehaviourMixin = {
         if (onChange) {
             onChange.call(this, changeInfos);
         }
-        this.setState(this._getStateFromStores(), () => this._afterChange(changeInfos));
+        this.setState(this._getStateFromStore(changeInfos.property), () => this._afterChange(changeInfos));
     },
     /**
     * Event handler for 'error' events coming from the stores.
