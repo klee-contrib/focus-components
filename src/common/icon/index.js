@@ -20,7 +20,7 @@ const iconMixin = {
     * Render the img.
     * @returns {XML} Html code.
     */
-    render: function renderIcon(){
+    render: function renderIcon() {
         const {name, library, onClick, style} = this.props;
         switch (library) {
             case 'material':

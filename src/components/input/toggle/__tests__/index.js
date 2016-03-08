@@ -10,7 +10,7 @@ describe('The input toggle', () => {
         let renderedTest;
         const onChangeSpy = sinon.spy();
         before(() => {
-            renderedTest = TestUtils.renderIntoDocument(<InputToggle onChange={onChangeSpy} value={true} />);
+            renderedTest = TestUtils.renderIntoDocument(<InputToggle onChange={onChangeSpy} value />);
         });
 
         it('should hold the provided initial value', () => {

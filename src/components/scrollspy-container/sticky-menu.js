@@ -27,7 +27,7 @@ class StickyMenu extends Component {
         return (
             <nav data-affix={affix} data-focus='sticky-menu' data-offset={affixOffset} {...otherProps}>
                 <ul>
-                    {menuList.map((menu)=>{
+                    {menuList.map((menu) => {
                         const {label, nodeId, isActive, onClick} = menu;
                         return (
                             <li data-active={isActive} key={nodeId} onClick={onClick}>{label}</li>

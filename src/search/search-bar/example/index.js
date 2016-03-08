@@ -50,8 +50,8 @@ Focus.reference.config.set({
 
 Focus.reference.builtInAction(['scopes'])();
 
-const SearchBarExample =  React.createClass({
-    render(){
+const SearchBarExample = React.createClass({
+    render() {
         return (
             <div>
                 <h3>Search bar with scope</h3>

@@ -41,7 +41,7 @@ const selectCheckboxMixin = {
 
     /** @inheritdoc */
     componentWillReceiveProps(newProps) {
-        if(newProps){
+        if(newProps) {
             this.setState({selectedValues: newProps.value});
         }
     },

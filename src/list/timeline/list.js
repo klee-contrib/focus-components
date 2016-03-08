@@ -24,7 +24,7 @@ var listMixin = {
     * Default properties for the list.
     * @return {object} default props.
     */
-    getDefaultProps: function getDefaultProps(){
+    getDefaultProps: function getDefaultProps() {
         return {
             data: [],
             idField: 'id',
@@ -56,7 +56,7 @@ var listMixin = {
         // LEGACY CODE
         const customLineComponent = otherProps.lineComponent;
         if (customLineComponent) {
-            console.warn(`%c DEPRECATED : You are using the lineComponent prop in a timeline component, this will be removed in the next release of Focus Components. Please use LineComponent prop instead.`, `color: #FF9C00; font-weight: bold`);
+            console.warn('%c DEPRECATED : You are using the lineComponent prop in a timeline component, this will be removed in the next release of Focus Components. Please use LineComponent prop instead.', 'color: #FF9C00; font-weight: bold');
         }
         const FinalLineComponent = customLineComponent || LineComponent;
         // END OF LEGACY CODE
@@ -86,8 +86,8 @@ var listMixin = {
         }
     },
 
-    _renderManualFetch: function renderManualFetch(){
-        if(this.props.isManualFetch && this.props.hasMoreData){
+    _renderManualFetch: function renderManualFetch() {
+        if(this.props.isManualFetch && this.props.hasMoreData) {
             var style = {className: 'primary'};
             return (
                 <li className="timeline-button">
@@ -104,7 +104,7 @@ var listMixin = {
     * Render the list.
     * @returns {XML} the list component
     */
-    render: function renderList(){
+    render: function renderList() {
         return (
             <ul className="timeline">
                 {this._renderLines()}

@@ -15,7 +15,7 @@ const FieldMixin = {
     /** @inheriteDoc */
     mixins: [valueBehaviour, validationBehaviour, builtInComponents],
     /** @inheriteDoc */
-   getDefaultProps() {
+    getDefaultProps() {
         return {
             isEdit: true,
             type: 'text'
@@ -47,7 +47,7 @@ const FieldMixin = {
     /**
     * Get the css class of the field component.
     */
-    _className(){
+    _className() {
         const stateClass = this.state.error ? 'is-invalid' : '';
         return `mdl-grid ${stateClass}`;
     },

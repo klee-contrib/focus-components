@@ -13,7 +13,7 @@ var builtInComponentsMixin = {
     /**
      * @inheritDoc
      */
-    getDefaultProps: function getbuiltInComponentsMixinDefaultProps(){
+    getDefaultProps: function getbuiltInComponentsMixinDefaultProps() {
         return {
             isEdit: false
         };
@@ -25,7 +25,7 @@ var builtInComponentsMixin = {
      * @param {object} options - An object which contains all options for the built of the field.
      * @returns {object} - A React Field.
      */
-    fieldFor: function fieldForInLine(name, options){
+    fieldFor: function fieldForInLine(name, options) {
         options = assign({}, {
             isEdit: this.props.isEdit,
             hasLabel: false,
@@ -44,10 +44,10 @@ var builtInComponentsMixin = {
      * @param {object} options - An object which contains all options for the built of the field.
      * @returns {object} - A React Field.
      */
-    selectFor: function selectForInLine(name, referenceKey, options){
-      options = options || {};
-      options.listName = referenceKey;
-      return this.fieldFor(name, options);
+    selectFor: function selectForInLine(name, referenceKey, options) {
+        options = options || {};
+        options.listName = referenceKey;
+        return this.fieldFor(name, options);
     },
     /**
      * Display a field.
@@ -55,7 +55,7 @@ var builtInComponentsMixin = {
      * @param {object} options - options object.
      * @returns {object} - A React Field in display mode.
      */
-    displayFor: function displayForInLine(name, options){
+    displayFor: function displayForInLine(name, options) {
         options = assign({}, {
             isEdit: false,
             hasLabel: false,
@@ -74,7 +74,7 @@ var builtInComponentsMixin = {
      * @param {object} options - Option object
      * @returns {object} - A React component.
      */
-    textFor: function textFor(name, options){
+    textFor: function textFor(name, options) {
         options = options || {};
         var def = (this.definition && this.definition[name]) ? this.definition[name] : {};
         return React.createElement(Text, {

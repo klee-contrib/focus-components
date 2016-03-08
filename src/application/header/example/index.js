@@ -1,7 +1,7 @@
 
 const Header = FocusComponents.application.header.component;
-const HeaderExample =  React.createClass({
-    render(){
+const HeaderExample = React.createClass({
+    render() {
         return (
             <div>
                 <Header>

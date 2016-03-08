@@ -18,7 +18,7 @@ var lineMixin = {
      */
     mixins: [translationMixin, definitionMixin, referenceMixin, builtInComponentsMixin],
 
-    getInitialState: function getInitialSate(){
+    getInitialState: function getInitialSate() {
         return {};
     },
 
@@ -37,7 +37,7 @@ var lineMixin = {
      * Get the line value.
      * @returns {object} - the data od the line.
      */
-    getValue: function getLineValue(){
+    getValue: function getLineValue() {
         return {
             item: this.props.data
         };
@@ -47,8 +47,8 @@ var lineMixin = {
      * Line Click handler.
      * @param {object} event - the event
      */
-    _handleLineClick: function handleLineClick(event){
-        if(this.props.onLineClick){
+    _handleLineClick: function handleLineClick(event) {
+        if(this.props.onLineClick) {
             this.props.onLineClick(this.props.data);
         }
     },
@@ -57,8 +57,8 @@ var lineMixin = {
      * render content for a line.
      * @returns {XML} the line content
      */
-    _renderLineContent: function renderLineContent(){
-        if(this.renderLineContent){
+    _renderLineContent: function renderLineContent() {
+        if(this.renderLineContent) {
             return this.renderLineContent(this.props.data);
         }else{
             return (
@@ -79,8 +79,8 @@ var lineMixin = {
      * Render line in list.
      * @returns {XML} - the render of the line
      */
-    render: function renderLine(){
-        if(this.renderLine){
+    render: function renderLine() {
+        if(this.renderLine) {
             return this.renderLine();
         }else{
             return (

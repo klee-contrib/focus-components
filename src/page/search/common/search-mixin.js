@@ -51,8 +51,8 @@ let SearchMixin = {
         };
     },
     getSearchCriteria() {
-        if(!isFunction(this.props.searchAction)){
-          console.warn(`Your page seems to miss a search action, add in your props a {searchAction: function(scope, query, facets){}}`, this.props.searchAction);
+        if(!isFunction(this.props.searchAction)) {
+            console.warn('Your page seems to miss a search action, add in your props a {searchAction: function(scope, query, facets){}}', this.props.searchAction);
         }
         return this._buildSearchCriteria(this.state.selectedFacetList);
     },

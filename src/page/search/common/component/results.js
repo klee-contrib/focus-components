@@ -93,7 +93,7 @@ const Results = {
                         groupComponent={this.props.groupComponent}
                         groupKey={key}
                         initialRowsCount={initialRowsCount}
-                        isUnique={true}
+                        isUnique
                         list={list}
                         ref={`group-${key}`}
                         renderResultsList={this._renderResultsList}

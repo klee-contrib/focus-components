@@ -1,4 +1,4 @@
 /*global describe, it*/
 
-describe.skip('error-center', ()=>{
+describe.skip('error-center', () => {
 });

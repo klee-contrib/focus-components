@@ -122,12 +122,12 @@ let FacetBox = {
                     if (selectedDataKey || Object.keys(facet).length > 1) {
                         return (
                             <Facet facetKey={facetKey} key={facetKey}
-                                             facet={facet}
-                                             selectedDataKey={selectedDataKey}
-                                             isExpanded={this.state.openedFacetList[facetKey]}
-                                             expandHandler={this._facetExpansionHandler}
-                                             selectHandler={this._facetSelectionHandler}
-                                             type={this.props.config[facetKey]}
+                                facet={facet}
+                                selectedDataKey={selectedDataKey}
+                                isExpanded={this.state.openedFacetList[facetKey]}
+                                expandHandler={this._facetExpansionHandler}
+                                selectHandler={this._facetSelectionHandler}
+                                type={this.props.config[facetKey]}
                                 />
                         );
                     }

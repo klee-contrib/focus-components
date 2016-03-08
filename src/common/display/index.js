@@ -1,4 +1,4 @@
 module.exports = {
-  text: require('./text'),
-  checkbox: require('./checkbox')
+    text: require('./text'),
+    checkbox: require('./checkbox')
 };

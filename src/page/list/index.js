@@ -19,10 +19,10 @@ const DEFAULT_LIST_COMPONENT = require('../../list/table/list').component;
  * @param  {string} node - Node name.
  * @return {string} the built property.
  */
-function _listenerProp(node){
+function _listenerProp(node) {
     return `add${capitalize(camelCase(node))}ChangeListener`;
 }
-function _unListenerProp(node){
+function _unListenerProp(node) {
     return `remove${capitalize(camelCase(node))}ChangeListener`;
 }
 /**
@@ -30,13 +30,13 @@ function _unListenerProp(node){
  * @type {Object}
  */
 const listPageMixin = {
-    getDefaultProps(){
+    getDefaultProps() {
         return {
             ListComponent: DEFAULT_LIST_COMPONENT,
-            pickProps(props){return props;}
+            pickProps(props) {return props;}
         };
     },
-    getInitialState(){
+    getInitialState() {
         return {};
     },
     /** @inheritdoc */
@@ -49,7 +49,7 @@ const listPageMixin = {
     /**
      *  Build the action from.
      */
-    _buildAction(){
+    _buildAction() {
         this._action = this.props.action || actionBuilder({
             service: this.props.service,
             identifier: this.props.store.identifier,
@@ -60,32 +60,32 @@ const listPageMixin = {
      * Read the state from the store.
      * @return {object} - The object read from the store.
      */
-    _getStateFromStore(){
+    _getStateFromStore() {
         const store = this.props.store;
         return store.getValue();
     },
     /**
      * Hanlde the list store change.
      */
-    _handleStoreChanged(){
+    _handleStoreChanged() {
         this.setState(this._getStateFromStore());
     },
     /**
      * Register the store nodes.
      */
-     _reload(){
-         this._action.load();
-     },
-    _registerStoreNode(){
-        STORE_NODE.forEach((node)=>{
+    _reload() {
+        this._action.load();
+    },
+    _registerStoreNode() {
+        STORE_NODE.forEach((node) => {
             //Maybe this is a bit too much, a global change event could be more efficient as almost all store props change.
             this.props.store[_listenerProp(node)](this._handleStoreChanged);
         });
         //When the criteria is changed, the search is triggered.
         this.props.store.addCriteriaChangeListener(this._reload);
     },
-    _unRegisterStoreNode(){
-          STORE_NODE.forEach((node)=>{
+    _unRegisterStoreNode() {
+        STORE_NODE.forEach((node) => {
             //Maybe this is a bit too much, a global change event could be more efficient as almost all store props change.
             this.props.store[_unListenerProp(node)](this._handleStoreChanged);
         });
@@ -96,7 +96,7 @@ const listPageMixin = {
      * build the list props.
      * @return {object} - the list property.
      */
-    _buildListProps(){
+    _buildListProps() {
         const {props, state} = this;
         let {dataList, totalCount} = state;
         dataList = dataList || [];
@@ -107,16 +107,16 @@ const listPageMixin = {
         });
     },
     /** @inheritdoc */
-    componentWillMount(){
+    componentWillMount() {
         this._registerStoreNode();
         this._buildAction();
         this._action.load();
     },
-    componentWillUnmount(){
+    componentWillUnmount() {
         this._unRegisterStoreNode();
     },
     /** @inheritdoc */
-    render(){
+    render() {
         const listProps = this._buildListProps();
         return <this.props.ListComponent {...listProps} ref='list'/>;
     }

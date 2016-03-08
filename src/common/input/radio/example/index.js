@@ -14,7 +14,7 @@ const InputRadioSample = React.createClass({
                 </div>
                 <h3>With value : True</h3>
                 <div>
-                    <InputRadio name="options2" value={true} label="Value True" />
+                    <InputRadio name="options2" value label="Value True" />
                 </div>
             </div>
         );

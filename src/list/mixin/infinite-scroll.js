@@ -39,7 +39,7 @@ const InfiniteScrollMixin = {
      * Before component unmount.
      */
     componentWillUnmount: function() {
-        if(!this.props.isManualFetch){
+        if(!this.props.isManualFetch) {
             this.detachScrollListener();
         }
     },
@@ -58,7 +58,7 @@ const InfiniteScrollMixin = {
      * after component update.
      */
     componentDidUpdate: function() {
-        if(!this.props.isLoading && !this.props.isManualFetch){
+        if(!this.props.isLoading && !this.props.isManualFetch) {
             this.attachScrollListener();
         }
     },
@@ -87,7 +87,7 @@ const InfiniteScrollMixin = {
      * Attach scroll listener on the component.
      */
     attachScrollListener: function () {
-        if(!this.props.hasMoreData){
+        if(!this.props.hasMoreData) {
             return;
         }
         this.parentNode.addEventListener('scroll', this.scrollListener);

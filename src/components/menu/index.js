@@ -71,7 +71,7 @@ class MenuLeft extends Component {
         );
     }
 
-};
+}
 
 //Static props.
 MenuLeft.displayName = 'MenuLeft';

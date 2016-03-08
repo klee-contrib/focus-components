@@ -14,7 +14,7 @@ const Progress = {
      * Get default props
      * @return {Object} the default props
      */
-    getDefaultProps(){
+    getDefaultProps() {
         return {
             completed: 0
         };

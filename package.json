@@ -11,7 +11,8 @@
     "test": "mocha src/**/__tests__/**/*.js",
     "test:watch": "mocha src/**/__tests__/**/*.js -w",
     "postinstall": "node scripts/mdl-variables-copy.js",
-    "profile": "better-npm-run profile"
+    "profile": "better-npm-run profile",
+    "fix-lint": "eslint --fix src/** || exit 0"
   },
   "betterScripts": {
     "babelify": {
@@ -107,7 +108,7 @@
     "chai": "^3.2.0",
     "chai-subset": "^1.0.1",
     "css-loader": "^0.19.0",
-    "eslint": "1.5.1",
+    "eslint": "^2.3.0",
     "eslint-config-focus": "0.3.0",
     "eslint-plugin-filenames": "0.1.1",
     "eslint-plugin-react": "3.5.0",

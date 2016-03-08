@@ -5,7 +5,7 @@ const {isUndefined, isObject} = require('lodash/lang');
  * @param  {object} d - data to treat.
  * @return {object}  - The same object.
  */
-function identity(d){
+function identity(d) {
     return d;
 }
 
@@ -17,7 +17,7 @@ const fieldBehaviourMixin = {
     * @param {object} context - Function context, this by default.
     * @returns {object} - The constructed props for the field.
     */
-    _buildFieldProps(name, options = {}, context){
+    _buildFieldProps(name, options = {}, context) {
         context = context || this;
         //Properties.
         const isEdit = options.isEdit !== undefined ? options.isEdit : context.state.isEdit;
@@ -25,11 +25,11 @@ const fieldBehaviourMixin = {
         const def = (context.definition && context.definition[name]) ? context.definition[name] : {};
         const listName = options.listName || def.listName;
         //hasLabel
-        const hasLabel = (function hasLabel(){
-            if(options.hasLabel !== undefined){
+        const hasLabel = (function hasLabel() {
+            if(options.hasLabel !== undefined) {
                 return options.hasLabel;
             }
-            if(def.hasLabel !== undefined){
+            if(def.hasLabel !== undefined) {
                 return options.hasLabel;
             } return true;
         }());
@@ -51,7 +51,7 @@ const fieldBehaviourMixin = {
             //Style
             style: options.style,
 			// Type
-			type: def.type,
+			                                                type: def.type,
             //Methods
             validator: def.validator,
             formatter: def.formatter || identity,
@@ -71,7 +71,7 @@ const fieldBehaviourMixin = {
         const refContainer = options.refContainer || def.refContainer || context.state.reference;
 
         // case no props.values and then
-        if(!(options.hasOwnProperty('values')) && isObject(refContainer) && refContainer.hasOwnProperty(listName)){
+        if(!(options.hasOwnProperty('values')) && isObject(refContainer) && refContainer.hasOwnProperty(listName)) {
             assign(fieldProps, {values: refContainer[listName] || [] });
         }
         return fieldProps;

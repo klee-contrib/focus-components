@@ -1,3 +1,3 @@
 module.exports = {
-  style: require('./style')
+    style: require('./style')
 };

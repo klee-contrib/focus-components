@@ -1,7 +1,7 @@
 import types from 'focus-core/component/types';
 module.exports = {
     /** @inheritedDocs */
-    getDefaultProps(){
+    getDefaultProps() {
         return {
             style: {className: ''}
         };
@@ -14,8 +14,8 @@ module.exports = {
     * Get the className from the style.className props
     * @returns {string} - the className.
     */
-    _getStyleClassName: function getStyleClassName(){
-        if(this.props.style && this.props.style.className){
+    _getStyleClassName: function getStyleClassName() {
+        if(this.props.style && this.props.style.className) {
             return this.props.style.className;
         }
         return '';

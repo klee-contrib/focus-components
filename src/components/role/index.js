@@ -4,16 +4,16 @@ import user from 'focus-core/user';
 import intersection from 'lodash/array/intersection';
 import isArray from 'lodash/lang/isArray';
 
-function Role({hasAll,hasOne,children,emptyBlock}){
+function Role({hasAll,hasOne,children,emptyBlock}) {
     let userRoles = user.getRoles();
     //console.log("emptyBlock",emptyBlock);
-    if(isArray(hasAll) && intersection(userRoles, hasAll).length === hasAll.length){
+    if(isArray(hasAll) && intersection(userRoles, hasAll).length === hasAll.length) {
         return children;
-    } else if(isArray(hasOne) && intersection(userRoles, hasOne).length > 0){
+    } else if(isArray(hasOne) && intersection(userRoles, hasOne).length > 0) {
         return children;
     }
     return emptyBlock;
-};
+}
 
 
 

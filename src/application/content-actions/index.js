@@ -48,7 +48,7 @@ const ContentActions = {
         const {actions} = this.state;
         return (
             <div className={this._getStyleClassName()} data-focus='content-actions'>
-                {actions.primary.map((primary)=>{
+                {actions.primary.map((primary) => {
                     return (
                         <Button handleOnClick={primary.action} icon={primary.icon} label={primary.label} shape='fab' style={{className: primary.className}} type='button'/>
                     );

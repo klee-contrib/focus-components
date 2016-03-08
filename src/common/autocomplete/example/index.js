@@ -26,11 +26,11 @@ class AutocompleteSample extends React.Component {
         return (
             <div>
                 <AutocompleteFor
-                    isEdit={true}
+                    isEdit
                     loader={listLoader}
                 />
                 <AutocompleteFor
-                    isEdit={true}
+                    isEdit
                     loader={listLoader}
                     value='RIRI'
                 />

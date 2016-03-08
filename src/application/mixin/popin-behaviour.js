@@ -5,23 +5,23 @@ import type from 'focus-core/component/types';
  */
 var PopinProperties = {
   /** @inheritdoc */
-  getDefaultProps: function getMenuDefaultProps() {
-    return {
-      direction: 'vertical',//horizontal
-      position: 'left', // top, bottom, right, left
-      open: false
-    };
-  },
+    getDefaultProps: function getMenuDefaultProps() {
+        return {
+            direction: 'vertical',//horizontal
+            position: 'left', // top, bottom, right, left
+            open: false
+        };
+    },
   /** @inheritdoc */
-  propTypes: {
-    open: type('bool')
-  },
+    propTypes: {
+        open: type('bool')
+    },
   /** @inheritdoc */
-  getInitialState: function getDefaultState() {
-    return {
-      open: this.props.open
-    };
-  }
+    getInitialState: function getDefaultState() {
+        return {
+            open: this.props.open
+        };
+    }
 };
 
 module.exports = {mixin: PopinProperties};

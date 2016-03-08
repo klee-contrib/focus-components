@@ -208,7 +208,7 @@ const AdvancedSearch = {
             <FacetBox
                 action={this._action}
                 facetConfig={facetConfig}
-            	openedFacetList={openedFacetList}
+                openedFacetList={openedFacetList}
                 facets={facets}
                 ref='facetBox'
                 scopesConfig={scopesConfig}

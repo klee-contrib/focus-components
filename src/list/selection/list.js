@@ -34,7 +34,7 @@ const listMixin = {
     * Default properties for the list.
     * @returns {{isSelection: boolean}} the default properties
     */
-    getDefaultProps: function getListDefaultProps(){
+    getDefaultProps: function getListDefaultProps() {
         return {
             data: [],
             isSelection: true,
@@ -123,11 +123,11 @@ const listMixin = {
         // LEGACY CODE
         const customLineComponent = otherProps.lineComponent;
         if (customLineComponent) {
-            console.warn(`%c DEPRECATED : You are using the lineComponent prop in a list component, this will be removed in the next release of Focus Components. Please use LineComponent prop instead.`, `color: #FF9C00; font-weight: bold`);
+            console.warn('%c DEPRECATED : You are using the lineComponent prop in a list component, this will be removed in the next release of Focus Components. Please use LineComponent prop instead.', 'color: #FF9C00; font-weight: bold');
         }
         const FinalLineComponent = customLineComponent || Line;
         // END OF LEGACY CODE
-        if(!isArray(data)){
+        if(!isArray(data)) {
             console.error(
                 'List: Lines: it seems data is not an array, please check the value in your store, it could also be related to your action in case of a load (have a look to shouldDumpStoreOnActionCall option).'
             );
@@ -138,16 +138,16 @@ const listMixin = {
             if (selection) {
                 isSelected = selection.isSelected;
             } else {
-                switch(selectionStatus){
+                switch(selectionStatus) {
                     case 'none':
                         isSelected = false;
-                    break;
+                        break;
                     case 'selected':
                         isSelected = true;
-                    break;
+                        break;
                     case 'partial':
                         isSelected = undefined;
-                    break;
+                        break;
                     default:
                         isSelected = false;
                 }
@@ -171,8 +171,8 @@ const listMixin = {
     */
     _renderLoading() {
         const {isLoading, loader} = this.props;
-        if(isLoading){
-            if(loader){
+        if(isLoading) {
+            if(loader) {
                 return loader();
             }
             return (
@@ -186,7 +186,7 @@ const listMixin = {
     */
     _renderManualFetch() {
         const {isManualFetch, hasMoreData} = this.props;
-        if(isManualFetch && hasMoreData){
+        if(isManualFetch && hasMoreData) {
             const style = {className: 'primary'};
             return (
                 <li className='sl-button'>

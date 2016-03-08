@@ -24,7 +24,7 @@ function scrollPosition(domNode) {
 * @param {number} duration duration of animation
 */
 function scrollTo(element, to, duration = 500) {
-    if(isUndefined(element)){
+    if(isUndefined(element)) {
         window.scrollTo(0, to);
         return;
     }

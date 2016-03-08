@@ -58,7 +58,7 @@ const tableMixin = {
      * Render the table header.
      * @return {Component} - Render the table header.
      */
-    _renderTableHeader(){
+    _renderTableHeader() {
         const {columns} = this.props;
         return <thead><tr>{reduce(columns, this._renderColumnHeader, [])}</tr></thead>;
     },
@@ -70,7 +70,7 @@ const tableMixin = {
      */
     _sortColumnAction(column, order) {
         let currentComponent = this;
-        return (event)=>{
+        return (event) => {
             event.preventDefault();
             currentComponent.props.sortColumn(column, order);
         };
@@ -84,11 +84,11 @@ const tableMixin = {
      */
     _renderColumnHeader(accumulator, colProperties, name) {
         let sort;
-        if(!this.props.isEdit && !colProperties.noSort ){
+        if(!this.props.isEdit && !colProperties.noSort ) {
             const order = colProperties.sort ? colProperties.sort : 'asc';
             const iconName = 'asc' === order ? 'arrow_drop_up' : 'arrow_drop_down';
             const icon = <i className='material-icons'>{iconName}</i>;
-            sort = <a className='sort' data-bypass={true} data-name={name} href='#' onClick={this._sortColumnAction(name, ('asc' === order ? 'desc' : 'asc' ))}>{icon}</a>;
+            sort = <a className='sort' data-bypass data-name={name} href='#' onClick={this._sortColumnAction(name, ('asc' === order ? 'desc' : 'asc' ))}>{icon}</a>;
         }
         accumulator.push(<th className={TABLE_CELL_CLASS}>{this.i18n(colProperties.label)}{sort}</th>);
         return accumulator;
@@ -115,12 +115,12 @@ const tableMixin = {
      */
     _renderLoading() {
         const {isLoading, loader} = this.props;
-        if(isLoading){
-            if(loader){
+        if(isLoading) {
+            if(loader) {
                 return loader();
             }
             return (
-                <tbody className={`table-loading`}>
+                <tbody className={'table-loading'}>
                     <tr>
                         <td>{`${this.i18n('list.loading')}`}</td>
                     </tr>
@@ -134,7 +134,7 @@ const tableMixin = {
      */
     _renderManualFetch() {
         const {isManualFetch, hasMoreData} = this.props;
-        if(isManualFetch && hasMoreData){
+        if(isManualFetch && hasMoreData) {
             return (
                 <tfoot className="table-manual-fetch">
                     <tr>

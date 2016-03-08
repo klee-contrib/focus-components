@@ -72,20 +72,20 @@ const headerMixin = {
         this.scrollTargetNode = (this.props.scrollTargetSelector && this.props.scrollTargetSelector !== '') ? document.querySelector(this.props.scrollTargetSelector) : window;
     },
     /** @inheriteddoc */
-    componentDidMount: function barDidMount(){
+    componentDidMount: function barDidMount() {
         this.attachScrollListener();
     },
     /** @inheriteddoc */
-    componentWillUnmount: function barWillUnMount(){
+    componentWillUnmount: function barWillUnMount() {
         this.detachScrollListener();
         this.appStateWillUnmount();
     },
     /**
     * Process the sizeMap in order to sort them by border size and create a sizes array.
     */
-    _processSizes: function processSizes(){
+    _processSizes: function processSizes() {
         var sizes = [];
-        for(var sz in this.props.sizeMap){
+        for(var sz in this.props.sizeMap) {
             sizes.push({name: sz, sizeBorder: this.props.sizeMap[sz].sizeBorder});
         }
         this.sizes = pluck(sortBy(sizes, 'sizeBorder'), 'name');
@@ -94,14 +94,14 @@ const headerMixin = {
     * Get the current element size.
     * @returns {int} - The size in pixel of the current element in the browser.
     */
-    _processElementSize: function processElementSize(){
+    _processElementSize: function processElementSize() {
         return ReactDOM.findDOMNode(this).offsetHeight;
     },
     /**
     * Get the scroll position from the top of the screen.
     * @returns {int} - The position in pixel from the top of the scroll container.
     */
-    _getScrollPosition: function getScrollPosition(){
+    _getScrollPosition: function getScrollPosition() {
         //The pageYOffset is done in order to deal with the window case. Another possibility would have been to use window.docment.body as a node for scrollTop.
         //But the scrollListener on the page is only on the window element.
         return this.scrollTargetNode.pageYOffset !== undefined ? this.scrollTargetNode.pageYOffset : this.scrollTargetNode.scrollTop;
@@ -109,8 +109,8 @@ const headerMixin = {
     /**
     * Notify other elements that the size has changed.
     */
-    _notifySizeChange: function notifySizeChanged(){
-        if(this.props.notifySizeChange){
+    _notifySizeChange: function notifySizeChanged() {
+        if(this.props.notifySizeChange) {
             this.props.notifySizeChange(this.state.size);
         }
     },
@@ -119,7 +119,7 @@ const headerMixin = {
     * @param {string} newSize - The new size.
     * @returns {undefined} -  A way to stop the propagation.
     */
-    _changeSize: function changeSize(newSize){
+    _changeSize: function changeSize(newSize) {
         // Todo: see if the notification of the changed size can be called before.
         return this.setState({size: newSize}, this._notifySizeChange);
     },
@@ -127,24 +127,24 @@ const headerMixin = {
     * Process the size in order to know if the size should be changed depending on the scroll position and the border of each zone.
     * @returns {object} - The return is used to stop the treatement.
     */
-    _processSize: function _processSize(){
+    _processSize: function _processSize() {
         //Allow the user to redefine the process size function.
-        if(this.props.processSize){
+        if(this.props.processSize) {
             return this.props.processSize();
         }
         var currentIndex = this.sizes.indexOf(this.state.size);
         var currentScrollPosition = this._getScrollPosition();
         //Process increase treatement.
-        if(currentIndex < (this.sizes.length - 1)){
+        if(currentIndex < (this.sizes.length - 1)) {
             var increaseBorder = this.props.sizeMap[this.sizes[currentIndex + 1]].sizeBorder;
-            if(currentScrollPosition > increaseBorder){
+            if(currentScrollPosition > increaseBorder) {
                 return this._changeSize(this.sizes[currentIndex + 1]);
             }
         }
         //Process decrease treatement.
-        if(currentIndex > 0){
+        if(currentIndex > 0) {
             var decreaseBorder = this.props.sizeMap[this.sizes[currentIndex - 1]].sizeBorder;
-            if(currentScrollPosition <= decreaseBorder){
+            if(currentScrollPosition <= decreaseBorder) {
                 return this._changeSize(this.sizes[currentIndex - 1]);
             }
         }
@@ -153,7 +153,7 @@ const headerMixin = {
     * Handle the scroll event in order to resize the page.
     * @param {object} event [description]
     */
-    handleScroll: function handleScrollEvent(event){
+    handleScroll: function handleScrollEvent(event) {
         this._processSize();
     },
 

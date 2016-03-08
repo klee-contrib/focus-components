@@ -28,7 +28,7 @@ const Menu = {
     /**
     * Toggle the state of the menu.
     */
-    toggle(){
+    toggle() {
         this.setState({open: !this.state.open});
     },
     /**
@@ -60,7 +60,7 @@ const Menu = {
         });
     },
     /** @inheriteddoc */
-    render(){
+    render() {
         const {direction, position, children} = this.props;
         const className = `menu menu-${direction} menu-${position} menu-${this.state.open ? 'open' : ''} ${this._getStyleClassName()}`;
         return (

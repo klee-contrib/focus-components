@@ -1,3 +1,3 @@
 module.exports ={
-  cartridgeBehaviour: require('./cartridge-behaviour')
+    cartridgeBehaviour: require('./cartridge-behaviour')
 };

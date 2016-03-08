@@ -6,8 +6,8 @@ import types from 'focus-core/component/types';
 /**
  * Grid component.
  */
-class Grid extends Component{
-    constructor(props){
+class Grid extends Component {
+    constructor(props) {
         super(props);
     }
     /** @inheriteDoc */

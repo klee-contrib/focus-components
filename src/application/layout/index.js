@@ -16,7 +16,7 @@ const stylableBehaviour = require('../../mixin/stylable');
 const contentActionsMixin = {
     mixins: [stylableBehaviour],
     /** inheriteddoc */
-    getDefaultProps(){
+    getDefaultProps() {
         return {
             AppHeader: AppHeaderDefault,
             LoadingBar: LoadingBarDefault,

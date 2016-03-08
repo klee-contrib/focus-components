@@ -179,7 +179,7 @@ const lineMixin = {
     *  @return {XML} the rendered line
     */
     render() {
-        if(this.renderLine){
+        if(this.renderLine) {
             return this.renderLine();
         } else {
             return (

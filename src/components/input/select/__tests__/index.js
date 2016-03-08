@@ -14,7 +14,7 @@ describe('The select ', () => {
                 component = shallowRenderer.getRenderOutput();
             }
         );
-        it.skip('should render an empty select', ()=>{
+        it.skip('should render an empty select', () => {
 
         });
     });
@@ -53,24 +53,24 @@ describe('The select ', () => {
             expect(component.getValue()).to.equal(null);
         });
     });
-    describe('when a value is provided', ()=>{
+    describe('when a value is provided', () => {
         const {VALUE, VALUES} = fixture;
         let component, domNode;
-        before(()=>{
+        before(() => {
             component = renderIntoDocument(<Select name='selectName' onChange={identity} value={VALUE} values={VALUES} />);
         });
-        it('should return the value when provided as a props', ()=> {
+        it('should return the value when provided as a props', () => {
             expect(component.getValue()).to.equal(VALUE);
         });
-        it('should render the value in the DOM', ()=>{
+        it('should render the value in the DOM', () => {
             expect(ReactDOM.findDOMNode(component.refs.htmlSelect).value).to.equal(`${VALUE}`);
         });
     });
     describe('when there is a isActive in the select list', () => {
         const {VALUES, VALUE} = fixture;
         let component;
-        before(()=>{
-            component = renderIntoDocument(<Select isRequired={true} hasUndefined={false} name='selectName' onChange={identity} value={VALUE} values={VALUES} />);
+        before(() => {
+            component = renderIntoDocument(<Select isRequired hasUndefined={false} name='selectName' onChange={identity} value={VALUE} values={VALUES} />);
         });
         describe('when there is list without isActive present', () => {
             it('shoud not filter the select list', () => {
@@ -80,8 +80,8 @@ describe('The select ', () => {
         describe('when there is list with isActive present', () => {
             const {VALUES_ACTIVE, VALUE} = fixture;
             let component;
-            before(()=>{
-                component = renderIntoDocument(<Select isRequired={true} hasUndefined={false} name='selectName' onChange={identity} value={VALUE} values={VALUES_ACTIVE} />);
+            before(() => {
+                component = renderIntoDocument(<Select isRequired hasUndefined={false} name='selectName' onChange={identity} value={VALUE} values={VALUES_ACTIVE} />);
             });
             it('shoud filter the select list', () => {
                 expect(ReactDOM.findDOMNode(component.refs.htmlSelect).options.length).to.equal(2);
@@ -90,8 +90,8 @@ describe('The select ', () => {
         describe('when there is list with a custom isActive present', () => {
             const {VALUES_CUSTOM_ACTIVE, VALUE} = fixture;
             let component;
-            before(()=>{
-                component = renderIntoDocument(<Select isRequired={true} hasUndefined={false} isActiveProperty='isActiveCustom' name='selectName' onChange={identity} value={VALUE} values={VALUES_CUSTOM_ACTIVE} />);
+            before(() => {
+                component = renderIntoDocument(<Select isRequired hasUndefined={false} isActiveProperty='isActiveCustom' name='selectName' onChange={identity} value={VALUE} values={VALUES_CUSTOM_ACTIVE} />);
             });
             it('shoud filter the select list according to the custom value', () => {
                 expect(ReactDOM.findDOMNode(component.refs.htmlSelect).options.length).to.equal(2);
@@ -100,15 +100,15 @@ describe('The select ', () => {
         describe('when there is list with a wrong custom isActive present', () => {
             const {VALUES_CUSTOM_ACTIVE, VALUE} = fixture;
             let component;
-            before(()=>{
-                component = renderIntoDocument(<Select isActiveProperty='isActiveCustomPAPA' isRequired={true} hasUndefined={false} name='selectName' onChange={identity} value={VALUE} values={VALUES_CUSTOM_ACTIVE} />);
+            before(() => {
+                component = renderIntoDocument(<Select isActiveProperty='isActiveCustomPAPA' isRequired hasUndefined={false} name='selectName' onChange={identity} value={VALUE} values={VALUES_CUSTOM_ACTIVE} />);
             });
             it('shoud not filter the select list', () => {
                 expect(ReactDOM.findDOMNode(component.refs.htmlSelect).options.length).to.equal(VALUES_CUSTOM_ACTIVE.length);
             });
         });
     });
-    describe('when the user select a new value', ()=>{
+    describe('when the user select a new value', () => {
         const {VALUE, VALUES} = fixture;
         let onChangeSpy, component;
         before(
@@ -117,13 +117,13 @@ describe('The select ', () => {
                 component = renderIntoDocument(<Select name='selectName' onChange={onChangeSpy} value={VALUE} values={VALUES} />);
             }
         );
-        it('should call onChange with the new value', ()=>{
+        it('should call onChange with the new value', () => {
             Simulate.change(ReactDOM.findDOMNode(component.refs.htmlSelect), {target: {value: VALUE}});
             expect(onChangeSpy).to.have.been.called.once;
             expect(onChangeSpy).to.have.been.calledWith(VALUE);
         });
     });
-    describe('when there is an error', ()=>{
+    describe('when there is an error', () => {
         const {VALUE, VALUES} = fixture;
         const error = 'MY ERROR';
         let component;
@@ -132,7 +132,7 @@ describe('The select ', () => {
                 component = renderIntoDocument(<Select error={error} name='selectName' onChange={identity} value={VALUE} values={VALUES} />);
             }
         );
-        it('it should be displayed', ()=>{
+        it('it should be displayed', () => {
             const errorDOMNode = ReactDOM.findDOMNode(component.refs.error);
             expect(errorDOMNode).to.exist;
             expect(errorDOMNode.innerHTML).to.equal(error);

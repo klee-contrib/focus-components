@@ -112,7 +112,7 @@ describe('The input text', () => {
         it('should unformat the getValue', () => {
             expect(componentValue).to.equal(unformatedValue);
         });
-        it('should call unformatter with mode', ()=>{
+        it('should call unformatter with mode', () => {
             expect(unFormatterSpy).to.have.been.calledOnce;
             expect(unFormatterSpy).to.have.been.calledWith({isEdit: true});
         });

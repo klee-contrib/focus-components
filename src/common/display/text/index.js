@@ -12,9 +12,9 @@ const displayTextMixin = {
     mixins: [i18nBehaviour],
     displayName: 'DisplayText',
     /** @inheritdoc */
-    getDefaultProps(){
+    getDefaultProps() {
         return {
-            formatter: (data)=> data
+            formatter: (data) => data
         };
     },
     /** @inheritdoc */
@@ -28,7 +28,7 @@ const displayTextMixin = {
     * Render the value.
     * @return {string} The formated value.
     */
-    renderValue(){
+    renderValue() {
         const {formatter, value} = this.props;
         return formatter(value);
     },

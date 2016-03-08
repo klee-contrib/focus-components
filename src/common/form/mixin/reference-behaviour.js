@@ -15,28 +15,28 @@ const referenceMixin = {
     /*  referenceNames: this.referenceNames || []
     };
     },*/
-    getInitialState(){
+    getInitialState() {
         return {reference: {}};
     },
     /**
     * Build actions associated to the reference.
     */
-    _buildReferenceActions(){
+    _buildReferenceActions() {
         this.action = {
             loadReference: builtInActionReferenceLoader(this.referenceNames),
             ...this.action
         };
     },
-    _loadReference(){
+    _loadReference() {
         return this.action.loadReference();
     },
     /**
     * Build the reference names and set the store into the application.
     */
-    _buildReferenceStoreConfig(){
+    _buildReferenceStoreConfig() {
 
         //If the reference store is empty don't do anything.
-        if(isEmpty(this.referenceNames)){
+        if(isEmpty(this.referenceNames)) {
             return;
         }
         this.stores = this.stores || [];
@@ -49,12 +49,12 @@ const referenceMixin = {
     /**
     * Build store and actions related to the reference.
     */
-    _buildReference(){
+    _buildReference() {
         this._buildReferenceStoreConfig();
         this._buildReferenceActions();
     },
     /** @inheritdoc */
-    componentWillMount(){
+    componentWillMount() {
         this.referenceNames = this.props.referenceNames || this.referenceNames;
         this._buildReference();
     }

@@ -58,15 +58,15 @@ let formMixin = {
             isEdit: this.props.isEdit
         };
     },
-    componentWillReceiveProps(newProps = {}){
+    componentWillReceiveProps(newProps = {}) {
         let {isEdit} = newProps;
-        if(isEdit !== undefined){
+        if(isEdit !== undefined) {
             this.setState({isEdit: isEdit})
         }
     },
     /** @inheritdoc */
     callMountedActions: function formCallMountedActions() {
-        if(this.props.hasLoad){
+        if(this.props.hasLoad) {
             this._loadData();
         }
         this._loadReference();
@@ -87,19 +87,19 @@ let formMixin = {
             this.unregisterListeners();
         }
     },
-    _mode: function(){
+    _mode: function() {
         return `${this.state.isEdit ? 'edit' : 'consult'}`;
     },
     _className: function formClassName() {
         return `form-horizontal ${this.props.style.className}`;
     },
-    _renderActions: function renderActions(){
+    _renderActions: function renderActions() {
         if (this.renderActions) {
             return this.renderActions();
         }
         return this.state.isEdit ? this._renderEditActions() : this._renderConsultActions();
     },
-    _renderEditActions: function _renderEditActions(){
+    _renderEditActions: function _renderEditActions() {
         return this.renderEditActions ? this.renderEditActions() : (
             <span>
             {this.buttonSave()}
@@ -107,7 +107,7 @@ let formMixin = {
             </span>
         );
     },
-    _renderConsultActions: function _renderConsultActions(){
+    _renderConsultActions: function _renderConsultActions() {
         return this.renderConsultActions ? this.renderConsultActions() : (
             <div>
             {this.props.hasEdit && this.buttonEdit()}
@@ -121,7 +121,7 @@ let formMixin = {
     */
     _handleSubmitForm(e) {
         e.preventDefault();
-        if(this._validate()){
+        if(this._validate()) {
             this.action.save.call(this, this._getEntity());
         }
         //return false;
@@ -129,9 +129,9 @@ let formMixin = {
     /** @inheritdoc */
     render() {
         //console.log('state form', this.state);
-        if(this.props.hasForm){
+        if(this.props.hasForm) {
             return (
-                <form className={this._className()} data-loading={this.state.isLoading} data-mode={this._mode()} noValidate={true} onSubmit={this._handleSubmitForm} >
+                <form className={this._className()} data-loading={this.state.isLoading} data-mode={this._mode()} noValidate onSubmit={this._handleSubmitForm} >
                     <fieldset>{this.renderContent()}</fieldset>
                 </form>
             );

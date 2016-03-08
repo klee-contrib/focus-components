@@ -25,14 +25,14 @@ const changeBehaviourMixin = {
                 break;*/
                 case 'saved':
                 //Maybe the action result or the event should have a caller notion.
-                message.addSuccessMessage('detail.saved');
+                    message.addSuccessMessage('detail.saved');
                 //Change the page mode as edit
-                this.setState({isEdit: false}, () => {
-                    changeMode('consult', 'edit');
-                });
-                break;
+                    this.setState({isEdit: false}, () => {
+                        changeMode('consult', 'edit');
+                    });
+                    break;
                 default:
-                break;
+                    break;
             }
         }
     },
@@ -48,7 +48,7 @@ const changeBehaviourMixin = {
         }
         //If there is no callerId in the event, the display message does not have any sens.
         //Other component responding to the store property change does not need to react on it.
-        if(changeInfos && changeInfos.informations && changeInfos.informations.callerId && this._identifier === changeInfos.informations.callerId){
+        if(changeInfos && changeInfos.informations && changeInfos.informations.callerId && this._identifier === changeInfos.informations.callerId) {
             return this._displayMessageOnChange(changeInfos);
         }
 

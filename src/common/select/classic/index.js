@@ -42,7 +42,7 @@ const selectMixin = {
         valueKey: types('string'),
         disabled: types('bool')
     },
-    componentWillMount(){
+    componentWillMount() {
         console.warn('FocusComponents 0.7.0: this component is deprecated, please use FocusComponents.components.input.Select');
     },
     /** @inheritdoc */
@@ -57,7 +57,7 @@ const selectMixin = {
         };
     },
     /** @inheritdoc */
-    componentWillReceiveProps(newProps){
+    componentWillReceiveProps(newProps) {
         this.setState({value: newProps.value});
     },
     /**
@@ -67,23 +67,23 @@ const selectMixin = {
     getValue() {
         const {select} = this.refs;
         const domValue = ReactDOM.findDOMNode(select).value;
-        if(domValue === UNSELECTED_KEY){ return null; }
+        if(domValue === UNSELECTED_KEY) { return null; }
         return this.state.isNumber ? +domValue : domValue;
     },
     /**
     * Handle the change value of the input.
     * @param {object} event - The sanitize event of input.
     */
-    _handleOnChange(event){
+    _handleOnChange(event) {
         //On change handler.
         const {onChange, multiple} = this.props;
-        if(onChange){
+        if(onChange) {
             onChange(event);
         }else {
             const domValue = event.target.value;
             const value = this.state.isNumber ? +domValue : domValue;
             //Set the state then call the change handler.
-            if(multiple){
+            if(multiple) {
                 let vals = this.state.value;
                 vals.push(value);
                 return this.setState({value: vals});
@@ -92,11 +92,11 @@ const selectMixin = {
         }
     },
     /** @inheritdoc */
-    renderOptions(){
+    renderOptions() {
         let processValues;
         const {labelKey, valueKey, values} = this.props;
         const {hasUndefined} = this.state;
-        if(hasUndefined){
+        if(hasUndefined) {
             processValues = union(
                 [{[labelKey]: 'select.unSelected', [valueKey]: UNSELECTED_KEY}],
                 values
@@ -104,7 +104,7 @@ const selectMixin = {
         }else{
             processValues = values;
         }
-        return processValues.map((val, idx)=>{
+        return processValues.map((val, idx) => {
             const value = `${val[valueKey]}`;
             const label = val[labelKey] || 'select.noLabel';
             return <option key={idx} value={value}>{this.i18n(label)}</option>;

@@ -1,14 +1,14 @@
 const SelectCheckbox = FocusComponents.common.select.checkbox.component;
 const {pull} = _;
 
-const possibleValues = [{value: "A", label: "Value A"},{value: "B", label: "Value B"}, {value: "C", label: "Value C"}, {value: "D", label: "Value D"}];
+const possibleValues = [{value: 'A', label: 'Value A'},{value: 'B', label: 'Value B'}, {value: 'C', label: 'Value C'}, {value: 'D', label: 'Value D'}];
 
 const SelectCheckboxSample = React.createClass({
 
     /**
     * Handle click action to get check value.
     */
-    handleGetValueClick(){
+    handleGetValueClick() {
         const values = this.refs.mySelectCheckbox.getValue();
         alert('Selected values IDs: ' + values);
     },
@@ -24,7 +24,7 @@ const SelectCheckboxSample = React.createClass({
     /**
     * Handle click action to get check value.
     */
-    handleGetValueClick2(key, newStatus){
+    handleGetValueClick2(key, newStatus) {
         const selectedValues = this.state.selectedValues;
         if(newStatus) {
             selectedValues.push(key);
