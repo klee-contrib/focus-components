@@ -52,6 +52,8 @@ const fieldBehaviourMixin = {
             style: options.style,
 			// Type
 			type: def.type,
+            unit: def.unit,
+            inputWidth: def.inputWidth,
             //Methods
             validator: def.validator,
             formatter: def.formatter || identity,
