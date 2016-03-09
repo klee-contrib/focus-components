@@ -92,29 +92,49 @@ class ActionMenu extends React.Component {
         this.setState({menuVisible: !this.state.menuVisible});
     }
 
+    renderMenuItems(menuVisible,operationList) {
+        operationList.map((operation, idx) => {
+
+                    return (
+
+                        <li className={`mdl-menu__item ${operation.style}`} key={idx}
+                            onClick={this._handleAction(operation.action)}>
+                            {translate(operation.label)}
+                        </li>
+                    )
+            }
+        )
+
+
+    }
+
+
     render() {
         const {menuVisible} = this.state;
+        console.log("menuVisible", menuVisible);
         const {id,iconProps, operationList, position, shape} = this.props;
         return (
             <div>
                 <Button icon={iconProps.name} id={id} isJs={true} shape={shape}
                         handleOnClick={this._handleButtonClick.bind(this)}/>
-                {menuVisible &&
-                    <div>
-                <ul className={`mdl-menu mdl-menu--bottom-${position} mdl-js-menu mdl-js-ripple-effect`} htmlFor={id}
-                    ref='dropdown'>
-                    {operationList.map((operation, idx) => {
-                        return (
-                            <li className={`mdl-menu__item ${operation.style}`} key={idx}
-                                onClick={this._handleAction(operation.action)}>
-                                {translate(operation.label)}
-                            </li>
-                        );
-                    })}
-                </ul>
-                        </div>
-                }
 
+                <div>
+                    <ul className={`mdl-menu mdl-menu--bottom-${position} mdl-js-menu mdl-js-ripple-effect`}
+                        htmlFor={id}
+                        ref='dropdown'>
+                        { operationList.map((operation, idx) => {
+
+                            return (
+
+                                <li className={`mdl-menu__item ${operation.style}`} key={idx}
+                                    onClick={this._handleAction(operation.action)}>
+                                    {translate(operation.label)}
+                                </li>
+                            )
+                        })
+                        }
+                    </ul>
+                </div>
             </div>
         );
     }
