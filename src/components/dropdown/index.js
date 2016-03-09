@@ -4,7 +4,7 @@ import {component as Button} from '../../common/button/action';
 import {translate} from 'focus-core/translation';
 import uuid from 'uuid';
 
-class SelectAction extends Component {
+class Dropdown extends Component {
     constructor(props) {
         super(props);
     }
@@ -12,9 +12,10 @@ class SelectAction extends Component {
     /**
      * Component will mount
      */
-    componentWillMount(){
+    componentWillMount() {
         this._htmlId = uuid.v4();
     }
+
     /**
      * Called when component is mounted.
      */
@@ -23,6 +24,7 @@ class SelectAction extends Component {
             componentHandler.upgradeElement(ReactDOM.findDOMNode(this.refs.dropdown));
         }
     }
+
     /**
      * Component will receive props.
      * @param {Object} nextProps the next props
@@ -32,6 +34,7 @@ class SelectAction extends Component {
             componentHandler.upgradeElement(ReactDOM.findDOMNode(this.refs.dropdown));
         }
     }
+
     /**
      * Called before component is unmounted.
      */
@@ -52,11 +55,12 @@ class SelectAction extends Component {
             return null;
         }
         return (
-           <ActionMenu id={id} iconProps={iconProps} operationList={operationList} position={position} shape={shape}/>
+            <ActionMenu id={id} iconProps={iconProps} operationList={operationList} position={position} shape={shape}/>
         );
     }
 
 }
+
 
 class ActionMenu extends React.Component {
     /**
@@ -65,6 +69,15 @@ class ActionMenu extends React.Component {
      * @returns {function} Function called when item is selected.
      * @private
      */
+
+    constructor(props) {
+        super(props);
+        this.state = {
+            menuVisible: false
+        };
+    }
+
+
     _handleAction(action) {
         return () => {
             if (this.props.operationParam) {
@@ -75,28 +88,41 @@ class ActionMenu extends React.Component {
         };
     }
 
+    _handleButtonClick() {
+        this.setState({menuVisible: !this.state.menuVisible});
+    }
+
     render() {
+        const {menuVisible} = this.state;
         const {id,iconProps, operationList, position, shape} = this.props;
         return (
             <div>
-                <Button icon={iconProps.name} id={id} isJs={true} shape={shape} />
-                <ul className={`mdl-menu mdl-menu--bottom-${position} mdl-js-menu mdl-js-ripple-effect`} htmlFor={id} ref='dropdown'>
+                <Button icon={iconProps.name} id={id} isJs={true} shape={shape}
+                        handleOnClick={this._handleButtonClick.bind(this)}/>
+                {menuVisible &&
+                    <div>
+                <ul className={`mdl-menu mdl-menu--bottom-${position} mdl-js-menu mdl-js-ripple-effect`} htmlFor={id}
+                    ref='dropdown'>
                     {operationList.map((operation, idx) => {
                         return (
-                            <li className={`mdl-menu__item ${operation.style}`} key={idx} onClick={this._handleAction(operation.action)}>
+                            <li className={`mdl-menu__item ${operation.style}`} key={idx}
+                                onClick={this._handleAction(operation.action)}>
                                 {translate(operation.label)}
                             </li>
                         );
                     })}
                 </ul>
+                        </div>
+                }
+
             </div>
         );
     }
 }
 
 
-SelectAction.displayName = 'SelectAction';
-SelectAction.defaultProps = {
+Dropdown.displayName = 'Dropdown';
+Dropdown.defaultProps = {
     position: 'right',
     iconProps: {
         name: 'more_vert'
@@ -104,10 +130,10 @@ SelectAction.defaultProps = {
     shape: 'icon',
     operationList: []
 };
-SelectAction.propTypes =  {
+Dropdown.propTypes = {
     position: PropTypes.string,
-        iconProps: PropTypes.object,
-        operationList: PropTypes.array,
-        shape: PropTypes.string
+    iconProps: PropTypes.object,
+    operationList: PropTypes.array,
+    shape: PropTypes.string
 };
-export default SelectAction;
+export default Dropdown;

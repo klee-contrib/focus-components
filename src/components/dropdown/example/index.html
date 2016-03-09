@@ -33,11 +33,11 @@
 
 </head>
 <body>
-<div id="select-action-container"></div>
+<div id="dropdown-container"></div>
 
 <script type="text/javascript">
     React.render(
-            React.createElement(React.createClass(FocusComponents.common.selectAction.mixin),
+            React.createElement(React.createClass(FocusComponents.common.dropdown.mixin),
                     {operationList:[
                         {label: "Action_a",action: function() {alert("Actiona");},style: "class"},
                         {label: "Action_b",action: function() {alert("Actionb");}},
@@ -53,7 +53,7 @@
 
                     ]}
             ),
-            document.querySelector("#select-action-container")
+            document.querySelector("#dropdown-container")
     );
 </script>
 

@@ -12,7 +12,7 @@ import MenuLeft from './menu';
 import MessageCenter from './message-center';
 import Panel from './panel';
 import ScrollspyContainer from './scrollspy-container';
-import SelectAction from './select-action';
+import Dropdown from './dropdown';
 
 export default {
     Confirm,
@@ -28,6 +28,6 @@ export default {
     MessageCenter,
     Panel: panel,
     Role,
-    SelectAction,
+    Dropdown,
     ScrollspyContainer: scrollspyContainer
 }
