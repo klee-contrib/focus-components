@@ -1,12 +1,12 @@
 
-[data-focus="select-action"] {
+[data-focus="dropdown"] {
   position: relative;
   display: inline-block;
 }
 
 
 [data-focus="list-action-bar"] {
-  [data-focus="select-action"] {
+  [data-focus="dropdown"] {
     .btn {
       &.btn-fab {
         border: 0;
