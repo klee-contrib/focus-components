@@ -19,7 +19,6 @@ class TestComponent extends React.Component {
     render() {
         const {rolesForHasOne,rolesForHasAll, ...otherProps} = this.props;
         return (
-
                 <Dropdown operationList={operationList} position="left" iconProps={{name: 'apps'}} shape="raised"
                           ref="testedCpt"/>
         );
@@ -60,7 +59,7 @@ describe('The dropdown component', () => {
             const listCpt = TestUtils.findRenderedDOMComponentWithTag(renderedTest, 'ul');
             TestUtils.Simulate.click(listCpt.children[0]);
             expect(alertSpy).to.have.been.calledOnce;
-            const [selectedAction,...otherActions] = actions;
+            const [selectedAction, ...otherActions] = actions;
             expect(alertSpy).to.have.been.calledWith({msg: selectedAction.msg});
             otherActions.forEach(action => expect(alertSpy).not.to.have.been.calledWith({msg: action.msg}));
         })

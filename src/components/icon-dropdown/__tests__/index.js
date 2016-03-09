@@ -23,7 +23,7 @@ function isMenuRendered(renderedTest) {
     return (TestFocus.findFocusElementsWithDataFocus(renderedTest, TestFocus.VAL_DATA_FOCUS_MENU).length == 1);
 }
 
-describe.only('The icon-dropdown component', () => {
+describe('The icon-dropdown component', () => {
     describe('when dropdown is rendered', () => {
 
         const reactCpt = <IconDropDown operationList={operationList} position="left" iconProps={{name: 'apps'}}
