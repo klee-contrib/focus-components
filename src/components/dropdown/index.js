@@ -2,7 +2,7 @@ import React, {Component, PropTypes} from 'react';
 import ReactDOM from 'react-dom';
 import {component as Button} from '../../common/button/action';
 import {translate} from 'focus-core/translation';
-const {uniqueId} = require('lodash/utility');
+import uuid from 'uuid';
 
 class Dropdown extends Component {
     constructor(props) {
@@ -13,7 +13,7 @@ class Dropdown extends Component {
      * Component will mount
      */
     componentWillMount() {
-        this._htmlId = uniqueId('focus-dropdown');
+        this._htmlId = uuid.v4();
     }
 
     /**
@@ -72,6 +72,9 @@ class ActionMenu extends React.Component {
 
     constructor(props) {
         super(props);
+        this.state = {
+            menuVisible: false
+        };
     }
 
 
@@ -85,28 +88,33 @@ class ActionMenu extends React.Component {
         };
     }
 
+    _handleButtonClick() {
+        this.setState({menuVisible: !this.state.menuVisible});
+    }
+
     render() {
+        const {menuVisible} = this.state;
         const {id,iconProps, operationList, position, shape} = this.props;
         return (
             <div>
-                <Button icon={iconProps.name} id={id} isJs={true} shape={shape}/>
-                <div>
-                    <ul className={`mdl-menu mdl-menu--bottom-${position} mdl-js-menu mdl-js-ripple-effect`}
-                        htmlFor={id}
-                        ref='dropdown'>
-                        { operationList.map((operation, idx) => {
+                <Button icon={iconProps.name} id={id} isJs={true} shape={shape}
+                        handleOnClick={this._handleButtonClick.bind(this)}/>
+                {menuVisible &&
+                    <div>
+                <ul className={`mdl-menu mdl-menu--bottom-${position} mdl-js-menu mdl-js-ripple-effect`} htmlFor={id}
+                    ref='dropdown'>
+                    {operationList.map((operation, idx) => {
+                        return (
+                            <li className={`mdl-menu__item ${operation.style}`} key={idx}
+                                onClick={this._handleAction(operation.action)}>
+                                {translate(operation.label)}
+                            </li>
+                        );
+                    })}
+                </ul>
+                        </div>
+                }
 
-                            return (
-
-                                <li className={`mdl-menu__item ${operation.style}`} key={idx}
-                                    onClick={this._handleAction(operation.action)}>
-                                    {translate(operation.label)}
-                                </li>
-                            )
-                        })
-                        }
-                    </ul>
-                </div>
             </div>
         );
     }
