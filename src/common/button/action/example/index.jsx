@@ -1,7 +1,7 @@
 const Button = FocusComponents.common.button.action.component;
 const i18nInitializer = FocusCore.translation.init;
 
-const resources = {
+var resources = {
     dev: {
         translation: {
             'button': {
@@ -10,7 +10,7 @@ const resources = {
         }
     }
 };
-i18nInitializer({resStore: resources});
+i18n.init({resStore: resources});
 
 const ButtonExample = React.createClass({
     flexContainer: {
@@ -31,16 +31,16 @@ const ButtonExample = React.createClass({
         return(
             <div>
                 <div style={this.flexContainer}>
-                    <h4 style={this.flexItemTitle}>BUTTON RIPPLE</h4>
-                    <div style={this.flexItem}><Button label='TEST' type='button' hasRipple={true} shape='raised' color='primary' handleOnClick={() => console.log(this)} /><br/><br/>Without ripple</div>
-                    <div style={this.flexItem}><Button label='TEST' type='button' hasRipple={true} shape='raised' color='accent' handleOnClick={() => console.log(this)} /><br/><br/>With ripple</div>
+                    <h4 style={this.flexItemTitle}>RIPPLE EFFECT</h4>
+                    <div style={this.flexItem}><Button label='button.label' type='button' shape='raised' handleOnClick={() => console.log(this)} /><br/><br/>Without ripple</div>
+                    <div style={this.flexItem}><Button label='button.label' type='button' shape='raised' color='colored' handleOnClick={() => console.log(this)} /><br/><br/>With ripple</div>
                 </div>
 
                 <div style={this.flexContainer}>
                     <h4 style={this.flexItemTitle}>SIMPLE BUTTON</h4>
-                    <div style={this.flexItem}><Button label='TEST' type='button' hasRipple={true} shape='raised' handleOnClick={() => console.log(this)} /><br/><br/>Button</div>
-                    <div style={this.flexItem}><Button label='TEST' type='button' hasRipple={true} shape='raised' color='primary' handleOnClick={() => console.log(this)} /><br/><br/>Primary color</div>
-                    <div style={this.flexItem}><Button label='TEST' type='button' hasRipple={true} shape='raised' color='accent' handleOnClick={() => console.log(this)} /><br/><br/>Accent color</div>
+                    <div style={this.flexItem}><Button label='button.label' type='button' shape='raised' handleOnClick={() => console.log(this)} /><br/><br/>Button</div>
+                    <div style={this.flexItem}><Button label='button.label' type='button' shape='raised' color='primary' handleOnClick={() => console.log(this)} /><br/><br/>Primary color</div>
+                    <div style={this.flexItem}><Button label='button.label' type='button' shape='raised' color='accent' handleOnClick={() => console.log(this)} /><br/><br/>Accent color</div>
                 </div>
 
                 <div style={this.flexContainer}>

@@ -15,7 +15,7 @@ const propTypes = {
     label: PropTypes.string,
     handleOnClick: PropTypes.func,
     type: PropTypes.oneOf(['submit', 'button']),
-    shape: PropTypes.oneOf([undefined, 'raised', 'fab', 'icon', 'mini-fab']),
+    shape: PropTypes.oneOf(['raised', 'fab', 'icon', 'mini-fab']),
     color: PropTypes.oneOf(['colored', 'primary', 'accent']),
     hasRipple: PropTypes.bool,
     isJs: PropTypes.bool,
