@@ -35,36 +35,34 @@ const propTypes = {
 /**
 * Layout component.
 */
-class Layout extends Component {
-
-    /** @inheritDoc */
-    render() {
-        const {AppHeader, children, ConfirmWrapper, ErrorCenter, Footer, LoadingBar, MenuLeft, MessageCenter, LoadingStatusBar, ...otherProps} = this.props;
-        const menuType = MenuLeft ? 'left' : 'other';
-        return (
-            <div data-focus='layout' data-menu={menuType} {...otherProps}>
-                <LoadingBar />
-                <MessageCenter />
-                {ErrorCenter && 
-                    <ErrorCenter />
-                }
-                <ConfirmWrapper />
-                <AppHeader />
-                {MenuLeft &&
-                    <MenuLeft />
-                }
-                <div data-focus='page-content'>
-                    {children}
-                </div>
-                {Footer &&
-                    <footer data-focus='footer'>
-                        <Footer />
-                    </footer>
-                }
+const Layout  =  ({AppHeader, children, ConfirmWrapper, ErrorCenter, Footer, LoadingBar, MenuLeft, MessageCenter, LoadingStatusBar, DevTools, OtherRootComponent, ...otherProps}) => {
+    const menuType = MenuLeft ? 'left' : 'other';
+    return (
+        <div data-focus='layout' data-menu={menuType} {...otherProps}>
+            <LoadingBar />
+            <MessageCenter />
+            {ErrorCenter &&
+                <ErrorCenter />
+            }
+            <ConfirmWrapper />
+            <AppHeader />
+            {MenuLeft &&
+                <MenuLeft />
+            }
+            <div data-focus='page-content'>
+                {children}
             </div>
-        );
-    }
+            {Footer &&
+                <footer data-focus='footer'>
+                    <Footer />
+                </footer>
+            }
+            { DevTools && <DevTools />}
+            { OtherRootComponent && <OtherRootComponent />}
+        </div>
+    );
 }
+
 
 //Static props.
 Layout.displayName = 'Layout';
