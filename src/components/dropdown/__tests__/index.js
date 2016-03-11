@@ -13,51 +13,15 @@ const actions = [
     {label: "Action_d", msg: "Action d"},
 ];
 
-const operationList = [
-    {
-        label: actions[0].label, action: function () {
-        const alertObj = {msg: actions[0].msg};
-        alertSpy(alertObj);
-    }, style: "class"
-    },
-    {
-        label: actions[1].label, action: function () {
-        const alertObj = {msg: actions[1].msg};
-        alertSpy(alertObj);
-    }
-    },
-    {
-        label: actions[2].label, action: function () {
-        const alertObj = {msg: actions[2].msg};
-        alertSpy(alertObj);
-    }
-    },
-    {
-        label: actions[3].label, action: function () {
-        const alertObj = {msg: actions[3].msg};
-        alertSpy(alertObj);
-    }
-
-    }
-];
-
-class TestWrapper extends React.Component {
-    render() {
-        const {children,mockedValue, ...otherProps} = this.props;
-        return (
-            <div className={mockedValue} ref={mockedValue}>{children}</div>
-        );
-    }
-}
+const operationList = actions.map(({label, msg}) => ({label:label , action: () => alertSpy({msg:msg})}));
 
 class TestComponent extends React.Component {
     render() {
         const {rolesForHasOne,rolesForHasAll, ...otherProps} = this.props;
         return (
-            <TestWrapper mockedValue="header">
+
                 <Dropdown operationList={operationList} position="left" iconProps={{name: 'apps'}} shape="raised"
                           ref="testedCpt"/>
-            </TestWrapper>
         );
     }
 }
@@ -74,7 +38,7 @@ describe('The dropdown component', () => {
         );
         it('component is rendered', () => {
             const listCpt = TestUtils.findRenderedDOMComponentWithTag(renderedTest, 'ul');
-            expect(ReactDOM.findDOMNode(renderedTest)).to.not.equal(null);
+            expect(ReactDOM.findDOMNode(renderedTest)).not.to.equal(null);
         });
 
         it('children are rendered', () => {
@@ -96,10 +60,9 @@ describe('The dropdown component', () => {
             const listCpt = TestUtils.findRenderedDOMComponentWithTag(renderedTest, 'ul');
             TestUtils.Simulate.click(listCpt.children[0]);
             expect(alertSpy).to.have.been.calledOnce;
-            expect(alertSpy).to.have.been.calledWith({msg: actions[0].msg});
-            for (let i of [1, 2, 3]) {
-                expect(alertSpy).to.not.have.been.calledWith({msg: actions[i].msg});
-            }
+            const [selectedAction,...otherActions] = actions;
+            expect(alertSpy).to.have.been.calledWith({msg: selectedAction.msg});
+            otherActions.forEach(action => expect(alertSpy).not.to.have.been.calledWith({msg: action.msg}));
         })
     });
 });

@@ -3,19 +3,19 @@ const operationList = [
     {
         label: 'Action_a',
         action() {
-            alert('Actiona');
+            alert('Action a');
         }
     },
     {
         label: 'Action_b',
         action() {
-            alert('Actionb');
+            alert('Action b');
         }
     },
     {
         label: 'Action_c',
         action() {
-            alert('Actionc');
+            alert('Action c');
         }
     }
 ];
