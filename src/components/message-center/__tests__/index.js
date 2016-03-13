@@ -4,7 +4,7 @@ import {addErrorMessage, addWarningMessage, addInformationMessage, addSuccessMes
 
 const {findRenderedDOMComponentWithClass, renderIntoDocument, Simulate} = TestUtils;
 
-describe.only('The MessageCenter', () => {
+describe('The MessageCenter', () => {
     describe('when mounted', () => {
         let reactComponent, domNode;
         after(() => {
