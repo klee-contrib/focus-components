@@ -251,7 +251,7 @@ class ScrollspyContainer extends Component {
         return (
             <div data-focus='scrollspy-container' {...otherProps}>
                 {hasMenu &&
-                    <StickyMenu affix={affix} affixOffset={offset} menuList={menuList} ref="stickyMenu" />
+                    <StickyMenu affix={affix} affixOffset={offset} menuList={menuList} ref='stickyMenu' />
                 }
                 <div data-focus='scrollspy-container-content'>
                     {children}

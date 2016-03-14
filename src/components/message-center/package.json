@@ -1,0 +1,16 @@
+{
+    "name": "message-center",
+    "version": "2.0.0",
+    "description": "Message center",
+    "main": "index.js",
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "keywords": [
+        "messages",
+        "center",
+        "notifications"
+    ],
+    "author": "focus@kleegroup.com",
+    "license": "MIT"
+}
