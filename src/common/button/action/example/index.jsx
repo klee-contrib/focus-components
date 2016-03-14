@@ -33,7 +33,7 @@ const ButtonExample = React.createClass({
                 <div style={this.flexContainer}>
                     <h4 style={this.flexItemTitle}>RIPPLE EFFECT</h4>
                     <div style={this.flexItem}><Button label='button.label' type='button' shape='raised' handleOnClick={() => console.log(this)} /><br/><br/>Without ripple</div>
-                    <div style={this.flexItem}><Button label='button.label' type='button' shape='raised' color='colored' handleOnClick={() => console.log(this)} /><br/><br/>With ripple</div>
+                    <div style={this.flexItem}><Button label='button.label' type='button' shape='raised' color='colored' hasRipple={true} handleOnClick={() => console.log(this)} /><br/><br/>With ripple</div>
                 </div>
 
                 <div style={this.flexContainer}>
