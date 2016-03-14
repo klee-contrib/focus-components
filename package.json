@@ -80,7 +80,7 @@
     "immutable": "^3.7.4",
     "lodash": "^3.10.1",
     "material-design-icons": "^2.2.0",
-    "material-design-lite": "1.1.1",
+    "material-design-lite": "1.1.2",
     "object-assign": "^2.0.0",
     "react-bootstrap-daterangepicker": "git+https://github.com/pierr/react-bootstrap-daterangepicker.git",
     "react-date-picker": "^3.1.6",
