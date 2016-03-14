@@ -3,10 +3,10 @@ focus-components
 
 [![NPM](https://nodei.co/npm/focus-components.png?downloads=true&downloadRank=true&stars=true)](https://nodei.co/npm/focus-components/)
 
-[![Join the chat at https://gitter.im/KleeGroup/focus-components](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/KleeGroup/focus-components?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
-
 ![Build Status](https://travis-ci.org/KleeGroup/focus-components.svg)
-<img src="http://img15.hostingpics.net/pics/858529coverage.png" width="100">
+
+[![Throughput Graph](https://graphs.waffle.io/KleeGroup/focus-components/throughput.svg)](https://graphs.waffle.io/KleeGroup/focus-components/metrics)
+
 [![Issue Stats](http://issuestats.com/github/kleegroup/focus-components/badge/pr)](http://issuestats.com/github/kleegroup/focus-components)
 [![Issue Stats](http://issuestats.com/github/kleegroup/focus-components/badge/issue)](http://issuestats.com/github/kleegroup/focus-components)
 [![Package Quality](http://npm.packagequality.com/badge/focus-components.png)](http://packagequality.com/#?package=focus-components)
