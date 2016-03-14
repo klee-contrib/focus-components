@@ -12,6 +12,7 @@ import MenuLeft from './menu';
 import MessageCenter from './message-center';
 import Panel from './panel';
 import ScrollspyContainer from './scrollspy-container';
+import Dropdown from './dropdown';
 
 export default {
     Confirm,
@@ -22,10 +23,11 @@ export default {
     HeaderTopRow,
     IconDropdown,
     input,
-    Role,
-    Layout,
-    MenuLeft,
+    Layout: layout,
+    MenuLeft: menuLeft,
     MessageCenter,
-    Panel,
-    ScrollspyContainer
+    Panel: panel,
+    Dropdown,
+    ScrollspyContainer: scrollspyContainer,
+    Role
 }

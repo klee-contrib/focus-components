@@ -2,6 +2,7 @@ import React, {Component, PropTypes} from 'react';
 import ReactDOM from 'react-dom';
 import {component as Button} from '../../common/button/action';
 import Translation from '../../behaviours/translation';
+const {uniqueId} = require('lodash/utility');
 
 function isDescendant(parent, child) {
     let node = child.parentNode;
@@ -32,6 +33,10 @@ class Dropdown extends Component {
     state = {
         visible: false
     };
+
+    componentWillMount() {
+        this._htmlId = uniqueId('focus-dropdown');
+    }
 
     componentDidMount() {
         document.addEventListener('click', this._handleDocumentClick.bind(this));
@@ -65,9 +70,11 @@ class Dropdown extends Component {
     render() {
         const {iconProps: {name, iconLibrary}, operationList, shape, openDirection} = this.props;
         const {visible} = this.state;
+        const id = this._htmlId;
         return (
             <div data-focus='icon-dropdown' ref='parent'>
                 <Button
+                    id={id}
                     shape={shape}
                     icon={name}
                     iconLibrary={iconLibrary}
