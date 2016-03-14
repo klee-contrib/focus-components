@@ -60,7 +60,7 @@ const listSummaryMixin = {
             <div data-focus="list-summary">
                 {exportAction &&
                     <div className="print">
-                        <Button handleOnClick={exportAction} icon="print" label="result.export" shape="null" />
+                        <Button handleOnClick={exportAction} icon="print" label="result.export" shape={null} />
                     </div>
                 }
                 <span className="sentence">{this._getResultSentence()}</span>
