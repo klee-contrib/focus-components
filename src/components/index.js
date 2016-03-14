@@ -1,21 +1,22 @@
 import Confirm from './confirm';
+import Dropdown from './dropdown';
 import HeaderActions from './layout/header-actions';
 import HeaderContent from './layout/header-content';
 import HeaderDefaultTemplate from './layout/header-default-template';
 import HeaderScrolling from './layout/header-scrolling';
 import HeaderTopRow from './layout/header-top-row';
 import IconDropdown from './icon-dropdown';
-import Role from './role';
 import input from './input';
 import Layout from './layout';
 import MenuLeft from './menu';
 import MessageCenter from './message-center';
 import Panel from './panel';
+import Role from './role';
 import ScrollspyContainer from './scrollspy-container';
-import Dropdown from './dropdown';
 
 export default {
     Confirm,
+    Dropdown,
     HeaderActions,
     HeaderContent,
     HeaderDefaultTemplate,
@@ -23,11 +24,10 @@ export default {
     HeaderTopRow,
     IconDropdown,
     input,
-    Layout: layout,
-    MenuLeft: menuLeft,
+    Layout,
+    MenuLeft,
     MessageCenter,
-    Panel: panel,
-    Dropdown,
-    ScrollspyContainer: scrollspyContainer,
-    Role
+    Panel,
+    Role,
+    ScrollspyContainer
 }
