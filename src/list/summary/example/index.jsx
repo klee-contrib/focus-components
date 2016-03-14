@@ -19,12 +19,6 @@ const scopes = {
 };
 
 const ListSummaryExample = React.createClass({
-    myTest(scopeKey) {
-        console.log("Removed scope : " + scopeKey)
-    },
-    myTest2() {
-        console.log("Export action")
-    },
     render() {
         return(
             <div>
@@ -32,8 +26,8 @@ const ListSummaryExample = React.createClass({
                     nb={8}
                     queryText="Superman"
                     scopeList={scopes}
-                    scopeClickAction={this.myTest}
-                    exportAction={this.myTest}
+                    scopeClickAction={(scopeKey) => {alert("Removed scope : " + scopeKey); }}
+                    exportAction={() => {alert("Export action"); }}
                     />
             </div>
         );
