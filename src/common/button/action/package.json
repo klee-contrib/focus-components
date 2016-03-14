@@ -1,5 +1,5 @@
 {
-  "name": "bouton-action",
+  "name": "button-action",
   "version": "1.0.0",
   "description": "Bouton d'action remplace un bouton html, possibilité de changer la forme et l'action du composant.",
   "main": "index.js",
