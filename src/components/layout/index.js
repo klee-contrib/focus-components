@@ -1,14 +1,14 @@
 import React, {Component, PropTypes} from 'react';
+
+import ConfirmWrapperDefault from '../confirm';
+import ErrorCenter from '../../application/error-center';
 import HeaderDefaultTemplate from './header-default-template';
 import LoadingBar from '../../application/loading-bar';
-import MessageCenter from '../../application/message-center';
-import ErrorCenter from '../../application/error-center';
-import ConfirmWrapperDefault from '../confirm';
 import LoadingStatusBarDefault from '../../dev-tools/loading-status-bar';
-// Components
-const LoadingBarDefault = LoadingBar.component;
-const MessageCenterDefault = MessageCenter.component;
+import MessageCenterDefault from '../message-center';
+
 const ErrorCenterDefault = ErrorCenter.component;
+const LoadingBarDefault = LoadingBar.component;
 
 // component default props.
 const defaultProps = {
@@ -27,9 +27,9 @@ const propTypes = {
     ErrorCenter: PropTypes.func,
     Footer: PropTypes.func,
     LoadingBar: PropTypes.func,
+    LoadingStatusBar: PropTypes.func,
     MenuLeft: PropTypes.func,
-    MessageCenter: PropTypes.func,
-    LoadingStatusBar: PropTypes.func
+    MessageCenter: PropTypes.func
 };
 
 /**
@@ -58,7 +58,7 @@ const Layout  =  ({AppHeader, children, ConfirmWrapper, ErrorCenter, Footer, Loa
                 </footer>
             }
             { DevTools && <DevTools />}
-            { OtherRootComponent && <OtherRootComponent />}
+            { OtherRootComponent && <OtherRootComponent /> }
         </div>
     );
 }
