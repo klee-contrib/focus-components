@@ -13,6 +13,7 @@ const fieldValue = 'field value';
 const newFieldValue = 'new value';
 
 
+
 const fieldLabelContainer = 'field-label-container';
 const fieldValueContainer = 'field-value-container';
 
@@ -117,9 +118,67 @@ describe.only('The Field component', () => {
 
     });
 
+    const fieldValueNumber = 3;
+    const newFieldValueNumber = 10;
+
+    describe('Field value is a number', () => {
+        const testedReactCpt = <Field name={fieldName} value={fieldValueNumber} isEdit={true} type='number' />;
+        let reactComponent,domNode;
+
+        before(
+            () => {
+                reactComponent = renderIntoDocument(testedReactCpt);
+                domNode = ReactDOM.findDOMNode(reactComponent);
+
+            }
+        );
+
+        it('component is rendered', () => {
+            expect(reactComponent).not.to.equal(null);
+            expect(reactComponent.getValue()).to.equal('' + fieldValueNumber);
+        });
+        it('number value is modified', () => {
+            const textCpts = TestFocus.findElementWithValue(reactComponent,fieldValue);
+            expect(textCpts.length).to.equal(1);
+            const textCpt = textCpts[0];
+            //simulating change event
+            TestUtils.Simulate.change(textCpt,{target:{value: newFieldValueNumber}});
+            expect(reactComponent.getValue()).to.equal('' + newFieldValueNumber);
+        });
+        it('text value is blocked', () => {
+            const textCpts = TestFocus.findElementWithValue(reactComponent,fieldValue);
+            expect(textCpts.length).to.equal(1);
+            const textCpt = textCpts[0];
+            //simulating change event
+            TestUtils.Simulate.copy(textCpt,{target:{value: newFieldValueNumber}});
+            expect(reactComponent.getValue()).to.equal('' + newFieldValueNumber);
+
+            TestUtils.Simulate.copy(textCpt,{target:{value: newFieldValue}});
+            expect(reactComponent.getValue()).to.equal('' + newFieldValueNumber);
+        });
+    });
+
+    describe('Field has a formatter', () => {
+        const formatter = function(data) {return data + ' formatter applied';}
+        const testedReactCpt = <Field name={fieldName} value={fieldValue} isEdit={false} formatter={formatter} />;
+        let reactComponent,domNode;
+
+        before(
+            () => {
+                reactComponent = renderIntoDocument(testedReactCpt);
+                domNode = ReactDOM.findDOMNode(reactComponent);
+            }
+        );
+
+        it('component is rendered', () => {
+            expect(reactComponent).not.to.equal(null);
+        });
+
+        it('value is formatted', () => {
+            const valueCpts = TestFocus.findFocusElementsWithDataFocus(reactComponent,fieldValueContainer);
+            expect(valueCpts.length).to.equal(1);
+            const valueCpt = valueCpts[0];
+            expect(valueCpt.textContent).to.equal(formatter(fieldValue));
+        });
+    });
 });
-
-/* Examples
-
- const domSelect = ReactDOM.findDOMNode(reactComponent.refs.htmlSelect);
- */
