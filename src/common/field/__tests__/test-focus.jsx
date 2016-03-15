@@ -7,7 +7,6 @@ const {forEach} = require('lodash/collection');
 export const TAG_DIV='DIV';
 export const TAG_INPUT='INPUT';
 
-
 //DOM attributes
 export const ATTR_ID = 'id';
 export const ATTR_VALUE = 'value';
@@ -21,60 +20,111 @@ export const VAL_DATA_FOCUS_MENU = 'dropdown-menu';
 export const VAL_DATA_FOCUS_LABEL = 'dropdown-menu';
 export const VAL_DATA_ROLE_ITEM = 'label';
 
+/**
+ * filter components having a specific attr
+ * @param attr
+ * @returns {Function} the filter function
+ */
 export function filtreAttr(attr) {
     return function (cpt) {
         return (isDOMComponent(cpt) && cpt.hasAttribute(attr));
     };
 }
-
+/**
+ * filter components having a specific attr with a corresponding value
+ * @param attr
+ * @param val
+ * @returns {Function} the filter function
+ */
 export function filtreAttrVal(attr, val) {
     return function (cpt) {
         return (isDOMComponent(cpt) && (cpt.getAttribute(attr) === val));
     };
 }
-
+/**
+ * filter components having a specific text content
+ * @param text
+ * @returns {Function} the filter function
+ */
 export function filtreTextContent(text) {
     return function (cpt) {
         return (isDOMComponent(cpt) && cpt.textContent == text);
     };
 }
 
+/**
+ * filter components having a specific inner html
+ * @param text
+ * @returns {Function} the filter function
+ */
 export function filtreInnerHTML(text) {
     return function (cpt) {
         return (isDOMComponent(cpt) && cpt.innerHTML == text);
     };
 }
 
+/**
+ * get children components having a data-focus attribute
+ * @param reactComponent
+ * @returns {Object} components array
+ */
 export function findDataFocusElements(reactComponent) {
     return findAllInRenderedTree(reactComponent, filtreAttr(ATTR_DATA_FOCUS));
 }
 
+/**
+ * get children components having a data-focus attribute with a corresponding value
+ * @param reactComponent
+ * @returns {Object} components array
+ */
 export function findFocusElementsWithDataFocus(reactComponent, attrValue) {
     return findAllInRenderedTree(reactComponent, filtreAttrVal(ATTR_DATA_FOCUS, attrValue));
 }
 
+/**
+ * get children components having a data-role attribute
+ * @param reactComponent
+ * @returns {Object} components array
+ */
 export function findFocusElementsWithDataRole(reactComponent, attrValue) {
     return findAllInRenderedTree(reactComponent, filtreAttrVal(ATTR_DATA_ROLE, attrValue));
 }
 
+/**
+ * get children components having a data-role attribute with a corresponding value
+ * @param reactComponent
+ * @returns {Object} components array
+ */
 export function findDataRoleElements(reactComponent) {
     return findAllInRenderedTree(reactComponent, filtreAttr(ATTR_DATA_ROLE));
 }
 
-export function findDataFocusElements(reactComponent) {
-    return findAllInRenderedTree(reactComponent, filtreAttr(ATTR_DATA_FOCUS));
-}
+/**
+ * get children components having a specific id
+ * @param reactComponent
+ * @returns {Object} components array
+ */
 export function findElementWithId(reactComponent, idName) {
     const filtreId = filtreAttrVal('id', idName);
     return findAllInRenderedTree(testDocument, filtreId);
 }
 
-export function findElementWithInnerHTML(reactComponent, text) {
-    const filtreText = filtreInnerHTML(text);
+/**
+ * get children components having a specific inner html
+ * @param reactComponent
+ * @returns {Object} components array
+ */
+export function findElementWithInnerHTML(reactComponent, innerHtml) {
+    const filtreText = filtreInnerHTML(innerHtml);
     return findAllInRenderedTree(reactComponent, filtreText);
 }
 
-export function findElementWithValue(reactComponent, text) {
+/**
+ * get children components having a specific value
+ * @param reactComponent
+ * @returns {Object} components array
+ */
+export function findElementWithValue(reactComponent) {
     return findAllInRenderedTree(reactComponent, filtreAttr(ATTR_VALUE));
 }
 
@@ -112,7 +162,7 @@ export function filtreLog() {
 }
 
 /**
- * debug purpose to understand component structure
+ * for debug purpose to understand component structure
  * log tagName, textCont and attributes/values
  * @param domComponent DOM component to inspect
  */
@@ -135,6 +185,3 @@ export function findDOMNode(reactComponent) {
     return ReactDOM.findDOMNode(reactComponent);
 }
 
-//  todo
-//  reactComponent = renderIntoDocument(<Panel />);
-//  domNode = ReactDOM.findDOMNode(reactComponent);
