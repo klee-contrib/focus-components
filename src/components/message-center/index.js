@@ -1,6 +1,7 @@
 import React, {Component, PropTypes} from 'react';
 import capitalize from 'lodash/string/capitalize';
 import messageStore from 'focus-core/message/built-in-store';
+import {component as Button} from '../../common/button/action';
 
 const defaultProps = {
     ttlError: 8000,
@@ -22,17 +23,14 @@ const CONSTANT = {
 
 class MessageCenter extends Component {
 
+    cleanupTimeout = null;
+    currentNotification = null;
     queuedNotifications = [];
 
     constructor(props) {
         super(props);
-        this.state = {
-            active: false,
-            currentNotification: null,
-        };
+        this.state = { active: false };
     };
-
-
 
     /** @inheriteddoc */
     componentWillMount() {
@@ -56,25 +54,37 @@ class MessageCenter extends Component {
     };
 
     /**
+    * Remove cleanupTimeout
+    * @return {[type]} [description]
+    */
+    _forceCleanup = () => {
+        clearTimeout(this.cleanupTimeout);
+        this._cleanup();
+    };
+
+    /**
     * Cleanup the snackbar event listeners and accessiblity attributes.
     *
     * @private
     */
     _cleanup = () => {
+        this.cleanupTimeout = null;
+        this.setState({ active: false });
         setTimeout(() => {
-            this.setState({
-                currentNotification: null,
-                active: null
-            })
             this._checkQueue();
         }, CONSTANT.ANIMATION_LENGTH);
     };
 
+    /**
+    * Push a new message into snackbar.
+    * @type {number} message id.
+    */
     _handlePushMessage = messageId => {
         const message = messageStore.getMessage(messageId);
         const {content, action, type} = message;
         const ttl = this.props[`ttl${capitalize(type)}`];
         const notificationData = {
+            type,
             message: content,
             timeout: ttl
         };
@@ -87,17 +97,18 @@ class MessageCenter extends Component {
 
     /** @inheritDoc */
     render() {
-        const { active, currentNotification } = this.state;
-        const notification = currentNotification == null ? {} : currentNotification;
-        const { actionText, actionHandler, message } = notification;
+        const { active} = this.state;
+        const notification = this.currentNotification || {};
+        const { actionText, actionHandler, message, type } = notification;
         const classNames = `mdl-snackbar ${active ? 'mdl-snackbar--active' :  ''}`;
         const otherProps = { 'aria-hidden': active, 'aria-live':'assertive', 'aria-atomic':'true', 'aria-relevant': 'text' };
         return (
-            <div data-focus='snackbar-message-center' className={classNames} {...otherProps}>
+            <div data-focus='snackbar-message-center' data-message-type={type} className={classNames} {...otherProps}>
                 <div className='mdl-snackbar__text'>{message}</div>
                 {actionText &&
                     <button className='mdl-snackbar__action' type='button' onClick={actionHandler}>{actionText}</button>
                 }
+                <button className='mdl-snackbar__close' type='button' onClick={this._forceCleanup}><i className='material-icons'>clear</i></button>
             </div>
         );
     };
@@ -122,11 +133,9 @@ class MessageCenter extends Component {
         if (active) {
             this.queuedNotifications.push(data);
         } else {
-            this.setState({
-                active: true,
-                currentNotification: data
-            });
-            setTimeout(this._cleanup, data.timeout);
+            this.currentNotification = data;
+            this.setState({ active: true });
+            this.cleanupTimeout = setTimeout(this._cleanup, data.timeout);
         }
     };
 
