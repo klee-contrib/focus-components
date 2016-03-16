@@ -6,6 +6,7 @@ import builder from 'focus-core/component/builder';
 
 const assign = require('lodash/object/assign');
 const clone = require('lodash/lang/clone');
+const filter = require('lodash/collection/filter');
 const find = require('lodash/collection/find');
 const keys = require('lodash/object/keys');
 const map = require('lodash/collection/map');
@@ -254,11 +255,10 @@ const Results = {
     */
     _getGroupCounts() {
         const {resultsMap} = this.props;
-        const groupKeys = keys(resultsMap);
-        if (1 === groupKeys.length) {
+        if (1 === resultsMap.length) {
             // here : juste a single list
             return {
-                [groupKeys[0]]: {
+                [resultsMap[0][0]]: {
                     count: this.props.totalCount
                 }
             };
@@ -289,7 +289,7 @@ const Results = {
         }
 
         // Filter groups with no results
-        const resultsMap = omit(this.props.resultsMap, (resultGroup) => {
+        const resultsList = filter(this.props.resultsMap, (resultGroup) => {
             const propertyGroupName = keys(resultGroup)[0]; //group property name
             const list = resultGroup[propertyGroupName];
             return 0 === list.length;
@@ -299,16 +299,16 @@ const Results = {
         const groupCounts = this._getGroupCounts();
         // Check if there is only one group left
 
-        if (1 === keys(resultsMap).length) {
-            const key = keys(resultsMap)[0];
-            const list = resultsMap[key];
+        if (1 === resultsList.length) {
+            const key = keys(resultsList[0])[0];
+            const list = resultList[0][key];
             const count = groupCounts[key].count;
             return this._renderSingleGroup(list, key, count, true);
         } else {
             return (
                 <div data-focus='search-results'>
                 {
-                    map(resultsMap, (resultGroup) => {
+                    map(resultsList, (resultGroup) => {
                         const key = keys(resultGroup)[0]; //group property name
                         const list = resultGroup[key];
                         const count = groupCounts[key];
