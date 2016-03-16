@@ -103,6 +103,7 @@ const MySearchBarWithScopes = React.createClass({
                 label: 'Photos'
             },
         ];
+        console.log(this);
         return(
             <div>
                 <SearchBar
