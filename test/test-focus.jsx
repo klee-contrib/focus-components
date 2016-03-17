@@ -1,4 +1,3 @@
-const ReactDOM = require('react-dom');
 const {renderIntoDocument,findRenderedDOMComponentWithClass,findAllInRenderedTree,isDOMComponent,isCompositeComponent} = TestUtils;
 
 const {forEach} = require('lodash/collection');
@@ -17,8 +16,7 @@ export const ATTR_DATA_ROLE = 'data-role';
 //Focus value
 export const VAL_DATA_FOCUS_BUTTON = 'icon-dropdown';
 export const VAL_DATA_FOCUS_MENU = 'dropdown-menu';
-export const VAL_DATA_FOCUS_LABEL = 'dropdown-menu';
-export const VAL_DATA_ROLE_ITEM = 'label';
+export const VAL_DATA_ROLE_DROPDOWN_ITEM = 'dropdown-item';
 
 /**
  * filter components having a specific attr

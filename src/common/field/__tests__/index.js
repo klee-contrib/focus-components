@@ -1,10 +1,6 @@
-const ReactDOM = require('react-dom');
 import {component as Field} from '../';
 
-
 const {renderIntoDocument,findAllInRenderedTree} = TestUtils;
-import * as TestFocus from  './test-focus.jsx';
-
 const alertSpy = sinon.spy();
 
 const fieldName = 'testField';
@@ -18,7 +14,7 @@ const fieldLabelContainer = 'field-label-container';
 const fieldValueContainer = 'field-value-container';
 
 
-describe.only('The Field component', () => {
+describe('The Field component', () => {
     describe('Field is not editable', () => {
 
         const testedReactCpt = <Field name={fieldName} value={fieldValue} isEdit={false}
