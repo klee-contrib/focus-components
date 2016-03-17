@@ -9,6 +9,7 @@ const clone = require('lodash/lang/clone');
 const filter = require('lodash/collection/filter');
 const find = require('lodash/collection/find');
 const keys = require('lodash/object/keys');
+const isArray = require('lodash/lang/isArray');
 const map = require('lodash/collection/map');
 const mapValues = require('lodash/object/mapValues');
 const omit = require('lodash/object/omit');
@@ -255,10 +256,17 @@ const Results = {
     */
     _getGroupCounts() {
         const {resultsMap} = this.props;
-        if (resultsMap && 1 === resultsMap.length) {
-            // here : juste a single list
+        
+        // resultMap can be either an Array or an Object depending of the search being grouped or not.
+        if (resultsMap && isArray(resultsMap) && 1 === resultsMap.length) {
             return {
                 [resultsMap[0][0]]: {
+                    count: this.props.totalCount
+                }
+            };
+        } else if (1 === keys(resultsMap).length) {
+            return {
+                [keys(resultsMap)[0]]: {
                     count: this.props.totalCount
                 }
             };
@@ -288,20 +296,35 @@ const Results = {
             return this._renderEmptyResults();
         }
 
-        // Filter groups with no results
-        const resultsList = filter(this.props.resultsMap, (resultGroup) => {
-            const propertyGroupName = keys(resultGroup)[0]; //group property name
-            const list = resultGroup[propertyGroupName];
-            return 0 !== list.length;
-        });
+        let resultsMap;
+
+        // resultsMap can be an Array or an Object.
+        if (isArray(this.props.resultsMap)) {
+            resultsMap = filter(this.props.resultsMap, function (resultGroup) {
+                const propertyGroupName = keys(resultGroup)[0]; //group property name
+                const list = resultGroup[propertyGroupName];
+                return 0 !== list.length;
+            });
+        } else {
+            resultsMap = omit(this.props.resultsMap, function (resultGroup) {
+                const propertyGroupName = keys(resultGroup)[0]; //group property name
+                const list = resultGroup[propertyGroupName];
+                return 0 === list.length;
+            });
+        }
 
         // Get the count for each group
         const groupCounts = this._getGroupCounts();
         // Check if there is only one group left
 
-        if (1 === resultsList.length) {
-            const key = keys(resultsList[0])[0];
-            const list = resultsList[0][key];
+        if (isArray(resultsMap) && 1 === resultsMap.length) {
+            const key = keys(resultsMap[0])[0];
+            const list = resultsMap[0][key];
+            const count = groupCounts[key].count;
+            return this._renderSingleGroup(list, key, count, true);
+        } else if (1 === keys(resultsMap).length) {
+            const key = keys(resultsMap)[0];
+            const list = resultsMap[key];
             const count = groupCounts[key].count;
             return this._renderSingleGroup(list, key, count, true);
         } else {
