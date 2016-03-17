@@ -4,9 +4,9 @@ const Scope = require('../scope').component;
 
 var scopes =  [
     {code: null, label: "None", style: "qs-scope-none"},
-    {code: 1, label: "Scope1", style: "test2"},
-    {code: 2, label: "Scope2", style: "test3"},
-    {code: 3, label: "Scope3", style: "test4"}
+    {code: 'movie', label: "Scope1", style: "test2"},
+    {code: 'audio', label: "Scope2", style: "test3"},
+    {code: 'chat', label: "Scope3", style: "test4"}
 ];
 
 describe('ScopeMixin', () => {
@@ -26,7 +26,7 @@ describe('ScopeMixin', () => {
         describe('Check if it renders the good given scope', () => {
             let component;
             before( () => {
-                component = renderIntoDocument(<Scope value={1} list={scopes}/>);
+                component = renderIntoDocument(<Scope value={'movie'} list={scopes}/>);
             });
             it('should return the active scope', () => {
                 expect(component._getActiveScope()).to.equal(scopes[1]);
@@ -40,63 +40,20 @@ describe('ScopeMixin', () => {
                 expect(activeScope.label).to.not.equal("Scope2" || "Scope3" || "None");
             });
         });
-        describe('Check if it renders onClick', () => {
+        describe('Check a none set scopes', () => {
             let component, onClickSpy, studiedScope;
             before( () => {
-                component = renderIntoDocument(<Scope value={1} list={scopes} />);
-                studiedScope = component.refs.scopeDropdown.childNodes[3];
-                onClickSpy = sinon.spy(studiedScope, 'click');
+                component = renderIntoDocument(<Scope />);
             });
-            it('should set scope to active', () => {
-                studiedScope.click();
-                expect(onClickSpy).to.have.been.called.once;
-                expect(studiedScope.attributes[2].value).to.equal('3');
-                expect(studiedScope.attributes[1].value).to.equal('true');
-
-                //expect(component.refs.scopeDropdown.childNodes[1].attributes[1].value).to.equal('true');
-                /*const parent = component.refs.parent;
-                parent.className = 'mdl-menu__container is-upgraded';
-                component.refs.scopeDropdown.childNodes[1].click();
-                expect(parent.className).to.equal('mdl-menu__container is-upgraded');*/
-                //expect(onClickSpy).to.have.been.called.once;
+            it('should get the created <ul> className', () => {
+                expect(component.refs.scopeDropdown.className).to.equal('mdl-menu mdl-menu--bottom-left mdl-js-menu mdl-js-ripple-effect')
+            });
+            it('should have only on <li>"', () => {
+                expect(component.refs.scopeDropdown.childNodes.length).to.equal(1);
+            });
+            it('this only <li> should render "scopes.empty"', () => {
+                expect(component.refs.scopeDropdown.firstChild.textContent).to.equal('scopes.empty');
             });
         });
     });
 });
-
-/*global jest, expect*/
-
-// __tests__/qs-scope-test.js
-/*var React = require('react/addons');
-jest.dontMock('../scope.js');
-var Scope = React.createClass(require('../scope.js'));
-var TestUtils = React.addons.TestUtils;
-var scopes =  [
-{code: null, label: "None", style: "qs-scope-none"},
-{code: 1, label: "Scope1", style: "test2"},
-{code: 2, label: "Scope2", style: "test3"},
-{code: 3, label: "Scope3", style: "test4"}
-];
-var scope = 1;
-
-// Render a checkbox with label in the document
-var scope = TestUtils.renderIntoDocument(
-React.createElement(Scope, {list: scopes, value: scope})
-);
-describe('## QS-Scope', function() {
-it('the initialize state should not have a list', function() {
-// Verify that it's Off by default
-var scopeDown = TestUtils.findRenderedDOMComponentWithClass(
-scope, 'qs-scope-deploy-down');
-expect(scopeDown).toBeDefined();
-});
-it('the clicked state should have a list', function(){
-var node = TestUtils.findRenderedDOMComponentWithClass(
-scope, 'qs-scope-deploy-down');
-React.addons.TestUtils.Simulate.click(node);
-var scopeUp = TestUtils.findRenderedDOMComponentWithClass(
-scope, 'qs-scope-deploy-up');
-expect(scopeUp).toBeDefined();
-});
-});
-*/

@@ -1,6 +1,6 @@
 import {translate} from 'focus-core/translation';
 
-const React = require('react');
+import React, {PropTypes} from 'react';
 const ReactDOM = require('react-dom');
 
 import builder from 'focus-core/component/builder';
@@ -33,8 +33,8 @@ const scopeMixin = {
     * @type {Object}
     */
     propTypes: {
-        list: type('array'),
-        value: type(['string', 'number'])
+        list: PropTypes.array.isRequired,
+        value: PropTypes.oneOf(['string', 'number'])
     },
     /**
     * Called when component will mount.
