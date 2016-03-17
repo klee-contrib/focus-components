@@ -1,9 +1,6 @@
-const ReactDOM = require('react-dom');
 import IconDropDown from '../';
 
 const {renderIntoDocument,findRenderedDOMComponentWithClass} = TestUtils;
-import * as TestFocus from  './test-focus.jsx';
-
 const alertSpy = sinon.spy();
 
 const actions = [
@@ -51,14 +48,13 @@ describe('The icon-dropdown component', () => {
         });
 
         it('action is executed', () => {
-            const actionCpts = TestFocus.findFocusElementsWithDataRole(renderedTest, TestFocus.VAL_DATA_ROLE_ITEM);
+            const actionCpts = TestFocus.findFocusElementsWithDataRole(renderedTest, TestFocus.VAL_DATA_ROLE_DROPDOWN_ITEM);
             TestUtils.Simulate.click(actionCpts[0]);
             expect(alertSpy).to.have.been.calledOnce;
             const [selectedAction,...otherActions] = actions;
             expect(alertSpy).to.have.been.calledWith({msg: selectedAction.msg});
             otherActions.forEach(action => expect(alertSpy).not.to.have.been.calledWith({msg: action.msg}));
         });
-
     });
 
 });
