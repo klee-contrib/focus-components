@@ -255,7 +255,7 @@ const Results = {
     */
     _getGroupCounts() {
         const {resultsMap} = this.props;
-        if (1 === resultsMap.length) {
+        if (resultsMap && 1 === resultsMap.length) {
             // here : juste a single list
             return {
                 [resultsMap[0][0]]: {
@@ -292,7 +292,7 @@ const Results = {
         const resultsList = filter(this.props.resultsMap, (resultGroup) => {
             const propertyGroupName = keys(resultGroup)[0]; //group property name
             const list = resultGroup[propertyGroupName];
-            return 0 === list.length;
+            return 0 !== list.length;
         });
 
         // Get the count for each group
@@ -301,7 +301,7 @@ const Results = {
 
         if (1 === resultsList.length) {
             const key = keys(resultsList[0])[0];
-            const list = resultList[0][key];
+            const list = resultsList[0][key];
             const count = groupCounts[key].count;
             return this._renderSingleGroup(list, key, count, true);
         } else {
