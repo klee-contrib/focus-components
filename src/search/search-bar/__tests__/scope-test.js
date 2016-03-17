@@ -10,7 +10,6 @@ var scopes =  [
 ];
 
 describe('ScopeMixin', () => {
-    // Tests on a none set default ScopeMixin
     describe('Create default scope', () => {
         describe('Check if it show its displayName', () => {
             let scopeDisplayName;
