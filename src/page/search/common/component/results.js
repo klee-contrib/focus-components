@@ -331,7 +331,7 @@ const Results = {
             return (
                 <div data-focus='search-results'>
                 {
-                    map(resultsList, (resultGroup) => {
+                    map(resultsMap, (resultGroup) => {
                         const key = keys(resultGroup)[0]; //group property name
                         const list = resultGroup[key];
                         const count = groupCounts[key];
