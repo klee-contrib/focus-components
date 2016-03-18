@@ -33,7 +33,6 @@ const MySearchBarWithoutScopes = React.createClass({
     },
     componentWillMount() {
         this._action = actionBuilder({
-            service: this.props.service,
             identifier: searchBarStore.identifier,
             getSearchOptions: () => {return searchBarStore.getValue.call(searchBarStore); }
         });
