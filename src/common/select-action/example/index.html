@@ -39,18 +39,11 @@
     React.render(
             React.createElement(React.createClass(FocusComponents.common.selectAction.mixin),
                     {operationList:[
-                        {label: "Action_a",action: function() {alert("Actiona");},style: "class"},
-                        {label: "Action_b",action: function() {alert("Actionb");}},
-                        {label: "Action_c",action: function() {alert("Actionc");}},
-                        {label: "Action_d",action: function() {alert("Actiond");}},
-                        {label: "Action_e",action: function() {alert("Actione");}},
-                        {label: "GROUPA", childOperationList:[
-                            {label: "aa",action: function() {alert("Action aa");}},
-                            {label: "ab",action: function() {alert("Action ab");}},
-                            {label: "ac",action: function() {alert("Action ac");}},
-                            {label: "ad",action: function() {alert("Action ad");}},
-                        ]}
-
+                        {label: "Action_a",action: function() {alert("Action a");},style: "class"},
+                        {label: "Action_b",action: function() {alert("Action b");}},
+                        {label: "Action_c",action: function() {alert("Action c");}},
+                        {label: "Action_d",action: function() {alert("Action d");}},
+                        {label: "Action_e",action: function() {alert("Action e");}}
                     ]}
             ),
             document.querySelector("#select-action-container")
