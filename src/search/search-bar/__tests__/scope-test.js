@@ -40,7 +40,7 @@ describe('ScopeMixin', () => {
             });
         });
         describe('Check a none set scopes', () => {
-            let component, onClickSpy, studiedScope;
+            let component, studiedScope;
             before( () => {
                 component = renderIntoDocument(<Scope />);
             });
