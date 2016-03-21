@@ -94,7 +94,7 @@ class HeaderScrolling extends Component {
         }
 
         const {top} = this.scrollPosition();
-        const isDeployed = (canDeploy !== undefined ? canDeploy : this.props.canDeploy) ? top < deployThreshold : false;
+        const isDeployed = (canDeploy !== undefined ? canDeploy : this.props.canDeploy) ? top <= deployThreshold : false;
 
         if (isDeployed !== this.state.isDeployed) {
             this.setState({isDeployed}, this._notifySizeChange);
