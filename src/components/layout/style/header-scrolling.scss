@@ -6,7 +6,7 @@
 -o-transition: $transition-property $transition-time;
 transition: $transition-property $transition-time;
 }*/
-$header-scrolling-shadow-color: #D0D0D0;
+$header-scrolling-shadow-color: rgba(0,0,0,0.2);
 $header-actions-height: 56px;
 $header-top-row-height: 60px;
 $header-top-row-zindex: 1001;
