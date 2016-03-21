@@ -2,9 +2,17 @@ import i18n from 'focus-core/translation';
 import actionBuilder from 'focus-core/application/action-builder';
 import {container as domainContainer}  from 'focus-core/definition/domain';
 import {container as definitionContainer}  from 'focus-core/definition/entity';
+import {config as configContainer} from 'focus-core/reference';
+var _ = require("lodash");
+
+/*
+ Focus.reference.config.set({papas: loadEmptyList, singe: loadRefList('singe'), monkeys: loadMonkeyList});
+ Focus.definition.entity.container.setEntityConfiguration(entities);
+
+ */
 
 
-export function initEnvironment() {
+function initEnvironment() {
     console.log("init start");
     const resources = {
         dev: {
@@ -94,10 +102,124 @@ export function initEnvironment() {
         }
     };
     definitionContainer.setEntityConfiguration(entities);
+    configContainer.set({papas: loadEmptyList, singe: loadRefList('singe'), monkeys: loadMonkeyList});
+}
+function loadEmptyList() {
+    return Promise.resolve([]);
+}
+
+function loadRef(name) {
+    const name1 = name;
+    const refLst = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9].map(cd => {
+        return {
+            code: '' + cd,
+            label: ('' + cd + ' ' + name1)
+        };
+    });
+    return refLst;
 }
 
 /*
-module.exports = {
-    initEnvironment: initEnvironment
-};
+function loadRefList(name) {
+    const name1 = name;
+    return function (name1) {
+        return Promise.resolve(loadRef(name1));
+    }
+}
 */
+
+function loadRefList(name) {
+    return function loadRef() {
+        const refLst = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9].map(cd => {
+            return {
+                code: '' + cd,
+                label: ('' + cd + ' ' + name)
+            };
+        });
+        return Promise.resolve(refLst);
+    };
+}
+
+
+function loadMonkeyList() {
+    return loadRefList('monkey')().then(data => {
+        return data.map(element => {
+            return {myCustomCode: element.code, myCustomLabel: element.label};
+        });
+    });
+}
+
+
+
+/*
+ const contactStore = new Focus.store.CoreStore({
+ definition: {
+ contact: 'contact',
+ commandes: 'commande'
+ }
+ });
+ */
+const jsonContact = {
+    firstName: 'Zeus',
+    lastName: 'God',
+    isCool: true,
+    birthDate: null,
+    commandes: [{
+        name: 'commande1',
+        number: '1'
+    }, {
+        name: 'commande2',
+        number: '2'
+    }, {
+        name: 'commande3',
+        number: '3'
+    }, {
+        name: 'commande4',
+        number: '4'
+    }, {
+        name: 'commande5',
+        number: '5'
+    }, {
+        name: 'commande6',
+        number: '6'
+    }],
+    city: 'PAR'
+};
+
+const action = {
+    load: actionBuilder({
+        status: 'loaded',
+        node: 'contact',
+        service() {
+            return new Promise((s, e) => {
+                _.delay(() => {
+                    s(jsonContact);
+                }, 1);
+            })
+        }
+    }),
+    save: actionBuilder({
+        status: 'saved',
+        preStatus: 'saving',
+        node: 'contact',
+        service(data) {
+            console.log('save', data);
+            return Promise.resolve(data);
+        }
+    })
+};
+
+export default {
+    initEnvironment: initEnvironment,
+    action:action,
+    loadRef : loadRef,
+}
+
+//Focus.reference.config.set({papas: loadEmptyList, singe: loadRefList('singe'), monkeys: loadMonkeyList});
+
+
+/*
+ module.exports = {
+ initEnvironment: initEnvironment
+ };
+ */
