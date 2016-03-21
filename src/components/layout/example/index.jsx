@@ -1,5 +1,6 @@
 const {Layout, MenuLeft} = FocusComponents.components;
 const {dispatcher} = Focus;
+const setHeader = Focus.application.setHeader;
 
 const CartridgeContent = React.createClass({
     render() {
@@ -42,24 +43,27 @@ function updateComponents(cartridgeConf) {
             summaryComponent,
             actions,
             barContentLeftComponent,
-            barContentRightComponent
+            barContentRightComponent,
+            canDeploy: true
         },
         type: 'update'
     });
 }
 
+const cartridgeConf = {
+    cartridge: {component: CartridgeContent, props: {}},
+    summary: {component: Summary, props: {}},
+    actions: {
+        primary: [{label: 'Action 1', icon: 'alarm_on', action: () => {console.log('click !')}}, {label: 'Action 2', icon: 'build', action: () => {console.log('click !')}}],
+        secondary: [{label: 'Action 3', icon: 'print', action: () => {console.log('click !')}}, {label: 'Action 4', icon: 'print', action: () => {console.log('click !')}}, {label: 'Action 5', icon: 'print', action: () => {console.log('click !')}}]
+    },
+    barLeft: {component: BarContentLeft, props: {}},
+    barRight: {component: BarContentRight, props: {}}
+};
+
 //Add a defer in order to inject the props after the component is mounted
 _.defer(() => {
-    updateComponents({
-        cartridge: {component: CartridgeContent, props: {}},
-        summary: {component: Summary, props: {}},
-        actions: {
-            primary: [{label: 'Action 1', icon: 'alarm_on', action: () => {console.log('click !')}}, {label: 'Action 2', icon: 'build', action: () => {console.log('click !')}}],
-            secondary: [{label: 'Action 3', icon: 'print', action: () => {console.log('click !')}}, {label: 'Action 4', icon: 'print', action: () => {console.log('click !')}}, {label: 'Action 5', icon: 'print', action: () => {console.log('click !')}}]
-        },
-        barLeft: {component: BarContentLeft, props: {}},
-        barRight: {component: BarContentRight, props: {}}
-    })
+    setHeader(cartridgeConf);
 });
 
 const LayoutExample = React.createClass({

@@ -56,24 +56,30 @@ describe('SearchBar with no scope', () => {
             });
         });
         describe.only('Simulate onKeyPress behaviour', function() {
-            const action = {
+            const myAction = {
                 updateProperties() {
-                    return configuredComponent.state.query;
+                    console.log(secondComponent.state);
                 }
             };
-            let secondComponent = renderIntoDocument(<SearchBar hasScopes={false} store={quickSearchStore} action={action} />);
-            let onKeyPressSpy, input, inputChange, initialValue;
+            const pressure = {
+                key: 'Enter'
+            };
+            let secondComponent = renderIntoDocument(<SearchBar hasScopes={false} store={quickSearchStore} action={myAction} />);
+            let onKeyPressSpy, input, inputKeyPress, initialValue;
             before( () => {
                 input = secondComponent.refs.query.refs.htmlInput;
                 initialValue = secondComponent.state.query;
-                //inputKeyPress = input.props.onKeyPress().bind(input);
-                //onKeyPressSpy = sinon.spy(inputKeyPress);
+                function inputKeyPress() {
+                    input.props.onKeyPress(pressure)
+                };
+                onKeyPressSpy = sinon.spy(inputKeyPress);
             });
             it('set the loading state to true', () => {
-                console.log(input.props.onKeyPress);
-                //Simulate.keyDown(input, {key: "Enter"});
-                //expec(onKeyPressSpy).to.have.been.CalledOnce;
-                // Put the test code here
+                input.value = "test";
+                Simulate.keyPress(input, {key: "Enter"});
+                expect(onKeyPressSpy).to.have.been.CalledOnce;
+                console.log(secondComponent.state.query);
+                //expect(secondComponent.state.query).to.not.equal(initialValue);
             });
         });
     });
