@@ -5,7 +5,7 @@ import {quickSearchStore} from 'focus-core/search/built-in-store';
 import actionBuilder from 'focus-core/search/action-builder';
 
 
-describe.only('SearchBar with no scope', () => {
+describe('SearchBar with no scope', () => {
     describe('Check if a default search bar works fine', () => {
         let component;
         before( () => {
