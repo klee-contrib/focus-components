@@ -138,7 +138,9 @@ const SearchBar = {
         action.updateProperties({
             scope,
             selectedFacets: {},
-            groupingKey: undefined
+            groupingKey: undefined,
+            sortBy: undefined,
+            sortAsc: true
         });
         this.setState({scope});
         if(onSearchCriteriaChangeByUser) {
