@@ -8,7 +8,7 @@ const actionWrapper = require('../../page/search/search-header/action-wrapper');
 
 // Components
 const Scope = require('./scope').component;
-const Input = require('../../components/input/text');
+import Input from '../../components/input/text';
 
 // Mixins
 const stylable = require('../../mixin/stylable');

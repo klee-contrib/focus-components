@@ -25,10 +25,6 @@ const SearchBarExample = React.createClass({
     }
 });
 
-const showMessage = function(searchBar) {
-    searchBar.refs.popin.togglePopin();
-};
-
 const MySearchBarWithoutScopes = React.createClass({
     MyFunction() {
         setTimeout(() => {
@@ -37,9 +33,8 @@ const MySearchBarWithoutScopes = React.createClass({
     },
     componentWillMount() {
         this._action = actionBuilder({
-            service: this.props.service,
             identifier: searchBarStore.identifier,
-            getSearchOptions: () => {return searchBarStore.getValue.call(searchBarStore); } // Binding the store in the function call
+            getSearchOptions: () => {return searchBarStore.getValue.call(searchBarStore); }
         });
         searchBarStore.addQueryChangeListener(this._onQueryChangeFromStore);
     },
@@ -50,6 +45,7 @@ const MySearchBarWithoutScopes = React.createClass({
         this.MyFunction();
     },
     render() {
+    console.log(this);
         return(
             <div>
                 <SearchBar
