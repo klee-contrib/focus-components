@@ -5,7 +5,7 @@ import {quickSearchStore} from 'focus-core/search/built-in-store';
 import actionBuilder from 'focus-core/search/action-builder';
 
 
-describe('SearchBar with no scope', () => {
+describe.only('SearchBar with no scope', () => {
     describe('Check if a default search bar works fine', () => {
         let component;
         before( () => {
@@ -25,61 +25,71 @@ describe('SearchBar with no scope', () => {
         });
     });
     describe('Check configured SearchBar\' behaviour', () => {
-        const action = {
-            updateProperties() {
-                return configuredComponent.state.query;
-            }
-        };
-        let configuredComponent = renderIntoDocument(<SearchBar hasScopes={false} store={quickSearchStore} action={action} />);
-        let onChangeSpy, input, inputChange, initialValue;
-        before( () => {
+        let onChangeSpy, input, inputChange, initialValue, configuredComponent, action;
+        before( done => {
+            onChangeSpy = sinon.spy();
+            action = {
+                updateProperties({query}) {
+                    onChangeSpy(query);
+                    if(query != undefined)
+                        configuredComponent.setState({loading: true});
+                    done();
+                }
+            };
+            configuredComponent = renderIntoDocument(<SearchBar hasScopes={false} store={quickSearchStore} action={action} placeholder='Search here...'/>);
             input = configuredComponent.refs.query.refs.htmlInput;
-            initialValue = configuredComponent.state.query;
             inputChange = input.props.onChange.bind(input);
-            onChangeSpy = sinon.spy(inputChange);
+            initialValue = configuredComponent.state.query;
+            input.value = 'Boy';
+            Simulate.change(input);
+        });
+        describe('When the placeholder has been set', () => {
+            it('shouldn\'t have the default\`s one', () =>{
+                expect(configuredComponent.props.placeholder).to.not.equal('search.bar.placeholder');
+            });
+
+            it('should have different placeholder than the default\`s one', () =>{
+                expect(configuredComponent.props.placeholder).to.equal('Search here...');
+            });
         });
         describe('Simulate onChange behaviour', function() {
             it('should set the loading state to true', () => {
-                input.value = ' ';
-                Simulate.change(input);
-                if(initialValue != configuredComponent.state.query)
-                    configuredComponent.setState({loading: true});
-                expect(onChangeSpy).to.have.been.CalledOnce;
+                expect(onChangeSpy).to.have.been.called;
                 expect(configuredComponent.state.loading).to.be.equal(true);
             });
             it('should change the query state (default query state is \'undefined\')', () => {
-                input.value = 'Boy';
-                Simulate.change(input);
-                expect(onChangeSpy).to.have.been.CalledOnce;
-                expect(initialValue).to.be.equal(undefined);
+                expect(onChangeSpy).to.have.been.called;
+                expect(initialValue).to.equal(undefined);
                 expect(configuredComponent.state.query).to.be.equal('Boy');
             });
         });
-        describe.only('Simulate onKeyPress behaviour', function() {
-            const myAction = {
-                updateProperties() {
-                    console.log(secondComponent.state);
-                }
-            };
-            const pressure = {
-                key: 'Enter'
-            };
-            let secondComponent = renderIntoDocument(<SearchBar hasScopes={false} store={quickSearchStore} action={myAction} />);
-            let onKeyPressSpy, input, inputKeyPress, initialValue;
-            before( () => {
+        describe('Simulate onKeyPress behaviour', function() {
+            let input, inputKeyPress, initialValue, onKeyPressSpy, secondComponent, searchAction, pressure;
+            before( done => {
+                pressure = {
+                    key: 'Enter'
+                };
+                onKeyPressSpy = sinon.spy();
+                searchAction = {
+                    updateProperties({query}) {
+                        onKeyPressSpy(query);
+                        if(query != undefined) {}
+                            secondComponent.setState({query: query, loading: true});
+                        done();
+                    }
+                };
+                secondComponent = renderIntoDocument(<SearchBar hasScopes={false} store={quickSearchStore} action={searchAction} />);
                 input = secondComponent.refs.query.refs.htmlInput;
                 initialValue = secondComponent.state.query;
-                function inputKeyPress() {
-                    input.props.onKeyPress(pressure)
-                };
-                onKeyPressSpy = sinon.spy(inputKeyPress);
-            });
-            it('set the loading state to true', () => {
                 input.value = "test";
-                Simulate.keyPress(input, {key: "Enter"});
-                expect(onKeyPressSpy).to.have.been.CalledOnce;
-                console.log(secondComponent.state.query);
-                //expect(secondComponent.state.query).to.not.equal(initialValue);
+                Simulate.keyPress(input, pressure);
+            });
+            it('should change the query state', () => {
+                expect(onKeyPressSpy).to.have.been.called.once;
+                expect(secondComponent.state.query).to.not.equal(undefined);
+            });
+            it('should change the loading state', () => {
+                expect(secondComponent.state.loading).to.equal(true);
             });
         });
     });
