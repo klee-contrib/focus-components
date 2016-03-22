@@ -22,8 +22,6 @@ import '../common/detail/style/detail.scss';
 import '../common/field/style/field.scss';
 import '../common/form/style/form.scss';
 import '../common/img/style/img.scss';
-import '../common/input/checkbox/style/checkbox.scss';
-import '../common/input/date/style/date.scss';
 import '../common/input/radio/style/radio.scss';
 import '../common/label/style/label.scss';
 import '../common/progress-bar/style/progress-bar.scss';
