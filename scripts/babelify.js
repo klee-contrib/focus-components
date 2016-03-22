@@ -4,17 +4,7 @@ var babel = require('babel-core');
 
 var babelOptions = {
     "presets": [
-        "es2015",
-        "stage-0",
-        "react"
-    ],
-    "plugins": [
-        "add-module-exports",
-        "transform-class-properties",
-        "transform-decorators-legacy",
-        "transform-proto-to-assign",
-        ["transform-es2015-classes", {"loose": true}]
-
+        "focus"
     ],
     sourceMaps: 'inline'
 };
