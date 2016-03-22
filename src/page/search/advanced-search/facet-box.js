@@ -31,7 +31,9 @@ const Box = {
     _onFacetSelection(facetComponentData, isDisableGroup) {
         if (keys(facetComponentData.selectedFacetList).length === 1 && facetComponentData.selectedFacetList[scopeFacetKey]) {
             this.props.action.updateProperties({
-                scope: this.props.scopesConfig[facetComponentData.selectedFacetList[scopeFacetKey].key]
+                scope: this.props.scopesConfig[facetComponentData.selectedFacetList[scopeFacetKey].key],
+                sortBy: undefined,
+                sortAsc: true
             });
         } else {
             delete facetComponentData.selectedFacetList[scopeFacetKey];
