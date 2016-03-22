@@ -152,6 +152,10 @@ describe.only('The Form component', () => {
             expect(isEmpty(difference(reactComponent,entities.contact)));
             expect(isEmpty(difference(entities.contact,reactComponent)));
         });
+
+        it('log', () => {
+            TestFocus.logProperties("reactComponent",reactComponent);
+        });
     });
 
 });
