@@ -1,6 +1,5 @@
 import 'react-date-picker/index.css';
 import 'material-design-lite/src/material-design-lite.scss';
-import 'react-bootstrap-daterangepicker/css/daterangepicker.css';
 //import '../style/_mdl_variables.scss';
 //---------------------------------------------------------------------------------------
 import '../application/bar/style/bar.scss';
