@@ -45,6 +45,14 @@ class InputText extends Component {
         const domEl = ReactDOM.findDOMNode(this.refs.htmlInput);
         return unformatter(domEl.value, MODE);
     };
+    componentDidUpdate() {
+        const {error} = this.props;
+        if (!error) {
+            // Make sure that the main div does not hold a is-invalid class when there's no error
+            // MDL keeps the class even if React removes it
+            this.refs.inputText.classList.remove('is-invalid');
+        }
+    }
     /**
      * Handle the change on the input text, it only propagate the value.
      * @param  {object} evt - The react DOM event.
@@ -65,6 +73,7 @@ class InputText extends Component {
         const pattern = error ? 'hasError' : null; //add pattern to overide mdl error style when displaying an focus error.
         const inputProps = {...otherProps, value, id: name, onChange: this._handleInputChange, pattern};
         const cssClass = `mdl-textfield mdl-js-textfield${error ? ' is-invalid' : ''}`;
+        console.log(cssClass);
         return (
             <div className={cssClass} data-focus='input-text' ref='inputText' style={style}>
                 <input className='mdl-textfield__input' ref='htmlInput' {...inputProps} />
