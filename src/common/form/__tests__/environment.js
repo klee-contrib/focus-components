@@ -3,106 +3,150 @@ import actionBuilder from 'focus-core/application/action-builder';
 import {container as domainContainer}  from 'focus-core/definition/domain';
 import {container as definitionContainer}  from 'focus-core/definition/entity';
 import {config as configContainer} from 'focus-core/reference';
+import {CoreStore} from 'focus-core/store';
+
+
 var _ = require("lodash");
 
-/*
- Focus.reference.config.set({papas: loadEmptyList, singe: loadRefList('singe'), monkeys: loadMonkeyList});
- Focus.definition.entity.container.setEntityConfiguration(entities);
+const entities = {
+    contact: {
+        firstName: {
+            domain: 'DO_TEXT',
+            required: false,
+            validator: [{
+                options: {translationKey: 'entityContactValidation.test'}, type: 'function', value: data => {
+                    return data.length <= 3 ? false : true;
+                }
+            }]
+        },
+        lastName: {
+            domain: 'DO_TEXT',
+            required: true
+        },
+        papaCode: {
+            domain: 'DO_TEXT',
+            required: true
+        },
+        age: {
+            domain: 'DO_NUMBER',
+            required: false,
+            type: 'number'
+        },
+        email: {
+            domain: 'DO_EMAIL',
+            required: false
+        },
+        bio: {
+            domain: 'DO_EMAIL',
+            //InputComponent: FocusComponents.common.input.textarea.component
+        },
+        isCool: {
+            domain: 'DO_BOOLEAN'
+        },
+        isNice: {
+            domain: 'DO_BOOLEAN',
+            //FieldComponent: FocusComponents.common.input.toggle.component
+        },
+        birthDate: {
+            domain: 'DO_DATE',
+            required: false
+        },
+        city: {
+            domain: 'DO_TEXT'
+        }
+    },
+    commande: {
+        name: {
+            domain: 'DO_TEXT',
+            required: true
+        },
+        number: {
+            domain: 'DO_NUMBER',
+            required: false,
+            type: 'number'
+        }
+    }
+};
 
- */
+const resources = {
+    dev: {
+        translation: {
+            button: {
+                edit: 'Editer',
+                save: 'Sauvegarder',
+                cancel: 'Abandonner'
+            },
+            select: {
+                yes: 'Oui',
+                no: 'Non',
+                unSelected: '-'
+            },
+            contact: {
+                firstName: 'Prénom',
+                lastName: 'Nom',
+                papaCOde: 'Le code du papa',
+                monkeyCode: 'Le code du singe',
+                bio: 'Biography',
+                isCool: 'Est-il cool ?',
+                isNice: 'Est-il gentil ?',
+                birthDate: 'Date de naissance',
+                city: 'Lieu de naissance'
+            }
+        }
+    }
+};
 
+const domain = {
+    DO_TEXT: {
+        style: 'do_text',
+        type: 'text',
+        component: 'PapaSinge',
+        validator: [{
+            type: 'function',
+            options: {
+                translationKey: 'domain.doTEXT.test'
+            },
+            //value: _.isString
+        }]
+    },
+    DO_NUMBER: {
+        type: 'number',
+        validator: [{
+            type: 'number'
+        }]
+    },
+    DO_EMAIL: {
+        style: 'do_email',
+        type: 'email',
+        component: 'PapaMail',
+        validator: [{
+            type: 'function',
+            value: () => true
+        }]
+    },
+    DO_DATE: {
+        //InputComponent: FocusComponents.components.input.Date,
+        formatter: date => date ? moment(date, moment.ISO_8601).format('D MMMM YYYY') : '',
+        format: ['DD/MM/YYYY', 'DD-MM-YYYY', 'D MMM YYYY'],
+        locale: 'fr'
+    },
+    DO_BOOLEAN: {
+        //SelectComponent: FocusComponents.common.select.radio.component,
+        refContainer: {yesNoList: [{code: true, label: 'select.yes'}, {code: false, label: 'select.no'}]},
+        listName: 'yesNoList',
+        formatter: i18n.t
+    }
+
+};
 
 function initEnvironment() {
     console.log("init start");
-    const resources = {
-        dev: {
-            translation: {
-                button: {
-                    edit: 'Editer',
-                    save: 'Sauvegarder',
-                    cancel: 'Abandonner'
-                },
-                select: {
-                    yes: 'Oui',
-                    no: 'Non',
-                    unSelected: '-'
-                },
-                contact: {
-                    firstName: 'Prénom',
-                    lastName: 'Nom',
-                    papaCOde: 'Le code du papa',
-                    monkeyCode: 'Le code du singe',
-                    bio: 'Biography',
-                    isCool: 'Est-il cool ?',
-                    isNice: 'Est-il gentil ?',
-                    birthDate: 'Date de naissance',
-                    city: 'Lieu de naissance'
-                }
-            }
-        }
-    };
+
 
     i18n.init({resStore: resources});
-
-
-    const domain = {
-        DO_TEXT: {
-            style: 'do_text',
-            type: 'text',
-            component: 'PapaSinge',
-            validator: [{
-                type: 'function',
-                options: {
-                    translationKey: 'domain.doTEXT.test'
-                },
-                //value: _.isString
-            }]
-        },
-        DO_TEXT: {
-            type: 'number',
-            validator: [{
-                type: 'number'
-            }]
-        }
-
-    };
     domainContainer.setAll(domain);
-
-    const entities = {
-        contact: {
-            firstName: {
-                domain: 'DO_TEXT',
-                required: false,
-                validator: [{
-                    options: {translationKey: 'entityContactValidation.test'}, type: 'function', value: data => {
-                        return data.length <= 3 ? false : true;
-                    }
-                }]
-            },
-            lastName: {
-                domain: 'DO_TEXT',
-                required: true
-            },
-            age: {
-                domain: 'DO_NUMBER',
-                required: false,
-                type: 'number'
-            }
-        },
-        commande: {
-            name: {
-                domain: 'DO_TEXT',
-                required: true
-            },
-            number: {
-                domain: 'DO_NUMBER',
-                required: false,
-                type: 'number'
-            }
-        }
-    };
     definitionContainer.setEntityConfiguration(entities);
-    configContainer.set({papas: loadEmptyList, singe: loadRefList('singe'), monkeys: loadMonkeyList});
+
 }
 function loadEmptyList() {
     return Promise.resolve([]);
@@ -118,15 +162,6 @@ function loadRef(name) {
     });
     return refLst;
 }
-
-/*
-function loadRefList(name) {
-    const name1 = name;
-    return function (name1) {
-        return Promise.resolve(loadRef(name1));
-    }
-}
-*/
 
 function loadRefList(name) {
     return function loadRef() {
@@ -149,16 +184,16 @@ function loadMonkeyList() {
     });
 }
 
+configContainer.set({papas: loadEmptyList, singe: loadRefList('singe'), monkeys: loadMonkeyList});
+
+const contactStore = new CoreStore({
+    definition: {
+        contact: 'contact',
+        commandes: 'commande'
+    }
+});
 
 
-/*
- const contactStore = new Focus.store.CoreStore({
- definition: {
- contact: 'contact',
- commandes: 'commande'
- }
- });
- */
 const jsonContact = {
     firstName: 'Zeus',
     lastName: 'God',
@@ -211,15 +246,10 @@ const action = {
 
 export default {
     initEnvironment: initEnvironment,
-    action:action,
-    loadRef : loadRef,
+    action: action,
+    loadRef: loadRef,
+    contactStore: contactStore,
+    jsonContact: jsonContact,
+    entities :entities,
 }
 
-//Focus.reference.config.set({papas: loadEmptyList, singe: loadRefList('singe'), monkeys: loadMonkeyList});
-
-
-/*
- module.exports = {
- initEnvironment: initEnvironment
- };
- */

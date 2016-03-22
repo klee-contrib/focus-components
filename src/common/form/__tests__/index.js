@@ -1,14 +1,19 @@
 import React, {Component} from 'react';
+import {CoreStore,ReferenceStore} from 'focus-core/store';
+
 import {mixin as formMixin} from '../../form';
 import {component as Debug} from '../../../../test/components';
 import Panel from '../../../components/panel';
 import {BasicFakeForm, FakeForm} from './fake-form';
 
-import {initEnvironment, loadRef, loadRefList} from './environment';
+import {initEnvironment, loadRef, loadRefList, jsonContact, contactStore,entities} from './environment';
 const {renderIntoDocument, findAllInRenderedTree} = TestUtils;
 const alertSpy = sinon.spy();
 
-const _ = require("lodash");
+const isEmpty = require("lodash/lang/isEmpty");
+const isEqual = require('lodash/lang/isEqual');
+const keys = require('lodash/object/keys');
+const difference = require('lodash/array/difference');
 
 initEnvironment();
 
@@ -16,9 +21,7 @@ describe.only('The Form component', () => {
 
     describe('Basic Form with no action, not editable ', () => {
 
-        const testedReactCpt = <BasicFakeForm hasLoad={false} isEdit={false}>
-            <div data-focus="child1">test1</div>
-        </BasicFakeForm>;
+        const testedReactCpt = <BasicFakeForm hasLoad={false} isEdit={false}/>;
         let reactComponent, domNode;
 
 
@@ -35,7 +38,7 @@ describe.only('The Form component', () => {
         });
         it('state is correct', () => {
             expect(reactComponent.state.isEdit).to.equal(false);
-            expect(_.isEmpty(reactComponent.state.reference)).to.equal(true);
+            expect(isEmpty(reactComponent.state.reference)).to.equal(true);
 
         });
         it('props are correct', () => {
@@ -43,6 +46,15 @@ describe.only('The Form component', () => {
             expect(reactComponent.props.hasForm).to.equal(true);
             expect(reactComponent.props.hasDelete).to.equal(false);
 
+        });
+        it('store is correct', () => {
+            expect(isEmpty(reactComponent.stores)).to.equal(true);
+        });
+
+        it('definitions are correct', () => {
+            expect(isEmpty(reactComponent.definition)).to.equal(false);
+            expect(isEmpty(difference(reactComponent,entities.contact)));
+            expect(isEmpty(difference(entities.contact,reactComponent)));
         });
     });
 
@@ -67,7 +79,7 @@ describe.only('The Form component', () => {
         });
         it('state is correct', () => {
             expect(reactComponent.state.isEdit).to.equal(true);
-            expect(_.isEmpty(reactComponent.state.reference)).to.equal(true);
+            expect(isEmpty(reactComponent.state.reference)).to.equal(true);
         });
         it('props are correct', () => {
             expect(reactComponent.props.hasEdit).to.equal(true);
@@ -75,14 +87,20 @@ describe.only('The Form component', () => {
             expect(reactComponent.props.hasDelete).to.equal(false);
 
         });
+        it('store is correct', () => {
+            expect(isEmpty(reactComponent.stores)).to.equal(true);
+        });
 
+        it('definitions are correct', () => {
+            expect(isEmpty(reactComponent.definition)).to.equal(false);
+            expect(isEmpty(difference(reactComponent,entities.contact)));
+            expect(isEmpty(difference(entities.contact,reactComponent)));
+        });
     });
 
-    describe('Form with  action, editable ', () => {
+    describe('Form with action, editable ', () => {
 
-        const testedReactCpt = <FakeForm hasLoad={true} isEdit={true}>
-            <div data-focus="child1">test1</div>
-        </FakeForm>;
+        const testedReactCpt = <FakeForm hasLoad={true} isEdit={true}/>;
 
         let reactComponent, domNode;
 
@@ -97,9 +115,10 @@ describe.only('The Form component', () => {
             expect(reactComponent).not.to.equal(null);
             expect(domNode).not.to.equal(null);
         });
+
         it('state is correct', () => {
             expect(reactComponent.state.isEdit).to.equal(true);
-            expect(_.isEmpty(reactComponent.state.reference)).to.equal(false);
+            expect(isEmpty(reactComponent.state.reference)).to.equal(false);
 
         });
 
@@ -110,12 +129,28 @@ describe.only('The Form component', () => {
 
         });
 
-        it('Log', () => {
-            TestFocus.logProps(reactComponent);
-            TestFocus.logState(reactComponent);
-            const childReactCpt = reactComponent.props.children;
-            TestFocus.logProps(childReactCpt);
-            TestFocus.logState(childReactCpt);
+        it('store is correct', () => {
+            expect(isEmpty(reactComponent.stores)).to.equal(false);
+            expect(reactComponent.stores.length).to.equal(2);
+            const contactStore = reactComponent.stores[0].store;
+            expect(contactStore instanceof CoreStore).to.equal(true);
+            const storeData = contactStore.getContact();
+            expect(isEqual(storeData,jsonContact)).to.equal(true);
+
+            const referenceStore = reactComponent.stores[1].store;
+            expect(referenceStore instanceof ReferenceStore).to.equal(true);
+            const refDataSinge = referenceStore.getSinge();
+            expect(isEqual(refDataSinge,reactComponent.state.reference.singe)).to.equal(true);
+            const refDataPapas = referenceStore.getPapas();
+            expect(isEqual(refDataPapas,reactComponent.state.reference.papas)).to.equal(true);
+
+
+        });
+
+        it('definitions are correct', () => {
+            expect(isEmpty(reactComponent.definition)).to.equal(false);
+            expect(isEmpty(difference(reactComponent,entities.contact)));
+            expect(isEmpty(difference(entities.contact,reactComponent)));
         });
     });
 

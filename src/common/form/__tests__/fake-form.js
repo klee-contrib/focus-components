@@ -2,20 +2,15 @@ import React, {Component, PropTypes} from 'react';
 import {mixin as formMixin} from  '../../../common/form' ;
 import {translate} from 'focus-core/translation';
 import uuid from 'uuid';
-import {action} from './environment';
+import {action,contactStore} from './environment';
 
-const mixins = ['papas', 'singe'];
 
 const BasicFakeForm = React.createClass({
 
     definitionPath: 'contact',
     displayName: 'BasicFakeForm',
     mixins: [formMixin],
-    //referenceNames :mixins,
-    //action :action,
-    /**
-     * Component will mount
-     */
+
     componentWillMount() {
         this._htmlId = uuid.v4();
     },
@@ -32,13 +27,15 @@ const BasicFakeForm = React.createClass({
 const FakeForm = React.createClass({
 
     definitionPath: 'contact',
-    displayName: 'Dummy',
+    displayName: 'FakeForm',
     mixins: [formMixin],
-    referenceNames :mixins,
+    referenceNames :['papas', 'singe'],
     action :action,
-    /**
-     * Component will mount
-     */
+    stores: [{
+        store: contactStore,
+        properties: ['contact', 'commandes']
+    }],
+
     componentWillMount() {
         this._htmlId = uuid.v4();
     },

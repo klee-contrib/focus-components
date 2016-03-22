@@ -162,10 +162,12 @@ export function filtreLog() {
 /**
  * for debug purpose to understand component structure
  * log tagName, textCont and attributes/values
+ * @name  name of the log block
  * @param domComponent DOM component to inspect
  */
-export function logElements(domComponent) {
-
+export function logElements(name,domComponent) {
+    console.log("");
+    console.log("name: ",name);
     if (isCompositeComponent(domComponent)) {
         logAttributes(domComponent);
         findAllInRenderedTree(domComponent, filtreLog());
@@ -174,15 +176,43 @@ export function logElements(domComponent) {
     }
 }
 
-export function logProps(reactComponent) {
+/**
+ * for debug purpose to understand component structure
+ * log fields/values
+ * @name  name of the log block
+ * @param reactComponent react component to inspect
+ */
+export function logProperties(name, reactComponent) {
+    console.log("");
+    console.log("name: ",name);
+    for (let field in reactComponent) {
+        console.log("field", field, ":", reactComponent[field]);
+    }
+}
+
+/**
+ * for debug purpose to understand component structure
+ * log props/values
+ * @name  name of the log block
+ * @param reactComponent react component to inspect
+ */
+export function logProps(name,reactComponent) {
     console.log("");
     for (let prop in reactComponent.props) {
         console.log("props", prop, ":", reactComponent.props[prop]);
     }
 }
 
-export function logState(reactComponent) {
+
+/**
+ * for debug purpose to understand component structure
+ * log state properties/values
+ * @name  name of the log block
+ * @param reactComponent react component to inspect
+ */
+export function logState(name,reactComponent) {
     console.log("");
+    console.log("name: ",name);
     for (let prop in reactComponent.state) {
         console.log("state", prop, ":", reactComponent.state[prop]);
     }
