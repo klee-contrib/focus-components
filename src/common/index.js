@@ -1,5 +1,4 @@
 module.exports = {
-    autocomplete: require('./autocomplete'),
     block: require('./block'),
     button: require('./button'),
     empty: require('./empty'),

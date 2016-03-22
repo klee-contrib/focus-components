@@ -7,11 +7,11 @@ import assign from 'object-assign';
 
 // Components
 import AutocompleteSelectComponent from '../../../components/input/autocomplete-select/field';
-import {component as Autocomplete} from '../../autocomplete/field';
 import InputText from '../../../components/input/text';
 import {component as DisplayText} from '../../display/text';
 import SelectClassic from '../../../components/input/select';
 import {component as Label} from '../../label';
+const Autocomplete = props => <div>This component is deprecated, please use <pre>this.autocompleteSelect</pre> instead.</div>;
 
 // Mixins
 import fieldGridBehaviourMixin from '../../mixin/field-grid-behaviour';
