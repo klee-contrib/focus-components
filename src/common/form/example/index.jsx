@@ -85,7 +85,7 @@ const entities = {
         },
         papaCode: {
             domain: 'DO_TEXT',
-            required: true
+            required: false
         },
         age: {
             domain: 'DO_NUMBER',
@@ -97,15 +97,16 @@ const entities = {
             required: false
         },
         bio: {
-            domain: 'DO_EMAIL',
-            InputComponent: FocusComponents.common.input.textarea.component
+            domain: 'DO_TEXT',
+            InputComponent: FocusComponents.components.input.Textarea,
+            DisplayComponent: FocusComponents.components.input.DisplayTextArea
         },
         isCool: {
             domain: 'DO_OUI_NON'
         },
         isNice: {
             domain: 'DO_BOOLEAN',
-            FieldComponent: FocusComponents.common.input.toggle.component
+            FieldComponent: FocusComponents.components.input.Toggle
         },
         birthDate: {
             domain: 'DO_DATE',

@@ -5,6 +5,7 @@ import Date from './date';
 import Select from './select';
 import Text from './text';
 import Textarea from './textarea';
+import DisplayTextArea from './textarea/consult';
 import Toggle from './toggle';
 
 export default {
@@ -15,5 +16,6 @@ export default {
     Select,
     Text,
     Toggle,
-    Textarea
+    Textarea,
+    DisplayTextArea
 };
