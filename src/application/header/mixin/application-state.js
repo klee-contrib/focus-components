@@ -26,7 +26,6 @@ var applicationStateMixin = {
         this.setState({isEdit:(this.state.mode==='edit')});
         console.log("_handleChangeApplicationStatus", this.state.isEdit);
         console.log("_handleChangeApplicationStatus", this.props.name, this.state.mode);
-
     },
     _getStateFromStore: function getCartridgeStateFromStore() {
         var processMode = applicationStore.getMode();
