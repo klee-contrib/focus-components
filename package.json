@@ -8,8 +8,8 @@
     "bundle": "better-npm-run bundle",
     "copy-sass": "better-npm-run copy-sass",
     "build": "node scripts/mdl-variables-copy.js && better-npm-run babelify && better-npm-run copy-sass && better-npm-run bundle",
-    "test": "BABEL_ENV=production mocha src/**/__tests__/**/*.js",
-    "test:watch": "BABEL_ENV=production mocha src/**/__tests__/**/*.js -w",
+    "test": "better-npm-run test",
+    "test:watch": "better-npm-run test-watch",
     "postinstall": "node scripts/mdl-variables-copy.js",
     "profile": "better-npm-run profile",
     "fix-lint": "eslint --fix src/** || exit 0"
@@ -39,6 +39,18 @@
         "LIBRARY_NAME": "FocusComponents",
         "MINIMIFY": false,
         "PACKAGE_JSON_PATH": "../"
+      }
+    },
+    "test": {
+      "command": "mocha src/**/__tests__/**/*.js",
+      "env": {
+        "BABEL_ENV": "production"
+      }
+    },
+    "test-watch": {
+      "command": "mocha src/**/__tests__/**/*.js -w",
+      "env": {
+        "BABEL_ENV": "production"
       }
     }
   },
