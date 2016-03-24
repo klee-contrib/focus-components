@@ -1,9 +1,9 @@
 import React, {Component, PropTypes} from 'react';
 import {mixin as formMixin} from  '../../../common/form' ;
 import {translate} from 'focus-core/translation';
-import uuid from 'uuid';
 import {action,contactStore} from './environment';
 
+const {uniqueId} = require('lodash/utility');
 
 const BasicFakeForm = React.createClass({
 
@@ -12,10 +12,9 @@ const BasicFakeForm = React.createClass({
     mixins: [formMixin],
 
     componentWillMount() {
-        this._htmlId = uuid.v4();
+        this._htmlId = uniqueId('BasicFakeForm');
     },
-
-
+    
     renderContent() {
         return (
             <div>{this.children}</div>
@@ -37,7 +36,7 @@ const FakeForm = React.createClass({
     }],
 
     componentWillMount() {
-        this._htmlId = uuid.v4();
+        this._htmlId = uniqueId('FakeForm');
     },
     renderContent() {
         return (
