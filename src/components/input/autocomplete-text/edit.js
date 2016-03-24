@@ -20,7 +20,8 @@ class AutocompleteText extends Component {
         hasResults: false
     };
 
-    getValue() {
+    // Returns the state's inputValue
+    getValue = () =>  {
         const {inputValue} = this.state;
 
         if(inputValue !== undefined)
@@ -29,6 +30,8 @@ class AutocompleteText extends Component {
             return null;
     }
 
+    // Get the defined props' querySearch and return the object given by the promise
+    // Sets the hasResults' state if the given object has a none empty array
     _querySearcher = value => {
         const {querySearcher} = this.props;
         querySearcher(value).then(({data, totalCount}) => {
@@ -38,12 +41,14 @@ class AutocompleteText extends Component {
         });
     }
 
+    // Sets the state's inputValue when the user is typing
     onQueryChange = ({target: {value}}) => {
         this.setState({inputValue: value});
         this._querySearcher(value);
     }
 
-    _renderResults = () => {
+    // Renders an html list whith the results
+    renderResults = () => {
         const {results} = this.state;
         const allResults = results.map(({key, label}, index) => <li ref={`result${index}`} key={key}>{label}</li>);
         return(
@@ -59,7 +64,7 @@ class AutocompleteText extends Component {
             <div>
                 <input type='text' value={inputValue} ref='inputText' onChange={::this.onQueryChange} {...otherProps} />
                 {hasResults &&
-                    this._renderResults()
+                    this.renderResults()
                 }
             </div>
         );
