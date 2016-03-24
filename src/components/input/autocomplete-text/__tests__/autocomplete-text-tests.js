@@ -49,11 +49,6 @@ describe.only('AutocompleteText', () => {
                     totalCount: data.length
                 });
             };
-            /*const querySearcherCustom = data => {
-            dataResults = _querySearcher().then(({data}) => { return data});
-            setTimeout(done, 0);
-            return _querySearcher(data);
-            };*/
             autocompleteText = renderIntoDocument(<AutocompleteText querySearcher={_querySearcher} />);
             inputRef = autocompleteText.refs.inputText;
             initialState = autocompleteText.state;
@@ -74,6 +69,12 @@ describe.only('AutocompleteText', () => {
         });
         it('should have the same data has the object given by the promise', () => {
             expect(autocompleteText.state.results).to.equal(dataResults);
+        });
+        it('should create an <ul>', () => {
+            expect(autocompleteText.refs.results).to.exist;
+        });
+        it('should have created <li>s in the <ul>', () => {
+            expect(autocompleteText.refs.result0).to.exist;
         });
     });
 });

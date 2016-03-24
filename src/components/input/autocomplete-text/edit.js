@@ -16,7 +16,8 @@ class AutocompleteText extends Component {
 
     state = {
         inputValue: this.props.value,
-        results: []
+        results: [],
+        hasResults: false
     };
 
     getValue() {
@@ -32,19 +33,34 @@ class AutocompleteText extends Component {
         const {querySearcher} = this.props;
         querySearcher(value).then(({data, totalCount}) => {
             this.setState({results: data});
+            if(data.length > 0)
+                this.setState({hasResults: true});
         });
-    };
+    }
 
     onQueryChange = ({target: {value}}) => {
         this.setState({inputValue: value});
         this._querySearcher(value);
-    };
+    }
+
+    _renderResults = () => {
+        const {results} = this.state;
+        const allResults = results.map(({key, label}, index) => <li ref={`result${index}`} key={key}>{label}</li>);
+        return(
+            <ul ref='results'>
+                {allResults}
+            </ul>
+        );
+    }
 
     render() {
-        const {inputValue} = this.state;
+        const {inputValue, hasResults, ...otherProps} = this.state;
         return(
             <div>
-                <input type='text' value={inputValue} ref='inputText' onChange={::this.onQueryChange} />
+                <input type='text' value={inputValue} ref='inputText' onChange={::this.onQueryChange} {...otherProps} />
+                {hasResults &&
+                    this._renderResults()
+                }
             </div>
         );
     }
