@@ -24,49 +24,56 @@ describe.only('AutocompleteText', () => {
     describe('When a value is typed by the user', () => {
         let autocompleteText;
         const _query = 'hello from the other side';
-        let inputRef;
-        const _querySearcher = query => {
-            const data = [
-                {
-                    key: 'JL',
-                    label: 'Joh Lickeur'
-                },
-                {
-                    key: 'GK',
-                    label: 'Guénolé Kikabou'
-                },
-                {
-                    key: 'YL',
-                    label: 'Yannick Lounivis'
-                }
-            ];
-            return Promise.resolve({
-                data,
-                totalCount: data.length
-            });
-        };
+        let inputRef, initialState, dataResults;
+        let querySearcherSpy = sinon.spy();
         before( () => {
-            autocompleteText = renderIntoDocument(<AutocompleteText querySearcher={_querySearcher}/>);
+            const _querySearcher = query => {
+                const data = [
+                    {
+                        key: 'JL',
+                        label: 'Joh Lickeur'
+                    },
+                    {
+                        key: 'GK',
+                        label: 'Guénolé Kikabou'
+                    },
+                    {
+                        key: 'YL',
+                        label: 'Yannick Lounivis'
+                    }
+                ];
+                querySearcherSpy(query);
+                dataResults = data;
+                return Promise.resolve({
+                    data,
+                    totalCount: data.length
+                });
+            };
+            /*const querySearcherCustom = data => {
+            dataResults = _querySearcher().then(({data}) => { return data});
+            setTimeout(done, 0);
+            return _querySearcher(data);
+            };*/
+            autocompleteText = renderIntoDocument(<AutocompleteText querySearcher={_querySearcher} />);
             inputRef = autocompleteText.refs.inputText;
+            initialState = autocompleteText.state;
             Simulate.change(inputRef, {target: {value: _query}});
         });
         it('should update the inputValue state', () => {
             expect(autocompleteText.state.inputValue).to.equal(_query);
-            console.log(autocompleteText.state.inputValue);
         });
         it('should return the new value on the getValue call', () => {
             expect(autocompleteText.getValue()).to.equal(_query);
         });
         it('should call the querySearcher', () => {
-            const theCall = () => {
-                const myData = autocompleteText.props.querySearcher().then(({data, totalCount}) => {
-                    return data;
-                });
-                return Promise.resolve({
-                    myData
-                })
-            };
-            console.log(theCall().then());
+            expect(querySearcherSpy).to.have.been.called.once;
+            expect(querySearcherSpy).to.have.been.calledWith(_query);
+        });
+        it('should update the state \'results\'', () => {
+            expect(autocompleteText.state).to.not.equal(initialState);
+        });
+        it('should have the same data has the object given by the promise', () => {
+            expect(autocompleteText.state.results).to.equal(dataResults);
         });
     });
 });

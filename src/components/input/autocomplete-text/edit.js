@@ -9,13 +9,14 @@ class AutocompleteText extends Component {
     };
 
     static propTypes = {
-        querySearcher: PropTypes.func,
+        querySearcher: PropTypes.func.isRequired,
         value: PropTypes.string,
-        onChange: PropTypes.func
+        onChange: PropTypes.func.isRequired
     };
 
     state = {
-        inputValue: this.props.value
+        inputValue: this.props.value,
+        results: []
     };
 
     getValue() {
@@ -27,9 +28,17 @@ class AutocompleteText extends Component {
             return null;
     }
 
-    onQueryChange({target: {value}}) {
+    _querySearcher = value => {
+        const {querySearcher} = this.props;
+        querySearcher(value).then(({data, totalCount}) => {
+            this.setState({results: data});
+        });
+    };
+
+    onQueryChange = ({target: {value}}) => {
         this.setState({inputValue: value});
-    }
+        this._querySearcher(value);
+    };
 
     render() {
         const {inputValue} = this.state;
