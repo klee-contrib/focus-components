@@ -16,7 +16,7 @@ const data = [
     }
 ];
 
-describe.only('AutocompleteTextEdit', () => {
+describe('AutocompleteTextEdit', () => {
     describe('When no value is given', () => {
         let autocompleteTextEdit;
         before(() => {
