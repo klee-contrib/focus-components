@@ -31,6 +31,7 @@ import '../common/select/radio/style/select-radio.scss';
 import '../common/select-action/style/select-action.scss';
 import '../common/topic-displayer/style/topic-displayer.scss';
 import '../components/input/autocomplete-select/style.scss';
+import '../components/input/autocomplete-text/style.scss';
 import '../components/input/checkbox/style/checkbox.scss';
 import '../components/input/date/style/index.scss';
 import '../components/input/textarea/style/textarea.scss';

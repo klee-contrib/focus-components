@@ -39,7 +39,7 @@ class AutocompleteTextEdit extends Component {
         querySearcher(value).then(({data, totalCount}) => {
             this.setState({results: data});
             if(data.length > 0)
-            this.setState({hasResults: true});
+              this.setState({hasResults: true});
         });
     }
 
@@ -58,9 +58,9 @@ class AutocompleteTextEdit extends Component {
     // Returns an html list whith the results
     renderResults = () => {
         const {results} = this.state;
-        const allResults = results.map(({key, label}, index) => <li ref={`result${index}`} key={key} onClick={() => {this.onResultClick(label)}}>{label}</li>);
+        const allResults = results.map(({key, label}, index) => <li ref={`result${index}`} key={key} onClick={() => {this.onResultClick(label)}} data-focus='option'>{label}</li>);
         return(
-            <ul ref='results'>
+            <ul ref='results' data-focus='options'>
                 {allResults}
             </ul>
         );
@@ -69,7 +69,7 @@ class AutocompleteTextEdit extends Component {
     render() {
         const {inputValue, hasResults, ...otherProps} = this.state;
         return(
-            <div>
+            <div data-focus='autocompleteText'>
                 <div className='mdl-textfield mdl-js-textfield' ref='materialInput'>
                     <input className='mdl-textfield__input' type='text' value={inputValue} ref='inputText' onChange={::this.onQueryChange} {...otherProps} />
                     <label className="mdl-textfield__label">Search here...</label>
