@@ -1,4 +1,5 @@
 import AutocompleteSelect from './autocomplete-select/field';
+import AutocompleteText from './autocomplete-text/field';
 import Checkbox from './checkbox';
 import CheckboxWithError from './checkbox/with-error';
 import Date from './date';
@@ -10,6 +11,7 @@ import Toggle from './toggle';
 
 export default {
     AutocompleteSelect,
+    AutocompleteText,
     Checkbox,
     CheckboxWithError,
     Date,

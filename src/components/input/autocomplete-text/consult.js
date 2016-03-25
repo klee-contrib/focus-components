@@ -6,15 +6,13 @@ class AutocompleteTextConsult extends Component {
     state = {};
     render() {
         const {label, name, type, value} = this.props;
-        const stateValue;
-        const {stateValue = value} = this.state;
         return (
             <div
                 label={label}
                 name={name}
                 type={type}
             >
-                {stateValue}
+                {value}
             </div>
         );
     }

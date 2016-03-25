@@ -97,12 +97,19 @@ describe('AutocompleteTextEdit', () => {
             selectedLI = autocompleteTextEdit.refs.result0;
             Simulate.click(selectedLI);
             expect(autocompleteTextEdit.refs.inputText.value).to.equal(selectedLI.textContent);
+            Simulate.change(inputRef, {target: {value: _query}});
         });
         it('should change component\'s state \'inputValue\'', () => {
             selectedLI = autocompleteTextEdit.refs.result0;
             Simulate.click(selectedLI);
             expect(autocompleteTextEdit.state.inputValue).to.equal(selectedLI.textContent);
             expect(autocompleteTextEdit.state.inputValue).to.equal(autocompleteTextEdit.refs.inputText.value);
+            Simulate.change(inputRef, {target: {value: _query}});
+        });
+        it('should change component\'s state \'hasResults\' to false', () => {
+            selectedLI = autocompleteTextEdit.refs.result0;
+            Simulate.click(selectedLI);
+            expect(autocompleteTextEdit.state.hasResults).to.equal(false);
         });
     });
 });

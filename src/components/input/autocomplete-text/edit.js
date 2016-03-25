@@ -1,7 +1,9 @@
 import React, {Component, PropTypes} from 'react';
 import ReactDOM from 'react-dom';
 import ComponentBaseBehaviour from '../../../behaviours/component-base';
+import MDBehaviour from '../../../behaviours/material';
 
+@MDBehaviour('materialInput')
 @ComponentBaseBehaviour
 class AutocompleteTextEdit extends Component {
     static defaultProps = {
@@ -25,9 +27,9 @@ class AutocompleteTextEdit extends Component {
         const {inputValue} = this.state;
 
         if(inputValue !== undefined)
-            return inputValue;
+        return inputValue;
         else
-            return null;
+        return null;
     }
 
     // Get the defined props' querySearch and return the object given by the promise
@@ -37,7 +39,7 @@ class AutocompleteTextEdit extends Component {
         querySearcher(value).then(({data, totalCount}) => {
             this.setState({results: data});
             if(data.length > 0)
-                this.setState({hasResults: true});
+            this.setState({hasResults: true});
         });
     }
 
@@ -49,7 +51,7 @@ class AutocompleteTextEdit extends Component {
 
     onResultClick(value) {
         this.refs.inputText.value = value;
-        this.setState({inputValue: value});
+        this.setState({inputValue: value, hasResults: false});
         return value;
     }
 
@@ -68,7 +70,10 @@ class AutocompleteTextEdit extends Component {
         const {inputValue, hasResults, ...otherProps} = this.state;
         return(
             <div>
-                <input type='text' value={inputValue} ref='inputText' onChange={::this.onQueryChange} {...otherProps} />
+                <div className='mdl-textfield mdl-js-textfield' ref='materialInput'>
+                    <input className='mdl-textfield__input' type='text' value={inputValue} ref='inputText' onChange={::this.onQueryChange} {...otherProps} />
+                    <label className="mdl-textfield__label">Search here...</label>
+                </div>
                 {hasResults &&
                     this.renderResults()
                 }
