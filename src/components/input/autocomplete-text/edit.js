@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import ComponentBaseBehaviour from '../../../behaviours/component-base';
 
 @ComponentBaseBehaviour
-class AutocompleteText extends Component {
+class AutocompleteTextEdit extends Component {
     static defaultProps = {
 
     };
@@ -47,10 +47,16 @@ class AutocompleteText extends Component {
         this._querySearcher(value);
     }
 
-    // Renders an html list whith the results
+    onResultClick(value) {
+        this.refs.inputText.value = value;
+        this.setState({inputValue: value});
+        return value;
+    }
+
+    // Returns an html list whith the results
     renderResults = () => {
         const {results} = this.state;
-        const allResults = results.map(({key, label}, index) => <li ref={`result${index}`} key={key}>{label}</li>);
+        const allResults = results.map(({key, label}, index) => <li ref={`result${index}`} key={key} onClick={() => {this.onResultClick(label)}}>{label}</li>);
         return(
             <ul ref='results'>
                 {allResults}
@@ -71,4 +77,4 @@ class AutocompleteText extends Component {
     }
 }
 
-export default AutocompleteText;
+export default AutocompleteTextEdit;
