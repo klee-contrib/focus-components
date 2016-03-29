@@ -1,4 +1,5 @@
 // Dependencies
+import React from 'react';
 import builder from 'focus-core/component/builder';
 import type from 'focus-core/component/types';
 const {uniqueId} = require('lodash/utility');
