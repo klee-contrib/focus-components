@@ -60,18 +60,19 @@ var listMixin = {
         }
         const FinalLineComponent = customLineComponent || LineComponent;
         // END OF LEGACY CODE
+
+
         return data.map((line, idx) => {
-            return (
-                <FinalLineComponent
-                    data={line}
-                    dateField={dateField}
-                    key={line[idField] || uuid.v4()}
-                    onLineClick={onLineClick}
-                    ref={idx}
-                    reference={this._getReference()}
-                    {...otherProps}
-                    />
-            );
+            const timelineFinalProps = addRefToPropsIfNotPure(
+                FinalLineComponent, {
+                    ...otherProps,
+                    data: line,
+                    dateField,
+                    key: line[idField] ||  uuid.v4(),
+                    onLineClick,
+                    reference: this._getReference()
+                }, `${LINE}${idx}`);
+            return <FinalLineComponent {...timelineFinalProps} />;
         });
     },
 
