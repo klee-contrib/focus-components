@@ -60,3 +60,7 @@ In order to launch unit test: `npm run test`
 
 ## Lint
 `npm run lint` in order to see your errors.
+
+
+Browser testing done with Browserstack 
+<img class="larger" src="https://worldvectorlogo.com/logos/browserstack.svg" alt="Browserstack" title="Browserstack" />
