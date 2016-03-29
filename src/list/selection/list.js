@@ -9,6 +9,9 @@ const {isArray} = require('lodash/lang');
 import {clone} from 'lodash/lang';
 import {reduce} from 'lodash/collection';
 
+//Add a ref to the props if the component is not pure add nothing in the other case.
+import {addRefToPropsIfNotPure, LINE} from '../../utils/is-react-class-component';
+
 // Mixins
 
 const translationMixin = require('../../common/i18n').mixin;
@@ -152,17 +155,16 @@ const listMixin = {
                         isSelected = false;
                 }
             }
-            return (
-                <FinalLineComponent
-                    {...otherProps}
-                    data={line}
-                    isSelected={isSelected}
-                    key={line[idField] || idx}
-                    onSelection={this._handleLineSelection}
-                    ref={`line${idx}`}
-                    reference={this._getReference()}
-                    />
-            );
+            const listFinalProps = addRefToPropsIfNotPure(
+                FinalLineComponent, {
+                ...otherProps,
+                data: line,
+                isSelected,
+                key: line[idField] || idx,
+                onSelection: this._handleLineSelection,
+                reference: this._getReference()
+            }, `${LINE}${idx}`);
+            return <FinalLineComponent {...listFinalProps} />;
         });
     },
     /**
