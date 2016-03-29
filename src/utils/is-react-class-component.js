@@ -1,4 +1,6 @@
 //This function aims to test if a component is a
+
+// is a component a react class.
 const isReactClassComponent = ComponentToTest => {
  const prototype = ComponentToTest.prototype;
   if (!prototype) {

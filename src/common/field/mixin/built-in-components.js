@@ -167,9 +167,9 @@ const fieldBuiltInComponentsMixin = {
             ...this.props,
             value,
             style: this._buildStyle(),
-            onChange: this.onInputChange
+            onChange: this.onInputChange,
             error
-        });
+        };
         const finalSelectProps = addRefToPropsIfNotPure(this.props.SelectComponent, buildedSelectProps);
         return <this.props.SelectComponent {...finalSelectProps} />;
     },
@@ -182,7 +182,7 @@ const fieldBuiltInComponentsMixin = {
         const {name, valueKey, labelKey, values} = this.props;
         const _processValue = values ? result(find(values, {[valueKey || 'code']: value}), labelKey || 'label') : value;
         const buildedDislplayProps = {
-            this.props,
+            ...this.props,
             id: name,
             style: this._buildStyle(),
             value: _processValue
