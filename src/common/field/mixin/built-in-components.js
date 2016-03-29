@@ -4,7 +4,7 @@ import React, {PropTypes} from 'react';
 import find from 'lodash/collection/find';
 import result from 'lodash/object/result';
 import assign from 'object-assign';
-import {addRefToPropsIfNotPure, INPUT, DISPLAY} from '../../utils/is-react-class-component';
+import {addRefToPropsIfNotPure, INPUT, DISPLAY} from '../../../utils/is-react-class-component';
 
 // Components
 import AutocompleteSelectComponent from '../../../components/input/autocomplete-select/field';

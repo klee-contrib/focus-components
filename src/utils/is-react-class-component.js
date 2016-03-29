@@ -12,7 +12,7 @@ export const isReactClassComponent = ComponentToTest => {
 export const addRefToPropsIfNotPure = (Component, props, ref) => (isReactClassComponent(Component) ? {...props, ref} : props);
 
 
-export LIST = 'list';
-export LINE = 'line';
-export INPUT = 'input';
-export DISPLAY = 'display';
+export const LIST = 'list';
+export const LINE = 'line';
+export const INPUT = 'input';
+export const DISPLAY = 'display';
