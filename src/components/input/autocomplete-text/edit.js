@@ -22,7 +22,8 @@ class AutocompleteTextEdit extends Component {
         inputValue: this.props.value,
         suggestions: [],
         hasSuggestions: false,
-        error: this.props.error
+        error: this.props.error,
+        hasFocus: false
     };
 
     // Returns the state's inputValue
@@ -33,28 +34,37 @@ class AutocompleteTextEdit extends Component {
         else
             return null;
     }
+    componentWillUpdate(){
+        //console.log('The component will update', this.state, this.props);
+    }
+    componentDidUpdate() {
+        if (this.state.error != '')
+            this.refs.inputText.classList.add('is-invalid');
+        else
+            this.refs.inputText.classList.remove('is-invalid');
+
+    }
 
     // Get the defined props' querySearch and return the object given by the promise
     // Sets the hasSuggestions' state if the given object has a none empty array
     _querySearcher = value => {
         const {querySearcher} = this.props;
+
         querySearcher(value).then(({data, totalCount}) => {
             if(totalCount > 0) {
                 this.setState({hasSuggestions: true, suggestions: data, error: ''});
-                this.refs.materialInput.classList.remove('is-invalid');
             }
             else if(totalCount === 0) {
                 this.setState({error: 'No data founded'});
-                this.refs.materialInput.classList.add('is-invalid');
             }
             else if(totalCount === 1 && data[0].key == 'ERR') {
                 //Here temporary solution to give the opportunity for the dev to have a error list dropdown message
                 this.setState({hasSuggestions: true, suggestions: data, error: ''});
-                this.refs.materialInput.classList.remove('is-invalid');
             }
-        }).catch((error) => {
+        }).catch(err => {
             // HERE, IT WILL SHOW MDL ERROR INPUT
-            this.setState({error: error.message});
+            this.setState({error: JSON.stringify(err)});
+            this.refs.materialInput.classList.add('is-invalid');
         });
     }
 
@@ -73,26 +83,36 @@ class AutocompleteTextEdit extends Component {
     // Returns an html list whith the Suggestions
     renderSuggestions = () => {
         const {suggestions} = this.state;
-        const allSuggestions = suggestions.map(({key, label}, index) => <li ref={`result${index}`} key={key} onClick={() => {this.onResultClick(label)}} data-focus='option' >{label}</li>);
+        const allSuggestions = suggestions.map(({key, label}, index) => <li ref={`result${index}`} key={key} onClick={(e) => {console.log('click suggestion', e);  this.onResultClick(label)}} data-focus='option' >{label}</li>);
         return(
             <ul ref='suggestions' data-focus='options'>
                 {allSuggestions}
             </ul>
         );
     }
-
+    toggleHasFocus = e => {
+        console.log('toggleFocus', e, 'active', e.target,"current", e.currentTarget, 'explicitOriginalTarget ', e.explicitOriginalTarget);
+        // hack to have the callback executed after onlineClick if there is any
+        // the target is always body
+        Promise.resolve(setTimeout(() => {
+            console.log('yooooooooooooooooooooooo');
+            this.setState({hasFocus: !this.state.hasFocus})
+        }, 150));
+        return true;
+    }
     //Maybe give the option for the floating label
     render() {
-        const {inputValue, hasSuggestions, error, ...otherProps} = this.state;
+        const {inputValue, hasSuggestions, error, hasFocus, ...otherProps} = this.state;
+        console.log('hasFocus', hasFocus);
         const {placeholder} = this.props
         return(
             <div data-focus='autocompleteText'>
                 <div className='mdl-textfield mdl-js-textfield' ref='materialInput'>
-                    <input className='mdl-textfield__input' type='text' value={inputValue} ref='inputText' onChange={::this.onQueryChange} {...otherProps} />
+                    <input onFocus={this.toggleHasFocus} onBlur={this.toggleHasFocus} className='mdl-textfield__input' type='text' value={inputValue} ref='inputText' onChange={::this.onQueryChange} {...otherProps} />
                     <label className="mdl-textfield__label">{placeholder}</label>
                     <span className="mdl-textfield__error">{error}</span>
                 </div>
-                {hasSuggestions &&
+                {hasSuggestions && hasFocus &&
                     this.renderSuggestions()
                 }
             </div>

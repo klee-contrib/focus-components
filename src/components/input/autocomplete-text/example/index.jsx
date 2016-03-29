@@ -39,7 +39,7 @@ const _querySearcher2 = query => {
 
 const _querySearcher3 = query => {
     let data = [];
-    return Promise.resolve({
+    return Promise.reject({
         data,
         totalCount: data.length
     });
