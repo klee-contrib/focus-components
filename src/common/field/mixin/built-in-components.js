@@ -4,7 +4,7 @@ import React, {PropTypes} from 'react';
 import find from 'lodash/collection/find';
 import result from 'lodash/object/result';
 import assign from 'object-assign';
-import isReactClassComponent from '../../../utils/is-react-class-component';
+import {addRefToPropsIfNotPure, INPUT, DISPLAY} from '../../utils/is-react-class-component';
 
 // Components
 import AutocompleteSelectComponent from '../../../components/input/autocomplete-select/field';
@@ -14,8 +14,6 @@ import SelectClassic from '../../../components/input/select';
 import {component as Label} from '../../label';
 const Autocomplete = props => <div>This component is deprecated, please use <pre>this.autocompleteSelect</pre> instead.</div>;
 
-//Add a ref to the props if the component is not pure add nothing in the other case.
-const addRefToPropsIfNotPure = (Component, props, ref='input') => (isReactClassComponent(Component) ? {...props, ref} : props);
 
 // Mixins
 import fieldGridBehaviourMixin from '../../mixin/field-grid-behaviour';
@@ -121,7 +119,7 @@ const fieldBuiltInComponentsMixin = {
             error,
             placeholder
         };
-        const finalInputProps = addRefToPropsIfNotPure(this.props.InputComponent, inputBuildedProps)
+        const finalInputProps = addRefToPropsIfNotPure(this.props.InputComponent, inputBuildedProps, INPUT)
         return <this.props.InputComponent {...finalInputProps}/>;
     },
     /**
@@ -140,7 +138,7 @@ const fieldBuiltInComponentsMixin = {
             error,
             placeholder
         };
-        const finalInputProps = addRefToPropsIfNotPure(this.props.AutocompleteComponent, inputBuildedProps)
+        const finalInputProps = addRefToPropsIfNotPure(this.props.AutocompleteComponent, inputBuildedProps, INPUT);
         return <this.props.AutocompleteComponent {...finalInputProps}/>;
     },
     autocompleteSelect() {
@@ -154,7 +152,7 @@ const fieldBuiltInComponentsMixin = {
             value,
             placeHolder
         };
-        const finalInputProps = addRefToPropsIfNotPure(this.props.AutocompleteSelectComponent, inputBuildedProps)
+        const finalInputProps = addRefToPropsIfNotPure(this.props.AutocompleteSelectComponent, inputBuildedProps, INPUT)
         return <this.props.AutocompleteSelectComponent {...finalInputProps}/>;
     },
     /**
@@ -170,7 +168,7 @@ const fieldBuiltInComponentsMixin = {
             onChange: this.onInputChange,
             error
         };
-        const finalSelectProps = addRefToPropsIfNotPure(this.props.SelectComponent, buildedSelectProps);
+        const finalSelectProps = addRefToPropsIfNotPure(this.props.SelectComponent, buildedSelectProps, INPUT);
         return <this.props.SelectComponent {...finalSelectProps} />;
     },
     /**
@@ -187,7 +185,7 @@ const fieldBuiltInComponentsMixin = {
             style: this._buildStyle(),
             value: _processValue
         };
-        const finalDisplayProps = addRefToPropsIfNotPure(this.props.DisplayComponent, buildedDislplayProps, 'display');
+        const finalDisplayProps = addRefToPropsIfNotPure(this.props.DisplayComponent, buildedDislplayProps, DISPLAY);
         return <this.props.DisplayComponent {...finalDisplayProps}/>;
     },
     /**
@@ -235,7 +233,7 @@ const fieldBuiltInComponentsMixin = {
             error: error,
             onChange: this.onInputChange
         };
-        const finalBuildedProps = addRefToPropsIfNotPure(this.props.FieldComponent, buildedProps);
+        const finalBuildedProps = addRefToPropsIfNotPure(this.props.FieldComponent, buildedProps, INPUT);
         return <FieldComponent {...finalBuildedProps} />;
     }
 };
