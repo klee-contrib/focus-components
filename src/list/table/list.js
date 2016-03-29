@@ -5,6 +5,8 @@ import types from 'focus-core/component/types';
 const React = require('react');
 const {omit, keys} = require('lodash/object');
 const {reduce} = require('lodash/collection');
+//Add a ref to the props if the component is not pure add nothing in the other case.
+import {addRefToPropsIfNotPure, LINE} from '../../utils/is-react-class-component';
 
 // Table class.
 const TABLE_CSS_CLASS = 'mdl-data-table mdl-js-data-table mdl-shadow--2dp ';
@@ -103,8 +105,16 @@ const tableMixin = {
         return (
             <tbody>
                 {data.map((line, index) => {
-                    const otherLineProps = omit(this.props, 'data');
-                    return <TableLineComponent className={TABLE_CELL_CLASS} data={line} key={line[idField]} ref={`line-${index}`} reference={reference} {...otherLineProps}/>;
+                    const {data, ...otherLineProps} = this.props;
+                    const tableBodyFinalProps = addRefToPropsIfNotPure(
+                        TableLineComponent, {
+                        className: TABLE_CELL_CLASS,
+                        data: line,
+                        key: line[idField],
+                        reference,
+                        ...otherLineProps
+                    }, `${LINE}${idx}`);
+                    return <TableLineComponent {...tableBodyFinalProps}/>;
                 })}
             </tbody>
         );
