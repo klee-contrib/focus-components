@@ -30,18 +30,18 @@ class AutocompleteTextEdit extends Component {
     getValue = () =>  {
         const {inputValue} = this.state;
         if(inputValue !== undefined)
-            return inputValue;
+        return inputValue;
         else
-            return null;
+        return null;
     }
     componentWillUpdate(){
         //console.log('The component will update', this.state, this.props);
     }
     componentDidUpdate() {
         if (this.state.error != '')
-            this.refs.inputText.classList.add('is-invalid');
+        this.refs.inputText.classList.add('is-invalid');
         else
-            this.refs.inputText.classList.remove('is-invalid');
+        this.refs.inputText.classList.remove('is-invalid');
 
     }
 
@@ -49,20 +49,23 @@ class AutocompleteTextEdit extends Component {
     // Sets the hasSuggestions' state if the given object has a none empty array
     _querySearcher = value => {
         const {querySearcher} = this.props;
+        const {hasSuggestions} = this.state;
 
         querySearcher(value).then(({data, totalCount}) => {
             if(totalCount > 0) {
                 this.setState({hasSuggestions: true, suggestions: data, error: ''});
             }
-            else if(totalCount === 0) {
+            else if(totalCount === 0 && this.props.error == '') {
                 this.setState({error: 'No data founded'});
+            }
+            else if(totalCount === 0 && this.props.error != '') {
+                this.setState({error: this.props.error});
             }
             else if(totalCount === 1 && data[0].key == 'ERR') {
                 //Here temporary solution to give the opportunity for the dev to have a error list dropdown message
                 this.setState({hasSuggestions: true, suggestions: data, error: ''});
             }
         }).catch(err => {
-            // HERE, IT WILL SHOW MDL ERROR INPUT
             this.setState({error: JSON.stringify(err)});
             this.refs.materialInput.classList.add('is-invalid');
         });
@@ -71,7 +74,10 @@ class AutocompleteTextEdit extends Component {
     // Sets the state's inputValue when the user is typing
     onQueryChange = ({target: {value}}) => {
         this.setState({inputValue: value});
-        this._querySearcher(value);
+        if(!value)
+            this.setState({hasSuggestions: false});
+        else
+            this._querySearcher(value);
     }
 
     onResultClick(value) {
@@ -83,27 +89,25 @@ class AutocompleteTextEdit extends Component {
     // Returns an html list whith the Suggestions
     renderSuggestions = () => {
         const {suggestions} = this.state;
-        const allSuggestions = suggestions.map(({key, label}, index) => <li ref={`result${index}`} key={key} onClick={(e) => {console.log('click suggestion', e);  this.onResultClick(label)}} data-focus='option' >{label}</li>);
+        const allSuggestions = suggestions.map(({key, label}, index) => <li ref={`result${index}`} key={key} onMouseDown={() => {this.onResultClick(label)}} data-focus='option' >{label}</li>);
         return(
             <ul ref='suggestions' data-focus='options'>
                 {allSuggestions}
             </ul>
         );
     }
+
     toggleHasFocus = e => {
-        console.log('toggleFocus', e, 'active', e.target,"current", e.currentTarget, 'explicitOriginalTarget ', e.explicitOriginalTarget);
-        // hack to have the callback executed after onlineClick if there is any
-        // the target is always body
-        Promise.resolve(setTimeout(() => {
-            console.log('yooooooooooooooooooooooo');
-            this.setState({hasFocus: !this.state.hasFocus})
-        }, 150));
+        const {hasSuggestions} = this.state;
+        this.setState({hasFocus: !this.state.hasFocus});
+        if(hasSuggestions)
+        this.setState({hasSuggestions: false})
         return true;
     }
+
     //Maybe give the option for the floating label
     render() {
         const {inputValue, hasSuggestions, error, hasFocus, ...otherProps} = this.state;
-        console.log('hasFocus', hasFocus);
         const {placeholder} = this.props
         return(
             <div data-focus='autocompleteText'>
