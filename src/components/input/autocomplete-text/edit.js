@@ -67,7 +67,7 @@ class AutocompleteTextEdit extends Component {
             }
             this.setState({isLoading: false});
         }).catch(err => {
-            this.setState({error: JSON.stringify(err)});
+            this.setState({error: JSON.stringify(err), isLoading: false});
             this.refs.materialInput.classList.add('is-invalid');
         });
     }

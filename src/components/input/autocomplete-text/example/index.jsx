@@ -15,9 +15,13 @@ const _querySearcher = query => {
             label: 'Yannick Lounivis'
         }
     ];
-    return Promise.resolve({
-        data,
-        totalCount: data.length
+    return new Promise((resolve, reject) => {
+        setTimeout(() => {
+            resolve({
+                data,
+                totalCount: data.length
+            });
+        }, 500);
     });
 };
 
@@ -31,9 +35,13 @@ const _querySearcher2 = query => {
             }
         ];
     }
-    return Promise.resolve({
-        data,
-        totalCount: data.length
+    return new Promise((resolve, reject) => {
+        setTimeout(() => {
+            resolve({
+                data,
+                totalCount: data.length
+            });
+        }, 500);
     });
 };
 
@@ -43,13 +51,25 @@ const _querySearcher3 = query => {
         data,
         totalCount: data.length
     });
+    return new Promise((resolve, reject) => {
+        setTimeout(() => {
+            reject({
+                data,
+                totalCount: data.length
+            });
+        }, 500);
+    });
 };
 
 const _querySearcher4 = query => {
     let data = [];
-    return Promise.resolve({
-        data,
-        totalCount: data.length
+    return new Promise((resolve, reject) => {
+        setTimeout(() => {
+            resolve({
+                data,
+                totalCount: data.length
+            });
+        }, 500);
     });
 };
 
