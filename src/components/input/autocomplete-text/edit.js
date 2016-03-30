@@ -74,7 +74,7 @@ class AutocompleteTextEdit extends Component {
     // Sets the state's inputValue when the user is typing
     onQueryChange = ({target: {value}}) => {
         this.setState({inputValue: value});
-        if(!value)
+        if(value.trim() == '')
             this.setState({hasSuggestions: false});
         else
             this._querySearcher(value);
