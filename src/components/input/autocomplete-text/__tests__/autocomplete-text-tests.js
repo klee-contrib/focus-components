@@ -54,6 +54,7 @@ describe('AutocompleteTextEdit', () => {
             inputRef = autocompleteTextEdit.refs.inputText;
             initialState = autocompleteTextEdit.state;
             Simulate.change(inputRef, {target: {value: _query}});
+            autocompleteTextEdit.setState({hasFocus: true});
         });
         it('should update the inputValue state', () => {
             expect(autocompleteTextEdit.state.inputValue).to.equal(_query);
@@ -65,20 +66,88 @@ describe('AutocompleteTextEdit', () => {
             expect(querySearcherSpy).to.have.been.called.once;
             expect(querySearcherSpy).to.have.been.calledWith(_query);
         });
-        it('should update the state \'results\'', () => {
+        it('should update the state \'suggestions\'', () => {
             expect(autocompleteTextEdit.state).to.not.equal(initialState);
         });
         it('should have the same data has the object given by the promise', () => {
-            expect(autocompleteTextEdit.state.results).to.equal(dataResults);
+            expect(autocompleteTextEdit.state.suggestions).to.equal(dataResults);
         });
         it('should create an <ul>', () => {
-            expect(autocompleteTextEdit.refs.results).to.exist;
+            expect(autocompleteTextEdit.refs.suggestions).to.exist;
         });
         it('should have created <li>s in the <ul>', () => {
-            expect(autocompleteTextEdit.refs.result0).to.exist;
+            expect(autocompleteTextEdit.refs.suggestion0).to.exist;
+        });
+        describe('When the data is empty and the error is not set', () => {
+            let inputRef, initialeError, initialeErrorSpanContent;
+            let _query = 'test';
+            const customQuerySearcher = query => {
+                const emptyData = [];
+                return Promise.resolve({
+                    emptyData,
+                    totalCount: emptyData.length
+                });
+            };
+            before(() => {
+                autocompleteTextEdit = renderIntoDocument(<AutocompleteTextEdit querySearcher={customQuerySearcher} />);
+                inputRef = autocompleteTextEdit.refs.inputText;
+                initialeError = autocompleteTextEdit.state.error;
+                initialeErrorSpanContent = autocompleteTextEdit.refs.errorMessage.textContent
+                Simulate.change(inputRef, {target: {value: _query}})
+            })
+            it('should set the error state', () => {
+                expect(autocompleteTextEdit.state.error).to.not.equal(initialeError);
+            });
+            it('should set the error <span> value', () => {
+                expect(autocompleteTextEdit.refs.errorMessage.textContent).to.equal(autocompleteTextEdit.state.error);
+                expect(autocompleteTextEdit.refs.errorMessage.textContent).to.not.equal(initialeErrorSpanContent);
+            });
+        });
+        describe('When the data is empty and the error is set', () => {
+            let inputRef;
+            let _query = 'test';
+            const customError = 'Sorry, no data.'
+            const customQuerySearcher = query => {
+                const emptyData = [];
+                return Promise.resolve({
+                    emptyData,
+                    totalCount: emptyData.length
+                });
+            };
+            before(() => {
+                autocompleteTextEdit = renderIntoDocument(<AutocompleteTextEdit querySearcher={customQuerySearcher} error={customError} />);
+                inputRef = autocompleteTextEdit.refs.inputText;
+                Simulate.change(inputRef, {target: {value: _query}})
+            })
+            it('should set the error state', () => {
+                expect(autocompleteTextEdit.state.error).to.equal(customError);
+            });
+            it('should set the error <span> value', () => {
+                expect(autocompleteTextEdit.refs.errorMessage.textContent).to.equal(customError);
+            });
         });
     });
-    describe('When a result is selected by the user', () => {
+    describe('When the value is cleared by the user', () => {
+        let autocompleteTextEdit;
+        const _query = '';
+        let inputRef, dataResults;
+        const _querySearcher = query => {
+            dataResults = data;
+            return Promise.resolve({
+                data,
+                totalCount: data.length
+            });
+        };
+        before(() => {
+            autocompleteTextEdit = renderIntoDocument(<AutocompleteTextEdit querySearcher={_querySearcher} />);
+            inputRef = autocompleteTextEdit.refs.inputText;
+            Simulate.change(inputRef, {target: {value: _query}});
+        });
+        it('should returns an empty value', () => {
+            expect(autocompleteTextEdit.getValue()).to.equal('');
+        });
+    });
+    describe('When a suggestion is selected by the user', () => {
         let autocompleteTextEdit, selectedLI, inputRef, initialState;
         let _query = 'Hola';
         before(() => {
@@ -92,24 +161,43 @@ describe('AutocompleteTextEdit', () => {
             inputRef = autocompleteTextEdit.refs.inputText;
             initialState = autocompleteTextEdit.state;
             Simulate.change(inputRef, {target: {value: _query}});
+            autocompleteTextEdit.setState({hasFocus: true});
         });
         it('should change the input value', () => {
-            selectedLI = autocompleteTextEdit.refs.result0;
-            Simulate.click(selectedLI);
+            selectedLI = autocompleteTextEdit.refs.suggestion0;
+            Simulate.mouseDown(selectedLI);
             expect(autocompleteTextEdit.refs.inputText.value).to.equal(selectedLI.textContent);
             Simulate.change(inputRef, {target: {value: _query}});
         });
         it('should change component\'s state \'inputValue\'', () => {
-            selectedLI = autocompleteTextEdit.refs.result0;
-            Simulate.click(selectedLI);
+            selectedLI = autocompleteTextEdit.refs.suggestion0;
+            Simulate.mouseDown(selectedLI);
             expect(autocompleteTextEdit.state.inputValue).to.equal(selectedLI.textContent);
             expect(autocompleteTextEdit.state.inputValue).to.equal(autocompleteTextEdit.refs.inputText.value);
             Simulate.change(inputRef, {target: {value: _query}});
         });
-        it('should change component\'s state \'hasResults\' to false', () => {
-            selectedLI = autocompleteTextEdit.refs.result0;
-            Simulate.click(selectedLI);
-            expect(autocompleteTextEdit.state.hasResults).to.equal(false);
+        it('should change component\'s state \'hasSuggestions\' to false', () => {
+            selectedLI = autocompleteTextEdit.refs.suggestion0;
+            Simulate.mouseDown(selectedLI);
+            expect(autocompleteTextEdit.state.hasSuggestions).to.equal(false);
+        });
+        it('should delete the <ul> on the DOM', () => {
+            expect(autocompleteTextEdit.refs.suggestions).to.equal(undefined);
+        });
+        it('should set an empty suggestions state array', () => {
+            expect(autocompleteTextEdit.state.suggestions.length).to.equal(0);
+        });
+    });
+    describe('When the user clicks on the inputText', () => {
+        let autocompleteTextEdit, inputRef;
+        const query = 'hello from the upside';
+        before(() => {
+            autocompleteTextEdit = renderIntoDocument(<AutocompleteTextEdit />);
+            inputRef = autocompleteTextEdit.refs.inputText;
+            Simulate.focus(inputRef);
+        });
+        it('should set the hasFocus state to true', () => {
+            expect(autocompleteTextEdit.state.hasFocus).to.equal(true);
         });
     });
 });

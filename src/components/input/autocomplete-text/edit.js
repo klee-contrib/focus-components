@@ -7,7 +7,9 @@ import MDBehaviour from '../../../behaviours/material';
 @ComponentBaseBehaviour
 class AutocompleteTextEdit extends Component {
     static defaultProps = {
-        placeholder: 'Search here...'
+        placeholder: 'Search here...',
+        showAtFocus: false,
+        emptyShowAll: false
     };
 
     static propTypes = {
@@ -15,7 +17,9 @@ class AutocompleteTextEdit extends Component {
         value: PropTypes.string,
         onChange: PropTypes.func.isRequired,
         error: PropTypes.string,
-        placeholder: PropTypes.string
+        placeholder: PropTypes.string,
+        showAtFocus: PropTypes.boolean,
+        emptyShowAll: PropTypes.boolean
     };
 
     state = {
@@ -29,20 +33,12 @@ class AutocompleteTextEdit extends Component {
     // Returns the state's inputValue
     getValue = () =>  {
         const {inputValue} = this.state;
-        if(inputValue !== undefined)
-        return inputValue;
-        else
-        return null;
-    }
-    componentWillUpdate(){
-        //console.log('The component will update', this.state, this.props);
-    }
-    componentDidUpdate() {
-        if (this.state.error != '')
-        this.refs.inputText.classList.add('is-invalid');
-        else
-        this.refs.inputText.classList.remove('is-invalid');
-
+        if(inputValue !== undefined) {
+            return inputValue;
+        }
+        else {
+            return null;
+        }
     }
 
     // Get the defined props' querySearch and return the object given by the promise
@@ -55,11 +51,13 @@ class AutocompleteTextEdit extends Component {
             if(totalCount > 0) {
                 this.setState({hasSuggestions: true, suggestions: data, error: ''});
             }
-            else if(totalCount === 0 && this.props.error == '') {
+            else if(totalCount === 0 && this.props.error == undefined) {
                 this.setState({error: 'No data founded'});
+                this.refs.materialInput.classList.add('is-invalid');
             }
             else if(totalCount === 0 && this.props.error != '') {
                 this.setState({error: this.props.error});
+                this.refs.materialInput.classList.add('is-invalid');
             }
             else if(totalCount === 1 && data[0].key == 'ERR') {
                 //Here temporary solution to give the opportunity for the dev to have a error list dropdown message
@@ -74,22 +72,24 @@ class AutocompleteTextEdit extends Component {
     // Sets the state's inputValue when the user is typing
     onQueryChange = ({target: {value}}) => {
         this.setState({inputValue: value});
-        if(value.trim() == '')
+        if(value.trim() == '') {
             this.setState({hasSuggestions: false});
-        else
+        }
+        else {
             this._querySearcher(value);
+        }
     }
 
     onResultClick(value) {
         this.refs.inputText.value = value;
-        this.setState({inputValue: value, hasSuggestions: false});
+        this.setState({inputValue: value, hasSuggestions: false, suggestions: []});
         return value;
     }
 
     // Returns an html list whith the Suggestions
     renderSuggestions = () => {
         const {suggestions} = this.state;
-        const allSuggestions = suggestions.map(({key, label}, index) => <li ref={`result${index}`} key={key} onMouseDown={() => {this.onResultClick(label)}} data-focus='option' >{label}</li>);
+        const allSuggestions = suggestions.map(({key, label}, index) => <li ref={`suggestion${index}`} key={key} onMouseDown={() => {this.onResultClick(label)}} data-focus='option' >{label}</li>);
         return(
             <ul ref='suggestions' data-focus='options'>
                 {allSuggestions}
@@ -98,23 +98,29 @@ class AutocompleteTextEdit extends Component {
     }
 
     toggleHasFocus = e => {
-        const {hasSuggestions} = this.state;
+        const {hasSuggestions, hasFocus} = this.state;
+        const {showAtFocus, emptyShowAll} = this.props;
         this.setState({hasFocus: !this.state.hasFocus});
-        if(hasSuggestions)
-        this.setState({hasSuggestions: false})
+        if(hasSuggestions && !showAtFocus && hasFocus === false) {
+            this.setState({hasSuggestions: false});
+        }
+        if(!hasSuggestions && e.target.value.trim() === '' && emptyShowAll && hasFocus === false) {
+            // Doing a global search here
+            this._querySearcher('');
+        }
         return true;
     }
 
     //Maybe give the option for the floating label
     render() {
         const {inputValue, hasSuggestions, error, hasFocus, ...otherProps} = this.state;
-        const {placeholder} = this.props
+        const {placeholder, showAtFocus, emptyShowAll} = this.props
         return(
             <div data-focus='autocompleteText'>
                 <div className='mdl-textfield mdl-js-textfield' ref='materialInput'>
-                    <input onFocus={this.toggleHasFocus} onBlur={this.toggleHasFocus} className='mdl-textfield__input' type='text' value={inputValue} ref='inputText' onChange={::this.onQueryChange} {...otherProps} />
+                    <input onFocus={this.toggleHasFocus} onBlur={this.toggleHasFocus} className='mdl-textfield__input' type='text' value={inputValue} ref='inputText' onChange={::this.onQueryChange} showAtFocus={showAtFocus} emptyShowAll={emptyShowAll} {...otherProps} />
                     <label className="mdl-textfield__label">{placeholder}</label>
-                    <span className="mdl-textfield__error">{error}</span>
+                    <span className="mdl-textfield__error" ref='errorMessage'>{error}</span>
                 </div>
                 {hasSuggestions && hasFocus &&
                     this.renderSuggestions()
