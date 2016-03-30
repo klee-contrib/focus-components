@@ -4,6 +4,7 @@ import ComponentBaseBehaviour from '../../../behaviours/component-base';
 import MDBehaviour from '../../../behaviours/material';
 
 @MDBehaviour('materialInput')
+@MDBehaviour('loader')
 @ComponentBaseBehaviour
 class AutocompleteTextEdit extends Component {
     static defaultProps = {
@@ -27,7 +28,8 @@ class AutocompleteTextEdit extends Component {
         suggestions: [],
         hasSuggestions: false,
         error: this.props.error,
-        hasFocus: false
+        hasFocus: false,
+        isLoading: false
     };
 
     // Returns the state's inputValue
@@ -63,6 +65,7 @@ class AutocompleteTextEdit extends Component {
                 //Here temporary solution to give the opportunity for the dev to have a error list dropdown message
                 this.setState({hasSuggestions: true, suggestions: data, error: ''});
             }
+            this.setState({isLoading: false});
         }).catch(err => {
             this.setState({error: JSON.stringify(err)});
             this.refs.materialInput.classList.add('is-invalid');
@@ -76,6 +79,7 @@ class AutocompleteTextEdit extends Component {
             this.setState({hasSuggestions: false});
         }
         else {
+            this.setState({isLoading: true});
             this._querySearcher(value);
         }
     }
@@ -113,11 +117,12 @@ class AutocompleteTextEdit extends Component {
 
     //Maybe give the option for the floating label
     render() {
-        const {inputValue, hasSuggestions, error, hasFocus, ...otherProps} = this.state;
+        const {inputValue, hasSuggestions, error, hasFocus, isLoading, ...otherProps} = this.state;
         const {placeholder, showAtFocus, emptyShowAll} = this.props
         return(
             <div data-focus='autocompleteText'>
                 <div className='mdl-textfield mdl-js-textfield' ref='materialInput'>
+                    <div data-focus='loading' data-loading={isLoading} className='mdl-progress mdl-js-progress mdl-progress__indeterminate' ref='loader'/>
                     <input onFocus={this.toggleHasFocus} onBlur={this.toggleHasFocus} className='mdl-textfield__input' type='text' value={inputValue} ref='inputText' onChange={::this.onQueryChange} showAtFocus={showAtFocus} emptyShowAll={emptyShowAll} {...otherProps} />
                     <label className="mdl-textfield__label">{placeholder}</label>
                     <span className="mdl-textfield__error" ref='errorMessage'>{error}</span>
