@@ -83,7 +83,7 @@ const listMixin = {
         if (selectedItems !== null) {
             const selectedItems = [];
             for (let [item, isSelected] of this.state.selectedItems) {
-                if (isSelected) selectedItems.push(item);
+                if (isSelected) selectedItems.push(JSON.parse(item));
             }
             return selectedItems;
         } else {
@@ -105,7 +105,7 @@ const listMixin = {
                 newSelectedItems.set(key, value);
             }
         }
-        newSelectedItems.set(data, isSelected);
+        newSelectedItems.set(JSON.stringify(data), isSelected);
 
         if (this.props.onSelection) {
             this.props.onSelection(data, isSelected);
