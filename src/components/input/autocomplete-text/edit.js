@@ -72,7 +72,7 @@ class AutocompleteTextEdit extends Component {
             this.setState({error: JSON.stringify(err), isLoading: false});
             this.refs.materialInput.classList.add('is-invalid');
         });
-    }
+    };
 
     // Sets the state's inputValue when the user is typing
     onQueryChange = ({target: {value}}) => {
@@ -85,14 +85,14 @@ class AutocompleteTextEdit extends Component {
             this.setState({isLoading: true});
             this._querySearcher(value);
         }
-    }
+    };
 
     // Sets the value input with the selected suggestion and hides the dropdown
     onResultClick(value) {
         this.refs.inputText.value = value;
         this.setState({inputValue: value, hasSuggestions: false, suggestions: []});
         return value;
-    }
+    };
 
     // Returns an html list whith the Suggestions
     renderSuggestions = () => {
@@ -103,7 +103,7 @@ class AutocompleteTextEdit extends Component {
                 {allSuggestions}
             </ul>
         );
-    }
+    };
 
     // Behaviour when onFocus and onBlur are triggered
     toggleHasFocus = e => {
@@ -118,7 +118,7 @@ class AutocompleteTextEdit extends Component {
             this._querySearcher('');
         }
         return true;
-    }
+    };
 
     // Maybe give the option for the floating label
     render() {
