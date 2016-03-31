@@ -43,7 +43,7 @@ class AutocompleteTextEdit extends Component {
         }
     }
 
-    // Get the defined props' querySearch and return the object given by the promise
+    // Gets the defined props' querySearch and returns the object given by the promise
     // Sets the hasSuggestions' state if the given object has a none empty array
     _querySearcher = value => {
         const {querySearcher} = this.props;
@@ -65,8 +65,10 @@ class AutocompleteTextEdit extends Component {
                 //Here temporary solution to give the opportunity for the dev to have a error list dropdown message
                 this.setState({hasSuggestions: true, suggestions: data, error: ''});
             }
+            this.refs.loader.classList.remove('mdl-progress__indeterminate');
             this.setState({isLoading: false});
         }).catch(err => {
+            this.refs.loader.classList.remove('mdl-progress__indeterminate');
             this.setState({error: JSON.stringify(err), isLoading: false});
             this.refs.materialInput.classList.add('is-invalid');
         });
@@ -79,11 +81,13 @@ class AutocompleteTextEdit extends Component {
             this.setState({hasSuggestions: false});
         }
         else {
+            this.refs.loader.classList.add('mdl-progress__indeterminate');
             this.setState({isLoading: true});
             this._querySearcher(value);
         }
     }
 
+    // Sets the value input with the selected suggestion and hides the dropdown
     onResultClick(value) {
         this.refs.inputText.value = value;
         this.setState({inputValue: value, hasSuggestions: false, suggestions: []});
@@ -101,6 +105,7 @@ class AutocompleteTextEdit extends Component {
         );
     }
 
+    // Behaviour when onFocus and onBlur are triggered
     toggleHasFocus = e => {
         const {hasSuggestions, hasFocus} = this.state;
         const {showAtFocus, emptyShowAll} = this.props;
@@ -115,14 +120,14 @@ class AutocompleteTextEdit extends Component {
         return true;
     }
 
-    //Maybe give the option for the floating label
+    // Maybe give the option for the floating label
     render() {
         const {inputValue, hasSuggestions, error, hasFocus, isLoading, ...otherProps} = this.state;
         const {placeholder, showAtFocus, emptyShowAll} = this.props
         return(
             <div data-focus='autocompleteText'>
                 <div className='mdl-textfield mdl-js-textfield' ref='materialInput'>
-                    <div data-focus='loading' data-loading={isLoading} className='mdl-progress mdl-js-progress mdl-progress__indeterminate' ref='loader'/>
+                    <div data-focus='loading' data-loading={isLoading} className='mdl-progress mdl-js-progress' ref='loader'/>
                     <input onFocus={this.toggleHasFocus} onBlur={this.toggleHasFocus} className='mdl-textfield__input' type='text' value={inputValue} ref='inputText' onChange={::this.onQueryChange} showAtFocus={showAtFocus} emptyShowAll={emptyShowAll} {...otherProps} />
                     <label className="mdl-textfield__label">{placeholder}</label>
                     <span className="mdl-textfield__error" ref='errorMessage'>{error}</span>
