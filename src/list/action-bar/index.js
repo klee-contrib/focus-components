@@ -8,6 +8,7 @@ const {reduce} = require('lodash/collection');
 const Dropdown = require('../../common/select-action').component;
 const ActionContextual = require('../action-contextual').component;
 const TopicDisplayer = require('../../common/topic-displayer').component;
+const Button = require('../../common/button/action').component;
 
 import Grid from '../../common/grid';
 import Column from '../../common/column';
@@ -61,22 +62,11 @@ const ActionBar = {
     * @private
     */
     _getSelectionObject() {
-        // Selection datas
-        const selectionOperationList = [
-            {
-                action: this._selectionFunction('selected'),
-                label: this.i18n('list.actionBar.selection.all'),
-                style: this._getSelectedStyle(this.props.selectionStatus, 'selected')
-            },
-            {
-                action: this._selectionFunction('none'),
-                label: this.i18n('list.actionBar.selection.none'),
-                style: this._getSelectedStyle(this.props.selectionStatus, 'none')
-            }
-        ];
-        return this.props.isSelection ? (
-            <Dropdown iconProps={this._getSelectionObjectIcon()} operationList={selectionOperationList} />
-        ) : null;
+        const onIconClick = () => {
+            const newSelectionStatus = this.props.selectionStatus === 'none' ? 'selected' : 'none';
+            this.props.selectionAction(newSelectionStatus);
+        };
+        return <Button shape='icon' icon={this._getSelectionObjectIcon()} handleOnClick={onIconClick} />;
     },
 
     /**
@@ -149,17 +139,11 @@ const ActionBar = {
     */
     _getSelectionObjectIcon() {
         if ('none' === this.props.selectionStatus) {
-            return {name: 'check_box_outline_blank'};
+            return 'check_box_outline_blank';
         } else if ('selected' === this.props.selectionStatus) {
-            return {name: 'check_box'};
+            return 'check_box';
         }
-        return {name: 'indeterminate_check_box'};
-    },
-
-    _selectionFunction(selectionStatus) {
-        return () => {
-            this.props.selectionAction(selectionStatus);
-        };
+        return 'indeterminate_check_box';
     },
     _orderFunction(key, order) {
         return () => {
