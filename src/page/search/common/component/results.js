@@ -111,6 +111,7 @@ const Results = {
                     groupComponent={this.props.groupComponent}
                     groupKey={key}
                     initialRowsCount={initialRowsCount}
+                    key={key}
                     list={list}
                     ref={`group-${key}`}
                     renderResultsList={this._renderResultsList}
@@ -256,7 +257,7 @@ const Results = {
     */
     _getGroupCounts() {
         const {resultsMap} = this.props;
-        
+
         // resultMap can be either an Array or an Object depending of the search being grouped or not.
         if (resultsMap && isArray(resultsMap) && 1 === resultsMap.length) {
             return {
