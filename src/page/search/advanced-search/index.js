@@ -85,9 +85,9 @@ const AdvancedSearch = {
         store: type('object')
     },
     /**
-     * Get initial state
-     * @return {Object} initial state
-     */
+    * Get initial state
+    * @return {Object} initial state
+    */
     getInitialState() {
         return (this._getNewStateFromStore());
     },
@@ -155,17 +155,18 @@ const AdvancedSearch = {
         this.setState(this._getNewStateFromStore());
     },
     /**
-     * Scope changed, need to remove all existing sort.
-     */
+    * Scope changed, need to remove all existing sort.
+    */
     _onScopeChange: function _onScopeChange() {
         dispatcher.handleViewAction({data:{sortBy: null, sortAsc: null},
             type: 'update',
-            identifier: advancedSearchStore.identifier});
+            identifier: advancedSearchStore.identifier}
+        );
     },
     /**
-     * Compute a state object from the store values.
-     * @return {[type]} [description]
-     */
+    * Compute a state object from the store values.
+    * @return {[type]} [description]
+    */
     _getNewStateFromStore() {
         const {store} = this.props;
         const query = store.getQuery();
@@ -262,7 +263,7 @@ const AdvancedSearch = {
                 selectedFacets={selectedFacets}
                 selectionAction={selectionAction}
                 selectionStatus={selectionStatus}
-            />
+                />
         );
     },
     /**
@@ -297,7 +298,27 @@ const AdvancedSearch = {
     * Line selection handler
     */
     _selectItem() {
-        this.setState({selectionStatus: 'partial'});
+        const selectedItemsCount = this.getSelectedItems().length;
+        const visibleItemsCount = reduce(this.refs.resultList.refs, (visibleItemsCount, refComponent, refKey) => {
+            if (refKey.indexOf('list-') === 0) {
+                visibleItemsCount += refComponent.props.data.length;
+            }
+            if (refKey.indexOf('group-') === 0) {
+                if (refComponent.props.list.length < refComponent.state.resultsDisplayedCount) {
+                    visibleItemsCount += refComponent.props.list.length;
+                } else {
+                    visibleItemsCount += refComponent.state.resultsDisplayedCount;
+                }
+            }
+            return visibleItemsCount;
+        }, 0);
+        let selectionStatus = 'partial';
+        if (selectedItemsCount === 0) {
+            selectionStatus = 'none';
+        } else if(selectedItemsCount === visibleItemsCount) {
+            selectionStatus = 'selected';
+        }
+        this.setState({selectionStatus});
     },
     /**
     * Action on line click.
