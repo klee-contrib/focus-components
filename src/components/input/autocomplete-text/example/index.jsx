@@ -100,7 +100,7 @@ class AutocompleteTextExample extends React.Component {
                 <AutocompleteText
                     isEdit={isEdit}
                     querySearcher={_querySearcher4}
-                    error={'Sorry, there\'s no data founded.'}
+                    error={'Sorry, there\'s no data found.'}
                     placeholder={'Custom error message...'}
                     />
                 <br/>

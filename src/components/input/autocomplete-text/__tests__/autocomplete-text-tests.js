@@ -1,5 +1,5 @@
 import AutocompleteTextEdit from '../edit';
-const {renderIntoDocument, Simulate} = TestUtils;
+const {renderIntoDocument, scryRenderedDOMComponentsWithTag, Simulate} = TestUtils;
 
 const data = [
     {
@@ -16,7 +16,7 @@ const data = [
     }
 ];
 
-describe('AutocompleteTextEdit', () => {
+describe.only('AutocompleteTextEdit', () => {
     describe('When no value is given', () => {
         let autocompleteTextEdit;
         before(() => {
@@ -76,7 +76,9 @@ describe('AutocompleteTextEdit', () => {
             expect(autocompleteTextEdit.refs.suggestions).to.exist;
         });
         it('should have created <li>s in the <ul>', () => {
-            expect(autocompleteTextEdit.refs.suggestion0).to.exist;
+            const arr = scryRenderedDOMComponentsWithTag(autocompleteTextEdit, 'li');
+            //console.log(arr[0].textContent);
+            expect(arr[0]).to.exist;
         });
         describe('When the data is empty and the error is not set', () => {
             let inputRef, initialeError, initialeErrorSpanContent;
@@ -150,6 +152,7 @@ describe('AutocompleteTextEdit', () => {
     describe('When a suggestion is selected by the user', () => {
         let autocompleteTextEdit, selectedLI, inputRef, initialState;
         let _query = 'Hola';
+        let arr;
         before(() => {
             const _querySearcher = query => {
                 return Promise.resolve({
@@ -158,26 +161,27 @@ describe('AutocompleteTextEdit', () => {
                 });
             };
             autocompleteTextEdit = renderIntoDocument(<AutocompleteTextEdit querySearcher={_querySearcher} />);
+            arr = scryRenderedDOMComponentsWithTag(autocompleteTextEdit, 'li');
             inputRef = autocompleteTextEdit.refs.inputText;
             initialState = autocompleteTextEdit.state;
             Simulate.change(inputRef, {target: {value: _query}});
             autocompleteTextEdit.setState({hasFocus: true});
         });
         it('should change the input value', () => {
-            selectedLI = autocompleteTextEdit.refs.suggestion0;
+            selectedLI = arr[0];
             Simulate.mouseDown(selectedLI);
             expect(autocompleteTextEdit.refs.inputText.value).to.equal(selectedLI.textContent);
             Simulate.change(inputRef, {target: {value: _query}});
         });
         it('should change component\'s state \'inputValue\'', () => {
-            selectedLI = autocompleteTextEdit.refs.suggestion0;
+            selectedLI = arr[0];
             Simulate.mouseDown(selectedLI);
             expect(autocompleteTextEdit.state.inputValue).to.equal(selectedLI.textContent);
             expect(autocompleteTextEdit.state.inputValue).to.equal(autocompleteTextEdit.refs.inputText.value);
             Simulate.change(inputRef, {target: {value: _query}});
         });
         it('should change component\'s state \'hasSuggestions\' to false', () => {
-            selectedLI = autocompleteTextEdit.refs.suggestion0;
+            selectedLI = arr[0];
             Simulate.mouseDown(selectedLI);
             expect(autocompleteTextEdit.state.hasSuggestions).to.equal(false);
         });

@@ -54,7 +54,7 @@ class AutocompleteTextEdit extends Component {
                 this.setState({hasSuggestions: true, suggestions: data, error: ''});
             }
             else if(totalCount === 0 && this.props.error == undefined) {
-                this.setState({error: 'No data founded'});
+                this.setState({error: 'No data found'});
                 this.refs.materialInput.classList.add('is-invalid');
             }
             else if(totalCount === 0 && this.props.error != '') {
@@ -97,7 +97,7 @@ class AutocompleteTextEdit extends Component {
     // Returns an html list whith the Suggestions
     renderSuggestions = () => {
         const {suggestions} = this.state;
-        const allSuggestions = suggestions.map(({key, label}, index) => <li ref={`suggestion${index}`} key={key} onMouseDown={() => {this.onResultClick(label)}} data-focus='option' >{label}</li>);
+        const allSuggestions = suggestions.map(({key, label}) => <li key={key} onMouseDown={(e) => {this.onResultClick(label); e.preventDefault();}} data-focus='option' >{label}</li>);
         return(
             <ul ref='suggestions' data-focus='options'>
                 {allSuggestions}
