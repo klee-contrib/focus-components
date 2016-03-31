@@ -87,7 +87,7 @@ class Autocomplete extends Component {
             return null;
         } else if (fromKeyResolver) { // Value was received from the keyResolver, give it firectly
             return value;
-        } else if (resolvedLabel !== inputValue) { // The user typed something without selecting any option, return a null
+        } else if (resolvedLabel !== inputValue && selected !== inputValue) { // The user typed something without selecting any option, return a null
             return null;
         } else { // The user selected an option (or no value was provided), return it
             return selected || null;
@@ -176,8 +176,9 @@ class Autocomplete extends Component {
         const {onChange, keyName, labelName} = this.props;
         const resolvedLabel = options.get(key) || '';
         this.refs.htmlInput.blur();
-        this.setState({inputValue: this.i18n(resolvedLabel), selected: key, focus: false});
-        if (onChange) onChange(key);
+        this.setState({inputValue: this.i18n(resolvedLabel), selected: key, focus: false}, () => {
+            if (onChange) onChange(key);
+        });
     }
 
     _renderOptions = () => {
