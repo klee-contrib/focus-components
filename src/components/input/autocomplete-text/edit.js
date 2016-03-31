@@ -41,7 +41,7 @@ class AutocompleteTextEdit extends Component {
         else {
             return null;
         }
-    }
+    };
 
     // Gets the defined props' querySearch and returns the object given by the promise
     // Sets the hasSuggestions' state if the given object has a none empty array
