@@ -107,10 +107,11 @@ const lineMixin = {
     _handleSelectionClick() {
         const isSelected = !this.state.isSelected;
         const {data, onSelection} = this.props;
-        this.setState({isSelected});
-        if(onSelection) {
-            onSelection(data, isSelected);
-        }
+        this.setState({isSelected}, () => {
+            if(onSelection) {
+                onSelection(data, isSelected);
+            }
+        });
     },
 
     /**

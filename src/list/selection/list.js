@@ -74,6 +74,19 @@ const listMixin = {
         }
     },
 
+    componentWillReceiveProps({selectionStatus, data}) {
+        switch(selectionStatus) {
+            case 'none':
+                this.setState({selectedItems: new Map()});
+                break;
+            case 'selected':
+                let selectedItems = new Map();
+                data.forEach(item => {selectedItems.set(JSON.stringify(item), item)});
+                this.setState({selectedItems});
+                break;
+        }
+    },
+
     /**
     * Return selected items in the list.
     * @return {Array} selected items
@@ -107,11 +120,13 @@ const listMixin = {
         }
         newSelectedItems.set(JSON.stringify(data), isSelected);
 
-        if (this.props.onSelection) {
-            this.props.onSelection(data, isSelected);
-        }
 
-        this.setState({selectedItems: newSelectedItems});
+        this.setState({selectedItems: newSelectedItems}, () => {
+            if (this.props.onSelection) {
+                this.props.onSelection(data, isSelected);
+            }
+
+        });
     },
 
     /**
@@ -201,6 +216,10 @@ const listMixin = {
                 </li>
             );
         }
+    },
+
+    shouldComponentUpdate({selectionStatus}, {selectedItems}) {
+        return selectedItems === this.state.selectedItems || selectionStatus !== this.props.selectionStatus;
     },
 
     /**
