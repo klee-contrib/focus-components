@@ -6,12 +6,12 @@ import actionBuilder from 'focus-core/search/action-builder';
 
 
 describe('SearchBar with no scope', () => {
-    describe('Check if a default search bar works fine', () => {
+    describe('When a default search bar is in the DOM', () => {
         let component;
         before( () => {
             component = renderIntoDocument(<SearchBar hasScopes={false} store={quickSearchStore} />);
         });
-        it('loading state should be false', () => {
+        it('should have the loading state set to false', () => {
             expect(component.state.loading).to.equal(false);
         });
         it('shouldn\'t have any scope', () => {
@@ -40,8 +40,7 @@ describe('SearchBar with no scope', () => {
             input = configuredComponent.refs.query.refs.htmlInput;
             inputChange = input.props.onChange.bind(input);
             initialValue = configuredComponent.state.query;
-            input.value = 'Boy';
-            Simulate.change(input);
+            Simulate.change(input, {target: {value: 'Boy'}});
         });
         describe('When the placeholder has been set', () => {
             it('shouldn\'t have the default\`s one', () =>{
@@ -52,7 +51,7 @@ describe('SearchBar with no scope', () => {
                 expect(configuredComponent.props.placeholder).to.equal('Search here...');
             });
         });
-        describe('Simulate onChange behaviour', function() {
+        describe('Simulate onChange behaviour', () => {
             it('should set the loading state to true', () => {
                 expect(onChangeSpy).to.have.been.called;
                 expect(configuredComponent.state.loading).to.be.equal(true);
@@ -63,7 +62,7 @@ describe('SearchBar with no scope', () => {
                 expect(configuredComponent.state.query).to.be.equal('Boy');
             });
         });
-        describe('Simulate onKeyPress behaviour', function() {
+        describe('Simulate onKeyPress behaviour', () => {
             let input, inputKeyPress, initialValue, onKeyPressSpy, secondComponent, searchAction, pressure;
             before( done => {
                 pressure = {

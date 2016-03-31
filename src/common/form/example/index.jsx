@@ -25,7 +25,8 @@ const resources = {
                 isCool: 'Est-il cool ?',
                 isNice: 'Est-il gentil ?',
                 birthDate: 'Date de naissance',
-                city: 'Lieu de naissance'
+                city: 'Lieu de naissance',
+                place: 'Ville'
             }
         }
     }
@@ -225,38 +226,30 @@ const action = {
     })
 };
 
-const autocompleteData = [
-    {
-        code: 'PAR',
-        value: 'Paris'
-    },
-    {
-        code: 'LON',
-        value: 'Londres'
-    },
-    {
-        code: 'NY',
-        value: 'New york'
-    }
-];
-
-const codeResolver = code => {
-    return new Promise(success => {
-        const candidate = _.find(autocompleteData, {code});
-        success(candidate ? candidate.value : 'Unresolved code');
+const _querySearcher = query => {
+    let data = [
+        {
+            key: 'PAR',
+            label: 'Paris'
+        },
+        {
+            key: 'MAR',
+            label: 'Marseille'
+        },
+        {
+            key: 'LYO',
+            label: 'Lyon'
+        }
+    ];
+    return new Promise((resolve, reject) => {
+        setTimeout(() => {
+            resolve({
+                data,
+                totalCount: data.length
+            });
+        }, 500);
     });
 };
-
-const searcher = text => {
-    return new Promise(success => {
-        _.delay(() => {
-            const result = autocompleteData.filter(item => {
-                return text === '' || item.value.toLowerCase().indexOf(text.toLowerCase()) !== -1;
-            });
-            success(result);
-        }, 1);
-    });
-}
 
 const FormExample = React.createClass({
     displayName: 'FormExample',
@@ -278,6 +271,7 @@ const FormExample = React.createClass({
             <Panel actions={this._renderActions} title="Fiche de l'utilisateur">
                 {this.fieldFor('firstName')}
                 {this.fieldFor('lastName')}
+                {this.autocompleteTextFor('place', {querySearcher: _querySearcher})}
                 {this.fieldFor('papaCode', {listName: 'papas'})}
                 {this.fieldFor('monkeyCode', {listName: 'monkeys', valueKey: 'myCustomCode', labelKey: 'myCustomLabel' })}
                 {this.fieldFor('lopezCode', {values: [{code: 'JOE', label: 'Joe Lopez'}, {code: 'DAVE', label: 'David Lopez'}]})}

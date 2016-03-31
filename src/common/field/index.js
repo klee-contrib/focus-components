@@ -56,14 +56,14 @@ const FieldMixin = {
         const {error} = this.state;
         const {FieldComponent, InputLabelComponent, domain, codeResolver, searcher, keyResolver, querySearcher, isRequired, values, hasLabel, isEdit} = this.props;
         const isCustomComponent = FieldComponent || InputLabelComponent;
-        const {autocomplete, autocompleteSelect, label, input, select, display} = this;
+        const {autocomplete, autocompleteSelect, autocompleteText, label, input, select, display} = this;
         return (
             <div className='mdl-grid' data-domain={domain} data-focus='field' data-mode={isEdit ? 'edit' : 'consult'} data-required={isRequired} data-valid={!error}>
                 {isCustomComponent && this._renderFieldComponent()}
                 {!isCustomComponent && hasLabel && label()}
                 {!isCustomComponent &&
                     <div className ={`${this._getContentGridClassName()}`} data-focus='field-value-container'>
-                        {codeResolver && searcher ? autocomplete() : keyResolver && querySearcher ? autocompleteSelect() : isEdit ? (values ? select() : input()) : display()}
+                        {codeResolver && searcher ? autocomplete() : keyResolver && querySearcher ? autocompleteSelect() : querySearcher ? autocompleteText() : isEdit ? (values ? select() : input()) : display()}
                     </div>
                 }
             </div>
