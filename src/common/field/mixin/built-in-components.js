@@ -8,6 +8,7 @@ import {addRefToPropsIfNotPure, INPUT, DISPLAY} from '../../../utils/is-react-cl
 
 // Components
 import AutocompleteSelectComponent from '../../../components/input/autocomplete-select/field';
+import AutocompleteTextComponent from '../../../components/input/autocomplete-text/field';
 import InputText from '../../../components/input/text';
 import {component as DisplayText} from '../../display/text';
 import SelectClassic from '../../../components/input/select';
@@ -48,6 +49,7 @@ const fieldBuiltInComponentsMixin = {
              */
             AutocompleteComponent: Autocomplete,
             AutocompleteSelectComponent,
+            AutocompleteTextComponent,
             /**
             * Component for the select.
             * @type {Object}
@@ -154,6 +156,20 @@ const fieldBuiltInComponentsMixin = {
         };
         const finalInputProps = addRefToPropsIfNotPure(this.props.AutocompleteSelectComponent, inputBuildedProps, INPUT)
         return <this.props.AutocompleteSelectComponent {...finalInputProps}/>;
+    },
+    autocompleteText() {
+        const {name: id, label: placeHolder} = this.props;
+        const {value} = this.state;
+        const {onInputChange: onChange} = this;
+        const inputBuildedProps = {
+            ...this.props,
+            id,
+            onChange,
+            value,
+            placeHolder
+        };
+        const finalInputProps = addRefToPropsIfNotPure(this.props.AutocompleteTextComponent, inputBuildedProps, INPUT)
+        return <this.props.AutocompleteTextComponent {...finalInputProps}/>;
     },
     /**
      * Build a select component depending on the domain, definition and props.
