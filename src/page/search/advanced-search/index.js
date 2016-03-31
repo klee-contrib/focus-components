@@ -298,8 +298,11 @@ const AdvancedSearch = {
     * Line selection handler
     */
     _selectItem() {
+        // count the selected items
         const selectedItemsCount = this.getSelectedItems().length;
+        // Count the visible items
         const visibleItemsCount = reduce(this.refs.resultList.refs, (visibleItemsCount, refComponent, refKey) => {
+            // Results might be a list (non-grouped search) or groups (grouped search)
             if (refKey.indexOf('list-') === 0) {
                 visibleItemsCount += refComponent.props.data.length;
             }
@@ -312,10 +315,13 @@ const AdvancedSearch = {
             }
             return visibleItemsCount;
         }, 0);
+        // By default, the selection status is partial
         let selectionStatus = 'partial';
+        // If no item is selected, then the selectionStatus is none
         if (selectedItemsCount === 0) {
             selectionStatus = 'none';
         } else if(selectedItemsCount === visibleItemsCount) {
+            // There are as many selected items as visible items, so the selectionStatus is all
             selectionStatus = 'selected';
         }
         this.setState({selectionStatus});
