@@ -1,12 +1,13 @@
 import React from 'react';
 import builder from 'focus-core/component/builder';
 import {keys} from 'lodash/object';
+import {isObject} from 'lodash/lang';
 import {translate} from 'focus-core/translation';
 
 // Components
-let FacetData = require('./facet-data').component;
+const FacetData = require('./facet-data').component;
 
-let Facet = {
+const Facet = {
     /**
      * Display name.
      */
@@ -55,7 +56,8 @@ let Facet = {
     _renderFacetTitle() {
         let title = translate('live.filter.facets.' + this.props.facetKey); // Default facet translation path is live.filter.facets.
         if (this.props.selectedDataKey) {
-            title += ' : ' + this.props.facet[this.props.selectedDataKey].label;
+            const facetLabel = this.props.facet && isObject(this.props.facet[this.props.selectedDataKey]) ?  this.props.facet[this.props.selectedDataKey].label : '';
+            title = `${title} : ${facetLabel}`;
         }
         return (
             <div data-focus='facet-title' onClick={this._facetTitleClickHandler}>
