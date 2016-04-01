@@ -86,7 +86,7 @@ const Results = {
         if(this.props.renderSingleGroupDecoration && !this.props.groupComponent) {
             console.warn('You are trying to wrap your list in a group without a groupComponent. Please give one or set "renderSingleGroupDecoration" to false.');
         }
-
+        console.log('Render SINGLE GROUP', this.props.showAllHandler);
         if (isUnique) {
             if (this.props.renderSingleGroupDecoration) {
                 return (
@@ -99,6 +99,7 @@ const Results = {
                         list={list}
                         ref={`group-${key}`}
                         renderResultsList={this._renderResultsList}
+                        showAllHandler={this._showAllHandler}
                     />
                 );
             } else {
@@ -186,13 +187,20 @@ const Results = {
     * @param  {string} key the group key where the show all has been clicked
     */
     _showAllHandler(key) {
-        if (this.props.resultsFacets[this.props.scopeFacetKey]) {
+    console.log('_SHOWALLHANDLER IS CALLED !!!!!');
+        const {showAllHandler, resultsFacets, scopeFacetKey, groupingKey} = this.props;
+        if (resultsFacets[scopeFacetKey]) {
             this._scopeSelectionHandler(key);
         } else {
-            let facetKey = this.props.groupingKey;
+            let facetKey = groupingKey;
             let facetValue = key;
             this._facetSelectionHandler(facetKey, facetValue);
         }
+        // Called if defined (may be used in the quick search to close the popin.)
+        if(showAllHandler) {
+            showAllHandler();
+        }
+
     },
     /**
     * Construct the show more handler

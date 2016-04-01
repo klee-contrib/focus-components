@@ -70,7 +70,8 @@ const QuickSearchComponent = {
         scopeFacetKey: PropTypes.string,
         scopeSelectionHandler: PropTypes.func,
         service: PropTypes.object,
-        store: PropTypes.object
+        store: PropTypes.object,
+        showAllHandler: PropTypes.func
     },
     /**
     * Register the store listeners
@@ -148,8 +149,9 @@ const QuickSearchComponent = {
     * @returns {HTML} the rendered component
     */
     _renderResults() {
-        const {groupComponent, groupMaxRows, lineComponentMapper, lineOperationList, scrollParentSelector, scopeFacetKey, store} = this.props;
+        const {groupComponent, groupMaxRows, lineComponentMapper, lineOperationList, scrollParentSelector, scopeFacetKey, store, ...otherProps} = this.props;
         const {facets, resultsMap, totalCount} = this.state;
+        console.info('otherProps', otherProps);
         return (
             <Results
                 action={this._action}
@@ -165,6 +167,7 @@ const QuickSearchComponent = {
                 scrollParentSelector={scrollParentSelector}
                 store={store}
                 totalCount={totalCount}
+                {...otherProps}
             />
         );
     },

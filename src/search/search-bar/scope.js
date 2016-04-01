@@ -34,7 +34,7 @@ const scopeMixin = {
     */
     propTypes: {
         list: PropTypes.array.isRequired,
-        value: PropTypes.oneOf(['string', 'number'])
+        value: PropTypes.oneOfType([PropTypes.string, PropTypes.number])
     },
     /**
     * Called when component will mount.
