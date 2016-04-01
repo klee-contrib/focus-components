@@ -14,12 +14,46 @@ class AutocompleteTextEdit extends Component {
     };
 
     static propTypes = {
+        /**
+        * Returns a promise which is connected to the web service.
+        * @type {Function}
+        */
         querySearcher: PropTypes.func.isRequired,
+
+        /**
+        * Field value.
+        * @type {String}
+        */
         value: PropTypes.string,
+
+        /**
+        * Launches the querySearcher.
+        * @type {Function}
+        */
         onChange: PropTypes.func.isRequired,
+
+        /**
+        * Error showed message.
+        * @type {String}
+        */
         error: PropTypes.string,
+
+        /**
+        * Placeholder field.
+        * @type {String}
+        */
         placeholder: PropTypes.string,
+
+        /**
+        * Defines it shows suggestions on focus.
+        * @type {Boolean}
+        */
         showAtFocus: PropTypes.boolean,
+
+        /**
+        * Defines if it shows suggestions on focus when the input is empty.
+        * @type {Boolean}
+        */
         emptyShowAll: PropTypes.boolean
     };
 
@@ -141,3 +175,39 @@ class AutocompleteTextEdit extends Component {
 }
 
 export default AutocompleteTextEdit;
+
+
+/*
+EXAMPLE
+const _querySearcher = query => {
+    let data = [
+        {
+            key: 'JL',
+            label: 'Joh Lickeur'
+        },
+        {
+            key: 'GK',
+            label: 'Guénolé Kikabou'
+        },
+        {
+            key: 'YL',
+            label: 'Yannick Lounivis'
+        }
+    ];
+    return new Promise((resolve, reject) => {
+        setTimeout(() => {
+            resolve({
+                data,
+                totalCount: data.length
+            });
+        }, 500);
+    });
+};
+
+<AutocompleteText
+    isEdit={isEdit}
+    querySearcher={_querySearcher}
+    placeholder={'Your search...'}
+    error{Something wrong happend. Retry please...}
+/>
+*/
