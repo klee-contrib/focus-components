@@ -24,13 +24,13 @@ const GroupWrapper = require('./group-wrapper').component;
 * @type {Object}
 */
 const Results = {
+    displayName: 'Results',
     /**
     * By default, an empty component is picked.
     * @return {Object} the default props
     */
     getDefaultProps() {
         return {
-            action: undefined,
             emptyComponent: DefaultEmpty,
             groupComponent: undefined,
             groupingKey: undefined,
@@ -86,7 +86,7 @@ const Results = {
         if(this.props.renderSingleGroupDecoration && !this.props.groupComponent) {
             console.warn('You are trying to wrap your list in a group without a groupComponent. Please give one or set "renderSingleGroupDecoration" to false.');
         }
-        console.log('Render SINGLE GROUP', this.props.showAllHandler);
+
         if (isUnique) {
             if (this.props.renderSingleGroupDecoration) {
                 return (
@@ -187,7 +187,7 @@ const Results = {
     * @param  {string} key the group key where the show all has been clicked
     */
     _showAllHandler(key) {
-    console.log('_SHOWALLHANDLER IS CALLED !!!!!');
+
         const {showAllHandler, resultsFacets, scopeFacetKey, groupingKey} = this.props;
         if (resultsFacets[scopeFacetKey]) {
             this._scopeSelectionHandler(key);
