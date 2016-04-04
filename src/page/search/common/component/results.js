@@ -31,6 +31,7 @@ const Results = {
     */
     getDefaultProps() {
         return {
+            action: undefined,
             emptyComponent: DefaultEmpty,
             groupComponent: undefined,
             groupingKey: undefined,

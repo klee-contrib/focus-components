@@ -26,7 +26,6 @@ const GroupWrapper = {
         });
     },
     render() {
-        console.log('GroupWrapper', this.props.showAllHandler);
         const list = this.props.isUnique ? this.props.list : this.props.list.slice(0, this.state.resultsDisplayedCount);
 
         return (
