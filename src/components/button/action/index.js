@@ -89,7 +89,6 @@ const _renderLabel = (label, shape) => {
 };
 
 const ButtonAction = ({className, icon, id, type, label, style, handleOnClick, shape, color, hasRipple, isJs, iconLibrary, ...otherProps}) => {
-    console.log('MY PROPS', 'className :', {className}, 'icon :', icon, 'id :', id, 'type :', type, 'label :', label, 'style :', style, 'handleOnClick :', handleOnClick, 'shape :', shape, 'color :', color, 'hasRipple :', hasRipple, 'isJs :', isJs, 'iconLibrary :', iconLibrary, '...otherProps :', ...otherProps);
     return (
         <button alt={translate(label)} className={`${className} ${_getComponentClassName(shape, color, hasRipple, isJs)}`} data-focus='button-action' id={id} onClick={() => {_handleOnClick(handleOnClick)}} title={translate(label)} type={type} {...otherProps}>
             {icon && _renderIcon(icon, iconLibrary)}
