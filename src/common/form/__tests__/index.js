@@ -17,7 +17,7 @@ const difference = require('lodash/array/difference');
 
 initEnvironment();
 
-describe.only('The Form component', () => {
+describe('The Form component', () => {
 
     describe('when the form has no action and isn\'t editable', () => {
 
