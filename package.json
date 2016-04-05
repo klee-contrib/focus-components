@@ -1,6 +1,6 @@
 {
   "name": "focus-components",
-  "version": "0.14.0-rc1",
+  "version": "0.14.0-rc2",
   "description": "Focus component repository.",
   "main": "index.js",
   "scripts": {
@@ -16,6 +16,9 @@
   },
   "betterScripts": {
     "babelify": {
+      "env": {
+        "BABEL_ENV": "production"
+      },
       "command": "node scripts/babelify.js"
     },
     "copy-sass": {
@@ -28,7 +31,8 @@
         "NODE_ENV": "production",
         "LIBRARY_NAME": "FocusComponents",
         "MINIMIFY": false,
-        "PACKAGE_JSON_PATH": "../"
+        "PACKAGE_JSON_PATH": "../",
+        "BABEL_ENV": "production"
       }
     },
     "profile": {
