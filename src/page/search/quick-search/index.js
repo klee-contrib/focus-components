@@ -150,7 +150,7 @@ const QuickSearchComponent = {
     */
     _renderResults() {
         // Adding 'action' in this.props destructuring here prevent the fact that '...otherProps' consider the props 'action' in otherProps.
-        // It didn't give this._action to the 'action' props without doing it
+        // It didn't give 'this._action' to the 'action' props without doing it
         const {action, groupComponent, groupMaxRows, lineComponentMapper, lineOperationList, scrollParentSelector, scopeFacetKey, store, ...otherProps} = this.props;
         const {facets, resultsMap, totalCount} = this.state;
         return (
