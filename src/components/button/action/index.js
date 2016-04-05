@@ -1,3 +1,4 @@
+//https://github.com/google/material-design-lite/blob/master/src/mdlComponentHandler.js#L333
 import React, {Component, PropTypes} from 'react';
 import builder from 'focus-core/component/builder';
 import {translate} from 'focus-core/translation';
@@ -15,6 +16,7 @@ const RIPPLE_EFFECT = 'mdl-js-ripple-effect';
 */
 const _handleOnClick = (handleOnClick) => {
     if (handleOnClick) {
+        console.log('Me', handleOnClick);
         return handleOnClick.apply(this, arguments);
     }
 };
@@ -24,6 +26,7 @@ const _handleOnClick = (handleOnClick) => {
 * @return {string} Classe.
 */
 const _getComponentClassName = (shape, color, hasRipple, isJs) => {
+    console.log('_getComponentClassName is called');
     let SHAPE_CLASS;
     switch (shape) {
         case 'raised':
@@ -55,6 +58,7 @@ const _getComponentClassName = (shape, color, hasRipple, isJs) => {
 const renderPressedButton = () => {
     return (<button>Loading...</button>);
 };
+
 /**
 * Render an icon.
 * @return {Component} - Composant icone.
@@ -72,6 +76,7 @@ const _renderIcon = (icon, iconLibrary) => {
             return null;
     }
 };
+
 /**
 * Render the label.
 * @return {Component} - Tle button label.
@@ -83,14 +88,15 @@ const _renderLabel = (label, shape) => {
     return null;
 };
 
-function ButtonAction({className, icon, id, type, label, style, handleOnClick, shape, color, hasRipple, isJs, iconLibrary, ...otherProps}) {
+const ButtonAction = ({className, icon, id, type, label, style, handleOnClick, shape, color, hasRipple, isJs, iconLibrary, ...otherProps}) => {
+    console.log('MY PROPS', 'className :', {className}, 'icon :', icon, 'id :', id, 'type :', type, 'label :', label, 'style :', style, 'handleOnClick :', handleOnClick, 'shape :', shape, 'color :', color, 'hasRipple :', hasRipple, 'isJs :', isJs, 'iconLibrary :', iconLibrary, '...otherProps :', ...otherProps);
     return (
         <button alt={translate(label)} className={`${className} ${_getComponentClassName(shape, color, hasRipple, isJs)}`} data-focus='button-action' id={id} onClick={() => {_handleOnClick(handleOnClick)}} title={translate(label)} type={type} {...otherProps}>
             {icon && _renderIcon(icon, iconLibrary)}
             {_renderLabel(label, shape)}
         </button>
     );
-}
+};
 
 ButtonAction.displayName = 'ButtonAction';
 
@@ -117,4 +123,7 @@ ButtonAction.defaultProps = {
     isJs: false,
     iconLibrary: 'material'
 };
+
+ButtonAction.mixins = [stylableMixin, materialBehaviour];
+
 export default ButtonAction;

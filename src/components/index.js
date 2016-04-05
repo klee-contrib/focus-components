@@ -13,6 +13,7 @@ import MessageCenter from './message-center';
 import Panel from './panel';
 import Role from './role';
 import ScrollspyContainer from './scrollspy-container';
+import button from './button';
 
 export default {
     Confirm,
@@ -29,5 +30,6 @@ export default {
     MessageCenter,
     Panel,
     Role,
-    ScrollspyContainer
+    ScrollspyContainer,
+    button
 }
