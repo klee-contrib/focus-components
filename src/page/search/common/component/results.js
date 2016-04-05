@@ -24,6 +24,7 @@ const GroupWrapper = require('./group-wrapper').component;
 * @type {Object}
 */
 const Results = {
+    displayName: 'Results',
     /**
     * By default, an empty component is picked.
     * @return {Object} the default props
@@ -99,6 +100,7 @@ const Results = {
                         list={list}
                         ref={`group-${key}`}
                         renderResultsList={this._renderResultsList}
+                        showAllHandler={this._showAllHandler}
                     />
                 );
             } else {
@@ -186,13 +188,20 @@ const Results = {
     * @param  {string} key the group key where the show all has been clicked
     */
     _showAllHandler(key) {
-        if (this.props.resultsFacets[this.props.scopeFacetKey]) {
+
+        const {showAllHandler, resultsFacets, scopeFacetKey, groupingKey} = this.props;
+        if (resultsFacets[scopeFacetKey]) {
             this._scopeSelectionHandler(key);
         } else {
-            let facetKey = this.props.groupingKey;
+            let facetKey = groupingKey;
             let facetValue = key;
             this._facetSelectionHandler(facetKey, facetValue);
         }
+        // Called if defined (may be used in the quick search to close the popin.)
+        if(showAllHandler) {
+            showAllHandler();
+        }
+
     },
     /**
     * Construct the show more handler

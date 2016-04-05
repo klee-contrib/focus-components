@@ -70,7 +70,8 @@ const QuickSearchComponent = {
         scopeFacetKey: PropTypes.string,
         scopeSelectionHandler: PropTypes.func,
         service: PropTypes.object,
-        store: PropTypes.object
+        store: PropTypes.object,
+        showAllHandler: PropTypes.func
     },
     /**
     * Register the store listeners
@@ -148,7 +149,9 @@ const QuickSearchComponent = {
     * @returns {HTML} the rendered component
     */
     _renderResults() {
-        const {groupComponent, groupMaxRows, lineComponentMapper, lineOperationList, scrollParentSelector, scopeFacetKey, store} = this.props;
+        // Adding 'action' in this.props destructuring here prevent the fact that '...otherProps' consider the props 'action' in otherProps.
+        // It didn't give 'this._action' to the 'action' props without doing it
+        const {action, groupComponent, groupMaxRows, lineComponentMapper, lineOperationList, scrollParentSelector, scopeFacetKey, store, ...otherProps} = this.props;
         const {facets, resultsMap, totalCount} = this.state;
         return (
             <Results
@@ -165,6 +168,7 @@ const QuickSearchComponent = {
                 scrollParentSelector={scrollParentSelector}
                 store={store}
                 totalCount={totalCount}
+                {...otherProps}
             />
         );
     },
@@ -173,6 +177,7 @@ const QuickSearchComponent = {
     * @return {HTML} the rendered component
     */
     render() {
+
         return (
             <div data-focus='quick-search'>
                 <div data-focus='quick-search-bar'>
