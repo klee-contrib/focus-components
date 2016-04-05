@@ -27,7 +27,6 @@ const GroupWrapper = {
     },
     render() {
         const list = this.props.isUnique ? this.props.list : this.props.list.slice(0, this.state.resultsDisplayedCount);
-
         return (
             <this.props.groupComponent canShowMore={this.props.list.length > this.state.resultsDisplayedCount} count={this.props.count} isUnique={this.props.isUnique} groupKey={this.props.groupKey} list={list} showAllHandler={this.props.showAllHandler} showMoreHandler={this._showMoreHandler}>
                 {this.props.renderResultsList(list, this.props.groupKey, this.props.count, this.props.isUnique)}
