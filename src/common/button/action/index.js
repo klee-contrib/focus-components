@@ -130,7 +130,6 @@ const buttonMixin = {
             </button>
         );
     }
-}
-;
+};
 
 module.exports = builder(buttonMixin);
