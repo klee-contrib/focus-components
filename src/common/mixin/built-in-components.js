@@ -32,7 +32,11 @@ module.exports = {
         const fieldProps = this._buildFieldProps(name, options, this);
         return this._renderField(fieldProps);
     },
-    autocompleteFor(name, {codeResolver, searcher}, options = {}) {
+    autocompleteFor() {
+        throw new Error(`Form's autocompleteFor method is deprecated, in order to use the deprecated component, please use this.deprecatedAutocompleteFor.
+You must migrate all the autocompleteFor to autocompleteSelectFor or autocompleteTextFor in order to follow the library evolutions.`);
+    },
+    deprecatedAutocompleteFor(name, {codeResolver, searcher}, options = {}) {
         options = assign({}, options);
         options.codeResolver = codeResolver;
         options.searcher = searcher;
