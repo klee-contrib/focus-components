@@ -13,7 +13,7 @@ import InputText from '../../../components/input/text';
 import {component as DisplayText} from '../../display/text';
 import SelectClassic from '../../../components/input/select';
 import {component as Label} from '../../label';
-const Autocomplete = props => <div>This component is deprecated, please use <pre>this.autocompleteSelect</pre> instead.</div>;
+import Autocomplete from '../../autocomplete/field';
 
 
 // Mixins
