@@ -7,10 +7,11 @@ import builder from 'focus-core/component/builder';
 import types from 'focus-core/component/types';
 import {ArgumentInvalidException} from 'focus-core/exception';
 const includes = require('lodash').includes;
+const {max} = require('lodash/math');
 
 /**
-* Small overlay component used to listen to scroll and prevent it to leave the Popin component
-*/
+ * Small overlay component used to listen to scroll and prevent it to leave the Popin component
+ */
 const Overlay = React.createClass({
     displayName: 'PopinOverlay',
     propTypes: {
@@ -22,35 +23,36 @@ const Overlay = React.createClass({
         return {show: false};
     },
     /**
-    * Store the body overgflow property, and set it to hidden
-    * @private
-    */
+     * Store the body overgflow property, and set it to hidden
+     * @private
+     */
     _hideBodyOverflow() {
         document.body.style['overflow-y'] = 'hidden';
     },
     /**
-    * Restore body overflow property
-    * @private
-    */
+     * Restore body overflow property
+     * @private
+     */
     _restoreBodyOverflow() {
         document.body.style['overflow-y'] = 'auto';
     },
     /**
-    * Component will unmount event handler.
-    * Remove the mouse wheel listener.
-    */
+     * Component will unmount event handler.
+     * Remove the mouse wheel listener.
+     */
     componentWillUnmount() {
         // ReactDOM.findDOMNode(this.refs.overlay).removeEventListener('mousewheel', this._onScroll);
         this._restoreBodyOverflow();
     },
     /**
-    * Render the component
-    * @return {XML} the rendered HTML
-    */
+     * Render the component
+     * @return {XML} the rendered HTML
+     */
     render() {
         const {children, clickHandler, show} = this.props;
         return (
-            <div className='animated fadeIn' data-animation='fadeIn' data-closing-animation='fadeOut' data-focus='popin-overlay' data-visible={show} onClick={clickHandler} ref='overlay'>
+            <div className='animated fadeIn' data-animation='fadeIn' data-closing-animation='fadeOut'
+                 data-focus='popin-overlay' data-visible={show} onClick={clickHandler} ref='overlay'>
                 {children}
             </div>
         );
@@ -58,25 +60,25 @@ const Overlay = React.createClass({
 });
 
 /**
-* The popin component configuration
-* @type {Object}
-*/
+ * The popin component configuration
+ * @type {Object}
+ */
 const popin = {
     /**
-    * Init the component.
-    * The popin is closed by default.
-    * @return {Object} the initial state
-    */
+     * Init the component.
+     * The popin is closed by default.
+     * @return {Object} the initial state
+     */
     getInitialState() {
         return ({
             opened: this.props.open
         });
     },
     /**
-    * Init the props if not provided.
-    * By default, a popin is full, medium and modal.
-    * @return {Object} the default props
-    */
+     * Init the props if not provided.
+     * By default, a popin is full, medium and modal.
+     * @return {Object} the default props
+     */
     getDefaultProps() {
         return ({
             modal: true,
@@ -88,12 +90,12 @@ const popin = {
         });
     },
     /**
-    * Helper attribute, for React debugging
-    */
+     * Helper attribute, for React debugging
+     */
     displayName: 'Popin',
     /**
-    * Properties validation
-    */
+     * Properties validation
+     */
     propTypes: {
         modal: types('bool'),
         size: types('string'),
@@ -103,15 +105,15 @@ const popin = {
         open: types('bool')
     },
     /**
-    * Wheel event handler.
-    * @param  {object} event wheel event
-    */
+     * Wheel event handler.
+     * @param  {object} event wheel event
+     */
     _onWheel(event) {
         ReactDOM.findDOMNode(this.refs['popin-window']).scrollTop += 0 < event.deltaY ? 100 : -100;
     },
     /**
-    * Toggle the popin's open state
-    */
+     * Toggle the popin's open state
+     */
     toggleOpen() {
         let timeout = 0;
         const {opened} = this.state;
@@ -131,6 +133,11 @@ const popin = {
         this._openTimeoutID = setTimeout(() => {
             // Store the current popin state
             const wasOpened = this.state.opened;
+            if (wasOpened) {
+                window.removeEventListener('keydown', this.handleKeyDown, true);
+            } else {
+                window.addEventListener('keydown', this.handleKeyDown, true);
+            }
             // If it was  opened, then we are closing it, so restore the body overflow before closing.
             if (wasOpened && this.refs['popin-overlay']) {
                 this.refs['popin-overlay']._restoreBodyOverflow();
@@ -147,35 +154,72 @@ const popin = {
             });
         }, timeout);
     },
+
     componentWillUnmount() {
         window.clearTimeout(this._openTimeoutID);
     },
     /**
-    * Render the component
-    * @return {XML} the rendered HTML
-    */
+     * set the z-order level of the popin
+     * @param level
+     */
+    setLevel(level) {
+        this.setState({level : level});
+    },
+    /**
+     * keyboard event handler
+     * close the popin with esc
+     * @param e keyboard event
+     */
+    handleKeyDown(e) {
+        e.preventDefault();
+        if (e.code === "Escape") {
+            if (this.state.opened) {
+                const popins = [].slice.call(document.querySelectorAll("[data-focus='popin']")).reduce((prec, current) => {
+                    if (current.hasChildNodes()) {
+                        prec.push(Number(current.getAttribute('data-level')));
+                    }
+                    return prec;
+                }, []);
+
+                const level = this.state.level || this.props.level;
+                if (max(popins) === level) {
+                    this.toggleOpen();
+                    e.stopPropagation();
+                    e.stopImmediatePropagation();
+                }
+            }
+        }
+    },
+    /**
+     * Render the component
+     * @return {XML} the rendered HTML
+     */
     render() { // test for this.state.opened and return an Overlay component if true
-        const {type, level, modal, overlay, children} = this.props;
+        const {type, modal, overlay, children} = this.props;
+        const level = this.state.level || this.props.level;
         return (
-            <div data-focus='popin' data-level={level} data-size={this._validateSize()} data-type={type} >
+            <div data-focus='popin' data-level={level} data-size={this._validateSize()} data-type={type}>
                 {this.state.opened &&
-                    <Overlay clickHandler={modal && this.toggleOpen} ref='popin-overlay' resize={'full' === type} show={overlay}>
-                        <div {...this._getAnimationProps()} data-focus='popin-window' onClick={this._preventPopinClose} ref='popin-window'>
-                            <i className='material-icons' data-focus='popin-window-close' onClick={this.toggleOpen}>close</i>
-                            <div onWheel={this._onWheel}>
-                                {children}
-                            </div>
+                <Overlay clickHandler={modal && this.toggleOpen} ref='popin-overlay' resize={'full' === type}
+                         show={overlay}>
+                    <div {...this._getAnimationProps()} data-focus='popin-window' onClick={this._preventPopinClose}
+                                                        ref='popin-window'>
+                        <i className='material-icons' data-focus='popin-window-close'
+                           onClick={this.toggleOpen}>close</i>
+                        <div onWheel={this._onWheel}>
+                            {children}
                         </div>
-                    </Overlay>
+                    </div>
+                </Overlay>
                 }
             </div>
         );
     },
     /**
-    * Compute the animation classes
-    * @return {Object} the props to attach to the component
-    * @private
-    */
+     * Compute the animation classes
+     * @return {Object} the props to attach to the component
+     * @private
+     */
     _getAnimationProps() {
         let openingAnimation;
         let closingAnimation;
@@ -200,10 +244,10 @@ const popin = {
         });
     },
     /**
-    * Validate the optional given size
-    * @return {string} the validated size
-    * @private
-    */
+     * Validate the optional given size
+     * @return {string} the validated size
+     * @private
+     */
     _validateSize() {
         if (!includes(['small', 'medium', 'large'], this.props.size)) {
             throw new ArgumentInvalidException('Please provide a valid popin size among small, medium and large. Provided ' + this.props.size);
@@ -211,10 +255,10 @@ const popin = {
         return this.props.size;
     },
     /**
-    * Prevent popin close when there's a click on the popin window
-    * @param {Object} event - raised by the click
-    * @private
-    */
+     * Prevent popin close when there's a click on the popin window
+     * @param {Object} event - raised by the click
+     * @private
+     */
     _preventPopinClose(event) {
         event.stopPropagation();
     }
