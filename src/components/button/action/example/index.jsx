@@ -1,6 +1,5 @@
 const {ButtonAction} = FocusComponents.components.button;
 const i18nInitializer = FocusCore.translation.init;
-console.log(ButtonAction);
 
 var resources = {
     dev: {
