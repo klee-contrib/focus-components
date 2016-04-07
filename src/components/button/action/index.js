@@ -12,7 +12,7 @@ const RIPPLE_EFFECT = 'mdl-js-ripple-effect';
 const materialBehaviour = require('../../../common/mixin/mdl-behaviour');
 
 @ComponentBaseBehaviour
-//@MDBehaviour('materialButton')
+@MDBehaviour('materialButton', 'MaterialButton')
 class ButtonAction extends Component {
 
     static defaultProps = {
@@ -42,27 +42,13 @@ class ButtonAction extends Component {
     /**
     * Called when component is mounted.
     */
-    componentDidMount = () => {
+    componentDidMount() {
         const {hasRipple} = this.props;
         const refNode = ReactDOM.findDOMNode(this.refs['materialButton']);
-        componentHandler.upgradeElement(refNode, 'MaterialButton');
         if (hasRipple) {
             componentHandler.upgradeElement(refNode, 'MaterialRipple');
         }
-        else {
-            componentHandler.upgradeElement(refNode, 'MaterialButton');
-        }
-    };
-
-    /**
-    * Called before component is unmounted.
-    */
-    componentWillUnmount = () => {
-        if (ReactDOM.findDOMNode(this.refs.materialButton)) {
-            console.log('Material did unmount');
-            componentHandler.downgradeElements(ReactDOM.findDOMNode(this.refs.materialButton));
-        }
-    };
+    }
 
     /**
     * Handle click event.
