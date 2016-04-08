@@ -104,7 +104,7 @@ const tableMixin = {
         const reference = this._getReference();
         return (
             <tbody>
-                {data.map((line, index) => {
+                {data.map((line, idx) => {
                     const {data, ...otherLineProps} = this.props;
                     const tableBodyFinalProps = addRefToPropsIfNotPure(
                         TableLineComponent, {
