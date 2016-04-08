@@ -1,7 +1,14 @@
 const {MenuLeft} = FocusComponents.components;
 const Popin = FocusComponents.application.popin.component;
 
+let  currentLevel = 0;
+const getLevel =  function  getLevel(){
+    currentLevel++;
+    return currentLevel;
+};
+
 const MyMenu = React.createClass({
+
     goHome() {
         window.location.href = '#'
     },
@@ -41,6 +48,7 @@ const MyMenu = React.createClass({
     },
     makeTheSecondPopinPop() {
         const self = this;
+        self.refs.secondPopin.setState({dynamicPopin : 0});
         return self.refs.secondPopin.togglePopin();
     },
     makeTheThirdPopinPop() {
@@ -79,6 +87,7 @@ const MyMenu = React.createClass({
 
 const MyPopin = React.createClass({
     togglePopin() {
+        this.refs.popin.setLevel(getLevel());
         this.refs.popin.toggleOpen();
     },
     render() {
@@ -104,12 +113,25 @@ const MyPopin = React.createClass({
 });
 
 const SecondPopin = React.createClass({
+
+    getInitialState() {
+        return {dynamicPopin : 0};
+    },
     togglePopin() {
+        this.refs.secondPopin.setLevel(getLevel());
         this.refs.secondPopin.toggleOpen();
+    },
+    _renderDynamicPopin(){
+        const popins = Array.from(Array(this.state.dynamicPopin).keys())
+            .map(idx => { return <Popin key={idx}  size='small'  overlay={false} open={true} level={getLevel()} type='from-right'><h2> Popin {idx+1}</h2> </Popin>});
+        return popins;
+    },
+    addPopup(){
+        this.setState({dynamicPopin : this.state.dynamicPopin +1});
     },
     render() {
         return (
-            <Popin ref='secondPopin' size='medium'>
+            <Popin ref='secondPopin' id='secondPopin' size='medium' overlay={false}>
                 <h2>
                     The Modal, The Medium and The Full !
                 </h2>
@@ -120,8 +142,12 @@ const SecondPopin = React.createClass({
                     You have 3 choices which are <b>"full"</b>, <b>"from-menu"</b> and <b>"from-right"</b>. The modal <b>attribute</b> is, by default, set to true so you can click outside of the Popin to close it.
                     <br/>
                     Check the notification icon which is in the Focus menu bar now.
+                    <br/> <br/>
+                    You can add as much popin as you want and close them with esc, from newer to older ones.
                 </h4>
                 <br/>
+                <button className="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent" onClick={this.addPopup}><b>Click here</b></button>
+                {this._renderDynamicPopin()}
             </Popin>
         );
     }
@@ -129,6 +155,7 @@ const SecondPopin = React.createClass({
 
 const ThirdPopin = React.createClass({
     togglePopin() {
+        this.refs.thirdPopin.setLevel(getLevel());
         this.refs.thirdPopin.toggleOpen();
     },
     render() {
@@ -168,5 +195,6 @@ const ThirdPopin = React.createClass({
         );
     }
 });
+
 
 module.exports = MyMenu;

@@ -155,6 +155,12 @@ const popin = {
         }, timeout);
     },
 
+    componentDidMount() {
+        if (this.state.opened){
+            window.addEventListener('keydown', this.handleKeyDown, true);
+        }
+    },
+
     componentWillUnmount() {
         window.clearTimeout(this._openTimeoutID);
     },
@@ -174,7 +180,7 @@ const popin = {
         e.preventDefault();
         if (e.code === "Escape") {
             if (this.state.opened) {
-                const popins = [].slice.call(document.querySelectorAll("[data-focus='popin']")).reduce((prec, current) => {
+                const popins = [...document.querySelectorAll("[data-focus='popin']")].reduce((prec, current) => {
                     if (current.hasChildNodes()) {
                         prec.push(Number(current.getAttribute('data-level')));
                     }
