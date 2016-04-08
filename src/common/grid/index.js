@@ -10,6 +10,9 @@ class Grid extends Component {
     constructor(props) {
         super(props);
     }
+    componentWillMount () {
+        console.warn('FocusComponents v0.15: this component is deprecated, please use FocusComponents.components.Grid');
+    }
     /** @inheriteDoc */
     render() {
         const {children, ...otherProps} = this.props;
