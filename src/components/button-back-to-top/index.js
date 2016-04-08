@@ -1,13 +1,11 @@
 import React, {Component, PropTypes} from 'react';
 import builder from 'focus-core/component/builder';
 import types from 'focus-core/component/types';
-const ButtonAction = require('../action');
-const {scrollTo, scrollPosition} = require('../../../common/mixin/scroll');
+import Button from '../button';
+const {scrollTo, scrollPosition} = require('../../common/mixin/scroll');
 
 
 class ButtonBackToTop extends Component {
-
-    displayName = 'ButtonBackToTop';
 
     static defaultProps = {
         iconPrefix: 'fa fa-',
@@ -68,10 +66,11 @@ class ButtonBackToTop extends Component {
     };
 
     render = () => {
-        console.log('Action button', ButtonAction);
+        console.log('Action button', Button);
         const {isVisible} = this.state;
-        return isVisible ? <div data-focus='back-to-top'><ButtonAction color='colored' handleOnClick={this.goBackToTop} icon='expand_less' shape='fab' /></div> : null;
+        return isVisible ? <div data-focus='back-to-top'><Button color='colored' handleOnClick={this.goBackToTop} icon='expand_less' shape='fab' /></div> : null;
     };
 }
 
+ButtonBackToTop.displayName = 'ButtonBackToTop';
 export default ButtonBackToTop;

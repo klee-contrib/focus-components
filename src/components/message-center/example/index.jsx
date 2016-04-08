@@ -1,7 +1,7 @@
 
 const {addErrorMessage, addWarningMessage, addInformationMessage, addSuccessMessage} = FocusCore.message;
 const {MessageCenter} = FocusComponents.components;
-const Button = FocusComponents.common.button.action.component;
+const {Button} = FocusComponents.components;
 
 function handleActionMessageButtonClick() {
     const message = {

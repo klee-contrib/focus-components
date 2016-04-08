@@ -1,4 +1,4 @@
-const {ButtonBackToTop} = FocusComponents.components.button;
+const {ButtonBackToTop} = FocusComponents.components;
 
 const ButtonExample = React.createClass({
     render() {
