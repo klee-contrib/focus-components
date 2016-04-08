@@ -15,6 +15,7 @@ import Role from './role';
 import ScrollspyContainer from './scrollspy-container';
 import Button from './button';
 import ButtonBackToTop from './button-back-to-top';
+import ButtonBack from './button-back';
 
 export default {
     Confirm,
@@ -33,5 +34,6 @@ export default {
     Role,
     ScrollspyContainer,
     Button,
-    ButtonBackToTop
+    ButtonBackToTop,
+    ButtonBack
 }

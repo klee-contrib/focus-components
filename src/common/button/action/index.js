@@ -31,6 +31,9 @@ const buttonMixin = {
     /** inheritedDoc */
     mixins: [stylableMixin, materialBehaviour],
     displayName: 'Button',
+    componentWillMount () {
+        console.warn('FocusComponents v0.15: this component is deprecated, please use FocusComponents.components.Button');
+    },
     /** inheritedDoc */
     getDefaultProps() {
         return {

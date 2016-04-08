@@ -38,7 +38,7 @@ const backToTopMixin = {
         };
     },
     componentWillMount () {
-        console.warn('FocusComponents v0.15: this component is deprecated, please use FocusComponents.components');
+        console.warn('FocusComponents v0.15: this component is deprecated, please use FocusComponents.components.ButtonBackToTop');
     },
     /**
     * Component did mount, attach the scroll spy

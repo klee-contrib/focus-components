@@ -1,5 +1,5 @@
 import React, {Component, PropTypes} from 'react';
-const Button = require('../button');
+import Button from '../button';
 
 // Dependencies
 import builder from 'focus-core/component/builder';
