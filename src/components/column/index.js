@@ -5,27 +5,20 @@ import React, {Component, PropTypes} from 'react';
 /**
  * Column component.
  */
-class Column extends Component {
-    constructor(props) {
-        super(props);
-        this._className = this._className.bind(this);
-    }
-    _className() {
-        const {size, className} = this.props;
-        if(className) { return className; }
-        const SIZE_CSS = size ? `mdl-cell--${size}-col` : '';
-        return `mdl-cell ${SIZE_CSS} `;
-    }
-    /** @inheriteDoc */
-    render() {
-        const {children, ...otherProps} = this.props;
-        const className = this._className();
-        return (
-            <div className={className} {...otherProps}>
-                {children}
-            </div>
-        );
-    }
+
+function _className(className, size) {
+    if(className) { return className; }
+    const SIZE_CSS = size ? `mdl-cell--${size}-col` : '';
+    return `mdl-cell ${SIZE_CSS} `;
+};
+
+function Column({size, className, children, ...otherProps}) {
+
+    return(
+        <div className={_className(className, size) } {...otherProps}>
+            {children}
+        </div>
+    );
 }
 
 //Static props.
