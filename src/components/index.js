@@ -16,6 +16,8 @@ import ScrollspyContainer from './scrollspy-container';
 import Button from './button';
 import ButtonBackToTop from './button-back-to-top';
 import ButtonBack from './button-back';
+import Grid from './grid';
+import Column from './column';
 
 export default {
     Confirm,
@@ -35,5 +37,7 @@ export default {
     ScrollspyContainer,
     Button,
     ButtonBackToTop,
-    ButtonBack
+    ButtonBack,
+    Grid,
+    Column
 }
