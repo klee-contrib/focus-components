@@ -1,68 +1,58 @@
-import React, {PropTypes} from 'react';
+import React, {Component, PropTypes} from 'react';
+import ReactDOM from 'react-dom';
 import builder from 'focus-core/component/builder';
 import {translate} from 'focus-core/translation';
-const stylableMixin = require('../../../mixin/stylable');
+import MDBehaviour from '../../behaviours/material';
+import ComponentBaseBehaviour from '../../behaviours/component-base';
 
 const BTN_JS = 'mdl-js-button';
 const BTN_CLASS = 'mdl-button';
 const BUTTON_PRFX = 'mdl-button--';
 const RIPPLE_EFFECT = 'mdl-js-ripple-effect';
 
-const materialBehaviour = require('../../mixin/mdl-behaviour');
+@MDBehaviour('materialButton', 'MaterialButton')
+class Button extends Component {
 
-const propTypes = {
-    id: PropTypes.string,
-    label: PropTypes.string,
-    handleOnClick: PropTypes.func,
-    type: PropTypes.oneOf(['submit', 'button']),
-    shape: PropTypes.oneOf([undefined, 'raised', 'fab', 'icon', 'mini-fab']),
-    color: PropTypes.oneOf([undefined,'colored', 'primary', 'accent']),
-    hasRipple: PropTypes.bool,
-    isJs: PropTypes.bool,
-    icon: PropTypes.string,
-    iconLibrary: PropTypes.oneOf(['material', 'font-awesome', 'font-custom'])
-};
+    static propTypes = {
+        id: PropTypes.string,
+        label: PropTypes.string,
+        handleOnClick: PropTypes.func,
+        type: PropTypes.oneOf(['submit', 'button']),
+        shape: PropTypes.oneOf([undefined, 'raised', 'fab', 'icon', 'mini-fab']),
+        color: PropTypes.oneOf([undefined,'colored', 'primary', 'accent']),
+        hasRipple: PropTypes.bool,
+        isJs: PropTypes.bool,
+        icon: PropTypes.string,
+        iconLibrary: PropTypes.oneOf(['material', 'font-awesome', 'font-custom'])
+    };
 
-/**
-* Mixin button.
-* @type {Object}
-*/
-const buttonMixin = {
-    /** inheritedDoc */
-    mixins: [stylableMixin, materialBehaviour],
-    displayName: 'Button',
-    componentWillMount () {
-        console.warn('FocusComponents v0.15: this component is deprecated, please use FocusComponents.components.Button');
-    },
-    /** inheritedDoc */
-    getDefaultProps() {
-        return {
-            type: 'submit',
-            shape: 'raised',
-            label: '',
-            icon: null,
-            id: '',
-            hasRipple: false,
-            isJs: false,
-            iconLibrary: 'material'
-        };
-    },
-    propTypes: propTypes,
+    /**
+    * Called when component is mounted.
+    */
+    componentDidMount() {
+        const {hasRipple} = this.props;
+        const refNode = ReactDOM.findDOMNode(this.refs['materialButton']);
+        if (hasRipple) {
+            componentHandler.upgradeElement(refNode, 'MaterialRipple');
+        }
+    }
+
     /**
     * Handle click event.
     * @return {Object} - Action call.
     */
-    handleOnClick() {
+    handleOnClick = () => {
         const {handleOnClick} = this.props;
         if (handleOnClick) {
             return handleOnClick.apply(this, arguments);
         }
-    },
+    };
+
     /**
     * Date de composant.
     * @return {string} Classe.
     */
-    _getComponentClassName() {
+    _getComponentClassName = () => {
         const {shape, color, hasRipple, isJs} = this.props;
         let SHAPE_CLASS;
         switch (shape) {
@@ -86,53 +76,65 @@ const buttonMixin = {
         const JS_CLASS = isJs ? BTN_JS : '';
         const RIPPLE_EFFECT_CLASS = hasRipple ? RIPPLE_EFFECT : '';
         return `${BTN_CLASS} ${COLOR_CLASS} ${SHAPE_CLASS} ${JS_CLASS} ${RIPPLE_EFFECT_CLASS}`;
-    },
+    };
     /**
     * Render the pressed button.
     * @return {Component} - Component button.
     */
-    renderPressedButton () {
+    renderPressedButton = () => {
         return (<button>Loading...</button>);
-    },
+    };
+
     /**
     * Render an icon.
     * @return {Component} - Composant icone.
     */
-    _renderIcon() {
+    _renderIcon = () => {
         const {icon, iconLibrary} = this.props;
         switch (iconLibrary) {
             case 'material':
-            return <i className='material-icons'>{icon}</i>;
+                return <i className='material-icons'>{icon}</i>;
             case 'font-awesome':
-            const faCss = `fa fa-${icon}`;
-            return <i className={faCss}></i>;
+                const faCss = `fa fa-${icon}`;
+                return <i className={faCss}></i>;
             case 'font-custom':
-            return <span className={`icon-${icon}`}></span>;
+                return <span className={`icon-${icon}`}></span>;
             default:
-            return null;
+                return null;
         }
-    },
+    };
     /**
     * Render the label.
     * @return {Component} - Tle button label.
     */
-    _renderLabel () {
+    _renderLabel = () => {
         const {label, shape} = this.props;
         if (label && 'fab' !== shape && 'icon' !== shape && 'mini-fab' !== shape ) {
             return translate(label);
         }
         return null;
-    },
+    };
     /** inheritedDoc */
     render() {
         const {className, icon, id, type, label, style, ...otherProps} = this.props;
         return (
-            <button alt={translate(label)} className={`${className} ${this._getComponentClassName()}`} data-focus='button-action' id={id} onClick={this.handleOnClick} title={translate(label)} type={type} {...otherProps}>
-                {icon && this._renderIcon()}
-                {this._renderLabel()}
+            <button alt={translate(label)} className={`${className} ${::this._getComponentClassName()}`} data-focus='button' id={id} onClick={::this.handleOnClick} title={translate(label)} type={type} {...otherProps} ref='materialButton'>
+                {icon && ::this._renderIcon()}
+                {::this._renderLabel()}
             </button>
         );
     }
-};
+}
 
-module.exports = builder(buttonMixin);
+Button.displayName = 'Button'
+Button.defaultProps = {
+    type: 'submit',
+    shape: 'raised',
+    label: '',
+    icon: null,
+    id: '',
+    hasRipple: false,
+    isJs: false,
+    iconLibrary: 'material'
+};
+export default Button;

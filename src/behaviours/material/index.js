@@ -1,11 +1,11 @@
 import ReactDOM from 'react-dom';
 import 'material-design-lite/material';
 
-const Material = (ref, watchedProp: 'error') => Component => class MaterialComponent extends Component {
+const Material = (ref, jsClass, watchedProp) => Component => class MaterialComponent extends Component {
     componentDidMount() {
         const refNode = ReactDOM.findDOMNode(this.refs[ref]);
         if (refNode) {
-            componentHandler.upgradeElement(refNode);
+            componentHandler.upgradeElement(refNode, jsClass);
         }
         if (Component.prototype.componentDidMount) {
             Component.prototype.componentDidMount.call(this);
@@ -15,7 +15,7 @@ const Material = (ref, watchedProp: 'error') => Component => class MaterialCompo
     componentWillUnmount() {
         const refNode = ReactDOM.findDOMNode(this.refs[ref]);
         if (refNode) {
-            componentHandler.downgradeElements(refNode);
+            componentHandler.downgradeElements(refNode, jsClass);
         }
         if (Component.prototype.componentWillUnmount) {
             Component.prototype.componentWillUnmount.call(this);
@@ -23,10 +23,11 @@ const Material = (ref, watchedProp: 'error') => Component => class MaterialCompo
     }
 
     componentWillReceiveProps(nextProps) {
+        watchedProp = watchedProp || 'error';
         const newWatchedProp = nextProps[watchedProp];
         if (newWatchedProp !== this.props[watchedProp]) {
             const refNode = ReactDOM.findDOMNode(this.refs[ref]);
-            componentHandler.upgradeElement(refNode);
+            componentHandler.upgradeElement(refNode, jsClass);
         }
         if (Component.prototype.componentWillReceiveProps) {
             Component.prototype.componentWillReceiveProps.call(this, nextProps);

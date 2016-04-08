@@ -1,0 +1,20 @@
+{
+  "name": "button-action",
+  "version": "1.0.0",
+  "description": "Bouton d'action remplace un bouton html, possibilité de changer la forme et l'action du composant.",
+  "main": "index.js",
+  "directories": {
+    "example": "example"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "button",
+    "action",
+    "click",
+    "shape"
+  ],
+  "author": "focus@kleegroup.com",
+  "license": "MIT"
+}

@@ -21,6 +21,9 @@ const buttonBackMixin = {
     /** inheritedDoc */
     mixins: [i18nMixin, stylableMixin],
     /** inheritedDoc */
+    componentWillMount () {
+        console.warn('FocusComponents v0.15: this component is deprecated, please use FocusComponents.components.Back');
+    },
     render() {
         return (
             <Button
