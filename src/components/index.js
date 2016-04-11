@@ -18,6 +18,7 @@ import ButtonBackToTop from './button-back-to-top';
 import ButtonBack from './button-back';
 import Grid from './grid';
 import Column from './column';
+import Icon from './icon';
 
 export default {
     Confirm,
@@ -39,5 +40,6 @@ export default {
     ButtonBackToTop,
     ButtonBack,
     Grid,
-    Column
+    Column,
+    Icon
 }
