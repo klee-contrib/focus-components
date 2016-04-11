@@ -20,6 +20,7 @@ import Grid from './grid';
 import Column from './column';
 import Icon from './icon';
 import Title from './title';
+import ProgressBar from './progress-bar';
 
 export default {
     Confirm,
@@ -43,5 +44,6 @@ export default {
     Grid,
     Column,
     Icon,
-    Title
+    Title,
+    ProgressBar
 }
