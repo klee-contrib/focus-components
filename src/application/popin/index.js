@@ -71,7 +71,8 @@ const popin = {
      */
     getInitialState() {
         return ({
-            opened: this.props.open
+            opened: this.props.open,
+            level: this.props.level,
         });
     },
     /**
@@ -102,7 +103,8 @@ const popin = {
         types: types('string'),
         level: types('number'),
         overlay: types('bool'),
-        open: types('bool')
+        open: types('bool'),
+        size: PropTypes.oneOf(['small', 'medium', 'large']),
     },
     /**
      * Wheel event handler.
@@ -156,11 +158,16 @@ const popin = {
     },
 
     componentDidMount() {
-        if (this.state.opened){
+        if (this.state.opened) {
             window.addEventListener('keydown', this.handleKeyDown, true);
         }
     },
-
+    componentWillReceiveProps(nextProps){
+        const {level} = nextProps;
+        if(level){
+            this.setState({level:level});
+        }
+    },
     componentWillUnmount() {
         window.clearTimeout(this._openTimeoutID);
     },
@@ -169,7 +176,7 @@ const popin = {
      * @param level
      */
     setLevel(level) {
-        this.setState({level : level});
+        this.setState({level: level});
     },
     /**
      * keyboard event handler
@@ -182,12 +189,12 @@ const popin = {
             if (this.state.opened) {
                 const popins = [...document.querySelectorAll("[data-focus='popin']")].reduce((prec, current) => {
                     if (current.hasChildNodes()) {
-                        prec.push(Number(current.getAttribute('data-level')));
+                        prec.push(+current.getAttribute('data-level'));
                     }
                     return prec;
                 }, []);
 
-                const level = this.state.level || this.props.level;
+                const level = this.state.level;
                 if (max(popins) === level) {
                     this.toggleOpen();
                     e.stopPropagation();
@@ -202,7 +209,7 @@ const popin = {
      */
     render() { // test for this.state.opened and return an Overlay component if true
         const {type, modal, overlay, children} = this.props;
-        const level = this.state.level || this.props.level;
+        const {level} = this.state;
         return (
             <div data-focus='popin' data-level={level} data-size={this._validateSize()} data-type={type}>
                 {this.state.opened &&
@@ -255,9 +262,6 @@ const popin = {
      * @private
      */
     _validateSize() {
-        if (!includes(['small', 'medium', 'large'], this.props.size)) {
-            throw new ArgumentInvalidException('Please provide a valid popin size among small, medium and large. Provided ' + this.props.size);
-        }
         return this.props.size;
     },
     /**
