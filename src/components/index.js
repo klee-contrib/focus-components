@@ -19,6 +19,7 @@ import ButtonBack from './button-back';
 import Grid from './grid';
 import Column from './column';
 import Icon from './icon';
+import Title from './title';
 
 export default {
     Confirm,
@@ -41,5 +42,6 @@ export default {
     ButtonBack,
     Grid,
     Column,
-    Icon
+    Icon,
+    Title
 }
