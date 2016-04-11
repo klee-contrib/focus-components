@@ -19,7 +19,6 @@ module.exports = {
     list: require('./list'),
     mixin: require('./mixin'),
     display: require('./display'),
-    detail: require('./detail'),
     progressBar: require('./progress-bar'),
     role: require('./role'),
     grid: require('./grid'),

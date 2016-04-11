@@ -18,7 +18,6 @@ import '../common/block/style/block.scss';
 import '../common/button/action/style/button.scss';
 import '../common/button/back/style/back.scss';
 import '../common/button/back-to-top/style/back-to-top.scss';
-import '../common/detail/style/detail.scss';
 import '../common/field/style/field.scss';
 import '../common/form/style/form.scss';
 import '../common/img/style/img.scss';
