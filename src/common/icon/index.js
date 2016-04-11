@@ -11,6 +11,9 @@ const iconMixin = {
             library: 'material'
         };
     },
+    componentWillMount () {
+        console.warn('FocusComponents v0.15: the \'Icon\' component from FocusComponents.common is deprecated, please use FocusComponents.components.Icon');
+    },
     propTypes: {
         handleOnClick: PropTypes.func,
         library: PropTypes.oneOf(['material', 'font-awesome', 'font-custom']),

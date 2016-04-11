@@ -11,7 +11,7 @@ class Grid extends Component {
         super(props);
     }
     componentWillMount () {
-        console.warn('FocusComponents v0.15: this component is deprecated, please use FocusComponents.components.Grid');
+        console.warn('FocusComponents v0.15: the \'Grid\' component from FocusComponents.common is deprecated, please use FocusComponents.components.Grid');
     }
     /** @inheriteDoc */
     render() {

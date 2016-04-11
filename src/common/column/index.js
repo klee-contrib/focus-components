@@ -12,7 +12,7 @@ class Column extends Component {
         this._className = this._className.bind(this);
     }
     componentWillMount () {
-        console.warn('FocusComponents v0.15: this component is deprecated, please use FocusComponents.components.Column');
+        console.warn('FocusComponents v0.15: the \'Column\' component from FocusComponents.common is deprecated, please use FocusComponents.components.Column');
     }
     _className() {
         const {size, className} = this.props;
