@@ -17,6 +17,9 @@ const titleMixin = {
             spyId: uniqueId('title_')
         };
     },
+    componentWillMount () {
+        console.warn('FocusComponents v0.15: the \'Title\' component from FocusComponents.common is deprecated, please use FocusComponents.components.Title');
+    },
     /**
     * Props validation
     */
