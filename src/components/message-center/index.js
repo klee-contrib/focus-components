@@ -2,6 +2,7 @@ import React, {Component, PropTypes} from 'react';
 import capitalize from 'lodash/string/capitalize';
 import messageStore from 'focus-core/message/built-in-store';
 import {component as Button} from '../../common/button/action';
+import {translate} from 'focus-core/translation';
 
 const defaultProps = {
     ttlError: 8000,
@@ -104,9 +105,9 @@ class MessageCenter extends Component {
         const otherProps = { 'aria-hidden': active, 'aria-live':'assertive', 'aria-atomic':'true', 'aria-relevant': 'text' };
         return (
             <div data-focus='snackbar-message-center' data-message-type={type} className={classNames} {...otherProps}>
-                <div className='mdl-snackbar__text'>{message}</div>
+                <div className='mdl-snackbar__text'>{translate(message)}</div>
                 {actionText &&
-                    <button className='mdl-snackbar__action' type='button' onClick={actionHandler}>{actionText}</button>
+                    <button className='mdl-snackbar__action' type='button' onClick={actionHandler}>{translate(actionText)}</button>
                 }
                 <button className='mdl-snackbar__close' type='button' onClick={this._forceCleanup}><i className='material-icons'>clear</i></button>
             </div>
