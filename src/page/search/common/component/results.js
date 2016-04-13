@@ -15,7 +15,7 @@ const mapValues = require('lodash/object/mapValues');
 const omit = require('lodash/object/omit');
 
 // Components
-const DefaultEmpty = require('./default-empty-component').component;
+import DefaultEmpty from './default-empty-component';
 const ListSelection = require('../../../../list/selection').list.component;
 const GroupWrapper = require('./group-wrapper').component;
 

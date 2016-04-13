@@ -1,19 +1,16 @@
 // Dependencies
-const React = require('react');
+import React, {Component} from 'react';
 import builder from 'focus-core/component/builder';
+import {translate} from 'focus-core/translation';
 
-// Mixins
-const i18nMixin = require('../../../../common/i18n/mixin');
-
-const DefaultEmpty = {
-    mixins: [i18nMixin],
+class DefaultEmpty extends Component {
     render() {
         return (
-                <div data-focus='empty-result'>
-                    {this.i18n('search.empty')}
-                </div>
-            );
+            <div data-focus='empty-result'>
+                {translate('search.empty')}
+            </div>
+        );
     }
-};
+}
 
-module.exports = builder(DefaultEmpty);
+module.exports = DefaultEmpty;
