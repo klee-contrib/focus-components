@@ -18,7 +18,9 @@ const labelMixin = {
         name: PropTypes.string.isRequired,
         text: PropTypes.string
     },
-
+    componentWillMount() {
+        console.warn('FocusComponents v0.15: the \'Label\' component from FocusComponents.common is deprecated, please use FocusComponents.components.Label');
+    },
     /** @inheritdoc */
     render() {
         const {name, text, style} = this.props;
