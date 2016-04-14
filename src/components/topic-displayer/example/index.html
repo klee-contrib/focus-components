@@ -1,0 +1,46 @@
+<!doctype html>
+<html class="no-js" lang="">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Focus component examples</title>
+    <meta name="description" content="Example of the component.">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Place favicon.ico in the root directory -->
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css" />
+    <script src="https://fb.me/react-0.13.3.js"></script>
+    <script src="/focus-components/dist/js/focus.js"></script>
+    <script src="/focus-components/dist/js/focus-components.js"></script>
+    <link rel="stylesheet" href="/focus-components/dist/css/focus-components.css">
+</head>
+<body>
+<div id="topic-displayer-container"></div>
+<script src="js/topic-displayer.js"></script>
+<script type="text/javascript">
+
+    var topicList = {t1:"Topic 1", t2: "Topic 2", t3: "Topic 3"};
+    var topicClickAction= function(topicKey) {
+        console.log(topicKey);
+        delete topicList[topicKey];
+        render();
+    };
+    var render = function() {
+        React.render(
+                React.createElement(React.createClass(FocusComponents.common.topicDisplayer.mixin),
+                        {
+                            style: undefined,
+                            topicList: this.topicList,
+                            topicClickAction: this.topicClickAction
+                        }
+                ),
+                document.querySelector("#topic-displayer-container")
+        );
+    }
+    this.render();
+</script>
+
+</body>
+
+</html>

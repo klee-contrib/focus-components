@@ -23,6 +23,7 @@ import Title from './title';
 import ProgressBar from './progress-bar';
 import Label from './label';
 import Emtpy from './empty';
+import TopicDisplayer from './topic-displayer';
 
 export default {
     Confirm,
@@ -49,5 +50,5 @@ export default {
     Title,
     ProgressBar,
     Label,
-    Empty
+    TopicDisplayer
 }
