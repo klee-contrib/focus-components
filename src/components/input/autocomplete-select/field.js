@@ -1,7 +1,9 @@
 import React, {Component, PropTypes} from 'react';
 import AutocompleteSelectEdit from './edit';
 import AutocompleteSelectConsult from './consult';
+import Translation from '../../../behaviours/translation';
 
+@Translation
 class AutocompleteSelectField extends Component {
     state = {};
 
