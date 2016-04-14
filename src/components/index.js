@@ -21,6 +21,7 @@ import Column from './column';
 import Icon from './icon';
 import Title from './title';
 import ProgressBar from './progress-bar';
+import Label from './label';
 
 export default {
     Confirm,
@@ -45,5 +46,6 @@ export default {
     Column,
     Icon,
     Title,
-    ProgressBar
+    ProgressBar,
+    Label
 }
