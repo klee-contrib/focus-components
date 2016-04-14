@@ -1,6 +1,6 @@
 import React from 'react';
 
-const = () => <div data-focus='empty'></div>
+const Empty = () => <div data-focus='empty'></div>;
 
 Empty.displayName = 'Empty';
 
