@@ -10,11 +10,9 @@ var applicationStateMixin = {
     },
     /** @inheriteddoc */
     componentWillMount: function cartridgeWillMount() {
+        this._handleChangeMode(this.state.isEdit);
         applicationStore.addModeChangeListener(this._handleChangeApplicationStatus);
         applicationStore.addRouteChangeListener(this._handleChangeApplicationStatus);
-    },
-    componentWillReceiveProps: function (nextProps) {
-        this._handleChangeMode(this.state.isEdit);
     },
     /** @inheriteddoc */
     appStateWillUnMount: function cartridgeWillUnMount() {
@@ -24,8 +22,8 @@ var applicationStateMixin = {
     _handleChangeApplicationStatus() {
         this.setState(this._getStateFromStore());
         this.setState({isEdit:(this.state.mode==='edit')});
-        console.log("_handleChangeApplicationStatus", this.state.isEdit);
-        console.log("_handleChangeApplicationStatus", this.props.name, this.state.mode);
+        //console.log("_handleChangeApplicationStatus", this.state.isEdit);
+        //console.log("_handleChangeApplicationStatus", this.props.name, this.state.mode);
     },
     _getStateFromStore: function getCartridgeStateFromStore() {
         var processMode = applicationStore.getMode();
