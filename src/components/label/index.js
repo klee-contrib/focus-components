@@ -2,10 +2,10 @@
 import React, {Component, PropTypes} from 'react';
 import {translate} from 'focus-core/translation';
 
-function Label({name, text, style}) {
+function Label({name, text}) {
     const content = text || name;
     return (
-        <label className={style.className} data-focus="label" htmlFor={name}>
+        <label data-focus="label" htmlFor={name}>
             {translate(content)}
         </label>
     );
@@ -13,7 +13,7 @@ function Label({name, text, style}) {
 
 Label.propTypes = {
     name: PropTypes.string.isRequired,
-    text: PropTypes.string
+    text: PropTypes.string,
 }
 
 module.exports = Label;
