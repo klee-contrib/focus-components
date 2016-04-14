@@ -6,4 +6,6 @@ function Empty() {
     );
 }
 
+Empty.displayName = 'Empty';
+
 module.exports = Empty;
