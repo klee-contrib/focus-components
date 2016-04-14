@@ -8,7 +8,6 @@ let omit = require('lodash/object/omit');
 
 // Components
 let Facet = require('./facet').component;
-let Img = require('../../common/img').component;
 
 // Mixins
 let stylable = require('../../mixin/stylable');
