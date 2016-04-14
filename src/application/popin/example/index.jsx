@@ -10,6 +10,14 @@ const getLevel = function getLevel() {
 
 const MyMenu = React.createClass({
 
+    getInitialState() {
+        return ({
+            levelPopin1: 0,
+            levelPopin2: 0,
+            levelPopin3: 0,
+        });
+    },
+
     goHome() {
         window.location.href = '#'
     },
@@ -25,13 +33,16 @@ const MyMenu = React.createClass({
             {
                 icon: 'notifications',
                 onClick() {
+                    self.setState({levelPopin1:getLevel() });
                     self.refs.popin.togglePopin();
                 }
             },
             {
                 icon: 'chat',
                 onClick() {
+                    self.setState({levelPopin3:getLevel() });
                     self.refs.thirdPopin.togglePopin();
+
                 }
             }
         ]
@@ -49,14 +60,17 @@ const MyMenu = React.createClass({
     },
     makeTheSecondPopinPop() {
         const self = this;
+        self.setState({levelPopin2:getLevel()});
         self.refs.secondPopin.setState({dynamicPopin: 0});
         return self.refs.secondPopin.togglePopin();
     },
     makeTheThirdPopinPop() {
         const self = this;
+        self.setState({levelPopin3:getLevel() });
         return self.refs.thirdPopin.togglePopin();
     },
     render() {
+        const {levelPopin1,levelPopin2,levelPopin3} = this.state;
         return (
             <div>
                 <MenuLeft items={this.itemsBuilder()} handleBrandClick={this.goHome}>
@@ -89,9 +103,9 @@ const MyMenu = React.createClass({
                         </h5>
                     </div>
                 </div>
-                <MyPopin ref='popin'/>
-                <SecondPopin ref='secondPopin'/>
-                <ThirdPopin ref='thirdPopin'/>
+                <MyPopin ref='popin' level={levelPopin1}/>
+                <SecondPopin ref='secondPopin'  level={levelPopin2}/>
+                <ThirdPopin ref='thirdPopin'  level={levelPopin3}/>
             </div>
         );
     }
@@ -99,12 +113,12 @@ const MyMenu = React.createClass({
 
 const MyPopin = React.createClass({
     togglePopin() {
-        this.refs.popin.setLevel(getLevel());
         this.refs.popin.toggleOpen();
     },
     render() {
+        const {level}= this.props;
         return (
-            <Popin ref='popin' size='small' type='from-menu' modal={false}>
+            <Popin ref='popin' size='small' type='from-menu' modal={false} level={level} >
                 <h2>
                     News
                 </h2>
@@ -130,7 +144,6 @@ const SecondPopin = React.createClass({
         return {dynamicPopin: 0};
     },
     togglePopin() {
-        this.refs.secondPopin.setLevel(getLevel());
         this.refs.secondPopin.toggleOpen();
     },
     _renderDynamicPopin(){
@@ -138,7 +151,6 @@ const SecondPopin = React.createClass({
         const popins = Array.from(Array(this.state.dynamicPopin).keys())
             .map(idx => {
                 const colorStyle = {backgroundColor: colors[idx % colors.length]};
-                //const popinTile = 'Popin ' + (idx+1);
                 const popinTile = `Popin ${idx + 1}`;
                 return (
                     <Popin key={idx} size='small' overlay={false} open={true} level={getLevel()}>
@@ -153,8 +165,9 @@ const SecondPopin = React.createClass({
         this.setState({dynamicPopin: this.state.dynamicPopin + 1});
     },
     render() {
+        const {level}= this.props;
         return (
-            <Popin ref='secondPopin' id='secondPopin' size='medium' overlay={false}>
+            <Popin ref='secondPopin' id='secondPopin' size='medium' overlay={false} level={level}>
                 <h2>
                     The Modal, The Medium and The Full !
                 </h2>
@@ -180,12 +193,12 @@ const SecondPopin = React.createClass({
 
 const ThirdPopin = React.createClass({
     togglePopin() {
-        this.refs.thirdPopin.setLevel(getLevel());
         this.refs.thirdPopin.toggleOpen();
     },
     render() {
+        const {level}= this.props;
         return (
-            <Popin ref='thirdPopin' size='small' type='from-right'>
+            <Popin ref='thirdPopin' size='small' type='from-right' level={level}>
                 <h2>
                     Material Design Videos
                 </h2>

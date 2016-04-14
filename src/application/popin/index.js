@@ -72,7 +72,6 @@ const popin = {
     getInitialState() {
         return ({
             opened: this.props.open,
-            level: this.props.level,
         });
     },
     /**
@@ -162,22 +161,10 @@ const popin = {
             window.addEventListener('keydown', this.handleKeyDown, true);
         }
     },
-    componentWillReceiveProps(nextProps){
-        const {level} = nextProps;
-        if(level){
-            this.setState({level:level});
-        }
-    },
     componentWillUnmount() {
         window.clearTimeout(this._openTimeoutID);
     },
-    /**
-     * set the z-order level of the popin
-     * @param level
-     */
-    setLevel(level) {
-        this.setState({level: level});
-    },
+
     /**
      * keyboard event handler
      * close the popin with esc
@@ -194,7 +181,7 @@ const popin = {
                     return prec;
                 }, []);
 
-                const level = this.state.level;
+                const {level} = this.props;
                 if (max(popins) === level) {
                     this.toggleOpen();
                     e.stopPropagation();
@@ -208,8 +195,7 @@ const popin = {
      * @return {XML} the rendered HTML
      */
     render() { // test for this.state.opened and return an Overlay component if true
-        const {type, modal, overlay, children} = this.props;
-        const {level} = this.state;
+        const {level,type, modal, overlay, children} = this.props;
         return (
             <div data-focus='popin' data-level={level} data-size={this._validateSize()} data-type={type}>
                 {this.state.opened &&
