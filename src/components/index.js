@@ -22,6 +22,7 @@ import Icon from './icon';
 import Title from './title';
 import ProgressBar from './progress-bar';
 import Label from './label';
+import Emtpy from './empty';
 
 export default {
     Confirm,
@@ -47,5 +48,6 @@ export default {
     Icon,
     Title,
     ProgressBar,
-    Label
+    Label,
+    Empty
 }
