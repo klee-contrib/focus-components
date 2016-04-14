@@ -20,7 +20,6 @@ import '../common/button/back/style/back.scss';
 import '../common/button/back-to-top/style/back-to-top.scss';
 import '../common/field/style/field.scss';
 import '../common/form/style/form.scss';
-import '../common/img/style/img.scss';
 import '../common/input/radio/style/radio.scss';
 import '../common/label/style/label.scss';
 import '../common/progress-bar/style/progress-bar.scss';
