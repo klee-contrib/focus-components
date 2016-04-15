@@ -1,0 +1,18 @@
+{
+  "name": "topic-displayer",
+  "version": "1.0.0",
+  "description": "Topic-Displayer component.",
+  "main": "index.js",
+  "directories": {
+    "example": "example"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "material",
+    "displayer"
+  ],
+  "author": "focus@kleegroup.com",
+  "license": "MIT"
+}

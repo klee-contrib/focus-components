@@ -28,6 +28,11 @@ import '../common/select/classic/style/select.scss'
 import '../common/select/radio/style/select-radio.scss';
 import '../common/select-action/style/select-action.scss';
 import '../common/topic-displayer/style/topic-displayer.scss';
+import '../components/button/style/button.scss';
+import '../components/button-back/style/back.scss';
+import '../components/button-back-to-top/style/back-to-top.scss';
+import '../components/progress-bar/style/progress-bar.scss';
+import '../components/label/style/label.scss';
 import '../components/input/autocomplete-select/style.scss';
 import '../components/input/autocomplete-text/style.scss';
 import '../components/input/checkbox/style/checkbox.scss';
