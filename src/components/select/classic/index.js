@@ -3,7 +3,7 @@ import builder from 'focus-core/component/builder';
 import types from 'focus-core/component/types';
 const React = require('react');
 const ReactDOM = require('react-dom');
-const i18nMixin = require('../../i18n/mixin');
+const i18nMixin = require('../../../common/i18n/mixin');
 const stylableMixin = require('../../../mixin/stylable');
 const union = require('lodash/array/union');
 const {isUndefined, isNull, isNumber} = require('lodash/lang');

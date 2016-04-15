@@ -1,52 +1,34 @@
-import builder from 'focus-core/component/builder';
-const React = require('react');
-import types from 'focus-core/component/types';
-const i18nBehaviour = require('../../i18n/mixin');
-const mdlBehaviour = require('../../mixin/mdl-behaviour');
-const {uniqueId} = require('lodash/utility');
-const InputRadio = require('../../input/radio').component;
+import React, {Component, PropTypes} from 'react';
+import {component as InputRadio} from '../../../common/input/radio';
+import {uniqueId} from 'lodash/utility';
+import Translation from '../../../behaviours/translation';
 
-const selectRadioMixin = {
-    mixins: [i18nBehaviour, mdlBehaviour],
-    /**
-    * Tag name.
-    */
-    displayName: 'SelectRadio',
+@Translation
+class SelectRadio extends Component {
+    static defaultProps = {
+        values: [],
+        valueKey: 'code',
+        labelKey: 'label',
+        disabled: false
+    };
 
-    /** @inheritdoc */
-    getDefaultProps() {
-        return {
-            values: [],
-            valueKey: 'code',
-            labelKey: 'label',
-            disabled: false
-        };
-    },
+    static propTypes = {
+        values: PropTypes.array,
+        value: PropTypes.oneOfType([PropTypes.number, PropTypes.string, PropTypes.array]),
+        valueKey: PropTypes.string,
+        labelKey: PropTypes.string,
+        onChange: PropTypes.func,
+        disabled: PropTypes.bool
+    };
 
-    /** @inheritdoc */
-    propTypes: {
-        values: types('array'),
-        value: types(['number', 'string', 'array']),
-        valueKey: types('string'),
-        labelKey: types('string'),
-        onChange: types('func'),
-        disabled: types('bool')
-    },
+    state = {
+        uniqueName: uniqueId('options_'),
+        value: this.props.value
+    };
 
-    /** @inheritdoc */
-    getInitialState() {
-        return {
-            uniqueName: uniqueId('options_'),
-            value: this.props.value
-        };
-    },
-
-    /** @inheritdoc */
-    componentWillReceiveProps (newProps) {
-        this.setState({
-            value: newProps.value
-        });
-    },
+    componentWillReceiveProps(newProps) {
+        this.setState({value: newProps.value});
+    }
 
     /**
      * Get the value from the select in the DOM.
@@ -54,7 +36,7 @@ const selectRadioMixin = {
      */
     getValue () {
         return this.state.value;
-    },
+    }
 
     /**
     * handle click on radio
@@ -68,7 +50,8 @@ const selectRadioMixin = {
         }
         //Set the state then call the change handler.
         this.setState({value: newValue});
-    },
+    }
+
     /**
      * Closure to capture key and radio status.
      * @param  {string} key the key of radio
@@ -78,7 +61,8 @@ const selectRadioMixin = {
         return () => {
             this._handleRadioChange(key);
         };
-    },
+    }
+
     /**
     * Render radio for each values
     * @return {XML} the different radio values
@@ -91,18 +75,20 @@ const selectRadioMixin = {
             const disabled = this.props.disabled;
             const isChecked = value === this.state.value;
             return (
-                <InputRadio key={idx} label={this.i18n(label)} name={uniqueName} onChange={this._getRadioChangeHandler(value)} value={isChecked} disabled={disabled} />
+                <InputRadio key={idx} label={label} name={uniqueName} onChange={this._getRadioChangeHandler(value)} value={isChecked} disabled={disabled} />
             );
         });
-    },
-    /** @inheritdoc */
+    }
+
     render() {
         return (
-            <div data-focus='select-radio'>
+            <div data-focus='select-radio' >
                 {this.renderSelectRadios()}
             </div>
         );
     }
-};
+}
 
-module.exports = builder(selectRadioMixin);
+SelectRadio.displayName = 'SelectRadio';
+
+export default SelectRadio;

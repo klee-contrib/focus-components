@@ -1,5 +1,5 @@
 module.exports = {
-    classic: require('./classic'),
-    radio: require('./radio'),
-    checkbox: require('./checkbox')
+    SelectClassic: require('./classic'),
+    SelectRadio: require('./radio'),
+    SelectCheckbox: require('./checkbox')
 };

@@ -24,7 +24,7 @@ import ProgressBar from './progress-bar';
 import Label from './label';
 import Emtpy from './empty';
 import TopicDisplayer from './topic-displayer';
-import SelectCheckBox from './select/checkbox';
+import select from './select';
 
 export default {
     Confirm,
@@ -52,5 +52,5 @@ export default {
     ProgressBar,
     Label,
     TopicDisplayer,
-    SelectCheckBox
+    select
 }

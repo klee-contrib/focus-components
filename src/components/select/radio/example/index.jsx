@@ -1,6 +1,9 @@
-const SelectRadio = FocusComponents.common.select.radio.component;
+const {SelectRadio} = FocusComponents.components.select;
+const {Button} = FocusComponents.components;
 
-const values = [{code: 'A', label: 'Value A'}, {code: 'B', label: 'Value B'}, {code: 'C', label: 'Value C'}];
+const values = [
+    {code: 'A', label: 'Value A'}, {code: 'B', label: 'Value B'}, {code: 'C', label: 'Value C'}
+];
 
 const SelectRadioSample = React.createClass({
 
@@ -37,13 +40,9 @@ const SelectRadioSample = React.createClass({
                 <h3>Classic select radio</h3>
                 <SelectRadio
                     value='B'
-                    values={values} />
-                <h3>Classic select radio</h3>
-                <SelectRadio
-                    value='B'
                     values={values} ref="mySelectRadio" />
                 <br/>
-                <button onClick={this.handleGetValueClick}>Get the selected value</button>
+                <Button onClick={this.handleGetValueClick} hasRipple={true} label='Selected value' color='primary' />
                 <h3>OnChange event overload</h3>
                 <SelectRadio
                     value={this.state.value}
@@ -52,5 +51,4 @@ const SelectRadioSample = React.createClass({
     }
 });
 
-
-return <SelectRadioSample />;
+module.exports = SelectRadioSample;

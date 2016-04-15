@@ -39,6 +39,10 @@ const selectCheckboxMixin = {
         };
     },
 
+    componentWillMount() {
+        console.warn('FocusComponents v0.15: the \'select-checkbox\' component from FocusComponents.common is deprecated, please use FocusComponents.components.select.SelectCheckbox');
+    },
+
     /** @inheritdoc */
     componentWillReceiveProps(newProps) {
         if(newProps) {

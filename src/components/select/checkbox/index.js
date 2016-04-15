@@ -4,7 +4,7 @@ import Translation from '../../../behaviours/translation';
 const {pull} = require('lodash/array');
 
 @Translation
-class SelectCheckBox extends Component {
+class SelectCheckbox extends Component {
     static defaultProps = {
         values: [], // all values
         value: [], // selected values list
@@ -22,7 +22,7 @@ class SelectCheckBox extends Component {
 
     state = {
         selectedValues: this.props.value
-    }
+    };
 
     componentWillReceiveProps(newProps) {
         if(newProps) {
@@ -92,6 +92,6 @@ class SelectCheckBox extends Component {
     }
 }
 
-SelectCheckBox.displayName = 'SelectCheckbox';
+SelectCheckbox.displayName = 'SelectCheckbox';
 
-export default SelectCheckBox;
+export default SelectCheckbox;
