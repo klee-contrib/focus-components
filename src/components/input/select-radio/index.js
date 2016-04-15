@@ -75,7 +75,7 @@ class SelectRadio extends Component {
             const disabled = this.props.disabled;
             const isChecked = value === this.state.value;
             return (
-                <InputRadio key={idx} label={label} name={uniqueName} onChange={this._getRadioChangeHandler(value)} value={isChecked} disabled={disabled} />
+                <Radio key={idx} label={label} name={uniqueName} onChange={this._getRadioChangeHandler(value)} value={isChecked} disabled={disabled} />
             );
         });
     }
