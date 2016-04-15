@@ -1,4 +1,4 @@
-const {SelectCheckbox} = FocusComponents.components.select;
+const {SelectCheckbox} = FocusComponents.components.input;
 const {Button} = FocusComponents.components;
 const {pull} = _;
 

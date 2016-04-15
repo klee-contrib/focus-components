@@ -1,4 +1,4 @@
-const {SelectRadio} = FocusComponents.components.select;
+const {SelectRadio} = FocusComponents.components.input;
 const {Button} = FocusComponents.components;
 
 const values = [

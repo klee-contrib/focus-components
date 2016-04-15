@@ -1,5 +1,5 @@
 import React, {Component, PropTypes} from 'react';
-import Checkbox from '../../../components/input/checkbox';
+import Checkbox from '../checkbox';
 import Translation from '../../../behaviours/translation';
 const {pull} = require('lodash/array');
 
