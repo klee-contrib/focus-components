@@ -3,20 +3,15 @@ import {translate} from 'focus-core/translation';
 import {map} from 'lodash/collection';
 
 // Components
-const Button = require('../../common/button/action').component;
+import Button from '../button';
 
- /**
- * Action on the topic click.
- * @param  {String} key  topic key
- * @return {Function}     Click handler
- */
+/**
+* Action on the topic click.
+* @param  {String} key  topic key
+* @return {Function}     Click handler
+*/
 function topicClickHandler(key, topicClickAction) {
-    return (event) => {
-        if(event) {
-            event.preventDefault();
-        }
-        topicClickAction(key);
-    };
+    topicClickAction(key);
 }
 
 function TopicDisplayer({displayLabels, topicList, topicClickAction}) {
@@ -26,11 +21,11 @@ function TopicDisplayer({displayLabels, topicList, topicClickAction}) {
                 const text = displayLabels ? `${translate(topic.label)}: ${translate(topic.value)}` : translate(topic.value);
                 return (
                     <Button
-                        handleOnClick={topicClickHandler(key, topicClickAction)}
+                        handleOnClick={() => {topicClickHandler(key, topicClickAction)}}
                         icon='clear'
                         key={key}
                         label={text}
-                    />
+                        />
                 );
             })}
         </div>
