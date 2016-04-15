@@ -5,7 +5,7 @@ import {translate} from 'focus-core/translation';
 
 const styleBehaviour = require('../../mixin/stylable');
 const TopicDisplayer = require('../../components/topic-displayer');
-const Button = require('../../common/button/action').component;
+import Button from '../../components/button';
 import numberFormatter from 'focus-core/definition/formatter/number';
 
 const listSummaryMixin = {

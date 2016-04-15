@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import applicationStore from 'focus-core/application/built-in-store';
-import {component as Button} from '../../common/button/action';
+import Button from '../../components/button';
 import Dropdown from '../../components/icon-dropdown';
 
 /**
