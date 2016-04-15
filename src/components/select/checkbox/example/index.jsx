@@ -19,26 +19,25 @@ const possibleValues = [
 
 const SelectCheckboxSample = React.createClass({
 
-    /**
-    * Handle click action to get check value.
-    */
-    handleGetValueClick() {
-        const values = this.refs.mySelectCheckbox.getValue();
-        alert('Selected values IDs: ' + values);
-    },
-
-
     /** @inheritdoc */
     getInitialState() {
         return {
-            selectedValues: ['B']
+            selectedValues: ['A','B','D']
         };
     },
 
     /**
     * Handle click action to get check value.
     */
-    handleGetValueClick2(key, newStatus) {
+    getValueClick() {
+        const values = this.refs.mySelectCheckbox.getValue();
+        alert('Selected values IDs: ' + values);
+    },
+
+    /**
+    * Handle click action to get check value.
+    */
+    customGetValueClick(key, newStatus) {
         const selectedValues = this.state.selectedValues;
         if(newStatus) {
             selectedValues.push(key);
@@ -46,9 +45,8 @@ const SelectCheckboxSample = React.createClass({
             pull(selectedValues, key);
         }
         this.setState({value: selectedValues});
-        alert('Selected values IDs: ' + this.state.selectedValues);
+        console.log('Selected values IDs: ' + this.state.selectedValues);
     },
-
 
     /**
     * Render the component.
@@ -58,18 +56,18 @@ const SelectCheckboxSample = React.createClass({
         return (
             <div>
                 <h3>List of checkboxes</h3>
-                <SelectCheckBox value={['B','D']} values={possibleValues} ref="mySelectCheckbox" />
+                <SelectCheckBox values={possibleValues} ref="mySelectCheckbox" />
                 <h3>List of checkboxes with preselected values</h3>
                 <SelectCheckBox
-                    value={['A']}
+                    value={['B','C']}
                     values={possibleValues} ref="mySelectCheckbox"
                     />
                 <br />
-                <Button onClick={this.handleGetValueClick} hasRipple={true} label='Selected values' color='primary' />
+                <Button onClick={this.getValueClick} hasRipple={true} label='Selected values' color='primary' />
                 <h3>Add OnChange event</h3>
                 <SelectCheckBox
-                    value={['B','C','D']}
-                    values={possibleValues} ref="mySelectCheckbox2" onChange={this.handleGetValueClick2}
+                    value={this.state.selectedValues}
+                    values={possibleValues} ref="mySelectCheckbox2" onChange={this.customGetValueClick}
                     />
             </div>
         );
