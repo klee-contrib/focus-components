@@ -1,5 +1,5 @@
 import React, {Component, PropTypes} from 'react';
-import {component as InputRadio} from '../../../common/input/radio';
+import Radio from '../radio';
 import {uniqueId} from 'lodash/utility';
 import Translation from '../../../behaviours/translation';
 
