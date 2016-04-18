@@ -1,7 +1,7 @@
 $header-top-row-menu-size:60px;
 $header-top-row-padding:10px;
 $header-top-cell-padding:15px;
-$header-top-row-element-height:($header-top-row-menu-size) - ($header-top-row-padding * 2);
+$header-top-row-element-height: calc ($header-top-row-menu-size - $header-top-row-padding * 2);
 
 [data-focus='header-top-row'] {
     & > div {
