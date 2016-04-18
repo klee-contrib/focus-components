@@ -1,5 +1,5 @@
 import React, {Component, PropTypes} from 'react';
-import {component as InputRadio} from '../../../common/input/radio';
+import Radio from '../radio';
 import {uniqueId} from 'lodash/utility';
 import Translation from '../../../behaviours/translation';
 
@@ -75,7 +75,7 @@ class SelectRadio extends Component {
             const disabled = this.props.disabled;
             const isChecked = value === this.state.value;
             return (
-                <InputRadio key={idx} label={label} name={uniqueName} onChange={this._getRadioChangeHandler(value)} value={isChecked} disabled={disabled} />
+                <Radio key={idx} label={label} name={uniqueName} onChange={this._getRadioChangeHandler(value)} value={isChecked} disabled={disabled} />
             );
         });
     }
