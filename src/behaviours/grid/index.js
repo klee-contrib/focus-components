@@ -1,7 +1,4 @@
-import types from 'focus-core/component/types';
-const React = require('react');
-const {PropTypes} = React;
-
+import React, {PropTypes} from 'react';
 
 const GRID_SIZE = 12, CELL = 'mdl-cell';
 /**
@@ -18,9 +15,6 @@ const GRID_SIZE = 12, CELL = 'mdl-cell';
 
 
 const Grid = Component => class GridComponent extends Component {
-    constructor(props) {
-        super(props);
-    }
 
     static defaultProps = {
         /**

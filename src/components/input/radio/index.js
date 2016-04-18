@@ -66,7 +66,6 @@ class Radio extends Component {
         const {label, name, ...otherProps} = this.props;
         // we use inputProps to be able to display 'checked' property. it is required to be able to use MDL.
         const checkedProps = isChecked ? {checked: 'checked'} : {};
-        const inputProps = {...checkedProps, ...otherProps};
 
         return (
             <label className='mdl-radio mdl-js-radio mdl-js-ripple-effect' data-focus="input-radio" ref='inputMdl'>
