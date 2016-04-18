@@ -1,6 +1,6 @@
 $bar-menu-size:60px;
 $bar-padding:10px;
-$bar-element-height:($bar-menu-size) - ($bar-padding * 2);
+$bar-element-height: calc($bar-menu-size - $bar-padding * 2);
 
 $bar-summary-left:200px;
 $bar-summary-right:200px;
