@@ -1,29 +1,19 @@
-//Dependencies.
-import builder from 'focus-core/component/builder';
-import types from 'focus-core/component/types';
-const React = require('react');
-const i18nBehaviour = require('../../i18n/mixin');
+import React, {PropTypes, Component} from 'react';
+import Translation from '../../behaviours/translation';
 
-/**
-* Input text mixin.
-* @type {Object}
-*/
-const displayTextMixin = {
-    mixins: [i18nBehaviour],
-    displayName: 'DisplayText',
-    /** @inheritdoc */
-    getDefaultProps() {
-        return {
-            formatter: (data) => data
-        };
-    },
-    /** @inheritdoc */
-    propTypes: {
-        type: types('string'),
-        value: types(['string', 'number']),
-        name: types('string'),
-        style: types('object')
-    },
+@Translation
+class DisplayText extends Component {
+    static defaultProps = {
+        formatter: (data) => data
+    };
+
+    static propTypes = {
+        type: PropTypes.string,
+        value: PropTypes.oneOfType(['string', 'number']),
+        name: PropTypes.string,
+        style: PropTypes.object
+    };
+
     /**
     * Render the value.
     * @return {string} The formated value.
@@ -31,12 +21,17 @@ const displayTextMixin = {
     renderValue() {
         const {formatter, value} = this.props;
         return formatter(value);
-    },
-    /** @inheritdoc */
-    render: function renderInput() {
-        return <div {...this.props}>{this.renderValue()}</div>;
     }
-};
 
+    render() {
+        return(
+            <div {...this.props}>
+                {this.renderValue()}
+            </div>;
+        );
+    }
+}
 
-module.exports = builder(displayTextMixin);
+DisplayText.displayName = 'DisplayText';
+
+export default DisplayText;
