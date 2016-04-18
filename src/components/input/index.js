@@ -4,10 +4,13 @@ import Checkbox from './checkbox';
 import CheckboxWithError from './checkbox/with-error';
 import Date from './date';
 import Select from './select';
+import SelectCheckbox from './select-checkbox';
+import SelectRadio from './select-radio';
 import Text from './text';
 import Textarea from './textarea';
 import DisplayTextArea from './textarea/consult';
 import Toggle from './toggle';
+import Radio from './radio';
 
 export default {
     AutocompleteSelect,
@@ -19,5 +22,8 @@ export default {
     Text,
     Toggle,
     Textarea,
-    DisplayTextArea
+    DisplayTextArea,
+    SelectCheckbox,
+    SelectRadio,
+    Radio
 };

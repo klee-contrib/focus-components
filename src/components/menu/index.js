@@ -1,9 +1,6 @@
 import React, {Component, PropTypes} from 'react';
 import historic from 'focus-core/history';
-import Button from '../../common/button/action';
-
-// definition of components
-const ButtonComponent = Button.component;
+import Button from '../../components/button';
 
 // default props
 const defaultProps = {
@@ -44,7 +41,7 @@ class MenuLeft extends Component {
             };
             return (
                 <li key={idx} onClick={clickHandler}>
-                    <ButtonComponent {...buttonProps} />
+                    <Button {...buttonProps} />
                     <span>{link.name}</span>
                 </li>
             );
