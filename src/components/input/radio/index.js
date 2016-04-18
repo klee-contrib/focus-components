@@ -1,11 +1,12 @@
 import React, {Component, PropTypes} from 'react';
 import Translation from '../../../behaviours/translation';
-import fieldGridBehaviourMixin from '../../../common/mixin/field-grid-behaviour';
+import GridBehaviour from '../../../behaviours/grid';
 import MaterialBehaviour from '../../../behaviours/material';
 import {isUndefined} from 'lodash/lang';
 
 @Translation
 @MaterialBehaviour('inputMdl')
+@GridBehaviour
 class Radio extends Component {
     static defaultProps = {
         value: false
@@ -65,18 +66,17 @@ class Radio extends Component {
         const {label, name, ...otherProps} = this.props;
         // we use inputProps to be able to display 'checked' property. it is required to be able to use MDL.
         const checkedProps = isChecked ? {checked: 'checked'} : {};
-        const inputProps = {...{className: 'mdl-radio__button', name: name, onChange: this._onChange, type: 'radio'}, ...checkedProps, ...otherProps};
+        const inputProps = {...checkedProps, ...otherProps};
 
         return (
             <label className='mdl-radio mdl-js-radio mdl-js-ripple-effect' data-focus="input-radio" ref='inputMdl'>
-                <input {...inputProps}/>
+                <input className='mdl-radio__button' name={name} onChange={::this._onChange} type='radio' {...inputProps}/>
                 <span className='mdl-radio__label'>{label}</span>
             </label>
         );
     }
 }
 
-//mixins: [i18nBehaviour, fieldGridBehaviourMixin, mdlBehaviour],
 Radio.displayName = 'input-radio';
 
 export default Radio;
