@@ -21,7 +21,7 @@ class Radio extends Component {
 
     state = {
         isChecked: isUndefined(this.props.value) ? false : this.props.value
-    }
+    };
 
     componentWillReceiveProps(newProps) {
         this.setState({isChecked: newProps.value});
