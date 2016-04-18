@@ -1,5 +1,5 @@
 import React, {PropTypes, Component} from 'react';
-import Translation from '../../behaviours/translation';
+import Translation from '../../../behaviours/translation';
 
 @Translation
 class DisplayText extends Component {
@@ -27,7 +27,7 @@ class DisplayText extends Component {
         return(
             <div {...this.props}>
                 {this.renderValue()}
-            </div>;
+            </div>
         );
     }
 }
