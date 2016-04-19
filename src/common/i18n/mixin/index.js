@@ -1,3 +1,5 @@
+import translation from 'focus-core/translation'
+
 /*global window*/
 /*todo check the library presence*/
 module.exports = {
@@ -8,7 +10,6 @@ module.exports = {
      * @returns {string} - Translated string.
      */
     i18n: function translate(key, data) {
-        var fn = (window.i18n && window.i18n.t) ? window.i18n.t : function defaulti18n(trKey) {return trKey; };
-        return fn(key, data);
+        return translation.translate(key, data);
     }
 };
