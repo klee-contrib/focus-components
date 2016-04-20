@@ -117,8 +117,15 @@ class Button extends Component {
     /** inheritedDoc */
     render() {
         const {className, icon, id, type, label, style, ...otherProps} = this.props;
+        let renderedClassName;
+        if(className) {
+            renderedClassName = className + ' ' + ::this._getComponentClassName();
+        }
+        else {
+            renderedClassName = ::this._getComponentClassName();
+        }
         return (
-            <button alt={translate(label)} className={`${className} ${::this._getComponentClassName()}`} data-focus='button' id={id} onClick={this.handleOnClick} title={translate(label)} type={type} {...otherProps} ref='materialButton'>
+            <button alt={translate(label)} className={renderedClassName} data-focus='button' id={id} onClick={this.handleOnClick} title={translate(label)} type={type} {...otherProps} ref='materialButton'>
                 {icon && ::this._renderIcon()}
                 {::this._renderLabel()}
             </button>
