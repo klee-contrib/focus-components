@@ -1,7 +1,7 @@
 import Button from '../';
 const {renderIntoDocument, scryRenderedDOMComponentsWithTag, findRenderedDOMComponentWithTag, Simulate} = TestUtils;
 
-describe.only('Button Component', () => {
+describe('Button Component', () => {
     describe('Rendering', () => {
         describe('When a default button is rendered', () => {
             let renderedButton;
