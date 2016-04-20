@@ -1,7 +1,7 @@
 import Radio from '../';
 const {renderIntoDocument, scryRenderedDOMComponentsWithTag, findRenderedDOMComponentWithTag, Simulate} = TestUtils;
 
-describe.only('Input Radio Component', () => {
+describe('Input Radio Component', () => {
     describe('Rendering', () => {
         describe('When a default radio is rendered', () => {
             let renderedRadio;
