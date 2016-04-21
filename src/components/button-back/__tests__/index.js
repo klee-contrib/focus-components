@@ -9,7 +9,7 @@ const Wrapper = React.createClass({
     }
 });
 
-describe.only('Select ButtonBack Component', () => {
+describe('Select ButtonBack Component', () => {
     describe('Rendering', () => {
         describe('When a default button-back is rendered', () => {
             let renderedButtonBack, arr;
