@@ -1,5 +1,5 @@
 import SelectCheckbox from '../';
-const {renderIntoDocument, scryRenderedDOMComponentsWithTag, Simulate} = TestUtils;
+const {renderIntoDocument, Simulate} = TestUtils;
 
 const possibleValues = [
     {value: 'A', label: 'Value A'},
