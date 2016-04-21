@@ -1,7 +1,7 @@
 import ButtonBackToTop from '../';
 const {renderIntoDocument, scryRenderedDOMComponentsWithTag, Simulate} = TestUtils;
 
-describe.only('Select ButtonBackToTop Component', () => {
+describe('Select ButtonBackToTop Component', () => {
     describe('Rendering', () => {
         describe('When a default button-back-to-top is rendered', () => {
             let renderedButtonBackToTop, arr;
