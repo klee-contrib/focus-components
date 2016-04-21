@@ -17,7 +17,7 @@ describe('Select Column Component', () => {
                 renderedColumn = renderIntoDocument(<Wrapper><Column /></Wrapper>);
                 arr = scryRenderedDOMComponentsWithTag(renderedColumn, 'div');
             });
-            it('should the default material cell className', () => {
+            it('should have the default material cell className', () => {
                 expect(arr[1].className.trim()).to.equal('mdl-cell mdl-cell--6-col');
             });
         });

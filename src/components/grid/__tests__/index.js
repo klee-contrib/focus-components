@@ -17,7 +17,7 @@ describe('Select Grid Component', () => {
                 renderedGrid = renderIntoDocument(<Wrapper><Grid /></Wrapper>);
                 arr = scryRenderedDOMComponentsWithTag(renderedGrid, 'div');
             });
-            it('should the default cell className', () => {
+            it('should have the default cell className', () => {
                 expect(arr[1].className.trim()).to.equal('mdl-grid')
             });
         });
