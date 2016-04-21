@@ -17,8 +17,8 @@ describe('Select Column Component', () => {
                 renderedColumn = renderIntoDocument(<Wrapper><Column /></Wrapper>);
                 arr = scryRenderedDOMComponentsWithTag(renderedColumn, 'div');
             });
-            it('should the default cell className', () => {
-                expect(arr[1].className.trim()).to.equal('mdl-cell mdl-cell--6-col')
+            it('should the default material cell className', () => {
+                expect(arr[1].className.trim()).to.equal('mdl-cell mdl-cell--6-col');
             });
         });
         describe('When we give a size to the column', () => {
@@ -29,7 +29,7 @@ describe('Select Column Component', () => {
                 arr = scryRenderedDOMComponentsWithTag(renderedColumn, 'div');
             });
             it('should have an adapted className', () => {
-                expect(arr[1].className.trim()).to.equal('mdl-cell mdl-cell--'+ size + '-col')
+                expect(arr[1].className.trim()).to.equal('mdl-cell mdl-cell--'+ size + '-col');
             });
         });
     });

@@ -9,7 +9,7 @@ const Wrapper = React.createClass({
     }
 });
 
-describe.only('Select Grid Component', () => {
+describe('Select Grid Component', () => {
     describe('Rendering', () => {
         describe('When a default grid is rendered', () => {
             let renderedGrid, arr;
