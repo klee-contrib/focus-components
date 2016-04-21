@@ -5,7 +5,7 @@ const values = [
     {code: 'A', label: 'Value A'}, {code: 'B', label: 'Value B'}, {code: 'C', label: 'Value C'}
 ];
 
-describe.only('Select Radio Component', () => {
+describe('Select Radio Component', () => {
     describe('Rendering', () => {
         describe('When a default select-radio is rendered', () => {
             let renderedSelectRadio;
