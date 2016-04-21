@@ -8,7 +8,7 @@ const possibleValues = [
     {value: 'D', label: 'Value D'}
 ];
 
-describe.only('Select Checkbox Component', () => {
+describe('Select Checkbox Component', () => {
     describe('Rendering', () => {
         describe('When a default select-checkbox is rendered', () => {
             let renderedSelectCheckbox;

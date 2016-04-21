@@ -1,5 +1,5 @@
 import Button from '../';
-const {renderIntoDocument, scryRenderedDOMComponentsWithTag, findRenderedDOMComponentWithTag, Simulate} = TestUtils;
+const {renderIntoDocument, Simulate} = TestUtils;
 
 describe('Button Component', () => {
     describe('Rendering', () => {
