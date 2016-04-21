@@ -1,5 +1,4 @@
 import Column from '../';
-import Grid from '../../Grid';
 const {renderIntoDocument, scryRenderedDOMComponentsWithTag, Simulate} = TestUtils;
 
 const Wrapper = React.createClass({
@@ -10,7 +9,7 @@ const Wrapper = React.createClass({
     }
 });
 
-describe.only('Select Column Component', () => {
+describe('Select Column Component', () => {
     describe('Rendering', () => {
         describe('When a default column is rendered', () => {
             let renderedColumn, arr;
