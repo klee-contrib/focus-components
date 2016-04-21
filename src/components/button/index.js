@@ -68,6 +68,9 @@ class Button extends Component {
             case 'mini-fab':
             SHAPE_CLASS = `${BUTTON_PRFX}mini-fab ${BUTTON_PRFX}fab`;
             break;
+            case null:
+            SHAPE_CLASS = '';
+            break;
             default:
             SHAPE_CLASS = null;
             break;
