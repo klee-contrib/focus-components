@@ -3,9 +3,9 @@ import Translation from '../../../behaviours/translation';
 import formatter from 'focus-core/definition/formatter/number';
 
 //web components
-import {component as Button} from '../../../common/button/action';
-import Column from '../../../common/column';
-import Grid from '../../../common/grid';
+import Button from '../../../components/button';
+import Column from '../../../components/column';
+import Grid from '../../../components/grid';
 
 const propTypes = {
     canShowMore: PropTypes.bool.isRequired,

@@ -20,7 +20,7 @@ const referenceMixin = require('../../common/mixin/reference-property');
 
 // Components
 
-const Button = require('../../common/button/action').component;
+import Button from '../../components/button';
 
 const listMixin = {
     /**
