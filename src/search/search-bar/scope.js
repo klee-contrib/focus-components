@@ -10,7 +10,7 @@ const find = require('lodash/collection/find');
 const {uniqueId} = require('lodash/utility');
 
 // Components
-const Icon = require('../../common/icon').component;
+import Icon from '../../components/icon';
 const Dropdown = require('../../common/select-action').component;
 
 const scopeMixin = {
