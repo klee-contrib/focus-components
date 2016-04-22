@@ -7,7 +7,7 @@ const {reduce} = require('lodash/collection');
 
 const Dropdown = require('../../common/select-action').component;
 const ActionContextual = require('../action-contextual').component;
-const TopicDisplayer = require('../../common/topic-displayer').component;
+import TopicDisplayer from '../../components/topic-displayer';
 import Button from '../../components/button';
 
 import Grid from '../../components/grid';
