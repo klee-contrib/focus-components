@@ -1,6 +1,6 @@
 import React, {Component, PropTypes} from 'react';
 
-function renderIcon(name, library, onClick, style) {
+function Icon({name, library, onClick, style}) {
     switch (library) {
         case 'material':
             return <i className='material-icons' onClick={onClick} {...style}>{name}</i>;
@@ -12,14 +12,6 @@ function renderIcon(name, library, onClick, style) {
         default:
             return null;
     }
-}
-
-function Icon({name, library, onClick, style}) {
-    return(
-        <div>
-            {renderIcon(name, library, onClick, style)}
-        </div>
-    );
 }
 
 Icon.displayName = 'Icon';
