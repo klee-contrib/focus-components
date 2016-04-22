@@ -3,18 +3,10 @@ const {Button} = FocusComponents.components;
 const {pull} = _;
 
 const possibleValues = [
-    {
-        value: 'A', label: 'Value A'
-    },
-    {
-        value: 'B', label: 'Value B'
-    },
-    {
-        value: 'C', label: 'Value C'
-    },
-    {
-        value: 'D', label: 'Value D'
-    }
+    {value: 'A', label: 'Value A'},
+    {value: 'B', label: 'Value B'},
+    {value: 'C', label: 'Value C'},
+    {value: 'D', label: 'Value D'}
 ];
 
 const SelectCheckboxSample = React.createClass({
