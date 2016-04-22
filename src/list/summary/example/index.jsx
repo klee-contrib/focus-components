@@ -26,8 +26,8 @@ const ListSummaryExample = React.createClass({
                     nb={8}
                     queryText="Superman"
                     scopeList={scopes}
-                    scopeClickAction={(scopeKey) => {alert("Removed scope : " + scopeKey); }}
-                    exportAction={() => {alert("Export action"); }}
+                    scopeClickAction={(scopeKey) => {console.log("Removed scope : " + scopeKey); }}
+                    exportAction={() => {console.log("Export action"); }}
                     />
             </div>
         );
