@@ -12,7 +12,7 @@ const FacetBox = require('./facet-box').component;
 const ListActionBar = require('./action-bar').component;
 const ListSummary = require('./list-summary').component;
 const Results = require('../common/component/results').component;
-const BackToTopComponent = require('../../../common/button/back-to-top').component;
+import BackToTopComponent from '../../../components/button-back-to-top';
 import DefaultGroupComponent from './group';
 
 // Store
