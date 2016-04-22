@@ -1,5 +1,6 @@
 import React, {Component, PropTypes} from 'react';
-import {component as Button} from '../../common/button/action';
+import ReactDOM from 'react-dom';
+import Button from '../../components/button';
 import Translation from '../../behaviours/translation';
 const {uniqueId} = require('lodash/utility');
 

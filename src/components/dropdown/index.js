@@ -1,6 +1,6 @@
 import React, {Component, PropTypes} from 'react';
 import ReactDOM from 'react-dom';
-import {component as Button} from '../../common/button/action';
+import Button from '../../components/button';
 import {translate} from 'focus-core/translation';
 import uuid from 'uuid';
 
