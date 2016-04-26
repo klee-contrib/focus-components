@@ -1,6 +1,7 @@
 import React, {Component, PropTypes} from 'react';
 import ReactDOM from 'react-dom';
 import MDBehaviour from '../../behaviours/material';
+import Translation from '../../behaviours/translation';
 import ComponentBaseBehaviour from '../../behaviours/component-base';
 
 const BTN_JS = 'mdl-js-button';
@@ -9,6 +10,7 @@ const BUTTON_PRFX = 'mdl-button--';
 const RIPPLE_EFFECT = 'mdl-js-ripple-effect';
 
 @MDBehaviour('materialButton', 'MaterialButton')
+@Translation
 class Button extends Component {
 
     static propTypes = {
@@ -126,7 +128,7 @@ class Button extends Component {
             renderedClassName = ::this._getComponentClassName();
         }
         return (
-            <button alt={translate(label)} className={renderedClassName.trim()} data-focus='button' id={id} onClick={this.handleOnClick} title={translate(label)} type={type} {...otherProps} ref='materialButton'>
+            <button alt={this.i18n(label)} className={renderedClassName.trim()} data-focus='button' id={id} onClick={this.handleOnClick} title={this.i18n(label)} type={type} {...otherProps} ref='materialButton'>
                 {icon && ::this._renderIcon()}
                 {::this._renderLabel()}
             </button>
