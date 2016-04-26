@@ -46,7 +46,7 @@ class HeaderActions extends Component {
                 {actions.primary.map((primary, index) => {
                     const {action, className, icon, iconLibrary, label, ...otherProps} = primary;
                     return (
-                        <Button key={`header-action-${index}`} className={className} handleOnClick={action} icon={icon} iconLibrary={iconLibrary} label={label} shape='fab' type='button' {...otherProps}/>
+                        <Button key={`header-action-${label}`} className={className} handleOnClick={action} icon={icon} iconLibrary={iconLibrary} label={label} shape='fab' type='button' {...otherProps}/>
                     );
                 })}
                 {actions.secondary && actions.secondary.length > 0 && <Dropdown operationList={actions.secondary}/>}

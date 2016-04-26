@@ -11,7 +11,7 @@ let i18nMixin = require('../../common/i18n/mixin');
 // Components
 
 let Popin = require('../popin').component;
-let Button = require('../../common/button/action').component;
+import Button from '../../components/button';
 
 let ConfirmationPopin = {
     /**

@@ -15,18 +15,11 @@ const SelectRadioSample = React.createClass({
         alert('Selected values ID: ' + value);
     },
 
-    /** @inheritdoc */
-    getInitialState() {
-        return {
-            value: 'A'
-        };
-    },
-
     /**
     * Handle click action to get check value.
     */
     handleOnChange(newValue) {
-        this.setState({value: newValue});
+        this.refs.selectRadioExample.setState({value: newValue});
         alert('Selected values ID: ' + newValue);
     },
 
@@ -45,8 +38,8 @@ const SelectRadioSample = React.createClass({
                 <Button onClick={this.handleGetValueClick} hasRipple={true} label='Selected value' color='primary' />
                 <h3>OnChange event overload</h3>
                 <SelectRadio
-                    value={this.state.value}
-                    values={values} onChange={this.handleOnChange} />
+                    value='A'
+                    values={values} onChange={this.handleOnChange} ref='selectRadioExample'/>
             </div>);
     }
 });

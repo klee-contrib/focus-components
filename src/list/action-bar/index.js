@@ -7,11 +7,11 @@ const {reduce} = require('lodash/collection');
 
 const Dropdown = require('../../common/select-action').component;
 const ActionContextual = require('../action-contextual').component;
-const TopicDisplayer = require('../../common/topic-displayer').component;
-const Button = require('../../common/button/action').component;
+import TopicDisplayer from '../../components/topic-displayer';
+import Button from '../../components/button';
 
-import Grid from '../../common/grid';
-import Column from '../../common/column';
+import Grid from '../../components/grid';
+import Column from '../../components/column';
 
 // Mixins
 

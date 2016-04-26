@@ -4,7 +4,6 @@ import Translation from '../../../behaviours/translation';
 import formatter from 'focus-core/definition/formatter/number';
 
 //web components
-import {component as Button} from '../../../common/button/action';
 
 const propTypes = {
     count: PropTypes.number.isRequired,

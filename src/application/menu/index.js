@@ -11,7 +11,7 @@ const stylabe = require('../../mixin/stylable');
 
 // Components
 
-const Button = require('../../common/button/action').component;
+import Button from '../../components/button';
 
 const Menu = {
     mixins: [stylabe, popinProperties],/** @inheritedProps*/

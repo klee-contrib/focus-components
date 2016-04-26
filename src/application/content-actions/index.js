@@ -12,7 +12,7 @@ const stylableBehaviour = require('../../mixin/stylable');
 
 // Components
 
-const Button = require('../../common/button/action').component;
+import Button from '../../components/button';
 const Dropdown = require('../../common/select-action').component;
 
 const ContentActions = {

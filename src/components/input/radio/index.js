@@ -69,8 +69,8 @@ class Radio extends Component {
 
         return (
             <label className='mdl-radio mdl-js-radio mdl-js-ripple-effect' data-focus="input-radio" ref='inputMdl'>
-                <input className='mdl-radio__button' name={name} onChange={::this._onChange} type='radio' {...checkedProps} {...otherProps}/>
-                <span className='mdl-radio__label'>{label}</span>
+                <input className='mdl-radio__button' name={name} onChange={::this._onChange} type='radio' {...checkedProps} {...otherProps} ref='inputRadio'/>
+                <span className='mdl-radio__label'>{this.i18n(label)}</span>
             </label>
         );
     }

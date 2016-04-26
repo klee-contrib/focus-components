@@ -1,15 +1,15 @@
 import React, {Component, PropTypes} from 'react';
 import ReactDOM from 'react-dom';
-import BackToTop from '../../common/button/back-to-top'
+import BackToTop from '../button-back-to-top'
 import StickyMenu from './sticky-menu';
 import Scroll from '../../behaviours/scroll';
 import {filter} from 'lodash/collection';
 import {debounce} from 'lodash/function';
 import {first, last} from 'lodash/array';
-import Grid from '../../common/grid';
-import Column from '../../common/column'
+import Grid from '../grid';
+import Column from '../column'
 
-const BackToTopComponent = BackToTop.component;
+const BackToTopComponent = BackToTop;
 
 // component default props.
 const defaultProps = {

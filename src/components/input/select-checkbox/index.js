@@ -78,7 +78,7 @@ class SelectCheckbox extends Component {
             const label = val[this.props.labelKey];
             const isChecked = 0 <= this.state.selectedValues.indexOf(value);
             return (
-                <Checkbox key={idx} label={label} onChange={this._getCheckboxChangeHandler(value)} value={isChecked} />
+                <Checkbox key={idx} label={this.i18n(label)} onChange={this._getCheckboxChangeHandler(value)} value={isChecked} />
             );
         });
     }

@@ -1,8 +1,7 @@
 import React, {Component, PropTypes} from 'react';
 import ReactDOM from 'react-dom';
-import builder from 'focus-core/component/builder';
-import {translate} from 'focus-core/translation';
 import MDBehaviour from '../../behaviours/material';
+import Translation from '../../behaviours/translation';
 import ComponentBaseBehaviour from '../../behaviours/component-base';
 
 const BTN_JS = 'mdl-js-button';
@@ -11,6 +10,7 @@ const BUTTON_PRFX = 'mdl-button--';
 const RIPPLE_EFFECT = 'mdl-js-ripple-effect';
 
 @MDBehaviour('materialButton', 'MaterialButton')
+@Translation
 class Button extends Component {
 
     static propTypes = {
@@ -68,6 +68,9 @@ class Button extends Component {
             case 'mini-fab':
             SHAPE_CLASS = `${BUTTON_PRFX}mini-fab ${BUTTON_PRFX}fab`;
             break;
+            case null:
+            SHAPE_CLASS = '';
+            break;
             default:
             SHAPE_CLASS = null;
             break;
@@ -110,15 +113,22 @@ class Button extends Component {
     _renderLabel = () => {
         const {label, shape} = this.props;
         if (label && 'fab' !== shape && 'icon' !== shape && 'mini-fab' !== shape ) {
-            return translate(label);
+            return this.i18n(label);
         }
         return null;
     };
     /** inheritedDoc */
     render() {
         const {className, icon, id, type, label, style, ...otherProps} = this.props;
+        let renderedClassName;
+        if(className) {
+            renderedClassName = className + ' ' + ::this._getComponentClassName();
+        }
+        else {
+            renderedClassName = ::this._getComponentClassName();
+        }
         return (
-            <button alt={translate(label)} className={`${className} ${::this._getComponentClassName()}`} data-focus='button' id={id} onClick={this.handleOnClick} title={translate(label)} type={type} {...otherProps} ref='materialButton'>
+            <button alt={this.i18n(label)} className={renderedClassName.trim()} data-focus='button' id={id} onClick={this.handleOnClick} title={this.i18n(label)} type={type} {...otherProps} ref='materialButton'>
                 {icon && ::this._renderIcon()}
                 {::this._renderLabel()}
             </button>
