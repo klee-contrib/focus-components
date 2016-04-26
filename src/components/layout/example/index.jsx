@@ -13,49 +13,37 @@ const Summary = React.createClass({
         return (<div>Summary</div>);
     }
 });
+
 const BarContentRight = React.createClass({
     render() {
         return (<div>BAR RIGHT</div>);
     }
 });
+
 const BarContentLeft = React.createClass({
     render() {
-        return (<div>BAR LEFT</div>);
+        return (<div ref='barLeft'>BAR LEFT</div>);
     }
 });
+
 const Test = React.createClass({
     render() {
         return (<div>test</div>);
     }
 });
+
 const Footer = React.createClass({
     render() {
-        return (<div>&copy;KLEEGROUP 2015 - FOCUS Showcase - Layout</div>);
+        return (<div ref='Footer'>&copy;KLEEGROUP 2015 - FOCUS Showcase - Layout</div>);
     }
 });
-
-//Simple function to update components in the bar.
-function updateComponents(cartridgeConf) {
-    const {cartridge: cartridgeComponent, summary: summaryComponent, actions: actions, barLeft: barContentLeftComponent, barRight: barContentRightComponent} = cartridgeConf;
-    dispatcher.handleViewAction({
-        data: {
-            cartridgeComponent,
-            summaryComponent,
-            actions,
-            barContentLeftComponent,
-            barContentRightComponent,
-            canDeploy: true
-        },
-        type: 'update'
-    });
-}
 
 const cartridgeConf = {
     cartridge: {component: CartridgeContent, props: {}},
     summary: {component: Summary, props: {}},
     actions: {
-        primary: [{label: 'Action 1', icon: 'alarm_on', action: () => {console.log('click !')}}, {label: 'Action 2', icon: 'build', action: () => {console.log('click !')}}],
-        secondary: [{label: 'Action 3', icon: 'print', action: () => {console.log('click !')}}, {label: 'Action 4', icon: 'print', action: () => {console.log('click !')}}, {label: 'Action 5', icon: 'print', action: () => {console.log('click !')}}]
+        primary: [{label: 'Email', icon: 'email', action: () => {console.log('Email us')}}, {label: 'Settings', icon: 'settings', action: () => {console.log('This is the settings button')}}],
+        secondary: [{label: 'Elaborate', icon: 'print', action: () => {console.log('Now you got a plan !')}}, {label: 'Get ready', icon: 'print', action: () => {console.log('You are now ready')}}, {label: 'Get focus', icon: 'print', action: () => {console.log('You are now focused')}}]
     },
     barLeft: {component: BarContentLeft, props: {}},
     barRight: {component: BarContentRight, props: {}}
