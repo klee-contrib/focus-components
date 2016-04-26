@@ -13,50 +13,62 @@ const Summary = React.createClass({
         return (<div>Summary</div>);
     }
 });
+
 const BarContentRight = React.createClass({
     render() {
         return (<div>BAR RIGHT</div>);
     }
 });
+
 const BarContentLeft = React.createClass({
     render() {
-        return (<div>BAR LEFT</div>);
+        return (<div ref='barLeft'>BAR LEFT</div>);
     }
 });
+
 const Test = React.createClass({
     render() {
         return (<div>test</div>);
     }
 });
+
 const Footer = React.createClass({
     render() {
-        return (<div>&copy;KLEEGROUP 2015 - FOCUS Showcase - Layout</div>);
+        return (<div ref='Footer'>&copy;KLEEGROUP 2015 - FOCUS Showcase - Layout</div>);
     }
 });
 
-//Simple function to update components in the bar.
-function updateComponents(cartridgeConf) {
-    const {cartridge: cartridgeComponent, summary: summaryComponent, actions: actions, barLeft: barContentLeftComponent, barRight: barContentRightComponent} = cartridgeConf;
-    dispatcher.handleViewAction({
-        data: {
-            cartridgeComponent,
-            summaryComponent,
-            actions,
-            barContentLeftComponent,
-            barContentRightComponent,
-            canDeploy: true
-        },
-        type: 'update'
+function newButton() {
+    const cartridgeConf = {
+        cartridge: {component: CartridgeContent, props: {}},
+        summary: {component: Summary, props: {}},
+        actions: actions2,
+        barLeft: {component: BarContentLeft, props: {}},
+        barRight: {component: BarContentRight, props: {}}
+    };
+
+    //Add a defer in order to inject the props after the component is mounted
+    _.defer(() => {
+        setHeader(cartridgeConf);
     });
+
 }
+
+const actions1 = {
+    primary: [{label: 'Email', icon: 'email', action: () => {console.log('Hello')}}, {label: 'Settings', icon: 'settings', action: () => {newButton()}}],
+    secondary: [{label: 'elaborate', icon: 'print', action: () => {console.log('Now you got a plan !')}}, {label: 'get ready', icon: 'print', action: () => {console.log('You are now ready')}}, {label: 'get focus', icon: 'print', action: () => {console.log('You are now focused')}}]
+};
+
+const actions2 = {
+    primary: [{label: 'Calendar', icon: 'event', action: () => {console.log('Your calendar is now ready')}}, {label: 'Email', icon: 'email', action: () => {console.log('Email us')}}, {label: 'Settings', icon: 'settings', action: () => {console.log('Settings button')}}],
+    secondary: [{label: 'elaborate', icon: 'print', action: () => {console.log('Now you got a plan !')}}, {label: 'get ready', icon: 'print', action: () => {console.log('You are now ready')}}, {label: 'get focus', icon: 'print', action: () => {console.log('You are now focused')}}]
+};
+
 
 const cartridgeConf = {
     cartridge: {component: CartridgeContent, props: {}},
     summary: {component: Summary, props: {}},
-    actions: {
-        primary: [{label: 'Action 1', icon: 'alarm_on', action: () => {console.log('click !')}}, {label: 'Action 2', icon: 'build', action: () => {console.log('click !')}}],
-        secondary: [{label: 'Action 3', icon: 'print', action: () => {console.log('click !')}}, {label: 'Action 4', icon: 'print', action: () => {console.log('click !')}}, {label: 'Action 5', icon: 'print', action: () => {console.log('click !')}}]
-    },
+    actions: actions1,
     barLeft: {component: BarContentLeft, props: {}},
     barRight: {component: BarContentRight, props: {}}
 };
