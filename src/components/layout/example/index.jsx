@@ -38,37 +38,13 @@ const Footer = React.createClass({
     }
 });
 
-function newButton() {
-    const cartridgeConf = {
-        cartridge: {component: CartridgeContent, props: {}},
-        summary: {component: Summary, props: {}},
-        actions: actions2,
-        barLeft: {component: BarContentLeft, props: {}},
-        barRight: {component: BarContentRight, props: {}}
-    };
-
-    //Add a defer in order to inject the props after the component is mounted
-    _.defer(() => {
-        setHeader(cartridgeConf);
-    });
-
-}
-
-const actions1 = {
-    primary: [{label: 'Email', icon: 'email', action: () => {console.log('Hello')}}, {label: 'Settings', icon: 'settings', action: () => {newButton()}}],
-    secondary: [{label: 'elaborate', icon: 'print', action: () => {console.log('Now you got a plan !')}}, {label: 'get ready', icon: 'print', action: () => {console.log('You are now ready')}}, {label: 'get focus', icon: 'print', action: () => {console.log('You are now focused')}}]
-};
-
-const actions2 = {
-    primary: [{label: 'Calendar', icon: 'event', action: () => {console.log('Your calendar is now ready')}}, {label: 'Email', icon: 'email', action: () => {console.log('Email us')}}, {label: 'Settings', icon: 'settings', action: () => {console.log('Settings button')}}],
-    secondary: [{label: 'elaborate', icon: 'print', action: () => {console.log('Now you got a plan !')}}, {label: 'get ready', icon: 'print', action: () => {console.log('You are now ready')}}, {label: 'get focus', icon: 'print', action: () => {console.log('You are now focused')}}]
-};
-
-
 const cartridgeConf = {
     cartridge: {component: CartridgeContent, props: {}},
     summary: {component: Summary, props: {}},
-    actions: actions1,
+    actions: {
+        primary: [{label: 'Email', icon: 'email', action: () => {console.log('Email us')}}, {label: 'Settings', icon: 'settings', action: () => {console.log('This is the settings button')}}],
+        secondary: [{label: 'Elaborate', icon: 'print', action: () => {console.log('Now you got a plan !')}}, {label: 'Get ready', icon: 'print', action: () => {console.log('You are now ready')}}, {label: 'Get focus', icon: 'print', action: () => {console.log('You are now focused')}}]
+    },
     barLeft: {component: BarContentLeft, props: {}},
     barRight: {component: BarContentRight, props: {}}
 };
