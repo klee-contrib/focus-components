@@ -1,9 +1,6 @@
 const QuickSearch = FocusComponents.page.search.quickSearch.component;
 
 const QuickSearchExample = React.createClass({
-    componentDidMount() {
-        this.refs.QuickSearch.updateScope();
-    },
     render() {
         return(
             <div>
@@ -123,10 +120,6 @@ Focus.definition.entity.container.setEntityConfiguration({
 let crit = null;
 const MyQuickSearch = React.createClass({
     componentDidMount() {
-        this.getSearchService(true);
-        console.log('MyQuickSearch on MOUNT', this);
-    },
-    updateScope() {
         this.refs.QuickSearch.refs.searchBar.setState({scope: 'FAVORITES'});
         const allArray = listUsers.concat(listDevices);
         this.refs.QuickSearch.setState({resultsMap: {'All': allArray}});
