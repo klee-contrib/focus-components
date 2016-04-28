@@ -11,7 +11,7 @@ const resources = {
                     facets: {
                         FCT_PAYS: 'Contries',
                         FCT_STATUS: 'Status',
-                        FCT_REGION: 'Regions'
+                        FCT_REGIONS: 'Regions'
                     }
                 }
             },
@@ -22,6 +22,12 @@ const resources = {
                         none: 'NONE'
                     }
                 }
+            },
+            search: {
+                empty: 'Aucun résultat trouvé'
+            },
+            result: {
+                for: 'résultats'
             }
         }
     }
@@ -29,26 +35,18 @@ const resources = {
 
 i18nInitializer({resStore: resources});
 
-const facets = {
-    FCT_PAYS:
-    {
-        France: 10,
-        Germany: 7
+const _facets = {
+    Contries: {
+        FCT_PAYS: {
+            FRA: {'France': 10},
+            GER: {'Germany': 7}
+        }
     },
-    FCT_REGION:
-    {
-        'IDF': 7,
-        'Gironde': 3
-    },
-    FCT_STATUS:
-    {
-        Open: 7,
-        Closed: 2,
-        'Status 1': 2,
-        'Status 2': 2,
-        'Status 3': 2,
-        'Status 4': 2,
-        'Status 5': 2
+    Regions: {
+        FCT_REGIONS: {
+            IDF: {'Ile de France': 7},
+            GRD: {'Gironde': 3}
+        }
     }
 };
 
@@ -60,28 +58,16 @@ const AdvancedSearchExample = React.createClass({
                 <center>
                     <h3>Advanced Search</h3>
                 </center>
-                <MyAdvancedSearch />
+                <MyAdvancedSearch ref='SearchExample'/>
             </div>
         );
     }
 });
 
 const scopes = [
-    {
-        icon: 'face',
-        code: 'USERS',
-        label: 'Users'
-    },
-    {
-        icon: 'extension',
-        code: 'EXTENSIONS',
-        label: 'Extensions'
-    },
-    {
-        icon: 'contact_phone',
-        code: 'CONTACTS',
-        label: 'Contacts'
-    }
+    {icon: 'face',code: 'USERS',label: 'Users'},
+    {icon: 'extension',code: 'EXTENSIONS',label: 'Extensions'},
+    {icon: 'contact_phone',code: 'CONTACTS',label: 'Contacts'}
 ];
 
 Focus.reference.config.set({
@@ -130,7 +116,6 @@ const groups = {
 const getSearchService = (scoped) => {
     return (criteria) => {
         crit = criteria;
-        console.log(crit);
         return new Promise(success => {
             setTimeout(() => {
                 let list = [];
@@ -142,40 +127,56 @@ const getSearchService = (scoped) => {
                 list.push(groups.Germany[i]);
 
                 let name = '';
-                const showGroup = crit.data.facets.length > 0 ? true : false;
+                let facets = crit.data.facets;
+                let facetArray = [];
+                var count = 0;
+                for (let facet in facets) {
+                    if (facets.hasOwnProperty(facet)) {
+                        ++count;
+                        facetArray.push(facets[facet]);
+                    }
+                }
+                let showGroup = count > 0 ? true : false;
+
                 let group = [];
 
-                let facetsCount = crit.data.facets.length;
+                let facetsCount = facetArray.length;
+
                 if(showGroup) {
-                    if(facetsCount > 1) {
-                        name = crit.data.facets[0].value;
-                        let tempID = facetsCount-1
-                        let secondName = crit.data.facets[tempID].value;
-                        if(name == 'Germany') {
+
+                    if(facetsCount < 2) {
+                        name = facetArray[0];
+                        if(name === 'Ile de France') {
+                            name = 'IDF';
+                            for(let j = 0; j < groups[name].length; j++) {
+                                group.push(groups[name][j]);
+                            }
+                        }
+                        else {
                             for(let i =0; i < facetsCount; i ++) {
-                                name = crit.data.facets[i].value;
+                                name = facetArray[i];
                                 for(let j = 0; j < groups[name].length; j++) {
                                     group.push(groups[name][j]);
                                 }
                             }
                         }
-                        else
-                            group = groups[secondName];
                     }
-                    else {
-                        for(let i =0; i < facetsCount; i ++) {
-                            name = crit.data.facets[i].value;
+                    else if (facetsCount > 1) {
+                        console.log('MORE THAN ONE', facetsCount);
+                        for(let i = 0; i < facetsCount; i++) {
+                            name = facetArray[i];
                             for(let j = 0; j < groups[name].length; j++) {
                                 group.push(groups[name][j]);
                             }
                         }
                     }
                 }
-                else
-                group = list;
+                else {
+                    group = list;
+                }
 
                 const data = {
-                    facets: facets,
+                    facets: _facets,
                     'list': group,
                     totalCount: group.length
                 };
@@ -249,9 +250,8 @@ const MyAdvancedSearch = React.createClass({
             service,
             groupComponent: Group
         };
-
         return(
-            <AdvancedSearch {...advancedSearchProps}/>
+            <AdvancedSearch {...advancedSearchProps} ref='AdvSearch'/>
         );
     }
 });
