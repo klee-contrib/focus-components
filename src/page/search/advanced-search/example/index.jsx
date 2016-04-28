@@ -113,6 +113,7 @@ const groups = {
     ['Bordeaux', 'Mérignac', 'Pessac'].map(indexPopulate('GIR'))
 }
 
+// We mock the service
 const getSearchService = (scoped) => {
     return (criteria) => {
         crit = criteria;
@@ -120,15 +121,18 @@ const getSearchService = (scoped) => {
             setTimeout(() => {
                 let list = [];
 
-                for(let i = 0; i< groups.France.length; i++)
-                list.push(groups.France[i]);
+                for(let i = 0; i< groups.France.length; i++) {
+                    list.push(groups.France[i]);
+                }
 
-                for(let i = 0; i< groups.Germany.length; i++)
-                list.push(groups.Germany[i]);
+                for(let i = 0; i< groups.Germany.length; i++) {
+                    list.push(groups.Germany[i]);
+                }
 
                 let name = '';
                 let facets = crit.data.facets;
                 let facetArray = [];
+
                 var count = 0;
                 for (let facet in facets) {
                     if (facets.hasOwnProperty(facet)) {
@@ -136,10 +140,9 @@ const getSearchService = (scoped) => {
                         facetArray.push(facets[facet]);
                     }
                 }
+
                 let showGroup = count > 0 ? true : false;
-
                 let group = [];
-
                 let facetsCount = facetArray.length;
 
                 if(showGroup) {
@@ -163,11 +166,12 @@ const getSearchService = (scoped) => {
                     }
                     else if (facetsCount > 1) {
                         console.log('MORE THAN ONE', facetsCount);
-                        for(let i = 0; i < facetsCount; i++) {
-                            name = facetArray[i];
-                            for(let j = 0; j < groups[name].length; j++) {
-                                group.push(groups[name][j]);
-                            }
+                        name = facetArray[1];
+                        if(name === 'Ile de France') {
+                            name = 'IDF';
+                        }
+                        for(let j = 0; j < groups[name].length; j++) {
+                            group.push(groups[name][j]);
                         }
                     }
                 }
