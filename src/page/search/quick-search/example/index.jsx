@@ -7,13 +7,18 @@ const QuickSearchExample = React.createClass({
                 <center>
                     <h3>Quicksearch</h3>
                 </center>
-                <MyQuickSearch />
+                <MyQuickSearch ref='QuickSearch'/>
             </div>
         );
     }
 });
 
 const scopes = [
+    {
+        icon: 'favorite',
+        code: 'FAVORITES',
+        label: 'Favorites'
+    },
     {
         icon: 'face',
         code: 'USERS',
@@ -23,11 +28,63 @@ const scopes = [
         icon: 'devices other',
         code: 'DEVICES',
         label: 'Devices'
+    }
+];
+
+let countId = 0;
+const listUsers = [
+    {
+        id: countId++,
+        firstName: 'Ali',
+        lastName: 'Gator'
     },
     {
-        icon: 'contact_phone',
-        code: 'CONTACTS',
-        label: 'Contacts'
+        id: countId++,
+        firstName: 'Farah',
+        lastName: 'Paupière'
+    },
+    {
+        id: countId++,
+        firstName: 'Perry',
+        lastName: 'Scope'
+    },
+    {
+        id: countId++,
+        firstName: 'Jean',
+        lastName: 'Bonneau'
+    },
+    {
+        id: countId++,
+        firstName: 'Cho',
+        lastName: 'Kaze'
+    },
+    {
+        id: countId++,
+        firstName: 'Guénolé',
+        lastName: 'Kikabou'
+    },
+];
+
+const listDevices = [
+    {
+        id: countId++,
+        firstName: 'Nexus 5X',
+        lastName: ''
+    },
+    {
+        id: countId++,
+        firstName: 'Nexus 6P',
+        lastName: ''
+    },
+    {
+        id: countId++,
+        firstName: 'iPhone 6S',
+        lastName: ''
+    },
+    {
+        id: countId++,
+        firstName: 'iPhone 6S Plus',
+        lastName: ''
     }
 ];
 
@@ -62,92 +119,46 @@ Focus.definition.entity.container.setEntityConfiguration({
 
 let crit = null;
 const MyQuickSearch = React.createClass({
+    componentDidMount() {
+        this.refs.QuickSearch.refs.searchBar.setState({scope: 'FAVORITES'});
+        const allArray = listUsers.concat(listDevices);
+        this.refs.QuickSearch.setState({resultsMap: {'All': allArray}});
+    },
+    getSearchService(scoped) {
+        return (criteria) => {
+            console.log(this);
+            crit = criteria;
+            return new Promise(success => {
+                setTimeout(() => {
+                    let chosenScope = '';
+                    let payload;
+                    if(criteria.data.criteria.scope === 'FAVORITES') {
+                        payload = listUsers.concat(listDevices);
+                    }
+                    else if (criteria.data.criteria.scope == 'DEVICES') {
+                        payload = listDevices;
+                    }
+                    else if(criteria.data.criteria.scope == 'USERS') {
+                        payload = listUsers;
+                    }
+                    else {
+                        console.warn('ERROR IN THE SCOPE SECTION');
+                    }
+
+                    const data = {
+                        facets: {},
+                        'list': payload,
+                        totalCount: payload.length
+                    };
+                    success(data);
+                }, 70);
+            });
+        }
+    },
     render() {
-        let countId = 0;
-
-        const getSearchService = (scoped) => {
-            return (criteria) => {
-                console.log(criteria);
-                crit = criteria;
-                return new Promise(success => {
-                    setTimeout(() => {
-                        const listUsers = [
-                            {
-                                id: countId++,
-                                firstName: 'Ali',
-                                lastName: 'Gator'
-                            },
-                            {
-                                id: countId++,
-                                firstName: 'Farah',
-                                lastName: 'Paupière'
-                            },
-                            {
-                                id: countId++,
-                                firstName: 'Perry',
-                                lastName: 'Scope'
-                            },
-                            {
-                                id: countId++,
-                                firstName: 'Jean',
-                                lastName: 'Bonneau'
-                            },
-                            {
-                                id: countId++,
-                                firstName: 'Cho',
-                                lastName: 'Kaze'
-                            },
-                            {
-                                id: countId++,
-                                firstName: 'Guénolé',
-                                lastName: 'Kikabou'
-                            },
-                        ];
-
-                        const listDevices = [
-                            {
-                                id: countId++,
-                                firstName: 'Nexus 5X',
-                                lastName: ''
-                            },
-                            {
-                                id: countId++,
-                                firstName: 'Nexus 6P',
-                                lastName: ''
-                            },
-                            {
-                                id: countId++,
-                                firstName: 'iPhone 6S',
-                                lastName: ''
-                            },
-                            {
-                                id: countId++,
-                                firstName: 'iPhone 6S Plus',
-                                lastName: ''
-                            }
-                        ];
-
-
-                        let chosenScope = '';
-                        let payload = criteria.data.criteria.scope == 'DEVICES' ? payload = listDevices : payload = listUsers;
-
-                        const data = {
-                            facets: {},
-                            'list': payload,
-                            totalCount: payload.length
-                        };
-                        success(data);
-                        // Focus.dispatcher.handleServerAction({
-                        //     data: data, type: 'update'
-                        // });
-                    }, 70);
-                });
-            }
-        };
-
         const service = {
-            unscoped: getSearchService(false),
-            scoped: getSearchService(true)
+            unscoped: this.getSearchService(false),
+            scoped: this.getSearchService(true)
         };
 
         const Line = React.createClass({
@@ -207,7 +218,7 @@ const MyQuickSearch = React.createClass({
         };
 
         return(
-            <QuickSearch {...quickSearchProps}/>
+            <QuickSearch {...quickSearchProps} ref='QuickSearch'/>
         );
     }
 });

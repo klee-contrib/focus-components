@@ -7,7 +7,7 @@ class AutocompleteTextField extends Component {
 
     static propTypes = {
         isEdit: PropTypes.bool.isRequired,
-        onChange: PropTypes.func.isRequired,
+        onChange: PropTypes.func,
         querySearcher: PropTypes.func.isRequired
     };
 

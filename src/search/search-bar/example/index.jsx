@@ -19,7 +19,7 @@ const SearchBarExample = React.createClass({
                     <h3>Example of a search with scopes</h3>
                     <h6>The prop <b>hasScopes</b> is, by default, set to true so don't forget to define your different scopes.</h6>
                 </center>
-                <MySearchBarWithScopes />
+                <MySearchBarWithScopes ref='searchWithScope'/>
             </div>
         );
     }
@@ -45,7 +45,6 @@ const MySearchBarWithoutScopes = React.createClass({
         this.MyFunction();
     },
     render() {
-    console.log(this);
         return(
             <div>
                 <SearchBar
@@ -73,6 +72,9 @@ const MySearchBarWithScopes = React.createClass({
             getSearchOptions: () => {return searchBarWithScopesStore.getValue.call(searchBarWithScopesStore); } // Binding the store in the function call
         });
         searchBarWithScopesStore.addQueryChangeListener(this._onQueryChangeFromStore);
+    },
+    componentDidMount() {
+        this.refs.searchBarScopes.setState({scope: 'movie'});
     },
     _onQueryChangeFromStore() {
         this.setState({

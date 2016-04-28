@@ -30,7 +30,7 @@ class AutocompleteTextEdit extends Component {
         * Launches the querySearcher.
         * @type {Function}
         */
-        onChange: PropTypes.func.isRequired,
+        onChange: PropTypes.func,
 
         /**
         * Error showed message.
@@ -48,13 +48,13 @@ class AutocompleteTextEdit extends Component {
         * Defines it shows suggestions on focus.
         * @type {Boolean}
         */
-        showAtFocus: PropTypes.boolean,
+        showAtFocus: PropTypes.bool,
 
         /**
         * Defines if it shows suggestions on focus when the input is empty.
         * @type {Boolean}
         */
-        emptyShowAll: PropTypes.boolean
+        emptyShowAll: PropTypes.bool
     };
 
     state = {
