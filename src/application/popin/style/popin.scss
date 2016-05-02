@@ -12,7 +12,7 @@ $fill-height-popin-margin: 200px;
 
 // Mixins
 
-@define-mixin set-popin-window-size($width, $type, $level) {
+@mixin set-popin-window-size($width, $type, $level) {
   &>div>[data-focus='popin-window'] {
 
     // Full popin type
@@ -49,7 +49,7 @@ $fill-height-popin-margin: 200px;
   }
 }
 
-@define-mixin all-popin-sizes ($type:'full', $level:'0') {
+@mixin all-popin-sizes($type:'full', $level:'0') {
   &[data-size='small'] {
     @include set-popin-window-size($small-size, ($type),  ($level));
   }
@@ -63,7 +63,7 @@ $fill-height-popin-margin: 200px;
   }
 }
 
-@define-mixin animation-duration($duration) {
+@mixin animation-duration($duration) {
   -webkit-animation-duration: $duration;
   animation-duration: $duration;
 }

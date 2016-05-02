@@ -10,7 +10,7 @@ $header-scrolling-shadow-color: rgba(0,0,0,0.2);
 $header-actions-height: 56px;
 $header-top-row-height: 60px;
 $header-top-row-zindex: 1001;
-@define-mixin shadow() {
+@mixin shadow() {
     -moz-box-shadow: 0px 1px 10px 2px $header-scrolling-shadow-color;
     -webkit-box-shadow: 0px 1px 10px 2px $header-scrolling-shadow-color;
     -o-box-shadow: 0px 1px 10px 2px $header-scrolling-shadow-color;

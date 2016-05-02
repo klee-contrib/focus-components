@@ -6,7 +6,7 @@ $media-desktop-breakpoint: 840px !default;
 
 //TODO: put this in a global css attribute.
 //possible offset
-@define-mixin position-offset-top($position-offset-top-max) {
+@mixin position-offset-top($position-offset-top-max) {
     @while $position-offset-top-max > 0 {
         &[data-offset="#{$position-offset-top-max}"] {top: ($position-offset-top-max)px; }
         $position-offset-top-max: $position-offset-top-max - 1;

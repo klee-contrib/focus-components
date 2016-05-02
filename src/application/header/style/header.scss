@@ -7,7 +7,7 @@
   transition: $transition-property $transition-time;
 }*/
 $header-shadow-color: #EAEAEA;
-@define-mixin shadow() {
+@mixin shadow() {
   -moz-box-shadow: 0px 1px 10px 2px $header-shadow-color;
   -webkit-box-shadow: 0px 1px 10px 2px $header-shadow-color;
   -o-box-shadow: 0px 1px 10px 2px $header-shadow-color;
