@@ -1,9 +1,9 @@
-$bar-menu-size:60px;
-$bar-padding:10px;
+/*$bar-menu-size:60px;
+$bar-padding:10px;*/
 $bar-element-height: calc($bar-menu-size - $bar-padding * 2);
 
-$bar-summary-left:200px;
-$bar-summary-right:200px;
+/*$bar-summary-left:200px;
+$bar-summary-right:200px;*/
 
 [data-focus='bar'] {
   height:$bar-menu-size;

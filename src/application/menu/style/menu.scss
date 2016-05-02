@@ -1,5 +1,6 @@
-$menu-size: 60px;
+/*$menu-size: 60px;
 $menu-brand-background-color: #424950;
+$menu-background-color: #36b7b9;*/
 
 /* Transitions */
 @mixin transition() {
@@ -10,7 +11,7 @@ $menu-brand-background-color: #424950;
 
 /* General styles for all menus */
 [data-focus="menu"] {
-    background: #36b7b9;
+    background: $menu-background-color;
     position: fixed;
     z-index: 2000;
 

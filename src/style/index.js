@@ -1,5 +1,6 @@
-import 'react-date-picker/index.css';
-import 'material-design-lite/src/material-design-lite.scss';
+import '../application/popin/style/popin.scss';
+/*import 'react-date-picker/index.css';
+//import 'material-design-lite/src/material-design-lite.scss';
 //import '../style/_mdl_variables.scss';
 //---------------------------------------------------------------------------------------
 
@@ -81,4 +82,4 @@ import '../search/search-bar/style/search-bar.scss';
 
 //STYLE FOLDER
 import '../style/animation.scss';
-import '../style/spinner.scss';
+import '../style/spinner.scss';*/
