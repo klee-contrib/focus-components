@@ -32,7 +32,8 @@
         "LIBRARY_NAME": "FocusComponents",
         "MINIMIFY": false,
         "PACKAGE_JSON_PATH": "../",
-        "BABEL_ENV": "production"
+        "BABEL_ENV": "production",
+        "EXTERNAL_VARIABLE": "./src/style/external_variables.js"
       }
     },
     "profile": {
