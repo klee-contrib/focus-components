@@ -1,6 +1,6 @@
 // Parameters
 
-$small-size: 100/3;
+/*$small-size: 100/3;
 $medium-size: 100/2;
 $large-size: 200/3;
 
@@ -8,10 +8,9 @@ $overlay-background-color: rgba(0,0,0, 0.70);
 $full-margin-top: 80px;
 
 $menu-width: 60px;
-$fill-height-popin-margin: 200px;
+$fill-height-popin-margin: 200px;*/
 
 // Mixins
-
 @mixin set-popin-window-size($width, $type, $level) {
   &>div>[data-focus='popin-window'] {
 
