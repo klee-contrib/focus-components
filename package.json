@@ -117,6 +117,7 @@
     "moment": "^2.10.6",
     "node-sass": "^3.3.3",
     "numeral": "^1.5.3",
+    "postcss-conditionals": "^2.0.2",
     "postcss-import": "^8.1.0",
     "postcss-loader": "^0.8.2",
     "postcss-sassy-mixins": "^2.0.0",
