@@ -184,8 +184,12 @@ const SearchBar = {
     * @return {HTML} - The rendered component
     */
     render() {
-        const {hasScopes, placeholder, scopes} = this.props;
+        const {hasScopes, scopes} = this.props;
         const {loading, query, scope} = this.state;
+        let placeholder = this.props.placeholder;
+        if(query && 0 < query.length) {
+            placeholder = '';
+        }
         return (
             <div data-focus='search-bar'>
             {hasScopes &&
