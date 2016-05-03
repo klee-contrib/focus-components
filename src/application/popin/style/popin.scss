@@ -11,13 +11,13 @@ $menu-width: 60px;
 $fill-height-popin-margin: 200px;*/
 
 // Mixins
-@mixin set-popin-window-size($width, $type, $level) {
+@mixin set-popin-window-size($width, $type, $level){
   &>div>[data-focus='popin-window'] {
 
     // Full popin type
     @if $type == 'full' {
-      min-width: ($width)vw;
-      min-height: ($width)vh;
+      min-width: calc($width)vw;
+      min-height: calc($width)vh;
     }
 
     // From menu popin type
@@ -26,21 +26,21 @@ $fill-height-popin-margin: 200px;*/
         width: calc(($width)vw - ($menu-width));
         left: calc(($menu-width) + ($level) * ($width)vw);
       } @else {
-        min-width: ($width)vw;
+        min-width: calc($width)vw;
         left: calc(($level) * ($width)vw);
       }
       height: 100vh;
       overflow-y: auto;
 
       [data-focus='popin-window'] {
-        right: -($width)vw;
+        right: -calc($width)vw;
       }
     }
 
     // From right popin type
     @if $type == 'from-right' {
       position: fixed;
-      min-width: ($width)vw;
+      min-width: calc($width)vw;
       height: 100vh;
       overflow-y: auto;
       right: 0;
@@ -50,15 +50,15 @@ $fill-height-popin-margin: 200px;*/
 
 @mixin all-popin-sizes($type:'full', $level:'0') {
   &[data-size='small'] {
-    @include set-popin-window-size($small-size, ($type),  ($level));
+    @include set-popin-window-size($small-size, $type,  $level);
   }
 
   &[data-size='medium'] {
-    @include set-popin-window-size($medium-size, ($type),  ($level));
+    @include set-popin-window-size($medium-size, $type,  $level);
   }
 
   &[data-size='large'] {
-    @include set-popin-window-size($large-size, ($type),  ($level));
+    @include set-popin-window-size($large-size, $type,  $level);
   }
 }
 
