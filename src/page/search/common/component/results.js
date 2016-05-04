@@ -273,6 +273,9 @@ const Results = {
         resultsMap = resultsMap ? resultsMap : this.props.resultsMap;
         // resultMap can be either an Array or an Object depending of the search being grouped or not.
         if (resultsMap && isArray(resultsMap) && 1 === resultsMap.length) {
+            //Check if the resultMap contains an entry which is an array.
+            const isResultMapEntryAnArray = isArray(resultsMap[0]);
+            if(isResultMapEntryAnArray) {
               return {
                   [resultsMap[0][0]]: {
                       count: this.props.totalCount
