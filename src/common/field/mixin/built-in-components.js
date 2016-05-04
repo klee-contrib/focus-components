@@ -140,7 +140,7 @@ const fieldBuiltInComponentsMixin = {
             error,
             placeholder
         };
-        const finalInputProps = addRefToPropsIfNotPure(this.props.AutocompleteComponent, inputBuildedProps, INPUT);
+        const finalInputProps = addRefToPropsIfNotPure(this.props.AutocompleteComponent.component, inputBuildedProps, INPUT);
         return <this.props.AutocompleteComponent {...finalInputProps}/>;
     },
     autocompleteSelect() {
