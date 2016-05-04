@@ -42,6 +42,7 @@ const Results = {
             lineComponentMapper: undefined,
             lineOperationList: undefined,
             lineSelectionHandler: undefined,
+            scopesConfig: undefined,
             scopeFacetKey: 'FCT_SCOPE',
             scrollParentSelector: undefined,
             selectionStatus: undefined,
@@ -189,12 +190,16 @@ const Results = {
     */
     _showAllHandler(key) {
 
-        const {showAllHandler, resultsFacets, scopeFacetKey, groupingKey} = this.props;
+        const {showAllHandler, resultsFacets, scopeFacetKey, groupingKey, scopesConfig} = this.props;
+        let selectedScope = key;
+        if (scopesConfig && key && scopesConfig[key]) {
+            selectedScope = scopesConfig[key];
+        }
         if (resultsFacets[scopeFacetKey]) {
-            this._scopeSelectionHandler(key);
+            this._scopeSelectionHandler(selectedScope);
         } else {
             let facetKey = groupingKey;
-            let facetValue = key;
+            let facetValue = selectedScope;
             this._facetSelectionHandler(facetKey, facetValue);
         }
         // Called if defined (may be used in the quick search to close the popin.)

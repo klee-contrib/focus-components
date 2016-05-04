@@ -271,7 +271,7 @@ const AdvancedSearch = {
     * @return {HTML} the rendered component
     */
     _renderResults() {
-        const {groupComponent, isSelection, lineComponentMapper, lineOperationList, scrollParentSelector, store} = this.props;
+        const {groupComponent, isSelection, lineComponentMapper, lineOperationList, scrollParentSelector, store, scopesConfig} = this.props;
         const {groupingKey, facets, results, selectionStatus, totalCount} = this.state;
         return (
             <Results
@@ -287,6 +287,7 @@ const AdvancedSearch = {
                 renderSingleGroupDecoration={false}
                 resultsFacets={facets}
                 resultsMap={results}
+                scopesConfig={scopesConfig}
                 scrollParentSelector={scrollParentSelector}
                 selectionStatus={selectionStatus}
                 store={store}
