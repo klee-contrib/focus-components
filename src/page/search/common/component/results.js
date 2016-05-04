@@ -269,13 +269,19 @@ const Results = {
     * @param  {object} resultsMap the results map
     * @return {object}           the counts map
     */
-    _getGroupCounts() {
-        const {resultsMap} = this.props;
-
+    _getGroupCounts(resultsMap) {
+        resultsMap = resultsMap ? resultsMap : this.props.resultsMap;
         // resultMap can be either an Array or an Object depending of the search being grouped or not.
         if (resultsMap && isArray(resultsMap) && 1 === resultsMap.length) {
+              return {
+                  [resultsMap[0][0]]: {
+                      count: this.props.totalCount
+                  }
+              };
+            }
+            //this case occurs when the server response contains only one group with results.
             return {
-                [resultsMap[0][0]]: {
+                [keys(resultsMap[0])]: {
                     count: this.props.totalCount
                 }
             };
@@ -329,7 +335,7 @@ const Results = {
         }
 
         // Get the count for each group
-        const groupCounts = this._getGroupCounts();
+        const groupCounts = this._getGroupCounts(resultsMap);
         // Check if there is only one group left
 
         if (isArray(resultsMap) && 1 === resultsMap.length) {
