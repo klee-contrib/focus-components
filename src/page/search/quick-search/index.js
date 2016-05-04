@@ -49,6 +49,7 @@ const QuickSearchComponent = {
             lineComponentMapper: undefined,
             lineOperationList: undefined,
             onLineClick: undefined,
+            scopesConfig: {},
             scopeFacetKey: 'FCT_SCOPE',
             scopeSelectionHandler: this._scopeSelectionHandler,
             scrollParentSelector: undefined,
@@ -67,6 +68,7 @@ const QuickSearchComponent = {
         groupMaxRows: PropTypes.number,
         lineComponentMapper: PropTypes.func,
         onLineClick: PropTypes.func,
+        scopesConfig: PropTypes.object,
         scopeFacetKey: PropTypes.string,
         scopeSelectionHandler: PropTypes.func,
         service: PropTypes.object,
@@ -151,7 +153,7 @@ const QuickSearchComponent = {
     _renderResults() {
         // Adding 'action' in this.props destructuring here prevent the fact that '...otherProps' consider the props 'action' in otherProps.
         // It didn't give 'this._action' to the 'action' props without doing it
-        const {action, groupComponent, groupMaxRows, lineComponentMapper, lineOperationList, scrollParentSelector, scopeFacetKey, store, ...otherProps} = this.props;
+        const {action, groupComponent, groupMaxRows, lineComponentMapper, lineOperationList, scrollParentSelector, scopeFacetKey, store, scopesConfig, ...otherProps} = this.props;
         const {facets, resultsMap, totalCount} = this.state;
         return (
             <Results
@@ -165,6 +167,7 @@ const QuickSearchComponent = {
                 lineOperationList={lineOperationList}
                 resultsFacets={facets}
                 resultsMap={resultsMap}
+                scopesConfig={scopesConfig}
                 scrollParentSelector={scrollParentSelector}
                 store={store}
                 totalCount={totalCount}
