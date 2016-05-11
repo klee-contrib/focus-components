@@ -45,6 +45,11 @@ class InputText extends Component {
         const domEl = ReactDOM.findDOMNode(this.refs.htmlInput);
         return unformatter(domEl.value, MODE);
     };
+
+    componentDidUpdate() {
+        this.refs.inputText.MaterialTextfield.change(this.props.value);
+    }
+
     componentDidUpdate() {
         const {error} = this.props;
         if (!error) {
