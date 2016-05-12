@@ -34,7 +34,7 @@ const Material = (ref, jsClass, watchedProp) => Component => class MaterialCompo
         }
     }
 
-    componentWillUpdate() {
+    componentDidUpdate() {
         if(jsClass === 'MaterialTextfield') {
             this.refs.inputText.MaterialTextfield.change(this.props.value);
         }
