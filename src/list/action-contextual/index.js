@@ -72,7 +72,7 @@ const actionContextualMixin = {
                         iconLibrary={operation.iconLibrary}
                         key={key}
                         label={operation.label}
-                        shape={operation.style.shape || 'icon'}
+                        shape={operation.style && operation.style.shape || 'icon'}
                         style={operation.style || {}}
                         type='button'
                         {...this.props}
