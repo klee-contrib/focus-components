@@ -37,7 +37,8 @@ const Material = (ref, jsClass, watchedProp) => Component => class MaterialCompo
     componentWillUpdate() {
         if(jsClass === 'MaterialTextfield') {
             const refNode = ReactDOM.findDOMNode(this.refs[ref]);
-            refNode.MaterialTextfield.change(this.props.value)
+            refNode.MaterialTextfield.change(this.props.value);
+            console.log(refNode);
         }
     }
 };
