@@ -214,7 +214,6 @@ class AdvancedSearchView extends Component {
     }
 }
 
-//ES6 syntax to connect a componnent to a store, replace "@connect([{store: profilStore, properties: ['profils']}], state => profilStore.getValue())"
 const connector = connect(
     [{store: advancedSearchStore, properties: ['scope']}],
     (props) => {return advancedSearchStore.getValue()}
