@@ -87,10 +87,11 @@ const AutocompleteFor = {
      * @return {HTML} rendered element
      */
     _renderEdit() {
-        let {AutocompleteComp, allowUnmatchedValue, codeResolver, onInputBlur, selectionHandler, value: code} = this.props;
-        let {pickList} = this.state;
+        const {AutocompleteComp, allowUnmatchedValue, codeResolver, onInputBlur, selectionHandler, value: code, InputAutoComplete, ...otherProps} = this.props;
+        const {pickList} = this.state;
         return (
             <AutocompleteComp
+                InputAutoComplete={InputAutoComplete}
                 allowUnmatchedValue={allowUnmatchedValue}
                 code={code}
                 codeResolver={codeResolver}
@@ -99,6 +100,7 @@ const AutocompleteFor = {
                 pickList={pickList}
                 ref='autocomplete'
                 selectionHandler={selectionHandler}
+                {...otherProps}
             />
         );
     },

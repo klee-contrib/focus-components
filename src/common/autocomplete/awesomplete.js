@@ -52,6 +52,7 @@ let Autocomplete = {
         return {
             code: '',
             pickList: [],
+            InputAutoComplete: InputText,
             timeoutDuration: 200,
             allowUnmatchedValue: true
         };
@@ -197,11 +198,11 @@ let Autocomplete = {
     */
     render() {
         const {value} = this.state;
-        const {timeoutDuration} = this.props;
+        const {timeoutDuration, InputAutoComplete} = this.props;
         const {_onInputBlur, _onInputChange} = this;
         return (
             <div data-focus='autocomplete'>
-                <InputText onBlur={_onInputBlur} onChange={_onInputChange} ref='input' value={value}/>
+                <InputAutoComplete onBlur={_onInputBlur} onChange={_onInputChange} ref='input' value={value}/> : <InputText onBlur={_onInputBlur} onChange={_onInputChange} ref='input' value={value}/>
             </div>
         );
     }
