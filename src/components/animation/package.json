@@ -1,0 +1,17 @@
+{
+  "name": "animation",
+  "version": "1.0.0",
+  "description": "Composant pour faire des animations ",
+  "main": "index.js",
+  "directories": {
+    "example": "example"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "animation"
+  ],
+  "author": "focus@kleegroup.com",
+  "license": "MIT"
+}
