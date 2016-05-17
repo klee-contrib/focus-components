@@ -2,5 +2,9 @@
     "extends": "focus",
     "globals": {
         "componentHandler": true
+    },
+    "rules": {
+        "require-jsdoc/require-jsdoc": 0,
+        "react/jsx-quotes": 0
     }
 }
