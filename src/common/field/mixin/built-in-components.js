@@ -13,7 +13,7 @@ import InputText from '../../../components/input/text';
 import {component as DisplayText} from '../../display/text';
 import SelectClassic from '../../../components/input/select';
 import {component as Label} from '../../label';
-import Autocomplete from '../../autocomplete/field';
+import {component as Autocomplete} from '../../autocomplete/field';
 
 
 // Mixins
