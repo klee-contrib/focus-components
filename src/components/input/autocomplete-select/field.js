@@ -1,6 +1,7 @@
 import React, {Component, PropTypes} from 'react';
 import AutocompleteSelectEdit from './edit';
 import AutocompleteSelectConsult from './consult';
+import translation from 'focus-core/translation';
 
 class AutocompleteSelectField extends Component {
     state = {};
@@ -26,7 +27,7 @@ class AutocompleteSelectField extends Component {
     };
 
     _handleAutocompleteBadInput = value => {
-        this.setState({customError: `${value} is not a valid entry.`});
+        this.setState({customError: translation.translate('autocomplete.error.badInput', {value})})
     };
 
     _handleAutocompleteChange = value => {
