@@ -164,7 +164,7 @@ const ActionBar = {
         return (
             <div className='mdl-grid' data-focus='list-action-bar'>
                 <div className='mdl-cell' data-focus='global-list-content'>
-                    {this._getSelectionObject()}
+                    {this.props.isSelection && this._getSelectionObject()}
                     {this._getOrderObject()}
                     {this._getGroupObject()}
                 </div>
