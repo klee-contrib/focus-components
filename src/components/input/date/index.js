@@ -129,11 +129,10 @@ class InputDate extends Component {
     };
 
     _onDocumentClick = ({target}) => {
-        const dataset = target ? target.dataset: null;
-        const reactid = dataset ? dataset.reactid : null;
+        const reactid = target ? (target.dataset ? target.dataset.reactid : target.getAttribute('data-reactid')) : null;
         const [picker, input] = ['picker', 'input'].map(ref => ReactDOM.findDOMNode(this.refs[ref]));
-        const pickerId = picker ? picker.dataset.reactid : null;
-        const inputId = input ? input.dataset.reactid : null;
+        const pickerId = picker ? (picker.dataset ? picker.dataset.reactid : picker.getAttribute('data-reactid')) : null;
+        const inputId = input ? (input.dataset ? input.dataset.reactid : picker.getAttribute('data-reactid')) : null;
         if (reactid && pickerId && inputId && reactid.indexOf(pickerId) === -1 && reactid.indexOf(inputId) === -1) {
             this.setState({displayPicker: false});
             this._onInputBlur();
