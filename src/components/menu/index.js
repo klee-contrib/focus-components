@@ -1,5 +1,5 @@
 import React, {Component, PropTypes} from 'react';
-import historic from 'focus-core/history';
+import {navigate, Link} from 'focus-core/history';
 import Button from '../../components/button';
 
 // default props
@@ -18,6 +18,23 @@ const propTypes = {
 */
 class MenuLeft extends Component {
 
+    _renderButton(menuButton) {
+        const buttonProps = {
+            option: 'link',
+            shape: 'icon',
+            type: 'button',
+            ...menuButton,
+            onClick: null
+        };
+        if(menuButton.route !== undefined) {
+            console.log('YES', menuButton);
+            return <Link to={menuButton.route}><Button {...buttonProps} /></Link>
+        }
+        else {
+            return <Button {...buttonProps} />
+        }
+    }
+
     /**
     * Render the links of the menu
     */
@@ -27,21 +44,15 @@ class MenuLeft extends Component {
             if (link.route !== undefined) {
                 clickHandler = () => {
                     if (link.onClick) link.onClick.call(this, arguments);
-                    historic.navigate(link.route, true);
+                    //navigate(link.route);
                 };
             } else {
                 clickHandler = link.onClick;
             }
-            const buttonProps = {
-                option: 'link',
-                shape: 'icon',
-                type: 'button',
-                ...link,
-                onClick: null
-            };
+
             return (
                 <li key={idx} onClick={clickHandler}>
-                    <Button {...buttonProps} />
+                    {this._renderButton(link)}
                     <span>{link.name}</span>
                 </li>
             );
