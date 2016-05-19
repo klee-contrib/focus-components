@@ -27,8 +27,7 @@ class MenuLeft extends Component {
             onClick: null
         };
         if(menuButton.route !== undefined) {
-            console.log('YES', menuButton);
-            return <Link to={menuButton.route}><Button {...buttonProps} /></Link>
+            return <Link to={menuButton.route} activeStyle={{color: 'white'}}><Button {...buttonProps} /></Link>
         }
         else {
             return <Button {...buttonProps} />
