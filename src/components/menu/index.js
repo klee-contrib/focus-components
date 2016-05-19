@@ -39,16 +39,7 @@ class MenuLeft extends Component {
     */
     _renderMenuItems = () => {
         return this.props.items.map((link, idx) => {
-            let clickHandler;
-            if (link.route !== undefined) {
-                clickHandler = () => {
-                    if (link.onClick) link.onClick.call(this, arguments);
-                    //navigate(link.route);
-                };
-            } else {
-                clickHandler = link.onClick;
-            }
-
+            let clickHandler = link.onClick;
             return (
                 <li key={idx} onClick={clickHandler}>
                     {this._renderButton(link)}
