@@ -2,7 +2,7 @@ import React from 'react';
 
 // Dependencies
 import builder from 'focus-core/component/builder';
-import historic from 'focus-core/history';
+import {history} from 'focus-core/history';
 
 // Mixins
 
@@ -27,7 +27,7 @@ const buttonBackMixin = {
     render() {
         return (
             <Button
-                handleOnClick={() => {historic.history.back()}}
+                handleOnClick={() => {history.back()}}
                 icon='keyboard_backspace'
                 label={this.i18n('button.back')}
                 shape={null}
