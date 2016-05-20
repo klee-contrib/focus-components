@@ -1,17 +1,19 @@
 const {MenuLeft} = FocusComponents.components;
 const Popin = FocusComponents.application.popin.component;
+const {history} = Focus.history;
 
 const MyMenu = React.createClass({
     goHome() {
-        window.location.href = '#'
+        history.navigate('#', true);
     },
     itemsBuilder() {
         const self = this;
         return [
             {
                 icon:'home',
+                route: '#',
                 onClick() {
-                    self.goHome();
+                    console.log('GO HOME !');
                 }
             },
             {
@@ -22,8 +24,9 @@ const MyMenu = React.createClass({
             },
             {
                 icon:'info',
+                route: '#component/Menu',
                 onClick() {
-                    window.location.href = '#component/Menu';
+                    console.log('GO INFO !');
                 }
             }
         ]
