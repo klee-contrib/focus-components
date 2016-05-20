@@ -1,16 +1,18 @@
 import React, {Component, PropTypes} from 'react';
-import {navigate, Link} from 'focus-core/history';
+import {navigate, Link, history} from 'focus-core/history';
 import Button from '../../components/button';
 
 // default props
 const defaultProps = {
-    items: []
+    items: [],
+    reactRouterNavigation: false
 };
 
 // props types
 const propTypes = {
     items: PropTypes.array,
-    handleBrandClick: PropTypes.func
+    handleBrandClick: PropTypes.func,
+    reactRouterNavigation: PropTypes.bool
 };
 
 /**
@@ -19,18 +21,36 @@ const propTypes = {
 class MenuLeft extends Component {
 
     _renderButton(menuButton) {
+        const {reactRouterNavigation} = this.props;
+
         const buttonProps = {
             option: 'link',
             shape: 'icon',
             type: 'button',
-            ...menuButton,
-            onClick: null
+            ...menuButton
         };
-        if(menuButton.route !== undefined) {
-            return <Link to={menuButton.route} style={{color: 'white'}}><Button {...buttonProps} /></Link>
-        }
-        else {
-            return <Button {...buttonProps} />
+        let clickHandler;
+        switch (reactRouterNavigation) {
+            case true:
+                if(menuButton.route !== undefined) {
+                    return <Link to={menuButton.route} style={{color: 'white'}}><Button {...buttonProps} onClick={menuButton.onClick}/></Link>
+                }
+                else {
+                    return <Button {...buttonProps} onClick={menuButton.onClick}/>
+                }
+                break;
+            default:
+                if(menuButton.route !== undefined) {
+                    clickHandler = () => {
+                        if(menuButton.onClick) menuButton.onClick();
+                        history.navigate(menuButton.route, true);
+                    };
+                    return <Button {...buttonProps} onClick={clickHandler}/>
+                }
+                else {
+                    return <Button {...buttonProps} onClick={menuButton.onClick} />
+                }
+                break;
         }
     }
 
@@ -39,9 +59,9 @@ class MenuLeft extends Component {
     */
     _renderMenuItems = () => {
         return this.props.items.map((link, idx) => {
-            let clickHandler = link.onClick;
+            // let clickHandler = link.onClick;
             return (
-                <li key={idx} onClick={clickHandler}>
+                <li key={idx}>
                     {this._renderButton(link)}
                     <span>{link.name}</span>
                 </li>
