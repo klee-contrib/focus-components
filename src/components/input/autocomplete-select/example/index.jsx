@@ -5,6 +5,19 @@ const keyResolver = key => {
         setTimeout(resolve.bind(this, 'Resolved value'), 300);
     });
 }
+const resources = {
+    dev: {
+        translation: {
+            autocomplete: {
+                error: {
+                    badInput: '__value__ is not a valid entry.'
+                }
+            }
+        }
+    }
+};
+
+i18n.init({resStore: resources});
 
 const querySearcher = query => {
     const data = [

@@ -1,6 +1,6 @@
 {
   "name": "focus-components",
-  "version": "0.14.0",
+  "version": "0.15.0",
   "description": "Focus component repository.",
   "main": "index.js",
   "scripts": {
@@ -83,6 +83,7 @@
     "lodash": "^3.10.1",
     "material-design-lite": "1.1.2",
     "object-assign": "^2.0.0",
+    "react-addons-css-transition-group": "^0.14.7",
     "react-date-picker": "^3.1.6",
     "react-tap-event-plugin": "^0.2.1",
     "uuid": "^2.0.1"
