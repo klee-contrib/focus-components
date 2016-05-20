@@ -41,10 +41,10 @@ class Button extends Component {
     * Handle click event.
     * @return {Object} - Action call.
     */
-    handleOnClick = () => {
+    handleOnClick = (args) => {
         const {handleOnClick} = this.props;
         if (handleOnClick) {
-            return handleOnClick.apply(this, arguments);
+            return handleOnClick.call(this, args);
         }
     };
 
