@@ -184,35 +184,30 @@ import {advancedSearchStore} from 'focus-core/search/built-in-store';
 //Autres propriétés passées au composant, qui ne changent pas en fonction du scope
 import {configuration} from './configuration';
 
-class AdvancedSearchView extends Component {
+const AdvancedSearchView = (props) => {
 
-    displayName = 'AdvancedSearch';
-
-    static propTypes = {
-        scope: PropTypes.string.isRequired
-    };
-
-    render() {
-
-        //Configure les actions en fonction du scope
-        let orderableColumnList;
-        if (this.props.scope==="scope0") {
-            orderableColumnList = [
-                {key: "ATTRIBUT0", order: true, label: "Trier par attribut 0")}
-            ]
-        } else if (this.props.scope==="scope1") {
-            orderableColumnList = [
-                {key: "ATTRIBUT1", order: true, label: "Trier par attribut 1")}
-            ]
-        }
-
-        return (
-            <div data-vision="recherche">
-                <AdvancedSearch ref="advancedSearch" {...configuration} orderableColumnList={orderableColumnList} />
-            </div>
-        )
-    }
+	//Configure les actions en fonction du scope
+	let orderableColumnList;
+	if (this.props.scope==="scope0") {
+	    orderableColumnList = [
+	        {key: "ATTRIBUT0", order: true, label: "Trier par attribut 0")}
+	    ]
+	} else if (this.props.scope==="scope1") {
+	    orderableColumnList = [
+	        {key: "ATTRIBUT1", order: true, label: "Trier par attribut 1")}
+	    ]
+	}
+	
+	return (
+	    <div data-vision="recherche">
+	        <AdvancedSearch ref="advancedSearch" {...configuration} orderableColumnList={orderableColumnList} />
+	    </div>
+	)
 }
+AdvancedSearchView.displayName = 'AdvancedSearch';
+AdvancedSearchView.propTypes = {
+	scope: PropTypes.string.isRequired
+	};
 
 const connector = connect(
     [{store: advancedSearchStore, properties: ['scope']}],
