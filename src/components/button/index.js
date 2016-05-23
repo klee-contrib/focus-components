@@ -9,7 +9,7 @@ const BTN_CLASS = 'mdl-button';
 const BUTTON_PRFX = 'mdl-button--';
 const RIPPLE_EFFECT = 'mdl-js-ripple-effect';
 
-const propType = {
+const propTypes = {
     id: PropTypes.string,
     label: PropTypes.string,
     handleOnClick: PropTypes.func,
