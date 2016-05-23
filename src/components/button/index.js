@@ -9,6 +9,30 @@ const BTN_CLASS = 'mdl-button';
 const BUTTON_PRFX = 'mdl-button--';
 const RIPPLE_EFFECT = 'mdl-js-ripple-effect';
 
+const propTypes = {
+    id: PropTypes.string,
+    label: PropTypes.string,
+    handleOnClick: PropTypes.func,
+    type: PropTypes.oneOf(['submit', 'button']),
+    shape: PropTypes.oneOf([undefined, 'raised', 'fab', 'icon', 'mini-fab']),
+    color: PropTypes.oneOf([undefined,'colored', 'primary', 'accent']),
+    hasRipple: PropTypes.bool,
+    isJs: PropTypes.bool,
+    icon: PropTypes.string,
+    iconLibrary: PropTypes.oneOf(['material', 'font-awesome', 'font-custom'])
+}
+
+const defaultProps = {
+    type: 'submit',
+    shape: 'raised',
+    label: '',
+    icon: null,
+    id: '',
+    hasRipple: false,
+    isJs: false,
+    iconLibrary: 'material'
+}
+
 @MDBehaviour('materialButton', 'MaterialButton')
 @Translation
 class Button extends Component {
@@ -127,27 +151,7 @@ class Button extends Component {
 }
 
 Button.displayName = 'Button'
-Button.defaultProps = {
-    type: 'submit',
-    shape: 'raised',
-    label: '',
-    icon: null,
-    id: '',
-    hasRipple: false,
-    isJs: false,
-    iconLibrary: 'material'
-};
-Button.propTypes = {
-    id: PropTypes.string,
-    label: PropTypes.string,
-    handleOnClick: PropTypes.func,
-    type: PropTypes.oneOf(['submit', 'button']),
-    shape: PropTypes.oneOf([undefined, 'raised', 'fab', 'icon', 'mini-fab']),
-    color: PropTypes.oneOf([undefined,'colored', 'primary', 'accent']),
-    hasRipple: PropTypes.bool,
-    isJs: PropTypes.bool,
-    icon: PropTypes.string,
-    iconLibrary: PropTypes.oneOf(['material', 'font-awesome', 'font-custom'])
-};
+Button.defaultProps = defaultProps;
+Button.propTypes = propTypes;
 
 export default Button;
