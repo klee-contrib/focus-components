@@ -9,22 +9,33 @@ const BTN_CLASS = 'mdl-button';
 const BUTTON_PRFX = 'mdl-button--';
 const RIPPLE_EFFECT = 'mdl-js-ripple-effect';
 
+const propTypes = {
+    id: PropTypes.string,
+    label: PropTypes.string,
+    handleOnClick: PropTypes.func,
+    type: PropTypes.oneOf(['submit', 'button']),
+    shape: PropTypes.oneOf([undefined, 'raised', 'fab', 'icon', 'mini-fab']),
+    color: PropTypes.oneOf([undefined,'colored', 'primary', 'accent']),
+    hasRipple: PropTypes.bool,
+    isJs: PropTypes.bool,
+    icon: PropTypes.string,
+    iconLibrary: PropTypes.oneOf(['material', 'font-awesome', 'font-custom'])
+}
+
+const defaultProps = {
+    type: 'submit',
+    shape: 'raised',
+    label: '',
+    icon: null,
+    id: '',
+    hasRipple: false,
+    isJs: false,
+    iconLibrary: 'material'
+}
+
 @MDBehaviour('materialButton', 'MaterialButton')
 @Translation
 class Button extends Component {
-
-    static propTypes = {
-        id: PropTypes.string,
-        label: PropTypes.string,
-        handleOnClick: PropTypes.func,
-        type: PropTypes.oneOf(['submit', 'button']),
-        shape: PropTypes.oneOf([undefined, 'raised', 'fab', 'icon', 'mini-fab']),
-        color: PropTypes.oneOf([undefined,'colored', 'primary', 'accent']),
-        hasRipple: PropTypes.bool,
-        isJs: PropTypes.bool,
-        icon: PropTypes.string,
-        iconLibrary: PropTypes.oneOf(['material', 'font-awesome', 'font-custom'])
-    };
 
     /**
     * Called when component is mounted.
@@ -41,18 +52,18 @@ class Button extends Component {
     * Handle click event.
     * @return {Object} - Action call.
     */
-    handleOnClick = (args) => {
+    handleOnClick(...args) {
         const {handleOnClick} = this.props;
         if (handleOnClick) {
             return handleOnClick.call(this, args);
         }
-    };
+    }
 
     /**
     * Date de composant.
     * @return {string} Classe.
     */
-    _getComponentClassName = () => {
+    _getComponentClassName() {
         const {shape, color, hasRipple, isJs} = this.props;
         let SHAPE_CLASS;
         switch (shape) {
@@ -79,20 +90,21 @@ class Button extends Component {
         const JS_CLASS = isJs ? BTN_JS : '';
         const RIPPLE_EFFECT_CLASS = hasRipple ? RIPPLE_EFFECT : '';
         return `${BTN_CLASS} ${COLOR_CLASS} ${SHAPE_CLASS} ${JS_CLASS} ${RIPPLE_EFFECT_CLASS}`;
-    };
+    }
+
     /**
     * Render the pressed button.
     * @return {Component} - Component button.
     */
-    renderPressedButton = () => {
+    renderPressedButton() {
         return (<button>Loading...</button>);
-    };
+    }
 
     /**
     * Render an icon.
     * @return {Component} - Composant icone.
     */
-    _renderIcon = () => {
+    _renderIcon() {
         const {icon, iconLibrary} = this.props;
         switch (iconLibrary) {
             case 'material':
@@ -106,17 +118,19 @@ class Button extends Component {
                 return null;
         }
     };
+
     /**
     * Render the label.
     * @return {Component} - Tle button label.
     */
-    _renderLabel = () => {
+    _renderLabel() {
         const {label, shape} = this.props;
         if (label && 'fab' !== shape && 'icon' !== shape && 'mini-fab' !== shape ) {
             return this.i18n(label);
         }
         return null;
     };
+
     /** inheritedDoc */
     render() {
         const {className, icon, id, type, label, style, ...otherProps} = this.props;
@@ -128,7 +142,7 @@ class Button extends Component {
             renderedClassName = ::this._getComponentClassName();
         }
         return (
-            <button alt={this.i18n(label)} className={renderedClassName.trim()} data-focus='button' id={id} onClick={this.handleOnClick} title={this.i18n(label)} type={type} {...otherProps} ref='materialButton'>
+            <button alt={this.i18n(label)} className={renderedClassName.trim()} data-focus='button' id={id} onClick={(...args) => this.handleOnClick(...args)} title={this.i18n(label)} type={type} {...otherProps} ref='materialButton'>
                 {icon && ::this._renderIcon()}
                 {::this._renderLabel()}
             </button>
@@ -137,14 +151,7 @@ class Button extends Component {
 }
 
 Button.displayName = 'Button'
-Button.defaultProps = {
-    type: 'submit',
-    shape: 'raised',
-    label: '',
-    icon: null,
-    id: '',
-    hasRipple: false,
-    isJs: false,
-    iconLibrary: 'material'
-};
+Button.defaultProps = defaultProps;
+Button.propTypes = propTypes;
+
 export default Button;
