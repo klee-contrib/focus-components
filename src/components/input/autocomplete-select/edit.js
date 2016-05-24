@@ -227,7 +227,7 @@ class Autocomplete extends Component {
                         value={inputValue}
                     />
                     <label className='mdl-textfield__label'>{this.i18n(placeholder)}</label>
-                    <span className='mdl-textfield__error'>{customError}</span>
+                    <span className='mdl-textfield__error'>{this.i18n(customError)}</span>
                 </div>
                 {renderOptions ? renderOptions.call(this) : this._renderOptions()}
             </div>
