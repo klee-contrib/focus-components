@@ -77,7 +77,7 @@ class InputText extends Component {
             <div className={cssClass} data-focus='input-text' ref='inputText' style={style}>
                 <input className='mdl-textfield__input' ref='htmlInput' {...inputProps} />
                 <label className='mdl-textfield__label' htmlFor={name}>{this.i18n(placeholder)}</label>
-                {error && <span className='mdl-textfield__error'>{error}</span>}
+                {error && <span className='mdl-textfield__error'>{this.i18n(error)}</span>}
             </div>
         );
     }
