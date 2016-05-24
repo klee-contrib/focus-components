@@ -145,13 +145,14 @@ const fieldBuiltInComponentsMixin = {
     },
     autocompleteSelect() {
         const {name: id, label: placeHolder} = this.props;
-        const {value} = this.state;
+        const {value, error} = this.state;
         const {onInputChange: onChange} = this;
         const inputBuildedProps = {
             ...this.props,
             id,
             onChange,
             value,
+            error,
             placeHolder
         };
         const finalInputProps = addRefToPropsIfNotPure(this.props.AutocompleteSelectComponent, inputBuildedProps, INPUT)
@@ -159,13 +160,14 @@ const fieldBuiltInComponentsMixin = {
     },
     autocompleteText() {
         const {name: id, label: placeHolder} = this.props;
-        const {value} = this.state;
+        const {value, error} = this.state;
         const {onInputChange: onChange} = this;
         const inputBuildedProps = {
             ...this.props,
             id,
             onChange,
             value,
+            error,
             placeHolder
         };
         const finalInputProps = addRefToPropsIfNotPure(this.props.AutocompleteTextComponent, inputBuildedProps, INPUT)
