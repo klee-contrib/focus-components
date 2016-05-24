@@ -56,7 +56,7 @@ class Autocomplete extends Component {
         this._debouncedQuerySearcher = debounce(this._querySearcher, inputTimeout);
     }
 
-    componentWillReceiveProps({value, customError}) {
+    componentWillReceiveProps({value, customError, error}) {
         const {keyResolver} = this.props;
         if (value !== this.props.value && value !== undefined && value !== null) { // value is defined, call the keyResolver to get the associated label
             this.setState({inputValue: value, customError}, () => keyResolver(value).then(inputValue => {
@@ -64,6 +64,9 @@ class Autocomplete extends Component {
             }).catch(error => this.setState({customError: error.message})));
         } else if (customError !== this.props.customError) {
             this.setState({customError});
+        }
+        if(error) {
+            this.setState({customError: error});
         }
     }
 

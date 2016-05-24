@@ -99,10 +99,6 @@ describe('AutocompleteTextEdit', () => {
             it('should set the error state', () => {
                 expect(autocompleteTextEdit.state.error).to.not.equal(initialeError);
             });
-            it('should set the error <span> value', () => {
-                expect(autocompleteTextEdit.refs.errorMessage.textContent).to.equal(autocompleteTextEdit.state.error);
-                expect(autocompleteTextEdit.refs.errorMessage.textContent).to.not.equal(initialeErrorSpanContent);
-            });
         });
         describe('When the data is empty and the error is set', () => {
             let inputRef;

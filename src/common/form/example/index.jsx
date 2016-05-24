@@ -84,6 +84,10 @@ const entities = {
             domain: 'DO_TEXT',
             required: true
         },
+        place: {
+            domain: 'DO_TEXT',
+            required: true
+        },
         papaCode: {
             domain: 'DO_TEXT',
             required: false
@@ -227,27 +231,39 @@ const action = {
 };
 
 const _querySearcher = query => {
-    let data = [
+    const data = [
+        {
+            key: 'NY',
+            label: 'New York'
+        },
         {
             key: 'PAR',
             label: 'Paris'
         },
         {
-            key: 'MAR',
-            label: 'Marseille'
+            key: 'TOY',
+            label: 'Tokyo'
         },
         {
-            key: 'LYO',
-            label: 'Lyon'
+            key: 'BEI',
+            label: 'Pékin'
+        },
+        {
+            key: 'LON',
+            label: 'Londres'
+        },
+        {
+            key: 'BER',
+            label: 'Berlin'
         }
-    ];
+    ].filter(({key, label}) => label.toLowerCase().indexOf(query.toLowerCase()) !== -1);
     return new Promise((resolve, reject) => {
         setTimeout(() => {
             resolve({
                 data,
-                totalCount: data.length
+                totalCount: 40
             });
-        }, 500);
+        }, 200);
     });
 };
 
@@ -271,7 +287,7 @@ const FormExample = React.createClass({
             <Panel actions={this._renderActions} title="Fiche de l'utilisateur">
                 {this.fieldFor('firstName')}
                 {this.fieldFor('lastName')}
-                {this.autocompleteTextFor('place', {querySearcher: _querySearcher})}
+                {this.autocompleteSelectFor('place', {querySearcher: _querySearcher})}
                 {this.fieldFor('papaCode', {listName: 'papas'})}
                 {this.fieldFor('monkeyCode', {listName: 'monkeys', valueKey: 'myCustomCode', labelKey: 'myCustomLabel' })}
                 {this.fieldFor('lopezCode', {values: [{code: 'JOE', label: 'Joe Lopez'}, {code: 'DAVE', label: 'David Lopez'}]})}

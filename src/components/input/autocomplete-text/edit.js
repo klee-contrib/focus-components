@@ -66,6 +66,10 @@ class AutocompleteTextEdit extends Component {
         isLoading: false
     };
 
+    componentWillReceiveProps({error}) {
+        this.setState({error: error});
+    }
+
     // Returns the state's inputValue
     getValue = () =>  {
         const {inputValue} = this.state;
@@ -91,7 +95,7 @@ class AutocompleteTextEdit extends Component {
                 this.setState({error: 'No data found'});
                 this.refs.materialInput.classList.add('is-invalid');
             }
-            else if(totalCount === 0 && this.props.error != '') {
+            else if(totalCount === 0 && this.props.error != undefined) {
                 this.setState({error: this.props.error});
                 this.refs.materialInput.classList.add('is-invalid');
             }
@@ -158,9 +162,11 @@ class AutocompleteTextEdit extends Component {
     render() {
         const {inputValue, hasSuggestions, error, hasFocus, isLoading, ...otherProps} = this.state;
         const {placeholder, showAtFocus, emptyShowAll} = this.props
+        const cssClass = `mdl-textfield mdl-js-textfield${error ? ' is-invalid' : ''}`;
+        console.log('CLASSNAME', cssClass);
         return(
             <div data-focus='autocompleteText'>
-                <div className='mdl-textfield mdl-js-textfield' ref='materialInput'>
+                <div className={cssClass} ref='materialInput'>
                     <div data-focus='loading' data-loading={isLoading} className='mdl-progress mdl-js-progress' ref='loader'/>
                     <input onFocus={this.toggleHasFocus} onBlur={this.toggleHasFocus} className='mdl-textfield__input' type='text' value={inputValue} ref='inputText' onChange={::this.onQueryChange} showAtFocus={showAtFocus} emptyShowAll={emptyShowAll} {...otherProps} />
                     <label className="mdl-textfield__label">{placeholder}</label>
