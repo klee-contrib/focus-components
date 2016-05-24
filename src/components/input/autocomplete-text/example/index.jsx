@@ -61,18 +61,6 @@ const _querySearcher3 = query => {
     });
 };
 
-const _querySearcher4 = query => {
-    let data = [];
-    return new Promise((resolve, reject) => {
-        setTimeout(() => {
-            resolve({
-                data,
-                totalCount: data.length
-            });
-        }, 500);
-    });
-};
-
 class AutocompleteTextExample extends React.Component {
     state = {isEdit: true};
     render() {
@@ -93,22 +81,11 @@ class AutocompleteTextExample extends React.Component {
                 <br/>
                 <AutocompleteText
                     isEdit={isEdit}
-                    querySearcher={_querySearcher3}
-                    placeholder={'Failed promise...'}
+                    querySearcher={_querySearcher}
+                    placeholder={'Error in the field...'}
+                    error='This field is required'
                     />
                 <br/>
-                <AutocompleteText
-                    isEdit={isEdit}
-                    querySearcher={_querySearcher4}
-                    error={'Sorry, there\'s no data found.'}
-                    placeholder={'Custom error message...'}
-                    />
-                <br/>
-                <AutocompleteText
-                    isEdit={isEdit}
-                    querySearcher={_querySearcher4}
-                    placeholder={'Basic error message...'}
-                    />
             </div>
         );
     }
