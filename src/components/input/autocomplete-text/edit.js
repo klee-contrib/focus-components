@@ -67,7 +67,9 @@ class AutocompleteTextEdit extends Component {
     };
 
     componentWillReceiveProps({error}) {
-        this.setState({error: error});
+        if(error) {
+            this.setState({error: error});
+        }
     }
 
     // Returns the state's inputValue
@@ -91,18 +93,6 @@ class AutocompleteTextEdit extends Component {
             if(totalCount > 0) {
                 this.setState({hasSuggestions: true, suggestions: data, error: ''});
             }
-            else if(totalCount === 0 && this.props.error == undefined) {
-                this.setState({error: 'No data found'});
-                this.refs.materialInput.classList.add('is-invalid');
-            }
-            else if(totalCount === 0 && this.props.error != undefined) {
-                this.setState({error: this.props.error});
-                this.refs.materialInput.classList.add('is-invalid');
-            }
-            else if(totalCount === 1 && data[0].key == 'ERR') {
-                //Here temporary solution to give the opportunity for the dev to have a error list dropdown message
-                this.setState({hasSuggestions: true, suggestions: data, error: ''});
-            }
             this.refs.loader.classList.remove('mdl-progress__indeterminate');
             this.setState({isLoading: false});
         }).catch(err => {
@@ -110,6 +100,7 @@ class AutocompleteTextEdit extends Component {
             this.setState({error: JSON.stringify(err), isLoading: false});
             this.refs.materialInput.classList.add('is-invalid');
         });
+        console.log('ERROR PROPS', this.props.error);
     };
 
     // Sets the state's inputValue when the user is typing
@@ -117,6 +108,7 @@ class AutocompleteTextEdit extends Component {
         this.setState({inputValue: value});
         if(value.trim() == '') {
             this.setState({hasSuggestions: false});
+            console.log('ERROR PROPS ON QUERYCHANGE', this.props.error);
         }
         else {
             this.refs.loader.classList.add('mdl-progress__indeterminate');
@@ -160,13 +152,11 @@ class AutocompleteTextEdit extends Component {
 
     // Maybe give the option for the floating label
     render() {
-        const {inputValue, hasSuggestions, error, hasFocus, isLoading, ...otherProps} = this.state;
-        const {placeholder, showAtFocus, emptyShowAll} = this.props
-        const cssClass = `mdl-textfield mdl-js-textfield${error ? ' is-invalid' : ''}`;
-        console.log('CLASSNAME', cssClass);
+        const {inputValue, hasSuggestions, hasFocus, isLoading, ...otherProps} = this.state;
+        const {placeholder, showAtFocus, emptyShowAll, error} = this.props
         return(
             <div data-focus='autocompleteText'>
-                <div className={cssClass} ref='materialInput'>
+                <div className={`mdl-textfield mdl-js-textfield${error ? ' is-invalid' : ''}`} ref='materialInput'>
                     <div data-focus='loading' data-loading={isLoading} className='mdl-progress mdl-js-progress' ref='loader'/>
                     <input onFocus={this.toggleHasFocus} onBlur={this.toggleHasFocus} className='mdl-textfield__input' type='text' value={inputValue} ref='inputText' onChange={::this.onQueryChange} showAtFocus={showAtFocus} emptyShowAll={emptyShowAll} {...otherProps} />
                     <label className="mdl-textfield__label">{this.i18n(placeholder)}</label>
