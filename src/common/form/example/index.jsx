@@ -27,6 +27,9 @@ const resources = {
                 birthDate: 'Date de naissance',
                 city: 'Lieu de naissance',
                 place: 'Ville'
+            },
+            field: {
+                required: 'Ce champs est obligatoire'
             }
         }
     }
