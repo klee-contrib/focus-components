@@ -79,27 +79,6 @@ describe('AutocompleteTextEdit', () => {
             const arr = scryRenderedDOMComponentsWithTag(autocompleteTextEdit, 'li');
             expect(arr[0]).to.exist;
         });
-        describe('When the data is empty and the error is not set', () => {
-            let inputRef, initialeError, initialeErrorSpanContent;
-            let _query = 'test';
-            const customQuerySearcher = query => {
-                const emptyData = [];
-                return Promise.resolve({
-                    emptyData,
-                    totalCount: emptyData.length
-                });
-            };
-            before(() => {
-                autocompleteTextEdit = renderIntoDocument(<AutocompleteTextEdit querySearcher={customQuerySearcher} />);
-                inputRef = autocompleteTextEdit.refs.inputText;
-                initialeError = autocompleteTextEdit.state.error;
-                initialeErrorSpanContent = autocompleteTextEdit.refs.errorMessage.textContent
-                Simulate.change(inputRef, {target: {value: _query}})
-            })
-            it('should set the error state', () => {
-                expect(autocompleteTextEdit.state.error).to.not.equal(initialeError);
-            });
-        });
         describe('When the data is empty and the error is set', () => {
             let inputRef;
             let _query = 'test';
