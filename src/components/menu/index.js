@@ -55,10 +55,8 @@ const _renderButton = (menuButton, LinkComponent, navigate) => {
             return <LinkComponent to={menuButton.route} style={{color: 'white'}}><Button {...buttonProps}/></LinkComponent>
         }
         //Backbone case
-        console.log('BACKBONE CASE');
         clickHandler = () => {
             if(menuButton.onClick) menuButton.onClick();
-            console.log('Menu Button Route', menuButton.route);
             navigate(menuButton.route, true);
         };
         return <Button {...buttonProps} onClick={clickHandler}/>
