@@ -55,7 +55,7 @@ class Button extends Component {
     handleOnClick(...args) {
         const {handleOnClick} = this.props;
         if (handleOnClick) {
-            return handleOnClick.call(this, args);
+            return handleOnClick.apply(this, args);
         }
     }
 
