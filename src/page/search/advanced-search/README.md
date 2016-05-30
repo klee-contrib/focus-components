@@ -197,11 +197,9 @@ const AdvancedSearchView = (props) => {
 	        {key: "ATTRIBUT1", order: true, label: "Trier par attribut 1")}
 	    ]
 	}
-	
+
 	return (
-	    <div data-vision="recherche">
-	        <AdvancedSearch ref="advancedSearch" {...configuration} orderableColumnList={orderableColumnList} />
-	    </div>
+	     <AdvancedSearch ref="advancedSearch" {...configuration} orderableColumnList={orderableColumnList} />
 	)
 }
 AdvancedSearchView.displayName = 'AdvancedSearch';
@@ -211,7 +209,7 @@ AdvancedSearchView.propTypes = {
 
 const connector = connect(
     [{store: advancedSearchStore, properties: ['scope']}],
-    (props) => {return advancedSearchStore.getValue()}
+    props => advancedSearchStore.getValue()
 );
 
 export default connector(AdvancedSearchView);
