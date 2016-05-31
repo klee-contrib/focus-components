@@ -100,7 +100,6 @@ class AutocompleteTextEdit extends Component {
             this.setState({error: JSON.stringify(err), isLoading: false});
             this.refs.materialInput.classList.add('is-invalid');
         });
-        console.log('ERROR PROPS', this.props.error);
     };
 
     // Sets the state's inputValue when the user is typing
@@ -108,7 +107,6 @@ class AutocompleteTextEdit extends Component {
         this.setState({inputValue: value});
         if(value.trim() == '') {
             this.setState({hasSuggestions: false});
-            console.log('ERROR PROPS ON QUERYCHANGE', this.props.error);
         }
         else {
             this.refs.loader.classList.add('mdl-progress__indeterminate');
