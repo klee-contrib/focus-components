@@ -142,7 +142,7 @@ class Button extends Component {
             renderedClassName = ::this._getComponentClassName();
         }
         return (
-            <button alt={this.i18n(label)} className={renderedClassName.trim()} data-focus='button' id={id} onClick={(...args) => this.handleOnClick(...args)} title={this.i18n(label)} type={type} {...otherProps} ref='materialButton'>
+            <button alt={this.i18n(label)} className={renderedClassName.trim()} data-focus='button-action' id={id} onClick={(...args) => this.handleOnClick(...args)} title={this.i18n(label)} type={type} {...otherProps} ref='materialButton'>
                 {icon && ::this._renderIcon()}
                 {::this._renderLabel()}
             </button>
