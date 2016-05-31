@@ -12,7 +12,7 @@ import AutocompleteTextComponent from '../../../components/input/autocomplete-te
 import InputText from '../../../components/input/text';
 import {component as DisplayText} from '../../display/text';
 import SelectClassic from '../../../components/input/select';
-import {component as Label} from '../../label';
+import Label from '../../../components/label';
 import {component as Autocomplete} from '../../autocomplete/field';
 
 

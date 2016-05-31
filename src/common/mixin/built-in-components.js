@@ -9,7 +9,7 @@ const find = require('lodash/collection/find');
 
 const Field = require('../field').component;
 const Text = require('../display/text').component;
-const Button = require('../button/action').component;
+const Button = require('../../components/button');
 const MemoryList = require('../list').component;
 const Table = require('../../list/table').list.component;
 const List = require('../../list/selection').list.component;
