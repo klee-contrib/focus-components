@@ -1,73 +1,83 @@
 import React, {Component, PropTypes} from 'react';
-import historic from 'focus-core/history';
+import {navigate} from 'focus-core/history';
 import Button from '../../components/button';
 
 // default props
 const defaultProps = {
-    items: []
+    items: [],
+    LinkComponent: undefined,
+    navigate: navigate
 };
 
 // props types
 const propTypes = {
+    navigate: PropTypes.func.isRequired,
     items: PropTypes.array,
-    handleBrandClick: PropTypes.func
+    handleBrandClick: PropTypes.func,
+    LinkComponent: PropTypes.func
 };
 
-/**
-* Left menu.
-*/
-class MenuLeft extends Component {
+const MenuItems = (props) => {
+    console.log('MENU ITEM PROPS', props)
+    const {items, LinkComponent, navigate} = props;
+    return (
+        <div>{_renderItemsList(items, LinkComponent, navigate)}</div>
+    );
+}
+MenuItems.propTypes = {
+    items: PropTypes.array
+}
 
-    /**
-    * Render the links of the menu
-    */
-    _renderMenuItems = () => {
-        return this.props.items.map((link, idx) => {
-            let clickHandler;
-            if (link.route !== undefined) {
-                clickHandler = () => {
-                    if (link.onClick) link.onClick.call(this, arguments);
-                    historic.navigate(link.route, true);
-                };
-            } else {
-                clickHandler = link.onClick;
-            }
-            const buttonProps = {
-                option: 'link',
-                shape: 'icon',
-                type: 'button',
-                ...link,
-                onClick: null
-            };
-            return (
-                <li key={idx} onClick={clickHandler}>
-                    <Button {...buttonProps} />
-                    <span>{link.name}</span>
-                </li>
-            );
-        });
-    };
-
-    _handleBrandClick() {
-        const {handleBrandClick} = this.props;
-        if(handleBrandClick) {
-            handleBrandClick();
-        }
-    }
-
-    /** @inheritDoc */
-    render() {
-        const {direction, handleBrandClick, position, children, ...otherProps} = this.props;
-        const hasBrandClickHandler = !!handleBrandClick;
+const _renderItemsList = (items, LinkComponent, navigate) => {
+    return items.map((link, idx) => {
         return (
-            <nav data-focus='menu-left' {...otherProps}>
-                <div data-focus='menu-brand' data-click={hasBrandClickHandler} onClick={::this._handleBrandClick} />
-                <ul data-focus='menu-items'>{this._renderMenuItems()}</ul>
-                {children}
-            </nav>
+            <li key={idx}>
+                {_renderButton(link, LinkComponent, navigate)}
+                <span>{link.name}</span>
+            </li>
         );
-    }
+    });
+}
 
+//Todo: refactor into component
+const _renderButton = (menuButton, LinkComponent, navigate) => {
+    const buttonProps = {
+        option: 'link',
+        shape: 'icon',
+        type: 'button',
+        ...menuButton
+    };
+    let clickHandler;
+    if(menuButton.route !== undefined) {
+        //React router case
+        if(LinkComponent){
+            //Todo: check menButton onClick use
+            return <LinkComponent to={menuButton.route} style={{color: 'white'}}><Button {...buttonProps}/></LinkComponent>
+        }
+        //Backbone case
+        clickHandler = () => {
+            if(menuButton.onClick) menuButton.onClick();
+            navigate(menuButton.route, true);
+        };
+        return <Button {...buttonProps} onClick={clickHandler}/>
+
+    }
+    //No route => Both the same treatement.
+    return <Button {...buttonProps} onClick={menuButton.onClick}/>
+}
+
+const MenuLeft = (props) => {
+    const {direction, handleBrandClick, position, children, items, LinkComponent, navigate, ...otherProps} = props;
+    const itemRenderProps = {LinkComponent, navigate};
+    const hasBrandClickHandler = !!handleBrandClick;
+
+    return (
+        <nav data-focus='menu-left' {...otherProps}>
+            <div data-focus='menu-brand' data-click={hasBrandClickHandler} onClick={() => handleBrandClick && handleBrandClick()} />
+            <ul data-focus='menu-items'><MenuItems items={items} {...itemRenderProps}/></ul>
+            {children}
+        </nav>
+    );
 }
 
 //Static props.
