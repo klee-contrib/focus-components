@@ -202,7 +202,12 @@ let Autocomplete = {
         const {_onInputBlur, _onInputChange} = this;
         return (
             <div data-focus='autocomplete'>
-                <InputAutoComplete onBlur={_onInputBlur} onChange={_onInputChange} ref='input' value={value}/> : <InputText onBlur={_onInputBlur} onChange={_onInputChange} ref='input' value={value}/>
+                {
+                    InputAutoComplete  ? 
+                        <InputAutoComplete onBlur={_onInputBlur} onChange={_onInputChange} ref='input' value={value}/> 
+                        : 
+                        <InputText onBlur={_onInputBlur} onChange={_onInputChange} ref='input' value={value}/>
+                }
             </div>
         );
     }
