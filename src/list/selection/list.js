@@ -175,7 +175,7 @@ const listMixin = {
                 ...otherProps,
                 data: line,
                 isSelected,
-                key: line[idField] || idx,
+                key: idx,
                 onSelection: this._handleLineSelection,
                 reference: this._getReference()
             }, `${LINE}${idx}`);
