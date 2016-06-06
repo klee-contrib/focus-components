@@ -4,8 +4,9 @@ const ReactDOM = require('react-dom');
 import builder from 'focus-core/component/builder';
 import types from 'focus-core/component/types';
 const assign = require('object-assign');
-const mdlBehaviour = require('../../mixin/mdl-behaviour');
-const i18nBehaviour = require('../../i18n/mixin');
+
+const mdlBehaviour = require('../../../../common/mixin/mdl-behaviour');
+const i18nBehaviour = require('../../../../common/i18n/mixin');
 
 /**
 * Identity function.
