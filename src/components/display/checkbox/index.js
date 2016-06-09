@@ -12,7 +12,7 @@ function renderValue(value) {
 function displayCheckbox({name, value}) {
     return(
         <div id={name} name={name}>
-            {this.renderValue(value)}
+            {renderValue(value)}
         </div>
     );
 }
