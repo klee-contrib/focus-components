@@ -7,7 +7,7 @@ var translationMixin = require('../../common/i18n').mixin;
 var infiniteScrollMixin = require('../mixin/infinite-scroll').mixin;
 var referenceMixin = require('../../common/mixin/reference-property');
 import {checkIsNotNull} from 'focus-core/util/object';
-var Button = require('../../common/button/action').component;
+import {Button} from '../../components/button'
 //Add a ref to the props if the component is not pure add nothing in the other case.
 import {addRefToPropsIfNotPure, LINE} from '../../utils/is-react-class-component';
 

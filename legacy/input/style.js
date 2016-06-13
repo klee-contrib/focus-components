@@ -1,0 +1,4 @@
+'use strict';
+
+require('.checkbox/style/checkbox.scss');
+//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbImlzLXJlYWN0LWNsYXNzLWNvbXBvbmVudC5qcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiOztBQUFBIiwiZmlsZSI6ImlzLXJlYWN0LWNsYXNzLWNvbXBvbmVudC5qcyIsInNvdXJjZXNDb250ZW50IjpbImltcG9ydCAnLmNoZWNrYm94L3N0eWxlL2NoZWNrYm94LnNjc3MnO1xyXG4iXX0=
