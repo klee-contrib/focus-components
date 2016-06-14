@@ -17,7 +17,6 @@ const propTypes = {
 };
 
 const MenuItems = (props) => {
-    console.log('MENU ITEM PROPS', props)
     const {items, LinkComponent, navigate} = props;
     return (
         <div>{_renderItemsList(items, LinkComponent, navigate)}</div>
