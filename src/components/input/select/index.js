@@ -25,7 +25,7 @@ const propTypes = {
     isActiveProperty: PropTypes.string,
     isRequired: PropTypes.bool,
     labelKey: PropTypes.string,
-    mubtiple: PropTypes.bool,
+    multiple: PropTypes.bool,
     name: PropTypes.string.isRequired,
     onChange: PropTypes.func.isRequired,
     placeholder: PropTypes.string,
