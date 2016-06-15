@@ -93,15 +93,15 @@ const Results = {
             if (this.props.renderSingleGroupDecoration) {
                 return (
                     <GroupWrapper
-                        count={count}
-                        groupComponent={this.props.groupComponent}
-                        groupKey={key}
-                        initialRowsCount={initialRowsCount}
-                        isUnique
-                        list={list}
-                        ref={`group-${key}`}
-                        renderResultsList={this._renderResultsList}
-                        showAllHandler={this._showAllHandler}
+                    count={count}
+                    groupComponent={this.props.groupComponent}
+                    groupKey={key}
+                    initialRowsCount={initialRowsCount}
+                    isUnique
+                    list={list}
+                    ref={`group-${key}`}
+                    renderResultsList={this._renderResultsList}
+                    showAllHandler={this._showAllHandler}
                     />
                 );
             } else {
@@ -110,15 +110,15 @@ const Results = {
         } else {
             return (
                 <GroupWrapper
-                    count={count}
-                    groupComponent={this.props.groupComponent}
-                    groupKey={key}
-                    initialRowsCount={initialRowsCount}
-                    key={key}
-                    list={list}
-                    ref={`group-${key}`}
-                    renderResultsList={this._renderResultsList}
-                    showAllHandler={this._showAllHandler}
+                count={count}
+                groupComponent={this.props.groupComponent}
+                groupKey={key}
+                initialRowsCount={initialRowsCount}
+                key={key}
+                list={list}
+                ref={`group-${key}`}
+                renderResultsList={this._renderResultsList}
+                showAllHandler={this._showAllHandler}
                 />
             );
         }
@@ -158,28 +158,28 @@ const Results = {
         const hasMoreData = isUnique !== undefined && isUnique && list.length < count;
         return (
             <div>
-                <ListSelection
-                    data={list}
-                    data-focus='results-list'
-                    fetchNextPage={this._onScrollReachedBottom}
-                    hasMoreData={hasMoreData}
-                    idField={idField}
-                    isSelection={isSelection}
-                    LineComponent={LineComponent}
-                    onLineClick={lineClickHandler}
-                    onSelection={lineSelectionHandler}
-                    operationList={lineOperationList}
-                    parentSelector={scrollParentSelector}
-                    ref={`list-${key}`}
-                    selectionData={selectionData}
-                    selectionStatus={selectionStatus}
-                    {...otherProps}
-                />
-                {this.state.loading &&
-                    <div data-focus='loading-more-results'>
-                        {translate('search.loadingMore')}
-                    </div>
-                }
+            <ListSelection
+            data={list}
+            data-focus='results-list'
+            fetchNextPage={this._onScrollReachedBottom}
+            hasMoreData={hasMoreData}
+            idField={idField}
+            isSelection={isSelection}
+            LineComponent={LineComponent}
+            onLineClick={lineClickHandler}
+            onSelection={lineSelectionHandler}
+            operationList={lineOperationList}
+            parentSelector={scrollParentSelector}
+            ref={`list-${key}`}
+            selectionData={selectionData}
+            selectionStatus={selectionStatus}
+            {...otherProps}
+            />
+            {this.state.loading &&
+                <div data-focus='loading-more-results'>
+                {translate('search.loadingMore')}
+                </div>
+            }
             </div>
         );
     },
@@ -189,7 +189,6 @@ const Results = {
     * @param  {string} key the group key where the show all has been clicked
     */
     _showAllHandler(key) {
-
         const {showAllHandler, resultsFacets, scopeFacetKey, groupingKey, scopesConfig} = this.props;
         let selectedScope = key;
         if (scopesConfig && key && scopesConfig[key]) {
@@ -269,13 +268,22 @@ const Results = {
     * @param  {object} resultsMap the results map
     * @return {object}           the counts map
     */
-    _getGroupCounts() {
-        const {resultsMap} = this.props;
-
+    _getGroupCounts(resultsMap) {
+        resultsMap = resultsMap ? resultsMap : this.props.resultsMap;
         // resultMap can be either an Array or an Object depending of the search being grouped or not.
         if (resultsMap && isArray(resultsMap) && 1 === resultsMap.length) {
+            //Check if the resultMap contains an entry which is an array.
+            const isResultMapEntryAnArray = isArray(resultsMap[0]);
+            if(isResultMapEntryAnArray) {
+              return {
+                  [resultsMap[0][0]]: {
+                      count: this.props.totalCount
+                  }
+              };
+            }
+            //this case occurs when the server response contains only one group with results.
             return {
-                [resultsMap[0][0]]: {
+                [keys(resultsMap[0])]: {
                     count: this.props.totalCount
                 }
             };
@@ -329,7 +337,7 @@ const Results = {
         }
 
         // Get the count for each group
-        const groupCounts = this._getGroupCounts();
+        const groupCounts = this._getGroupCounts(resultsMap);
         // Check if there is only one group left
 
         if (isArray(resultsMap) && 1 === resultsMap.length) {
