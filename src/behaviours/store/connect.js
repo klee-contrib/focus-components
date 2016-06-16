@@ -29,6 +29,7 @@ export default function connectToStores(storesConfiguration, getState) {
                 super(props);
                 //Build the initial state from props.
                 this.state = getState(props);
+                this._isMounted = false;
             }
 
             // When the component will mount, we listen to all stores changes.
@@ -52,13 +53,12 @@ export default function connectToStores(storesConfiguration, getState) {
 
             // When a component will receive a new props.
             componentWillReceiveProps(nextProps) {
-                //if (!shallowEqual(nextProps, this.props)) {
-                this.setState(getState(nextProps));
-                //}
+				this.updateState(nextProps);
             }
 
             // Component unmount.
             componentWillUnmount() {
+   				this._isMounted = false;
                 storesConfiguration.forEach(storeConf => {
                     const {properties, store} = storeConf;
                     properties.forEach((property) => {
@@ -69,9 +69,20 @@ export default function connectToStores(storesConfiguration, getState) {
                 });
             }
 
+			componentDidMount(){
+				this._isMounted = true;
+				this.updateState(this.props);
+			}
+
+			updateState(props){
+				if(this._isMounted){
+					this.setState(getState(this.props));
+				}
+			}
+
             //Handle the store changes
             handleStoresChanged = () => {
-                this.setState(getState(this.props));
+				this.updateState(this.props);
             };
 
             // Render the component with only props, some from the real props some from the state
