@@ -1,22 +1,8 @@
 import React, {Component, PropTypes} from 'react';
 import {navigate} from 'focus-core/history';
-import Button from '../../components/button';
+import Button from '../button';
 
-// default props
-const defaultProps = {
-    items: [],
-    LinkComponent: undefined
-};
-
-// props types
-const propTypes = {
-    navigate: PropTypes.func.isRequired,
-    items: PropTypes.array,
-    handleBrandClick: PropTypes.func,
-    LinkComponent: PropTypes.func
-};
-
-const MenuItems = (props) => {
+function MenuItems(props) {
     const {items, LinkComponent, navigate} = props;
     return (
         <div>{_renderItemsList(items, LinkComponent, navigate)}</div>
@@ -26,7 +12,7 @@ MenuItems.propTypes = {
     items: PropTypes.array
 }
 
-const _renderItemsList = (items, LinkComponent, navigate) => {
+function _renderItemsList(items, LinkComponent, navigate) {
     return items.map((link, idx) => {
         return (
             <li key={idx}>
@@ -38,7 +24,7 @@ const _renderItemsList = (items, LinkComponent, navigate) => {
 }
 
 //Todo: refactor into component
-const _renderButton = (menuButton, LinkComponent, navigate) => {
+function _renderButton(menuButton, LinkComponent, navigate) {
     const buttonProps = {
         option: 'link',
         shape: 'icon',
@@ -64,8 +50,25 @@ const _renderButton = (menuButton, LinkComponent, navigate) => {
     return <Button {...buttonProps} onClick={menuButton.onClick}/>
 }
 
-const MenuLeft = (props) => {
-    const {direction, handleBrandClick, position, children, items, LinkComponent, navigate, ...otherProps} = props;
+// default props
+const defaultProps = {
+    items: [],
+    LinkComponent: undefined,
+    MenuItems,
+    navigate
+};
+
+// props types
+const propTypes = {
+    navigate: PropTypes.func,
+    items: PropTypes.array,
+    handleBrandClick: PropTypes.func,
+    LinkComponent: PropTypes.func,
+    MenuItems: PropTypes.func
+};
+
+function MenuLeft(props) {
+    const {direction, handleBrandClick, position, children, items, LinkComponent, navigate, MenuItems, ...otherProps} = props;
     const itemRenderProps = {LinkComponent, navigate};
     const hasBrandClickHandler = !!handleBrandClick;
 
@@ -78,8 +81,7 @@ const MenuLeft = (props) => {
     );
 }
 
-//Static props.
-MenuLeft.displayName = 'MenuLeft';
+// Static props.
 MenuLeft.defaultProps = defaultProps;
 MenuLeft.propTypes = propTypes;
 
