@@ -21,7 +21,7 @@ const mdlBehaviour = require('../../common/mixin/mdl-behaviour');
 
 // Components
 
-import {Button} from '../../components/button'
+import Button from '../../components/button';
 
 const tableMixin = {
     /**
