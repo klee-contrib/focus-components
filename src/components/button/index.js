@@ -36,7 +36,16 @@ const defaultProps = {
 @MDBehaviour('materialButton', 'MaterialButton')
 @Translation
 class Button extends Component {
-    Bonjour vous !
+
+    static propTypes = {
+        test: PropTypes.bool;
+    }
+    
+    render() {
+        return(
+            <div/>
+        );
+    }
 }
 
 Button.displayName = 'Button'
