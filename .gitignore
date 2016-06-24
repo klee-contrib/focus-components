@@ -16,4 +16,5 @@ lib
 /style
 /index.js
 /legacy.js
+/legacy
 npm-debug.log
