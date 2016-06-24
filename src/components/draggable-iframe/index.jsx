@@ -1,14 +1,14 @@
 import React, {PropTypes} from 'react';
-import './help-center.scss';
 import {translate} from 'focus-core/translation';
 
 export default class DraggableIframe extends React.Component {
+    
     static propTypes = {
-        iframeUrl: PropTypes.string.isRequired;
-        width: PropTypes.number.isRequired;
-        height: PropTypes.number.isRequired;
-        title: PropTypes.string.isRequired;
-        requestClose: PropTypes.func.isRequired;
+        iframeUrl: PropTypes.string.isRequired,
+        width: PropTypes.number.isRequired,
+        height: PropTypes.number.isRequired,
+        title: PropTypes.string.isRequired,
+        requestClose: PropTypes.func.isRequired
     };
 
     state = {
