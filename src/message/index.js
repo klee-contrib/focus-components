@@ -2,7 +2,7 @@ const React = require('react');
 import builder from 'focus-core/component/builder';
 import types from 'focus-core/component/types';
 const i18nBehaviour = require('../common/i18n/mixin');
-import {Button} from '../components/button'
+import Button from '../components/button';
 
 const messageMixin = {
     /** @inheritedDoc */
