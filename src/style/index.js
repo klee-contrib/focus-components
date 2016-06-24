@@ -36,6 +36,7 @@ import '../common/topic-displayer/style/topic-displayer.scss';
 // COMPONENTS FOLDER
 import '../components/button/style/button.scss';
 import '../components/button-back/style/back.scss';
+import '../components/draggable-iframe/style/draggable-iframe.scss';
 import '../components/button-back-to-top/style/back-to-top.scss';
 import '../components/label/style/label.scss';
 import '../components/icon-dropdown/style.scss';
