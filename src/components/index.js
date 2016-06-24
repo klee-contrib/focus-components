@@ -25,6 +25,7 @@ import Label from './label';
 import Emtpy from './empty';
 import TopicDisplayer from './topic-displayer';
 import Animation from './animation';
+import DraggableIframe from './draggable-iframe';
 
 export default {
     Confirm,
@@ -52,5 +53,6 @@ export default {
     ProgressBar,
     Label,
     TopicDisplayer,
-    Animation
+    Animation,
+    DraggableIframe
 }
