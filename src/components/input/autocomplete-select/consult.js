@@ -1,4 +1,4 @@
-import {Component} from 'react';
+import React, {Component} from 'react';
 import ComponentBaseBehaviour from '../../../behaviours/component-base';
 
 @ComponentBaseBehaviour
