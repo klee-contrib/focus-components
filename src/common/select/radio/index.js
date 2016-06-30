@@ -101,9 +101,11 @@ const selectRadioMixin = {
     },
     /** @inheritdoc */
     render() {
+        const {error} = this.props;
         return (
-            <div data-focus='select-radio'>
+            <div data-focus='select-radio' data-valid={!error}>
                 {this.renderSelectRadios()}
+                {error && <div className='label-error' ref='error'>{error}</div>}
             </div>
         );
     }
