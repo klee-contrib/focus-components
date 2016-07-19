@@ -34,7 +34,7 @@ const Facet = {
         facet: PropTypes.array,
         isShowAll: PropTypes.bool,
         nbDefaultDataList: PropTypes.number
-    }
+    },
     /**
      * Render the component.
      * @returns {XML} Html component code.
