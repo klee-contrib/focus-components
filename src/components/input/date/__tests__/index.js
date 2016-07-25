@@ -10,18 +10,38 @@ global.componentHandler = {
 describe('The input date', () => {
     describe('when mounted with a valid value', () => {
         const now = new Date().toISOString();
-        let renderedTest;
+        let reactComponent, domNode, inputNode;
         const onChangeSpy = sinon.spy();
         before(() => {
-            renderedTest = TestUtils.renderIntoDocument(<InputDate onChange={onChangeSpy} value={now} />);
+            reactComponent = TestUtils.renderIntoDocument(<InputDate onChange={onChangeSpy} value={now} />);
+            domNode = ReactDOM.findDOMNode(reactComponent);
         });
-
+        it('should render a node with data-focus attribute', () => {
+            expect(reactComponent).to.exist;
+            expect(reactComponent).to.be.an('object');
+            expect(domNode.tagName).to.equal('DIV');
+            expect(domNode.getAttribute('data-focus')).to.equal('input-date');
+        });
         it('should hold the provided initial value', () => {
-            expect(moment(renderedTest.getValue()).isSame(now, 'day')).to.be.true;
+            expect(moment(reactComponent.getValue()).isSame(now, 'day')).to.be.true;
         });
 
         it('should display the provided date in the dropdown', () => {
-            expect(moment(renderedTest.state.dropDownDate.toISOString()).isSame(now, 'day')).to.be.true;
+            expect(moment(reactComponent.state.dropDownDate.toISOString()).isSame(now, 'day')).to.be.true;
+        });
+    });
+
+
+    describe('when mounted with a disabled props', () => {
+        const now = new Date().toISOString();
+        let reactComponent, inputNode;
+        const onChangeSpy = sinon.spy();
+        before(() => {
+            reactComponent = TestUtils.renderIntoDocument(<InputDate onChange={onChangeSpy} value={now} disabled={true} />);
+            inputNode = ReactDOM.findDOMNode(reactComponent.refs.input.refs.htmlInput);
+        });
+        it('should render a node with disabled attribute', () => {
+            expect(inputNode.hasAttribute('disabled')).to.be.true;
         });
     });
 
