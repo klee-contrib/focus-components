@@ -169,12 +169,13 @@ class InputDate extends Component {
     };
 
     render() {
-        const {error, locale, name, placeholder} = this.props;
+        const {error, locale, name, placeholder, disabled} = this.props;
         const {dropDownDate, inputDate, displayPicker} = this.state;
         const {_onInputBlur, _onInputChange, _onInputFocus, _onDropDownChange, _onPickerCloserClick, _handleKeyDown} = this;
+        const inputProps = { disabled };
         return (
             <div data-focus='input-date'>
-                <InputText error={error} name={name} onChange={_onInputChange} onKeyDown={_handleKeyDown} onFocus={_onInputFocus} placeholder={placeholder} ref='input' value={inputDate} />
+                <InputText error={error} name={name} onChange={_onInputChange} onKeyDown={_handleKeyDown} onFocus={_onInputFocus} placeholder={placeholder} ref='input' value={inputDate} {...inputProps} />
                 {displayPicker &&
                     <div data-focus='picker-zone'>
                         <DatePicker
