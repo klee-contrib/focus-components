@@ -5,8 +5,10 @@ import moment from 'moment';
 import Base from '../../../behaviours/component-base';
 import InputText from '../text';
 import DatePicker from 'react-date-picker';
-import {compose} from 'lodash/function';
-import {isArray} from 'lodash/lang';
+import compose from 'lodash/function/compose';
+import isArray from 'lodash/lang/isArray';
+import uniqueId from 'lodash/utility/uniqueId';
+import closest from 'closest';
 
 const isISOString = value => moment(value, moment.ISO_8601).isValid();
 
@@ -17,7 +19,7 @@ const propTypes = {
     name: PropTypes.string.isRequired,
     onChange: PropTypes.func.isRequired,
     beforeValueGetter: PropTypes.func.isRequired,
-    placeholder: PropTypes.string.isRequired,
+    placeholder: PropTypes.string,
     showDropdowns: PropTypes.bool.isRequired,
     validate: PropTypes.func,
     value: (props, propName, componentName) => {
@@ -54,6 +56,7 @@ class InputDate extends Component {
             displayPicker: false
         };
         this.state = state;
+        this._inputDateId = uniqueId('input-date-');
     }
 
     componentWillMount() {
@@ -129,13 +132,14 @@ class InputDate extends Component {
     };
 
     _onDocumentClick = ({target}) => {
-        const reactid = target ? target.getAttribute('data-reactid') : null;
-        const [picker, input] = ['picker', 'input'].map(ref => ReactDOM.findDOMNode(this.refs[ref]));
-        const pickerId = picker ? picker.getAttribute('data-reactid') : null;
-        const inputId = input ? input.getAttribute('data-reactid') : null;
-        if (reactid && pickerId && inputId && reactid.indexOf(pickerId) === -1 && reactid.indexOf(inputId) === -1) {
-            this.setState({displayPicker: false});
-            this._onInputBlur();
+        const targetClassAttr = target.getAttribute('class');
+        const isTriggeredFromPicker = targetClassAttr ? targetClassAttr.includes('dp-cell') : false;
+        if(!isTriggeredFromPicker) {
+            //if target was not triggered inside the date picker, we check it was not triggered by the input
+            if (closest(target, `[data-id='${this._inputDateId}']`, true) === undefined) {
+                this.setState({displayPicker: false});
+                this._onInputBlur();
+            }
         }
     };
 
@@ -174,7 +178,7 @@ class InputDate extends Component {
         const {_onInputBlur, _onInputChange, _onInputFocus, _onDropDownChange, _onPickerCloserClick, _handleKeyDown} = this;
         const inputProps = { disabled };
         return (
-            <div data-focus='input-date'>
+            <div data-focus='input-date' data-id={this._inputDateId}>
                 <InputText error={error} name={name} onChange={_onInputChange} onKeyDown={_handleKeyDown} onFocus={_onInputFocus} placeholder={placeholder} ref='input' value={inputDate} {...inputProps} />
                 {displayPicker &&
                     <div data-focus='picker-zone'>

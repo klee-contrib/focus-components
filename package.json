@@ -78,6 +78,7 @@
     },
     "homepage": "https://github.com/KleeGroup/focus-components",
     "dependencies": {
+        "closest": "0.0.1",
         "daterangepicker": "0.0.3",
         "immutable": "^3.7.4",
         "lodash": "^3.10.1",
