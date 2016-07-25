@@ -133,7 +133,7 @@ class InputDate extends Component {
 
     _onDocumentClick = ({target}) => {
         const targetClassAttr = target.getAttribute('class');
-        const isTriggeredFromPicker = targetClassAttr ? targetClassAttr.includes('dp-cell') : false;
+        const isTriggeredFromPicker = targetClassAttr ? targetClassAttr.includes('dp-cell') : false; //this is the only way to check the target comes from picker cause at this stage, month and year div are unmounted by React.
         if(!isTriggeredFromPicker) {
             //if target was not triggered inside the date picker, we check it was not triggered by the input
             if (closest(target, `[data-id='${this._inputDateId}']`, true) === undefined) {
