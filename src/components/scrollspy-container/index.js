@@ -239,10 +239,8 @@ class ScrollspyContainer extends Component {
 
     /** @inheritedDoc */
     render() {
-        const {children, gridMenuSize, hasMenu, hasBackToTop, offset, ...otherProps} = this.props;
+        const {children, hasMenu, hasBackToTop, offset, scrollDelay, ...otherProps} = this.props;
         const {affix, menuList} = this.state;
-        let {gridContentSize} = this.props;
-        gridContentSize = hasMenu ? gridContentSize : 12;
         return (
             <div data-focus='scrollspy-container' {...otherProps}>
                 {hasMenu &&

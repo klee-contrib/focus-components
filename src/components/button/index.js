@@ -133,7 +133,7 @@ class Button extends Component {
 
     /** inheritedDoc */
     render() {
-        const {className, icon, id, type, label, style, ...otherProps} = this.props;
+        const {className, handleOnClick, hasRipple, icon, iconLibrary, id, isJs, label, option, route, style, type, ...otherProps} = this.props;
         let renderedClassName;
         if(className) {
             renderedClassName = className + ' ' + ::this._getComponentClassName();

@@ -68,7 +68,7 @@ class InputText extends Component {
      * @override
     */
     render() {
-        const {error, name, placeholder, style, value: rawValue, formatter, ...otherProps} = this.props;
+        const {error, name, placeholder, style, value: rawValue, formatter, unformatter, ...otherProps} = this.props;
         const value = formatter(rawValue, MODE);
         const pattern = error ? 'hasError' : null; //add pattern to overide mdl error style when displaying an focus error.
         const inputProps = {...otherProps, value, id: name, onChange: this._handleInputChange, pattern};

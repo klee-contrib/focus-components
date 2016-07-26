@@ -1,8 +1,10 @@
 import React, {PropTypes} from 'react';
 import builder from 'focus-core/component/builder';
-import {keys} from 'lodash/object';
-import {isObject} from 'lodash/lang';
 import {translate} from 'focus-core/translation';
+
+import isObject from 'lodash/lang/isObject';
+import keys from 'lodash/object/keys';
+import uniqueId from 'lodash/utility/uniqueId';
 
 // Components
 const FacetData = require('./facet-data').component;
@@ -97,8 +99,9 @@ const Facet = {
             <div className='' data-focus='facet-data-list'>
                 <ul>
                     {facetValues.map( facetValue => {
+                        const itemKey = uniqueId('facet-item');
                         return (
-                            <li key={facetValue.label}>
+                            <li key={itemKey}>
                                 <FacetData
                                     dataKey={facetValue.label}
                                     data={facetValue}

@@ -8,7 +8,7 @@ const find = require('lodash/collection/find');
 // Components
 
 const Field = require('../field').component;
-const Text = require('../display/text').component;
+const Text = require('../../components/display/text');
 const Button = require('../../components/button');
 const MemoryList = require('../list').component;
 const Table = require('../../list/table').list.component;
@@ -33,8 +33,7 @@ module.exports = {
         return this._renderField(fieldProps);
     },
     autocompleteFor() {
-        throw new Error(`Form's autocompleteFor method is deprecated, in order to use the deprecated component, please use this.deprecatedAutocompleteFor.
-You must migrate all the autocompleteFor to autocompleteSelectFor or autocompleteTextFor in order to follow the library evolutions.`);
+        throw new Error('Form\'s autocompleteFor method is deprecated, in order to use the deprecated component, please use this.deprecatedAutocompleteFor. You must migrate all the autocompleteFor to autocompleteSelectFor or autocompleteTextFor in order to follow the library evolutions.');
     },
     deprecatedAutocompleteFor(name, {codeResolver, searcher}, options = {}) {
         options = assign({}, options);
@@ -153,11 +152,11 @@ You must migrate all the autocompleteFor to autocompleteSelectFor or autocomplet
         };
         return (
             <Button
-                handleOnClick={handleOnClick}
-                icon='delete'
-                label='button.delete'
-                shape={null}
-                type='button'
+            handleOnClick={handleOnClick}
+            icon='delete'
+            label='button.delete'
+            shape={null}
+            type='button'
             />
         );
     },
@@ -174,11 +173,11 @@ You must migrate all the autocompleteFor to autocompleteSelectFor or autocomplet
         };
         return (
             <Button
-                handleOnClick={handleOnClick}
-                icon='edit'
-                label='button.edit'
-                shape={null}
-                type='button'
+            handleOnClick={handleOnClick}
+            icon='edit'
+            label='button.edit'
+            shape={null}
+            type='button'
             />
         );
     },
@@ -214,11 +213,11 @@ You must migrate all the autocompleteFor to autocompleteSelectFor or autocomplet
         };
         return (
             <Button
-                handleOnClick={handleOnClick}
-                icon='save'
-                label='button.save'
-                shape={null}
-                type='button'
+            handleOnClick={handleOnClick}
+            icon='save'
+            label='button.save'
+            shape={null}
+            type='button'
             />
         );
     },
