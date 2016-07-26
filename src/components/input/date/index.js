@@ -137,16 +137,14 @@ class InputDate extends Component {
         if(!isTriggeredFromPicker) {
             //if target was not triggered inside the date picker, we check it was not triggered by the input
             if (closest(target, `[data-id='${this._inputDateId}']`, true) === undefined) {
-                this.setState({displayPicker: false});
-                this._onInputBlur();
+                this.setState({displayPicker: false}, () => this._onInputBlur());
             }
         }
     };
 
     _handleKeyDown = ({key}) => {
         if (key === 'Tab' || key === 'Enter') {
-            this.setState({displayPicker: false});
-            this._onInputBlur();
+            this.setState({displayPicker: false}, () => this._onInputBlur());
         }
     };
 
