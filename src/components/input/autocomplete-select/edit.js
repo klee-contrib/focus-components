@@ -12,43 +12,44 @@ const TAB_KEY_CODE = 27;
 const UP_ARROW_KEY_CODE = 38;
 const DOWN_ARROW_KEY_CODE = 40;
 
+const propTypes = {
+    customError: PropTypes.string,
+    inputTimeout: PropTypes.number.isRequired,
+    keyName: PropTypes.string.isRequired,
+    keyResolver: PropTypes.func.isRequired,
+    labelName: PropTypes.string.isRequired,
+    onBadInput: PropTypes.func,
+    onChange: PropTypes.func.isRequired,
+    placeholder: PropTypes.string,
+    querySearcher: PropTypes.func.isRequired,
+    renderOptions: PropTypes.func,
+    value: PropTypes.string
+};
+
+const defaultProps = {
+    keyName: 'key',
+    labelName: 'label',
+    inputTimeout: 200
+};
+
 @MDBehaviour('loader')
 @MDBehaviour('inputText')
 @ComponentBaseBehaviour
 class Autocomplete extends Component {
-    static propTypes = {
-        customError: PropTypes.string,
-        inputTimeout: PropTypes.number.isRequired,
-        keyName: PropTypes.string.isRequired,
-        keyResolver: PropTypes.func.isRequired,
-        labelName: PropTypes.string.isRequired,
-        onBadInput: PropTypes.func,
-        onChange: PropTypes.func.isRequired,
-        placeholder: PropTypes.string,
-        querySearcher: PropTypes.func.isRequired,
-        renderOptions: PropTypes.func,
-        value: PropTypes.string
-    };
-
-    static defaultProps = {
-        keyName: 'key',
-        labelName: 'label',
-        inputTimeout: 200
-    };
-
-    state = {
-        focus: false,
-        inputValue: this.props.value,
-        options: new Map(),
-        active: null,
-        selected: this.props.value,
-        fromKeyResolver: false,
-        isLoading: false,
-        customError: this.props.customError,
-        totalCount: 0
-    };
-
-    componentWillMount() {
+    constructor(props) {
+        super(props);
+        const state = {
+            focus: false,
+            inputValue: this.props.value,
+            options: new Map(),
+            active: null,
+            selected: this.props.value,
+            fromKeyResolver: false,
+            isLoading: false,
+            customError: this.props.customError,
+            totalCount: 0
+        };
+        this.state = state;
         this.autocompleteId = uniqueId('autocomplete-text-');
     };
 
@@ -237,5 +238,9 @@ class Autocomplete extends Component {
         );
     };
 }
+
+Autocomplete.displayName = 'Autocomplete';
+Autocomplete.defaultProps = defaultProps;
+Autocomplete.propTypes = propTypes;
 
 export default Autocomplete;
