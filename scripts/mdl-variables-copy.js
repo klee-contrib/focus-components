@@ -1,6 +1,6 @@
 /* eslint-disable */
 var fs = require('fs');
-var path = require('path');
+const path = require('path');
 
 function copyFileSync(srcFile, destFile) {
     try {
