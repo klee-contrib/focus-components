@@ -96,7 +96,7 @@ class Select extends Component {
             return (<option key={idx} value={optVal}>{optLabel}</option>);
         });
     }
-    
+
     /**
     * @inheritdoc
     * @override
@@ -104,7 +104,8 @@ class Select extends Component {
     render() {
         const {error, name, placeholder, style, value, values, disabled, onChange, ...otherProps} = this.props;
         //const pattern = error ? 'hasError' : null; //add pattern to overide mdl error style when displaying an focus error.
-        const selectOtherProps = disabled ? {disabled: 'disabled', ...otherProps} : otherProps;
+        const {domain, locale, isEdit, hasLabel, isRequired, validator, formatter, unformatter, FieldComponent, InputLabelComponent, InputComponent, SelectComponent, TextComponent, DisplayComponent, options, listName, labelSize, labelCellPosition, contentCellPosition, AutocompleteComponent, AutocompleteSelectComponent, AutocompleteTextComponent, LabelComponent, hasUndefined, isActiveProperty, labelKey, unSelectedLabel, valueKey, valueParser, ...validInputProps} = otherProps;
+        const selectOtherProps = disabled ? {disabled: 'disabled', ...validInputProps} : validInputProps;
         return (
             <div data-focus='select' ref='select' data-valid={!error} style={style}>
                 <select name={name} onChange={this._handleSelectChange} ref='htmlSelect' value={value} {...selectOtherProps}>

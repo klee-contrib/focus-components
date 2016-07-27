@@ -71,7 +71,8 @@ class InputTextarea extends Component {
         const {error, name, placeholder, style, value: rawValue, formatter, ...otherProps} = this.props;
         const value = formatter(rawValue);
         const pattern = error ? 'hasError' : null; //add pattern to overide mdl error style when displaying an focus error.
-        const inputProps = {...otherProps, value, id: name, onChange: this._handleInputChange, pattern};
+        const {domain, locale, isEdit, hasLabel, isRequired, validator, unformatter, FieldComponent, InputLabelComponent, InputComponent, SelectComponent, TextComponent, DisplayComponent, options, labelSize, labelCellPosition, contentCellPosition, AutocompleteComponent, AutocompleteSelectComponent, AutocompleteTextComponent, LabelComponent, ...validInputProps} = otherProps;
+        const inputProps = {...validInputProps, value, id: name, onChange: this._handleInputChange, pattern};
         const mdlClasses = `mdl-textfield mdl-js-textfield${error ? ' is-invalid' : ''}`;
         return (
             <div data-error={!!error} data-focus='input-textarea'>
