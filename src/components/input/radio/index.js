@@ -76,6 +76,6 @@ class Radio extends Component {
     }
 }
 
-Radio.displayName = 'input-radio';
+Radio.displayName = 'InputRadio';
 
 export default Radio;
