@@ -25,9 +25,8 @@ var overridenVariablesFilePath = __dirname + '/../src/style/_mdl_variables.scss'
 var oldMdlVariablesFilePath = __dirname + '/../node_modules/material-design-lite/src/_variables.scss';
 var newMdlVariablesFilePath = __dirname + '/../../node_modules/material-design-lite/src/_variables.scss';
 
-fs.access(oldMdlVariablesFilePath, fs.constants.W_OK, (err) => {
-    var path = err ? newMdlVariablesFilePath : oldMdlVariablesFilePath;
-    console.log('Override MDL variables... into path : ' + path);
+fs.exists(newMdlVariablesFilePath, function (exists) {
+    var path = exists ? newMdlVariablesFilePath : oldMdlVariablesFilePath;
     copyFileSync(overridenVariablesFilePath, path);
-    console.log('Material design lite SASS variables overriden !');
+    console.log('Material design lite SASS variables overriden into path : ' + path);
 });
