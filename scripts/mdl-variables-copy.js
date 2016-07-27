@@ -1,5 +1,7 @@
 /* eslint-disable */
 var fs = require('fs');
+const path = require('path');
+
 function copyFileSync(srcFile, destFile) {
     try {
         var BUF_LENGTH, buff, bytesRead, fdr, fdw, pos;
@@ -21,12 +23,12 @@ function copyFileSync(srcFile, destFile) {
     }
 };
 
-var overridenVariablesFilePath = __dirname + '/../src/style/_mdl_variables.scss';
-var oldMdlVariablesFilePath = __dirname + '/../node_modules/material-design-lite/src/_variables.scss';
-var newMdlVariablesFilePath = __dirname + '/../../node_modules/material-design-lite/src/_variables.scss';
+var focusVariablePath = path.resolve(__dirname, '../src/style/_mdl_variables.scss');
+var node4MdlPath = path.resolve(__dirname, '../node_modules/material-design-lite/src/_variables.scss');
+var node6MdlPath = path.resolve(__dirname, '../../material-design-lite/src/_variables.scss');
 
-fs.exists(newMdlVariablesFilePath, function (exists) {
-    var path = exists ? newMdlVariablesFilePath : oldMdlVariablesFilePath;
-    copyFileSync(overridenVariablesFilePath, path);
+fs.exists(node6MdlPath, function (exists) {
+	var path = exists ? node6MdlPath : node4MdlPath;
+    copyFileSync(focusVariablePath, path);
     console.log('Material design lite SASS variables overriden into path : ' + path);
 });
