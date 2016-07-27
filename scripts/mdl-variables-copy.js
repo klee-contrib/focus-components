@@ -22,8 +22,8 @@ function copyFileSync(srcFile, destFile) {
 };
 
 var overridenVariablesFilePath = __dirname + '/../src/style/_mdl_variables.scss';
-var oldMdlVariablesFilePath = __dirname + '/../node_modules/material-design-lite/src/_variables.scss'
-var newMdlVariablesFilePath = __dirname + '/../../node_modules/material-design-lite/src/_variables.scss'
+var oldMdlVariablesFilePath = __dirname + '/../node_modules/material-design-lite/src/_variables.scss';
+var newMdlVariablesFilePath = __dirname + '/../../node_modules/material-design-lite/src/_variables.scss';
 
 fs.access(oldMdlVariablesFilePath, fs.constants.W_OK, (err) => {
     var path = err ? newMdlVariablesFilePath : oldMdlVariablesFilePath;
