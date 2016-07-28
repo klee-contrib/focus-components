@@ -133,16 +133,13 @@ class Button extends Component {
 
     /** inheritedDoc */
     render() {
-        const {className, handleOnClick, hasRipple, icon, iconLibrary, id, isJs, label, option, route, style, type, ...otherProps} = this.props;
-        let renderedClassName;
-        if(className) {
-            renderedClassName = className + ' ' + ::this._getComponentClassName();
-        }
-        else {
-            renderedClassName = ::this._getComponentClassName();
-        }
+        // attribute doc : https://developer.mozilla.org/fr/docs/Web/HTML/Element/Button
+        // be careful the way you declare your attribute names : https://developer.mozilla.org/fr/docs/Web/HTML/Element/Button
+        const {className, disabled, formNoValidate, icon, id, type, label, style, ...otherProps } = this.props;
+        const otherInputProps = { disabled, formNoValidate, style, type };
+        const renderedClassName = `${className ? className : ''} ${::this._getComponentClassName()}`.trim();
         return (
-            <button alt={this.i18n(label)} className={renderedClassName.trim()} data-focus='button-action' id={id} onClick={(...args) => this.handleOnClick(...args)} title={this.i18n(label)} type={type} {...otherProps} ref='materialButton'>
+            <button alt={this.i18n(label)} className={renderedClassName} data-focus='button-action' id={id} onClick={(...args) => this.handleOnClick(...args)} title={this.i18n(label)} {...otherInputProps} ref='materialButton'>
                 {icon && ::this._renderIcon()}
                 {::this._renderLabel()}
             </button>

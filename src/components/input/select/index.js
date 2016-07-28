@@ -102,13 +102,11 @@ class Select extends Component {
     * @override
     */
     render() {
-        const {error, name, placeholder, style, value, values, disabled, onChange, ...otherProps} = this.props;
-        //const pattern = error ? 'hasError' : null; //add pattern to overide mdl error style when displaying an focus error.
-        const {domain, locale, isEdit, hasLabel, isRequired, validator, formatter, unformatter, FieldComponent, InputLabelComponent, InputComponent, SelectComponent, TextComponent, DisplayComponent, options, listName, labelSize, labelCellPosition, contentCellPosition, AutocompleteComponent, AutocompleteSelectComponent, AutocompleteTextComponent, LabelComponent, hasUndefined, isActiveProperty, labelKey, unSelectedLabel, valueKey, valueParser, ...validInputProps} = otherProps;
-        const selectOtherProps = disabled ? {disabled: 'disabled', ...validInputProps} : validInputProps;
+        const { autoFocus, error, multiple, name, placeholder, style, value, values, disabled, onChange, size } = this.props;
+        const selectProps = { autoFocus, disabled, multiple, size };
         return (
             <div data-focus='select' ref='select' data-valid={!error} style={style}>
-                <select name={name} onChange={this._handleSelectChange} ref='htmlSelect' value={value} {...selectOtherProps}>
+                <select name={name} onChange={this._handleSelectChange} ref='htmlSelect' value={value} {...selectProps}>
                     {this._renderOptions(this.props)}
                 </select>
                 {error && <div className='label-error' ref='error'>{error}</div>}

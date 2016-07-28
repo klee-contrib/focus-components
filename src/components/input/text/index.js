@@ -68,11 +68,10 @@ class InputText extends Component {
      * @override
     */
     render() {
-        const {error, name, placeholder, style, value: rawValue, formatter, unformatter, ...otherProps} = this.props;
+        const { autoFocus, disabled, formatter, maxLength, onFocus, onClick, onKeyDown, onKeyPress, error, name, placeholder, style, value: rawValue, size, type} = this.props;
         const value = formatter(rawValue, MODE);
         const pattern = error ? 'hasError' : null; //add pattern to overide mdl error style when displaying an focus error.
-        const {AutocompleteComponent, AutocompleteSelectComponent, AutocompleteTextComponent, contentCellPosition, DisplayComponent, domain, FieldComponent, hasLabel, isEdit, isRequired, InputLabelComponent, InputComponent, labelCellPosition, LabelComponent, labelSize, locale, options, SelectComponent, TextComponent, validator, ...validInputProps} = otherProps;
-        const inputProps = {...validInputProps, value, id: name, onChange: this._handleInputChange, pattern};
+        const inputProps =  { autoFocus, disabled, onKeyDown,onKeyPress, maxLength, onFocus, onClick, id: name, onChange: this._handleInputChange, pattern, size, type, value };
         const cssClass = `mdl-textfield mdl-js-textfield${error ? ' is-invalid' : ''}`;
         return (
             <div className={cssClass} data-focus='input-text' ref='inputText' style={style}>
