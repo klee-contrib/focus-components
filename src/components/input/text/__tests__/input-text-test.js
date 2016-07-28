@@ -7,7 +7,7 @@ describe('The input text', () => {
         before(
             () => {
                 const shallowRenderer = TestUtils.createRenderer();
-                shallowRenderer.render(<Input/>);
+                shallowRenderer.render(<Input name='test' onChange={(value) => { /* */ }}/>);
                 component = shallowRenderer.getRenderOutput();
             }
         );

@@ -213,7 +213,7 @@ class Autocomplete extends Component {
     };
 
     render () {
-        const {customError, placeholder, renderOptions, ...inputProps} = this.props;
+        const {customError, inputTimeout, keyName, keyResolver, labelName, placeholder, querySearcher, renderOptions, ...inputProps} = this.props;
         const {inputValue, isLoading} = this.state;
         const {_handleQueryFocus, _handleQueryKeyDown, _handleQueryChange} = this;
         return (

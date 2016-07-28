@@ -2,7 +2,7 @@ var React = require('react');
 var fielBehaviourMixin = require('../../common/mixin/field-component-behaviour');
 var assign = require('object-assign');
 var Field = require('../../common/field').component;
-var Text = require('../../common/display/text').component;
+var DisplayText = require('../../components/display/text');
 
 var builtInComponentsMixin = {
     /**
@@ -77,7 +77,7 @@ var builtInComponentsMixin = {
     textFor: function textFor(name, options) {
         options = options || {};
         var def = (this.definition && this.definition[name]) ? this.definition[name] : {};
-        return React.createElement(Text, {
+        return React.createElement(DisplayText, {
             name: options.name || `${this.definitionPath}.${name}`,
             style: options.style,
             FieldComponent: def.FieldComponent,

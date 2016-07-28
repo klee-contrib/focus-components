@@ -25,7 +25,7 @@ describe('SearchBar with no scope', () => {
         });
     });
     describe('Check configured SearchBar\' behaviour', () => {
-        let onChangeSpy, input, inputChange, initialValue, configuredComponent, action;
+        let onChangeSpy, input, initialValue, configuredComponent, action;
         before( done => {
             onChangeSpy = sinon.spy();
             action = {
@@ -38,7 +38,6 @@ describe('SearchBar with no scope', () => {
             };
             configuredComponent = renderIntoDocument(<SearchBar hasScopes={false} store={quickSearchStore} action={action} placeholder='Search here...'/>);
             input = configuredComponent.refs.query.refs.htmlInput;
-            inputChange = input.props.onChange.bind(input);
             initialValue = configuredComponent.state.query;
             Simulate.change(input, {target: {value: 'Boy'}});
         });

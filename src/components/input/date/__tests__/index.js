@@ -152,7 +152,7 @@ describe('The input date', () => {
             renderedTest = TestUtils.renderIntoDocument(<TestComponent />);
             const input = ReactDOM.findDOMNode(renderedTest.refs.date.refs.input.refs.htmlInput);
             TestUtils.Simulate.change(input, {target: {value: validDateString}});
-            TestUtils.Simulate.click(document);
+            //TestUtils.Simulate.click(document);
         });
         it('should give the provided value', () => {
             expect(moment(renderedTest.refs.date.getValue()).isSame(moment(validDateString, 'MM/DD/YYYY').toISOString())).to.be.true;

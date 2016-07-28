@@ -111,7 +111,6 @@ class ActionMenu extends React.Component {
 
     render() {
         const {menuVisible} = this.state;
-        console.log("menuVisible", menuVisible);
         const {id,iconProps, operationList, position, shape} = this.props;
         return (
             <div>

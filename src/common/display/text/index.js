@@ -10,7 +10,7 @@ const i18nBehaviour = require('../../i18n/mixin');
 */
 const displayTextMixin = {
     mixins: [i18nBehaviour],
-    displayName: 'DisplayText',
+    displayName: 'DeprecatedDisplayText',
     /** @inheritdoc */
     getDefaultProps() {
         return {

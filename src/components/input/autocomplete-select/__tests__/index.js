@@ -34,11 +34,13 @@ const querySearcher = query => {
     });
 };
 
+const onChangeHandler = () => console.log('Autocomplete onChange call...');
+
 describe('The autocomplete select', () => {
     let renderedTest;
     describe('when mounted with no value', () => {
         before(() => {
-            renderedTest = TestUtils.renderIntoDocument(<AutocompleteSelect keyResolver={keyResolver} querySearcher={querySearcher} inputTimeout={0}/>);
+            renderedTest = TestUtils.renderIntoDocument(<AutocompleteSelect onChange={onChangeHandler} keyResolver={keyResolver} querySearcher={querySearcher} inputTimeout={0}/>);
         });
         it('should give an null object when getValue is called', () => {
             expect(renderedTest.getValue()).to.be.null;
@@ -52,7 +54,7 @@ describe('The autocomplete select', () => {
             return keyResolver(data);
         };
         before(() => {
-            renderedTest = TestUtils.renderIntoDocument(<AutocompleteSelect keyResolver={keyResolverSpied} querySearcher={querySearcher} value={value} inputTimeout={0}/>);
+            renderedTest = TestUtils.renderIntoDocument(<AutocompleteSelect onChange={onChangeHandler} keyResolver={keyResolverSpied} querySearcher={querySearcher} value={value} inputTimeout={0}/>);
         });
         it('should give a resolved value when getValue is called', () => {
             expect(renderedTest.getValue()).to.equal(value);
@@ -70,7 +72,7 @@ describe('The autocomplete select', () => {
             return querySearcher(data);
         };
         before(() => {
-            renderedTest = TestUtils.renderIntoDocument(<AutocompleteSelect keyResolver={keyResolver} querySearcher={querySearcherSpied} inputTimeout={0}/>);
+            renderedTest = TestUtils.renderIntoDocument(<AutocompleteSelect onChange={onChangeHandler} keyResolver={keyResolver} querySearcher={querySearcherSpied} inputTimeout={0}/>);
             const input = ReactDOM.findDOMNode(renderedTest.refs.htmlInput);
             TestUtils.Simulate.change(input, {target: {value: query}});
         });
@@ -140,7 +142,7 @@ describe('The autocomplete select', () => {
             state = {value: 'value'};
             render() {
                 const {value} = this.state;
-                return <AutocompleteSelect keyResolver={keyResolverSpied} querySearcher={querySearcher} value={value} ref='child' inputTimeout={0}/>;
+                return <AutocompleteSelect onChange={onChangeHandler} keyResolver={keyResolverSpied} querySearcher={querySearcher} value={value} ref='child' inputTimeout={0}/>;
             }
         }
         before(done => {
