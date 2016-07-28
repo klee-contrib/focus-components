@@ -99,9 +99,8 @@ const Facet = {
             <div className='' data-focus='facet-data-list'>
                 <ul>
                     {facetValues.map( facetValue => {
-                        const itemKey = uniqueId('facet-item');
                         return (
-                            <li key={itemKey}>
+                            <li key={uniqueId('facet-item')}>
                                 <FacetData
                                     dataKey={facetValue.label}
                                     data={facetValue}
