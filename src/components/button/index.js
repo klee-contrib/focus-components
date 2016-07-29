@@ -10,16 +10,17 @@ const BUTTON_PRFX = 'mdl-button--';
 const RIPPLE_EFFECT = 'mdl-js-ripple-effect';
 
 const propTypes = {
-    id: PropTypes.string,
-    label: PropTypes.string,
-    handleOnClick: PropTypes.func, //to remove in V2
-    type: PropTypes.oneOf(['submit', 'button']),
-    shape: PropTypes.oneOf([undefined, 'raised', 'fab', 'icon', 'mini-fab']),
     color: PropTypes.oneOf([undefined,'colored', 'primary', 'accent']),
+    id: PropTypes.string,
+    handleOnClick: PropTypes.func, //to remove in V2
     hasRipple: PropTypes.bool,
     isJs: PropTypes.bool,
     icon: PropTypes.string,
-    iconLibrary: PropTypes.oneOf(['material', 'font-awesome', 'font-custom'])
+    iconLibrary: PropTypes.oneOf(['material', 'font-awesome', 'font-custom']),
+    label: PropTypes.string,
+    onClick: PropTypes.func,
+    shape: PropTypes.oneOf([undefined, 'raised', 'fab', 'icon', 'mini-fab']),
+    type: PropTypes.oneOf(['submit', 'button'])
 }
 
 const defaultProps = {
@@ -45,17 +46,6 @@ class Button extends Component {
         const refNode = ReactDOM.findDOMNode(this.refs['materialButton']);
         if (hasRipple) {
             componentHandler.upgradeElement(refNode, 'MaterialRipple');
-        }
-    }
-
-    /**
-    * Handle click event.
-    * @return {Object} - Action call.
-    */
-    handleOnClick(...args) {
-        const {handleOnClick} = this.props;
-        if (handleOnClick) {
-            return handleOnClick.apply(this, args);
         }
     }
 
@@ -135,11 +125,11 @@ class Button extends Component {
     render() {
         // attribute doc : https://developer.mozilla.org/fr/docs/Web/HTML/Element/Button
         // be careful the way you declare your attribute names : https://developer.mozilla.org/fr/docs/Web/HTML/Element/Button
-        const {className, disabled, formNoValidate, icon, id, onClick, type, label, style, ...otherProps } = this.props;
-        const otherInputProps = { disabled, formNoValidate, onClick, style, type }; //on click for legacy. Remove handleOnClick in v2
+        const {className, disabled, formNoValidate, handleOnClick, icon, id, onClick, type, label, style, ...otherProps } = this.props;
+        const otherInputProps = { disabled, formNoValidate, onClick: handleOnClick ? handleOnClick : onClick, style, type }; //on click for legacy. Remove handleOnClick in v2
         const renderedClassName = `${className ? className : ''} ${::this._getComponentClassName()}`.trim();
         return (
-            <button alt={this.i18n(label)} className={renderedClassName} data-focus='button-action' id={id} onClick={(...args) => this.handleOnClick(...args)} title={this.i18n(label)} {...otherInputProps} ref='materialButton'>
+            <button alt={this.i18n(label)} className={renderedClassName} data-focus='button-action' id={id} title={this.i18n(label)} {...otherInputProps} ref='materialButton'>
                 {icon && ::this._renderIcon()}
                 {::this._renderLabel()}
             </button>
