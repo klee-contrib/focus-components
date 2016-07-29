@@ -12,7 +12,7 @@ const RIPPLE_EFFECT = 'mdl-js-ripple-effect';
 const propTypes = {
     id: PropTypes.string,
     label: PropTypes.string,
-    handleOnClick: PropTypes.func,
+    handleOnClick: PropTypes.func, //to remove in V2
     type: PropTypes.oneOf(['submit', 'button']),
     shape: PropTypes.oneOf([undefined, 'raised', 'fab', 'icon', 'mini-fab']),
     color: PropTypes.oneOf([undefined,'colored', 'primary', 'accent']),
@@ -135,8 +135,8 @@ class Button extends Component {
     render() {
         // attribute doc : https://developer.mozilla.org/fr/docs/Web/HTML/Element/Button
         // be careful the way you declare your attribute names : https://developer.mozilla.org/fr/docs/Web/HTML/Element/Button
-        const {className, disabled, formNoValidate, icon, id, type, label, style, ...otherProps } = this.props;
-        const otherInputProps = { disabled, formNoValidate, style, type };
+        const {className, disabled, formNoValidate, icon, id, onClick, type, label, style, ...otherProps } = this.props;
+        const otherInputProps = { disabled, formNoValidate, onClick, style, type }; //on click for legacy. Remove handleOnClick in v2
         const renderedClassName = `${className ? className : ''} ${::this._getComponentClassName()}`.trim();
         return (
             <button alt={this.i18n(label)} className={renderedClassName} data-focus='button-action' id={id} onClick={(...args) => this.handleOnClick(...args)} title={this.i18n(label)} {...otherInputProps} ref='materialButton'>
