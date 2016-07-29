@@ -41,14 +41,7 @@ Affichage d'une liste de selection multiple en mode checkbox.
             <td><code>label</code></td>
             <td>Nom de l'attribut correspondant au libellé dans la liste.</td>
         </tr>
-         <tr>
-            <td><code>name</code></td>
-            <td><i>string</i></td>
-            <td><code>text</code></td>
-            <td></td>
-            <td>Nom de l'attribut sur lequel porte la liste de selection.</td>
-        </tr>
-         <tr>
+        <tr>
             <td><code>style</code></td>
             <td><i>object</i></td>
             <td><code>{className:"radio"}</code></td>
@@ -96,12 +89,6 @@ Affichage d'une liste de selection multiple en mode checkbox.
 
 ## Structure
 - div
-- label
-- input checkbox
+	- input checkbox
+		- label
 
-## Exemple
-[Exemple de select-checkbox](https://github.com/KleeGroup/focus-components/blob/master/common/select/checkbox/example/index.html)
-## Test
-todo
-## Démo
-[Démo de select-checkbox](http://kleegroup.github.io/focus-components/common/select/checkbox/example/)
