@@ -3,11 +3,14 @@ import ReactDOM from 'react-dom';
 import BackToTop from '../button-back-to-top'
 import StickyMenu from './sticky-menu';
 import Scroll from '../../behaviours/scroll';
-import {filter} from 'lodash/collection';
-import {debounce} from 'lodash/function';
-import {first, last} from 'lodash/array';
 import Grid from '../grid';
-import Column from '../column'
+import Column from '../column';
+
+import debounce from 'lodash/function/debounce';
+import filter from 'lodash/collection/filter';
+import first from 'lodash/array/first';
+import last from 'lodash/array/last';
+import xor from 'lodash/array/xor';
 
 const BackToTopComponent = BackToTop;
 
@@ -114,20 +117,12 @@ class ScrollspyContainer extends Component {
         let currentScrollPosition = {top: this.scrollPosition().top, left: this.scrollPosition().left};
         let isAtPageBottom = this.isAtPageBottom();
 
+        //get the menu list (without blocks in popin)
+        const thisComponentNode = ReactDOM.findDOMNode(this);
+        const allDataSpy = thisComponentNode.querySelectorAll('[data-spy]');
+        const popinDataSpy = thisComponentNode.querySelectorAll(`[data-focus='popin-window'] [data-spy]`);
+        const selectionList = xor(allDataSpy, popinDataSpy);
 
-        //get menu list$
-        const thisReactId = ReactDOM.findDOMNode(this).getAttribute('data-reactid');
-        const selectionList = Array.prototype.slice.call(document.querySelectorAll('[data-spy]')).filter(element => {
-            let cursorElement = element;
-            let isInPopin = false;
-            while (cursorElement.getAttribute('data-reactid') !== thisReactId && !isInPopin) {
-                cursorElement = cursorElement.parentElement;
-                if (cursorElement.getAttribute('data-focus') === 'popin-window') {
-                    isInPopin = true;
-                }
-            }
-            return !isInPopin;
-        });
         if(selectionList.length === 0) {
             return;
         }
@@ -244,10 +239,8 @@ class ScrollspyContainer extends Component {
 
     /** @inheritedDoc */
     render() {
-        const {children, gridMenuSize, hasMenu, hasBackToTop, offset, ...otherProps} = this.props;
+        const {children, hasMenu, hasBackToTop, offset, scrollDelay, ...otherProps} = this.props;
         const {affix, menuList} = this.state;
-        let {gridContentSize} = this.props;
-        gridContentSize = hasMenu ? gridContentSize : 12;
         return (
             <div data-focus='scrollspy-container' {...otherProps}>
                 {hasMenu &&

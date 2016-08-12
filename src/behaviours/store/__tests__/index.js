@@ -30,7 +30,7 @@ describe('The store connect behaviour', () => {
             [{store: newStore, properties: ['papa', 'lopez']}],
             (props) => {const storeValue = newStore.getValue(); storeChangeSpy(storeValue); return storeValue; }
         );
-        const Component = (props) => { console.log(props); conectedComponentRenderSpy(props); return <div>{JSON.stringify(props)}</div>;};
+        const Component = (props) => { conectedComponentRenderSpy(props); return <div>{JSON.stringify(props)}</div>;};
         const ConnectedComponent = connector(Component);
         before(
             () => {

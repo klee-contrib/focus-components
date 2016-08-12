@@ -1,8 +1,10 @@
-import React from 'react';
+import React, {PropTypes} from 'react';
 import builder from 'focus-core/component/builder';
-import {keys} from 'lodash/object';
-import {isObject} from 'lodash/lang';
 import {translate} from 'focus-core/translation';
+
+import isObject from 'lodash/lang/isObject';
+import keys from 'lodash/object/keys';
+import uniqueId from 'lodash/utility/uniqueId';
 
 // Components
 const FacetData = require('./facet-data').component;
@@ -29,6 +31,11 @@ const Facet = {
         return {
             nbDefaultDataList: 6
         };
+    },
+    propTypes: {
+        facet: PropTypes.array,
+        isShowAll: PropTypes.bool,
+        nbDefaultDataList: PropTypes.number
     },
     /**
      * Render the component.
@@ -86,15 +93,20 @@ const Facet = {
         if (!this.props.isExpanded || this.props.selectedDataKey) {
             return '';
         }
-        let keysList = this.state.isShowAll ? keys(this.props.facet) : keys(this.props.facet).slice(0, this.props.nbDefaultDataList);
+        // The parsed facets are now an array
+        const facetValues = this.state.isShowAll ? this.props.facet : this.props.facet.slice(0, this.props.nbDefaultDataList);
         return (
             <div className='' data-focus='facet-data-list'>
                 <ul>
-                    {keysList.map((key) => {
+                    {facetValues.map( facetValue => {
                         return (
-                            <li key={key}>
-                                <FacetData dataKey={key} data={this.props.facet[key]} selectHandler={this._facetDataSelectionHandler}
-                                    type={this.props.type}/>
+                            <li key={uniqueId('facet-item')}>
+                                <FacetData
+                                    dataKey={facetValue.label}
+                                    data={facetValue}
+                                    selectHandler={this._facetDataSelectionHandler}
+                                    type={this.props.type}
+                                />
                             </li>
                         );
                     })}

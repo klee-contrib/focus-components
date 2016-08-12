@@ -10,7 +10,7 @@ import {addRefToPropsIfNotPure, INPUT, DISPLAY} from '../../../utils/is-react-cl
 import AutocompleteSelectComponent from '../../../components/input/autocomplete-select/field';
 import AutocompleteTextComponent from '../../../components/input/autocomplete-text/field';
 import InputText from '../../../components/input/text';
-import {component as DisplayText} from '../../display/text';
+import DisplayText from '../../../components/display/text';
 import SelectClassic from '../../../components/input/select';
 import Label from '../../../components/label';
 import {component as Autocomplete} from '../../autocomplete/field';
