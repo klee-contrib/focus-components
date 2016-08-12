@@ -49,9 +49,13 @@ const ContentActions = {
         return (
             <div className={this._getStyleClassName()} data-focus='content-actions'>
                 {actions.primary.map((primary) => {
-                    return (
-                        <Button handleOnClick={primary.action} icon={primary.icon} label={primary.label} shape='fab' style={{className: primary.className}} type='button'/>
-                    );
+                    if(Array.isArray(primary.action)) {
+                        return <Dropdown iconProps={{name: primary.icon}} operationList={primary.action} shape='fab'/>;
+                    } else {
+                        return (
+                            <Button handleOnClick={primary.action} icon={primary.icon} label={primary.label} shape='fab' style={{className: primary.className}} type='button'/>
+                        );
+                    }
                 })}
                 <Dropdown iconProps={{name: 'more_vert'}} operationList={actions.secondary} shape='fab'/>
             </div>
