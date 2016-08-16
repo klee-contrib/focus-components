@@ -115,18 +115,17 @@ let FacetBox = {
         }
         return (
             <div data-focus="facet-box-body">
-                {Object.keys(this.props.facetList).map((facetKey) => {
-                    let facet = this.props.facetList[facetKey];
-                    let selectedDataKey = this.props.selectedFacetList[facetKey] ? this.props.selectedFacetList[facetKey].key : undefined;
+                {this.props.facetList.map((facet) => {
+                    let selectedDataKey = this.props.selectedFacetList[facet.code] ? this.props.selectedFacetList[facet.code].key : undefined;
                     if (selectedDataKey || Object.keys(facet).length > 1) {
                         return (
-                            <Facet facetKey={facetKey} key={facetKey}
+                            <Facet facetKey={facet.code} key={facet.code}
                                 facet={facet}
                                 selectedDataKey={selectedDataKey}
-                                isExpanded={this.state.openedFacetList[facetKey]}
+                                isExpanded={this.state.openedFacetList[facet.code]}
                                 expandHandler={this._facetExpansionHandler}
                                 selectHandler={this._facetSelectionHandler}
-                                type={this.props.config[facetKey]}
+                                type={this.props.config[facet.code]}
                                 />
                         );
                     }
