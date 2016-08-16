@@ -27,7 +27,7 @@ let FacetBox = {
      */
     getDefaultProps: function () {
         return {
-            facetList: {},
+            facetList: [],
             selectedFacetList: {},
             openedFacetList: {},
             config: {}
@@ -37,7 +37,7 @@ let FacetBox = {
      * List property validation.
      */
     propTypes: {
-        facetList: type('object'),
+        facetList: type(''array''),
         selectedFacetList: type('object'),
         openedFacetList: type('object'),
         config: type('object'),
@@ -69,8 +69,12 @@ let FacetBox = {
         this.setState({openedFacetList});
     },
     _generateOpenedFacetList(facetList) {
-        return Object.keys(facetList).reduce(function (list, facetKey) {
-            list[facetKey] = true;
+        const hasFacets = this.props.facetList && this.props.facetList.length > 1;
+        if(hasFacets) {
+            return {};
+        }
+        return Object.keys(facetList).reduce(function (list, facet) {
+            list[facet.code] = true;
             return list;
         }, {});
     },
@@ -118,7 +122,7 @@ let FacetBox = {
             <div data-focus="facet-box-body">
                 {this.props.facetList.map((facet) => {
                     let selectedDataKey = this.props.selectedFacetList[facet.code] ? this.props.selectedFacetList[facet.code].key : undefined;
-                    if (selectedDataKey || Object.keys(facet).length > 1) {
+                    if (selectedDataKey || Object.keys(facet.values).length > 1) {
                         return (
                             <Facet facetKey={facet.code} key={facet.code}
                                 facet={facet.values}
