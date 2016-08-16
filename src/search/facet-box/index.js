@@ -110,7 +110,8 @@ let FacetBox = {
      * @returns {XML} Html content.
      */
     _renderFacetList() {
-        if (!this.state.isExpanded) {
+        const hasFacets = this.props.facetList && this.props.facetList.length > 1;
+        if(!this.state.isExpanded || !hasFacets) {
             return '';
         }
         return (
@@ -120,7 +121,7 @@ let FacetBox = {
                     if (selectedDataKey || Object.keys(facet).length > 1) {
                         return (
                             <Facet facetKey={facet.code} key={facet.code}
-                                facet={facet}
+                                facet={facet.values}
                                 selectedDataKey={selectedDataKey}
                                 isExpanded={this.state.openedFacetList[facet.code]}
                                 expandHandler={this._facetExpansionHandler}
