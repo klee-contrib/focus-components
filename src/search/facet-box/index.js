@@ -69,11 +69,11 @@ let FacetBox = {
         this.setState({openedFacetList});
     },
     _generateOpenedFacetList(facetList) {
-        const hasFacets = this.props.facetList && this.props.facetList.length > 1;
+        const hasFacets = facetList && facetList.length > 1;
         if(!hasFacets) {
             return {};
         }
-        return Object.keys(facetList).reduce(function (list, facet) {
+        return facetList.reduce(function (list, facet) {
             list[facet.code] = true;
             return list;
         }, {});
