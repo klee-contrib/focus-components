@@ -37,7 +37,7 @@ let FacetBox = {
      * List property validation.
      */
     propTypes: {
-        facetList: type(''array''),
+        facetList: type('array'),
         selectedFacetList: type('object'),
         openedFacetList: type('object'),
         config: type('object'),
@@ -70,7 +70,7 @@ let FacetBox = {
     },
     _generateOpenedFacetList(facetList) {
         const hasFacets = this.props.facetList && this.props.facetList.length > 1;
-        if(hasFacets) {
+        if(!hasFacets) {
             return {};
         }
         return Object.keys(facetList).reduce(function (list, facet) {
