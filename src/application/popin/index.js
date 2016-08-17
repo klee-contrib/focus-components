@@ -155,9 +155,9 @@ const popin = {
     * @return {XML} the rendered HTML
     */
     render() { // test for this.state.opened and return an Overlay component if true
-        const {type, level, modal, overlay, children} = this.props;
+        const {type, level, modal, overlay, children, className} = this.props;
         return (
-            <div data-focus='popin' data-level={level} data-size={this._validateSize()} data-type={type} >
+            <div data-focus='popin' data-level={level} data-size={this._validateSize()} data-type={type} className={className}>
                 {this.state.opened &&
                     <Overlay clickHandler={modal && this.toggleOpen} ref='popin-overlay' resize={'full' === type} show={overlay}>
                         <div {...this._getAnimationProps()} data-focus='popin-window' onClick={this._preventPopinClose} ref='popin-window'>
