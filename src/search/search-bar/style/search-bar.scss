@@ -28,7 +28,6 @@ $search-bar-border-bottom:1px solid rgba(0, 0, 0, 0.117647);
         position: relative;
         [data-focus="input-text"]{
             position: relative;
-            top:4px;
             width: 500px;
             input {
                 font-size: $search-bar-font-size;
