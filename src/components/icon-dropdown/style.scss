@@ -12,6 +12,7 @@
             padding: 10px;
             cursor: pointer;
             white-space: nowrap;
+            width: calc(100% - 20px);
 
             &:hover {
                 background-color: #EEE;
