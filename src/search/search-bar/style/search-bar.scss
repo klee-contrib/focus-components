@@ -8,6 +8,7 @@ $search-bar-border-bottom:1px solid rgba(0, 0, 0, 0.117647);
         padding:0 10px 0 0;
         display: inline-block;
         background-color: $search-bar-background-color;
+        vertical-align: bottom;
         button {
             border-bottom: $search-bar-border-bottom
         }
