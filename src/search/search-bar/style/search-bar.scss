@@ -24,7 +24,6 @@ $search-bar-border-bottom:1px solid rgba(0, 0, 0, 0.117647);
     }
     [data-focus='search-bar-input'] {
         display: inline-block;
-        padding: 3px 0;
         background-color: $search-bar-background-color;
         position: relative;
         [data-focus="input-text"]{
