@@ -69,7 +69,7 @@ let FacetBox = {
         this.setState({openedFacetList});
     },
     _generateOpenedFacetList(facetList) {
-        const hasFacets = facetList && facetList.length > 1;
+        const hasFacets = facetList && facetList.length > 0;
         if(!hasFacets) {
             return {};
         }
@@ -114,7 +114,7 @@ let FacetBox = {
      * @returns {XML} Html content.
      */
     _renderFacetList() {
-        const hasFacets = this.props.facetList && this.props.facetList.length > 1;
+        const hasFacets = this.props.facetList && this.props.facetList.length > 0;
         if(!this.state.isExpanded || !hasFacets) {
             return '';
         }
