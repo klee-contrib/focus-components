@@ -62,7 +62,11 @@ export default class DraggableIframe extends React.Component {
     };
 
     toggle = (...params) => {
-        this.setState({isShown: !this.state.isShown, params});
+        const {yPos: oldPos, isShown, yElem} = this.state;
+        const {pageYOffset, outerHeight} = window;
+        const yPos = isShown ? oldPos : pageYOffset > oldPos ? pageYOffset + 50 : pageYOffset + outerHeight < oldPos ? pageYOffset + outerHeight - this.props.height - 100 : oldPos;
+        this.setState({isShown: !this.state.isShown, params, yPos});
+        this.refs.helpFrame.style.top = (yPos - yElem) + 'px';
     }
     
     render() {
