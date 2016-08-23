@@ -69,8 +69,8 @@ export default class DraggableIframe extends React.Component {
         const {title, iframeUrl, width, height, queryUrl} = this.props;
         const {selected, isShown, params} = this.state;
         const url = iframeUrl + params.map((param, i) => typeof queryUrl[i] === 'string' ? queryUrl[i] + param : '').join('');
-        return isShown ? (
-            <div className={`help-frame ${selected ? 'is-dragging' : ''}`} onMouseDown={this.dragInit} ref='helpFrame' style={{width}}>
+        return (
+            <div className={`help-frame ${selected ? 'is-dragging' : ''}`} onMouseDown={this.dragInit} ref='helpFrame' style={{width, display: isShown ? 'block' : 'none'}}>
                 <span className='help-center-title'>{translate(title)}</span>
                 <div className='mdl-button mdl-js-button mdl-button--icon mdl-js-ripple-effect close-icon' onClick={this.toggle}>
                     <i className='material-icons'>close</i>
@@ -78,7 +78,7 @@ export default class DraggableIframe extends React.Component {
                 <br />
                 <IFrame height={height} src={url} width={width} />
             </div>
-        ) : null;
+        );
     }
 }
 

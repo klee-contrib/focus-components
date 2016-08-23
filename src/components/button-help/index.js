@@ -18,6 +18,7 @@ function ButtonHelp({blockName}) {
             icon='help_outline'
             label={`${translate('help.alt')} : ${blockName}`}
             shape='icon'
+            type='button'
         />
     );
 }
