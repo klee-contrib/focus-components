@@ -14,7 +14,9 @@ export default class DraggableIframe extends React.Component {
     
     constructor(props) {
         super(props);
-        window[props.toggleFunctionName] = this.toggle;
+        if (props.toggleFunctionName) {
+            window[props.toggleFunctionName] = this.toggle;
+        }
     }
 
     state = {
