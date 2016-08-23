@@ -4,6 +4,7 @@ import {includes} from 'lodash/collection';
 import {uniqueId} from 'lodash/utility';
 import {snakeCase} from 'lodash/string';
 import ButtonHelp from '../button-help';
+import xor from 'lodash/array/xor';
 
 const defaultProps = {
     actionsPosition: 'top'
@@ -27,6 +28,33 @@ class Panel extends Component {
             spyId: uniqueId('panel_')
         };
         this.state = state;
+    }
+
+    /**
+     * Recalculate the spyId to match the true order in the eventual ScrollspyContainer.
+     */
+    componentDidMount() {
+        const node = findDOMNode(this);
+        let scrollspy = node;
+        while (scrollspy && scrollspy.getAttribute('data-focus') !== 'scrollspy-container') {
+            scrollspy = scrollspy.parentElement;
+        }
+        if (scrollspy) {
+            const panels = scrollspy.querySelectorAll(`[data-focus='panel']`);
+            const popinPanels = scrollspy.querySelectorAll(`[data-focus='popin-window'] [data-spy]`);
+            const panelsInScrollspy = xor(panels, popinPanels);
+            if (panelsInScrollspy.length) {
+                panelsInScrollspy.forEach((child, idx) => {
+                    if (child.getAttribute('data-spy') === this.state.spyId) {
+                        this.setState({spyId: `panel_${idx + 1}`})
+                    }
+                });
+            } else {
+                this.setState({spyId: 'panel_0'});
+            }
+        } else {
+            this.setState({spyId: 'panel_0'});
+        }
     }
 
     /**
