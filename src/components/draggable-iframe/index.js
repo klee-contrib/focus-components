@@ -8,10 +8,18 @@ export default class DraggableIframe extends React.Component {
         width: PropTypes.number.isRequired,
         height: PropTypes.number.isRequired,
         title: PropTypes.string.isRequired,
-        requestClose: PropTypes.func.isRequired
+        toggleFunctionName: PropTypes.string,
+        queryUrl: PropTypes.array
     };
+    
+    constructor(props) {
+        super(props);
+        window[props.toggleFunctionName] = this.toggle;
+    }
 
     state = {
+        isShown: false,
+        params: [],
         xPos: 0,
         yPos: 0,
         xElem: 0,
@@ -50,18 +58,35 @@ export default class DraggableIframe extends React.Component {
         document.onmouseup = null;
         this.setState({selected: null});
     };
+
+    toggle = (...params) => {
+        this.setState({isShown: !this.state.isShown, params});
+    }
     
     render() {
-        const {requestClose, title, iframeUrl, width, height} = this.props;
-        return (
-            <div className={`help-frame ${this.state.selected ? 'is-dragging' : ''}`} onMouseDown={this.dragInit} ref='helpFrame' style={{width}}>
+        const {title, iframeUrl, width, height, queryUrl} = this.props;
+        const {selected, isShown, params} = this.state;
+        const url = iframeUrl + params.map((param, i) => typeof queryUrl[i] === 'string' ? queryUrl[i] + param : '').join('');
+        return isShown ? (
+            <div className={`help-frame ${selected ? 'is-dragging' : ''}`} onMouseDown={this.dragInit} ref='helpFrame' style={{width}}>
                 <span className='help-center-title'>{translate(title)}</span>
-                <div className='mdl-button mdl-js-button mdl-button--icon mdl-js-ripple-effect close-icon' onClick={requestClose}>
+                <div className='mdl-button mdl-js-button mdl-button--icon mdl-js-ripple-effect close-icon' onClick={this.toggle}>
                     <i className='material-icons'>close</i>
                 </div>
                 <br />
-                <iframe frameBorder={0} height={height} src={iframeUrl} width={width} />
+                <IFrame height={height} src={url} width={width} />
             </div>
-        );
+        ) : null;
+    }
+}
+
+class IFrame extends React.Component {
+    shouldComponentUpdate({src}) {
+        return src !== this.props.src;
+    }
+
+    render() {
+        const {height, src, width} = this.props;
+        return <iframe frameBorder={0} height={height} src={src} width={width} />;
     }
 }
