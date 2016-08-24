@@ -1,4 +1,5 @@
 import React, {Component, PropTypes} from 'react';
+import {findDOMNode} from 'react-dom';
 import Translation from '../../behaviours/translation';
 import {includes} from 'lodash/collection';
 import {uniqueId} from 'lodash/utility';
