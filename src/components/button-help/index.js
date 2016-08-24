@@ -23,7 +23,7 @@ function ButtonHelp({blockName}) {
     );
 }
 
-HelpButton.propTypes = {
+ButtonHelp.propTypes = {
     blockName: PropTypes.string
 };
 
