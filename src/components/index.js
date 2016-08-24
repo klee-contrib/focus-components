@@ -16,6 +16,7 @@ import ScrollspyContainer from './scrollspy-container';
 import Button from './button';
 import ButtonBackToTop from './button-back-to-top';
 import ButtonBack from './button-back';
+import ButtonHelp from './button-help';
 import Grid from './grid';
 import Column from './column';
 import Icon from './icon';
@@ -46,6 +47,7 @@ export default {
     Button,
     ButtonBackToTop,
     ButtonBack,
+    ButtonHelp,
     Grid,
     Column,
     Icon,

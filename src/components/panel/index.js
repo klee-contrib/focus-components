@@ -1,7 +1,11 @@
 import React, {Component, PropTypes} from 'react';
+import {findDOMNode} from 'react-dom';
 import Translation from '../../behaviours/translation';
 import {includes} from 'lodash/collection';
 import {uniqueId} from 'lodash/utility';
+import {snakeCase} from 'lodash/string';
+import ButtonHelp from '../button-help';
+import xor from 'lodash/array/xor';
 
 const defaultProps = {
     actionsPosition: 'top'
@@ -10,7 +14,8 @@ const defaultProps = {
 const propTypes = {
     actions: PropTypes.func,
     actionsPosition: PropTypes.oneOf(['both', 'bottom', 'top']).isRequired,
-    title: PropTypes.string
+    title: PropTypes.string,
+    showHelp: PropTypes.boolean
 };
 
 /**
@@ -27,11 +32,38 @@ class Panel extends Component {
     }
 
     /**
+     * Recalculate the spyId to match the true order in the eventual ScrollspyContainer.
+     */
+    componentDidMount() {
+        const node = findDOMNode(this);
+        let scrollspy = node;
+        while (scrollspy && scrollspy.getAttribute('data-focus') !== 'scrollspy-container') {
+            scrollspy = scrollspy.parentElement;
+        }
+        if (scrollspy) {
+            const panels = scrollspy.querySelectorAll(`[data-focus='panel']`);
+            const popinPanels = scrollspy.querySelectorAll(`[data-focus='popin-window'] [data-spy]`);
+            const panelsInScrollspy = xor(panels, popinPanels);
+            if (panelsInScrollspy.length) {
+                panelsInScrollspy.forEach((child, idx) => {
+                    if (child.getAttribute('data-spy') === this.state.spyId) {
+                        this.setState({spyId: `panel_${idx + 1}`})
+                    }
+                });
+            } else {
+                this.setState({spyId: 'panel_0'});
+            }
+        } else {
+            this.setState({spyId: 'panel_0'});
+        }
+    }
+
+    /**
     * Render the a block container and the cild content of the block.
     * @return {DOM} React DOM element
     */
     render() {
-        const {actions, actionsPosition, children, title, ...otherProps} = this.props;
+        const {actions, actionsPosition, children, title, showHelp, ...otherProps} = this.props;
         const {spyId} = this.state;
         const shouldDisplayActionsTop = actions && includes(['both', 'top'], actionsPosition);
         const shouldDisplayActionsBottom = actions && includes(['both', 'bottom'], actionsPosition);
@@ -44,6 +76,7 @@ class Panel extends Component {
                     {shouldDisplayActionsTop &&
                         <div className='actions'>{actions()}</div>
                     }
+                    {showHelp && <ButtonHelp blockName={`${snakeCase(this.i18n(title))}-${spyId && spyId.replace('panel_', '') || 0}`} />}
                 </div>
                 <div className='mdl-card__supporting-text' data-focus='panel-content'>
                     {children}
