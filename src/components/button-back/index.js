@@ -1,22 +1,22 @@
 import React, {PropTypes} from 'react';
 import Button from '../button';
-import {back} from 'focus-core/history';
-
-// Dependencies
-import historic from 'focus-core/history';
+import {back as defaultBack} from 'focus-core/history';
 
 const propTypes = {
-    back: PropTypes.func.isRequired
+    back: PropTypes.func
 };
 
-const ButtonBack = ({back}) => (
-    <Button
-        handleOnClick={back}
-        icon='keyboard_backspace'
-        label='button.back'
-        shape={null}
-        type='button' />
-);
+function ButtonBack({back}) {
+    return (
+        <Button
+            handleOnClick={back || defaultBack}
+            icon='keyboard_backspace'
+            label='button.back'
+            shape={null}
+            type='button' 
+        />
+    );
+}
 
 ButtonBack.propTypes = propTypes;
 
