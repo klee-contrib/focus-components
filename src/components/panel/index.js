@@ -15,7 +15,7 @@ const propTypes = {
     actions: PropTypes.func,
     actionsPosition: PropTypes.oneOf(['both', 'bottom', 'top']).isRequired,
     title: PropTypes.string,
-    showHelp: PropTypes.boolean
+    showHelp: PropTypes.bool
 };
 
 /**
