@@ -32,7 +32,7 @@ class Panel extends Component {
     }
 
     /**
-     * Recalculate the spyId to match the true order in the eventual ScrollspyContainer.
+     * Calculates the helpId to match the true order in an eventual ScrollspyContainer.
      */
     componentDidMount() {
         const node = findDOMNode(this);
@@ -47,14 +47,14 @@ class Panel extends Component {
             if (panelsInScrollspy.length) {
                 panelsInScrollspy.forEach((child, idx) => {
                     if (child.getAttribute('data-spy') === this.state.spyId) {
-                        this.setState({spyId: `panel_${idx + 1}`})
+                        this.setState({helpId: idx + 1})
                     }
                 });
             } else {
-                this.setState({spyId: 'panel_0'});
+                this.setState({helpId: 0});
             }
         } else {
-            this.setState({spyId: 'panel_0'});
+            this.setState({helpId: 0});
         }
     }
 
