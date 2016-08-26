@@ -76,7 +76,7 @@ class Panel extends Component {
                     {shouldDisplayActionsTop &&
                         <div className='actions'>{actions()}</div>
                     }
-                    {showHelp && <ButtonHelp blockName={`${snakeCase(this.i18n(title))}-${spyId && spyId.replace('panel_', '') || 0}`} />}
+                    {showHelp && <ButtonHelp blockName={`${snakeCase(this.i18n(title)).split('_')[0]}-${spyId && spyId.replace('panel_', '') || 0}`} />}
                 </div>
                 <div className='mdl-card__supporting-text' data-focus='panel-content'>
                     {children}
