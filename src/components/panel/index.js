@@ -1,7 +1,11 @@
 import React, {Component, PropTypes} from 'react';
+import {findDOMNode} from 'react-dom';
 import Translation from '../../behaviours/translation';
 import {includes} from 'lodash/collection';
 import {uniqueId} from 'lodash/utility';
+import {snakeCase} from 'lodash/string';
+import ButtonHelp from '../button-help';
+import xor from 'lodash/array/xor';
 
 const defaultProps = {
     actionsPosition: 'top'
@@ -10,7 +14,9 @@ const defaultProps = {
 const propTypes = {
     actions: PropTypes.func,
     actionsPosition: PropTypes.oneOf(['both', 'bottom', 'top']).isRequired,
-    title: PropTypes.string
+    title: PropTypes.string,
+    showHelp: PropTypes.bool,
+    blockName: PropTypes.string
 };
 
 /**
@@ -31,7 +37,7 @@ class Panel extends Component {
     * @return {DOM} React DOM element
     */
     render() {
-        const {actions, actionsPosition, children, title, ...otherProps} = this.props;
+        const {actions, actionsPosition, children, title, showHelp, blockName, ...otherProps} = this.props;
         const {spyId} = this.state;
         const shouldDisplayActionsTop = actions && includes(['both', 'top'], actionsPosition);
         const shouldDisplayActionsBottom = actions && includes(['both', 'bottom'], actionsPosition);
@@ -44,6 +50,7 @@ class Panel extends Component {
                     {shouldDisplayActionsTop &&
                         <div className='actions'>{actions()}</div>
                     }
+                    {showHelp && <ButtonHelp blockName={blockName || snakeCase(this.i18n(title)).split('_')[0]} />}
                 </div>
                 <div className='mdl-card__supporting-text' data-focus='panel-content'>
                     {children}

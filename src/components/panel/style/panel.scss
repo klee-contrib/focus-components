@@ -21,6 +21,10 @@ $panel-border-size:3px;
             color:$panel-title-color;
             display: inline-block;
         }
+        .help-button {
+            position: absolute;
+            right: 20px;
+        }
     }
     .actions {
         display: none;
