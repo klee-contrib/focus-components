@@ -40,7 +40,7 @@ describe('Button Component', () => {
                 });
                 it('should give add the fab mention in the className', () => {
                     const {materialButton} = renderedButton.refs;
-                    expect(materialButton.className).to.equal('mdl-button  mdl-button--fab');
+                    expect(materialButton.className).to.equal('mdl-button mdl-button--fab');
                 });
             });
         });
