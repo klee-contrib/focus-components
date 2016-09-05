@@ -1,12 +1,12 @@
 sudo: false
 language: node_js
 node_js:
--'4.2'
+- '4.2'
 - '6'
 before_deploy: 'npm run build'
 deploy:
   provider: npm
-  email: focus@kleegroup.com
+  email: pierre.besson7+npm@gmail.com
   api_key:
     secure: hUSwbyOa1f2COJbiH0CzvywG/SkS+jlB9RoMeLiwalG0BKWddq1AAVkAyXX59Qrnuo1mf+H+9svH4nJEUbTOOHksRpGrNn3xX8759GW43KNBEBsA0Z0swLl4bFeT3cQUmI0nSCSrf2qbwxJOQLknSHx3FwrmLGfOSApgYCV3U+A=
   skip_cleanup: true
