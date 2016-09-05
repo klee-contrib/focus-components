@@ -1,7 +1,7 @@
 import React, {Component, PropTypes} from 'react';
 import ReactDOM from 'react-dom';
 import {identity} from 'lodash/utility';
-import ComponentBaseBehaviour from '../../../behaviours/component-base';
+import Translation from '../../behaviours/translation';
 import MDBehaviour from '../../../behaviours/material';
 
 const propTypes = {
@@ -41,7 +41,7 @@ const defaultProps = {
 * Component standing for an HTML input.
 */
 @MDBehaviour('inputTextarea')
-@ComponentBaseBehaviour
+@Translation
 class InputTextarea extends Component {
 
     /**

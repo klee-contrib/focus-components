@@ -1,7 +1,7 @@
 import React, {Component, PropTypes} from 'react';
 import ReactDOM from 'react-dom';
-import ComponentBaseBehaviour from '../../../behaviours/component-base';
 import MDBehaviour from '../../../behaviours/material';
+import Translation from '../../behaviours/translation';
 
 import closest from 'closest';
 import debounce from 'lodash/function/debounce';
@@ -32,9 +32,8 @@ const defaultProps = {
     inputTimeout: 200
 };
 
-@MDBehaviour('loader')
-@MDBehaviour('inputText')
-@ComponentBaseBehaviour
+@MDBehaviour('loader', 'inputText')
+@Translation
 class Autocomplete extends Component {
     constructor(props) {
         super(props);

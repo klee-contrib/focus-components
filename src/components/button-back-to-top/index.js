@@ -2,9 +2,9 @@ import React, {Component, PropTypes} from 'react';
 import builder from 'focus-core/component/builder';
 import types from 'focus-core/component/types';
 import Button from '../button';
-const {scrollTo, scrollPosition} = require('../../common/mixin/scroll');
+import Scroll from '../../behaviours/scroll';
 
-
+@Scroll
 class ButtonBackToTop extends Component {
 
     static defaultProps = {
