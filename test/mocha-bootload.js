@@ -26,7 +26,6 @@ global.ReactDOM = require('react-dom');
 global.expect = chai.expect;
 global.sinon = sinon;
 global.TestUtils = require('react-addons-test-utils');
-global.TestFocus = require('./test-focus');
 global.componentHandler = {upgradeElement: function(){}};
 global.__DEV__ = process.env.DEV ? JSON.parse(process.env.DEV) : true;
 

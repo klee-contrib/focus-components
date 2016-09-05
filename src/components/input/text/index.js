@@ -2,7 +2,7 @@
 import React, {Component, PropTypes} from 'react';
 import ReactDOM from 'react-dom';
 import {identity} from 'lodash/utility';
-import ComponentBaseBehaviour from '../../../behaviours/component-base';
+import Translation from '../../behaviours/translation';
 import MDBehaviour from '../../../behaviours/material';
 const MODE = {isEdit: true};
 
@@ -33,7 +33,7 @@ const defaultProps = {
  * Component standing for an HTML input.
  */
 @MDBehaviour('inputText')
-@ComponentBaseBehaviour
+@Translation
 class InputText extends Component {
 
     /**

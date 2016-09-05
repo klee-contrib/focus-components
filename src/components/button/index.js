@@ -2,7 +2,6 @@ import React, {Component, PropTypes} from 'react';
 import ReactDOM from 'react-dom';
 import MDBehaviour from '../../behaviours/material';
 import Translation from '../../behaviours/translation';
-import ComponentBaseBehaviour from '../../behaviours/component-base';
 
 const BTN_JS = 'mdl-js-button';
 const BTN_CLASS = 'mdl-button';

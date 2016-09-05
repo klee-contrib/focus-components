@@ -1,11 +1,10 @@
 import React, {Component, PropTypes} from 'react';
 import ReactDOM from 'react-dom';
-import ComponentBaseBehaviour from '../../../behaviours/component-base';
+import Translation from '../../behaviours/translation';
 import MDBehaviour from '../../../behaviours/material';
 
-@MDBehaviour('materialInput')
-@MDBehaviour('loader')
-@ComponentBaseBehaviour
+@MDBehaviour('materialInput', 'loader')
+@Translation
 class AutocompleteTextEdit extends Component {
     static defaultProps = {
         placeholder: 'Search here...',

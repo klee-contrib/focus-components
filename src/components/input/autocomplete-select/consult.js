@@ -1,7 +1,8 @@
 import React, {Component} from 'react';
-import ComponentBaseBehaviour from '../../../behaviours/component-base';
+import Translation from '../../behaviours/translation';
 
-@ComponentBaseBehaviour
+// TODO : add PropTypes
+@Translation
 class AutocompleteSelectConsult extends Component {
     state = {};
 
