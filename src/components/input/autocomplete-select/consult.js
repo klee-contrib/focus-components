@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import Translation from '../../behaviours/translation';
+import Translation from '../../../behaviours/translation';
 
 // TODO : add PropTypes
 @Translation

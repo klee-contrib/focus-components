@@ -1,7 +1,7 @@
 import React, {Component, PropTypes} from 'react';
 import ReactDOM from 'react-dom';
 import MDBehaviour from '../../../behaviours/material';
-import Translation from '../../behaviours/translation';
+import Translation from '../../../behaviours/translation';
 
 import closest from 'closest';
 import debounce from 'lodash/function/debounce';

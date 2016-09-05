@@ -1,7 +1,7 @@
 //dependencies
 import React, {Component, PropTypes} from 'react';
 import ReactDOM from 'react-dom';
-import Translation from '../../behaviours/translation';
+import Translation from '../../../behaviours/translation';
 import {isUndefined, isNull, isNumber} from 'lodash/lang';
 import {union} from 'lodash/array';
 const UNSELECTED_KEY = 'UNSELECTED_KEY';
