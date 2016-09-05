@@ -1,6 +1,6 @@
 import React, {Component, PropTypes} from 'react';
 import ReactDOM from 'react-dom';
-import Translation from '../../behaviours/translation';
+import Translation from '../../../behaviours/translation';
 import MDBehaviour from '../../../behaviours/material';
 
 @MDBehaviour('materialInput', 'loader')

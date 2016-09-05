@@ -1,8 +1,8 @@
-// Dependencies 
+// Dependencies
 import React, {Component, PropTypes} from 'react';
 import ReactDOM from 'react-dom';
 import moment from 'moment';
-import Base from '../../../behaviours/component-base';
+import Translation from '../../../behaviours/translation';
 import InputText from '../text';
 import DatePicker from 'react-date-picker';
 import compose from 'lodash/function/compose';
@@ -45,7 +45,7 @@ const defaultProps = {
     validate: isISOString
 };
 
-@Base
+@Translation
 class InputDate extends Component {
     constructor(props) {
         super(props);
