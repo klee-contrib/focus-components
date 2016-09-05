@@ -1,5 +1,0 @@
-# autocomplete
-
-```jsx
-<AutoComplete />
-```
