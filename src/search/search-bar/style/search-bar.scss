@@ -8,6 +8,7 @@ $search-bar-border-bottom:1px solid rgba(0, 0, 0, 0.117647);
         padding:0 10px 0 0;
         display: inline-block;
         background-color: $search-bar-background-color;
+        vertical-align: bottom;
         button {
             border-bottom: $search-bar-border-bottom
         }
@@ -23,12 +24,10 @@ $search-bar-border-bottom:1px solid rgba(0, 0, 0, 0.117647);
     }
     [data-focus='search-bar-input'] {
         display: inline-block;
-        padding: 3px 0;
         background-color: $search-bar-background-color;
         position: relative;
         [data-focus="input-text"]{
             position: relative;
-            top:4px;
             width: 500px;
             input {
                 font-size: $search-bar-font-size;
