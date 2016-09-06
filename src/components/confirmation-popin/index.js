@@ -1,10 +1,10 @@
 import React, {Component, PropTypes} from 'react';
 import {translate} from 'focus-core/translation';
-import {component as Popin} from '../../application/popin';
-import Button from '../../components/button';
+import Modal from '../modal';
+import Button from '../button';
 
 
-class ConfirmationPopin extends Component {
+class ConfirmationModal extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -32,7 +32,7 @@ class ConfirmationPopin extends Component {
         }
     };
 
-    _handlePopinClose() {
+    _handleModalClose() {
         if (this.props.cancelHandler && !this.state.fromButtonClick) {
             this.props.cancelHandler();
         }
@@ -43,35 +43,35 @@ class ConfirmationPopin extends Component {
         this.setState({
             fromButtonClick: true
         }, () => {
-            this.refs.popin.toggleOpen();
+            this.refs.modal.toggleOpen();
         });
     };
 
     render() {
         return (
-            <div data-focus='confirmation-popin'>
-                <Popin onPopinClose={this._handlePopinClose} open={this.props.open} ref='popin'>
+            <div data-focus='confirmation-modal'>
+                <Modal onModalClose={this._handleModalClose} open={this.props.open} ref='modal'>
                     {this.props.children}
                     <div data-focus='button-stack'>
                         <Button handleOnClick={this._handleCancel} label={translate(this.props.cancelButtonLabel)} />
                         <Button handleOnClick={this._handleConfirm} label={translate(this.props.confirmButtonLabel)} option='primary' />
                     </div>
-                </Popin>
+                </Modal>
             </div>
         );
     };
 };
 
-ConfirmationPopin.displayName = 'ConfirmationPopin';
-ConfirmationPopin.propTypes = {
+ConfirmationModal.displayName = 'ConfirmationModal';
+ConfirmationModal.propTypes = {
     cancelButtonLabel: PropTypes.string,
     cancelHandler: PropTypes.func,
     confirmButtonLabel: PropTypes.string,
     confirmHandler: PropTypes.func
 };
-ConfirmationPopin.defaultProps = {
+ConfirmationModal.defaultProps = {
     open: false,
-    cancelButtonLabel: 'popin.confirmation.cancel',
-    confirmButtonLabel: 'popin.confirmation.confirm'
+    cancelButtonLabel: 'modal.confirmation.cancel',
+    confirmButtonLabel: 'modal.confirmation.confirm'
 };
-export default ConfirmationPopin;
+export default ConfirmationModal;

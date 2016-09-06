@@ -17,6 +17,7 @@ import './label';
 import './menu';
 import './message-center';
 import './panel';
+import './modal';
 import './progress-bar';
 import './role';
 import './scrollspy-container';
