@@ -1,23 +1,17 @@
 import React, {Component, PropTypes} from 'react';
 import Button from '../button';
-
+import map from 'lodash/map';
 
 //Todo: check menButton onClick use
 //TODO : Write tests
 const MenuButton = ({item, LinkComponent, navigate}) => {
     const buttonProps = { option: 'link', shape: 'icon', type: 'button', ...menuButton };
-    const {route} = item;
-    return (
-        {route &&
-            <LinkComponent to={item.route}>
-                <Button {...buttonProps} />
-            </LinkComponent>
-        }
-        {!route &&
-            return <Button {...buttonProps} onClick={item.onClick} />
-        }
-    );
-}
+    const {onClick, route} = item;
+    if(route) {
+        return <LinkComponent to={route}><Button {...buttonProps} /></LinkComponent>
+    }
+    return <Button {...buttonProps} onClick={onClick} />
+};
 MenuButton.displayName = 'MenuButton';
 MenuButton.propTypes = {
     item: PropTypes.object.isRequired,
@@ -31,14 +25,12 @@ const MenuLeft = ({ children, handleBrandClick, items, LinkComponent, navigate, 
     <nav data-focus='menu-left' {...otherProps}>
         <div data-focus='menu-brand' data-click={!!handleBrandClick} onClick={() => handleBrandClick && handleBrandClick()} />
         <ul data-focus='menu-items'>
-            items.map((item, idx) => {
-                return (
-                    <li key={idx}>
-                        <MenuButton item={item} LinkComponent={LinkComponent} navigate={navigate} />
-                        <span>{item.name}</span>
-                    </li>
-                );
-            });
+            map(items, (item, idx) => (
+                <li key={idx}>
+                    <MenuButton item={item} LinkComponent={LinkComponent} navigate={navigate} />
+                    <span>{item.name}</span>
+                </li>
+            ));
         </ul>
         {children}
     </nav>
