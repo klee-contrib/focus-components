@@ -1,12 +1,8 @@
 import 'react-date-picker/index.css';
 import 'material-design-lite/src/material-design-lite.scss';
 //import '../style/_mdl_variables.scss';
-//---------------------------------------------------------------------------------------
 
-//APPLICATION FOLDER
-import '../application/popin/style/popin.scss';
 
-// COMPONENTS FOLDER
 import '../components/button/style/button.scss';
 import '../components/button-back/style/back.scss';
 import '../components/button-back-to-top/style/back-to-top.scss';
@@ -27,6 +23,7 @@ import '../components/label/style/label.scss';
 import '../components/menu/style/menu.scss';
 import '../components/message-center/style/message-center.scss';
 import '../components/panel/style/panel.scss'
+import '../components/modal/index.scss';
 import '../components/progress-bar/style/progress-bar.scss';
 import '../components/scrollspy-container/style/scrollspy-container.scss';
 import '../components/scrollspy-container/style/sticky-menu.scss';
