@@ -1,33 +1,24 @@
-import React, {PropTypes} from 'react';
-import {translate} from 'focus-core/translation';
+import React, {Component, PropTypes} from 'react';
+import Translation from '../../behaviours/translation';
 
-export default class DraggableIframe extends React.Component {
-    
-    static propTypes = {
-        iframeUrl: PropTypes.string.isRequired,
-        width: PropTypes.number.isRequired,
-        height: PropTypes.number.isRequired,
-        title: PropTypes.string.isRequired,
-        toggleFunctionName: PropTypes.string,
-        queryUrl: PropTypes.array
-    };
-    
+@Translation
+class DraggableIframe extends Component {
     constructor(props) {
         super(props);
         if (props.toggleFunctionName) {
             window[props.toggleFunctionName] = this.toggle;
         }
-    }
-
-    state = {
-        isShown: false,
-        params: [],
-        xPos: 0,
-        yPos: 0,
-        xElem: 0,
-        yElem: 0,
-        selected: null
+        this.state = {
+            isShown: false,
+            params: [],
+            xPos: 0,
+            yPos: 0,
+            xElem: 0,
+            yElem: 0,
+            selected: null
+        };
     };
+
 
     dragInit = (e) => {
         e.preventDefault();
@@ -68,14 +59,14 @@ export default class DraggableIframe extends React.Component {
         this.setState({isShown: !this.state.isShown, params, yPos});
         this.refs.helpFrame.style.top = (yPos - yElem) + 'px';
     }
-    
+
     render() {
         const {title, iframeUrl, width, height, queryUrl} = this.props;
         const {selected, isShown, params} = this.state;
         const url = iframeUrl + params.map((param, i) => typeof queryUrl[i] === 'string' ? queryUrl[i] + param : '').join('');
         return (
             <div className={`help-frame ${selected ? 'is-dragging' : ''}`} onMouseDown={this.dragInit} ref='helpFrame' style={{width, display: isShown ? 'block' : 'none'}}>
-                <span className='help-center-title'>{translate(title)}</span>
+                <span className='help-center-title'>{this.i18n(title)}</span>
                 <div className='mdl-button mdl-js-button mdl-button--icon mdl-js-ripple-effect close-icon' onClick={this.toggle}>
                     <i className='material-icons'>close</i>
                 </div>
@@ -85,8 +76,18 @@ export default class DraggableIframe extends React.Component {
         );
     }
 }
+DraggableIframe.displayName = 'DraggableIframe';
+DraggableIframe.propTypes = {
+    iframeUrl: PropTypes.string.isRequired,
+    width: PropTypes.number.isRequired,
+    height: PropTypes.number.isRequired,
+    title: PropTypes.string.isRequired,
+    toggleFunctionName: PropTypes.string,
+    queryUrl: PropTypes.array
+};
+export default DraggableIframe;
 
-class IFrame extends React.Component {
+class IFrame extends Component {
     shouldComponentUpdate({src}) {
         return src !== this.props.src;
     }

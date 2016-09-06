@@ -1,18 +1,18 @@
 import TranslationBehaviour from '../';
 import React from 'react';
 import ReactDOM from 'react-dom';
-import {init} from 'focus-core/translation';
+import i18next from 'i18next';
 
-describe('The translation behaviour', () => {
+describe.only('The translation behaviour', () => {
     let renderedComponent;
     before((done) => {
-        init({resStore: {}}, () => {
+        i18next.init({resources: {}}, () => {
             @TranslationBehaviour
             class TestComponent extends React.Component {
                 render() {
                     return (
                         <div>
-                            {this.i18n('my.translation.path')}
+                            {i18next.t('my.translation.path')}
                         </div>
                     );
                 }

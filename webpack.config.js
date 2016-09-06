@@ -78,9 +78,7 @@ const customConfig = {
 
         react: 'React',
         'react-dom': 'ReactDOM',
-        moment: 'moment',
-        jquery: 'jQuery',
-        numeral: 'numeral'
+        moment: 'moment'
     },
     module: {
         preLoaders: [

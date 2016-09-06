@@ -1,6 +1,6 @@
 import MessageCenter from '../';
 import {findDOMNode, unmountComponentAtNode} from 'react-dom';
-import {addErrorMessage, addWarningMessage, addInformationMessage, addSuccessMessage} from 'focus-core/message';
+//import {addErrorMessage, addWarningMessage, addInformationMessage, addSuccessMessage} from 'focus-core/message';
 
 const {findRenderedDOMComponentWithClass, renderIntoDocument, Simulate} = TestUtils;
 
