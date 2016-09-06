@@ -5,11 +5,13 @@ import Button from '../button';
 //TODO : Write tests
 const MenuButton = ({item, LinkComponent}) => {
     const buttonProps = { icon: 'link', shape: 'icon', type: 'button', ...item };
-    const {onClick, route} = item;
-    if(route) {
+    const {route} = item;
+    if(LinkComponent && route) {
+        console.log('LinkComponent');
         return <LinkComponent to={route}><Button {...buttonProps} /></LinkComponent>
     }
-    return <Button {...buttonProps} onClick={onClick} />
+    console.log('click button');
+    return <Button {...buttonProps} />
 };
 MenuButton.displayName = 'MenuButton';
 MenuButton.propTypes = {
@@ -26,7 +28,7 @@ const MenuLeft = ({ children, handleBrandClick, items, LinkComponent, ...otherPr
             {items.map((item, idx) => (
                 <li key={idx}>
                     <MenuButton item={item} LinkComponent={LinkComponent} />
-                    <span>{item.name}</span>
+                    <div>{item.label}</div>
                 </li>
             ))}
         </ul>
