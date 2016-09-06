@@ -3,7 +3,7 @@ import React, {Component, PropTypes} from 'react';
 import ReactDOM from 'react-dom';
 import Translation from '../../../behaviours/translation';
 import {isUndefined, isNull, isNumber} from 'lodash/lang';
-import {union} from 'lodash/array';
+import union from 'lodash/union';
 const UNSELECTED_KEY = 'UNSELECTED_KEY';
 /**
 * Parse the value.

@@ -5,9 +5,8 @@ import moment from 'moment';
 import Translation from '../../../behaviours/translation';
 import InputText from '../text';
 import DatePicker from 'react-date-picker';
-import compose from 'lodash/function/compose';
-import isArray from 'lodash/lang/isArray';
-import uniqueId from 'lodash/utility/uniqueId';
+import isArray from 'lodash/isArray';
+import uniqueId from 'lodash/uniqueId';
 import closest from 'closest';
 
 const isISOString = value => moment(value, moment.ISO_8601).isValid();

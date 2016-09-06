@@ -1,5 +1,5 @@
 import React, {Component, PropTypes} from 'react';
-import capitalize from 'lodash/string/capitalize';
+import capitalize from 'lodash/capitalize';
 import messageStore from 'focus-core/message/built-in-store';
 import {translate} from 'focus-core/translation';
 

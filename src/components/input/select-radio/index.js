@@ -1,6 +1,6 @@
 import React, {Component, PropTypes} from 'react';
 import Radio from '../radio';
-import {uniqueId} from 'lodash/utility';
+import uniqueId from 'lodash/uniqueId';
 import Translation from '../../../behaviours/translation';
 
 @Translation

@@ -10,8 +10,8 @@
 // </div>
 
 import { mount, render, shallow } from 'enzyme';
-import {xor} from 'lodash/array';
-import {isUndefined} from 'lodash/lang';
+import xor from 'lodash/xor';
+import isUndefined from 'lodash/isUndefined';
 import Select from '../';
 
 const VALUES = [

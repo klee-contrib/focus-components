@@ -2,9 +2,9 @@
 import React, {PureComponent, PropTypes} from 'react';
 import ReactDOM from 'react-dom';
 import {translate} from 'focus-core/translation';
-import find from 'lodash/collection/find';
+import find from 'lodash/find';
 import {isUndefined, isNull, isNumber} from 'lodash/lang';
-import {union} from 'lodash/array';
+import union from 'lodash/union';
 
 const UNSELECTED_KEY = 'UNSELECTED_KEY';
 

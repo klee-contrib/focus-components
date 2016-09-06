@@ -3,8 +3,8 @@ import ReactDOM from 'react-dom';
 import Material from '../../behaviours/material';
 import Translation from '../../behaviours/translation';
 import Button from '../button';
-import uniqueId from 'lodash/utility/uniqueId';
-import map from 'lodash/collection/map';
+import uniqueId from 'lodash/uniqueId';
+import map from 'lodash/map';
 
 @Translation
 @Material('dropdown')
