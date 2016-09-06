@@ -37,8 +37,7 @@ const MyMenu = React.createClass({
     render() {
         return (
             <div>
-                <MenuLeft items={this.itemsBuilder()} handleBrandClick={this.goHome}>
-                </MenuLeft>
+                <MenuLeft items={this.itemsBuilder()} handleBrandClick={this.goHome} />
                 <div style={this.style} className='demo-card-wide mdl-card mdl-shadow--2dp'>
                     <div className='mdl-card__title'>
                         <h1 className='mdl-card__title-text'>Welcome</h1>
