@@ -1,7 +1,5 @@
 // Dependencies
 import React, {PropTypes, PureComponent} from 'react';
-import builder from 'focus-core/component/builder';
-import type from 'focus-core/component/types';
 import uniqueId from 'lodash/uniqueId';
 
 class Title extends PureComponent {
