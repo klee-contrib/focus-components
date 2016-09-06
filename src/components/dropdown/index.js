@@ -1,13 +1,12 @@
 import React, {PropTypes, PureComponent} from 'react';
 import ReactDOM from 'react-dom';
 import Material from '../../behaviours/material';
-import Translation from '../../behaviours/translation';
+import i18next from 'i18next';
 import Button from '../button';
 import uniqueId from 'lodash/uniqueId';
 import map from 'lodash/map';
 
 //TODO : do not render list in DOM when not displayed ?
-@Translation
 @Material('dropdown')
 class Dropdown extends PureComponent {
     constructor(props) {
@@ -43,7 +42,7 @@ class Dropdown extends PureComponent {
                     {map(operations, (operation, idx) => (
                         <li className={`mdl-menu__item ${operation.style}`} key={idx}
                             onClick={this._handleAction(operation.action)}>
-                            {this.i18n(operation.label)}
+                            {i18next.t(operation.label)}
                         </li>
                     ))}
                 </ul>

@@ -1,6 +1,6 @@
 import React, {PropTypes} from 'react';
 import Button from '../button';
-import {translate} from 'focus-core/translation';
+import i18next from 'i18next';
 
 function ButtonHelp({blockName}) {
     const {hash, pathname} = window.location;
@@ -13,18 +13,16 @@ function ButtonHelp({blockName}) {
 
     return (
         <Button
-            className='help-button'         
+            className='help-button'
             handleOnClick={() => openHelpCenter(url, blockName)}
             icon='help_outline'
-            label={`${translate('help.alt')} : ${blockName}`}
+            label={`${i18next.t('help.alt')} : ${blockName}`}
             shape='icon'
             type='button'
         />
     );
 }
-
 ButtonHelp.propTypes = {
     blockName: PropTypes.string
 };
-
 export default ButtonHelp;

@@ -1,7 +1,5 @@
 import React, {PropTypes, Component} from 'react';
 import ReactDOM from 'react-dom';
-
-import {ArgumentInvalidException} from 'focus-core/exception';
 import includes from 'lodash/includes';
 
 /**

@@ -1,7 +1,7 @@
 import React, {Component, PropTypes} from 'react';
 import capitalize from 'lodash/capitalize';
-import messageStore from 'focus-core/message/built-in-store';
-import {translate} from 'focus-core/translation';
+//import messageStore from 'focus-core/message/built-in-store';
+import Translation from '../../behaviours/translation';
 
 const defaultProps = {
     ttlError: 8000,
@@ -21,25 +21,25 @@ const CONSTANT = {
     ANIMATION_LENGTH: 250
 };
 
+//TODO inject message in props
+@Translation
 class MessageCenter extends Component {
-
-    cleanupTimeout = null;
-    currentNotification = null;
-    queuedNotifications = [];
-
     constructor(props) {
         super(props);
         this.state = { active: false };
-    };
+        this.cleanupTimeout = null;
+        this.currentNotification = null;
+        this.queuedNotifications = [];
+    }
 
     /** @inheriteddoc */
     componentWillMount() {
-        messageStore.addPushedMessageListener(this._handlePushMessage);
-    };
+        //messageStore.addPushedMessageListener(this._handlePushMessage);
+    }
     /** @inheriteddoc */
     componentWillUnmount() {
-        messageStore.removePushedMessageListener(this._handlePushMessage);
-    };
+        //messageStore.removePushedMessageListener(this._handlePushMessage);
+    }
 
     /**
     * Check if the queue has items within it.
@@ -51,7 +51,7 @@ class MessageCenter extends Component {
         if (this.queuedNotifications.length > 0) {
             this.showSnackbar(this.queuedNotifications.shift());
         }
-    };
+    }
 
     /**
     * Remove cleanupTimeout
@@ -60,7 +60,7 @@ class MessageCenter extends Component {
     _forceCleanup = () => {
         clearTimeout(this.cleanupTimeout);
         this._cleanup();
-    };
+    }
 
     /**
     * Cleanup the snackbar event listeners and accessiblity attributes.
@@ -73,7 +73,7 @@ class MessageCenter extends Component {
         setTimeout(() => {
             this._checkQueue();
         }, CONSTANT.ANIMATION_LENGTH);
-    };
+    }
 
     /**
     * Push a new message into snackbar.
@@ -111,7 +111,7 @@ class MessageCenter extends Component {
                 <button className='mdl-snackbar__close' type='button' onClick={this._forceCleanup}><i className='material-icons'>clear</i></button>
             </div>
         );
-    };
+    }
 
     /**
     * Show the snackbar.
@@ -137,9 +137,9 @@ class MessageCenter extends Component {
             this.setState({ active: true });
             this.cleanupTimeout = setTimeout(this._cleanup, data.timeout);
         }
-    };
+    }
 
-};
+}
 
 //Static props.
 MessageCenter.displayName = 'MessageCenter';
