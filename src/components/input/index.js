@@ -1,29 +1,14 @@
-import AutocompleteSelect from './autocomplete-select/field';
-import AutocompleteText from './autocomplete-text/field';
-import Checkbox from './checkbox';
-import CheckboxWithError from './checkbox/with-error';
-import Date from './date';
-import Select from './select';
-import SelectCheckbox from './select-checkbox';
-import SelectRadio from './select-radio';
-import Text from './text';
-import Textarea from './textarea';
-import DisplayTextArea from './textarea/consult';
-import Toggle from './toggle';
-import Radio from './radio';
-
-export default {
-    AutocompleteSelect,
-    AutocompleteText,
-    Checkbox,
-    CheckboxWithError,
-    Date,
-    Select,
-    Text,
-    Toggle,
-    Textarea,
-    DisplayTextArea,
-    SelectCheckbox,
-    SelectRadio,
-    Radio
-};
+import './autocomplete-select/field';
+import './autocomplete-text/field';
+import './checkbox';
+import './checkbox/with-error';
+import './date';
+import './radio';
+import './select';
+import './select-checkbox';
+import './select-mdl';
+import './select-radio';
+import './text';
+import './textarea';
+import './textarea/consult';
+import './toggle';

@@ -3,19 +3,6 @@ import ReactDOM from 'react-dom';
 import Translation from '../../../behaviours/translation';
 import Material from '../../../behaviours/material';
 
-const propTypes = {
-    label: PropTypes.string,
-    disabled: PropTypes.bool,
-    onChange: PropTypes.func.isRequired,
-    value: PropTypes.bool.isRequired
-};
-
-const defaultProps = {
-    value: false,
-    disabled: false
-};
-
-const displayName = 'InputCheckBox';
 
 @Translation
 @Material('mdlHolder')
@@ -32,12 +19,12 @@ class InputCheckBox extends Component {
         if (node) {
             node.classList[method]('is-checked');
         }
-    }
+    };
 
     handleOnChange({target: {checked}}) {
         const {onChange} = this.props;
         onChange(checked);
-    }
+    };
 
     render() {
         const {label, value, disabled} = this.props;
@@ -49,11 +36,19 @@ class InputCheckBox extends Component {
             </label>
           </div>
         );
-    }
+    };
 }
 
-InputCheckBox.propTypes = propTypes;
-InputCheckBox.defaultProps = defaultProps;
-InputCheckBox.displayName = displayName;
 
+InputCheckBox.displayName = 'InputCheckBox';
+InputCheckBox.propTypes = {
+    label: PropTypes.string,
+    disabled: PropTypes.bool,
+    onChange: PropTypes.func.isRequired,
+    value: PropTypes.bool.isRequired
+};
+InputCheckBox.defaultProps = {
+    value: false,
+    disabled: false
+};
 export default InputCheckBox;
