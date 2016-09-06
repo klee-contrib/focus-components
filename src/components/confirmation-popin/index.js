@@ -53,8 +53,8 @@ class ConfirmationPopin extends Component {
                 <Popin onPopinClose={this._handlePopinClose} open={this.props.open} ref='popin'>
                     {this.props.children}
                     <div data-focus='button-stack'>
-                        <Button handleOnClick={this._handleCancel} label={translate(this.props.cancelButtonLabel)}/>
-                        <Button handleOnClick={this._handleConfirm} label={translate(this.props.confirmButtonLabel)} option='primary'/>
+                        <Button handleOnClick={this._handleCancel} label={translate(this.props.cancelButtonLabel)} />
+                        <Button handleOnClick={this._handleConfirm} label={translate(this.props.confirmButtonLabel)} option='primary' />
                     </div>
                 </Popin>
             </div>

@@ -14,7 +14,6 @@ import '../components/chips/index.scss';
 import '../components/confirmation-popin/index.scss';
 import '../components/draggable-iframe/style/draggable-iframe.scss';
 import '../components/dropdown/index.scss';
-import '../components/icon-dropdown/index.scss';
 import '../components/input/autocomplete-select/style.scss';
 import '../components/input/autocomplete-text/style.scss';
 import '../components/input/checkbox/style/checkbox.scss';

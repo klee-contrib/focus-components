@@ -12,7 +12,6 @@ import './dropdown';
 import './empty';
 import './grid';
 import './icon';
-import './icon-dropdown';
 import './input';
 import './label';
 import './menu';
