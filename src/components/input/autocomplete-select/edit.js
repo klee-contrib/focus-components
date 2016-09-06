@@ -4,8 +4,8 @@ import MDBehaviour from '../../../behaviours/material';
 import Translation from '../../../behaviours/translation';
 
 import closest from 'closest';
-import debounce from 'lodash/function/debounce';
-import uniqueId from 'lodash/utility/uniqueId';
+import debounce from 'lodash/debounce';
+import uniqueId from 'lodash/uniqueId';
 
 const ENTER_KEY_CODE = 13;
 const TAB_KEY_CODE = 27;

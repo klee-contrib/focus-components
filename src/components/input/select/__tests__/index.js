@@ -1,6 +1,6 @@
 import Select from '../';
 const {renderIntoDocument, Simulate} = TestUtils;
-import {identity} from 'lodash/lang';
+import identity from 'lodash/identity';
 import fixture from './fixture';
 //onChangeSpy = sinon.spy();
 

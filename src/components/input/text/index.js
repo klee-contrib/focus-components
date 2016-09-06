@@ -1,7 +1,7 @@
 //dependencies
 import React, {Component, PropTypes} from 'react';
 import ReactDOM from 'react-dom';
-import {identity} from 'lodash/utility';
+import identity from 'lodash/identity';
 import Translation from '../../../behaviours/translation';
 import MDBehaviour from '../../../behaviours/material';
 const MODE = {isEdit: true};

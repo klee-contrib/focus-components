@@ -1,7 +1,7 @@
 import React, {Component, PropTypes} from 'react';
 import Checkbox from '../checkbox';
 import Translation from '../../../behaviours/translation';
-const {pull} = require('lodash/array');
+import pull from 'lodash/pull';
 
 @Translation
 class SelectCheckbox extends Component {

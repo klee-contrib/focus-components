@@ -2,7 +2,7 @@ import React, {Component, PropTypes} from 'react';
 import Translation from '../../../behaviours/translation';
 import GridBehaviour from '../../../behaviours/grid';
 import MaterialBehaviour from '../../../behaviours/material';
-import {isUndefined} from 'lodash/lang';
+import isUndefined from 'lodash/isUndefined';
 
 @Translation
 @MaterialBehaviour('inputMdl')

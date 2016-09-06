@@ -1,8 +1,8 @@
 import React, {PropTypes} from 'react';
 
 import user from 'focus-core/user';
-import intersection from 'lodash/array/intersection';
-import isArray from 'lodash/lang/isArray';
+import intersection from 'lodash/intersection';
+import isArray from 'lodash/isArray';
 
 function Role({hasAll,hasOne,children,emptyBlock}) {
     let userRoles = user.getRoles();
@@ -14,8 +14,6 @@ function Role({hasAll,hasOne,children,emptyBlock}) {
     }
     return emptyBlock;
 }
-
-
 
 Role.displayName = 'Role';
 Role.defaultProps = {
