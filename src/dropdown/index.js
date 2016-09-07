@@ -1,6 +1,6 @@
 import React, {PropTypes, PureComponent} from 'react';
 import ReactDOM from 'react-dom';
-import Material from '../../behaviours/material';
+import Material from '../behaviours/material';
 import i18next from 'i18next';
 import Button from '../button';
 import uniqueId from 'lodash/uniqueId';

@@ -1,7 +1,7 @@
 import React, {Component, PropTypes} from 'react';
 import ReactDOM from 'react-dom';
 import Button from '../button';
-import Scroll from '../../behaviours/scroll';
+import Scroll from '../behaviours/scroll';
 
 @Scroll
 class ButtonBackToTop extends Component {

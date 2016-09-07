@@ -1,7 +1,7 @@
 // Dependencies
 import React, {Component, PropTypes} from 'react';
 import ReactDOM from 'react-dom';
-import mdlBehaviour from '../../behaviours/material';
+import mdlBehaviour from '../behaviours/material';
 
 @mdlBehaviour('bar')
 class ProgressBar extends Component {
