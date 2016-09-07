@@ -1,6 +1,6 @@
 import React, {Component, PropTypes} from 'react';
 import ReactDOM from 'react-dom';
-import MDBehaviour from '../../behaviours/material';
+import MDBehaviour from '../behaviours/material';
 import i18next from 'i18next';
 
 const BTN_JS = 'mdl-js-button';
