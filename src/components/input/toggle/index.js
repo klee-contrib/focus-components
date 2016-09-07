@@ -1,6 +1,6 @@
 import React, {Component, PropTypes} from 'react';
 import ReactDOM from 'react-dom';
-import Translation from '../../../behaviours/translation';
+import i18next from 'i18next';
 import Material from '../../../behaviours/material';
 
 const propTypes = {
@@ -15,7 +15,6 @@ const defaultProps = {
 
 const displayName = 'InputToggle';
 
-@Translation
 @Material('mdlHolder')
 class InputToggle extends Component {
     getValue = () => {
@@ -33,7 +32,7 @@ class InputToggle extends Component {
         return (
             <label className='mdl-switch mdl-js-switch mdl-js-ripple-effect' data-focus='input-toggle' ref='mdlHolder'>
                 <input checked={value} className='mdl-switch__input' onChange={this.handleOnChange} ref='toggle' type='checkbox' />
-                {label && <span className='mdl-switch__label'>{this.i18n(label)}</span>}
+                {label && <span className='mdl-switch__label'>{i18next.t(label)}</span>}
             </label>
         );
     }

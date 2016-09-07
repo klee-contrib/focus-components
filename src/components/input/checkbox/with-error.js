@@ -1,6 +1,6 @@
 import React, {Component, PropTypes} from 'react';
 import ReactDOM from 'react-dom';
-import Translation from '../../../behaviours/translation';
+import i18next from 'i18next';
 import Material from '../../../behaviours/material';
 
 const propTypes = {
@@ -14,7 +14,6 @@ const defaultProps = {
     value: false
 };
 
-@Translation
 @Material('mdlHolder')
 class InputCheckBoxWithError extends Component {
     getValue = () => {
@@ -42,8 +41,8 @@ class InputCheckBoxWithError extends Component {
             <div data-error={!!error} data-focus='input-checkbox-with-error-container'>
                 <label className={'mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect'} data-focus='input-checkbox' ref='mdlHolder'>
                     <input checked={value} className='mdl-checkbox__input' onChange={::this.handleOnChange} ref='checkbox' type='checkbox'/>
-                    {label && <span className='mdl-checkbox__label'>{this.i18n(label)}</span>}
-                    {error && <span className='input-checkbox__error'>{this.i18n(error)}</span>}
+                    {label && <span className='mdl-checkbox__label'>{i18next.t(label)}</span>}
+                    {error && <span className='input-checkbox__error'>{i18next.t(error)}</span>}
                 </label>
             </div>
         );

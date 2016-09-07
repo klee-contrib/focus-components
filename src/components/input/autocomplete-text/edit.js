@@ -1,10 +1,9 @@
 import React, {Component, PropTypes} from 'react';
 import ReactDOM from 'react-dom';
-import Translation from '../../../behaviours/translation';
+import i18next from 'i18next';
 import MDBehaviour from '../../../behaviours/material';
 
 @MDBehaviour('materialInput', 'loader')
-@Translation
 class AutocompleteTextEdit extends Component {
     static defaultProps = {
         placeholder: 'Search here...',
@@ -156,8 +155,8 @@ class AutocompleteTextEdit extends Component {
                 <div className={`mdl-textfield mdl-js-textfield${error ? ' is-invalid' : ''}`} ref='materialInput'>
                     <div data-focus='loading' data-loading={isLoading} className='mdl-progress mdl-js-progress' ref='loader'/>
                     <input onFocus={this.toggleHasFocus} onBlur={this.toggleHasFocus} className='mdl-textfield__input' type='text' value={inputValue} ref='inputText' onChange={::this.onQueryChange} showAtFocus={showAtFocus} emptyShowAll={emptyShowAll} {...otherProps} />
-                    <label className="mdl-textfield__label">{this.i18n(placeholder)}</label>
-                    <span className="mdl-textfield__error" ref='errorMessage'>{this.i18n(error)}</span>
+                    <label className="mdl-textfield__label">{i18next.t(placeholder)}</label>
+                    <span className="mdl-textfield__error" ref='errorMessage'>{i18next.t(error)}</span>
                 </div>
                 {hasSuggestions && hasFocus &&
                     this.renderSuggestions()

@@ -1,10 +1,9 @@
 import React, {Component, PropTypes} from 'react';
-import Translation from '../../../behaviours/translation';
+import i18next from 'i18next';
 import GridBehaviour from '../../../behaviours/grid';
 import MaterialBehaviour from '../../../behaviours/material';
 import isUndefined from 'lodash/isUndefined';
 
-@Translation
 @MaterialBehaviour('inputMdl')
 @GridBehaviour
 class Radio extends Component {
@@ -70,7 +69,7 @@ class Radio extends Component {
         return (
             <label className='mdl-radio mdl-js-radio mdl-js-ripple-effect' data-focus="input-radio" ref='inputMdl'>
                 <input className='mdl-radio__button' name={name} onChange={::this._onChange} type='radio' {...checkedProps} {...otherProps} ref='inputRadio'/>
-                <span className='mdl-radio__label'>{this.i18n(label)}</span>
+                <span className='mdl-radio__label'>{i18next.t(label)}</span>
             </label>
         );
     }

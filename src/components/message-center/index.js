@@ -1,7 +1,7 @@
 import React, {Component, PropTypes} from 'react';
 import capitalize from 'lodash/capitalize';
 //import messageStore from 'focus-core/message/built-in-store';
-import Translation from '../../behaviours/translation';
+import i18next from 'i18next';
 
 const defaultProps = {
     ttlError: 8000,
@@ -22,7 +22,6 @@ const CONSTANT = {
 };
 
 //TODO inject message in props
-@Translation
 class MessageCenter extends Component {
     constructor(props) {
         super(props);
@@ -104,9 +103,9 @@ class MessageCenter extends Component {
         const otherProps = { 'aria-hidden': active, 'aria-live':'assertive', 'aria-atomic':'true', 'aria-relevant': 'text' };
         return (
             <div data-focus='snackbar-message-center' data-message-type={type} className={classNames} {...otherProps}>
-                <div className='mdl-snackbar__text'>{translate(message)}</div>
+                <div className='mdl-snackbar__text'>{i18next.t(message)}</div>
                 {actionText &&
-                    <button className='mdl-snackbar__action' type='button' onClick={actionHandler}>{translate(actionText)}</button>
+                    <button className='mdl-snackbar__action' type='button' onClick={actionHandler}>{i18next.t(actionText)}</button>
                 }
                 <button className='mdl-snackbar__close' type='button' onClick={this._forceCleanup}><i className='material-icons'>clear</i></button>
             </div>
