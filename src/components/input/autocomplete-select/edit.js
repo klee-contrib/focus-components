@@ -1,7 +1,7 @@
 import React, {Component, PropTypes} from 'react';
 import ReactDOM from 'react-dom';
 import MDBehaviour from '../../../behaviours/material';
-import Translation from '../../../behaviours/translation';
+import i18next from 'i18next';
 
 import closest from 'closest';
 import debounce from 'lodash/debounce';
@@ -33,7 +33,6 @@ const defaultProps = {
 };
 
 @MDBehaviour('loader', 'inputText')
-@Translation
 class Autocomplete extends Component {
     constructor(props) {
         super(props);
@@ -182,7 +181,7 @@ class Autocomplete extends Component {
         const {onChange, keyName, labelName} = this.props;
         const resolvedLabel = options.get(key) || '';
         this.refs.htmlInput.blur();
-        this.setState({inputValue: this.i18n(resolvedLabel), selected: key, focus: false}, () => {
+        this.setState({inputValue: i18next.t(resolvedLabel), selected: key, focus: false}, () => {
             if (onChange) onChange(key);
         });
     };
@@ -200,7 +199,7 @@ class Autocomplete extends Component {
                 onClick={this._select.bind(this, key)}
                 onMouseOver={this._handleSuggestionHover.bind(this, key)}
                 >
-                {this.i18n(value)}
+                {i18next.t(value)}
                 </li>
             );
         }
@@ -229,8 +228,8 @@ class Autocomplete extends Component {
                         type='text'
                         value={inputValue}
                     />
-                    <label className='mdl-textfield__label'>{this.i18n(placeholder)}</label>
-                    <span className='mdl-textfield__error'>{this.i18n(customError)}</span>
+                    <label className='mdl-textfield__label'>{i18next.t(placeholder)}</label>
+                    <span className='mdl-textfield__error'>{i18next.t(customError)}</span>
                 </div>
                 {renderOptions ? renderOptions.call(this) : this._renderOptions()}
             </div>

@@ -1,6 +1,6 @@
 import React, {Component, PropTypes} from 'react';
 import {findDOMNode} from 'react-dom';
-import Translation from '../../behaviours/translation';
+import i18next from 'i18next';
 import includes from 'lodash/includes';
 import uniqueId from 'lodash/uniqueId';
 import snakeCase from 'lodash/snakeCase';
@@ -22,7 +22,6 @@ const propTypes = {
 /**
 * Panel.
 */
-@Translation
 class Panel extends Component {
     constructor(props) {
         super(props);
@@ -45,12 +44,12 @@ class Panel extends Component {
             <div className='mdl-card mdl-card--border mdl-shadow--4dp' data-spy={spyId} data-focus='panel' {...otherProps}>
                 <div className='mdl-card__title mdl-card--border' data-focus='panel-title'>
                     {title &&
-                        <h3 data-spy-title>{this.i18n(title)}</h3>
+                        <h3 data-spy-title>{i18next.t(title)}</h3>
                     }
                     {shouldDisplayActionsTop &&
                         <div className='actions'>{actions()}</div>
                     }
-                    {showHelp && <ButtonHelp blockName={blockName || snakeCase(this.i18n(title)).split('_')[0]} />}
+                    {showHelp && <ButtonHelp blockName={blockName || snakeCase(i18next.t(title)).split('_')[0]} />}
                 </div>
                 <div className='mdl-card__supporting-text' data-focus='panel-content'>
                     {children}

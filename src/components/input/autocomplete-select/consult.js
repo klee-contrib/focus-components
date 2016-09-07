@@ -1,8 +1,7 @@
 import React, {Component} from 'react';
-import Translation from '../../../behaviours/translation';
+import i18next from 'i18next';
 
 // TODO : add PropTypes
-@Translation
 class AutocompleteSelectConsult extends Component {
     state = {};
 
@@ -25,12 +24,8 @@ class AutocompleteSelectConsult extends Component {
         const {label, name, type, value} = this.props;
         const {resolvedLabel = value} = this.state;
         return (
-            <div
-                label={label}
-                name={name}
-                type={type}
-            >
-                {this.i18n(resolvedLabel)}
+            <div label={label} name={name} type={type}>
+                {i18next.t(resolvedLabel)}
             </div>
         );
     }

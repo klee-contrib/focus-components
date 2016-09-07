@@ -1,5 +1,5 @@
 import React, {PropTypes} from 'react';
-import {translate} from 'focus-core/translation';
+import i18next from 'i18next';
 
 const defaultProps = {
     formatter: (data) => data
@@ -14,7 +14,7 @@ const propTypes = {
 
 //v2 : replace div by span
 function DisplayText({formatter, style, value}) {
-    const formattedValue = translate(formatter(value));
+    const formattedValue = i18next.t(formatter(value));
     return(
         <div className={style}>{formattedValue}</div>
     );

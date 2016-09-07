@@ -2,7 +2,7 @@
 import React, {Component, PropTypes} from 'react';
 import ReactDOM from 'react-dom';
 import identity from 'lodash/identity';
-import Translation from '../../../behaviours/translation';
+import i18next from 'i18next';
 import MDBehaviour from '../../../behaviours/material';
 const MODE = {isEdit: true};
 
@@ -33,7 +33,6 @@ const defaultProps = {
  * Component standing for an HTML input.
  */
 @MDBehaviour('inputText')
-@Translation
 class InputText extends Component {
 
     /**
@@ -76,8 +75,8 @@ class InputText extends Component {
         return (
             <div className={cssClass} data-focus='input-text' ref='inputText' style={style}>
                 <input className='mdl-textfield__input' ref='htmlInput' {...inputProps} />
-                <label className='mdl-textfield__label' htmlFor={name}>{this.i18n(placeholder)}</label>
-                {error && <span className='mdl-textfield__error'>{this.i18n(error)}</span>}
+                <label className='mdl-textfield__label' htmlFor={name}>{i18next.t(placeholder)}</label>
+                {error && <span className='mdl-textfield__error'>{i18next.t(error)}</span>}
             </div>
         );
     }

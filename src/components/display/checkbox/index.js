@@ -1,12 +1,12 @@
 import React, {PropTypes} from 'react';
-import {translate} from 'focus-core/translation';
+import i18next from 'i18next';
 
 /**
 * Render the boolean value.
 */
 function renderValue(value) {
     var stringValue = value ? 'true' : 'false';
-    return translate(`display.checkbox.${stringValue}`);
+    return i18next.t(`display.checkbox.${stringValue}`);
 }
 
 function displayCheckbox({name, value}) {

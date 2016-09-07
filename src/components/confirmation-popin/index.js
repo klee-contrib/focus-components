@@ -1,5 +1,5 @@
 import React, {Component, PropTypes} from 'react';
-import {translate} from 'focus-core/translation';
+import i18next from 'i18next';
 import Modal from '../modal';
 import Button from '../button';
 
@@ -53,8 +53,8 @@ class ConfirmationModal extends Component {
                 <Modal onModalClose={this._handleModalClose} open={this.props.open} ref='modal'>
                     {this.props.children}
                     <div data-focus='button-stack'>
-                        <Button handleOnClick={this._handleCancel} label={translate(this.props.cancelButtonLabel)} />
-                        <Button handleOnClick={this._handleConfirm} label={translate(this.props.confirmButtonLabel)} option='primary' />
+                        <Button handleOnClick={this._handleCancel} label={i18next.t(this.props.cancelButtonLabel)} />
+                        <Button handleOnClick={this._handleConfirm} label={i18next.t(this.props.confirmButtonLabel)} option='primary' />
                     </div>
                 </Modal>
             </div>

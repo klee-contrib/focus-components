@@ -1,7 +1,7 @@
 //dependencies
 import React, {PureComponent, PropTypes} from 'react';
 import ReactDOM from 'react-dom';
-import {translate} from 'focus-core/translation';
+import i18next from 'i18next';
 import find from 'lodash/find';
 import {isUndefined, isNull, isNumber} from 'lodash/lang';
 import union from 'lodash/union';
@@ -32,7 +32,7 @@ class Select extends PureComponent {
         super(props);
         const {hasUndefined, isRequired, labelKey, value, values = [], valueKey, unSelectedLabel} = props;
         const isRequiredAndNoValue = isRequired && (isUndefined(value) || isNull(value));
-        this.allValues = hasUndefined || isRequiredAndNoValue ? union([{[labelKey]: translate(unSelectedLabel), [valueKey]: UNSELECTED_KEY}], values) : values;
+        this.allValues = hasUndefined || isRequiredAndNoValue ? union([{[labelKey]: i18next.t(unSelectedLabel), [valueKey]: UNSELECTED_KEY}], values) : values;
     };
 
     /**
@@ -61,7 +61,7 @@ class Select extends PureComponent {
         .map((val, idx) => {
             const optVal = `${val[valueKey]}`;
             const elementValue = val[labelKey];
-            const optLabel = isUndefined(elementValue) || isNull(elementValue) ? translate('select.noLabel') : elementValue;
+            const optLabel = isUndefined(elementValue) || isNull(elementValue) ? i18next.t('select.noLabel') : elementValue;
             const isSelected = optVal === value;
             return (
                 <li key={idx} className='mdl-menu__item' data-selected={isSelected} data-val={optVal} onClick={() => this._handleSelectChange(optVal)}>{optLabel}</li>

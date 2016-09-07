@@ -1,7 +1,7 @@
 import React, {Component, PropTypes} from 'react';
 import ReactDOM from 'react-dom';
 import identity from 'lodash/identity';
-import Translation from '../../../behaviours/translation';
+import i18next from 'i18next';
 import MDBehaviour from '../../../behaviours/material';
 
 const propTypes = {
@@ -41,7 +41,6 @@ const defaultProps = {
 * Component standing for an HTML input.
 */
 @MDBehaviour('inputTextarea')
-@Translation
 class InputTextarea extends Component {
 
     /**
@@ -77,7 +76,7 @@ class InputTextarea extends Component {
             <div data-error={!!error} data-focus='input-textarea'>
                 <div className={mdlClasses} ref='inputTextarea' style={style}>
                     <textarea className='mdl-textfield__input' ref='htmlInput' {...inputProps} />
-                    <label className='mdl-textfield__label' htmlFor={name}>{this.i18n(placeholder)}</label>
+                    <label className='mdl-textfield__label' htmlFor={name}>{i18next.t(placeholder)}</label>
                 </div>
                 {error && <div className='label-error' ref='error'>{error}</div>}
             </div>

@@ -1,29 +1,16 @@
 import React, {Component, PropTypes} from 'react';
-import builder from 'focus-core/component/builder';
-import types from 'focus-core/component/types';
+import ReactDOM from 'react-dom';
 import Button from '../button';
 import Scroll from '../../behaviours/scroll';
 
 @Scroll
 class ButtonBackToTop extends Component {
-
-    static defaultProps = {
-        iconPrefix: 'fa fa-',
-        iconName: 'arrow-circle-up',
-        duration: 100,
-        scrollStart: 100
-    };
-
-    static propTypes = {
-        iconPrefix: PropTypes.string,
-        iconName: PropTypes.string,
-        duration: PropTypes.number,
-        scrollStart: PropTypes.number
-    };
-
-    state = {
-        isVisible: false
-    };
+    constructor(props) {
+        super(props);
+        this.state = {
+            isVisible: false
+        };
+    }
 
     /**
     * Component did mount, attach the scroll spy
@@ -55,7 +42,7 @@ class ButtonBackToTop extends Component {
                 this.setState({isVisible: false});
             }
         }
-    };
+    }
 
     /**
     * Go back to the top of the page.
@@ -63,13 +50,25 @@ class ButtonBackToTop extends Component {
     goBackToTop = () => {
         //TODO: Add animation
         scrollTo(undefined, 0);
-    };
+    }
 
     render = () => {
         const {isVisible} = this.state;
         return isVisible ? <div data-focus='back-to-top'><Button color='colored' handleOnClick={this.goBackToTop} icon='expand_less' shape='fab' /></div> : null;
-    };
+    }
 }
 
 ButtonBackToTop.displayName = 'ButtonBackToTop';
+ButtonBackToTop.defaultProps = {
+    iconPrefix: 'fa fa-',
+    iconName: 'arrow-circle-up',
+    duration: 100,
+    scrollStart: 100
+};
+ButtonBackToTop.propTypes = {
+    duration: PropTypes.number,
+    iconName: PropTypes.string,
+    iconPrefix: PropTypes.string,
+    scrollStart: PropTypes.number
+};
 export default ButtonBackToTop;

@@ -1,9 +1,8 @@
 import React, {Component, PropTypes} from 'react';
 import Radio from '../radio';
 import uniqueId from 'lodash/uniqueId';
-import Translation from '../../../behaviours/translation';
+import i18next from 'i18next';
 
-@Translation
 class SelectRadio extends Component {
     static defaultProps = {
         values: [],
@@ -75,7 +74,7 @@ class SelectRadio extends Component {
             const disabled = this.props.disabled;
             const isChecked = value === this.state.value;
             return (
-                <Radio key={idx} label={this.i18n(label)} name={uniqueName} onChange={this._getRadioChangeHandler(value)} value={isChecked} disabled={disabled} />
+                <Radio key={idx} label={i18next.t(label)} name={uniqueName} onChange={this._getRadioChangeHandler(value)} value={isChecked} disabled={disabled} />
             );
         });
     }
