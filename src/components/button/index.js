@@ -1,7 +1,7 @@
 import React, {Component, PropTypes} from 'react';
 import ReactDOM from 'react-dom';
 import MDBehaviour from '../../behaviours/material';
-import Translation from '../../behaviours/translation';
+import i18next from 'i18next';
 
 const BTN_JS = 'mdl-js-button';
 const BTN_CLASS = 'mdl-button';
@@ -34,7 +34,6 @@ const defaultProps = {
 }
 
 @MDBehaviour('materialButton', 'MaterialButton')
-@Translation
 class Button extends Component {
 
     /**
@@ -115,7 +114,7 @@ class Button extends Component {
     _renderLabel() {
         const {label, shape} = this.props;
         if (label && 'fab' !== shape && 'icon' !== shape && 'mini-fab' !== shape ) {
-            return this.i18n(label);
+            return i18next.t(label);
         }
         return null;
     };
@@ -128,7 +127,7 @@ class Button extends Component {
         const otherInputProps = { disabled, formNoValidate, onClick: handleOnClick ? handleOnClick : onClick, style, type }; //on click for legacy. Remove handleOnClick in v2
         const renderedClassName = `${className ? className : ''} ${::this._getComponentClassName()}`.trim();
         return (
-            <button alt={this.i18n(label)} className={renderedClassName} data-focus='button-action' id={id} title={this.i18n(label)} {...otherInputProps} ref='materialButton'>
+            <button alt={i18next.t(label)} className={renderedClassName} data-focus='button-action' id={id} title={i18next.t(label)} {...otherInputProps} ref='materialButton'>
                 {icon && ::this._renderIcon()}
                 {::this._renderLabel()}
             </button>

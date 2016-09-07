@@ -1,10 +1,9 @@
 import React, {Component, PropTypes} from 'react';
 import ReactDOM from 'react-dom';
-import Translation from '../../../behaviours/translation';
+import i18next from 'i18next';
 import Material from '../../../behaviours/material';
 
 
-@Translation
 @Material('mdlHolder')
 class InputCheckBox extends Component {
     getValue = () => {
@@ -32,7 +31,7 @@ class InputCheckBox extends Component {
           <div data-focus='input-checkbox-container'>
             <label className={'mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect'} data-focus='input-checkbox' ref='mdlHolder'>
                 <input checked={value} className='mdl-checkbox__input' disabled={disabled} onChange={::this.handleOnChange} ref='checkbox' type='checkbox'/>
-                {label && <span className='mdl-checkbox__label'>{this.i18n(label)}</span>}
+                {label && <span className='mdl-checkbox__label'>{i18next.t(label)}</span>}
             </label>
           </div>
         );

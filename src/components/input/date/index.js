@@ -2,7 +2,7 @@
 import React, {Component, PropTypes} from 'react';
 import ReactDOM from 'react-dom';
 import moment from 'moment';
-import Translation from '../../../behaviours/translation';
+import i18next from 'i18next';
 import InputText from '../text';
 import DatePicker from 'react-date-picker';
 import isArray from 'lodash/isArray';
@@ -44,7 +44,6 @@ const defaultProps = {
     validate: isISOString
 };
 
-@Translation
 class InputDate extends Component {
     constructor(props) {
         super(props);
@@ -164,7 +163,7 @@ class InputDate extends Component {
         } else {
             return ({
                 isValid: this._isInputFormatCorrect(inputDate),
-                message: this.i18n('input.date.invalid', {date: inputDate})
+                message: i18next.t('input.date.invalid', {date: inputDate})
             });
         }
     };

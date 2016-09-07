@@ -1,7 +1,6 @@
 import React, {Component, PropTypes} from 'react';
-import Translation from '../../behaviours/translation';
+import i18next from 'i18next';
 
-@Translation
 class DraggableIframe extends Component {
     constructor(props) {
         super(props);
@@ -66,7 +65,7 @@ class DraggableIframe extends Component {
         const url = iframeUrl + params.map((param, i) => typeof queryUrl[i] === 'string' ? queryUrl[i] + param : '').join('');
         return (
             <div className={`help-frame ${selected ? 'is-dragging' : ''}`} onMouseDown={this.dragInit} ref='helpFrame' style={{width, display: isShown ? 'block' : 'none'}}>
-                <span className='help-center-title'>{this.i18n(title)}</span>
+                <span className='help-center-title'>{i18next.t(title)}</span>
                 <div className='mdl-button mdl-js-button mdl-button--icon mdl-js-ripple-effect close-icon' onClick={this.toggle}>
                     <i className='material-icons'>close</i>
                 </div>

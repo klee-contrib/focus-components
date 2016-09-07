@@ -1,16 +1,16 @@
 const {Button} = FocusComponents.components;
-const i18nInitializer = FocusCore.translation.init;
+//const i18nInitializer = FocusCore.translation.init;
 
-var resources = {
-    dev: {
-        translation: {
-            'button': {
-                'label': 'button'
-            }
-        }
-    }
-};
-i18n.init({resStore: resources});
+// var resources = {
+//     dev: {
+//         translation: {
+//             'button': {
+//                 'label': 'button'
+//             }
+//         }
+//     }
+// };
+//i18n.init({resStore: resources});
 
 const ButtonExample = React.createClass({
     flexContainer: {

@@ -1,7 +1,7 @@
 //dependencies
 import React, {Component, PropTypes} from 'react';
 import ReactDOM from 'react-dom';
-import Translation from '../../../behaviours/translation';
+import i18next from 'i18next';
 import {isUndefined, isNull, isNumber} from 'lodash/lang';
 import union from 'lodash/union';
 const UNSELECTED_KEY = 'UNSELECTED_KEY';
@@ -54,7 +54,6 @@ const defaultProps = {
 /**
 * Component standing for an HTML input.
 */
-@Translation
 class Select extends Component {
 
     /**
@@ -83,7 +82,7 @@ class Select extends Component {
         const isRequiredAndNoValue = isRequired && (isUndefined(value) || isNull(value));
         if(hasUndefined || isRequiredAndNoValue) {
             values = union(
-                [{[labelKey]: this.i18n(unSelectedLabel), [valueKey]: UNSELECTED_KEY}],
+                [{[labelKey]: i18next.t(unSelectedLabel), [valueKey]: UNSELECTED_KEY}],
                 values
             );
         }
@@ -92,7 +91,7 @@ class Select extends Component {
         .map((val, idx) => {
             const optVal = `${val[valueKey]}`;
             const elementValue = val[labelKey];
-            const optLabel = isUndefined(elementValue) || isNull(elementValue) ? this.i18n('select.noLabel') : elementValue;
+            const optLabel = isUndefined(elementValue) || isNull(elementValue) ? i18next.t('select.noLabel') : elementValue;
             return (<option key={idx} value={optVal}>{optLabel}</option>);
         });
     }
