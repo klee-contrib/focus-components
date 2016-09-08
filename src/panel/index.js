@@ -1,19 +1,18 @@
-import React, {Component, PropTypes} from 'react';
-import {findDOMNode} from 'react-dom';
+import React, {PropTypes, PureComponent} from 'react';
 import i18next from 'i18next';
 import includes from 'lodash/includes';
 import uniqueId from 'lodash/uniqueId';
 import snakeCase from 'lodash/snakeCase';
 import ButtonHelp from '../button-help';
-import xor from 'lodash/xor';
 
 const defaultProps = {
-    actionsPosition: 'top'
+    buttonsPosition: 'top',
+    showHelp: false
 };
 
 const propTypes = {
-    actions: PropTypes.func,
-    actionsPosition: PropTypes.oneOf(['both', 'bottom', 'top']).isRequired,
+    Buttons: PropTypes.element,
+    buttonsPosition: PropTypes.oneOf(['both', 'bottom', 'top']).isRequired,
     title: PropTypes.string,
     showHelp: PropTypes.bool,
     blockName: PropTypes.string
@@ -22,13 +21,10 @@ const propTypes = {
 /**
 * Panel.
 */
-class Panel extends Component {
+class Panel extends PureComponent {
     constructor(props) {
         super(props);
-        const state = {
-            spyId: uniqueId('panel_')
-        };
-        this.state = state;
+        this.spyId = uniqueId('panel_');
     }
 
     /**
@@ -36,19 +32,14 @@ class Panel extends Component {
     * @return {DOM} React DOM element
     */
     render() {
-        const {actions, actionsPosition, children, title, showHelp, blockName, ...otherProps} = this.props;
-        const {spyId} = this.state;
-        const shouldDisplayActionsTop = actions && includes(['both', 'top'], actionsPosition);
-        const shouldDisplayActionsBottom = actions && includes(['both', 'bottom'], actionsPosition);
+        const {blockName, Buttons, buttonsPosition, children, title, showHelp} = this.props;
+        const shouldDisplayActionsTop = Buttons && includes(['both', 'top'], buttonsPosition);
+        const shouldDisplayActionsBottom = Buttons && includes(['both', 'bottom'], buttonsPosition);
         return (
-            <div className='mdl-card mdl-card--border mdl-shadow--4dp' data-spy={spyId} data-focus='panel' {...otherProps}>
+            <div className='mdl-card mdl-card--border mdl-shadow--4dp' data-spy={this.spyId} data-focus='panel'>
                 <div className='mdl-card__title mdl-card--border' data-focus='panel-title'>
-                    {title &&
-                        <h3 data-spy-title>{i18next.t(title)}</h3>
-                    }
-                    {shouldDisplayActionsTop &&
-                        <div className='actions'>{actions()}</div>
-                    }
+                    {title && <h3 data-spy-title>{i18next.t(title)}</h3>}
+                    {shouldDisplayActionsTop && <span>{Buttons}</span>}
                     {showHelp && <ButtonHelp blockName={blockName || snakeCase(i18next.t(title)).split('_')[0]} />}
                 </div>
                 <div className='mdl-card__supporting-text' data-focus='panel-content'>
@@ -56,7 +47,7 @@ class Panel extends Component {
                 </div>
                 {shouldDisplayActionsBottom &&
                     <div className='mdl-card__actions mdl-card--border' data-focus='panel-actions'>
-                        <div className='actions'>{actions()}</div>
+                        <span>{Buttons}</span>
                     </div>
                 }
             </div>
@@ -64,9 +55,7 @@ class Panel extends Component {
     }
 }
 
-//Static props.
 Panel.displayName = 'Panel';
 Panel.defaultProps = defaultProps;
 Panel.propTypes = propTypes;
-
 export default Panel;

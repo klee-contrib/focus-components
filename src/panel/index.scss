@@ -2,6 +2,16 @@ $panel-title-color:#36b7b9;
 $panel-border-size:3px;
 
 
+[data-mode="edit"] {
+    [data-focus='panel'] {
+        border:$panel-border-size solid $panel-title-color;
+        .actions {
+            display: block;
+        }
+    }
+}
+
+
 [data-focus='panel'] {
     width: 100% !important;
     margin-bottom: 30px;
@@ -13,11 +23,12 @@ $panel-border-size:3px;
     }
 
     [data-focus='panel-title'] {
+        padding: 8px 16px;
         h1,h2,h3,h4 {
             margin: 0;
             margin-right: 20px;
             padding: 2px 0;
-            font-size: 30px;
+            font-size: 22px;
             color:$panel-title-color;
             display: inline-block;
         }
@@ -28,9 +39,6 @@ $panel-border-size:3px;
     }
     .actions {
         display: none;
-    }
-    [data-focus='panel-title'] {
-        //override color here.
     }
     [data-focus='panel-actions'] {
         text-align: center;
@@ -45,15 +53,6 @@ $panel-border-size:3px;
     }
 
     &:hover {
-        .actions {
-            display: block;
-        }
-    }
-}
-
-[data-mode="edit"] {
-    [data-focus='panel'] {
-        border:$panel-border-size solid $panel-title-color;
         .actions {
             display: block;
         }

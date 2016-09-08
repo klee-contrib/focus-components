@@ -22,7 +22,7 @@ import '../input/select-radio/style/select-radio.scss';
 import '../label/style/label.scss';
 import '../menu/style/menu.scss';
 import '../message-center/style/message-center.scss';
-import '../panel/style/panel.scss'
+import '../panel/index.scss';
 import '../modal/index.scss';
 import '../progress-bar/style/progress-bar.scss';
 import '../scrollspy-container/style/scrollspy-container.scss';

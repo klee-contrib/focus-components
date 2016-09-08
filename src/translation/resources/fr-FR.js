@@ -3,9 +3,11 @@ export default {
     'fr-FR': {
         translation: {
             button:{
+                edit: 'Modifier',
                 help: {
                     at: 'Accédez au centre d\'aide en cliquant ici'
-                }
+                },
+                save: 'Enregistrer'
             },
             display: {
                 checkbox: {
