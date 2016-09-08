@@ -16,7 +16,7 @@ function ButtonHelp({blockName}) {
             className='help-button'
             handleOnClick={() => openHelpCenter(url, blockName)}
             icon='help_outline'
-            label={`${i18next.t('help.alt')} : ${blockName}`}
+            label={`${i18next.t('button.help.alt')} : ${blockName}`}
             shape='icon'
             type='button'
         />

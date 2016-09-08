@@ -57,11 +57,11 @@ class Select extends PureComponent {
 
     /** inheritdoc */
     _renderOptions({hasUndefined, labelKey, isRequired, value, values = [], valueKey, isActiveProperty, unSelectedLabel}) {
-        return this.allValues.filter(v => isUndefined(v[isActiveProperty]) || v[isActiveProperty] === true) // Filter on the
+        return this.allValues.filter(v => isUndefined(v[isActiveProperty]) || v[isActiveProperty] === true) // Filter on the active value only
         .map((val, idx) => {
             const optVal = `${val[valueKey]}`;
             const elementValue = val[labelKey];
-            const optLabel = isUndefined(elementValue) || isNull(elementValue) ? i18next.t('select.noLabel') : elementValue;
+            const optLabel = isUndefined(elementValue) || isNull(elementValue) ? i18next.t('input.select.noLabel') : elementValue;
             const isSelected = optVal === value;
             return (
                 <li key={idx} className='mdl-menu__item' data-selected={isSelected} data-val={optVal} onClick={() => this._handleSelectChange(optVal)}>{optLabel}</li>
@@ -77,7 +77,7 @@ class Select extends PureComponent {
         const { autoFocus, error, labelKey, name, placeholder, style, value, valueKey, disabled, onChange, size } = this.props;
         const selectProps = { autoFocus, disabled, size };
         const currentValue = find(this.allValues, (o) => o[valueKey] === value);
-        const currentLabel = currentValue ? currentValue[labelKey] : 'UNKNOWN LABEL';
+        const currentLabel = isUndefined(currentValue) || isNull(currentValue) ? i18next.t('input.select.noLabel') : currentValue[labelKey];
         return (
             <div data-focus='select-mdl' ref='select' className='mdl-textfield mdl-js-textfield getmdl-select' data-valid={!error} style={style}>
                 <input placeholder={placeholder} className='mdl-textfield__input' value={currentLabel} type='text' id={name} name={name} readOnly tabIndex='-1' data-val={value} ref='htmlSelect' {...selectProps} />

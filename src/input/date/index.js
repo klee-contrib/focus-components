@@ -163,7 +163,7 @@ class InputDate extends Component {
         } else {
             return ({
                 isValid: this._isInputFormatCorrect(inputDate),
-                message: i18next.t('input.date.invalid', {date: inputDate})
+                message: i18next.t('input.date.error.invalid', {date: inputDate})
             });
         }
     };

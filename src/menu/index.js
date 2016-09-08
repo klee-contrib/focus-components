@@ -7,10 +7,8 @@ const MenuButton = ({item, LinkComponent}) => {
     const buttonProps = { icon: 'link', shape: 'icon', type: 'button', ...item };
     const {route} = item;
     if(LinkComponent && route) {
-        console.log('LinkComponent');
         return <LinkComponent to={route}><Button {...buttonProps} /></LinkComponent>
     }
-    console.log('click button');
     return <Button {...buttonProps} />
 };
 MenuButton.displayName = 'MenuButton';

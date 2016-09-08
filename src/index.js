@@ -27,3 +27,4 @@ import './modal';
 import './progress-bar';
 import './scrollspy-container';
 import './title';
+import './translation';

@@ -91,7 +91,7 @@ class Select extends Component {
         .map((val, idx) => {
             const optVal = `${val[valueKey]}`;
             const elementValue = val[labelKey];
-            const optLabel = isUndefined(elementValue) || isNull(elementValue) ? i18next.t('select.noLabel') : elementValue;
+            const optLabel = isUndefined(elementValue) || isNull(elementValue) ? i18next.t('input.select.noLabel') : elementValue;
             return (<option key={idx} value={optVal}>{optLabel}</option>);
         });
     }

@@ -28,7 +28,7 @@ class AutocompleteSelectField extends Component {
     };
 
     _handleAutocompleteBadInput = value => {
-        this.setState({customError: i18next.t('autocomplete.error.badInput', {value})})
+        this.setState({customError: i18next.t('input.autocomplete.error.invalid', {value})})
     };
 
     _handleAutocompleteChange = value => {

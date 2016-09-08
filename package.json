@@ -1,7 +1,7 @@
 {
   "name": "focus-components",
-  "version": "3.0.0-beta0",
-  "description": "Focus component repository.",
+  "version": "3.0.0-beta5",
+  "description": "Focus basic components to build applications (based on Material Design)",
   "main": "index.js",
   "scripts": {
     "babelify": "better-npm-run babelify",

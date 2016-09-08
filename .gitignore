@@ -19,7 +19,7 @@
 /empty
 /grid
 /icon
-index.js
+/index.js
 /input
 /label
 /menu
@@ -30,3 +30,4 @@ index.js
 /scrollspy-container
 /style
 /title
+/translation
