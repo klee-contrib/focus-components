@@ -4,14 +4,11 @@ import Dropdown from '../';
 
 const actionSpy = sinon.spy();
 const operations = [
-    {label: 'actionA', action: actionSpy},
-    {label: 'actionB', action: actionSpy},
-    {label: 'actionC', action: actionSpy},
-    {label: 'actionD', action: actionSpy},
+    {label: 'action.a', action: actionSpy},
+    {label: 'action.b', action: actionSpy},
+    {label: 'action.c', action: actionSpy},
+    {label: 'action.d', action: actionSpy},
 ];
-
-const i18nextOptions = {lng: 'fr', resources: {fr: {translation: {actionA: 'action A', actionB: 'action B', actionC: 'action C', actionD: 'action D'}}}};
-
 
 describe('<Dropdown />', () => {
     describe('when has only operations props', () => {
@@ -51,15 +48,13 @@ describe('<Dropdown />', () => {
             });
         });
         it('should render all operations with translated labels', () => {
-            i18next.init(i18nextOptions, () => {
-                const wrapper2 = mount(<Dropdown operations={operations} />);
-                const rootNode2 = wrapper.find('[data-focus="dropdown"]');
-                const operationsNode = rootNode2.find('ul li');
-                expect(operationsNode.at(0).text()).to.equal(i18next.t(operations[0].label));
-                expect(operationsNode.at(1).text()).to.equal(i18next.t(operations[1].label));
-                expect(operationsNode.at(2).text()).to.equal(i18next.t(operations[2].label));
-                expect(operationsNode.at(3).text()).to.equal(i18next.t(operations[3].label));
-            });
+            const wrapper2 = mount(<Dropdown operations={operations} />);
+            const rootNode2 = wrapper.find('[data-focus="dropdown"]');
+            const operationsNode = rootNode2.find('ul li');
+            expect(operationsNode.at(0).text()).to.equal(i18next.t(operations[0].label));
+            expect(operationsNode.at(1).text()).to.equal(i18next.t(operations[1].label));
+            expect(operationsNode.at(2).text()).to.equal(i18next.t(operations[2].label));
+            expect(operationsNode.at(3).text()).to.equal(i18next.t(operations[3].label));
         });
         it('should be possible to click on each operation', () => {
             const operationsNode = rootNode.find('ul li');

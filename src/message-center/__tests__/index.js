@@ -4,7 +4,7 @@ import {findDOMNode, unmountComponentAtNode} from 'react-dom';
 
 const {findRenderedDOMComponentWithClass, renderIntoDocument, Simulate} = TestUtils;
 
-describe('The MessageCenter', () => {
+describe.skip('The MessageCenter', () => {
     describe('when mounted', () => {
         let reactComponent, domNode;
         after(() => {

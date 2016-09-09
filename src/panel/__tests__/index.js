@@ -2,7 +2,7 @@ import Panel from '../';
 import i18next from 'i18next';
 const {findRenderedDOMComponentWithClass, renderIntoDocument, Simulate} = TestUtils;
 
-describe('The Panel', () => {
+describe('<Panel />', () => {
     describe('when mounted with no props', () => {
         let reactComponent, domNode;
         before(() => {
@@ -33,7 +33,7 @@ describe('The Panel', () => {
             expect(contentSection).to.exist;
         });
         it('should not have a top actions', () => {
-            const topActions = domNode.querySelector('[data-focus="panel-title"] .actions');
+            const topActions = domNode.querySelector('[data-focus="panel-title"] .buttons');
             expect(topActions).not.to.exist;
         });
         it('should not have a bottom actions section', () => {
@@ -63,11 +63,11 @@ describe('The Panel', () => {
         const actions = () => <span>{'actions'}</span>;
         describe('by default', () => {
             before(() => {
-                reactComponent = renderIntoDocument(<Panel actions={actions} />);
+                reactComponent = renderIntoDocument(<Panel Buttons={actions} />);
                 domNode = ReactDOM.findDOMNode(reactComponent);
             });
             it('should display actions top by default', () => {
-                const topActions = domNode.querySelector('[data-focus="panel-title"] .actions');
+                const topActions = domNode.querySelector('[data-focus="panel-title"] .buttons');
                 expect(topActions).to.exist;
             });
             it('should not have a bottom actions section', () => {
@@ -75,13 +75,13 @@ describe('The Panel', () => {
                 expect(bottomSection).not.to.exist;
             });
         });
-        describe('with actionsPosition top', () => {
+        describe('with buttonsPosition top', () => {
             before(() => {
-                reactComponent = renderIntoDocument(<Panel actions={actions} actionsPosition='top' />);
+                reactComponent = renderIntoDocument(<Panel Buttons={actions} buttonsPosition='top' />);
                 domNode = ReactDOM.findDOMNode(reactComponent);
             });
             it('should display actions at the top', () => {
-                const topActions = domNode.querySelector('[data-focus="panel-title"] .actions');
+                const topActions = domNode.querySelector('[data-focus="panel-title"] .buttons');
                 expect(topActions).to.exist;
             });
             it('should not display action at the bottom', () => {
@@ -89,13 +89,13 @@ describe('The Panel', () => {
                 expect(bottomSection).not.to.exist;
             });
         });
-        describe('with actionsPosition bottom', () => {
+        describe('with buttonsPosition bottom', () => {
             before(() => {
-                reactComponent = renderIntoDocument(<Panel actions={actions} actionsPosition='bottom' />);
+                reactComponent = renderIntoDocument(<Panel Buttons={actions} buttonsPosition='bottom' />);
                 domNode = ReactDOM.findDOMNode(reactComponent);
             });
             it('should not display actions at the top', () => {
-                const topActions = domNode.querySelector('[data-focus="panel-title"] .actions');
+                const topActions = domNode.querySelector('[data-focus="panel-title"] .buttons');
                 expect(topActions).not.to.exist;
             });
             it('should display action at the bottom', () => {
@@ -103,13 +103,13 @@ describe('The Panel', () => {
                 expect(bottomSection).to.exist;
             });
         });
-        describe('with actionsPosition both', () => {
+        describe('with buttonsPosition both', () => {
             before(() => {
-                reactComponent = renderIntoDocument(<Panel actions={actions} actionsPosition='both' />);
+                reactComponent = renderIntoDocument(<Panel Buttons={actions} buttonsPosition='both' />);
                 domNode = ReactDOM.findDOMNode(reactComponent);
             });
             it('should display actions at the top', () => {
-                const topActions = domNode.querySelector('[data-focus="panel-title"] .actions');
+                const topActions = domNode.querySelector('[data-focus="panel-title"] .buttons');
                 expect(topActions).to.exist;
             });
             it('should display action at the bottom', () => {
@@ -119,23 +119,3 @@ describe('The Panel', () => {
         });
     });
 });
-
-
-// <div className='mdl-card mdl-card--border mdl-shadow--4dp' data-spy={spyId} data-focus='panel' {...otherProps}>
-//     <div className='mdl-card__title mdl-card--border' data-focus='panel-title'>
-//         {title &&
-//             <h3 data-spy-title>{this.i18n(title)}</h3>
-//         }
-//         {shouldDisplayActionsTop &&
-//             <div className='actions'>{actions()}</div>
-//         }
-//     </div>
-//     <div className='mdl-card__supporting-text' data-focus='panel-content'>
-//         {children}
-//     </div>
-//     {shouldDisplayActionsBottom &&
-//         <div className='mdl-card__actions mdl-card--border' data-focus='panel-actions'>
-//             <div className='actions'>{actions()}</div>
-//         </div>
-//     }
-// </div>

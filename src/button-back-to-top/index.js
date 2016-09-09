@@ -32,7 +32,7 @@ class ButtonBackToTop extends Component {
     * @private
     */
     _scrollSpy = () => {
-        const currentScrollPosition = scrollPosition();
+        const currentScrollPosition = this.scrollPosition();
         if (currentScrollPosition.top > this.props.scrollStart) {
             if (!this.state.isVisible) {
                 this.setState({isVisible: true});

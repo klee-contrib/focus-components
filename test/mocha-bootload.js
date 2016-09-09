@@ -1,3 +1,7 @@
+import {init as initTranslation} from '../src/translation';
+import translationResources from './translation/resources';
+initTranslation('fr', translationResources);
+
 // Global configuration uese for tests.
 require('babel-core/register')({
     presets: [
