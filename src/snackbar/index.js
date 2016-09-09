@@ -5,13 +5,14 @@ const Snackbar = ({actionHandler, actionText, message, deleteMessage, type}) => 
     const active = !!message;
     const classNames = `mdl-snackbar ${active ? 'mdl-snackbar--active' :  ''}`;
     const otherProps = { 'aria-hidden': active, 'aria-live':'assertive', 'aria-atomic':'true', 'aria-relevant': 'text' };
+    const hasAction = actionText && actionHandler;
     return (
-        <div data-focus='snackbar-message-center' data-message-type={type} className={classNames}>
+        <div data-focus='snackbar' data-message-type={type} className={classNames} {...otherProps}>
             <div className='mdl-snackbar__text'>{i18next.t(message)}</div>
-            {actionText &&
+            {hasAction &&
                 <button className='mdl-snackbar__action' type='button' onClick={actionHandler}>{i18next.t(actionText)}</button>
             }
-            <button className='mdl-snackbar__close' type='button' onClick={this._forceCleanup}><i className='material-icons'>clear</i></button>
+            <button className='mdl-snackbar__close' type='button' onClick={deleteMessage}><i className='material-icons'>clear</i></button>
         </div>
     );
 };
