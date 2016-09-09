@@ -21,7 +21,7 @@ import '../input/select/style/select.scss';
 import '../input/select-radio/style/select-radio.scss';
 import '../label/style/label.scss';
 import '../menu/style/menu.scss';
-import '../message-center/style/message-center.scss';
+import '../snackbar/index.scss';
 import '../panel/index.scss';
 import '../modal/index.scss';
 import '../progress-bar/style/progress-bar.scss';

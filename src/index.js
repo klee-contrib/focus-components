@@ -22,7 +22,7 @@ import './icon';
 import './input';
 import './label';
 import './menu';
-import './message-center';
+import './snackbar';
 import './panel';
 import './panel/edit-save-buttons';
 import './modal';
