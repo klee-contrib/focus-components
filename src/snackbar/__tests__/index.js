@@ -28,7 +28,7 @@ describe('<Snackbar />', () => {
         });
     });
     describe('when the system receive', () => {
-        describe.only('a message', () => {
+        describe('a message', () => {
             const message = 'this is a test';
             const type = 'info';
             const wrapper = render(<Snackbar message={message} type="info" />);
