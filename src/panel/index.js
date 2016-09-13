@@ -13,7 +13,7 @@ const defaultProps = {
 };
 
 const propTypes = {
-    Buttons: PropTypes.element,
+    Buttons: PropTypes.func,
     buttonsPosition: PropTypes.oneOf(['both', 'bottom', 'top']).isRequired,
     title: PropTypes.string,
     showHelp: PropTypes.bool,
