@@ -34,7 +34,7 @@ describe('<Panel />', () => {
         });
         it('should not have a top actions', () => {
             const topActions = domNode.querySelector('[data-focus="panel-title"] .buttons');
-            expect(topActions).not.to.exist;
+            expect(topActions).to.exist;
         });
         it('should not have a bottom actions section', () => {
             const bottomSection = domNode.querySelector('[data-focus="panel-actions"]');

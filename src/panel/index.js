@@ -8,7 +8,7 @@ import Buttons from './edit-save-buttons';
 
 const defaultProps = {
     buttonsPosition: 'top',
-    showHelp: false, 
+    showHelp: false,
     Buttons: Buttons
 };
 
@@ -34,14 +34,14 @@ class Panel extends PureComponent {
     * @return {DOM} React DOM element
     */
     render() {
-        const {blockName, Buttons, buttonsPosition, children, title, showHelp} = this.props;
+        const {blockName, Buttons, buttonsPosition, children, title, showHelp, editing, toggleEdit, getUserInput, save} = this.props;
         const shouldDisplayActionsTop = Buttons && includes(['both', 'top'], buttonsPosition);
         const shouldDisplayActionsBottom = Buttons && includes(['both', 'bottom'], buttonsPosition);
         return (
             <div className='mdl-card mdl-card--border mdl-shadow--4dp' data-spy={this.spyId} data-focus='panel'>
                 <div className='mdl-card__title mdl-card--border' data-focus='panel-title'>
                     {title && <h3 data-spy-title>{i18next.t(title)}</h3>}
-                    {shouldDisplayActionsTop && <Buttons editing={editing} toggleEdit={toggleEdit} getUserInput={getUserInput} save={save}/>}
+                    {shouldDisplayActionsTop && <div className='buttons'><Buttons editing={editing} toggleEdit={toggleEdit} getUserInput={getUserInput} save={save}/></div>}
                     {showHelp && <ButtonHelp blockName={blockName || snakeCase(i18next.t(title)).split('_')[0]} />}
                 </div>
                 <div className='mdl-card__supporting-text' data-focus='panel-content'>
@@ -49,7 +49,7 @@ class Panel extends PureComponent {
                 </div>
                 {shouldDisplayActionsBottom &&
                     <div className='mdl-card__actions mdl-card--border' data-focus='panel-actions'>
-                        <div className='buttons'>{Buttons}</div>
+                        <div className='buttons'><Buttons editing={editing} toggleEdit={toggleEdit} getUserInput={getUserInput} save={save}/></div>
                     </div>
                 }
             </div>
