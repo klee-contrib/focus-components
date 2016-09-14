@@ -1,7 +1,7 @@
 import React, {Component, PropTypes} from 'react';
 import ReactDOM from 'react-dom';
 import i18next from 'i18next';
-import Material from '../../behaviours/material';
+import Material from '../behaviours/material';
 
 
 @Material('mdlHolder')

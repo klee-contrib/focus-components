@@ -3,7 +3,7 @@ import React, {Component, PropTypes} from 'react';
 import ReactDOM from 'react-dom';
 import identity from 'lodash/identity';
 import i18next from 'i18next';
-import MDBehaviour from '../../behaviours/material';
+import MDBehaviour from '../behaviours/material';
 const MODE = {isEdit: true};
 
 const propTypes = {

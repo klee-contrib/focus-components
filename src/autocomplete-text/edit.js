@@ -1,7 +1,7 @@
 import React, {Component, PropTypes} from 'react';
 import ReactDOM from 'react-dom';
 import i18next from 'i18next';
-import MDBehaviour from '../../behaviours/material';
+import MDBehaviour from '../behaviours/material';
 
 @MDBehaviour('materialInput', 'loader')
 class AutocompleteTextEdit extends Component {

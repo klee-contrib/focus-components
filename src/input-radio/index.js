@@ -1,7 +1,7 @@
 import React, {Component, PropTypes} from 'react';
 import i18next from 'i18next';
-import GridBehaviour from '../../behaviours/grid';
-import MaterialBehaviour from '../../behaviours/material';
+import GridBehaviour from '../behaviours/grid';
+import MaterialBehaviour from '../behaviours/material';
 import isUndefined from 'lodash/isUndefined';
 
 @GridBehaviour
