@@ -1,27 +1,15 @@
 import React, {Component, PropTypes} from 'react';
-import Checkbox from '../checkbox';
+import Checkbox from '../input-checkbox';
 import i18next from 'i18next';
 import pull from 'lodash/pull';
 
 class SelectCheckbox extends Component {
-    static defaultProps = {
-        values: [], // all values
-        value: [], // selected values list
-        valueKey: 'value', // key for the displayed value
-        labelKey: 'label' // key for the displayed label
-    };
-
-    static propTypes = {
-        values: PropTypes.array,
-        value: PropTypes.array,
-        valueKey: PropTypes.string,
-        labelKey: PropTypes.string,
-        onChange: PropTypes.func
-    };
-
-    state = {
-        selectedValues: this.props.value
-    };
+    constructor(props) {
+        super(props);
+        this.state = {
+            selectedValues: this.props.value
+        };
+    }
 
     componentWillReceiveProps(newProps) {
         if(newProps) {
@@ -92,5 +80,17 @@ class SelectCheckbox extends Component {
 }
 
 SelectCheckbox.displayName = 'SelectCheckbox';
-
+SelectCheckbox.defaultProps = {
+    values: [], // all values
+    value: [], // selected values list
+    valueKey: 'value', // key for the displayed value
+    labelKey: 'label' // key for the displayed label
+};
+SelectCheckbox.propTypes = {
+    values: PropTypes.array,
+    value: PropTypes.array,
+    valueKey: PropTypes.string,
+    labelKey: PropTypes.string,
+    onChange: PropTypes.func
+};
 export default SelectCheckbox;

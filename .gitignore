@@ -3,8 +3,9 @@
 /node_modules
 /npm-debug.log
 
-
 /animation
+/autocomplete-select
+/autocomplete-text
 /behaviours
 /button
 /button-back
@@ -13,7 +14,6 @@
 /chips
 /column
 /confirmation-popin
-/display
 /draggable-iframe
 /dropdown
 /empty
@@ -21,13 +21,23 @@
 /grid
 /icon
 /index.js
-/input
+/input-checkbox
+/input-date
+/input-display
+/input-radio
+/input-text
+/input-textarea
+/input-toggle
 /label
 /menu
 /message-center
 /modal
 /panel
 /progress-bar
+/select
+/select-checkbox
+/select-mdl
+/select-radio
 /scrollspy-container
 /snackbar
 /style

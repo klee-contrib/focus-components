@@ -8,8 +8,8 @@ import includes from 'lodash/includes';
 class ModalOverlay extends Component {
     constructor(props) {
         super(props);
-        this._hideBodyOverflow.bind(this);
-        this._restoreBodyOverflow.bind(this);
+        this._hideBodyOverflow = this._hideBodyOverflow.bind(this);
+        this._restoreBodyOverflow = this._restoreBodyOverflow.bind(this);
     }
     /**
     * Store the body overgflow property, and set it to hidden
@@ -64,9 +64,9 @@ ModalOverlay.defaultProps = {
 class Modal extends Component {
     constructor(props) {
         super(props);
-        this._onWheel.bind(this);
-        this.toggleOpen.bind(this);
-        this._getAnimationProps.bind(this);
+        this._onWheel = this._onWheel.bind(this);
+        this.toggleOpen = this.toggleOpen.bind(this);
+        this._getAnimationProps = this._getAnimationProps.bind(this);
 
         this.state = {
             opened: this.props.open

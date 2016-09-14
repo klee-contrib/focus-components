@@ -4,24 +4,16 @@ import GridBehaviour from '../../behaviours/grid';
 import MaterialBehaviour from '../../behaviours/material';
 import isUndefined from 'lodash/isUndefined';
 
-@MaterialBehaviour('inputMdl')
 @GridBehaviour
+@MaterialBehaviour('inputMdl')
 class Radio extends Component {
-    static defaultProps = {
-        value: false
-    };
-
-    static propTypes = {
-        label: PropTypes.string.isRequired,
-        name: PropTypes.string,
-        value: PropTypes.bool,
-        onChange: PropTypes.func
-    };
-
-    state = {
-        isChecked: isUndefined(this.props.value) ? false : this.props.value
-    };
-
+    constructor(props){
+        super(props)
+        this.state = {
+            isChecked: isUndefined(this.props.value) ? false : this.props.value
+        };
+    }
+    
     componentWillReceiveProps(newProps) {
         this.setState({isChecked: newProps.value});
     }
@@ -76,5 +68,13 @@ class Radio extends Component {
 }
 
 Radio.displayName = 'InputRadio';
-
+Radio.defaultProps = {
+    value: false
+};
+Radio.propTypes = {
+    label: PropTypes.string.isRequired,
+    name: PropTypes.string,
+    value: PropTypes.bool,
+    onChange: PropTypes.func
+};
 export default Radio;

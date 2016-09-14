@@ -1,38 +1,25 @@
 import React, {Component, PropTypes} from 'react';
-import Radio from '../radio';
+import Radio from '../input-radio';
 import uniqueId from 'lodash/uniqueId';
 import i18next from 'i18next';
 
 class SelectRadio extends Component {
-    static defaultProps = {
-        values: [],
-        valueKey: 'code',
-        labelKey: 'label',
-        disabled: false
-    };
-
-    static propTypes = {
-        values: PropTypes.array,
-        value: PropTypes.oneOfType([PropTypes.number, PropTypes.string, PropTypes.array]),
-        valueKey: PropTypes.string,
-        labelKey: PropTypes.string,
-        onChange: PropTypes.func,
-        disabled: PropTypes.bool
-    };
-
-    state = {
-        uniqueName: uniqueId('options_'),
-        value: this.props.value
-    };
+    constructor(props){
+        super(props);
+        this.state = {
+            uniqueName: uniqueId('options_'),
+            value: this.props.value
+        };
+    }
 
     componentWillReceiveProps(newProps) {
         this.setState({value: newProps.value});
     }
 
     /**
-     * Get the value from the select in the DOM.
-     * @return {string, number} selected value
-     */
+    * Get the value from the select in the DOM.
+    * @return {string, number} selected value
+    */
     getValue () {
         return this.state.value;
     }
@@ -52,10 +39,10 @@ class SelectRadio extends Component {
     }
 
     /**
-     * Closure to capture key and radio status.
-     * @param  {string} key the key of radio
-     * @return {func} status closure
-     */
+    * Closure to capture key and radio status.
+    * @param  {string} key the key of radio
+    * @return {func} status closure
+    */
     _getRadioChangeHandler(key) {
         return () => {
             this._handleRadioChange(key);
@@ -89,5 +76,18 @@ class SelectRadio extends Component {
 }
 
 SelectRadio.displayName = 'SelectRadio';
-
+SelectRadio.defaultProps = {
+    values: [],
+    valueKey: 'code',
+    labelKey: 'label',
+    disabled: false
+};
+SelectRadio.propTypes = {
+    values: PropTypes.array,
+    value: PropTypes.oneOfType([PropTypes.number, PropTypes.string, PropTypes.array]),
+    valueKey: PropTypes.string,
+    labelKey: PropTypes.string,
+    onChange: PropTypes.func,
+    disabled: PropTypes.bool
+};
 export default SelectRadio;
