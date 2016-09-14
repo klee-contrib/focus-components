@@ -1,8 +1,7 @@
 import 'react-date-picker/index.css';
 import 'material-design-lite/src/material-design-lite.scss';
-//import '../style/_mdl_variables.scss';
-
-
+import 'material-design-icons-iconfont/dist/material-design-icons.scss';
+//---
 import '../button/style/button.scss';
 import '../button-back/style/back.scss';
 import '../button-back-to-top/style/back-to-top.scss';

@@ -125,14 +125,14 @@ class Modal extends Component {
         return (
             <div data-focus='modal' data-level={level} data-size={size} data-type={type} >
                 {this.state.opened &&
-                    <Overlay clickHandler={modal && this.toggleOpen} ref='modal-overlay' resize={'full' === type} show={overlay}>
+                    <ModalOverlay clickHandler={modal && this.toggleOpen} ref='modal-overlay' resize={'full' === type} show={overlay}>
                         <div {...animationProps} data-focus='modal-window' onClick={this._preventModalClose} ref='modal-window'>
                             <i className='material-icons' data-focus='modal-window-close' onClick={this.toggleOpen}>close</i>
                             <div onWheel={this._onWheel}>
                                 {children}
                             </div>
                         </div>
-                    </Overlay>
+                    </ModalOverlay>
                 }
             </div>
         );
