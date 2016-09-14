@@ -2,12 +2,10 @@ import React, {PropTypes} from 'react';
 import i18next from 'i18next';
 
 const Snackbar = ({actionHandler, actionText, message, deleteMessage, type}) => {
-    const active = !!message;
-    const classNames = `mdl-snackbar ${active ? 'mdl-snackbar--active' :  ''}`;
-    const otherProps = { 'aria-hidden': active, 'aria-live':'assertive', 'aria-atomic':'true', 'aria-relevant': 'text' };
+    const otherProps = { 'aria-hidden': !!message, 'aria-live':'assertive', 'aria-atomic':'true', 'aria-relevant': 'text' };
     const hasAction = actionText && actionHandler;
     return (
-        <div data-focus='snackbar' data-message-type={type} className={classNames} {...otherProps}>
+        <div data-focus='snackbar' data-upgraded='MaterialSnackbar' data-message-type={type} className='mdl-js-snackbar mdl-snackbar mdl-snackbar--active animated slideInUp' {...otherProps}>
             <div className='mdl-snackbar__text'>{i18next.t(message)}</div>
             {hasAction &&
                 <button className='mdl-snackbar__action' type='button' onClick={actionHandler}>{i18next.t(actionText)}</button>
@@ -25,17 +23,3 @@ Snackbar.propTypes = {
     type: PropTypes.string
 };
 export default Snackbar;
-
-// MessageCenter.displayName = 'MessageCenter';
-// MessageCenter.defaultProps = {
-//     ttlError: 8000,
-//     ttlInfo: 3000,
-//     ttlSuccess: 3000,
-//     ttlWarning: 3000
-// };
-// MessageCenter.propTypes = {
-//     ttlError: PropTypes.number.isRequired,
-//     ttlInfo: PropTypes.number.isRequired,
-//     ttlSuccess: PropTypes.number.isRequired,
-//     ttlWarning: PropTypes.number.isRequired
-// };
