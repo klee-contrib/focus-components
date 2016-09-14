@@ -6,6 +6,11 @@ import includes from 'lodash/includes';
 * Small overlay component used to listen to scroll and prevent it to leave the Modal component
 */
 class ModalOverlay extends Component {
+    constructor(props) {
+        super(props);
+        this._hideBodyOverflow.bind(this);
+        this._restoreBodyOverflow.bind(this);
+    }
     /**
     * Store the body overgflow property, and set it to hidden
     * @private
@@ -59,6 +64,10 @@ ModalOverlay.defaultProps = {
 class Modal extends Component {
     constructor(props) {
         super(props);
+        this._onWheel.bind(this);
+        this.toggleOpen.bind(this);
+        this._getAnimationProps.bind(this);
+
         this.state = {
             opened: this.props.open
         };
