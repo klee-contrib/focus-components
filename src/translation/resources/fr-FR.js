@@ -3,6 +3,7 @@ export default {
     'fr-FR': {
         translation: {
             button:{
+                cancel: 'Annuler',
                 edit: 'Modifier',
                 help: {
                     at: 'Accédez au centre d\'aide en cliquant ici'
