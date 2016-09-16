@@ -10,7 +10,7 @@ class ConfirmationModal extends Component {
         this._handleConfirm = this._handleConfirm.bind(this);
         this._handleCancel = this._handleCancel.bind(this);
         this._handleModalClose = this._handleModalClose.bind(this);
-        this.toggleOpen = this._toggleOpen.bind(this);
+        this.toggleOpen = this.toggleOpen.bind(this);
         this.state = {
             fromButtonClick: false
         };
