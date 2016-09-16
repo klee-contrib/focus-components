@@ -90,6 +90,7 @@ export default function connectToStores(storesConfiguration, getState) {
                 const {props, state} = this;
                 return (
                     <DecoratedComponent
+                        ref='innerComponent'
                         {...props}
                         {...state}
                     />
