@@ -1,3 +1,7 @@
+import {init as initTranslation} from '../src/translation';
+import translationResources from './translation/resources';
+initTranslation('fr', translationResources);
+
 // Global configuration uese for tests.
 require('babel-core/register')({
     presets: [
@@ -26,10 +30,9 @@ global.ReactDOM = require('react-dom');
 global.expect = chai.expect;
 global.sinon = sinon;
 global.TestUtils = require('react-addons-test-utils');
-global.sandbox = require('./sandbox');
-global.TestFocus = require('./test-focus');
 global.componentHandler = {upgradeElement: function(){}};
 global.__DEV__ = process.env.DEV ? JSON.parse(process.env.DEV) : true;
+global.Element = window.Element;
 
 // take all properties of the window object and also attach it to the
 // from mocha-jsdom https://github.com/rstacruz/mocha-jsdom/blob/master/index.js#L80

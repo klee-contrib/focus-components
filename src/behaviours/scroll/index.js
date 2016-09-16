@@ -1,4 +1,4 @@
-import {isUndefined} from 'lodash/lang';
+import isUndefined from 'lodash/isUndefined';
 
 const Scroll = Component => class ScrollComponent extends Component {
     constructor(props) {

@@ -1,0 +1,13 @@
+{
+  "name": "Modal",
+  "version": "1.0.0",
+  "description": "Simple modal component with all its behaviours",
+  "fullscreen": true,
+  "keywords": [
+    "material",
+    "popin",
+    "modal"
+  ],
+  "author": "focus@kleegroup.com",
+  "license": "MIT"
+}
