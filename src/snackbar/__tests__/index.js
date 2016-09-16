@@ -10,8 +10,7 @@ describe('<Snackbar />', () => {
             expect(rootNode).to.exist;
         });
         it('should render mdl classes', () => {
-            expect(rootNode.hasClass('mdl-snackbar')).to.be.true;
-            expect(rootNode.hasClass('mdl-snackbar--active')).to.be.false;
+            expect(rootNode.hasClass('mdl-snackbar--active')).to.be.true;
         });
         it('should render aria attributes', () => {
             const selector = {
@@ -31,7 +30,7 @@ describe('<Snackbar />', () => {
         describe('a message', () => {
             const message = 'this is a test';
             const type = 'info';
-            const wrapper = render(<Snackbar message={message} type="info" />);
+            const wrapper = render(<Snackbar content={message} type="info" />);
             const rootNode = wrapper.find('[data-focus="snackbar"]');
             it('should be visible', () => {
                 expect(rootNode).to.exist;
