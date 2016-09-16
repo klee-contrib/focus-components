@@ -4,12 +4,12 @@ function Snackbar(props){
   return (
     <div className="mdl-js-snackbar mdl-snackbar mdl-snackbar--active animated slideInUp" data-upgraded="MaterialSnackbar" aria-hidden="false">
       <div className="mdl-snackbar__text">{props.content}</div>
-      {actionHandler && actionText &&
+      {props.actionHandler && props.actionText &&
                 <button className='mdl-snackbar__action' type='button' onClick={() =>{
-                actionHandler(props); deleteMessage({id});
+                props.actionHandler(props); props.deleteMessage({id});
                 }}>{actionText}</button>
             }
-      <button className="mdl-snackbar__action" type="button" onClick={() => deleteMessage({id})}>Close</button>
+      <button className="mdl-snackbar__action" type="button" onClick={() => props.deleteMessage({id})}>Close</button>
     </div>
   );
 }
