@@ -1,0 +1,30 @@
+
+//https://github.com/CreativeIT/getmdl-select/
+[data-focus="select-mdl"] {
+    width: auto;
+    & > input {
+        cursor: pointer;
+    }
+    .mdl-icon-toggle__label {
+        float: right;
+        margin-top: -30px;
+    }
+    &.is-focused {
+        .mdl-icon-toggle__label {
+            color: #000;
+        }
+    }
+    .mdl-menu__container {
+        width: 100% !important;
+        top: 0px !important;
+        .mdl-menu__outline {
+            width: 100% !important;
+        }
+        .mdl-menu {
+            width: 100% !important;
+            [data-selected="true"]{
+                background-color: #CFD8DC;
+            }
+        }
+    }
+}
