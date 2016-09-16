@@ -1,9 +1,9 @@
-
+import React from 'react';
 
 // Components
 
-import Button from './button';
-import Dropdown from './dropdown'
+import Button from '../button';
+import Dropdown from '../dropdown'
 
 const HeaderActions = ({primary, secondary}) =>  {
       return (
@@ -13,11 +13,11 @@ const HeaderActions = ({primary, secondary}) =>  {
                       return <Dropdown iconProps={{name: primary.icon}} operationList={primary.action} shape='fab'/>;
                   } else {
                       return (
-                          <Button handleOnClick={primary.action} icon={primary.icon} label={primary.label} shape='fab' style={{className: primary.className}} type='button'/>
+                          <Button key={primary.label} handleOnClick={primary.action} icon={primary.icon} label={primary.label} shape='fab' style={{className: primary.className}} type='button'/>
                       );
                   }
               })}
-              <Dropdown iconProps={{name: 'more_vert'}} operationList={secondary} shape='fab'/>
+              <Dropdown iconProps={{name: 'more_vert'}} operations={secondary} shape='fab'/>
           </div>
       );
 };
