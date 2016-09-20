@@ -36,7 +36,8 @@ class Select extends PureComponent {
     };
 
     componentDidMount() {
-      componentHandler.upgradeDom();
+      const selectMenu = ReactDOM.findDOMNode(this.refs["selectMenu"]);
+      componentHandler.upgradeElement(selectMenu);
     }
 
     /**
@@ -91,7 +92,7 @@ class Select extends PureComponent {
                     </label>
                 }
                 {!disabled &&
-                    <ul className='mdl-menu mdl-js-menu' htmlFor={name} ref='select'>
+                    <ul className='mdl-menu mdl-js-menu' htmlFor={name} ref='selectMenu'>
                         {this._renderOptions(this.props)}
                     </ul>
                 }
