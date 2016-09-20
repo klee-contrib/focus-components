@@ -32,7 +32,7 @@ const defaultProps = {
     inputTimeout: 200
 };
 
-@MDBehaviour('loader', 'inputText')
+@MDBehaviour('inputText')
 class Autocomplete extends Component {
     constructor(props) {
         super(props);
@@ -122,7 +122,7 @@ class Autocomplete extends Component {
         if (value === '') { // the user cleared the input, don't call the querySearcher
             const {onChange} = this.props;
             this.setState({inputValue: value, fromKeyResolver: false});
-            if (onChange) onChange(null);
+            if (onChange) onChange(value);
         } else {
             this.setState({inputValue: value, fromKeyResolver: false, isLoading: true});
             this._debouncedQuerySearcher(value);
