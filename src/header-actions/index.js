@@ -17,7 +17,7 @@ const HeaderActions = ({primary, secondary}) =>  {
                       );
                   }
               })}
-              <Dropdown iconProps={{name: 'more_vert'}} operations={secondary} shape='fab'/>
+              { secondary && <Dropdown iconProps={{name: 'more_vert'}} operations={secondary} shape='fab'/>}
           </div>
       );
 };
