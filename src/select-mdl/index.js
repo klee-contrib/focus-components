@@ -35,6 +35,11 @@ class Select extends PureComponent {
         this.allValues = hasUndefined || isRequiredAndNoValue ? union([{[labelKey]: i18next.t(unSelectedLabel), [valueKey]: UNSELECTED_KEY}], values) : values;
     };
 
+    componentDidMount() {
+      const selectMenu = ReactDOM.findDOMNode(this.refs["selectMenu"]);
+      componentHandler.upgradeElement(selectMenu);
+    }
+
     /**
     * Get the dom value of the component.
     * @return {object} - The unformated dom value.
@@ -87,7 +92,7 @@ class Select extends PureComponent {
                     </label>
                 }
                 {!disabled &&
-                    <ul className='mdl-menu mdl-js-menu' htmlFor={name} ref='select'>
+                    <ul className='mdl-menu mdl-js-menu' htmlFor={name} ref='selectMenu'>
                         {this._renderOptions(this.props)}
                     </ul>
                 }
