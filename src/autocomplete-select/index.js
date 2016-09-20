@@ -46,6 +46,7 @@ class AutocompleteSelectField extends Component {
                 onBadInput={this._handleAutocompleteBadInput}
                 onChange={this._handleAutocompleteChange}
                 ref='autocomplete'
+                {...this.pops}
             />
         );
     };
@@ -53,6 +54,7 @@ class AutocompleteSelectField extends Component {
     _renderConsult = () => {
         return (
             <AutocompleteSelectConsult
+              {...this.props}
             />
         );
     };
