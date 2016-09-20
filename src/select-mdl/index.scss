@@ -22,8 +22,11 @@
         }
         .mdl-menu {
             width: 100% !important;
-            [data-selected="true"]{
-                background-color: #CFD8DC;
+            .mdl-menu__item {
+              z-index: 999;
+              [data-selected="true"]{
+                  background-color: #CFD8DC;
+              }
             }
         }
     }

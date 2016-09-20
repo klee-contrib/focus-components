@@ -35,6 +35,10 @@ class Select extends PureComponent {
         this.allValues = hasUndefined || isRequiredAndNoValue ? union([{[labelKey]: i18next.t(unSelectedLabel), [valueKey]: UNSELECTED_KEY}], values) : values;
     };
 
+    componentDidMount() {
+      componentHandler.upgradeDom();
+    }
+
     /**
     * Get the dom value of the component.
     * @return {object} - The unformated dom value.
