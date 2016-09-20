@@ -32,7 +32,7 @@ const defaultProps = {
     inputTimeout: 200
 };
 
-@MDBehaviour('loader', 'inputText')
+@MDBehaviour('inputText')
 class Autocomplete extends Component {
     constructor(props) {
         super(props);

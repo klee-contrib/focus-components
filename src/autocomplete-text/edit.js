@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import i18next from 'i18next';
 import MDBehaviour from '../behaviours/material';
 
-@MDBehaviour('materialInput', 'loader')
+@MDBehaviour('materialInput')
 class AutocompleteTextEdit extends Component {
     static defaultProps = {
         placeholder: 'Search here...',
