@@ -4,7 +4,7 @@ import './style';
 import './behaviours';
 //COMPONENTS ----------------------------
 import './animation';
-import './autocomplete-select/field';
+import './autocomplete-select';
 import './autocomplete-text/field';
 import './behaviours';
 import './button';
