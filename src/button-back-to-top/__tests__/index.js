@@ -10,7 +10,7 @@ describe('<ButtonBackToTop />', () => {
             arr = scryRenderedDOMComponentsWithTag(renderedButtonBackToTop, 'button');
         });
         it('should have the material button className and a FAB attribute', () => {
-            expect(arr[0].className).to.equal('mdl-button mdl-button--colored mdl-button--fab');
+            expect(arr[0].className).to.equal('mdl-button mdl-button--colored mdl-button--fab mdl-js-button mdl-js-ripple-effect');
         });
     });
 });

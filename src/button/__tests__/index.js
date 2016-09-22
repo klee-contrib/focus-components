@@ -14,7 +14,8 @@ describe('<Button />', () => {
             expect(label).to.equal('');
             expect(icon).to.be.null;
             expect(id).to.equal('');
-            expect(hasRipple).to.be.false;
+            expect(hasRipple).to.be.true;
+            expect(isJs).to.be.true;
             expect(type).to.equal('submit');
             expect(iconLibrary).to.equal('material');
         });
