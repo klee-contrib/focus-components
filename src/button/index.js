@@ -28,8 +28,8 @@ const defaultProps = {
     label: '',
     icon: null,
     id: '',
-    hasRipple: false,
-    isJs: false,
+    hasRipple: true,
+    isJs: true,
     iconLibrary: 'material'
 }
 

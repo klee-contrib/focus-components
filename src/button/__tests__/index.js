@@ -14,7 +14,8 @@ describe('<Button />', () => {
             expect(label).to.equal('');
             expect(icon).to.be.null;
             expect(id).to.equal('');
-            expect(hasRipple).to.be.false;
+            expect(hasRipple).to.be.true;
+            expect(isJs).to.be.true;
             expect(type).to.equal('submit');
             expect(iconLibrary).to.equal('material');
         });
@@ -25,11 +26,23 @@ describe('<Button />', () => {
             before(() => {
                 renderedButton = renderIntoDocument(<Button hasRipple={true}/>);
             });
-            it('should give add the material mention in the className', () => {
+            it('should add the material mention in the className', () => {
                 const {hasRipple} = renderedButton.props;
                 const {materialButton} = renderedButton.refs;
                 expect(hasRipple).to.be.true;
-                expect(materialButton.className).to.equal('mdl-button  mdl-button--raised  mdl-js-ripple-effect');
+                expect(materialButton.className).to.contain('mdl-js-ripple-effect');
+            });
+        });
+        describe('When we give isJs prop to true', () => {
+            let renderedButton;
+            before(() => {
+                renderedButton = renderIntoDocument(<Button isJs={true}/>);
+            });
+            it('should add the material mention in the className', () => {
+                const {isJs} = renderedButton.props;
+                const {materialButton} = renderedButton.refs;
+                expect(isJs).to.be.true;
+                expect(materialButton.className).to.contain('mdl-js-button');
             });
         });
         describe('When we set the shape props to "FAB"', () => {
@@ -39,7 +52,7 @@ describe('<Button />', () => {
             });
             it('should give add the fab mention in the className', () => {
                 const {materialButton} = renderedButton.refs;
-                expect(materialButton.className).to.equal('mdl-button  mdl-button--fab');
+                expect(materialButton.className).to.contain('mdl-button--fab');
             });
         });
     });

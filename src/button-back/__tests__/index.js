@@ -19,7 +19,7 @@ describe('Select ButtonBack Component', () => {
                 arr = scryRenderedDOMComponentsWithTag(renderedButtonBack, 'button');
             });
             it('should have the material button className', () => {
-                expect(arr[0].className).to.equal('mdl-button');
+                expect(arr[0].className).to.equal('mdl-button   mdl-js-button mdl-js-ripple-effect');
             });
         });
     });
