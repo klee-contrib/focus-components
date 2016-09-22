@@ -37,7 +37,7 @@ class Dropdown extends PureComponent {
         const mdlClasses = `mdl-menu mdl-menu--${position.vertical}-${position.horizontal} mdl-js-menu mdl-js-ripple-effect`;
         return (
             <div data-focus='dropdown'>
-                <Button handleOnClick={this._handleButtonClick.bind(this)} icon={button.icon} id={this._htmlId} isJs={true} label={button.label} shape={button.shape}  />
+                <Button handleOnClick={this._handleButtonClick.bind(this)} icon={button.icon} id={this._htmlId} label={button.label} shape={button.shape}  />
                 <ul className={mdlClasses} htmlFor={this._htmlId} ref='dropdown'>
                     {map(operations, (operation, idx) => (
                         <li className={`mdl-menu__item ${operation.style}`} key={idx}

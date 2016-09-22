@@ -1,0 +1,10 @@
+
+
+[data-focus='header-actions'] {
+    & > * {
+        margin: 5px;
+    }
+    .mdl-button--fab {
+        background-color: #FFF;
+    }
+}
