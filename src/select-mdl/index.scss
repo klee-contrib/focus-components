@@ -1,7 +1,9 @@
 
 //https://github.com/CreativeIT/getmdl-select/
 [data-focus="select-mdl"] {
-    width: auto;
+    &.mdl-textfield {
+        width: auto;
+    }
     & > input {
         cursor: pointer;
     }
