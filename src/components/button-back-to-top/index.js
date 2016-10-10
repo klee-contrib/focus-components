@@ -67,7 +67,7 @@ class ButtonBackToTop extends Component {
 
     render = () => {
         const {isVisible} = this.state;
-        return isVisible ? <div data-focus='back-to-top'><Button color='colored' handleOnClick={this.goBackToTop} icon='expand_less' shape='fab' /></div> : null;
+        return isVisible ? <div data-focus='back-to-top'><Button color='colored' handleOnClick={this.goBackToTop} icon='expand_less' shape='fab' type='button' /></div> : null;
     };
 }
 
