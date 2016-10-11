@@ -1,6 +1,7 @@
 const {AutocompleteText} = FocusComponents.components.input;
 
 const _querySearcher = query => {
+  console.log('HEEEEEEEEEEEEY');
     let data = [
         {
             key: 'JL',
