@@ -47,7 +47,7 @@ const AdvancedSearch = {
         return {
             action: undefined,
             backToTopComponent: BackToTopComponent,
-            callSearchOnMount : false,
+            callSearchOnMount : true,
             facetConfig: {},
             groupComponent: DefaultGroupComponent,
             hasBackToTop: true,
