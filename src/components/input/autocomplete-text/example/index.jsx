@@ -1,6 +1,7 @@
 const {AutocompleteText} = FocusComponents.components.input;
 
 const _querySearcher = query => {
+  console.log('HEEEEEEEEEEEEY');
     let data = [
         {
             key: 'JL',
@@ -71,12 +72,14 @@ class AutocompleteTextExample extends React.Component {
                     isEdit={isEdit}
                     querySearcher={_querySearcher}
                     placeholder={'Your search...'}
+                    inputTimeout={1000}
                     />
                 <br/>
                 <AutocompleteText
                     isEdit={isEdit}
                     querySearcher={_querySearcher2}
                     placeholder={'Custom dropdown failed results...'}
+                    inputTimeout={1000}
                     />
                 <br/>
                 <AutocompleteText
@@ -84,6 +87,7 @@ class AutocompleteTextExample extends React.Component {
                     querySearcher={_querySearcher}
                     placeholder={'Error in the field...'}
                     error='This field is required'
+                    inputTimeout={1000}
                     />
                 <br/>
             </div>
