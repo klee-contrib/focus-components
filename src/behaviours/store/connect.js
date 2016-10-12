@@ -6,7 +6,7 @@ import React, {Component} from 'react';
 // - Provide the component
 // - Provide the store configuration `[{store: yourStore, properties: ['property1', 'property2']}]`
 // - Provide a function to read state from your store
-export default function connectToStores(storesConfiguration, getState) {
+export default function connectToStores(storesConfiguration, getState, siReplaceState) {
     // Validate the stores object
     if(!isArray(storesConfiguration)) {
         throw new Error('connectToStores: you need to provide an array of store config.');
@@ -41,8 +41,8 @@ export default function connectToStores(storesConfiguration, getState) {
                         if(!store || !store.definition || !store.definition[property]) {
                             console.warn(`
                                 StoreConnector ${displayName}:
-                                    You add a property : ${property} in your store configuration which is not in your definition : ${keys(store.definition)}
-                            `);
+                                You add a property : ${property} in your store configuration which is not in your definition : ${keys(store.definition)}
+                                `);
                         }
                         const capitalizedProperty = capitalize(property);
                         storeConf.store[`add${capitalizedProperty}ChangeListener`](this.handleStoresChanged);
@@ -51,83 +51,87 @@ export default function connectToStores(storesConfiguration, getState) {
                 });
             }
 
-            // When a component will receive a new props.
-            componentWillReceiveProps(nextProps) {
-				this.updateState(nextProps);
-            }
+                // When a component will receive a new props.
+                componentWillReceiveProps(nextProps) {
+                    this.updateState();
+                }
 
-            // Component unmount.
-            componentWillUnmount() {
-   				this._isMounted = false;
-                storesConfiguration.forEach(storeConf => {
-                    const {properties, store} = storeConf;
-                    properties.forEach((property) => {
-                        const capitalizedProperty = capitalize(property);
-                        storeConf.store[`remove${capitalizedProperty}ChangeListener`](this.handleStoresChanged);
-                        storeConf.store[`remove${capitalizedProperty}ErrorListener`](this.handleStoresChanged);
+                // Component unmount.
+                componentWillUnmount() {
+                    this._isMounted = false;
+                    storesConfiguration.forEach(storeConf => {
+                        const {properties} = storeConf;
+                        properties.forEach((property) => {
+                            const capitalizedProperty = capitalize(property);
+                            storeConf.store[`remove${capitalizedProperty}ChangeListener`](this.handleStoresChanged);
+                            storeConf.store[`remove${capitalizedProperty}ErrorListener`](this.handleStoresChanged);
+                        });
                     });
-                });
+                }
+
+                componentDidMount() {
+                    this._isMounted = true;
+                    this.updateState();
+                }
+
+                updateState() {
+                    if(this._isMounted) {
+                        if(siReplaceState) {
+                            this.state = getState(this.props);
+                        } else {
+                            this.setState(getState(this.props));
+                        }
+                    }
+                }
+
+                //Handle the store changes
+                handleStoresChanged = () => {
+                    this.updateState();
+                };
+
+                // Render the component with only props, some from the real props some from the state
+                render() {
+                    const {props, state} = this;
+                    return (
+                            <DecoratedComponent
+                                {...props}
+                                {...state}
+                            />
+                    );
+                }
             }
-
-			componentDidMount(){
-				this._isMounted = true;
-				this.updateState(this.props);
-			}
-
-			updateState(props){
-				if(this._isMounted){
-					this.setState(getState(this.props));
-				}
-			}
-
-            //Handle the store changes
-            handleStoresChanged = () => {
-				this.updateState(this.props);
-            };
-
-            // Render the component with only props, some from the real props some from the state
-            render() {
-                const {props, state} = this;
-                return (
-                    <DecoratedComponent
-                        {...props}
-                        {...state}
-                    />
-                );
-            }
-        }
         StoreConnector.displayName = `${displayName}Connected`;
         return StoreConnector;
     };
 }
 
-// Add a function to connect a store to a component .
-// All the store properties values will be provided to the component as props.
-// This could be use as an ES7 annotation or as a function.
+    // Add a function to connect a store to a component .
+    // All the store properties values will be provided to the component as props.
+    // This could be use as an ES7 annotation or as a function.
 
 
-// ### ES6 version
-// ```jsx
-// store
-// const newStore = new CoreStore({definition: {name: 'name', email: 'email'}});
-//Component
-// const Component = props => <div>{JSON.stringify(props)}</div>;
-// create a connector function
-// const connector = storeConnectBehaviour(
-//     [{store: newStore, properties: ['name', 'email']}],
-//     (props) => {return newStore.getValue()}
-// );
-// Component connected to the store
-// const ConnectedComponent = connector(Component);
-// ```
+    // ### ES6 version
+    // ```jsx
+    // store
+    // const newStore = new CoreStore({definition: {name: 'name', email: 'email'}});
+    //Component
+    // const Component = props => <div>{JSON.stringify(props)}</div>;
+    // create a connector function
+    // const connector = storeConnectBehaviour(
+    //     [{store: newStore, properties: ['name', 'email']}],
+    //     (props) => {return newStore.getValue()}
+    // );
+    // Component connected to the store
+    // const ConnectedComponent = connector(Component);
+    // ```
 
-// ### ES7 version
-// ```jsx
-//    Class version
-// @connect( [{store: newStore, properties: ['name', 'email']}],(props) => newStore.getValue())
-// class YourComponent extends Component{
-//     render(){
-//          return  <div>{JSON.stringify(props)}</div>;
-//     }
-// }
-// ```
+    // ### ES7 version
+    // ```jsx
+    //    Class version
+    // @connect( [{store: newStore, properties: ['name', 'email']}],(props) => newStore.getValue())
+    // class YourComponent extends Component{
+    //     render(){
+    //          return  <div>{JSON.stringify(props)}</div>;
+    //     }
+    // }
+    // ```
