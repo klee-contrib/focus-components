@@ -33,6 +33,12 @@ const Material = (ref, jsClass, watchedProp) => Component => class MaterialCompo
             Component.prototype.componentWillReceiveProps.call(this, nextProps);
         }
     }
+
+    componentDidUpdate() {
+        if(jsClass === 'MaterialTextfield') {
+            this.refs.inputText.MaterialTextfield.change(this.props.value);
+        }
+    }
 };
 
 Material.componentHandler = componentHandler;

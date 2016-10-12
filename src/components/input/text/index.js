@@ -32,7 +32,7 @@ const defaultProps = {
 /**
  * Component standing for an HTML input.
  */
-@MDBehaviour('inputText')
+@MDBehaviour('inputText', 'MaterialTextfield')
 @ComponentBaseBehaviour
 class InputText extends Component {
 
@@ -45,6 +45,7 @@ class InputText extends Component {
         const domEl = ReactDOM.findDOMNode(this.refs.htmlInput);
         return unformatter(domEl.value, MODE);
     };
+
     componentDidUpdate() {
         const {error} = this.props;
         if (!error) {
