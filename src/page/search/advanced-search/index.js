@@ -47,6 +47,7 @@ const AdvancedSearch = {
         return {
             action: undefined,
             backToTopComponent: BackToTopComponent,
+            callSearchOnMount : true,
             facetConfig: {},
             groupComponent: DefaultGroupComponent,
             hasBackToTop: true,
@@ -69,6 +70,7 @@ const AdvancedSearch = {
     propTypes: {
         action: type('object'),
         backToTopComponent: type('func'),
+        callSearchOnMount : type('bool'),
         exportAction: type('func'),
         facetConfig: type('object'),
         groupComponent: type('func'),
@@ -111,7 +113,9 @@ const AdvancedSearch = {
             identifier: this.props.store.identifier,
             getSearchOptions: () => {return this.props.store.getValue.call(this.props.store); } // Binding the store in the function call
         });
-        this._action.search();
+        if(callSearchOnMount) {
+            this._action.search();
+        }
     },
     /**
     * Un-register the store listeners
