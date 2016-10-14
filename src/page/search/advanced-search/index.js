@@ -113,7 +113,7 @@ const AdvancedSearch = {
             identifier: this.props.store.identifier,
             getSearchOptions: () => {return this.props.store.getValue.call(this.props.store); } // Binding the store in the function call
         });
-        if(callSearchOnMount) {
+        if(this.props.callSearchOnMount) {
             this._action.search();
         }
     },
