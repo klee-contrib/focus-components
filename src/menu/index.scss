@@ -1,0 +1,112 @@
+$menu-bg-color: #36b7b9;
+$menu-small-size: 60px;
+$menu-large-size: 200px;
+$menu-brand-background-color: #424950;
+$menu-deployed-background-color: rgba(255,255,255,0.2);
+$menu-sub-width: 200px;
+
+.animate-menu {
+    animation-duration: 0.2s;
+    animation-fill-mode: both;
+    animation-name: menuBounceInLeft;
+}
+
+@keyframes menuBounceInLeft {
+    0% { opacity: 0; transform: translate3d(-500px, 0, 0); }
+    5% { opacity: 1; }
+    to { transform: none; }
+}
+
+@mixin shadow($level:2, $transparence1:0.14, $transparence2:0.2, $transparence3:0.12) {
+    box-shadow: 0 #{$level}px #{$level}px 0 rgba(0,0,0,$transparence1),0 3px 1px -2px rgba(0,0,0,$transparence2),0 1px 5px 0 rgba(0,0,0,$transparence3);
+}
+
+[data-focus="menu"] {
+    position: fixed;
+    top:0;
+    bottom: 0;
+    &[data-size="small"] {
+        width: $menu-small-size;
+    }
+    &[data-size="large"] {
+        width: $menu-large-size;
+    }
+    & > div {
+        background: $menu-bg-color;
+        height: 100%;
+        width: 100%;
+        @include shadow();
+        [data-focus="menu-brand"] {
+            text-align: center;
+            background-color: $menu-brand-background-color;
+            height: $menu-small-size;
+            &[data-click="true"] {
+                cursor: pointer;
+            }
+        }
+
+        ul {
+            ul {
+                margin: 0;
+                li {
+                    padding: 0;
+                    button.mdl-button {
+                        padding-left: 50px;
+                    }
+                }
+            }
+            padding:0;
+            margin: 20px 0;
+            list-style: none;
+            li {
+                &[data-deployed="true"] {
+                    background-color: $menu-deployed-background-color;
+                }
+                padding: 10px 0px;
+                button.mdl-button {
+                    width: 100%;
+                    text-align: left;
+                    color: white;
+                    i {
+                        margin-right: 10px;
+                    }
+                }
+            }
+        }
+        &[data-size="small"] {
+            li {
+                display: flex;
+                justify-content: center;
+            }
+        }
+
+        [data-focus="menu-sub-panel"] {
+            background-color: rgba(0,0,0,0);
+            position: absolute;
+            z-index: -1;
+            height: 100%;
+            top: 0;
+            left: 0;
+            & > div {
+                @include shadow();
+                color: #FFF;
+                background-color: $menu-bg-color;
+                width: $menu-sub-width;
+                height: 100%;
+                padding: 10px 10px 10px ($menu-small-size + 10);
+                ul {
+                    li {
+                        padding: 0;
+                    }
+                }
+            }
+        }
+    }
+    &[data-size="large"] {
+        [data-focus="menu-sub-panel"] {
+            & > div {
+                padding: 10px 10px 10px ($menu-large-size + 10);
+            }
+        }
+    }
+}

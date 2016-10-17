@@ -18,7 +18,7 @@ import '../input-radio/style/radio.scss';
 import '../input-textarea/style/textarea.scss';
 import '../label/style/label.scss';
 import '../modal/index.scss';
-import '../menu/style/menu.scss';
+import '../menu/index.scss';
 import '../panel/index.scss';
 import '../progress-bar/style/progress-bar.scss';
 import '../scrollspy-container/style/scrollspy-container.scss';

@@ -1,6 +1,6 @@
 {
   "name": "focus-components",
-  "version": "3.0.0-rc17",
+  "version": "3.0.0-rc18",
   "description": "Focus basic components to build applications (based on Material Design)",
   "main": "index.js",
   "scripts": {
