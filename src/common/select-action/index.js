@@ -53,7 +53,7 @@ class Dropdown extends Component {
         if (0 !== this.props.operationList.length && ReactDOM.findDOMNode(this.refs.dropdown)) {
             componentHandler.upgradeElement(ReactDOM.findDOMNode(this.refs.dropdown));
         }
-        this.getopOrBottom(ReactDOM.findDOMNode(this.refs.menuContainer));
+        this.setTopOrBottom(ReactDOM.findDOMNode(this.refs.menuContainer));
     }
 
     /**
@@ -101,7 +101,7 @@ class Dropdown extends Component {
     }
 
     setTopOrBottom = (e) => {
-      const elementRectangle = e.target.getBoundingClientRect();
+      const elementRectangle = e.target ? e.target.getBoundingClientRect() : e.getBoundingClientRect();
       const elementPosition = {top: elementRectangle.top, left: elementRectangle.left};
       const windowSize = {height: outerHeight, width: window.outerWidth};
 
@@ -110,32 +110,24 @@ class Dropdown extends Component {
       percentTop >= 75 ? this.setState({isTop: true}) : this.setState({isTop: false});
     }
 
-    getopOrBottom = (e) => {
-      const elementRectangle = e.getBoundingClientRect();
-      const elementPosition = {top: elementRectangle.top, left: elementRectangle.left};
-      const windowSize = {height: outerHeight, width: window.outerWidth};
-
-      const percentTop = (elementPosition.top * 100) / windowSize.height;
-
-      percentTop >= 75 ? this.setState({isTop: true}) : this.setState({isTop: false});
-    }
-
-    renderTop(id) {
-      const {position, operationList} = this.props;
-      if (0 === operationList.length) {
-          return null;
-      }
-      return (<div className='commonParent'>
-        <ul className={`mdl-menu mdl-menu--top-${position} mdl-js-menu mdl-js-ripple-effect`} htmlFor={id} ref='dropdown'>
-            {operationList.map((operation, idx) => {
-                return (
-                    <li className={`mdl-menu__item ${operation.style}`} key={idx} onClick={this._handleAction(operation.action)}>
-                        {translate(operation.label)}
-                    </li>
-                );
-            })}
-        </ul>
-      </div>)
+      renderTop(id) {
+        const {position, operationList} = this.props;
+        if (0 === operationList.length) {
+            return null;
+        }
+        return (
+        <div className='commonParent'>
+          <ul className={`mdl-menu mdl-menu--top-${position} mdl-js-menu mdl-js-ripple-effect`} htmlFor={id} ref='dropdown'>
+              {operationList.map((operation, idx) => {
+                  return (
+                      <li className={`mdl-menu__item ${operation.style}`} key={idx} onClick={this._handleAction(operation.action)}>
+                          {translate(operation.label)}
+                      </li>
+                  );
+              })}
+          </ul>
+        </div>
+      )
     }
 
     renderBottom(id) {
@@ -143,17 +135,19 @@ class Dropdown extends Component {
       if (0 === operationList.length) {
           return null;
       }
-      return (<div className='common-parent-bottom'>
-        <ul className={`mdl-menu mdl-menu--bottom-${position} mdl-js-menu mdl-js-ripple-effect`} htmlFor={id} ref='dropdown'>
-            {operationList.map((operation, idx) => {
-                return (
-                    <li className={`mdl-menu__item ${operation.style}`} key={idx} onClick={this._handleAction(operation.action)}>
-                        {translate(operation.label)}
-                    </li>
-                );
-            })}
-        </ul>
-      </div>)
+      return (
+        <div className='common-parent-bottom'>
+          <ul className={`mdl-menu mdl-menu--bottom-${position} mdl-js-menu mdl-js-ripple-effect`} htmlFor={id} ref='dropdown'>
+              {operationList.map((operation, idx) => {
+                  return (
+                      <li className={`mdl-menu__item ${operation.style}`} key={idx} onClick={this._handleAction(operation.action)}>
+                          {translate(operation.label)}
+                      </li>
+                  );
+              })}
+          </ul>
+        </div>
+      )
     }
 
     /**
