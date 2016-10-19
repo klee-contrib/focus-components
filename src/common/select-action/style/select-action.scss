@@ -1,5 +1,8 @@
 .commonParent {
   position: relative;
-  left: -132px;
-  bottom: -32px;
+
+  div:nth-child(1) {
+    left: 0px !important;
+    bottom: 0px !important;
+  }
 }
