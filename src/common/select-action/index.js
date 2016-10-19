@@ -53,6 +53,7 @@ class Dropdown extends Component {
         if (0 !== this.props.operationList.length && ReactDOM.findDOMNode(this.refs.dropdown)) {
             componentHandler.upgradeElement(ReactDOM.findDOMNode(this.refs.dropdown));
         }
+        this.getopOrBottom(ReactDOM.findDOMNode(this.refs.menuContainer));
     }
 
     /**
@@ -106,8 +107,16 @@ class Dropdown extends Component {
 
       const percentTop = (elementPosition.top * 100) / windowSize.height;
 
-      console.log('BEFORE ONCLICK CHANGE', this.state.isTop);
-      console.log('PERCENT TOP :', percentTop);
+      percentTop >= 75 ? this.setState({isTop: true}) : this.setState({isTop: false});
+    }
+
+    getopOrBottom = (e) => {
+      const elementRectangle = e.getBoundingClientRect();
+      const elementPosition = {top: elementRectangle.top, left: elementRectangle.left};
+      const windowSize = {height: outerHeight, width: window.outerWidth};
+
+      const percentTop = (elementPosition.top * 100) / windowSize.height;
+
       percentTop >= 75 ? this.setState({isTop: true}) : this.setState({isTop: false});
     }
 
@@ -161,9 +170,9 @@ class Dropdown extends Component {
         const menuPosition = isTop ? 'top-' + position : 'bottom-' + position;
         console.log('BEFOR RENDER', this.state.isTop);
         return (
-            <div>
+            <div ref='menuContainer'>
                 <Button icon={iconProps.name} id={id} isJs shape={shape} onClick={this.setTopOrBottom} />
-                {isTop ? this.renderTop(id) : null}
+                {isTop ? this.renderTop(id) : this.renderBottom(id)}
             </div>
         );
     }
