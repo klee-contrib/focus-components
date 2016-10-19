@@ -28,7 +28,7 @@ class Dropdown extends Component {
     * @type {Object}
     */
     static propTypes = {
-      position: PropTypes.string,
+      position: PropTypes.string.isRequired,
       iconProps: PropTypes.object,
       operationList: PropTypes.array,
       shape: PropTypes.string
@@ -119,7 +119,7 @@ class Dropdown extends Component {
             return null;
         }
         return (
-        <div className='commonParent'>
+        <div className={`common-parent-bottom-${position}`}>
           <ul className={`mdl-menu mdl-menu--top-${position} mdl-js-menu mdl-js-ripple-effect`} htmlFor={id} ref='dropdown'>
               {operationList.map((operation, idx) => {
                   return (
@@ -139,7 +139,7 @@ class Dropdown extends Component {
           return null;
       }
       return (
-        <div className='common-parent-bottom'>
+        <div className={`common-parent-top-${position}`}>
           <ul className={`mdl-menu mdl-menu--bottom-${position} mdl-js-menu mdl-js-ripple-effect`} htmlFor={id} ref='dropdown'>
               {operationList.map((operation, idx) => {
                   return (
