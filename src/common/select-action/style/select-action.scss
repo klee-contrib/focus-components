@@ -4,5 +4,9 @@
   div:nth-child(1) {
     left: 0px !important;
     bottom: 0px !important;
+
+    div:nth-child(1) {
+      transform-origin: bottom left !important;
+    }
   }
 }
