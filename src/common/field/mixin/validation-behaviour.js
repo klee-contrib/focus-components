@@ -32,7 +32,6 @@ let validationMixin ={
         if (isRequired && (undefined === value || null === value)) {
             return this.i18n('field.required', {name: this.i18n(label)});
         }
-        //console.log('validation', label, 'value', value, 'validator', validator);
         //The validation is performed only when the field has a value, otherwise, only the required validation is performed.
         if (validator && !isUndefined(value) && !isNull(value)) {
             let validStat = this._computeValidationStatus(
@@ -62,7 +61,6 @@ let validationMixin ={
         if (isRequired && (undefined === value || null === value)) {
             return this.i18n('field.required', {name: this.i18n(label)});
         }
-        //console.log('validation', label, 'value', value, 'validator', validator);
         //The validation is performed only when the field has a value, otherwise, only the required validation is performed.
         if (validator && !isUndefined(value) && !isNull(value)) {
             let validStat = this._computeValidationStatus(
@@ -74,10 +72,8 @@ let validationMixin ={
             if(true !== validStat) {
                 validStat = this.i18n(validStat);
             }
-            console.log('ValidStat', validStat);
             return validStat;
         }
-        console.log('_customValidate', this._customValidate(this.refs.input));
         return this._customValidate(this.refs.input);
     },
     _customValidate({validate: componentValidation}) {
