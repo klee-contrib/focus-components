@@ -52,7 +52,7 @@ let validationMixin ={
         return isValid ? true : this.i18n(message);
     },
     /**
-    * Validate the input.
+    * Validate the input date.
     * @return {object}
     */
     validateInputDate: function validateInputDate() {
