@@ -50,7 +50,7 @@ describe('AutocompleteTextEdit', () => {
                     totalCount: data.length
                 });
             };
-            autocompleteTextEdit = renderIntoDocument(<AutocompleteTextEdit querySearcher={_querySearcher} />);
+            autocompleteTextEdit = renderIntoDocument(<AutocompleteTextEdit onChange={() => console.log('On change call...')} querySearcher={_querySearcher} inputTimeout={0} />);
             inputRef = autocompleteTextEdit.refs.inputText;
             initialState = autocompleteTextEdit.state;
             Simulate.change(inputRef, {target: {value: _query}});
@@ -83,7 +83,7 @@ describe('AutocompleteTextEdit', () => {
             let inputRef;
             let _query = 'test';
             const customError = 'Sorry, no data.'
-            const customQuerySearcher = query => {
+            const _querySearcher = query => {
                 const emptyData = [];
                 return Promise.resolve({
                     emptyData,
@@ -91,7 +91,7 @@ describe('AutocompleteTextEdit', () => {
                 });
             };
             before(() => {
-                autocompleteTextEdit = renderIntoDocument(<AutocompleteTextEdit querySearcher={customQuerySearcher} error={customError} />);
+                autocompleteTextEdit = renderIntoDocument(<AutocompleteTextEdit onChange={() => console.log('On change call...')} querySearcher={_querySearcher} inputTimeout={0} error={customError} />);
                 inputRef = autocompleteTextEdit.refs.inputText;
                 Simulate.change(inputRef, {target: {value: _query}})
             })
@@ -115,7 +115,7 @@ describe('AutocompleteTextEdit', () => {
             });
         };
         before(() => {
-            autocompleteTextEdit = renderIntoDocument(<AutocompleteTextEdit querySearcher={_querySearcher} />);
+            autocompleteTextEdit = renderIntoDocument(<AutocompleteTextEdit onChange={() => console.log('On change call...')} querySearcher={_querySearcher} inputTimeout={0} />);
             inputRef = autocompleteTextEdit.refs.inputText;
             Simulate.change(inputRef, {target: {value: _query}});
         });
@@ -134,7 +134,7 @@ describe('AutocompleteTextEdit', () => {
                     totalCount: data.length
                 });
             };
-            autocompleteTextEdit = renderIntoDocument(<AutocompleteTextEdit querySearcher={_querySearcher} />);
+            autocompleteTextEdit = renderIntoDocument(<AutocompleteTextEdit onChange={() => console.log('On change call...')} querySearcher={_querySearcher} inputTimeout={0} />);
             inputRef = autocompleteTextEdit.refs.inputText;
             initialState = autocompleteTextEdit.state;
             Simulate.change(inputRef, {target: {value: _query}});

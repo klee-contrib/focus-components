@@ -3,6 +3,8 @@ import ReactDOM from 'react-dom';
 import ComponentBaseBehaviour from '../../../behaviours/component-base';
 import MDBehaviour from '../../../behaviours/material';
 
+import debounce from 'lodash/function/debounce';
+
 @MDBehaviour('materialInput')
 @MDBehaviour('loader')
 @ComponentBaseBehaviour
@@ -10,7 +12,8 @@ class AutocompleteTextEdit extends Component {
     static defaultProps = {
         placeholder: 'Search here...',
         showAtFocus: false,
-        emptyShowAll: false
+        emptyShowAll: false,
+        inputTimeout: 200
     };
 
     static propTypes = {
@@ -54,7 +57,13 @@ class AutocompleteTextEdit extends Component {
         * Defines if it shows suggestions on focus when the input is empty.
         * @type {Boolean}
         */
-        emptyShowAll: PropTypes.bool
+        emptyShowAll: PropTypes.bool,
+
+        /**
+         * [inputTimeout description]
+         * @type {number}
+         */
+        inputTimeout : PropTypes.number.isRequired
     };
 
     state = {
@@ -70,6 +79,11 @@ class AutocompleteTextEdit extends Component {
         if(error) {
             this.setState({error: error});
         }
+    }
+
+    componentDidMount() {
+      const {inputTimeout} = this.props;
+      this._debouncedQuerySearcher = debounce(this._querySearcher, inputTimeout);
     }
 
     // Returns the state's inputValue
@@ -111,7 +125,8 @@ class AutocompleteTextEdit extends Component {
         else {
             this.refs.loader.classList.add('mdl-progress__indeterminate');
             this.setState({isLoading: true});
-            this._querySearcher(value);
+            this._debouncedQuerySearcher(value);
+            // this._querySearcher(value);
         }
     };
 
@@ -151,7 +166,7 @@ class AutocompleteTextEdit extends Component {
     // Maybe give the option for the floating label
     render() {
         const {inputValue, hasSuggestions, hasFocus, isLoading, ...otherProps} = this.state;
-        const {placeholder, showAtFocus, emptyShowAll, error} = this.props
+        const {placeholder, inputTimeout, showAtFocus, emptyShowAll, error} = this.props
         return(
             <div data-focus='autocompleteText'>
                 <div className={`mdl-textfield mdl-js-textfield${error ? ' is-invalid' : ''}`} ref='materialInput'>
@@ -169,7 +184,6 @@ class AutocompleteTextEdit extends Component {
 }
 
 export default AutocompleteTextEdit;
-
 
 /*
 EXAMPLE
