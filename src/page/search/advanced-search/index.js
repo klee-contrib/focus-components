@@ -73,6 +73,7 @@ const AdvancedSearch = {
         callSearchOnMount : type('bool'),
         exportAction: type('func'),
         facetConfig: type('object'),
+        groupableColumnList: types(['array', 'object']),
         groupComponent: type('func'),
         hasBackToTop: type('bool'),
         isSelection: type('bool'),
@@ -243,8 +244,8 @@ const AdvancedSearch = {
     */
     _renderActionBar() {
         const {facets, groupingKey, hasGrouping, selectedFacets, selectionStatus, sortBy} = this.state;
-        const {isSelection, lineOperationList, orderableColumnList} = this.props;
-        const groupableColumnList = facets ? Object.keys(facets).reduce((result, facetKey) => {
+        const {isSelection, lineOperationList, orderableColumnList, groupableColumnList} = this.props;
+        const _groupableColumnList = groupableColumnList || facets ? Object.keys(facets).reduce((result, facetKey) => {
             if (Object.keys(facets[facetKey]).length > 1) {
                 result[facetKey] = facetKey;
             }
@@ -257,7 +258,7 @@ const AdvancedSearch = {
             <ListActionBar
                 action={this._action}
                 groupSelectedKey={groupingKey}
-                groupableColumnList={groupableColumnList}
+                groupableColumnList={_groupableColumnList}
                 hasGrouping={hasGrouping}
                 isSelection={isSelection}
                 operationList={lineOperationList}
