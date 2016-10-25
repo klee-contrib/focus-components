@@ -211,7 +211,7 @@ const jsonContact= {
 };
 
 const action = {
-    load: actionBuilder({
+    load: actionBuilder.default({
         status: 'loaded',
         node: 'contact',
         service() {
@@ -222,7 +222,7 @@ const action = {
             })
         }
     }),
-    save: actionBuilder({
+    save: actionBuilder.default({
         status: 'saved',
         preStatus: 'saving',
         node: 'contact',

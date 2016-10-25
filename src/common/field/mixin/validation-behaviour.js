@@ -53,12 +53,44 @@ let validationMixin ={
         return isValid ? true : this.i18n(message);
     },
     /**
+    * Validate the input.
+    * @return {object}
+    */
+    validateInputDate: function validateInputDate() {
+        let value = this.getValue();
+        let {isRequired, validator, label} = this.props;
+        if (isRequired && (undefined === value || null === value)) {
+            return this.i18n('field.required', {name: this.i18n(label)});
+        }
+        //console.log('validation', label, 'value', value, 'validator', validator);
+        //The validation is performed only when the field has a value, otherwise, only the required validation is performed.
+        if (validator && !isUndefined(value) && !isNull(value)) {
+            let validStat = this._computeValidationStatus(
+                validate(
+                    {value: value, name: this.i18n(label)},
+                    validator
+                )
+            );
+            if(true !== validStat) {
+                validStat = this.i18n(validStat);
+            }
+            console.log('ValidStat', validStat);
+            return validStat;
+        }
+        console.log('_customValidate', this._customValidate(this.refs.input));
+        return this._customValidate(this.refs.input);
+    },
+    _customValidate({validate: componentValidation}) {
+        const {isValid, message} = componentValidation();
+        return isValid ? true : this.i18n(message);
+    },
+    /**
     * Validate the field.
     * @return {object} - undefined if valid, {name: "errors"} if not valid.
     */
     validate() {
         const shouldComponentHandleValidation = this.refs && this.refs.input && isFunction(this.refs.input.validate);
-        let validationStatus = shouldComponentHandleValidation ? this._customValidate(this.refs.input) : this.validateInput();
+        let validationStatus = shouldComponentHandleValidation ? this.validateInputDate() : this.validateInput();
         if(true !== validationStatus) {
             this.setError(validationStatus);
             return validationStatus;
