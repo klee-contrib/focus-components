@@ -34,9 +34,12 @@ class Dropdown extends Component {
       shape: PropTypes.string
     };
 
-    state = {
-        isTop: false
-    };
+    constructor(props, context) {
+        super(props);
+        this.state = {
+            isTop: false
+        };
+    }
 
     /**
      * Component will mount
