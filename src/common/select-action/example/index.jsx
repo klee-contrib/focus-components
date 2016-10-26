@@ -1,4 +1,4 @@
-const Dropdown = FocusComponents.common.selectAction;
+const Dropdown = FocusComponents.common.selectAction.component;
 
 const operationList = [
     {
