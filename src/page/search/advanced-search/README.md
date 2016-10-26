@@ -168,6 +168,55 @@ Evénement à définir par l'utilisateur.
    </tbody>
 </table>
 
+## Changer les propriétés de AdvancedSearch en fonction du scope sélectionné
+
+Pour que le composant AdvancedSearch puisse s'adapter en fonction du scope, il est possible de s'abonner au noeud "scope" de son store pour réagir en fonction de sa valeur.
+
+Ce scope est disponible par un import, voici un exemple avec des actions de tri changeant en fonction du scope :
+```javascript
+import React, {Component, PropTypes} from 'react';
+import connect from 'focus-components/behaviours/store/connect';
+
+// web components
+import {component as AdvancedSearch} from 'focus-components/page/search/advanced-search';
+import {advancedSearchStore} from 'focus-core/search/built-in-store';
+
+//Autres propriétés passées au composant, qui ne changent pas en fonction du scope
+import {configuration} from './configuration';
+
+const AdvancedSearchView = (props) => {
+
+	//Configure les actions en fonction du scope
+	let orderableColumnList;
+	if (this.props.scope==="scope0") {
+	    orderableColumnList = [
+	        {key: "ATTRIBUT0", order: true, label: "Trier par attribut 0")}
+	    ]
+	} else if (this.props.scope==="scope1") {
+	    orderableColumnList = [
+	        {key: "ATTRIBUT1", order: true, label: "Trier par attribut 1")}
+	    ]
+	}
+
+	return (
+	     <AdvancedSearch ref="advancedSearch" {...configuration} orderableColumnList={orderableColumnList} />
+	)
+}
+AdvancedSearchView.displayName = 'AdvancedSearch';
+AdvancedSearchView.propTypes = {
+	scope: PropTypes.string.isRequired
+	};
+
+const connector = connect(
+    [{store: advancedSearchStore, properties: ['scope']}],
+    props => advancedSearchStore.getValue()
+);
+
+export default connector(AdvancedSearchView);
+```
+
+
+
 ## Utilisation du mixin de recherche-résultats
 Afin d'utiliser le mixin il est nécessaire de définir deux attributs et deux méthodes :
 - attributs : actions et store
