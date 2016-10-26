@@ -40,4 +40,4 @@ TopicDisplayer.defaultProps = {
     displayLabels: false
 }
 
-module.exports = TopicDisplayer;
+export default TopicDisplayer;
