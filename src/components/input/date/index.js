@@ -1,4 +1,4 @@
-// Dependencies 
+// Dependencies
 import React, {Component, PropTypes} from 'react';
 import ReactDOM from 'react-dom';
 import moment from 'moment';
@@ -100,22 +100,28 @@ class InputDate extends Component {
         }
     };
 
-    _onInputChange = inputDate => {
+    _onInputChange = (inputDate, fromBlur) => {
         if (this._isInputFormatCorrect(inputDate)) {
             const dropDownDate = this._parseInputDate(inputDate);
             this.setState({dropDownDate, inputDate});
         } else {
             this.setState({inputDate});
         }
+        if(fromBlur !== true) {
+            this.props.onChange(inputDate);
+        }
     };
 
     _onInputBlur = () => {
         const {inputDate} = this.state;
-        if (this._isInputFormatCorrect(inputDate)) {
-            this.props.onChange(this._parseInputDate(inputDate).toISOString());
-        } else {
-            this.props.onChange(inputDate);
-        }
+
+        this._onInputChange(inputDate, true);
+        // if (this._isInputFormatCorrect(inputDate)) {
+        //     const dropDownDate = this._parseInputDate(inputDate);
+        //     this.setState({dropDownDate, inputDate});
+        // } else {
+        //     this.setState({inputDate});
+        // }
     };
 
     _onDropDownChange = (text, date) => {

@@ -30,6 +30,11 @@ const resources = {
             },
             field: {
                 required: 'Ce champs est obligatoire'
+            },
+            input: {
+                date: {
+                    invalid: 'Date invalide'
+                }
             }
         }
     }
@@ -63,7 +68,10 @@ const domain = {
         InputComponent: FocusComponents.components.input.Date,
         formatter: date => date ? moment(date, moment.ISO_8601).format('D MMMM YYYY') : '',
         format: ['DD/MM/YYYY', 'DD-MM-YYYY', 'D MMM YYYY'],
-        locale: 'fr'
+        locale: 'fr',
+        validator: [{
+            type: 'date'
+        }]
     },
     DO_OUI_NON: {
         SelectComponent: FocusComponents.common.select.radio.component,
