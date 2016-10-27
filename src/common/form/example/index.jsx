@@ -298,7 +298,7 @@ const FormExample = React.createClass({
             <Panel actions={this._renderActions} title="Fiche de l'utilisateur">
                 {this.fieldFor('firstName')}
                 {this.fieldFor('lastName')}
-                {this.autocompleteSelectFor('place', {querySearcher: _querySearcher})}
+                {this.fieldFor('place', {querySearcher: _querySearcher})}
                 {this.fieldFor('papaCode', {listName: 'papas'})}
                 {this.fieldFor('monkeyCode', {listName: 'monkeys', valueKey: 'myCustomCode', labelKey: 'myCustomLabel' })}
                 {this.fieldFor('lopezCode', {values: [{code: 'JOE', label: 'Joe Lopez'}, {code: 'DAVE', label: 'David Lopez'}]})}
