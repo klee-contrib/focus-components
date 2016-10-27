@@ -1,4 +1,4 @@
-// Dependencies 
+// Dependencies
 import React, {Component, PropTypes} from 'react';
 import ReactDOM from 'react-dom';
 import moment from 'moment';
@@ -100,28 +100,35 @@ class InputDate extends Component {
         }
     };
 
-    _onInputChange = inputDate => {
+    _onInputChange = (inputDate, fromBlur) => {
         if (this._isInputFormatCorrect(inputDate)) {
             const dropDownDate = this._parseInputDate(inputDate);
             this.setState({dropDownDate, inputDate});
         } else {
             this.setState({inputDate});
         }
-    };
-
-    _onInputBlur = () => {
-        const {inputDate} = this.state;
-        if (this._isInputFormatCorrect(inputDate)) {
-            this.props.onChange(this._parseInputDate(inputDate).toISOString());
-        } else {
+        if(fromBlur !== true) {
             this.props.onChange(inputDate);
         }
     };
 
+    _onInputBlur = () => {
+        const {inputDate} = this.state;
+
+        this._onInputChange(inputDate, true);
+        // if (this._isInputFormatCorrect(inputDate)) {
+        //     const dropDownDate = this._parseInputDate(inputDate);
+        //     this.setState({dropDownDate, inputDate});
+        // } else {
+        //     this.setState({inputDate});
+        // }
+    };
+
     _onDropDownChange = (text, date) => {
+        // TODO: remove the this.props.onChange() and check if it works
         if (date._isValid) {
             this.setState({displayPicker: false}, () => {
-                this.props.onChange(date.toISOString());
+                // this.props.onChange(date.toISOString());
                 this._onInputChange(this._formatDate(date.toISOString())); // Add 12 hours to avoid skipping a day due to different locales
             });
         }
