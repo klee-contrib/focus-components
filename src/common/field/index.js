@@ -42,7 +42,7 @@ const FieldMixin = {
     },
     /** @inheritdoc */
     componentWillReceiveProps(newProps) {
-        this.setState({value: newProps.value, values: newProps.values});
+        this.setState({value: newProps.value, error: newProps.error, values: newProps.values});
     },
     /**
     * Get the css class of the field component.
