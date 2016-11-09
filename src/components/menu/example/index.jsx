@@ -10,9 +10,13 @@ const MyMenu = React.createClass({
         return [
             {
                 icon:'home',
+                route: '/',
                 onClick() {
-                    self.goHome();
-                }
+                    console.log('Home clicked')
+                },
+                onMouseOver() {
+                    console.log('Home clicked')
+                },
             },
             {
                 icon:'chat',
@@ -22,8 +26,9 @@ const MyMenu = React.createClass({
             },
             {
                 icon:'info',
+                route: '#component/Menu',
                 onClick() {
-                    window.location.href = '#component/Menu';
+                    console.log('information clicked');
                 }
             }
         ]
