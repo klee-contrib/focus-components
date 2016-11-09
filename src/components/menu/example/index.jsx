@@ -15,7 +15,7 @@ const MyMenu = React.createClass({
                     console.log('Home clicked')
                 },
                 onMouseOver() {
-                    console.log('Home clicked')
+                    console.log('Mouse enter event is called')
                 },
             },
             {
