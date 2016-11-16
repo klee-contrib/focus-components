@@ -1,12 +1,11 @@
 // Dependencies
 
-const React = require('react');
-const ReactDOM = require('react-dom');
-const {PropTypes} = React;
+import React, {PropTypes} from 'react';
+import ReactDOM from 'react-dom';
 import builder from 'focus-core/component/builder';
 import types from 'focus-core/component/types';
 import {ArgumentInvalidException} from 'focus-core/exception';
-const includes = require('lodash').includes;
+import includes from 'lodash/collection/includes';
 
 /**
 * Small overlay component used to listen to scroll and prevent it to leave the Popin component
