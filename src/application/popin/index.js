@@ -203,7 +203,7 @@ const popin = {
     * @private
     */
     _validateSize() {
-        if (!['small', 'medium', 'large'].find(this.props.size)) {
+        if (!['small', 'medium', 'large'].find(size => size === this.props.size)) {
             throw new ArgumentInvalidException('Please provide a valid popin size among small, medium and large. Provided ' + this.props.size);
         }
         return this.props.size;
