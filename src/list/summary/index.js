@@ -39,7 +39,7 @@ const listSummaryMixin = {
     _getResultSentence() {
         const {nb, queryText} = this.props;
         const hasText = queryText && queryText.trim().length > 0;
-        const sentence = nb > 1 ? hasText ? 'results.for' : 'results' : hasText ? 'result.for' : 'result';
+        const sentence = nb > 1 ? hasText ? 'results.for' : 'results.all' : hasText ? 'result.for' : 'result.all';
         return (
             <span>
                 <strong>{numberFormatter.format(nb)}&nbsp;</strong>
