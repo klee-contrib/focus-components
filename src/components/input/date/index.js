@@ -72,7 +72,7 @@ class InputDate extends Component {
 
     componentWillReceiveProps({value}) {
         this.setState({
-            dropDownDate: isISOString(value) ? moment.utc(value, moment.ISO_8601) : moment(),
+            dropDownDate: isISOString(value) ? moment.utc(value, moment.ISO_8601) : moment.utc(),
             inputDate: this._formatDate(value)
         });
     }
