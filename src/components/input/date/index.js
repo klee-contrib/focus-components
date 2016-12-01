@@ -171,7 +171,7 @@ class InputDate extends Component {
     };
 
     render() {
-        const {error, locale, name, placeholder, disabled} = this.props;
+        const {error, locale, name, placeholder, disabled, ...otherProps} = this.props;
         const {dropDownDate, inputDate, displayPicker} = this.state;
         const {_onInputBlur, _onInputChange, _onInputFocus, _onDropDownChange, _onPickerCloserClick, _handleKeyDown} = this;
         const inputProps = { disabled };
@@ -186,7 +186,8 @@ class InputDate extends Component {
                             locale={locale}
                             onChange={_onDropDownChange}
                             ref='picker'
-                            />
+                            {...otherProps}
+                         />
                     </div>
                 }
             </div>
