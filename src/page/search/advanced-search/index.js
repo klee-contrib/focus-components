@@ -30,76 +30,75 @@ import actionBuilder from 'focus-core/search/action-builder';
 * @type {Object}
 */
 const AdvancedSearch = {
-  /**
-  * Component's mixins
-  * @type {Array}
-  */
-  mixins: [CartridgeBehaviour],
-  /**
-  * Display name.
-  */
-  displayName: 'advanced-search',
-  /**
-  * Get the default props
-  * @return {object} the default props
-  */
-  getDefaultProps() {
-    return {
-      action: undefined,
-      backToTopComponent: BackToTopComponent,
-      callSearchOnMount : true,
-      facetConfig: {},
-      groupComponent: DefaultGroupComponent,
-      hasBackToTop: true,
-      isSelection: true,
-      lineOperationList: [],
-      lineComponentMapper: undefined,
-      orderableColumnList: [],
-      onLineClick: undefined,
-      openedFacetList: {},
-      scopesConfig: {},
-      scrollParentSelector: undefined,
-      service: undefined,
-      store: advancedSearchStore
-    };
-  },
-  /**
-  * Props validation
-  * @type {Object}
-  */
-  propTypes: {
-    action: type('object'),
-    backToTopComponent: type('func'),
-    callSearchOnMount : type('bool'),
-    exportAction: type('func'),
-    facetConfig: type('object'),
-    groupComponent: type('func'),
-    hasBackToTop: type('bool'),
-    isSelection: type('bool'),
-    lineComponentMapper: type('func'),
-    lineOperationList: type(['array', 'object']),
-    onLineClick: type('func'),
-    orderableColumnList: type(['array', 'object']),
-    openedFacetList: type('object'),
-    scopesConfig: type('object'),
-    scrollParentSelector: type('string'),
-    service: type('object'),
-    store: type('object')
-  },
-  /**
-  * Get initial state
-  * @return {Object} initial state
-  */
-  getInitialState() {
-    return (this._getNewStateFromStore());
-  },
-  /**
-  * Register the store listeners
-  */
-  componentWillMount() {
-    const {store, callSearchOnMount, service} = this.props;
-    //listen to search event
-    store.on('advanced-search-criterias:change', this._onStoreChangeWithSearch);
+    /**
+    * Component's mixins
+    * @type {Array}
+    */
+    mixins: [CartridgeBehaviour],
+    /**
+    * Display name.
+    */
+    displayName: 'advanced-search',
+    /**
+    * Get the default props
+    * @return {object} the default props
+    */
+    getDefaultProps() {
+        return {
+            action: undefined,
+            backToTopComponent: BackToTopComponent,
+            callSearchOnMount : true,
+            facetConfig: {},
+            groupComponent: DefaultGroupComponent,
+            hasBackToTop: true,
+            isSelection: true,
+            lineOperationList: [],
+            lineComponentMapper: undefined,
+            orderableColumnList: [],
+            onLineClick: undefined,
+            openedFacetList: {},
+            scopesConfig: {},
+            scrollParentSelector: undefined,
+            service: undefined,
+            store: advancedSearchStore
+        };
+    },
+    /**
+    * Props validation
+    * @type {Object}
+    */
+    propTypes: {
+        action: type('object'),
+        backToTopComponent: type('func'),
+        callSearchOnMount : type('bool'),
+        exportAction: type('func'),
+        facetConfig: type('object'),
+        groupComponent: type('func'),
+        hasBackToTop: type('bool'),
+        isSelection: type('bool'),
+        lineComponentMapper: type('func'),
+        lineOperationList: type(['array', 'object']),
+        onLineClick: type('func'),
+        orderableColumnList: type(['array', 'object']),
+        openedFacetList: type('object'),
+        scopesConfig: type('object'),
+        scrollParentSelector: type('string'),
+        service: type('object'),
+        store: type('object')
+    },
+    /**
+    * Get initial state
+    * @return {Object} initial state
+    */
+    getInitialState() {
+        return (this._getNewStateFromStore());
+    },
+    /**
+    * Register the store listeners
+    */
+    componentWillMount() {
+        //listen to search event
+        this.props.store.on('advanced-search-criterias:change', this._onStoreChangeWithSearch);
 
     //listen to data changes
     ['facets', 'results', 'total-count'].forEach((node) => {
