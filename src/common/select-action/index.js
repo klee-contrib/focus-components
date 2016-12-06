@@ -28,7 +28,6 @@ class Dropdown extends Component {
     * @type {Object}
     */
     static propTypes = {
-      top: PropTypes.bool,
       position: PropTypes.string,
       iconProps: PropTypes.object,
       operationList: PropTypes.array,
@@ -100,6 +99,10 @@ class Dropdown extends Component {
         };
     }
 
+  /**
+   * Determinates the position to display a from
+   * @param {[type]} e [description]
+   */
     setTopOrBottom = (e) => {
       const elementRectangle = e.target ? e.target.getBoundingClientRect() : e.getBoundingClientRect();
       const elementPosition = {top: elementRectangle.top, left: elementRectangle.left};
@@ -107,10 +110,10 @@ class Dropdown extends Component {
 
       const percentTop = (elementPosition.top * 100) / windowSize.height;
 
-      percentTop >= 75 ? this.setState({isTop: true}) : this.setState({isTop: false});
+      percentTop >= 75 ? this.setState({isTop: false}) : this.setState({isTop: true});
     }
 
-      renderTop(id) {
+      renderBottom(id) {
         const {position, operationList} = this.props;
         if (0 === operationList.length) {
             return null;
@@ -130,7 +133,7 @@ class Dropdown extends Component {
       )
     }
 
-    renderBottom(id) {
+    renderTop(id) {
       const {position, operationList} = this.props;
       if (0 === operationList.length) {
           return null;
@@ -162,11 +165,10 @@ class Dropdown extends Component {
             return null;
         }
         const menuPosition = isTop ? 'top-' + position : 'bottom-' + position;
-        console.log('BEFOR RENDER', this.state.isTop);
         return (
             <div ref='menuContainer'>
                 <Button icon={iconProps.name} id={id} isJs shape={shape} onClick={this.setTopOrBottom} />
-                {isTop ? this.renderTop(id) : this.renderBottom(id)}
+                {!isTop ? this.renderBottom(id) : this.renderTop(id)}
             </div>
         );
     }
