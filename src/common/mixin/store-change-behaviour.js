@@ -68,6 +68,9 @@ const changeBehaviourMixin = {
     * Event handler for 'error' events coming from the stores.
     */
     _onError: function onFormErrorHandler(changeInfos) {
+        this.setState(this._getLoadingStateFromStores(), () => this._handleErrors(changeInfos)); // update errors after status
+    },
+    _handleErrors(){
         const errorState = this._getErrorStateFromStores();
         if (this.definitionPath) {
             // In case we have a definitionPath, we might want to trigger a setError on the corresponding field
@@ -85,7 +88,6 @@ const changeBehaviourMixin = {
                 }
             }
         }
-        this.setState(this._getLoadingStateFromStores()); // update status after errors
     },
     /**
     * Read
