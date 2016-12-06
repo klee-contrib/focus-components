@@ -1,5 +1,4 @@
 import React, {PropTypes} from 'react';
-import {translate} from 'focus-core/translation';
 
 const defaultProps = {
     formatter: (data) => data
@@ -14,9 +13,8 @@ const propTypes = {
 
 //v2 : replace div by span
 function DisplayText({formatter, style, value}) {
-    const formattedValue = translate(formatter(value));
     return(
-        <div className={style}>{formattedValue}</div>
+        <div className={style}>{formatter(value)}</div>
     );
 }
 
