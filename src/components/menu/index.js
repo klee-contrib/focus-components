@@ -25,29 +25,34 @@ function _renderItemsList(items, LinkComponent, navigate) {
 
 //Todo: refactor into component
 function _renderButton(menuButton, LinkComponent, navigate) {
+    menuButton.shape = 'icon';
+    menuButton.type = 'button';
+
     const buttonProps = {
-        option: 'link',
         shape: 'icon',
-        type: 'button',
-        ...menuButton
-    };
+        type: 'button'
+    }
+
+    const {route, option, ...otherProps} = menuButton;
+    const menuButtonProps = {...buttonProps, ...otherProps};
     let clickHandler;
+
     if(menuButton.route !== undefined) {
         //React router case
         if(LinkComponent){
             //Todo: check menButton onClick use
-            return <LinkComponent to={menuButton.route} style={{color: 'white'}}><Button {...buttonProps}/></LinkComponent>
+            return <LinkComponent to={menuButton.route} style={{color: 'white'}}><Button  {...menuButtonProps}/></LinkComponent>
         }
         //Backbone case
         clickHandler = () => {
             if(menuButton.onClick) menuButton.onClick();
             navigate(menuButton.route, true);
         };
-        return <Button {...buttonProps} onClick={clickHandler}/>
+        return <Button {...menuButtonProps} onClick={clickHandler}/>
 
     }
     //No route => Both the same treatement.
-    return <Button {...buttonProps} onClick={menuButton.onClick}/>
+    return <Button {...menuButtonProps} onClick={menuButton.onClick}/>
 }
 
 // default props
