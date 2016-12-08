@@ -1,4 +1,4 @@
-// Dependencies 
+// Dependencies
 import React, {Component, PropTypes} from 'react';
 import ReactDOM from 'react-dom';
 import moment from 'moment';
@@ -10,7 +10,7 @@ import isArray from 'lodash/lang/isArray';
 import uniqueId from 'lodash/utility/uniqueId';
 import closest from 'closest';
 
-const isISOString = value => moment(value, moment.ISO_8601).isValid();
+const isISOString = value => moment.utc(value, moment.ISO_8601).isValid();
 
 const propTypes = {
     drops: PropTypes.oneOf(['up', 'down']).isRequired,
@@ -51,7 +51,7 @@ class InputDate extends Component {
         super(props);
         const {value} = props;
         const state = {
-            dropDownDate: isISOString(value) ? moment(value, moment.ISO_8601) : moment(),
+            dropDownDate: isISOString(value) ? moment.utc(value, moment.ISO_8601) : moment.utc(),
             inputDate: this._formatDate(value),
             displayPicker: false
         };
@@ -60,7 +60,7 @@ class InputDate extends Component {
     }
 
     componentWillMount() {
-        moment.locale(this.props.locale);
+        // moment.locale(this.props.locale);
         document.addEventListener('click', this._onDocumentClick);
     }
 
@@ -72,7 +72,7 @@ class InputDate extends Component {
 
     componentWillReceiveProps({value}) {
         this.setState({
-            dropDownDate: isISOString(value) ? moment(value, moment.ISO_8601) : moment(),
+            dropDownDate: isISOString(value) ? moment.utc(value, moment.ISO_8601) : moment.utc(),
             inputDate: this._formatDate(value)
         });
     }
@@ -85,7 +85,7 @@ class InputDate extends Component {
 
     _parseInputDate = inputDate => {
         const {format} = this.props;
-        return moment(inputDate, format);
+        return moment.utc(inputDate, format);
     };
 
     _formatDate = isoDate => {
@@ -94,35 +94,35 @@ class InputDate extends Component {
             if (isArray(format)) {
                 format = format[0];
             }
-            return moment(isoDate, moment.ISO_8601).format(format);
+            return moment.utc(isoDate, moment.ISO_8601).format(format);
         } else {
             return isoDate;
         }
     };
 
-    _onInputChange = inputDate => {
+    _onInputChange = (inputDate, fromBlur) => {
         if (this._isInputFormatCorrect(inputDate)) {
             const dropDownDate = this._parseInputDate(inputDate);
             this.setState({dropDownDate, inputDate});
         } else {
             this.setState({inputDate});
         }
+        if(fromBlur !== true) {
+            this.props.onChange(inputDate);
+        }
     };
 
     _onInputBlur = () => {
         const {inputDate} = this.state;
-        if (this._isInputFormatCorrect(inputDate)) {
-            this.props.onChange(this._parseInputDate(inputDate).toISOString());
-        } else {
-            this.props.onChange(inputDate);
-        }
+        this._onInputChange(inputDate, true);
     };
 
     _onDropDownChange = (text, date) => {
         if (date._isValid) {
             this.setState({displayPicker: false}, () => {
-                this.props.onChange(date.toISOString());
-                this._onInputChange(this._formatDate(date.toISOString())); // Add 12 hours to avoid skipping a day due to different locales
+                const correctedDate = moment.utc(date).add(moment(date).utcOffset(), 'minutes').toISOString(); // Add UTC offset to get right ISO string
+                this.props.onChange(correctedDate);
+                this._onInputChange(this._formatDate(correctedDate), true);
             });
         }
     };
