@@ -1,12 +1,10 @@
 // Dependencies
 
-const React = require('react');
-const ReactDOM = require('react-dom');
-const {PropTypes} = React;
+import React, {PropTypes} from 'react';
+import ReactDOM from 'react-dom';
 import builder from 'focus-core/component/builder';
 import types from 'focus-core/component/types';
 import {ArgumentInvalidException} from 'focus-core/exception';
-const includes = require('lodash').includes;
 
 /**
 * Small overlay component used to listen to scroll and prevent it to leave the Popin component
@@ -205,7 +203,7 @@ const popin = {
     * @private
     */
     _validateSize() {
-        if (!includes(['small', 'medium', 'large'], this.props.size)) {
+        if (!['small', 'medium', 'large'].find(size => size === this.props.size)) {
             throw new ArgumentInvalidException('Please provide a valid popin size among small, medium and large. Provided ' + this.props.size);
         }
         return this.props.size;
