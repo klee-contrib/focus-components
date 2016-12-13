@@ -7,7 +7,7 @@ global.componentHandler = {
     downgradeElements: sinon.stub()
 };
 
-describe('The input date', () => {
+describe.only('The input date', () => {
     describe('when mounted with a valid value', () => {
         const now = new Date().toISOString();
         let reactComponent, domNode, inputNode;
@@ -87,9 +87,9 @@ describe('The input date', () => {
         });
     });
 
-    describe('when the value given as a prop changes', () => {
+    describe('when the value given has a prop changes', () => {
         const now = new Date().toISOString();
-        const past = new Date('01/10/1995').toISOString();
+        const past = new Date('01/10/1995').toISOString() /*'1995-01-09T23:00:00.000Z'*/;
         let renderedTest;
         const onChangeSpy = sinon.spy();
         class TestComponent extends Component {
@@ -111,7 +111,7 @@ describe('The input date', () => {
         });
 
         it('should change its internal value', () => {
-            expect(moment(renderedTest.refs.date.getValue()).isSame(moment(past), 'day')).to.be.true;
+            expect(moment.utc(renderedTest.refs.date.getValue()).isSame(moment.utc(past), 'day')).to.be.true;
         });
     });
 
@@ -155,7 +155,7 @@ describe('The input date', () => {
             //TestUtils.Simulate.click(document);
         });
         it('should give the provided value', () => {
-            expect(moment(renderedTest.refs.date.getValue()).isSame(moment(validDateString, 'MM/DD/YYYY').toISOString())).to.be.true;
+            expect(moment(renderedTest.refs.date.getValue()).isSame(moment.utc(validDateString, 'MM/DD/YYYY').toISOString())).to.be.true;
         });
     });
 
@@ -190,12 +190,13 @@ describe('The input date', () => {
             expect(ReactDOM.findDOMNode(renderedTest.refs.date.refs.input.refs.htmlInput).value).to.equal(invalidDateString);
         });
     });
+    // The onBlur function is no more used on the input-date component
     describe.skip('when blurred with a valid date', () => {
-        const validDate = (moment('10/10/2015')).toISOString();
+        const validDate = moment.utc('10/10/2015').toISOString();
         const onChangeSpy = sinon.spy();
         class TestComponent extends Component {
             render() {
-                return <InputDate onChange={onChangeSpy} ref='date' value={validDate} />;
+                return <InputDate onChange={(value) => console.log('BLUR',value)} ref='date' value={validDate} />;
             }
         }
         let renderedTest;
@@ -209,7 +210,7 @@ describe('The input date', () => {
         });
     });
     describe('when a date is chosen in the date picker', () => {
-        const validDate = (moment('10/10/2015')).toISOString();
+        const validDate = moment.utc('10/10/2015').toISOString();
         const onChangeSpy = sinon.spy();
         let renderedTest;
         before(done => {
@@ -231,7 +232,7 @@ describe('The input date', () => {
             TestUtils.Simulate.click(firstDay);
         });
         it('should call the onChange prop with the corresponding ISOString', () => {
-            expect(onChangeSpy).to.have.been.calledWith((moment('09/27/2015')).toISOString());
+            expect(onChangeSpy).to.have.been.calledWith((moment.utc('09/27/2015')).toISOString());
         });
     });
 });
