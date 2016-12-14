@@ -152,7 +152,7 @@ module.exports = {
         };
         return (
             <Button
-            handleOnClick={handleOnClick}
+            onClick={handleOnClick}
             icon='delete'
             label='button.delete'
             shape={null}
@@ -173,7 +173,7 @@ module.exports = {
         };
         return (
             <Button
-            handleOnClick={handleOnClick}
+            onClick={handleOnClick}
             icon='edit'
             label='button.edit'
             shape={null}
@@ -198,7 +198,7 @@ module.exports = {
             });
         };
         return (
-            <Button handleOnClick={handleOnClick} icon='undo' label='button.cancel' shape={null} type='button' />
+            <Button onClick={handleOnClick} icon='undo' label='button.cancel' shape={null} type='button' />
         );
     },
     /**
@@ -213,7 +213,7 @@ module.exports = {
         };
         return (
             <Button
-            handleOnClick={handleOnClick}
+            onClick={handleOnClick}
             icon='save'
             label='button.save'
             shape={null}
