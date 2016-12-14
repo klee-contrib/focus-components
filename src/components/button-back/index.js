@@ -9,7 +9,7 @@ const propTypes = {
 function ButtonBack({back}) {
     return (
         <Button
-            handleOnClick={back || defaultBack}
+            onClick={back || defaultBack}
             icon='keyboard_backspace'
             label='button.back'
             shape={null}
