@@ -125,8 +125,7 @@ class Button extends Component {
     render() {
         // attribute doc : https://developer.mozilla.org/fr/docs/Web/HTML/Element/Button
         // be careful the way you declare your attribute names : https://developer.mozilla.org/fr/docs/Web/HTML/Element/Button
-        const {className, disabled, formNoValidate, handleOnClick, icon, id, onClick, type, label, style, ...otherProps } = this.props;
-        const {hasRipple, isJs, iconLibrary, ...rest} = this.props;
+        const {className, disabled, formNoValidate, handleOnClick, icon, id, onClick, type, label, style, hasRipple, isJs, iconLibrary, ...rest} = this.props;
         const otherInputProps = { disabled, formNoValidate, onClick: handleOnClick ? handleOnClick : onClick, style, type, ...rest }; //on click for legacy. Remove handleOnClick in v2
         const renderedClassName = `${className ? className : ''} ${::this._getComponentClassName()}`.trim();
         return (
