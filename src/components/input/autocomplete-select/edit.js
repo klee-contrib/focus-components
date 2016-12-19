@@ -213,7 +213,16 @@ class Autocomplete extends Component {
     };
 
     render () {
-        const {customError, inputTimeout, keyName, keyResolver, labelName, placeholder, querySearcher, renderOptions, ...inputProps} = this.props;
+        /**
+         * I think the following props are given by the high order Field Component.
+         * For me, we gotta pull out the non desired props
+         */
+        const {
+            onBadInput, domain, error, locale, isEdit, hasLabel, isRequired, validator, formatter, unformatter, FieldComponent, InputLabelComponent,
+            InputComponent, SelectComponent, TextComponent, DisplayComponent, options, labelSize, labelCellPosition, contentCellPosition, AutocompleteComponent,
+            AutocompleteSelectComponent, AutocompleteTextComponent, LabelComponent, ...otherProps
+        } = this.props;
+        const {customError, inputTimeout, keyName, keyResolver, labelName, placeholder, querySearcher, renderOptions, ...inputProps} = otherProps;
         const {inputValue, isLoading} = this.state;
         const {_handleQueryFocus, _handleQueryKeyDown, _handleQueryChange} = this;
         return (
