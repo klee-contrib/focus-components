@@ -27,7 +27,8 @@ class Dropdown extends Component {
             iconLibrary: 'material'
         },
         shape: 'fab',
-        operationList: []
+        operationList: [],
+        buttonType: 'submit'
     };
 
     state = {
@@ -68,7 +69,7 @@ class Dropdown extends Component {
     }
 
     render() {
-        const {iconProps: {name, iconLibrary}, operationList, shape, openDirection} = this.props;
+        const {iconProps: {name, iconLibrary}, operationList, shape, openDirection, buttonType} = this.props;
         const {visible} = this.state;
         const id = this._htmlId;
         return (
@@ -79,6 +80,7 @@ class Dropdown extends Component {
                     icon={name}
                     iconLibrary={iconLibrary}
                     handleOnClick={this._handleIconClick.bind(this)}
+                    type={buttonType}
                     />
                 {visible &&
                     <div data-focus='dropdown-menu' data-position={openDirection} ref='dropdown'>
