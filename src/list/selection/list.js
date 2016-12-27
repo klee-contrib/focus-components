@@ -41,7 +41,7 @@ const listMixin = {
         return {
             data: [],
             isSelection: true,
-            selectionStatus: 'none',
+            selectionStatus: 'partial',
             selectionData: [],
             isLoading: false,
             operationList: [],
