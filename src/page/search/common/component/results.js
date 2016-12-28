@@ -1,23 +1,16 @@
 // Dependencies
-const React = require('react');
-
+import React from 'react';
 import {translate} from 'focus-core/translation';
 import builder from 'focus-core/component/builder';
 
-const assign = require('lodash/object/assign');
-const clone = require('lodash/lang/clone');
-const filter = require('lodash/collection/filter');
-const find = require('lodash/collection/find');
-const keys = require('lodash/object/keys');
-const isArray = require('lodash/lang/isArray');
-const map = require('lodash/collection/map');
-const mapValues = require('lodash/object/mapValues');
-const omit = require('lodash/object/omit');
+import {assign, mapValues, keys, omit} from 'lodash/object';
+import {clone, isArray} from 'lodash/lang';
+import {filter, find, map, groupBy} from 'lodash/collection';
 
 // Components
 import DefaultEmpty from './default-empty-component';
-const ListSelection = require('../../../../list/selection').list.component;
-const GroupWrapper = require('./group-wrapper').component;
+import {component as ListSelection} from '../../../../list/selection/list';
+import {component as GroupWrapper} from './group-wrapper';
 
 /**
 * Results component, used to render the results, grouped or ungrouped
@@ -302,8 +295,8 @@ const Results = {
             const {scopeFacetKey, groupingKey} = this.props;
             const key = groupingKey === undefined ? scopeFacetKey : groupingKey;
             const scopeFacet = resultsFacets[key];
-            return mapValues(scopeFacet, (facetData) => {
-                return facetData.count;
+            return mapValues(groupBy(scopeFacet, 'label'), (facetData) => {
+                return facetData[0].count;
             });
         }
         return 0;
