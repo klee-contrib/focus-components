@@ -42,7 +42,7 @@ export const otherHtmlAttributes {
     capture,
     cellPadding,
     cellSpacing,
-    challenge
+    challenge,
     charSet,
     cite,
     classID,
