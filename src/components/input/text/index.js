@@ -5,6 +5,7 @@ import {identity} from 'lodash/utility';
 import ComponentBaseBehaviour from '../../../behaviours/component-base';
 import MDBehaviour from '../../../behaviours/material';
 const MODE = {isEdit: true};
+import {inputHtmlAttributes} from '../../../common/react-html-attributes';
 
 const propTypes = {
     disabled: PropTypes.bool,
@@ -68,7 +69,14 @@ class InputText extends Component {
      * @override
     */
     render() {
-        const { autoFocus, onBlur, disabled, formatter, unformatter, maxLength, onFocus, onClick, onKeyDown, onKeyPress, error, name, placeholder, style, value: rawValue, size, type} = this.props;
+        const a = [100, 200, 300]
+        // console.log(a.indexOf(200));
+        inputHtmlAttributes.filter( (e, index) => {
+            if(this.props[e]) {
+                console.log(this.props[e]);
+            }
+        });
+        const { autoFocus, disabled, formatter, unformatter, maxLength, onFocus, onClick, onKeyDown, onKeyPress, error, name, placeholder, style, value: rawValue, size, type} = this.props;
         const value = formatter(rawValue, MODE);
         const pattern = error ? 'hasError' : null; //add pattern to overide mdl error style when displaying an focus error.
         const inputProps =  { autoFocus, disabled, onKeyDown, onKeyPress, onBlur, maxLength, onFocus, onClick, id: name, onChange: this._handleInputChange, pattern, size, type, value: value === undefined || value === null ? '' : value};
