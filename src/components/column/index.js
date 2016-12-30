@@ -7,9 +7,8 @@ import React, {Component, PropTypes} from 'react';
  */
 
 function _className(className, size) {
-    if(className) { return className; }
     const SIZE_CSS = size ? `mdl-cell--${size}-col` : '';
-    return `mdl-cell ${SIZE_CSS} `;
+    return `mdl-cell ${SIZE_CSS} ${className ? className : ''}`;
 };
 
 function Column({size, className, children, ...otherProps}) {

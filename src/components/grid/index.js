@@ -6,9 +6,9 @@ import React, {Component, PropTypes} from 'react';
  * Grid component.
  */
 
- function Grid({children, ...otherProps}) {
+ function Grid({children, className, ...otherProps}) {
      return (
-         <div className='mdl-grid' {...otherProps}>
+         <div className={`mdl-grid ${className ? className : ''}`} {...otherProps}>
              {children}
          </div>
      );
