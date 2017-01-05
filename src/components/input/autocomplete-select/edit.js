@@ -213,34 +213,28 @@ class Autocomplete extends Component {
     };
 
     render () {
-        /**
-         * I think the following props are given by the high order Field Component.
-         * For me, we gotta pull out the non desired props
-         */
-        const {
-            onBadInput, domain, error, locale, isEdit, hasLabel, isRequired, validator, formatter, unformatter, FieldComponent, InputLabelComponent,
-            InputComponent, SelectComponent, TextComponent, DisplayComponent, options, labelSize, labelCellPosition, contentCellPosition, AutocompleteComponent,
-            AutocompleteSelectComponent, AutocompleteTextComponent, LabelComponent, ...otherProps
-        } = this.props;
-        const {customError, inputTimeout, keyName, keyResolver, labelName, placeholder, querySearcher, renderOptions, ...inputProps} = otherProps;
+        const { autoFocus, disabled, onKeyPress, maxLength, onFocus, onClick, customError: error, placeholder, renderOptions, ...otherProps }  = this.props;
         const {inputValue, isLoading} = this.state;
         const {_handleQueryFocus, _handleQueryKeyDown, _handleQueryChange} = this;
+        const inputProps =  {
+            autoFocus, disabled, onKeyPress, maxLength, onFocus, onClick,
+            onChange: _handleQueryChange, onFocus: _handleQueryFocus,
+            onKeyDown: _handleQueryKeyDown,
+            value: !inputValue ? '' : inputValue
+        };
+
         return (
             <div data-focus='autocomplete' data-id={this.autocompleteId}>
-                <div className={`mdl-textfield mdl-js-textfield${customError ? ' is-invalid' : ''}`} data-focus='input-text' ref='inputText'>
+                <div className={`mdl-textfield mdl-js-textfield${error ? ' is-invalid' : ''}`} data-focus='input-text' ref='inputText'>
                     <div data-focus='loading' data-loading={isLoading} className='mdl-progress mdl-js-progress mdl-progress__indeterminate' ref='loader'></div>
                     <input
                         className='mdl-textfield__input'
                         {...inputProps}
-                        onChange={_handleQueryChange}
-                        onFocus={_handleQueryFocus}
-                        onKeyDown={_handleQueryKeyDown}
                         ref='htmlInput'
                         type='text'
-                        value={!inputValue ? '' : inputValue}
                     />
                     <label className='mdl-textfield__label'>{this.i18n(placeholder)}</label>
-                    <span className='mdl-textfield__error'>{this.i18n(customError)}</span>
+                    <span className='mdl-textfield__error'>{this.i18n(error)}</span>
                 </div>
                 {renderOptions ? renderOptions.call(this) : this._renderOptions()}
             </div>
