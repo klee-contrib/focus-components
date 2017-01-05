@@ -213,7 +213,7 @@ class Autocomplete extends Component {
     };
 
     render () {
-        const { autoFocus, onBlur, disabled, onKeyPress, maxLength, onFocus, onClick, customError: error, placeholder, renderOptions, ...otherProps }  = this.props;
+        const { autoFocus, onBlur, disabled, onKeyPress, maxLength, onFocus, onClick, customError, placeholder, renderOptions, ...otherProps }  = this.props;
         const {inputValue, isLoading} = this.state;
         const {_handleQueryFocus, _handleQueryKeyDown, _handleQueryChange} = this;
         const inputProps =  {
@@ -225,7 +225,7 @@ class Autocomplete extends Component {
 
         return (
             <div data-focus='autocomplete' data-id={this.autocompleteId}>
-                <div className={`mdl-textfield mdl-js-textfield${error ? ' is-invalid' : ''}`} data-focus='input-text' ref='inputText'>
+                <div className={`mdl-textfield mdl-js-textfield${customError ? ' is-invalid' : ''}`} data-focus='input-text' ref='inputText'>
                     <div data-focus='loading' data-loading={isLoading} className='mdl-progress mdl-js-progress mdl-progress__indeterminate' ref='loader'></div>
                     <input
                         className='mdl-textfield__input'
@@ -234,7 +234,7 @@ class Autocomplete extends Component {
                         type='text'
                     />
                     <label className='mdl-textfield__label'>{this.i18n(placeholder)}</label>
-                    <span className='mdl-textfield__error'>{this.i18n(error)}</span>
+                    <span className='mdl-textfield__error'>{this.i18n(customError)}</span>
                 </div>
                 {renderOptions ? renderOptions.call(this) : this._renderOptions()}
             </div>
