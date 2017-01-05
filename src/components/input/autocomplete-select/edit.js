@@ -213,13 +213,13 @@ class Autocomplete extends Component {
     };
 
     render () {
-        const { autoFocus, disabled, onKeyPress, maxLength, onFocus, onClick, customError: error, placeholder, renderOptions, ...otherProps }  = this.props;
+        const { autoFocus, onBlur, disabled, onKeyPress, maxLength, onFocus, onClick, customError: error, placeholder, renderOptions, ...otherProps }  = this.props;
         const {inputValue, isLoading} = this.state;
         const {_handleQueryFocus, _handleQueryKeyDown, _handleQueryChange} = this;
         const inputProps =  {
             autoFocus, disabled, onKeyPress, maxLength, onFocus, onClick,
             onChange: _handleQueryChange, onFocus: _handleQueryFocus,
-            onKeyDown: _handleQueryKeyDown,
+            onKeyDown: _handleQueryKeyDown, onBlur,
             value: !inputValue ? '' : inputValue
         };
 
