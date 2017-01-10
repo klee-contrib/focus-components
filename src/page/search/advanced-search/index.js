@@ -182,12 +182,14 @@ const AdvancedSearch = {
         const facets = store.getFacets();
         const results = store.getResults();
         const totalCount = store.getTotalCount();
+    const selectionStatus = 'none';
         const hasGrouping = scope !== undefined && scope !== 'ALL';
         return {
             facets,
             groupingKey,
             hasGrouping,
             query,
+      selectionStatus,
             scope,
             selectedFacets,
             sortBy,

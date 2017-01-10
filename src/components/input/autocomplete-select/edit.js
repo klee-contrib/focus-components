@@ -213,9 +213,16 @@ class Autocomplete extends Component {
     };
 
     render() {
-        const {customError, inputTimeout, keyName, keyResolver, labelName, placeholder, querySearcher, renderOptions, ...inputProps} = this.props;
+        const { autoFocus, onBlur, disabled, onKeyPress, maxLength, onFocus, onClick, customError, placeholder, renderOptions, ...otherProps }  = this.props;
         const {inputValue, isLoading} = this.state;
         const {_handleQueryFocus, _handleQueryKeyDown, _handleQueryChange} = this;
+        const inputProps =  {
+            autoFocus, disabled, onKeyPress, maxLength, onFocus, onClick,
+            onChange: _handleQueryChange, onFocus: _handleQueryFocus,
+            onKeyDown: _handleQueryKeyDown, onBlur,
+            value: !inputValue ? '' : inputValue
+        };
+
         return (
             <div data-focus='autocomplete' data-id={this.autocompleteId}>
                 <div className={`mdl-textfield mdl-js-textfield${customError ? ' is-invalid' : ''}`} data-focus='input-text' ref='inputText'>
@@ -223,12 +230,8 @@ class Autocomplete extends Component {
                     <input
                         className='mdl-textfield__input'
                         {...inputProps}
-                        onChange={_handleQueryChange}
-                        onFocus={_handleQueryFocus}
-                        onKeyDown={_handleQueryKeyDown}
                         ref='htmlInput'
                         type='text'
-                        value={inputValue}
                     />
                     <label className='mdl-textfield__label'>{this.i18n(placeholder)}</label>
                     <span className='mdl-textfield__error'>{this.i18n(customError)}</span>
