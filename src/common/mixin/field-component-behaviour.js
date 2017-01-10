@@ -1,5 +1,5 @@
 import assign from 'object-assign';
-import {isUndefined, isObject} from 'lodash';
+import { isUndefined, isObject, isArray } from 'lodash';
 /**
  * Identity function
  * @param  {object} d - data to treat.
@@ -26,13 +26,13 @@ const fieldBehaviourMixin = {
         const listName = options.listName || def.listName;
         //hasLabel
         const hasLabel = (function hasLabel() {
-            if(options.hasLabel !== undefined) {
+            if (options.hasLabel !== undefined) {
                 return options.hasLabel;
             }
-            if(def.hasLabel !== undefined) {
+            if (def.hasLabel !== undefined) {
                 return options.hasLabel;
             } return true;
-        }());
+        } ());
         //Build a container for the props.
         name = options.name || `${this.definitionPath}.${name}`;
         const propsContainer = {
@@ -50,12 +50,12 @@ const fieldBehaviourMixin = {
             isRequired: (!isUndefined(options.isRequired) && options.isRequired) || def.isRequired || def.required, //legacy on required on model generation.
             //Style
             style: options.style,
-			// Type
+            // Type
             type: def.type,
             //Methods
             validator: def.validator,
             formatter: def.formatter || identity,
-            unformatter: def.unformatter || identity, 
+            unformatter: def.unformatter || identity,
             //Component
             FieldComponent: def.FieldComponent,
             InputLabelComponent: def.InputLabelComponent,
@@ -74,8 +74,13 @@ const fieldBehaviourMixin = {
         const refContainer = options.refContainer || def.refContainer || context.state.reference;
 
         // case no props.values and then
-        if(!(options.hasOwnProperty('values')) && isObject(refContainer) && refContainer.hasOwnProperty(listName)) {
-            assign(fieldProps, {values: refContainer[listName] || [] });
+        if (!(options.hasOwnProperty('values')) && isObject(refContainer) && refContainer.hasOwnProperty(listName)) {
+            assign(fieldProps, { values: refContainer[listName] || [] });
+        }
+
+        //FIX ME dirty fix for compatibility purpose (errors should be an array ?)
+        if (isArray(fieldProps.error) && fieldProps.error.length > 0) {
+            fieldProps.error = fieldProps.error[0];
         }
         return fieldProps;
     }
