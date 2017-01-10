@@ -42,12 +42,12 @@ class InputCheckBox extends Component {
     render() {
         const {label, value, disabled} = this.props;
         return (
-          <div data-focus='input-checkbox-container'>
-            <label className={'mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect'} data-focus='input-checkbox' ref='mdlHolder'>
-                <input checked={value} className='mdl-checkbox__input' disabled={disabled} onChange={::this.handleOnChange} ref='checkbox' type='checkbox'/>
-                {label && <span className='mdl-checkbox__label'>{this.i18n(label)}</span>}
-            </label>
-          </div>
+            <div data-focus='input-checkbox-container'>
+                <label className={'mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect'} data-focus='input-checkbox' ref='mdlHolder'>
+                    <input checked={value} className='mdl-checkbox__input' disabled={disabled} onChange={::this.handleOnChange} ref='checkbox' type='checkbox'/>
+                    {label && <span className='mdl-checkbox__label'>{this.i18n(label)}</span>}
+                </label>
+            </div>
         );
     }
 }

@@ -1,5 +1,5 @@
 import builder from 'focus-core/component/builder';
-const React = require('react');
+import React from 'react'
 import applicationStore from 'focus-core/application/built-in-store';
 
 const cartridgeMixin = {
@@ -20,7 +20,7 @@ const cartridgeMixin = {
      * @return {object} - The new state.
      */
     _getStateFromStore() {
-        return {cartridgeComponent: applicationStore.getCartridgeComponent() || {component: 'div', props: {}}};
+        return { cartridgeComponent: applicationStore.getCartridgeComponent() || { component: 'div', props: {} } };
     },
     /**
      * Handle the component change cb.
@@ -34,10 +34,17 @@ const cartridgeMixin = {
         const {component: Component, props} = cartridgeComponent;
         return (
             <div data-focus='cartridge'>
-                <Component {...props}/>
+                <Component {...props} />
             </div>
         );
     }
 };
 
-module.exports = builder(cartridgeMixin);
+const builtComp = builder(cartridgeMixin);
+const {component, mixin} = builtComp;
+
+export {
+    component,
+    mixin
+}
+export default builtComp;

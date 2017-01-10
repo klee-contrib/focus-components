@@ -11,7 +11,7 @@ const ScrollspyContainerSample = React.createClass({
 
     componentDidMount() {
         setTimeout(() => {
-                this.setState({isConditionalBlock: true});
+            this.setState({isConditionalBlock: true});
         }, 3 * 1000);
     },
     /**

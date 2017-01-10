@@ -95,14 +95,15 @@ class ActionMenu extends React.Component {
     renderMenuItems(menuVisible,operationList) {
         operationList.map((operation, idx) => {
 
-                    return (
+            return (
 
-                        <li className={`mdl-menu__item ${operation.style}`} key={idx}
-                            onClick={this._handleAction(operation.action)}>
-                            {translate(operation.label)}
-                        </li>
-                    )
-            }
+                <li className={`mdl-menu__item ${operation.style}`} key={idx}
+                    onClick={this._handleAction(operation.action)}
+                >
+                    {translate(operation.label)}
+                </li>
+            )
+        }
         )
 
 
@@ -114,19 +115,22 @@ class ActionMenu extends React.Component {
         const {id,iconProps, operationList, position, shape} = this.props;
         return (
             <div>
-                <Button icon={iconProps.name} id={id} isJs={true} shape={shape}
-                        handleOnClick={this._handleButtonClick.bind(this)}/>
+                <Button icon={iconProps.name} id={id} isJs shape={shape}
+                    handleOnClick={this._handleButtonClick.bind(this)}
+                />
 
                 <div>
                     <ul className={`mdl-menu mdl-menu--bottom-${position} mdl-js-menu mdl-js-ripple-effect`}
                         htmlFor={id}
-                        ref='dropdown'>
+                        ref='dropdown'
+                    >
                         { operationList.map((operation, idx) => {
 
                             return (
 
                                 <li className={`mdl-menu__item ${operation.style}`} key={idx}
-                                    onClick={this._handleAction(operation.action)}>
+                                    onClick={this._handleAction(operation.action)}
+                                >
                                     {translate(operation.label)}
                                 </li>
                             )

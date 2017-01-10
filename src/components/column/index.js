@@ -9,12 +9,12 @@ import React, {Component, PropTypes} from 'react';
 function _className(className, size) {
     const SIZE_CSS = size ? `mdl-cell--${size}-col` : '';
     return `mdl-cell ${SIZE_CSS} ${className ? className : ''}`;
-};
+}
 
 function Column({size, className, children, ...otherProps}) {
 
     return(
-        <div className={_className(className, size) } {...otherProps}>
+        <div className={_className(className, size)} {...otherProps}>
             {children}
         </div>
     );

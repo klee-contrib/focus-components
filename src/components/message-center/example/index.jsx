@@ -43,6 +43,6 @@ function MessageCenterExample() {
             <MessageCenter />
         </div>
     );
-};
+}
 
 module.exports = MessageCenterExample;

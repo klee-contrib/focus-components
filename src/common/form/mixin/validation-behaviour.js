@@ -1,6 +1,6 @@
 //Dependencies.
-let {isEmpty, isFunction} = require('lodash/lang');
-let assign = require('object-assign');
+import {isEmpty, isFunction} from 'lodash';
+import assign from 'object-assign';
 
 /**
 * Validate each field of the form.
@@ -52,10 +52,16 @@ function validate() {
     console.warn('This function will be deprecated in the version 0.6.0 the validate function should be custom for the project, instead call this._validate');
     return this._validate();
 }
-
-module.exports = {
+export {
     _fieldsValidation,
     _customValidation,
     _validate,
     validate
-};
+}
+
+export default {
+    _fieldsValidation,
+    _customValidation,
+    _validate,
+    validate
+}

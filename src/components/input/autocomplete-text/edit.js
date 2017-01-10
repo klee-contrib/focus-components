@@ -1,9 +1,11 @@
 import React, {Component, PropTypes} from 'react';
 import ReactDOM from 'react-dom';
+import {debounce} from 'lodash';
+
+
 import ComponentBaseBehaviour from '../../../behaviours/component-base';
 import MDBehaviour from '../../../behaviours/material';
 
-import debounce from 'lodash/function/debounce';
 
 @MDBehaviour('materialInput')
 @MDBehaviour('loader')
@@ -63,7 +65,7 @@ class AutocompleteTextEdit extends Component {
          * [inputTimeout description]
          * @type {number}
          */
-        inputTimeout : PropTypes.number.isRequired
+        inputTimeout: PropTypes.number.isRequired
     };
 
     state = {
@@ -82,17 +84,16 @@ class AutocompleteTextEdit extends Component {
     }
 
     componentDidMount() {
-      const {inputTimeout} = this.props;
-      this._debouncedQuerySearcher = debounce(this._querySearcher, inputTimeout);
+        const {inputTimeout} = this.props;
+        this._debouncedQuerySearcher = debounce(this._querySearcher, inputTimeout);
     }
 
     // Returns the state's inputValue
-    getValue = () =>  {
+    getValue = () => {
         const {inputValue} = this.state;
         if(inputValue !== undefined) {
             return inputValue;
-        }
-        else {
+        } else {
             return null;
         }
     };
@@ -121,8 +122,7 @@ class AutocompleteTextEdit extends Component {
         this.setState({inputValue: value});
         if(value.trim() == '') {
             this.setState({hasSuggestions: false});
-        }
-        else {
+        } else {
             this.refs.loader.classList.add('mdl-progress__indeterminate');
             this.setState({isLoading: true});
             this._debouncedQuerySearcher(value);
@@ -135,7 +135,7 @@ class AutocompleteTextEdit extends Component {
         this.refs.inputText.value = value;
         this.setState({inputValue: value, hasSuggestions: false, suggestions: []});
         return value;
-    };
+    }
 
     // Returns an html list whith the Suggestions
     renderSuggestions = () => {
@@ -172,8 +172,8 @@ class AutocompleteTextEdit extends Component {
                 <div className={`mdl-textfield mdl-js-textfield${error ? ' is-invalid' : ''}`} ref='materialInput'>
                     <div data-focus='loading' data-loading={isLoading} className='mdl-progress mdl-js-progress' ref='loader'/>
                     <input onFocus={this.toggleHasFocus} onBlur={this.toggleHasFocus} className='mdl-textfield__input' type='text' value={inputValue} ref='inputText' onChange={::this.onQueryChange} showAtFocus={showAtFocus} emptyShowAll={emptyShowAll} {...otherProps} />
-                    <label className="mdl-textfield__label">{this.i18n(placeholder)}</label>
-                    <span className="mdl-textfield__error" ref='errorMessage'>{this.i18n(error)}</span>
+                    <label className='mdl-textfield__label'>{this.i18n(placeholder)}</label>
+                    <span className='mdl-textfield__error' ref='errorMessage'>{this.i18n(error)}</span>
                 </div>
                 {hasSuggestions && hasFocus &&
                     this.renderSuggestions()

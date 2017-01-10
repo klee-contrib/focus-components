@@ -1,10 +1,10 @@
 // Dependencies
 
-import React, {PropTypes} from 'react';
+import React, { PropTypes } from 'react';
 import ReactDOM from 'react-dom';
 import builder from 'focus-core/component/builder';
 import types from 'focus-core/component/types';
-import {ArgumentInvalidException} from 'focus-core/exception';
+import { ArgumentInvalidException } from 'focus-core/exception';
 
 /**
 * Small overlay component used to listen to scroll and prevent it to leave the Popin component
@@ -17,7 +17,7 @@ const Overlay = React.createClass({
         show: PropTypes.bool
     },
     getDefaultProps() {
-        return {show: false};
+        return { show: false };
     },
     /**
     * Store the body overgflow property, and set it to hidden
@@ -218,4 +218,11 @@ const popin = {
     }
 };
 
-module.exports = builder(popin);
+const builtComp = builder(popin);
+const {component, mixin} = builtComp;
+
+export {
+    component,
+    mixin
+}
+export default builtComp;

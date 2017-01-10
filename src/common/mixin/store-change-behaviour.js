@@ -1,6 +1,6 @@
 import message from 'focus-core/message';
 import {changeMode} from 'focus-core/application';
-import reduce from 'lodash/collection/reduce';
+import {reduce} from 'lodash';
 
 const changeBehaviourMixin = {
     /**
@@ -70,7 +70,7 @@ const changeBehaviourMixin = {
     _onError: function onFormErrorHandler(changeInfos) {
         this.setState(this._getLoadingStateFromStores(), () => this._handleErrors(changeInfos)); // update errors after status
     },
-    _handleErrors(){
+    _handleErrors() {
         const errorState = this._getErrorStateFromStores();
         if (this.definitionPath) {
             // In case we have a definitionPath, we might want to trigger a setError on the corresponding field
@@ -103,4 +103,4 @@ const changeBehaviourMixin = {
 
     }
 };
-module.exports = changeBehaviourMixin;
+export default changeBehaviourMixin;

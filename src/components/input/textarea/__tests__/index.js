@@ -13,7 +13,7 @@ describe('The input textarea', () => {
         let domNode;
         let inputNode;
         before (() => {
-            reactComponent = renderIntoDocument(<Textarea name="myTextArea" onChange={fake} />);
+            reactComponent = renderIntoDocument(<Textarea name='myTextArea' onChange={fake} />);
             domNode = ReactDOM.findDOMNode(reactComponent);
             inputNode = ReactDOM.findDOMNode(reactComponent.refs.htmlInput);
         });
@@ -44,7 +44,7 @@ describe('The input textarea', () => {
         const testValue = 'CHANGED_VALUE';
         before(() => {
             onChangeSpy = sinon.spy(); // test that the method in props onChange is called
-            component = renderIntoDocument(<Textarea name="myTextArea" onChange={onChangeSpy} />);
+            component = renderIntoDocument(<Textarea name='myTextArea' onChange={onChangeSpy} />);
         });
         it('should call the onChange function defined in props when textarea is changed', () => {
             expect(onChangeSpy).to.not.have.been.called;
@@ -56,7 +56,7 @@ describe('The input textarea', () => {
         let component, errorComponent, inputNode;
         const errorLabel = 'this is an error';
         before(() => {
-            component = renderIntoDocument(<Textarea error={errorLabel} name="myTextArea" onChange={fake} />);
+            component = renderIntoDocument(<Textarea error={errorLabel} name='myTextArea' onChange={fake} />);
             inputNode = ReactDOM.findDOMNode(component.refs.htmlInput);
             errorComponent = findRenderedDOMComponentWithClass(component, 'label-error');
         });

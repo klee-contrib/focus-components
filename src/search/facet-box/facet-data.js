@@ -43,4 +43,11 @@ const FacetData = {
     }
 };
 
-module.exports = builder(FacetData);
+const builtComp = builder(FacetData);
+const {component, mixin} = builtComp;
+
+export {
+    component,
+    mixin
+}
+export default builtComp;

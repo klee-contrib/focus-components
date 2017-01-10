@@ -1,18 +1,16 @@
-let React = require('react');
 import builder from 'focus-core/component/builder';
 import user from 'focus-core/user';
-let intersection = require('lodash/array/intersection');
-let isArray = require('lodash/lang/isArray');
+import {intersection, isArray} from 'lodash';
 import type from 'focus-core/component/types';
 
 /**
  * Mixin button.
  * @type {Object}
  */
-var roleMixin = {
-    propTypes:{
+const roleMixin = {
+    propTypes: {
         hasOne: type('array'),
-        hasAll:type('array')
+        hasAll: type('array')
     },
     render() {
         let userRoles = user.getRoles();
@@ -26,4 +24,11 @@ var roleMixin = {
     }
 };
 
-module.exports = builder(roleMixin);
+const builtComp = builder(roleMixin);
+const {component, mixin} = builtComp;
+
+export {
+    component,
+    mixin
+}
+export default builtComp;

@@ -1,8 +1,9 @@
-import React, {Component, PropTypes} from 'react';
+import React, { Component, PropTypes } from 'react';
 import ReactDOM from 'react-dom';
+import { uniqueId } from 'lodash';
+
 import Button from '../../components/button';
 import Translation from '../../behaviours/translation';
-const {uniqueId} = require('lodash/utility');
 
 function isDescendant(parent, child) {
     let node = child.parentNode;
@@ -17,7 +18,7 @@ function isDescendant(parent, child) {
 @Translation
 class Dropdown extends Component {
     static propTypes = {
-        openDirection: PropTypes.oneOf(['bottom-left', 'bottom-right', 'top-left', 'top-right']),
+        openDirection: PropTypes.oneOf(['bottom-left', 'bottom-right', 'top-left', 'top-right'])
     };
 
     static defaultProps = {
@@ -51,19 +52,19 @@ class Dropdown extends Component {
         if (visible) {
             const dropdownElement = ReactDOM.findDOMNode(this.refs.parent);
             if (!isDescendant(dropdownElement, target)) {
-                this.setState({visible: false});
+                this.setState({ visible: false });
             }
         }
     }
 
     _handleIconClick() {
-        this.setState({visible: !this.state.visible});
+        this.setState({ visible: !this.state.visible });
     }
 
     _operationActionWrapper(action) {
         return () => {
             action();
-            this.setState({visible: false});
+            this.setState({ visible: false });
         }
     }
 
@@ -79,7 +80,7 @@ class Dropdown extends Component {
                     icon={name}
                     iconLibrary={iconLibrary}
                     handleOnClick={this._handleIconClick.bind(this)}
-                    />
+                />
                 {visible &&
                     <div data-focus='dropdown-menu' data-position={openDirection} ref='dropdown'>
                         {operationList.map(({label, action}, idx) => (<div key={idx} data-role='dropdown-item' onClick={this._operationActionWrapper(action)}>{this.i18n(label)}</div>))}

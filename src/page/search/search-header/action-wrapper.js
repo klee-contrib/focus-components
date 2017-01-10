@@ -1,9 +1,10 @@
 const DEFAULT_TIMEOUT = 500; // 0.5s
-var currentCall = {};
-function actionWrapper(searchAction, context, timeout) {
+let currentCall = {};
+
+export default function actionWrapper(searchAction, context, timeout) {
     return function () {
         context = context || this || {};
-        var args = arguments;
+        let args = arguments;
         if (currentCall) {
             //Cancel previous search action.
             window.clearTimeout(currentCall.timeout);
@@ -27,4 +28,3 @@ function actionWrapper(searchAction, context, timeout) {
         return currentCall.timeout;
     };
 }
-module.exports = actionWrapper;

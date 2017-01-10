@@ -1,6 +1,6 @@
-import builder from 'focus-core/component/builder';
-const React = require('react');
-import applicationStore from 'focus-core/application/built-in-store';
+import React from 'react'
+import builder from 'focus-core/component/builder'
+import applicationStore from 'focus-core/application/built-in-store'
 
 const barMixin = {
     /**
@@ -53,17 +53,17 @@ const barMixin = {
             <div data-focus='bar'>
                 <div data-focus='bar-content-left'>
                     {barContentLeftComponent &&
-                        <barContentLeftComponent.component {...barContentLeftComponent.props}/>
+                        <barContentLeftComponent.component {...barContentLeftComponent.props} />
                     }
                 </div>
                 <div data-focus='bar-content-right'>
                     {barContentRightComponent &&
-                        <barContentRightComponent.component {...barContentRightComponent.props}/>
+                        <barContentRightComponent.component {...barContentRightComponent.props} />
                     }
                 </div>
                 <div data-focus='bar-content-middle'>
                     {summaryComponent &&
-                        <summaryComponent.component {...summaryComponent.props}/>
+                        <summaryComponent.component {...summaryComponent.props} />
                     }
                 </div>
             </div>
@@ -71,4 +71,11 @@ const barMixin = {
     }
 };
 
-module.exports = builder(barMixin);
+const builtComp = builder(barMixin);
+const {component, mixin} = builtComp;
+
+export {
+    component,
+    mixin
+}
+export default builtComp;

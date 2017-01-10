@@ -1,6 +1,5 @@
 // Dependencies
-import React, {Component} from 'react';
-import builder from 'focus-core/component/builder';
+import React from 'react';
 import {translate} from 'focus-core/translation';
 
 function DefaultEmpty() {
@@ -11,4 +10,4 @@ function DefaultEmpty() {
     );
 }
 
-module.exports = DefaultEmpty;
+export default DefaultEmpty;

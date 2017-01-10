@@ -1,23 +1,15 @@
 // Dependencies
-const React = require('react');
+import React from 'react';
 
 import {translate} from 'focus-core/translation';
 import builder from 'focus-core/component/builder';
 
-const assign = require('lodash/object/assign');
-const clone = require('lodash/lang/clone');
-const filter = require('lodash/collection/filter');
-const find = require('lodash/collection/find');
-const keys = require('lodash/object/keys');
-const isArray = require('lodash/lang/isArray');
-const map = require('lodash/collection/map');
-const mapValues = require('lodash/object/mapValues');
-const omit = require('lodash/object/omit');
+import {assign, clone, filter, keys,isArray, map, mapValues, omit} from 'lodash';
 
 // Components
 import DefaultEmpty from './default-empty-component';
-const ListSelection = require('../../../../list/selection').list.component;
-const GroupWrapper = require('./group-wrapper').component;
+import {component as ListSelection} from '../../../../list/selection/list';
+import {component as GroupWrapper} from './group-wrapper';
 
 /**
 * Results component, used to render the results, grouped or ungrouped
@@ -93,15 +85,15 @@ const Results = {
             if (this.props.renderSingleGroupDecoration) {
                 return (
                     <GroupWrapper
-                    count={count}
-                    groupComponent={this.props.groupComponent}
-                    groupKey={key}
-                    initialRowsCount={initialRowsCount}
-                    isUnique
-                    list={list}
-                    ref={`group-${key}`}
-                    renderResultsList={this._renderResultsList}
-                    showAllHandler={this._showAllHandler}
+                        count={count}
+                        groupComponent={this.props.groupComponent}
+                        groupKey={key}
+                        initialRowsCount={initialRowsCount}
+                        isUnique
+                        list={list}
+                        ref={`group-${key}`}
+                        renderResultsList={this._renderResultsList}
+                        showAllHandler={this._showAllHandler}
                     />
                 );
             } else {
@@ -110,15 +102,15 @@ const Results = {
         } else {
             return (
                 <GroupWrapper
-                count={count}
-                groupComponent={this.props.groupComponent}
-                groupKey={key}
-                initialRowsCount={initialRowsCount}
-                key={key}
-                list={list}
-                ref={`group-${key}`}
-                renderResultsList={this._renderResultsList}
-                showAllHandler={this._showAllHandler}
+                    count={count}
+                    groupComponent={this.props.groupComponent}
+                    groupKey={key}
+                    initialRowsCount={initialRowsCount}
+                    key={key}
+                    list={list}
+                    ref={`group-${key}`}
+                    renderResultsList={this._renderResultsList}
+                    showAllHandler={this._showAllHandler}
                 />
             );
         }
@@ -158,26 +150,26 @@ const Results = {
         const hasMoreData = isUnique !== undefined && isUnique && list.length < count;
         return (
             <div>
-            <ListSelection
-            data={list}
-            data-focus='results-list'
-            fetchNextPage={this._onScrollReachedBottom}
-            hasMoreData={hasMoreData}
-            idField={idField}
-            isSelection={isSelection}
-            LineComponent={LineComponent}
-            onLineClick={lineClickHandler}
-            onSelection={lineSelectionHandler}
-            operationList={lineOperationList}
-            parentSelector={scrollParentSelector}
-            ref={`list-${key}`}
-            selectionData={selectionData}
-            selectionStatus={selectionStatus}
-            {...otherProps}
-            />
-            {this.state.loading &&
+                <ListSelection
+                    data={list}
+                    data-focus='results-list'
+                    fetchNextPage={this._onScrollReachedBottom}
+                    hasMoreData={hasMoreData}
+                    idField={idField}
+                    isSelection={isSelection}
+                    LineComponent={LineComponent}
+                    onLineClick={lineClickHandler}
+                    onSelection={lineSelectionHandler}
+                    operationList={lineOperationList}
+                    parentSelector={scrollParentSelector}
+                    ref={`list-${key}`}
+                    selectionData={selectionData}
+                    selectionStatus={selectionStatus}
+                    {...otherProps}
+                />
+                {this.state.loading &&
                 <div data-focus='loading-more-results'>
-                {translate('search.loadingMore')}
+                    {translate('search.loadingMore')}
                 </div>
             }
             </div>
@@ -275,11 +267,11 @@ const Results = {
             //Check if the resultMap contains an entry which is an array.
             const isResultMapEntryAnArray = isArray(resultsMap[0]);
             if(isResultMapEntryAnArray) {
-              return {
-                  [resultsMap[0][0]]: {
-                      count: this.props.totalCount
-                  }
-              };
+                return {
+                    [resultsMap[0][0]]: {
+                        count: this.props.totalCount
+                    }
+                };
             }
             //this case occurs when the server response contains only one group with results.
             return {
@@ -353,7 +345,7 @@ const Results = {
         } else {
             return (
                 <div data-focus='search-results'>
-                {
+                    {
                     map(resultsMap, (resultGroup) => {
                         const key = keys(resultGroup)[0]; //group property name
                         const list = resultGroup[key];
@@ -364,8 +356,15 @@ const Results = {
                 </div>
             );
         }
-    },
+    }
 
 };
 
-module.exports = builder(Results);
+const builtComp = builder(Results);
+const {component, mixin} = builtComp;
+
+export {
+    component,
+    mixin
+}
+export default builtComp;

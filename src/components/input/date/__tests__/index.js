@@ -37,7 +37,7 @@ describe('The input date', () => {
         let reactComponent, inputNode;
         const onChangeSpy = sinon.spy();
         before(() => {
-            reactComponent = TestUtils.renderIntoDocument(<InputDate onChange={onChangeSpy} value={now} disabled={true} />);
+            reactComponent = TestUtils.renderIntoDocument(<InputDate onChange={onChangeSpy} value={now} disabled />);
             inputNode = ReactDOM.findDOMNode(reactComponent.refs.input.refs.htmlInput);
         });
         it('should render a node with disabled attribute', () => {

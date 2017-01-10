@@ -3,14 +3,14 @@ import builder from 'focus-core/component/builder';
 import type from 'focus-core/component/types';
 import {translate} from 'focus-core/translation';
 
-let assign = require('object-assign');
-let omit = require('lodash/object/omit');
+import assign from 'object-assign';
+import {omit} from 'lodash';
 
 // Components
-let Facet = require('./facet').component;
+import {component as Facet} from './facet';
 
 // Mixins
-let stylable = require('../../mixin/stylable');
+import stylable from '../../mixin/stylable';
 
 let FacetBox = {
     /**
@@ -100,7 +100,7 @@ let FacetBox = {
         let title = this.state.isExpanded ? translate('live.filter.title') : '';
         //TODO onClick={this._facetBoxTitleClickHandler} (le repli doit aussi etre porté par le data-focus=advanced-search
         return (
-            <div data-focus="facet-box-heading" onClick={this._facetBoxTitleClickHandler}>
+            <div data-focus='facet-box-heading' onClick={this._facetBoxTitleClickHandler}>
                 <h2>{title}</h2>
             </div>
         );
@@ -114,7 +114,7 @@ let FacetBox = {
             return '';
         }
         return (
-            <div data-focus="facet-box-body">
+            <div data-focus='facet-box-body'>
                 {Object.keys(this.props.facetList).map((facetKey) => {
                     let facet = this.props.facetList[facetKey];
                     let selectedDataKey = this.props.selectedFacetList[facetKey] ? this.props.selectedFacetList[facetKey].key : undefined;
@@ -127,7 +127,7 @@ let FacetBox = {
                                 expandHandler={this._facetExpansionHandler}
                                 selectHandler={this._facetSelectionHandler}
                                 type={this.props.config[facetKey]}
-                                />
+                            />
                         );
                     }
                 })}
@@ -167,4 +167,11 @@ let FacetBox = {
     }
 };
 
-module.exports = builder(FacetBox);
+const builtComp = builder(FacetBox);
+const {component, mixin} = builtComp;
+
+export {
+    component,
+    mixin
+}
+export default builtComp;

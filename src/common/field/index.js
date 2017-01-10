@@ -2,10 +2,10 @@ import React from 'react';
 import builder from 'focus-core/component/builder';
 import type from 'focus-core/component/types';
 // Mixins
-const valueBehaviour = require('./mixin/value-behaviour');
-const validationBehaviour = require('./mixin/validation-behaviour');
+import valueBehaviour from './mixin/value-behaviour';
+import validationBehaviour from './mixin/validation-behaviour';
 // Components
-const builtInComponents = require('./mixin/built-in-components');
+import builtInComponents from './mixin/built-in-components';
 
 /**
  * Mixin for the field helper.
@@ -42,7 +42,7 @@ const FieldMixin = {
     },
     /** @inheritdoc */
     componentWillReceiveProps(newProps) {
-        this.setState({value: newProps.value, error: newProps.error, values: newProps.values});
+        this.setState({ value: newProps.value, error: newProps.error, values: newProps.values });
     },
     /**
     * Get the css class of the field component.
@@ -62,7 +62,7 @@ const FieldMixin = {
                 {isCustomComponent && this._renderFieldComponent()}
                 {!isCustomComponent && hasLabel && label()}
                 {!isCustomComponent &&
-                    <div className ={`${this._getContentGridClassName()}`} data-focus='field-value-container'>
+                    <div className={`${this._getContentGridClassName()}`} data-focus='field-value-container'>
                         {codeResolver && searcher ? autocomplete() : keyResolver && querySearcher ? autocompleteSelect() : querySearcher ? autocompleteText() : isEdit ? (values ? select() : input()) : display()}
                     </div>
                 }
@@ -70,4 +70,11 @@ const FieldMixin = {
         );
     }
 };
-module.exports = builder(FieldMixin);
+const builtComp = builder(FieldMixin);
+const {component, mixin} = builtComp;
+
+export {
+    component,
+    mixin
+}
+export default builtComp;

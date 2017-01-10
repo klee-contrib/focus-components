@@ -1,3 +1,6 @@
-module.exports ={
-    mixin: require('./mixin')
-};
+import mixin from './mixin'
+
+export {
+    mixin
+}
+export default mixin;

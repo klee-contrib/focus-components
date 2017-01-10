@@ -1,9 +1,12 @@
+import React from 'react';
+import ReactDOM from 'react-dom';
+import { pluck, sortBy } from 'lodash';
+
 import builder from 'focus-core/component/builder';
-const React = require('react');
-const ReactDOM = require('react-dom');
 import type from 'focus-core/component/types';
-const {pluck, sortBy} = require('lodash/collection');
-const applicationStateBehaviour = require('./mixin/application-state');
+
+import applicationStateBehaviour from './mixin/application-state';
+
 const headerMixin = {
     mixins: [applicationStateBehaviour],
     /** @inheriteddoc */
@@ -29,11 +32,11 @@ const headerMixin = {
             * @type {Object}
             */
             sizeMap: {
-                'small': {
-                    'sizeBorder': 5
+                small: {
+                    sizeBorder: 5
                 },
-                'medium': {
-                    'sizeBorder': 0
+                medium: {
+                    sizeBorder: 0
                 }
             },
             /**
@@ -84,9 +87,9 @@ const headerMixin = {
     * Process the sizeMap in order to sort them by border size and create a sizes array.
     */
     _processSizes: function processSizes() {
-        var sizes = [];
-        for(var sz in this.props.sizeMap) {
-            sizes.push({name: sz, sizeBorder: this.props.sizeMap[sz].sizeBorder});
+        let sizes = [];
+        for (let sz in this.props.sizeMap) {
+            sizes.push({ name: sz, sizeBorder: this.props.sizeMap[sz].sizeBorder });
         }
         this.sizes = pluck(sortBy(sizes, 'sizeBorder'), 'name');
     },
@@ -110,7 +113,7 @@ const headerMixin = {
     * Notify other elements that the size has changed.
     */
     _notifySizeChange: function notifySizeChanged() {
-        if(this.props.notifySizeChange) {
+        if (this.props.notifySizeChange) {
             this.props.notifySizeChange(this.state.size);
         }
     },
@@ -121,7 +124,7 @@ const headerMixin = {
     */
     _changeSize: function changeSize(newSize) {
         // Todo: see if the notification of the changed size can be called before.
-        return this.setState({size: newSize}, this._notifySizeChange);
+        return this.setState({ size: newSize }, this._notifySizeChange);
     },
     /**
     * Process the size in order to know if the size should be changed depending on the scroll position and the border of each zone.
@@ -129,22 +132,22 @@ const headerMixin = {
     */
     _processSize: function _processSize() {
         //Allow the user to redefine the process size function.
-        if(this.props.processSize) {
+        if (this.props.processSize) {
             return this.props.processSize();
         }
-        var currentIndex = this.sizes.indexOf(this.state.size);
-        var currentScrollPosition = this._getScrollPosition();
+        let currentIndex = this.sizes.indexOf(this.state.size);
+        let currentScrollPosition = this._getScrollPosition();
         //Process increase treatement.
-        if(currentIndex < (this.sizes.length - 1)) {
-            var increaseBorder = this.props.sizeMap[this.sizes[currentIndex + 1]].sizeBorder;
-            if(currentScrollPosition > increaseBorder) {
+        if (currentIndex < (this.sizes.length - 1)) {
+            let increaseBorder = this.props.sizeMap[this.sizes[currentIndex + 1]].sizeBorder;
+            if (currentScrollPosition > increaseBorder) {
                 return this._changeSize(this.sizes[currentIndex + 1]);
             }
         }
         //Process decrease treatement.
-        if(currentIndex > 0) {
-            var decreaseBorder = this.props.sizeMap[this.sizes[currentIndex - 1]].sizeBorder;
-            if(currentScrollPosition <= decreaseBorder) {
+        if (currentIndex > 0) {
+            let decreaseBorder = this.props.sizeMap[this.sizes[currentIndex - 1]].sizeBorder;
+            if (currentScrollPosition <= decreaseBorder) {
                 return this._changeSize(this.sizes[currentIndex - 1]);
             }
         }
@@ -177,10 +180,17 @@ const headerMixin = {
         const className = `header-${this.state.size}`;
         return (
             <header className={className} data-focus='header' data-route={this.state.route} data-mode={this.state.mode} data-size={this.state.size}>
-            {this.props.children}
+                {this.props.children}
             </header>
         );
     }
 };
 
-module.exports = builder(headerMixin);
+const builtComp = builder(headerMixin);
+const {component, mixin} = builtComp;
+
+export {
+    component,
+    mixin
+}
+export default builtComp;

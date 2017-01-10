@@ -38,14 +38,14 @@ i18nInitializer({resStore: resources});
 const _facets = {
     Contries: {
         FCT_PAYS: {
-            FRA: {'France': 10},
-            GER: {'Germany': 7}
+            FRA: {France: 10},
+            GER: {Germany: 7}
         }
     },
     Regions: {
         FCT_REGIONS: {
             IDF: {'Ile de France': 7},
-            GRD: {'Gironde': 3}
+            GRD: {Gironde: 3}
         }
     }
 };
@@ -133,7 +133,7 @@ const getSearchService = (scoped) => {
                 let facets = crit.data.facets;
                 let facetArray = [];
 
-                var count = 0;
+                let count = 0;
                 for (let facet in facets) {
                     if (facets.hasOwnProperty(facet)) {
                         ++count;
@@ -154,8 +154,7 @@ const getSearchService = (scoped) => {
                             for(let j = 0; j < groups[name].length; j++) {
                                 group.push(groups[name][j]);
                             }
-                        }
-                        else {
+                        } else {
                             for(let i =0; i < facetsCount; i ++) {
                                 name = facetArray[i];
                                 for(let j = 0; j < groups[name].length; j++) {
@@ -163,8 +162,7 @@ const getSearchService = (scoped) => {
                                 }
                             }
                         }
-                    }
-                    else if (facetsCount > 1) {
+                    } else if (facetsCount > 1) {
                         console.log('MORE THAN ONE', facetsCount);
                         name = facetArray[1];
                         if(name === 'Ile de France') {
@@ -174,14 +172,13 @@ const getSearchService = (scoped) => {
                             group.push(groups[name][j]);
                         }
                     }
-                }
-                else {
+                } else {
                     group = list;
                 }
 
                 const data = {
                     facets: _facets,
-                    'list': group,
+                    list: group,
                     totalCount: group.length
                 };
                 success(data);
@@ -237,16 +234,16 @@ const MyAdvancedSearch = React.createClass({
                 const name = line.name;
                 switch (name) {
                     case 'Paris':
-                    alert('Achetez votre baguette et vos croissants à ' + name + '.');
-                    break;
+                        alert('Achetez votre baguette et vos croissants à ' + name + '.');
+                        break;
                     case 'Marne la Vallée':
-                    alert('Have you ever been to ' + name + '\'s Disneyland® Resort Paris ?');
-                    break;
+                        alert('Have you ever been to ' + name + '\'s Disneyland® Resort Paris ?');
+                        break;
                     default:
-                    alert('You clicked on ' + name + '.');
+                        alert('You clicked on ' + name + '.');
                 }
             },
-            placeholder:'Enter your search here...',
+            placeholder: 'Enter your search here...',
             groupMaxRows: 3,
             lineComponentMapper(list) {
                 return Line;

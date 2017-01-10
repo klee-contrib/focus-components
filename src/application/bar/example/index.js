@@ -38,14 +38,14 @@ function updateComponents(cartridgeConf) {
 //Add a defer in order to inject the props after the component is mounted
 _.defer(() => {
     updateComponents({
-        cartridge: {component: Cartridge, props:{}},
-        summary:{component: Summary, props:{}},
+        cartridge: {component: Cartridge, props: {}},
+        summary: {component: Summary, props: {}},
         actions: {
             primary: [],
             secondary: []
         },
-        barLeft: {component: BarContentLeft, props:{}},
-        barRight: {component: BarContentRight, props:{}}
+        barLeft: {component: BarContentLeft, props: {}},
+        barRight: {component: BarContentRight, props: {}}
     })
 });
 

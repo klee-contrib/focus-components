@@ -1,4 +1,4 @@
-const {isUndefined} = require('lodash/lang');
+import {isUndefined}from 'lodash';
 
 /**
 * Get the scroll position from the top of the screen.
@@ -31,5 +31,6 @@ function scrollTo(element, to, duration = 500) {
     element.scrollTop = to;
 }
 
+export {scrollTo, scrollPosition};
 
-module.exports = {scrollTo, scrollPosition};
+export default {scrollTo, scrollPosition};

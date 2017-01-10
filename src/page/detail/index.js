@@ -1,9 +1,15 @@
 
-var saveBehaviour = require('./mixin/save-behaviour');
-var validateBehaviour = require('./mixin/validate-behaviour');
-var cartridgeBehaviour = require('../mixin/cartridge-behaviour');
+let saveBehaviour = require('./mixin/save-behaviour');
+let validateBehaviour = require('./mixin/validate-behaviour');
+let cartridgeBehaviour = require('../mixin/cartridge-behaviour');
 
-var detailMixin = {
+let detailMixin = {
     mixins: [validateBehaviour, saveBehaviour, cartridgeBehaviour]
 };
-module.exports = {mixin: detailMixin};
+export {
+    detailMixin as mixin
+}
+
+export default {
+    mixin: detailMixin
+};

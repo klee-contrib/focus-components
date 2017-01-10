@@ -1,6 +1,7 @@
-let React = require('react');
-let isEqual = require('lodash/lang/isEqual');
-module.exports = function connectToStores(Component, stores, pickProps, getState) {
+import React from 'react';
+import {isEqual} from 'lodash';
+
+export default function connectToStores(Component, stores, pickProps, getState) {
     return class StoreConnector extends React.Component {
         constructor(props) {
             super(props);

@@ -1,8 +1,7 @@
-import {isFunction, isUndefined} from 'lodash/lang';
+import {isFunction} from 'lodash';
 import {setHeader} from 'focus-core/application';
-import {component as Empty} from '../../common/empty';
 
-module.exports = {
+export default {
 
     /**
      * Updates the cartridge using the cartridgeConfiguration.

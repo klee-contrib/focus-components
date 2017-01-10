@@ -1,6 +1,6 @@
 import React from 'react';
 import {translate} from 'focus-core/translation';
-import {map} from 'lodash/collection';
+import {map} from 'lodash';
 
 // Components
 import Button from '../button';
@@ -25,7 +25,7 @@ function TopicDisplayer({displayLabels, topicList, topicClickAction}) {
                         icon='clear'
                         key={key}
                         label={text}
-                        />
+                    />
                 );
             })}
         </div>

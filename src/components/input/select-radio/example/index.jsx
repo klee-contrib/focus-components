@@ -33,13 +33,15 @@ const SelectRadioSample = React.createClass({
                 <h3>Classic select radio</h3>
                 <SelectRadio
                     value='B'
-                    values={values} ref="mySelectRadio" />
+                    values={values} ref='mySelectRadio'
+                />
                 <br/>
-                <Button onClick={this.handleGetValueClick} hasRipple={true} label='Selected value' color='primary' />
+                <Button onClick={this.handleGetValueClick} hasRipple label='Selected value' color='primary' />
                 <h3>OnChange event overload</h3>
                 <SelectRadio
                     value='A'
-                    values={values} onChange={this.handleOnChange} ref='selectRadioExample'/>
+                    values={values} onChange={this.handleOnChange} ref='selectRadioExample'
+                />
             </div>);
     }
 });

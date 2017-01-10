@@ -1,10 +1,8 @@
 // Dependencies
 
-import React, {PropTypes} from 'react';
-import find from 'lodash/collection/find';
-import result from 'lodash/object/result';
-import assign from 'object-assign';
-import {addRefToPropsIfNotPure, INPUT, DISPLAY} from '../../../utils/is-react-class-component';
+import React, { PropTypes } from 'react';
+import { find, result } from 'lodash';
+import { addRefToPropsIfNotPure, INPUT, DISPLAY } from '../../../utils/is-react-class-component';
 
 // Components
 import AutocompleteSelectComponent from '../../../components/input/autocomplete-select/field';
@@ -13,7 +11,6 @@ import InputText from '../../../components/input/text';
 import DisplayText from '../../../components/display/text';
 import SelectClassic from '../../../components/input/select';
 import Label from '../../../components/label';
-import {component as Autocomplete} from '../../autocomplete/field';
 
 
 // Mixins
@@ -47,7 +44,6 @@ const fieldBuiltInComponentsMixin = {
              * Autocomplete component
              * @type {Object}
              */
-            AutocompleteComponent: Autocomplete,
             AutocompleteSelectComponent,
             AutocompleteTextComponent,
             /**
@@ -94,7 +90,7 @@ const fieldBuiltInComponentsMixin = {
         const {name, label, LabelComponent, domain} = this.props;
         return (
             <div
-                className ={`${this._getLabelGridClassName()}`}
+                className={`${this._getLabelGridClassName()}`}
                 data-focus='field-label-container'
             >
                 <LabelComponent
@@ -122,7 +118,7 @@ const fieldBuiltInComponentsMixin = {
             placeholder
         };
         const finalInputProps = addRefToPropsIfNotPure(this.props.InputComponent, inputBuildedProps, INPUT)
-        return <this.props.InputComponent {...finalInputProps}/>;
+        return <this.props.InputComponent {...finalInputProps} />;
     },
     /**
      * Autocomplete render
@@ -141,7 +137,7 @@ const fieldBuiltInComponentsMixin = {
             placeholder
         };
         const finalInputProps = addRefToPropsIfNotPure(this.props.AutocompleteComponent, inputBuildedProps, INPUT);
-        return <this.props.AutocompleteComponent {...finalInputProps}/>;
+        return <this.props.AutocompleteComponent {...finalInputProps} />;
     },
     autocompleteSelect() {
         const {name: id, label: placeHolder} = this.props;
@@ -156,7 +152,7 @@ const fieldBuiltInComponentsMixin = {
             placeHolder
         };
         const finalInputProps = addRefToPropsIfNotPure(this.props.AutocompleteSelectComponent, inputBuildedProps, INPUT)
-        return <this.props.AutocompleteSelectComponent {...finalInputProps}/>;
+        return <this.props.AutocompleteSelectComponent {...finalInputProps} />;
     },
     autocompleteText() {
         const {name: id, label: placeHolder} = this.props;
@@ -171,7 +167,7 @@ const fieldBuiltInComponentsMixin = {
             placeHolder
         };
         const finalInputProps = addRefToPropsIfNotPure(this.props.AutocompleteTextComponent, inputBuildedProps, INPUT)
-        return <this.props.AutocompleteTextComponent {...finalInputProps}/>;
+        return <this.props.AutocompleteTextComponent {...finalInputProps} />;
     },
     /**
      * Build a select component depending on the domain, definition and props.
@@ -196,7 +192,7 @@ const fieldBuiltInComponentsMixin = {
     display() {
         const {value} = this.state;
         const {name, valueKey, labelKey, values} = this.props;
-        const _processValue = values ? result(find(values, {[valueKey || 'code']: value}), labelKey || 'label') : value;
+        const _processValue = values ? result(find(values, { [valueKey || 'code']: value }), labelKey || 'label') : value;
         const buildedDislplayProps = {
             ...this.props,
             id: name,
@@ -204,7 +200,7 @@ const fieldBuiltInComponentsMixin = {
             value: _processValue
         };
         const finalDisplayProps = addRefToPropsIfNotPure(this.props.DisplayComponent, buildedDislplayProps, DISPLAY);
-        return <this.props.DisplayComponent {...finalDisplayProps}/>;
+        return <this.props.DisplayComponent {...finalDisplayProps} />;
     },
     /**
     * Render the error part of the component.
