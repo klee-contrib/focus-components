@@ -39,9 +39,9 @@ function _renderButton(menuButton, LinkComponent, navigate) {
 
     if(menuButton.route !== undefined) {
         //React router case
-        if(LinkComponent){
+        if(LinkComponent) {
             //Todo: check menButton onClick use
-            return <LinkComponent to={menuButton.route} style={{color: 'white'}}><Button  {...menuButtonProps}/></LinkComponent>
+            return <LinkComponent to={menuButton.route} style={{color: 'white'}}><Button {...menuButtonProps}/></LinkComponent>
         }
         //Backbone case
         clickHandler = () => {

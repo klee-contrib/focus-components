@@ -79,9 +79,9 @@ const MyFacetBox = React.createClass({
                 config={config}
                 dataSelectionHandler={dataSelectionHandler}
                 facetList={facetList}
-                openedFacetList={{FCT_CONTRIES:true}}
+                openedFacetList={{FCT_CONTRIES: true}}
                 selectedFacetList={selectedFacetList}
-                />
+            />
         );
     }
 });

@@ -28,7 +28,7 @@ const _querySearcher = query => {
 const _querySearcher2 = query => {
     let data = [];
     if(data.length == 0) {
-        data =  [
+        data = [
             {
                 key: 'ERR',
                 label: 'Oops, no data to show here...'
@@ -72,14 +72,14 @@ class AutocompleteTextExample extends React.Component {
                     querySearcher={_querySearcher}
                     placeholder={'Your search...'}
                     inputTimeout={1000}
-                    />
+                />
                 <br/>
                 <AutocompleteText
                     isEdit={isEdit}
                     querySearcher={_querySearcher2}
                     placeholder={'Custom dropdown failed results...'}
                     inputTimeout={1000}
-                    />
+                />
                 <br/>
                 <AutocompleteText
                     isEdit={isEdit}
@@ -87,7 +87,7 @@ class AutocompleteTextExample extends React.Component {
                     placeholder={'Error in the field...'}
                     error='This field is required'
                     inputTimeout={1000}
-                    />
+                />
                 <br/>
             </div>
         );

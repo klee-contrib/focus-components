@@ -62,7 +62,7 @@ const listUsers = [
         id: countId++,
         firstName: 'Guénolé',
         lastName: 'Kikabou'
-    },
+    }
 ];
 
 const listDevices = [
@@ -122,7 +122,7 @@ const MyQuickSearch = React.createClass({
     componentDidMount() {
         this.refs.QuickSearch.refs.searchBar.setState({scope: 'FAVORITES'});
         const allArray = listUsers.concat(listDevices);
-        this.refs.QuickSearch.setState({resultsMap: {'All': allArray}});
+        this.refs.QuickSearch.setState({resultsMap: {All: allArray}});
     },
     getSearchService(scoped) {
         return (criteria) => {
@@ -134,20 +134,17 @@ const MyQuickSearch = React.createClass({
                     let payload;
                     if(criteria.data.criteria.scope === 'FAVORITES') {
                         payload = listUsers.concat(listDevices);
-                    }
-                    else if (criteria.data.criteria.scope == 'DEVICES') {
+                    } else if (criteria.data.criteria.scope == 'DEVICES') {
                         payload = listDevices;
-                    }
-                    else if(criteria.data.criteria.scope == 'USERS') {
+                    } else if(criteria.data.criteria.scope == 'USERS') {
                         payload = listUsers;
-                    }
-                    else {
+                    } else {
                         console.warn('ERROR IN THE SCOPE SECTION');
                     }
 
                     const data = {
                         facets: {},
-                        'list': payload,
+                        list: payload,
                         totalCount: payload.length
                     };
                     success(data);
@@ -196,19 +193,19 @@ const MyQuickSearch = React.createClass({
                 const name = line.firstName + ' ' + line.lastName;
                 switch (name) {
                     case 'Ali Gator':
-                    alert('Grrr grrr, does the ' + name + '.');
-                    break;
+                        alert('Grrr grrr, does the ' + name + '.');
+                        break;
                     case 'Perry Scope':
-                    alert(name + ' now everybody know you.');
-                    break;
+                        alert(name + ' now everybody know you.');
+                        break;
                     case 'Cho Case':
-                    alert('You are actualy on the ' + name + '... Showcase => Cho Kaze... Ok, I\'m done for tonight.');
-                    break;
+                        alert('You are actualy on the ' + name + '... Showcase => Cho Kaze... Ok, I\'m done for tonight.');
+                        break;
                     default:
-                    alert('It\'s ' + name + '.');
+                        alert('It\'s ' + name + '.');
                 }
             },
-            placeholder:'Enter your search here...',
+            placeholder: 'Enter your search here...',
             groupMaxRows: 3,
             lineComponentMapper(list) {
                 return Line;

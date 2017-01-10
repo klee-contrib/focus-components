@@ -4,14 +4,14 @@ import ReactDOM from 'react-dom';
 import builder from 'focus-core/component/builder';
 import {translate} from 'focus-core/translation';
 
-const actionWrapper = require('../../page/search/search-header/action-wrapper');
+import actionWrapper from '../../page/search/search-header/action-wrapper';
 
 // Components
-const Scope = require('./scope').component;
+import {component as Scope} from './scope';
 import Input from '../../components/input/text';
 
 // Mixins
-const stylable = require('../../mixin/stylable');
+import stylable from '../../mixin/stylable';
 
 /**
 * SearchBar component
@@ -192,18 +192,25 @@ const SearchBar = {
         }
         return (
             <div data-focus='search-bar'>
-            {hasScopes &&
+                {hasScopes &&
                 <Scope list={scopes} onScopeSelection={this._onScopeSelection} ref='scope' value={scope}/>
             }
-            <div data-focus='search-bar-input'>
-            <Input name='searchbarinput' onChange={this._onInputChange} onKeyPress={this._handleInputKeyPress} placeholder={translate(placeholder)} ref='query' value={query}/>
-            {loading &&
-                <div className='three-quarters-loader' data-role='spinner'></div>
+                <div data-focus='search-bar-input'>
+                    <Input name='searchbarinput' onChange={this._onInputChange} onKeyPress={this._handleInputKeyPress} placeholder={translate(placeholder)} ref='query' value={query}/>
+                    {loading &&
+                    <div className='three-quarters-loader' data-role='spinner' />
             }
-            </div>
+                </div>
             </div>
         );
     }
 };
 
-module.exports = builder(SearchBar);
+const builtComp = builder(SearchBar);
+const {component, mixin} = builtComp;
+
+export {
+    component,
+    mixin
+}
+export default builtComp;

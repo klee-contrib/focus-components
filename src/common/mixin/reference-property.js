@@ -1,5 +1,5 @@
 import type from 'focus-core/component/types';
-var referenceMixin = {
+const referenceMixin = {
   /** @inheritdoc */
     getDefaultProps: function getDefaultProps() {
         return {
@@ -23,4 +23,4 @@ var referenceMixin = {
         return this.props.reference;
     }
 };
-module.exports = referenceMixin;
+export default referenceMixin;

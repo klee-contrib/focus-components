@@ -1,17 +1,14 @@
 import {translate} from 'focus-core/translation';
 
 import React, {PropTypes} from 'react';
-const ReactDOM = require('react-dom');
+import ReactDOM from 'react-dom';
 
 import builder from 'focus-core/component/builder';
-import type from 'focus-core/component/types';
-const uuid = require('uuid');
-const find = require('lodash/collection/find');
-const {uniqueId} = require('lodash/utility');
+import {find, uniqueId} from 'lodash';
 
 // Components
 import Icon from '../../components/icon';
-const Dropdown = require('../../common/select-action').component;
+import {component as Dropdown} from '../../common/select-action';
 
 const scopeMixin = {
     /**
@@ -140,4 +137,11 @@ const scopeMixin = {
         );
     }
 };
-module.exports = builder(scopeMixin);
+const builtComp = builder(scopeMixin);
+const {component, mixin} = builtComp;
+
+export {
+    component,
+    mixin
+}
+export default builtComp;

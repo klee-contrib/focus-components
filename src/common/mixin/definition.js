@@ -21,4 +21,4 @@ const definitionMixin = {
     }
 };
 
-module.exports = definitionMixin;
+export default definitionMixin;

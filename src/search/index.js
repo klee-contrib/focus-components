@@ -1,4 +1,11 @@
-module.exports = {
-    facetBox: require('./facet-box'),
-    searchBar: require('./search-bar')
-};
+import facetBox from './facet-box'
+import searchBar from './search-bar'
+
+export {
+    facetBox,
+    searchBar
+}
+export default {
+    facetBox, 
+    searchBar
+}

@@ -1,11 +1,14 @@
+import React from 'react';
+
+import assign from 'object-assign';
+import { upperFirst } from 'lodash';
+
 import builder from 'focus-core/component/builder';
-var React = require('react');
-import type from 'focus-core/component/types';
+
 import messageStore from 'focus-core/message/built-in-store';
-var Message = require('../../message').component;
-var assign = require('object-assign');
-var capitalize = require('lodash/string/capitalize')
-var messageCenterMixin = {
+import { component as Message } from '../../message';
+
+let messageCenterMixin = {
     getDefaultProps: function getCartridgeDefaultProps() {
         return {
             ttlInfo: 10000,
@@ -13,58 +16,64 @@ var messageCenterMixin = {
             style: {}
         };
     },
-  /** @inheriteddoc */
+    /** @inheriteddoc */
     getInitialState: function getCartridgeInitialState() {
         return this._getStateFromStore();
     },
-  /** @inheriteddoc */
+    /** @inheriteddoc */
     componentWillMount: function cartridgeWillMount() {
         messageStore.addPushedMessageListener(this._handlePushMessage);
         messageStore.addClearMessagesListener(this._handleClearMessage);
     },
-  /** @inheriteddoc */
+    /** @inheriteddoc */
     componentWillUnmount: function cartridgeWillUnMount() {
         messageStore.removePushedMessageListener(this._handlePushMessage);
         messageStore.removeClearMessagesListener(this._handleClearMessage);
     },
     _getStateFromStore: function getCartridgeStateFromStore() {
-        return {messages: messageStore.getMessages() || {} };
+        return { messages: messageStore.getMessages() || {} };
     },
     _handlePushMessage: function _handlePushMessage(messageId) {
-        var messages = this.state.messages;
+        let messages = this.state.messages;
         messages[messageId] = messageStore.getMessage(messageId);
-        this.setState({messages: messages});
+        this.setState({ messages: messages });
     },
     _handleClearMessage: function _handleClearMessage() {
-        this.setState({messages: {}});
+        this.setState({ messages: {} });
     },
     _handleRemoveMessage: function _handleRemoveMessage(messageId) {
-        var msgs = this.state.messages;
+        let msgs = this.state.messages;
         delete msgs[messageId];
-        this.setState({messages: msgs});
+        this.setState({ messages: msgs });
     },
     renderMessages: function renderMessages() {
-        var msgs = [];
-        for(var msgKey in this.state.messages) {
+        let msgs = [];
+        for (let msgKey in this.state.messages) {
             let msg = this.state.messages[msgKey];
-            let ttlConf = {};
-            let messageProps = assign(this.state.messages[msgKey], {handleOnClick: this._handleRemoveMessage, key: msgKey});
-            if(msg.type === 'info' || msg.type ==='success') {
-                assign(messageProps, {ttl: this.props[`ttl${capitalize(msg.type)}`], handleTimeToLeave: this._handleRemoveMessage});
+            let messageProps = assign(this.state.messages[msgKey], { handleOnClick: this._handleRemoveMessage, key: msgKey });
+            if (msg.type === 'info' || msg.type === 'success') {
+                assign(messageProps, { ttl: this.props[`ttl${upperFirst(msg.type)}`], handleTimeToLeave: this._handleRemoveMessage });
             }
             msgs.push(React.createElement(Message, messageProps));
         }
         return msgs;
     },
-  /** @inheriteddoc */
+    /** @inheriteddoc */
     render: function renderMessageCenter() {
-        var className = `message-center ${this.props.style.className}`;
+        let className = `message-center ${this.props.style.className}`;
         return (
-      <div className={className} data-focus='message-center'>
-        {this.renderMessages()}
-      </div>
-    );
+            <div className={className} data-focus='message-center'>
+                {this.renderMessages()}
+            </div>
+        );
     }
 };
 
-module.exports = builder(messageCenterMixin);
+const builtComp = builder(messageCenterMixin);
+const {component, mixin} = builtComp;
+
+export {
+    component,
+    mixin
+}
+export default builtComp;

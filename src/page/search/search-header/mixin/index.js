@@ -1,9 +1,9 @@
-const React = require('react');
-const referenceBehaviour = require('../../../../common/form/mixin/reference-behaviour');
-const storeBehaviour = require('../../../../common/mixin/store-behaviour');
+import React from 'react';
+import referenceBehaviour from '../../../../common/form/mixin/reference-behaviour';
+import storeBehaviour from '../../../../common/mixin/store-behaviour';
 
 // Components
-const SearchBar = require('../../../../search/search-bar').component;
+import {component as SearchBar} from '../../../../search/search-bar';
 
 // Actions
 import actionBuilder from 'focus-core/search/action-builder';
@@ -11,7 +11,7 @@ import actionBuilder from 'focus-core/search/action-builder';
 // Store
 import {advancedSearchStore} from 'focus-core/search/built-in-store';
 
-module.exports = {
+export default {
     mixins: [referenceBehaviour, storeBehaviour],
     referenceNames: ['scopes'],
     getDefaultProps() {
@@ -60,7 +60,8 @@ module.exports = {
                 ref='searchBar'
                 scopes={scopes}
                 store={store}
-                onSearchCriteriaChangeByUser={onSearchCriteriaChangeByUser} />
+                onSearchCriteriaChangeByUser={onSearchCriteriaChangeByUser}
+            />
         );
     }
 };

@@ -4,8 +4,6 @@ import formatter from 'focus-core/definition/formatter/number';
 
 //web components
 import Button from '../../../components/button';
-import Column from '../../../components/column';
-import Grid from '../../../components/grid';
 
 const propTypes = {
     canShowMore: PropTypes.bool.isRequired,
@@ -31,7 +29,7 @@ class AdvancedSearchGroup extends Component {
                     <span>{formatter.format(count)}</span>
                 </h3>
                 <p>{this.i18n('search.mostRelevant')}</p>
-                <div data-focus="group-container-results">
+                <div data-focus='group-container-results'>
                     {children}
                 </div>
                 <div data-focus='group-container-actions'>

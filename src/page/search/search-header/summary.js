@@ -1,8 +1,8 @@
 // Components
-const React = require('react');
-const searchHeaderMixin = require('./mixin');
+import React from 'react';
+import searchHeaderMixin from './mixin';
 
-module.exports = React.createClass({
+export default React.createClass({
     mixins: [searchHeaderMixin],
     render() {
         return this._SearchBarComponent();

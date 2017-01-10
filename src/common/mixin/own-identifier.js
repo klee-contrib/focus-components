@@ -1,9 +1,9 @@
-let uuid = require('uuid');
+import uuid from 'uuid';
 /**
  * Export a method which add an identifier to component;
  * @type {Object}
  */
-module.exports = {
+export default {
     /** @inheriteDoc */
     componentWillMount() {
         Object.defineProperty( this, '_identifier', {

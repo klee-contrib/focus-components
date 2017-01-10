@@ -61,19 +61,19 @@ function Animation({customClasses, appear, enter, leave, appearName,
         }
     }
     return (
-      <ReactCSSTransitionGroup
-          transitionAppear={appear}
-          transitionAppearTimeout={enter}
-          transitionEnter={leave}
-          transitionEnterTimeout={appearTimeout}
-          transitionLeave={enterTimeout}
-          transitionLeaveTimeout={leaveTimeout}
-          transitionName={transitionClassName}
-      >
-          <div className='animated'>
-            {otherProps.children}
-          </div>
-      </ReactCSSTransitionGroup>
+        <ReactCSSTransitionGroup
+            transitionAppear={appear}
+            transitionAppearTimeout={enter}
+            transitionEnter={leave}
+            transitionEnterTimeout={appearTimeout}
+            transitionLeave={enterTimeout}
+            transitionLeaveTimeout={leaveTimeout}
+            transitionName={transitionClassName}
+        >
+            <div className='animated'>
+                {otherProps.children}
+            </div>
+        </ReactCSSTransitionGroup>
     );
 }
 

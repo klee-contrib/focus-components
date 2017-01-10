@@ -4,13 +4,13 @@ const {renderIntoDocument,findRenderedDOMComponentWithClass} = TestUtils;
 const alertSpy = sinon.spy();
 
 const actions = [
-    {label: "Action_a", msg: "Action a"},
-    {label: "Action_b", msg: "Action b"},
-    {label: "Action_c", msg: "Action c"},
-    {label: "Action_d", msg: "Action d"},
+    {label: 'Action_a', msg: 'Action a'},
+    {label: 'Action_b', msg: 'Action b'},
+    {label: 'Action_c', msg: 'Action c'},
+    {label: 'Action_d', msg: 'Action d'}
 ];
 
-const operationList = actions.map(({label, msg}) => ({label:label , action: () => alertSpy({msg:msg})}));
+const operationList = actions.map(({label, msg}) => ({label: label , action: () => alertSpy({msg: msg})}));
 
 function isButtonRendered(renderedTest) {
     return (TestFocus.findFocusElementsWithDataFocus(renderedTest, TestFocus.VAL_DATA_FOCUS_BUTTON).length == 1);
@@ -23,8 +23,9 @@ function isMenuRendered(renderedTest) {
 describe('The icon-dropdown component', () => {
     describe('when dropdown is rendered', () => {
 
-        const reactCpt = <IconDropDown operationList={operationList} position="left" iconProps={{name: 'apps'}}
-                                       shape="raised"/>;
+        const reactCpt = (<IconDropDown operationList={operationList} position='left' iconProps={{name: 'apps'}}
+            shape='raised'
+                          />);
         let renderedTest;
 
         before(

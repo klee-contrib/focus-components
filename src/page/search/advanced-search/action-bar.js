@@ -1,19 +1,15 @@
 // Dependencies
-const React = require('react');
+import React from 'react';
 import builder from 'focus-core/component/builder';
-const {reduce} = require('lodash/collection');
-const {omit} = require('lodash/object');
-
+import {reduce, omit} from 'lodash';
+import {translate} from 'focus-core/translation';
 // Components
 
-const ListActionBar = require('../../../list/action-bar/index').component;
+import {component as ListActionBar} from '../../../list/action-bar/index';
 
 //Mixins
 
-const i18nMixin = require('../../../common/i18n/mixin');
-
 const Bar = {
-    mixins: [i18nMixin],
     /**
      * Get the default props
      * @return {object} the default props
@@ -40,7 +36,7 @@ const Bar = {
         const {selectedFacets} = this.props;
         return reduce(selectedFacets, (result, facet, facetKey) => {
             result[facetKey] = {
-                label: this.i18n(`live.filter.facets.${facetKey}`),
+                label: translate(`live.filter.facets.${facetKey}`),
                 value: facet.data.label
             };
             return result;
@@ -102,4 +98,11 @@ const Bar = {
     }
 };
 
-module.exports = builder(Bar);
+const builtComp = builder(Bar);
+const {component, mixin} = builtComp;
+
+export {
+    component,
+    mixin
+}
+export default builtComp;

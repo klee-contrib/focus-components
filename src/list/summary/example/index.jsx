@@ -1,12 +1,12 @@
 const ListSummary = FocusComponents.list.summary.component;
 const i18nInitializer = FocusCore.translation.init;
 
-var resources = {
+let resources = {
     dev: {
         translation: {
-            'result': {
-                'for': 'results have been found for ',
-                'export': 'Export'
+            result: {
+                for: 'results have been found for ',
+                export: 'Export'
             }
         }
     }
@@ -24,11 +24,11 @@ const ListSummaryExample = React.createClass({
             <div>
                 <ListSummary
                     nb={8}
-                    queryText="Superman"
+                    queryText='Superman'
                     scopeList={scopes}
-                    scopeClickAction={(scopeKey) => {console.log("Removed scope : " + scopeKey); }}
-                    exportAction={() => {console.log("Export action"); }}
-                    />
+                    scopeClickAction={(scopeKey) => {console.log('Removed scope : ' + scopeKey); }}
+                    exportAction={() => {console.log('Export action'); }}
+                />
             </div>
         );
     }

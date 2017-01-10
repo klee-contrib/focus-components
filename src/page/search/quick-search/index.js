@@ -194,4 +194,11 @@ const QuickSearchComponent = {
     }
 };
 
-module.exports = builder(QuickSearchComponent);
+const builtComp = builder(QuickSearchComponent);
+const {component, mixin} = builtComp;
+
+export {
+    component,
+    mixin
+}
+export default builtComp;

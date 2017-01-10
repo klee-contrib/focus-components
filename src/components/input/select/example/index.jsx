@@ -22,13 +22,13 @@ function _capitalize(string) {
 
 
 const SelectSample = React.createClass({
-    onChangeSelect(name){
-        return (value)=>{
+    onChangeSelect(name) {
+        return (value) => {
             console.log('change', name, value);
             this.setState({[name]: value, [`error${_capitalize(name)}`]: null});
         };
     },
-    getInitialState(){
+    getInitialState() {
         return {
             valueHasUndefined: 'B',
             valueNonRequis: 'B',
@@ -60,23 +60,23 @@ const SelectSample = React.createClass({
                 </p>
                 <p>
                     <span>Requis</span>
-                    <SelectInput name='valueRequis' onChange={this.onChangeSelect('valueRequis')} isRequired={true} value={valueRequis}  values={valuesExample}/>
+                    <SelectInput name='valueRequis' onChange={this.onChangeSelect('valueRequis')} isRequired value={valueRequis} values={valuesExample}/>
                 </p>
                 <h3>Liste simple sans valeur préselectionnée</h3>
                 <SelectInput name='valueWithoutValue' onChange={this.onChangeSelect('valueWithoutValue')} value={valueWithoutValue} values={valuesExample} />
 
                 <h3>Liste simple avec redéfinition des code /value</h3>
-                <SelectInput name='valueCodeRedefined' labelKey='name'  onChange={this.onChangeSelect('valueCodeRedefined')} valueKey='id' value={valueCodeRedefined} values={valuesCustomExample} />
+                <SelectInput name='valueCodeRedefined' labelKey='name' onChange={this.onChangeSelect('valueCodeRedefined')} valueKey='id' value={valueCodeRedefined} values={valuesCustomExample} />
 
                 <h3>Select avec une erreur</h3>
                 <h3>Liste simple avec redéfinition des code /value</h3>
                 <SelectInput error={errorValueError} name='valueError' onChange={this.onChangeSelect('valueError')} value={valueError} values={valuesExample} />
 
                 <h3>Liste simple avec valeurs entières</h3>
-                <SelectInput name='valueIntValues' onChange={this.onChangeSelect('valueIntValues')} value={valueIntValues}  values={valuesInt} />
+                <SelectInput name='valueIntValues' onChange={this.onChangeSelect('valueIntValues')} value={valueIntValues} values={valuesInt} />
 
                 <h3>Liste désactivée</h3>
-                <SelectInput  disabled={true} name='valueListDesactive' onChange={this.onChangeSelect('valueListDesactive')} value={valueListDesactive}  values={valuesInt} />
+                <SelectInput disabled name='valueListDesactive' onChange={this.onChangeSelect('valueListDesactive')} value={valueListDesactive} values={valuesInt} />
             </div>
         );
     }

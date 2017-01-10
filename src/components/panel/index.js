@@ -1,11 +1,8 @@
-import React, {Component, PropTypes} from 'react';
-import {findDOMNode} from 'react-dom';
+import React, { Component, PropTypes } from 'react';
+import { findDOMNode } from 'react-dom';
 import Translation from '../../behaviours/translation';
-import {includes} from 'lodash/collection';
-import {uniqueId} from 'lodash/utility';
-import {snakeCase} from 'lodash/string';
+import { includes, uniqueId, snakeCase } from 'lodash';
 import ButtonHelp from '../button-help';
-import xor from 'lodash/array/xor';
 
 const defaultProps = {
     actionsPosition: 'top'

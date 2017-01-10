@@ -1,6 +1,6 @@
 import type from 'focus-core/component/types';
 
-var paginationMixin = {
+let paginationMixin = {
     /**
      * @inheritDoc
      */
@@ -41,4 +41,10 @@ var paginationMixin = {
     }
 };
 
-module.exports = {mixin: paginationMixin};
+export {
+    paginationMixin as mixin
+}
+
+export default {
+    mixin: paginationMixin
+}

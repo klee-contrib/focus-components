@@ -1,10 +1,9 @@
 // Dependencies
 
-let isFunction = require('lodash/lang/isFunction');
+import {isFunction} from 'lodash';
 
 // Stores
-
-let BuiltInSearchStore = Focus.search.builtInStore;
+import BuiltInSearchStore from 'focus-core/search/built-in-store';
 
 let SearchMixin = {
     getDefaultProps() {
@@ -63,6 +62,6 @@ let SearchMixin = {
     }
 };
 
-module.exports = {
-    mixin: SearchMixin
+export {
+    SearchMixin as mixin
 };

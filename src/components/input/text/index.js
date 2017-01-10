@@ -1,10 +1,10 @@
 //dependencies
-import React, {Component, PropTypes} from 'react';
+import React, { Component, PropTypes } from 'react';
 import ReactDOM from 'react-dom';
-import {identity} from 'lodash/utility';
+import { identity } from 'lodash';
 import ComponentBaseBehaviour from '../../../behaviours/component-base';
 import MDBehaviour from '../../../behaviours/material';
-const MODE = {isEdit: true};
+const MODE = { isEdit: true };
 
 const propTypes = {
     disabled: PropTypes.bool,

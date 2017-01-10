@@ -101,7 +101,7 @@ const MyAutocomplete = React.createClass({
             <div>
                 <h1> Enter your city name</h1>
                 <h5>Here is the AutocompleteSelect imported to give a customized confirm popin. You'll have the posibility to get the data you want from it.</h5>
-                <AutocompleteSelect ref='autocomp' isEdit={isEdit} keyResolver={keyResolver} querySearcher={querySearcher} onChange={ () => console.log('Autocomplete text is changing')} />
+                <AutocompleteSelect ref='autocomp' isEdit={isEdit} keyResolver={keyResolver} querySearcher={querySearcher} onChange={() => console.log('Autocomplete text is changing')} />
             </div>
         );
     }

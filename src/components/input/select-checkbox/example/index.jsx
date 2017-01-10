@@ -48,19 +48,19 @@ const SelectCheckboxSample = React.createClass({
         return (
             <div>
                 <h3>List of checkboxes</h3>
-                <SelectCheckbox values={possibleValues} ref="mySelectCheckbox" />
+                <SelectCheckbox values={possibleValues} ref='mySelectCheckbox' />
                 <h3>List of checkboxes with preselected values</h3>
                 <SelectCheckbox
                     value={['B','C']}
-                    values={possibleValues} ref="mySelectCheckbox"
-                    />
+                    values={possibleValues} ref='mySelectCheckbox'
+                />
                 <br />
-                <Button onClick={this.getValueClick} hasRipple={true} label='Selected values' color='primary' />
+                <Button onClick={this.getValueClick} hasRipple label='Selected values' color='primary' />
                 <h3>Add OnChange event</h3>
                 <SelectCheckbox
                     value={this.state.selectedValues}
-                    values={possibleValues} ref="mySelectCheckbox2" onChange={this.customGetValueClick}
-                    />
+                    values={possibleValues} ref='mySelectCheckbox2' onChange={this.customGetValueClick}
+                />
             </div>
         );
     }

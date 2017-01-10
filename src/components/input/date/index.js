@@ -2,13 +2,13 @@
 import React, { Component, PropTypes } from 'react';
 import ReactDOM from 'react-dom';
 import moment from 'moment';
+import DatePicker from 'react-date-picker';
+import { isArray, uniqueId } from 'lodash';
+import closest from 'closest';
+
 import Base from '../../../behaviours/component-base';
 import InputText from '../text';
-import DatePicker from 'react-date-picker';
-import compose from 'lodash/function/compose';
-import isArray from 'lodash/lang/isArray';
-import uniqueId from 'lodash/utility/uniqueId';
-import closest from 'closest';
+
 
 const isISOString = value => moment.utc(value, moment.ISO_8601, true).isValid();
 
@@ -191,7 +191,7 @@ class InputDate extends Component {
                             ref='picker'
                             minDate={minDate}
                             maxDate={maxDate}
-                            />
+                        />
                     </div>
                 }
             </div>

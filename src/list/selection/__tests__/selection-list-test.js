@@ -10,48 +10,48 @@ let data = {
 import {container as domainContainer} from 'focus-core/definition/domain';
 import {container as entityContainer} from 'focus-core/definition/entity';
 
-var domain = {
-    'DO_TEXT': {
+let domain = {
+    DO_TEXT: {
         style: 'do_text',
         type: 'text',
         component: 'PapaSinge',
         validation: [{
             type: 'function',
             value: function() {
-              return false;
-          }
+                return false;
+            }
         }]
     },
-    'DO_EMAIL': {
+    DO_EMAIL: {
         style: 'do_email',
         type: 'email',
         component: 'PapaMail',
         validation: [{
             type: 'function',
             value: function() {
-              return true;
-          }
+                return true;
+            }
         }]
     }
 };
 domainContainer.setAll(domain);
-var entities ={
-    'contact': {
-        'firstName': {
-            'domain': 'DO_TEXT',
-            'required': false
+let entities ={
+    contact: {
+        firstName: {
+            domain: 'DO_TEXT',
+            required: false
         },
-        'lastName': {
-            'domain': 'DO_TEXT',
-            'required': true
+        lastName: {
+            domain: 'DO_TEXT',
+            required: true
         },
-        'age': {
-            'domain': 'DO_NUMBER',
-            'required': false
+        age: {
+            domain: 'DO_NUMBER',
+            required: false
         },
-        'email': {
-            'domain': 'DO_EMAIL',
-            'required': false
+        email: {
+            domain: 'DO_EMAIL',
+            required: false
         }
     }};
 entityContainer.setEntityConfiguration(entities);

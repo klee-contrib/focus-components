@@ -2,7 +2,7 @@
 
 import storeGetter from 'focus-core/reference/built-in-store';
 import builtInActionReferenceLoader from 'focus-core/reference/built-in-action';
-const isEmpty = require('lodash/lang/isEmpty');
+import {isEmpty} from 'lodash';
 const referenceMixin = {
     /** @inheritdoc */
     /*  getDefaultProps: function getReferenceDefaultProps(){
@@ -60,4 +60,4 @@ const referenceMixin = {
     }
 };
 
-module.exports = referenceMixin;
+export default referenceMixin;

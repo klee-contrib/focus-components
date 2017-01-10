@@ -1,9 +1,9 @@
 const {TopicDisplayer} = FocusComponents.components;
 
 const topicList = {
-    t1:"Topic 1",
-    t2: "Topic 2",
-    t3: "Topic 3"
+    t1: 'Topic 1',
+    t2: 'Topic 2',
+    t3: 'Topic 3'
 };
 
 const TopicDisplayerExample = React.createClass({

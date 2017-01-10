@@ -35,7 +35,7 @@ const propTypes = {
 /**
 * Layout component.
 */
-const Layout  =  ({AppHeader, children, ConfirmWrapper, ErrorCenter, Footer, LoadingBar, MenuLeft, MessageCenter, LoadingStatusBar, DevTools, OtherRootComponent, ...otherProps}) => {
+const Layout = ({AppHeader, children, ConfirmWrapper, ErrorCenter, Footer, LoadingBar, MenuLeft, MessageCenter, LoadingStatusBar, DevTools, OtherRootComponent, ...otherProps}) => {
     const menuType = MenuLeft ? 'left' : 'other';
     return (
         <div data-focus='layout' data-menu={menuType} {...otherProps}>

@@ -1,5 +1,5 @@
 import types from 'focus-core/component/types';
-module.exports = {
+export default {
     /** @inheritedDocs */
     getDefaultProps() {
         return {
