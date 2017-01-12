@@ -219,7 +219,7 @@ const listMixin = {
     },
 
     shouldComponentUpdate({selectionStatus}, {selectedItems}) {
-        return selectedItems === this.state.selectedItems || selectionStatus !== this.props.selectionStatus;
+        return selectedItems === this.state.selectedItems || selectedItems.size === 0 || selectionStatus !== this.props.selectionStatus;
     },
 
     /**
