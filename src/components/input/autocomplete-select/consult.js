@@ -29,7 +29,7 @@ class AutocompleteSelectConsult extends Component {
                 name={name}
                 type={type}
             >
-                {this.i18n(resolvedLabel)}
+                {resolvedLabel}
             </div>
         );
     }
