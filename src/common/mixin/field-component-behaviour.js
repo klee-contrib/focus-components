@@ -1,5 +1,5 @@
-const assign = require('object-assign');
-const {isUndefined, isObject} = require('lodash/lang');
+import assign from 'object-assign';
+import {isUndefined, isObject} from 'lodash/lang';
 /**
  * Identity function
  * @param  {object} d - data to treat.
@@ -63,6 +63,9 @@ const fieldBehaviourMixin = {
             SelectComponent: def.SelectComponent,
             TextComponent: def.TextComponent,
             DisplayComponent: def.DisplayComponent,
+            LabelComponent: def.LabelComponent,
+            AutocompleteSelectComponent: def.AutocompleteSelectComponent,
+            AutocompleteTextComponent: def.AutocompleteTextComponent,
             options: options.options || def.options //Add options to the fields
         };
         //Extend the options object in order to be able to specify more options to thie son's component.
@@ -79,4 +82,4 @@ const fieldBehaviourMixin = {
 };
 
 
-module.exports = fieldBehaviourMixin;
+export default fieldBehaviourMixin;
