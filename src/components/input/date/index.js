@@ -103,14 +103,15 @@ class InputDate extends Component {
     };
 
     _onInputChange = (inputDate, fromBlur) => {
-        if (this._isInputFormatCorrect(inputDate)) {
-            const dropDownDate = this._parseInputDate(inputDate);
+        const isCorrect = this._isInputFormatCorrect(inputDate);
+        const dropDownDate = isCorrect ? this._parseInputDate(inputDate) : null;
+        if (isCorrect) {
             this.setState({dropDownDate, inputDate});
         } else {
             this.setState({inputDate});
         }
-        if(fromBlur !== true) {
-            this.props.onChange(inputDate);
+        if(fromBlur !== true && isCorrect) {
+            this.props.onChange(dropDownDate.toISOString());
         }
     };
 
