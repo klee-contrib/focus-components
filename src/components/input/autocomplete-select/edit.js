@@ -220,7 +220,7 @@ class Autocomplete extends Component {
             autoFocus, disabled, onKeyPress, maxLength, onFocus, onClick,
             onChange: _handleQueryChange, onFocus: _handleQueryFocus,
             onKeyDown: _handleQueryKeyDown, onBlur,
-            value: !inputValue ? '' : inputValue
+            value: inputValue === undefined || inputValue === null ? '' : inputValue
         };
 
         return (

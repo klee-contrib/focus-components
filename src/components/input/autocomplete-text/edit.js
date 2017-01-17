@@ -171,7 +171,7 @@ class AutocompleteTextEdit extends Component {
             <div data-focus='autocompleteText'>
                 <div className={`mdl-textfield mdl-js-textfield${error ? ' is-invalid' : ''}`} ref='materialInput'>
                     <div data-focus='loading' data-loading={isLoading} className='mdl-progress mdl-js-progress' ref='loader'/>
-                    <input onFocus={this.toggleHasFocus} onBlur={this.toggleHasFocus} className='mdl-textfield__input' type='text' value={!inputValue ? '' : inputValue} ref='inputText' onChange={::this.onQueryChange} showAtFocus={showAtFocus} emptyShowAll={emptyShowAll} {...otherProps} />
+                    <input onFocus={this.toggleHasFocus} onBlur={this.toggleHasFocus} className='mdl-textfield__input' type='text' value={inputValue === undefined || inputValue === null ? '' : inputValue} ref='inputText' onChange={::this.onQueryChange} showAtFocus={showAtFocus} emptyShowAll={emptyShowAll} {...otherProps} />
                     <label className="mdl-textfield__label">{this.i18n(placeholder)}</label>
                     <span className="mdl-textfield__error" ref='errorMessage'>{this.i18n(error)}</span>
                 </div>
