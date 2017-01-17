@@ -15,7 +15,7 @@ function _fieldsValidation() {
         //validate only the reference elements which have valid function
         if (isFunction(refElt.validate) || isFunction(refElt._validate)) {
             let validationRes = isFunction(refElt.validate) ? refElt.validate() : refElt._validate();
-            if (validationRes !== undefined || validationRes !== true) {
+            if (validationRes !== undefined && validationRes !== true) {
                 isValid = false;
             }
         }
