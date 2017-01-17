@@ -9,28 +9,25 @@ let assign = require('object-assign');
 */
 function _fieldsValidation() {
     let validationMap = {};
+    let isValid = true;
     for (let inptKey in this.refs) {
-        //validate only the reference elements which have valide function
-        if(isFunction(this.refs[inptKey].validate)) {
-            let validationRes = this.refs[inptKey].validate();
-            if(validationRes !== undefined) {
-                assign(validationMap, {
-                    [inptKey]: validationRes
-                });
+        const refElt = this.refs[inptKey];
+        //validate only the reference elements which have valid function
+        if (isFunction(refElt.validate) || isFunction(refElt._validate)) {
+            let validationRes = isFunction(refElt.validate) ? refElt.validate() : refElt._validate();
+            if (validationRes !== undefined && validationRes !== true) {
+                isValid = false;
             }
         }
     }
-    if(isEmpty(validationMap)) {
-        return true;
-    }
-    return false;
+    return isValid;
 }
 /**
  * Custom validation of the field.
  * @return {true} -  If the custom validation is defined.
  */
 function _customValidation() {
-    if(this.customValidation) {
+    if (this.customValidation) {
         return this.customValidation();
     }
     return true;
@@ -43,19 +40,8 @@ function _validate() {
     return this._fieldsValidation() && this._customValidation();
 }
 
-/**
- * Validate the form
- * @deprecated
- * @return {object} - The validation  result.
- */
-function validate() {
-    console.warn('This function will be deprecated in the version 0.6.0 the validate function should be custom for the project, instead call this._validate');
-    return this._validate();
-}
-
 module.exports = {
     _fieldsValidation,
     _customValidation,
-    _validate,
-    validate
+    _validate
 };
