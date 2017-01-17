@@ -1,6 +1,6 @@
 {
     "name": "focus-components",
-    "version": "2.1.1",
+    "version": "2.1.2",
     "description": "Focus component repository.",
     "main": "index.js",
     "scripts": {
@@ -12,6 +12,7 @@
         "test:watch": "better-npm-run test-watch",
         "postinstall": "node scripts/mdl-variables-copy.js",
         "profile": "better-npm-run profile",
+        "prepublish": "npm run build",
         "fix-lint": "eslint --fix src/** || exit 0"
     },
     "betterScripts": {
