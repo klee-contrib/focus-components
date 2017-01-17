@@ -91,7 +91,7 @@ const fieldBuiltInComponentsMixin = {
     * @returns {Component} - The builded label component.
     */
     label() {
-        const {name, label, LabelComponent, domain} = this.props;
+        const {name, label, LabelComponent, domain, isEdit} = this.props;
         return (
             <div
                 className ={`${this._getLabelGridClassName()}`}
@@ -101,6 +101,7 @@ const fieldBuiltInComponentsMixin = {
                     domain={domain}
                     name={name}
                     text={label}
+                    isEdit={isEdit}
                 />
             </div>
         );
