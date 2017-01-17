@@ -7,7 +7,7 @@ export const isReactClassComponent = ComponentToTest => {
     return false;
   }
   return typeof prototype.render === 'function';
-}
+};
 
 export const addRefToPropsIfNotPure = (Component, props, ref) => (isReactClassComponent(Component) ? {...props, ref} : props);
 

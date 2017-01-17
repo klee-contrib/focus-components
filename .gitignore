@@ -18,3 +18,5 @@ lib
 /legacy.js
 /legacy
 npm-debug.log
+.history
+src/showcase
