@@ -4,6 +4,7 @@
     "description": "Focus component repository.",
     "main": "index.js",
     "scripts": {
+        "prepublish":"npm run build",
         "babelify": "better-npm-run babelify",
         "bundle": "better-npm-run bundle",
         "watch": "better-npm-run watch",
