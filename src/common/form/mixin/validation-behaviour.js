@@ -13,10 +13,10 @@ function _fieldsValidation() {
     for (let inptKey in this.refs) {
         const refElt = this.refs[inptKey];
         //validate only the reference elements which have valid function
-        if(isFunction(refElt.validate) || isFunction(refElt._validate)) {
+        if (isFunction(refElt.validate) || isFunction(refElt._validate)) {
             let validationRes = isFunction(refElt.validate) ? refElt.validate() : refElt._validate();
-            if(validationRes !== undefined || validationRes !== true) {
-                isValid = false, 
+            if (validationRes !== undefined || validationRes !== true) {
+                isValid = false;
             }
         }
     }
@@ -27,7 +27,7 @@ function _fieldsValidation() {
  * @return {true} -  If the custom validation is defined.
  */
 function _customValidation() {
-    if(this.customValidation) {
+    if (this.customValidation) {
         return this.customValidation();
     }
     return true;
