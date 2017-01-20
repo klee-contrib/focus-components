@@ -43,7 +43,7 @@ const FieldMixin = {
     /** @inheritdoc */
     componentWillReceiveProps(newProps) {
         const {value, values} = this.state;
-        const newState = { value: newProps.value };
+        const newState = { value: newProps.value, values: newProps.values };
         if (value !== newProps.value || values !== newProps.values) {
             newState.error = null;
         }
