@@ -42,7 +42,15 @@ const FieldMixin = {
     },
     /** @inheritdoc */
     componentWillReceiveProps(newProps) {
-        this.setState({value: newProps.value, error: newProps.error, values: newProps.values});
+        const {value, values} = this.state;
+        const newState = { value: newProps.value };
+        if (value !== newProps.value || values !== newProps.values) {
+            newState.error = null;
+        }
+        if (newProps.error) {
+            newState.error = newProps.error;
+        }
+        this.setState(newState);
     },
     /**
     * Get the css class of the field component.
@@ -62,7 +70,7 @@ const FieldMixin = {
                 {isCustomComponent && this._renderFieldComponent()}
                 {!isCustomComponent && hasLabel && label()}
                 {!isCustomComponent &&
-                    <div className ={`${this._getContentGridClassName()}`} data-focus='field-value-container'>
+                    <div className={`${this._getContentGridClassName()}`} data-focus='field-value-container'>
                         {codeResolver && searcher ? autocomplete() : keyResolver && querySearcher ? autocompleteSelect() : querySearcher ? autocompleteText() : isEdit ? (values ? select() : input()) : display()}
                     </div>
                 }
