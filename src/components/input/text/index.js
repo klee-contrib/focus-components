@@ -64,23 +64,55 @@ class InputText extends Component {
         const {value} = evt.target;
         return onChange(unformatter(value, MODE));
     };
+
+    /**
+     * comments will be right there
+     */
+    _checkProps = (props) => {
+        const values = Object.values(props);
+        let validInputProps = {};
+        let invalidInputProps = {};
+        for(let key in props) {
+            const returnedValue = inputHtmlAttributes.map((e, index) => {
+                if(e === key) {
+                    let value;
+                    switch (key) {
+                        case 'value':
+                            value = props.formatter(props[key], MODE);
+                            break;
+                        case 'onChange':
+                            value = this._handleInputChange;
+                            break;
+                        default:
+                            value = props[key]
+                    }
+                    validInputProps[`${key}`] = value;
+                } else {
+                    invalidInputProps[`${key}`] = props[key];
+                }
+            })
+        }
+        const managedProps = [validInputProps, invalidInputProps];
+        return managedProps;
+    };
     /**
      * @inheritdoc
      * @override
     */
     render() {
-        const a = [100, 200, 300]
-        // console.log(a.indexOf(200));
-        inputHtmlAttributes.filter( (e, index) => {
-            if(this.props[e]) {
-                console.log(this.props[e]);
-            }
-        });
-        const { autoFocus, disabled, formatter, unformatter, maxLength, onFocus, onClick, onKeyDown, onKeyPress, error, name, placeholder, style, value: rawValue, size, type} = this.props;
-        const value = formatter(rawValue, MODE);
+        const managedProps = this._checkProps(this.props);
+
+        const validInputProps = managedProps[0];
+        const invalidInputProps = managedProps[1];
+
+        const { name, placeholder } = validInputProps;
+        const { error, style } = invalidInputProps;
+
         const pattern = error ? 'hasError' : null; //add pattern to overide mdl error style when displaying an focus error.
-        const inputProps =  { autoFocus, disabled, onKeyDown, onKeyPress, onBlur, maxLength, onFocus, onClick, id: name, onChange: this._handleInputChange, pattern, size, type, value: value === undefined || value === null ? '' : value};
+        
+        const inputProps = validInputProps;
         const cssClass = `mdl-textfield mdl-js-textfield${error ? ' is-invalid' : ''}`;
+
         return (
             <div className={cssClass} data-focus='input-text' ref='inputText' style={style}>
                 <input className='mdl-textfield__input' ref='htmlInput' {...inputProps} />
