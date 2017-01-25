@@ -133,7 +133,7 @@ describe('The input text', () => {
             expect(htmlError).to.exist;
             expect(htmlError.innerHTML).to.have.string(error);
         });
-        it.only('input should have a pattern attribute', () => {
+        it('input should have a pattern attribute', () => {
             expect(htmlInput).to.exist;
             expect(htmlInput.getAttribute('pattern')).to.equal('hasError');
         });
