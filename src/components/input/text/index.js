@@ -31,16 +31,16 @@ const defaultProps = {
 };
 
 /**
- * Component standing for an HTML input.
- */
+* Component standing for an HTML input.
+*/
 @MDBehaviour('inputText')
 @ComponentBaseBehaviour
 class InputText extends Component {
 
     /**
-     * Get the dom value of the component.
-     * @return {object} - The unformated dom value.
-     */
+    * Get the dom value of the component.
+    * @return {object} - The unformated dom value.
+    */
     getValue = () => {
         const {unformatter} = this.props;
         const domEl = ReactDOM.findDOMNode(this.refs.htmlInput);
@@ -55,10 +55,10 @@ class InputText extends Component {
         }
     }
     /**
-     * Handle the change on the input text, it only propagate the value.
-     * @param  {object} evt - The react DOM event.
-     * @return {object} - The function onChannge from the props, called.
-     */
+    * Handle the change on the input text, it only propagate the value.
+    * @param  {object} evt - The react DOM event.
+    * @return {object} - The function onChannge from the props, called.
+    */
     _handleInputChange = (evt) => {
         const {unformatter, onChange} = this.props;
         const {value} = evt.target;
@@ -66,40 +66,26 @@ class InputText extends Component {
     };
 
     /**
-     * comments will be right there
-     */
+    * comments will be right there
+    */
     _checkProps = (props) => {
-        const values = Object.keys(props).map( value => {
-            return props[value]
-        });
         let validInputProps = {};
         let invalidInputProps = {};
-        for(let key in props) {
-            const returnedValue = inputHtmlAttributes.map((e, index) => {
-                if(e === key) {
-                    let value;
-                    switch (key) {
-                        case 'value':
-                            value = props.formatter(props[key], MODE);
-                            break;
-                        case 'onChange':
-                            value = this._handleInputChange;
-                            break;
-                        default:
-                            value = props[key]
-                    }
-                    validInputProps[`${key}`] = value;
-                } else {
-                    invalidInputProps[`${key}`] = props[key];
-                }
-            })
-        }
+
+        Object.keys(props).map(key => {
+            if(key === inputHtmlAttributes[inputHtmlAttributes.indexOf(key)]) {
+                let value = key === 'value' ? props.formatter(props[key], MODE) : key === 'onChange' ? this._handleInputChange : props[key];
+                validInputProps[key] = value;
+            } else {
+                invalidInputProps[key] = props[key];
+            }
+        });
         const managedProps = [validInputProps, invalidInputProps];
         return managedProps;
     };
     /**
-     * @inheritdoc
-     * @override
+    * @inheritdoc
+    * @override
     */
     render() {
         const managedProps = this._checkProps(this.props);
