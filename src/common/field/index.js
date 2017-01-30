@@ -41,8 +41,15 @@ const FieldMixin = {
         value: type(['string', 'number'])
     },
     /** @inheritdoc */
-    componentWillReceiveProps(newProps) {
-        this.setState({value: newProps.value, error: newProps.error, values: newProps.values});
+    componentWillReceiveProps: function componentWillReceiveProps(newProps) {
+      var nextState = {
+          value: newProps.value,
+          values: newProps.values
+      };
+      if (!this.state.error && newProps.error) {
+          nextState.error = newProps.error;
+      }
+      this.setState(nextState);
     },
     /**
     * Get the css class of the field component.
