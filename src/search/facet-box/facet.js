@@ -63,7 +63,11 @@ const Facet = {
     _renderFacetTitle() {
         let title = translate('live.filter.facets.' + this.props.facetKey); // Default facet translation path is live.filter.facets.
         if (this.props.selectedDataKey) {
-            const facetLabel = this.props.facet && isObject(this.props.facet[this.props.selectedDataKey]) ?  this.props.facet[this.props.selectedDataKey].label : this.props.facet.find(elm => elm.label === this.props.selectedDataKey).label;
+            let facetLabel = '';
+            const facet = this.props.facet && isObject(this.props.facet[this.props.selectedDataKey]) ?  this.props.facet[this.props.selectedDataKey].label : this.props.facet.find(elm => elm.label === this.props.selectedDataKey);
+            if (facet) {
+                facetLabel = facet.label
+            }
             title = `${title} : ${facetLabel}`;
         }
         return (
