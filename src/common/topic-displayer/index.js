@@ -1,10 +1,10 @@
 import React from 'react';
 import builder from 'focus-core/component/builder';
-import {translate} from 'focus-core/translation';
-import {map} from 'lodash/collection';
+import { translate } from 'focus-core/translation';
+import { map } from 'lodash';
 
 // Components
-import {component as Button} from '../button/action';
+import { component as Button } from '../button/action';
 
 const TopicDisplayer = {
     displayName: 'TopicDisplayer',
@@ -16,7 +16,7 @@ const TopicDisplayer = {
     getDefaultProps() {
         return {
             style: undefined, // Component css style.
-            topicClickAction() {}, // Action when click on topic
+            topicClickAction() { }, // Action when click on topic
             topicList: {}, // {topic1: "Label of topic one", topic2:"Label of topic 2"} List f topics,
             displayLabels: false
         };
@@ -38,7 +38,7 @@ const TopicDisplayer = {
                             icon='clear'
                             key={key}
                             label={text}
-                            />
+                        />
                     );
                 })}
             </div>
@@ -52,7 +52,7 @@ const TopicDisplayer = {
      */
     topicClickHandler(key) {
         return (event) => {
-            if(event) {
+            if (event) {
                 event.preventDefault();
             }
             this.props.topicClickAction(key);

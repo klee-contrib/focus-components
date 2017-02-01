@@ -1,12 +1,12 @@
 /* globals Awesomplete */
-const React = require('react');
-const ReactDOM = require('react-dom');
+import React from 'react';
+import ReactDOM from 'react-dom';
 // Dependencies
 import builder from 'focus-core/component/builder';
 import types from 'focus-core/component/types';
-let find = require('lodash/collection/find');
-const InputText = require('../../components/input/text');
-const {debounce} = require('lodash/function');
+import { find, debounce } from 'lodash';
+import InputText from '../../components/input/text';
+
 import './lib/awesomplete';
 
 /**
@@ -97,11 +97,11 @@ let Autocomplete = {
         const {codeResolver} = this.props;
         const value = this._getValueFromCode(code, pickList);
         if ('' !== value) {
-            this.setState({value}); // eslint-disable-line
+            this.setState({ value }); // eslint-disable-line
         } else if (codeResolver) {
             codeResolver(code).then(resolvedValue => {
                 if ('' !== resolvedValue) {
-                    this.setState({value: resolvedValue, fromCodeResolver: true}, () => {
+                    this.setState({ value: resolvedValue, fromCodeResolver: true }, () => {
                         this.props.inputChangeHandler(resolvedValue);
                     }); // eslint-disable-line
                 }
@@ -118,11 +118,11 @@ let Autocomplete = {
         const {selectionHandler} = this.props;
         if (selectionHandler) {
             const {pickList} = this.props;
-            const selectedPick = find(pickList, {value});
+            const selectedPick = find(pickList, { value });
             selectionHandler(selectedPick);
         }
         this._isSelecting = true; // Private flag to tell the blur listener not to replace the value
-        this.setState({value});
+        this.setState({ value });
     },
     /**
     * Extract list of suggestions from pick list
@@ -139,7 +139,7 @@ let Autocomplete = {
     */
     _getCodeFromValue(value) {
         const {pickList} = this.props;
-        const pick = find(pickList, {value});
+        const pick = find(pickList, { value });
         return pick ? pick.code : pick;
     },
     /**
@@ -148,8 +148,8 @@ let Autocomplete = {
     * @param  {Object} pickList=this.props.pickList  optional pick list to resolve the value from
     * @return {String} value
     */
-    _getValueFromCode(code, pickList=this.props.pickList) {
-        const pick = find(pickList, {code});
+    _getValueFromCode(code, pickList = this.props.pickList) {
+        const pick = find(pickList, { code });
         return pick ? pick.value : '';
     },
     /**
@@ -170,14 +170,14 @@ let Autocomplete = {
     _onInputBlur() {
         const {value, fromCodeResolver} = this.state;
         const {allowUnmatchedValue, onInputBlur, pickList, selectionHandler} = this.props;
-        const selectedPick = find(pickList, {value});
+        const selectedPick = find(pickList, { value });
         const code = this._getCodeFromValue(value);
         if (selectedPick && !this._isSelecting && selectionHandler) {
             selectionHandler(selectedPick);
         }
         if (!code && !allowUnmatchedValue && !this._isSelecting && !fromCodeResolver) {
-            this.setState({value: ''});
-            selectionHandler && selectionHandler({code: '', value: ''});
+            this.setState({ value: '' });
+            selectionHandler && selectionHandler({ code: '', value: '' });
         }
 
         onInputBlur && onInputBlur();
@@ -189,7 +189,7 @@ let Autocomplete = {
     * @param  {Object} event change event
     */
     _onInputChange({target: {value}}) {
-        this.setState({value, fromCodeResolver: false});
+        this.setState({ value, fromCodeResolver: false });
         this._debouncedInputChangeHandler(value);
     },
     /**
@@ -203,10 +203,10 @@ let Autocomplete = {
         return (
             <div data-focus='autocomplete'>
                 {
-                    InputAutoComplete  ? 
-                        <InputAutoComplete onBlur={_onInputBlur} onChange={_onInputChange} ref='input' value={value}/> 
-                        : 
-                        <InputText onBlur={_onInputBlur} onChange={_onInputChange} ref='input' value={value}/>
+                    InputAutoComplete ?
+                        <InputAutoComplete onBlur={_onInputBlur} onChange={_onInputChange} ref='input' value={value} />
+                        :
+                        <InputText onBlur={_onInputBlur} onChange={_onInputChange} ref='input' value={value} />
                 }
             </div>
         );

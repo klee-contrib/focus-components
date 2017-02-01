@@ -1,4 +1,4 @@
-import {isUndefined}from 'lodash';
+import { isUndefined } from 'lodash';
 
 /**
 * Get the scroll position from the top of the screen.
@@ -6,7 +6,7 @@ import {isUndefined}from 'lodash';
 * @returns {int} - The position in pixel from the top of the scroll container.
 */
 function scrollPosition(domNode) {
-    if(isUndefined(domNode)) {
+    if (isUndefined(domNode)) {
         const y = window.pageYOffset || document.documentElement.scrollTop;
         const x = window.pageXOffset || document.documentElement.scrollLeft;
         return { top: y, left: x };
@@ -24,13 +24,13 @@ function scrollPosition(domNode) {
 * @param {number} duration duration of animation
 */
 function scrollTo(element, to, duration = 500) {
-    if(isUndefined(element)) {
+    if (isUndefined(element)) {
         window.scrollTo(0, to);
         return;
     }
     element.scrollTop = to;
 }
 
-export {scrollTo, scrollPosition};
+export { scrollTo, scrollPosition };
 
-export default {scrollTo, scrollPosition};
+export default { scrollTo, scrollPosition };

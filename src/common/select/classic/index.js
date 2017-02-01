@@ -5,8 +5,7 @@ const React = require('react');
 const ReactDOM = require('react-dom');
 const i18nMixin = require('../../i18n/mixin');
 const stylableMixin = require('../../../mixin/stylable');
-const union = require('lodash/array/union');
-const {isUndefined, isNull, isNumber} = require('lodash/lang');
+import { isUndefined, isNull, isNumber, union } from 'lodash';
 
 const UNSELECTED_KEY = 'UNSELECTED_KEY';
 
@@ -58,7 +57,7 @@ const selectMixin = {
     },
     /** @inheritdoc */
     componentWillReceiveProps(newProps) {
-        this.setState({value: newProps.value});
+        this.setState({ value: newProps.value });
     },
     /**
     * Get the value of the component.
@@ -67,7 +66,7 @@ const selectMixin = {
     getValue() {
         const {select} = this.refs;
         const domValue = ReactDOM.findDOMNode(select).value;
-        if(domValue === UNSELECTED_KEY) { return null; }
+        if (domValue === UNSELECTED_KEY) { return null; }
         return this.state.isNumber ? +domValue : domValue;
     },
     /**
@@ -77,18 +76,18 @@ const selectMixin = {
     _handleOnChange(event) {
         //On change handler.
         const {onChange, multiple} = this.props;
-        if(onChange) {
+        if (onChange) {
             onChange(event);
-        }else {
+        } else {
             const domValue = event.target.value;
             const value = this.state.isNumber ? +domValue : domValue;
             //Set the state then call the change handler.
-            if(multiple) {
+            if (multiple) {
                 let vals = this.state.value;
                 vals.push(value);
-                return this.setState({value: vals});
+                return this.setState({ value: vals });
             }
-            return this.setState({value: value});
+            return this.setState({ value: value });
         }
     },
     /** @inheritdoc */
@@ -96,12 +95,12 @@ const selectMixin = {
         let processValues;
         const {labelKey, valueKey, values} = this.props;
         const {hasUndefined} = this.state;
-        if(hasUndefined) {
+        if (hasUndefined) {
             processValues = union(
-                [{[labelKey]: 'select.unSelected', [valueKey]: UNSELECTED_KEY}],
+                [{ [labelKey]: 'select.unSelected', [valueKey]: UNSELECTED_KEY }],
                 values
             );
-        }else{
+        } else {
             processValues = values;
         }
         return processValues.map((val, idx) => {
@@ -118,14 +117,14 @@ const selectMixin = {
         const {props, state, _getStyleClassName, _handleOnChange} = this;
         const {disabled, error, multiple, name} = props;
         const {value} = state;
-        const disabledProps = disabled ? {disabled: 'disabled'} : {};
-        const selectProps = {...{multiple, value: `${value}`, name, onChange: _handleOnChange, className: _getStyleClassName(), ref: 'select'}, ...disabledProps};
+        const disabledProps = disabled ? { disabled: 'disabled' } : {};
+        const selectProps = { ...{ multiple, value: `${value}`, name, onChange: _handleOnChange, className: _getStyleClassName(), ref: 'select' }, ...disabledProps };
         return (
             <div data-focus='select' data-valid={!error}>
-            <select {...selectProps}>
-            {this.renderOptions()}
-            </select>
-            {error && <div className='label-error' ref='error'>{error}</div>}
+                <select {...selectProps}>
+                    {this.renderOptions()}
+                </select>
+                {error && <div className='label-error' ref='error'>{error}</div>}
             </div>
         );
     }
