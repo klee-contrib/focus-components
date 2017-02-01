@@ -1,0 +1,86 @@
+<!doctype html>
+<html class="no-js" lang="">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Focus component examples</title>
+    <meta name="description" content="Example of the component.">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!--  BABEL-->
+    <script src="/focus-components/example/js/browser.js"></script>
+    <!--  SCRIPT LOADING-->
+    <script src="/focus-components/example/js/assets.js"></script>
+</head>
+<body>
+    <script type="text/babel">
+    loadAssets().then((d)=>{
+
+        const Detail = FocusComponents.common.detail.component;
+        const Block = FocusComponents.common.block.component;
+
+        const DetailSample = React.createClass({
+            render: function() {
+                return <div>
+                <h1>Detail sample</h1>
+                <Detail>
+                <Block title="Sports">
+                <img src="http://lorempixel.com/800/600/sports" title="lorempixel" alt="lorempixel"/>
+                </Block>
+
+                <Block title="Animals">
+                <img src="http://lorempixel.com/800/600/animals" title="lorempixel" alt="lorempixel"/>
+                </Block>
+
+                <Block title="Business">
+                <img src="http://lorempixel.com/800/600/business" title="lorempixel" alt="lorempixel"/>
+                </Block>
+
+                <Block title="Cats">
+                <img src="http://lorempixel.com/800/600/cats" title="lorempixel" alt="lorempixel"/>
+                </Block>
+
+                <Block title="City">
+                <img src="http://lorempixel.com/800/600/city" title="lorempixel" alt="lorempixel"/>
+                </Block>
+
+                <Block title="Food">
+                <img src="http://lorempixel.com/800/600/food" title="lorempixel" alt="lorempixel"/>
+                </Block>
+
+                <Block title="Nightlife">
+                <img src="http://lorempixel.com/800/600/nightlife" title="lorempixel" alt="lorempixel"/>
+                </Block>
+
+                <Block title="Fashion">
+                <img src="http://lorempixel.com/800/600/fashion" title="lorempixel" alt="lorempixel"/>
+                </Block>
+
+                <Block title="People">
+                <img src="http://lorempixel.com/800/600/people" title="lorempixel" alt="lorempixel"/>
+                </Block>
+
+                <Block title="Nature">
+                <img src="http://lorempixel.com/800/600/nature" title="lorempixel" alt="lorempixel" />
+                </Block>
+
+                <Block title="Technics">
+                <img src="http://lorempixel.com/800/600/technics" title="lorempixel" alt="lorempixel" />
+                </Block>
+
+                <Block title="Transport">
+                <img src="http://lorempixel.com/800/600/transport" title="lorempixel" alt="lorempixel" />
+                </Block>
+                </Detail>
+                </div>
+            }
+        });
+        const mountNode = document.querySelector("body")
+        React.render(<DetailSample />, mountNode);
+    });
+
+    </script>
+
+</body>
+
+</html>

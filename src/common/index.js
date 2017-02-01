@@ -1,24 +1,25 @@
-import field from './field'
-import form from './form'
-import selectAction from './select-action'
-import list from './list'
-import mixin from './mixin'
-import role from './role'
-
-export {
-    field,
-    form,
-    selectAction,
-    list,
-    mixin,
-    role
-}
-
-export default {
-    field,
-    form,
-    selectAction,
-    list,
-    mixin,
-    role
-}
+module.exports = {
+    autocomplete: require('./autocomplete'),
+    block: require('./block'),
+    button: require('./button'),
+    empty: require('./empty'),
+    field: require('./field'),
+    form: require('./form'),
+    i18n: require('./i18n'),
+    icon: require('./icon'),
+    input: require('./input'),
+    label: require('./label'),
+    panel: require('./panel'),
+    select: require('./select'),
+    selectAction: require('./select-action'),
+    scrollspy: require('./scrollspy'),
+    title: require('./title'),
+    topicDisplayer: require('./topic-displayer'),
+    list: require('./list'),
+    mixin: require('./mixin'),
+    display: require('./display'),
+    progressBar: require('./progress-bar'),
+    role: require('./role'),
+    grid: require('./grid'),
+    column: require('./column')
+};

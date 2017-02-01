@@ -18,9 +18,20 @@ import '../application/message-center/style/message-center.scss';
 import '../application/popin/style/popin.scss';
 
 //COMMON FOLDER
+import '../common/block/style/block.scss';
+import '../common/button/action/style/button.scss';
+import '../common/button/back/style/back.scss';
+import '../common/button/back-to-top/style/back-to-top.scss';
 import '../common/field/style/field.scss';
 import '../common/form/style/form.scss';
+import '../common/input/radio/style/radio.scss';
+import '../common/label/style/label.scss';
+import '../common/progress-bar/style/progress-bar.scss';
+import '../common/scrollspy/style/scrollspy.scss';
+import '../common/select/classic/style/select.scss'
+import '../common/select/radio/style/select-radio.scss';
 import '../common/select-action/style/select-action.scss';
+import '../common/topic-displayer/style/topic-displayer.scss';
 
 // COMPONENTS FOLDER
 import '../components/button/style/button.scss';

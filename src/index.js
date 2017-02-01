@@ -40,13 +40,14 @@ module.exports = {
     /**
     * Display documentation data
     */
-    DOCUMENTATION: function () {
+    DOCUMENTATION: function() {
         console.log('documentation: http://kleegroup.github.io/focus-components');
         console.log('components available');
         console.table(infos.components);
         console.log(`repository: ${infos.repository.url}`);
         console.log(`issues: ${infos.bugs.url}`);
     },
+    common: require('./common'),
     list: require('./list'),
     search: require('./search'),
     page: require('./page'),

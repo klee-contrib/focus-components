@@ -1,0 +1,11 @@
+$select-error-color: rgb(222, 50, 38);
+
+[data-focus="select-radio"] {
+    &[data-valid='false'] {
+        .label-error {
+            color: $select-error-color;
+            position: absolute;
+            font-size: 12px;
+        }
+    }
+}
