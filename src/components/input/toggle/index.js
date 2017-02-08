@@ -29,10 +29,19 @@ class InputToggle extends Component {
     };
 
     render() {
-        const {label, value} = this.props;
+        const managedProps = this._checkProps(this.props);
+        const validInputProps = managedProps[0];
+        const invalidInputProps = managedProps[1];
+
+        const {label, value} = validInputProps;
+
+        validInputProps.onChange = this.handleOnChange;
+        validInputProps.checked = value;
+        const inputProps = {...validInputProps};
+
         return (
             <label className='mdl-switch mdl-js-switch mdl-js-ripple-effect' data-focus='input-toggle' ref='mdlHolder'>
-                <input checked={value} className='mdl-switch__input' onChange={this.handleOnChange} ref='toggle' type='checkbox' />
+                <input className='mdl-switch__input' ref='toggle' type='checkbox' {...inputProps} />
                 {label && <span className='mdl-switch__label'>{this.i18n(label)}</span>}
             </label>
         );

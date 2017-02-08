@@ -2,6 +2,7 @@ import React, {Component, PropTypes} from 'react';
 import ReactDOM from 'react-dom';
 import ComponentBaseBehaviour from '../../../behaviours/component-base';
 import MDBehaviour from '../../../behaviours/material';
+import {InputBehaviour} from '../../../behaviours/input-component';
 
 import closest from 'closest';
 import debounce from 'lodash/function/debounce';
@@ -35,6 +36,7 @@ const defaultProps = {
 @MDBehaviour('loader')
 @MDBehaviour('inputText')
 @ComponentBaseBehaviour
+@InputBehaviour
 class Autocomplete extends Component {
     constructor(props) {
         super(props);
@@ -213,15 +215,22 @@ class Autocomplete extends Component {
     };
 
     render () {
-        const { autoFocus, onBlur, disabled, onKeyPress, maxLength, onFocus, onClick, customError, placeholder, renderOptions, ...otherProps }  = this.props;
         const {inputValue, isLoading} = this.state;
+        const {customError, renderOptions} = this.props;
         const {_handleQueryFocus, _handleQueryKeyDown, _handleQueryChange} = this;
-        const inputProps =  {
-            autoFocus, disabled, onKeyPress, maxLength, onFocus, onClick,
-            onChange: _handleQueryChange, onFocus: _handleQueryFocus,
-            onKeyDown: _handleQueryKeyDown, onBlur,
-            value: inputValue === undefined || inputValue === null ? '' : inputValue
-        };
+
+        const managedProps = this._checkProps(this.props);
+
+        const validInputProps = managedProps[0];
+        const invalidInputProps = managedProps[1]
+
+        const { name, placeholder, value: valueToFormat } = validInputProps;
+
+        validInputProps.value = inputValue;
+        validInputProps.onFocus = this._handleQueryFocus;
+        validInputProps.onChange = this._handleQueryChange;
+
+        const inputProps = {...validInputProps};
 
         return (
             <div data-focus='autocomplete' data-id={this.autocompleteId}>

@@ -2,6 +2,7 @@
 import React, {Component, PropTypes} from 'react';
 import ReactDOM from 'react-dom';
 import ComponentBaseBehaviour from '../../../behaviours/component-base';
+import {InputBehaviour} from '../../../behaviours/input-component';
 import {isUndefined, isNull, isNumber} from 'lodash/lang';
 import {union} from 'lodash/array';
 const UNSELECTED_KEY = 'UNSELECTED_KEY';
@@ -55,6 +56,7 @@ const defaultProps = {
 * Component standing for an HTML input.
 */
 @ComponentBaseBehaviour
+@InputBehaviour
 class Select extends Component {
 
     /**
@@ -102,11 +104,19 @@ class Select extends Component {
     * @override
     */
     render() {
-        const { autoFocus, error, multiple, name, placeholder, style, value, values, disabled, onChange, size } = this.props;
-        const selectProps = { autoFocus, disabled, multiple, size };
+        const managedProps = this._checkProps(this.props);
+        const validInputProps = managedProps[0];
+        const invalidInputProps = managedProps[1];
+
+        const {error} = invalidInputProps;
+        const {style} = validInputProps;
+
+        validInputProps.onChange = this._handleSelectChange;
+        const inputProps = {...validInputProps};
+
         return (
             <div data-focus='select' ref='select' data-valid={!error} style={style}>
-                <select name={name} onChange={this._handleSelectChange} ref='htmlSelect' value={value} {...selectProps}>
+                <select ref='htmlSelect' {...inputProps}>
                     {this._renderOptions(this.props)}
                 </select>
                 {error && <div className='label-error' ref='error'>{error}</div>}

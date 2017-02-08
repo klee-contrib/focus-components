@@ -2,6 +2,7 @@ import React, {Component, PropTypes} from 'react';
 import ReactDOM from 'react-dom';
 import Translation from '../../../behaviours/translation';
 import Material from '../../../behaviours/material';
+import {InputBehaviour} from '../../../behaviours/input-component';
 
 const propTypes = {
     label: PropTypes.string,
@@ -19,6 +20,7 @@ const displayName = 'InputCheckBox';
 
 @Translation
 @Material('mdlHolder')
+@InputBehaviour
 class InputCheckBox extends Component {
     getValue = () => {
         const domElement = ReactDOM.findDOMNode(this.refs.checkbox);
@@ -34,17 +36,25 @@ class InputCheckBox extends Component {
         }
     }
 
-    handleOnChange({target: {checked}}) {
+    handleOnChange = ({target: {checked}}) => {
         const {onChange} = this.props;
         onChange(checked);
     }
 
     render() {
-        const {label, value, disabled} = this.props;
+        const managedProps = this._checkProps(this.props);
+        const validInputProps = managedProps[0];
+        const invalidInputProps = managedProps[1];
+
+        const {label, value, disabled} = validInputProps;
+
+        validInputProps.onChange = this.handleOnChange;
+        const inputProps = {...validInputProps};
+        
         return (
           <div data-focus='input-checkbox-container'>
             <label className={'mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect'} data-focus='input-checkbox' ref='mdlHolder'>
-                <input checked={value} className='mdl-checkbox__input' disabled={disabled} onChange={::this.handleOnChange} ref='checkbox' type='checkbox'/>
+                <input checked={value} className='mdl-checkbox__input' disabled={disabled} ref='checkbox' type='checkbox' {...inputProps}/>
                 {label && <span className='mdl-checkbox__label'>{this.i18n(label)}</span>}
             </label>
           </div>

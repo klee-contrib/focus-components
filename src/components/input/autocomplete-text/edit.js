@@ -2,12 +2,14 @@ import React, {Component, PropTypes} from 'react';
 import ReactDOM from 'react-dom';
 import ComponentBaseBehaviour from '../../../behaviours/component-base';
 import MDBehaviour from '../../../behaviours/material';
+import {InputBehaviour} from '../../../behaviours/input-component';
 
 import debounce from 'lodash/function/debounce';
 
 @MDBehaviour('materialInput')
 @MDBehaviour('loader')
 @ComponentBaseBehaviour
+@InputBehaviour
 class AutocompleteTextEdit extends Component {
     static defaultProps = {
         placeholder: 'Search here...',
@@ -60,9 +62,9 @@ class AutocompleteTextEdit extends Component {
         emptyShowAll: PropTypes.bool,
 
         /**
-         * [inputTimeout description]
-         * @type {number}
-         */
+        * [inputTimeout description]
+        * @type {number}
+        */
         inputTimeout : PropTypes.number.isRequired
     };
 
@@ -82,8 +84,8 @@ class AutocompleteTextEdit extends Component {
     }
 
     componentDidMount() {
-      const {inputTimeout} = this.props;
-      this._debouncedQuerySearcher = debounce(this._querySearcher, inputTimeout);
+        const {inputTimeout} = this.props;
+        this._debouncedQuerySearcher = debounce(this._querySearcher, inputTimeout);
     }
 
     // Returns the state's inputValue
@@ -165,13 +167,26 @@ class AutocompleteTextEdit extends Component {
 
     // Maybe give the option for the floating label
     render() {
-        const {inputValue, hasSuggestions, hasFocus, isLoading, ...otherProps} = this.state;
-        const {placeholder, inputTimeout, showAtFocus, emptyShowAll, error} = this.props
+        const {inputValue, hasSuggestions, hasFocus, isLoading} = this.state;
+
+        const managedProps = this._checkProps(this.props);
+        const validInputProps = managedProps[0];
+        const invalidInputProps = managedProps[1];
+
+        const {inputTimeout, error} = invalidInputProps;
+        const {placeholder} = validInputProps;
+
+        validInputProps.value = inputValue === undefined || inputValue === null ? '' : inputValue;
+        validInputProps.onFocus = this.toggleHasFocus;
+        validInputProps.onChange = this.onQueryChange;
+        validInputProps.onBlur = this.toggleHasFocus;
+        const inputProps = {...validInputProps};
+
         return(
             <div data-focus='autocompleteText'>
                 <div className={`mdl-textfield mdl-js-textfield${error ? ' is-invalid' : ''}`} ref='materialInput'>
                     <div data-focus='loading' data-loading={isLoading} className='mdl-progress mdl-js-progress' ref='loader'/>
-                    <input onFocus={this.toggleHasFocus} onBlur={this.toggleHasFocus} className='mdl-textfield__input' type='text' value={inputValue === undefined || inputValue === null ? '' : inputValue} ref='inputText' onChange={::this.onQueryChange} showAtFocus={showAtFocus} emptyShowAll={emptyShowAll} {...otherProps} />
+                    <input className='mdl-textfield__input' type='text' ref='inputText' {...inputProps} />
                     <label className="mdl-textfield__label">{this.i18n(placeholder)}</label>
                     <span className="mdl-textfield__error" ref='errorMessage'>{this.i18n(error)}</span>
                 </div>
@@ -184,38 +199,3 @@ class AutocompleteTextEdit extends Component {
 }
 
 export default AutocompleteTextEdit;
-
-/*
-EXAMPLE
-const _querySearcher = query => {
-    let data = [
-        {
-            key: 'JL',
-            label: 'Joh Lickeur'
-        },
-        {
-            key: 'GK',
-            label: 'Guénolé Kikabou'
-        },
-        {
-            key: 'YL',
-            label: 'Yannick Lounivis'
-        }
-    ];
-    return new Promise((resolve, reject) => {
-        setTimeout(() => {
-            resolve({
-                data,
-                totalCount: data.length
-            });
-        }, 500);
-    });
-};
-
-<AutocompleteText
-    isEdit={isEdit}
-    querySearcher={_querySearcher}
-    placeholder={'Your search...'}
-    error{Something wrong happend. Retry please...}
-/>
-*/
