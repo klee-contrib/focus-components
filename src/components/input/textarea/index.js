@@ -83,7 +83,7 @@ class InputTextarea extends Component {
 
         validInputProps.value = formatter(value) === undefined || formatter(value) === null ? '' :  formatter(value);
         validInputProps.onChange = this._handleInputChange
-        const inputProps = {...validInputProps};
+        const inputProps = {...validInputProps, pattern};
 
         return (
             <div data-error={!!error} data-focus='input-textarea'>

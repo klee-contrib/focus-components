@@ -228,6 +228,7 @@ class Autocomplete extends Component {
 
         validInputProps.value = inputValue;
         validInputProps.onFocus = this._handleQueryFocus;
+        validInputProps.onKeyDown = this._handleQueryKeyDown;
         validInputProps.onChange = this._handleQueryChange;
 
         const inputProps = {...validInputProps};
