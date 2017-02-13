@@ -59,6 +59,7 @@ import '../components/panel/style/panel.scss'
 import '../components/progress-bar/style/progress-bar.scss';
 import '../components/scrollspy-container/style/scrollspy-container.scss';
 import '../components/scrollspy-container/style/sticky-menu.scss';
+import '../components/tooltip/style/tooltip.scss';
 import '../components/topic-displayer/style/topic-displayer.scss';
 
 // LIST FOLDER

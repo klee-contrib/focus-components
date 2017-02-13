@@ -1,0 +1,48 @@
+
+[data-focus="tooltip"] {
+    border-radius: 0px;
+}
+
+.mdl-tooltip--top ::after {
+    content: "";
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    margin-left: -5px;
+    border-width: 5px;
+    border-style: solid;
+    border-color: #616161 transparent transparent transparent;
+}
+
+.mdl-tooltip--right ::after {
+    content: "";
+    position: absolute;
+    top: 39%;
+    right: 100%;
+    margin-left: -5px;
+    border-width: 5px;
+    border-style: solid;
+    border-color: transparent #616161 transparent transparent;
+}
+
+.mdl-tooltip--bottom ::after {
+    content: "";
+    position: absolute;
+    bottom: 100%;
+    left: 50%;
+    margin-left: -5px;
+    border-width: 5px;
+    border-style: solid;
+    border-color: transparent transparent #616161 transparent;
+}
+
+.mdl-tooltip--left ::after {
+    content: "";
+    position: absolute;
+    top: 39%;
+    left: 105%;
+    margin-left: -5px;
+    border-width: 5px;
+    border-style: solid;
+    border-color: transparent transparent transparent #616161;
+}
