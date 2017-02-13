@@ -27,6 +27,7 @@ import Emtpy from './empty';
 import TopicDisplayer from './topic-displayer';
 import Animation from './animation';
 import DraggableIframe from './draggable-iframe';
+import Tooltip from './tooltip';
 
 export default {
     Confirm,
@@ -52,6 +53,7 @@ export default {
     Column,
     Icon,
     Title,
+    Tooltip,
     ProgressBar,
     Label,
     TopicDisplayer,
