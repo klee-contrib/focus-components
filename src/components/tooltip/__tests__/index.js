@@ -1,7 +1,7 @@
 import { mount, render, shallow } from 'enzyme';
 import Tooltip from '../';
 
-describe.only('Tooltip Component', () => {
+describe('Tooltip Component', () => {
     describe('when mounted with no props', () => {
         const wrapper = mount(<Tooltip />);
         it('should be rendered in the DOM with [data-focus="tooltip"] attribute', () => {
