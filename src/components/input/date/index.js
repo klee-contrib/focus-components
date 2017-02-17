@@ -1,5 +1,5 @@
 // Dependencies
-import React, {Component, PropTypes} from 'react';
+import React, { Component, PropTypes } from 'react';
 import ReactDOM from 'react-dom';
 import moment from 'moment';
 import Base from '../../../behaviours/component-base';
@@ -10,7 +10,7 @@ import isArray from 'lodash/lang/isArray';
 import uniqueId from 'lodash/utility/uniqueId';
 import closest from 'closest';
 
-const isISOString = value => moment.utc(value, moment.ISO_8601).isValid();
+const isISOString = value => moment.utc(value, moment.ISO_8601, true).isValid();
 
 const propTypes = {
     drops: PropTypes.oneOf(['up', 'down']).isRequired,
@@ -87,7 +87,7 @@ class InputDate extends Component {
 
     _parseInputDate = inputDate => {
         const {format} = this.props;
-        return moment.utc(inputDate, format);
+        return moment.utc(inputDate, format, true);
     };
 
     _formatDate = isoDate => {
@@ -103,14 +103,15 @@ class InputDate extends Component {
     };
 
     _onInputChange = (inputDate, fromBlur) => {
-        if (this._isInputFormatCorrect(inputDate)) {
-            const dropDownDate = this._parseInputDate(inputDate);
-            this.setState({dropDownDate, inputDate});
+        const isCorrect = this._isInputFormatCorrect(inputDate);
+        const dropDownDate = isCorrect ? this._parseInputDate(inputDate) : null;
+        if (isCorrect) {
+            this.setState({ dropDownDate, inputDate });
         } else {
-            this.setState({inputDate});
+            this.setState({ inputDate });
         }
-        if(fromBlur !== true) {
-            this.props.onChange(inputDate);
+        if (fromBlur !== true && isCorrect) {
+            this.props.onChange(dropDownDate.toISOString());
         }
     };
 
@@ -121,7 +122,7 @@ class InputDate extends Component {
 
     _onDropDownChange = (text, date) => {
         if (date._isValid) {
-            this.setState({displayPicker: false}, () => {
+            this.setState({ displayPicker: false }, () => {
                 const correctedDate = moment.utc(date).add(moment(date).utcOffset(), 'minutes').toISOString(); // Add UTC offset to get right ISO string
                 this.props.onChange(correctedDate);
                 this._onInputChange(this._formatDate(correctedDate), true);
@@ -130,23 +131,23 @@ class InputDate extends Component {
     };
 
     _onInputFocus = () => {
-        this.setState({displayPicker: true});
+        this.setState({ displayPicker: true });
     };
 
     _onDocumentClick = ({target}) => {
         const targetClassAttr = target.getAttribute('class');
         const isTriggeredFromPicker = targetClassAttr ? targetClassAttr.includes('dp-cell') : false; //this is the only way to check the target comes from picker cause at this stage, month and year div are unmounted by React.
-        if(!isTriggeredFromPicker) {
+        if (!isTriggeredFromPicker) {
             //if target was not triggered inside the date picker, we check it was not triggered by the input
             if (closest(target, `[data-id='${this._inputDateId}']`, true) === undefined) {
-                this.setState({displayPicker: false}, () => this._onInputBlur());
+                this.setState({ displayPicker: false }, () => this._onInputBlur());
             }
         }
     };
 
     _handleKeyDown = ({key}) => {
         if (key === 'Tab' || key === 'Enter') {
-            this.setState({displayPicker: false}, () => this._onInputBlur());
+            this.setState({ displayPicker: false }, () => this._onInputBlur());
         }
     };
 
@@ -167,7 +168,7 @@ class InputDate extends Component {
         } else {
             return ({
                 isValid: this._isInputFormatCorrect(inputDate),
-                message: this.i18n('input.date.invalid', {date: inputDate})
+                message: this.i18n('input.date.invalid', { date: inputDate })
             });
         }
     };
@@ -190,7 +191,7 @@ class InputDate extends Component {
                             ref='picker'
                             minDate={minDate}
                             maxDate={maxDate}
-                         />
+                            />
                     </div>
                 }
             </div>
