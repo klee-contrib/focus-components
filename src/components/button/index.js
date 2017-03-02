@@ -11,12 +11,13 @@ const RIPPLE_EFFECT = 'mdl-js-ripple-effect';
 
 const propTypes = {
     color: PropTypes.oneOf([undefined,'colored', 'primary', 'accent']),
-    id: PropTypes.string,
     handleOnClick: PropTypes.func, //to remove in V2
     hasRipple: PropTypes.bool,
-    isJs: PropTypes.bool,
+    id: PropTypes.string,
     icon: PropTypes.string,
     iconLibrary: PropTypes.oneOf(['material', 'font-awesome', 'font-custom']),
+    isJs: PropTypes.bool,
+    isLoading: PropTypes.bool,
     label: PropTypes.string,
     onClick: PropTypes.func,
     shape: PropTypes.oneOf([undefined, 'raised', 'fab', 'icon', 'mini-fab']),
@@ -24,14 +25,14 @@ const propTypes = {
 }
 
 const defaultProps = {
-    type: 'submit',
-    shape: 'raised',
-    label: '',
-    icon: null,
-    id: '',
     hasRipple: false,
+    icon: null,
+    iconLibrary: 'material',
+    id: '',
     isJs: false,
-    iconLibrary: 'material'
+    label: '',
+    shape: 'raised',
+    type: 'submit'
 }
 
 @MDBehaviour('materialButton', 'MaterialButton')
@@ -46,6 +47,13 @@ class Button extends Component {
         const refNode = ReactDOM.findDOMNode(this.refs['materialButton']);
         if (hasRipple) {
             componentHandler.upgradeElement(refNode, 'MaterialRipple');
+        }
+    }
+
+    componentDidUpdate() {
+        const spinnerNode = ReactDOM.findDOMNode(this.refs['double-action-button-spinner']);
+        if(spinnerNode) {
+            componentHandler.upgradeElement(spinnerNode, 'MaterialSpinner');
         }
     }
 
@@ -98,47 +106,51 @@ class Button extends Component {
         const {icon, iconLibrary} = this.props;
         switch (iconLibrary) {
             case 'material':
-                return <i className='material-icons'>{icon}</i>;
-            case 'font-awesome':
+            return <i className='material-icons'>{icon}</i>;
+                case 'font-awesome':
                 const faCss = `fa fa-${icon}`;
                 return <i className={faCss}></i>;
-            case 'font-custom':
-                return <span className={`icon-${icon}`}></span>;
-            default:
-                return null;
-        }
-    };
+                    case 'font-custom':
+                    return <span className={`icon-${icon}`}></span>;
+                        default:
+                        return null;
+                    }
+                };
 
-    /**
-    * Render the label.
-    * @return {Component} - Tle button label.
-    */
-    _renderLabel() {
-        const {label, shape} = this.props;
-        if (label && 'fab' !== shape && 'icon' !== shape && 'mini-fab' !== shape ) {
-            return this.i18n(label);
-        }
-        return null;
-    };
+                /**
+                * Render the label.
+                * @return {Component} - Tle button label.
+                */
+                _renderLabel() {
+                    const {isLoading, label, processLabel, shape} = this.props;
 
-    /** inheritedDoc */
-    render() {
-        // attribute doc : https://developer.mozilla.org/fr/docs/Web/HTML/Element/Button
-        // be careful the way you declare your attribute names : https://developer.mozilla.org/fr/docs/Web/HTML/Element/Button
-        const {className, disabled, formNoValidate, handleOnClick, icon, id, onClick, type, label, style, hasRipple, isJs, iconLibrary, ...rest} = this.props;
-        const otherInputProps = { disabled, formNoValidate, onClick: handleOnClick ? handleOnClick : onClick, style, type, ...rest }; //on click for legacy. Remove handleOnClick in v2
-        const renderedClassName = `${className ? className : ''} ${::this._getComponentClassName()}`.trim();
-        return (
-            <button alt={this.i18n(label)} className={renderedClassName} data-focus='button-action' id={id} title={this.i18n(label)} {...otherInputProps} ref='materialButton'>
-                {icon && ::this._renderIcon()}
-                {::this._renderLabel()}
-            </button>
-        );
-    }
-}
+                    if (label && 'fab' !== shape && 'icon' !== shape && 'mini-fab' !== shape && (!isLoading || !processLabel)) {
+                        return <span data-focus='button-label'>{this.i18n(label)}</span>;
+                        } else if (processLabel && 'fab' !== shape && 'icon' !== shape && 'mini-fab' !== shape && isLoading) {
+                            return <span data-focus='button-label'>{this.i18n(processLabel)}</span>
+                        }
+                        return null;
+                    };
 
-Button.displayName = 'Button'
-Button.defaultProps = defaultProps;
-Button.propTypes = propTypes;
+                    /** inheritedDoc */
+                    render() {
+                        // attribute doc : https://developer.mozilla.org/fr/docs/Web/HTML/Element/Button
+                        // be careful the way you declare your attribute names : https://developer.mozilla.org/fr/docs/Web/HTML/Element/Button
+                        const {className, formNoValidate, handleOnClick, icon, id, onClick, type, label, style, hasRipple, isJs, iconLibrary, isLoading, ...rest} = this.props;
+                        const otherInputProps = { formNoValidate, onClick: handleOnClick ? handleOnClick : onClick, style, type, ...rest }; //on click for legacy. Remove handleOnClick in v2
+                        const renderedClassName = `${className ? className : ''} ${::this._getComponentClassName()}`.trim();
+                        return (
+                            <button alt={this.i18n(label)} className={renderedClassName} data-focus='button-action' data-saving={isLoading} id={id} disabled={isLoading} title={this.i18n(label)} {...otherInputProps} ref='materialButton'>
+                                {icon && ::this._renderIcon()}
+                                {::this._renderLabel()}
+                                {isLoading && <div className='mdl-spinner mdl-spinner--single-color mdl-js-spinner is-active' data-focus='double-action-button-spinner' ref='double-action-button-spinner' ></div>}
+                            </button>
+                        );
+                    }
+                }
 
-export default Button;
+                Button.displayName = 'Button'
+                Button.defaultProps = defaultProps;
+                Button.propTypes = propTypes;
+
+                export default Button;
