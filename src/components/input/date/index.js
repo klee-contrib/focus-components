@@ -14,7 +14,7 @@ const isISOString = value => moment.utc(value, moment.ISO_8601, true).isValid();
 
 const propTypes = {
     beforeValueGetter: PropTypes.func.isRequired,
-    checkOnBlur: PropTypes.bool,
+    checkOnlyOnBlur: PropTypes.bool,
     drops: PropTypes.oneOf(['up', 'down']).isRequired,
     error: PropTypes.string,
     locale: PropTypes.string.isRequired,
@@ -35,7 +35,7 @@ const propTypes = {
 
 const defaultProps = {
     beforeValueGetter: value => value,
-    checkOnBlur: false,
+    checkOnlyOnBlur: false,
     drops: 'down',
     format: 'MM/DD/YYYY',
     locale: 'en',
@@ -69,7 +69,7 @@ class InputDate extends Component {
     }
 
     componentDidMount() {
-        const {checkOnBlur, drops, showDropdowns} = this.props;
+        const {checkOnlyOnBlur, drops, showDropdowns} = this.props;
         const {inputDate: startDate} = this.state;
     }
 
@@ -106,16 +106,16 @@ class InputDate extends Component {
     _onInputChange = (inputDate, fromBlur) => {
         const isCorrect = this._isInputFormatCorrect(inputDate);
         const dropDownDate = isCorrect ? this._parseInputDate(inputDate) : null;
-        let {checkOnBlur} = this.props;
-        // si le checkOnBlur est désactivé (ce qui est la cas par défaut) ou sinon quand on sort du champ
-        if ((checkOnBlur && fromBlur) || checkOnBlur !== true){
+        let {checkOnlyOnBlur} = this.props;
+        // si le checkOnlyOnBlur est désactivé (ce qui est la cas par défaut) ou sinon quand on sort du champ
+        if ((checkOnlyOnBlur && fromBlur) || checkOnlyOnBlur !== true){
             if (isCorrect) {
                 this.setState({ dropDownDate, inputDate });
             } else {
                 this.setState({ inputDate });
             }
         }
-        if (fromBlur !== true && isCorrect && checkOnBlur !== true) {
+        if (fromBlur !== true && isCorrect && checkOnlyOnBlur !== true) {
             this.props.onChange(dropDownDate.toISOString());
         }
     };
