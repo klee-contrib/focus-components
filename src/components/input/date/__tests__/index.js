@@ -280,7 +280,7 @@ describe('The input date', () => {
     });
 
     describe('when a date is chosen in the date picker', () => {
-        const validDate = moment.utc('1995-01-01T00:00:00.000Z').toISOString();
+        const validDate = moment.utc('2015-10-10T00:00:00.000Z').toISOString();
         const onChangeSpy = sinon.spy();
         let renderedTest;
         before(done => {
@@ -302,7 +302,7 @@ describe('The input date', () => {
             TestUtils.Simulate.click(firstDay);
         });
         it('should call the onChange prop with the corresponding ISOString', () => {
-            expect(onChangeSpy).to.have.been.calledWith(validDate);
+            expect(onChangeSpy).to.have.been.calledWith( moment.utc('2015-09-27T00:00:00.000Z').toISOString());
         });
     });
 });
