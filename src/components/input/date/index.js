@@ -3,7 +3,8 @@ import React, { Component, PropTypes } from 'react';
 import ReactDOM from 'react-dom';
 import moment from 'moment';
 import DatePicker from 'react-date-picker';
-import { isArray, uniqueId } from 'lodash';
+import isArray from 'lodash/lang/isArray';
+import uniqueId from 'lodash/utility/uniqueId';
 import closest from 'closest';
 
 import Base from '../../../behaviours/component-base';
@@ -78,14 +79,6 @@ class InputDate extends Component {
     }
 
     /**
-     * After component mount.
-     */
-    componentDidMount() {
-        const {checkOnlyOnBlur, drops, showDropdowns} = this.props;
-        const {inputDate: startDate} = this.state;
-    }
-
-    /**
      * Receive component props.
      * @param {*} param0 
      */
@@ -98,7 +91,6 @@ class InputDate extends Component {
 
     /**
      * Before component unmount.
-     * 
      */
     componentWillUnmount() {
         document.removeEventListener('click', this._onDocumentClick);
@@ -110,8 +102,8 @@ class InputDate extends Component {
     _isInputFormatCorrect = value => this._parseInputDate(value).isValid();
 
     /**
-     * Parse input value and try convertion to date.
-     * Formats could be define with the format props.
+     * Parse input value and try converting it to date.
+     * Formats could be defined with the format props.
      * The default format is 'MM/DD/YYYY'.
      */
     _parseInputDate = inputDate => {
@@ -120,7 +112,7 @@ class InputDate extends Component {
     };
 
     /**
-     * Format date to the first format is the format props (if array). 
+     * Format the date to the first format in the format props (if array). 
      * The default format is 'MM/DD/YYYY'.
      */
     _formatDate = isoDate => {
@@ -177,6 +169,7 @@ class InputDate extends Component {
 
     /**
      * Handle calendar changes.
+     * @memberOf InputDate
      */
     _onDropDownChange = (text, date) => {
         if (date._isValid) {
@@ -197,6 +190,7 @@ class InputDate extends Component {
 
     /**
      * Handle document click to close the calendar.
+     * @memberOf InputDate
      */
     _onDocumentClick = ({target}) => {
         const targetClassAttr = target.getAttribute('class');
