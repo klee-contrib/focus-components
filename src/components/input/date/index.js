@@ -2,23 +2,26 @@
 import React, { Component, PropTypes } from 'react';
 import ReactDOM from 'react-dom';
 import moment from 'moment';
-import Base from '../../../behaviours/component-base';
-import InputText from '../text';
 import DatePicker from 'react-date-picker';
-import compose from 'lodash/function/compose';
 import isArray from 'lodash/lang/isArray';
 import uniqueId from 'lodash/utility/uniqueId';
 import closest from 'closest';
 
+import Base from '../../../behaviours/component-base';
+import InputText from '../text';
+
 const isISOString = value => moment.utc(value, moment.ISO_8601, true).isValid();
 
 const propTypes = {
+    beforeValueGetter: PropTypes.func.isRequired,
+    checkOnlyOnBlur: PropTypes.bool,
     drops: PropTypes.oneOf(['up', 'down']).isRequired,
     error: PropTypes.string,
     locale: PropTypes.string.isRequired,
+    minDate: PropTypes.string,
+    maxDate: PropTypes.string,
     name: PropTypes.string.isRequired,
     onChange: PropTypes.func.isRequired,
-    beforeValueGetter: PropTypes.func.isRequired,
     placeholder: PropTypes.string,
     showDropdowns: PropTypes.bool.isRequired,
     validate: PropTypes.func,
@@ -27,16 +30,15 @@ const propTypes = {
         if (prop && !isISOString(prop)) {
             throw new Error(`The date ${prop} provided to the component ${componentName} is not an ISO date. Please provide a valid date string.`);
         }
-    },
-    minDate: PropTypes.string,
-    maxDate: PropTypes.string
+    }
 };
 
 const defaultProps = {
-    drops: 'down',
-    locale: 'en',
-    format: 'MM/DD/YYYY',
     beforeValueGetter: value => value,
+    checkOnlyOnBlur: false,
+    drops: 'down',
+    format: 'MM/DD/YYYY',
+    locale: 'en',
     /**
     * Default onChange prop, that will log an error.
     */
@@ -47,8 +49,16 @@ const defaultProps = {
     validate: isISOString
 };
 
+/**
+ * Date input component with text input and date picker.
+ * Validate user input at each change in the text input.
+ */
 @Base
 class InputDate extends Component {
+    /**
+     * Create a new component.
+     * @param {*} props Props.
+     */
     constructor(props) {
         super(props);
         const {value} = props;
@@ -61,17 +71,17 @@ class InputDate extends Component {
         this._inputDateId = uniqueId('input-date-');
     }
 
+    /**
+     * Before component mount.
+     */
     componentWillMount() {
-        // moment.locale(this.props.locale);
         document.addEventListener('click', this._onDocumentClick);
     }
 
-
-    componentDidMount() {
-        const {drops, showDropdowns} = this.props;
-        const {inputDate: startDate} = this.state;
-    }
-
+    /**
+     * Receive component props.
+     * @param {*} param0 
+     */
     componentWillReceiveProps({value}) {
         this.setState({
             dropDownDate: isISOString(value) ? moment.utc(value, moment.ISO_8601) : moment.utc(),
@@ -79,17 +89,32 @@ class InputDate extends Component {
         });
     }
 
+    /**
+     * Before component unmount.
+     */
     componentWillUnmount() {
         document.removeEventListener('click', this._onDocumentClick);
     }
 
+    /**
+     * Check if input value is a valid date.
+     */
     _isInputFormatCorrect = value => this._parseInputDate(value).isValid();
 
+    /**
+     * Parse input value and try converting it to date.
+     * Formats could be defined with the format props.
+     * The default format is 'MM/DD/YYYY'.
+     */
     _parseInputDate = inputDate => {
         const {format} = this.props;
         return moment.utc(inputDate, format, true);
     };
 
+    /**
+     * Format the date to the first format in the format props (if array). 
+     * The default format is 'MM/DD/YYYY'.
+     */
     _formatDate = isoDate => {
         let {format} = this.props;
         if (isISOString(isoDate)) {
@@ -102,7 +127,18 @@ class InputDate extends Component {
         }
     };
 
+    /**
+     * Handle changes.
+     */
     _onInputChange = (inputDate, fromBlur) => {
+        let {checkOnlyOnBlur} = this.props;
+        // When checkOnlyOnBlur is true skip all checks.
+        if (checkOnlyOnBlur === true && fromBlur !== true) {
+            // Use case : incompatibles date formats (DD/MM/YY, DD/MM/YYYY)
+            this.setState({ inputDate });
+            return;
+        }
+
         const isCorrect = this._isInputFormatCorrect(inputDate);
         const dropDownDate = isCorrect ? this._parseInputDate(inputDate) : null;
         if (isCorrect) {
@@ -110,16 +146,31 @@ class InputDate extends Component {
         } else {
             this.setState({ inputDate });
         }
+
+        // Fire onChange event
+        if (checkOnlyOnBlur === true) {
+            if (isCorrect) {
+                this.props.onChange(dropDownDate.toISOString());
+            }
+            return;
+        }
         if (fromBlur !== true && isCorrect) {
             this.props.onChange(dropDownDate.toISOString());
         }
     };
 
+    /**
+     * Handle input text blur.
+     */
     _onInputBlur = () => {
         const {inputDate} = this.state;
         this._onInputChange(inputDate, true);
     };
 
+    /**
+     * Handle calendar changes.
+     * @memberOf InputDate
+     */
     _onDropDownChange = (text, date) => {
         if (date._isValid) {
             this.setState({ displayPicker: false }, () => {
@@ -130,10 +181,17 @@ class InputDate extends Component {
         }
     };
 
+    /**
+     * Handle input text focus.
+     */
     _onInputFocus = () => {
         this.setState({ displayPicker: true });
     };
 
+    /**
+     * Handle document click to close the calendar.
+     * @memberOf InputDate
+     */
     _onDocumentClick = ({target}) => {
         const targetClassAttr = target.getAttribute('class');
         const isTriggeredFromPicker = targetClassAttr ? targetClassAttr.includes('dp-cell') : false; //this is the only way to check the target comes from picker cause at this stage, month and year div are unmounted by React.
@@ -145,18 +203,27 @@ class InputDate extends Component {
         }
     };
 
+    /**
+     * Handle Tab and Enter keys to close the calendar.
+     */
     _handleKeyDown = ({key}) => {
         if (key === 'Tab' || key === 'Enter') {
             this.setState({ displayPicker: false }, () => this._onInputBlur());
         }
     };
 
+    /**
+     * Return value in a valid date format.
+     */
     getValue = () => {
         const {inputDate} = this.state;
         const rawValue = this._isInputFormatCorrect(inputDate) ? this._parseInputDate(inputDate).toISOString() : null;
         return this.props.beforeValueGetter(rawValue);
     };
 
+    /**
+     * Validate the input.
+     */
     validate = () => {
         const {inputDate} = this.state;
         const {isRequired} = this.props;
@@ -173,6 +240,9 @@ class InputDate extends Component {
         }
     };
 
+    /**
+     * Render text input and datepicker.
+     */
     render() {
         const {error, locale, name, placeholder, disabled, minDate, maxDate} = this.props;
         const {dropDownDate, inputDate, displayPicker} = this.state;
@@ -191,7 +261,7 @@ class InputDate extends Component {
                             ref='picker'
                             minDate={minDate}
                             maxDate={maxDate}
-                            />
+                        />
                     </div>
                 }
             </div>
