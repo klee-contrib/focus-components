@@ -1,135 +1,219 @@
 {
+  "_args": [
+    [
+      {
+        "raw": "focus-components@2.1.4",
+        "scope": null,
+        "escapedName": "focus-components",
+        "name": "focus-components",
+        "rawSpec": "2.1.4",
+        "spec": "2.1.4",
+        "type": "version"
+      },
+      "C:\\Git\\temp"
+    ]
+  ],
+  "_from": "focus-components@2.1.4",
+  "_id": "focus-components@2.1.4",
+  "_inCache": true,
+  "_location": "/focus-components",
+  "_nodeVersion": "6.7.0",
+  "_npmOperationalInternal": {
+    "host": "packages-18-east.internal.npmjs.com",
+    "tmp": "tmp/focus-components-2.1.4.tgz_1484758277771_0.4310589840169996"
+  },
+  "_npmUser": {
+    "name": "focusjs",
+    "email": "focus@kleegroup.com"
+  },
+  "_npmVersion": "3.10.5",
+  "_phantomChildren": {},
+  "_requested": {
+    "raw": "focus-components@2.1.4",
+    "scope": null,
+    "escapedName": "focus-components",
     "name": "focus-components",
-    "version": "2.1.2",
-    "description": "Focus component repository.",
-    "main": "index.js",
-    "scripts": {
-        "babelify": "better-npm-run babelify",
-        "bundle": "better-npm-run bundle",
-        "copy-sass": "better-npm-run copy-sass",
-        "build": "node scripts/mdl-variables-copy.js && better-npm-run babelify && better-npm-run copy-sass && better-npm-run bundle",
-        "test": "better-npm-run test",
-        "test:watch": "better-npm-run test-watch",
-        "postinstall": "node scripts/mdl-variables-copy.js",
-        "profile": "better-npm-run profile",
-        "prepublish": "npm run build",
-        "fix-lint": "eslint --fix src/** || exit 0"
+    "rawSpec": "2.1.4",
+    "spec": "2.1.4",
+    "type": "version"
+  },
+  "_requiredBy": [
+    "#USER",
+    "/"
+  ],
+  "_resolved": "https://registry.npmjs.org/focus-components/-/focus-components-2.1.4.tgz",
+  "_shasum": "978b1a3d7889654a22042a3f7cd60994a381e938",
+  "_shrinkwrap": null,
+  "_spec": "focus-components@2.1.4",
+  "_where": "C:\\Git\\temp",
+  "author": {
+    "name": "Focus Team",
+    "email": "focus@kleegroup.com"
+  },
+  "babel": {
+    "presets": [
+      "focus"
+    ]
+  },
+  "betterScripts": {
+    "babelify": {
+      "env": {
+        "BABEL_ENV": "production"
+      },
+      "command": "node scripts/babelify.js"
     },
-    "betterScripts": {
-        "babelify": {
-            "env": {
-                "BABEL_ENV": "production"
-            },
-            "command": "node scripts/babelify.js"
-        },
-        "copy-sass": {
-            "command": "cd src && find . -name *.scss | xargs tar cvf - | tar xfp - -C ../"
-        },
-        "bundle": {
-            "command": "webpack --progress",
-            "env": {
-                "DEV": false,
-                "NODE_ENV": "production",
-                "LIBRARY_NAME": "FocusComponents",
-                "MINIMIFY": false,
-                "PACKAGE_JSON_PATH": "../",
-                "BABEL_ENV": "production"
-            }
-        },
-        "profile": {
-            "command": "webpack --progress --json --profile > profile.json",
-            "env": {
-                "DEV": false,
-                "NODE_ENV": "production",
-                "LIBRARY_NAME": "FocusComponents",
-                "MINIMIFY": false,
-                "PACKAGE_JSON_PATH": "../"
-            }
-        },
-        "test": {
-            "command": "mocha src/**/__tests__/**/*.js",
-            "env": {
-                "BABEL_ENV": "production"
-            }
-        },
-        "test-watch": {
-            "command": "mocha src/**/__tests__/**/*.js -w",
-            "env": {
-                "BABEL_ENV": "production"
-            }
-        }
+    "copy-sass": {
+      "command": "cd src && find . -name *.scss | xargs tar cvf - | tar xfp - -C ../"
     },
-    "babel": {
-        "presets": [
-            "focus"
-        ]
+    "bundle": {
+      "command": "webpack --progress",
+      "env": {
+        "DEV": false,
+        "NODE_ENV": "production",
+        "LIBRARY_NAME": "FocusComponents",
+        "MINIMIFY": false,
+        "PACKAGE_JSON_PATH": "../",
+        "BABEL_ENV": "production"
+      }
     },
-    "repository": {
-        "type": "git",
-        "url": "https://github.com/KleeGroup/focus-components.git"
+    "profile": {
+      "command": "webpack --progress --json --profile > profile.json",
+      "env": {
+        "DEV": false,
+        "NODE_ENV": "production",
+        "LIBRARY_NAME": "FocusComponents",
+        "MINIMIFY": false,
+        "PACKAGE_JSON_PATH": "../"
+      }
     },
-    "keywords": [
-        "react",
-        "focus"
-    ],
-    "author": "Focus Team <focus@kleegroup.com>",
-    "license": "MIT",
-    "bugs": {
-        "url": "https://github.com/KleeGroup/focus-components/issues"
+    "test": {
+      "command": "mocha src/**/__tests__/**/*.js",
+      "env": {
+        "BABEL_ENV": "production"
+      }
     },
-    "homepage": "https://github.com/KleeGroup/focus-components",
-    "dependencies": {
-        "closest": "0.0.1",
-        "daterangepicker": "0.0.3",
-        "immutable": "^3.7.4",
-        "lodash": "^3.10.1",
-        "material-design-lite": "1.1.3",
-        "object-assign": "^2.0.0",
-        "react-addons-css-transition-group": "^15.2.1",
-        "react-date-picker": "^3.1.6",
-        "uuid": "^2.0.1"
-    },
-    "devDependencies": {
-        "autoprefixer-loader": "^3.2.0",
-        "babel": "^6.3.26",
-        "babel-cli": "^6.4.0",
-        "babel-core": "^6.4.0",
-        "babel-eslint": "4.1.3",
-        "babel-loader": "^6.2.1",
-        "babel-preset-focus": "^0.5.2",
-        "babel-runtime": "^6.3.19",
-        "better-npm-run": "0.0.5",
-        "chai": "^3.2.0",
-        "chai-subset": "^1.0.1",
-        "css-loader": "^0.19.0",
-        "eslint": "^2.3.0",
-        "eslint-config-focus": "0.3.0",
-        "eslint-plugin-filenames": "0.1.1",
-        "eslint-plugin-react": "3.5.0",
-        "exports-loader": "^0.6.2",
-        "extract-text-webpack-plugin": "^0.8.2",
-        "file-loader": "^0.8.4",
-        "focus-core": "0.17.0-beta0",
-        "in-publish": "^2.0.0",
-        "jquery": "^2.1.4",
-        "jsdom": "^6.4.0",
-        "json-loader": "^0.5.3",
-        "mocha": "^2.2.5",
-        "moment": "^2.10.6",
-        "node-sass": "^3.3.3",
-        "numeral": "^1.5.3",
-        "react": "^15.3.2",
-        "react-addons-test-utils": "^15.2.1",
-        "react-dom": "^15.2.1",
-        "react-hot-loader": "^1.3.0",
-        "sass-loader": "^2.0.1",
-        "sinon": "^1.16.1",
-        "sinon-chai": "^2.8.0",
-        "source-map-loader": "^0.1.5",
-        "style-loader": "^0.12.4",
-        "url-loader": "^0.5.6",
-        "webpack": "^1.12.14",
-        "webpack-dev-server": "^1.14.1",
-        "webpack-focus": "^0.11.4"
+    "test-watch": {
+      "command": "mocha src/**/__tests__/**/*.js -w",
+      "env": {
+        "BABEL_ENV": "production"
+      }
     }
+  },
+  "bugs": {
+    "url": "https://github.com/KleeGroup/focus-components/issues"
+  },
+  "dependencies": {
+    "closest": "0.0.1",
+    "daterangepicker": "0.0.3",
+    "immutable": "^3.7.4",
+    "lodash": "^3.10.1",
+    "material-design-lite": "1.1.3",
+    "object-assign": "^2.0.0",
+    "react-addons-css-transition-group": "^15.2.1",
+    "react-date-picker": "^3.1.6",
+    "uuid": "^2.0.1"
+  },
+  "description": "Focus component repository.",
+  "devDependencies": {
+    "autoprefixer-loader": "^3.2.0",
+    "babel": "^6.3.26",
+    "babel-cli": "^6.4.0",
+    "babel-core": "^6.4.0",
+    "babel-eslint": "4.1.3",
+    "babel-loader": "^6.2.1",
+    "babel-preset-focus": "^0.5.2",
+    "babel-runtime": "^6.3.19",
+    "better-npm-run": "0.0.5",
+    "chai": "^3.2.0",
+    "chai-subset": "^1.0.1",
+    "css-loader": "^0.19.0",
+    "eslint": "^2.3.0",
+    "eslint-config-focus": "0.3.0",
+    "eslint-plugin-filenames": "0.1.1",
+    "eslint-plugin-react": "3.5.0",
+    "exports-loader": "^0.6.2",
+    "extract-text-webpack-plugin": "^0.8.2",
+    "file-loader": "^0.8.4",
+    "focus-core": "0.17.0-beta0",
+    "in-publish": "^2.0.0",
+    "jquery": "^2.1.4",
+    "jsdom": "^6.4.0",
+    "json-loader": "^0.5.3",
+    "mocha": "^2.2.5",
+    "moment": "^2.10.6",
+    "node-sass": "^3.3.3",
+    "numeral": "^1.5.3",
+    "react": "^15.3.2",
+    "react-addons-test-utils": "^15.2.1",
+    "react-dom": "^15.2.1",
+    "react-hot-loader": "^1.3.0",
+    "sass-loader": "^2.0.1",
+    "sinon": "^1.16.1",
+    "sinon-chai": "^2.8.0",
+    "source-map-loader": "^0.1.5",
+    "style-loader": "^0.12.4",
+    "url-loader": "^0.5.6",
+    "webpack": "^1.12.14",
+    "webpack-dev-server": "^1.14.1",
+    "webpack-focus": "^0.11.4"
+  },
+  "directories": {},
+  "dist": {
+    "shasum": "978b1a3d7889654a22042a3f7cd60994a381e938",
+    "tarball": "https://registry.npmjs.org/focus-components/-/focus-components-2.1.4.tgz"
+  },
+  "gitHead": "53d3ff41ee0344df22cabc76f160c3741ea88f29",
+  "homepage": "https://github.com/KleeGroup/focus-components",
+  "keywords": [
+    "react",
+    "focus"
+  ],
+  "license": "MIT",
+  "main": "index.js",
+  "maintainers": [
+    {
+      "name": "ephrame",
+      "email": "viollet.ame@gmail.com"
+    },
+    {
+      "name": "focusjs",
+      "email": "focus@kleegroup.com"
+    },
+    {
+      "name": "getfocus",
+      "email": "focus.bureau@kleegroup.com"
+    },
+    {
+      "name": "guenole_k",
+      "email": "kikabouguenole@gmail.com"
+    },
+    {
+      "name": "pierr",
+      "email": "pierre.besson7+npm@gmail.com"
+    },
+    {
+      "name": "tommass",
+      "email": "thomas.gallon@gmail.com"
+    }
+  ],
+  "name": "focus-components",
+  "optionalDependencies": {},
+  "readme": "ERROR: No README data found!",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/KleeGroup/focus-components.git"
+  },
+  "scripts": {
+    "babelify": "better-npm-run babelify",
+    "build": "node scripts/mdl-variables-copy.js && better-npm-run babelify && better-npm-run copy-sass && better-npm-run bundle",
+    "bundle": "better-npm-run bundle",
+    "copy-sass": "better-npm-run copy-sass",
+    "fix-lint": "eslint --fix src/** || exit 0",
+    "postinstall": "node scripts/mdl-variables-copy.js",
+    "prepublish": "npm run build",
+    "profile": "better-npm-run profile",
+    "test": "better-npm-run test",
+    "test:watch": "better-npm-run test-watch"
+  },
+  "version": "2.1.4"
 }
