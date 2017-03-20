@@ -66,7 +66,6 @@ class Sample extends React.Component {
     }
 
 
-
     render() {
         const {delayedValue, isEdit} = this.state;
         return (
@@ -77,7 +76,7 @@ class Sample extends React.Component {
                     querySearcher={querySearcher}
                     ref='first'
                     value='lol'
-                    />
+                />
                 <br />
                 <AutocompleteSelect
                     isEdit={isEdit}

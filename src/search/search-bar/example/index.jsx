@@ -50,10 +50,10 @@ const MySearchBarWithoutScopes = React.createClass({
                 <SearchBar
                     hasScopes={false}
                     store={searchBarStore}
-                    placeholder={`Enter your search here...`}
+                    placeholder={'Enter your search here...'}
                     action={this._action}
                     ref='searchBar'
-                    />
+                />
             </div>
         );
     }
@@ -99,17 +99,17 @@ const MySearchBarWithScopes = React.createClass({
             {
                 code: 'collections',
                 label: 'Photos'
-            },
+            }
         ];
         return(
             <div>
                 <SearchBar
                     scopes={searchBarScopes}
                     store={searchBarWithScopesStore}
-                    placeholder={`Enter your search here...`}
+                    placeholder={'Enter your search here...'}
                     ref='searchBarScopes'
                     action={this._action}
-                    />
+                />
             </div>
         );
     }

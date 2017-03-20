@@ -1,6 +1,6 @@
-let assign = require('object-assign');
-let isFunction = require('lodash/lang/isFunction');
-let omit = require('lodash/object/omit');
+import assign from 'object-assign';
+import {isFunction, omit} from'lodash';
+
 import FocusException from 'focus-core/exception/focus-exception';
 let actionMixin = {
 
@@ -83,4 +83,4 @@ let actionMixin = {
 };
 
 
-module.exports = actionMixin;
+export default actionMixin;

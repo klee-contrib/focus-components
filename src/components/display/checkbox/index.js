@@ -5,7 +5,7 @@ import {translate} from 'focus-core/translation';
 * Render the boolean value.
 */
 function renderValue(value) {
-    var stringValue = value ? 'true' : 'false';
+    let stringValue = value ? 'true' : 'false';
     return translate(`display.checkbox.${stringValue}`);
 }
 

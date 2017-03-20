@@ -3,8 +3,8 @@ import type from 'focus-core/component/types';
  * Mixin used in order to create a popin or a menu.
  * @type {Object} - popin behavour mixin
  */
-var PopinProperties = {
-  /** @inheritdoc */
+let PopinProperties = {
+    /** @inheritdoc */
     getDefaultProps: function getMenuDefaultProps() {
         return {
             direction: 'vertical',//horizontal
@@ -12,11 +12,11 @@ var PopinProperties = {
             open: false
         };
     },
-  /** @inheritdoc */
+    /** @inheritdoc */
     propTypes: {
         open: type('bool')
     },
-  /** @inheritdoc */
+    /** @inheritdoc */
     getInitialState: function getDefaultState() {
         return {
             open: this.props.open
@@ -24,4 +24,7 @@ var PopinProperties = {
     }
 };
 
-module.exports = {mixin: PopinProperties};
+export {
+    PopinProperties as mixin
+}
+export default { mixin: PopinProperties };

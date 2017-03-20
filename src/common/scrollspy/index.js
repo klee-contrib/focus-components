@@ -7,8 +7,8 @@ import types from 'focus-core/component/types';
 // Mixins
 const Stylabe = require('../../mixin/stylable');
 const {scrollTo, scrollPosition} = require('../mixin/scroll');
-const {filter} = require('lodash/collection');
-const {first, last} = require('lodash/array');
+import { first, last, filter } from 'lodash';
+
 
 /**
 * Scrollspy component.
@@ -118,7 +118,7 @@ const Scrollspy = {
         const {affix} = this.state;
         return (
             <div data-focus='scrollspy' ref='scrollSpy'>
-                <nav data-affix={!!affix} style={affix ? {position: 'fixed', top: `${this.props.affixOffset}px`} : null}>{this._renderList()}</nav>
+                <nav data-affix={!!affix} style={affix ? { position: 'fixed', top: `${this.props.affixOffset}px` } : null}>{this._renderList()}</nav>
                 <div>{this.props.children}</div>
             </div>
         );
@@ -129,7 +129,7 @@ const Scrollspy = {
     */
     _scrollSpy() {
         const titleList = this._getTitleList();
-        if(0 === titleList.length) { return; }
+        if (0 === titleList.length) { return; }
         //---
         const scrollposition = scrollPosition();
 
@@ -139,11 +139,11 @@ const Scrollspy = {
 
         //by default, first node is indexed
         let currentId = titleList[0].id;
-        if(0 < nextTitles.length) {
+        if (0 < nextTitles.length) {
             //check the first node
             const firstNode = first(nextTitles);
             const index = firstNode.index;
-            if(0 < index) {
+            if (0 < index) {
                 currentId = titleList[index - 1].id;
             }
         } else {
@@ -152,7 +152,7 @@ const Scrollspy = {
         }
         //save current state
         const {scrollSpy} = this.refs;
-        if(scrollSpy) {
+        if (scrollSpy) {
             const componentTopPosition = ReactDOM.findDOMNode(scrollSpy).offsetTop;
             this.setState({
                 activeTitleId: currentId,

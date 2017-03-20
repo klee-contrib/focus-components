@@ -4,7 +4,7 @@ import types from 'focus-core/component/types';
 const i18nBehaviour = require('../../i18n/mixin');
 const fieldGridBehaviourMixin = require('../../mixin/field-grid-behaviour');
 const mdlBehaviour = require('../../mixin/mdl-behaviour');
-const {isUndefined} = require('lodash/lang');
+import { isUndefined } from 'lodash';
 
 const radioMixin = {
     mixins: [i18nBehaviour, fieldGridBehaviourMixin, mdlBehaviour],
@@ -31,7 +31,7 @@ const radioMixin = {
     },
     /** @inheritdoc */
     componentWillReceiveProps(newProps) {
-        this.setState({isChecked: newProps.value});
+        this.setState({ isChecked: newProps.value });
     },
     /** @inheritDoc */
     getInitialState() {
@@ -57,7 +57,7 @@ const radioMixin = {
         this.setState({
             isChecked: !this.state.isChecked
         }, () => {
-            if(this.props.onChange) {
+            if (this.props.onChange) {
                 this.props.onChange(this.state.isChecked);
             }
         });
@@ -77,12 +77,12 @@ const radioMixin = {
         const {isChecked} = this.state;
         const {label, name, ...otherProps} = this.props;
         // we use inputProps to be able to display 'checked' property. it is required to be able to use MDL.
-        const checkedProps = isChecked ? {checked: 'checked'} : {};
-        const inputProps = {...{className: 'mdl-radio__button', name: name, onChange: this._onChange, type: 'radio'}, ...checkedProps, ...otherProps};
+        const checkedProps = isChecked ? { checked: 'checked' } : {};
+        const inputProps = { ...{ className: 'mdl-radio__button', name: name, onChange: this._onChange, type: 'radio' }, ...checkedProps, ...otherProps };
 
         return (
-            <label className='mdl-radio mdl-js-radio mdl-js-ripple-effect' data-focus="input-radio" ref='inputMdl'>
-                <input {...inputProps}/>
+            <label className='mdl-radio mdl-js-radio mdl-js-ripple-effect' data-focus='input-radio' ref='inputMdl'>
+                <input {...inputProps} />
                 <span className='mdl-radio__label'>{this.i18n(label)}</span>
             </label>
         );

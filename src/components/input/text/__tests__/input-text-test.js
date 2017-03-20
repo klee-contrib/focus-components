@@ -1,13 +1,13 @@
 import Input from '../';
 const {renderIntoDocument, Simulate} = TestUtils;
-import {identity} from 'lodash/utility';
+import { identity } from 'lodash';
 describe('The input text', () => {
     describe('when called with no props', () => {
         let component;
         before(
             () => {
                 const shallowRenderer = TestUtils.createRenderer();
-                shallowRenderer.render(<Input name='test' onChange={(value) => { /* */ }}/>);
+                shallowRenderer.render(<Input name='test' onChange={(value) => { }}/>);
                 component = shallowRenderer.getRenderOutput();
             }
         );
@@ -23,7 +23,7 @@ describe('The input text', () => {
         before(
             () => {
                 onChangeSpy = sinon.spy();
-                component = renderIntoDocument(<Input name='inputName' onChange={onChangeSpy}/>);
+                component = renderIntoDocument(<Input name='inputName' onChange={onChangeSpy} />);
                 domNode = ReactDOM.findDOMNode(component);
             }
         );
@@ -39,7 +39,7 @@ describe('The input text', () => {
         before(
             () => {
                 onChangeSpy = sinon.spy();
-                component = renderIntoDocument(<Input name='inputName' onChange={onChangeSpy} value={value}/>);
+                component = renderIntoDocument(<Input name='inputName' onChange={onChangeSpy} value={value} />);
             }
         );
         it('shoud return the value on getValue call', () => {
@@ -56,12 +56,12 @@ describe('The input text', () => {
         before(
             () => {
                 onChangeSpy = sinon.spy();
-                component = renderIntoDocument(<Input name='inputName' onChange={onChangeSpy}/>);
+                component = renderIntoDocument(<Input name='inputName' onChange={onChangeSpy} />);
 
             }
         );
         it('should call onChange with the new value', () => {
-            Simulate.change(ReactDOM.findDOMNode(component.refs.htmlInput), {target: {value: testValue}});
+            Simulate.change(ReactDOM.findDOMNode(component.refs.htmlInput), { target: { value: testValue } });
             expect(onChangeSpy).to.have.been.called.once;
             expect(onChangeSpy).to.have.been.calledWith(testValue);
         });
@@ -78,8 +78,8 @@ describe('The input text', () => {
                  * The formatter test.
                  * @return {string} - The formated value
                  */
-                function formatter(value, mode){ isEditFormatterSpy(mode); return formatedValue; } // eslint-disable-line
-                component = renderIntoDocument(<Input formatter={formatter} name='inputName' onChange={onChange} value={testValue}/>);
+                function formatter(value, mode) { isEditFormatterSpy(mode); return formatedValue; } // eslint-disable-line
+                component = renderIntoDocument(<Input formatter={formatter} name='inputName' onChange={onChange} value={testValue} />);
                 htmlInput = ReactDOM.findDOMNode(component.refs.htmlInput);
 
             }
@@ -89,7 +89,7 @@ describe('The input text', () => {
         });
         it('should call the isEdit formatter with the mode', () => {
             expect(isEditFormatterSpy).to.have.been.calledOnce;
-            expect(isEditFormatterSpy).to.have.been.calledWith({isEdit: true});
+            expect(isEditFormatterSpy).to.have.been.calledWith({ isEdit: true });
         });
     });
     describe('when an unformatter is provided', () => {
@@ -104,8 +104,8 @@ describe('The input text', () => {
                  * The unformatter test.
                  * @return {string} - The formated value
                  */
-                function unformatter(value, mode){ unFormatterSpy(mode);  return unformatedValue; }//eslint-disable-line
-                component = renderIntoDocument(<Input name='inputName' onChange={onChange} unformatter={unformatter} value={testValue}/>);
+                function unformatter(value, mode) { unFormatterSpy(mode); return unformatedValue; }//eslint-disable-line
+                component = renderIntoDocument(<Input name='inputName' onChange={onChange} unformatter={unformatter} value={testValue} />);
                 componentValue = component.getValue();
             }
         );
@@ -114,7 +114,7 @@ describe('The input text', () => {
         });
         it('should call unformatter with mode', () => {
             expect(unFormatterSpy).to.have.been.calledOnce;
-            expect(unFormatterSpy).to.have.been.calledWith({isEdit: true});
+            expect(unFormatterSpy).to.have.been.calledWith({ isEdit: true });
         });
     });
     describe('when an error is provided', () => {
@@ -124,7 +124,7 @@ describe('The input text', () => {
         before(
             () => {
                 onChange = identity;
-                component = renderIntoDocument(<Input error={error} name='inputName' onChange={onChange} value={testValue}/>);
+                component = renderIntoDocument(<Input error={error} name='inputName' onChange={onChange} value={testValue} />);
                 htmlInput = TestUtils.findRenderedDOMComponentWithTag(component, 'input');
                 htmlError = TestUtils.findRenderedDOMComponentWithTag(component, 'span');
             }

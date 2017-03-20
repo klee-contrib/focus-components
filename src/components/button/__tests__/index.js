@@ -24,7 +24,7 @@ describe('Button Component', () => {
             describe('When we give hasRipple prop to true', () => {
                 let renderedButton;
                 before(() => {
-                    renderedButton = renderIntoDocument(<Button hasRipple={true}/>);
+                    renderedButton = renderIntoDocument(<Button hasRipple/>);
                 });
                 it('should give add the material mention in the className', () => {
                     const {hasRipple} = renderedButton.props;

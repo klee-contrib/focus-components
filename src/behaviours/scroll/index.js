@@ -1,4 +1,4 @@
-import {isUndefined} from 'lodash/lang';
+import { isUndefined } from 'lodash';
 
 const Scroll = Component => class ScrollComponent extends Component {
     constructor(props) {
@@ -16,7 +16,7 @@ const Scroll = Component => class ScrollComponent extends Component {
     scrollPosition(domNode) {
         const y = window.pageYOffset || document.documentElement.scrollTop;
         const x = window.pageXOffset || document.documentElement.scrollLeft;
-        if(isUndefined(domNode)) {
+        if (isUndefined(domNode)) {
             return { top: y, left: x };
         }
         const nodeRect = domNode.getBoundingClientRect();
@@ -28,9 +28,9 @@ const Scroll = Component => class ScrollComponent extends Component {
     }
 
     _getScrollingElement() {
-        if(document.scrollingElement) {
+        if (document.scrollingElement) {
             return document.scrollingElement;
-        } else if(document.documentElement) {
+        } else if (document.documentElement) {
             return document.documentElement;
         }
         return document.querySelector('body');
@@ -45,7 +45,7 @@ const Scroll = Component => class ScrollComponent extends Component {
     * @param {number} duration duration of animation
     */
     scrollTo(element, to, duration = 500) {
-        if(isUndefined(element)) {
+        if (isUndefined(element)) {
             window.scrollTo(0, to);
             return;
         }

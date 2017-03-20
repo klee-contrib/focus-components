@@ -1,5 +1,5 @@
 import builder from 'focus-core/component/builder';
-const React = require('react');
+import React from 'react';
 
 const headerMixin = {
     /** @inheriteddoc */
@@ -12,4 +12,11 @@ const headerMixin = {
     }
 };
 
-module.exports = builder(headerMixin);
+const builtComp = builder(headerMixin);
+const {component, mixin} = builtComp;
+
+export {
+    component,
+    mixin
+}
+export default builtComp;

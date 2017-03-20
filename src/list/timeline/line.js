@@ -1,13 +1,11 @@
 /**@jsx*/
-var React = require('react');
-import builder from 'focus-core/component/builder';
+import React from 'react';
 import type from 'focus-core/component/types';
-var translationMixin = require('../../common/i18n').mixin;
-var referenceMixin = require('../../common/mixin/reference-property');
-var definitionMixin = require('../../common/mixin/definition');
-var builtInComponentsMixin = require('../mixin/built-in-components');
+import referenceMixin from '../../common/mixin/reference-property';
+import definitionMixin from '../../common/mixin/definition';
+import builtInComponentsMixin from '../mixin/built-in-components';
 
-var lineMixin = {
+let lineMixin = {
     /**
      * React component name.
      */
@@ -16,7 +14,7 @@ var lineMixin = {
     /**
      * Mixin dependancies.
      */
-    mixins: [translationMixin, definitionMixin, referenceMixin, builtInComponentsMixin],
+    mixins: [definitionMixin, referenceMixin, builtInComponentsMixin],
 
     getInitialState: function getInitialSate() {
         return {};
@@ -63,10 +61,10 @@ var lineMixin = {
         }else{
             return (
                 <div>
-                    <div className="timeline-heading">
-                        <h4 className="timeline-title">{this.props.data.title}</h4>
+                    <div className='timeline-heading'>
+                        <h4 className='timeline-title'>{this.props.data.title}</h4>
                     </div>
-                    <div className="timeline-body">
+                    <div className='timeline-body'>
                         <p>{this.props.data.body}</p>
                     </div>
                 </div>
@@ -85,9 +83,9 @@ var lineMixin = {
         }else{
             return (
                 <li>
-                    <div className="timeline-date">{this.textFor(this.props.dateField, {})}</div>
-                    <div className="timeline-badge"></div>
-                    <div className="timeline-panel" onClick={this._handleLineClick}>
+                    <div className='timeline-date'>{this.textFor(this.props.dateField, {})}</div>
+                    <div className='timeline-badge' />
+                    <div className='timeline-panel' onClick={this._handleLineClick}>
                         {this._renderLineContent()}
                     </div>
                 </li>
@@ -96,4 +94,9 @@ var lineMixin = {
     }
 };
 
-module.exports = {mixin : lineMixin};
+export default {
+    mixin: lineMixin
+};
+export {
+    lineMixin as mixin
+}

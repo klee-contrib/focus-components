@@ -1,6 +1,6 @@
 import React, {Component, PropTypes} from 'react';
 import ReactDOM from 'react-dom';
-import {isString} from 'lodash/lang';
+import {isString} from 'lodash';
 import {component as ConfirmationModal} from '../../application/confirmation-popin';
 import Connect from '../../behaviours/store/connect';
 import application from 'focus-core/application';

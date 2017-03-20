@@ -7,20 +7,21 @@ const {renderIntoDocument,findRenderedDOMComponentWithClass} = TestUtils;
 const alertSpy = sinon.spy();
 
 const actions = [
-    {label: "Action_a", msg: "Action a"},
-    {label: "Action_b", msg: "Action b"},
-    {label: "Action_c", msg: "Action c"},
-    {label: "Action_d", msg: "Action d"},
+    {label: 'Action_a', msg: 'Action a'},
+    {label: 'Action_b', msg: 'Action b'},
+    {label: 'Action_c', msg: 'Action c'},
+    {label: 'Action_d', msg: 'Action d'}
 ];
 
-const operationList = actions.map(({label, msg}) => ({label:label , action: () => alertSpy({msg:msg})}));
+const operationList = actions.map(({label, msg}) => ({label: label , action: () => alertSpy({msg: msg})}));
 
 class TestComponent extends React.Component {
     render() {
         const {rolesForHasOne,rolesForHasAll, ...otherProps} = this.props;
         return (
-                <Dropdown operationList={operationList} position="left" iconProps={{name: 'apps'}} shape="raised"
-                          ref="testedCpt"/>
+            <Dropdown operationList={operationList} position='left' iconProps={{name: 'apps'}} shape='raised'
+                ref='testedCpt'
+            />
         );
     }
 }

@@ -1,17 +1,16 @@
 import builder from 'focus-core/component/builder';
-var React = require('react');
+import React from 'react';
+import {translate} from 'focus-core/translation'
 import type from 'focus-core/component/types';
-var Line = require('./line').mixin;
-var uuid= require('uuid');
-var translationMixin = require('../../common/i18n').mixin;
-var infiniteScrollMixin = require('../mixin/infinite-scroll').mixin;
-var referenceMixin = require('../../common/mixin/reference-property');
-import {checkIsNotNull} from 'focus-core/util/object';
+import {mixin as Line} from './line';
+import uuid from 'uuid';
+import {mixin as infiniteScrollMixin} from '../mixin/infinite-scroll';
+import referenceMixin from '../../common/mixin/reference-property';
 import Button from '../../components/button';
 //Add a ref to the props if the component is not pure add nothing in the other case.
 import {addRefToPropsIfNotPure, LINE} from '../../utils/is-react-class-component';
 
-var listMixin = {
+let listMixin = {
     /**
     * Tag name
     */
@@ -20,7 +19,7 @@ var listMixin = {
     /**
     * Mixin dependancies.
     */
-    mixins: [translationMixin, infiniteScrollMixin, referenceMixin],
+    mixins: [infiniteScrollMixin, referenceMixin],
 
     /**
     * Default properties for the list.
@@ -69,7 +68,7 @@ var listMixin = {
                     ...otherProps,
                     data: line,
                     dateField,
-                    key: line[idField] ||  uuid.v4(),
+                    key: line[idField] || uuid.v4(),
                     onLineClick,
                     reference: this._getReference()
                 }, `${LINE}${idx}`);
@@ -83,20 +82,21 @@ var listMixin = {
                 return this.props.loader();
             }
             return (
-                <li className="timeline-loading">{this.i18n('list.loading')} ...</li>
+                <li className='timeline-loading'>{translate('list.loading')} ...</li>
             );
         }
     },
 
     _renderManualFetch: function renderManualFetch() {
         if(this.props.isManualFetch && this.props.hasMoreData) {
-            var style = {className: 'primary'};
+            let style = {className: 'primary'};
             return (
-                <li className="timeline-button">
-                    <Button label="list.button.showMore"
-                        type="button"
+                <li className='timeline-button'>
+                    <Button label='list.button.showMore'
+                        type='button'
                         handleOnClick={this.handleShowMore}
-                        style={style}/>
+                        style={style}
+                    />
                 </li>
             );
         }
@@ -108,7 +108,7 @@ var listMixin = {
     */
     render: function renderList() {
         return (
-            <ul className="timeline">
+            <ul className='timeline'>
                 {this._renderLines()}
                 {this._renderLoading()}
                 {this._renderManualFetch()}
@@ -117,4 +117,11 @@ var listMixin = {
     }
 };
 
-module.exports = builder(listMixin);
+const builtComp = builder(listMixin);
+const {component, mixin} = builtComp;
+
+export {
+    component,
+    mixin
+}
+export default builtComp;

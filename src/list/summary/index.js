@@ -3,8 +3,8 @@ import builder from 'focus-core/component/builder';
 import types from 'focus-core/component/types';
 import {translate} from 'focus-core/translation';
 
-const styleBehaviour = require('../../mixin/stylable');
-const TopicDisplayer = require('../../components/topic-displayer');
+import styleBehaviour from '../../mixin/stylable';
+import TopicDisplayer from '../../components/topic-displayer';
 import Button from '../../components/button';
 import numberFormatter from 'focus-core/definition/formatter/number';
 
@@ -44,7 +44,7 @@ const listSummaryMixin = {
             <span>
                 <strong>{numberFormatter.format(nb)}&nbsp;</strong>
                 <span>{translate(sentence)}
-                {hasText &&
+                    {hasText &&
                     <span className='search-text'>&#171;&nbsp;{queryText}&nbsp;&#187;</span>
                 }
                 </span>
@@ -58,14 +58,14 @@ const listSummaryMixin = {
     render() {
         const {exportAction, scopeList, scopeClickAction} = this.props;
         return (
-            <div data-focus="list-summary">
+            <div data-focus='list-summary'>
                 {exportAction &&
-                    <div className="print">
-                        <Button handleOnClick={exportAction} icon="print" label="result.export" shape={null} />
+                    <div className='print'>
+                        <Button handleOnClick={exportAction} icon='print' label='result.export' shape={null} />
                     </div>
                 }
-                <span className="sentence">{this._getResultSentence()}</span>
-                <span className="topics">
+                <span className='sentence'>{this._getResultSentence()}</span>
+                <span className='topics'>
                     <TopicDisplayer topicClickAction={scopeClickAction} topicList={scopeList} />
                 </span>
             </div>
@@ -73,4 +73,11 @@ const listSummaryMixin = {
     }
 };
 
-module.exports = builder(listSummaryMixin);
+const builtComp = builder(listSummaryMixin);
+const {component, mixin} = builtComp;
+
+export {
+    component,
+    mixin
+}
+export default builtComp;

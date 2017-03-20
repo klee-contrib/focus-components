@@ -1,8 +1,7 @@
 // Dependencies
-const React = require('react');
+import React from 'react';
 import builder from 'focus-core/component/builder';
 import types from 'focus-core/component/types';
-const find = require('lodash/collection/find');
 
 // Components
 
@@ -45,7 +44,7 @@ const AutocompleteFor = {
      */
     getInitialState() {
         let {pickList} = this.props;
-        return {pickList};
+        return { pickList };
     },
     /**
      * Component will mount, load the list
@@ -53,24 +52,24 @@ const AutocompleteFor = {
     componentWillMount() {
         const {isEdit, value, codeResolver} = this.props;
         if (!isEdit && value && codeResolver) { // Resolve the code if in consult
-            codeResolver(value).then(resolvedCode => this.setState({value: resolvedCode}));
+            codeResolver(value).then(resolvedCode => this.setState({ value: resolvedCode }));
         } else {
             this._doLoad();
         }
     },
     componentWillReceiveProps({codeResolver, value}) {
         if (value !== this.props.value) {
-            codeResolver(value).then(resolvedCode => this.setState({value: resolvedCode}));
+            codeResolver(value).then(resolvedCode => this.setState({ value: resolvedCode }));
         }
     },
     /**
      * List loader
      * @param  {string} text='' input text to search from
      */
-    _doLoad(text='') {
+    _doLoad(text = '') {
         const {searcher} = this.props;
         if (searcher) {
-            searcher(text).then(pickList => this.setState({pickList}));
+            searcher(text).then(pickList => this.setState({ pickList }));
         }
     },
     /**

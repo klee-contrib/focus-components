@@ -1,8 +1,9 @@
-import React, {Component, PropTypes} from 'react';
+import React, { Component, PropTypes } from 'react';
+import { isUndefined } from 'lodash';
+
 import Translation from '../../../behaviours/translation';
 import GridBehaviour from '../../../behaviours/grid';
 import MaterialBehaviour from '../../../behaviours/material';
-import {isUndefined} from 'lodash/lang';
 
 @Translation
 @MaterialBehaviour('inputMdl')
@@ -24,7 +25,7 @@ class Radio extends Component {
     };
 
     componentWillReceiveProps(newProps) {
-        this.setState({isChecked: newProps.value});
+        this.setState({ isChecked: newProps.value });
     }
 
     componentDidUpdate() {
@@ -42,8 +43,8 @@ class Radio extends Component {
     * @param  {event} event
     */
     _onChange() {
-        this.setState({isChecked: !this.state.isChecked}, () => {
-            if(this.props.onChange) {
+        this.setState({ isChecked: !this.state.isChecked }, () => {
+            if (this.props.onChange) {
                 this.props.onChange(this.state.isChecked);
             }
         });
@@ -65,10 +66,10 @@ class Radio extends Component {
         const {isChecked} = this.state;
         const {label, name, ...otherProps} = this.props;
         // we use inputProps to be able to display 'checked' property. it is required to be able to use MDL.
-        const checkedProps = isChecked ? {checked: 'checked'} : {};
+        const checkedProps = isChecked ? { checked: 'checked' } : {};
 
         return (
-            <label className='mdl-radio mdl-js-radio mdl-js-ripple-effect' data-focus="input-radio" ref='inputMdl'>
+            <label className='mdl-radio mdl-js-radio mdl-js-ripple-effect' data-focus='input-radio' ref='inputMdl'>
                 <input className='mdl-radio__button' name={name} onChange={::this._onChange} type='radio' {...checkedProps} {...otherProps} ref='inputRadio'/>
                 <span className='mdl-radio__label'>{this.i18n(label)}</span>
             </label>

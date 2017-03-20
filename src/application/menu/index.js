@@ -6,8 +6,8 @@ import types from 'focus-core/component/types';
 
 // Mixins
 
-const popinProperties = require('../mixin/popin-behaviour').mixin;
-const stylabe = require('../../mixin/stylable');
+import { popin as popinProperties } from '../mixin/popin-behaviour';
+import stylabe from '../../mixin/stylable';
 
 // Components
 
@@ -29,7 +29,7 @@ const Menu = {
     * Toggle the state of the menu.
     */
     toggle() {
-        this.setState({open: !this.state.open});
+        this.setState({ open: !this.state.open });
     },
     /**
     * Render the links of the menu
@@ -65,7 +65,7 @@ const Menu = {
         const className = `menu menu-${direction} menu-${position} menu-${this.state.open ? 'open' : ''} ${this._getStyleClassName()}`;
         return (
             <nav className={className} data-focus='menu'>
-                <div data-focus='menu-brand'></div>
+                <div data-focus='menu-brand' />
                 <ul data-focus='menu-items'>{this._renderMenuItems()}</ul>
                 {children}
             </nav>
@@ -73,4 +73,11 @@ const Menu = {
     }
 };
 
-module.exports = builder(Menu);
+const builtComp = builder(Menu);
+const {component, mixin} = builtComp;
+
+export {
+    component,
+    mixin
+}
+export default builtComp;

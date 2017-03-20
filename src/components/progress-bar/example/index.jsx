@@ -27,7 +27,7 @@ const ProgressBarExample = React.createClass({
                 <ProgressBar completed={loading}/>
                 <br/>
                 <h5>Interterminate progress bar</h5>
-                <ProgressBar indeterminated={true}/>
+                <ProgressBar indeterminated/>
             </div>
         );
     }

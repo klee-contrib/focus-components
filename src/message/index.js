@@ -1,7 +1,7 @@
-const React = require('react');
+import React from 'react';
 import builder from 'focus-core/component/builder';
 import types from 'focus-core/component/types';
-const i18nBehaviour = require('../common/i18n/mixin');
+import {translate} from 'focus-core/translation';
 import Button from '../components/button';
 
 const messageMixin = {
@@ -9,7 +9,7 @@ const messageMixin = {
     getDefaultProps() {
         return {
             type: 'info',
-            style: {}
+            style: {}
         };
     },
 
@@ -30,9 +30,6 @@ const messageMixin = {
             }, this.props.ttl);
         }
     },
-
-    /** @inheritedDoc */
-    mixins: [i18nBehaviour],
 
     /**
     * Time to leave handler.
@@ -65,9 +62,16 @@ const messageMixin = {
             <div data-focus='message' data-id={id} data-message-type={type}>
                 <Button handleOnClick={this._handleOnClick} icon='clear' shape='icon' type='button'/>
                 {title && <h4>{title}</h4>}
-                <p>{this.i18n(content)}</p>
+                <p>{translate(content)}</p>
             </div>
         );
     }
 };
-module.exports = builder(messageMixin);
+const builtComp = builder(messageMixin);
+const {component, mixin} = builtComp;
+
+export {
+    component,
+    mixin
+}
+export default builtComp;

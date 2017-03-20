@@ -1,20 +1,19 @@
 // Dependencies
 
 import types from 'focus-core/component/types';
-const React = require('react');
-import isEqual from 'lodash/lang/isEqual';
+import React from 'react';
+import isEqual from 'lodash';
 
 // Components
 
-const ContextualActions = require('../action-contextual').component;
-const {Checkbox} = require('../../components/input');
+import {component as ContextualActions} from '../action-contextual';
+import {Checkbox} from '../../components/input';
 
 // Mixins
 
-const translationMixin = require('../../common/i18n').mixin;
-const referenceMixin = require('../../common/mixin/reference-property');
-const definitionMixin = require('../../common/mixin/definition');
-const builtInComponentsMixin = require('../mixin/built-in-components');
+import referenceMixin from '../../common/mixin/reference-property';
+import definitionMixin from '../../common/mixin/definition';
+import builtInComponentsMixin from '../mixin/built-in-components';
 
 const lineMixin = {
     /**
@@ -25,7 +24,7 @@ const lineMixin = {
     /**
     * Mixin dependancies.
     */
-    mixins: [translationMixin, definitionMixin, referenceMixin, builtInComponentsMixin],
+    mixins: [ definitionMixin, referenceMixin, builtInComponentsMixin],
 
     /**
      * Get default props
@@ -196,4 +195,9 @@ const lineMixin = {
     }
 };
 
-module.exports = {mixin: lineMixin};
+export default {
+    mixin: lineMixin
+}
+export {
+    lineMixin as mixin 
+}

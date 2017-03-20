@@ -29,7 +29,7 @@ const FAKE_DATA = [
     {id: 2, firstName: 'Ares', lastName: 'God', birthDate: Date.now()},
     {id: 3, firstName: 'Athena', lastName: 'Godess', birthDate: Date.now()},
     {id: 4, firstName: 'Poseidon', lastName: 'God', birthDate: Date.now()},
-    {id: 5, firstName: 'Hades', lastName: 'God', birthDate: Date.now()},
+    {id: 5, firstName: 'Hades', lastName: 'God', birthDate: Date.now()}
 ]
 
 // As table needs many props to be able to be functional.
@@ -39,11 +39,11 @@ const tableProps = {
     lineComponent: TableLineComponent,
     //isSelectable: true,//Uncomment this line to have a selectable table
     columns: {
-        firstName: {label: 'Prénom', sort:'asc'},
+        firstName: {label: 'Prénom', sort: 'asc'},
         lastName: {label: 'Nom', sort: 'desc'},
         birthDate: {label: 'date', noSort: true}
     },
-    onLineClick : function onLineClick(line) {
+    onLineClick: function onLineClick(line) {
         //Should open a popin
         alert('click sur la ligne ' + line.title);
     },

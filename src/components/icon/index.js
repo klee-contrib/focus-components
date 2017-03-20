@@ -6,9 +6,9 @@ function Icon({name, library, onClick, style}) {
             return <i className='material-icons' onClick={onClick} {...style}>{name}</i>;
         case 'font-awesome':
             const faCss = `fa fa-${name}`;
-            return <i className={faCss} onClick={onClick} {...style}></i>;
+            return <i className={faCss} onClick={onClick} {...style} />;
         case 'font-custom':
-            return <span className={`icon-${name}`}></span>;
+            return <span className={`icon-${name}`} />;
         default:
             return null;
     }

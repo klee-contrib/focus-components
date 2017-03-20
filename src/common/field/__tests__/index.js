@@ -1,3 +1,4 @@
+import React from 'react'
 import {component as Field} from '../';
 
 const {renderIntoDocument,findAllInRenderedTree} = TestUtils;
@@ -9,19 +10,18 @@ const fieldValue = 'field value';
 const newFieldValue = 'new value';
 
 
-
 const fieldLabelContainer = 'field-label-container';
 const fieldValueContainer = 'field-value-container';
 
 
 describe('The Field component', () => {
-    describe('Field is not editable', () => {
+    describe('Field is not editable', () => { 
 
-        const testedReactCpt = <Field name={fieldName} value={fieldValue} isEdit={false}
-                                      label={fieldLabel}/>;
+        const testedReactCpt = (<Field name={fieldName} value={fieldValue} isEdit={false}
+            label={fieldLabel}
+                                />);
         let reactComponent,domNode;
-
-
+ 
         before(
             () => {
                 reactComponent = renderIntoDocument(testedReactCpt);
@@ -61,8 +61,9 @@ describe('The Field component', () => {
     });
 
     describe('Field is editable', () => {
-        const testedReactCpt = <Field name={fieldName} value={fieldValue} isEdit={true}
-                                      label={fieldLabel}/>;
+        const testedReactCpt = (<Field name={fieldName} value={fieldValue} isEdit
+            label={fieldLabel}
+                                />);
         let reactComponent,domNode;
 
 
@@ -108,7 +109,7 @@ describe('The Field component', () => {
             expect(textCpts.length).to.equal(1);
             const textCpt = textCpts[0];
             //simulating change event
-            TestUtils.Simulate.change(textCpt,{target:{value: newFieldValue}});
+            TestUtils.Simulate.change(textCpt,{target: {value: newFieldValue}});
             expect(reactComponent.getValue()).to.equal(newFieldValue);
         });
 
@@ -118,7 +119,7 @@ describe('The Field component', () => {
     const newFieldValueNumber = 10;
 
     describe('Field value is a number', () => {
-        const testedReactCpt = <Field name={fieldName} value={fieldValueNumber} isEdit={true} type='number' />;
+        const testedReactCpt = <Field name={fieldName} value={fieldValueNumber} isEdit type='number' />;
         let reactComponent,domNode;
 
         before(
@@ -138,7 +139,7 @@ describe('The Field component', () => {
             expect(textCpts.length).to.equal(1);
             const textCpt = textCpts[0];
             //simulating change event
-            TestUtils.Simulate.change(textCpt,{target:{value: newFieldValueNumber}});
+            TestUtils.Simulate.change(textCpt,{target: {value: newFieldValueNumber}});
             expect(reactComponent.getValue()).to.equal('' + newFieldValueNumber);
         });
         it('text value is blocked', () => {
@@ -146,10 +147,10 @@ describe('The Field component', () => {
             expect(textCpts.length).to.equal(1);
             const textCpt = textCpts[0];
             //simulating change event
-            TestUtils.Simulate.copy(textCpt,{target:{value: newFieldValueNumber}});
+            TestUtils.Simulate.copy(textCpt,{target: {value: newFieldValueNumber}});
             expect(reactComponent.getValue()).to.equal('' + newFieldValueNumber);
 
-            TestUtils.Simulate.copy(textCpt,{target:{value: newFieldValue}});
+            TestUtils.Simulate.copy(textCpt,{target: {value: newFieldValue}});
             expect(reactComponent.getValue()).to.equal('' + newFieldValueNumber);
         });
     });

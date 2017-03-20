@@ -2,10 +2,11 @@ const React = require('react');
 const oneOf = React.PropTypes.oneOf;
 import builder from 'focus-core/component/builder';
 import types from 'focus-core/component/types';
+import { includes } from 'lodash';
+
 const i18nBehaviour = require('../../common/i18n/mixin');
 const styleBehaviour = require('../../mixin/stylable');
 const Title = require('../title').component;
-const {includes} = require('lodash/collection');
 
 /**
 * Mixin used in order to create a block.
@@ -32,7 +33,7 @@ const blockMixin = {
     * @return {[type]} [description]
     */
     heading() {
-        if(this.props.title) {
+        if (this.props.title) {
             return this.i18n(this.props.title);
         }
     },

@@ -1,14 +1,14 @@
 import builder from 'focus-core/component/builder';
-let React = require('react');
+import React from 'react';
 
 // Common mixins.
-let definitionMixin = require('../mixin/definition');
+import definitionMixin from '../mixin/definition';
 //let fieldComponentBehaviour = require('../mixin/field-component-behaviour');
-let builtInComponents = require('../mixin/built-in-components');
-let storeBehaviour = require('../mixin/store-behaviour');
-let ownIdentifierBehaviour = require('../mixin/own-identifier');
+import builtInComponents from '../mixin/built-in-components';
+import storeBehaviour from '../mixin/store-behaviour';
+import ownIdentifierBehaviour from '../mixin/own-identifier';
 //Form mixins.
-let { actionBehaviour, referenceBehaviour, validationBehaviour} = require('./mixin');
+import { actionBehaviour, referenceBehaviour, validationBehaviour} from './mixin';
 
 /**
 * Mixin to create a block for the rendering.
@@ -102,16 +102,16 @@ let formMixin = {
     _renderEditActions: function _renderEditActions() {
         return this.renderEditActions ? this.renderEditActions() : (
             <span>
-            {this.buttonSave()}
-            {this.buttonCancel()}
+                {this.buttonSave()}
+                {this.buttonCancel()}
             </span>
         );
     },
     _renderConsultActions: function _renderConsultActions() {
         return this.renderConsultActions ? this.renderConsultActions() : (
             <div>
-            {this.props.hasEdit && this.buttonEdit()}
-            {this.props.hasDelete && this.buttonDelete()}
+                {this.props.hasEdit && this.buttonEdit()}
+                {this.props.hasDelete && this.buttonDelete()}
             </div>
         );
     },
@@ -140,4 +140,11 @@ let formMixin = {
     }
 };
 
-module.exports = builder(formMixin);
+const builtComp = builder(formMixin);
+const {component, mixin} = builtComp;
+
+export {
+    component,
+    mixin
+}
+export default builtComp;

@@ -1,14 +1,14 @@
-var isFunction = require('lodash/lang/isFunction');
-var assign = require('object-assign');
-module.exports = {
+import { isFunction } from 'lodash';
+import assign from 'object-assign';
+export default {
     _getDetail: function getDetail() {
-        var detailJSON = {};
-        for (var blockKey in this.refs) {
-            if(isFunction(this.refs[blockKey]._getEntity)) {
-                var blockJSON = this.refs[blockKey]._getEntity();
+        let detailJSON = {};
+        for (let blockKey in this.refs) {
+            if (isFunction(this.refs[blockKey]._getEntity)) {
+                let blockJSON = this.refs[blockKey]._getEntity();
                 assign(detailJSON, {
-                  [blockKey]: blockJSON
-              });
+                    [blockKey]: blockJSON
+                });
             }
         }
         return detailJSON;

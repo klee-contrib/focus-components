@@ -1,5 +1,5 @@
 const {renderIntoDocument, Simulate} = TestUtils;
-import {identity} from 'lodash/utility';
+import {identity} from 'lodash';
 const SearchBar = require('../../search-bar').component;
 import {quickSearchStore} from 'focus-core/search/built-in-store';
 import actionBuilder from 'focus-core/search/action-builder';
@@ -42,11 +42,11 @@ describe('SearchBar with no scope', () => {
             Simulate.change(input, {target: {value: 'Boy'}});
         });
         describe('When the placeholder has been set', () => {
-            it('shouldn\'t have the default\`s one', () =>{
+            it('shouldn\'t have the default\`s one', () => {
                 expect(configuredComponent.props.placeholder).to.not.equal('search.bar.placeholder');
             });
 
-            it('should have different placeholder than the default\`s one', () =>{
+            it('should have different placeholder than the default\`s one', () => {
                 expect(configuredComponent.props.placeholder).to.equal('Search here...');
             });
         });
@@ -72,14 +72,14 @@ describe('SearchBar with no scope', () => {
                     updateProperties({query}) {
                         onKeyPressSpy(query);
                         if(query != undefined) {}
-                            secondComponent.setState({query: query, loading: true});
+                        secondComponent.setState({query: query, loading: true});
                         done();
                     }
                 };
                 secondComponent = renderIntoDocument(<SearchBar hasScopes={false} store={quickSearchStore} action={searchAction} />);
                 input = secondComponent.refs.query.refs.htmlInput;
                 initialValue = secondComponent.state.query;
-                input.value = "test";
+                input.value = 'test';
                 Simulate.keyPress(input, pressure);
             });
             it('should change the query state', () => {

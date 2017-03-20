@@ -3,7 +3,8 @@ const React = require('react');
 import types from 'focus-core/component/types';
 const i18nBehaviour = require('../../i18n/mixin');
 const mdlBehaviour = require('../../mixin/mdl-behaviour');
-const {uniqueId} = require('lodash/utility');
+import { uniqueId } from 'lodash';
+
 const InputRadio = require('../../input/radio').component;
 
 const selectRadioMixin = {
@@ -46,7 +47,7 @@ const selectRadioMixin = {
     },
 
     /** @inheritdoc */
-    componentWillReceiveProps (newProps) {
+    componentWillReceiveProps(newProps) {
         this.setState({
             value: newProps.value
         });
@@ -56,7 +57,7 @@ const selectRadioMixin = {
      * Get the value from the select in the DOM.
      * @return {string, number} selected value
      */
-    getValue () {
+    getValue() {
         return this.state.value;
     },
 
@@ -66,12 +67,12 @@ const selectRadioMixin = {
     */
     _handleRadioChange(newValue) {
         const {onChange} = this.props;
-        if(onChange) {
+        if (onChange) {
             onChange(newValue);
             return;
         }
         //Set the state then call the change handler.
-        this.setState({value: newValue});
+        this.setState({ value: newValue });
     },
     /**
      * Closure to capture key and radio status.

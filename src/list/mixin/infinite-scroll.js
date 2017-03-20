@@ -1,5 +1,5 @@
-const React = require('react');
-const ReactDOM = require('react-dom');
+import React from 'react';
+import ReactDOM from 'react-dom';
 
 const topOfElement = function(element) {
     if (!element) {
@@ -104,4 +104,10 @@ const InfiniteScrollMixin = {
     }
 };
 
-module.exports = {mixin: InfiniteScrollMixin};
+export default {
+    mixin: InfiniteScrollMixin
+};
+
+export {
+    InfiniteScrollMixin as mixin
+};

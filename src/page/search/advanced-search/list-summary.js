@@ -1,15 +1,15 @@
 // Dependencies
-const React = require('react');
+import React from 'react';
 import builder from 'focus-core/component/builder';
 
 // Components
 
-const ListSummary = require('../../../list/summary/index').component;
+import {component as ListSummary} from '../../../list/summary/index';
 
 // Mixins
 
-const referenceBehaviour = require('../../../common/form/mixin/reference-behaviour');
-const storeBehaviour = require('../../../common/mixin/store-behaviour');
+import referenceBehaviour from '../../../common/form/mixin/reference-behaviour';
+import storeBehaviour from '../../../common/mixin/store-behaviour';
 
 const scopeAll = 'ALL';
 
@@ -84,4 +84,11 @@ const Summary = {
     }
 };
 
-module.exports = builder(Summary);
+const builtComp = builder(Summary);
+const {component, mixin} = builtComp;
+
+export {
+    component,
+    mixin
+}
+export default builtComp;

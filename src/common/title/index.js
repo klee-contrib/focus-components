@@ -2,7 +2,7 @@
 import React from 'react';
 import builder from 'focus-core/component/builder';
 import type from 'focus-core/component/types';
-const {uniqueId} = require('lodash/utility');
+import { uniqueId } from 'lodash';
 
 
 const titleMixin = {
@@ -17,7 +17,7 @@ const titleMixin = {
             spyId: uniqueId('title_')
         };
     },
-    componentWillMount () {
+    componentWillMount() {
         console.warn('FocusComponents v0.15: the \'Title\' component from FocusComponents.common is deprecated, please use FocusComponents.components.Title');
     },
     /**

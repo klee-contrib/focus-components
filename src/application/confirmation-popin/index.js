@@ -3,14 +3,11 @@ import React from 'react';
 
 import builder from 'focus-core/component/builder';
 import type from 'focus-core/component/types';
-
-// Mixins
-
-let i18nMixin = require('../../common/i18n/mixin');
+import { translate } from 'focus-core/translation';
 
 // Components
 
-let Popin = require('../popin').component;
+import { component as Popin } from '../popin';
 import Button from '../../components/button';
 
 let ConfirmationPopin = {
@@ -18,7 +15,6 @@ let ConfirmationPopin = {
     * Display name.
     */
     displayName: 'confirmation-popin',
-    mixins: [i18nMixin],
     getDefaultProps() {
         return {
             open: false,
@@ -64,7 +60,7 @@ let ConfirmationPopin = {
         if (this.props.cancelHandler && !this.state.fromButtonClick) {
             this.props.cancelHandler();
         }
-        this.setState({fromButtonClick: false});
+        this.setState({ fromButtonClick: false });
     },
 
     toggleOpen() {
@@ -81,8 +77,8 @@ let ConfirmationPopin = {
                 <Popin onPopinClose={this._handlePopinClose} open={this.props.open} ref='popin'>
                     {this.props.children}
                     <div data-focus='button-stack'>
-                        <Button handleOnClick={this._handleCancel} label={this.i18n(this.props.cancelButtonLabel)}/>
-                        <Button handleOnClick={this._handleConfirm} label={this.i18n(this.props.confirmButtonLabel)} option='primary'/>
+                        <Button handleOnClick={this._handleCancel} label={translate(this.props.cancelButtonLabel)} />
+                        <Button handleOnClick={this._handleConfirm} label={translate(this.props.confirmButtonLabel)} option='primary' />
                     </div>
                 </Popin>
             </div>
@@ -90,4 +86,11 @@ let ConfirmationPopin = {
     }
 };
 
-module.exports = builder(ConfirmationPopin);
+const builtComp = builder(ConfirmationPopin);
+const {component, mixin} = builtComp;
+
+export {
+    component,
+    mixin
+}
+export default builtComp;

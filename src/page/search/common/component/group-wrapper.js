@@ -1,8 +1,7 @@
 // Dependencies
-const React = require('react');
+import React from 'react';
 import builder from 'focus-core/component/builder';
-const clone = require('lodash/lang/clone');
-
+ 
 const GroupWrapper = {
     getDefaultProps() {
         return ({
@@ -35,4 +34,11 @@ const GroupWrapper = {
     }
 };
 
-module.exports = builder(GroupWrapper);
+const builtComp = builder(GroupWrapper);
+const {component, mixin} = builtComp;
+
+export {
+    component,
+    mixin
+}
+export default builtComp;

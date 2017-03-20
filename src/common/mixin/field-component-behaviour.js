@@ -1,5 +1,5 @@
 import assign from 'object-assign';
-import {isUndefined, isObject} from 'lodash/lang';
+import {isUndefined, isObject} from 'lodash';
 /**
  * Identity function
  * @param  {object} d - data to treat.
@@ -51,11 +51,11 @@ const fieldBehaviourMixin = {
             //Style
             style: options.style,
 			// Type
-			                                                type: def.type,
+            type: def.type,
             //Methods
             validator: def.validator,
             formatter: def.formatter || identity,
-            unformatter: def.unformatter || identity,
+            unformatter: def.unformatter || identity, 
             //Component
             FieldComponent: def.FieldComponent,
             InputLabelComponent: def.InputLabelComponent,

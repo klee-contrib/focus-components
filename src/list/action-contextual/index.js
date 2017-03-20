@@ -1,12 +1,12 @@
 // Dependencies
-const React = require('react');
+import React from 'react';
 import builder from 'focus-core/component/builder';
-const {reduce} = require('lodash/collection');
+import { reduce } from 'lodash';
 
 // Components
 
 import Button from '../../components/button';
-const SelectAction = require('../../common/select-action').component;
+import {component as SelectAction} from '../../common/select-action';
 
 const actionContextualMixin = {
 
@@ -77,13 +77,13 @@ const actionContextualMixin = {
                         type='button'
                         {...this.props}
                         {...operation}
-                        />
+                    />
                 );
             } else {
                 secondaryActions.push(operation);
             }
             return actionLists;
-        }, {primaryActionList: [], secondaryActionList: []}, this);
+        }, { primaryActionList: [], secondaryActionList: [] }, this);
         return (
             <div className='list-action-contextual'>
                 <span>{primaryActionList}</span>
@@ -91,10 +91,17 @@ const actionContextualMixin = {
                     isExpanded={isSecondaryActionListExpanded}
                     operationList={secondaryActionList}
                     operationParam={operationParam}
-                    />
+                />
             </div>
         );
     }
 };
 
-module.exports = builder(actionContextualMixin);
+const builtComp = builder(actionContextualMixin);
+const {component, mixin} = builtComp;
+
+export {
+    component,
+    mixin
+}
+export default builtComp;

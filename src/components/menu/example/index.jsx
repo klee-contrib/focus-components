@@ -9,23 +9,23 @@ const MyMenu = React.createClass({
         const self = this;
         return [
             {
-                icon:'home',
+                icon: 'home',
                 route: '/',
                 onClick() {
                     console.log('Home clicked')
                 },
                 onMouseOver() {
                     console.log('Mouse enter event is called')
-                },
+                }
             },
             {
-                icon:'chat',
+                icon: 'chat',
                 onClick() {
                     self.refs.popin.togglePopin();
                 }
             },
             {
-                icon:'info',
+                icon: 'info',
                 route: '#component/Menu',
                 onClick() {
                     console.log('information clicked');
@@ -35,15 +35,14 @@ const MyMenu = React.createClass({
     },
     style: {
         position: 'fixed',
-        left:'40%',
-        top:'30%',
-        width:'512px'
+        left: '40%',
+        top: '30%',
+        width: '512px'
     },
     render() {
         return (
             <div>
-                <MenuLeft items={this.itemsBuilder()} handleBrandClick={this.goHome}>
-                </MenuLeft>
+                <MenuLeft items={this.itemsBuilder()} handleBrandClick={this.goHome} />
                 <div style={this.style} className='demo-card-wide mdl-card mdl-shadow--2dp'>
                     <div className='mdl-card__title'>
                         <h1 className='mdl-card__title-text'>Welcome</h1>
@@ -51,7 +50,7 @@ const MyMenu = React.createClass({
                     <div className='mdl-card__supporting-text'>
                         <h6>
                             <br/>
-                            On the left menu bar the <div className="mdl-button mdl-button--icon mdl-js-button mdl-js-ripple-effect"><i  className="material-icons">home</i></div> button will make you go on the home page, the <b><div className="mdl-button mdl-button--icon mdl-js-button mdl-js-ripple-effect"><i className="material-icons">chat</i></div></b> button will show you an action (here it will show a popin) and  <b><div className="mdl-button mdl-button--icon mdl-js-button mdl-js-ripple-effect"><i className="material-icons">info</i></div></b> button will make you go to the menu's sample code page.
+                            On the left menu bar the <div className='mdl-button mdl-button--icon mdl-js-button mdl-js-ripple-effect'><i className='material-icons'>home</i></div> button will make you go on the home page, the <b><div className='mdl-button mdl-button--icon mdl-js-button mdl-js-ripple-effect'><i className='material-icons'>chat</i></div></b> button will show you an action (here it will show a popin) and            <b><div className='mdl-button mdl-button--icon mdl-js-button mdl-js-ripple-effect'><i className='material-icons'>info</i></div></b> button will make you go to the menu's sample code page.
                         </h6>
                     </div>
                 </div>

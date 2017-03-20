@@ -1,8 +1,6 @@
-const capitalize = require('lodash/string/capitalize');
-const assign = require('object-assign');
-const {isObject, isArray} = require('lodash/lang');
-const keys = require('lodash/object/keys');
-const storeChangeBehaviour = require('./store-change-behaviour');
+import {upperFirst, isObject, isArray, keys} from 'lodash';
+import assign from 'object-assign';
+import storeChangeBehaviour from './store-change-behaviour';
 
 const storeMixin = {
     mixins: [storeChangeBehaviour],
@@ -17,7 +15,7 @@ const storeMixin = {
         let newState = {};
         this.stores.map((storeConf) => {
             storeConf.properties.map((property) => {
-                newState[property] = storeConf.store[`get${capitalize(property)}`]();
+                newState[property] = storeConf.store[`get${upperFirst(property)}`]();
             });
         });
         const computedState = assign(this._computeEntityFromStoresData(newState), this._getLoadingStateFromStores());
@@ -34,10 +32,10 @@ const storeMixin = {
         let newState = {};
         this.stores.map( storeConf => {
             storeConf.properties.map( property => {
-                var errorState = storeConf.store[`getError${capitalize(property)}`]();
-                for(var prop in errorState) {
-                  newState[`${property}.${prop}`] = errorState[prop];
-              }
+                let errorState = storeConf.store[`getError${upperFirst(property)}`]();
+                for(let prop in errorState) {
+                    newState[`${property}.${prop}`] = errorState[prop];
+                }
             });
         });
         return newState;
@@ -53,11 +51,11 @@ const storeMixin = {
         this.stores.forEach((storeConf) => {
             if(!isLoading) {
                 storeConf.properties.forEach((property) => {
-                  if(!isLoading) {
-                    let propStatus = storeConf.store.getStatus(property) || {};
-                    isLoading = propStatus.isLoading;
-                }
-              });
+                    if(!isLoading) {
+                        let propStatus = storeConf.store.getStatus(property) || {};
+                        isLoading = propStatus.isLoading;
+                    }
+                });
             }
         });
     //console.info('Processing state', this.stores, 'loading', isLoading);
@@ -72,15 +70,15 @@ const storeMixin = {
         if(this.computeEntityFromStoresData) {
             return this.computeEntityFromStoresData(data);
         }
-        var entity = {reference: {}};
-        for(var key in data) {
+        let entity = {reference: {}};
+        for(let key in data) {
             if(this.referenceNames && this.referenceNames.indexOf(key) !== -1 ) {
                 entity.reference[key] = data[key];
             }else {
-                var d = data[key];
+                let d = data[key];
                 if(isArray(d) || !isObject(d)) {
-                  d = {[key] : d};
-              }
+                    d = {[key]: d};
+                }
                 assign(entity, d);
             }
         }
@@ -93,13 +91,13 @@ const storeMixin = {
         if (this.stores) {
             this.stores.map((storeConf) => {
                 storeConf.properties.map((property) => {
-                  if(!storeConf.store || !storeConf.store.definition || !storeConf.store.definition[property]) {
-                    console.warn(`You add a property : ${property} in your store which is not in your definition : ${keys(storeConf.store.definition)}`);
-                }
-                  storeConf.store[`add${capitalize(property)}ChangeListener`](this._onChange);
-                  storeConf.store[`add${capitalize(property)}ErrorListener`](this._onError);
-                  storeConf.store[`add${capitalize(property)}StatusListener`](this._onStatus);
-              });
+                    if(!storeConf.store || !storeConf.store.definition || !storeConf.store.definition[property]) {
+                        console.warn(`You add a property : ${property} in your store which is not in your definition : ${keys(storeConf.store.definition)}`);
+                    }
+                    storeConf.store[`add${upperFirst(property)}ChangeListener`](this._onChange);
+                    storeConf.store[`add${upperFirst(property)}ErrorListener`](this._onError);
+                    storeConf.store[`add${upperFirst(property)}StatusListener`](this._onStatus);
+                });
             });
         }
     },
@@ -110,10 +108,10 @@ const storeMixin = {
         if (this.stores) {
             this.stores.map((storeConf) => {
                 storeConf.properties.map((property) => {
-                  storeConf.store[`remove${capitalize(property)}ChangeListener`](this._onChange);
-                  storeConf.store[`remove${capitalize(property)}ErrorListener`](this._onError);
-                  storeConf.store[`remove${capitalize(property)}StatusListener`](this._onStatus);
-              });
+                    storeConf.store[`remove${upperFirst(property)}ChangeListener`](this._onChange);
+                    storeConf.store[`remove${upperFirst(property)}ErrorListener`](this._onError);
+                    storeConf.store[`remove${upperFirst(property)}StatusListener`](this._onStatus);
+                });
             });
         }
     },
@@ -129,4 +127,4 @@ const storeMixin = {
     }
 };
 
-module.exports = storeMixin;
+export default storeMixin;

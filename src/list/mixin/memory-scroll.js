@@ -48,4 +48,4 @@ let memoryMixin = {
     }
 };
 
-module.exports = memoryMixin;
+export default memoryMixin;

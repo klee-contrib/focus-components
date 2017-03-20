@@ -1,9 +1,7 @@
 
-let i18nMixin = require('../../i18n').mixin;
 import validate from 'focus-core/definition/validator/validate';
-let {isNull, isUndefined, isFunction} = require('lodash/lang');
+import {isNull, isUndefined, isFunction} from 'lodash';
 let validationMixin ={
-    mixins: [i18nMixin],
     /** @inheritdoc */
     getDefaultProps: function getDefaultProps() {
         return {
@@ -71,4 +69,4 @@ let validationMixin ={
         this.setState({ error: error });
     }
 };
-module.exports = validationMixin;
+export default validationMixin;

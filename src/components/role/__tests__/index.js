@@ -21,7 +21,7 @@ class TestComponent extends React.Component {
     render() {
         const {rolesForHasOne,rolesForHasAll, ...otherProps} = this.props;
         return (
-            <TestWrapper mockedValue="header">
+            <TestWrapper mockedValue='header'>
                 <Role hasOne={rolesForHasOne} hasAll={rolesForHasAll} emptyBlock={<div/>}>
                     <TestWrapper mockedValue={childBlock}>
                         <div>Test</div>

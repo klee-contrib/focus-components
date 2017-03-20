@@ -28,7 +28,8 @@ global.sinon = sinon;
 global.TestUtils = require('react-addons-test-utils');
 global.sandbox = require('./sandbox');
 global.TestFocus = require('./test-focus');
-global.componentHandler = {upgradeElement: function(){}};
+global.componentHandler = {upgradeElement: function() {}};
+global.Element = function() {};
 global.__DEV__ = process.env.DEV ? JSON.parse(process.env.DEV) : true;
 
 // take all properties of the window object and also attach it to the
@@ -44,7 +45,7 @@ function propagateToGlobal (window) {
 propagateToGlobal(window);
 
 
-process.on('unhandledRejection', (error)=>{
+process.on('unhandledRejection', (error) => {
     console.error('Unhandled Promise Rejection:');
     console.error(error && error.stack || error);
 });

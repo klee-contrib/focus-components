@@ -1,10 +1,10 @@
-var React = require('react');
-var fielBehaviourMixin = require('../../common/mixin/field-component-behaviour');
-var assign = require('object-assign');
-var Field = require('../../common/field').component;
-var DisplayText = require('../../components/display/text');
+import React from 'react';
+import fielBehaviourMixin from '../../common/mixin/field-component-behaviour';
+import assign from 'object-assign';
+import {component as Field } from '../../common/field';
+import DisplayText from '../../components/display/text';
 
-var builtInComponentsMixin = {
+let builtInComponentsMixin = {
     /**
      * inherited minxins
      */
@@ -34,7 +34,7 @@ var builtInComponentsMixin = {
             style: {className: 'form-list'}
         }, options);
 
-        var fieldProps = this._buildFieldProps(name, options, this);
+        let fieldProps = this._buildFieldProps(name, options, this);
         return React.createElement(Field, fieldProps);
     },
     /**
@@ -64,7 +64,7 @@ var builtInComponentsMixin = {
             style: {className: 'form-list'}
         }, options);
 
-        var fieldProps = this._buildFieldProps(name, options, this);
+        let fieldProps = this._buildFieldProps(name, options, this);
         return React.createElement(Field, fieldProps);
     },
 
@@ -76,7 +76,7 @@ var builtInComponentsMixin = {
      */
     textFor: function textFor(name, options) {
         options = options || {};
-        var def = (this.definition && this.definition[name]) ? this.definition[name] : {};
+        let def = (this.definition && this.definition[name]) ? this.definition[name] : {};
         return React.createElement(DisplayText, {
             name: options.name || `${this.definitionPath}.${name}`,
             style: options.style,
@@ -87,4 +87,4 @@ var builtInComponentsMixin = {
     }
 };
 
-module.exports = builtInComponentsMixin;
+export default builtInComponentsMixin;

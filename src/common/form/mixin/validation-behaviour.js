@@ -1,6 +1,6 @@
 //Dependencies.
-let {isEmpty, isFunction} = require('lodash/lang');
-let assign = require('object-assign');
+import {isEmpty, isFunction} from 'lodash';
+import assign from 'object-assign';
 
 /**
 * Validate each field of the form.
@@ -21,13 +21,13 @@ function _fieldsValidation() {
         }
     }
     return isValid;
-}
+    }
 /**
  * Custom validation of the field.
  * @return {true} -  If the custom validation is defined.
  */
 function _customValidation() {
-    if (this.customValidation) {
+    if(this.customValidation) {
         return this.customValidation();
     }
     return true;
@@ -40,8 +40,9 @@ function _validate() {
     return this._fieldsValidation() && this._customValidation();
 }
 
-module.exports = {
+
+export default {
     _fieldsValidation,
     _customValidation,
     _validate
-};
+}

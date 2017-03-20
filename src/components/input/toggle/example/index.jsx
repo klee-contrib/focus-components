@@ -23,21 +23,21 @@ class InputToggleSample extends Component {
         return (
             <div>
                 <h3>Input toggle</h3>
-                <Toggle label='My awsome toggle' value={true}/>
+                <Toggle label='My awsome toggle' value/>
 
                 <h3>Unselected toggle</h3>
                 <Toggle label='My awsome toggle' value={false} />
 
                 <h3>Without label</h3>
-                <Toggle value={true} />
+                <Toggle value />
 
                 <h3>Get Toggle value</h3>
                 <div style={{float: 'left', width: '300px'}}>
-                    <Toggle label='My awsome toggle' ref='toggleTestGetValue' value={true}/>
+                    <Toggle label='My awsome toggle' ref='toggleTestGetValue' value/>
                 </div>
                 <button className='mdl-button mdl-js-button mdl-button--raised mdl-button--colored' onClick={this.handleGetValueClick}>Get the toggle value</button>                
             </div>);
-        }
+    }
     }
 
-    module.exports = InputToggleSample;
+module.exports = InputToggleSample;

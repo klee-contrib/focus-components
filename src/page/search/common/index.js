@@ -1,3 +1,4 @@
-module.exports = {
-    component: require('./component')
-};
+import component from './component'
+export {
+    component
+}
