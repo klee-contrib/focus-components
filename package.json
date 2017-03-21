@@ -2,49 +2,49 @@
   "_args": [
     [
       {
-        "raw": "focus-components@2.1.4",
+        "raw": "focus-components@2.1.5",
         "scope": null,
         "escapedName": "focus-components",
         "name": "focus-components",
-        "rawSpec": "2.1.4",
-        "spec": "2.1.4",
+        "rawSpec": "2.1.5",
+        "spec": "2.1.5",
         "type": "version"
       },
       "C:\\Git\\temp"
     ]
   ],
-  "_from": "focus-components@2.1.4",
-  "_id": "focus-components@2.1.4",
+  "_from": "focus-components@2.1.5",
+  "_id": "focus-components@2.1.5",
   "_inCache": true,
   "_location": "/focus-components",
-  "_nodeVersion": "6.7.0",
+  "_nodeVersion": "6.9.1",
   "_npmOperationalInternal": {
     "host": "packages-18-east.internal.npmjs.com",
-    "tmp": "tmp/focus-components-2.1.4.tgz_1484758277771_0.4310589840169996"
+    "tmp": "tmp/focus-components-2.1.5.tgz_1487330435767_0.7834644610993564"
   },
   "_npmUser": {
-    "name": "focusjs",
-    "email": "focus@kleegroup.com"
+    "name": "guenole_k",
+    "email": "kikabouguenole@gmail.com"
   },
-  "_npmVersion": "3.10.5",
+  "_npmVersion": "3.10.8",
   "_phantomChildren": {},
   "_requested": {
-    "raw": "focus-components@2.1.4",
+    "raw": "focus-components@2.1.5",
     "scope": null,
     "escapedName": "focus-components",
     "name": "focus-components",
-    "rawSpec": "2.1.4",
-    "spec": "2.1.4",
+    "rawSpec": "2.1.5",
+    "spec": "2.1.5",
     "type": "version"
   },
   "_requiredBy": [
     "#USER",
     "/"
   ],
-  "_resolved": "https://registry.npmjs.org/focus-components/-/focus-components-2.1.4.tgz",
-  "_shasum": "978b1a3d7889654a22042a3f7cd60994a381e938",
+  "_resolved": "https://registry.npmjs.org/focus-components/-/focus-components-2.1.5.tgz",
+  "_shasum": "b094894268add1bff715f89c21b1ad69813d4e8f",
   "_shrinkwrap": null,
-  "_spec": "focus-components@2.1.4",
+  "_spec": "focus-components@2.1.5",
   "_where": "C:\\Git\\temp",
   "author": {
     "name": "Focus Team",
@@ -159,10 +159,10 @@
   },
   "directories": {},
   "dist": {
-    "shasum": "978b1a3d7889654a22042a3f7cd60994a381e938",
-    "tarball": "https://registry.npmjs.org/focus-components/-/focus-components-2.1.4.tgz"
+    "shasum": "b094894268add1bff715f89c21b1ad69813d4e8f",
+    "tarball": "https://registry.npmjs.org/focus-components/-/focus-components-2.1.5.tgz"
   },
-  "gitHead": "53d3ff41ee0344df22cabc76f160c3741ea88f29",
+  "gitHead": "e4a266d11a3136c0cb8fe719a2e86caac2e7eac1",
   "homepage": "https://github.com/KleeGroup/focus-components",
   "keywords": [
     "react",
@@ -215,5 +215,5 @@
     "test": "better-npm-run test",
     "test:watch": "better-npm-run test-watch"
   },
-  "version": "2.1.4"
+  "version": "2.1.5"
 }
