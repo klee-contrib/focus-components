@@ -2,25 +2,25 @@
   "_args": [
     [
       {
-        "raw": "focus-components@2.1.5",
+        "raw": "focus-components@2.1.6",
         "scope": null,
         "escapedName": "focus-components",
         "name": "focus-components",
-        "rawSpec": "2.1.5",
-        "spec": "2.1.5",
+        "rawSpec": "2.1.6",
+        "spec": "2.1.6",
         "type": "version"
       },
       "C:\\Git\\temp"
     ]
   ],
-  "_from": "focus-components@2.1.5",
-  "_id": "focus-components@2.1.5",
+  "_from": "focus-components@2.1.6",
+  "_id": "focus-components@2.1.6",
   "_inCache": true,
   "_location": "/focus-components",
   "_nodeVersion": "6.9.1",
   "_npmOperationalInternal": {
     "host": "packages-18-east.internal.npmjs.com",
-    "tmp": "tmp/focus-components-2.1.5.tgz_1487330435767_0.7834644610993564"
+    "tmp": "tmp/focus-components-2.1.6.tgz_1487337663549_0.2515165298245847"
   },
   "_npmUser": {
     "name": "guenole_k",
@@ -29,22 +29,22 @@
   "_npmVersion": "3.10.8",
   "_phantomChildren": {},
   "_requested": {
-    "raw": "focus-components@2.1.5",
+    "raw": "focus-components@2.1.6",
     "scope": null,
     "escapedName": "focus-components",
     "name": "focus-components",
-    "rawSpec": "2.1.5",
-    "spec": "2.1.5",
+    "rawSpec": "2.1.6",
+    "spec": "2.1.6",
     "type": "version"
   },
   "_requiredBy": [
     "#USER",
     "/"
   ],
-  "_resolved": "https://registry.npmjs.org/focus-components/-/focus-components-2.1.5.tgz",
-  "_shasum": "b094894268add1bff715f89c21b1ad69813d4e8f",
+  "_resolved": "https://registry.npmjs.org/focus-components/-/focus-components-2.1.6.tgz",
+  "_shasum": "9ae05a892a09c2fa41aa1125019a20fc64ec2645",
   "_shrinkwrap": null,
-  "_spec": "focus-components@2.1.5",
+  "_spec": "focus-components@2.1.6",
   "_where": "C:\\Git\\temp",
   "author": {
     "name": "Focus Team",
@@ -159,10 +159,10 @@
   },
   "directories": {},
   "dist": {
-    "shasum": "b094894268add1bff715f89c21b1ad69813d4e8f",
-    "tarball": "https://registry.npmjs.org/focus-components/-/focus-components-2.1.5.tgz"
+    "shasum": "9ae05a892a09c2fa41aa1125019a20fc64ec2645",
+    "tarball": "https://registry.npmjs.org/focus-components/-/focus-components-2.1.6.tgz"
   },
-  "gitHead": "e4a266d11a3136c0cb8fe719a2e86caac2e7eac1",
+  "gitHead": "e106091080a50ea689d7fb45d1e9c63af959be6d",
   "homepage": "https://github.com/KleeGroup/focus-components",
   "keywords": [
     "react",
@@ -215,5 +215,5 @@
     "test": "better-npm-run test",
     "test:watch": "better-npm-run test-watch"
   },
-  "version": "2.1.5"
+  "version": "2.1.6"
 }
