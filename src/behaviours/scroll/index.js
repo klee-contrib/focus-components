@@ -1,4 +1,4 @@
-import {isUndefined} from 'lodash/lang';
+import {isUndefined, isNull} from 'lodash/lang';
 
 const Scroll = Component => class ScrollComponent extends Component {
     constructor(props) {
@@ -16,7 +16,7 @@ const Scroll = Component => class ScrollComponent extends Component {
     scrollPosition(domNode) {
         const y = window.pageYOffset || document.documentElement.scrollTop;
         const x = window.pageXOffset || document.documentElement.scrollLeft;
-        if(isUndefined(domNode)) {
+        if(isUndefined(domNode) || isNull(domNode)) {
             return { top: y, left: x };
         }
         const nodeRect = domNode.getBoundingClientRect();
