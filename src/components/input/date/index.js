@@ -143,6 +143,9 @@ class InputDate extends Component {
 
         const isCorrect = this._isInputFormatCorrect(inputDate);
         const dropDownDate = isCorrect ? this._parseInputDate(inputDate) : null;
+        const shouldTriggerChange = isCorrect || (triggerOnChangeIfEmpty && (inputDate || '').trim() === ''); // Fire onChange event, only if date if correct, or empty, if the option is activated
+        const newData = isCorrect ? dropDownDate.toISOString() : null; // if date is not correct, it is empty, so send null (or empty string ?)
+      
         if (isCorrect) {
             this.setState({ dropDownDate, inputDate });
         } else {
@@ -151,15 +154,15 @@ class InputDate extends Component {
         
         // When checkOnlyOnBlur is true skip all checks.
         if (checkOnlyOnBlur === true) {
-            if (isCorrect) {
-                this.props.onChange(dropDownDate.toISOString());
+            if (shouldTriggerChange) {
+                this.props.onChange(newData);
             }
             return;
         }
 
         // Fire onChange event, only if date if correct, or empty, if the option is activated
-        if (fromBlur !== true && (isCorrect || (triggerOnChangeIfEmpty && (inputDate || '').trim() === ''))) {
-            this.props.onChange(isCorrect ? dropDownDate.toISOString() : null); // if date is not correct, it is empty, so send null (or empty string ?)
+        if (fromBlur !== true && shouldTriggerChange) {
+            this.props.onChange(newData);
         }
     };
 
