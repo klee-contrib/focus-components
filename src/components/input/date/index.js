@@ -148,6 +148,14 @@ class InputDate extends Component {
         } else {
             this.setState({ inputDate });
         }
+        
+        // When checkOnlyOnBlur is true skip all checks.
+        if (checkOnlyOnBlur === true) {
+            if (isCorrect) {
+                this.props.onChange(dropDownDate.toISOString());
+            }
+            return;
+        }
 
         // Fire onChange event, only if date if correct, or empty, if the option is activated
         if (fromBlur !== true && (isCorrect || (triggerOnChangeIfEmpty && (inputDate || '').trim() === ''))) {
