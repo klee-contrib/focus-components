@@ -81,9 +81,11 @@ class SelectRadio extends Component {
     }
 
     render() {
+        const { error, style } = this.props;
         return (
-            <div data-focus='select-radio' >
+            <div data-focus='select-radio' data-valid={!error} style={style} >
                 {this.renderSelectRadios()}
+                {error && <div className='label-error' ref='error'>{error}</div>}
             </div>
         );
     }
