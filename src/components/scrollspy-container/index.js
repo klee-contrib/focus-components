@@ -1,4 +1,4 @@
-import React, {Component, PropTypes} from 'react';
+import React, { Component, PropTypes } from 'react';
 import ReactDOM from 'react-dom';
 import BackToTop from '../button-back-to-top'
 import StickyMenu from './sticky-menu';
@@ -81,9 +81,9 @@ class ScrollspyContainer extends Component {
     * @private
     */
     _refreshMenu = () => {
-        if(!this.props.hasMenu) { return; }
-        const {stickyMenu} = this.refs;
-        const {clickedId} = this.state;
+        if (!this.props.hasMenu) { return; }
+        const { stickyMenu } = this.refs;
+        const { clickedId } = this.state;
         const menus = this._buildMenuList(); //build the menu list
         //TODO remove this check
         const affix = stickyMenu ? this._isMenuAffix() : this.state.affix; //Calculate menu position (affix or not)
@@ -109,12 +109,12 @@ class ScrollspyContainer extends Component {
     * @return {array} the list of menus.
     */
     _buildMenuList = () => {
-        const {hasMenu} = this.props;
-        if(!hasMenu) {
+        const { hasMenu } = this.props;
+        if (!hasMenu) {
             return [];
         }
         const detectionOffset = window.screen.height / 5;
-        let currentScrollPosition = {top: this.scrollPosition().top, left: this.scrollPosition().left};
+        let currentScrollPosition = { top: this.scrollPosition().top, left: this.scrollPosition().left };
         let isAtPageBottom = this.isAtPageBottom();
 
         //get the menu list (without blocks in popin)
@@ -123,16 +123,20 @@ class ScrollspyContainer extends Component {
         const popinDataSpy = thisComponentNode.querySelectorAll(`[data-focus='popin-window'] [data-spy]`);
         const selectionList = xor(allDataSpy, popinDataSpy);
 
-        if(selectionList.length === 0) {
+        if (selectionList.length === 0) {
             return;
         }
-        let menuList = selectionList.map((selection, index) => {
-            const title = selection.querySelector('[data-spy-title]');
-            const nodeId = selection.getAttribute('data-spy');
+        let menuList = selectionList.map((selection) => {
             return {
-                index: index,
+                title: selection.querySelector('[data-spy-title]'),
+                nodeId: selection.getAttribute('data-spy'),
+                selection
+            };
+        }).filter(({ title }) => title).map(({ title, nodeId, selection }, index) => {
+            return {
+                index,
                 label: title.innerHTML,
-                nodeId: nodeId,
+                nodeId,
                 scrollTop: this.scrollPosition(selection).top, // offset of 10 to be safe
                 isActive: false,
                 onClick: this._getMenuItemClickHandler(nodeId)
@@ -144,11 +148,11 @@ class ScrollspyContainer extends Component {
         //Calculate current node
         //by default, first node is indexed
         let currentIndex = menuList[0].index;
-        if(0 < nextTitles.length) {
+        if (0 < nextTitles.length) {
             //check the first node
             const firstNode = first(nextTitles);
             const index = firstNode.index;
-            if(0 < index) {
+            if (0 < index) {
                 currentIndex = menuList[index - 1].index;
             }
         } else {
@@ -156,15 +160,15 @@ class ScrollspyContainer extends Component {
             currentIndex = last(menuList).index;
         }
         let clickedId = this.state.clickedId;
-        if(isAtPageBottom && undefined !== clickedId) {
+        if (isAtPageBottom && undefined !== clickedId) {
             menuList = menuList.map(item => {
                 if (item.nodeId === clickedId) {
                     item.isActive = true;
                 }
                 return item;
             });
-            this.setState({clickedId: undefined});
-        }else {
+            this.setState({ clickedId: undefined });
+        } else {
             menuList[currentIndex].isActive = true;
         }
         return menuList;
@@ -188,9 +192,9 @@ class ScrollspyContainer extends Component {
     * @return {Boolean} true is menu must be affix, else false
     */
     _isMenuAffix = () => {
-        let {offset} = this.props;
-        const {hasMenu} = this.props;
-        if(!hasMenu) {
+        let { offset } = this.props;
+        const { hasMenu } = this.props;
+        if (!hasMenu) {
             return false;
         }
         const sscDomNode = ReactDOM.findDOMNode(this);
@@ -239,8 +243,8 @@ class ScrollspyContainer extends Component {
 
     /** @inheritedDoc */
     render() {
-        const {children, hasMenu, hasBackToTop, offset, scrollDelay, ...otherProps} = this.props;
-        const {affix, menuList} = this.state;
+        const { children, hasMenu, hasBackToTop, offset, scrollDelay, ...otherProps } = this.props;
+        const { affix, menuList } = this.state;
         return (
             <div data-focus='scrollspy-container' {...otherProps}>
                 {hasMenu &&
