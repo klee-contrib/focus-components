@@ -252,7 +252,7 @@ const fieldBuiltInComponentsMixin = {
             error: error,
             onChange: this.onInputChange
         };
-        const finalBuildedProps = addRefToPropsIfNotPure(this.props.FieldComponent, buildedProps, INPUT);
+        const finalBuildedProps = addRefToPropsIfNotPure(FieldComponent, buildedProps, INPUT);
         return <FieldComponent {...finalBuildedProps} />;
     }
 };
