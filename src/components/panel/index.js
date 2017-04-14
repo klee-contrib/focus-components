@@ -1,9 +1,9 @@
-import React, {Component, PropTypes} from 'react';
-import {findDOMNode} from 'react-dom';
+import React, { Component, PropTypes } from 'react';
+import { findDOMNode } from 'react-dom';
 import Translation from '../../behaviours/translation';
-import {includes} from 'lodash/collection';
-import {uniqueId} from 'lodash/utility';
-import {snakeCase} from 'lodash/string';
+import { includes } from 'lodash/collection';
+import { uniqueId } from 'lodash/utility';
+import { snakeCase } from 'lodash/string';
 import ButtonHelp from '../button-help';
 import xor from 'lodash/array/xor';
 
@@ -37,13 +37,13 @@ class Panel extends Component {
     * @return {DOM} React DOM element
     */
     render() {
-        const {actions, actionsPosition, children, title, showHelp, blockName, ...otherProps} = this.props;
-        const {spyId} = this.state;
+        const { actions, actionsPosition, children, title, showHelp, blockName, ...otherProps } = this.props;
+        const { spyId } = this.state;
         const shouldDisplayActionsTop = actions && includes(['both', 'top'], actionsPosition);
         const shouldDisplayActionsBottom = actions && includes(['both', 'bottom'], actionsPosition);
         return (
             <div className='mdl-card mdl-card--border mdl-shadow--4dp' data-spy={spyId} data-focus='panel' {...otherProps}>
-                <div className='mdl-card__title mdl-card--border' data-focus='panel-title'>
+                {(title || shouldDisplayActionsTop || showHelp) && <div className='mdl-card__title mdl-card--border' data-focus='panel-title'>
                     {title &&
                         <h3 data-spy-title>{this.i18n(title)}</h3>
                     }
@@ -51,7 +51,7 @@ class Panel extends Component {
                         <div className='actions'>{actions()}</div>
                     }
                     {showHelp && <ButtonHelp blockName={blockName || snakeCase(this.i18n(title)).split('_')[0]} />}
-                </div>
+                </div>}
                 <div className='mdl-card__supporting-text' data-focus='panel-content'>
                     {children}
                 </div>
