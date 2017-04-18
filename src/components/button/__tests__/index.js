@@ -44,5 +44,39 @@ describe('Button Component', () => {
                 });
             });
         });
+        describe.only('When we set a processingLabel', () => {
+            let renderedButton;
+            describe('When isLoading props is false', () => {
+                before(() => {
+                    renderedButton = renderIntoDocument(<Button label='SAVE' processLabel='Loading' isLoading={false} />);
+                });
+                it('should render the default label', () => {
+                    const buttonLabel = ReactDOM.findDOMNode(renderedButton).querySelector('[data-focus="button-label"]').innerHTML;
+                    expect(buttonLabel).to.equal(renderedButton.props.label);
+                });
+                it('should not render the process label', () => {
+                    const buttonLabel = ReactDOM.findDOMNode(renderedButton).querySelector('[data-focus="button-label"]').innerHTML;
+                    expect(buttonLabel).to.not.equal(renderedButton.props.processLabel);
+                });
+            });
+            describe('When isLoading props is true', () => {
+                before(() => {
+                    renderedButton = renderIntoDocument(<Button label='SAVE' processLabel='Loading' isLoading={true} />);
+                });
+                it('should render the process label', () => {
+                    const buttonLabel = ReactDOM.findDOMNode(renderedButton).querySelector('[data-focus="button-label"]').innerHTML;
+                    expect(buttonLabel).to.equal(renderedButton.props.processLabel);
+                });
+                it('should not render the default label', () => {
+                    const buttonLabel = ReactDOM.findDOMNode(renderedButton).querySelector('[data-focus="button-label"]').innerHTML;
+                    expect(buttonLabel).to.not.equal(renderedButton.props.label);
+                });
+                it('should have a spinner', () => {
+                    const spinner = ReactDOM.findDOMNode(renderedButton).querySelector('[data-focus="double-action-button-spinner"]');
+                    expect(spinner).to.not.be.null;
+                    expect(spinner).to.not.be.undefined;
+                });
+            });
+        });
     });
 });
