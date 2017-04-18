@@ -37,7 +37,7 @@ const propTypes = {
 const defaultProps = {
     beforeValueGetter: value => value,
     checkOnlyOnBlur: false,
-    triggerOnChangeIfEmpty: false,
+    triggerOnChangeIfEmpty: true,
     drops: 'down',
     format: 'MM/DD/YYYY',
     locale: 'en',
