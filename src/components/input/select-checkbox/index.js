@@ -17,7 +17,8 @@ class SelectCheckbox extends Component {
         value: PropTypes.array,
         valueKey: PropTypes.string,
         labelKey: PropTypes.string,
-        onChange: PropTypes.func
+        onChange: PropTypes.func,
+        name: PropTypes.string
     };
 
     state = {
@@ -82,10 +83,19 @@ class SelectCheckbox extends Component {
             );
         });
     }
+    
+    renderLabel(){
+        if (this.props.name){
+            return (
+                <label data-focus="label">{this.props.name}</label>
+                )
+        }
+    }
 
     render() {
         return (
             <div data-focus='select-checkbox'>
+                {this.renderLabel()}
                 {this.renderCheckboxes()}
             </div>
         );
