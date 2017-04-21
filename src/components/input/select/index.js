@@ -1,7 +1,7 @@
 //dependencies
 import React, {Component, PropTypes} from 'react';
 import ComponentBaseBehaviour from '../../../behaviours/component-base';
-import {InputBehaviour} from '../../../behaviours/input-component';
+import filterProps from '../../../utils/filter-html-attributes';
 import {isUndefined, isNull} from 'lodash/lang';
 import {union} from 'lodash/array';
 const UNSELECTED_KEY = 'UNSELECTED_KEY';
@@ -55,7 +55,6 @@ const defaultProps = {
 * Component standing for an HTML input.
 */
 @ComponentBaseBehaviour
-@InputBehaviour
 class Select extends Component {
 
     /**
@@ -104,7 +103,7 @@ class Select extends Component {
     */
     render() {
         const {error, style} = this.props;
-        const validInputProps = this._checkProps(this.props);
+        const validInputProps = filterProps(this.props);
 
         validInputProps.onChange = this._handleSelectChange;
         const inputProps = {...validInputProps};

@@ -1,14 +1,13 @@
 import React, {Component, PropTypes} from 'react';
 import ComponentBaseBehaviour from '../../../behaviours/component-base';
 import MDBehaviour from '../../../behaviours/material';
-import {InputBehaviour} from '../../../behaviours/input-component';
+import filterProps from '../../../utils/filter-html-attributes';
 
 import debounce from 'lodash/function/debounce';
 
 @MDBehaviour('materialInput')
 @MDBehaviour('loader')
 @ComponentBaseBehaviour
-@InputBehaviour
 class AutocompleteTextEdit extends Component {
     static defaultProps = {
         placeholder: 'Search here...',
@@ -165,7 +164,7 @@ class AutocompleteTextEdit extends Component {
     render() {
         const {inputValue, hasSuggestions, hasFocus, isLoading} = this.state;
 
-        const validInputProps = this._checkProps(this.props);
+        const validInputProps = filterProps(this.props);
         const {placeholder, error} = this.props;
 
         validInputProps.value = inputValue === undefined || inputValue === null ? '' : inputValue;

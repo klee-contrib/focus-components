@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import {identity} from 'lodash/utility';
 import ComponentBaseBehaviour from '../../../behaviours/component-base';
 import MDBehaviour from '../../../behaviours/material';
-import {InputBehaviour} from '../../../behaviours/input-component';
+import filterProps from '../../../utils/filter-html-attributes';
 
 const propTypes = {
     cols: PropTypes.number,
@@ -43,7 +43,6 @@ const defaultProps = {
 */
 @MDBehaviour('inputTextarea')
 @ComponentBaseBehaviour
-@InputBehaviour
 class InputTextarea extends Component {
 
     /**
@@ -70,7 +69,7 @@ class InputTextarea extends Component {
     * @override
     */
     render() {
-        const validInputProps = this._checkProps(this.props);
+        const validInputProps = filterProps(this.props);
 
         const {formatter, error} = this.props;
         const {name, style, placeholder, value} = validInputProps;

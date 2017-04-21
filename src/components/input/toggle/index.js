@@ -2,7 +2,7 @@ import React, {Component, PropTypes} from 'react';
 import ReactDOM from 'react-dom';
 import Translation from '../../../behaviours/translation';
 import Material from '../../../behaviours/material';
-import {InputBehaviour} from '../../../behaviours/input-component';
+import filterProps from '../../../utils/filter-html-attributes';
 
 const propTypes = {
     label: PropTypes.string,
@@ -18,7 +18,6 @@ const displayName = 'InputToggle';
 
 @Translation
 @Material('mdlHolder')
-@InputBehaviour
 class InputToggle extends Component {
     getValue = () => {
         const domElement = ReactDOM.findDOMNode(this.refs.toggle);
@@ -31,7 +30,7 @@ class InputToggle extends Component {
     };
 
     render() {
-        const validInputProps = this._checkProps(this.props);
+        const validInputProps = filterProps(this.props);
         const {label, value} = validInputProps;
 
         validInputProps.onChange = this.handleOnChange;

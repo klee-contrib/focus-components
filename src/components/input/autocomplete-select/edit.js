@@ -1,8 +1,7 @@
 import React, {Component, PropTypes} from 'react';
 import ComponentBaseBehaviour from '../../../behaviours/component-base';
 import MDBehaviour from '../../../behaviours/material';
-import {InputBehaviour} from '../../../behaviours/input-component';
-
+import filterProps from '../../../utils/filter-html-attributes';
 import closest from 'closest';
 import debounce from 'lodash/function/debounce';
 import uniqueId from 'lodash/utility/uniqueId';
@@ -35,7 +34,6 @@ const defaultProps = {
 @MDBehaviour('loader')
 @MDBehaviour('inputText')
 @ComponentBaseBehaviour
-@InputBehaviour
 class Autocomplete extends Component {
     constructor(props) {
         super(props);
@@ -217,7 +215,7 @@ class Autocomplete extends Component {
         const {inputValue, isLoading} = this.state;
         const {customError, renderOptions} = this.props;
 
-        const validInputProps = this._checkProps(this.props);
+        const validInputProps = filterProps(this.props);
 
         const { placeholder } = validInputProps;
 

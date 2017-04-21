@@ -2,13 +2,12 @@ import React, {Component, PropTypes} from 'react';
 import Translation from '../../../behaviours/translation';
 import GridBehaviour from '../../../behaviours/grid';
 import MaterialBehaviour from '../../../behaviours/material';
-import {InputBehaviour} from '../../../behaviours/input-component';
+import filterProps from '../../../utils/filter-html-attributes';
 import {isUndefined} from 'lodash/lang';
 
 @Translation
 @MaterialBehaviour('inputMdl')
 @GridBehaviour
-@InputBehaviour
 class Radio extends Component {
     static defaultProps = {
         value: false
@@ -66,7 +65,7 @@ class Radio extends Component {
     render() {
         const {isChecked} = this.state;
         const {label} = this.props;
-        const validInputProps = this._checkProps(this.props);
+        const validInputProps = filterProps(this.props);
 
         validInputProps.onChange = this._onChange;
         validInputProps.checked = isChecked ? 'checked' : undefined;
