@@ -15,6 +15,14 @@ let memoryMixin = {
             maxElements: this.props.perPage
         };
     },
+    
+    componentWillReceiveProps(nextProps) {
+        if(nextProps.perPage && nextProps.perPage !== this.props.perPage) {
+            this.setState({
+                maxElements: nextProps.perPage
+            });
+        }
+    },
 
     /**
      * Calculate the number of element to display in the memory list.

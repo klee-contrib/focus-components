@@ -1,6 +1,6 @@
 {
     "name": "focus-components",
-    "version": "2.1.2",
+    "version": "2.1.6",
     "description": "Focus component repository.",
     "main": "index.js",
     "scripts": {
@@ -83,7 +83,7 @@
         "daterangepicker": "0.0.3",
         "immutable": "^3.7.4",
         "lodash": "^3.10.1",
-        "material-design-lite": "1.1.3",
+        "material-design-lite": "1.3.0",
         "object-assign": "^2.0.0",
         "react-addons-css-transition-group": "^15.2.1",
         "react-date-picker": "^3.1.6",

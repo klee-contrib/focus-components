@@ -206,6 +206,7 @@ module.exports = {
     * @returns {object} - A React  save button.
     */
     buttonSave() {
+        const {isLoading} = this.state;
         const handleOnClick = () => {
             if (this._validate()) {
                 this.action.save.call(this, this._getEntity());
@@ -218,6 +219,8 @@ module.exports = {
             label='button.save'
             shape={null}
             type='button'
+            isLoading={isLoading}
+            processLabel='button.saving'
             />
         );
     },

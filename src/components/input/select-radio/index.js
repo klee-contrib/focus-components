@@ -1,6 +1,6 @@
-import React, {Component, PropTypes} from 'react';
+import React, { Component, PropTypes } from 'react';
 import Radio from '../radio';
-import {uniqueId} from 'lodash/utility';
+import { uniqueId } from 'lodash/utility';
 import Translation from '../../../behaviours/translation';
 
 @Translation
@@ -27,14 +27,14 @@ class SelectRadio extends Component {
     };
 
     componentWillReceiveProps(newProps) {
-        this.setState({value: newProps.value});
+        this.setState({ value: newProps.value });
     }
 
     /**
      * Get the value from the select in the DOM.
      * @return {string, number} selected value
      */
-    getValue () {
+    getValue() {
         return this.state.value;
     }
 
@@ -43,13 +43,13 @@ class SelectRadio extends Component {
     * @param {object} event - the click event
     */
     _handleRadioChange(newValue) {
-        const {onChange} = this.props;
+        const { onChange } = this.props;
         if (onChange) {
             onChange(newValue);
             return;
         }
         //Set the state then call the change handler.
-        this.setState({value: newValue});
+        this.setState({ value: newValue });
     }
 
     /**
@@ -68,7 +68,7 @@ class SelectRadio extends Component {
     * @return {XML} the different radio values
     */
     renderSelectRadios() {
-        const {uniqueName} = this.state;
+        const { uniqueName } = this.state;
         return this.props.values.map((val, idx) => {
             const value = val[this.props.valueKey];
             const label = val[this.props.labelKey];
@@ -81,9 +81,11 @@ class SelectRadio extends Component {
     }
 
     render() {
+        const { error, style } = this.props;
         return (
-            <div data-focus='select-radio' >
+            <div data-focus='select-radio' data-valid={!error} style={style} >
                 {this.renderSelectRadios()}
+                {error && <div className='label-error'>{error}</div>}
             </div>
         );
     }
