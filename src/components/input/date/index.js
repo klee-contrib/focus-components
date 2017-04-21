@@ -66,12 +66,6 @@ class InputDate extends Component {
         document.addEventListener('click', this._onDocumentClick);
     }
 
-
-    componentDidMount() {
-        const {drops, showDropdowns} = this.props;
-        const {inputDate: startDate} = this.state;
-    }
-
     componentWillReceiveProps({value}) {
         this.setState({
             dropDownDate: isISOString(value) ? moment.utc(value, moment.ISO_8601) : moment.utc(),
@@ -191,7 +185,7 @@ class InputDate extends Component {
                             ref='picker'
                             minDate={minDate}
                             maxDate={maxDate}
-                            />
+                        />
                     </div>
                 }
             </div>

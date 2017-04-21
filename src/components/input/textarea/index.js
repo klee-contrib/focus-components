@@ -70,19 +70,16 @@ class InputTextarea extends Component {
     * @override
     */
     render() {
-        const managedProps = this._checkProps(this.props);
-        const validInputProps = managedProps[0];
-        const invalidInputProps = managedProps[1];
+        const validInputProps = this._checkProps(this.props);
 
-        const {error} = invalidInputProps;
-        const {formatter} = this.props;
+        const {formatter, error} = this.props;
         const {name, style, placeholder, value} = validInputProps;
 
         const pattern = error ? 'hasError' : null; //add pattern to overide mdl error style when displaying an focus error.
         const mdlClasses = `mdl-textfield mdl-js-textfield${error ? ' is-invalid' : ''}`;
 
-        validInputProps.value = formatter(value) === undefined || formatter(value) === null ? '' :  formatter(value);
-        validInputProps.onChange = this._handleInputChange
+        validInputProps.value = formatter(value) === undefined || formatter(value) === null ? '' : formatter(value);
+        validInputProps.onChange = this._handleInputChange 
         const inputProps = {...validInputProps, pattern};
 
         return (

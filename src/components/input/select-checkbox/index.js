@@ -1,7 +1,7 @@
 import React, {Component, PropTypes} from 'react';
 import Checkbox from '../checkbox';
 import Translation from '../../../behaviours/translation';
-const {pull} = require('lodash/array');
+import {pull} from 'lodash/array';
 
 @Translation
 class SelectCheckbox extends Component {
@@ -25,7 +25,7 @@ class SelectCheckbox extends Component {
     };
 
     componentWillReceiveProps(newProps) {
-        if(newProps) {
+        if (newProps) {
             this.setState({selectedValues: newProps.value});
         }
     }
@@ -44,12 +44,12 @@ class SelectCheckbox extends Component {
      * @param  {[type]} newStatus the new status
      */
     _handleCheckboxChange(key, newStatus) {
-        if(this.props.onChange) {
+        if (this.props.onChange) {
             this.props.onChange(key, newStatus);
             return;
         }
         const selectedValues = this.state.selectedValues;
-        if(newStatus) {
+        if (newStatus) {
             selectedValues.push(key);
         } else {
             pull(selectedValues, key);

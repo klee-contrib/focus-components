@@ -45,7 +45,7 @@ class Radio extends Component {
     */
     _onChange = () => {
         this.setState({isChecked: !this.state.isChecked}, () => {
-            if(this.props.onChange) {
+            if (this.props.onChange) {
                 this.props.onChange(this.state.isChecked);
             }
         });
@@ -65,19 +65,15 @@ class Radio extends Component {
     */
     render() {
         const {isChecked} = this.state;
-
-        const managedProps = this._checkProps(this.props);
-        const validInputProps = managedProps[0];
-        const invalidInputProps = managedProps[1];
-
-        const {label, onChange} = validInputProps;
+        const {label} = this.props;
+        const validInputProps = this._checkProps(this.props);
 
         validInputProps.onChange = this._onChange;
         validInputProps.checked = isChecked ? 'checked' : undefined;
         const inputProps = {...validInputProps};
 
         return (
-            <label className='mdl-radio mdl-js-radio mdl-js-ripple-effect' data-focus="input-radio" ref='inputMdl'>
+            <label className='mdl-radio mdl-js-radio mdl-js-ripple-effect' data-focus='input-radio' ref='inputMdl'>
                 <input className='mdl-radio__button' type='radio' ref='inputRadio' {...inputProps}/>
                 <span className='mdl-radio__label'>{this.i18n(label)}</span>
             </label>

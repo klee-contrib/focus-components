@@ -66,40 +66,17 @@ class InputText extends Component {
         return onChange(unformatter(value, MODE));
     };
 
-    // /**
-    // * comments will be right there
-    // */
-    // _checkProps = (props) => {
-    //     let validInputProps = {};
-    //     let invalidInputProps = {};
-    //
-    //     Object.keys(props).map(key => {
-    //         if(key === inputHtmlAttributes[inputHtmlAttributes.indexOf(key)]) {
-    //             let value = key === 'value' ? props.formatter(props[key], MODE) : key === 'onChange' ? this._handleInputChange : props[key];
-    //             validInputProps[key] = value;
-    //         } else {
-    //             invalidInputProps[key] = props[key];
-    //         }
-    //     });
-    //     const managedProps = [validInputProps, invalidInputProps];
-    //     return managedProps;
-    // };
     /**
     * @inheritdoc
     * @override
     */
     render() {
-        const managedProps = this._checkProps(this.props);
-
-        const validInputProps = managedProps[0];
-        const invalidInputProps = managedProps[1]
-
+        const validInputProps = this._checkProps(this.props);
+        const { error, style } = this.props;
         const { name, placeholder, value: valueToFormat } = validInputProps;
 
         validInputProps.value = this.props.formatter(valueToFormat, MODE);
         validInputProps.onChange = this._handleInputChange;
-
-        const { error, style } = invalidInputProps;
 
         const pattern = error ? 'hasError' : null; //add pattern to overide mdl error style when displaying an focus error.
 

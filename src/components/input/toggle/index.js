@@ -31,10 +31,7 @@ class InputToggle extends Component {
     };
 
     render() {
-        const managedProps = this._checkProps(this.props);
-        const validInputProps = managedProps[0];
-        const invalidInputProps = managedProps[1];
-
+        const validInputProps = this._checkProps(this.props);
         const {label, value} = validInputProps;
 
         validInputProps.onChange = this.handleOnChange;

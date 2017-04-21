@@ -1,5 +1,4 @@
 import React, {Component, PropTypes} from 'react';
-import ReactDOM from 'react-dom';
 import ComponentBaseBehaviour from '../../../behaviours/component-base';
 import MDBehaviour from '../../../behaviours/material';
 import {InputBehaviour} from '../../../behaviours/input-component';
@@ -65,7 +64,7 @@ class AutocompleteTextEdit extends Component {
         * [inputTimeout description]
         * @type {number}
         */
-        inputTimeout : PropTypes.number.isRequired
+        inputTimeout: PropTypes.number.isRequired
     };
 
     state = {
@@ -78,7 +77,7 @@ class AutocompleteTextEdit extends Component {
     };
 
     componentWillReceiveProps({error}) {
-        if(error) {
+        if (error) {
             this.setState({error: error});
         }
     }
@@ -89,12 +88,11 @@ class AutocompleteTextEdit extends Component {
     }
 
     // Returns the state's inputValue
-    getValue = () =>  {
+    getValue = () => {
         const {inputValue} = this.state;
-        if(inputValue !== undefined) {
+        if (inputValue !== undefined) {
             return inputValue;
-        }
-        else {
+        } else {
             return null;
         }
     };
@@ -103,10 +101,9 @@ class AutocompleteTextEdit extends Component {
     // Sets the hasSuggestions' state if the given object has a none empty array
     _querySearcher = value => {
         const {querySearcher} = this.props;
-        const {hasSuggestions} = this.state;
 
         querySearcher(value).then(({data, totalCount}) => {
-            if(totalCount > 0) {
+            if (totalCount > 0) {
                 this.setState({hasSuggestions: true, suggestions: data, error: ''});
             }
             this.refs.loader.classList.remove('mdl-progress__indeterminate');
@@ -121,14 +118,13 @@ class AutocompleteTextEdit extends Component {
     // Sets the state's inputValue when the user is typing
     onQueryChange = ({target: {value}}) => {
         this.setState({inputValue: value});
-        if(value.trim() == '') {
+        if (value.trim() === '') {
             this.setState({hasSuggestions: false});
-        }
-        else {
+        } else {
             this.refs.loader.classList.add('mdl-progress__indeterminate');
             this.setState({isLoading: true});
             this._debouncedQuerySearcher(value);
-            // this._querySearcher(value);
+            // this._querySearcher(value); 
         }
     };
 
@@ -137,13 +133,13 @@ class AutocompleteTextEdit extends Component {
         this.refs.inputText.value = value;
         this.setState({inputValue: value, hasSuggestions: false, suggestions: []});
         return value;
-    };
+    }
 
     // Returns an html list whith the Suggestions
     renderSuggestions = () => {
         const {suggestions} = this.state;
         const allSuggestions = suggestions.map(({key, label}) => <li key={key} onMouseDown={(e) => {this.onResultClick(label); e.preventDefault();}} data-focus='option' >{label}</li>);
-        return(
+        return (
             <ul ref='suggestions' data-focus='options'>
                 {allSuggestions}
             </ul>
@@ -155,10 +151,10 @@ class AutocompleteTextEdit extends Component {
         const {hasSuggestions, hasFocus} = this.state;
         const {showAtFocus, emptyShowAll} = this.props;
         this.setState({hasFocus: !this.state.hasFocus});
-        if(hasSuggestions && !showAtFocus && hasFocus === false) {
+        if (hasSuggestions && !showAtFocus && hasFocus === false) {
             this.setState({hasSuggestions: false});
         }
-        if(!hasSuggestions && e.target.value.trim() === '' && emptyShowAll && hasFocus === false) {
+        if (!hasSuggestions && e.target.value.trim() === '' && emptyShowAll && hasFocus === false) {
             // Doing a global search here
             this._querySearcher('');
         }
@@ -169,12 +165,8 @@ class AutocompleteTextEdit extends Component {
     render() {
         const {inputValue, hasSuggestions, hasFocus, isLoading} = this.state;
 
-        const managedProps = this._checkProps(this.props);
-        const validInputProps = managedProps[0];
-        const invalidInputProps = managedProps[1];
-
-        const {inputTimeout, error} = invalidInputProps;
-        const {placeholder} = validInputProps;
+        const validInputProps = this._checkProps(this.props);
+        const {placeholder, error} = this.props;
 
         validInputProps.value = inputValue === undefined || inputValue === null ? '' : inputValue;
         validInputProps.onFocus = this.toggleHasFocus;
@@ -182,13 +174,13 @@ class AutocompleteTextEdit extends Component {
         validInputProps.onBlur = this.toggleHasFocus;
         const inputProps = {...validInputProps};
 
-        return(
+        return (
             <div data-focus='autocompleteText'>
                 <div className={`mdl-textfield mdl-js-textfield${error ? ' is-invalid' : ''}`} ref='materialInput'>
                     <div data-focus='loading' data-loading={isLoading} className='mdl-progress mdl-js-progress' ref='loader'/>
                     <input className='mdl-textfield__input' type='text' ref='inputText' {...inputProps} />
-                    <label className="mdl-textfield__label">{this.i18n(placeholder)}</label>
-                    <span className="mdl-textfield__error" ref='errorMessage'>{this.i18n(error)}</span>
+                    <label className='mdl-textfield__label'>{this.i18n(placeholder)}</label>
+                    <span className='mdl-textfield__error' ref='errorMessage'>{this.i18n(error)}</span>
                 </div>
                 {hasSuggestions && hasFocus &&
                     this.renderSuggestions()

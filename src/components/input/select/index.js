@@ -1,9 +1,8 @@
 //dependencies
 import React, {Component, PropTypes} from 'react';
-import ReactDOM from 'react-dom';
 import ComponentBaseBehaviour from '../../../behaviours/component-base';
 import {InputBehaviour} from '../../../behaviours/input-component';
-import {isUndefined, isNull, isNumber} from 'lodash/lang';
+import {isUndefined, isNull} from 'lodash/lang';
 import {union} from 'lodash/array';
 const UNSELECTED_KEY = 'UNSELECTED_KEY';
 /**
@@ -13,7 +12,7 @@ const UNSELECTED_KEY = 'UNSELECTED_KEY';
 * @return {strint | number}  - The parsed value.
 */
 function _valueParser(propsValue, rawValue) {
-    if(UNSELECTED_KEY === rawValue) {
+    if (UNSELECTED_KEY === rawValue) {
         return undefined;
     }
     const {type} = this.props;
@@ -83,7 +82,7 @@ class Select extends Component {
     /** inheritdoc */
     _renderOptions({hasUndefined, labelKey, isRequired, value, values = [], valueKey, isActiveProperty, unSelectedLabel}) {
         const isRequiredAndNoValue = isRequired && (isUndefined(value) || isNull(value));
-        if(hasUndefined || isRequiredAndNoValue) {
+        if (hasUndefined || isRequiredAndNoValue) {
             values = union(
                 [{[labelKey]: this.i18n(unSelectedLabel), [valueKey]: UNSELECTED_KEY}],
                 values
@@ -104,12 +103,8 @@ class Select extends Component {
     * @override
     */
     render() {
-        const managedProps = this._checkProps(this.props);
-        const validInputProps = managedProps[0];
-        const invalidInputProps = managedProps[1];
-
-        const {error} = invalidInputProps;
-        const {style} = validInputProps;
+        const {error, style} = this.props;
+        const validInputProps = this._checkProps(this.props);
 
         validInputProps.onChange = this._handleSelectChange;
         const inputProps = {...validInputProps};

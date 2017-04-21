@@ -44,7 +44,7 @@ class SelectRadio extends Component {
     */
     _handleRadioChange(newValue) {
         const {onChange} = this.props;
-        if(onChange) {
+        if (onChange) {
             onChange(newValue);
             return;
         }
