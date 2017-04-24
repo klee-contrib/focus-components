@@ -26,14 +26,15 @@ const fieldBehaviourMixin = {
         const listName = options.listName || def.listName;
         //hasLabel
         const hasLabel = (function hasLabel() {
-            if(options.hasLabel !== undefined) {
+            if (options.hasLabel !== undefined) {
                 return options.hasLabel;
             }
-            if(def.hasLabel !== undefined) {
+            if (def.hasLabel !== undefined) {
                 return options.hasLabel;
             } return true;
-        }());
+        } ());
         //Build a container for the props.
+        const baseName = name;
         name = options.name || `${this.definitionPath}.${name}`;
         const propsContainer = {
             name: name,
@@ -44,6 +45,7 @@ const fieldBehaviourMixin = {
             error: context.state.error ? context.state.error[name] : undefined,
             locale: def.locale,
             format: def.format,
+            onChange: options.onChange ? options.onChange : (data) => this.setState({ [baseName]: data }),
             //Mode
             isEdit: isEdit,
             hasLabel: hasLabel,
@@ -74,8 +76,8 @@ const fieldBehaviourMixin = {
         const refContainer = options.refContainer || def.refContainer || context.state.reference;
 
         // case no props.values and then
-        if(!(options.hasOwnProperty('values')) && isObject(refContainer) && refContainer.hasOwnProperty(listName)) {
-            assign(fieldProps, {values: refContainer[listName] || [] });
+        if (!(options.hasOwnProperty('values')) && isObject(refContainer) && refContainer.hasOwnProperty(listName)) {
+            assign(fieldProps, { values: refContainer[listName] || [] });
         }
         return fieldProps;
     }
