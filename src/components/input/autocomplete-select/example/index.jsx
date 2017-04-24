@@ -1,9 +1,60 @@
 const {AutocompleteSelect} = FocusComponents.components.input;
 
+const data = [
+    {
+        key: 'NY',
+        label: 'New York'
+    },
+    {
+        key: 'PAR',
+        label: 'Paris'
+    },
+    {
+        key: 'TOY',
+        label: 'Tokyo'
+    },
+    {
+        key: 'BEI',
+        label: 'Pékin'
+    },
+    {
+        key: 'LON',
+        label: 'Londres'
+    },
+    {
+        key: 'BER',
+        label: 'Berlin'
+    }
+];
+
+const querySearcher = query => {
+    const value = data.filter(({key, label}) => label.toLowerCase().indexOf(query.toLowerCase()) !== -1);
+    return new Promise((resolve, reject) => {
+        setTimeout(() => {
+            resolve({
+                data: value,
+                totalCount: value.length
+            });
+        }, 200);
+    });
+};
+
 const keyResolver = key => {
     return new Promise((resolve, reject) => {
-        setTimeout(resolve.bind(this, 'Resolved value'), 300);
+        data.forEach(element => {
+            if(element.key === key) {
+                setTimeout(resolve.bind(this, element.label), 10);
+            }
+        });
     });
+}
+
+const AutoComplete = (props) => {
+    return(
+        <AutocompleteSelect
+            {...props}
+            />
+    )
 }
 const resources = {
     dev: {
@@ -18,43 +69,6 @@ const resources = {
 };
 
 i18n.init({resStore: resources});
-
-const querySearcher = query => {
-    const data = [
-        {
-            key: 'NY',
-            label: 'New York'
-        },
-        {
-            key: 'PAR',
-            label: 'Paris'
-        },
-        {
-            key: 'TOY',
-            label: 'Tokyo'
-        },
-        {
-            key: 'BEI',
-            label: 'Pékin'
-        },
-        {
-            key: 'LON',
-            label: 'Londres'
-        },
-        {
-            key: 'BER',
-            label: 'Berlin'
-        }
-    ].filter(({key, label}) => label.toLowerCase().indexOf(query.toLowerCase()) !== -1);
-    return new Promise((resolve, reject) => {
-        setTimeout(() => {
-            resolve({
-                data,
-                totalCount: 40
-            });
-        }, 200);
-    });
-}
 
 class Sample extends React.Component {
     state = {isEdit: true};

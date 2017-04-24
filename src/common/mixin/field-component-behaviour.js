@@ -1,10 +1,10 @@
 import assign from 'object-assign';
 import {isUndefined, isObject} from 'lodash/lang';
 /**
- * Identity function
- * @param  {object} d - data to treat.
- * @return {object}  - The same object.
- */
+* Identity function
+* @param  {object} d - data to treat.
+* @return {object}  - The same object.
+*/
 function identity(d) {
     return d;
 }
@@ -50,8 +50,8 @@ const fieldBehaviourMixin = {
             isRequired: (!isUndefined(options.isRequired) && options.isRequired) || def.isRequired || def.required, //legacy on required on model generation.
             //Style
             style: options.style,
-			// Type
-			                                                type: def.type,
+            // Type
+            type: def.type,
             //Methods
             validator: def.validator,
             formatter: def.formatter || identity,

@@ -2,7 +2,7 @@ import React, { Component, PropTypes } from 'react';
 import ReactDOM from 'react-dom';
 import MDBehaviour from '../../behaviours/material';
 import Translation from '../../behaviours/translation';
-import ComponentBaseBehaviour from '../../behaviours/component-base';
+import filterProps from '../../utils/filter-html-attributes';
 
 const BTN_JS = 'mdl-js-button';
 const BTN_CLASS = 'mdl-button';
@@ -130,15 +130,15 @@ class Button extends Component {
             return <span data-focus='button-label'>{this.i18n(processLabel)}</span>
         }
         return null;
-    };
+    }
 
     /** inheritedDoc */
     render() {
         // attribute doc : https://developer.mozilla.org/fr/docs/Web/HTML/Element/Button
         // be careful the way you declare your attribute names : https://developer.mozilla.org/fr/docs/Web/HTML/Element/Button
-        const { className, formNoValidate, handleOnClick, icon, id, onClick, type, label, style, hasRipple, isJs, iconLibrary, isLoading, ...rest } = this.props;
-        const otherInputProps = { formNoValidate, onClick: handleOnClick ? handleOnClick : onClick, style, type, ...rest }; //on click for legacy. Remove handleOnClick in v2
-        const renderedClassName = `${className ? className : ''} ${::this._getComponentClassName()}`.trim(); 
+        const {className, disabled, formNoValidate, handleOnClick, icon, id, onClick, type, label, style, hasRipple, isJs, iconLibrary, isLoading, ...rest} = this.props;
+        const otherInputProps = filterProps({ disabled, formNoValidate, onClick: handleOnClick ? handleOnClick : onClick, style, type, ...rest }); //on click for legacy. Remove handleOnClick in v2
+        const renderedClassName = `${className ? className : ''} ${::this._getComponentClassName()}`.trim();
         return (
            <button alt={this.i18n(label)} className={renderedClassName} data-focus='button-action' data-saving={isLoading} id={id} disabled={isLoading} title={this.i18n(label)} {...otherInputProps} ref='materialButton'>
                 {icon && ::this._renderIcon()}

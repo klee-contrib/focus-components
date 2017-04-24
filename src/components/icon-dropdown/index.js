@@ -1,8 +1,10 @@
 import React, {Component, PropTypes} from 'react';
 import ReactDOM from 'react-dom';
+import {uniqueId} from 'lodash/utility';
+
 import Button from '../../components/button';
 import Translation from '../../behaviours/translation';
-const {uniqueId} = require('lodash/utility');
+
 
 function isDescendant(parent, child) {
     let node = child.parentNode;
