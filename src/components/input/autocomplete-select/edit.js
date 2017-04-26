@@ -1,4 +1,4 @@
-import React, {Component, PropTypes} from 'react';
+import React, { Component, PropTypes } from 'react';
 import ReactDOM from 'react-dom';
 import ComponentBaseBehaviour from '../../../behaviours/component-base';
 import MDBehaviour from '../../../behaviours/material';
@@ -23,7 +23,8 @@ const propTypes = {
     placeholder: PropTypes.string,
     querySearcher: PropTypes.func.isRequired,
     renderOptions: PropTypes.func,
-    value: PropTypes.string
+    value: PropTypes.string,
+    onClearSelect: PropTypes.bool
 };
 
 const defaultProps = {
@@ -57,8 +58,8 @@ class Autocomplete extends Component {
         const {value, keyResolver, inputTimeout} = this.props;
         if (value !== undefined && value !== null) { // value is defined, call the keyResolver to get the associated label
             keyResolver(value).then(inputValue => {
-                this.setState({inputValue, fromKeyResolver: true});
-            }).catch(error => this.setState({customError: error.message}));
+                this.setState({ inputValue, fromKeyResolver: true });
+            }).catch(error => this.setState({ customError: error.message }));
         }
         document.addEventListener('click', this._handleDocumentClick);
         this._debouncedQuerySearcher = debounce(this._querySearcher, inputTimeout);
@@ -67,14 +68,14 @@ class Autocomplete extends Component {
     componentWillReceiveProps({value, customError, error}) {
         const {keyResolver} = this.props;
         if (value !== this.props.value && value !== undefined && value !== null) { // value is defined, call the keyResolver to get the associated label
-            this.setState({inputValue: value, customError}, () => keyResolver(value).then(inputValue => {
-                this.setState({inputValue, fromKeyResolver: true});
-            }).catch(error => this.setState({customError: error.message})));
+            this.setState({ inputValue: value, customError }, () => keyResolver(value).then(inputValue => {
+                this.setState({ inputValue, fromKeyResolver: true });
+            }).catch(error => this.setState({ customError: error.message })));
         } else if (customError !== this.props.customError) {
-            this.setState({customError});
+            this.setState({ customError });
         }
-        if(error) {
-            this.setState({customError: error});
+        if (error) {
+            this.setState({ customError: error });
         }
     };
 
@@ -110,8 +111,8 @@ class Autocomplete extends Component {
         const {onBadInput} = this.props;
         if (focus) {
             const closestACParent = closest(target, `[data-id='${this.autocompleteId}']`, true);
-            if(closestACParent === undefined) {
-                this.setState({focus: false}, () => {
+            if (closestACParent === undefined) {
+                this.setState({ focus: false }, () => {
                     if (onBadInput && this.getValue() === null && inputValue !== '') {
                         onBadInput(inputValue);
                     }
@@ -123,10 +124,10 @@ class Autocomplete extends Component {
     _handleQueryChange = ({target: {value}}) => {
         if (value === '') { // the user cleared the input, don't call the querySearcher
             const {onChange} = this.props;
-            this.setState({inputValue: value, fromKeyResolver: false});
+            this.setState({ inputValue: value, fromKeyResolver: false });
             if (onChange) onChange(null);
         } else {
-            this.setState({inputValue: value, fromKeyResolver: false, isLoading: true});
+            this.setState({ inputValue: value, fromKeyResolver: false, isLoading: true });
             this._debouncedQuerySearcher(value);
         }
     };
@@ -139,8 +140,8 @@ class Autocomplete extends Component {
             data.forEach(item => {
                 options.set(item[keyName], item[labelName]);
             });
-            this.setState({options, isLoading: false, totalCount});
-        }).catch(error => this.setState({customError: error.message}));
+            this.setState({ options, isLoading: false, totalCount });
+        }).catch(error => this.setState({ customError: error.message }));
     };
 
     _handleQueryFocus = () => {
@@ -148,7 +149,7 @@ class Autocomplete extends Component {
         if (this.props.onFocus) {
             this.props.onFocus.call(this);
         }
-        this.setState({active: '', focus: true});
+        this.setState({ active: '', focus: true });
     };
 
     _handleQueryKeyDown = (event) => {
@@ -156,7 +157,7 @@ class Autocomplete extends Component {
         const {which} = event;
         const {active, options} = this.state;
         if (which === ENTER_KEY_CODE && active) this._select(active);
-        if (which === TAB_KEY_CODE) this.setState({focus: false}, () => this.refs.htmlInput.blur());
+        if (which === TAB_KEY_CODE) this.setState({ focus: false }, () => this.refs.htmlInput.blur());
         if ([DOWN_ARROW_KEY_CODE, UP_ARROW_KEY_CODE].indexOf(which) !== -1) { // the user pressed on an arrow key, change the active key
             const optionKeys = [];
             for (let key of options.keys()) {
@@ -170,12 +171,12 @@ class Autocomplete extends Component {
             if (newIndex < 0) {
                 newIndex += options.size;
             }
-            this.setState({active: optionKeys[newIndex]});
+            this.setState({ active: optionKeys[newIndex] });
         }
     };
 
     _handleSuggestionHover = key => {
-        this.setState({active: key});
+        this.setState({ active: key });
     };
 
     _select(key) {
@@ -183,9 +184,15 @@ class Autocomplete extends Component {
         const {onChange, keyName, labelName} = this.props;
         const resolvedLabel = options.get(key) || '';
         this.refs.htmlInput.blur();
-        this.setState({inputValue: this.i18n(resolvedLabel), selected: key, focus: false}, () => {
-            if (onChange) onChange(key);
-        });
+        if (this.props.onClearSelect && this.props.onClearSelect === true) {
+            this.setState({ inputValue: null, selected: null, focus: false }, () => {
+                if (onChange) onChange(key);
+            });
+        } else {
+            this.setState({ inputValue: this.i18n(resolvedLabel), selected: key, focus: false }, () => {
+                if (onChange) onChange(key);
+            });
+        }
     };
 
     _renderOptions = () => {
@@ -195,28 +202,28 @@ class Autocomplete extends Component {
             const isActive = active === key;
             renderedOptions.push(
                 <li
-                data-active={isActive}
-                data-focus='option'
-                key={key}
-                onClick={this._select.bind(this, key)}
-                onMouseOver={this._handleSuggestionHover.bind(this, key)}
-                >
-                {this.i18n(value)}
+                    data-active={isActive}
+                    data-focus='option'
+                    key={key}
+                    onClick={this._select.bind(this, key)}
+                    onMouseOver={this._handleSuggestionHover.bind(this, key)}
+                    >
+                    {this.i18n(value)}
                 </li>
             );
         }
         return (
             <ul data-focus='options' ref='options' data-focussed={focus}>
-            {renderedOptions}
+                {renderedOptions}
             </ul>
         );
     };
 
-    render () {
-        const { autoFocus, onBlur, disabled, onKeyPress, maxLength, onFocus, onClick, customError, placeholder, renderOptions, ...otherProps }  = this.props;
+    render() {
+        const { autoFocus, onBlur, disabled, onKeyPress, maxLength, onFocus, onClick, customError, placeholder, renderOptions, ...otherProps } = this.props;
         const {inputValue, isLoading} = this.state;
         const {_handleQueryFocus, _handleQueryKeyDown, _handleQueryChange} = this;
-        const inputProps =  {
+        const inputProps = {
             autoFocus, disabled, onKeyPress, maxLength, onFocus, onClick,
             onChange: _handleQueryChange, onFocus: _handleQueryFocus,
             onKeyDown: _handleQueryKeyDown, onBlur,
@@ -232,7 +239,7 @@ class Autocomplete extends Component {
                         {...inputProps}
                         ref='htmlInput'
                         type='text'
-                    />
+                        />
                     <label className='mdl-textfield__label'>{this.i18n(placeholder)}</label>
                     <span className='mdl-textfield__error'>{this.i18n(customError)}</span>
                 </div>
