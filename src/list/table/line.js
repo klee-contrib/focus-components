@@ -4,14 +4,13 @@ import type from 'focus-core/component/types';
 
 // Mixins
 
-let translationMixin = require('../../common/i18n').mixin;
-let referenceMixin = require('../../common/mixin/reference-property');
-let definitionMixin = require('../../common/mixin/definition');
-let builtInComponentsMixin = require('../mixin/built-in-components');
+import referenceMixin from '../../common/mixin/reference-property';
+import definitionMixin from '../../common/mixin/definition';
+import builtInComponentsMixin from '../mixin/built-in-components';
 
 // Components
 
-let ContextualActions = require('../action-contextual').component;
+import {component as ContextualActions} from '../action-contextual';
 
 let lineMixin = {
     /**
@@ -22,7 +21,7 @@ let lineMixin = {
     /**
      * Mixin dependancies.
      */
-    mixins: [translationMixin, definitionMixin, referenceMixin, builtInComponentsMixin],
+    mixins: [definitionMixin, referenceMixin, builtInComponentsMixin],
 
     /**@inheritDoc**/
     getDefaultProps() {
@@ -67,4 +66,9 @@ let lineMixin = {
     }
 };
 
-module.exports = {mixin: lineMixin};
+export {
+    lineMixin as mixin
+}
+export default {
+    mixin: lineMixin
+}

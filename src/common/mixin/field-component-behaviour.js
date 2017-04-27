@@ -1,5 +1,5 @@
 import assign from 'object-assign';
-import {isUndefined, isObject} from 'lodash/lang';
+import {isUndefined, isObject} from 'lodash';
 /**
 * Identity function
 * @param  {object} d - data to treat.
@@ -10,6 +10,31 @@ function identity(d) {
 }
 
 const fieldBehaviourMixin = {
+    _modifiedFields: [],
+    _defaultOnChange(fieldname, value) {
+        this.setState({
+            [fieldname]: value
+        })
+    },
+    _buildResetState() {
+        if (this.buildResetState) {
+            return this.buildResetState(this._modifiedFields);
+        }
+        return this._modifiedFields.reduce((acc, value) => {
+            acc[value] = null;
+            return acc;
+        }, {});
+    },
+    _wrappedOnChange(onChange, fieldname, value) {
+        if (this._modifiedFields.indexOf(fieldname) === -1) {
+            this._modifiedFields.push(fieldname);
+        }
+        if (onChange) {
+            onChange(value);
+        } else {
+            this._defaultOnChange(fieldname, value);
+        }
+    },
     /**
     * Build the field properties.
     * @param {string} name - property name.
@@ -45,7 +70,7 @@ const fieldBehaviourMixin = {
             error: context.state.error ? context.state.error[name] : undefined,
             locale: def.locale,
             format: def.format,
-            onChange: options.onChange ? options.onChange : (data) => this.setState({ [baseName]: data }),
+            onChange: (value) => this._wrappedOnChange(options.onChange, baseName, value),
             //Mode
             isEdit: isEdit,
             hasLabel: hasLabel,

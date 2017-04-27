@@ -1,8 +1,6 @@
-const capitalize = require('lodash/string/capitalize');
-const assign = require('object-assign');
-const {isObject, isArray} = require('lodash/lang');
-const keys = require('lodash/object/keys');
-const storeChangeBehaviour = require('./store-change-behaviour');
+import assign from 'object-assign';
+import {isObject, isArray, keys, capitalize, defaultsDeep} from 'lodash';
+import storeChangeBehaviour from './store-change-behaviour';
 
 const storeMixin = {
     mixins: [storeChangeBehaviour],
@@ -20,8 +18,19 @@ const storeMixin = {
                 newState[property] = storeConf.store[`get${capitalize(property)}`]();
             });
         });
+        let defaultData = {};
+        if (this.props.useDefaultStoreData && (this.definition || this.getDefaultStoreData)) {
+            if (this.getDefaultStoreData) {
+                defaultData = this.getDefaultActionData(this.definition);
+            } else {
+                defaultData = keys(this.definition).reduce((acc, key) => {
+                    acc[key] = null;
+                    return acc;
+                }, {});
+            }
+        }
         const computedState = assign(this._computeEntityFromStoresData(newState), this._getLoadingStateFromStores());
-        return computedState;
+        return defaultsDeep({}, computedState, defaultData);
     },
     /**
      * Get the error state informations from the store.
@@ -34,10 +43,10 @@ const storeMixin = {
         let newState = {};
         this.stores.map( storeConf => {
             storeConf.properties.map( property => {
-                var errorState = storeConf.store[`getError${capitalize(property)}`]();
-                for(var prop in errorState) {
-                  newState[`${property}.${prop}`] = errorState[prop];
-              }
+                let errorState = storeConf.store[`getError${capitalize(property)}`]();
+                for (let prop in errorState) {
+                    newState[`${property}.${prop}`] = errorState[prop];
+                }
             });
         });
         return newState;
@@ -51,13 +60,13 @@ const storeMixin = {
         }
         let isLoading = false;
         this.stores.forEach((storeConf) => {
-            if(!isLoading) {
+            if (!isLoading) {
                 storeConf.properties.forEach((property) => {
-                  if(!isLoading) {
-                    let propStatus = storeConf.store.getStatus(property) || {};
-                    isLoading = propStatus.isLoading;
-                }
-              });
+                    if (!isLoading) {
+                        let propStatus = storeConf.store.getStatus(property) || {};
+                        isLoading = propStatus.isLoading;
+                    }
+                });
             }
         });
     //console.info('Processing state', this.stores, 'loading', isLoading);
@@ -68,19 +77,19 @@ const storeMixin = {
    * @param {object} data -  The data ordered by store.
    * @returns {object} - The js object transformed from store data.
    */
-    _computeEntityFromStoresData: function(data) {
-        if(this.computeEntityFromStoresData) {
+    _computeEntityFromStoresData: function _computeEntityFromStoresData(data) {
+        if (this.computeEntityFromStoresData) {
             return this.computeEntityFromStoresData(data);
         }
-        var entity = {reference: {}};
-        for(var key in data) {
-            if(this.referenceNames && this.referenceNames.indexOf(key) !== -1 ) {
+        let entity = {reference: {}};
+        for (let key in data) {
+            if (this.referenceNames && this.referenceNames.indexOf(key) !== -1 ) {
                 entity.reference[key] = data[key];
-            }else {
-                var d = data[key];
-                if(isArray(d) || !isObject(d)) {
-                  d = {[key] : d};
-              }
+            } else {
+                let d = data[key];
+                if (isArray(d) || !isObject(d)) {
+                    d = {[key]: d};
+                }
                 assign(entity, d);
             }
         }
@@ -93,13 +102,13 @@ const storeMixin = {
         if (this.stores) {
             this.stores.map((storeConf) => {
                 storeConf.properties.map((property) => {
-                  if(!storeConf.store || !storeConf.store.definition || !storeConf.store.definition[property]) {
-                    console.warn(`You add a property : ${property} in your store which is not in your definition : ${keys(storeConf.store.definition)}`);
-                }
-                  storeConf.store[`add${capitalize(property)}ChangeListener`](this._onChange);
-                  storeConf.store[`add${capitalize(property)}ErrorListener`](this._onError);
-                  storeConf.store[`add${capitalize(property)}StatusListener`](this._onStatus);
-              });
+                    if (!storeConf.store || !storeConf.store.definition || !storeConf.store.definition[property]) {
+                        console.warn(`You add a property : ${property} in your store which is not in your definition : ${keys(storeConf.store.definition)}`);
+                    }
+                    storeConf.store[`add${capitalize(property)}ChangeListener`](this._onChange);
+                    storeConf.store[`add${capitalize(property)}ErrorListener`](this._onError);
+                    storeConf.store[`add${capitalize(property)}StatusListener`](this._onStatus);
+                });
             });
         }
     },
@@ -110,10 +119,10 @@ const storeMixin = {
         if (this.stores) {
             this.stores.map((storeConf) => {
                 storeConf.properties.map((property) => {
-                  storeConf.store[`remove${capitalize(property)}ChangeListener`](this._onChange);
-                  storeConf.store[`remove${capitalize(property)}ErrorListener`](this._onError);
-                  storeConf.store[`remove${capitalize(property)}StatusListener`](this._onStatus);
-              });
+                    storeConf.store[`remove${capitalize(property)}ChangeListener`](this._onChange);
+                    storeConf.store[`remove${capitalize(property)}ErrorListener`](this._onError);
+                    storeConf.store[`remove${capitalize(property)}StatusListener`](this._onStatus);
+                });
             });
         }
     },

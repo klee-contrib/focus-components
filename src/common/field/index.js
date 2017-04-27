@@ -2,10 +2,10 @@ import React from 'react';
 import builder from 'focus-core/component/builder';
 import type from 'focus-core/component/types';
 // Mixins
-const valueBehaviour = require('./mixin/value-behaviour');
-const validationBehaviour = require('./mixin/validation-behaviour');
+import valueBehaviour from './mixin/value-behaviour';
+import validationBehaviour from './mixin/validation-behaviour';
 // Components
-const builtInComponents = require('./mixin/built-in-components');
+import builtInComponents from './mixin/built-in-components';
 
 /**
  * Mixin for the field helper.
@@ -78,4 +78,11 @@ const FieldMixin = {
         );
     }
 };
-module.exports = builder(FieldMixin);
+const builtComp = builder(FieldMixin);
+const {component, mixin} = builtComp;
+
+export {
+    component,
+    mixin
+}
+export default builtComp;

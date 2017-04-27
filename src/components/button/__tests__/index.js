@@ -24,7 +24,7 @@ describe('Button Component', () => {
             describe('When we give hasRipple prop to true', () => {
                 let renderedButton;
                 before(() => {
-                    renderedButton = renderIntoDocument(<Button hasRipple={true}/>);
+                    renderedButton = renderIntoDocument(<Button hasRipple/>);
                 });
                 it('should give add the material mention in the className', () => {
                     const {hasRipple} = renderedButton.props;
@@ -44,7 +44,7 @@ describe('Button Component', () => {
                 });
             });
         });
-        describe.only('When we set a processingLabel', () => {
+        describe('When we set a processingLabel', () => {
             let renderedButton;
             describe('When isLoading props is false', () => {
                 before(() => {
@@ -61,7 +61,7 @@ describe('Button Component', () => {
             });
             describe('When isLoading props is true', () => {
                 before(() => {
-                    renderedButton = renderIntoDocument(<Button label='SAVE' processLabel='Loading' isLoading={true} />);
+                    renderedButton = renderIntoDocument(<Button label='SAVE' processLabel='Loading' isLoading />);
                 });
                 it('should render the process label', () => {
                     const buttonLabel = ReactDOM.findDOMNode(renderedButton).querySelector('[data-focus="button-label"]').innerHTML;
