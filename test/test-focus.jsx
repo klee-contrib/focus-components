@@ -3,8 +3,8 @@ const {renderIntoDocument,findRenderedDOMComponentWithClass,findAllInRenderedTre
 const {forEach} = require('lodash/collection');
 
 //DOM elements
-export const TAG_DIV='DIV';
-export const TAG_INPUT='INPUT';
+export const TAG_DIV = 'DIV';
+export const TAG_INPUT = 'INPUT';
 
 //DOM attributes
 export const ATTR_ID = 'id';
@@ -127,7 +127,7 @@ export function findElementWithValue(reactComponent) {
 }
 
 /**
- * log main informations about a DOM component 
+ * log main informations about a DOM component
  * @param domComponent
  */
 function logAttributes(domComponent) {
@@ -138,7 +138,7 @@ function logAttributes(domComponent) {
         console.log("tagName", domComponent.tagName);
         const arrAttr = domComponent.attributes;
         forEach(arrAttr, ( attr => {
-                console.log("attr " + attr.name, attr.value);
+                console.log("attr " + attr.name, ": ", attr.value);
             }
         ));
         console.log("textContent", domComponent.textContent);
@@ -162,15 +162,59 @@ export function filtreLog() {
 /**
  * for debug purpose to understand component structure
  * log tagName, textCont and attributes/values
+ * @name  name of the log block
  * @param domComponent DOM component to inspect
  */
-export function logElements(domComponent) {
-
+export function logElements(name,domComponent) {
+    console.log("");
+    console.log("name: ",name);
     if (isCompositeComponent(domComponent)) {
         logAttributes(domComponent);
         findAllInRenderedTree(domComponent, filtreLog());
     } else {
         logAttributes(domComponent);
+    }
+}
+
+/**
+ * for debug purpose to understand component structure
+ * log fields/values
+ * @name  name of the log block
+ * @param reactComponent react component to inspect
+ */
+export function logProperties(name, reactComponent) {
+    console.log("");
+    console.log("name: ",name);
+    for (let field in reactComponent) {
+        console.log("field", field, ":", reactComponent[field]);
+    }
+}
+
+/**
+ * for debug purpose to understand component structure
+ * log props/values
+ * @name  name of the log block
+ * @param reactComponent react component to inspect
+ */
+export function logProps(name,reactComponent) {
+    console.log("");
+    for (let prop in reactComponent.props) {
+        console.log("props", prop, ":", reactComponent.props[prop]);
+    }
+}
+
+
+/**
+ * for debug purpose to understand component structure
+ * log state properties/values
+ * @name  name of the log block
+ * @param reactComponent react component to inspect
+ */
+export function logState(name,reactComponent) {
+    console.log("");
+    console.log("name: ",name);
+    for (let prop in reactComponent.state) {
+        console.log("state", prop, ":", reactComponent.state[prop]);
     }
 }
 
