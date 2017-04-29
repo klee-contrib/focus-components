@@ -22,6 +22,8 @@ const referenceMixin = require('../../common/mixin/reference-property');
 
 import Button from '../../components/button';
 
+const generatedKey = 0;
+
 const listMixin = {
     /**
     * Display name.
@@ -43,6 +45,7 @@ const listMixin = {
             isSelection: true,
             selectionStatus: 'partial',
             selectionData: [],
+            
             isLoading: false,
             operationList: [],
             idField: 'id'
@@ -128,6 +131,13 @@ const listMixin = {
 
         });
     },
+    
+    _assignKey(line) {
+        if(!line.generatedKey) {
+            generatedKey++;
+            line.generatedKey = "generatedKey" + generatedKey;
+        }
+    }
 
     /**
     * Render lines of the list.
@@ -153,6 +163,7 @@ const listMixin = {
         return data.map((line, idx) => {
             let isSelected;
             const selection = find(selectionData, {[idField]: line[idField]});
+            this._assignKey(line);
             if (selection) {
                 isSelected = selection.isSelected;
             } else {
@@ -175,7 +186,7 @@ const listMixin = {
                 ...otherProps,
                 data: line,
                 isSelected,
-                key: line[idField] || idx,
+                key: line.generatedKey,
                 onSelection: this._handleLineSelection,
                 reference: this._getReference()
             }, `${LINE}${idx}`);
