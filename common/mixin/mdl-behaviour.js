@@ -1,0 +1,30 @@
+'use strict';
+
+//https://github.com/google/material-design-lite/blob/master/src/mdlComponentHandler.js#L333
+var React = require('react');
+var ReactDOM = require('react-dom');
+
+var mdlBehaviourMixin = {
+
+    /**
+    * Called when component is mounted.
+    */
+    componentDidMount: function componentDidMount() {
+        if (ReactDOM.findDOMNode(this)) {
+            componentHandler.upgradeElement(ReactDOM.findDOMNode(this));
+        }
+    },
+
+
+    /**
+    * Called before component is unmounted.
+    */
+    componentWillUnmount: function componentWillUnmount() {
+        if (ReactDOM.findDOMNode(this)) {
+            componentHandler.downgradeElements(ReactDOM.findDOMNode(this));
+        }
+    }
+};
+
+module.exports = mdlBehaviourMixin;
+//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbImlzLXJlYWN0LWNsYXNzLWNvbXBvbmVudC5qcyJdLCJuYW1lcyI6WyJSZWFjdCIsInJlcXVpcmUiLCJSZWFjdERPTSIsIm1kbEJlaGF2aW91ck1peGluIiwiY29tcG9uZW50RGlkTW91bnQiLCJmaW5kRE9NTm9kZSIsImNvbXBvbmVudEhhbmRsZXIiLCJ1cGdyYWRlRWxlbWVudCIsImNvbXBvbmVudFdpbGxVbm1vdW50IiwiZG93bmdyYWRlRWxlbWVudHMiLCJtb2R1bGUiLCJleHBvcnRzIl0sIm1hcHBpbmdzIjoiOztBQUFBO0FBQ0EsSUFBTUEsUUFBUUMsUUFBUSxPQUFSLENBQWQ7QUFDQSxJQUFNQyxXQUFXRCxRQUFRLFdBQVIsQ0FBakI7O0FBRUEsSUFBTUUsb0JBQW9COztBQUV0Qjs7O0FBR0FDLHFCQUxzQiwrQkFLRjtBQUNoQixZQUFJRixTQUFTRyxXQUFULENBQXFCLElBQXJCLENBQUosRUFBZ0M7QUFDNUJDLDZCQUFpQkMsY0FBakIsQ0FBZ0NMLFNBQVNHLFdBQVQsQ0FBcUIsSUFBckIsQ0FBaEM7QUFDSDtBQUNKLEtBVHFCOzs7QUFXdEI7OztBQUdBRyx3QkFkc0Isa0NBY0M7QUFDbkIsWUFBSU4sU0FBU0csV0FBVCxDQUFxQixJQUFyQixDQUFKLEVBQWdDO0FBQzVCQyw2QkFBaUJHLGlCQUFqQixDQUFtQ1AsU0FBU0csV0FBVCxDQUFxQixJQUFyQixDQUFuQztBQUNIO0FBQ0o7QUFsQnFCLENBQTFCOztBQXNCQUssT0FBT0MsT0FBUCxHQUFpQlIsaUJBQWpCIiwiZmlsZSI6ImlzLXJlYWN0LWNsYXNzLWNvbXBvbmVudC5qcyIsInNvdXJjZXNDb250ZW50IjpbIi8vaHR0cHM6Ly9naXRodWIuY29tL2dvb2dsZS9tYXRlcmlhbC1kZXNpZ24tbGl0ZS9ibG9iL21hc3Rlci9zcmMvbWRsQ29tcG9uZW50SGFuZGxlci5qcyNMMzMzXHJcbmNvbnN0IFJlYWN0ID0gcmVxdWlyZSgncmVhY3QnKTtcclxuY29uc3QgUmVhY3RET00gPSByZXF1aXJlKCdyZWFjdC1kb20nKTtcclxuXHJcbmNvbnN0IG1kbEJlaGF2aW91ck1peGluID0ge1xyXG5cclxuICAgIC8qKlxyXG4gICAgKiBDYWxsZWQgd2hlbiBjb21wb25lbnQgaXMgbW91bnRlZC5cclxuICAgICovXHJcbiAgICBjb21wb25lbnREaWRNb3VudCgpIHtcclxuICAgICAgICBpZiAoUmVhY3RET00uZmluZERPTU5vZGUodGhpcykpIHtcclxuICAgICAgICAgICAgY29tcG9uZW50SGFuZGxlci51cGdyYWRlRWxlbWVudChSZWFjdERPTS5maW5kRE9NTm9kZSh0aGlzKSk7XHJcbiAgICAgICAgfVxyXG4gICAgfSxcclxuXHJcbiAgICAvKipcclxuICAgICogQ2FsbGVkIGJlZm9yZSBjb21wb25lbnQgaXMgdW5tb3VudGVkLlxyXG4gICAgKi9cclxuICAgIGNvbXBvbmVudFdpbGxVbm1vdW50KCkge1xyXG4gICAgICAgIGlmIChSZWFjdERPTS5maW5kRE9NTm9kZSh0aGlzKSkge1xyXG4gICAgICAgICAgICBjb21wb25lbnRIYW5kbGVyLmRvd25ncmFkZUVsZW1lbnRzKFJlYWN0RE9NLmZpbmRET01Ob2RlKHRoaXMpKTtcclxuICAgICAgICB9XHJcbiAgICB9XHJcblxyXG59O1xyXG5cclxubW9kdWxlLmV4cG9ydHMgPSBtZGxCZWhhdmlvdXJNaXhpbjtcclxuIl19

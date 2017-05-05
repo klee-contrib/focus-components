@@ -1,0 +1,13 @@
+$content-bar-shadow-color: #EAEAEA;
+
+@mixin shadow() {
+  -moz-box-shadow: 0px 1px 10px 2px $content-bar-shadow-color;
+  -webkit-box-shadow: 0px 1px 10px 2px $content-bar-shadow-color;
+  -o-box-shadow: 0px 1px 10px 2px $content-bar-shadow-color;
+  box-shadow: 0px 1px 10px 2px $content-bar-shadow-color;
+  filter:progid:DXImageTransform.Microsoft.Shadow(color=$content-bar-shadow-color, Direction=180, Strength=10);
+}
+
+[data-focus='content-bar'] {
+  @include shadow();
+}

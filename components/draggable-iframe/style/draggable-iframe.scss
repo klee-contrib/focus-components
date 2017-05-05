@@ -1,0 +1,31 @@
+.help-frame {
+    cursor: move;
+    padding-top: 10px;
+    z-index: 3000;
+    position: absolute;
+    background-color: #607D8B;
+    box-shadow: 0 6px 6px rgba(0,0,0,0.23);
+    top: 300px;
+    right: 100px;
+    text-align: center;
+    transition: box-shadow 0.1s ease-out;
+
+    &.is-dragging {
+        box-shadow: 0 24px 28px rgba(0,0,0,0.25), 0 15px 15px rgba(0,0,0,0.22);
+    }
+
+    .help-center-title {
+        line-height: 2.1;
+        font-size: 128%;
+        font-weight: bold;
+        color: white;
+        margin-left: 28px;
+        text-transform: uppercase;
+    }
+
+    .close-icon {
+        float: right;
+        margin-right: 5px;
+        color: white;
+    }
+}

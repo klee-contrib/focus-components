@@ -1,0 +1,8 @@
+'use strict';
+
+module.exports = {
+    classic: require('./classic'),
+    radio: require('./radio'),
+    checkbox: require('./checkbox')
+};
+//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbImlzLXJlYWN0LWNsYXNzLWNvbXBvbmVudC5qcyJdLCJuYW1lcyI6WyJtb2R1bGUiLCJleHBvcnRzIiwiY2xhc3NpYyIsInJlcXVpcmUiLCJyYWRpbyIsImNoZWNrYm94Il0sIm1hcHBpbmdzIjoiOztBQUFBQSxPQUFPQyxPQUFQLEdBQWlCO0FBQ2JDLGFBQVNDLFFBQVEsV0FBUixDQURJO0FBRWJDLFdBQU9ELFFBQVEsU0FBUixDQUZNO0FBR2JFLGNBQVVGLFFBQVEsWUFBUjtBQUhHLENBQWpCIiwiZmlsZSI6ImlzLXJlYWN0LWNsYXNzLWNvbXBvbmVudC5qcyIsInNvdXJjZXNDb250ZW50IjpbIm1vZHVsZS5leHBvcnRzID0ge1xyXG4gICAgY2xhc3NpYzogcmVxdWlyZSgnLi9jbGFzc2ljJyksXHJcbiAgICByYWRpbzogcmVxdWlyZSgnLi9yYWRpbycpLFxyXG4gICAgY2hlY2tib3g6IHJlcXVpcmUoJy4vY2hlY2tib3gnKVxyXG59O1xyXG4iXX0=
