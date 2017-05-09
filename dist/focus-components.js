@@ -69630,7 +69630,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	                storeConf.properties.forEach(function (property) {
 	                    if (!isLoading) {
 	                        var propStatus = storeConf.store.getStatus(property) || {};
-	                        isLoading = propStatus.isLoading;
+	                        isLoading = propStatus.isLoading || false;
 	                    }
 	                });
 	            }
