@@ -31435,24 +31435,25 @@ return /******/ (function(modules) { // webpackBootstrap
 	var InputCheckBox = (_dec = (0, _material2.default)('mdlHolder'), (0, _translation2.default)(_class = _dec(_class = function (_Component) {
 	    _inherits(InputCheckBox, _Component);
 	
-	    function InputCheckBox() {
-	        var _temp, _this, _ret;
-	
+	    function InputCheckBox(props) {
 	        _classCallCheck(this, InputCheckBox);
 	
-	        for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
-	            args[_key] = arguments[_key];
-	        }
+	        var _this = _possibleConstructorReturn(this, _Component.call(this, props));
 	
-	        return _ret = (_temp = (_this = _possibleConstructorReturn(this, _Component.call.apply(_Component, [this].concat(args))), _this), _this.getValue = function () {
+	        _this.getValue = function () {
 	            var domElement = _reactDom2.default.findDOMNode(_this.refs.checkbox);
 	            return domElement.checked;
-	        }, _this.handleOnChange = function (_ref) {
+	        };
+	
+	        _this.handleOnChange = function (_ref) {
 	            var checked = _ref.target.checked;
 	            var onChange = _this.props.onChange;
 	
 	            onChange(checked);
-	        }, _temp), _possibleConstructorReturn(_this, _ret);
+	        };
+	
+	        _this.handleOnChange = _this.handleOnChange.bind(_this);
+	        return _this;
 	    }
 	
 	    InputCheckBox.prototype.componentDidUpdate = function componentDidUpdate() {
@@ -31475,7 +31476,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	
 	        validInputProps.onChange = this.handleOnChange;
-	        var inputProps = _extends({}, validInputProps);
+	        var inputProps = _extends({}, validInputProps, { type: 'checkbox', disabled: disabled, checked: value, className: 'mdl-checkbox__input' });
+	        delete inputProps.value;
 	
 	        return _react2.default.createElement(
 	            'div',
@@ -31483,7 +31485,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	            _react2.default.createElement(
 	                'label',
 	                { className: 'mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect', 'data-focus': 'input-checkbox', ref: 'mdlHolder' },
-	                _react2.default.createElement('input', _extends({ checked: value, className: 'mdl-checkbox__input', disabled: disabled, ref: 'checkbox', type: 'checkbox' }, inputProps)),
+	                _react2.default.createElement('input', _extends({ ref: 'checkbox' }, inputProps)),
 	                label && _react2.default.createElement(
 	                    'span',
 	                    { className: 'mdl-checkbox__label' },
@@ -31514,6 +31516,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	    value: true
 	});
 	
+	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+	
 	var _dec, _class;
 	
 	var _react = __webpack_require__(146);
@@ -31531,6 +31535,10 @@ return /******/ (function(modules) { // webpackBootstrap
 	var _material = __webpack_require__(222);
 	
 	var _material2 = _interopRequireDefault(_material);
+	
+	var _filterHtmlAttributes = __webpack_require__(225);
+	
+	var _filterHtmlAttributes2 = _interopRequireDefault(_filterHtmlAttributes);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
@@ -31556,19 +31564,18 @@ return /******/ (function(modules) { // webpackBootstrap
 	var InputCheckBoxWithError = (_dec = (0, _material2.default)('mdlHolder'), (0, _translation2.default)(_class = _dec(_class = function (_Component) {
 	    _inherits(InputCheckBoxWithError, _Component);
 	
-	    function InputCheckBoxWithError() {
-	        var _temp, _this, _ret;
-	
+	    function InputCheckBoxWithError(props) {
 	        _classCallCheck(this, InputCheckBoxWithError);
 	
-	        for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
-	            args[_key] = arguments[_key];
-	        }
+	        var _this = _possibleConstructorReturn(this, _Component.call(this, props));
 	
-	        return _ret = (_temp = (_this = _possibleConstructorReturn(this, _Component.call.apply(_Component, [this].concat(args))), _this), _this.getValue = function () {
+	        _this.getValue = function () {
 	            var domElement = _reactDom2.default.findDOMNode(_this.refs.checkbox);
 	            return domElement.checked;
-	        }, _temp), _possibleConstructorReturn(_this, _ret);
+	        };
+	
+	        _this.handleOnChange = _this.handleOnChange.bind(_this);
+	        return _this;
 	    }
 	
 	    InputCheckBoxWithError.prototype.componentDidUpdate = function componentDidUpdate() {
@@ -31589,10 +31596,18 @@ return /******/ (function(modules) { // webpackBootstrap
 	    };
 	
 	    InputCheckBoxWithError.prototype.render = function render() {
+	        var validInputProps = (0, _filterHtmlAttributes2.default)(this.props);
+	
 	        var _props = this.props,
 	            label = _props.label,
 	            value = _props.value,
+	            disabled = _props.disabled,
 	            error = _props.error;
+	
+	
+	        validInputProps.onChange = this.handleOnChange;
+	        var inputProps = _extends({}, validInputProps, { type: 'checkbox', disabled: disabled, checked: value, className: 'mdl-checkbox__input' });
+	        delete inputProps.value;
 	
 	        return _react2.default.createElement(
 	            'div',
@@ -31600,7 +31615,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	            _react2.default.createElement(
 	                'label',
 	                { className: 'mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect', 'data-focus': 'input-checkbox', ref: 'mdlHolder' },
-	                _react2.default.createElement('input', { checked: value, className: 'mdl-checkbox__input', onChange: this.handleOnChange.bind(this), ref: 'checkbox', type: 'checkbox' }),
+	                _react2.default.createElement('input', _extends({ ref: 'checkbox' }, inputProps)),
 	                label && _react2.default.createElement(
 	                    'span',
 	                    { className: 'mdl-checkbox__label' },
@@ -33741,7 +33756,10 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	        validInputProps.value = this.props.formatter(valueToFormat, MODE);
 	        validInputProps.onChange = this._handleInputChange;
-	
+	        // To prevent regression
+	        if (validInputProps.name) {
+	            validInputProps.id = validInputProps.name;
+	        }
 	        var pattern = error ? 'hasError' : null; //add pattern to overide mdl error style when displaying an focus error.
 	
 	        var inputProps = _extends({}, validInputProps, { pattern: pattern });
@@ -40987,25 +41005,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	var _column2 = _interopRequireDefault(_column);
 	
-	var _debounce = __webpack_require__(414);
-	
-	var _debounce2 = _interopRequireDefault(_debounce);
-	
-	var _filter = __webpack_require__(560);
-	
-	var _filter2 = _interopRequireDefault(_filter);
-	
-	var _first = __webpack_require__(475);
-	
-	var _first2 = _interopRequireDefault(_first);
-	
-	var _last = __webpack_require__(242);
-	
-	var _last2 = _interopRequireDefault(_last);
-	
-	var _xor = __webpack_require__(513);
-	
-	var _xor2 = _interopRequireDefault(_xor);
+	var _lodash = __webpack_require__(227);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
@@ -41075,9 +41075,11 @@ return /******/ (function(modules) { // webpackBootstrap
 	            if (clickedId !== undefined) {
 	                var selector = '[data-spy=\'' + clickedId + '\']';
 	                var node = document.querySelector(selector);
-	                var nodePosition = _this.scrollPosition(node);
-	                var positionTop = _this._getElementRealPosition(nodePosition.top);
-	                isAtClickedItem = _this.scrollPosition().top === positionTop;
+	                if (node) {
+	                    var nodePosition = _this.scrollPosition(node);
+	                    var positionTop = _this._getElementRealPosition(nodePosition.top);
+	                    isAtClickedItem = _this.scrollPosition().top === positionTop;
+	                }
 	            }
 	            _this.setState({
 	                menuList: menus,
@@ -41100,7 +41102,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	            var thisComponentNode = _reactDom2.default.findDOMNode(_this);
 	            var allDataSpy = thisComponentNode.querySelectorAll('[data-spy]');
 	            var popinDataSpy = thisComponentNode.querySelectorAll('[data-focus=\'popin-window\'] [data-spy]');
-	            var selectionList = (0, _xor2.default)(allDataSpy, popinDataSpy);
+	            var selectionList = (0, _lodash.xor)(allDataSpy, popinDataSpy);
 	
 	            if (selectionList.length === 0) {
 	                return;
@@ -41112,8 +41114,10 @@ return /******/ (function(modules) { // webpackBootstrap
 	                    selection: selection
 	                };
 	            }).filter(function (_ref) {
-	                var title = _ref.title;
-	                return title;
+	                var title = _ref.title,
+	                    nodeId = _ref.nodeId,
+	                    selection = _ref.selection;
+	                return title && nodeId && selection;
 	            }).map(function (_ref2, index) {
 	                var title = _ref2.title,
 	                    nodeId = _ref2.nodeId,
@@ -41129,7 +41133,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	                };
 	            });
 	
-	            var nextTitles = (0, _filter2.default)(menuList, function (n) {
+	            var nextTitles = (0, _lodash.filter)(menuList, function (n) {
 	                return currentScrollPosition.top + detectionOffset < _this._getElementRealPosition(n.scrollTop);
 	            });
 	
@@ -41138,14 +41142,14 @@ return /******/ (function(modules) { // webpackBootstrap
 	            var currentIndex = menuList[0].index;
 	            if (0 < nextTitles.length) {
 	                //check the first node
-	                var firstNode = (0, _first2.default)(nextTitles);
+	                var firstNode = (0, _lodash.first)(nextTitles);
 	                var index = firstNode.index;
 	                if (0 < index) {
 	                    currentIndex = menuList[index - 1].index;
 	                }
 	            } else {
 	                //means that the position is the last title
-	                currentIndex = (0, _last2.default)(menuList).index;
+	                currentIndex = (0, _lodash.last)(menuList).index;
 	            }
 	            var clickedId = _this.state.clickedId;
 	            if (isAtPageBottom && undefined !== clickedId) {
@@ -41202,7 +41206,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	    ScrollspyContainer.prototype.componentDidMount = function componentDidMount() {
 	        this._scrollCarrier = window;
-	        this._debouncedRefresh = (0, _debounce2.default)(this._refreshMenu, this.props.scrollDelay);
+	        this._debouncedRefresh = (0, _lodash.debounce)(this._refreshMenu, this.props.scrollDelay);
 	        this._scrollCarrier.addEventListener('scroll', this._debounceRefreshMenu);
 	        this._scrollCarrier.addEventListener('resize', this._debounceRefreshMenu);
 	        this._executeRefreshMenu(10);
