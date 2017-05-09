@@ -76,7 +76,10 @@ class InputText extends Component {
 
         validInputProps.value = this.props.formatter(valueToFormat, MODE);
         validInputProps.onChange = this._handleInputChange;
-
+        // To prevent regression
+        if (validInputProps.name) {
+            validInputProps.id = validInputProps.name;
+        }
         const pattern = error ? 'hasError' : null; //add pattern to overide mdl error style when displaying an focus error.
 
         const inputProps = {...validInputProps, pattern};

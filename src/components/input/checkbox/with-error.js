@@ -2,6 +2,7 @@ import React, {Component, PropTypes} from 'react';
 import ReactDOM from 'react-dom';
 import Translation from '../../../behaviours/translation';
 import Material from '../../../behaviours/material';
+import filterProps from '../../../utils/filter-html-attributes';
 
 const propTypes = {
     label: PropTypes.string,
@@ -17,6 +18,11 @@ const defaultProps = {
 @Translation
 @Material('mdlHolder')
 class InputCheckBoxWithError extends Component {
+    constructor(props) {
+        super(props);
+        this.handleOnChange = this.handleOnChange.bind(this);
+    } 
+        
     getValue = () => {
         const domElement = ReactDOM.findDOMNode(this.refs.checkbox);
         return domElement.checked;
@@ -37,11 +43,18 @@ class InputCheckBoxWithError extends Component {
     }
 
     render() {
-        const {label, value, error} = this.props;
+        const validInputProps = filterProps(this.props);
+
+        const {label, value, disabled, error} = this.props;
+
+        validInputProps.onChange = this.handleOnChange;
+        const inputProps = {...validInputProps, type: 'checkbox', disabled, checked: value, className: 'mdl-checkbox__input'};
+        delete inputProps.value;
+
         return (
             <div data-error={!!error} data-focus='input-checkbox-with-error-container'>
                 <label className={'mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect'} data-focus='input-checkbox' ref='mdlHolder'>
-                    <input checked={value} className='mdl-checkbox__input' onChange={::this.handleOnChange} ref='checkbox' type='checkbox'/>
+                    <input ref='checkbox' {...inputProps}/>
                     {label && <span className='mdl-checkbox__label'>{this.i18n(label)}</span>}
                     {error && <span className='input-checkbox__error'>{this.i18n(error)}</span>}
                 </label>
