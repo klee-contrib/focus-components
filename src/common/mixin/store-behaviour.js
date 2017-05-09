@@ -64,7 +64,7 @@ const storeMixin = {
                 storeConf.properties.forEach((property) => {
                     if (!isLoading) {
                         let propStatus = storeConf.store.getStatus(property) || {};
-                        isLoading = propStatus.isLoading;
+                        isLoading = propStatus.isLoading || false;
                     }
                 });
             }
