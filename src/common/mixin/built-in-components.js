@@ -1,25 +1,23 @@
 // Dependencies
 
-const React = require('react');
+import React from 'react';
 import {changeMode} from 'focus-core/application';
-const assign = require('object-assign');
-const result = require('lodash/object/result');
-const find = require('lodash/collection/find');
+import assign from 'object-assign';
+import {result, find, defaultsDeep} from 'lodash';
 // Components
 
-const Field = require('../field').component;
-const Text = require('../../components/display/text');
-const Button = require('../../components/button');
-const MemoryList = require('../list').component;
-const Table = require('../../list/table').list.component;
-const List = require('../../list/selection').list.component;
-
+import {component as Field} from '../field';
+import Text from '../../components/display/text';
+import Button from '../../components/button';
+import {component as MemoryList} from '../list';
+import {component as Table} from '../../list/table/list';
+import {component as List} from '../../list/selection/list';
 
 // Mixins
 
-const fieldComponentBehaviour = require('./field-component-behaviour');
+import fieldComponentBehaviour from './field-component-behaviour';
 
-module.exports = {
+export default {
     mixins: [fieldComponentBehaviour],
     /**
     * Create a field for the given property metadata.
@@ -29,16 +27,6 @@ module.exports = {
     */
     fieldFor(name, options) {
         options = assign({}, options);
-        const fieldProps = this._buildFieldProps(name, options, this);
-        return this._renderField(fieldProps);
-    },
-    autocompleteFor() {
-        throw new Error('Form\'s autocompleteFor method is deprecated, in order to use the deprecated component, please use this.deprecatedAutocompleteFor. You must migrate all the autocompleteFor to autocompleteSelectFor or autocompleteTextFor in order to follow the library evolutions.');
-    },
-    deprecatedAutocompleteFor(name, {codeResolver, searcher}, options = {}) {
-        options = assign({}, options);
-        options.codeResolver = codeResolver;
-        options.searcher = searcher;
         const fieldProps = this._buildFieldProps(name, options, this);
         return this._renderField(fieldProps);
     },
@@ -152,11 +140,11 @@ module.exports = {
         };
         return (
             <Button
-            handleOnClick={handleOnClick}
-            icon='delete'
-            label='button.delete'
-            shape={null}
-            type='button'
+                handleOnClick={handleOnClick}
+                icon='delete'
+                label='button.delete'
+                shape={null}
+                type='button'
             />
         );
     },
@@ -173,11 +161,11 @@ module.exports = {
         };
         return (
             <Button
-            handleOnClick={handleOnClick}
-            icon='edit'
-            label='button.edit'
-            shape={null}
-            type='button'
+                handleOnClick={handleOnClick}
+                icon='edit'
+                label='button.edit'
+                shape={null}
+                type='button'
             />
         );
     },
@@ -188,12 +176,9 @@ module.exports = {
     buttonCancel() {
         const handleOnClick = () => {
             this.clearError();
-            this.setState({
-                // Change the mode.
-                isEdit: !this.state.isEdit,
-                // Read the state from the stores, it should contain the last data from the server.
-                ...this._getStateFromStores()
-            }, () => {
+            // Change the mode.
+            // Read the state from the stores, it should contain the last data from the server.
+            this.setState(defaultsDeep({isEdit: false},this._getStateFromStores(), this._buildResetState()), () => {
                 changeMode('consult', 'edit');
             });
         };
@@ -214,13 +199,13 @@ module.exports = {
         };
         return (
             <Button
-            handleOnClick={handleOnClick}
-            icon='save'
-            label='button.save'
-            shape={null}
-            type='button'
-            isLoading={isLoading}
-            processLabel='button.saving'
+                handleOnClick={handleOnClick}
+                icon='save'
+                label='button.save'
+                shape={null}
+                type='button'
+                isLoading={isLoading}
+                processLabel='button.saving'
             />
         );
     },

@@ -2,11 +2,12 @@
 
 import builder from 'focus-core/component/builder';
 import types from 'focus-core/component/types';
-const React = require('react');
-const {omit, keys} = require('lodash/object');
-const {reduce} = require('lodash/collection');
+import React from 'react';
+import { keys, reduce } from 'lodash';
+
+import {translate} from 'focus-core/translation';
 //Add a ref to the props if the component is not pure add nothing in the other case.
-import {addRefToPropsIfNotPure, LINE} from '../../utils/is-react-class-component';
+import { addRefToPropsIfNotPure, LINE } from '../../utils/is-react-class-component';
 
 // Table class.
 const TABLE_CSS_CLASS = 'mdl-data-table mdl-js-data-table mdl-shadow--2dp ';
@@ -14,10 +15,9 @@ const TABLE_CELL_CLASS = 'mdl-data-table__cell--non-numeric';
 
 // Mixins
 
-const infiniteScrollMixin = require('../mixin/infinite-scroll').mixin;
-const translationMixin = require('../../common/i18n').mixin;
-const referenceMixin = require('../../common/mixin/reference-property');
-const mdlBehaviour = require('../../common/mixin/mdl-behaviour');
+import {mixin as infiniteScrollMixin} from '../mixin/infinite-scroll';
+import referenceMixin from '../../common/mixin/reference-property';
+import mdlBehaviour from '../../common/mixin/mdl-behaviour';
 
 // Components
 
@@ -32,7 +32,7 @@ const tableMixin = {
     /**
      * Mixin dependancies.
      */
-    mixins: [translationMixin, infiniteScrollMixin, referenceMixin, mdlBehaviour],
+    mixins: [infiniteScrollMixin, referenceMixin, mdlBehaviour],
     /** inheriteddoc */
     getDefaultProps() {
         return {
@@ -86,13 +86,13 @@ const tableMixin = {
      */
     _renderColumnHeader(accumulator, colProperties, name) {
         let sort;
-        if(!this.props.isEdit && !colProperties.noSort ) {
+        if (!this.props.isEdit && !colProperties.noSort) {
             const order = colProperties.sort ? colProperties.sort : 'asc';
             const iconName = 'asc' === order ? 'arrow_drop_up' : 'arrow_drop_down';
             const icon = <i className='material-icons'>{iconName}</i>;
-            sort = <a className='sort' data-bypass data-name={name} href='#' onClick={this._sortColumnAction(name, ('asc' === order ? 'desc' : 'asc' ))}>{icon}</a>;
+            sort = <a className='sort' data-bypass data-name={name} href='#' onClick={this._sortColumnAction(name, ('asc' === order ? 'desc' : 'asc'))}>{icon}</a>;
         }
-        accumulator.push(<th className={TABLE_CELL_CLASS} key={colProperties.label}>{this.i18n(colProperties.label)}{sort}</th>);
+        accumulator.push(<th className={TABLE_CELL_CLASS} key={colProperties.label}>{translate(colProperties.label)}{sort}</th>);
         return accumulator;
     },
     /**
@@ -108,13 +108,13 @@ const tableMixin = {
                     const {data, ...otherLineProps} = this.props;
                     const tableBodyFinalProps = addRefToPropsIfNotPure(
                         TableLineComponent, {
-                        className: TABLE_CELL_CLASS,
-                        data: line,
-                        key: line[idField],
-                        reference,
-                        ...otherLineProps
-                    }, `${LINE}${idx}`);
-                    return <TableLineComponent {...tableBodyFinalProps}/>;
+                            className: TABLE_CELL_CLASS,
+                            data: line,
+                            key: line[idField],
+                            reference,
+                            ...otherLineProps
+                        }, `${LINE}${idx}`);
+                    return <TableLineComponent {...tableBodyFinalProps} />;
                 })}
             </tbody>
         );
@@ -125,14 +125,14 @@ const tableMixin = {
      */
     _renderLoading() {
         const {isLoading, loader} = this.props;
-        if(isLoading) {
-            if(loader) {
+        if (isLoading) {
+            if (loader) {
                 return loader();
             }
             return (
                 <tbody className={'table-loading'}>
                     <tr>
-                        <td>{`${this.i18n('list.loading')}`}</td>
+                        <td>{`${translate('list.loading')}`}</td>
                     </tr>
                 </tbody>
             );
@@ -144,12 +144,12 @@ const tableMixin = {
      */
     _renderManualFetch() {
         const {isManualFetch, hasMoreData} = this.props;
-        if(isManualFetch && hasMoreData) {
+        if (isManualFetch && hasMoreData) {
             return (
-                <tfoot className="table-manual-fetch">
+                <tfoot className='table-manual-fetch'>
                     <tr>
                         <td colSpan={keys(this.props.columns).length}>
-                            <Button handleOnClick={this.fetchNextPage} label="list.button.showMore" type="button" />
+                            <Button handleOnClick={this.fetchNextPage} label='list.button.showMore' type='button' />
                         </td>
                     </tr>
                 </tfoot>
@@ -175,4 +175,11 @@ const tableMixin = {
 
 };
 
-module.exports = builder(tableMixin);
+const builtComp = builder(tableMixin);
+const {component, mixin} = builtComp;
+
+export {
+    component,
+    mixin
+}
+export default builtComp;

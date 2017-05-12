@@ -1,20 +1,19 @@
 // Dependencies
 
 import types from 'focus-core/component/types';
-const React = require('react');
-import isEqual from 'lodash/lang/isEqual';
+import React from 'react';
+import isEqual from 'lodash';
 
 // Components
 
-const ContextualActions = require('../action-contextual').component;
-const {Checkbox} = require('../../components/input');
+import {component as ContextualActions} from '../action-contextual';
+import {Checkbox} from '../../components/input';
 
 // Mixins
 
-const translationMixin = require('../../common/i18n').mixin;
-const referenceMixin = require('../../common/mixin/reference-property');
-const definitionMixin = require('../../common/mixin/definition');
-const builtInComponentsMixin = require('../mixin/built-in-components');
+import referenceMixin from '../../common/mixin/reference-property';
+import definitionMixin from '../../common/mixin/definition';
+import builtInComponentsMixin from '../mixin/built-in-components';
 
 const lineMixin = {
     /**
@@ -25,7 +24,7 @@ const lineMixin = {
     /**
     * Mixin dependancies.
     */
-    mixins: [translationMixin, definitionMixin, referenceMixin, builtInComponentsMixin],
+    mixins: [ definitionMixin, referenceMixin, builtInComponentsMixin],
 
     /**
      * Get default props
@@ -58,7 +57,7 @@ const lineMixin = {
     getInitialState() {
         const {data} = this.props;
         let {isSelected} = this.props;
-        if(this.selectedInitializer) { // this allows to initiate a data specific value for isSelected
+        if (this.selectedInitializer) { // this allows to initiate a data specific value for isSelected
             isSelected = this.selectedInitializer(data);
         }
         return {
@@ -72,7 +71,7 @@ const lineMixin = {
     componentWillMount() {
         const {data, isSelection} = this.props;
         this._isSelectionnable = isSelection;
-        if(this.selectionnableInitializer) {
+        if (this.selectionnableInitializer) {
             this._isSelectionnable = this.selectionnableInitializer(data);
         }
     },
@@ -108,7 +107,7 @@ const lineMixin = {
         const isSelected = !this.state.isSelected;
         const {data, onSelection} = this.props;
         this.setState({isSelected}, () => {
-            if(onSelection) {
+            if (onSelection) {
                 onSelection(data, isSelected);
             }
         });
@@ -119,7 +118,7 @@ const lineMixin = {
     */
     _handleLineClick() {
         const {data, onLineClick} = this.props;
-        if(onLineClick) {
+        if (onLineClick) {
             onLineClick(data);
         }
     },
@@ -180,7 +179,7 @@ const lineMixin = {
     *  @return {XML} the rendered line
     */
     render() {
-        if(this.renderLine) {
+        if (this.renderLine) {
             return this.renderLine();
         } else {
             return (
@@ -196,4 +195,9 @@ const lineMixin = {
     }
 };
 
-module.exports = {mixin: lineMixin};
+export default {
+    mixin: lineMixin
+}
+export {
+    lineMixin as mixin 
+}

@@ -44,7 +44,7 @@ class Button extends Component {
     */
     componentDidMount() {
         const { hasRipple } = this.props;
-        const refNode = ReactDOM.findDOMNode(this.refs['materialButton']);
+        const refNode = ReactDOM.findDOMNode(this.refs.materialButton);
         if (hasRipple) {
             componentHandler.upgradeElement(refNode, 'MaterialRipple');
         }
@@ -108,14 +108,13 @@ class Button extends Component {
             case 'material':
                 return <i className='material-icons'>{icon}</i>;
             case 'font-awesome':
-                const faCss = `fa fa-${icon}`;
-                return <i className={faCss}></i>;
+                return <i className={`fa fa-${icon}`} />;
             case 'font-custom':
-                return <span className={`icon-${icon}`}></span>;
+                return <span className={`icon-${icon}`} />;
             default:
                 return null;
         }
-    };
+    }
 
     /**
     * Render the label.
@@ -132,18 +131,35 @@ class Button extends Component {
         return null;
     }
 
+    /**
+     * Wrapper around on click, to prevent click action is spinner is showed.
+     * 
+     * @param {any} event the html event
+     * @param {any} onClick the onclick function to call
+     * 
+     * @memberOf Button
+     */
+    _wrappedOnClick(event, onClick) {
+        if (this.props.isLoading) {
+            event.preventDefault();
+            event.stopPropagation();
+        } else {
+            onClick(event);
+        }
+    }
+
     /** inheritedDoc */
     render() {
         // attribute doc : https://developer.mozilla.org/fr/docs/Web/HTML/Element/Button
         // be careful the way you declare your attribute names : https://developer.mozilla.org/fr/docs/Web/HTML/Element/Button
         const {className, disabled, formNoValidate, handleOnClick, icon, id, onClick, type, label, style, hasRipple, isJs, iconLibrary, isLoading, ...rest} = this.props;
-        const otherInputProps = filterProps({ disabled, formNoValidate, onClick: handleOnClick ? handleOnClick : onClick, style, type, ...rest }); //on click for legacy. Remove handleOnClick in v2
+        const otherInputProps = filterProps({ disabled, formNoValidate, onClick: event => this._wrappedOnClick(event, handleOnClick ? handleOnClick : onClick), style, type, ...rest }); //on click for legacy. Remove handleOnClick in v2
         const renderedClassName = `${className ? className : ''} ${::this._getComponentClassName()}`.trim();
         return (
-           <button alt={this.i18n(label)} className={renderedClassName} data-focus='button-action' data-saving={isLoading} id={id} disabled={isLoading} title={this.i18n(label)} {...otherInputProps} ref='materialButton'>
+            <button alt={this.i18n(label)} className={renderedClassName} data-focus='button-action' data-saving={isLoading} id={id} disabled={isLoading} title={this.i18n(label)} {...otherInputProps} ref='materialButton'>
                 {icon && ::this._renderIcon()}
                 {::this._renderLabel()}
-                {isLoading && <div className='mdl-spinner mdl-spinner--single-color mdl-js-spinner is-active' data-focus='double-action-button-spinner' ref='double-action-button-spinner' ></div>}
+                {isLoading && <div className='mdl-spinner mdl-spinner--single-color mdl-js-spinner is-active' data-focus='double-action-button-spinner' ref='double-action-button-spinner' />}
             </button>
         );
     }
