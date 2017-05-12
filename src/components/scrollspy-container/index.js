@@ -6,11 +6,7 @@ import Scroll from '../../behaviours/scroll';
 import Grid from '../grid';
 import Column from '../column';
 
-import debounce from 'lodash/function/debounce';
-import filter from 'lodash/collection/filter';
-import first from 'lodash/array/first';
-import last from 'lodash/array/last';
-import xor from 'lodash/array/xor';
+import { debounce, filter, first, last, xor } from 'lodash';
 
 const BackToTopComponent = BackToTop;
 
@@ -65,7 +61,7 @@ class ScrollspyContainer extends Component {
     * Refresh screen X times.
     * @param  {number} time number of execution
     */
-    _executeRefreshMenu = time => {
+    _executeRefreshMenu = (time) => {
         this._timeouts = [];
         for (let i = 0; i < time; i++) {
             this._timeouts.push(setTimeout(this._refreshMenu.bind(this), i * 1000));
@@ -81,7 +77,9 @@ class ScrollspyContainer extends Component {
     * @private
     */
     _refreshMenu = () => {
-        if (!this.props.hasMenu) { return; }
+        if (!this.props.hasMenu) {
+            return;
+        }
         const { stickyMenu } = this.refs;
         const { clickedId } = this.state;
         const menus = this._buildMenuList(); //build the menu list
@@ -92,9 +90,11 @@ class ScrollspyContainer extends Component {
         if (clickedId !== undefined) {
             const selector = `[data-spy='${clickedId}']`;
             const node = document.querySelector(selector);
-            const nodePosition = this.scrollPosition(node);
-            const positionTop = this._getElementRealPosition(nodePosition.top);
-            isAtClickedItem = this.scrollPosition().top === positionTop;
+            if (node) {
+                const nodePosition = this.scrollPosition(node);
+                const positionTop = this._getElementRealPosition(nodePosition.top);
+                isAtClickedItem = this.scrollPosition().top === positionTop;
+            }
         }
         this.setState({
             menuList: menus,
@@ -114,13 +114,13 @@ class ScrollspyContainer extends Component {
             return [];
         }
         const detectionOffset = window.screen.height / 5;
-        let currentScrollPosition = { top: this.scrollPosition().top, left: this.scrollPosition().left };
-        let isAtPageBottom = this.isAtPageBottom();
+        const currentScrollPosition = { top: this.scrollPosition().top, left: this.scrollPosition().left };
+        const isAtPageBottom = this.isAtPageBottom();
 
         //get the menu list (without blocks in popin)
         const thisComponentNode = ReactDOM.findDOMNode(this);
         const allDataSpy = thisComponentNode.querySelectorAll('[data-spy]');
-        const popinDataSpy = thisComponentNode.querySelectorAll(`[data-focus='popin-window'] [data-spy]`);
+        const popinDataSpy = thisComponentNode.querySelectorAll('[data-focus=\'popin-window\'] [data-spy]');
         const selectionList = xor(allDataSpy, popinDataSpy);
 
         if (selectionList.length === 0) {
@@ -132,7 +132,7 @@ class ScrollspyContainer extends Component {
                 nodeId: selection.getAttribute('data-spy'),
                 selection
             };
-        }).filter(({ title }) => title).map(({ title, nodeId, selection }, index) => {
+        }).filter(({ title, nodeId, selection }) => title && nodeId && selection).map(({ title, nodeId, selection }, index) => {
             return {
                 index,
                 label: title.innerHTML,
@@ -143,7 +143,7 @@ class ScrollspyContainer extends Component {
             };
         });
 
-        const nextTitles = filter(menuList, n => (currentScrollPosition.top + detectionOffset < this._getElementRealPosition(n.scrollTop)));
+        const nextTitles = filter(menuList, (n) => currentScrollPosition.top + detectionOffset < this._getElementRealPosition(n.scrollTop));
 
         //Calculate current node
         //by default, first node is indexed
@@ -159,9 +159,9 @@ class ScrollspyContainer extends Component {
             //means that the position is the last title
             currentIndex = last(menuList).index;
         }
-        let clickedId = this.state.clickedId;
+        const clickedId = this.state.clickedId;
         if (isAtPageBottom && undefined !== clickedId) {
-            menuList = menuList.map(item => {
+            menuList = menuList.map((item) => {
                 if (item.nodeId === clickedId) {
                     item.isActive = true;
                 }
@@ -225,7 +225,7 @@ class ScrollspyContainer extends Component {
                 this._refreshMenu();
                 this._onMenuItemClick(menuId);
             });
-        }
+        };
     }
 
     /**
