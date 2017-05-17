@@ -14,6 +14,7 @@ import {Checkbox} from '../../components/input';
 import referenceMixin from '../../common/mixin/reference-property';
 import definitionMixin from '../../common/mixin/definition';
 import builtInComponentsMixin from '../mixin/built-in-components';
+import {mixin as translationMixin} from '../../common/i18n';
 
 const lineMixin = {
     /**
@@ -24,7 +25,7 @@ const lineMixin = {
     /**
     * Mixin dependancies.
     */
-    mixins: [ definitionMixin, referenceMixin, builtInComponentsMixin],
+    mixins: [ translationMixin, definitionMixin, referenceMixin, builtInComponentsMixin],
 
     /**
      * Get default props
