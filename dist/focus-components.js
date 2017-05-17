@@ -72255,6 +72255,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	var _builtInComponents2 = _interopRequireDefault(_builtInComponents);
 	
+	var _i18n = __webpack_require__(827);
+	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
 	var lineMixin = {
@@ -72266,7 +72268,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    /**
 	    * Mixin dependancies.
 	    */
-	    mixins: [_definition2.default, _referenceProperty2.default, _builtInComponents2.default],
+	    mixins: [_i18n.mixin, _definition2.default, _referenceProperty2.default, _builtInComponents2.default],
 	
 	    /**
 	     * Get default props
