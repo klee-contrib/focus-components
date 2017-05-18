@@ -1,0 +1,44 @@
+$scrollspy-container-menu-size:260px;
+
+// TODO: put this variable in a global variable.scss
+$media-tablet-breakpoint: 480px !default;
+$media-desktop-breakpoint: 840px !default;
+
+//TODO: put this in a global css attribute.
+//possible offset
+@mixin position-offset-top($position-offset-top-max) {
+    @while $position-offset-top-max > 0 {
+        &[data-offset="#{$position-offset-top-max}"] {top: #{$position-offset-top-max}px; }
+        $position-offset-top-max: $position-offset-top-max - 1;
+    }
+}
+
+[data-focus="scrollspy-container"] {
+    padding:10px;
+    position: relative;
+}
+
+
+@media (max-width: $media-desktop-breakpoint - 1) {
+    [data-focus="scrollspy-container"] {
+        [data-focus="sticky-menu"] {
+            margin-bottom: 20px;
+        }
+    }
+}
+
+@media (min-width: $media-desktop-breakpoint - 1) {
+    [data-focus="scrollspy-container"] {
+        [data-focus="sticky-menu"] {
+            width: $scrollspy-container-menu-size;
+            position: absolute;
+            &[data-affix="true"] {
+                position: fixed;
+                @include position-offset-top(150);
+            }
+        }
+        [data-focus="scrollspy-container-content"] {
+            margin-left: #{$scrollspy-container-menu-size + 10px};
+        }
+    }
+}

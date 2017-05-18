@@ -1,0 +1,6 @@
+'use strict';
+
+module.exports = {
+    component: require('./component')
+};
+//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbImlzLXJlYWN0LWNsYXNzLWNvbXBvbmVudC5qcyJdLCJuYW1lcyI6WyJtb2R1bGUiLCJleHBvcnRzIiwiY29tcG9uZW50IiwicmVxdWlyZSJdLCJtYXBwaW5ncyI6Ijs7QUFBQUEsT0FBT0MsT0FBUCxHQUFpQjtBQUNiQyxlQUFXQyxRQUFRLGFBQVI7QUFERSxDQUFqQiIsImZpbGUiOiJpcy1yZWFjdC1jbGFzcy1jb21wb25lbnQuanMiLCJzb3VyY2VzQ29udGVudCI6WyJtb2R1bGUuZXhwb3J0cyA9IHtcclxuICAgIGNvbXBvbmVudDogcmVxdWlyZSgnLi9jb21wb25lbnQnKVxyXG59O1xyXG4iXX0=

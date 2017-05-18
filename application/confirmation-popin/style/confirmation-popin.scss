@@ -1,0 +1,12 @@
+[data-focus='confirmation-popin'] {
+  [data-focus='button-stack'] {
+    text-align: center;
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+
+    button {
+      margin: 20px;
+    }
+  }
+}

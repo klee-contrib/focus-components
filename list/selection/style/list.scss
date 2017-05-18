@@ -1,0 +1,116 @@
+/* Style for the list component*/
+$sl-line-border-color: #e1e1e1;
+$sl-line-level1-color:#36b7b9;
+$sl-line-bg-hover: rgba(0,0,0,0.06);
+$sl-line-padding: 15px;
+
+/*variables*/
+$boxSize:60px;
+/*styles*/
+[data-focus="selection-list"] {
+    list-style: none;
+    padding: 0;
+    margin:0;
+
+
+    [data-focus="sl-line"] {
+        padding: 15px;
+        background-color: #FFF;
+        border-bottom:1px solid $sl-line-border-color;
+        cursor: pointer;
+        padding-left: $boxSize + $sl-line-padding;
+        position: relative;
+
+        &:first-child {
+            border-top:1px solid $sl-line-border-color;
+        }
+
+        &:hover {
+            background-color: $sl-line-bg-hover;
+        }
+
+        .level1 {
+            font-size: 15pt;
+            color: $sl-line-level1-color;
+        }
+
+        .level2 {
+            font-size: 12pt;
+            color: #000;
+        }
+
+        .level3 {
+            color: rgb(125, 123, 122);
+        }
+
+        div.sl-selection {
+            top: 0;
+            left: 0;
+            position: absolute;
+            z-index: 1;
+            height: 100%;
+            width: $boxSize;
+            display:none;
+            //background-color: #FFF;
+            -webkit-transform-style: preserve-3d;
+            -moz-transform-style: preserve-3d;
+            transform-style: preserve-3d;
+            [data-focus="input-checkbox-container"] {
+                height: 100%;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                [data-focus="input-checkbox"] {
+                    width: auto;
+                }
+            }
+        }
+
+        div.sl-actions {
+            position: absolute;
+            top : 25%;
+            right : 0px;
+            display: none;
+            z-index: 1;
+            .btn {
+                margin-right: 10px;
+            }
+        }
+
+        &:hover {
+            background-color: $sl-line-bg-hover;
+            div.sl-selection {
+                display: block;
+                &.no-selection {
+                    border-left:5px solid #ffd657;
+                }
+            }
+
+            div.sl-actions{
+                display: inline-block;
+            }
+        }
+
+        div.sl-selection.selected {
+            display: block;
+            border-left:5px solid #36b6b8;
+        }
+
+        .sl-button{
+            background-color: transparent;
+            position: relative;
+
+            a,button{
+                position: absolute;
+                right: 0px;
+            }
+        }
+    }
+
+    &[data-selection="false"] {
+        [data-focus="sl-line"] {
+            padding: $sl-line-padding;
+        }
+    }
+
+}

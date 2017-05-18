@@ -1,0 +1,41 @@
+'use strict';
+
+var _require = require('lodash/lang'),
+    isUndefined = _require.isUndefined;
+
+/**
+* Get the scroll position from the top of the screen.
+* @param {object} node
+* @returns {int} - The position in pixel from the top of the scroll container.
+*/
+
+
+function scrollPosition(domNode) {
+    if (isUndefined(domNode)) {
+        var y = window.pageYOffset || document.documentElement.scrollTop;
+        var x = window.pageXOffset || document.documentElement.scrollLeft;
+        return { top: y, left: x };
+    }
+    return { top: domNode.scrollTop, left: domNode.scrollLeft };
+}
+
+/**
+* Set scrollbar position with smooth animation.
+* http://www.w3schools.com/jsref/prop_win_pagexoffset.asp
+*
+* @param {object} element  element parent for the scroll
+* @param {number} to       position of the scroll
+* @param {number} duration duration of animation
+*/
+function scrollTo(element, to) {
+    var duration = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 500;
+
+    if (isUndefined(element)) {
+        window.scrollTo(0, to);
+        return;
+    }
+    element.scrollTop = to;
+}
+
+module.exports = { scrollTo: scrollTo, scrollPosition: scrollPosition };
+//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbImlzLXJlYWN0LWNsYXNzLWNvbXBvbmVudC5qcyJdLCJuYW1lcyI6WyJyZXF1aXJlIiwiaXNVbmRlZmluZWQiLCJzY3JvbGxQb3NpdGlvbiIsImRvbU5vZGUiLCJ5Iiwid2luZG93IiwicGFnZVlPZmZzZXQiLCJkb2N1bWVudCIsImRvY3VtZW50RWxlbWVudCIsInNjcm9sbFRvcCIsIngiLCJwYWdlWE9mZnNldCIsInNjcm9sbExlZnQiLCJ0b3AiLCJsZWZ0Iiwic2Nyb2xsVG8iLCJlbGVtZW50IiwidG8iLCJkdXJhdGlvbiIsIm1vZHVsZSIsImV4cG9ydHMiXSwibWFwcGluZ3MiOiI7O2VBQXNCQSxRQUFRLGFBQVIsQztJQUFmQyxXLFlBQUFBLFc7O0FBRVA7Ozs7Ozs7QUFLQSxTQUFTQyxjQUFULENBQXdCQyxPQUF4QixFQUFpQztBQUM3QixRQUFHRixZQUFZRSxPQUFaLENBQUgsRUFBeUI7QUFDckIsWUFBTUMsSUFBSUMsT0FBT0MsV0FBUCxJQUFzQkMsU0FBU0MsZUFBVCxDQUF5QkMsU0FBekQ7QUFDQSxZQUFNQyxJQUFJTCxPQUFPTSxXQUFQLElBQXNCSixTQUFTQyxlQUFULENBQXlCSSxVQUF6RDtBQUNBLGVBQU8sRUFBRUMsS0FBS1QsQ0FBUCxFQUFVVSxNQUFNSixDQUFoQixFQUFQO0FBQ0g7QUFDRCxXQUFPLEVBQUVHLEtBQUtWLFFBQVFNLFNBQWYsRUFBMEJLLE1BQU1YLFFBQVFTLFVBQXhDLEVBQVA7QUFDSDs7QUFHRDs7Ozs7Ozs7QUFRQSxTQUFTRyxRQUFULENBQWtCQyxPQUFsQixFQUEyQkMsRUFBM0IsRUFBK0M7QUFBQSxRQUFoQkMsUUFBZ0IsdUVBQUwsR0FBSzs7QUFDM0MsUUFBR2pCLFlBQVllLE9BQVosQ0FBSCxFQUF5QjtBQUNyQlgsZUFBT1UsUUFBUCxDQUFnQixDQUFoQixFQUFtQkUsRUFBbkI7QUFDQTtBQUNIO0FBQ0RELFlBQVFQLFNBQVIsR0FBb0JRLEVBQXBCO0FBQ0g7O0FBR0RFLE9BQU9DLE9BQVAsR0FBaUIsRUFBQ0wsa0JBQUQsRUFBV2IsOEJBQVgsRUFBakIiLCJmaWxlIjoiaXMtcmVhY3QtY2xhc3MtY29tcG9uZW50LmpzIiwic291cmNlc0NvbnRlbnQiOlsiY29uc3Qge2lzVW5kZWZpbmVkfSA9IHJlcXVpcmUoJ2xvZGFzaC9sYW5nJyk7XHJcblxyXG4vKipcclxuKiBHZXQgdGhlIHNjcm9sbCBwb3NpdGlvbiBmcm9tIHRoZSB0b3Agb2YgdGhlIHNjcmVlbi5cclxuKiBAcGFyYW0ge29iamVjdH0gbm9kZVxyXG4qIEByZXR1cm5zIHtpbnR9IC0gVGhlIHBvc2l0aW9uIGluIHBpeGVsIGZyb20gdGhlIHRvcCBvZiB0aGUgc2Nyb2xsIGNvbnRhaW5lci5cclxuKi9cclxuZnVuY3Rpb24gc2Nyb2xsUG9zaXRpb24oZG9tTm9kZSkge1xyXG4gICAgaWYoaXNVbmRlZmluZWQoZG9tTm9kZSkpIHtcclxuICAgICAgICBjb25zdCB5ID0gd2luZG93LnBhZ2VZT2Zmc2V0IHx8IGRvY3VtZW50LmRvY3VtZW50RWxlbWVudC5zY3JvbGxUb3A7XHJcbiAgICAgICAgY29uc3QgeCA9IHdpbmRvdy5wYWdlWE9mZnNldCB8fCBkb2N1bWVudC5kb2N1bWVudEVsZW1lbnQuc2Nyb2xsTGVmdDtcclxuICAgICAgICByZXR1cm4geyB0b3A6IHksIGxlZnQ6IHggfTtcclxuICAgIH1cclxuICAgIHJldHVybiB7IHRvcDogZG9tTm9kZS5zY3JvbGxUb3AsIGxlZnQ6IGRvbU5vZGUuc2Nyb2xsTGVmdCB9O1xyXG59XHJcblxyXG5cclxuLyoqXHJcbiogU2V0IHNjcm9sbGJhciBwb3NpdGlvbiB3aXRoIHNtb290aCBhbmltYXRpb24uXHJcbiogaHR0cDovL3d3dy53M3NjaG9vbHMuY29tL2pzcmVmL3Byb3Bfd2luX3BhZ2V4b2Zmc2V0LmFzcFxyXG4qXHJcbiogQHBhcmFtIHtvYmplY3R9IGVsZW1lbnQgIGVsZW1lbnQgcGFyZW50IGZvciB0aGUgc2Nyb2xsXHJcbiogQHBhcmFtIHtudW1iZXJ9IHRvICAgICAgIHBvc2l0aW9uIG9mIHRoZSBzY3JvbGxcclxuKiBAcGFyYW0ge251bWJlcn0gZHVyYXRpb24gZHVyYXRpb24gb2YgYW5pbWF0aW9uXHJcbiovXHJcbmZ1bmN0aW9uIHNjcm9sbFRvKGVsZW1lbnQsIHRvLCBkdXJhdGlvbiA9IDUwMCkge1xyXG4gICAgaWYoaXNVbmRlZmluZWQoZWxlbWVudCkpIHtcclxuICAgICAgICB3aW5kb3cuc2Nyb2xsVG8oMCwgdG8pO1xyXG4gICAgICAgIHJldHVybjtcclxuICAgIH1cclxuICAgIGVsZW1lbnQuc2Nyb2xsVG9wID0gdG87XHJcbn1cclxuXHJcblxyXG5tb2R1bGUuZXhwb3J0cyA9IHtzY3JvbGxUbywgc2Nyb2xsUG9zaXRpb259O1xyXG4iXX0=
