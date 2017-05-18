@@ -4124,9 +4124,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	            };
 	
 	            MaterialComponent.prototype.componentWillReceiveProps = function componentWillReceiveProps(nextProps) {
-	                watchedProp = watchedProp || 'error';
-	                var newWatchedProp = nextProps[watchedProp];
-	                if (newWatchedProp !== this.props[watchedProp]) {
+	                var propName = watchedProp || 'error';
+	                var newWatchedProp = nextProps[propName];
+	                if (newWatchedProp !== this.props[propName] || (this.props.placeholder || nextProps.placeholder) && this.props.value !== nextProps.value) {
 	                    var refNode = _reactDom2.default.findDOMNode(this.refs[ref]);
 	                    componentHandler.upgradeElement(refNode, jsClass);
 	                }
