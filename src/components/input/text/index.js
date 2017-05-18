@@ -1,11 +1,13 @@
 //dependencies
-import React, { Component, PropTypes } from 'react';
+import React, {Component, PropTypes} from 'react';
 import ReactDOM from 'react-dom';
-import { identity } from 'lodash/utility';
+import {identity} from 'lodash/utility';
+import uuid from 'uuid';
+
 import ComponentBaseBehaviour from '../../../behaviours/component-base';
 import MDBehaviour from '../../../behaviours/material';
 import filterProps from '../../../utils/filter-html-attributes';
-const MODE = { isEdit: true };
+const MODE = {isEdit: true};
 
 const propTypes = {
     disabled: PropTypes.bool,
@@ -42,14 +44,14 @@ class InputText extends Component {
     * @return {object} - The unformated dom value.
     */
     getValue = () => {
-        const { unformatter } = this.props;
+        const {unformatter} = this.props;
         const domEl = ReactDOM.findDOMNode(this.refs.htmlInput);
 
         return unformatter(domEl.value, MODE);
     };
 
     componentDidUpdate() {
-        const { error } = this.props;
+        const {error} = this.props;
         if (!error) {
             // Make sure that the main div does not hold a is-invalid class when there's no error
             // MDL keeps the class even if React removes it
@@ -63,8 +65,8 @@ class InputText extends Component {
     * @return {object} - The function onChannge from the props, called.
     */
     _handleInputChange = (evt) => {
-        const { unformatter, onChange } = this.props;
-        const { value } = evt.target;
+        const {unformatter, onChange} = this.props;
+        const {value} = evt.target;
 
         return onChange(unformatter(value, MODE));
     };
@@ -91,14 +93,20 @@ class InputText extends Component {
 
         const pattern = error ? 'hasError' : null; //add pattern to overide mdl error style when displaying an focus error.
 
-        const inputProps = { ...validInputProps, pattern };
+        const inputProps = {...validInputProps, pattern};
+        let errorId = null;
+        if (error) {
+            inputProps['aria-invalid'] = true;
+            errorId = uuid.v4();
+            inputProps['aria-describedby'] = errorId;
+        }
         const cssClass = `mdl-textfield mdl-js-textfield${error ? ' is-invalid' : ''}`;
 
         return (
             <div className={cssClass} data-focus='input-text' ref='inputText' style={style}>
                 <input className='mdl-textfield__input' ref='htmlInput' {...inputProps} />
                 <label className='mdl-textfield__label' htmlFor={name}>{this.i18n(placeholder)}</label>
-                {error && (<span className='mdl-textfield__error'>{this.i18n(error)}</span>)}
+                {error && <span className='mdl-textfield__error' id={errorId} >{this.i18n(error)}</span>}
             </div>
         );
     }
