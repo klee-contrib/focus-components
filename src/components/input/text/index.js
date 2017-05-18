@@ -1,10 +1,13 @@
 //dependencies
-import React, {Component, PropTypes} from 'react';
+import React, { Component, PropTypes } from 'react';
 import ReactDOM from 'react-dom';
-import {identity} from 'lodash/utility';
+import { identity } from 'lodash/utility';
+import uuid from 'uuid';
+
 import ComponentBaseBehaviour from '../../../behaviours/component-base';
 import MDBehaviour from '../../../behaviours/material';
-const MODE = {isEdit: true};
+
+const MODE = { isEdit: true };
 
 const propTypes = {
     disabled: PropTypes.bool,
@@ -72,12 +75,18 @@ class InputText extends Component {
         const value = formatter(rawValue, MODE);
         const pattern = error ? 'hasError' : null; //add pattern to overide mdl error style when displaying an focus error.
         const inputProps =  { autoFocus, disabled, onKeyDown, onKeyPress, onBlur, maxLength, onFocus, onClick, id: name, onChange: this._handleInputChange, pattern, size, type, value: !value ? '' : value};
+        let errorId = null;
+        if (error) {
+            inputProps['aria-invalid'] = true;
+            errorId = uuid.v4();
+            inputProps['aria-describedby'] = errorId;
+        }
         const cssClass = `mdl-textfield mdl-js-textfield${error ? ' is-invalid' : ''}`;
         return (
             <div className={cssClass} data-focus='input-text' ref='inputText' style={style}>
                 <input className='mdl-textfield__input' ref='htmlInput' {...inputProps} />
                 <label className='mdl-textfield__label' htmlFor={name}>{this.i18n(placeholder)}</label>
-                {error && <span className='mdl-textfield__error'>{this.i18n(error)}</span>}
+                {error && <span className='mdl-textfield__error' id={errorId} >{this.i18n(error)}</span>}
             </div>
         );
     }
