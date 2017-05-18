@@ -80,6 +80,9 @@ class InputText extends Component {
         if (validInputProps.name) {
             validInputProps.id = validInputProps.name;
         }
+        if (validInputProps.placeholder) {
+            validInputProps.placeholder = this.i18n(validInputProps.placeholder);
+        }
         const pattern = error ? 'hasError' : null; //add pattern to overide mdl error style when displaying an focus error.
 
         const inputProps = {...validInputProps, pattern};
