@@ -152,7 +152,7 @@ class Button extends Component {
     render() {
         // attribute doc : https://developer.mozilla.org/fr/docs/Web/HTML/Element/Button
         // be careful the way you declare your attribute names : https://developer.mozilla.org/fr/docs/Web/HTML/Element/Button
-        const {className, disabled, formNoValidate, handleOnClick, icon, id, onClick, type, label, style, hasRipple, isJs, iconLibrary, isLoading, ...rest} = this.props;
+        const {className, disabled, formNoValidate, handleOnClick, icon, id, onClick, type, label, style, hasRipple, isJs, iconLibrary, noAltAndNoTitle, isLoading, ...rest} = this.props;
         const onClickFunc = handleOnClick ? handleOnClick : onClick;
         const otherInputProps = filterProps({ disabled, formNoValidate, style, type, ...rest }); //on click for legacy. Remove handleOnClick in v2
 
@@ -160,8 +160,16 @@ class Button extends Component {
             otherInputProps.onClick = event => this._wrappedOnClick(event, onClickFunc);
         }
         const renderedClassName = `${className ? className : ''} ${::this._getComponentClassName()}`.trim();
+        if(noAltAndNoTitle){
         return (
-            <button alt={this.i18n(label)} className={renderedClassName} data-focus='button-action' data-saving={isLoading} id={id} disabled={isLoading} title={this.i18n(label)} {...otherInputProps} ref='materialButton'>
+            <button className={renderedClassName} data-focus='button-action' id={id} data-saving={isLoading} id={id} disabled={isLoading} {...otherInputProps} ref='materialButton'>
+                {icon && ::this._renderIcon()}
+                {::this._renderLabel()}
+            </button>
+            );
+        }
+        return (
+            <button alt={this.i18n(label)} className={renderedClassName} data-focus='button-action' id={id} title={this.i18n(label)} data-saving={isLoading} id={id} disabled={isLoading} {...otherInputProps} ref='materialButton'>
                 {icon && ::this._renderIcon()}
                 {::this._renderLabel()}
                 {isLoading && <div className='mdl-spinner mdl-spinner--single-color mdl-js-spinner is-active' data-focus='double-action-button-spinner' ref='double-action-button-spinner' />}
