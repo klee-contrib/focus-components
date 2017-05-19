@@ -1,4 +1,4 @@
-import React, {Component, PropTypes} from 'react';
+import React, { Component, PropTypes } from 'react';
 import ReactDOM from 'react-dom';
 import MDBehaviour from '../../behaviours/material';
 import Translation from '../../behaviours/translation';
@@ -10,7 +10,7 @@ const BUTTON_PRFX = 'mdl-button--';
 const RIPPLE_EFFECT = 'mdl-js-ripple-effect';
 
 const propTypes = {
-    color: PropTypes.oneOf([undefined,'colored', 'primary', 'accent']),
+    color: PropTypes.oneOf([undefined, 'colored', 'primary', 'accent']),
     id: PropTypes.string,
     handleOnClick: PropTypes.func, //to remove in V2
     hasRipple: PropTypes.bool,
@@ -58,23 +58,23 @@ class Button extends Component {
         let SHAPE_CLASS;
         switch (shape) {
             case 'raised':
-            SHAPE_CLASS = `${BUTTON_PRFX}raised`;
-            break;
+                SHAPE_CLASS = `${BUTTON_PRFX}raised`;
+                break;
             case 'fab':
-            SHAPE_CLASS = `${BUTTON_PRFX}fab`;
-            break;
+                SHAPE_CLASS = `${BUTTON_PRFX}fab`;
+                break;
             case 'icon':
-            SHAPE_CLASS = `${BUTTON_PRFX}icon`;
-            break;
+                SHAPE_CLASS = `${BUTTON_PRFX}icon`;
+                break;
             case 'mini-fab':
-            SHAPE_CLASS = `${BUTTON_PRFX}mini-fab ${BUTTON_PRFX}fab`;
-            break;
+                SHAPE_CLASS = `${BUTTON_PRFX}mini-fab ${BUTTON_PRFX}fab`;
+                break;
             case null:
-            SHAPE_CLASS = '';
-            break;
+                SHAPE_CLASS = '';
+                break;
             default:
-            SHAPE_CLASS = null;
-            break;
+                SHAPE_CLASS = null;
+                break;
         }
         const COLOR_CLASS = color ? `${BUTTON_PRFX}${color}` : '';
         const JS_CLASS = isJs ? BTN_JS : '';
@@ -115,7 +115,7 @@ class Button extends Component {
     */
     _renderLabel() {
         const {label, shape} = this.props;
-        if (label && 'fab' !== shape && 'icon' !== shape && 'mini-fab' !== shape ) {
+        if (label && 'fab' !== shape && 'icon' !== shape && 'mini-fab' !== shape) {
             return this.i18n(label);
         }
         return null;
@@ -125,9 +125,18 @@ class Button extends Component {
     render() {
         // attribute doc : https://developer.mozilla.org/fr/docs/Web/HTML/Element/Button
         // be careful the way you declare your attribute names : https://developer.mozilla.org/fr/docs/Web/HTML/Element/Button
-        const {className, disabled, formNoValidate, handleOnClick, icon, id, onClick, type, label, style, hasRipple, isJs, iconLibrary, ...rest} = this.props;
+        const {className, disabled, formNoValidate, handleOnClick, icon, id, onClick, type, label, style, hasRipple, isJs, iconLibrary, noAltAndNoTitle, ...rest} = this.props;
         const otherInputProps = { disabled, formNoValidate, onClick: handleOnClick ? handleOnClick : onClick, style, type, ...rest }; //on click for legacy. Remove handleOnClick in v2
-        const renderedClassName = `${className ? className : ''} ${::this._getComponentClassName()}`.trim();
+        const renderedClassName = `${className ? className : ''} ${::this._getComponentClassName()
+    }`.trim();
+        if(noAltAndNoTitle){
+            return (
+            <button className={renderedClassName} data-focus='button-action' id={id}{...otherInputProps} ref='materialButton'>
+                {icon && ::this._renderIcon()}
+                {::this._renderLabel()}
+            </button>
+            );
+        }
         return (
             <button alt={this.i18n(label)} className={renderedClassName} data-focus='button-action' id={id} title={this.i18n(label)} {...otherInputProps} ref='materialButton'>
                 {icon && ::this._renderIcon()}
