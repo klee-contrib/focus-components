@@ -1,9 +1,9 @@
 // Dependencies
-import React, { PropTypes } from 'react';
+import React, {PropTypes} from 'react';
 import ReactDOM from 'react-dom';
 import builder from 'focus-core/component/builder';
 import types from 'focus-core/component/types';
-import { ArgumentInvalidException } from 'focus-core/exception';
+import {ArgumentInvalidException} from 'focus-core/exception';
 import { find } from 'lodash/collection';
 
 /**
@@ -17,7 +17,7 @@ const Overlay = React.createClass({
         show: PropTypes.bool
     },
     getDefaultProps() {
-        return { show: false };
+        return {show: false};
     },
     /**
     * Store the body overgflow property, and set it to hidden
@@ -46,7 +46,7 @@ const Overlay = React.createClass({
     * @return {XML} the rendered HTML
     */
     render() {
-        const { children, clickHandler, show } = this.props;
+        const {children, clickHandler, show} = this.props;
         return (
             <div className='animated fadeIn' data-animation='fadeIn' data-closing-animation='fadeOut' data-focus='popin-overlay' data-visible={show} onClick={clickHandler} ref='overlay'>
                 {children}
@@ -112,8 +112,8 @@ const popin = {
     */
     toggleOpen() {
         let timeout = 0;
-        const { opened } = this.state;
-        const { onPopinClose } = this.props;
+        const {opened} = this.state;
+        const {onPopinClose} = this.props;
         if (opened) {
             const popinWindow = ReactDOM.findDOMNode(this.refs['popin-window']);
             const popinOverlay = ReactDOM.findDOMNode(this.refs['popin-overlay']);
@@ -153,12 +153,17 @@ const popin = {
     * @return {XML} the rendered HTML
     */
     render() { // test for this.state.opened and return an Overlay component if true
-        const { type, level, modal, overlay, children } = this.props;
+        const {type, level, modal, overlay, children, modalTitleId} = this.props;
+
+        const optionnalModalProps = {};
+        if (modalTitleId) {
+            optionnalModalProps['aria-labelledby'] = modalTitleId;
+        }
         return (
             <div data-focus='popin' data-level={level} data-size={this._validateSize()} data-type={type} >
                 {this.state.opened &&
                     <Overlay clickHandler={modal && this.toggleOpen} ref='popin-overlay' resize={'full' === type} show={overlay}>
-                        <div {...this._getAnimationProps()} data-focus='popin-window' onClick={this._preventPopinClose} ref='popin-window'>
+                        <div {...this._getAnimationProps() } data-focus='popin-window' role='dialog' onClick={this._preventPopinClose} ref='popin-window'>
                             <i className='material-icons' data-focus='popin-window-close' onClick={this.toggleOpen}>close</i>
                             <div onWheel={this._onWheel}>
                                 {children}
