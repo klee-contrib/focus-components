@@ -18917,11 +18917,13 @@ return /******/ (function(modules) { // webpackBootstrap
 	    label: _react.PropTypes.string,
 	    onChange: _react.PropTypes.func.isRequired,
 	    value: _react.PropTypes.bool.isRequired,
+	    disabled: _react.PropTypes.bool,
 	    error: _react.PropTypes.string
 	};
 	
 	var defaultProps = {
-	    value: false
+	    value: false,
+	    disabled: false
 	};
 	
 	var InputCheckBoxWithError = (_dec = (0, _material2.default)('mdlHolder'), (0, _translation2.default)(_class = _dec(_class = function (_Component) {
@@ -18963,7 +18965,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	        var _props = this.props,
 	            label = _props.label,
 	            value = _props.value,
-	            error = _props.error;
+	            error = _props.error,
+	            disabled = _props.disabled;
 	
 	        return _react2.default.createElement(
 	            'div',
@@ -18971,7 +18974,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	            _react2.default.createElement(
 	                'label',
 	                { className: 'mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect', 'data-focus': 'input-checkbox', ref: 'mdlHolder' },
-	                _react2.default.createElement('input', { checked: value, className: 'mdl-checkbox__input', onChange: this.handleOnChange.bind(this), ref: 'checkbox', type: 'checkbox' }),
+	                _react2.default.createElement('input', { checked: value, className: 'mdl-checkbox__input', disabled: disabled, onChange: this.handleOnChange.bind(this), ref: 'checkbox', type: 'checkbox' }),
 	                label && _react2.default.createElement(
 	                    'span',
 	                    { className: 'mdl-checkbox__label' },
