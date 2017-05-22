@@ -1,6 +1,6 @@
 
 import validate from 'focus-core/definition/validator/validate';
-import {isNull, isUndefined, isFunction, isEmpty} from 'lodash/lang';
+import {isNull, isUndefined, isFunction, isEmpty, isArray, isObject, isString} from 'lodash/lang';
 
 import {mixin as i18nMixin} from '../../i18n';
 
@@ -32,11 +32,13 @@ let validationMixin ={
         const shouldComponentHandleValidation = this.refs && this.refs.input && isFunction(this.refs.input.validate);
         let value = this.getValue();
         let {isRequired, validator, label} = this.props;
-        if (isRequired && (isUndefined(value) || isNull(value) || isEmpty(value))) {
+        let isEmptyValue = isUndefined(value) || isNull(value) || ((isArray(value) || isObject(value) || isString(value)) && isEmpty(value));
+
+        if (isRequired && isEmptyValue) {
             return this.i18n('field.required', {name: this.i18n(label)});
         }
         //The validation is performed only when the field has a value, otherwise, only the required validation is performed.
-        if (validator && !isUndefined(value) && !isNull(value) && !isEmpty(value)) {
+        if (validator && !isEmptyValue) {
             let validStat = this._computeValidationStatus(
                 validate(
                     {value: value, name: this.i18n(label)},
