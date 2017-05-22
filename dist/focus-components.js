@@ -33760,6 +33760,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	        if (validInputProps.name) {
 	            validInputProps.id = validInputProps.name;
 	        }
+	        if (validInputProps.placeholder) {
+	            validInputProps.placeholder = this.i18n(validInputProps.placeholder);
+	        }
 	        var pattern = error ? 'hasError' : null; //add pattern to overide mdl error style when displaying an focus error.
 	
 	        var inputProps = _extends({}, validInputProps, { pattern: pattern });
@@ -67323,17 +67326,14 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	var _validate2 = _interopRequireDefault(_validate);
 	
+	var _lang = __webpack_require__(148);
+	
+	var _i18n = __webpack_require__(827);
+	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
-	var i18nMixin = __webpack_require__(827).mixin;
-	
-	var _require = __webpack_require__(148),
-	    isNull = _require.isNull,
-	    isUndefined = _require.isUndefined,
-	    isFunction = _require.isFunction;
-	
 	var validationMixin = {
-	    mixins: [i18nMixin],
+	    mixins: [_i18n.mixin],
 	    /** @inheritdoc */
 	    getDefaultProps: function getDefaultProps() {
 	        return {
@@ -67358,18 +67358,18 @@ return /******/ (function(modules) { // webpackBootstrap
 	    * @return {object}
 	    */
 	    validateInput: function validateInputText() {
-	        var shouldComponentHandleValidation = this.refs && this.refs.input && isFunction(this.refs.input.validate);
+	        var shouldComponentHandleValidation = this.refs && this.refs.input && (0, _lang.isFunction)(this.refs.input.validate);
 	        var value = this.getValue();
 	        var _props = this.props,
 	            isRequired = _props.isRequired,
 	            validator = _props.validator,
 	            label = _props.label;
 	
-	        if (isRequired && (undefined === value || null === value)) {
+	        if (isRequired && ((0, _lang.isUndefined)(value) || (0, _lang.isNull)(null) || (0, _lang.isEmpty)(value))) {
 	            return this.i18n('field.required', { name: this.i18n(label) });
 	        }
 	        //The validation is performed only when the field has a value, otherwise, only the required validation is performed.
-	        if (validator && !isUndefined(value) && !isNull(value)) {
+	        if (validator && !(0, _lang.isUndefined)(value) && !(0, _lang.isNull)(value) && !(0, _lang.isEmpty)(value)) {
 	            var validStat = this._computeValidationStatus((0, _validate2.default)({ value: value, name: this.i18n(label) }, validator));
 	            if (true !== validStat) {
 	                validStat = this.i18n(validStat);
