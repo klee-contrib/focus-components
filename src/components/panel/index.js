@@ -1,9 +1,9 @@
-import React, {Component, PropTypes} from 'react';
-import {findDOMNode} from 'react-dom';
+import React, { Component, PropTypes } from 'react';
+import { findDOMNode } from 'react-dom';
 import Translation from '../../behaviours/translation';
-import {includes} from 'lodash/collection';
-import {uniqueId} from 'lodash/utility';
-import {snakeCase} from 'lodash/string';
+import { includes } from 'lodash/collection';
+import { uniqueId } from 'lodash/utility';
+import { snakeCase } from 'lodash/string';
 import ButtonHelp from '../button-help';
 import xor from 'lodash/array/xor';
 
@@ -37,15 +37,19 @@ class Panel extends Component {
     * @return {DOM} React DOM element
     */
     render() {
-        const {actions, actionsPosition, children, title, showHelp, blockName, ...otherProps} = this.props;
+        const {actions, actionsPosition, children, title, showHelp, blockName, modalTitleId, ...otherProps} = this.props;
         const {spyId} = this.state;
         const shouldDisplayActionsTop = actions && includes(['both', 'top'], actionsPosition);
         const shouldDisplayActionsBottom = actions && includes(['both', 'bottom'], actionsPosition);
+        const optionnalModalProps = {};
+        if (modalTitleId) {
+            optionnalModalProps['id'] = modalTitleId;
+        }
         return (
             <div className='mdl-card mdl-card--border mdl-shadow--4dp' data-spy={spyId} data-focus='panel' {...otherProps}>
                 <div className='mdl-card__title mdl-card--border' data-focus='panel-title'>
                     {title &&
-                        <h3 data-spy-title>{this.i18n(title)}</h3>
+                        <h3 data-spy-title {...optionnalModalProps}>{this.i18n(title)}</h3>
                     }
                     {shouldDisplayActionsTop &&
                         <div className='actions'>{actions()}</div>
