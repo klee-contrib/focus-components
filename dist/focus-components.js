@@ -3994,10 +3994,19 @@ return /******/ (function(modules) { // webpackBootstrap
 	            hasRipple = _props4.hasRipple,
 	            isJs = _props4.isJs,
 	            iconLibrary = _props4.iconLibrary,
-	            rest = _objectWithoutProperties(_props4, ['className', 'disabled', 'formNoValidate', 'handleOnClick', 'icon', 'id', 'onClick', 'type', 'label', 'style', 'hasRipple', 'isJs', 'iconLibrary']);
+	            noAltAndNoTitle = _props4.noAltAndNoTitle,
+	            rest = _objectWithoutProperties(_props4, ['className', 'disabled', 'formNoValidate', 'handleOnClick', 'icon', 'id', 'onClick', 'type', 'label', 'style', 'hasRipple', 'isJs', 'iconLibrary', 'noAltAndNoTitle']);
 	
 	        var otherInputProps = _extends({ disabled: disabled, formNoValidate: formNoValidate, onClick: handleOnClick ? handleOnClick : onClick, style: style, type: type }, rest); //on click for legacy. Remove handleOnClick in v2
 	        var renderedClassName = ((className ? className : '') + ' ' + this._getComponentClassName.call(this)).trim();
+	        if (noAltAndNoTitle) {
+	            return _react2.default.createElement(
+	                'button',
+	                _extends({ className: renderedClassName, 'data-focus': 'button-action', id: id }, otherInputProps, { ref: 'materialButton' }),
+	                icon && this._renderIcon.call(this),
+	                this._renderLabel.call(this)
+	            );
+	        }
 	        return _react2.default.createElement(
 	            'button',
 	            _extends({ alt: this.i18n(label), className: renderedClassName, 'data-focus': 'button-action', id: id, title: this.i18n(label) }, otherInputProps, { ref: 'materialButton' }),
@@ -11287,8 +11296,14 @@ return /******/ (function(modules) { // webpackBootstrap
 	            level = _props2.level,
 	            modal = _props2.modal,
 	            overlay = _props2.overlay,
-	            children = _props2.children;
+	            children = _props2.children,
+	            modalTitleId = _props2.modalTitleId;
 	
+	
+	        var optionnalModalProps = {};
+	        if (modalTitleId) {
+	            optionnalModalProps['aria-labelledby'] = modalTitleId;
+	        }
 	        return _react2.default.createElement(
 	            'div',
 	            { 'data-focus': 'popin', 'data-level': level, 'data-size': this._validateSize(), 'data-type': type },
@@ -11297,7 +11312,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	                { clickHandler: modal && this.toggleOpen, ref: 'popin-overlay', resize: 'full' === type, show: overlay },
 	                _react2.default.createElement(
 	                    'div',
-	                    _extends({}, this._getAnimationProps(), { 'data-focus': 'popin-window', onClick: this._preventPopinClose, ref: 'popin-window' }),
+	                    _extends({}, this._getAnimationProps(), { 'data-focus': 'popin-window' }, optionnalModalProps, { role: 'dialog', onClick: this._preventPopinClose, ref: 'popin-window' }),
 	                    _react2.default.createElement(
 	                        'i',
 	                        { className: 'material-icons', 'data-focus': 'popin-window-close', onClick: this.toggleOpen },
@@ -25707,12 +25722,17 @@ return /******/ (function(modules) { // webpackBootstrap
 	            title = _props.title,
 	            showHelp = _props.showHelp,
 	            blockName = _props.blockName,
-	            otherProps = _objectWithoutProperties(_props, ['actions', 'actionsPosition', 'children', 'title', 'showHelp', 'blockName']);
+	            modalTitleId = _props.modalTitleId,
+	            otherProps = _objectWithoutProperties(_props, ['actions', 'actionsPosition', 'children', 'title', 'showHelp', 'blockName', 'modalTitleId']);
 	
 	        var spyId = this.state.spyId;
 	
 	        var shouldDisplayActionsTop = actions && (0, _collection.includes)(['both', 'top'], actionsPosition);
 	        var shouldDisplayActionsBottom = actions && (0, _collection.includes)(['both', 'bottom'], actionsPosition);
+	        var optionnalModalProps = {};
+	        if (modalTitleId) {
+	            optionnalModalProps['id'] = modalTitleId;
+	        }
 	        return _react2.default.createElement(
 	            'div',
 	            _extends({ className: 'mdl-card mdl-card--border mdl-shadow--4dp', 'data-spy': spyId, 'data-focus': 'panel' }, otherProps),
@@ -25721,7 +25741,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	                { className: 'mdl-card__title mdl-card--border', 'data-focus': 'panel-title' },
 	                title && _react2.default.createElement(
 	                    'h3',
-	                    { 'data-spy-title': true },
+	                    _extends({ 'data-spy-title': true }, optionnalModalProps),
 	                    this.i18n(title)
 	                ),
 	                shouldDisplayActionsTop && _react2.default.createElement(
@@ -62799,7 +62819,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	            var selectedScope = this.state.reference.scopes.find(function (scope) {
 	                return scope.code === _this.props.scope;
 	            });
-	            return selectedScope.label || this.props.scope;
+	            return selectedScope != null ? selectedScope.label || this.props.scope : this.props.scope;
 	        }
 	        return this.props.scope;
 	    },
@@ -62809,11 +62829,13 @@ return /******/ (function(modules) { // webpackBootstrap
 	     * @return {HTML} the rendered component
 	     */
 	    render: function render() {
-	        var scope = this.props.scope && this.props.scope !== scopeAll ? { scope: {
+	        var scope = this.props.scope && this.props.scope !== scopeAll ? {
+	            scope: {
 	                code: this.props.scope,
 	                label: 'Scope',
 	                value: this._getScopeLabel()
-	            } } : undefined;
+	            }
+	        } : undefined;
 	        return React.createElement(ListSummary, {
 	            'data-focus': 'advanced-search-list-summary',
 	            nb: this.props.totalCount,
