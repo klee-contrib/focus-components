@@ -1,7 +1,9 @@
 
-let i18nMixin = require('../../i18n').mixin;
 import validate from 'focus-core/definition/validator/validate';
-let {isNull, isUndefined, isFunction} = require('lodash/lang');
+import {isNull, isUndefined, isFunction, isEmpty} from 'lodash/lang';
+
+import {mixin as i18nMixin} from '../../i18n';
+
 let validationMixin ={
     mixins: [i18nMixin],
     /** @inheritdoc */
@@ -17,7 +19,7 @@ let validationMixin ={
     * @return {true | string} - true if the validation is ok and a message if it is not the case.
     */
     _computeValidationStatus(validationStatus) {
-        if(validationStatus.isValid) {
+        if (validationStatus.isValid) {
             return true;
         }
         return validationStatus.errors.join(', ');
@@ -30,18 +32,18 @@ let validationMixin ={
         const shouldComponentHandleValidation = this.refs && this.refs.input && isFunction(this.refs.input.validate);
         let value = this.getValue();
         let {isRequired, validator, label} = this.props;
-        if (isRequired && (undefined === value || null === value)) {
+        if (isRequired && (isUndefined(value) || isNull(null) || isEmpty(value))) {
             return this.i18n('field.required', {name: this.i18n(label)});
         }
         //The validation is performed only when the field has a value, otherwise, only the required validation is performed.
-        if (validator && !isUndefined(value) && !isNull(value)) {
+        if (validator && !isUndefined(value) && !isNull(value) && !isEmpty(value)) {
             let validStat = this._computeValidationStatus(
                 validate(
                     {value: value, name: this.i18n(label)},
                     validator
                 )
             );
-            if(true !== validStat) {
+            if (true !== validStat) {
                 validStat = this.i18n(validStat);
             }
             return validStat;
@@ -58,7 +60,7 @@ let validationMixin ={
     */
     validate() {
         const isValid = this.validateInput();
-        if(true !== isValid) {
+        if (true !== isValid) {
             this.setError(isValid);
             return isValid;
         }
