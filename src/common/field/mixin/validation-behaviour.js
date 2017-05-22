@@ -32,7 +32,7 @@ let validationMixin ={
         const shouldComponentHandleValidation = this.refs && this.refs.input && isFunction(this.refs.input.validate);
         let value = this.getValue();
         let {isRequired, validator, label} = this.props;
-        if (isRequired && (isUndefined(value) || isNull(null) || isEmpty(value))) {
+        if (isRequired && (isUndefined(value) || isNull(value) || isEmpty(value))) {
             return this.i18n('field.required', {name: this.i18n(label)});
         }
         //The validation is performed only when the field has a value, otherwise, only the required validation is performed.
