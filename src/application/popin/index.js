@@ -163,7 +163,7 @@ const popin = {
             <div data-focus='popin' data-level={level} data-size={this._validateSize()} data-type={type} >
                 {this.state.opened &&
                     <Overlay clickHandler={modal && this.toggleOpen} ref='popin-overlay' resize={'full' === type} show={overlay}>
-                        <div {...this._getAnimationProps() } data-focus='popin-window' role='dialog' onClick={this._preventPopinClose} ref='popin-window'>
+                        <div {...this._getAnimationProps() } data-focus='popin-window' {...optionnalModalProps} role='dialog' onClick={this._preventPopinClose} ref='popin-window'>
                             <i className='material-icons' data-focus='popin-window-close' onClick={this.toggleOpen}>close</i>
                             <div onWheel={this._onWheel}>
                                 {children}
