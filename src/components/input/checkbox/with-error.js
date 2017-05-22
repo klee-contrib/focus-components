@@ -8,11 +8,13 @@ const propTypes = {
     label: PropTypes.string,
     onChange: PropTypes.func.isRequired,
     value: PropTypes.bool.isRequired,
+    disabled: PropTypes.bool,
     error: PropTypes.string
 };
 
 const defaultProps = {
-    value: false
+    value: false,
+    disabled: false
 };
 
 @Translation
