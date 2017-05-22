@@ -1,4 +1,4 @@
-import React, {Component, PropTypes} from 'react';
+import React, { Component, PropTypes } from 'react';
 import ReactDOM from 'react-dom';
 import Translation from '../../../behaviours/translation';
 import Material from '../../../behaviours/material';
@@ -7,11 +7,13 @@ const propTypes = {
     label: PropTypes.string,
     onChange: PropTypes.func.isRequired,
     value: PropTypes.bool.isRequired,
+    disabled: PropTypes.bool,
     error: PropTypes.string
 };
 
 const defaultProps = {
-    value: false
+    value: false,
+    disabled: false
 };
 
 @Translation
@@ -37,11 +39,11 @@ class InputCheckBoxWithError extends Component {
     }
 
     render() {
-        const {label, value, error} = this.props;
+        const {label, value, error, disabled} = this.props;
         return (
             <div data-error={!!error} data-focus='input-checkbox-with-error-container'>
                 <label className={'mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect'} data-focus='input-checkbox' ref='mdlHolder'>
-                    <input checked={value} className='mdl-checkbox__input' onChange={::this.handleOnChange} ref='checkbox' type='checkbox'/>
+                    <input checked={value} className='mdl-checkbox__input' disabled={disabled} onChange={::this.handleOnChange} ref='checkbox' type='checkbox'/>
                     {label && <span className='mdl-checkbox__label'>{this.i18n(label)}</span>}
                     {error && <span className='input-checkbox__error'>{this.i18n(error)}</span>}
                 </label>
