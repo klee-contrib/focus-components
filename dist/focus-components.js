@@ -67365,7 +67365,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	            validator = _props.validator,
 	            label = _props.label;
 	
-	        if (isRequired && ((0, _lang.isUndefined)(value) || (0, _lang.isNull)(null) || (0, _lang.isEmpty)(value))) {
+	        if (isRequired && ((0, _lang.isUndefined)(value) || (0, _lang.isNull)(value) || (0, _lang.isEmpty)(value))) {
 	            return this.i18n('field.required', { name: this.i18n(label) });
 	        }
 	        //The validation is performed only when the field has a value, otherwise, only the required validation is performed.
