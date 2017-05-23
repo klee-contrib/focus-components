@@ -164,7 +164,7 @@ const tableMixin = {
     render() {
         const SELECTABLE_CSS = this.props.isSelectable ? 'mdl-data-table--selectable' : '';
         return (
-            <table className={`${TABLE_CSS_CLASS} ${SELECTABLE_CSS}`}>
+            <table className={`${TABLE_CSS_CLASS} ${SELECTABLE_CSS}`} role='presentation'>
                 {this._renderTableHeader()}
                 {this._renderTableBody()}
                 {this._renderLoading()}

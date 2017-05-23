@@ -103,9 +103,17 @@ class Button extends Component {
     * @return {Component} - Composant icone.
     */
     _renderIcon() {
-        const { icon, iconLibrary } = this.props;
+        const {icon, iconLibrary, classNameIcon, labelIcon} = this.props;
         switch (iconLibrary) {
             case 'material':
+                if (classNameIcon && labelIcon) {
+                    return (
+                        <div>
+                            <span className={classNameIcon}>{labelIcon}</span>
+                            <i className='material-icons'>{icon}</i>
+                        </div>
+                    )
+                }
                 return <i className='material-icons'>{icon}</i>;
             case 'font-awesome':
                 return <i className={`fa fa-${icon}`} />;

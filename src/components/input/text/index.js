@@ -73,7 +73,7 @@ class InputText extends Component {
     */
     render() {
         const validInputProps = filterProps(this.props);
-        const { error, style } = this.props;
+        const { error, style, isRequired } = this.props;
         const { name, placeholder, value: valueToFormat } = validInputProps;
 
         validInputProps.value = this.props.formatter(valueToFormat, MODE);
@@ -88,6 +88,9 @@ class InputText extends Component {
         const pattern = error ? 'hasError' : null; //add pattern to overide mdl error style when displaying an focus error.
 
         const inputProps = {...validInputProps, pattern};
+        if (isRequired) {
+            inputProps.required = true;
+        }
         let errorId = null;
         if (error) {
             inputProps['aria-invalid'] = true;
@@ -99,7 +102,7 @@ class InputText extends Component {
         return (
             <div className={cssClass} data-focus='input-text' ref='inputText' style={style}>
                 <input className='mdl-textfield__input' ref='htmlInput' {...inputProps} />
-                <label className='mdl-textfield__label' htmlFor={name}>{this.i18n(placeholder)}</label>
+                {placeholder && <label className='mdl-textfield__label' htmlFor={name}>{this.i18n(placeholder)}</label>}
                 {error && <span className='mdl-textfield__error' id={errorId} >{this.i18n(error)}</span>}
             </div>
         );

@@ -243,7 +243,7 @@ class ScrollspyContainer extends Component {
 
     /** @inheritedDoc */
     render() {
-        const { children, hasMenu, hasBackToTop, offset, scrollDelay, ...otherProps } = this.props;
+        const {children, hasMenu, hasBackToTop, offset, scrollDelay, labelIcon, classNameIcon, ...otherProps} = this.props;
         const { affix, menuList } = this.state;
         return (
             <div data-focus='scrollspy-container' {...otherProps}>
@@ -254,7 +254,7 @@ class ScrollspyContainer extends Component {
                     {children}
                 </div>
                 {hasBackToTop &&
-                    <BackToTopComponent />
+                    <BackToTopComponent labelIcon={labelIcon} classNameIcon={classNameIcon} />
                 }
             </div>
         );
