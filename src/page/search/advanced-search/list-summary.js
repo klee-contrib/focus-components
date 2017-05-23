@@ -39,7 +39,7 @@ const Summary = {
         });
     },
     /** @inheritdoc */
-    componentDidMount () {
+    componentDidMount() {
         this._loadReference();
     },
     /**
@@ -54,11 +54,11 @@ const Summary = {
         });
     },
     _getScopeLabel() {
-        if(this.state && this.state.reference.scopes) {
+        if (this.state && this.state.reference.scopes) {
             const selectedScope = this.state.reference.scopes.find(scope =>
                 scope.code === this.props.scope
             )
-            return selectedScope.label || this.props.scope;
+            return selectedScope != null ? (selectedScope.label || this.props.scope) : this.props.scope;
         }
         return this.props.scope;
     },
@@ -67,11 +67,13 @@ const Summary = {
      * @return {HTML} the rendered component
      */
     render() {
-        const scope = this.props.scope && this.props.scope !== scopeAll ? {scope: {
-            code: this.props.scope,
-            label: 'Scope',
-            value: this._getScopeLabel()
-        }} : undefined;
+        const scope = this.props.scope && this.props.scope !== scopeAll ? {
+            scope: {
+                code: this.props.scope,
+                label: 'Scope',
+                value: this._getScopeLabel()
+            }
+        } : undefined;
         return (
             <ListSummary
                 data-focus='advanced-search-list-summary'
@@ -79,7 +81,7 @@ const Summary = {
                 queryText={this.props.query}
                 scopeList={scope}
                 scopeClickAction={this._onScopeClick}
-            />
+                />
         );
     }
 };

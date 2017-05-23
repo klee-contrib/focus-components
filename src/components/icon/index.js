@@ -1,10 +1,10 @@
 import React, {Component, PropTypes} from 'react';
 import filterProps from '../../utils/filter-html-attributes';
 
-function Icon({name, library, onClick, style}) {
+function Icon({name, library, onClick, style, ariaHidden}) {
     switch (library) {
         case 'material':
-            return <i className='material-icons' onClick={onClick} {...filterProps(style)}>{name}</i>;
+            return <i className='material-icons' onClick={onClick} aria-hidden={ariaHidden} {...filterProps(style)}>{name}</i>;
         case 'font-awesome':
             const faCss = `fa fa-${name}`;
             return <i className={faCss} onClick={onClick} {...filterProps(style)} />;
@@ -18,7 +18,8 @@ function Icon({name, library, onClick, style}) {
 Icon.displayName = 'Icon';
 Icon.defaultProps = {
     name: '',
-    library: 'material'
+    library: 'material',
+	ariaHidden: false
 };
 Icon.propTypes = {
     onClick: PropTypes.func,
