@@ -1,4 +1,4 @@
-import React, {Component, PropTypes} from 'react';
+import React, { Component, PropTypes } from 'react';
 
 import ConfirmWrapperDefault from '../confirm';
 import ErrorCenter from '../../application/error-center';
@@ -35,7 +35,7 @@ const propTypes = {
 /**
 * Layout component.
 */
-const Layout  =  ({AppHeader, children, ConfirmWrapper, ErrorCenter, Footer, LoadingBar, MenuLeft, MessageCenter, LoadingStatusBar, DevTools, OtherRootComponent, ...otherProps}) => {
+const Layout = ({AppHeader, children, ConfirmWrapper, ErrorCenter, Footer, LoadingBar, MenuLeft, MessageCenter, LoadingStatusBar, DevTools, OtherRootComponent, ...otherProps}) => {
     const menuType = MenuLeft ? 'left' : 'other';
     return (
         <div data-focus='layout' data-menu={menuType} {...otherProps}>
@@ -49,16 +49,18 @@ const Layout  =  ({AppHeader, children, ConfirmWrapper, ErrorCenter, Footer, Loa
             {MenuLeft &&
                 <MenuLeft />
             }
-            <div data-focus='page-content'>
-                {children}
-            </div>
+            <main>
+                <div data-focus='page-content'>
+                    {children}
+                </div>
+            </main>
             {Footer &&
                 <footer data-focus='footer'>
                     <Footer />
                 </footer>
             }
-            { DevTools && <DevTools />}
-            { OtherRootComponent && <OtherRootComponent /> }
+            {DevTools && <DevTools />}
+            {OtherRootComponent && <OtherRootComponent />}
         </div>
     );
 }

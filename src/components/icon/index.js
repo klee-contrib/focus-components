@@ -1,9 +1,9 @@
-import React, {Component, PropTypes} from 'react';
+import React, { Component, PropTypes } from 'react';
 
-function Icon({name, library, onClick, style}) {
+function Icon({name, library, onClick, style, ariaHidden}) {
     switch (library) {
         case 'material':
-            return <i className='material-icons' onClick={onClick} {...style}>{name}</i>;
+            return <i className='material-icons' onClick={onClick} aria-hidden={ariaHidden} {...style}>{name}</i>;
         case 'font-awesome':
             const faCss = `fa fa-${name}`;
             return <i className={faCss} onClick={onClick} {...style}></i>;
