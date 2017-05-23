@@ -1,4 +1,4 @@
-import React, {Component, PropTypes} from 'react';
+import React, { Component, PropTypes } from 'react';
 import builder from 'focus-core/component/builder';
 import types from 'focus-core/component/types';
 import Button from '../button';
@@ -48,11 +48,11 @@ class ButtonBackToTop extends Component {
         const currentScrollPosition = scrollPosition();
         if (currentScrollPosition.top > this.props.scrollStart) {
             if (!this.state.isVisible) {
-                this.setState({isVisible: true});
+                this.setState({ isVisible: true });
             }
         } else {
             if (this.state.isVisible) {
-                this.setState({isVisible: false});
+                this.setState({ isVisible: false });
             }
         }
     };
@@ -67,6 +67,11 @@ class ButtonBackToTop extends Component {
 
     render = () => {
         const {isVisible} = this.state;
+        const {labelIcon, classNameIcon} = this.props;
+        if (labelIcon && classNameIcon) {
+            return isVisible ? <div data-focus='back-to-top'><Button color='colored' handleOnClick={this.goBackToTop} icon='expand_less'
+                labelIcon={labelIcon} classNameIcon={classNameIcon} shape='fab' type='button' /></div> : null;
+        }
         return isVisible ? <div data-focus='back-to-top'><Button color='colored' handleOnClick={this.goBackToTop} icon='expand_less' shape='fab' type='button' /></div> : null;
     };
 }

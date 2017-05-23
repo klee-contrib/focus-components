@@ -1,4 +1,4 @@
-import React, {Component, PropTypes} from 'react';
+import React, { Component, PropTypes } from 'react';
 import ReactDOM from 'react-dom';
 import BackToTop from '../button-back-to-top'
 import StickyMenu from './sticky-menu';
@@ -81,7 +81,7 @@ class ScrollspyContainer extends Component {
     * @private
     */
     _refreshMenu = () => {
-        if(!this.props.hasMenu) { return; }
+        if (!this.props.hasMenu) { return; }
         const {stickyMenu} = this.refs;
         const {clickedId} = this.state;
         const menus = this._buildMenuList(); //build the menu list
@@ -110,11 +110,11 @@ class ScrollspyContainer extends Component {
     */
     _buildMenuList = () => {
         const {hasMenu} = this.props;
-        if(!hasMenu) {
+        if (!hasMenu) {
             return [];
         }
         const detectionOffset = window.screen.height / 5;
-        let currentScrollPosition = {top: this.scrollPosition().top, left: this.scrollPosition().left};
+        let currentScrollPosition = { top: this.scrollPosition().top, left: this.scrollPosition().left };
         let isAtPageBottom = this.isAtPageBottom();
 
         //get the menu list (without blocks in popin)
@@ -123,7 +123,7 @@ class ScrollspyContainer extends Component {
         const popinDataSpy = thisComponentNode.querySelectorAll(`[data-focus='popin-window'] [data-spy]`);
         const selectionList = xor(allDataSpy, popinDataSpy);
 
-        if(selectionList.length === 0) {
+        if (selectionList.length === 0) {
             return;
         }
         let menuList = selectionList.map((selection, index) => {
@@ -144,11 +144,11 @@ class ScrollspyContainer extends Component {
         //Calculate current node
         //by default, first node is indexed
         let currentIndex = menuList[0].index;
-        if(0 < nextTitles.length) {
+        if (0 < nextTitles.length) {
             //check the first node
             const firstNode = first(nextTitles);
             const index = firstNode.index;
-            if(0 < index) {
+            if (0 < index) {
                 currentIndex = menuList[index - 1].index;
             }
         } else {
@@ -156,15 +156,15 @@ class ScrollspyContainer extends Component {
             currentIndex = last(menuList).index;
         }
         let clickedId = this.state.clickedId;
-        if(isAtPageBottom && undefined !== clickedId) {
+        if (isAtPageBottom && undefined !== clickedId) {
             menuList = menuList.map(item => {
                 if (item.nodeId === clickedId) {
                     item.isActive = true;
                 }
                 return item;
             });
-            this.setState({clickedId: undefined});
-        }else {
+            this.setState({ clickedId: undefined });
+        } else {
             menuList[currentIndex].isActive = true;
         }
         return menuList;
@@ -190,7 +190,7 @@ class ScrollspyContainer extends Component {
     _isMenuAffix = () => {
         let {offset} = this.props;
         const {hasMenu} = this.props;
-        if(!hasMenu) {
+        if (!hasMenu) {
             return false;
         }
         const sscDomNode = ReactDOM.findDOMNode(this);
@@ -239,7 +239,7 @@ class ScrollspyContainer extends Component {
 
     /** @inheritedDoc */
     render() {
-        const {children, hasMenu, hasBackToTop, offset, scrollDelay, ...otherProps} = this.props;
+        const {children, hasMenu, hasBackToTop, offset, scrollDelay, labelIcon, classNameIcon, ...otherProps} = this.props;
         const {affix, menuList} = this.state;
         return (
             <div data-focus='scrollspy-container' {...otherProps}>
@@ -250,7 +250,7 @@ class ScrollspyContainer extends Component {
                     {children}
                 </div>
                 {hasBackToTop &&
-                    <BackToTopComponent />
+                    <BackToTopComponent labelIcon={labelIcon} classNameIcon={classNameIcon} />
                 }
             </div>
         );

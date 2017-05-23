@@ -6,7 +6,7 @@ const React = require('react');
 const {omit, keys} = require('lodash/object');
 const {reduce} = require('lodash/collection');
 //Add a ref to the props if the component is not pure add nothing in the other case.
-import {addRefToPropsIfNotPure, LINE} from '../../utils/is-react-class-component';
+import { addRefToPropsIfNotPure, LINE } from '../../utils/is-react-class-component';
 
 // Table class.
 const TABLE_CSS_CLASS = 'mdl-data-table mdl-js-data-table mdl-shadow--2dp ';
@@ -86,11 +86,11 @@ const tableMixin = {
      */
     _renderColumnHeader(accumulator, colProperties, name) {
         let sort;
-        if(!this.props.isEdit && !colProperties.noSort ) {
+        if (!this.props.isEdit && !colProperties.noSort) {
             const order = colProperties.sort ? colProperties.sort : 'asc';
             const iconName = 'asc' === order ? 'arrow_drop_up' : 'arrow_drop_down';
             const icon = <i className='material-icons'>{iconName}</i>;
-            sort = <a className='sort' data-bypass data-name={name} href='#' onClick={this._sortColumnAction(name, ('asc' === order ? 'desc' : 'asc' ))}>{icon}</a>;
+            sort = <a className='sort' data-bypass data-name={name} href='#' onClick={this._sortColumnAction(name, ('asc' === order ? 'desc' : 'asc'))}>{icon}</a>;
         }
         accumulator.push(<th className={TABLE_CELL_CLASS} key={colProperties.label}>{this.i18n(colProperties.label)}{sort}</th>);
         return accumulator;
@@ -108,13 +108,13 @@ const tableMixin = {
                     const {data, ...otherLineProps} = this.props;
                     const tableBodyFinalProps = addRefToPropsIfNotPure(
                         TableLineComponent, {
-                        className: TABLE_CELL_CLASS,
-                        data: line,
-                        key: line[idField],
-                        reference,
-                        ...otherLineProps
-                    }, `${LINE}${idx}`);
-                    return <TableLineComponent {...tableBodyFinalProps}/>;
+                            className: TABLE_CELL_CLASS,
+                            data: line,
+                            key: line[idField],
+                            reference,
+                            ...otherLineProps
+                        }, `${LINE}${idx}`);
+                    return <TableLineComponent {...tableBodyFinalProps} />;
                 })}
             </tbody>
         );
@@ -125,8 +125,8 @@ const tableMixin = {
      */
     _renderLoading() {
         const {isLoading, loader} = this.props;
-        if(isLoading) {
-            if(loader) {
+        if (isLoading) {
+            if (loader) {
                 return loader();
             }
             return (
@@ -144,7 +144,7 @@ const tableMixin = {
      */
     _renderManualFetch() {
         const {isManualFetch, hasMoreData} = this.props;
-        if(isManualFetch && hasMoreData) {
+        if (isManualFetch && hasMoreData) {
             return (
                 <tfoot className="table-manual-fetch">
                     <tr>
@@ -164,7 +164,7 @@ const tableMixin = {
     render() {
         const SELECTABLE_CSS = this.props.isSelectable ? 'mdl-data-table--selectable' : '';
         return (
-            <table className={`${TABLE_CSS_CLASS} ${SELECTABLE_CSS}`}>
+            <table className={`${TABLE_CSS_CLASS} ${SELECTABLE_CSS}`} role='presentation'>
                 {this._renderTableHeader()}
                 {this._renderTableBody()}
                 {this._renderLoading()}

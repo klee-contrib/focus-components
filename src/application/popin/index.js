@@ -153,8 +153,7 @@ const popin = {
     * @return {XML} the rendered HTML
     */
     render() { // test for this.state.opened and return an Overlay component if true
-        const {type, level, modal, overlay, children, modalTitleId} = this.props;
-
+        const {type, level, modal, overlay, children, modalTitleId, labelIcon, classNameIcon} = this.props;
         const optionnalModalProps = {};
         if (modalTitleId) {
             optionnalModalProps['aria-labelledby'] = modalTitleId;
@@ -164,6 +163,7 @@ const popin = {
                 {this.state.opened &&
                     <Overlay clickHandler={modal && this.toggleOpen} ref='popin-overlay' resize={'full' === type} show={overlay}>
                         <div {...this._getAnimationProps() } data-focus='popin-window' {...optionnalModalProps} role='dialog' onClick={this._preventPopinClose} ref='popin-window'>
+                            {labelIcon && classNameIcon && <span className={classNameIcon}>{labelIcon}</span>}
                             <i className='material-icons' data-focus='popin-window-close' onClick={this.toggleOpen}>close</i>
                             <div onWheel={this._onWheel}>
                                 {children}

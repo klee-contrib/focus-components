@@ -71,10 +71,13 @@ class InputText extends Component {
      * @override
     */
     render() {
-        const { autoFocus, onBlur, disabled, formatter, unformatter, maxLength, onFocus, onClick, onKeyDown, onKeyPress, error, name, placeholder, style, value: rawValue, size, type} = this.props;
+        const { autoFocus, onBlur, disabled, formatter, unformatter, maxLength, onFocus, onClick, onKeyDown, onKeyPress, error, name, placeholder, style, value: rawValue, size, type, isRequired } = this.props;
         const value = formatter(rawValue, MODE);
         const pattern = error ? 'hasError' : null; //add pattern to overide mdl error style when displaying an focus error.
-        const inputProps =  { autoFocus, disabled, onKeyDown, onKeyPress, onBlur, maxLength, onFocus, onClick, id: name, onChange: this._handleInputChange, pattern, size, type, value: !value ? '' : value};
+        const inputProps = { autoFocus, disabled, onKeyDown, onKeyPress, onBlur, maxLength, onFocus, onClick, id: name, onChange: this._handleInputChange, pattern, size, type, value: !value ? '' : value };
+        if (isRequired) {
+            inputProps.required = true;
+        }
         let errorId = null;
         if (error) {
             inputProps['aria-invalid'] = true;
@@ -85,7 +88,7 @@ class InputText extends Component {
         return (
             <div className={cssClass} data-focus='input-text' ref='inputText' style={style}>
                 <input className='mdl-textfield__input' ref='htmlInput' {...inputProps} />
-                <label className='mdl-textfield__label' htmlFor={name}>{this.i18n(placeholder)}</label>
+                {placeholder && <label className='mdl-textfield__label' htmlFor={name}>{this.i18n(placeholder)}</label>}
                 {error && <span className='mdl-textfield__error' id={errorId} >{this.i18n(error)}</span>}
             </div>
         );

@@ -95,9 +95,17 @@ class Button extends Component {
     * @return {Component} - Composant icone.
     */
     _renderIcon() {
-        const {icon, iconLibrary} = this.props;
+        const {icon, iconLibrary, classNameIcon, labelIcon} = this.props;
         switch (iconLibrary) {
             case 'material':
+                if (classNameIcon && labelIcon) {
+                    return (
+                        <div>
+                            <span className={classNameIcon}>{labelIcon}</span>
+                            <i className='material-icons'>{icon}</i>
+                        </div>
+                    )
+                }
                 return <i className='material-icons'>{icon}</i>;
             case 'font-awesome':
                 const faCss = `fa fa-${icon}`;
@@ -132,17 +140,17 @@ class Button extends Component {
         if(noAltAndNoTitle){
             return (
             <button className={renderedClassName} data-focus='button-action' id={id}{...otherInputProps} ref='materialButton'>
-                {icon && ::this._renderIcon()}
+                                    {icon && ::this._renderIcon()}
                 {::this._renderLabel()}
             </button>
-            );
+                                );
         }
         return (
             <button alt={this.i18n(label)} className={renderedClassName} data-focus='button-action' id={id} title={this.i18n(label)} {...otherInputProps} ref='materialButton'>
-                {icon && ::this._renderIcon()}
+                                    {icon && ::this._renderIcon()}
                 {::this._renderLabel()}
             </button>
-        );
+                                );
     }
 }
 
