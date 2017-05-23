@@ -23,16 +23,16 @@ div[data-focus="field"] {
                 }
             }
         }
-        &[data-required="true"] {
-            [data-focus="field-label-container"] {
-                [data-focus="label"] {
-                    &:after {
-                        content: "*";
-                        margin-left: 3px;
-                    }
-                }
-            }
-        }
+        // &[data-required="true"] {
+        //     [data-focus="field-label-container"] {
+        //         [data-focus="label"] {
+        //             &:after {
+        //                 content: "*";
+        //                 margin-left: 3px;
+        //             }
+        //         }
+        //     }
+        // }
         [data-focus="field-label-container"] {
             [data-focus="label"] {
                 margin:4px 0;
