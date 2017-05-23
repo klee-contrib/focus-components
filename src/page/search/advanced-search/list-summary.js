@@ -50,7 +50,7 @@ const Summary = {
             const selectedScope = this.state.reference.scopes.find(scope =>
                 scope.code === this.props.scope
             )
-            return selectedScope.label || this.props.scope;
+            return selectedScope != null ? (selectedScope.label || this.props.scope) : this.props.scope;
         }
         return this.props.scope;
     },
@@ -73,7 +73,7 @@ const Summary = {
                 queryText={this.props.query}
                 scopeList={scope}
                 scopeClickAction={this._onScopeClick}
-            />
+                />
         );
     }
 };

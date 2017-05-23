@@ -52,9 +52,11 @@ const Layout = ({ AppHeader, children, ConfirmWrapper, ErrorCenter, Footer, Load
             {MenuLeft &&
                 <MenuLeft />
             }
-            <div data-focus='page-content'>
-                {children}
-            </div>
+            <main>
+                <div data-focus='page-content'>
+                    {children}
+                </div>
+            </main>
             {Footer &&
                 <footer data-focus='footer'>
                     <Footer />
