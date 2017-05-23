@@ -11977,9 +11977,6 @@ div[data-focus="field"] {
       font-size: 13px; }
   div[data-focus="field"][data-mode="edit"][data-valid="false"] [data-focus="field-label-container"] [data-focus="label"] {
     color: #de3226; }
-  div[data-focus="field"][data-mode="edit"][data-required="true"] [data-focus="field-label-container"] [data-focus="label"]:after {
-    content: "*";
-    margin-left: 3px; }
   div[data-focus="field"][data-mode="edit"] [data-focus="field-label-container"] [data-focus="label"] {
     margin: 4px 0; }
   div[data-focus="field"][data-mode="edit"] [data-focus="field-value-container"] select {

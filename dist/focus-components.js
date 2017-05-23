@@ -3942,10 +3942,28 @@ return /******/ (function(modules) { // webpackBootstrap
 	    Button.prototype._renderIcon = function _renderIcon() {
 	        var _props2 = this.props,
 	            icon = _props2.icon,
-	            iconLibrary = _props2.iconLibrary;
+	            iconLibrary = _props2.iconLibrary,
+	            classNameIcon = _props2.classNameIcon,
+	            labelIcon = _props2.labelIcon;
 	
 	        switch (iconLibrary) {
 	            case 'material':
+	                if (classNameIcon && labelIcon) {
+	                    return _react2.default.createElement(
+	                        'div',
+	                        null,
+	                        _react2.default.createElement(
+	                            'span',
+	                            { className: classNameIcon },
+	                            labelIcon
+	                        ),
+	                        _react2.default.createElement(
+	                            'i',
+	                            { className: 'material-icons' },
+	                            icon
+	                        )
+	                    );
+	                }
 	                return _react2.default.createElement(
 	                    'i',
 	                    { className: 'material-icons' },
@@ -11297,8 +11315,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	            modal = _props2.modal,
 	            overlay = _props2.overlay,
 	            children = _props2.children,
-	            modalTitleId = _props2.modalTitleId;
-	
+	            modalTitleId = _props2.modalTitleId,
+	            labelIcon = _props2.labelIcon,
+	            classNameIcon = _props2.classNameIcon;
 	
 	        var optionnalModalProps = {};
 	        if (modalTitleId) {
@@ -11313,6 +11332,11 @@ return /******/ (function(modules) { // webpackBootstrap
 	                _react2.default.createElement(
 	                    'div',
 	                    _extends({}, this._getAnimationProps(), { 'data-focus': 'popin-window' }, optionnalModalProps, { role: 'dialog', onClick: this._preventPopinClose, ref: 'popin-window' }),
+	                    labelIcon && classNameIcon && _react2.default.createElement(
+	                        'span',
+	                        { className: classNameIcon },
+	                        labelIcon
+	                    ),
 	                    _react2.default.createElement(
 	                        'i',
 	                        { className: 'material-icons', 'data-focus': 'popin-window-close', onClick: this.toggleOpen },
@@ -19461,11 +19485,15 @@ return /******/ (function(modules) { // webpackBootstrap
 	            style = _props.style,
 	            rawValue = _props.value,
 	            size = _props.size,
-	            type = _props.type;
+	            type = _props.type,
+	            isRequired = _props.isRequired;
 	
 	        var value = formatter(rawValue, MODE);
 	        var pattern = error ? 'hasError' : null; //add pattern to overide mdl error style when displaying an focus error.
 	        var inputProps = { autoFocus: autoFocus, disabled: disabled, onKeyDown: onKeyDown, onKeyPress: onKeyPress, onBlur: onBlur, maxLength: maxLength, onFocus: onFocus, onClick: onClick, id: name, onChange: this._handleInputChange, pattern: pattern, size: size, type: type, value: !value ? '' : value };
+	        if (isRequired) {
+	            inputProps.required = true;
+	        }
 	        var errorId = null;
 	        if (error) {
 	            inputProps['aria-invalid'] = true;
@@ -19477,7 +19505,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	            'div',
 	            { className: cssClass, 'data-focus': 'input-text', ref: 'inputText', style: style },
 	            _react2.default.createElement('input', _extends({ className: 'mdl-textfield__input', ref: 'htmlInput' }, inputProps)),
-	            _react2.default.createElement(
+	            placeholder && _react2.default.createElement(
 	                'label',
 	                { className: 'mdl-textfield__label', htmlFor: name },
 	                this.i18n(placeholder)
@@ -28741,7 +28769,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	            hasBackToTop = _props.hasBackToTop,
 	            offset = _props.offset,
 	            scrollDelay = _props.scrollDelay,
-	            otherProps = _objectWithoutProperties(_props, ['children', 'hasMenu', 'hasBackToTop', 'offset', 'scrollDelay']);
+	            labelIcon = _props.labelIcon,
+	            classNameIcon = _props.classNameIcon,
+	            otherProps = _objectWithoutProperties(_props, ['children', 'hasMenu', 'hasBackToTop', 'offset', 'scrollDelay', 'labelIcon', 'classNameIcon']);
 	
 	        var _state = this.state,
 	            affix = _state.affix,
@@ -28756,7 +28786,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	                { 'data-focus': 'scrollspy-container-content' },
 	                children
 	            ),
-	            hasBackToTop && _react2.default.createElement(BackToTopComponent, null)
+	            hasBackToTop && _react2.default.createElement(BackToTopComponent, { labelIcon: labelIcon, classNameIcon: classNameIcon })
 	        );
 	    };
 	
@@ -28843,7 +28873,18 @@ return /******/ (function(modules) { // webpackBootstrap
 	            scrollTo(undefined, 0);
 	        }, _this.render = function () {
 	            var isVisible = _this.state.isVisible;
+	            var _this$props = _this.props,
+	                labelIcon = _this$props.labelIcon,
+	                classNameIcon = _this$props.classNameIcon;
 	
+	            if (labelIcon && classNameIcon) {
+	                return isVisible ? _react2.default.createElement(
+	                    'div',
+	                    { 'data-focus': 'back-to-top' },
+	                    _react2.default.createElement(_button2.default, { color: 'colored', handleOnClick: _this.goBackToTop, icon: 'expand_less',
+	                        labelIcon: labelIcon, classNameIcon: classNameIcon, shape: 'fab', type: 'button' })
+	                ) : null;
+	            }
 	            return isVisible ? _react2.default.createElement(
 	                'div',
 	                { 'data-focus': 'back-to-top' },
@@ -29436,13 +29477,14 @@ return /******/ (function(modules) { // webpackBootstrap
 	// Dependencies
 	function Label(_ref) {
 	    var name = _ref.name,
-	        text = _ref.text;
+	        text = _ref.text,
+	        isRequired = _ref.isRequired;
 	
 	    var content = text || name;
 	    return _react2.default.createElement(
 	        'label',
 	        { 'data-focus': 'label', htmlFor: name },
-	        (0, _translation.translate)(content)
+	        (0, _translation.translate)(content) + (isRequired ? '\u202F*' : '')
 	    );
 	}
 	
@@ -55345,7 +55387,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	            name = _props.name,
 	            label = _props.label,
 	            LabelComponent = _props.LabelComponent,
-	            domain = _props.domain;
+	            domain = _props.domain,
+	            isRequired = _props.isRequired;
 	
 	        return _react2.default.createElement(
 	            'div',
@@ -55356,7 +55399,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	            _react2.default.createElement(LabelComponent, {
 	                domain: domain,
 	                name: name,
-	                text: label
+	                text: label,
+	                isRequired: isRequired
 	            })
 	        );
 	    },
@@ -57165,7 +57209,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	        var SELECTABLE_CSS = this.props.isSelectable ? 'mdl-data-table--selectable' : '';
 	        return React.createElement(
 	            'table',
-	            { className: TABLE_CSS_CLASS + ' ' + SELECTABLE_CSS },
+	            { className: TABLE_CSS_CLASS + ' ' + SELECTABLE_CSS, role: 'presentation' },
 	            this._renderTableHeader(),
 	            this._renderTableBody(),
 	            this._renderLoading(),
