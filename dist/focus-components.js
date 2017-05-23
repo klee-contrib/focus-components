@@ -3944,7 +3944,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	            icon = _props2.icon,
 	            iconLibrary = _props2.iconLibrary,
 	            classNameIcon = _props2.classNameIcon,
-	            labelIcon = _props2.labelIcon;
+	            labelIcon = _props2.labelIcon,
+	            ariaHidden = _props2.ariaHidden;
 	
 	        switch (iconLibrary) {
 	            case 'material':
@@ -3966,7 +3967,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	                }
 	                return _react2.default.createElement(
 	                    'i',
-	                    { className: 'material-icons' },
+	                    { className: 'material-icons', 'aria-hidden': ariaHidden },
 	                    icon
 	                );
 	            case 'font-awesome':
@@ -24668,9 +24669,13 @@ return /******/ (function(modules) { // webpackBootstrap
 	        _react2.default.createElement(AppHeader, null),
 	        MenuLeft && _react2.default.createElement(MenuLeft, null),
 	        _react2.default.createElement(
-	            'div',
-	            { 'data-focus': 'page-content' },
-	            children
+	            'main',
+	            null,
+	            _react2.default.createElement(
+	                'div',
+	                { 'data-focus': 'page-content' },
+	                children
+	            )
 	        ),
 	        Footer && _react2.default.createElement(
 	            'footer',
@@ -29239,13 +29244,14 @@ return /******/ (function(modules) { // webpackBootstrap
 	    var name = _ref.name,
 	        library = _ref.library,
 	        onClick = _ref.onClick,
-	        style = _ref.style;
+	        style = _ref.style,
+	        ariaHidden = _ref.ariaHidden;
 	
 	    switch (library) {
 	        case 'material':
 	            return _react2.default.createElement(
 	                'i',
-	                _extends({ className: 'material-icons', onClick: onClick }, style),
+	                _extends({ className: 'material-icons', onClick: onClick, 'aria-hidden': ariaHidden }, style),
 	                name
 	            );
 	        case 'font-awesome':
