@@ -24412,7 +24412,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	                'div',
 	                { className: mdlClasses, ref: 'inputTextarea', style: style },
 	                _react2.default.createElement('textarea', _extends({ className: 'mdl-textfield__input', ref: 'htmlInput' }, inputProps)),
-	                _react2.default.createElement(
+	                placeholder && _react2.default.createElement(
 	                    'label',
 	                    { className: 'mdl-textfield__label', htmlFor: name },
 	                    this.i18n(placeholder)
