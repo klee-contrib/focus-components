@@ -85,7 +85,7 @@ class InputTextarea extends Component {
             <div data-error={!!error} data-focus='input-textarea'>
                 <div className={mdlClasses} ref='inputTextarea' style={style}>
                     <textarea className='mdl-textfield__input' ref='htmlInput' {...inputProps} />
-                    <label className='mdl-textfield__label' htmlFor={name}>{this.i18n(placeholder)}</label>
+                    {placeholder && <label className='mdl-textfield__label' htmlFor={name}>{this.i18n(placeholder)}</label>}
                 </div>
                 {error && <div className='label-error' ref='error'>{error}</div>}
             </div>
