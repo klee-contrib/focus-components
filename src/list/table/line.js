@@ -7,6 +7,7 @@ import type from 'focus-core/component/types';
 import referenceMixin from '../../common/mixin/reference-property';
 import definitionMixin from '../../common/mixin/definition';
 import builtInComponentsMixin from '../mixin/built-in-components';
+import {mixin as translationMixin} from '../../common/i18n';
 
 // Components
 
@@ -21,7 +22,7 @@ let lineMixin = {
     /**
      * Mixin dependancies.
      */
-    mixins: [definitionMixin, referenceMixin, builtInComponentsMixin],
+    mixins: [translationMixin, definitionMixin, referenceMixin, builtInComponentsMixin],
 
     /**@inheritDoc**/
     getDefaultProps() {
