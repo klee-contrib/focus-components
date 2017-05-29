@@ -2,21 +2,23 @@
 import React, {PropTypes, PureComponent} from 'react';
 import MDBehaviour from '../../behaviours/material';
 import Translation from '../../behaviours/translation';
-
+import filterProps from '../../utils/filter-html-attributes'
 /**
  * Component's props
  */
 const propTypes = {
     position: PropTypes.oneOf(['top', 'left', 'bottom', 'right']),
     isLarge: PropTypes.bool,
-    label: PropTypes.string
+    label: PropTypes.string.isRequired,
+    htmlFor: PropTypes.string.isRequired
 };
 
 /**
  * Component default Props
  */
 const defaultProps = {
-    position: 'bottom'
+    position: 'bottom',
+    isLarge: false
 };
 
 /**
@@ -37,11 +39,13 @@ class Tooltip extends PureComponent {
     }
 
     render() {
-        const {label, style, htmlFor, className} = this.props;
-        const renderedClassName = `${className ? className : ''}${this.buildClassname()}`
+        const {label, className, htmlFor, ...others} = this.props;
+        const renderedClassName = `${className ? className : ''}${this.buildClassname()}`;
+        const tooltipProps = { ...filterProps(others), htmlFor, className: renderedClassName};        
+
         return (
-            <div className={renderedClassName} data-focus='tooltip' ref='materialTooltip' style={style} htmlFor={htmlFor}>
-            <span className='tooltip-text'>{this.i18n(label)}</span>
+            <div data-focus='tooltip' ref='materialTooltip' {...tooltipProps} >
+                <span className='tooltip-text'>{this.i18n(label)}</span>
             </div>
         );
     }
