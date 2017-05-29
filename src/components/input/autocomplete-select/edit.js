@@ -23,14 +23,16 @@ const propTypes = {
     querySearcher: PropTypes.func.isRequired,
     renderOptions: PropTypes.func,
     value: PropTypes.string,
-    onSelectClear: PropTypes.bool 
+    onSelectClear: PropTypes.bool,
+    clearOnNullValue: PropTypes.bool
 };
 
 const defaultProps = {
     keyName: 'key',
     labelName: 'label',
     inputTimeout: 200,
-    onSelectClear: false
+    onSelectClear: false,
+    clearOnNullValue: true
 };
 
 @MDBehaviour('loader')
@@ -74,8 +76,13 @@ class Autocomplete extends Component {
         } else if (customError !== this.props.customError) {
             this.setState({customError});
         }
+
         if (error) {
             this.setState({customError: error});
+        }
+
+        if (this.props.clearOnNullValue && this.props.clearOnNullValue === true && value === null && this.state.inputValue !== null) {
+            this.setState({inputValue: null});
         }
     }
 
