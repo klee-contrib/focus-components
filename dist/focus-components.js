@@ -27764,13 +27764,17 @@ return /******/ (function(modules) { // webpackBootstrap
 	    placeholder: _react.PropTypes.string,
 	    querySearcher: _react.PropTypes.func.isRequired,
 	    renderOptions: _react.PropTypes.func,
-	    value: _react.PropTypes.string
+	    value: _react.PropTypes.string,
+	    onSelectClear: _react.PropTypes.bool,
+	    clearOnNullValue: _react.PropTypes.bool
 	};
 	
 	var defaultProps = {
 	    keyName: 'key',
 	    labelName: 'label',
-	    inputTimeout: 200
+	    inputTimeout: 200,
+	    onSelectClear: false,
+	    clearOnNullValue: true
 	};
 	
 	var Autocomplete = (_dec = (0, _material2.default)('loader'), _dec2 = (0, _material2.default)('inputText'), _dec(_class = _dec2(_class = (0, _componentBase2.default)(_class = function (_Component) {
@@ -28007,8 +28011,13 @@ return /******/ (function(modules) { // webpackBootstrap
 	        } else if (customError !== this.props.customError) {
 	            this.setState({ customError: customError });
 	        }
+	
 	        if (error) {
 	            this.setState({ customError: error });
+	        }
+	
+	        if (this.props.clearOnNullValue && this.props.clearOnNullValue === true && value === null && this.state.inputValue !== null) {
+	            this.setState({ inputValue: null });
 	        }
 	    };
 	
@@ -28053,15 +28062,18 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	    Autocomplete.prototype._select = function _select(key) {
 	        var options = this.state.options;
-	        var _props3 = this.props,
-	            onChange = _props3.onChange,
-	            keyName = _props3.keyName,
-	            labelName = _props3.labelName;
+	        var onChange = this.props.onChange;
 	
 	        var resolvedLabel = options.get(key) || '';
 	        this.refs.htmlInput.blur();
-	        this.setState({ inputValue: this.i18n(resolvedLabel), selected: key, focus: false }, function () {
-	            if (onChange) onChange(key);
+	        var newState = { inputValue: this.i18n(resolvedLabel), selected: key, focus: false };
+	        if (this.props.onSelectClear && this.props.onSelectClear === true) {
+	            newState = { inputValue: null, selected: null, focus: false };
+	        }
+	        this.setState(newState, function () {
+	            if (onChange) {
+	                onChange(key);
+	            }
 	        });
 	    };
 	
@@ -28069,9 +28081,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	        var _state2 = this.state,
 	            inputValue = _state2.inputValue,
 	            isLoading = _state2.isLoading;
-	        var _props4 = this.props,
-	            customError = _props4.customError,
-	            renderOptions = _props4.renderOptions;
+	        var _props3 = this.props,
+	            customError = _props3.customError,
+	            renderOptions = _props3.renderOptions;
 	
 	
 	        var validInputProps = (0, _filterHtmlAttributes2.default)(this.props);
