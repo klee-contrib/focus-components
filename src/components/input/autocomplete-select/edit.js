@@ -22,13 +22,17 @@ const propTypes = {
     placeholder: PropTypes.string,
     querySearcher: PropTypes.func.isRequired,
     renderOptions: PropTypes.func,
-    value: PropTypes.string
+    value: PropTypes.string,
+    onSelectClear: PropTypes.bool,
+    clearOnNullValue: PropTypes.bool
 };
 
 const defaultProps = {
     keyName: 'key',
     labelName: 'label',
-    inputTimeout: 200
+    inputTimeout: 200,
+    onSelectClear: false,
+    clearOnNullValue: true
 };
 
 @MDBehaviour('loader')
@@ -72,8 +76,13 @@ class Autocomplete extends Component {
         } else if (customError !== this.props.customError) {
             this.setState({customError});
         }
+
         if (error) {
             this.setState({customError: error});
+        }
+
+        if (this.props.clearOnNullValue && this.props.clearOnNullValue === true && value === null && this.state.inputValue !== null) {
+            this.setState({inputValue: null});
         }
     }
 
@@ -179,11 +188,17 @@ class Autocomplete extends Component {
 
     _select(key) {
         const {options} = this.state;
-        const {onChange, keyName, labelName} = this.props;
+        const {onChange} = this.props;
         const resolvedLabel = options.get(key) || '';
         this.refs.htmlInput.blur();
-        this.setState({inputValue: this.i18n(resolvedLabel), selected: key, focus: false}, () => {
-            if (onChange) onChange(key);
+        let newState = {inputValue: this.i18n(resolvedLabel), selected: key, focus: false};
+        if (this.props.onSelectClear && this.props.onSelectClear === true) {
+            newState = {inputValue: null, selected: null, focus: false};
+        } 
+        this.setState(newState, () => {
+            if (onChange) {
+                onChange(key);
+            }
         });
     }
 
