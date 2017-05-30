@@ -15,6 +15,7 @@ const isISOString = value => moment.utc(value, moment.ISO_8601, true).isValid();
 const propTypes = {
     beforeValueGetter: PropTypes.func.isRequired,
     checkOnlyOnBlur: PropTypes.bool,
+    triggerOnChangeIfEmpty: PropTypes.bool,
     drops: PropTypes.oneOf(['up', 'down']).isRequired,
     error: PropTypes.string,
     locale: PropTypes.string.isRequired,
@@ -36,6 +37,7 @@ const propTypes = {
 const defaultProps = {
     beforeValueGetter: value => value,
     checkOnlyOnBlur: false,
+    triggerOnChangeIfEmpty: true,
     drops: 'down',
     format: 'MM/DD/YYYY',
     locale: 'en',
@@ -61,7 +63,7 @@ class InputDate extends Component {
      */
     constructor(props) {
         super(props);
-        const {value} = props;
+        const { value } = props;
         const state = {
             dropDownDate: isISOString(value) ? moment.utc(value, moment.ISO_8601) : moment.utc(),
             inputDate: this._formatDate(value),
@@ -82,7 +84,7 @@ class InputDate extends Component {
      * Receive component props.
      * @param {*} param0 
      */
-    componentWillReceiveProps({value}) {
+    componentWillReceiveProps({ value }) {
         this.setState({
             dropDownDate: isISOString(value) ? moment.utc(value, moment.ISO_8601) : moment.utc(),
             inputDate: this._formatDate(value)
@@ -107,7 +109,7 @@ class InputDate extends Component {
      * The default format is 'MM/DD/YYYY'.
      */
     _parseInputDate = inputDate => {
-        const {format} = this.props;
+        const { format } = this.props;
         return moment.utc(inputDate, format, true);
     };
 
@@ -116,7 +118,7 @@ class InputDate extends Component {
      * The default format is 'MM/DD/YYYY'.
      */
     _formatDate = isoDate => {
-        let {format} = this.props;
+        let { format } = this.props;
         if (isISOString(isoDate)) {
             if (isArray(format)) {
                 format = format[0];
@@ -131,7 +133,7 @@ class InputDate extends Component {
      * Handle changes.
      */
     _onInputChange = (inputDate, fromBlur) => {
-        let {checkOnlyOnBlur} = this.props;
+        let { checkOnlyOnBlur, triggerOnChangeIfEmpty } = this.props;
         // When checkOnlyOnBlur is true skip all checks.
         if (checkOnlyOnBlur === true && fromBlur !== true) {
             // Use case : incompatibles date formats (DD/MM/YY, DD/MM/YYYY)
@@ -141,21 +143,26 @@ class InputDate extends Component {
 
         const isCorrect = this._isInputFormatCorrect(inputDate);
         const dropDownDate = isCorrect ? this._parseInputDate(inputDate) : null;
+        const shouldTriggerChange = isCorrect || (triggerOnChangeIfEmpty && (inputDate || '').trim() === ''); // Fire onChange event, only if date if correct, or empty, if the option is activated
+        const newData = isCorrect ? dropDownDate.toISOString() : null; // if date is not correct, it is empty, so send null (or empty string ?)
+      
         if (isCorrect) {
             this.setState({ dropDownDate, inputDate });
         } else {
             this.setState({ inputDate });
         }
-
-        // Fire onChange event
+        
+        // When checkOnlyOnBlur is true skip all checks.
         if (checkOnlyOnBlur === true) {
-            if (isCorrect) {
-                this.props.onChange(dropDownDate.toISOString());
+            if (shouldTriggerChange) {
+                this.props.onChange(newData);
             }
             return;
         }
-        if (fromBlur !== true && isCorrect) {
-            this.props.onChange(dropDownDate.toISOString());
+
+        // Fire onChange event, only if date if correct, or empty, if the option is activated
+        if (fromBlur !== true && shouldTriggerChange) {
+            this.props.onChange(newData);
         }
     };
 
@@ -163,7 +170,7 @@ class InputDate extends Component {
      * Handle input text blur.
      */
     _onInputBlur = () => {
-        const {inputDate} = this.state;
+        const { inputDate } = this.state;
         this._onInputChange(inputDate, true);
     };
 
@@ -192,21 +199,21 @@ class InputDate extends Component {
      * Handle document click to close the calendar.
      * @memberOf InputDate
      */
-    _onDocumentClick = ({target}) => {
+    _onDocumentClick = ({ target }) => {
         const targetClassAttr = target.getAttribute('class');
         const isTriggeredFromPicker = targetClassAttr ? targetClassAttr.includes('dp-cell') : false; //this is the only way to check the target comes from picker cause at this stage, month and year div are unmounted by React.
-        if (!isTriggeredFromPicker) {
+
+        // We do not trigger the setState, or the inputBlur if the picker was not displayed
+        if (!isTriggeredFromPicker && this.state.displayPicker && closest(target, `[data-id='${this._inputDateId}']`, true) === undefined) {
             //if target was not triggered inside the date picker, we check it was not triggered by the input
-            if (closest(target, `[data-id='${this._inputDateId}']`, true) === undefined) {
-                this.setState({ displayPicker: false }, () => this._onInputBlur());
-            }
+            this.setState({ displayPicker: false }, () => this._onInputBlur());
         }
     };
 
     /**
      * Handle Tab and Enter keys to close the calendar.
      */
-    _handleKeyDown = ({key}) => {
+    _handleKeyDown = ({ key }) => {
         if (key === 'Tab' || key === 'Enter') {
             this.setState({ displayPicker: false }, () => this._onInputBlur());
         }
@@ -216,7 +223,7 @@ class InputDate extends Component {
      * Return value in a valid date format.
      */
     getValue = () => {
-        const {inputDate} = this.state;
+        const { inputDate } = this.state;
         const rawValue = this._isInputFormatCorrect(inputDate) ? this._parseInputDate(inputDate).toISOString() : null;
         return this.props.beforeValueGetter(rawValue);
     };
@@ -225,8 +232,8 @@ class InputDate extends Component {
      * Validate the input.
      */
     validate = () => {
-        const {inputDate} = this.state;
-        const {isRequired} = this.props;
+        const { inputDate } = this.state;
+        const { isRequired } = this.props;
         if ('' === inputDate || !inputDate) {
             return ({
                 isValid: !isRequired,
@@ -244,9 +251,9 @@ class InputDate extends Component {
      * Render text input and datepicker.
      */
     render() {
-        const {error, locale, name, placeholder, disabled, minDate, maxDate} = this.props;
-        const {dropDownDate, inputDate, displayPicker} = this.state;
-        const {_onInputBlur, _onInputChange, _onInputFocus, _onDropDownChange, _onPickerCloserClick, _handleKeyDown} = this;
+        const { error, locale, name, placeholder, disabled, minDate, maxDate } = this.props;
+        const { dropDownDate, inputDate, displayPicker } = this.state;
+        const { _onInputBlur, _onInputChange, _onInputFocus, _onDropDownChange, _onPickerCloserClick, _handleKeyDown } = this;
         const inputProps = { disabled };
         return (
             <div data-focus='input-date' data-id={this._inputDateId}>

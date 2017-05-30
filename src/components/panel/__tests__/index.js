@@ -1,6 +1,6 @@
 import Panel from '../';
-import {init, translate} from 'focus-core/translation';
-const {findRenderedDOMComponentWithClass, renderIntoDocument, Simulate} = TestUtils;
+import { init, translate } from 'focus-core/translation';
+const { findRenderedDOMComponentWithClass, renderIntoDocument, Simulate } = TestUtils;
 
 describe('The Panel', () => {
     describe('when mounted with no props', () => {
@@ -24,9 +24,9 @@ describe('The Panel', () => {
         it('should be material designed', () => {
             expect(domNode.getAttribute('class')).to.equal('mdl-card mdl-card--border mdl-shadow--4dp');
         });
-        it('should have a title section', () => {
+        it('should not have a title section', () => {
             const titleSection = domNode.querySelector('[data-focus="panel-title"]');
-            expect(titleSection).to.exist;
+            expect(titleSection).not.to.exist;
         });
         it('should have a content section', () => {
             const contentSection = domNode.querySelector('[data-focus="panel-content"]');
@@ -42,7 +42,7 @@ describe('The Panel', () => {
         });
     });
     describe('when mounted with title props', () => {
-        init({resStore: {dev: {translation: {panel: {title: 'This is a title'}}}}}, () => {
+        init({ resStore: { dev: { translation: { panel: { title: 'This is a title' } } } } }, () => {
             let reactComponent, domNode;
             const title = 'panel.title';
             before(() => {

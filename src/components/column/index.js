@@ -1,6 +1,7 @@
 // see http://www.getmdl.io/components/index.html#layout-section/grid
 //dependencies
 import React, {Component, PropTypes} from 'react';
+import filterProps from '../../utils/filter-html-attributes';
 
 /**
  * Column component.
@@ -14,7 +15,7 @@ function _className(className, size) {
 function Column({size, className, children, ...otherProps}) {
 
     return(
-        <div className={_className(className, size) } {...otherProps}>
+        <div className={_className(className, size) } {...filterProps(otherProps)}>
             {children}
         </div>
     );

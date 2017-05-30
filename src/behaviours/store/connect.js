@@ -1,4 +1,4 @@
-import {isArray, isFunction, isObject} from 'lodash/lang';
+import {isArray, isFunction} from 'lodash/lang';
 import {capitalize} from 'lodash/string'
 import {keys} from 'lodash/object';
 import React, {Component} from 'react';
@@ -8,14 +8,14 @@ import React, {Component} from 'react';
 // - Provide a function to read state from your store
 export default function connectToStores(storesConfiguration, getState) {
     // Validate the stores object
-    if(!isArray(storesConfiguration)) {
+    if (!isArray(storesConfiguration)) {
         throw new Error('connectToStores: you need to provide an array of store config.');
     }
 
     // Validate .
-    if(!isFunction(getState)) {
+    if (!isFunction(getState)) {
         throw new Error('connectToStores: you need to provide function to read state from store.');
-    }
+    } 
     // Return a wrapper function around the component
     return function connectComponent(DecoratedComponent) {
 
@@ -38,7 +38,7 @@ export default function connectToStores(storesConfiguration, getState) {
                 storesConfiguration.forEach(storeConf => {
                     const {properties, store} = storeConf;
                     properties.forEach((property) => {
-                        if(!store || !store.definition || !store.definition[property]) {
+                        if (!store || !store.definition || !store.definition[property]) {
                             console.warn(`
                                 StoreConnector ${displayName}:
                                     You add a property : ${property} in your store configuration which is not in your definition : ${keys(store.definition)}
@@ -53,36 +53,36 @@ export default function connectToStores(storesConfiguration, getState) {
 
             // When a component will receive a new props.
             componentWillReceiveProps(nextProps) {
-				this.updateState(nextProps);
+                this.updateState(nextProps);
             }
 
             // Component unmount.
             componentWillUnmount() {
-   				this._isMounted = false;
+                this._isMounted = false;
                 storesConfiguration.forEach(storeConf => {
                     const {properties, store} = storeConf;
                     properties.forEach((property) => {
                         const capitalizedProperty = capitalize(property);
-                        storeConf.store[`remove${capitalizedProperty}ChangeListener`](this.handleStoresChanged);
-                        storeConf.store[`remove${capitalizedProperty}ErrorListener`](this.handleStoresChanged);
+                        store[`remove${capitalizedProperty}ChangeListener`](this.handleStoresChanged);
+                        store[`remove${capitalizedProperty}ErrorListener`](this.handleStoresChanged);
                     });
                 });
             }
 
-			componentDidMount(){
-				this._isMounted = true;
-				this.updateState(this.props);
-			}
+            componentDidMount() {
+                this._isMounted = true;
+                this.updateState(this.props);
+            }
 
-			updateState(props){
-				if(this._isMounted){
-					this.setState(getState(this.props));
-				}
-			}
+            updateState(props) { 
+                if (this._isMounted) {
+                    this.setState(getState(props));
+                }
+            }
 
             //Handle the store changes
             handleStoresChanged = () => {
-				this.updateState(this.props);
+                this.updateState(this.props);
             };
 
             // Render the component with only props, some from the real props some from the state

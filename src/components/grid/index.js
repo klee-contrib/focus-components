@@ -1,6 +1,7 @@
 // see http://www.getmdl.io/components/index.html#layout-section/grid
 //dependencies
 import React, {Component, PropTypes} from 'react';
+import filterProps from '../../utils/filter-html-attributes';
 
 /**
  * Grid component.
@@ -8,7 +9,7 @@ import React, {Component, PropTypes} from 'react';
 
  function Grid({children, className, ...otherProps}) {
      return (
-         <div className={`mdl-grid ${className ? className : ''}`} {...otherProps}>
+         <div className={`mdl-grid ${className ? className : ''}`} {...filterProps(otherProps)}>
              {children}
          </div>
      );

@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import {identity} from 'lodash/utility';
 import ComponentBaseBehaviour from '../../../behaviours/component-base';
 import MDBehaviour from '../../../behaviours/material';
+import filterProps from '../../../utils/filter-html-attributes';
 
 const propTypes = {
     cols: PropTypes.number,
@@ -68,11 +69,18 @@ class InputTextarea extends Component {
     * @override
     */
     render() {
-        const { autoFocus, disabled, formatter, maxLength, onFocus, onClick, onKeyPress, error, name, placeholder, style, value: rawValue, size, type} = this.props;
-        const value = formatter(rawValue);
+        const validInputProps = filterProps(this.props);
+
+        const {formatter, error} = this.props;
+        const {name, style, placeholder, value} = validInputProps;
+
         const pattern = error ? 'hasError' : null; //add pattern to overide mdl error style when displaying an focus error.
-        const inputProps =  { autoFocus, disabled, onKeyPress, maxLength, onFocus, onClick, id: name, onChange: this._handleInputChange, pattern, size, type, value: value === undefined || value === null ? '' : value };
         const mdlClasses = `mdl-textfield mdl-js-textfield${error ? ' is-invalid' : ''}`;
+
+        validInputProps.value = formatter(value) === undefined || formatter(value) === null ? '' : formatter(value);
+        validInputProps.onChange = this._handleInputChange 
+        const inputProps = {...validInputProps, pattern};
+
         return (
             <div data-error={!!error} data-focus='input-textarea'>
                 <div className={mdlClasses} ref='inputTextarea' style={style}>

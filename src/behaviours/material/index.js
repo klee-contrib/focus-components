@@ -23,9 +23,9 @@ const Material = (ref, jsClass, watchedProp) => Component => class MaterialCompo
     }
 
     componentWillReceiveProps(nextProps) {
-        watchedProp = watchedProp || 'error';
-        const newWatchedProp = nextProps[watchedProp];
-        if (newWatchedProp !== this.props[watchedProp]) {
+        const propName = watchedProp || 'error';
+        const newWatchedProp = nextProps[propName];
+        if (newWatchedProp !== this.props[propName] || ((this.props.placeholder || nextProps.placeholder) && this.props.value !== nextProps.value)) {
             const refNode = ReactDOM.findDOMNode(this.refs[ref]);
             componentHandler.upgradeElement(refNode, jsClass);
         }

@@ -1,11 +1,10 @@
 
 //var SelectionList = Focus.components.list.selection.list.component;
 import builder from 'focus-core/component/builder';
-let React = require('react');
+import React from 'react';
 import type from 'focus-core/component/types';
-let assign = require('object-assign');
-let omit = require('lodash/object/omit');
-let memoryMixin = require('../../list/mixin/memory-scroll');
+import {omit} from 'lodash';
+import memoryMixin from '../../list/mixin/memory-scroll';
 
 let MemoryListMixin = {
     mixins: [memoryMixin],
@@ -16,9 +15,9 @@ let MemoryListMixin = {
 
     /** @inheritdoc */
     render: function renderFormList() {
-        var data = this.props.data || [];
-        var hasMoreData = data.length > this.state.maxElements;
-        var childProps = omit(this.props, ['lineComponent', 'data']);
+        let data = this.props.data || [];
+        let hasMoreData = data.length > this.state.maxElements;
+        let childProps = omit(this.props, ['lineComponent', 'data']);
         return (
             <this.props.listComponent
                 ref='list'
@@ -30,9 +29,16 @@ let MemoryListMixin = {
                 fetchNextPage={this.fetchNextPage}
                 reference={this.getReference()}
                 {...childProps}
-                />
+            />
         );
     }
 };
 
-module.exports = builder(MemoryListMixin);
+const builtComp = builder(MemoryListMixin);
+const {component, mixin} = builtComp;
+
+export {
+    component,
+    mixin
+}
+export default builtComp;

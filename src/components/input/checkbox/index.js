@@ -2,6 +2,7 @@ import React, {Component, PropTypes} from 'react';
 import ReactDOM from 'react-dom';
 import Translation from '../../../behaviours/translation';
 import Material from '../../../behaviours/material';
+import filterProps from '../../../utils/filter-html-attributes';
 
 const propTypes = {
     label: PropTypes.string,
@@ -20,6 +21,11 @@ const displayName = 'InputCheckBox';
 @Translation
 @Material('mdlHolder')
 class InputCheckBox extends Component {
+    constructor(props) {
+        super(props);
+        this.handleOnChange = this.handleOnChange.bind(this);
+    } 
+
     getValue = () => {
         const domElement = ReactDOM.findDOMNode(this.refs.checkbox);
         return domElement.checked;
@@ -34,20 +40,27 @@ class InputCheckBox extends Component {
         }
     }
 
-    handleOnChange({target: {checked}}) {
+    handleOnChange = ({target: {checked}}) => {
         const {onChange} = this.props;
         onChange(checked);
     }
 
     render() {
+        const validInputProps = filterProps(this.props);
+
         const {label, value, disabled} = this.props;
+
+        validInputProps.onChange = this.handleOnChange;
+        const inputProps = {...validInputProps, type: 'checkbox', disabled, checked: value, className: 'mdl-checkbox__input'};
+        delete inputProps.value;
+
         return (
-          <div data-focus='input-checkbox-container'>
-            <label className={'mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect'} data-focus='input-checkbox' ref='mdlHolder'>
-                <input checked={value} className='mdl-checkbox__input' disabled={disabled} onChange={::this.handleOnChange} ref='checkbox' type='checkbox'/>
-                {label && <span className='mdl-checkbox__label'>{this.i18n(label)}</span>}
-            </label>
-          </div>
+            <div data-focus='input-checkbox-container'>
+                <label className={'mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect'} data-focus='input-checkbox' ref='mdlHolder'>
+                    <input ref='checkbox' {...inputProps}/>
+                    {label && <span className='mdl-checkbox__label'>{this.i18n(label)}</span>}
+                </label>
+            </div>
         );
     }
 }

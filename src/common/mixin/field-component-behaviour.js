@@ -1,15 +1,40 @@
 import assign from 'object-assign';
-import {isUndefined, isObject} from 'lodash/lang';
+import {isUndefined, isObject} from 'lodash';
 /**
- * Identity function
- * @param  {object} d - data to treat.
- * @return {object}  - The same object.
- */
+* Identity function
+* @param  {object} d - data to treat.
+* @return {object}  - The same object.
+*/
 function identity(d) {
     return d;
 }
 
 const fieldBehaviourMixin = {
+    _modifiedFields: [],
+    _defaultOnChange(fieldname, value) {
+        this.setState({
+            [fieldname]: value
+        })
+    },
+    _buildResetState() {
+        if (this.buildResetState) {
+            return this.buildResetState(this._modifiedFields);
+        }
+        return this._modifiedFields.reduce((acc, value) => {
+            acc[value] = null;
+            return acc;
+        }, {});
+    },
+    _wrappedOnChange(onChange, fieldname, value) {
+        if (this._modifiedFields.indexOf(fieldname) === -1) {
+            this._modifiedFields.push(fieldname);
+        }
+        if (onChange) {
+            onChange(value);
+        } else {
+            this._defaultOnChange(fieldname, value);
+        }
+    },
     /**
     * Build the field properties.
     * @param {string} name - property name.
@@ -26,14 +51,15 @@ const fieldBehaviourMixin = {
         const listName = options.listName || def.listName;
         //hasLabel
         const hasLabel = (function hasLabel() {
-            if(options.hasLabel !== undefined) {
+            if (options.hasLabel !== undefined) {
                 return options.hasLabel;
             }
-            if(def.hasLabel !== undefined) {
+            if (def.hasLabel !== undefined) {
                 return options.hasLabel;
             } return true;
-        }());
+        } ());
         //Build a container for the props.
+        const baseName = name;
         name = options.name || `${this.definitionPath}.${name}`;
         const propsContainer = {
             name: name,
@@ -44,14 +70,15 @@ const fieldBehaviourMixin = {
             error: context.state.error ? context.state.error[name] : undefined,
             locale: def.locale,
             format: def.format,
+            onChange: (value) => this._wrappedOnChange(options.onChange, baseName, value),
             //Mode
             isEdit: isEdit,
             hasLabel: hasLabel,
             isRequired: (!isUndefined(options.isRequired) && options.isRequired) || def.isRequired || def.required, //legacy on required on model generation.
             //Style
             style: options.style,
-			// Type
-			                                                type: def.type,
+            // Type
+            type: def.type,
             //Methods
             validator: def.validator,
             formatter: def.formatter || identity,
@@ -74,8 +101,8 @@ const fieldBehaviourMixin = {
         const refContainer = options.refContainer || def.refContainer || context.state.reference;
 
         // case no props.values and then
-        if(!(options.hasOwnProperty('values')) && isObject(refContainer) && refContainer.hasOwnProperty(listName)) {
-            assign(fieldProps, {values: refContainer[listName] || [] });
+        if (!(options.hasOwnProperty('values')) && isObject(refContainer) && refContainer.hasOwnProperty(listName)) {
+            assign(fieldProps, { values: refContainer[listName] || [] });
         }
         return fieldProps;
     }

@@ -1,22 +1,18 @@
 // Dependencies
-const React = require('react');
-import {checkIsNotNull} from 'focus-core/util/object';
+import React from 'react';
 import builder from 'focus-core/component/builder';
 import types from 'focus-core/component/types';
-const find = require('lodash/collection/find');
-const {omit} = require('lodash/object');
-const {isArray} = require('lodash/lang');
-import {clone} from 'lodash/lang';
-import {reduce} from 'lodash/collection';
+
+import { reduce, isArray, find } from 'lodash';
 
 //Add a ref to the props if the component is not pure add nothing in the other case.
-import {addRefToPropsIfNotPure, LINE} from '../../utils/is-react-class-component';
+import { addRefToPropsIfNotPure, LINE } from '../../utils/is-react-class-component';
 
+import {translate} from 'focus-core/translation';
 // Mixins
 
-const translationMixin = require('../../common/i18n').mixin;
-const infiniteScrollMixin = require('../mixin/infinite-scroll').mixin;
-const referenceMixin = require('../../common/mixin/reference-property');
+import {mixin as infiniteScrollMixin} from '../mixin/infinite-scroll';
+import referenceMixin from '../../common/mixin/reference-property';
 
 // Components
 
@@ -31,7 +27,7 @@ const listMixin = {
     /**
     * Mixin dependancies.
     */
-    mixins: [translationMixin, infiniteScrollMixin, referenceMixin],
+    mixins: [infiniteScrollMixin, referenceMixin],
 
     /**
     * Default properties for the list.
@@ -75,14 +71,14 @@ const listMixin = {
     },
 
     componentWillReceiveProps({selectionStatus, data}) {
-        switch(selectionStatus) {
+        switch (selectionStatus) {
             case 'none':
-                this.setState({selectedItems: new Map()});
+                this.setState({ selectedItems: new Map() });
                 break;
             case 'selected':
                 let selectedItems = new Map();
-                data.forEach(item => {selectedItems.set(JSON.stringify(item), item)});
-                this.setState({selectedItems});
+                data.forEach(item => { selectedItems.set(JSON.stringify(item), item) });
+                this.setState({ selectedItems });
                 break;
         }
     },
@@ -121,7 +117,7 @@ const listMixin = {
         newSelectedItems.set(JSON.stringify(data), isSelected);
 
 
-        this.setState({selectedItems: newSelectedItems}, () => {
+        this.setState({ selectedItems: newSelectedItems }, () => {
             if (this.props.onSelection) {
                 this.props.onSelection(data, isSelected);
             }
@@ -135,7 +131,7 @@ const listMixin = {
     */
     _renderLines() {
         const {data, LineComponent: Line, selectionData, idField, selectionStatus, ...otherProps} = this.props;
-        if(selectionData && selectionData.length > 0) {
+        if (selectionData && selectionData.length > 0) {
             console.warn('[DEPRECATED] You are using \'selectionData\' prop which is now DEPRECATED. Please use \'selectionnableInitializer\' on line component.');
         }
         // LEGACY CODE
@@ -145,18 +141,18 @@ const listMixin = {
         }
         const FinalLineComponent = customLineComponent || Line;
         // END OF LEGACY CODE
-        if(!isArray(data)) {
+        if (!isArray(data)) {
             console.error(
                 'List: Lines: it seems data is not an array, please check the value in your store, it could also be related to your action in case of a load (have a look to shouldDumpStoreOnActionCall option).'
             );
         }
         return data.map((line, idx) => {
             let isSelected;
-            const selection = find(selectionData, {[idField]: line[idField]});
+            const selection = find(selectionData, { [idField]: line[idField] });
             if (selection) {
                 isSelected = selection.isSelected;
             } else {
-                switch(selectionStatus) {
+                switch (selectionStatus) {
                     case 'none':
                         isSelected = false;
                         break;
@@ -172,13 +168,13 @@ const listMixin = {
             }
             const listFinalProps = addRefToPropsIfNotPure(
                 FinalLineComponent, {
-                ...otherProps,
-                data: line,
-                isSelected,
-                key: line[idField] || idx,
-                onSelection: this._handleLineSelection,
-                reference: this._getReference()
-            }, `${LINE}${idx}`);
+                    ...otherProps,
+                    data: line,
+                    isSelected,
+                    key: line[idField] || idx,
+                    onSelection: this._handleLineSelection,
+                    reference: this._getReference()
+                }, `${LINE}${idx}`);
             return <FinalLineComponent {...listFinalProps} />;
         });
     },
@@ -188,12 +184,12 @@ const listMixin = {
     */
     _renderLoading() {
         const {isLoading, loader} = this.props;
-        if(isLoading) {
-            if(loader) {
+        if (isLoading) {
+            if (loader) {
                 return loader();
             }
             return (
-                <li className='sl-loading'>{this.i18n('list.loading')} ...</li>
+                <li className='sl-loading'>{translate('list.loading')} ...</li>
             );
         }
     },
@@ -203,8 +199,8 @@ const listMixin = {
     */
     _renderManualFetch() {
         const {isManualFetch, hasMoreData} = this.props;
-        if(isManualFetch && hasMoreData) {
-            const style = {className: 'primary'};
+        if (isManualFetch && hasMoreData) {
+            const style = { className: 'primary' };
             return (
                 <li className='sl-button'>
                     <Button
@@ -212,7 +208,7 @@ const listMixin = {
                         label='list.button.showMore'
                         style={style}
                         type='button'
-                        />
+                    />
                 </li>
             );
         }
@@ -238,4 +234,11 @@ const listMixin = {
     }
 };
 
-module.exports = builder(listMixin);
+const builtComp = builder(listMixin);
+const {component, mixin} = builtComp;
+
+export {
+    component,
+    mixin
+}
+export default builtComp;

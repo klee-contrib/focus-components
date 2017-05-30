@@ -48,7 +48,7 @@ const changeBehaviourMixin = {
         }
         //If there is no callerId in the event, the display message does not have any sens.
         //Other component responding to the store property change does not need to react on it.
-        if(changeInfos && changeInfos.informations && changeInfos.informations.callerId && this._identifier === changeInfos.informations.callerId) {
+        if (changeInfos && changeInfos.informations && changeInfos.informations.callerId && this._identifier === changeInfos.informations.callerId) {
             return this._displayMessageOnChange(changeInfos);
         }
 
@@ -70,7 +70,7 @@ const changeBehaviourMixin = {
     _onError: function onFormErrorHandler(changeInfos) {
         this.setState(this._getLoadingStateFromStores(), () => this._handleErrors(changeInfos)); // update errors after status
     },
-    _handleErrors(){
+    _handleErrors() {
         const errorState = this._getErrorStateFromStores();
         if (this.definitionPath) {
             // In case we have a definitionPath, we might want to trigger a setError on the corresponding field

@@ -1,8 +1,8 @@
 //dependencies
 import React, {Component, PropTypes} from 'react';
-import ReactDOM from 'react-dom';
 import ComponentBaseBehaviour from '../../../behaviours/component-base';
-import {isUndefined, isNull, isNumber} from 'lodash/lang';
+import filterProps from '../../../utils/filter-html-attributes';
+import {isUndefined, isNull} from 'lodash/lang';
 import {union} from 'lodash/array';
 const UNSELECTED_KEY = 'UNSELECTED_KEY';
 /**
@@ -12,7 +12,7 @@ const UNSELECTED_KEY = 'UNSELECTED_KEY';
 * @return {strint | number}  - The parsed value.
 */
 function _valueParser(propsValue, rawValue) {
-    if(UNSELECTED_KEY === rawValue) {
+    if (UNSELECTED_KEY === rawValue) {
         return undefined;
     }
     const {type} = this.props;
@@ -81,7 +81,7 @@ class Select extends Component {
     /** inheritdoc */
     _renderOptions({hasUndefined, labelKey, isRequired, value, values = [], valueKey, isActiveProperty, unSelectedLabel}) {
         const isRequiredAndNoValue = isRequired && (isUndefined(value) || isNull(value));
-        if(hasUndefined || isRequiredAndNoValue) {
+        if (hasUndefined || isRequiredAndNoValue) {
             values = union(
                 [{[labelKey]: this.i18n(unSelectedLabel), [valueKey]: UNSELECTED_KEY}],
                 values
@@ -102,11 +102,15 @@ class Select extends Component {
     * @override
     */
     render() {
-        const { autoFocus, error, multiple, name, placeholder, style, value, values, disabled, onChange, size } = this.props;
-        const selectProps = { autoFocus, disabled, multiple, size };
+        const {error, style} = this.props;
+        const validInputProps = filterProps(this.props);
+
+        validInputProps.onChange = this._handleSelectChange;
+        const inputProps = {...validInputProps};
+
         return (
             <div data-focus='select' ref='select' data-valid={!error} style={style}>
-                <select name={name} onChange={this._handleSelectChange} ref='htmlSelect' value={value} {...selectProps}>
+                <select ref='htmlSelect' {...inputProps}>
                     {this._renderOptions(this.props)}
                 </select>
                 {error && <div className='label-error' ref='error'>{error}</div>}

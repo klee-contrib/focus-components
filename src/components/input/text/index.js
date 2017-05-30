@@ -4,6 +4,7 @@ import ReactDOM from 'react-dom';
 import {identity} from 'lodash/utility';
 import ComponentBaseBehaviour from '../../../behaviours/component-base';
 import MDBehaviour from '../../../behaviours/material';
+import filterProps from '../../../utils/filter-html-attributes';
 const MODE = {isEdit: true};
 
 const propTypes = {
@@ -30,16 +31,16 @@ const defaultProps = {
 };
 
 /**
- * Component standing for an HTML input.
- */
+* Component standing for an HTML input.
+*/
 @MDBehaviour('inputText')
 @ComponentBaseBehaviour
 class InputText extends Component {
 
     /**
-     * Get the dom value of the component.
-     * @return {object} - The unformated dom value.
-     */
+    * Get the dom value of the component.
+    * @return {object} - The unformated dom value.
+    */
     getValue = () => {
         const {unformatter} = this.props;
         const domEl = ReactDOM.findDOMNode(this.refs.htmlInput);
@@ -54,25 +55,39 @@ class InputText extends Component {
         }
     }
     /**
-     * Handle the change on the input text, it only propagate the value.
-     * @param  {object} evt - The react DOM event.
-     * @return {object} - The function onChannge from the props, called.
-     */
+    * Handle the change on the input text, it only propagate the value.
+    * @param  {object} evt - The react DOM event.
+    * @return {object} - The function onChannge from the props, called.
+    */
     _handleInputChange = (evt) => {
         const {unformatter, onChange} = this.props;
         const {value} = evt.target;
         return onChange(unformatter(value, MODE));
     };
+
     /**
-     * @inheritdoc
-     * @override
+    * @inheritdoc
+    * @override
     */
     render() {
-        const { autoFocus, onBlur, disabled, formatter, unformatter, maxLength, onFocus, onClick, onKeyDown, onKeyPress, error, name, placeholder, style, value: rawValue, size, type} = this.props;
-        const value = formatter(rawValue, MODE);
+        const validInputProps = filterProps(this.props);
+        const { error, style } = this.props;
+        const { name, placeholder, value: valueToFormat } = validInputProps;
+
+        validInputProps.value = this.props.formatter(valueToFormat, MODE);
+        validInputProps.onChange = this._handleInputChange;
+        // To prevent regression
+        if (validInputProps.name) {
+            validInputProps.id = validInputProps.name;
+        }
+        if (validInputProps.placeholder) {
+            validInputProps.placeholder = this.i18n(validInputProps.placeholder);
+        }
         const pattern = error ? 'hasError' : null; //add pattern to overide mdl error style when displaying an focus error.
-        const inputProps =  { autoFocus, disabled, onKeyDown, onKeyPress, onBlur, maxLength, onFocus, onClick, id: name, onChange: this._handleInputChange, pattern, size, type, value: value === undefined || value === null ? '' : value};
+
+        const inputProps = {...validInputProps, pattern};
         const cssClass = `mdl-textfield mdl-js-textfield${error ? ' is-invalid' : ''}`;
+
         return (
             <div className={cssClass} data-focus='input-text' ref='inputText' style={style}>
                 <input className='mdl-textfield__input' ref='htmlInput' {...inputProps} />
