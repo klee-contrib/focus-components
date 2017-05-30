@@ -1,0 +1,72 @@
+$menu-size: 60px;
+$menu-brand-background-color: #424950;
+
+/* Transitions */
+@mixin transition() {
+    -webkit-transition: all 0.3s ease;
+    -moz-transition: all 0.3s ease;
+    transition: all 0.3s ease;
+}
+
+[data-focus="menu-left"] {
+    background: #36b7b9;
+    position: fixed;
+    z-index: 2000;
+    width: $menu-size;
+    top:0;
+    bottom: 0;
+
+    @include transition();
+
+    [data-focus="menu-brand"] {
+        text-align: center;
+        background-color: $menu-brand-background-color;
+        height: $menu-size;
+        &[data-click="true"] {
+            cursor: pointer;
+        }
+    }
+
+    [data-focus="menu-items"] {
+        padding:0;
+        margin: 0;
+        li {
+            width: $menu-size;
+            height: $menu-size;
+            line-height: $menu-size;
+            padding:0;
+            margin: 15px 0;
+            text-align: center;
+            color: white;
+
+            button.btn {
+                margin: 0;
+                padding: 0;
+                width: $menu-size;
+                height: $menu-size;
+                white-space: normal;
+                margin: 0;
+                font-weight: normal;
+                color:white;
+                &:hover {
+                    text-decoration: none;
+                }
+                i {
+                    display: block;
+                    font-size: 16pt;
+                    padding: 7px 0;
+                    margin: 0;
+                }
+                span {
+                    font-size: 9pt;
+                }
+            }
+
+            span {
+                position: relative;
+                top: -40px;
+                text-align: center;
+            }
+        }
+    }
+}

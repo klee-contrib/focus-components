@@ -1,0 +1,33 @@
+$sticky-menu-font-size: 14px;
+$sticky-menu-active-font-size: 18px;
+$sticky-menu-active-color:#36b7b9;
+
+
+[data-focus="sticky-menu"] {
+    ul {
+        margin: 0;
+        padding: 0;
+        li {
+            padding: 5px 10px;
+            margin: 15px 0;
+            color:black;
+            border-left: 5px solid transparent;
+            line-height: 20px;
+            font-size: $sticky-menu-font-size;
+            color:#848484;
+            cursor: pointer;
+            background-color: transparent;
+            transition: background-color 0.3s linear;
+            list-style: none;
+            &:hover {
+                background-color: #EAEAEA;
+            }
+
+            &[data-active="true"] {
+                border-color: $sticky-menu-active-color;
+                color: $sticky-menu-active-color;
+                font-size: $sticky-menu-active-font-size;
+            }
+        }
+    }
+}

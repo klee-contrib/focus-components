@@ -1,0 +1,20 @@
+
+[data-focus="button-action"] {
+    user-select: none;
+    transition: width 1s;
+    i {
+        margin-right: 5px;
+    }
+
+    [data-focus="button-label"], [data-focus="double-action-button-spinner"] {
+        vertical-align: middle;
+    }
+
+    [data-focus="double-action-button-spinner"] {
+        margin-left: 13px;
+    }
+}
+
+[data-saving="true"] {
+    cursor: not-allowed;
+}

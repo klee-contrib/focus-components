@@ -1,0 +1,28 @@
+
+[data-focus="input-textarea"] {
+    .mdl-textfield {
+        width: auto;
+    }
+
+    &[data-error="true"] {
+        .mdl-textfield {
+            .mdl-textfield__label:after {
+                background-color: rgb(222, 50, 38);
+            }
+            .mdl-textfield__input {
+                border-color: rgb(222, 50, 38);
+                box-shadow: none;
+            }
+        }
+        .label-error {
+            color: rgb(222, 50, 38);
+            position: absolute;
+            font-size: 12px;
+            display: block;
+        }
+    }
+}
+
+[data-focus='display-textarea'] {
+    white-space: pre-wrap;
+}

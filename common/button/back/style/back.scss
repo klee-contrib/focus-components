@@ -1,0 +1,11 @@
+$button-back-font-size:14px;
+
+[data-focus='button-back'] {
+  padding: 0;
+  i {
+    font-size: $button-back-font-size;
+  }
+  span {
+    font-size: $button-back-font-size;
+  }
+}

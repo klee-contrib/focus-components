@@ -1,0 +1,32 @@
+
+[data-focus='quick-search'] {
+    margin: 10px 0;
+    [data-focus='quick-search-bar'] {
+        padding: 10px 0;
+        margin-bottom: 20px;
+    }
+    [data-focus='quick-search-results'] {
+        padding: 10px 0;
+        margin-top: 20px;
+
+        [data-focus="group-container"] {
+            margin: 30px 0;
+            h3 {
+                font-size: 28px;
+                margin: 0;
+                line-height: 30px;
+                span:nth-child(2) {
+                    margin-left: 15px;
+                    font-size: 18px;
+                    font-weight: bold;
+                }
+            }
+            & > p {
+                margin-bottom: 8px;
+            }
+        }
+        [data-focus='loading-more-results'] {
+            padding: 15px 15px;
+        }
+    }
+}

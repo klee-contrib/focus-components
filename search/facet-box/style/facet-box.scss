@@ -1,0 +1,136 @@
+$advanced-search-facet-box-width: 275px;
+
+[data-focus='facet-box'] {
+    padding: 10px;
+    width: $advanced-search-facet-box-width;
+    background-color: #FFF;
+    box-shadow: 2px 0px 3px 0px #dadada;
+    opacity: .99;
+
+    &.collapsed {
+        width: 30px;
+        height: 100px;
+        &:before {
+            width: 95px;
+        }
+        [data-focus="facet-box-heading"] {
+            h2 {
+                border: 0;
+                &:after {
+                    content: "\E5CB";
+                }
+            }
+        }
+    }
+
+    &.expanded {
+        [data-focus="facet-box-heading"] {
+            h2 {
+                &:after {
+                    content: "\E5CC";
+                }
+            }
+        }
+    }
+
+    [data-focus="facet-box-heading"] {
+        cursor: pointer;
+        position: relative;
+        h2 {
+            font-size: 34px;
+            margin: 0;
+            padding: 15px 0;
+            border-bottom: 1px solid #e2e2e2;
+
+            &:after {
+                font-family: 'Material Icons';
+                display: inline-block;
+                vertical-align: middle;
+                position: absolute;
+                right: 0;
+                font-size: 30px;
+            }
+        }
+    }
+
+    [data-focus='facet-box-body'] {
+        [data-focus='facet'] {
+            &.facet-expanded {
+                [data-focus='facet-title'] {
+                    h3 {
+                        &:after {
+                            content: "\E15B";
+                        }
+                    }
+                }
+            }
+            &.facet-collapsed {
+                [data-focus='facet-title'] {
+                    h3 {
+                        &:after {
+                            content: "\E145";
+                        }
+                    }
+                }
+            }
+            &.facet-selected {
+                [data-focus='facet-title'] {
+                    h3 {
+                        &:after {
+                            content: "\E5CD";
+                        }
+                    }
+                }
+            }
+            [data-focus='facet-title'] {
+                padding: 10px 0;
+                cursor: pointer;
+                position: relative;
+
+                h3 {
+                    color: #36b6b8;
+                    padding: 5px 0;
+                    margin: 0;
+                    font-size: 18px;
+                    font-weight: bolder;
+                    &:after {
+                        font-family: 'Material Icons';
+                        position: absolute;
+                        right: 0;
+                        font-size: 30px;
+                    }
+                }
+            }
+            &.facet-collapsed, &.facet-selected {
+                [data-focus='facet-title'] {
+                    border-bottom: 1px solid #e2e2e2;
+                }
+            }
+            [data-focus='facet-data-list'] {
+                border-bottom: 1px solid #e2e2e2;
+                padding-bottom: 10px;
+                margin-top: -10px;
+                position: relative;
+                max-height: 300px;
+                overflow-y: auto;
+                ul {
+                    margin: 0;
+                    padding: 5px 5px 5px 15px;
+                    list-style-type: none;
+                    li {
+                        cursor: pointer;
+                        margin: 0;
+                        padding: 3px;
+                    }
+                    li:hover {
+                        color: #ffd841;
+                    }
+                }
+                [data-focus="facet-data-show-all"]{
+                    text-align: right;
+                }
+            }
+        }
+    }
+
+}
