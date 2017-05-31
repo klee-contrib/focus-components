@@ -153,7 +153,12 @@ class Button extends Component {
         // attribute doc : https://developer.mozilla.org/fr/docs/Web/HTML/Element/Button
         // be careful the way you declare your attribute names : https://developer.mozilla.org/fr/docs/Web/HTML/Element/Button
         const {className, disabled, formNoValidate, handleOnClick, icon, id, onClick, type, label, style, hasRipple, isJs, iconLibrary, isLoading, ...rest} = this.props;
-        const otherInputProps = filterProps({ disabled, formNoValidate, onClick: event => this._wrappedOnClick(event, handleOnClick ? handleOnClick : onClick), style, type, ...rest }); //on click for legacy. Remove handleOnClick in v2
+        const onClickFunc = handleOnClick ? handleOnClick : onClick;
+        const otherInputProps = filterProps({ disabled, formNoValidate, style, type, ...rest }); //on click for legacy. Remove handleOnClick in v2
+
+        if (onClickFunc) {
+            otherInputProps.onClick = event => this._wrappedOnClick(event, onClickFunc);
+        }
         const renderedClassName = `${className ? className : ''} ${::this._getComponentClassName()}`.trim();
         return (
             <button alt={this.i18n(label)} className={renderedClassName} data-focus='button-action' data-saving={isLoading} id={id} disabled={isLoading} title={this.i18n(label)} {...otherInputProps} ref='materialButton'>
