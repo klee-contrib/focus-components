@@ -4059,7 +4059,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	            handleOnClick = _props4.handleOnClick,
 	            icon = _props4.icon,
 	            id = _props4.id,
-	            _onClick = _props4.onClick,
+	            onClick = _props4.onClick,
 	            type = _props4.type,
 	            label = _props4.label,
 	            style = _props4.style,
@@ -4070,9 +4070,14 @@ return /******/ (function(modules) { // webpackBootstrap
 	            isLoading = _props4.isLoading,
 	            rest = _objectWithoutProperties(_props4, ['className', 'disabled', 'formNoValidate', 'handleOnClick', 'icon', 'id', 'onClick', 'type', 'label', 'style', 'hasRipple', 'isJs', 'iconLibrary', 'noAltAndNoTitle', 'isLoading']);
 	
-	        var otherInputProps = (0, _filterHtmlAttributes2.default)(_extends({ disabled: disabled, formNoValidate: formNoValidate, onClick: function onClick(event) {
-	                return _this2._wrappedOnClick(event, handleOnClick ? handleOnClick : _onClick);
-	            }, style: style, type: type }, rest)); //on click for legacy. Remove handleOnClick in v2
+	        var onClickFunc = handleOnClick ? handleOnClick : onClick;
+	        var otherInputProps = (0, _filterHtmlAttributes2.default)(_extends({ disabled: disabled, formNoValidate: formNoValidate, style: style, type: type }, rest)); //on click for legacy. Remove handleOnClick in v2
+	
+	        if (onClickFunc) {
+	            otherInputProps.onClick = function (event) {
+	                return _this2._wrappedOnClick(event, onClickFunc);
+	            };
+	        }
 	        var renderedClassName = ((className ? className : '') + ' ' + this._getComponentClassName.call(this)).trim();
 	        if (noAltAndNoTitle) {
 	            var _extends2;
@@ -66059,7 +66064,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	module.exports = {
 		"name": "focus-components",
-		"version": "2.1.7",
+		"version": "2.1.7-1",
 		"description": "Focus component repository.",
 		"main": "index.js",
 		"scripts": {
