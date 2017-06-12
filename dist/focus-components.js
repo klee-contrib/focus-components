@@ -70106,6 +70106,10 @@ return /******/ (function(modules) { // webpackBootstrap
 	        //Build a container for the props.
 	        var baseName = name;
 	        name = options.name || this.definitionPath + '.' + name;
+	        var onChange = function onChange(value) {
+	            return _this._wrappedOnChange(options.onChange || (options.options || {}).onChange || def.onChange, baseName, value);
+	        };
+	
 	        var propsContainer = {
 	            name: name,
 	            label: def.label || options.label || name,
@@ -70115,9 +70119,6 @@ return /******/ (function(modules) { // webpackBootstrap
 	            error: context.state.error ? context.state.error[name] : undefined,
 	            locale: def.locale,
 	            format: def.format,
-	            onChange: function onChange(value) {
-	                return _this._wrappedOnChange(options.onChange, baseName, value);
-	            },
 	            //Mode
 	            isEdit: isEdit,
 	            hasLabel: hasLabel,
@@ -70144,9 +70145,11 @@ return /******/ (function(modules) { // webpackBootstrap
 	        };
 	        //Extend the options object in order to be able to specify more options to thie son's component.
 	        var fieldProps = (0, _objectAssign2.default)(propsContainer, options, options.options || def.options);
+	        // Forcing the use of the wrapper for onChange
+	        fieldProps.onChange = onChange;
+	
 	        // Values list.
 	        var refContainer = options.refContainer || def.refContainer || context.state.reference;
-	
 	        // case no props.values and then
 	        if (!options.hasOwnProperty('values') && (0, _lodash.isObject)(refContainer) && refContainer.hasOwnProperty(listName)) {
 	            (0, _objectAssign2.default)(fieldProps, { values: refContainer[listName] || [] });
