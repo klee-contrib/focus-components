@@ -20740,7 +20740,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    * @private
 	    */
 	    _restoreBodyOverflow: function _restoreBodyOverflow() {
-	        document.body.style['overflow-y'] = 'auto';
+	        document.body.style['overflow-y'] = 'visible';
 	    },
 	
 	    /**
