@@ -31,7 +31,7 @@ const Overlay = React.createClass({
     * @private
     */
     _restoreBodyOverflow() {
-        document.body.style['overflow-y'] = 'auto';
+        document.body.style['overflow-y'] = 'visible';
     },
     /**
     * Component will unmount event handler.
