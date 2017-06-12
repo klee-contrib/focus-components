@@ -61,6 +61,8 @@ const fieldBehaviourMixin = {
         //Build a container for the props.
         const baseName = name;
         name = options.name || `${this.definitionPath}.${name}`;
+        const onChange = (value) => this._wrappedOnChange(options.onChange || (options.options || {}).onChange || def.onChange, baseName, value);
+
         const propsContainer = {
             name: name,
             label: def.label || options.label || name,
@@ -70,7 +72,6 @@ const fieldBehaviourMixin = {
             error: context.state.error ? context.state.error[name] : undefined,
             locale: def.locale,
             format: def.format,
-            onChange: (value) => this._wrappedOnChange(options.onChange, baseName, value),
             //Mode
             isEdit: isEdit,
             hasLabel: hasLabel,
@@ -97,9 +98,11 @@ const fieldBehaviourMixin = {
         };
         //Extend the options object in order to be able to specify more options to thie son's component.
         let fieldProps = assign(propsContainer, options, options.options || def.options);
+        // Forcing the use of the wrapper for onChange
+        fieldProps.onChange = onChange;
+
         // Values list.
         const refContainer = options.refContainer || def.refContainer || context.state.reference;
-
         // case no props.values and then
         if (!(options.hasOwnProperty('values')) && isObject(refContainer) && refContainer.hasOwnProperty(listName)) {
             assign(fieldProps, { values: refContainer[listName] || [] });
