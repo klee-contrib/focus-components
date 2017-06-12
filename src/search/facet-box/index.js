@@ -50,7 +50,7 @@ let FacetBox = {
     getInitialState: function () {
         let openedFacetList = this.props.openedFacetList;
         if (Object.keys(openedFacetList).length == 0) {
-            this._generateOpenedFacetList(this.props.facetList);
+            openedFacetList = this._generateOpenedFacetList(this.props.facetList);
         }
         return {
             isExpanded: true,
