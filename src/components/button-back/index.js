@@ -6,10 +6,14 @@ const propTypes = {
     back: PropTypes.func
 };
 
+const defaultProps = {
+    back: defaultBack
+};
+
 function ButtonBack({back}) {
     return (
         <Button
-            handleOnClick={back || defaultBack}
+            handleOnClick={back}
             icon='keyboard_backspace'
             label='button.back'
             shape={null}
@@ -19,5 +23,5 @@ function ButtonBack({back}) {
 }
 
 ButtonBack.propTypes = propTypes;
-
+ButtonBack.defaultProps = defaultProps;
 export default ButtonBack;

@@ -1,4 +1,4 @@
-import React, {Component, PropTypes} from 'react';
+import React, { PropTypes } from 'react';
 import filterProps from '../../utils/filter-html-attributes';
 
 function Icon({name, library, onClick, style}) {
@@ -6,8 +6,7 @@ function Icon({name, library, onClick, style}) {
         case 'material':
             return <i className='material-icons' onClick={onClick} {...filterProps(style)}>{name}</i>;
         case 'font-awesome':
-            const faCss = `fa fa-${name}`;
-            return <i className={faCss} onClick={onClick} {...filterProps(style)} />;
+            return <i className={`fa fa-${name}`} onClick={onClick} {...filterProps(style)} />;
         case 'font-custom':
             return <span className={`icon-${name}`} {...filterProps(style)}/>;
         default:
@@ -26,4 +25,4 @@ Icon.propTypes = {
     name: PropTypes.string
 };
 
-module.exports = Icon;
+export default Icon;
