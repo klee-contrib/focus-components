@@ -147,4 +147,4 @@ const changeBehaviourMixin = {
 
     }
 };
-module.exports = changeBehaviourMixin;
+export default changeBehaviourMixin;

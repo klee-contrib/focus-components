@@ -1,13 +1,13 @@
 import assign from 'object-assign';
-import { isObject, isArray, keys, capitalize, defaultsDeep, pick } from 'lodash';
+import {isObject, isArray, keys, capitalize, defaultsDeep, findIndex, pick} from 'lodash';
 import storeChangeBehaviour from './store-change-behaviour';
 
 const storeMixin = {
     mixins: [storeChangeBehaviour],
-    /**
-     * Get the state informations from the store.
-     * @returns {object} - The js object constructed from store data.
-     */
+  /**
+   * Get the state informations from the store.
+   * @returns {object} - The js object constructed from store data.
+   */
     _getStateFromStores: function formGetStateFromStore(filterNodes = []) {
         if (this.getStateFromStore) {
             return this.getStateFromStore();
@@ -48,8 +48,8 @@ const storeMixin = {
             return this.getErrorStateFromStore();
         }
         let newState = {};
-        this.stores.map(storeConf => {
-            storeConf.properties.map(property => {
+        this.stores.map( storeConf => {
+            storeConf.properties.map( property => {
                 let errorState = storeConf.store[`getError${capitalize(property)}`]();
                 for (let prop in errorState) {
                     newState[`${property}.${prop}`] = errorState[prop];
@@ -58,9 +58,9 @@ const storeMixin = {
         });
         return newState;
     },
-    /**
-     * Get the isLoading state from  all the store.
-     */
+  /**
+   * Get the isLoading state from  all the store.
+   */
     _getLoadingStateFromStores: function getLoadingStateFromStores() {
         if (this.getLoadingStateFromStores) {
             return this.getLoadingStateFromStores();
@@ -76,41 +76,41 @@ const storeMixin = {
                 });
             }
         });
-        //console.info('Processing state', this.stores, 'loading', isLoading);
-        return { isLoading: isLoading };
+    //console.info('Processing state', this.stores, 'loading', isLoading);
+        return {isLoading: isLoading};
     },
-    /**
-     * Compute the data given from the stores.
-     * @param {object} data -  The data ordered by store.
-     * @returns {object} - The js object transformed from store data.
-     */
+  /**
+   * Compute the data given from the stores.
+   * @param {object} data -  The data ordered by store.
+   * @returns {object} - The js object transformed from store data.
+   */
     _computeEntityFromStoresData: function _computeEntityFromStoresData(data) {
         if (this.computeEntityFromStoresData) {
             return this.computeEntityFromStoresData(data);
         }
-        let entity = { reference: {} };
+        let entity = {reference: {}};
         for (let key in data) {
-            if (this.referenceNames && this.referenceNames.indexOf(key) !== -1) {
+            if (this.referenceNames && this.referenceNames.indexOf(key) !== -1 ) {
                 entity.reference[key] = data[key];
             } else {
                 let d = data[key];
                 if (isArray(d) || !isObject(d)) {
-                    d = { [key]: d };
+                    d = {[key]: d};
                 }
                 assign(entity, d);
             }
         }
         return entity;
     },
-    /**
-     * Register all the listeners related to the page.
-     */
+  /**
+   * Register all the listeners related to the page.
+   */
     _registerListeners: function registerStoreListeners() {
         if (this.stores) {
             this.stores.map((storeConf) => {
                 storeConf.properties.map((property) => {
                     if (!storeConf.store || !storeConf.store.definition || !storeConf.store.definition[property]) {
-                        console.warn(`You add a property : ${property} in your store which is not in your definition : ${keys(storeConf.store.definition)}`);
+                        throw new Error(`You add a property : ${property} in your store subscription for ${storeConf.store.name || storeConf.store.identifier} which is not in your definition : ${keys(storeConf.store.definition)}`);
                     }
                     storeConf.store[`add${capitalize(property)}ChangeListener`](this._onChange);
                     storeConf.store[`add${capitalize(property)}ErrorListener`](this._onError);
@@ -119,9 +119,9 @@ const storeMixin = {
             });
         }
     },
-    /**
-    * Unregister all the listeners related to the page.
-    */
+  /**
+  * Unregister all the listeners related to the page.
+  */
     _unRegisterListeners: function unregisterListener() {
         if (this.stores) {
             this.stores.map((storeConf) => {
@@ -133,16 +133,68 @@ const storeMixin = {
             });
         }
     },
-    /** @inheritdoc */
+    addStoreSub(store, property) {
+        if (!this.stores) {
+            this.stores = [];
+        }
+
+        const storeIndex = findIndex(this.stores, elt => elt.store === store);
+        const existingConf = storeIndex === -1 ? null : this.stores[storeIndex];
+
+        if (existingConf && existingConf.properties.indexOf(property) !== -1) {
+            return ;
+        }
+        if (!store || !store.definition || !store.definition[property]) {
+            throw new Error(`You add a property : ${property} in your store subscription for ${store.name || store.identifier} which is not in your definition : ${keys(store.definition)}`);
+        }
+        store[`add${capitalize(property)}ChangeListener`](this._onChange);
+        store[`add${capitalize(property)}ErrorListener`](this._onError);
+        store[`add${capitalize(property)}StatusListener`](this._onStatus);
+
+        if (existingConf) {
+            existingConf.properties.push(property);
+        } else {
+            this.stores.push({
+                store,
+                properties: [property]
+            });
+        }
+    },
+    removeStoreSub(store, property) {
+        if (!this.stores) {
+            this.stores = [];
+        }
+        const storeIndex = findIndex(this.stores, elt => elt.store === store);
+        if (storeIndex === -1) {
+            return ;
+        }
+        const existingConf = this.stores[storeIndex];
+        const propertyIndex = existingConf.properties.indexOf(property);
+        if (propertyIndex === -1) {
+            return ;
+        }
+        if (!store || !store.definition || !store.definition[property]) {
+            throw new Error(`You remove a property : ${property} in your store subscription for ${store.name || store.identifier} which is not in your definition : ${keys(store.definition)}`);
+        }
+        store[`remove${capitalize(property)}ChangeListener`](this._onChange); 
+        store[`remove${capitalize(property)}ErrorListener`](this._onError);
+        store[`remove${capitalize(property)}StatusListener`](this._onStatus);
+
+        existingConf.properties.splice(propertyIndex, 1);
+        if (existingConf.properties.length === 0) {
+            this.stores.splice(storeIndex, 1);
+        } 
+    },
+  /** @inheritdoc */
     componentWillMount: function storeBehaviourWillMount() {
-        //These listeners are registered before the mounting because they are not correlated to the DOM.
-        //Build the definitions.
+    //These listeners are registered before the mounting because they are not correlated to the DOM.
+    //Build the definitions.
         this._registerListeners();
     },
-    /** @inheritdoc */
+  /** @inheritdoc */
     componentWillUnmount: function storeBehaviourWillUnmount() {
         this._unRegisterListeners();
     }
 };
 
-module.exports = storeMixin;
+export default storeMixin;
