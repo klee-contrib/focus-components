@@ -59,7 +59,7 @@ export default {
         }
     },
     _SearchBarComponent() {
-        const { helpTranslationPath, minChar, onSearchCriteriaChangeByUser, placeholder, store, scopeName } = this.props;
+        const { helpTranslationPath, minChar, onSearchCriteriaChangeByUser, placeholder, store, scopeName, keepProperties } = this.props;
         const { isLoading, reference: { [scopeName ? scopeName : 'scopes']: datalist } } = this.state;
         return (
             <SearchBar
@@ -72,6 +72,7 @@ export default {
                 scopes={datalist}
                 store={store}
                 onSearchCriteriaChangeByUser={onSearchCriteriaChangeByUser}
+                keepProperties={keepProperties}
             />
         );
     }

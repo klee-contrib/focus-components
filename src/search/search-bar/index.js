@@ -35,7 +35,12 @@ const SearchBar = {
             identifier: undefined,
             store: undefined,
             action: undefined,
-            onSearchCriteriaChangeByUser: undefined
+            onSearchCriteriaChangeByUser: undefined,
+            keepProperties: {
+                groupingKey: false,
+                sortBy: false,
+                sortAsc: false
+            }
         };
     },
     propTypes: {
@@ -46,7 +51,12 @@ const SearchBar = {
         placeholder: PropTypes.string,
         scopes: PropTypes.array,
         value: PropTypes.string,
-        onSearchCriteriaChangeByUser: PropTypes.func
+        onSearchCriteriaChangeByUser: PropTypes.func,
+        keepProperties: PropTypes.shape({
+            groupingKey: PropTypes.bool.isRequired,
+            sortBy: PropTypes.bool.isRequired,
+            sortAsc: PropTypes.bool.isRequired
+        })
     },
     /**
     * Get the initial state
@@ -155,19 +165,26 @@ const SearchBar = {
     */
     _onScopeSelection(scope) {
         this._focusQuery();
-        const { action, onSearchCriteriaChangeByUser } = this.props;
-        action.updateProperties({
+        const { action, onSearchCriteriaChangeByUser, keepProperties: { groupingKey, sortBy, sortAsc } } = this.props;
+        const properties = {
             scope,
-            selectedFacets: {},
-            groupingKey: undefined,
-            sortBy: undefined,
-            sortAsc: true
-        });
+            selectedFacets: {}
+        };
+        if (!groupingKey) {
+            properties.groupingKey = undefined;
+        }
+        if (!sortBy) {
+            properties.sortBy = undefined;
+        }
+        if (!sortAsc) {
+            properties.sortAsc = true;
+        }
+        action.updateProperties(properties);
         this.setState({ scope });
         if (onSearchCriteriaChangeByUser) {
             onSearchCriteriaChangeByUser();
         }
-    },
+    },  
     /**
     * Input key press handler
     * @param  {String} key pressed key
