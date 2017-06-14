@@ -1,17 +1,13 @@
-const React = require('react');
-const referenceBehaviour = require('../../../../common/form/mixin/reference-behaviour');
-const storeBehaviour = require('../../../../common/mixin/store-behaviour');
+import React from 'react';
 
-// Components
-const SearchBar = require('../../../../search/search-bar').component;
-
-// Actions
 import actionBuilder from 'focus-core/search/action-builder';
+import { advancedSearchStore } from 'focus-core/search/built-in-store';
 
-// Store
-import {advancedSearchStore} from 'focus-core/search/built-in-store';
+import { component as SearchBar } from '../../../..//search/search-bar';
+import referenceBehaviour from '../../../..//common/form/mixin/reference-behaviour';
+import storeBehaviour from '../../../..//common/mixin/store-behaviour';
 
-module.exports = {
+export default {
     mixins: [referenceBehaviour, storeBehaviour],
     referenceNames: ['scopes'],
     getDefaultProps() {
@@ -19,7 +15,8 @@ module.exports = {
             service: undefined,
             store: advancedSearchStore,
             onSearchCriteriaChange: undefined,
-            onSearchCriteriaChangeByUser: undefined
+            onSearchCriteriaChangeByUser: undefined,
+            scopeName: undefined
         };
     },
     getInitialState() {
@@ -32,24 +29,40 @@ module.exports = {
         this._action = this.props.action || actionBuilder({
             service: this.props.service,
             identifier: this.props.store.identifier,
-            getSearchOptions: () => {return this.props.store.getValue.call(this.props.store); } // Binding the store in the function call
+            getSearchOptions: () => { return this.props.store.getValue.call(this.props.store); } // Binding the store in the function call
         });
         this.props.store.addQueryChangeListener(this._onSearchCriteriaChange);
         this.props.store.addScopeChangeListener(this._onSearchCriteriaChange);
+    },
+    componentWillReceiveProps({ store, service, action }) {
+        if (store.identifier !== this.props.store.identifier) {
+            this._loadReference();
+            this._action = action || actionBuilder({
+                service: service,
+                identifier: store.identifier,
+                getSearchOptions: () => { return store.getValue.call(store); } // Binding the store in the function call
+            });
+
+            this.props.store.removeQueryChangeListener(this._onSearchCriteriaChange);
+            this.props.store.removeScopeChangeListener(this._onSearchCriteriaChange);
+
+            store.addQueryChangeListener(this._onSearchCriteriaChange);
+            store.addScopeChangeListener(this._onSearchCriteriaChange);
+        }
     },
     componentWillUnmount() {
         this.props.store.removeQueryChangeListener(this._onSearchCriteriaChange);
         this.props.store.removeScopeChangeListener(this._onSearchCriteriaChange);
     },
     _onSearchCriteriaChange() {
-        const {onSearchCriteriaChange} = this.props;
+        const { onSearchCriteriaChange } = this.props;
         if (onSearchCriteriaChange) {
             onSearchCriteriaChange();
         }
     },
     _SearchBarComponent() {
-        const {helpTranslationPath, minChar, onSearchCriteriaChangeByUser, placeholder, store} = this.props;
-        const {isLoading, reference: {scopes}} = this.state;
+        const { helpTranslationPath, minChar, onSearchCriteriaChangeByUser, placeholder, store, scopeName } = this.props;
+        const { isLoading, reference: { [scopeName ? scopeName : 'scopes']: datalist } } = this.state;
         return (
             <SearchBar
                 action={this._action}
@@ -58,9 +71,10 @@ module.exports = {
                 minChar={minChar}
                 placeholder={placeholder}
                 ref='searchBar'
-                scopes={scopes}
+                scopes={datalist}
                 store={store}
-                onSearchCriteriaChangeByUser={onSearchCriteriaChangeByUser} />
+                onSearchCriteriaChangeByUser={onSearchCriteriaChangeByUser}
+            />
         );
     }
 };
