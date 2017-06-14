@@ -38,10 +38,6 @@ const Summary = {
             scope: undefined
         });
     },
-    /** @inheritdoc */
-    componentDidMount () {
-        this._loadReference();
-    },
     /**
      * Scope click handler
      * Set the scope to ALL.
@@ -54,7 +50,7 @@ const Summary = {
         });
     },
     _getScopeLabel() {
-        if(this.state && this.state.reference.scopes) {
+        if (this.state && this.state.reference.scopes) {
             const selectedScope = this.state.reference.scopes.find(scope =>
                 scope.code === this.props.scope
             )

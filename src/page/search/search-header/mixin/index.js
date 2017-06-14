@@ -25,7 +25,6 @@ export default {
         };
     },
     componentWillMount() {
-        this._loadReference();
         this._action = this.props.action || actionBuilder({
             service: this.props.service,
             identifier: this.props.store.identifier,
@@ -36,7 +35,6 @@ export default {
     },
     componentWillReceiveProps({ store, service, action }) {
         if (store.identifier !== this.props.store.identifier) {
-            this._loadReference();
             this._action = action || actionBuilder({
                 service: service,
                 identifier: store.identifier,

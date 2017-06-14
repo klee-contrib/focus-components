@@ -61,6 +61,7 @@ const referenceMixin = {
     },
     componentWillReceiveProps({referenceNames}) {
         this._buildReference(referenceNames, this.referenceNames);
+        this._loadReference();
     },
     /**
     * Build store and actions related to the reference.
@@ -69,8 +70,9 @@ const referenceMixin = {
         this._buildReferenceStoreConfig(referenceNames, oldReferenceNames);
         this._buildReferenceActions(referenceNames);
         this.referenceNames = referenceNames;
-
-        // This should be called here
+    },
+    componentDidMount() {
+        // Calling at didMount and not willMount to be coherent with old loadReference from form
         this._loadReference();
     },
     /** @inheritdoc */

@@ -85,7 +85,6 @@ const QuickSearchComponent = {
             identifier: store.identifier,
             getSearchOptions: () => {return store.getValue.call(store); } // Binding the store in the function call
         });
-        this._loadReference();
 
         store.on('quick-search-criterias:change', this._triggerSearch);
         // store.addQueryChangeListener(this._triggerSearch);

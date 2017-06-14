@@ -60,16 +60,15 @@ let formMixin = {
     },
     componentWillReceiveProps(newProps = {}) {
         let {isEdit} = newProps;
-        if(isEdit !== undefined) {
+        if (isEdit !== undefined) { 
             this.setState({isEdit: isEdit})
         }
     },
     /** @inheritdoc */
     callMountedActions: function formCallMountedActions() {
-        if(this.props.hasLoad) {
+        if (this.props.hasLoad) {
             this._loadData();
         }
-        this._loadReference();
     },
     /** @inheritdoc */
     componentDidMount: function formDidMount() {
@@ -102,16 +101,16 @@ let formMixin = {
     _renderEditActions: function _renderEditActions() {
         return this.renderEditActions ? this.renderEditActions() : (
             <span>
-            {this.buttonSave()}
-            {this.buttonCancel()}
+                {this.buttonSave()}
+                {this.buttonCancel()}
             </span>
         );
     },
     _renderConsultActions: function _renderConsultActions() {
         return this.renderConsultActions ? this.renderConsultActions() : (
             <div>
-            {this.props.hasEdit && this.buttonEdit()}
-            {this.props.hasDelete && this.buttonDelete()}
+                {this.props.hasEdit && this.buttonEdit()}
+                {this.props.hasDelete && this.buttonDelete()}
             </div>
         );
     },
@@ -121,7 +120,7 @@ let formMixin = {
     */
     _handleSubmitForm(e) {
         e.preventDefault();
-        if(this._validate()) {
+        if (this._validate()) {
             this.action.save.call(this, this._getEntity());
         }
         //return false;
@@ -129,7 +128,7 @@ let formMixin = {
     /** @inheritdoc */
     render() {
         //console.log('state form', this.state);
-        if(this.props.hasForm) {
+        if (this.props.hasForm) {
             return (
                 <form className={this._className()} data-loading={this.state.isLoading} data-mode={this._mode()} noValidate onSubmit={this._handleSubmitForm} >
                     <fieldset>{this.renderContent()}</fieldset>
