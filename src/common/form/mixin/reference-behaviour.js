@@ -60,8 +60,10 @@ const referenceMixin = {
         }
     },
     componentWillReceiveProps({referenceNames}) {
-        this._buildReference(referenceNames, this.referenceNames);
-        this._loadReference();
+        if (referenceNames) {
+            this._buildReference(referenceNames, this.referenceNames);
+            this._loadReference();
+        }
     },
     /**
     * Build store and actions related to the reference.
