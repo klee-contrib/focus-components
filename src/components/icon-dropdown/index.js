@@ -86,7 +86,7 @@ class Dropdown extends Component {
                     />
                 {visible &&
                     <div data-focus='dropdown-menu' data-position={openDirection} ref='dropdown'>
-                        {operationList.map(({label, action}, idx) => (<div key={idx} data-role='dropdown-item' onClick={this._operationActionWrapper(action)}>{this.i18n(label)}</div>))}
+                        {operationList.map(({label, action, labelParam}, idx) => (<div key={idx} data-role='dropdown-item' onClick={this._operationActionWrapper(action)}>{this.i18n(label, labelParam)}</div>))}
                     </div>
                 }
             </div>
