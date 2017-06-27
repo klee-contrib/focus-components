@@ -35,7 +35,7 @@ class Tooltip extends PureComponent {
     buildClassname = () => {
         const {isLarge, position} = this.props;
         let tooltipLarge = isLarge === true ? ' mdl-tooltip--large' : '';
-        return `mdl-tooltip mdl-tooltip--${position}${tooltipLarge}`;
+        return ` mdl-tooltip mdl-tooltip--${position}${tooltipLarge}`;
     }
 
     render() {
