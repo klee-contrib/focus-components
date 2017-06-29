@@ -1,7 +1,6 @@
 import { isFunction } from 'lodash';
 import { setHeader } from 'focus-core/application';
 
-
 module.exports = {
 
     /**
@@ -9,9 +8,8 @@ module.exports = {
      */
     _registerCartridge(props = this.props) {
         const cartridgeConfiguration = this.cartridgeConfiguration || props.cartridgeConfiguration;
-
-        if (!isFunction(cartridgeConfiguration)) {
-            this.cartridgeConfiguration = () => ({});
+        const hasCartridge = isFunction(cartridgeConfiguration);
+        if (!hasCartridge) {
             console.warn(`
                 Your detail page does not have any cartrige configuration, this is not mandarory but recommended.
                 It should be a component attribute return by a function.
@@ -25,8 +23,8 @@ module.exports = {
                 }
             `);
         }
-
-        setHeader(cartridgeConfiguration());
+        const config = hasCartridge ? cartridgeConfiguration() : {};
+        setHeader(config);
     },
 
     /**
