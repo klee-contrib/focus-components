@@ -82,7 +82,7 @@ class Autocomplete extends Component {
         }
 
         if (this.props.clearOnNullValue && this.props.clearOnNullValue === true && value === null && this.state.inputValue !== null) {
-            this.setState({inputValue: null});
+            this.setState({inputValue: ''});
         }
     }
 
