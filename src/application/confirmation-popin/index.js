@@ -1,24 +1,42 @@
-import React from 'react';
+// Libs
+import React, { PropTypes } from 'react';
 // Dependencies
-
 import builder from 'focus-core/component/builder';
-import type from 'focus-core/component/types';
-
-// Mixins
-
-let i18nMixin = require('../../common/i18n/mixin');
-
+import { translate } from 'focus-core/translation';
 // Components
-
-let Popin = require('../popin').component;
+import { component as Popin } from '../popin';
 import Button from '../../components/button';
 
-let ConfirmationPopin = {
+/**
+ * ConfirmationPopin.
+ */
+const ConfirmationPopin = {
+    
     /**
     * Display name.
     */
     displayName: 'confirmation-popin',
-    mixins: [i18nMixin],
+        
+    /**
+     * PropTypes validation.
+     */
+    propTypes: {
+        cancelButtonLabel: PropTypes.string,
+        cancelHandler: PropTypes.oneOfType([
+            PropTypes.func,
+            PropTypes.object
+        ]),
+        confirmButtonLabel: PropTypes.string,
+        confirmHandler: PropTypes.oneOfType([
+            PropTypes.func,
+            PropTypes.object
+        ])
+    },
+    
+    /**
+     * Get default props.
+     * @returns {object} Default props.
+     */
     getDefaultProps() {
         return {
             open: false,
@@ -27,26 +45,27 @@ let ConfirmationPopin = {
         };
     },
 
+    /**
+     * Get inital state.
+     * @returns {object} Initial state.
+     */
     getInitialState() {
         return ({
             fromButtonClick: false
         });
     },
 
-    propTypes: {
-        cancelButtonLabel: type('string'),
-        cancelHandler: type(['func', 'object']),
-        confirmButtonLabel: type('string'),
-        confirmHandler: type(['func', 'object'])
-    },
-
     /**
-    * Confirmation action handler
+    * Confirmation action handler.
     */
     _handleConfirm() {
-        this.toggleOpen();
         if (this.props.confirmHandler) {
-            this.props.confirmHandler();
+            const result = this.props.confirmHandler();
+            if (result === undefined || result === true) {
+                this.toggleOpen();
+            }
+        } else {
+            this.toggleOpen();
         }
     },
 
@@ -54,12 +73,19 @@ let ConfirmationPopin = {
     * Cancel action handler
     */
     _handleCancel() {
-        this.toggleOpen();
         if (this.props.cancelHandler) {
-            this.props.cancelHandler();
+            const result = this.props.cancelHandler();
+            if (result === undefined || result === true) {
+                this.toggleOpen();
+            }
+        } else {
+            this.toggleOpen();
         }
     },
 
+    /**
+     * Handler for popin close.
+     */
     _handlePopinClose() {
         if (this.props.cancelHandler && !this.state.fromButtonClick) {
             this.props.cancelHandler();
@@ -67,6 +93,9 @@ let ConfirmationPopin = {
         this.setState({fromButtonClick: false});
     },
 
+    /**
+     * Toggle opoening of popin.
+     */
     toggleOpen() {
         this.setState({
             fromButtonClick: true
@@ -75,6 +104,10 @@ let ConfirmationPopin = {
         });
     },
 
+    /**
+     * Render.
+     * @return {ReactElement} markup.
+     */
     render() {
         return (
             <div data-focus='confirmation-popin'>
@@ -90,4 +123,8 @@ let ConfirmationPopin = {
     }
 };
 
-module.exports = builder(ConfirmationPopin);
+const builded = builder(ConfirmationPopin);
+const { component, mixin } = builded;
+
+export { component, mixin }
+export default builded;
