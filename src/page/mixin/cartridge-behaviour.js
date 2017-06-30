@@ -1,7 +1,7 @@
 import { isFunction } from 'lodash';
 import { setHeader } from 'focus-core/application';
 
-module.exports = {
+const cartridgeBehaviour = {
 
     /**
      * Updates the cartridge using the cartridgeConfiguration.
@@ -38,3 +38,5 @@ module.exports = {
         this._registerCartridge(nextProps);
     }
 };
+
+export default cartridgeBehaviour; 
