@@ -36,7 +36,7 @@ const listSummaryMixin = {
      * @return {object} Result sentence
      */
     _getResultSentence() {
-        const { nb, queryText } = this.props;
+        const {nb, queryText} = this.props;
         const hasText = queryText && queryText.trim().length > 0;
         const sentence = nb > 1 ? hasText ? 'results.for' : 'results.all' : hasText ? 'result.for' : 'result.all';
         return (
@@ -55,18 +55,18 @@ const listSummaryMixin = {
      * @returns {JSX} Html rendering.
      */
     render() {
-        const { exportAction, scopeList, scopeClickAction } = this.props;
+        const {exportAction, scopeList, scopeClickAction} = this.props;
         return (
             <div data-focus='list-summary'>
-                {exportAction && (
+                {exportAction &&
                     <div className='print'>
                         <Button handleOnClick={exportAction} icon='print' label='result.export' shape={null} />
                     </div>
-                )}
-                <span className='sentence'>{this._getResultSentence()}</span>
-                <span className='topics'>
+                }
+                <div className='sentence'>{this._getResultSentence()}</div>
+                <div className='topics'>
                     <TopicDisplayer topicClickAction={scopeClickAction} topicList={scopeList} />
-                </span>
+                </div>
             </div>
         );
     }

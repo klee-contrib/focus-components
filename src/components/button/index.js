@@ -34,12 +34,13 @@ class Button extends Component {
     hasRipple: false,
     icon: null,
     iconLibrary: 'material',
-    id: '',
+    id: undefined,
     isJs: false,
     label: '',
     shape: 'raised',
     type: 'submit'
-    };
+
+}
 
     /** @inheritdoc */
     componentDidMount() {
@@ -111,10 +112,7 @@ class Button extends Component {
             case 'material':
                 if (classNameIcon && labelIcon) {
                     return (
-                        <div>
-                            <span className={classNameIcon}>{labelIcon}</span>
-                            <i className='material-icons'>{icon}</i>
-                        </div>
+                        [<span className={classNameIcon}>{labelIcon}</span>, <i className='material-icons'>{icon}</i>]
                     )
                 }
                 return <i className='material-icons' aria-hidden={ariaHidden}>{icon}</i>;
@@ -163,26 +161,26 @@ class Button extends Component {
     render() {
         // attribute doc : https://developer.mozilla.org/fr/docs/Web/HTML/Element/Button
         // be careful the way you declare your attribute names : https://developer.mozilla.org/fr/docs/Web/HTML/Element/Button
-        const {className, disabled, formNoValidate, handleOnClick, icon, id, onClick, type, label, style, hasRipple, isJs, iconLibrary, noAltAndNoTitle, isLoading, ...rest} = this.props;
+        const {className, disabled, formNoValidate, handleOnClick, icon, onClick, type, label, style, hasRipple, isJs, iconLibrary, noAltAndNoTitle, isLoading, ...rest} = this.props;
         const onClickFunc = handleOnClick ? handleOnClick : onClick;
         const otherInputProps = filterProps({ disabled, formNoValidate, style, type, ...rest }); //on click for legacy. Remove handleOnClick in v2
+        // shape is not a valid attribute for button
+        delete otherInputProps.shape;
+        //alt={this.i18n(label)} TODO verify usefulness
 
         if (onClickFunc) {
             otherInputProps.onClick = event => this._wrappedOnClick(event, onClickFunc);
         }
-        const renderedClassName = `${className ? className : ''} ${::this._getComponentClassName()}`.trim();
-        if(noAltAndNoTitle){
-        return (
-            <button className={renderedClassName} data-focus='button-action' id={id} data-saving={isLoading} id={id} disabled={isLoading} {...otherInputProps} ref='materialButton'>
-                {icon && ::this._renderIcon()}
-                {::this._renderLabel()}
-            </button>
-            );
+        if (!noAltAndNoTitle) {
+            otherInputProps.title = this.i18n(label);
         }
+
+        const renderedClassName = `${className ? className : ''} ${this._getComponentClassName()}`.trim();
+
         return (
-            <button alt={this.i18n(label)} className={renderedClassName} data-focus='button-action' id={id} title={this.i18n(label)} data-saving={isLoading} id={id} disabled={isLoading} {...otherInputProps} ref='materialButton'>
-                {icon && ::this._renderIcon()}
-                {::this._renderLabel()}
+            <button className={renderedClassName} data-focus='button-action' data-saving={isLoading} disabled={isLoading} {...otherInputProps} ref='materialButton'>
+                {icon && this._renderIcon()}
+                {this._renderLabel()}
                 {isLoading && <div className='mdl-spinner mdl-spinner--single-color mdl-js-spinner is-active' data-focus='double-action-button-spinner' ref='double-action-button-spinner' />}
             </button>
         );

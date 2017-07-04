@@ -1,6 +1,6 @@
-import {translate} from 'focus-core/translation';
+import { translate } from 'focus-core/translation';
 
-import React, {PropTypes} from 'react';
+import React, { PropTypes } from 'react';
 import ReactDOM from 'react-dom';
 
 import builder from 'focus-core/component/builder';
@@ -85,7 +85,7 @@ const scopeMixin = {
     },
     _getActiveScope() {
         const {list, value} = this.props;
-        const activeScope = find(list, {code: value});
+        const activeScope = find(list, { code: value });
         return activeScope || {};
     },
     /**
@@ -104,7 +104,7 @@ const scopeMixin = {
                     return (
                         <li className='mdl-menu__item' data-active={isActive} key={scope.code || scopeId} data-scope={scope.code || scopeId} onClick={this._getScopeClickHandler(scope)}>
                             {scope.code &&
-                                <Icon name={icon || code} {...otherScopeProps}/>
+                                <Icon name={icon || code} {...otherScopeProps} />
                             }
                             <span>{translate(label)}</span>
                         </li>
@@ -129,7 +129,7 @@ const scopeMixin = {
         return (
             <div data-focus='search-bar-scope' ref='parent'>
                 <button className='mdl-button mdl-js-button' id={scopesId} data-scope={code}>
-                    <Icon name={icon || code} {...otherScopeProps}/>
+                    <Icon name={icon || code} {...otherScopeProps} />
                     <span>{translate(label)}</span>
                 </button>
                 {this._renderScopeList()}
