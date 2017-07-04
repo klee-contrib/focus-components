@@ -3825,8 +3825,6 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	function _defaults(obj, defaults) { var keys = Object.getOwnPropertyNames(defaults); for (var i = 0; i < keys.length; i++) { var key = keys[i]; var value = Object.getOwnPropertyDescriptor(defaults, key); if (value && value.configurable && obj[key] === undefined) { Object.defineProperty(obj, key, value); } } return obj; }
 	
-	function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-	
 	function _objectWithoutProperties(obj, keys) { var target = {}; for (var i in obj) { if (keys.indexOf(i) >= 0) continue; if (!Object.prototype.hasOwnProperty.call(obj, i)) continue; target[i] = obj[i]; } return target; }
 	
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -3859,11 +3857,12 @@ return /******/ (function(modules) { // webpackBootstrap
 	    hasRipple: false,
 	    icon: null,
 	    iconLibrary: 'material',
-	    id: '',
+	    id: undefined,
 	    isJs: false,
 	    label: '',
 	    shape: 'raised',
 	    type: 'submit'
+	
 	};
 	
 	var Button = (_dec = (0, _material2.default)('materialButton', 'MaterialButton'), _dec(_class = (0, _translation2.default)(_class = function (_Component) {
@@ -3965,20 +3964,15 @@ return /******/ (function(modules) { // webpackBootstrap
 	        switch (iconLibrary) {
 	            case 'material':
 	                if (classNameIcon && labelIcon) {
-	                    return _react2.default.createElement(
-	                        'div',
-	                        null,
-	                        _react2.default.createElement(
-	                            'span',
-	                            { className: classNameIcon },
-	                            labelIcon
-	                        ),
-	                        _react2.default.createElement(
-	                            'i',
-	                            { className: 'material-icons' },
-	                            icon
-	                        )
-	                    );
+	                    return [_react2.default.createElement(
+	                        'span',
+	                        { className: classNameIcon },
+	                        labelIcon
+	                    ), _react2.default.createElement(
+	                        'i',
+	                        { className: 'material-icons' },
+	                        icon
+	                    )];
 	                }
 	                return _react2.default.createElement(
 	                    'i',
@@ -4047,8 +4041,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	
 	    Button.prototype.render = function render() {
-	        var _this2 = this,
-	            _extends3;
+	        var _this2 = this;
 	
 	        // attribute doc : https://developer.mozilla.org/fr/docs/Web/HTML/Element/Button
 	        // be careful the way you declare your attribute names : https://developer.mozilla.org/fr/docs/Web/HTML/Element/Button
@@ -4058,7 +4051,6 @@ return /******/ (function(modules) { // webpackBootstrap
 	            formNoValidate = _props4.formNoValidate,
 	            handleOnClick = _props4.handleOnClick,
 	            icon = _props4.icon,
-	            id = _props4.id,
 	            onClick = _props4.onClick,
 	            type = _props4.type,
 	            label = _props4.label,
@@ -4068,32 +4060,30 @@ return /******/ (function(modules) { // webpackBootstrap
 	            iconLibrary = _props4.iconLibrary,
 	            noAltAndNoTitle = _props4.noAltAndNoTitle,
 	            isLoading = _props4.isLoading,
-	            rest = _objectWithoutProperties(_props4, ['className', 'disabled', 'formNoValidate', 'handleOnClick', 'icon', 'id', 'onClick', 'type', 'label', 'style', 'hasRipple', 'isJs', 'iconLibrary', 'noAltAndNoTitle', 'isLoading']);
+	            rest = _objectWithoutProperties(_props4, ['className', 'disabled', 'formNoValidate', 'handleOnClick', 'icon', 'onClick', 'type', 'label', 'style', 'hasRipple', 'isJs', 'iconLibrary', 'noAltAndNoTitle', 'isLoading']);
 	
 	        var onClickFunc = handleOnClick ? handleOnClick : onClick;
 	        var otherInputProps = (0, _filterHtmlAttributes2.default)(_extends({ disabled: disabled, formNoValidate: formNoValidate, style: style, type: type }, rest)); //on click for legacy. Remove handleOnClick in v2
+	        // shape is not a valid attribute for button
+	        delete otherInputProps.shape;
+	        //alt={this.i18n(label)} TODO verify usefulness
 	
 	        if (onClickFunc) {
 	            otherInputProps.onClick = function (event) {
 	                return _this2._wrappedOnClick(event, onClickFunc);
 	            };
 	        }
-	        var renderedClassName = ((className ? className : '') + ' ' + this._getComponentClassName.call(this)).trim();
-	        if (noAltAndNoTitle) {
-	            var _extends2;
-	
-	            return _react2.default.createElement(
-	                'button',
-	                _extends((_extends2 = { className: renderedClassName, 'data-focus': 'button-action', id: id, 'data-saving': isLoading }, _defineProperty(_extends2, 'id', id), _defineProperty(_extends2, 'disabled', isLoading), _extends2), otherInputProps, { ref: 'materialButton' }),
-	                icon && this._renderIcon.call(this),
-	                this._renderLabel.call(this)
-	            );
+	        if (!noAltAndNoTitle) {
+	            otherInputProps.title = this.i18n(label);
 	        }
+	
+	        var renderedClassName = ((className ? className : '') + ' ' + this._getComponentClassName()).trim();
+	
 	        return _react2.default.createElement(
 	            'button',
-	            _extends((_extends3 = { alt: this.i18n(label), className: renderedClassName, 'data-focus': 'button-action', id: id, title: this.i18n(label), 'data-saving': isLoading }, _defineProperty(_extends3, 'id', id), _defineProperty(_extends3, 'disabled', isLoading), _extends3), otherInputProps, { ref: 'materialButton' }),
-	            icon && this._renderIcon.call(this),
-	            this._renderLabel.call(this),
+	            _extends({ className: renderedClassName, 'data-focus': 'button-action', 'data-saving': isLoading, disabled: isLoading }, otherInputProps, { ref: 'materialButton' }),
+	            icon && this._renderIcon(),
+	            this._renderLabel(),
 	            isLoading && _react2.default.createElement('div', { className: 'mdl-spinner mdl-spinner--single-color mdl-js-spinner is-active', 'data-focus': 'double-action-button-spinner', ref: 'double-action-button-spinner' })
 	        );
 	    };
@@ -33840,6 +33830,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	        var pattern = error ? 'hasError' : null; //add pattern to overide mdl error style when displaying an focus error.
 	
 	        var inputProps = _extends({}, validInputProps, { pattern: pattern });
+	        // Label is not valid on input
+	        delete inputProps.label;
+	
 	        if (isRequired) {
 	            inputProps.required = true;
 	        }
@@ -34066,12 +34059,15 @@ return /******/ (function(modules) { // webpackBootstrap
 	        validInputProps.onChange = this._handleSelectChange;
 	        var inputProps = _extends({}, validInputProps);
 	
+	        // Label and type not allowed on element select
+	        delete inputProps.label;
+	        delete inputProps.type;
 	        return _react2.default.createElement(
 	            'div',
 	            { 'data-focus': 'select', ref: 'select', 'data-valid': !error, style: style },
 	            _react2.default.createElement(
 	                'select',
-	                _extends({ ref: 'htmlSelect' }, inputProps),
+	                _extends({ ref: 'htmlSelect', id: this.props.name }, inputProps),
 	                this._renderOptions(this.props)
 	            ),
 	            error && _react2.default.createElement(
@@ -37087,14 +37083,12 @@ return /******/ (function(modules) { // webpackBootstrap
 	    placeholder: _react.PropTypes.string,
 	    //required: PropTypes.bool,
 	    rows: _react.PropTypes.number,
-	    type: _react.PropTypes.string,
 	    unformatter: _react.PropTypes.func,
 	    value: _react.PropTypes.oneOfType([_react.PropTypes.string, _react.PropTypes.number]),
 	    wrap: _react.PropTypes.string
 	};
 	
 	var defaultProps = {
-	    type: 'text',
 	    formatter: _utility.identity,
 	    unformatter: _utility.identity,
 	    minLength: 0,
@@ -37168,6 +37162,10 @@ return /******/ (function(modules) { // webpackBootstrap
 	        validInputProps.value = formatter(value) === undefined || formatter(value) === null ? '' : formatter(value);
 	        validInputProps.onChange = this._handleInputChange;
 	        var inputProps = _extends({}, validInputProps, { pattern: pattern });
+	
+	        // Label and type not allowed on element textarea
+	        delete inputProps.label;
+	        delete inputProps.type;
 	
 	        return _react2.default.createElement(
 	            'div',
@@ -37387,6 +37385,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	var _messageCenter2 = _interopRequireDefault(_messageCenter);
 	
+	var _uuid = __webpack_require__(348);
+	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
 	function _objectWithoutProperties(obj, keys) { var target = {}; for (var i in obj) { if (keys.indexOf(i) >= 0) continue; if (!Object.prototype.hasOwnProperty.call(obj, i)) continue; target[i] = obj[i]; } return target; }
@@ -37445,7 +37445,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	        MenuLeft && _react2.default.createElement(MenuLeft, null),
 	        _react2.default.createElement(
 	            'main',
-	            null,
+	            { id: 'main-content-app', role: 'main' },
 	            _react2.default.createElement(
 	                'div',
 	                { 'data-focus': 'page-content' },
@@ -69265,7 +69265,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	            idField: 'id',
 	            isLoading: false,
 	            operationList: [],
-	            isSelectable: false
+	            isSelectable: false,
+	            dataTable: false,
+	            infosSortIcon: false
 	        };
 	    },
 	
@@ -69280,7 +69282,10 @@ return /******/ (function(modules) { // webpackBootstrap
 	        columns: (0, _types2.default)('object'),
 	        sortColumn: (0, _types2.default)('func'),
 	        isloading: (0, _types2.default)('bool'),
-	        loader: (0, _types2.default)('func')
+	        loader: (0, _types2.default)('func'),
+	        dataTable: (0, _types2.default)('bool'),
+	        captionTitle: (0, _types2.default)('array'),
+	        infosSortIcon: (0, _types2.default)('bool')
 	    },
 	    /**
 	     * Render the table header.
@@ -69331,15 +69336,30 @@ return /******/ (function(modules) { // webpackBootstrap
 	                { className: 'material-icons' },
 	                iconName
 	            );
-	            sort = _react2.default.createElement(
-	                'a',
-	                { className: 'sort', 'data-bypass': true, 'data-name': name, href: '#', onClick: this._sortColumnAction(name, 'asc' === order ? 'desc' : 'asc') },
-	                icon
-	            );
+	            if (this.props.infosSortIcon) {
+	                var descriptionSort = _react2.default.createElement(
+	                    'span',
+	                    null,
+	                    'Icone de tri'
+	                );
+	                sort = _react2.default.createElement(
+	                    'a',
+	                    { className: 'sort', 'data-bypass': true, 'data-name': name, href: '#', onClick: this._sortColumnAction(name, 'asc' === order ? 'desc' : 'asc') },
+	                    icon,
+	                    ' ',
+	                    descriptionSort
+	                );
+	            } else {
+	                sort = _react2.default.createElement(
+	                    'a',
+	                    { className: 'sort', 'data-bypass': true, 'data-name': name, href: '#', onClick: this._sortColumnAction(name, 'asc' === order ? 'desc' : 'asc') },
+	                    icon
+	                );
+	            }
 	        }
 	        accumulator.push(_react2.default.createElement(
 	            'th',
-	            { className: TABLE_CELL_CLASS, key: colProperties.label },
+	            { scope: 'col', className: TABLE_CELL_CLASS, key: colProperties.label },
 	            (0, _translation.translate)(colProperties.label),
 	            sort
 	        ));
@@ -69443,6 +69463,11 @@ return /******/ (function(modules) { // webpackBootstrap
 	        return _react2.default.createElement(
 	            'table',
 	            { className: TABLE_CSS_CLASS + ' ' + SELECTABLE_CSS, role: 'presentation' },
+	            this.props.dataTable && _react2.default.createElement(
+	                'caption',
+	                null,
+	                this.props.captionTitle
+	            ),
 	            this._renderTableHeader(),
 	            this._renderTableBody(),
 	            this._renderLoading(),
@@ -72445,6 +72470,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	var _builder2 = _interopRequireDefault(_builder);
 	
+	var _collection = __webpack_require__(537);
+	
 	var _topicDisplayer = __webpack_require__(616);
 	
 	var _topicDisplayer2 = _interopRequireDefault(_topicDisplayer);
@@ -72453,23 +72480,12 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	var _button2 = _interopRequireDefault(_button);
 	
-	var _grid = __webpack_require__(608);
-	
-	var _grid2 = _interopRequireDefault(_grid);
-	
-	var _column = __webpack_require__(609);
-	
-	var _column2 = _interopRequireDefault(_column);
-	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
-	// Dependencies
-	var _require = __webpack_require__(537),
-	    reduce = _require.reduce;
 	
 	// Components
 	
-	var Dropdown = __webpack_require__(869).component;
+	var Dropdown = __webpack_require__(869).component; // Dependencies
+	
 	var ActionContextual = __webpack_require__(881).component;
 	
 	
@@ -72592,7 +72608,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	          groupableColumnList = _props.groupableColumnList,
 	          style = _props.style;
 	
-	      var groupOperationList = reduce(groupableColumnList, function (operationList, label, key) {
+	      var groupOperationList = (0, _collection.reduce)(groupableColumnList, function (operationList, label, key) {
 	        operationList.push({
 	          action: _this2._groupFunction(key),
 	          label: _this2.i18n(groupLabelPrefix + label),
@@ -72673,7 +72689,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	        _react2.default.createElement(_topicDisplayer2.default, {
 	          displayLabels: true,
 	          topicClickAction: this.props.facetClickAction,
-	          topicList: this.props.facetList })
+	          topicList: this.props.facetList
+	        })
 	      ),
 	      _react2.default.createElement(
 	        'div',
@@ -73305,12 +73322,12 @@ return /******/ (function(modules) { // webpackBootstrap
 	                _react2.default.createElement(_button2.default, { handleOnClick: exportAction, icon: 'print', label: 'result.export', shape: null })
 	            ),
 	            _react2.default.createElement(
-	                'span',
+	                'div',
 	                { className: 'sentence' },
 	                this._getResultSentence()
 	            ),
 	            _react2.default.createElement(
-	                'span',
+	                'div',
 	                { className: 'topics' },
 	                _react2.default.createElement(TopicDisplayer, { topicClickAction: scopeClickAction, topicList: scopeList })
 	            )
@@ -74676,7 +74693,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	        return _react2.default.createElement(
 	            'ul',
-	            { className: 'mdl-menu mdl-menu--bottom-left mdl-js-menu mdl-js-ripple-effect', 'data-focus': 'search-bar-scopes', htmlFor: scopesId, ref: 'scopeDropdown' },
+	            { className: 'mdl-menu mdl-menu--bottom-left mdl-js-menu mdl-js-ripple-effect', 'data-focus': 'search-bar-scopes', ref: 'scopeDropdown' },
 	            0 < scopeList.length && scopeList.map(function (scope) {
 	                var code = scope.code,
 	                    icon = scope.icon,
