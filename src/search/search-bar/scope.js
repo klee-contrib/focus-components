@@ -96,7 +96,7 @@ const scopeMixin = {
         const {scopesId} = this;
         const {list: scopeList, value} = this.props;
         return (
-            <ul className={'mdl-menu mdl-menu--bottom-left mdl-js-menu mdl-js-ripple-effect'} data-focus='search-bar-scopes' htmlFor={scopesId} ref='scopeDropdown'>
+            <ul className={'mdl-menu mdl-menu--bottom-left mdl-js-menu mdl-js-ripple-effect'} data-focus='search-bar-scopes' ref='scopeDropdown'>
                 {0 < scopeList.length && scopeList.map(scope => {
                     const {code, icon, label, ...otherScopeProps} = scope;
                     const scopeId = uniqueId('scopes_');
