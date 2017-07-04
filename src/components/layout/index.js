@@ -6,7 +6,7 @@ import HeaderDefaultTemplate from './header-default-template';
 import LoadingBar from '../../application/loading-bar';
 import LoadingStatusBarDefault from '../../dev-tools/loading-status-bar';
 import MessageCenterDefault from '../message-center';
-
+import { v4 as uuid } from 'uuid';
 const ErrorCenterDefault = ErrorCenter.component;
 const LoadingBarDefault = LoadingBar.component;
 
@@ -49,7 +49,7 @@ const Layout = ({AppHeader, children, ConfirmWrapper, ErrorCenter, Footer, Loadi
             {MenuLeft &&
                 <MenuLeft />
             }
-            <main>
+            <main id='main-content-app' role='main'>
                 <div data-focus='page-content'>
                     {children}
                 </div>

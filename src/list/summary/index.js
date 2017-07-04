@@ -1,7 +1,7 @@
 import React from 'react';
 import builder from 'focus-core/component/builder';
 import types from 'focus-core/component/types';
-import {translate} from 'focus-core/translation';
+import { translate } from 'focus-core/translation';
 
 const styleBehaviour = require('../../mixin/stylable');
 const TopicDisplayer = require('../../components/topic-displayer');
@@ -19,7 +19,7 @@ const listSummaryMixin = {
      * Init the default props.
      * @returns {objet} default props.
      */
-    getDefaultProps () {
+    getDefaultProps() {
         return {
             scopeList: {}
         };
@@ -44,9 +44,9 @@ const listSummaryMixin = {
             <span>
                 <strong>{numberFormatter.format(nb)}&nbsp;</strong>
                 <span>{translate(sentence)}
-                {hasText &&
-                    <span className='search-text'>&#171;&nbsp;{queryText}&nbsp;&#187;</span>
-                }
+                    {hasText &&
+                        <span className='search-text'>&#171;&nbsp;{queryText}&nbsp;&#187;</span>
+                    }
                 </span>
             </span>
         );
@@ -58,16 +58,16 @@ const listSummaryMixin = {
     render() {
         const {exportAction, scopeList, scopeClickAction} = this.props;
         return (
-            <div data-focus="list-summary">
+            <div data-focus='list-summary'>
                 {exportAction &&
-                    <div className="print">
-                        <Button handleOnClick={exportAction} icon="print" label="result.export" shape={null} />
+                    <div className='print'>
+                        <Button handleOnClick={exportAction} icon='print' label='result.export' shape={null} />
                     </div>
                 }
-                <span className="sentence">{this._getResultSentence()}</span>
-                <span className="topics">
+                <div className='sentence'>{this._getResultSentence()}</div>
+                <div className='topics'>
                     <TopicDisplayer topicClickAction={scopeClickAction} topicList={scopeList} />
-                </span>
+                </div>
             </div>
         );
     }

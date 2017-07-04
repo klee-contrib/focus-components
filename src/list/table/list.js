@@ -5,7 +5,7 @@ import types from 'focus-core/component/types';
 import React from 'react';
 import { keys, reduce } from 'lodash';
 
-import {translate} from 'focus-core/translation';
+import { translate } from 'focus-core/translation';
 //Add a ref to the props if the component is not pure add nothing in the other case.
 import { addRefToPropsIfNotPure, LINE } from '../../utils/is-react-class-component';
 
@@ -15,7 +15,7 @@ const TABLE_CELL_CLASS = 'mdl-data-table__cell--non-numeric';
 
 // Mixins
 
-import {mixin as infiniteScrollMixin} from '../mixin/infinite-scroll';
+import { mixin as infiniteScrollMixin } from '../mixin/infinite-scroll';
 import referenceMixin from '../../common/mixin/reference-property';
 import mdlBehaviour from '../../common/mixin/mdl-behaviour';
 
@@ -40,7 +40,9 @@ const tableMixin = {
             idField: 'id',
             isLoading: false,
             operationList: [],
-            isSelectable: false
+            isSelectable: false,
+            dataTable: false,
+            infosSortIcon: false
         };
     },
     /** inheriteddoc */
@@ -54,7 +56,10 @@ const tableMixin = {
         columns: types('object'),
         sortColumn: types('func'),
         isloading: types('bool'),
-        loader: types('func')
+        loader: types('func'),
+        dataTable: types('bool'),
+        captionTitle: types('array'),
+        infosSortIcon: types('bool')
     },
     /**
      * Render the table header.
@@ -90,9 +95,15 @@ const tableMixin = {
             const order = colProperties.sort ? colProperties.sort : 'asc';
             const iconName = 'asc' === order ? 'arrow_drop_up' : 'arrow_drop_down';
             const icon = <i className='material-icons'>{iconName}</i>;
-            sort = <a className='sort' data-bypass data-name={name} href='#' onClick={this._sortColumnAction(name, ('asc' === order ? 'desc' : 'asc'))}>{icon}</a>;
+            if (this.props.infosSortIcon) {
+                const descriptionSort = <span>Icone de tri</span>
+                sort = <a className='sort' data-bypass data-name={name} href='#' onClick={this._sortColumnAction(name, ('asc' === order ? 'desc' : 'asc'))}>{icon} {descriptionSort}</a>;
+            } else {
+                sort = <a className='sort' data-bypass data-name={name} href='#' onClick={this._sortColumnAction(name, ('asc' === order ? 'desc' : 'asc'))}>{icon}</a>;
+            }
+
         }
-        accumulator.push(<th className={TABLE_CELL_CLASS} key={colProperties.label}>{translate(colProperties.label)}{sort}</th>);
+        accumulator.push(<th scope='col' className={TABLE_CELL_CLASS} key={colProperties.label}>{translate(colProperties.label)}{sort}</th>);
         return accumulator;
     },
     /**
@@ -165,6 +176,9 @@ const tableMixin = {
         const SELECTABLE_CSS = this.props.isSelectable ? 'mdl-data-table--selectable' : '';
         return (
             <table className={`${TABLE_CSS_CLASS} ${SELECTABLE_CSS}`} role='presentation'>
+                {this.props.dataTable &&
+                    <caption>{this.props.captionTitle}</caption>
+                }
                 {this._renderTableHeader()}
                 {this._renderTableBody()}
                 {this._renderLoading()}

@@ -1,9 +1,9 @@
 //dependencies
-import React, {Component, PropTypes} from 'react';
+import React, { Component, PropTypes } from 'react';
 import ComponentBaseBehaviour from '../../../behaviours/component-base';
 import filterProps from '../../../utils/filter-html-attributes';
-import {isUndefined, isNull} from 'lodash/lang';
-import {union} from 'lodash/array';
+import { isUndefined, isNull } from 'lodash/lang';
+import { union } from 'lodash/array';
 const UNSELECTED_KEY = 'UNSELECTED_KEY';
 /**
 * Parse the value.
@@ -83,18 +83,18 @@ class Select extends Component {
         const isRequiredAndNoValue = isRequired && (isUndefined(value) || isNull(value));
         if (hasUndefined || isRequiredAndNoValue) {
             values = union(
-                [{[labelKey]: this.i18n(unSelectedLabel), [valueKey]: UNSELECTED_KEY}],
+                [{ [labelKey]: this.i18n(unSelectedLabel), [valueKey]: UNSELECTED_KEY }],
                 values
             );
         }
         return values
-        .filter(v => isUndefined(v[isActiveProperty]) || v[isActiveProperty] === true) // Filter on the
-        .map((val, idx) => {
-            const optVal = `${val[valueKey]}`;
-            const elementValue = val[labelKey];
-            const optLabel = isUndefined(elementValue) || isNull(elementValue) ? this.i18n('select.noLabel') : elementValue;
-            return (<option key={idx} value={optVal}>{optLabel}</option>);
-        });
+            .filter(v => isUndefined(v[isActiveProperty]) || v[isActiveProperty] === true) // Filter on the
+            .map((val, idx) => {
+                const optVal = `${val[valueKey]}`;
+                const elementValue = val[labelKey];
+                const optLabel = isUndefined(elementValue) || isNull(elementValue) ? this.i18n('select.noLabel') : elementValue;
+                return (<option key={idx} value={optVal}>{optLabel}</option>);
+            });
     }
 
     /**
@@ -106,11 +106,14 @@ class Select extends Component {
         const validInputProps = filterProps(this.props);
 
         validInputProps.onChange = this._handleSelectChange;
-        const inputProps = {...validInputProps};
+        const inputProps = { ...validInputProps };
 
+        // Label and type not allowed on element select
+        delete inputProps.label;
+        delete inputProps.type;
         return (
             <div data-focus='select' ref='select' data-valid={!error} style={style}>
-                <select ref='htmlSelect' {...inputProps}>
+                <select ref='htmlSelect' id={this.props.name} {...inputProps}>
                     {this._renderOptions(this.props)}
                 </select>
                 {error && <div className='label-error' ref='error'>{error}</div>}

@@ -1,13 +1,13 @@
 //dependencies
-import React, {Component, PropTypes} from 'react';
+import React, { Component, PropTypes } from 'react';
 import ReactDOM from 'react-dom';
-import {identity} from 'lodash/utility';
+import { identity } from 'lodash/utility';
 import uuid from 'uuid';
 
 import ComponentBaseBehaviour from '../../../behaviours/component-base';
 import MDBehaviour from '../../../behaviours/material';
 import filterProps from '../../../utils/filter-html-attributes';
-const MODE = {isEdit: true};
+const MODE = { isEdit: true };
 
 const propTypes = {
     disabled: PropTypes.bool,
@@ -87,7 +87,10 @@ class InputText extends Component {
         }
         const pattern = error ? 'hasError' : null; //add pattern to overide mdl error style when displaying an focus error.
 
-        const inputProps = {...validInputProps, pattern};
+        const inputProps = { ...validInputProps, pattern };
+        // Label is not valid on input
+        delete inputProps.label;
+
         if (isRequired) {
             inputProps.required = true;
         }
