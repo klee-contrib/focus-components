@@ -78,7 +78,7 @@ class SelectCheckbox extends Component {
 
         if (this.props.onChange) {
             if (this.props.legacyOnChange) {
-                this.props.onChange({ key, newStatus });
+                this.props.onChange(key, newStatus);
             } else {
                 this.props.onChange(selectedValues);
             }
