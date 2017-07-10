@@ -1,17 +1,22 @@
-import React, {Component, PropTypes} from 'react';
+import React, { Component, PropTypes } from 'react';
 import Checkbox from '../checkbox';
 import Translation from '../../../behaviours/translation';
-import {pull} from 'lodash/array';
+import { pull } from 'lodash/array';
 
+/**
+ * SelectCheckbox component.
+ */
 @Translation
 class SelectCheckbox extends Component {
-    static defaultProps = {
-        values: [], // all values
-        value: [], // selected values list
-        valueKey: 'value', // key for the displayed value
-        labelKey: 'label' // key for the displayed label
-    };
 
+    /**
+     * Display name.
+     */
+    static displayName = 'SelectCheckbox';
+
+    /**
+     * PropTypes.
+     */
     static propTypes = {
         values: PropTypes.array,
         value: PropTypes.array,
@@ -20,13 +25,31 @@ class SelectCheckbox extends Component {
         onChange: PropTypes.func
     };
 
+    /**
+     * Default props.
+     */
+    static defaultProps = {
+        values: [], // all values
+        value: [], // selected values list
+        valueKey: 'value', // key for the displayed value
+        labelKey: 'label', // key for the displayed label
+        onChange: undefined
+    };
+
+    /**
+     * Initial state.
+     */
     state = {
         selectedValues: this.props.value
     };
 
+    /**
+     * React componentWillReceiveProps hook.
+     * @param {object} newProps new props.
+     */
     componentWillReceiveProps(newProps) {
         if (newProps) {
-            this.setState({selectedValues: newProps.value});
+            this.setState({ selectedValues: newProps.value });
         }
     }
 
@@ -54,7 +77,7 @@ class SelectCheckbox extends Component {
         } else {
             pull(selectedValues, key);
         }
-        this.setState({value: selectedValues});
+        this.setState({ value: selectedValues });
     }
 
     /**
@@ -83,6 +106,10 @@ class SelectCheckbox extends Component {
         });
     }
 
+    /**
+     * Render.
+     * @return {ReactElement} markup.
+     */
     render() {
         return (
             <div data-focus='select-checkbox'>
@@ -91,7 +118,5 @@ class SelectCheckbox extends Component {
         );
     }
 }
-
-SelectCheckbox.displayName = 'SelectCheckbox';
 
 export default SelectCheckbox;
