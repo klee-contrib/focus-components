@@ -22,7 +22,8 @@ class SelectCheckbox extends Component {
         value: PropTypes.array,
         valueKey: PropTypes.string,
         labelKey: PropTypes.string,
-        onChange: PropTypes.func
+        onChange: PropTypes.func,
+        legacyOnChange: PropTypes.bool
     };
 
     /**
@@ -33,7 +34,8 @@ class SelectCheckbox extends Component {
         value: [], // selected values list
         valueKey: 'value', // key for the displayed value
         labelKey: 'label', // key for the displayed label
-        onChange: undefined
+        onChange: undefined,
+        legacyOnChange: false
     };
 
     /**
@@ -75,7 +77,11 @@ class SelectCheckbox extends Component {
         }
 
         if (this.props.onChange) {
-            this.props.onChange(selectedValues);
+            if (this.props.legacyOnChange) {
+                this.props.onChange({ key, newStatus });
+            } else {
+                this.props.onChange(selectedValues);
+            }
             return;
         }
 
