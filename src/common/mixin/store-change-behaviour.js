@@ -1,6 +1,5 @@
 import message from 'focus-core/message';
 import { changeMode } from 'focus-core/application';
-import reduce from 'lodash/collection/reduce';
 import { keys } from 'lodash';
 
 const changeBehaviourMixin = {
@@ -134,15 +133,15 @@ const changeBehaviourMixin = {
             // In case we have a definitionPath, we might want to trigger a setError on the corresponding field
             for (let key in errorState) {
                 // Let's find that corresponding field, considering that the ref might not directly be 'storeNode.fieldName', but in fact 'entityPath.fieldName'
-                const ref = reduce(this.refs, (acc, value, candidateRef) => {
-                    const candidate = candidateRef.replace(`${this.definitionPath}.`, ''); // Remove the 'definitionPath.'
-                    if (candidate === key.match(/([^\.]*)$/)[0]) { // Look for the 'fieldName' part of 'storeNode.fieldName'
-                        acc = value;
+                if (this.refs) {
+                    const refKey = keys(this.refs).filter(candidateRef => {
+                        const candidate = candidateRef.replace(`${this.definitionPath}.`, ''); // Remove the 'definitionPath.'
+                        return candidate === key.match(/([^\.]*)$/)[0] // Look for the 'fieldName' part of 'storeNode.fieldName'
+                    })[0];
+
+                    if (refKey) { // If we found it, then bingo
+                        this.refs[refKey].setError(errorState[key]);
                     }
-                    return acc;
-                }, null);
-                if (ref) { // If we found it, then bingo
-                    ref.setError(errorState[key]);
                 }
             }
         }

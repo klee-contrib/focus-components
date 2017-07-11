@@ -15,7 +15,7 @@ const storeMixin = {
             return this.getStateFromStore();
         }
 
-        const newState = {};
+        let newState = {};
         this.stores.forEach((storeConf) => {
             storeConf.properties.forEach((property) => {
                 newState[property] = storeConf.store[`get${capitalize(property)}`]();
