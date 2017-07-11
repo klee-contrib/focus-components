@@ -122,6 +122,7 @@ const storeMixin = {
         if (this.stores) {
             this.stores.forEach((storeConf) => {
                 storeConf.properties.forEach((property) => {
+                    if (!storeConf.store || !storeConf.store.definition || !storeConf.store.definition[property]) {
                     this._addRemoveSingleListener('add', storeConf.store, property);
                 });
             });

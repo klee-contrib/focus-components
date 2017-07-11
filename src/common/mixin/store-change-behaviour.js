@@ -1,6 +1,7 @@
 import message from 'focus-core/message';
 import { changeMode } from 'focus-core/application';
 import reduce from 'lodash/collection/reduce';
+import { keys } from 'lodash';
 
 const changeBehaviourMixin = {
     getInitialState: function getInitialState() {
@@ -48,7 +49,7 @@ const changeBehaviourMixin = {
             }
         }
     },
-	/**
+    /**
     * After change informations.
     * You can override this method using afterChange function.
     * @param {object} changeInfos - All informations relative to the change.
@@ -76,12 +77,12 @@ const changeBehaviourMixin = {
         }
     },
 
-	/**
+    /**
     * Event handler for 'change' events coming from the stores
     * @param {object} changeInfos - The changing informations.
     * @param {object} changeInfos The changing informations.
     */
-    _onChange: function _onChangeWrapper(changeInfos) {
+    _onChange(changeInfos) {
         if (this._isMountedChangeBehaviourMixin) {
             this._onChangeWrapped(changeInfos);
         } else {
@@ -97,11 +98,22 @@ const changeBehaviourMixin = {
 
         this.setState(this._getStateFromStores(), () => this._afterChange(changeInfos));
     },
-	/**
+    /**
+    * Read.
+    */
+    _onStoreStatus() {
+        if (this._getEntity) {
+            this.setState({ ...this._getEntity(), ...this._getLoadingStateFromStores() });
+        } else {
+            this.setState(this._getLoadingStateFromStores());
+        }
+    },
+
+    /**
     * Event handler for 'error' events coming from the stores.
     * @param {object} changeInfos The changing informations.
     */
-    _onError: function _onErrorWrapper(changeInfos) {
+    _onError(changeInfos) {
         if (this._isMountedChangeBehaviourMixin) {
             this._onErrorWrapped(changeInfos);
         } else {
@@ -134,6 +146,7 @@ const changeBehaviourMixin = {
                 }
             }
         }
+		}
     },
 	/**
     * Read
@@ -154,8 +167,6 @@ const changeBehaviourMixin = {
             this.setState({ ...this._getEntity(), ...this._getLoadingStateFromStores() });
         } else {
             this.setState(this._getLoadingStateFromStores());
-        }
-    }
 
 };
 
