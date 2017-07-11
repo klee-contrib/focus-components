@@ -1,18 +1,18 @@
 var fs = require('fs');
 var path = require('path');
-var babel = require('babel-core');
+// var babel = require('babel-core');
 
-var babelOptions = {
-    "presets": [
-        "focus"
-    ],
-    sourceMaps: 'inline'
-};
+// var babelOptions = {
+//     "presets": [
+//         "focus"
+//     ],
+//     sourceMaps: 'inline'
+// };
 
-var walk = function(dir) {
+var walk = function (dir) {
     var files = [];
     var list = fs.readdirSync(dir);
-    list.forEach(function(file) {
+    list.forEach(function (file) {
         file = dir + '/' + file;
         var stat = fs.statSync(file);
         if (stat && stat.isDirectory()) files = files.concat(walk(file));
@@ -21,8 +21,8 @@ var walk = function(dir) {
     return files;
 };
 
-var filterFiles = function(files) {
-    return files.filter(function(file) {
+var filterFiles = function (files) {
+    return files.filter(function (file) {
         return (!file.match(/(example|__tests__)/) && file.match(/\.js$/));
     });
 };
@@ -37,14 +37,22 @@ function ensureDirectoryExistence(filePath) {
 }
 
 var files = filterFiles(walk('./src'));
-files.forEach(function(file) {
-    babel.transformFile(file, babelOptions, function(err, result) {
-        if (err) console.error(err);
-        var newFile = file.replace('./src', '.');
-        ensureDirectoryExistence(newFile);
-        fs.writeFile(newFile, result.code, function(err) {
-            if (err) console.error(err);
-            console.log('Babelified ' + file);
-        });
-    });
+files.forEach(function (file) {
+    var newFile = file.replace('./src', '.');
+    ensureDirectoryExistence(newFile);
+    fs.createReadStream(file).pipe(fs.createWriteStream(newFile));
+    // fs.writeFile(newFile, result.code, function (err) {
+    //     if (err) console.error(err);
+    //     console.log('Babelified ' + file);
+    // });
+
+    // babel.transformFile(file, babelOptions, function(err, result) {
+    //     if (err) console.error(err);
+    //     var newFile = file.replace('./src', '.');
+    //     ensureDirectoryExistence(newFile);
+    //     fs.writeFile(newFile, result.code, function(err) {
+    //         if (err) console.error(err);
+    //         console.log('Babelified ' + file);
+    //     });
+    // });
 });
