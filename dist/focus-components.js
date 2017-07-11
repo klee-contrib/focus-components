@@ -74693,7 +74693,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	        return _react2.default.createElement(
 	            'ul',
-	            { className: 'mdl-menu mdl-menu--bottom-left mdl-js-menu mdl-js-ripple-effect', 'data-focus': 'search-bar-scopes', ref: 'scopeDropdown' },
+	            { className: 'mdl-menu mdl-menu--bottom-left mdl-js-menu mdl-js-ripple-effect', 'data-focus': 'search-bar-scopes', htmlFor: scopesId, ref: 'scopeDropdown' },
 	            0 < scopeList.length && scopeList.map(function (scope) {
 	                var code = scope.code,
 	                    icon = scope.icon,
