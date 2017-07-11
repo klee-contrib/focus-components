@@ -15,9 +15,9 @@ const storeMixin = {
             return this.getStateFromStore();
         }
 
-        let newState = {};
-        this.stores.map((storeConf) => {
-            storeConf.properties.map((property) => {
+        const newState = {};
+        this.stores.forEach((storeConf) => {
+            storeConf.properties.forEach((property) => {
                 newState[property] = storeConf.store[`get${capitalize(property)}`]();
             });
         });
@@ -25,12 +25,9 @@ const storeMixin = {
         let defaultData = {};
         if (this.props.useDefaultStoreData && (this.definition || this.getDefaultStoreData)) {
             if (this.getDefaultStoreData) {
-                defaultData = this.getDefaultActionData(this.definition);
+                defaultData = this.getDefaultStoreData(this.definition);
             } else {
-                defaultData = keys(this.definition).reduce((acc, key) => {
-                    acc[key] = null;
-                    return acc;
-                }, {});
+                defaultData = keys(this.definition).reduce((acc, key) => ({ ...acc, [key]: null }), {});
             }
         }
 
@@ -42,6 +39,7 @@ const storeMixin = {
 
         const computedState = assign(this._computeEntityFromStoresData(newState), this._getLoadingStateFromStores());
 
+        // First encountered key wins 
         return defaultsDeep({}, computedState, defaultData);
     },
 
@@ -54,10 +52,10 @@ const storeMixin = {
             return this.getErrorStateFromStore();
         }
 
-        let newState = {};
+        const newState = {};
         this.stores.forEach(storeConf => {
             storeConf.properties.forEach(property => {
-                let errorState = storeConf.store[`getError${capitalize(property)}`]();
+                const errorState = storeConf.store[`getError${capitalize(property)}`]();
                 for (let prop in errorState) {
                     newState[`${property}.${prop}`] = errorState[prop];
                 }
@@ -69,6 +67,7 @@ const storeMixin = {
 
     /**
      * Get the isLoading state from  all the store.
+     * @returns {object} The object with isLoading key set.
      */
     _getLoadingStateFromStores() {
         if (this.getLoadingStateFromStores) {
@@ -80,7 +79,7 @@ const storeMixin = {
             if (!isLoading) {
                 storeConf.properties.forEach((property) => {
                     if (!isLoading) {
-                        let propStatus = storeConf.store.getStatus(property) || {};
+                        const propStatus = storeConf.store.getStatus(property) || {};
                         isLoading = propStatus.isLoading || false;
                     }
                 });
@@ -92,15 +91,15 @@ const storeMixin = {
 
     /**
      * Compute the data given from the stores.
-     * @param {object} data -  The data ordered by store.
-     * @returns {object} - The js object transformed from store data.
+     * @param {object} data The data ordered by store.
+     * @returns {object} The js object transformed from store data.
      */
     _computeEntityFromStoresData(data) {
         if (this.computeEntityFromStoresData) {
             return this.computeEntityFromStoresData(data);
         }
 
-        let entity = { reference: {} };
+        const entity = { reference: {} };
         for (let key in data) {
             if (this.referenceNames && this.referenceNames.includes(key)) {
                 entity.reference[key] = data[key];
@@ -132,7 +131,7 @@ const storeMixin = {
     /**
     * Unregister all the listeners related to the page.
     */
-    _unRegisterListeners: function unregisterListener() {
+    _unRegisterListeners() {
         if (this.stores) {
             this.stores.forEach((storeConf) => {
                 storeConf.properties.forEach((property) => {
