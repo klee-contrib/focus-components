@@ -24,21 +24,17 @@ const changeBehaviourMixin = {
     * @param  {object} changeInfos - An object containing all the event informations, without the data.
     * @return {function} - An override function can be called.
     */
-    _displayMessageOnChange: function displayMessageOnChange(changeInfos) {
+    _displayMessageOnChange(changeInfos) {
         if (this.displayMessageOnChange) {
             return this.displayMessageOnChange(changeInfos);
         }
+
         if (changeInfos && changeInfos.status && changeInfos.status.name) {
             switch (changeInfos.status.name) {
-                /* case 'loading':
-                Focus.message.addInformationMessage('detail.loading');
-                break;
+                case 'loading':
                 case 'loaded':
-                Focus.message.addSuccessMessage('detail.loaded');
-                break;
                 case 'saving':
-                Focus.message.addInformationMessage('detail.saving');
-                break;*/
+                    break;
                 case 'saved':
                     //Maybe the action result or the event should have a caller notion.
                     message.addSuccessMessage('detail.saved');
@@ -52,30 +48,39 @@ const changeBehaviourMixin = {
             }
         }
     },
-    _afterChange: function afterChangeWrapper(changeInfos) {
+	/**
+    * After change informations.
+    * You can override this method using afterChange function.
+    * @param {object} changeInfos - All informations relative to the change.
+    * @returns {undefined} -  The return value is the callback.
+    * @param {object} changeInfos The changing informations.
+    * @returns {undefined} The return value is the callback.
+    */
+    _afterChange(changeInfos) {
         if (this._isMountedChangeBehaviourMixin) {
             this._afterChangeWrapped(changeInfos);
         } else {
             this._pendingActionsChangeBehaviourMixin.push(() => this._afterChangeWrapped(changeInfos));
         }
     },
-    /**
-    * After change informations.
-    * You can override this method using afterChange function.
-    * @param {object} changeInfos - All informations relative to the change.
-    * @returns {undefined} -  The return value is the callback.
-    */
-    _afterChangeWrapped: function afterChangeFormWrapped(changeInfos) {
+    
+    _afterChangeWrapped(changeInfos) {
         if (this.afterChange) {
             return this.afterChange(changeInfos);
         }
+
         //If there is no callerId in the event, the display message does not have any sens.
         //Other component responding to the store property change does not need to react on it.
         if (changeInfos && changeInfos.informations && changeInfos.informations.callerId && this._identifier === changeInfos.informations.callerId) {
             return this._displayMessageOnChange(changeInfos);
         }
-
     },
+
+	/**
+    * Event handler for 'change' events coming from the stores
+    * @param {object} changeInfos - The changing informations.
+    * @param {object} changeInfos The changing informations.
+    */
     _onChange: function _onChangeWrapper(changeInfos) {
         if (this._isMountedChangeBehaviourMixin) {
             this._onChangeWrapped(changeInfos);
@@ -83,17 +88,19 @@ const changeBehaviourMixin = {
             this._pendingActionsChangeBehaviourMixin.push(() => this._onChangeWrapped(changeInfos));
         }
     },
-    /**
-    * Event handler for 'change' events coming from the stores
-    * @param {object} changeInfos - The changing informations.
-    */
-    _onChangeWrapped: function onFormStoreChangeHandler(changeInfos) {
+    
+    _onChangeWrapped(changeInfos) {
         let onChange = this.props.onChange || this.onChange;
         if (onChange) {
             onChange.call(this, changeInfos);
         }
-        this.setState(this._getStateFromStores(changeInfos.property), () => this._afterChange(changeInfos));
+
+        this.setState(this._getStateFromStores(), () => this._afterChange(changeInfos));
     },
+	/**
+    * Event handler for 'error' events coming from the stores.
+    * @param {object} changeInfos The changing informations.
+    */
     _onError: function _onErrorWrapper(changeInfos) {
         if (this._isMountedChangeBehaviourMixin) {
             this._onErrorWrapped(changeInfos);
@@ -101,12 +108,14 @@ const changeBehaviourMixin = {
             this._pendingActionsChangeBehaviourMixin.push(() => this._onErrorWrapped(changeInfos));
         }
     },
-    /**
-    * Event handler for 'error' events coming from the stores.
-    */
-    _onErrorWrapped: function onFormErrorHandler(changeInfos) {
+    
+    _onErrorWrapped(changeInfos) {
         this.setState(this._getLoadingStateFromStores(), () => this._handleErrors(changeInfos)); // update errors after status
     },
+
+    /**
+     * Handle errors.
+     */
     _handleErrors() {
         const errorState = this._getErrorStateFromStores();
         if (this.definitionPath) {
@@ -126,6 +135,12 @@ const changeBehaviourMixin = {
             }
         }
     },
+	/**
+    * Read
+    * @param  {[type]} changeInfos [description]
+    * @return {[type]}             [description]
+    * Read.
+    */
     _onStatus: function _onStatusWrapper(changeInfos) {
         if (this._isMountedChangeBehaviourMixin) {
             this._onStatusWrapped(changeInfos);
@@ -133,18 +148,15 @@ const changeBehaviourMixin = {
             this._pendingActionsChangeBehaviourMixin.push(() => this._onStatusWrapped(changeInfos));
         }
     },
-    /**
-    * Read
-    * @param  {[type]} changeInfos [description]
-    * @return {[type]}             [description]
-    */
-    _onStatusWrapped: function _onStatus(changeInfos) {
+    
+    _onStatusWrapped(changeInfos) {
         if (this._getEntity) {
             this.setState({ ...this._getEntity(), ...this._getLoadingStateFromStores() });
         } else {
             this.setState(this._getLoadingStateFromStores());
         }
-
     }
+
 };
+
 export default changeBehaviourMixin;

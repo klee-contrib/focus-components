@@ -3,21 +3,25 @@ import { isObject, isArray, keys, capitalize, defaultsDeep, findIndex, pick } fr
 import storeChangeBehaviour from './store-change-behaviour';
 
 const storeMixin = {
+
     mixins: [storeChangeBehaviour],
+
     /**
      * Get the state informations from the store.
      * @returns {object} - The js object constructed from store data.
      */
-    _getStateFromStores: function formGetStateFromStore(filterNodes = []) {
+    _getStateFromStores() {
         if (this.getStateFromStore) {
             return this.getStateFromStore();
         }
+
         let newState = {};
         this.stores.map((storeConf) => {
             storeConf.properties.map((property) => {
                 newState[property] = storeConf.store[`get${capitalize(property)}`]();
             });
         });
+
         let defaultData = {};
         if (this.props.useDefaultStoreData && (this.definition || this.getDefaultStoreData)) {
             if (this.getDefaultStoreData) {
@@ -36,35 +40,41 @@ const storeMixin = {
             defaultData = pick(defaultData, filterNodes);
         }
 
-        const computedState = this._computeEntityFromStoresData(newState);
-        return defaultsDeep({}, computedState, this._getLoadingStateFromStores(), defaultData);
+        const computedState = assign(this._computeEntityFromStoresData(newState), this._getLoadingStateFromStores());
+
+        return defaultsDeep({}, computedState, defaultData);
     },
+
     /**
      * Get the error state informations from the store.
      * @returns {object} - The js error object constructed from the store data.
      */
-    _getErrorStateFromStores: function formGetErrorStateFromStore() {
+    _getErrorStateFromStores() {
         if (this.getErrorStateFromStore) {
             return this.getErrorStateFromStore();
         }
+
         let newState = {};
-        this.stores.map(storeConf => {
-            storeConf.properties.map(property => {
+        this.stores.forEach(storeConf => {
+            storeConf.properties.forEach(property => {
                 let errorState = storeConf.store[`getError${capitalize(property)}`]();
                 for (let prop in errorState) {
                     newState[`${property}.${prop}`] = errorState[prop];
                 }
             });
         });
+
         return newState;
     },
+
     /**
      * Get the isLoading state from  all the store.
      */
-    _getLoadingStateFromStores: function getLoadingStateFromStores() {
+    _getLoadingStateFromStores() {
         if (this.getLoadingStateFromStores) {
             return this.getLoadingStateFromStores();
         }
+
         let isLoading = false;
         this.stores.forEach((storeConf) => {
             if (!isLoading) {
@@ -76,18 +86,20 @@ const storeMixin = {
                 });
             }
         });
-        //console.info('Processing state', this.stores, 'loading', isLoading);
-        return { isLoading: isLoading };
+
+        return { isLoading };
     },
+
     /**
      * Compute the data given from the stores.
      * @param {object} data -  The data ordered by store.
      * @returns {object} - The js object transformed from store data.
      */
-    _computeEntityFromStoresData: function _computeEntityFromStoresData(data) {
+    _computeEntityFromStoresData(data) {
         if (this.computeEntityFromStoresData) {
             return this.computeEntityFromStoresData(data);
         }
+
         let entity = { reference: {} };
         for (let key in data) {
             if (this.referenceNames && this.referenceNames.includes(key)) {
@@ -100,27 +112,30 @@ const storeMixin = {
                 assign(entity, d);
             }
         }
+
         return entity;
     },
+
     /**
      * Register all the listeners related to the page.
      */
-    _registerListeners: function registerStoreListeners() {
+    _registerListeners() {
         if (this.stores) {
-            this.stores.map((storeConf) => {
-                storeConf.properties.map((property) => {
+            this.stores.forEach((storeConf) => {
+                storeConf.properties.forEach((property) => {
                     this._addRemoveSingleListener('add', storeConf.store, property);
                 });
             });
         }
     },
+
     /**
     * Unregister all the listeners related to the page.
     */
     _unRegisterListeners: function unregisterListener() {
         if (this.stores) {
-            this.stores.map((storeConf) => {
-                storeConf.properties.map((property) => {
+            this.stores.forEach((storeConf) => {
+                storeConf.properties.forEach((property) => {
                     this._addRemoveSingleListener('remove', storeConf.store, property);
                 });
             });
@@ -179,15 +194,16 @@ const storeMixin = {
         }
     },
     /** @inheritdoc */
-    componentWillMount: function storeBehaviourWillMount() {
+    componentWillMount() {
         //These listeners are registered before the mounting because they are not correlated to the DOM.
-        //Build the definitions.
         this._registerListeners();
     },
+
     /** @inheritdoc */
-    componentWillUnmount: function storeBehaviourWillUnmount() {
+    componentWillUnmount() {
         this._unRegisterListeners();
     }
+
 };
 
 export default storeMixin;
