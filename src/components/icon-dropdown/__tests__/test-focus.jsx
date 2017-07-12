@@ -1,5 +1,10 @@
+
+import TestUtils from 'react-addons-test-utils';
+import React from 'react';
+import TestFocus from '../../../../test/test-focus';
+
 const ReactDOM = require('react-dom');
-const {renderIntoDocument,findRenderedDOMComponentWithClass,findAllInRenderedTree,isDOMComponent} = TestUtils;
+const { renderIntoDocument, findRenderedDOMComponentWithClass, findAllInRenderedTree, isDOMComponent } = TestUtils;
 //Focus attributes
 export const ATTR_DATA_FOCUS = 'data-focus';
 export const ATTR_DATA_ROLE = 'data-role';
@@ -26,17 +31,14 @@ export function findDataFocusElements(renderedTest) {
 }
 
 export function findFocusElementsWithDataFocus(renderedTest, attrValue) {
-    return (findAllInRenderedTree(renderedTest, filtreAttrVal(ATTR_DATA_FOCUS,attrValue)));
+    return (findAllInRenderedTree(renderedTest, filtreAttrVal(ATTR_DATA_FOCUS, attrValue)));
 }
 
 export function findFocusElementsWithDataRole(renderedTest, attrValue) {
-    return (findAllInRenderedTree(renderedTest, filtreAttrVal(ATTR_DATA_ROLE,attrValue)));
+    return (findAllInRenderedTree(renderedTest, filtreAttrVal(ATTR_DATA_ROLE, attrValue)));
 }
 
 export function findDataRoleElements(renderedTest) {
     return (findAllInRenderedTree(renderedTest, filtreAttr(ATTR_DATA_ROLE)));
 }
 
-export function findDataFocusElements(renderedTest) {
-    return (findAllInRenderedTree(renderedTest, filtreAttr(ATTR_DATA_FOCUS)));
-}

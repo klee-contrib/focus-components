@@ -1,4 +1,8 @@
-const ReactDOM = require('react-dom');
+
+import TestUtils from 'react-addons-test-utils';
+import React from 'react';
+import ReactDOM from 'react-dom';
+
 import user from 'focus-core/user';
 import Role from '../';
 import Input from '../../input/text';
@@ -6,11 +10,11 @@ import Input from '../../input/text';
 const CHILD_NOT_FOUND_MSG = 'Did not find exactly one match (found: 0) for class:child';
 const childBlock = 'childBlock';
 
-const {renderIntoDocument,findRenderedDOMComponentWithClass} = TestUtils
+const { renderIntoDocument, findRenderedDOMComponentWithClass } = TestUtils
 
 class TestWrapper extends React.Component {
     render() {
-        const {children,mockedValue, ...otherProps} = this.props;
+        const { children, mockedValue, ...otherProps } = this.props;
         return (
             <div className={mockedValue} ref={mockedValue}>{children}</div>
         );
@@ -19,10 +23,10 @@ class TestWrapper extends React.Component {
 
 class TestComponent extends React.Component {
     render() {
-        const {rolesForHasOne,rolesForHasAll, ...otherProps} = this.props;
+        const { rolesForHasOne, rolesForHasAll, ...otherProps } = this.props;
         return (
             <TestWrapper mockedValue="header">
-                <Role hasOne={rolesForHasOne} hasAll={rolesForHasAll} emptyBlock={<div/>}>
+                <Role hasOne={rolesForHasOne} hasAll={rolesForHasAll} emptyBlock={<div />}>
                     <TestWrapper mockedValue={childBlock}>
                         <div>Test</div>
                     </TestWrapper>
@@ -35,37 +39,37 @@ class TestComponent extends React.Component {
 describe('The role', () => {
     describe('when user has role', () => {
 
-        before(
+        beforeEach(
             () => {
                 user.setRoles(['DEFAULT_ROLE', 'ADMIN_ROLE', 'OTHER_ROLE']);
             }
         );
         it('user has one role', () => {
             const renderedTest = renderIntoDocument(<TestComponent rolesForHasOne={['DEFAULT_ROLE']} />);
-            expect(findRenderedDOMComponentWithClass(renderedTest, childBlock)).to.not.equal(null);
+            expect(findRenderedDOMComponentWithClass(renderedTest, childBlock)).not.toBe(null);
         })
 
         it('user has all the roles', () => {
             const renderedTest = renderIntoDocument(<TestComponent rolesForHasAll={['DEFAULT_ROLE', 'ADMIN_ROLE', 'OTHER_ROLE']} />);
-            expect(findRenderedDOMComponentWithClass(renderedTest, childBlock)).to.not.equal(null);
+            expect(findRenderedDOMComponentWithClass(renderedTest, childBlock)).not.toBe(null);
         })
 
     });
     describe('when user has not the role(s)', () => {
 
-        before(
+        beforeEach(
             () => {
                 user.setRoles(['DEFAULT_ROLE', 'ADMIN_ROLE', 'OTHER_ROLE']);
             }
         );
         it('user has not the role ', () => {
             const renderedTest = renderIntoDocument(<TestComponent rolesForHasOne={['USER_ROLE']} />);
-            expect(() => findRenderedDOMComponentWithClass(renderedTest, childBlock)).to.throw(CHILD_NOT_FOUND_MSG);
+            expect(() => findRenderedDOMComponentWithClass(renderedTest, childBlock)).toThrow(CHILD_NOT_FOUND_MSG);
         })
 
         it('user has not all the roles', () => {
             const renderedTest = renderIntoDocument(<TestComponent rolesForHasAll={['DEFAULT_ROLE', 'ADMIN_ROLE', 'USER_ROLE']} />);
-            expect(() => findRenderedDOMComponentWithClass(renderedTest, childBlock)).to.throw(CHILD_NOT_FOUND_MSG);
+            expect(() => findRenderedDOMComponentWithClass(renderedTest, childBlock)).toThrow(CHILD_NOT_FOUND_MSG);
         })
 
     });

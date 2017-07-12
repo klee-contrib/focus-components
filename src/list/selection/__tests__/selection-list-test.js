@@ -1,6 +1,8 @@
-/*global TestUtils*/
-import React from 'react';
+
 import TestUtils from 'react-addons-test-utils';
+import React from 'react';
+import ReactDOM from 'react-dom';
+
 const shallowRenderer = TestUtils.createRenderer();
 let data = {
     title: 'title test',
