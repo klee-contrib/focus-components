@@ -1,5 +1,5 @@
 import message from 'focus-core/message';
-import {changeMode} from 'focus-core/application';
+import { changeMode } from 'focus-core/application';
 import reduce from 'lodash/collection/reduce';
 
 const changeBehaviourMixin = {
@@ -24,10 +24,10 @@ const changeBehaviourMixin = {
                 Focus.message.addInformationMessage('detail.saving');
                 break;*/
                 case 'saved':
-                //Maybe the action result or the event should have a caller notion.
+                    //Maybe the action result or the event should have a caller notion.
                     message.addSuccessMessage('detail.saved');
-                //Change the page mode as edit
-                    this.setState({isEdit: false}, () => {
+                    //Change the page mode as edit
+                    this.setState({ isEdit: false }, () => {
                         changeMode('consult', 'edit');
                     });
                     break;
@@ -62,7 +62,7 @@ const changeBehaviourMixin = {
         if (onChange) {
             onChange.call(this, changeInfos);
         }
-        this.setState(this._getStateFromStores(), () => this._afterChange(changeInfos));
+        this.setState(this._getStateFromStores(changeInfos.property), () => this._afterChange(changeInfos));
     },
     /**
     * Event handler for 'error' events coming from the stores.
@@ -96,7 +96,7 @@ const changeBehaviourMixin = {
     */
     _onStatus(changeInfos) {
         if (this._getEntity) {
-            this.setState({...this._getEntity(), ...this._getLoadingStateFromStores()});
+            this.setState({ ...this._getEntity(), ...this._getLoadingStateFromStores() });
         } else {
             this.setState(this._getLoadingStateFromStores());
         }
