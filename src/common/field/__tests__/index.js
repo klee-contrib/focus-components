@@ -3,7 +3,8 @@
 import TestUtils from 'react-addons-test-utils';
 import React from 'react';
 import ReactDOM from 'react-dom';
-import TestFocus from '../../../../test/test-focus';
+import { init } from 'focus-core/translation';
+import { findFocusElementsWithDataFocus, findElementWithInnerHTML, findElementWithValue, TAG_DIV, TAG_INPUT } from '../../../../test/test-focus';
 
 import { component as Field } from '../';
 
@@ -29,6 +30,7 @@ describe('The Field component', () => {
             () => {
                 reactComponent = renderIntoDocument(testedReactCpt);
                 domNode = ReactDOM.findDOMNode(reactComponent);
+                init({ resStore: {}, lng: 'fr-FR' });
             }
         );
 
@@ -39,7 +41,7 @@ describe('The Field component', () => {
 
         it('label is rendered nd not editable', () => {
             //label value
-            const labelCpts = TestFocus.findFocusElementsWithDataFocus(reactComponent, fieldLabelContainer);
+            const labelCpts = findFocusElementsWithDataFocus(reactComponent, fieldLabelContainer);
             expect(labelCpts.length).toBe(1);
             const labelCpt = labelCpts[0];
             expect(labelCpt.textContent).toBe(fieldLabel);
@@ -47,24 +49,24 @@ describe('The Field component', () => {
 
         it('text is rendered and not editable', () => {
             //search with data-focus dependant of the component architecture
-            const valueCpts = TestFocus.findFocusElementsWithDataFocus(reactComponent, fieldValueContainer);
+            const valueCpts = findFocusElementsWithDataFocus(reactComponent, fieldValueContainer);
             expect(valueCpts.length).toBe(1);
             const valueCpt = valueCpts[0];
             expect(valueCpt.textContent).toBe(fieldValue);
-            expect(valueCpt.tagName).toBe(TestFocus.TAG_DIV);
+            expect(valueCpt.tagName).toBe(TAG_DIV);
 
-            //search with text content in inner html
-            const textCpts = TestFocus.findElementWithInnerHTML(reactComponent, fieldValue);
+            //search with text content in inner <html></html>
+            const textCpts = findElementWithInnerHTML(reactComponent, fieldValue);
             expect(textCpts.length).toBe(1);
             const textCpt = textCpts[0];
-            expect(textCpt.tagName).toBe(TestFocus.TAG_DIV);
+            expect(textCpt.tagName).toBe(TAG_DIV);
         });
 
 
     });
 
     describe('Field is editable', () => {
-        const testedReactCpt = <Field name={fieldName} value={fieldValue} isEdit={true} label={fieldLabel} />;
+        const testedReactCpt = <Field name={fieldName} value={fieldValue} isEdit label={fieldLabel} />;
         let reactComponent, domNode;
 
 
@@ -72,6 +74,7 @@ describe('The Field component', () => {
             () => {
                 reactComponent = renderIntoDocument(testedReactCpt);
                 domNode = ReactDOM.findDOMNode(reactComponent);
+                init({ resStore: {}, lng: 'fr-FR' });
 
             }
         );
@@ -83,7 +86,7 @@ describe('The Field component', () => {
 
         it('label is rendered and not editable', () => {
             //label value
-            const labelCpts = TestFocus.findFocusElementsWithDataFocus(reactComponent, fieldLabelContainer);
+            const labelCpts = findFocusElementsWithDataFocus(reactComponent, fieldLabelContainer);
             expect(labelCpts.length).toBe(1);
             const labelCpt = labelCpts[0];
             expect(labelCpt.textContent).toBe(fieldLabel);
@@ -91,22 +94,22 @@ describe('The Field component', () => {
 
         it('text is rendered and editable', () => {
             //text value
-            const valueCpts = TestFocus.findFocusElementsWithDataFocus(reactComponent, fieldValueContainer);
+            const valueCpts = findFocusElementsWithDataFocus(reactComponent, fieldValueContainer);
             expect(valueCpts.length).toBe(1);
             const valueCpt = valueCpts[0];
 
             //search with text content in inner html
-            const readOnlyTextCpts = TestFocus.findElementWithInnerHTML(reactComponent, fieldValue);
+            const readOnlyTextCpts = findElementWithInnerHTML(reactComponent, fieldValue);
             expect(readOnlyTextCpts.length).toBe(0);
 
-            const textCpts = TestFocus.findElementWithValue(reactComponent, fieldValue);
+            const textCpts = findElementWithValue(reactComponent, fieldValue);
             expect(textCpts.length).toBe(1);
             const textCpt = textCpts[0];
-            expect(textCpt.tagName).toBe(TestFocus.TAG_INPUT);
+            expect(textCpt.tagName).toBe(TAG_INPUT);
         });
 
         it('text is modified', () => {
-            const textCpts = TestFocus.findElementWithValue(reactComponent, fieldValue);
+            const textCpts = findElementWithValue(reactComponent, fieldValue);
             expect(textCpts.length).toBe(1);
             const textCpt = textCpts[0];
             //simulating change event
@@ -120,13 +123,14 @@ describe('The Field component', () => {
     const newFieldValueNumber = 10;
 
     describe('Field value is a number', () => {
-        const testedReactCpt = <Field name={fieldName} value={fieldValueNumber} isEdit={true} type='number' />;
+        const testedReactCpt = <Field name={fieldName} value={fieldValueNumber} isEdit type='number' />;
         let reactComponent, domNode;
 
         beforeEach(
             () => {
                 reactComponent = renderIntoDocument(testedReactCpt);
                 domNode = ReactDOM.findDOMNode(reactComponent);
+                init({ resStore: {}, lng: 'fr-FR' });
 
             }
         );
@@ -136,7 +140,7 @@ describe('The Field component', () => {
             expect(reactComponent.getValue()).toBe('' + fieldValueNumber);
         });
         it('number value is modified', () => {
-            const textCpts = TestFocus.findElementWithValue(reactComponent, fieldValue);
+            const textCpts = findElementWithValue(reactComponent, fieldValue);
             expect(textCpts.length).toBe(1);
             const textCpt = textCpts[0];
             //simulating change event
@@ -144,7 +148,7 @@ describe('The Field component', () => {
             expect(reactComponent.getValue()).toBe('' + newFieldValueNumber);
         });
         it('text value is blocked', () => {
-            const textCpts = TestFocus.findElementWithValue(reactComponent, fieldValue);
+            const textCpts = findElementWithValue(reactComponent, fieldValue);
             expect(textCpts.length).toBe(1);
             const textCpt = textCpts[0];
             //simulating change event
@@ -157,7 +161,7 @@ describe('The Field component', () => {
     });
 
     describe('Field has a formatter', () => {
-        const formatter = function(data) { return data + ' formatter applied'; }
+        const formatter = function (data) { return data + ' formatter applied'; }
         const testedReactCpt = <Field name={fieldName} value={fieldValue} isEdit={false} formatter={formatter} />;
         let reactComponent, domNode;
 
@@ -165,6 +169,7 @@ describe('The Field component', () => {
             () => {
                 reactComponent = renderIntoDocument(testedReactCpt);
                 domNode = ReactDOM.findDOMNode(reactComponent);
+                init({ resStore: {}, lng: 'fr-FR' });
             }
         );
 
@@ -173,7 +178,7 @@ describe('The Field component', () => {
         });
 
         it('value is formatted', () => {
-            const valueCpts = TestFocus.findFocusElementsWithDataFocus(reactComponent, fieldValueContainer);
+            const valueCpts = findFocusElementsWithDataFocus(reactComponent, fieldValueContainer);
             expect(valueCpts.length).toBe(1);
             const valueCpt = valueCpts[0];
             expect(valueCpt.textContent).toBe(formatter(fieldValue));

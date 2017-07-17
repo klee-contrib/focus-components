@@ -1,4 +1,4 @@
-    
+
 import TestUtils from 'react-addons-test-utils';
 import React from 'react';
 
@@ -6,7 +6,7 @@ import ComponentBaseBehaviour from '../';
 import ReactDOM from 'react-dom';
 import { init } from 'focus-core/translation';
 
-describe.only('The component base behaviour', () => {
+describe('The component base behaviour', () => {
     let renderedComponent;
     beforeEach((done) => {
         init({ resStore: {} }, () => {

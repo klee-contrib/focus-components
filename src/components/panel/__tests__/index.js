@@ -31,7 +31,7 @@ describe('The Panel', () => {
         });
         it('should not have a title section', () => {
             const titleSection = domNode.querySelector('[data-focus="panel-title"]');
-            expect(titleSection).not.toBeDefined();
+            expect(titleSection).toBeNull();
         });
         it('should have a content section', () => {
             const contentSection = domNode.querySelector('[data-focus="panel-content"]');
@@ -39,11 +39,11 @@ describe('The Panel', () => {
         });
         it('should not have a top actions', () => {
             const topActions = domNode.querySelector('[data-focus="panel-title"] .actions');
-            expect(topActions).not.toBeDefined();
+            expect(topActions).toBeNull();
         });
         it('should not have a bottom actions section', () => {
             const bottomSection = domNode.querySelector('[data-focus="panel-actions"]');
-            expect(bottomSection).not.toBeDefined();
+            expect(bottomSection).toBeNull();
         });
     });
     describe('when mounted with title props', () => {

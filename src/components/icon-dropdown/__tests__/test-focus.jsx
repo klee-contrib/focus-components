@@ -1,7 +1,6 @@
 
 import TestUtils from 'react-addons-test-utils';
 import React from 'react';
-import TestFocus from '../../../../test/test-focus';
 
 const ReactDOM = require('react-dom');
 const { renderIntoDocument, findRenderedDOMComponentWithClass, findAllInRenderedTree, isDOMComponent } = TestUtils;

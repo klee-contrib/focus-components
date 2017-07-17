@@ -1,2 +1,0 @@
-
-describe.skip('The Layout', () => {});

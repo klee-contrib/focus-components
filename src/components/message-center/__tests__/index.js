@@ -68,9 +68,9 @@ describe('The MessageCenter', () => {
                 expect(messageContent.tagName).toBe('DIV');
                 expect(messageContent.innerHTML).toBe(message);
             });
-            it('should should not display action', () => {
+            it('should not display action', () => {
                 const actionContent = domNode.querySelector('.mdl-snackbar__action');
-                expect(actionContent).not.toBeDefined();
+                expect(actionContent).toBeNull();
             });
         });
         describe('an error message', () => {
@@ -100,7 +100,7 @@ describe('The MessageCenter', () => {
             });
             it('should should not display action', () => {
                 const actionContent = domNode.querySelector('.mdl-snackbar__action');
-                expect(actionContent).not.toBeDefined();
+                expect(actionContent).toBeNull();
             });
         });
         describe('a success message', () => {
@@ -130,7 +130,7 @@ describe('The MessageCenter', () => {
             });
             it('should should not display action', () => {
                 const actionContent = domNode.querySelector('.mdl-snackbar__action');
-                expect(actionContent).not.toBeDefined();
+                expect(actionContent).toBeNull();
             });
         });
         describe('a warning message', () => {
@@ -160,7 +160,7 @@ describe('The MessageCenter', () => {
             });
             it('should should not display action', () => {
                 const actionContent = domNode.querySelector('.mdl-snackbar__action');
-                expect(actionContent).not.toBeDefined();
+                expect(actionContent).toBeNull();
             });
         });
         describe('a message with an action', () => {

@@ -44,8 +44,8 @@ const entityMock = {
             required: true
         },
         age: {
-            'domain': 'DO_NUMBER',
-            'required': false
+            domain: 'DO_NUMBER',
+            required: false
         },
         email: {
             domain: 'DO_EMAIL',

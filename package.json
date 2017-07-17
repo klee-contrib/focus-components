@@ -1,89 +1,91 @@
 {
-    "name": "focus-components",
-    "version": "2.1.7-1",
-    "description": "Focus component repository.",
-    "main": "index.js",
-    "scripts": {
-        "babelify": "better-npm-run babelify",
-        "copy-sass": "better-npm-run copy-sass",
-        "build": "node scripts/mdl-variables-copy.js && better-npm-run babelify && better-npm-run copy-sass",
-        "test": "better-npm-run test",
-        "test:watch": "better-npm-run test-watch",
-        "postinstall": "node scripts/mdl-variables-copy.js",
-        "prepublish": "npm run build",
-        "fix-lint": "eslint --fix src/** || exit 0"
+  "name": "focus-components",
+  "version": "2.1.7-1",
+  "description": "Focus component repository.",
+  "main": "index.js",
+  "scripts": {
+    "babelify": "better-npm-run babelify",
+    "copy-sass": "better-npm-run copy-sass",
+    "build": "node scripts/mdl-variables-copy.js && better-npm-run babelify && better-npm-run copy-sass",
+    "test": "better-npm-run test",
+    "test:watch": "better-npm-run test-watch",
+    "postinstall": "node scripts/mdl-variables-copy.js",
+    "prepublish": "npm run build",
+    "fix-lint": "eslint --fix src/** || exit 0"
+  },
+  "betterScripts": {
+    "babelify": {
+      "env": {
+        "BABEL_ENV": "production"
+      },
+      "command": "node scripts/babelify.js"
     },
-    "betterScripts": {
-        "babelify": {
-            "env": {
-                "BABEL_ENV": "production"
-            },
-            "command": "node scripts/babelify.js"
-        },
-        "copy-sass": {
-            "command": "cd src && find . -name *.scss | xargs tar cvf - | tar xfp - -C ../"
-        },
-        "test": {
-            "command": "mocha src/**/__tests__/**/*.js",
-            "env": {
-                "BABEL_ENV": "production"
-            }
-        },
-        "test-watch": {
-            "command": "mocha src/**/__tests__/**/*.js -w",
-            "env": {
-                "BABEL_ENV": "production"
-            }
-        }
+    "copy-sass": {
+      "command": "cd src && find . -name *.scss | xargs tar cvf - | tar xfp - -C ../"
     },
-    "babel": {
-        "presets": [
-            "focus"
-        ]
+    "test": {
+      "command": "mocha src/**/__tests__/**/*.js",
+      "env": {
+        "BABEL_ENV": "production"
+      }
     },
-    "repository": {
-        "type": "git",
-        "url": "https://github.com/KleeGroup/focus-components.git"
-    },
-    "keywords": [
-        "react",
-        "focus"
-    ],
-    "author": "Focus Team <focus@kleegroup.com>",
-    "license": "MIT",
-    "bugs": {
-        "url": "https://github.com/KleeGroup/focus-components/issues"
-    },
-    "homepage": "https://github.com/KleeGroup/focus-components",
-    "peerDependencies": {
-        "focus-core": "2.1.1",
-        "material-design-lite": "1.3.0",
-        "moment": "2.18.1",
-        "react": "15.4.2",
-        "react-dom": "15.4.2",
-        "react-addons-css-transition-group": "15.4.2"
-    },
-    "dependencies": {
-        "closest": "0.0.1",
-        "lodash": "3.10.1",
-        "react-date-picker": "5.3.28",
+    "test-watch": {
+      "command": "mocha src/**/__tests__/**/*.js -w",
+      "env": {
+        "BABEL_ENV": "production"
+      }
+    }
+  },
+  "babel": {
+    "presets": [
+      "focus"
+    ]
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/KleeGroup/focus-components.git"
+  },
+  "keywords": [
+    "react",
+    "focus"
+  ],
+  "author": "Focus Team <focus@kleegroup.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/KleeGroup/focus-components/issues"
+  },
+  "homepage": "https://github.com/KleeGroup/focus-components",
+  "peerDependencies": {
+    "focus-core": "2.1.1",
+    "material-design-lite": "1.3.0",
+    "moment": "2.18.1",
+    "react": "15.4.2",
+    "react-dom": "15.4.2",
+    "react-addons-css-transition-group": "15.4.2"
+  },
+  "dependencies": {
+    "closest": "0.0.1",
+    "lodash": "3.10.1",
+    "react-date-picker": "5.3.28",
         "uuid": "3.1.0",
     "react-lazyload": "2.2.7",
-    },
-    "devDependencies": {
-        "babel-jest": "20.0.3",
-        "babel-preset-focus": "0.7.0",
-        "better-npm-run": "0.0.15",
-        "enzyme": "2.9.1",
-        "eslint-config-focus": "git://github.com/KleeGroup/eslint-config-focus#master",
-        "focus-core": "2.1.1",
-        "in-publish": "2.0.0",
-        "jest-cli": "20.0.4",
-        "jsdom": "11.1.0",
-        "material-design-lite": "1.3.0",
-        "moment": "2.18.1",
-        "react": "15.4.2",
-        "react-addons-test-utils": "15.4.2",
-        "react-dom": "15.4.2"
-    }
+  },
+  "devDependencies": {
+    "babel-jest": "20.0.3",
+    "babel-preset-focus": "0.7.0",
+    "better-npm-run": "0.0.15",
+    "enzyme": "2.9.1",
+    "eslint-config-focus": "git://github.com/KleeGroup/eslint-config-focus#master",
+    "focus-core": "2.1.1",
+    "i18next-client": "1.11.4",
+    "in-publish": "2.0.0",
+    "jest-cli": "20.0.4",
+    "jsdom": "11.1.0",
+    "material-design-lite": "1.3.0",
+    "moment": "2.18.1",
+    "numeral": "2.0.6",
+    "react": "15.4.2",
+    "react-addons-test-utils": "15.4.2",
+    "react-dom": "15.4.2"
+  }
 }
