@@ -3,7 +3,8 @@ focus-components
 
 [![NPM](https://nodei.co/npm/focus-components.png?downloads=true&downloadRank=true&stars=true)](https://nodei.co/npm/focus-components/)
 
-![Build Status](https://travis-ci.org/KleeGroup/focus-components.svg)
+[![master](https://travis-ci.org/KleeGroup/focus-components.svg?branch=master)](https://travis-ci.org/KleeGroup/focus-components)
+[![develop](https://travis-ci.org/KleeGroup/focus-components.svg?branch=develop)](https://travis-ci.org/KleeGroup/focus-components)
 
 [![Throughput Graph](https://graphs.waffle.io/KleeGroup/focus-components/throughput.svg)](https://graphs.waffle.io/KleeGroup/focus-components/metrics)
 
