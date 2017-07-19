@@ -192,8 +192,8 @@ class Autocomplete extends Component {
         const resolvedLabel = options.get(key) || '';
         this.refs.htmlInput.blur();
         let newState = {inputValue: this.i18n(resolvedLabel), selected: key, focus: false};
-        if (this.props.onSelectClear && this.props.onSelectClear === true) {
-            newState = {inputValue: null, selected: null, focus: false};
+        if (this.props.onSelectClear === true) {
+            newState = {inputValue: '', selected: null, focus: false};
         } 
         this.setState(newState, () => {
             if (onChange) {
