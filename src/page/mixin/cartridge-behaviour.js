@@ -1,17 +1,15 @@
-import {isFunction, isUndefined} from 'lodash/lang';
-import {setHeader} from 'focus-core/application';
-import {component as Empty} from '../../common/empty';
+import { isFunction } from 'lodash';
+import { setHeader } from 'focus-core/application';
 
-module.exports = {
+const cartridgeBehaviour = {
 
     /**
      * Updates the cartridge using the cartridgeConfiguration.
      */
-    _registerCartridge() {
-        this.cartridgeConfiguration = this.cartridgeConfiguration || this.props.cartridgeConfiguration;
-
-        if (!isFunction(this.cartridgeConfiguration)) {
-            this.cartridgeConfiguration = () => ({});
+    _registerCartridge(props = this.props) {
+        const cartridgeConfiguration = this.cartridgeConfiguration || props.cartridgeConfiguration;
+        const hasCartridge = isFunction(cartridgeConfiguration);
+        if (!hasCartridge) {
             console.warn(`
                 Your detail page does not have any cartrige configuration, this is not mandarory but recommended.
                 It should be a component attribute return by a function.
@@ -25,8 +23,8 @@ module.exports = {
                 }
             `);
         }
-        
-        setHeader(this.cartridgeConfiguration());
+        const config = hasCartridge ? cartridgeConfiguration() : {};
+        setHeader(config);
     },
 
     /**
@@ -34,5 +32,11 @@ module.exports = {
      */
     componentWillMount() {
         this._registerCartridge();
+    },
+
+    componentWillReceiveProps(nextProps) {
+        this._registerCartridge(nextProps);
     }
 };
+
+export default cartridgeBehaviour; 
