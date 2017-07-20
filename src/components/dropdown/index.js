@@ -114,7 +114,7 @@ class ActionMenu extends React.Component {
         const {id,iconProps, operationList, position, shape} = this.props;
         return (
             <div>
-                <Button icon={iconProps.name} id={id} isJs={true} shape={shape}
+                <Button type='button' icon={iconProps.name} id={id} isJs={true} shape={shape}
                         handleOnClick={this._handleButtonClick.bind(this)}/>
 
                 <div>
