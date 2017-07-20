@@ -1,14 +1,14 @@
 import assign from 'object-assign';
-import {isObject, isArray, keys, capitalize, defaultsDeep} from 'lodash';
+import { isObject, isArray, keys, capitalize, defaultsDeep, pick } from 'lodash';
 import storeChangeBehaviour from './store-change-behaviour';
 
 const storeMixin = {
     mixins: [storeChangeBehaviour],
-  /**
-   * Get the state informations from the store.
-   * @returns {object} - The js object constructed from store data.
-   */
-    _getStateFromStores: function formGetStateFromStore() {
+    /**
+     * Get the state informations from the store.
+     * @returns {object} - The js object constructed from store data.
+     */
+    _getStateFromStores: function formGetStateFromStore(filterNodes = []) {
         if (this.getStateFromStore) {
             return this.getStateFromStore();
         }
@@ -29,8 +29,15 @@ const storeMixin = {
                 }, {});
             }
         }
-        const computedState = assign(this._computeEntityFromStoresData(newState), this._getLoadingStateFromStores());
-        return defaultsDeep({}, computedState, defaultData);
+
+        // We want to pick only some nodes
+        if (filterNodes.length > 0) {
+            newState = pick(newState, filterNodes);
+            defaultData = pick(defaultData, filterNodes);
+        }
+
+        const computedState = this._computeEntityFromStoresData(newState);
+        return defaultsDeep({}, computedState, this._getLoadingStateFromStores(), defaultData);
     },
     /**
      * Get the error state informations from the store.
@@ -41,8 +48,8 @@ const storeMixin = {
             return this.getErrorStateFromStore();
         }
         let newState = {};
-        this.stores.map( storeConf => {
-            storeConf.properties.map( property => {
+        this.stores.map(storeConf => {
+            storeConf.properties.map(property => {
                 let errorState = storeConf.store[`getError${capitalize(property)}`]();
                 for (let prop in errorState) {
                     newState[`${property}.${prop}`] = errorState[prop];
@@ -51,9 +58,9 @@ const storeMixin = {
         });
         return newState;
     },
-  /**
-   * Get the isLoading state from  all the store.
-   */
+    /**
+     * Get the isLoading state from  all the store.
+     */
     _getLoadingStateFromStores: function getLoadingStateFromStores() {
         if (this.getLoadingStateFromStores) {
             return this.getLoadingStateFromStores();
@@ -69,35 +76,35 @@ const storeMixin = {
                 });
             }
         });
-    //console.info('Processing state', this.stores, 'loading', isLoading);
-        return {isLoading: isLoading};
+        //console.info('Processing state', this.stores, 'loading', isLoading);
+        return { isLoading: isLoading };
     },
-  /**
-   * Compute the data given from the stores.
-   * @param {object} data -  The data ordered by store.
-   * @returns {object} - The js object transformed from store data.
-   */
+    /**
+     * Compute the data given from the stores.
+     * @param {object} data -  The data ordered by store.
+     * @returns {object} - The js object transformed from store data.
+     */
     _computeEntityFromStoresData: function _computeEntityFromStoresData(data) {
         if (this.computeEntityFromStoresData) {
             return this.computeEntityFromStoresData(data);
         }
-        let entity = {reference: {}};
+        let entity = { reference: {} };
         for (let key in data) {
-            if (this.referenceNames && this.referenceNames.indexOf(key) !== -1 ) {
+            if (this.referenceNames && this.referenceNames.indexOf(key) !== -1) {
                 entity.reference[key] = data[key];
             } else {
                 let d = data[key];
                 if (isArray(d) || !isObject(d)) {
-                    d = {[key]: d};
+                    d = { [key]: d };
                 }
                 assign(entity, d);
             }
         }
         return entity;
     },
-  /**
-   * Register all the listeners related to the page.
-   */
+    /**
+     * Register all the listeners related to the page.
+     */
     _registerListeners: function registerStoreListeners() {
         if (this.stores) {
             this.stores.map((storeConf) => {
@@ -112,9 +119,9 @@ const storeMixin = {
             });
         }
     },
-  /**
-  * Unregister all the listeners related to the page.
-  */
+    /**
+    * Unregister all the listeners related to the page.
+    */
     _unRegisterListeners: function unregisterListener() {
         if (this.stores) {
             this.stores.map((storeConf) => {
@@ -126,13 +133,13 @@ const storeMixin = {
             });
         }
     },
-  /** @inheritdoc */
+    /** @inheritdoc */
     componentWillMount: function storeBehaviourWillMount() {
-    //These listeners are registered before the mounting because they are not correlated to the DOM.
-    //Build the definitions.
+        //These listeners are registered before the mounting because they are not correlated to the DOM.
+        //Build the definitions.
         this._registerListeners();
     },
-  /** @inheritdoc */
+    /** @inheritdoc */
     componentWillUnmount: function storeBehaviourWillUnmount() {
         this._unRegisterListeners();
     }
