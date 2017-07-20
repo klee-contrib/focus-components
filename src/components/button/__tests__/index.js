@@ -14,7 +14,7 @@ describe('Button Component', () => {
                 expect(shape).to.equal('raised');
                 expect(label).to.equal('');
                 expect(icon).to.be.null;
-                expect(id).to.equal('');
+                expect(id).to.be.undefined;
                 expect(hasRipple).to.be.false;
                 expect(type).to.equal('submit');
                 expect(iconLibrary).to.equal('material');
