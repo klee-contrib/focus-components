@@ -21,14 +21,16 @@ class MultiAutocomplete extends Component {
         keyResolver: PropTypes.func.isRequired,
         querySearcher: PropTypes.func.isRequired,
         onChange: PropTypes.func.isRequired,
-        checkDuplicate: PropTypes.bool
+        checkDuplicate: PropTypes.bool,
+        position: PropTypes.oneOf(['top', 'bottom'])
     };
 
     /**
      * Component's default props.
      */
     static defaultProps = {
-        checkDuplicate: false
+        checkDuplicate: false,
+        position: 'top'
     };
 
     /**
@@ -58,6 +60,7 @@ class MultiAutocomplete extends Component {
                 querySearcher={this.props.querySearcher}
                 onChange={this.props.onChange}
                 checkDuplicate={this.props.checkDuplicate}
+                position={this.props.position}
             />
         );
     }

@@ -21,7 +21,8 @@ class AutocompleteMutipleEdit extends Component {
         keyResolver: PropTypes.func.isRequired,
         querySearcher: PropTypes.func.isRequired,
         checkDuplicate: PropTypes.bool.isRequired,
-        error: PropTypes.string
+        error: PropTypes.string,
+        position: PropTypes.oneOf(['top', 'bottom'])
     };
 
     /**
@@ -30,7 +31,8 @@ class AutocompleteMutipleEdit extends Component {
     static defaultProps = {
         value: [],
         checkDuplicate: false,
-        error: null
+        error: null,
+        position: 'top'
     };
 
     /**
@@ -43,6 +45,7 @@ class AutocompleteMutipleEdit extends Component {
         this.state = { customError: '' };
 
         this.handleOnChange = this.handleOnChange.bind(this);
+        this.renderConsult = this.renderConsult.bind(this);
     }
 
     /**
@@ -61,18 +64,28 @@ class AutocompleteMutipleEdit extends Component {
     }
 
     /**
+     * Render consult component.
+     * @return {ReactElement} markup.
+     */
+    renderConsult() {
+        return (
+            <Consult
+                value={this.props.value}
+                keyResolver={this.props.keyResolver}
+                readonly={false}
+                onChange={value => this.props.onChange(value)}
+            />
+        );
+    }
+
+    /**
      * Render component.
      * @return {ReactElement} markup.
      */
     render() {
         return (
             <div data-focus='autocomplete-select-multiple'>
-                <Consult
-                    value={this.props.value}
-                    keyResolver={this.props.keyResolver}
-                    readonly={false}
-                    onChange={value => this.props.onChange(value)}
-                />
+                {this.props.position === 'top' && this.renderConsult()}
                 <AutocompleteSelectEdit
                     customError={this.state.customError || this.props.error}
                     keyResolver={this.props.keyResolver}
@@ -80,6 +93,7 @@ class AutocompleteMutipleEdit extends Component {
                     onChange={this.handleOnChange}
                     onSelectClear
                 />
+                {this.props.position === 'bottom' && this.renderConsult()}
             </div>
         );
     }
