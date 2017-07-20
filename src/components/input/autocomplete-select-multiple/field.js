@@ -2,12 +2,39 @@ import React, { Component, PropTypes } from 'react';
 import Consult from './consult';
 import Edit from './edit';
 
-
+/**
+ * Multi-autocomplete with Chip component.
+ */
 class MultiAutocomplete extends Component {
-    render() {
-        return this.props.isEdit ? this.renderEdit() : this.renderConsult();
 
-    }
+    /**
+     * Component's display name.
+     */
+    static displayName = 'MultiAutocomplete';
+
+    /**
+     * Component's prop types.
+     */
+    static propTypes = {
+        value: PropTypes.arrayOf(PropTypes.number).isRequired,
+        isEdit: PropTypes.bool.isRequired,
+        keyResolver: PropTypes.func.isRequired,
+        querySearcher: PropTypes.func.isRequired,
+        onChange: PropTypes.func.isRequired,
+        checkDuplicate: PropTypes.bool
+    };
+
+    /**
+     * Component's default props.
+     */
+    static defaultProps = {
+        checkDuplicate: false
+    };
+
+    /**
+     * Render in consult mode.
+     * @return {ReactElement} markup.
+     */
     renderConsult() {
         return (
             <Consult
@@ -15,9 +42,13 @@ class MultiAutocomplete extends Component {
                 keyResolver={this.props.keyResolver}
                 readonly
             />
-        )
-
+        );
     }
+
+    /**
+     * Render in edit mode.
+     * @return {ReactElement} markup.
+     */
     renderEdit() {
         return (
             <Edit
@@ -26,23 +57,19 @@ class MultiAutocomplete extends Component {
                 keyResolver={this.props.keyResolver}
                 querySearcher={this.props.querySearcher}
                 onChange={this.props.onChange}
-                checkForDouble={this.props.checkForDouble}
+                checkDuplicate={this.props.checkDuplicate}
             />
-        )
-
+        );
     }
-}
 
-MultiAutocomplete.propTypes = {
-    isEdit: PropTypes.bool.isRequired,
-    keyResolver: PropTypes.func.isRequired,
-    onChange: PropTypes.func.isRequired,
-    querySearcher: PropTypes.func.isRequired,
-    checkForDouble: PropTypes.bool
-};
+    /**
+     * Render component.
+     * @return {ReactElement} markup.
+     */
+    render() {
+        return this.props.isEdit ? this.renderEdit() : this.renderConsult();
+    }
 
-MultiAutocomplete.defaultProps = {
-    checkForDouble: false
 }
 
 export default MultiAutocomplete;
