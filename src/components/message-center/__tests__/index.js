@@ -1,14 +1,25 @@
 
 import TestUtils from 'react-addons-test-utils';
+import { init } from 'focus-core/translation';
 import React from 'react';
 
-import MessageCenter from '../';
+import MessageCenter from '../index';
 import ReactDOM, { findDOMNode, unmountComponentAtNode } from 'react-dom';
 import { addErrorMessage, addWarningMessage, addInformationMessage, addSuccessMessage } from 'focus-core/message';
 
 const { findRenderedDOMComponentWithClass, renderIntoDocument, Simulate } = TestUtils;
 
+const i18nConfig = {
+    resStore: {},
+    lng: 'fr-FR'///langOpts.i18nCulture
+};
+
+
 describe('The MessageCenter', () => {
+    beforeEach(() => {
+        init(i18nConfig);
+    });
+
     describe('when mounted', () => {
         let reactComponent, domNode;
         afterEach(() => {

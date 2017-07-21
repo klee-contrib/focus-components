@@ -5,7 +5,15 @@ import ReactDOM from 'react-dom';
 
 const { renderIntoDocument, Simulate } = TestUtils;
 import { identity } from 'lodash/utility';
-const Scope = require('../scope').component;
+
+import { init } from 'focus-core/translation';
+
+const i18nConfig = {
+    resStore: {},
+    lng: 'fr-FR'///langOpts.i18nCulture
+};
+
+import { component as Scope } from '../scope';
 
 var scopes = [
     { code: null, label: "None", style: "qs-scope-none" },
@@ -15,6 +23,10 @@ var scopes = [
 ];
 
 describe('ScopeMixin', () => {
+    beforeEach(() => {
+        init(i18nConfig);
+    });
+
     describe('Create default scope', () => {
         describe('Check if it show its displayName', () => {
             let scopeDisplayName;

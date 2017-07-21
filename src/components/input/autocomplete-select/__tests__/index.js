@@ -3,6 +3,13 @@ import TestUtils from 'react-addons-test-utils';
 import React from 'react';
 import ReactDOM from 'react-dom';
 
+import { init } from 'focus-core/translation';
+
+const i18nConfig = {
+    resStore: {},
+    lng: 'fr-FR'///langOpts.i18nCulture
+};
+
 import AutocompleteSelect from '../edit';
 
 const keyResolver = key => Promise.resolve(`Label for ${key}`);
@@ -42,6 +49,10 @@ const querySearcher = query => {
 const onChangeHandler = () => console.log('Autocomplete onChange call...');
 
 describe('The autocomplete select', () => {
+    beforeEach(() => {
+        init(i18nConfig);
+    });
+
     let renderedTest;
     describe('when mounted with no value', () => {
         beforeEach(() => {

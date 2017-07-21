@@ -24,13 +24,13 @@
       "command": "cd src && find . -name *.scss | xargs tar cvf - | tar xfp - -C ../"
     },
     "test": {
-      "command": "mocha src/**/__tests__/**/*.js",
+      "command": "jest --config jest-config.js --runInBand",
       "env": {
         "BABEL_ENV": "production"
       }
     },
     "test-watch": {
-      "command": "mocha src/**/__tests__/**/*.js -w",
+      "command": "jest --config jest-config.js --runInBand --watch ",
       "env": {
         "BABEL_ENV": "production"
       }

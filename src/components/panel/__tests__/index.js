@@ -5,9 +5,20 @@ import ReactDOM from 'react-dom';
 
 import Panel from '../';
 import { init, translate } from 'focus-core/translation';
+
+const i18nConfig = {
+    resStore: {},
+    lng: 'fr-FR'///langOpts.i18nCulture
+};
+
+
 const { findRenderedDOMComponentWithClass, renderIntoDocument, Simulate } = TestUtils;
 
 describe('The Panel', () => {
+    beforeEach(() => {
+        init(i18nConfig);
+    });
+
     describe('when mounted with no props', () => {
         let reactComponent, domNode;
         beforeEach(() => {
@@ -77,7 +88,7 @@ describe('The Panel', () => {
             });
             it('should not have a bottom actions section', () => {
                 const bottomSection = domNode.querySelector('[data-focus="panel-actions"]');
-                expect(bottomSection).not.toBeDefined();
+                expect(bottomSection).toBeNull();
             });
         });
         describe('with actionsPosition top', () => {
@@ -91,7 +102,7 @@ describe('The Panel', () => {
             });
             it('should not display action at the bottom', () => {
                 const bottomSection = domNode.querySelector('[data-focus="panel-actions"]');
-                expect(bottomSection).not.toBeDefined();
+                expect(bottomSection).toBeNull();
             });
         });
         describe('with actionsPosition bottom', () => {
@@ -101,7 +112,7 @@ describe('The Panel', () => {
             });
             it('should not display actions at the top', () => {
                 const topActions = domNode.querySelector('[data-focus="panel-title"] .actions');
-                expect(topActions).not.toBeDefined();
+                expect(topActions).toBeNull();
             });
             it('should display action at the bottom', () => {
                 const bottomSection = domNode.querySelector('[data-focus="panel-actions"]');

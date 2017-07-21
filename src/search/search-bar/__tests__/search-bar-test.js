@@ -5,12 +5,22 @@ import ReactDOM from 'react-dom';
 
 const { renderIntoDocument, Simulate } = TestUtils;
 import { identity } from 'lodash/utility';
-const SearchBar = require('../../search-bar').component;
+import { component as SearchBar } from '../../search-bar';
 import { quickSearchStore } from 'focus-core/search/built-in-store';
 import actionBuilder from 'focus-core/search/action-builder';
 
+import { init } from 'focus-core/translation';
+
+const i18nConfig = {
+    resStore: {},
+    lng: 'fr-FR'///langOpts.i18nCulture
+};
 
 describe('SearchBar with no scope', () => {
+    beforeEach(() => {
+        init(i18nConfig);
+    });
+
     describe('When a default search bar is in the DOM', () => {
         let component;
         beforeEach(() => {

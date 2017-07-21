@@ -6,7 +6,19 @@ import ReactDOM from 'react-dom';
 import Input from '../';
 const { renderIntoDocument, Simulate } = TestUtils;
 import { identity } from 'lodash/utility';
+
+import { init } from 'focus-core/translation';
+
+const i18nConfig = {
+    resStore: {},
+    lng: 'fr-FR'///langOpts.i18nCulture
+};
+
 describe('The input text', () => {
+    beforeEach(() => {
+        init(i18nConfig);
+    });
+
     describe('when called with no props', () => {
         let component;
         beforeEach(

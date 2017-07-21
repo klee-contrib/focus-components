@@ -2,6 +2,7 @@ module.exports = {
     globals: {
         __DEV__: true
     },
+    automock: false,
     unmockedModulePathPatterns: [
         '<rootDir>/node_modules/react',
         '<rootDir>/node_modules/react-dom',
@@ -11,5 +12,5 @@ module.exports = {
         '<rootDir>/node_modules/i18next-client',
         '<rootDir>/node_modules/focus-core'
     ],
-    testPathIgnorePatterns: ['/node_modules/', 'fixture.js']
+    testPathIgnorePatterns: ['/node_modules/', 'fixture.js', '.history', '.localhistory', 'test-focus.jsx']
 } 
