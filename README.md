@@ -6,12 +6,17 @@ focus-components
 [![master](https://travis-ci.org/KleeGroup/focus-components.svg?branch=master)](https://travis-ci.org/KleeGroup/focus-components)
 [![develop](https://travis-ci.org/KleeGroup/focus-components.svg?branch=develop)](https://travis-ci.org/KleeGroup/focus-components)
 
+[![Dependencies Status](https://david-dm.org/KleeGroup/focus-components.svg)](https://david-dm.org/KleeGroup/focus-components)
+[![Dev Dependencies Status](https://david-dm.org/KleeGroup/focus-components/dev-status.svg)](https://david-dm.org/KleeGroup/focus-components?type=dev)
+[![Peer Dependencies Status](https://david-dm.org/KleeGroup/focus-components/peer-status.svg)](https://david-dm.org/KleeGroup/focus-components?type=peer)
+
 [![Throughput Graph](https://graphs.waffle.io/KleeGroup/focus-components/throughput.svg)](https://graphs.waffle.io/KleeGroup/focus-components/metrics)
 
 [![Issue Stats](http://issuestats.com/github/kleegroup/focus-components/badge/pr)](http://issuestats.com/github/kleegroup/focus-components)
 [![Issue Stats](http://issuestats.com/github/kleegroup/focus-components/badge/issue)](http://issuestats.com/github/kleegroup/focus-components)
-[![Package Quality](http://npm.packagequality.com/badge/focus-components.png)](http://packagequality.com/#?package=focus-components)
+[![Package Quality](http://npm.packagequality.com/shield/focus-components.svg)](http://packagequality.com/#?package=focus-components)
 Components for focus application.
+
 
 ## Components
 
@@ -64,4 +69,3 @@ In order to launch unit test: `npm run test`
 
 
 Browser testing done with Browserstack 
-<img class="larger" src="https://worldvectorlogo.com/logos/browserstack.svg" alt="Browserstack" title="Browserstack" />
