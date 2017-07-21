@@ -6,6 +6,10 @@ focus-components
 [![master](https://travis-ci.org/KleeGroup/focus-components.svg?branch=master)](https://travis-ci.org/KleeGroup/focus-components)
 [![develop](https://travis-ci.org/KleeGroup/focus-components.svg?branch=develop)](https://travis-ci.org/KleeGroup/focus-components)
 
+[![Dependencies Status](https://david-dm.org/KleeGroup/focus-components.svg)](https://david-dm.org/KleeGroup/focus-components)
+[![Dev Dependencies Status](https://david-dm.org/KleeGroup/focus-components/dev-status.svg)](https://david-dm.org/KleeGroup/focus-components?type=dev)
+[![Peer Dependencies Status](https://david-dm.org/KleeGroup/focus-components/peer-status.svg)](https://david-dm.org/KleeGroup/focus-components?type=peer)
+
 [![Throughput Graph](https://graphs.waffle.io/KleeGroup/focus-components/throughput.svg)](https://graphs.waffle.io/KleeGroup/focus-components/metrics)
 
 [![Issue Stats](http://issuestats.com/github/kleegroup/focus-components/badge/pr)](http://issuestats.com/github/kleegroup/focus-components)
