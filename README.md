@@ -14,8 +14,9 @@ focus-components
 
 [![Issue Stats](http://issuestats.com/github/kleegroup/focus-components/badge/pr)](http://issuestats.com/github/kleegroup/focus-components)
 [![Issue Stats](http://issuestats.com/github/kleegroup/focus-components/badge/issue)](http://issuestats.com/github/kleegroup/focus-components)
-[![Package Quality](http://npm.packagequality.com/badge/focus-components.png)](http://packagequality.com/#?package=focus-components)
+[![Package Quality](http://npm.packagequality.com/shield/focus-components.svg)](http://packagequality.com/#?package=focus-components)
 Components for focus application.
+
 
 ## Components
 
@@ -68,4 +69,3 @@ In order to launch unit test: `npm run test`
 
 
 Browser testing done with Browserstack 
-<img class="larger" src="https://worldvectorlogo.com/logos/browserstack.svg" alt="Browserstack" title="Browserstack" />
