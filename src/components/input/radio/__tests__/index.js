@@ -12,7 +12,7 @@ describe('Input Radio Component', () => {
         describe('When a default radio is rendered', () => {
             let renderedRadio;
             beforeEach(() => {
-                renderedRadio = renderIntoDocument(<Radio label="My value" />);
+                renderedRadio = renderIntoDocument(<Radio label='My value' />);
             });
             it('should have its default props', () => {
                 expect(renderedRadio.props.value).toBe(false);
@@ -26,7 +26,7 @@ describe('Input Radio Component', () => {
                     renderedRadio = renderIntoDocument(<Radio />);
                 });
                 it('should return a boolean', () => {
-                    expect(renderedRadio.getValue()).toBeInstanceOf(Boolean);
+                    expect(typeof renderedRadio.getValue()).toBe('boolean')
                 });
                 it('should return false', () => {
                     expect(renderedRadio.getValue()).toBe(false);
@@ -36,7 +36,7 @@ describe('Input Radio Component', () => {
         describe('When the radio is selected', () => {
             let renderedRadio;
             beforeEach(() => {
-                renderedRadio = renderIntoDocument(<Radio label="My value" />);
+                renderedRadio = renderIntoDocument(<Radio label='My value' />);
                 Simulate.change(renderedRadio.refs.inputRadio);
             });
             it('should change the state', () => {

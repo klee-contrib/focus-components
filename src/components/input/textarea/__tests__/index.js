@@ -18,7 +18,7 @@ describe('The input textarea', () => {
         let domNode;
         let inputNode;
         beforeEach(() => {
-            reactComponent = renderIntoDocument(<Textarea name="myTextArea" onChange={fake} />);
+            reactComponent = renderIntoDocument(<Textarea name='myTextArea' onChange={fake} />);
             domNode = ReactDOM.findDOMNode(reactComponent);
             inputNode = ReactDOM.findDOMNode(reactComponent.refs.htmlInput);
         });
@@ -32,7 +32,7 @@ describe('The input textarea', () => {
             const divMdl = domNode.firstChild;
             expect(divMdl).toBeDefined();
             expect(divMdl.tagName).toBe('DIV');
-            expect(divMdl.className).toBe('mdl-textfield mdl-js-textfield');
+            expect(divMdl.className).toMatch('mdl-textfield mdl-js-textfield');
         });
         it('should have a material designed textarea', () => {
             expect(inputNode.getAttribute('class')).toBe('mdl-textfield__input');
@@ -49,7 +49,7 @@ describe('The input textarea', () => {
         const testValue = 'CHANGED_VALUE';
         beforeEach(() => {
             onChangeSpy = jest.fn(); // test that the method in props onChange is called
-            component = renderIntoDocument(<Textarea name="myTextArea" onChange={onChangeSpy} />);
+            component = renderIntoDocument(<Textarea name='myTextArea' onChange={onChangeSpy} />);
         });
         it('should call the onChange function defined in props when textarea is changed', () => {
             expect(onChangeSpy).not.toHaveBeenCalled();
@@ -61,7 +61,7 @@ describe('The input textarea', () => {
         let component, errorComponent, inputNode;
         const errorLabel = 'this is an error';
         beforeEach(() => {
-            component = renderIntoDocument(<Textarea error={errorLabel} name="myTextArea" onChange={fake} />);
+            component = renderIntoDocument(<Textarea error={errorLabel} name='myTextArea' onChange={fake} />);
             inputNode = ReactDOM.findDOMNode(component.refs.htmlInput);
             errorComponent = findRenderedDOMComponentWithClass(component, 'label-error');
         });

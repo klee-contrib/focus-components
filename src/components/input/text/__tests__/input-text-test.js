@@ -28,11 +28,10 @@ describe('The input text', () => {
                 component = shallowRenderer.getRenderOutput();
             }
         );
-        it.skip('should render an empty input', () => {
-            console.log('rendered', component);
+        it('should render an empty input', () => {
             expect(component).toBeInstanceOf(Object);
             expect(component.type).toBe('div');
-            expect(component.className).toBe('mdl-textfield mdl-js-textfield');
+            expect(component.className).toMatch('mdl-textfield mdl-js-textfield');
         });
     });
     describe('when called with minimal props', () => {
@@ -46,7 +45,7 @@ describe('The input text', () => {
         );
         it('should render an empty input', () => {
             expect(domNode.tagName).toBe('DIV');
-            expect(domNode.className).toBe('mdl-textfield mdl-js-textfield');
+            expect(domNode.className).toMatch('mdl-textfield mdl-js-textfield');
         });
 
     });

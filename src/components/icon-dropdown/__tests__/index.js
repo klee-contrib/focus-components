@@ -28,8 +28,7 @@ function isMenuRendered(renderedTest) {
 describe('The icon-dropdown component', () => {
     describe('when dropdown is rendered', () => {
 
-        const reactCpt = (<IconDropDown operationList={operationList} position="left" iconProps={{ name: 'apps' }}
-            shape="raised" />);
+        const reactCpt = (<IconDropDown operationList={operationList} position='left' iconProps={{ name: 'apps' }} shape='raised' />);
         let renderedTest;
 
         beforeEach(
@@ -53,6 +52,8 @@ describe('The icon-dropdown component', () => {
         });
 
         it('action is executed', () => {
+            const buttonCpt = TestUtils.findRenderedDOMComponentWithTag(renderedTest, 'button');
+            TestUtils.Simulate.click(buttonCpt);
             const actionCpts = findFocusElementsWithDataRole(renderedTest, VAL_DATA_ROLE_DROPDOWN_ITEM);
             TestUtils.Simulate.click(actionCpts[0]);
             expect(alertSpy).toHaveBeenCalledTimes(1);

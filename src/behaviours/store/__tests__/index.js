@@ -1,6 +1,7 @@
 
 import TestUtils from 'react-addons-test-utils';
 import React from 'react';
+import ReactDOM from 'react-dom';
 
 import storeConnectBehaviour from '../connect';
 const { renderIntoDocument, Simulate } = TestUtils;
@@ -48,7 +49,7 @@ describe('The store connect behaviour', () => {
             expect(conectedComponentRenderSpy).toHaveBeenCalledTimes(1);
             expect(conectedComponentRenderSpy).toHaveBeenCalledWith({ testProps: 'testPropsValue' });
         });
-        describe.skip('when a value with two nodes is dispatched', () => {
+        describe('when a value with two nodes is dispatched', () => {
             beforeEach(() => {
                 dispatcher.handleViewAction({
                     data: {

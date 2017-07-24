@@ -15,11 +15,11 @@ const i18nConfig = {
 
 import { component as Scope } from '../scope';
 
-var scopes = [
-    { code: null, label: "None", style: "qs-scope-none" },
-    { code: 'movie', label: "Scope1", style: "test2" },
-    { code: 'audio', label: "Scope2", style: "test3" },
-    { code: 'chat', label: "Scope3", style: "test4" }
+let scopes = [
+    { code: null, label: 'None', style: 'qs-scope-none' },
+    { code: 'movie', label: 'Scope1', style: 'test2' },
+    { code: 'audio', label: 'Scope2', style: 'test3' },
+    { code: 'chat', label: 'Scope3', style: 'test4' }
 ];
 
 describe('ScopeMixin', () => {
@@ -32,7 +32,7 @@ describe('ScopeMixin', () => {
             let scopeDisplayName;
             it('should have a displayName', () => {
                 scopeDisplayName = Scope.displayName;
-                expect(scopeDisplayName).toBeInstanceOf(String);
+                expect(typeof scopeDisplayName).toBe('string')
             });
             it('displayName should be \'Scope\'', () => {
                 scopeDisplayName = Scope.displayName;
@@ -49,11 +49,11 @@ describe('ScopeMixin', () => {
             });
             it('should return the active scope\'s label', () => {
                 const activeScope = component._getActiveScope();
-                expect(activeScope.label).toBe("Scope1");
+                expect(activeScope.label).toBe('Scope1');
             });
             it('should not return another label than the active scope\'s one', () => {
                 const activeScope = component._getActiveScope();
-                expect(activeScope.label).not.toBe("Scope2" || "Scope3" || "None");
+                expect(activeScope.label).not.toBe('Scope2' || 'Scope3' || 'None');
             });
         });
         describe('Check a none set scopes', () => {
@@ -62,7 +62,7 @@ describe('ScopeMixin', () => {
                 component = renderIntoDocument(<Scope />);
             });
             it('should get the created <ul> className', () => {
-                expect(component.refs.scopeDropdown.className).toBe('mdl-menu mdl-menu--bottom-left mdl-js-menu mdl-js-ripple-effect')
+                expect(component.refs.scopeDropdown.className).toMatch('mdl-menu mdl-menu--bottom-left mdl-js-menu mdl-js-ripple-effect')
             });
             it('should have only on <li>"', () => {
                 expect(component.refs.scopeDropdown.childNodes.length).toBe(1);

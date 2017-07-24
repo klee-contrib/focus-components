@@ -4,9 +4,21 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 
 import Button from '../';
+
+import { init } from 'focus-core/translation';
+
+const i18nConfig = {
+    resStore: {},
+    lng: 'fr-FR'///langOpts.i18nCulture
+};
+
 const { renderIntoDocument, Simulate } = TestUtils;
 
 describe('Button Component', () => {
+    beforeEach(() => {
+        init(i18nConfig);
+    });
+
     describe('Rendering', () => {
         describe('When a default button is rendered', () => {
             let renderedButton;
