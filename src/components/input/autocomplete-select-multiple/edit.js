@@ -22,6 +22,7 @@ class AutocompleteMutipleEdit extends Component {
         querySearcher: PropTypes.func.isRequired,
         checkDuplicate: PropTypes.bool.isRequired,
         error: PropTypes.string,
+        ChipElement: PropTypes.any,
         position: PropTypes.oneOf(['top', 'bottom'])
     };
 
@@ -32,6 +33,7 @@ class AutocompleteMutipleEdit extends Component {
         value: [],
         checkDuplicate: false,
         error: null,
+        ChipElement: undefined,
         position: 'top'
     };
 
@@ -74,6 +76,7 @@ class AutocompleteMutipleEdit extends Component {
                 keyResolver={this.props.keyResolver}
                 readonly={false}
                 onChange={value => this.props.onChange(value)}
+                ChipElement={this.props.ChipElement}
             />
         );
     }
