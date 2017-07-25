@@ -17,7 +17,7 @@ const referenceMixin = {
     };
     },*/
     getInitialState() {
-        return {reference: {}};
+        return { reference: {} };
     },
     /**
     * Build actions associated to the reference.
@@ -38,14 +38,12 @@ const referenceMixin = {
         const safeReferenceNames = referenceNames || [];
         const safeOldReferenceNames = oldReferenceNames || [];
 
-        if (this.addStoreSub && this.removeStoreSub) { 
+        if (this.addStoreSub && this.removeStoreSub) {
             const toAdd = difference(safeReferenceNames, safeOldReferenceNames);
             const toDelete = difference(safeOldReferenceNames, safeReferenceNames);
 
-            if (this.addStoreSub && this.removeStoreSub) { 
-                toAdd.forEach((name) => this.addStoreSub(storeGetter(), name));
-                toDelete.forEach((name) => this.removeStoreSub(storeGetter(), name));
-            }
+            toAdd.forEach((name) => this.addStoreSub(storeGetter(), name));
+            toDelete.forEach((name) => this.removeStoreSub(storeGetter(), name));
 
         } else {
             // LEGACY CODE : if ever some project uses reference-behaviour without store-behaviour
@@ -59,7 +57,7 @@ const referenceMixin = {
             });
         }
     },
-    componentWillReceiveProps({referenceNames}) {
+    componentWillReceiveProps({ referenceNames }) {
         if (referenceNames) {
             this._buildReference(referenceNames, this.referenceNames);
             this._loadReference();
