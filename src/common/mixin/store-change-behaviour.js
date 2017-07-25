@@ -132,7 +132,7 @@ const changeBehaviourMixin = {
         } else {
             this._pendingActionsChangeBehaviourMixin.push(() => this._onStatusWrapped(changeInfos));
         }
-    },  
+    },
     /**
     * Read
     * @param  {[type]} changeInfos [description]
