@@ -69,23 +69,17 @@ class SelectCheckbox extends Component {
      * @param  {[type]} newStatus the new status
      */
     _handleCheckboxChange(key, newStatus) {
-        const selectedValues = this.state.selectedValues;
-        if (newStatus) {
-            selectedValues.push(key);
+        const selectedValues = newStatus
+            ? this.state.selectedValues.concat([key])
+            : this.state.selectedValues.filter(elt => elt !== key);
+
+        if (this.props.onChange && this.props.legacyOnChange) {
+            this.props.onChange(key, newStatus);
+        } else if (this.props.onChange) {
+            this.props.onChange(selectedValues);
         } else {
-            pull(selectedValues, key);
+            this.setState({ value: selectedValues });
         }
-
-        if (this.props.onChange) {
-            if (this.props.legacyOnChange) {
-                this.props.onChange(key, newStatus);
-            } else {
-                this.props.onChange(selectedValues);
-            }
-            return;
-        }
-
-        this.setState({ value: selectedValues });
     }
 
     /**
