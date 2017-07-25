@@ -1,5 +1,5 @@
 import assign from 'object-assign';
-import { isObject, isArray, keys, capitalize, defaultsDeep, pick } from 'lodash';
+import { isObject, isArray, keys, capitalize, defaultsDeep, findIndex, pick } from 'lodash';
 import storeChangeBehaviour from './store-change-behaviour';
 
 const storeMixin = {
@@ -90,7 +90,7 @@ const storeMixin = {
         }
         let entity = { reference: {} };
         for (let key in data) {
-            if (this.referenceNames && this.referenceNames.indexOf(key) !== -1) {
+            if (this.referenceNames && this.referenceNames.includes(key)) {
                 entity.reference[key] = data[key];
             } else {
                 let d = data[key];
@@ -109,12 +109,7 @@ const storeMixin = {
         if (this.stores) {
             this.stores.map((storeConf) => {
                 storeConf.properties.map((property) => {
-                    if (!storeConf.store || !storeConf.store.definition || !storeConf.store.definition[property]) {
-                        console.warn(`You add a property : ${property} in your store which is not in your definition : ${keys(storeConf.store.definition)}`);
-                    }
-                    storeConf.store[`add${capitalize(property)}ChangeListener`](this._onChange);
-                    storeConf.store[`add${capitalize(property)}ErrorListener`](this._onError);
-                    storeConf.store[`add${capitalize(property)}StatusListener`](this._onStatus);
+                    this._addRemoveSingleListener('add', storeConf.store, property);
                 });
             });
         }
@@ -126,11 +121,61 @@ const storeMixin = {
         if (this.stores) {
             this.stores.map((storeConf) => {
                 storeConf.properties.map((property) => {
-                    storeConf.store[`remove${capitalize(property)}ChangeListener`](this._onChange);
-                    storeConf.store[`remove${capitalize(property)}ErrorListener`](this._onError);
-                    storeConf.store[`remove${capitalize(property)}StatusListener`](this._onStatus);
+                    this._addRemoveSingleListener('remove', storeConf.store, property);
                 });
             });
+        }
+    },
+    _addRemoveSingleListener(action, store, property) {
+        if (!store || !store.definition || !store.definition[property]) {
+            throw new Error(`You ${action} a property : ${property} in your store subscription for ${store.name || store.identifier} which is not in your definition : ${keys(store.definition)}`);
+        }
+        store[`${action}${capitalize(property)}ChangeListener`](this._onChange);
+        store[`${action}${capitalize(property)}ErrorListener`](this._onError);
+        store[`${action}${capitalize(property)}StatusListener`](this._onStatus);
+    },
+    addStoreSub(store, property) {
+        if (!this.stores) {
+            this.stores = [];
+        }
+
+        const storeIndex = findIndex(this.stores, elt => elt.store === store);
+        const existingConf = storeIndex === -1 ? null : this.stores[storeIndex];
+
+        if (existingConf && existingConf.properties.includes(property)) {
+            return;
+        }
+
+        this._addRemoveSingleListener('add', store, property);
+
+        if (existingConf) {
+            existingConf.properties.push(property);
+        } else {
+            this.stores.push({
+                store,
+                properties: [property]
+            });
+        }
+    },
+    removeStoreSub(store, property) {
+        if (!this.stores) {
+            this.stores = [];
+        }
+        const storeIndex = findIndex(this.stores, elt => elt.store === store);
+        if (storeIndex === -1) {
+            return;
+        }
+        const existingConf = this.stores[storeIndex];
+        const propertyIndex = existingConf.properties.indexOf(property);
+        if (propertyIndex === -1) {
+            return;
+        }
+
+        this._addRemoveSingleListener('remove', store, property);
+
+        existingConf.properties.splice(propertyIndex, 1);
+        if (existingConf.properties.length === 0) {
+            this.stores.splice(storeIndex, 1);
         }
     },
     /** @inheritdoc */
@@ -145,4 +190,4 @@ const storeMixin = {
     }
 };
 
-module.exports = storeMixin;
+export default storeMixin;

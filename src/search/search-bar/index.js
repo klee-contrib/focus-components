@@ -1,17 +1,17 @@
 // Dependencies
-import React, {PropTypes} from 'react';
+import React, { PropTypes } from 'react';
 import ReactDOM from 'react-dom';
 import builder from 'focus-core/component/builder';
-import {translate} from 'focus-core/translation';
+import { translate } from 'focus-core/translation';
 
-const actionWrapper = require('../../page/search/search-header/action-wrapper');
+import actionWrapper from '../../page/search/search-header/action-wrapper';
 
 // Components
-const Scope = require('./scope').component;
+import { component as Scope } from './scope';
 import Input from '../../components/input/text';
 
 // Mixins
-const stylable = require('../../mixin/stylable');
+import stylable from '../../mixin/stylable';
 
 /**
 * SearchBar component
@@ -35,7 +35,12 @@ const SearchBar = {
             identifier: undefined,
             store: undefined,
             action: undefined,
-            onSearchCriteriaChangeByUser: undefined
+            onSearchCriteriaChangeByUser: undefined,
+            keepProperties: {
+                groupingKey: false,
+                sortBy: false,
+                sortAsc: false
+            }
         };
     },
     propTypes: {
@@ -46,7 +51,12 @@ const SearchBar = {
         placeholder: PropTypes.string,
         scopes: PropTypes.array,
         value: PropTypes.string,
-        onSearchCriteriaChangeByUser: PropTypes.func
+        onSearchCriteriaChangeByUser: PropTypes.func,
+        keepProperties: PropTypes.shape({
+            groupingKey: PropTypes.bool.isRequired,
+            sortBy: PropTypes.bool.isRequired,
+            sortAsc: PropTypes.bool.isRequired
+        })
     },
     /**
     * Get the initial state
@@ -73,6 +83,19 @@ const SearchBar = {
         this.props.store.addScopeChangeListener(this._onScopeChangeFromStore);
         this.props.store.addResultsChangeListener(this._onResultsChangeFromStore);
     },
+
+    componentWillReceiveProps({ store }) {
+        if (store.identifier !== this.props.store.identifier) {
+            this.props.store.removeQueryChangeListener(this._onQueryChangeFromStore);
+            this.props.store.removeScopeChangeListener(this._onScopeChangeFromStore);
+            this.props.store.removeResultsChangeListener(this._onResultsChangeFromStore);
+
+            store.addQueryChangeListener(this._onQueryChangeFromStore);
+            store.addScopeChangeListener(this._onScopeChangeFromStore);
+            store.addResultsChangeListener(this._onResultsChangeFromStore);
+        }
+    },
+
     /**
     * Component did unmount handler
     */
@@ -80,6 +103,14 @@ const SearchBar = {
         this.props.store.removeQueryChangeListener(this._onQueryChangeFromStore);
         this.props.store.removeScopeChangeListener(this._onScopeChangeFromStore);
         this.props.store.removeResultsChangeListener(this._onResultsChangeFromStore);
+    },
+
+    componentDidUpdate({ store }) {
+        if (store.identifier !== this.props.store.identifier) {
+            this._onQueryChangeFromStore();
+            this._onScopeChangeFromStore();
+            this._onResultsChangeFromStore();
+        }
     },
     /**
     * Query changed in store event handler
@@ -99,7 +130,7 @@ const SearchBar = {
     },
 
     _onResultsChangeFromStore() {
-        this.setState({loading: false});
+        this.setState({ loading: false });
     },
     /**
     * Broadcast query change
@@ -119,12 +150,12 @@ const SearchBar = {
     * @param  {String} query the new query
     */
     _onInputChange(query) {
-        this.setState({query});
-        const {minChar, onSearchCriteriaChangeByUser} = this.props;
+        this.setState({ query });
+        const { minChar, onSearchCriteriaChangeByUser } = this.props;
         if (query.length >= minChar) {
             this._broadcastQueryChange();
         }
-        if(onSearchCriteriaChangeByUser) {
+        if (onSearchCriteriaChangeByUser) {
             onSearchCriteriaChangeByUser();
         }
     },
@@ -134,32 +165,39 @@ const SearchBar = {
     */
     _onScopeSelection(scope) {
         this._focusQuery();
-        const {action, onSearchCriteriaChangeByUser} = this.props;
-        action.updateProperties({
+        const { action, onSearchCriteriaChangeByUser, keepProperties: { groupingKey, sortBy, sortAsc } } = this.props;
+        const properties = {
             scope,
-            selectedFacets: {},
-            groupingKey: undefined,
-            sortBy: undefined,
-            sortAsc: true
-        });
-        this.setState({scope});
-        if(onSearchCriteriaChangeByUser) {
+            selectedFacets: {}
+        };
+        if (!groupingKey) {
+            properties.groupingKey = undefined;
+        }
+        if (!sortBy) {
+            properties.sortBy = undefined;
+        }
+        if (!sortAsc) {
+            properties.sortAsc = true;
+        }
+        action.updateProperties(properties);
+        this.setState({ scope });
+        if (onSearchCriteriaChangeByUser) {
             onSearchCriteriaChangeByUser();
         }
-    },
+    },  
     /**
     * Input key press handler
     * @param  {String} key pressed key
     */
-    _handleInputKeyPress({key}) {
+    _handleInputKeyPress({ key }) {
         if ('Enter' === key) {
-            const {onSearchCriteriaChangeByUser} = this.props;
+            const { onSearchCriteriaChangeByUser } = this.props;
             actionWrapper(() => {
                 this.props.action.updateProperties({
                     query: this.refs.query.getValue()
                 });
             }, null, 0)();
-            if(onSearchCriteriaChangeByUser) {
+            if (onSearchCriteriaChangeByUser) {
                 onSearchCriteriaChangeByUser();
             }
         }
@@ -184,26 +222,33 @@ const SearchBar = {
     * @return {HTML} - The rendered component
     */
     render() {
-        const {hasScopes, scopes} = this.props;
-        const {loading, query, scope} = this.state;
+        const { hasScopes, scopes } = this.props;
+        const { loading, query, scope } = this.state;
         let placeholder = this.props.placeholder;
-        if(query && 0 < query.length) {
+        if (query && 0 < query.length) {
             placeholder = '';
         }
         return (
             <div data-focus='search-bar'>
-            {hasScopes &&
-                <Scope list={scopes} onScopeSelection={this._onScopeSelection} ref='scope' value={scope}/>
-            }
-            <div data-focus='search-bar-input'>
-            <Input name='searchbarinput' onChange={this._onInputChange} onKeyPress={this._handleInputKeyPress} placeholder={translate(placeholder)} ref='query' value={query}/>
-            {loading &&
-                <div className='three-quarters-loader' data-role='spinner'></div>
-            }
-            </div>
+                {hasScopes &&
+                    <Scope list={scopes} onScopeSelection={this._onScopeSelection} ref='scope' value={scope} />
+                }
+                <div data-focus='search-bar-input'>
+                    <Input name='searchbarinput' onChange={this._onInputChange} onKeyPress={this._handleInputKeyPress} placeholder={translate(placeholder)} ref='query' value={query} />
+                    {loading &&
+                        <div className='three-quarters-loader' data-role='spinner' />
+                    }
+                </div>
             </div>
         );
     }
 };
 
-module.exports = builder(SearchBar);
+const { mixin, component } = builder(SearchBar);
+export default {
+    mixin, component
+}
+export {
+    mixin,
+    component
+}

@@ -2,7 +2,8 @@
 
 import storeGetter from 'focus-core/reference/built-in-store';
 import builtInActionReferenceLoader from 'focus-core/reference/built-in-action';
-const isEmpty = require('lodash/lang/isEmpty');
+import difference from 'lodash/array/difference';
+
 const referenceMixin = {
     /** @inheritdoc */
     /*  getDefaultProps: function getReferenceDefaultProps(){
@@ -16,16 +17,16 @@ const referenceMixin = {
     };
     },*/
     getInitialState() {
-        return {reference: {}};
+        return { reference: {} };
     },
     /**
     * Build actions associated to the reference.
     */
-    _buildReferenceActions() {
-        this.action = {
-            loadReference: builtInActionReferenceLoader(this.referenceNames),
-            ...this.action
-        };
+    _buildReferenceActions(referenceNames) {
+        if (!this.action) {
+            this.action = {};
+        }
+        this.action.loadReference = builtInActionReferenceLoader(referenceNames);
     },
     _loadReference() {
         return this.action.loadReference();
@@ -33,31 +34,52 @@ const referenceMixin = {
     /**
     * Build the reference names and set the store into the application.
     */
-    _buildReferenceStoreConfig() {
+    _buildReferenceStoreConfig(referenceNames, oldReferenceNames) {
+        const safeReferenceNames = referenceNames || [];
+        const safeOldReferenceNames = oldReferenceNames || [];
 
-        //If the reference store is empty don't do anything.
-        if(isEmpty(this.referenceNames)) {
-            return;
+        if (this.addStoreSub && this.removeStoreSub) {
+            const toAdd = difference(safeReferenceNames, safeOldReferenceNames);
+            const toDelete = difference(safeOldReferenceNames, safeReferenceNames);
+
+            toAdd.forEach((name) => this.addStoreSub(storeGetter(), name));
+            toDelete.forEach((name) => this.removeStoreSub(storeGetter(), name));
+
+        } else {
+            // LEGACY CODE : if ever some project uses reference-behaviour without store-behaviour
+            if (!this.stores) {
+                this.stores = [];
+            }
+            //Set as referencestore the referencestore of the application.
+            this.stores.push({
+                store: storeGetter(),
+                properties: this.referenceNames
+            });
         }
-        this.stores = this.stores || [];
-        //Set as referencestore the referencestore of the application.
-        this.stores.push({
-            store: storeGetter(),
-            properties: this.referenceNames
-        });
+    },
+    componentWillReceiveProps({ referenceNames }) {
+        if (referenceNames) {
+            this._buildReference(referenceNames, this.referenceNames);
+            this._loadReference();
+        }
     },
     /**
     * Build store and actions related to the reference.
     */
-    _buildReference() {
-        this._buildReferenceStoreConfig();
-        this._buildReferenceActions();
+    _buildReference(referenceNames, oldReferenceNames) {
+        this._buildReferenceStoreConfig(referenceNames, oldReferenceNames);
+        this._buildReferenceActions(referenceNames);
+        this.referenceNames = referenceNames;
+    },
+    componentDidMount() {
+        // Calling at didMount and not willMount to be coherent with old loadReference from form
+        this._loadReference();
     },
     /** @inheritdoc */
     componentWillMount() {
-        this.referenceNames = this.props.referenceNames || this.referenceNames;
-        this._buildReference();
+        const referenceNames = this.props.referenceNames || this.referenceNames;
+        this._buildReference(referenceNames);
     }
 };
 
-module.exports = referenceMixin;
+export default referenceMixin;

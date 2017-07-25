@@ -3,6 +3,22 @@ import { changeMode } from 'focus-core/application';
 import reduce from 'lodash/collection/reduce';
 
 const changeBehaviourMixin = {
+    getInitialState: function getInitialState() {
+        return {};
+    },
+    componentWillMount() {
+        this._isMountedChangeBehaviourMixin = false;
+        this._pendingActionsChangeBehaviourMixin = [];
+    },
+    componentDidMount() {
+        this._isMountedChangeBehaviourMixin = true;
+        this._pendingActionsChangeBehaviourMixin.forEach(func => func());
+        this._pendingActionsChangeBehaviourMixin = [];
+    },
+    componentWillUnmount() {
+        this._isMountedChangeBehaviourMixin = false;
+    },
+
     /**
     * Display a message when there is a change on a store property resulting from a component action call.
     * @param  {object} changeInfos - An object containing all the event informations, without the data.
@@ -36,13 +52,20 @@ const changeBehaviourMixin = {
             }
         }
     },
+    _afterChange: function afterChangeWrapper(changeInfos) {
+        if (this._isMountedChangeBehaviourMixin) {
+            this._afterChangeWrapped(changeInfos);
+        } else {
+            this._pendingActionsChangeBehaviourMixin.push(() => this._afterChangeWrapped(changeInfos));
+        }
+    },
     /**
     * After change informations.
     * You can override this method using afterChange function.
     * @param {object} changeInfos - All informations relative to the change.
     * @returns {undefined} -  The return value is the callback.
     */
-    _afterChange: function afterChangeForm(changeInfos) {
+    _afterChangeWrapped: function afterChangeFormWrapped(changeInfos) {
         if (this.afterChange) {
             return this.afterChange(changeInfos);
         }
@@ -53,21 +76,35 @@ const changeBehaviourMixin = {
         }
 
     },
+    _onChange: function _onChangeWrapper(changeInfos) {
+        if (this._isMountedChangeBehaviourMixin) {
+            this._onChangeWrapped(changeInfos);
+        } else {
+            this._pendingActionsChangeBehaviourMixin.push(() => this._onChangeWrapped(changeInfos));
+        }
+    },
     /**
     * Event handler for 'change' events coming from the stores
     * @param {object} changeInfos - The changing informations.
     */
-    _onChange: function onFormStoreChangeHandler(changeInfos) {
+    _onChangeWrapped: function onFormStoreChangeHandler(changeInfos) {
         let onChange = this.props.onChange || this.onChange;
         if (onChange) {
             onChange.call(this, changeInfos);
         }
         this.setState(this._getStateFromStores(changeInfos.property), () => this._afterChange(changeInfos));
     },
+    _onError: function _onErrorWrapper(changeInfos) {
+        if (this._isMountedChangeBehaviourMixin) {
+            this._onErrorWrapped(changeInfos);
+        } else {
+            this._pendingActionsChangeBehaviourMixin.push(() => this._onErrorWrapped(changeInfos));
+        }
+    },
     /**
     * Event handler for 'error' events coming from the stores.
     */
-    _onError: function onFormErrorHandler(changeInfos) {
+    _onErrorWrapped: function onFormErrorHandler(changeInfos) {
         this.setState(this._getLoadingStateFromStores(), () => this._handleErrors(changeInfos)); // update errors after status
     },
     _handleErrors() {
@@ -89,12 +126,19 @@ const changeBehaviourMixin = {
             }
         }
     },
+    _onStatus: function _onStatusWrapper(changeInfos) {
+        if (this._isMountedChangeBehaviourMixin) {
+            this._onStatusWrapped(changeInfos);
+        } else {
+            this._pendingActionsChangeBehaviourMixin.push(() => this._onStatusWrapped(changeInfos));
+        }
+    },
     /**
     * Read
     * @param  {[type]} changeInfos [description]
     * @return {[type]}             [description]
     */
-    _onStatus(changeInfos) {
+    _onStatusWrapped: function _onStatus(changeInfos) {
         if (this._getEntity) {
             this.setState({ ...this._getEntity(), ...this._getLoadingStateFromStores() });
         } else {
@@ -103,4 +147,4 @@ const changeBehaviourMixin = {
 
     }
 };
-module.exports = changeBehaviourMixin;
+export default changeBehaviourMixin;

@@ -110,4 +110,11 @@ const Dropdown = {
     }
 };
 
-module.exports = builder(Dropdown);
+const { mixin, component } = builder(Dropdown);
+export default {
+    mixin, component
+}
+export {
+    mixin,
+    component
+}
