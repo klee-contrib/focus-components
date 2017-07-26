@@ -1,20 +1,30 @@
 import message from 'focus-core/message';
 import { changeMode } from 'focus-core/application';
-import { keys } from 'lodash';
 
+/**
+ * Behavior to update state according to stores.
+ */
 const changeBehaviourMixin = {
-    getInitialState: function getInitialState() {
+
+    /** @inheritdoc */
+    getInitialState() {
         return {};
     },
+
+    /** @inheritdoc */
     componentWillMount() {
         this._isMountedChangeBehaviourMixin = false;
         this._pendingActionsChangeBehaviourMixin = [];
     },
+
+    /** @inheritdoc */
     componentDidMount() {
         this._isMountedChangeBehaviourMixin = true;
         this._pendingActionsChangeBehaviourMixin.forEach(func => func());
         this._pendingActionsChangeBehaviourMixin = [];
     },
+
+    /** @inheritdoc */
     componentWillUnmount() {
         this._isMountedChangeBehaviourMixin = false;
     },
@@ -48,13 +58,12 @@ const changeBehaviourMixin = {
             }
         }
     },
+
     /**
     * After change informations.
     * You can override this method using afterChange function.
     * @param {object} changeInfos - All informations relative to the change.
     * @returns {undefined} -  The return value is the callback.
-    * @param {object} changeInfos The changing informations.
-    * @returns {undefined} The return value is the callback.
     */
     _afterChange(changeInfos) {
         if (this._isMountedChangeBehaviourMixin) {
@@ -63,7 +72,13 @@ const changeBehaviourMixin = {
             this._pendingActionsChangeBehaviourMixin.push(() => this._afterChangeWrapped(changeInfos));
         }
     },
-    
+
+    /**
+    * After change informations.
+    * You can override this method using afterChange function.
+    * @param {object} changeInfos - All informations relative to the change.
+    * @returns {undefined} -  The return value is the callback.
+    */
     _afterChangeWrapped(changeInfos) {
         if (this.afterChange) {
             return this.afterChange(changeInfos);
@@ -88,7 +103,12 @@ const changeBehaviourMixin = {
             this._pendingActionsChangeBehaviourMixin.push(() => this._onChangeWrapped(changeInfos));
         }
     },
-    
+
+    /**
+    * Event handler for 'change' events coming from the stores
+    * @param {object} changeInfos - The changing informations.
+    * @param {object} changeInfos The changing informations.
+    */
     _onChangeWrapped(changeInfos) {
         let onChange = this.props.onChange || this.onChange;
         if (onChange) {
@@ -96,16 +116,6 @@ const changeBehaviourMixin = {
         }
 
         this.setState(this._getStateFromStores(), () => this._afterChange(changeInfos));
-    },
-    /**
-    * Read.
-    */
-    _onStoreStatus() {
-        if (this._getEntity) {
-            this.setState({ ...this._getEntity(), ...this._getLoadingStateFromStores() });
-        } else {
-            this.setState(this._getLoadingStateFromStores());
-        }
     },
 
     /**
@@ -119,7 +129,11 @@ const changeBehaviourMixin = {
             this._pendingActionsChangeBehaviourMixin.push(() => this._onErrorWrapped(changeInfos));
         }
     },
-    
+
+    /**
+    * Event handler for 'error' events coming from the stores.
+    * @param {object} changeInfos The changing informations.
+    */
     _onErrorWrapped(changeInfos) {
         this.setState(this._getLoadingStateFromStores(), () => this._handleErrors(changeInfos)); // update errors after status
     },
@@ -134,10 +148,10 @@ const changeBehaviourMixin = {
             for (let key in errorState) {
                 // Let's find that corresponding field, considering that the ref might not directly be 'storeNode.fieldName', but in fact 'entityPath.fieldName'
                 if (this.refs) {
-                    const refKey = keys(this.refs).filter(candidateRef => {
+                    const refKey = Object.keys(this.refs).find(candidateRef => {
                         const candidate = candidateRef.replace(`${this.definitionPath}.`, ''); // Remove the 'definitionPath.'
                         return candidate === key.match(/([^\.]*)$/)[0] // Look for the 'fieldName' part of 'storeNode.fieldName'
-                    })[0];
+                    });
 
                     if (refKey) { // If we found it, then bingo
                         this.refs[refKey].setError(errorState[key]);
@@ -145,28 +159,32 @@ const changeBehaviourMixin = {
                 }
             }
         }
-		}
     },
+
 	/**
     * Read
     * @param  {[type]} changeInfos [description]
-    * @return {[type]}             [description]
-    * Read.
     */
-    _onStatus: function _onStatusWrapper(changeInfos) {
+    _onStatus(changeInfos) {
         if (this._isMountedChangeBehaviourMixin) {
             this._onStatusWrapped(changeInfos);
         } else {
             this._pendingActionsChangeBehaviourMixin.push(() => this._onStatusWrapped(changeInfos));
         }
     },
-    
+
+	/**
+    * Read
+    * @param  {[type]} changeInfos [description]
+    */
     _onStatusWrapped(changeInfos) {
         if (this._getEntity) {
             this.setState({ ...this._getEntity(), ...this._getLoadingStateFromStores() });
         } else {
             this.setState(this._getLoadingStateFromStores());
 
-};
+        }
+    }
+}
 
 export default changeBehaviourMixin;

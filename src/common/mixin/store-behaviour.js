@@ -1,16 +1,31 @@
 import assign from 'object-assign';
-import { isObject, isArray, keys, capitalize, defaultsDeep, findIndex, pick } from 'lodash';
+import { isObject, isArray, capitalize, defaultsDeep, findIndex, pick } from 'lodash';
 import storeChangeBehaviour from './store-change-behaviour';
 
+/**
+ * Behavior to update state according to stores.
+ */
 const storeMixin = {
 
     mixins: [storeChangeBehaviour],
 
+    /** @inheritdoc */
+    componentWillMount() {
+        //These listeners are registered before the mounting because they are not correlated to the DOM.
+        this._registerListeners();
+    },
+
+    /** @inheritdoc */
+    componentWillUnmount() {
+        this._unRegisterListeners();
+    },
+
     /**
      * Get the state informations from the store.
+     * @param  {array} filterNodes - An object containing nodes key to update.
      * @returns {object} - The js object constructed from store data.
      */
-    _getStateFromStores() {
+    _getStateFromStores(filterNodes = []) {
         if (this.getStateFromStore) {
             return this.getStateFromStore();
         }
@@ -23,12 +38,10 @@ const storeMixin = {
         });
 
         let defaultData = {};
-        if (this.props.useDefaultStoreData && (this.definition || this.getDefaultStoreData)) {
-            if (this.getDefaultStoreData) {
-                defaultData = this.getDefaultStoreData(this.definition);
-            } else {
-                defaultData = keys(this.definition).reduce((acc, key) => ({ ...acc, [key]: null }), {});
-            }
+        if (this.props.useDefaultStoreData && this.getDefaultStoreData) {
+            defaultData = this.getDefaultStoreData(this.definition);
+        } else if (this.props.useDefaultStoreData && this.definition) {
+            defaultData = Object.keys(this.definition).reduce((acc, key) => ({ ...acc, [key]: null }), {});
         }
 
         // We want to pick only some nodes
@@ -122,7 +135,6 @@ const storeMixin = {
         if (this.stores) {
             this.stores.forEach((storeConf) => {
                 storeConf.properties.forEach((property) => {
-                    if (!storeConf.store || !storeConf.store.definition || !storeConf.store.definition[property]) {
                     this._addRemoveSingleListener('add', storeConf.store, property);
                 });
             });
@@ -141,14 +153,27 @@ const storeMixin = {
             });
         }
     },
+
+    /**
+     * Add or remove on listener.
+     * @param {*} action Add or remove operation.
+     * @param {*} store  Store to operate on.
+     * @param {*} property Node to operate on.
+     */
     _addRemoveSingleListener(action, store, property) {
         if (!store || !store.definition || !store.definition[property]) {
-            throw new Error(`You ${action} a property : ${property} in your store subscription for ${store.name || store.identifier} which is not in your definition : ${keys(store.definition)}`);
+            throw new Error(`You ${action} a property : ${property} in your store subscription for ${store.name || store.identifier} which is not in your definition : ${Object.keys(store.definition)}`);
         }
         store[`${action}${capitalize(property)}ChangeListener`](this._onChange);
         store[`${action}${capitalize(property)}ErrorListener`](this._onError);
         store[`${action}${capitalize(property)}StatusListener`](this._onStatus);
     },
+
+    /**
+     * Add a listened node.
+     * @param {*} store Store to listen to.
+     * @param {*} property Node to listen to.
+     */
     addStoreSub(store, property) {
         if (!this.stores) {
             this.stores = [];
@@ -158,7 +183,7 @@ const storeMixin = {
         const existingConf = storeIndex === -1 ? null : this.stores[storeIndex];
 
         if (existingConf && existingConf.properties.includes(property)) {
-            return;
+            return; // Store/Node tuple already listened.
         }
 
         this._addRemoveSingleListener('add', store, property);
@@ -172,14 +197,22 @@ const storeMixin = {
             });
         }
     },
+
+    /**
+     * Remove a listened node.
+     * @param {*} store Store to unlisten to.
+     * @param {*} property Node to unlisten to.
+     */
     removeStoreSub(store, property) {
         if (!this.stores) {
             this.stores = [];
         }
+
         const storeIndex = findIndex(this.stores, elt => elt.store === store);
         if (storeIndex === -1) {
             return;
         }
+
         const existingConf = this.stores[storeIndex];
         const propertyIndex = existingConf.properties.indexOf(property);
         if (propertyIndex === -1) {
@@ -192,16 +225,6 @@ const storeMixin = {
         if (existingConf.properties.length === 0) {
             this.stores.splice(storeIndex, 1);
         }
-    },
-    /** @inheritdoc */
-    componentWillMount() {
-        //These listeners are registered before the mounting because they are not correlated to the DOM.
-        this._registerListeners();
-    },
-
-    /** @inheritdoc */
-    componentWillUnmount() {
-        this._unRegisterListeners();
     }
 
 };
