@@ -164,9 +164,9 @@ const storeMixin = {
         if (!store || !store.definition || !store.definition[property]) {
             throw new Error(`You ${action} a property : ${property} in your store subscription for ${store.name || store.identifier} which is not in your definition : ${Object.keys(store.definition)}`);
         }
-        store[`${action}${capitalize(property)}ChangeListener`](this._onChange);
-        store[`${action}${capitalize(property)}ErrorListener`](this._onError);
-        store[`${action}${capitalize(property)}StatusListener`](this._onStatus);
+        store[`${action}${capitalize(property)}ChangeListener`](this._onStoreChange);
+        store[`${action}${capitalize(property)}ErrorListener`](this._onStoreError);
+        store[`${action}${capitalize(property)}StatusListener`](this._onStoreStatus);
     },
 
     /**

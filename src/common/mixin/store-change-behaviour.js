@@ -65,9 +65,9 @@ const changeBehaviourMixin = {
     * @param {object} changeInfos - All informations relative to the change.
     * @returns {undefined} -  The return value is the callback.
     */
-    _afterChange(changeInfos) {
+    _afterStoreChange(changeInfos) {
         if (this._isMountedChangeBehaviourMixin) {
-            this._afterChangeWrapped(changeInfos);
+            this._afterStoreChangeWrapped(changeInfos);
         } else {
             this._pendingActionsChangeBehaviourMixin.push(() => this._afterChangeWrapped(changeInfos));
         }
@@ -79,7 +79,7 @@ const changeBehaviourMixin = {
     * @param {object} changeInfos - All informations relative to the change.
     * @returns {undefined} -  The return value is the callback.
     */
-    _afterChangeWrapped(changeInfos) {
+    _afterStoreChangeWrapped(changeInfos) {
         if (this.afterChange) {
             return this.afterChange(changeInfos);
         }
@@ -96,11 +96,11 @@ const changeBehaviourMixin = {
     * @param {object} changeInfos - The changing informations.
     * @param {object} changeInfos The changing informations.
     */
-    _onChange(changeInfos) {
+    _onStoreChange(changeInfos) {
         if (this._isMountedChangeBehaviourMixin) {
-            this._onChangeWrapped(changeInfos);
+            this._onStoreChangeWrapped(changeInfos);
         } else {
-            this._pendingActionsChangeBehaviourMixin.push(() => this._onChangeWrapped(changeInfos));
+            this._pendingActionsChangeBehaviourMixin.push(() => this._onStoreChangeWrapped(changeInfos));
         }
     },
 
@@ -109,24 +109,24 @@ const changeBehaviourMixin = {
     * @param {object} changeInfos - The changing informations.
     * @param {object} changeInfos The changing informations.
     */
-    _onChangeWrapped(changeInfos) {
-        let onChange = this.props.onChange || this.onChange;
-        if (onChange) {
-            onChange.call(this, changeInfos);
+    _onStoreChangeWrapped(changeInfos) {
+        let onStoreChange = this.props.onStoreChange || this.onStoreChange;
+        if (onStoreChange) {
+            onStoreChange.call(this, changeInfos);
         }
 
-        this.setState(this._getStateFromStores(), () => this._afterChange(changeInfos));
+        this.setState(this._getStateFromStores(changeInfos.property), () => this._afterStoreChange(changeInfos));
     },
 
     /**
     * Event handler for 'error' events coming from the stores.
     * @param {object} changeInfos The changing informations.
     */
-    _onError(changeInfos) {
+    _onStoreError(changeInfos) {
         if (this._isMountedChangeBehaviourMixin) {
-            this._onErrorWrapped(changeInfos);
+            this._onStoreErrorWrapped(changeInfos);
         } else {
-            this._pendingActionsChangeBehaviourMixin.push(() => this._onErrorWrapped(changeInfos));
+            this._pendingActionsChangeBehaviourMixin.push(() => this._onStoreErrorWrapped(changeInfos));
         }
     },
 
@@ -134,7 +134,7 @@ const changeBehaviourMixin = {
     * Event handler for 'error' events coming from the stores.
     * @param {object} changeInfos The changing informations.
     */
-    _onErrorWrapped(changeInfos) {
+    _onStoreErrorWrapped(changeInfos) {
         this.setState(this._getLoadingStateFromStores(), () => this._handleErrors(changeInfos)); // update errors after status
     },
 
@@ -165,11 +165,11 @@ const changeBehaviourMixin = {
     * Read
     * @param  {[type]} changeInfos [description]
     */
-    _onStatus(changeInfos) {
+    _onStoreStatus(changeInfos) {
         if (this._isMountedChangeBehaviourMixin) {
-            this._onStatusWrapped(changeInfos);
+            this._onStoreStatusWrapped(changeInfos);
         } else {
-            this._pendingActionsChangeBehaviourMixin.push(() => this._onStatusWrapped(changeInfos));
+            this._pendingActionsChangeBehaviourMixin.push(() => this._onStoreStatusWrapped(changeInfos));
         }
     },
 
@@ -177,7 +177,7 @@ const changeBehaviourMixin = {
     * Read
     * @param  {[type]} changeInfos [description]
     */
-    _onStatusWrapped(changeInfos) {
+    _onStoreStatusWrapped(changeInfos) {
         if (this._getEntity) {
             this.setState({ ...this._getEntity(), ...this._getLoadingStateFromStores() });
         } else {
