@@ -44,8 +44,9 @@ const storeMixin = {
             defaultData = Object.keys(this.definition).reduce((acc, key) => ({ ...acc, [key]: null }), {});
         }
 
-        // We want to pick only some nodes
+        // We want to pick only some nodes & reference nodes
         if (filterNodes.length > 0) {
+            filterNodes = filterNodes.concat(this.referenceNames || []);
             newState = pick(newState, filterNodes);
             defaultData = pick(defaultData, filterNodes);
         }
@@ -112,7 +113,9 @@ const storeMixin = {
             return this.computeEntityFromStoresData(data);
         }
 
-        const entity = { reference: {} };
+        const entity = {
+            reference: {}
+        };
         for (let key in data) {
             if (this.referenceNames && this.referenceNames.includes(key)) {
                 entity.reference[key] = data[key];
