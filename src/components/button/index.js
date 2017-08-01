@@ -9,39 +9,39 @@ const BTN_CLASS = 'mdl-button';
 const BUTTON_PRFX = 'mdl-button--';
 const RIPPLE_EFFECT = 'mdl-js-ripple-effect';
 
-const propTypes = {
-    color: PropTypes.oneOf([undefined, 'colored', 'primary', 'accent']),
-    handleOnClick: PropTypes.func, //to remove in V2
-    hasRipple: PropTypes.bool,
-    id: PropTypes.string,
-    icon: PropTypes.string,
-    iconLibrary: PropTypes.oneOf(['material', 'font-awesome', 'font-custom']),
-    isJs: PropTypes.bool,
-    isLoading: PropTypes.bool,
-    label: PropTypes.string,
-    onClick: PropTypes.func,
-    shape: PropTypes.oneOf([undefined, 'raised', 'fab', 'icon', 'mini-fab']),
-    type: PropTypes.oneOf(['submit', 'button'])
-}
-
-const defaultProps = {
-    hasRipple: false,
-    icon: null,
-    iconLibrary: 'material',
-    id: '',
-    isJs: false,
-    label: '',
-    shape: 'raised',
-    type: 'submit'
-}
-
 @MDBehaviour('materialButton', 'MaterialButton')
 @Translation
 class Button extends Component {
 
-    /**
-    * Called when component is mounted.
-    */
+    static displayName = 'Button';
+
+    static propTypes = {
+        color: PropTypes.oneOf([undefined, 'colored', 'primary', 'accent']),
+        handleOnClick: PropTypes.func, //to remove in V2
+        hasRipple: PropTypes.bool,
+        id: PropTypes.string,
+        icon: PropTypes.string,
+        iconLibrary: PropTypes.oneOf(['material', 'font-awesome', 'font-custom']),
+        isJs: PropTypes.bool,
+        isLoading: PropTypes.bool,
+        label: PropTypes.string,
+        onClick: PropTypes.func,
+        shape: PropTypes.oneOf([undefined, 'raised', 'fab', 'icon', 'mini-fab']),
+        type: PropTypes.oneOf(['submit', 'button'])
+    };
+
+    static defaultProps = {
+        hasRipple: false,
+        icon: null,
+        iconLibrary: 'material',
+        id: '',
+        isJs: false,
+        label: '',
+        shape: 'raised',
+        type: 'submit'
+    };
+
+    /** @inheritdoc */
     componentDidMount() {
         const { hasRipple } = this.props;
         const refNode = ReactDOM.findDOMNode(this.refs.materialButton);
@@ -50,6 +50,7 @@ class Button extends Component {
         }
     }
 
+    /** @inheritdoc */
     componentDidUpdate() {
         const spinnerNode = ReactDOM.findDOMNode(this.refs['double-action-button-spinner']);
         if (spinnerNode) {
@@ -63,6 +64,7 @@ class Button extends Component {
     */
     _getComponentClassName() {
         const { shape, color, hasRipple, isJs } = this.props;
+
         let SHAPE_CLASS;
         switch (shape) {
             case 'raised':
@@ -87,13 +89,14 @@ class Button extends Component {
         const COLOR_CLASS = color ? `${BUTTON_PRFX}${color}` : '';
         const JS_CLASS = isJs ? BTN_JS : '';
         const RIPPLE_EFFECT_CLASS = hasRipple ? RIPPLE_EFFECT : '';
+
         return `${BTN_CLASS} ${COLOR_CLASS} ${SHAPE_CLASS} ${JS_CLASS} ${RIPPLE_EFFECT_CLASS}`;
     }
 
     /**
-    * Render the pressed button.
-    * @return {Component} - Component button.
-    */
+     * Render the pressed button.
+     * @return {Component} - Component button.
+     */
     renderPressedButton() {
         return (<button>Loading...</button>);
     }
@@ -148,11 +151,11 @@ class Button extends Component {
         }
     }
 
-    /** inheritedDoc */
+    /** @inheritdoc */
     render() {
         // attribute doc : https://developer.mozilla.org/fr/docs/Web/HTML/Element/Button
         // be careful the way you declare your attribute names : https://developer.mozilla.org/fr/docs/Web/HTML/Element/Button
-        const {className, disabled, formNoValidate, handleOnClick, icon, id, onClick, type, label, style, hasRipple, isJs, iconLibrary, isLoading, ...rest} = this.props;
+        const { className, disabled, formNoValidate, handleOnClick, icon, id, onClick, type, label, style, hasRipple, isJs, iconLibrary, isLoading, ...rest } = this.props;
         const onClickFunc = handleOnClick ? handleOnClick : onClick;
         const otherInputProps = filterProps({ disabled, formNoValidate, style, type, ...rest }); //on click for legacy. Remove handleOnClick in v2
 
@@ -160,6 +163,7 @@ class Button extends Component {
             otherInputProps.onClick = event => this._wrappedOnClick(event, onClickFunc);
         }
         const renderedClassName = `${className ? className : ''} ${::this._getComponentClassName()}`.trim();
+        
         return (
             <button alt={this.i18n(label)} className={renderedClassName} data-focus='button-action' data-saving={isLoading} id={id} disabled={isLoading} title={this.i18n(label)} {...otherInputProps} ref='materialButton'>
                 {icon && ::this._renderIcon()}
@@ -169,9 +173,5 @@ class Button extends Component {
         );
     }
 }
-
-Button.displayName = 'Button'
-Button.defaultProps = defaultProps;
-Button.propTypes = propTypes;
 
 export default Button;                   
