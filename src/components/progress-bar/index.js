@@ -1,5 +1,5 @@
 // Dependencies
-import React, {Component, PropTypes} from 'react';
+import React, { Component, PropTypes } from 'react';
 import ReactDOM from 'react-dom';
 import mdlBehaviour from '../../behaviours/material';
 
@@ -17,7 +17,7 @@ class ProgressBar extends Component {
     };
 
     componentDidMount() {
-        const {completed} = this.props
+        const { completed } = this.props
         const bar = ReactDOM.findDOMNode(this.refs.bar);
         if (bar) {
             bar.MaterialProgress.setProgress(completed);
@@ -25,7 +25,7 @@ class ProgressBar extends Component {
         }
     }
 
-    componentWillReceiveProps({completed}) {
+    componentWillReceiveProps({ completed }) {
         if (0 > completed) {
             completed = 0;
         }
@@ -40,9 +40,9 @@ class ProgressBar extends Component {
     }
 
     _renderClassName() {
-        const {indeterminated} = this.props;
+        const { indeterminated } = this.props;
 
-        if(indeterminated) {
+        if (indeterminated) {
             return 'mdl-progress mdl-js-progress mdl-progress__indeterminate'
         }
         else {
