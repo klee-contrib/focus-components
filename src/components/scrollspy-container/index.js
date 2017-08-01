@@ -31,6 +31,7 @@ const propTypes = {
 */
 @Scroll
 class ScrollspyContainer extends Component {
+
     constructor(props) {
         super(props);
         const state = {
@@ -245,6 +246,7 @@ class ScrollspyContainer extends Component {
     render() {
         const { children, hasMenu, hasBackToTop, offset, scrollDelay, ...otherProps } = this.props;
         const { affix, menuList } = this.state;
+
         return (
             <div data-focus='scrollspy-container' {...otherProps}>
                 {hasMenu &&
