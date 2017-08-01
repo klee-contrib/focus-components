@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import applicationStore from 'focus-core/application/built-in-store';
 import Button from '../../components/button';
 import Dropdown from '../../components/icon-dropdown';
@@ -7,6 +7,7 @@ import Dropdown from '../../components/icon-dropdown';
 * HeaderActions component.
 */
 class HeaderActions extends Component {
+
     constructor(props) {
         super(props);
         this.state = this._getStateFromStore();
@@ -27,7 +28,7 @@ class HeaderActions extends Component {
     * @return {Object} actions extracted from the store
     */
     _getStateFromStore = () => {
-        return {actions: applicationStore.getActions() || {primary: [], secondary: []}};
+        return { actions: applicationStore.getActions() || { primary: [], secondary: [] } };
     };
 
     /**
@@ -39,25 +40,33 @@ class HeaderActions extends Component {
 
     /** @inheriteddoc */
     render() {
-        const {...otherProps} = this.props;
-        const {actions} = this.state;
+        const { ...otherProps } = this.props;
+        const { actions } = this.state;
+
         return (
             <div data-focus='header-actions' {...otherProps}>
-                {actions.primary.map((primary, index) => {
-                    const {action, className, icon, iconLibrary, label, ...otherProps} = primary;
+                {actions.primary.map((primary) => {
+                    const { action, className, icon, iconLibrary, label, ...otherProps } = primary;
                     return (
-                        <Button key={`header-action-${label}`} className={className} handleOnClick={action} icon={icon} iconLibrary={iconLibrary} label={label} shape='fab' type='button' {...otherProps}/>
+                        <Button
+                            key={`header-action-${label}`}
+                            className={className}
+                            handleOnClick={action}
+                            icon={icon}
+                            iconLibrary={iconLibrary}
+                            label={label}
+                            shape='fab'
+                            type='button'
+                            {...otherProps}
+                        />
                     );
                 })}
-                {actions.secondary && actions.secondary.length > 0 && <Dropdown operationList={actions.secondary}/>}
+                {actions.secondary && actions.secondary.length > 0 && (<Dropdown operationList={actions.secondary} />)}
             </div>
         );
     }
 }
 
-//Static props.
 HeaderActions.displayName = 'HeaderActions';
-//HeaderActions.defaultProps = defaultProps;
-//HeaderActions.propTypes = propTypes;
 
 export default HeaderActions;

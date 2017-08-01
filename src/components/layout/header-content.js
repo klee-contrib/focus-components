@@ -1,10 +1,11 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import applicationStore from 'focus-core/application/built-in-store';
 
 /**
 * HeaderContent component.
 */
 class HeaderContent extends Component {
+
     constructor(props) {
         super(props);
         this.state = this._getStateFromStore();
@@ -25,7 +26,7 @@ class HeaderContent extends Component {
     * @return {object} - The new state.
     */
     _getStateFromStore = () => {
-        return {cartridgeComponent: applicationStore.getCartridgeComponent() || {component: 'div', props: {}}};
+        return { cartridgeComponent: applicationStore.getCartridgeComponent() || { component: 'div', props: {} } };
     };
 
     /**
@@ -37,19 +38,16 @@ class HeaderContent extends Component {
 
     /** @inheriteddoc */
     render() {
-        const {cartridgeComponent} = this.state;
-        const {component: Component, props} = cartridgeComponent;
+        const { cartridgeComponent } = this.state;
+        const { component: Component, props } = cartridgeComponent;
         return (
             <div data-focus='header-content'>
-                <Component {...props}/>
+                <Component {...props} />
             </div>
         );
     }
 }
 
-//Static props.
 HeaderContent.displayName = 'HeaderContent';
-//HeaderContent.defaultProps = defaultProps;
-//HeaderContent.propTypes = propTypes;
 
 export default HeaderContent;

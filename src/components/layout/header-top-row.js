@@ -1,12 +1,14 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import applicationStore from 'focus-core/application/built-in-store';
 
 /**
 * HeaderTopRow component.
 */
 class HeaderTopRow extends Component {
+
     constructor(props) {
         super(props);
+
         this.state = this._getStateFromStore();
     }
 
@@ -44,23 +46,24 @@ class HeaderTopRow extends Component {
     * @return {HTML} Rendered component
     */
     render() {
-        const {barContentLeftComponent, barContentRightComponent, summaryComponent} = this.state;
+        const { barContentLeftComponent, barContentRightComponent, summaryComponent } = this.state;
+
         return (
             <div data-focus='header-top-row'>
                 <div>
                     <div data-focus='header-top-row-left'>
                         {barContentLeftComponent &&
-                            <barContentLeftComponent.component {...barContentLeftComponent.props}/>
+                            <barContentLeftComponent.component {...barContentLeftComponent.props} />
                         }
                     </div>
                     <div data-focus='header-top-row-right'>
                         {barContentRightComponent &&
-                            <barContentRightComponent.component {...barContentRightComponent.props}/>
+                            <barContentRightComponent.component {...barContentRightComponent.props} />
                         }
                     </div>
                     <div data-focus='header-top-row-middle'>
                         {summaryComponent &&
-                            <summaryComponent.component {...summaryComponent.props}/>
+                            <summaryComponent.component {...summaryComponent.props} />
                         }
                     </div>
                 </div>
@@ -69,10 +72,6 @@ class HeaderTopRow extends Component {
     }
 }
 
-
-//Static props.
 HeaderTopRow.displayName = 'HeaderTopRow';
-//HeaderTopRow.defaultProps = defaultProps;
-//HeaderTopRow.propTypes = propTypes;
 
 export default HeaderTopRow;
