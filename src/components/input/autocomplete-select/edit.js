@@ -1,4 +1,4 @@
-import React, {Component, PropTypes} from 'react';
+import React, { Component, PropTypes } from 'react';
 import ComponentBaseBehaviour from '../../../behaviours/component-base';
 import MDBehaviour from '../../../behaviours/material';
 import filterProps from '../../../utils/filter-html-attributes';
@@ -39,8 +39,10 @@ const defaultProps = {
 @MDBehaviour('inputText')
 @ComponentBaseBehaviour
 class Autocomplete extends Component {
+
     constructor(props) {
         super(props);
+
         const state = {
             focus: false,
             inputValue: this.props.value,
@@ -52,37 +54,41 @@ class Autocomplete extends Component {
             customError: this.props.customError,
             totalCount: 0
         };
+
         this.state = state;
         this.autocompleteId = uniqueId('autocomplete-text-');
     }
 
     componentDidMount() {
-        const {value, keyResolver, inputTimeout} = this.props;
+        const { value, keyResolver, inputTimeout } = this.props;
+
         if (value !== undefined && value !== null) { // value is defined, call the keyResolver to get the associated label
             keyResolver(value).then(inputValue => {
-                this.setState({inputValue, fromKeyResolver: true});
-            }).catch(error => this.setState({customError: error.message}));
+                this.setState({ inputValue, fromKeyResolver: true });
+            }).catch(error => this.setState({ customError: error.message }));
         }
+
         document.addEventListener('click', this._handleDocumentClick);
         this._debouncedQuerySearcher = debounce(this._querySearcher, inputTimeout);
     }
 
-    componentWillReceiveProps({value, customError, error}) {
-        const {keyResolver} = this.props;
+    componentWillReceiveProps({ value, customError, error }) {
+        const { keyResolver } = this.props;
+
         if (value !== this.props.value && value !== undefined && value !== null) { // value is defined, call the keyResolver to get the associated label
-            this.setState({inputValue: value, customError}, () => keyResolver(value).then(inputValue => {
-                this.setState({inputValue, fromKeyResolver: true});
-            }).catch(error => this.setState({customError: error.message})));
+            this.setState({ inputValue: value, customError }, () => keyResolver(value).then(inputValue => {
+                this.setState({ inputValue, fromKeyResolver: true });
+            }).catch(error => this.setState({ customError: error.message })));
         } else if (customError !== this.props.customError) {
-            this.setState({customError});
+            this.setState({ customError });
         }
 
         if (error) {
-            this.setState({customError: error});
+            this.setState({ customError: error });
         }
 
         if (this.props.clearOnNullValue && this.props.clearOnNullValue === true && value === null && this.state.inputValue !== null) {
-            this.setState({inputValue: ''});
+            this.setState({ inputValue: '' });
         }
     }
 
@@ -99,8 +105,8 @@ class Autocomplete extends Component {
     }
 
     getValue() {
-        const {labelName, keyName, value} = this.props;
-        const {inputValue, selected, options, fromKeyResolver} = this.state;
+        const { labelName, keyName, value } = this.props;
+        const { inputValue, selected, options, fromKeyResolver } = this.state;
         const resolvedLabel = options.get(selected);
         if (inputValue === '') { // The user cleared the field, return a null
             return null;
@@ -113,13 +119,13 @@ class Autocomplete extends Component {
         }
     }
 
-    _handleDocumentClick = ({target}) => {
-        const {focus, inputValue} = this.state;
-        const {onBadInput} = this.props;
+    _handleDocumentClick = ({ target }) => {
+        const { focus, inputValue } = this.state;
+        const { onBadInput } = this.props;
         if (focus) {
             const closestACParent = closest(target, `[data-id='${this.autocompleteId}']`, true);
             if (closestACParent === undefined) {
-                this.setState({focus: false}, () => {
+                this.setState({ focus: false }, () => {
                     if (onBadInput && this.getValue() === null && inputValue !== '') {
                         onBadInput(inputValue);
                     }
@@ -128,27 +134,27 @@ class Autocomplete extends Component {
         }
     };
 
-    _handleQueryChange = ({target: {value}}) => {
+    _handleQueryChange = ({ target: { value } }) => {
         if (value === '') { // the user cleared the input, don't call the querySearcher
-            const {onChange} = this.props;
-            this.setState({inputValue: value, fromKeyResolver: false});
+            const { onChange } = this.props;
+            this.setState({ inputValue: value, fromKeyResolver: false });
             if (onChange) onChange(null);
         } else {
-            this.setState({inputValue: value, fromKeyResolver: false, isLoading: true});
+            this.setState({ inputValue: value, fromKeyResolver: false, isLoading: true });
             this._debouncedQuerySearcher(value);
         }
     };
 
     _querySearcher = value => {
-        const {querySearcher, keyName, labelName} = this.props;
-        querySearcher(value).then(({data, totalCount}) => {
+        const { querySearcher, keyName, labelName } = this.props;
+        querySearcher(value).then(({ data, totalCount }) => {
             // TODO handle the incomplete option list case
             const options = new Map();
             data.forEach(item => {
                 options.set(item[keyName], item[labelName]);
             });
-            this.setState({options, isLoading: false, totalCount});
-        }).catch(error => this.setState({customError: error.message}));
+            this.setState({ options, isLoading: false, totalCount });
+        }).catch(error => this.setState({ customError: error.message }));
     };
 
     _handleQueryFocus = () => {
@@ -156,15 +162,15 @@ class Autocomplete extends Component {
         if (this.props.onFocus) {
             this.props.onFocus.call(this);
         }
-        this.setState({active: '', focus: true});
+        this.setState({ active: '', focus: true });
     };
 
     _handleQueryKeyDown = (event) => {
         event.stopPropagation();
-        const {which} = event;
-        const {active, options} = this.state;
+        const { which } = event;
+        const { active, options } = this.state;
         if (which === ENTER_KEY_CODE && active) this._select(active);
-        if (which === TAB_KEY_CODE) this.setState({focus: false}, () => this.refs.htmlInput.blur());
+        if (which === TAB_KEY_CODE) this.setState({ focus: false }, () => this.refs.htmlInput.blur());
         if ([DOWN_ARROW_KEY_CODE, UP_ARROW_KEY_CODE].indexOf(which) !== -1) { // the user pressed on an arrow key, change the active key
             const optionKeys = [];
             for (let key of options.keys()) {
@@ -178,23 +184,23 @@ class Autocomplete extends Component {
             if (newIndex < 0) {
                 newIndex += options.size;
             }
-            this.setState({active: optionKeys[newIndex]});
+            this.setState({ active: optionKeys[newIndex] });
         }
     };
 
     _handleSuggestionHover = key => {
-        this.setState({active: key});
+        this.setState({ active: key });
     };
 
     _select(key) {
-        const {options} = this.state;
-        const {onChange} = this.props;
+        const { options } = this.state;
+        const { onChange } = this.props;
         const resolvedLabel = options.get(key) || '';
         this.refs.htmlInput.blur();
-        let newState = {inputValue: this.i18n(resolvedLabel), selected: key, focus: false};
+        let newState = { inputValue: this.i18n(resolvedLabel), selected: key, focus: false };
         if (this.props.onSelectClear === true) {
-            newState = {inputValue: '', selected: null, focus: false};
-        } 
+            newState = { inputValue: '', selected: null, focus: false };
+        }
         this.setState(newState, () => {
             if (onChange) {
                 onChange(key);
@@ -203,7 +209,7 @@ class Autocomplete extends Component {
     }
 
     _renderOptions = () => {
-        const {active, options, focus} = this.state;
+        const { active, options, focus } = this.state;
         const renderedOptions = [];
         for (let [key, value] of options) {
             const isActive = active === key;
@@ -219,6 +225,7 @@ class Autocomplete extends Component {
                 </li>
             );
         }
+
         return (
             <ul data-focus='options' ref='options' data-focussed={focus}>
                 {renderedOptions}
@@ -226,9 +233,9 @@ class Autocomplete extends Component {
         );
     };
 
-    render () {
-        const {inputValue, isLoading} = this.state;
-        const {customError, renderOptions} = this.props;
+    render() {
+        const { inputValue, isLoading } = this.state;
+        const { customError, renderOptions } = this.props;
 
         const validInputProps = filterProps(this.props);
 
@@ -239,7 +246,7 @@ class Autocomplete extends Component {
         validInputProps.onKeyDown = this._handleQueryKeyDown;
         validInputProps.onChange = this._handleQueryChange;
 
-        const inputProps = {...validInputProps};
+        const inputProps = { ...validInputProps };
 
         return (
             <div data-focus='autocomplete' data-id={this.autocompleteId}>
