@@ -1,8 +1,9 @@
-import React, {Component, PropTypes} from 'react';
+import React, { Component, PropTypes } from 'react';
 import AutocompleteTextEdit from './edit';
 import AutocompleteTextConsult from './consult';
 
 class AutocompleteTextField extends Component {
+
     state = {};
 
     static propTypes = {
@@ -12,7 +13,7 @@ class AutocompleteTextField extends Component {
     };
 
     getValue = () => {
-        const {isEdit, value} = this.props;
+        const { isEdit, value } = this.props;
         if (isEdit) {
             return this.refs.autocomplete.getValue();
         } else {
@@ -21,14 +22,13 @@ class AutocompleteTextField extends Component {
     };
 
     _handleAutocompleteChange = value => {
-        const {onChange} = this.props;
-        if(onChange) onChange(value);
+        const { onChange } = this.props;
+        if (onChange) onChange(value);
     };
 
     _renderEdit = () => {
         return (
             <AutocompleteTextEdit
-                onChange={this._handleAutocompleteChange}
                 ref='autocomplete'
                 {...this.props}
             />
@@ -44,7 +44,7 @@ class AutocompleteTextField extends Component {
     };
 
     render() {
-        const {isEdit} = this.props;
+        const { isEdit } = this.props;
         return isEdit ? this._renderEdit() : this._renderConsult();
     }
 }
