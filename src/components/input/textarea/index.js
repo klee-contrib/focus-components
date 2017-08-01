@@ -1,6 +1,6 @@
-import React, {Component, PropTypes} from 'react';
+import React, { Component, PropTypes } from 'react';
 import ReactDOM from 'react-dom';
-import {identity} from 'lodash/utility';
+import { identity } from 'lodash/utility';
 import ComponentBaseBehaviour from '../../../behaviours/component-base';
 import MDBehaviour from '../../../behaviours/material';
 import filterProps from '../../../utils/filter-html-attributes';
@@ -50,20 +50,22 @@ class InputTextarea extends Component {
     * @return {object} - The unformated dom value.
     */
     getValue = () => {
-        const {unformatter} = this.props;
+        const { unformatter } = this.props;
         const domEl = ReactDOM.findDOMNode(this.refs.htmlInput);
         return unformatter(domEl.value);
     };
+
     /**
     * Handle the change on the input text, it only propagate the value.
     * @param  {object} evt - The react DOM event.
     * @return {object} - The function onChannge from the props, called.
     */
     _handleInputChange = (evt) => {
-        const {unformatter, onChange} = this.props;
-        const {value} = evt.target;
+        const { unformatter, onChange } = this.props;
+        const { value } = evt.target;
         return onChange(unformatter(value));
     };
+
     /**
     * @inheritdoc
     * @override
@@ -71,15 +73,15 @@ class InputTextarea extends Component {
     render() {
         const validInputProps = filterProps(this.props);
 
-        const {formatter, error} = this.props;
-        const {name, style, placeholder, value} = validInputProps;
+        const { formatter, error } = this.props;
+        const { name, style, placeholder, value } = validInputProps;
 
         const pattern = error ? 'hasError' : null; //add pattern to overide mdl error style when displaying an focus error.
         const mdlClasses = `mdl-textfield mdl-js-textfield${error ? ' is-invalid' : ''}`;
 
         validInputProps.value = formatter(value) === undefined || formatter(value) === null ? '' : formatter(value);
-        validInputProps.onChange = this._handleInputChange 
-        const inputProps = {...validInputProps, pattern};
+        validInputProps.onChange = this._handleInputChange
+        const inputProps = { ...validInputProps, pattern };
 
         return (
             <div data-error={!!error} data-focus='input-textarea'>
