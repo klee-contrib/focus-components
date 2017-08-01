@@ -1,7 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import Checkbox from '../checkbox';
 import Translation from '../../../behaviours/translation';
-import { pull } from 'lodash/array';
 
 /**
  * SelectCheckbox component.
