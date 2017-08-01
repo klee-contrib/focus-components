@@ -1,4 +1,4 @@
-import React, {Component, PropTypes} from 'react';
+import React, { Component, PropTypes } from 'react';
 import ReactDOM from 'react-dom';
 import Translation from '../../../behaviours/translation';
 import Material from '../../../behaviours/material';
@@ -19,23 +19,24 @@ const displayName = 'InputToggle';
 @Translation
 @Material('mdlHolder')
 class InputToggle extends Component {
+
     getValue = () => {
         const domElement = ReactDOM.findDOMNode(this.refs.toggle);
         return domElement.checked;
     };
 
-    handleOnChange = ({target: {checked}}) => {
-        const {onChange} = this.props;
+    handleOnChange = ({ target: { checked } }) => {
+        const { onChange } = this.props;
         onChange(checked);
     };
 
     render() {
         const validInputProps = filterProps(this.props);
-        const {label, value} = validInputProps;
+        const { label, value } = validInputProps;
 
         validInputProps.onChange = this.handleOnChange;
         validInputProps.checked = value;
-        const inputProps = {...validInputProps};
+        const inputProps = { ...validInputProps };
 
         return (
             <label className='mdl-switch mdl-js-switch mdl-js-ripple-effect' data-focus='input-toggle' ref='mdlHolder'>
