@@ -24,6 +24,7 @@ const propTypes = {
 */
 @Translation
 class Panel extends Component {
+
     constructor(props) {
         super(props);
         const state = {
