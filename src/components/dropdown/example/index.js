@@ -1,4 +1,5 @@
-const Dropdown = FocusComponents.common.selectAction.component;
+import { component as Dropdown } from 'focus-components/common/select-action';
+
 const operationList = [
     {
         label: 'Action_a',
@@ -20,4 +21,6 @@ const operationList = [
     }
 ];
 
-return <Dropdown operationList={operationList}/>;
+return (
+    <Dropdown operationList={operationList} />
+);
