@@ -1,13 +1,14 @@
-import React, {Component, PropTypes} from 'react';
-import {navigate} from 'focus-core/history';
+import React, { Component, PropTypes } from 'react';
+import { navigate } from 'focus-core/history';
 import Button from '../button';
 
 function MenuItems(props) {
-    const {items, LinkComponent, navigate} = props;
+    const { items, LinkComponent, navigate } = props;
     return (
         <div>{_renderItemsList(items, LinkComponent, navigate)}</div>
     );
 }
+
 MenuItems.propTypes = {
     items: PropTypes.array
 }
@@ -33,26 +34,34 @@ function _renderButton(menuButton, LinkComponent, navigate) {
         type: 'button'
     }
 
-    const {route, option, ...otherProps} = menuButton;
-    const menuButtonProps = {...buttonProps, ...otherProps};
+    const { route, option, ...otherProps } = menuButton;
+    const menuButtonProps = { ...buttonProps, ...otherProps };
     let clickHandler;
 
-    if(menuButton.route !== undefined) {
+    if (menuButton.route !== undefined) {
         //React router case
-        if(LinkComponent){
+        if (LinkComponent) {
             //Todo: check menButton onClick use
-            return <LinkComponent to={menuButton.route} style={{color: 'white'}}><Button  {...menuButtonProps}/></LinkComponent>
+            return (
+                <LinkComponent to={menuButton.route} style={{ color: 'white' }}><Button {...menuButtonProps} /></LinkComponent>
+            );
         }
         //Backbone case
         clickHandler = () => {
-            if(menuButton.onClick) menuButton.onClick();
+            if (menuButton.onClick) {
+                menuButton.onClick();
+            }
             navigate(menuButton.route, true);
         };
-        return <Button {...menuButtonProps} onClick={clickHandler}/>
+        return (
+            <Button {...menuButtonProps} onClick={clickHandler} />
+        );
 
     }
     //No route => Both the same treatement.
-    return <Button {...menuButtonProps} onClick={menuButton.onClick}/>
+    return (
+        <Button {...menuButtonProps} onClick={menuButton.onClick} />
+    );
 }
 
 // default props
@@ -73,14 +82,14 @@ const propTypes = {
 };
 
 function MenuLeft(props) {
-    const {direction, handleBrandClick, position, children, items, LinkComponent, navigate, MenuItems, ...otherProps} = props;
-    const itemRenderProps = {LinkComponent, navigate};
+    const { direction, handleBrandClick, position, children, items, LinkComponent, navigate, MenuItems, ...otherProps } = props;
+    const itemRenderProps = { LinkComponent, navigate };
     const hasBrandClickHandler = !!handleBrandClick;
 
     return (
         <nav data-focus='menu-left' {...otherProps}>
             <div data-focus='menu-brand' data-click={hasBrandClickHandler} onClick={() => handleBrandClick && handleBrandClick()} />
-            <ul data-focus='menu-items'><MenuItems items={items} {...itemRenderProps}/></ul>
+            <ul data-focus='menu-items'><MenuItems items={items} {...itemRenderProps} /></ul>
             {children}
         </nav>
     );
