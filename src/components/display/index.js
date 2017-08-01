@@ -1,4 +1,5 @@
-module.exports = {
-    text: require('./text'),
-    checkbox: require('./checkbox')
-};
+import text from './text';
+import checkbox from './checkbox';
+
+export { text, checkbox };
+export default { text, checkbox }
