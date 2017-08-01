@@ -1,9 +1,9 @@
-const {TopicDisplayer} = FocusComponents.components;
+import TopicDisplayer from 'focus-components/components/topic-displayer';
 
 const topicList = {
-    t1:"Topic 1",
-    t2: "Topic 2",
-    t3: "Topic 3"
+    t1: 'Topic 1',
+    t2: 'Topic 2',
+    t3: 'Topic 3'
 };
 
 const TopicDisplayerExample = React.createClass({
@@ -12,12 +12,13 @@ const TopicDisplayerExample = React.createClass({
     },
     render() {
         console.log(this);
-        return(
+
+        return (
             <div>
-                <TopicDisplayer topicClickAction={() => {this.topicClickAction(topicList)}}/>
+                <TopicDisplayer topicClickAction={() => { this.topicClickAction(topicList) }} />
             </div>
         );
     }
 });
 
-module.exports = TopicDisplayerExample;
+export default TopicDisplayerExample;
