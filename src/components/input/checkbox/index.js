@@ -59,7 +59,7 @@ class InputCheckBox extends Component {
         return (
             <div data-focus='input-checkbox-container'>
                 <label className={'mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect'} data-focus='input-checkbox' ref='mdlHolder'>
-                    <input {...inputProps} />
+                    <input ref='checkbox' {...inputProps} />
                     {label && <span className='mdl-checkbox__label'>{this.i18n(label)}</span>}
                 </label>
             </div>
