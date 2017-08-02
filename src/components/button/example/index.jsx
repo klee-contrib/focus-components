@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { Button } from 'FocusComponents/components';
-import i18n from 'i18next-client';
 import { init } from 'focus-core/translation';
 
 const resources = {
