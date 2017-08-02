@@ -28,8 +28,7 @@ class InputCheckBox extends Component {
     }
 
     getValue = () => {
-        const domElement = ReactDOM.findDOMNode(this.refs.checkbox);
-        return domElement.checked;
+        return this.props.value;
     };
 
     componentDidUpdate() {
@@ -43,7 +42,9 @@ class InputCheckBox extends Component {
 
     handleOnChange = ({ target: { checked } }) => {
         const { onChange } = this.props;
-        onChange(checked);
+        if (onChange) {
+            onChange(checked);
+        }
     }
 
     render() {
@@ -58,7 +59,7 @@ class InputCheckBox extends Component {
         return (
             <div data-focus='input-checkbox-container'>
                 <label className={'mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect'} data-focus='input-checkbox' ref='mdlHolder'>
-                    <input ref='checkbox' {...inputProps} />
+                    <input {...inputProps} />
                     {label && <span className='mdl-checkbox__label'>{this.i18n(label)}</span>}
                 </label>
             </div>
