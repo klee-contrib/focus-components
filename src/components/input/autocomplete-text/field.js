@@ -23,7 +23,9 @@ class AutocompleteTextField extends Component {
 
     _handleAutocompleteChange = value => {
         const { onChange } = this.props;
-        if (onChange) onChange(value);
+        if (onChange) {
+            onChange(value);
+        }
     };
 
     _renderEdit = () => {
