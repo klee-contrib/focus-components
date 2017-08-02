@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import AutocompleteSelect from 'focus-components/components/input/autocomplete-select';
+import { init } from 'focus-core/translation';
 
 const data = [
     {
@@ -70,7 +71,7 @@ const resources = {
     }
 };
 
-i18n.init({ resStore: resources });
+init({ resStore: resources });
 
 class Sample extends Component {
 

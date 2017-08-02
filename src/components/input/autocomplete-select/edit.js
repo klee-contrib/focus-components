@@ -169,8 +169,12 @@ class Autocomplete extends Component {
         event.stopPropagation();
         const { which } = event;
         const { active, options } = this.state;
-        if (which === ENTER_KEY_CODE && active) this._select(active);
-        if (which === TAB_KEY_CODE) this.setState({ focus: false }, () => this.refs.htmlInput.blur());
+        if (which === ENTER_KEY_CODE && active) {
+            this._select(active);
+        }
+        if (which === TAB_KEY_CODE) {
+            this.setState({ focus: false }, () => this.refs.htmlInput.blur());
+        }
         if ([DOWN_ARROW_KEY_CODE, UP_ARROW_KEY_CODE].indexOf(which) !== -1) { // the user pressed on an arrow key, change the active key
             const optionKeys = [];
             for (let key of options.keys()) {

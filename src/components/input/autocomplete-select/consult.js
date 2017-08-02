@@ -11,14 +11,18 @@ class AutocompleteSelectConsult extends Component {
     }
 
     componentWillReceiveProps({ value }) {
-        if (value !== this.props.value) this._callKeyResolver(value);
+        if (value !== this.props.value) {
+            this._callKeyResolver(value);
+        }
     }
 
     _callKeyResolver(value) {
         const { keyResolver } = this.props;
-        keyResolver(value).then(label => {
-            this.setState({ resolvedLabel: label });
-        }).catch(err => { console.error(err.message); });
+        if (keyResolver) {
+            keyResolver(value).then(label => {
+                this.setState({ resolvedLabel: label });
+            }).catch(err => { console.error(err.message); });
+        }
     }
 
     render() {
