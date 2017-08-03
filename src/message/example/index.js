@@ -1,11 +1,11 @@
-const Message = FocusComponents.message.component;
+import { component as Message } from 'focus-components/message';
 
 const MessageSample = React.createClass({
     getInitialState() {
-        return {isVisible: true};
+        return { isVisible: true };
     },
-    _handleOnClick: function() {
-        this.setState({isVisible: false});
+    _handleOnClick() {
+        this.setState({ isVisible: false });
     },
     /**
     * Render the component.
@@ -22,12 +22,12 @@ const MessageSample = React.createClass({
         const isVisible = this.state.isVisible;
         return (
             <div className='message-example'>
-                {isVisible &&
+                {isVisible && (
                     <Message {...messageProps} />
-                }
+                )}
             </div>
         );
     }
 });
 
-return <MessageSample/>;
+return <MessageSample />;
