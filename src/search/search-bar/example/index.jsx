@@ -1,25 +1,25 @@
-const SearchBar = FocusComponents.search.searchBar.component;
-const QuickSearchStore = Focus.store.SearchStore.QuickSearch;
-const actionBuilder = Focus.search.actionBuilder;
+import { component as SearchBar } from 'focus-components/search/search-bar';
+import { QuickSearchStore } from 'focus-core/store/search'
+import { actionBuilder } from 'focus-core/search';
 
-const searchBarStore = new QuickSearchStore({identifier: 'QUICK_SEARCH_1'});
-const searchBarWithScopesStore = new QuickSearchStore({identifier: 'QUICK_SEARCH_2'});
+const searchBarStore = new QuickSearchStore({ identifier: 'QUICK_SEARCH_1' });
+const searchBarWithScopesStore = new QuickSearchStore({ identifier: 'QUICK_SEARCH_2' });
 
 const SearchBarExample = React.createClass({
     render() {
-        return(
+        return (
             <div>
                 <center>
                     <h3>Example of a search without scopes</h3>
                 </center>
                 <MySearchBarWithoutScopes />
 
-                <br/>
+                <br />
                 <center>
                     <h3>Example of a search with scopes</h3>
                     <h6>The prop <b>hasScopes</b> is, by default, set to true so don't forget to define your different scopes.</h6>
                 </center>
-                <MySearchBarWithScopes ref='searchWithScope'/>
+                <MySearchBarWithScopes ref='searchWithScope' />
             </div>
         );
     }
@@ -28,13 +28,13 @@ const SearchBarExample = React.createClass({
 const MySearchBarWithoutScopes = React.createClass({
     MyFunction() {
         setTimeout(() => {
-            this.refs.searchBar.setState({loading: false});
+            this.refs.searchBar.setState({ loading: false });
         }, 1700);
     },
     componentWillMount() {
         this._action = actionBuilder({
             identifier: searchBarStore.identifier,
-            getSearchOptions: () => {return searchBarStore.getValue.call(searchBarStore); }
+            getSearchOptions: () => { return searchBarStore.getValue.call(searchBarStore); }
         });
         searchBarStore.addQueryChangeListener(this._onQueryChangeFromStore);
     },
@@ -45,15 +45,15 @@ const MySearchBarWithoutScopes = React.createClass({
         this.MyFunction();
     },
     render() {
-        return(
+        return (
             <div>
                 <SearchBar
                     hasScopes={false}
                     store={searchBarStore}
-                    placeholder={`Enter your search here...`}
+                    placeholder={'Enter your search here...'}
                     action={this._action}
                     ref='searchBar'
-                    />
+                />
             </div>
         );
     }
@@ -62,19 +62,19 @@ const MySearchBarWithoutScopes = React.createClass({
 const MySearchBarWithScopes = React.createClass({
     MyFunction() {
         setTimeout(() => {
-            this.refs.searchBarScopes.setState({loading: false});
+            this.refs.searchBarScopes.setState({ loading: false });
         }, 1700);
     },
     componentWillMount() {
         this._action = actionBuilder({
             service: this.props.service,
             identifier: searchBarWithScopesStore.identifier,
-            getSearchOptions: () => {return searchBarWithScopesStore.getValue.call(searchBarWithScopesStore); } // Binding the store in the function call
+            getSearchOptions: () => { return searchBarWithScopesStore.getValue.call(searchBarWithScopesStore); } // Binding the store in the function call
         });
         searchBarWithScopesStore.addQueryChangeListener(this._onQueryChangeFromStore);
     },
     componentDidMount() {
-        this.refs.searchBarScopes.setState({scope: 'movie'});
+        this.refs.searchBarScopes.setState({ scope: 'movie' });
     },
     _onQueryChangeFromStore() {
         this.setState({
@@ -99,20 +99,20 @@ const MySearchBarWithScopes = React.createClass({
             {
                 code: 'collections',
                 label: 'Photos'
-            },
+            }
         ];
-        return(
+        return (
             <div>
                 <SearchBar
                     scopes={searchBarScopes}
                     store={searchBarWithScopesStore}
-                    placeholder={`Enter your search here...`}
+                    placeholder={'Enter your search here...'}
                     ref='searchBarScopes'
                     action={this._action}
-                    />
+                />
             </div>
         );
     }
 });
 
-module.exports = SearchBarExample;
+export default SearchBarExample;
