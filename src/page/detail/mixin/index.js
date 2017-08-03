@@ -1,4 +1,11 @@
-module.exports = {
-    saveBehaviour: require('./save-behaviour'),
-    validateBehaviour: require('./validate-behaviour')
+import saveBehaviour from './save-behaviour';
+import validateBehaviour from './validate-behaviour';
+
+export {
+    saveBehaviour,
+    validateBehaviour
 };
+export default {
+    saveBehaviour,
+    validateBehaviour
+}
