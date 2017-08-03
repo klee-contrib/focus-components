@@ -1,9 +1,9 @@
 import builder from 'focus-core/component/builder';
 import types from 'focus-core/component/types';
-const React = require('react');
-const ReactDOM = require('react-dom');
-const i18nBehaviour = require('../../i18n/mixin');
-const mdlBehaviour = require('../../mixin/mdl-behaviour');
+import React from 'react';
+import ReactDOM from 'react-dom';
+import i18nBehaviour from '../../../../common/i18n/mixin';
+import mdlBehaviour from '../../../../common/mixin/mdl-behaviour';
 
 /**
 *
@@ -49,7 +49,7 @@ const textAreaMixin = {
     * @param {object} event - Sanitize event.
     */
     _onChange: function onChange(event) {
-        this.setState({value: event.target.value});
+        this.setState({ value: event.target.value });
         if (this.props.onChange) {
             this.props.onChange(event);
         }
@@ -65,15 +65,15 @@ const textAreaMixin = {
     * @return {VirtualDOM} - The virtual DOM of the checkbox.
     */
     render: function renderTextArea() {
-        const {cols, label, maxlength, minlength, rows} = this.props;
-        const {value} = this.state;
+        const { cols, label, maxlength, minlength, rows } = this.props;
+        const { value } = this.state;
         return (
-            <div className="mdl-textfield mdl-js-textfield" data-focus="input-textarea">
-                <textarea className="mdl-textfield__input" cols={cols} maxLength={maxlength} minLength={minlength} onChange={this._onChange} ref='textarea' rows={rows} type="text">{value}</textarea>
-                <label className="mdl-textfield__label">{value ? '' : this.i18n(label)}</label>
+            <div className='mdl-textfield mdl-js-textfield' data-focus='input-textarea'>
+                <textarea className='mdl-textfield__input' cols={cols} maxLength={maxlength} minLength={minlength} onChange={this._onChange} ref='textarea' rows={rows} type='text'>{value}</textarea>
+                <label className='mdl-textfield__label'>{value ? '' : this.i18n(label)}</label>
             </div>
         );
     }
 };
 
-module.exports = builder(textAreaMixin);
+export default builder(textAreaMixin);
