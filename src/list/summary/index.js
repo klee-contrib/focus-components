@@ -1,10 +1,9 @@
 import React from 'react';
 import builder from 'focus-core/component/builder';
 import types from 'focus-core/component/types';
-import {translate} from 'focus-core/translation';
-
-const styleBehaviour = require('../../mixin/stylable');
-const TopicDisplayer = require('../../components/topic-displayer');
+import { translate } from 'focus-core/translation';
+import styleBehaviour from '../../mixin/stylable';
+import TopicDisplayer from '../../components/topic-displayer';
 import Button from '../../components/button';
 import numberFormatter from 'focus-core/definition/formatter/number';
 
@@ -19,7 +18,7 @@ const listSummaryMixin = {
      * Init the default props.
      * @returns {objet} default props.
      */
-    getDefaultProps () {
+    getDefaultProps() {
         return {
             scopeList: {}
         };
@@ -37,16 +36,16 @@ const listSummaryMixin = {
      * @return {object} Result sentence
      */
     _getResultSentence() {
-        const {nb, queryText} = this.props;
+        const { nb, queryText } = this.props;
         const hasText = queryText && queryText.trim().length > 0;
         const sentence = nb > 1 ? hasText ? 'results.for' : 'results.all' : hasText ? 'result.for' : 'result.all';
         return (
             <span>
                 <strong>{numberFormatter.format(nb)}&nbsp;</strong>
                 <span>{translate(sentence)}
-                {hasText &&
-                    <span className='search-text'>&#171;&nbsp;{queryText}&nbsp;&#187;</span>
-                }
+                    {hasText && (
+                        <span className='search-text'>&#171;&nbsp;{queryText}&nbsp;&#187;</span>
+                    )}
                 </span>
             </span>
         );
@@ -56,16 +55,16 @@ const listSummaryMixin = {
      * @returns {JSX} Html rendering.
      */
     render() {
-        const {exportAction, scopeList, scopeClickAction} = this.props;
+        const { exportAction, scopeList, scopeClickAction } = this.props;
         return (
-            <div data-focus="list-summary">
-                {exportAction &&
-                    <div className="print">
-                        <Button handleOnClick={exportAction} icon="print" label="result.export" shape={null} />
+            <div data-focus='list-summary'>
+                {exportAction && (
+                    <div className='print'>
+                        <Button handleOnClick={exportAction} icon='print' label='result.export' shape={null} />
                     </div>
-                }
-                <span className="sentence">{this._getResultSentence()}</span>
-                <span className="topics">
+                )}
+                <span className='sentence'>{this._getResultSentence()}</span>
+                <span className='topics'>
                     <TopicDisplayer topicClickAction={scopeClickAction} topicList={scopeList} />
                 </span>
             </div>
@@ -73,4 +72,6 @@ const listSummaryMixin = {
     }
 };
 
-module.exports = builder(listSummaryMixin);
+const { mixin, component } = builder(listSummaryMixin);
+export { mixin, component };
+export default { mixin, component };
