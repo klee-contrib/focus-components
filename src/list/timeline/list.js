@@ -1,17 +1,17 @@
 import builder from 'focus-core/component/builder';
-var React = require('react');
+import React from 'react';
 import type from 'focus-core/component/types';
-var Line = require('./line').mixin;
-var uuid= require('uuid');
-var translationMixin = require('../../common/i18n').mixin;
-var infiniteScrollMixin = require('../mixin/infinite-scroll').mixin;
-var referenceMixin = require('../../common/mixin/reference-property');
-import {checkIsNotNull} from 'focus-core/util/object';
+import { mixin as Line } from './line'
+import uuid from 'uuid';
+import { mixin as translationMixin } from '../../common/i18n';
+import { mixin as infiniteScrollMixin } from '../mixin/infinite-scroll';
+import referenceMixin from '../../common/mixin/reference-property';
+import { checkIsNotNull } from 'focus-core/util/object';
 import Button from '../../components/button';
 //Add a ref to the props if the component is not pure add nothing in the other case.
-import {addRefToPropsIfNotPure, LINE} from '../../utils/is-react-class-component';
+import { addRefToPropsIfNotPure, LINE } from '../../utils/is-react-class-component';
 
-var listMixin = {
+const listMixin = {
     /**
     * Tag name
     */
@@ -26,7 +26,7 @@ var listMixin = {
     * Default properties for the list.
     * @return {object} default props.
     */
-    getDefaultProps: function getDefaultProps() {
+    getDefaultProps() {
         return {
             data: [],
             idField: 'id',
@@ -54,7 +54,7 @@ var listMixin = {
     * @returns {*} the lines
     */
     _renderLines() {
-        const {LineComponent = React.createClass(Line), idField, dateField, onLineClick, data, ...otherProps} = this.props;
+        const { LineComponent = React.createClass(Line), idField, dateField, onLineClick, data, ...otherProps } = this.props;
         // LEGACY CODE
         const customLineComponent = otherProps.lineComponent;
         if (customLineComponent) {
@@ -69,34 +69,37 @@ var listMixin = {
                     ...otherProps,
                     data: line,
                     dateField,
-                    key: line[idField] ||  uuid.v4(),
+                    key: line[idField] || uuid.v4(),
                     onLineClick,
                     reference: this._getReference()
                 }, `${LINE}${idx}`);
-            return <FinalLineComponent {...timelineFinalProps} />;
+            return (
+                <FinalLineComponent {...timelineFinalProps} />
+            );
         });
     },
 
-    _renderLoading: function renderLoading() {
-        if(this.props.isLoading) {
-            if(this.props.loader) {
+    _renderLoading() {
+        if (this.props.isLoading) {
+            if (this.props.loader) {
                 return this.props.loader();
             }
             return (
-                <li className="timeline-loading">{this.i18n('list.loading')} ...</li>
+                <li className='timeline-loading'>{this.i18n('list.loading')} ...</li>
             );
         }
     },
 
-    _renderManualFetch: function renderManualFetch() {
-        if(this.props.isManualFetch && this.props.hasMoreData) {
-            var style = {className: 'primary'};
+    _renderManualFetch() {
+        if (this.props.isManualFetch && this.props.hasMoreData) {
+            let style = { className: 'primary' };
             return (
-                <li className="timeline-button">
-                    <Button label="list.button.showMore"
-                        type="button"
+                <li className='timeline-button'>
+                    <Button label='list.button.showMore'
+                        type='button'
                         handleOnClick={this.handleShowMore}
-                        style={style}/>
+                        style={style}
+                    />
                 </li>
             );
         }
@@ -106,9 +109,9 @@ var listMixin = {
     * Render the list.
     * @returns {XML} the list component
     */
-    render: function renderList() {
+    render() {
         return (
-            <ul className="timeline">
+            <ul className='timeline'>
                 {this._renderLines()}
                 {this._renderLoading()}
                 {this._renderManualFetch()}
@@ -117,4 +120,6 @@ var listMixin = {
     }
 };
 
-module.exports = builder(listMixin);
+const { mixin, component } = builder(listMixin);
+export { mixin, component };
+export default { mixin, component };
