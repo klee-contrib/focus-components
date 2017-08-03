@@ -1,13 +1,11 @@
-import React, {PropTypes} from 'react';
+import React, { PropTypes } from 'react';
 import builder from 'focus-core/component/builder';
-import {translate} from 'focus-core/translation';
+import { translate } from 'focus-core/translation';
 
 import isObject from 'lodash/lang/isObject';
-import keys from 'lodash/object/keys';
 import uniqueId from 'lodash/utility/uniqueId';
-
 // Components
-const FacetData = require('./facet-data').component;
+import { component as FacetData } from './facet-data';
 
 const Facet = {
     /**
@@ -64,7 +62,7 @@ const Facet = {
         let title = translate('live.filter.facets.' + this.props.facetKey); // Default facet translation path is live.filter.facets.
         if (this.props.selectedDataKey) {
             let facetLabel = '';
-            const facet = this.props.facet && isObject(this.props.facet[this.props.selectedDataKey]) ?  this.props.facet[this.props.selectedDataKey].label : this.props.facet.find(elm => elm.label === this.props.selectedDataKey);
+            const facet = this.props.facet && isObject(this.props.facet[this.props.selectedDataKey]) ? this.props.facet[this.props.selectedDataKey].label : this.props.facet.find(elm => elm.label === this.props.selectedDataKey);
             if (facet) {
                 facetLabel = facet.label
             }
@@ -102,7 +100,7 @@ const Facet = {
         return (
             <div className='' data-focus='facet-data-list'>
                 <ul>
-                    {facetValues.map( facetValue => {
+                    {facetValues.map(facetValue => {
                         return (
                             <li key={uniqueId('facet-item')}>
                                 <FacetData
@@ -115,7 +113,7 @@ const Facet = {
                         );
                     })}
                 </ul>
-                <div data-focus="facet-data-show-all">
+                <div data-focus='facet-data-show-all'>
                     {this._renderShowAllDataList()}
                 </div>
             </div>);
@@ -146,8 +144,10 @@ const Facet = {
      * Action on 'show all' action.
      */
     _showAllHandler() {
-        this.setState({isShowAll: !this.state.isShowAll});
+        this.setState({ isShowAll: !this.state.isShowAll });
     }
 };
 
-module.exports = builder(Facet);
+const { mixin, component } = builder(Facet);
+export { mixin, component };
+export default { mixin, component };
