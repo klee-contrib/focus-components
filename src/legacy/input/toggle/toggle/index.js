@@ -1,41 +1,35 @@
-//Target
-/*
-<label>
-  <input type="checkbox"><span class="ripple"></span><span class="check"></span> Checkbox
-</label>
- */
 import builder from 'focus-core/component/builder';
-var React = require('react');
+import React from 'react';
 import type from 'focus-core/component/types';
-var fieldGridBehaviourMixin = require('../../mixin/field-grid-behaviour');
+import fieldGridBehaviourMixin from '../../../../common/mixin/field-grid-behaviour';
 
-var toggleMixin = {
+const toggleMixin = {
     mixins: [fieldGridBehaviourMixin],
-  /**
-   * Get the checkbox default attributes.
-   */
-    getDefaultProps: function getInputDefaultProps() {
+    /**
+     * Get the checkbox default attributes.
+     */
+    getDefaultProps() {
         return {
             value: undefined,
             label: undefined,
             style: {}
         };
     },
-  /**
-   * Properties validation.
-   * @type {Object}
-   */
+    /**
+     * Properties validation.
+     * @type {Object}
+     */
     propTypes: {
         value: type('bool'),
         label: type('string'),
         style: type('object')
     },
-    getInitialState: function() {
+    getInitialState() {
         return {
             isChecked: this.props.value
         };
     },
-    _onChange: function onChange(event) {
+    _onChange(event) {
         this.setState({
             isChecked: !this.state.isChecked
         });
@@ -43,35 +37,35 @@ var toggleMixin = {
             this.props.onChange(event);
         }
     },
-    _labelClassName: function labelClassName() {
+    _labelClassName() {
         return `${this._getContentGridClassName()}`;
     },
-  /**
-   * Get the value from the input in  the DOM.
-   */
-    getValue: function getValue() {
+    /**
+     * Get the value from the input in  the DOM.
+     */
+    getValue() {
         return this.getDOMNode().value;
     },
-  /**
-   * Render the Checkbox HTML.
-   * @return {VirtualDOM} - The virtual DOM of the checkbox.
-   */
-    render: function renderToggle() {
+    /**
+     * Render the Checkbox HTML.
+     * @return {VirtualDOM} - The virtual DOM of the checkbox.
+     */
+    render() {
         return (
-      <div className="togglebutton form-group">
-        <label className={this._getLabelGridClassName()}>{this.props.label ? this.props.label : ''}</label>
-        <label className={this._labelClassName()}>
-          <input ref='checkbox' checked={this.state.isChecked} onChange={this._onChange} type="checkbox" />
-        </label>
-      </div>
-     );
+            <div className='togglebutton form-group'>
+                <label className={this._getLabelGridClassName()}>{this.props.label ? this.props.label : ''}</label>
+                <label className={this._labelClassName()}>
+                    <input ref='checkbox' checked={this.state.isChecked} onChange={this._onChange} type='checkbox' />
+                </label>
+            </div>
+        );
     },
-  /** @inheritedDoc*/
-    componentWillReceiveProps: function toggleWillreceiveProps(nextProps) {
-        if(nextProps.value !== undefined) {
-            this.setState({isChecked : nextProps.value});
+    /** @inheritedDoc*/
+    componentWillReceiveProps(nextProps) {
+        if (nextProps.value !== undefined) {
+            this.setState({ isChecked: nextProps.value });
         }
     }
 };
 
-module.exports = builder(toggleMixin);
+export default builder(toggleMixin);
