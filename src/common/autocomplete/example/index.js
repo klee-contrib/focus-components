@@ -1,4 +1,4 @@
-const AutocompleteFor = FocusComponents.common.autocomplete.field.component;
+import { component as AutocompleteFor } from 'focus-components/common/autocomplete/field';
 
 const listLoader = text => {
     return new Promise(resolve => {
