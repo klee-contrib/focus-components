@@ -1,12 +1,10 @@
 // Dependencies
-const React = require('react');
+import React from 'react';
 import builder from 'focus-core/component/builder';
-const {reduce} = require('lodash/collection');
-
+import { reduce } from 'lodash/collection';
 // Components
-
 import Button from '../../components/button';
-const SelectAction = require('../../common/select-action').component;
+import { component as SelectAction } from '../../common/select-action';
 
 const actionContextualMixin = {
 
@@ -26,6 +24,7 @@ const actionContextualMixin = {
             operationParam: undefined
         };
     },
+
     /**
     * Init default state.
     * @returns {oject} Initial state.
@@ -42,7 +41,7 @@ const actionContextualMixin = {
     * @return {function} action handler.
     */
     _handleAction(key) {
-        const {operationList, operationParam} = this.props;
+        const { operationList, operationParam } = this.props;
         return event => {
             event.preventDefault();
             event.stopPropagation();
@@ -54,16 +53,15 @@ const actionContextualMixin = {
         };
     },
 
-
     /**
     * render the component.
     * @returns {JSX} Html code.
     */
     render() {
-        const {operationList, operationParam, buttonComponent} = this.props;
-        const {isSecondaryActionListExpanded} = this.state;
-        const {primaryActionList, secondaryActionList} = reduce(operationList, (actionLists, operation, key) => {
-            let {primaryActionList: primaryActions, secondaryActionList: secondaryActions} = actionLists;
+        const { operationList, operationParam, buttonComponent } = this.props;
+        const { isSecondaryActionListExpanded } = this.state;
+        const { primaryActionList, secondaryActionList } = reduce(operationList, (actionLists, operation, key) => {
+            let { primaryActionList: primaryActions, secondaryActionList: secondaryActions } = actionLists;
             if (1 === operation.priority) {
                 primaryActions.push(
                     <this.props.buttonComponent
@@ -77,13 +75,13 @@ const actionContextualMixin = {
                         type='button'
                         {...this.props}
                         {...operation}
-                        />
+                    />
                 );
             } else {
                 secondaryActions.push(operation);
             }
             return actionLists;
-        }, {primaryActionList: [], secondaryActionList: []}, this);
+        }, { primaryActionList: [], secondaryActionList: [] }, this);
         return (
             <div className='list-action-contextual'>
                 <span>{primaryActionList}</span>
@@ -91,10 +89,12 @@ const actionContextualMixin = {
                     isExpanded={isSecondaryActionListExpanded}
                     operationList={secondaryActionList}
                     operationParam={operationParam}
-                    />
+                />
             </div>
         );
     }
 };
 
-module.exports = builder(actionContextualMixin);
+const { component, mixin } = builder(actionContextualMixin);
+export { component, mixin };
+export default { component, mixin };
