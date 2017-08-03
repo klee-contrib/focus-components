@@ -1,20 +1,15 @@
 // Dependencies
-
 import types from 'focus-core/component/types';
 import React from 'react';
 import isEqual from 'lodash';
-
 // Components
-
-import {component as ContextualActions} from '../action-contextual';
-import {Checkbox} from '../../components/input';
-
+import { component as ContextualActions } from '../action-contextual';
+import { Checkbox } from '../../components/input';
 // Mixins
-
 import referenceMixin from '../../common/mixin/reference-property';
 import definitionMixin from '../../common/mixin/definition';
 import builtInComponentsMixin from '../mixin/built-in-components';
-import {mixin as translationMixin} from '../../common/i18n';
+import { mixin as translationMixin } from '../../common/i18n';
 
 const lineMixin = {
     /**
@@ -25,7 +20,7 @@ const lineMixin = {
     /**
     * Mixin dependancies.
     */
-    mixins: [ translationMixin, definitionMixin, referenceMixin, builtInComponentsMixin],
+    mixins: [translationMixin, definitionMixin, referenceMixin, builtInComponentsMixin],
 
     /**
      * Get default props
@@ -56,8 +51,8 @@ const lineMixin = {
     * @return {object} initial state
     */
     getInitialState() {
-        const {data} = this.props;
-        let {isSelected} = this.props;
+        const { data } = this.props;
+        let { isSelected } = this.props;
         if (this.selectedInitializer) { // this allows to initiate a data specific value for isSelected
             isSelected = this.selectedInitializer(data);
         }
@@ -70,7 +65,7 @@ const lineMixin = {
      * Before component is mounted.
      */
     componentWillMount() {
-        const {data, isSelection} = this.props;
+        const { data, isSelection } = this.props;
         this._isSelectionnable = isSelection;
         if (this.selectionnableInitializer) {
             this._isSelectionnable = this.selectionnableInitializer(data);
@@ -81,13 +76,13 @@ const lineMixin = {
      * Component will receive props
      * @param  {object} nextProps new component's props
      */
-    componentWillReceiveProps({isSelected, data}) {
-        if (isEqual(data,this.props.data)) {
+    componentWillReceiveProps({ isSelected, data }) {
+        if (isEqual(data, this.props.data)) {
             if (isSelected !== undefined) {
-                this.setState({isSelected});
+                this.setState({ isSelected });
             }
         } else {
-            this.setState({isSelected: false});
+            this.setState({ isSelected: false });
         }
     },
 
@@ -96,9 +91,9 @@ const lineMixin = {
     * @return {object} the line value
     */
     getValue() {
-        const {data: item} = this.props;
-        const {isSelected} = this.state;
-        return {item, isSelected};
+        const { data: item } = this.props;
+        const { isSelected } = this.state;
+        return { item, isSelected };
     },
 
     /**
@@ -106,8 +101,8 @@ const lineMixin = {
     */
     _handleSelectionClick() {
         const isSelected = !this.state.isSelected;
-        const {data, onSelection} = this.props;
-        this.setState({isSelected}, () => {
+        const { data, onSelection } = this.props;
+        this.setState({ isSelected }, () => {
             if (onSelection) {
                 onSelection(data, isSelected);
             }
@@ -118,7 +113,7 @@ const lineMixin = {
     * Line Click handler.
     */
     _handleLineClick() {
-        const {data, onLineClick} = this.props;
+        const { data, onLineClick } = this.props;
         if (onLineClick) {
             onLineClick(data);
         }
@@ -129,12 +124,12 @@ const lineMixin = {
     * @return {XML} the rendered selection box
     */
     _renderSelectionBox() {
-        const {isSelected} = this.state;
+        const { isSelected } = this.state;
         if (this._isSelectionnable) {
             const selectionClass = isSelected ? 'selected' : 'no-selection';
             return (
                 <div className={`sl-selection ${selectionClass}`}>
-                    <Checkbox onChange={this._handleSelectionClick} value={isSelected}/>
+                    <Checkbox onChange={this._handleSelectionClick} value={isSelected} />
                 </div>
             );
         }
@@ -146,8 +141,8 @@ const lineMixin = {
     * @return {XML} the rendered line content
     */
     _renderLineContent() {
-        const {data} = this.props;
-        const {title, body} = data;
+        const { data } = this.props;
+        const { title, body } = data;
         if (this.renderLineContent) {
             return this.renderLineContent(data);
         } else {
@@ -165,11 +160,11 @@ const lineMixin = {
     * @return {XML} the rendered actions
     */
     _renderActions() {
-        const props = {operationParam: this.props.data, ...this.props};
+        const props = { operationParam: this.props.data, ...this.props };
         if (0 < props.operationList.length) {
             return (
                 <div className='sl-actions'>
-                    <ContextualActions {...props}/>
+                    <ContextualActions {...props} />
                 </div>
             );
         }
@@ -200,5 +195,5 @@ export default {
     mixin: lineMixin
 }
 export {
-    lineMixin as mixin 
+    lineMixin as mixin
 }
