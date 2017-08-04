@@ -94,4 +94,4 @@ class AutocompleteTextExample extends React.Component {
     }
 }
 
-module.exports = AutocompleteTextExample;
+export default AutocompleteTextExample;
