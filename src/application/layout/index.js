@@ -1,17 +1,12 @@
 // Dependencies
-
 import builder from 'focus-core/component/builder';
-
 // Components
-
-const AppHeaderDefault = require('./app-header');
-const LoadingBarDefault = require('../loading-bar').component;
-const MessageCenterDefault = require('../message-center').component;
-const ErrorCenterDefault = require('../error-center').component;
-
+import AppHeaderDefault from './app-header';
+import { component as LoadingBarDefault } from '../loading-bar';
+import { component as MessageCenterDefault } from '../message-center';
+import { component as ErrorCenterDefault } from '../error-center';
 // Mixins
-
-const stylableBehaviour = require('../../mixin/stylable');
+import stylableBehaviour from '../../mixin/stylable';
 
 const contentActionsMixin = {
     mixins: [stylableBehaviour],
@@ -28,7 +23,7 @@ const contentActionsMixin = {
     },
     /** inheriteddoc */
     render() {
-        const {LoadingBar, MessageCenter, ErrorCenter, AppHeader, MenuLeft, footerText, displayDevBar, children} = this.props;
+        const { LoadingBar, MessageCenter, ErrorCenter, AppHeader, MenuLeft, footerText, displayDevBar, children } = this.props;
         return (
             <div className={this._getStyleClassName()} data-focus='layout'>
                 <LoadingBar displayDevBar={displayDevBar} />
@@ -36,9 +31,9 @@ const contentActionsMixin = {
                 <ErrorCenter />
                 <AppHeader />
                 <div data-focus='menu'>
-                    {MenuLeft && <MenuLeft/>}
+                    {MenuLeft && <MenuLeft />}
                 </div>
-                <div data-focus='page-content'></div>
+                <div data-focus='page-content' />
                 <footer data-focus='footer'>
                     {footerText}
                 </footer>
@@ -48,4 +43,6 @@ const contentActionsMixin = {
     }
 };
 
-module.exports = builder(contentActionsMixin);
+const { mixin, component } = builder(contentActionsMixin);
+export { mixin, component };
+export default { mixin, component };
