@@ -1,11 +1,8 @@
 // Dependencies
-
-import React, {PropTypes} from 'react';
+import React, { PropTypes } from 'react';
 import find from 'lodash/collection/find';
 import result from 'lodash/object/result';
-import assign from 'object-assign';
-import {addRefToPropsIfNotPure, INPUT, DISPLAY} from '../../../utils/is-react-class-component';
-
+import { addRefToPropsIfNotPure, INPUT, DISPLAY } from '../../../utils/is-react-class-component';
 // Components
 import AutocompleteSelectComponent from '../../../components/input/autocomplete-select/field';
 import AutocompleteTextComponent from '../../../components/input/autocomplete-text/field';
@@ -13,9 +10,7 @@ import InputText from '../../../components/input/text';
 import DisplayText from '../../../components/display/text';
 import SelectClassic from '../../../components/input/select';
 import Label from '../../../components/label';
-import {component as Autocomplete} from '../../autocomplete/field';
-
-
+import { component as Autocomplete } from '../../autocomplete/field';
 // Mixins
 import fieldGridBehaviourMixin from '../../mixin/field-grid-behaviour';
 
@@ -81,7 +76,7 @@ const fieldBuiltInComponentsMixin = {
         labelSize: PropTypes.number
     },
     _buildStyle() {
-        let {style} = this.props;
+        let { style } = this.props;
         style = style || {};
         style.className = style && style.className ? style.className : '';
         return style;
@@ -91,10 +86,10 @@ const fieldBuiltInComponentsMixin = {
     * @returns {Component} - The builded label component.
     */
     label() {
-        const {name, label, LabelComponent, domain, isEdit} = this.props;
+        const { name, label, LabelComponent, domain, isEdit } = this.props;
         return (
             <div
-                className ={`${this._getLabelGridClassName()}`}
+                className={`${this._getLabelGridClassName()}`}
                 data-focus='field-label-container'
             >
                 <LabelComponent
@@ -111,9 +106,9 @@ const fieldBuiltInComponentsMixin = {
     * @return {Component} - The constructed input component.
     */
     input() {
-        const {name: id, placeholder} = this.props;
-        const {value, error} = this.state;
-        const {onInputChange: onChange} = this;
+        const { name: id, placeholder } = this.props;
+        const { value, error } = this.state;
+        const { onInputChange: onChange } = this;
         const inputBuildedProps = {
             ...this.props,
             id,
@@ -123,16 +118,18 @@ const fieldBuiltInComponentsMixin = {
             placeholder
         };
         const finalInputProps = addRefToPropsIfNotPure(this.props.InputComponent, inputBuildedProps, INPUT)
-        return <this.props.InputComponent {...finalInputProps}/>;
+        return (
+            <this.props.InputComponent {...finalInputProps} />
+        );
     },
     /**
      * Autocomplete render
      * @return {JSX} rendered component
      */
     autocomplete() {
-        const {name: id, placeholder} = this.props;
-        const {value, error} = this.state;
-        const {onInputChange: onChange} = this;
+        const { name: id, placeholder } = this.props;
+        const { value, error } = this.state;
+        const { onInputChange: onChange } = this;
         const inputBuildedProps = {
             ...this.props,
             id,
@@ -142,12 +139,14 @@ const fieldBuiltInComponentsMixin = {
             placeholder
         };
         const finalInputProps = addRefToPropsIfNotPure(this.props.AutocompleteComponent, inputBuildedProps, INPUT);
-        return <this.props.AutocompleteComponent {...finalInputProps}/>;
+        return (
+            <this.props.AutocompleteComponent {...finalInputProps} />
+        );
     },
     autocompleteSelect() {
-        const {name: id, label: placeHolder} = this.props;
-        const {value, error} = this.state;
-        const {onInputChange: onChange} = this;
+        const { name: id, label: placeHolder } = this.props;
+        const { value, error } = this.state;
+        const { onInputChange: onChange } = this;
         const inputBuildedProps = {
             ...this.props,
             id,
@@ -157,12 +156,14 @@ const fieldBuiltInComponentsMixin = {
             placeHolder
         };
         const finalInputProps = addRefToPropsIfNotPure(this.props.AutocompleteSelectComponent, inputBuildedProps, INPUT)
-        return <this.props.AutocompleteSelectComponent {...finalInputProps}/>;
+        return (
+            <this.props.AutocompleteSelectComponent {...finalInputProps} />
+        );
     },
     autocompleteText() {
-        const {name: id, label: placeHolder} = this.props;
-        const {value, error} = this.state;
-        const {onInputChange: onChange} = this;
+        const { name: id, label: placeHolder } = this.props;
+        const { value, error } = this.state;
+        const { onInputChange: onChange } = this;
         const inputBuildedProps = {
             ...this.props,
             id,
@@ -171,15 +172,17 @@ const fieldBuiltInComponentsMixin = {
             error,
             placeHolder
         };
-        const finalInputProps = addRefToPropsIfNotPure(this.props.AutocompleteTextComponent, inputBuildedProps, INPUT)
-        return <this.props.AutocompleteTextComponent {...finalInputProps}/>;
+        const finalInputProps = addRefToPropsIfNotPure(this.props.AutocompleteTextComponent, inputBuildedProps, INPUT);
+        return (
+            <this.props.AutocompleteTextComponent {...finalInputProps} />
+        );
     },
     /**
      * Build a select component depending on the domain, definition and props.
      * @return {Component} - The builded select component.
      */
     select() {
-        const {error, value} = this.state;
+        const { error, value } = this.state;
         const buildedSelectProps = {
             ...this.props,
             value,
@@ -188,16 +191,18 @@ const fieldBuiltInComponentsMixin = {
             error
         };
         const finalSelectProps = addRefToPropsIfNotPure(this.props.SelectComponent, buildedSelectProps, INPUT);
-        return <this.props.SelectComponent {...finalSelectProps} />;
+        return (
+            <this.props.SelectComponent {...finalSelectProps} />
+        );
     },
     /**
     * Render the display part of the component.
     * @return {object} - The display part of the compoennt if the mode is not edit.
     */
     display() {
-        const {value} = this.state;
-        const {name, valueKey, labelKey, values} = this.props;
-        const _processValue = values ? result(find(values, {[valueKey || 'code']: value}), labelKey || 'label') : value;
+        const { value } = this.state;
+        const { name, valueKey, labelKey, values } = this.props;
+        const _processValue = values ? result(find(values, { [valueKey || 'code']: value }), labelKey || 'label') : value;
         const buildedDislplayProps = {
             ...this.props,
             id: name,
@@ -205,14 +210,16 @@ const fieldBuiltInComponentsMixin = {
             value: _processValue
         };
         const finalDisplayProps = addRefToPropsIfNotPure(this.props.DisplayComponent, buildedDislplayProps, DISPLAY);
-        return <this.props.DisplayComponent {...finalDisplayProps}/>;
+        return (
+            <this.props.DisplayComponent {...finalDisplayProps} />
+        );
     },
     /**
     * Render the error part of the component.
     * @return {object} - The error part of the component.
     */
     error() {
-        let {error} = this.state;
+        let { error } = this.state;
         if (error) {
             return (
                 <span className='mdl-textfield__error'>
@@ -226,7 +233,7 @@ const fieldBuiltInComponentsMixin = {
     * @return {object} - The help part of the component.
     */
     help() {
-        let {help, name} = this.props;
+        let { help, name } = this.props;
         if (help) {
             return (
                 <label
@@ -244,7 +251,7 @@ const fieldBuiltInComponentsMixin = {
      */
     _renderFieldComponent() {
         const FieldComponent = this.props.FieldComponent || this.props.InputLabelComponent;
-        const {value, error} = this.state;
+        const { value, error } = this.state;
         const buildedProps = {
             ...this.props,
             id: this.props.name,
@@ -253,7 +260,9 @@ const fieldBuiltInComponentsMixin = {
             onChange: this.onInputChange
         };
         const finalBuildedProps = addRefToPropsIfNotPure(FieldComponent, buildedProps, INPUT);
-        return <FieldComponent {...finalBuildedProps} />;
+        return (
+            <FieldComponent {...finalBuildedProps} />
+        );
     }
 };
 

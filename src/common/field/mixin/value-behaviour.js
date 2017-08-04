@@ -1,5 +1,7 @@
-const {isObject, isFunction, isUndefined} = require('lodash/lang');
+import { isObject, isFunction, isUndefined } from 'lodash/lang';
+
 const EMPTY = '';
+
 const valueBehaviourMixin = {
     /** @inheritdoc */
     getDefaultProps() {
@@ -22,14 +24,14 @@ const valueBehaviourMixin = {
     */
     getValue() {
         let value;
-        if(isObject(this.refs) && isObject(this.refs.input) && isFunction(this.refs.input.getValue)) {
+        if (isObject(this.refs) && isObject(this.refs.input) && isFunction(this.refs.input.getValue)) {
             value = this.refs.input.getValue();
-        } else if(this.state && this.state.value !== undefined ) {
+        } else if (this.state && this.state.value !== undefined) {
             value = this.state.value;
-        } else if(this.props && this.props.value !== undefined) {
+        } else if (this.props && this.props.value !== undefined) {
             value = this.props.value;
         }
-        if( isUndefined(value) || EMPTY === value) {
+        if (isUndefined(value) || EMPTY === value) {
             value = null;
         }
         return value;
@@ -40,7 +42,7 @@ const valueBehaviourMixin = {
     * @deprecated
     */
     onInputChange(newValue) {
-        if(this.props.onChange) {
+        if (this.props.onChange) {
             console.warn(`
                 FOCUS 0.7.0
                 The onChange props signature has changed, instead of providing the DOM event with an object event: {target: 'The new value'},
@@ -50,7 +52,8 @@ const valueBehaviourMixin = {
             `);
             return this.props.onChange(newValue);
         }
-        this.setState({error: null, value: newValue});
+        this.setState({ error: null, value: newValue });
     }
 };
-module.exports = valueBehaviourMixin;
+
+export default valueBehaviourMixin;
