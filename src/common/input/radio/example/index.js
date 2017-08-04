@@ -1,4 +1,4 @@
-const InputRadio = FocusComponents.common.input.radio.component;
+import { component as InputRadio } from 'focus-components/common/inpunt/radio';
 
 const InputRadioSample = React.createClass({
     /**

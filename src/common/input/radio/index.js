@@ -1,10 +1,10 @@
-const React = require('react');
+import React from 'react';
 import builder from 'focus-core/component/builder';
 import types from 'focus-core/component/types';
-const i18nBehaviour = require('../../i18n/mixin');
-const fieldGridBehaviourMixin = require('../../mixin/field-grid-behaviour');
-const mdlBehaviour = require('../../mixin/mdl-behaviour');
-const {isUndefined} = require('lodash/lang');
+import i18nBehaviour from '../../i18n/mixin';
+import fieldGridBehaviourMixin from '../../mixin/field-grid-behaviour';
+import mdlBehaviour from '../../mixin/mdl-behaviour';
+import { isUndefined } from 'lodash/lang';
 
 const radioMixin = {
     mixins: [i18nBehaviour, fieldGridBehaviourMixin, mdlBehaviour],
@@ -31,20 +31,20 @@ const radioMixin = {
     },
     /** @inheritdoc */
     componentWillReceiveProps(newProps) {
-        this.setState({isChecked: newProps.value});
+        this.setState({ isChecked: newProps.value });
     },
     /** @inheritDoc */
     getInitialState() {
-        const {value} = this.props;
+        const { value } = this.props;
         return {
             isChecked: isUndefined(value) ? false : value
         };
     },
     componentDidUpdate() {
-        const {inputMdl} = this.refs;
-        const {isChecked} = this.state;
+        const { inputMdl } = this.refs;
+        const { isChecked } = this.state;
         if (inputMdl) {
-            const {classList} = inputMdl;
+            const { classList } = inputMdl;
             if (isChecked === true) classList.add('is-checked');
             if (isChecked === false) classList.remove('is-checked');
         }
@@ -57,7 +57,7 @@ const radioMixin = {
         this.setState({
             isChecked: !this.state.isChecked
         }, () => {
-            if(this.props.onChange) {
+            if (this.props.onChange) {
                 this.props.onChange(this.state.isChecked);
             }
         });
@@ -74,19 +74,21 @@ const radioMixin = {
     * @return {VirtualDOM} - The virtual DOM of the checkbox.
     */
     render() {
-        const {isChecked} = this.state;
-        const {label, name, ...otherProps} = this.props;
+        const { isChecked } = this.state;
+        const { label, name, ...otherProps } = this.props;
         // we use inputProps to be able to display 'checked' property. it is required to be able to use MDL.
-        const checkedProps = isChecked ? {checked: 'checked'} : {};
-        const inputProps = {...{className: 'mdl-radio__button', name: name, onChange: this._onChange, type: 'radio'}, ...checkedProps, ...otherProps};
+        const checkedProps = isChecked ? { checked: 'checked' } : {};
+        const inputProps = { ...{ className: 'mdl-radio__button', name: name, onChange: this._onChange, type: 'radio' }, ...checkedProps, ...otherProps };
 
         return (
-            <label className='mdl-radio mdl-js-radio mdl-js-ripple-effect' data-focus="input-radio" ref='inputMdl'>
-                <input {...inputProps}/>
+            <label className='mdl-radio mdl-js-radio mdl-js-ripple-effect' data-focus='input-radio' ref='inputMdl'>
+                <input {...inputProps} />
                 <span className='mdl-radio__label'>{this.i18n(label)}</span>
             </label>
         );
     }
 };
 
-module.exports = builder(radioMixin);
+const { mixin, component } = builder(radioMixin);
+export { mixin, component };
+export default { mixin, component };
