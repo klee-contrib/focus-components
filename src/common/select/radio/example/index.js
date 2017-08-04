@@ -1,6 +1,6 @@
-const SelectRadio = FocusComponents.common.select.radio.component;
+import { component as SelectRadio } from 'focus-components/common/select/radio';
 
-const values = [{code: 'A', label: 'Value A'}, {code: 'B', label: 'Value B'}, {code: 'C', label: 'Value C'}];
+const values = [{ code: 'A', label: 'Value A' }, { code: 'B', label: 'Value B' }, { code: 'C', label: 'Value C' }];
 
 const SelectRadioSample = React.createClass({
 
@@ -23,7 +23,7 @@ const SelectRadioSample = React.createClass({
     * Handle click action to get check value.
     */
     handleOnChange(newValue) {
-        this.setState({value: newValue});
+        this.setState({ value: newValue });
         alert('Selected values ID: ' + newValue);
     },
 
@@ -42,7 +42,7 @@ const SelectRadioSample = React.createClass({
                 <SelectRadio
                     value='B'
                     values={values} ref="mySelectRadio" />
-                <br/>
+                <br />
                 <button onClick={this.handleGetValueClick}>Get the selected value</button>
                 <h3>OnChange event overload</h3>
                 <SelectRadio
