@@ -4,6 +4,7 @@ import builder from 'focus-core/component/builder';
 import { translate } from 'focus-core/translation';
 import uuid from 'uuid';
 import Button from '../../components/button';
+import 'material-design-lite/material';
 
 const Dropdown = {
 

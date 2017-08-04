@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import Button from '../../components/button';
 import { translate } from 'focus-core/translation';
 import uuid from 'uuid';
+import 'material-design-lite/material';
 
 class Dropdown extends Component {
 
