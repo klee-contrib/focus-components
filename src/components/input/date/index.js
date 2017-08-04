@@ -182,7 +182,7 @@ class InputDate extends Component {
      * Handle calendar changes.
      * @memberOf InputDate
      */
-    _onDropDownChange = (text, date) => {
+    _onDropDownChange = (text, { dateMoment: date }) => {
         if (date._isValid) {
             this.setState({ displayPicker: false }, () => {
                 const correctedDate = moment.utc(date).add(moment(date).utcOffset(), 'minutes').toISOString(); // Add UTC offset to get right ISO string

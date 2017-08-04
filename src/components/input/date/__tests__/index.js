@@ -286,18 +286,18 @@ describe('The input date', () => {
 
     describe('when a date is chosen in the date picker', () => {
         const validDate = moment.utc('2015-10-10T00:00:00.000Z').toISOString();
-        const onChangeSpy = jest.fn();
+        let onChangeSpy;
         let renderedTest;
-        beforeEach(done => {
-            const onChange = cb => {
-                return data => {
-                    onChangeSpy(data);
-                    cb();
-                }
+        beforeEach(() => {
+            onChangeSpy = jest.fn();
+            const onChange = data => {
+                onChangeSpy(data);
+                // cb();
             };
+
             class TestComponent extends Component {
                 render() {
-                    return <InputDate name='testdate' onChange={onChange(done)} ref='date' value={validDate} />;
+                    return <InputDate name='testdate' onChange={onChange} ref='date' value={validDate} />;
                 }
             }
             renderedTest = TestUtils.renderIntoDocument(<TestComponent />);
