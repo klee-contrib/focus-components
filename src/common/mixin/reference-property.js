@@ -1,26 +1,28 @@
 import type from 'focus-core/component/types';
-var referenceMixin = {
-  /** @inheritdoc */
-    getDefaultProps: function getDefaultProps() {
+
+let referenceMixin = {
+    /** @inheritdoc */
+    getDefaultProps() {
         return {
-        /**
-         * Size of the label in the grid system.
-         * @type {Number}
-         */
+            /**
+             * Size of the label in the grid system.
+             * @type {Number}
+             */
             reference: {}
         };
     },
 
-  /** @inheritdoc */
+    /** @inheritdoc */
     propTypes: {
         reference: type('object')
     },
 
-  /**
-   * @returns {object} -
-   */
-    _getReference: function getReference() {
+    /**
+     * @returns {object} -
+     */
+    _getReference() {
         return this.props.reference;
     }
 };
-module.exports = referenceMixin;
+
+export default referenceMixin;
