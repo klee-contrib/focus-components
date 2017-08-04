@@ -1,9 +1,10 @@
-let referenceBehaviour = require('./reference-behaviour');
-let actionBehaviour = require('./action-behaviour');
-let validationBehaviour = require('./validation-behaviour');
+import referenceBehaviour from './reference-behaviour';
+import actionBehaviour from './action-behaviour';
+import validationBehaviour from './validation-behaviour';
 
-module.exports = {
-    actionBehaviour,
-    referenceBehaviour,
-    validationBehaviour
+export {
+    referenceBehaviour, actionBehaviour, validationBehaviour
+};
+export default {
+    referenceBehaviour, actionBehaviour, validationBehaviour
 };
