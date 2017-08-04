@@ -1,11 +1,9 @@
-import React, {PropTypes} from 'react';
+import React, { PropTypes } from 'react';
 import ReactDOM from 'react-dom';
 import builder from 'focus-core/component/builder';
-import {translate} from 'focus-core/translation';
+import { translate } from 'focus-core/translation';
 import uuid from 'uuid';
-
 import Button from '../../components/button';
-
 
 const Dropdown = {
 
@@ -88,7 +86,7 @@ const Dropdown = {
     * @returns  {XML} Htm code.
     */
     render() {
-        const {iconProps, operationList, position, shape} = this.props;
+        const { iconProps, operationList, position, shape } = this.props;
         const id = this._htmlId;
         if (0 === operationList.length) {
             return null;
