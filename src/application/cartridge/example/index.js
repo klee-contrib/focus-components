@@ -1,6 +1,7 @@
 
-const Cartridge = FocusComponents.application.cartridge.component;
-const dispatcher = Focus.dispatcher;
+import { component as Cartridge } from 'focus-components/application/cartridge';
+import dispatcher from 'focus-core/dispatcher';
+
 const CartridgeContent = React.createClass({
     render() {
         return <div>CARTOUCHE</div>;
@@ -23,7 +24,7 @@ const BarContentLeft = React.createClass({
 });
 //Simple function to update components in the bar.
 function updateComponents(cartridgeConf) {
-    const {cartridge: cartridgeComponent, summary: summaryComponent, actions: actions, barLeft: barContentLeftComponent, barRight: barContentRightComponent} = cartridgeConf;
+    const { cartridge: cartridgeComponent, summary: summaryComponent, actions: actions, barLeft: barContentLeftComponent, barRight: barContentRightComponent } = cartridgeConf;
     dispatcher.handleViewAction({
         data: {
             cartridgeComponent,
@@ -38,14 +39,14 @@ function updateComponents(cartridgeConf) {
 //Add a defer in order to inject the props after the component is mounted
 _.defer(() => {
     updateComponents({
-        cartridge: {component: CartridgeContent, props:{}},
-        summary:{component: Summary, props:{}},
+        cartridge: { component: CartridgeContent, props: {} },
+        summary: { component: Summary, props: {} },
         actions: {
             primary: [],
             secondary: []
         },
-        barLeft: {component: BarContentLeft, props:{}},
-        barRight: {component: BarContentRight, props:{}}
+        barLeft: { component: BarContentLeft, props: {} },
+        barRight: { component: BarContentRight, props: {} }
     })
 });
 
@@ -53,10 +54,10 @@ const CartridgeExample = React.createClass({
     render() {
         return (
             <header>
-                <Cartridge/>
+                <Cartridge />
             </header>
         );
     }
 });
 
-return <CartridgeExample/>;
+return <CartridgeExample />;
