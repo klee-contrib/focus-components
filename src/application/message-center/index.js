@@ -1,70 +1,71 @@
 import builder from 'focus-core/component/builder';
-var React = require('react');
-import type from 'focus-core/component/types';
+import React from 'react';
 import messageStore from 'focus-core/message/built-in-store';
-var Message = require('../../message').component;
-var assign = require('object-assign');
-var capitalize = require('lodash/string/capitalize')
-var messageCenterMixin = {
-    getDefaultProps: function getCartridgeDefaultProps() {
+import { component as Message } from '../../message';
+import assign from 'object-assign';
+import { capitalize } from 'lodash/string';
+
+let messageCenterMixin = {
+    getDefaultProps() {
         return {
             ttlInfo: 10000,
             ttlSuccess: 5000,
             style: {}
         };
     },
-  /** @inheriteddoc */
-    getInitialState: function getCartridgeInitialState() {
+    /** @inheriteddoc */
+    getInitialState() {
         return this._getStateFromStore();
     },
-  /** @inheriteddoc */
-    componentWillMount: function cartridgeWillMount() {
+    /** @inheriteddoc */
+    componentWillMount() {
         messageStore.addPushedMessageListener(this._handlePushMessage);
         messageStore.addClearMessagesListener(this._handleClearMessage);
     },
-  /** @inheriteddoc */
-    componentWillUnmount: function cartridgeWillUnMount() {
+    /** @inheriteddoc */
+    componentWillUnmount() {
         messageStore.removePushedMessageListener(this._handlePushMessage);
         messageStore.removeClearMessagesListener(this._handleClearMessage);
     },
-    _getStateFromStore: function getCartridgeStateFromStore() {
-        return {messages: messageStore.getMessages() || {} };
+    _getStateFromStore() {
+        return { messages: messageStore.getMessages() || {} };
     },
-    _handlePushMessage: function _handlePushMessage(messageId) {
-        var messages = this.state.messages;
+    _handlePushMessage(messageId) {
+        let messages = this.state.messages;
         messages[messageId] = messageStore.getMessage(messageId);
-        this.setState({messages: messages});
+        this.setState({ messages: messages });
     },
-    _handleClearMessage: function _handleClearMessage() {
-        this.setState({messages: {}});
+    _handleClearMessage() {
+        this.setState({ messages: {} });
     },
-    _handleRemoveMessage: function _handleRemoveMessage(messageId) {
-        var msgs = this.state.messages;
+    _handleRemoveMessage(messageId) {
+        let msgs = this.state.messages;
         delete msgs[messageId];
-        this.setState({messages: msgs});
+        this.setState({ messages: msgs });
     },
-    renderMessages: function renderMessages() {
-        var msgs = [];
-        for(var msgKey in this.state.messages) {
+    renderMessages() {
+        let msgs = [];
+        for (let msgKey in this.state.messages) {
             let msg = this.state.messages[msgKey];
-            let ttlConf = {};
-            let messageProps = assign(this.state.messages[msgKey], {handleOnClick: this._handleRemoveMessage, key: msgKey});
-            if(msg.type === 'info' || msg.type ==='success') {
-                assign(messageProps, {ttl: this.props[`ttl${capitalize(msg.type)}`], handleTimeToLeave: this._handleRemoveMessage});
+            let messageProps = assign(this.state.messages[msgKey], { handleOnClick: this._handleRemoveMessage, key: msgKey });
+            if (msg.type === 'info' || msg.type === 'success') {
+                assign(messageProps, { ttl: this.props[`ttl${capitalize(msg.type)}`], handleTimeToLeave: this._handleRemoveMessage });
             }
             msgs.push(React.createElement(Message, messageProps));
         }
         return msgs;
     },
-  /** @inheriteddoc */
-    render: function renderMessageCenter() {
-        var className = `message-center ${this.props.style.className}`;
+    /** @inheriteddoc */
+    render() {
+        let className = `message-center ${this.props.style.className}`;
         return (
-      <div className={className} data-focus='message-center'>
-        {this.renderMessages()}
-      </div>
-    );
+            <div className={className} data-focus='message-center'>
+                {this.renderMessages()}
+            </div>
+        );
     }
 };
 
-module.exports = builder(messageCenterMixin);
+const { mixin, component } = builder(messageCenterMixin);
+export { mixin, component };
+export default { mixin, component };
