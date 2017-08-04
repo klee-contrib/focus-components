@@ -1,50 +1,55 @@
 //Dependencies.
 import builder from 'focus-core/component/builder';
-var React = require('react');
+import React from 'react';
 import type from 'focus-core/component/types';
-var i18nBehaviour = require('../../i18n/mixin');
+import i18nBehaviour from '../../i18n/mixin';
+
 /**
  * Input text mixin.
  * @type {Object}
  */
-var displayCheckboxMixin = {
+let displayCheckboxMixin = {
     mixins: [i18nBehaviour],
-  /** @inheritdoc */
-    getDefaultProps: function getInputDefaultProps() {
+    /** @inheritdoc */
+    getDefaultProps() {
         return {
             value: undefined,
             name: undefined,
             style: {}
         };
     },
-  /** @inheritdoc */
+    /** @inheritdoc */
     propTypes: {
         type: type('string'),
         value: type('bool'),
         name: type('string'),
         style: type('object')
     },
-  /**
-   * Render the boolean value.
-   */
-    renderValue: function renderValueDisplayText() {
-        var stringValue = this.props.value === true ? 'true' : 'false';
+    /**
+     * Render the boolean value.
+     */
+    renderValue() {
+        let stringValue = this.props.value === true ? 'true' : 'false';
         return this.i18n(`display.checkbox.${stringValue}`);
     },
-  /**
-   * Render a display field.
-   * @return {DOM} - The dom of an input.
-   */
-    render: function renderInput() {
+    /**
+     * Render a display field.
+     * @return {DOM} - The dom of an input.
+     */
+    render() {
         return (
-      <div
-          id={this.props.name}
-          name={this.props.name}
-          className={this.props.style.class}
-      >{this.renderValue()}</div>
-    );
+            <div
+                id={this.props.name}
+                name={this.props.name}
+                className={this.props.style.class}
+            >
+                {this.renderValue()}
+            </div>
+        );
     }
 };
 
 
-module.exports = builder(displayCheckboxMixin);
+const { mixin, component } = builder(displayCheckboxMixin);
+export { mixin, component };
+export default { mixin, component };

@@ -1,8 +1,8 @@
 //Dependencies.
 import builder from 'focus-core/component/builder';
 import types from 'focus-core/component/types';
-const React = require('react');
-const i18nBehaviour = require('../../i18n/mixin');
+import React from 'react';
+import i18nBehaviour from '../../i18n/mixin';
 
 /**
 * Input text mixin.
@@ -29,14 +29,19 @@ const displayTextMixin = {
     * @return {string} The formated value.
     */
     renderValue() {
-        const {formatter, value} = this.props;
+        const { formatter, value } = this.props;
         return formatter(value);
     },
     /** @inheritdoc */
-    render: function renderInput() {
-        return <div {...this.props}>{this.renderValue()}</div>;
+    render() {
+        return (
+            <div {...this.props}>
+                {this.renderValue()}
+            </div>
+        );
     }
 };
 
-
-module.exports = builder(displayTextMixin);
+const { mixin, component } = builder(displayTextMixin);
+export { mixin, component };
+export default { mixin, component };
