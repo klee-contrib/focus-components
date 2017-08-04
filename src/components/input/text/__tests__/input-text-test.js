@@ -20,18 +20,17 @@ describe('The input text', () => {
     });
 
     describe('when called with no props', () => {
-        let component;
+        let component, domNode;
         beforeEach(
             () => {
-                const shallowRenderer = TestUtils.createRenderer();
-                shallowRenderer.render(<Input name='test' onChange={(value) => { /* */ }} />);
-                component = shallowRenderer.getRenderOutput();
+                component = renderIntoDocument(<Input name='inputName' onChange={(value) => { /* */ }} />);
+                domNode = ReactDOM.findDOMNode(component);
             }
         );
         it('should render an empty input', () => {
-            expect(component).toBeInstanceOf(Object);
-            expect(component.type).toBe('div');
-            expect(component.className).toMatch('mdl-textfield mdl-js-textfield');
+            // expect(component).toBeInstanceOf(Object);
+            expect(domNode.tagName).toBe('DIV');
+            expect(domNode.className).toMatch('mdl-textfield mdl-js-textfield');
         });
     });
     describe('when called with minimal props', () => {
