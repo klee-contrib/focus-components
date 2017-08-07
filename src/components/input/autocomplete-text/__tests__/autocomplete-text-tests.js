@@ -61,8 +61,9 @@ describe('AutocompleteTextEdit', () => {
         let autocompleteTextEdit;
         const _query = 'hello from the other side';
         let inputRef, initialState, dataResults;
-        let querySearcherSpy = jest.fn();
+        let querySearcherSpy;
         beforeEach(() => {
+            querySearcherSpy = jest.fn();
             const _querySearcher = query => {
                 querySearcherSpy(query);
                 dataResults = data;

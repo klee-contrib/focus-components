@@ -216,7 +216,7 @@ describe('The MessageCenter', () => {
                 //expect(actionContent.getAttribute('onclick')).to.be.a('function');
                 expect(actionContent.innerHTML).toBe(actionText);
             });
-            it.skip('should trigger function on click on action');
+            // it('should trigger function on click on action');
         });
     });
 });

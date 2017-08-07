@@ -48,9 +48,10 @@ const querySearcher = query => {
 
 const onChangeHandler = () => console.log('Autocomplete onChange call...');
 
-describe.skip('The autocomplete select', () => {
+describe('The autocomplete select', () => {
     beforeEach(() => {
         init(i18nConfig);
+        jest.useFakeTimers();
     });
 
     let renderedTest;
@@ -64,12 +65,15 @@ describe.skip('The autocomplete select', () => {
     });
     describe('when mounted with a value', () => {
         const value = 'value';
-        const keyResolverSpy = jest.fn();
-        const keyResolverSpied = data => {
-            keyResolverSpy(data);
-            return keyResolver(data);
-        };
+        let keyResolverSpy;
+
         beforeEach(() => {
+            keyResolverSpy = jest.fn();
+            const keyResolverSpied = data => {
+                keyResolverSpy(data);
+                return keyResolver(data);
+            };
+
             renderedTest = TestUtils.renderIntoDocument(<AutocompleteSelect onChange={onChangeHandler} keyResolver={keyResolverSpied} querySearcher={querySearcher} value={value} inputTimeout={0} />);
         });
         it('should give a resolved value when getValue is called', () => {
@@ -82,15 +86,19 @@ describe.skip('The autocomplete select', () => {
     });
     describe('when the user types in the field', () => {
         const query = 'query';
-        const querySearcherSpy = jest.fn();
-        const querySearcherSpied = data => {
-            querySearcherSpy(data);
-            return querySearcher(data);
-        };
+        let querySearcherSpy;
+        let querySearcherSpied;
         beforeEach(() => {
+            querySearcherSpy = jest.fn();
+            querySearcherSpied = data => {
+                querySearcherSpy(data);
+                return querySearcher(data);
+            };
+
             renderedTest = TestUtils.renderIntoDocument(<AutocompleteSelect onChange={onChangeHandler} keyResolver={keyResolver} querySearcher={querySearcherSpied} inputTimeout={0} />);
             const input = ReactDOM.findDOMNode(renderedTest.refs.htmlInput);
             TestUtils.Simulate.change(input, { target: { value: query } });
+            jest.runAllTimers();
         });
         it('should call the query searcher once, with the user input', () => {
             expect(querySearcherSpy).toHaveBeenCalledTimes(1);
@@ -100,22 +108,34 @@ describe.skip('The autocomplete select', () => {
             expect(renderedTest.getValue()).toBeNull();
         });
     });
-    describe('when the user types in the field and selects an option', () => {
+    describe.skip('when the user types in the field and selects an option', () => {
         const query = 'query';
-        const onChangeSpy = jest.fn();
-        beforeEach(done => {
-            const querySearcherCustom = data => {
-                setTimeout(() => {
-                    TestUtils.Simulate.keyDown(input, { key: 'Down', keyCode: 40, which: 40 });
-                    TestUtils.Simulate.keyDown(input, { key: 'Down', keyCode: 40, which: 40 });
-                    TestUtils.Simulate.keyDown(input, { key: 'Enter', keyCode: 13, which: 13 });
-                    setTimeout(done, 0);
-                }, 0);
-                return querySearcher(data);
-            };
-            renderedTest = TestUtils.renderIntoDocument(<AutocompleteSelect onChange={onChangeSpy} keyResolver={keyResolver} querySearcher={querySearcherCustom} inputTimeout={0} />);
+        let onChangeSpy;
+        beforeEach((done) => {
+            onChangeSpy = jest.fn();
+            // const querySearcherCustom = data => {
+            //     // setTimeout(() => {
+            //     //     TestUtils.Simulate.keyDown(input, { key: 'Down', keyCode: 40, which: 40 });
+            //     //     TestUtils.Simulate.keyDown(input, { key: 'Down', keyCode: 40, which: 40 });
+            //     //     TestUtils.Simulate.keyDown(input, { key: 'Enter', keyCode: 13, which: 13 });
+            //     //     setTimeout(done, 0);
+            //     // }, 0);
+            //     return querySearcher(data);
+            // };
+            renderedTest = TestUtils.renderIntoDocument(<AutocompleteSelect onChange={onChangeSpy} keyResolver={keyResolver} querySearcher={querySearcher} inputTimeout={0} />);
             const input = ReactDOM.findDOMNode(renderedTest.refs.htmlInput);
+            TestUtils.Simulate.focus(input);
             TestUtils.Simulate.change(input, { target: { value: query } });
+            jest.runAllTimers();
+            TestUtils.Simulate.keyDown(input, { key: 'Down', keyCode: 40, which: 40 });
+            TestUtils.Simulate.keyDown(input, { key: 'Down', keyCode: 40, which: 40 });
+            TestUtils.Simulate.keyDown(input, { key: 'Enter', keyCode: 13, which: 13 });
+            jest.runAllTimers();
+
+            // jest.runAllTimers();
+            // jest.runAllTimers();
+            // jest.runAllTimers();
+
         });
         it('should give the selected option when the getValue is called', () => {
             expect(renderedTest.getValue()).toBe('PAR');
@@ -125,19 +145,22 @@ describe.skip('The autocomplete select', () => {
             expect(onChangeSpy).toHaveBeenCalledWith('PAR');
         });
     });
-    describe('when the user clears the input', () => {
+    describe.skip('when the user clears the input', () => {
         const value = 'value';
-        const onChangeSpy = jest.fn();
+        let onChangeSpy;
         beforeEach(done => {
+            onChangeSpy = jest.fn();
             const keyResolverStub = key => {
-                setTimeout(() => {
-                    const input = ReactDOM.findDOMNode(renderedTest.refs.htmlInput);
-                    TestUtils.Simulate.change(input, { target: { value: '' } });
-                    done();
-                }, 0);
+                // setTimeout(() => {
+                //     const input = ReactDOM.findDOMNode(renderedTest.refs.htmlInput);
+                //     TestUtils.Simulate.change(input, { target: { value: '' } });
+                //     done();
+                // }, 0);
                 return keyResolver(key);
             }
             renderedTest = TestUtils.renderIntoDocument(<AutocompleteSelect onChange={onChangeSpy} keyResolver={keyResolverStub} querySearcher={querySearcher} value={value} inputTimeout={0} />);
+            const input = ReactDOM.findDOMNode(renderedTest.refs.htmlInput);
+            TestUtils.Simulate.change(input, { target: { value: '' } });
         });
         it('should give a null value when getValue is called', () => {
             expect(renderedTest.getValue()).toBeNull();
@@ -148,20 +171,23 @@ describe.skip('The autocomplete select', () => {
         });
     });
     describe('when the given value changes', () => {
-        const keyResolverSpy = jest.fn();
+        let keyResolverSpy;
         const secondValue = 'secondValue';
-        const keyResolverSpied = data => {
-            keyResolverSpy(data);
-            return keyResolver(data);
-        };
-        class Parent extends React.Component {
-            state = { value: 'value' };
-            render() {
-                const { value } = this.state;
-                return <AutocompleteSelect onChange={onChangeHandler} keyResolver={keyResolverSpied} querySearcher={querySearcher} value={value} ref='child' inputTimeout={0} />;
-            }
-        }
+
         beforeEach(done => {
+            keyResolverSpy = jest.fn();
+            const keyResolverSpied = data => {
+                keyResolverSpy(data);
+                return keyResolver(data);
+            };
+            class Parent extends React.Component {
+                state = { value: 'value' };
+                render() {
+                    const { value } = this.state;
+                    return <AutocompleteSelect onChange={onChangeHandler} keyResolver={keyResolverSpied} querySearcher={querySearcher} value={value} ref='child' inputTimeout={0} />;
+                }
+            }
+
             renderedTest = TestUtils.renderIntoDocument(<Parent />);
             renderedTest.setState({ value: secondValue }, done);
         });

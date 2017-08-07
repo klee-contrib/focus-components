@@ -20,7 +20,7 @@ describe('The select ', () => {
                 component = shallowRenderer.getRenderOutput();
             }
         );
-        it.skip('should render an empty select', () => {
+        it('should render an empty select', () => {
 
         });
     });

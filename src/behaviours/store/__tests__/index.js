@@ -47,9 +47,9 @@ describe('The store connect behaviour', () => {
             }
         );
         it('should call the getState method on mounting', () => {
-            expect(storeChangeSpy).toHaveBeenCalledTimes(2);
+            expect(storeChangeSpy).toHaveBeenCalledTimes(1);
             expect(storeChangeSpy).toHaveBeenCalledWith({});
-            expect(conectedComponentRenderSpy).toHaveBeenCalledTimes(2);
+            expect(conectedComponentRenderSpy).toHaveBeenCalledTimes(1);
             expect(conectedComponentRenderSpy).toHaveBeenCalledWith({ testProps: 'testPropsValue' });
         });
         describe('when a value with two nodes is dispatched', () => {
