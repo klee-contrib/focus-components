@@ -1,5 +1,5 @@
 // libraires
-import React, {PropTypes, Component} from 'react';
+import React, { PropTypes, Component } from 'react';
 import Translation from '../../../behaviours/translation';
 import formatter from 'focus-core/definition/formatter/number';
 
@@ -17,7 +17,7 @@ const defaultProps = {
 @Translation
 class QuickSearchGroup extends Component {
     render() {
-        const {children, count, groupKey, showAllHandler} = this.props
+        const { children, count, groupKey, showAllHandler } = this.props
         return (
             <div data-focus="group-container">
                 <h3>

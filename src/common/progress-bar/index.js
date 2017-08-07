@@ -1,12 +1,9 @@
 // Dependencies
-const React = require('react');
-const ReactDOM = require('react-dom');
-
+import React from 'react';
+import ReactDOM from 'react-dom';
 import builder from 'focus-core/component/builder';
-
 // Mixins
-
-const mdlBehaviour = require('../mixin/mdl-behaviour');
+import mdlBehaviour from '../mixin/mdl-behaviour';
 
 const Progress = {
     mixins: [mdlBehaviour],
@@ -30,7 +27,7 @@ const Progress = {
      * Component will receive props
      * @param  {Object} completed new completed prop
      */
-    componentWillReceiveProps({completed}) {
+    componentWillReceiveProps({ completed }) {
         if (0 > completed) {
             completed = 0;
         }
@@ -61,4 +58,6 @@ const Progress = {
     }
 };
 
-module.exports = builder(Progress);
+const { mixin, component } = builder(Progress);
+export { mixin, component };
+export default { mixin, component };

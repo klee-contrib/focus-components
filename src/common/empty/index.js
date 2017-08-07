@@ -1,12 +1,17 @@
 import builder from 'focus-core/component/builder';
-var React = require('react');
+import React from 'react';
+
 let emptyMixin = {
-    componentWillMount () {
+    componentWillMount() {
         console.warn('FocusComponents v0.15: the \'Empty\' component from FocusComponents.common is deprecated, please use FocusComponents.components.Empty');
     },
     render() {
-        return <div data-focus='empty'></div>
+        return (
+            <div data-focus='empty' />
+        );
     }
 }
 
-module.exports = builder(emptyMixin);
+const { mixin, component } = builder(emptyMixin);
+export { mixin, component };
+export default { mixin, component };

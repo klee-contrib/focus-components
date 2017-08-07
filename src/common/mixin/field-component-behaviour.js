@@ -1,13 +1,5 @@
 import assign from 'object-assign';
-import {isUndefined, isObject} from 'lodash';
-/**
-* Identity function
-* @param  {object} d - data to treat.
-* @return {object}  - The same object.
-*/
-function identity(d) {
-    return d;
-}
+import { isUndefined, isObject, identity } from 'lodash';
 
 const fieldBehaviourMixin = {
     _modifiedFields: [],
@@ -57,7 +49,7 @@ const fieldBehaviourMixin = {
             if (def.hasLabel !== undefined) {
                 return options.hasLabel;
             } return true;
-        } ());
+        }());
         //Build a container for the props.
         const baseName = name;
         name = options.name || `${this.definitionPath}.${name}`;
@@ -110,6 +102,5 @@ const fieldBehaviourMixin = {
         return fieldProps;
     }
 };
-
 
 export default fieldBehaviourMixin;

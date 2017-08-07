@@ -1,12 +1,9 @@
 // Dependencies
-
-let isFunction = require('lodash/lang/isFunction');
-
+import { isFunction } from 'lodash/lang';
 // Stores
+import { BuiltInSearchStore } from 'focus-core/search';
 
-let BuiltInSearchStore = Focus.search.builtInStore;
-
-let SearchMixin = {
+const SearchMixin = {
     getDefaultProps() {
         return ({
             store: BuiltInSearchStore.searchStore
@@ -41,7 +38,7 @@ let SearchMixin = {
         let query = Focus.search.builtInStore.queryStore.getQuery() || '';
         let scope = Focus.search.builtInStore.queryStore.getScope() || '';
         return {
-            criteria: {scope, query},
+            criteria: { scope, query },
             pageInfos: {
                 page: this.state.currentPage,
                 order: this.state.orderSelected,
@@ -51,7 +48,7 @@ let SearchMixin = {
         };
     },
     getSearchCriteria() {
-        if(!isFunction(this.props.searchAction)) {
+        if (!isFunction(this.props.searchAction)) {
             console.warn('Your page seems to miss a search action, add in your props a {searchAction: function(scope, query, facets){}}', this.props.searchAction);
         }
         return this._buildSearchCriteria(this.state.selectedFacetList);
@@ -63,6 +60,5 @@ let SearchMixin = {
     }
 };
 
-module.exports = {
-    mixin: SearchMixin
-};
+export { SearchMixin as mixin };
+export default { mixin: SearchMixin };

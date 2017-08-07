@@ -1,7 +1,5 @@
 import builder from 'focus-core/component/builder';
-const React = require('react');
-import types from 'focus-core/component/types';
-const {PropTypes} = React;
+import React, { PropTypes } from 'react';
 
 const iconMixin = {
     displayName: 'Icon',
@@ -11,7 +9,7 @@ const iconMixin = {
             library: 'material'
         };
     },
-    componentWillMount () {
+    componentWillMount() {
         console.warn('FocusComponents v0.15: the \'Icon\' component from FocusComponents.common is deprecated, please use FocusComponents.components.Icon');
     },
     propTypes: {
@@ -23,20 +21,28 @@ const iconMixin = {
     * Render the img.
     * @returns {XML} Html code.
     */
-    render: function renderIcon() {
-        const {name, library, onClick, style} = this.props;
+    render() {
+        const { name, library, onClick, style } = this.props;
         switch (library) {
             case 'material':
-                return <i className='material-icons' onClick={onClick} {...style}>{name}</i>;
+                return (
+                    <i className='material-icons' onClick={onClick} {...style}>{name}</i>
+                );
             case 'font-awesome':
                 const faCss = `fa fa-${name}`;
-                return <i className={faCss} onClick={onClick} {...style}></i>;
+                return (
+                    <i className={faCss} onClick={onClick} {...style} />
+                );
             case 'font-custom':
-                return <span className={`icon-${name}`}></span>;
+                return (
+                    <span className={`icon-${name}`} />
+                );
             default:
                 return null;
         }
     }
 };
 
-module.exports = builder(iconMixin);
+const { mixin, component } = builder(iconMixin);
+export { mixin, component };
+export default { mixin, component };

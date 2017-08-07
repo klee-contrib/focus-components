@@ -1,13 +1,13 @@
-const {Label} = FocusComponents.components;
+import Label from 'focus-components/components/label';
 
 function LabelExample() {
-    return(
+    return (
         <div>
             <form>
-                <Label name='Hello Label Test' value='labelTest' className='mdl-textfield__label'/>
+                <Label name='Hello Label Test' value='labelTest' className='mdl-textfield__label' />
             </form>
         </div>
     );
 }
 
-module.exports = LabelExample;
+export default LabelExample;

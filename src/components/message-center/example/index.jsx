@@ -1,7 +1,7 @@
 
-const {addErrorMessage, addWarningMessage, addInformationMessage, addSuccessMessage} = FocusCore.message;
-const {MessageCenter} = FocusComponents.components;
-const {Button} = FocusComponents.components;
+import { addErrorMessage, addWarningMessage, addInformationMessage, addSuccessMessage } from 'focus-core/message';
+import MessageCenter from 'focus-components/components/message-center';
+import Button from 'focus-components/components/button';
 
 function handleActionMessageButtonClick() {
     const message = {
@@ -14,26 +14,25 @@ function handleActionMessageButtonClick() {
     addInformationMessage(message);
 }
 
-
 function MessageCenterExample() {
     return (
         <div>
             <ul>
                 <li>
                     <span>Throw an informative message :</span>
-                    <Button label='Click here' shape={null} color='accent' type='button' handleOnClick={() => {addInformationMessage('This is an informative message.');}} />
+                    <Button label='Click here' shape={null} color='accent' type='button' handleOnClick={() => { addInformationMessage('This is an informative message.'); }} />
                 </li>
                 <li>
                     <span>Throw an error message :</span>
-                    <Button label='Click here' shape={null} color='accent' type='button' handleOnClick={() => {addErrorMessage('This is an error message.');}} />
+                    <Button label='Click here' shape={null} color='accent' type='button' handleOnClick={() => { addErrorMessage('This is an error message.'); }} />
                 </li>
                 <li>
                     <span>Throw a warning message :</span>
-                    <Button label='Click here' shape={null} color='accent' type='button' handleOnClick={() => {addWarningMessage('This is a warning message.');}} />
+                    <Button label='Click here' shape={null} color='accent' type='button' handleOnClick={() => { addWarningMessage('This is a warning message.'); }} />
                 </li>
                 <li>
                     <span>Throw a success message :</span>
-                    <Button label='Click here' shape={null} color='accent' type='button' handleOnClick={() => {addSuccessMessage('This is a success message.');}} />
+                    <Button label='Click here' shape={null} color='accent' type='button' handleOnClick={() => { addSuccessMessage('This is a success message.'); }} />
                 </li>
                 <li>
                     <span>Throw a informative message with clickable action :</span>
@@ -43,6 +42,6 @@ function MessageCenterExample() {
             <MessageCenter />
         </div>
     );
-};
+}
 
-module.exports = MessageCenterExample;
+export default MessageCenterExample;

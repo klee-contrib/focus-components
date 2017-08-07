@@ -1,11 +1,9 @@
 // Dependencies
-const React = require('react');
+import React from 'react';
 import builder from 'focus-core/component/builder';
-const keys = require('lodash/object/keys');
-
+import { keys } from 'lodash/object';
 // Components
-
-const FacetBox = require('../../../search/facet-box').component;
+import { component as FacetBox } from '../../../search/facet-box';
 
 const scopeFacetKey = 'FCT_SCOPE';
 
@@ -65,4 +63,6 @@ const Box = {
     }
 };
 
-module.exports = builder(Box);
+const { mixin, component } = builder(Box);
+export { mixin, component };
+export default { mixin, component };

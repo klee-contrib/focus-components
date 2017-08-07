@@ -1,8 +1,8 @@
-import React, {PropTypes} from 'react';
-import {translate} from 'focus-core/translation';
+import React, { PropTypes } from 'react';
+import { translate } from 'focus-core/translation';
 
-export default class DraggableIframe extends React.Component {
-    
+class DraggableIframe extends React.Component {
+
     static propTypes = {
         iframeUrl: PropTypes.string.isRequired,
         width: PropTypes.number.isRequired,
@@ -11,7 +11,7 @@ export default class DraggableIframe extends React.Component {
         toggleFunctionName: PropTypes.string,
         queryUrl: PropTypes.array
     };
-    
+
     constructor(props) {
         super(props);
         if (props.toggleFunctionName) {
@@ -43,7 +43,7 @@ export default class DraggableIframe extends React.Component {
     };
 
     moveElem = (e) => {
-        const {xPos, yPos, xElem, yElem, selected} = this.state;
+        const { xPos, yPos, xElem, yElem, selected } = this.state;
         this.setState({
             xPos: e.pageX,
             yPos: e.pageY
@@ -58,23 +58,23 @@ export default class DraggableIframe extends React.Component {
         e.preventDefault();
         document.onmousemove = null;
         document.onmouseup = null;
-        this.setState({selected: null});
+        this.setState({ selected: null });
     };
 
     toggle = (...params) => {
-        const {yPos: oldPos, isShown, yElem} = this.state;
-        const {pageYOffset, outerHeight} = window;
+        const { yPos: oldPos, isShown, yElem } = this.state;
+        const { pageYOffset, outerHeight } = window;
         const yPos = isShown ? oldPos : pageYOffset > oldPos ? pageYOffset + 50 : pageYOffset + outerHeight < oldPos ? pageYOffset + outerHeight - this.props.height - 100 : oldPos;
-        this.setState({isShown: !this.state.isShown, params, yPos});
+        this.setState({ isShown: !this.state.isShown, params, yPos });
         this.refs.helpFrame.style.top = (yPos - yElem) + 'px';
     }
-    
+
     render() {
-        const {title, iframeUrl, width, height, queryUrl} = this.props;
-        const {selected, isShown, params} = this.state;
+        const { title, iframeUrl, width, height, queryUrl } = this.props;
+        const { selected, isShown, params } = this.state;
         const url = iframeUrl + params.map((param, i) => typeof queryUrl[i] === 'string' ? queryUrl[i] + param : '').join('');
         return (
-            <div className={`help-frame ${selected ? 'is-dragging' : ''}`} onMouseDown={this.dragInit} ref='helpFrame' style={{width, display: isShown ? 'block' : 'none'}}>
+            <div className={`help-frame ${selected ? 'is-dragging' : ''}`} onMouseDown={this.dragInit} ref='helpFrame' style={{ width, display: isShown ? 'block' : 'none' }}>
                 <span className='help-center-title'>{translate(title)}</span>
                 <div className='mdl-button mdl-js-button mdl-button--icon mdl-js-ripple-effect close-icon' onClick={this.toggle}>
                     <i className='material-icons'>close</i>
@@ -87,12 +87,14 @@ export default class DraggableIframe extends React.Component {
 }
 
 class IFrame extends React.Component {
-    shouldComponentUpdate({src}) {
+    shouldComponentUpdate({ src }) {
         return src !== this.props.src;
     }
 
     render() {
-        const {height, src, width} = this.props;
+        const { height, src, width } = this.props;
         return <iframe frameBorder={0} height={height} src={src} width={width} />;
     }
 }
+
+export default DraggableIframe;

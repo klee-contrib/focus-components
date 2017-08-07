@@ -1,4 +1,4 @@
-import React, {Component, PropTypes} from 'react';
+import React, { Component, PropTypes } from 'react';
 import applicationStore from 'focus-core/application/built-in-store';
 import Scroll from '../../behaviours/scroll';
 import connect from '../../behaviours/store/connect';
@@ -36,18 +36,20 @@ function getState() {
 /**
 * HeaderScrolling component.
 */
-@connect([{store: applicationStore, properties: ['mode', 'route', 'canDeploy']}], getState)
+@connect([{ store: applicationStore, properties: ['mode', 'route', 'canDeploy'] }], getState)
 @Scroll
 class HeaderScrolling extends Component {
+
     constructor(props) {
         super(props);
-        this.state = {...getState(), isDeployed: true};
+
+        this.state = { ...getState(), isDeployed: true };
     }
 
     /** @inheriteddoc */
     componentWillMount() {
         this.handleScroll();
-        const {scrollTargetSelector} = this.props;
+        const { scrollTargetSelector } = this.props;
         this.scrollTargetNode = (scrollTargetSelector && scrollTargetSelector !== '') ? document.querySelector(scrollTargetSelector) : window;
     }
 
@@ -58,8 +60,8 @@ class HeaderScrolling extends Component {
     }
 
     /** @inheriteddoc */
-    componentWillReceiveProps({canDeploy}) {
-        this.setState({isDeployed: true}, () => this.handleScroll(null, canDeploy));
+    componentWillReceiveProps({ canDeploy }) {
+        this.setState({ isDeployed: true }, () => this.handleScroll(null, canDeploy));
     }
 
     /** @inheriteddoc */
@@ -72,8 +74,8 @@ class HeaderScrolling extends Component {
      * Notify other elements that the header has added/removed the cartridge.
      */
     _notifySizeChange = () => {
-        const {notifySizeChange} = this.props;
-        const {isDeployed} = this.state;
+        const { notifySizeChange } = this.props;
+        const { isDeployed } = this.state;
         if (notifySizeChange) {
             notifySizeChange(isDeployed);
         }
@@ -84,31 +86,32 @@ class HeaderScrolling extends Component {
      * @param {object} event [description]
      */
     handleScroll = (event, canDeploy) => {
-        let {deployThreshold, placeholderHeight} = this.state;
+        let { deployThreshold, placeholderHeight } = this.state;
 
         if (this.state.isDeployed) {
             const content = this.refs ? this.refs.header : undefined;
             deployThreshold = content ? content.clientHeight - 60 : 1000; // 1000 is arbitrary, but a value high enough is required by default.
             placeholderHeight = content ? content.clientHeight : 1000;
-            this.setState({deployThreshold, placeholderHeight});
+            this.setState({ deployThreshold, placeholderHeight });
         }
 
-        const {top} = this.scrollPosition();
+        const { top } = this.scrollPosition();
         const isDeployed = (canDeploy !== undefined ? canDeploy : this.props.canDeploy) ? top <= deployThreshold : false;
 
         if (isDeployed !== this.state.isDeployed) {
-            this.setState({isDeployed}, this._notifySizeChange);
+            this.setState({ isDeployed }, this._notifySizeChange);
         }
     };
 
     /** @inheriteddoc */
     render() {
-        const {isDeployed, placeholderHeight} = this.state;
-        const {children, canDeploy, mode, route} = this.props;
+        const { isDeployed, placeholderHeight } = this.state;
+        const { children, canDeploy, mode, route } = this.props;
+
         return (
             <header ref='header' data-focus='header-scrolling' data-mode={mode} data-route={route} data-deployed={isDeployed}>
                 {children}
-                {!isDeployed ? <div style={{height: canDeploy ? placeholderHeight : 60, width: '100%'}} /> : ''}
+                {!isDeployed ? <div style={{ height: canDeploy ? placeholderHeight : 60, width: '100%' }} /> : ''}
             </header>
         );
     }

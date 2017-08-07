@@ -4,16 +4,16 @@
 //- be loaded from a criteria (or without) (the criteria can be the result of a form)
 //- be paginated
 //- be displayed in any list container.
-const React = require('react');
-const {camelCase, capitalize} = require('lodash/string');
+import React from 'react';
+import { camelCase, capitalize } from 'lodash/string';
 import builder from 'focus-core/component/builder';
 import types from 'focus-core/component/types';
 import actionBuilder from 'focus-core/list/action-builder';
-const type = types;
-const assign = require('object-assign');
+import assign from 'object-assign';
+import { component as DEFAULT_LIST_COMPONENT } from '../../list/table/list';
 
 const STORE_NODE = ['criteria', 'groupingKey', 'sortBy', 'sortAsc', 'dataList', 'totalCount'];
-const DEFAULT_LIST_COMPONENT = require('../../list/table/list').component;
+
 /**
  * Cretes a name for the property listener.
  * @param  {string} node - Node name.
@@ -33,7 +33,7 @@ const listPageMixin = {
     getDefaultProps() {
         return {
             ListComponent: DEFAULT_LIST_COMPONENT,
-            pickProps(props) {return props;}
+            pickProps(props) { return props; }
         };
     },
     getInitialState() {
@@ -42,9 +42,9 @@ const listPageMixin = {
     /** @inheritdoc */
     propTypes: {
         //Store object.
-        pickProps: type('func'),
-        service: type('func'),
-        store: type('object').isRequired
+        pickProps: types('func'),
+        service: types('func'),
+        store: types('object').isRequired
     },
     /**
      *  Build the action from.
@@ -53,7 +53,7 @@ const listPageMixin = {
         this._action = this.props.action || actionBuilder({
             service: this.props.service,
             identifier: this.props.store.identifier,
-            getListOptions: () => {return this.props.store.getValue.call(this.props.store); } // Binding the store in the function call
+            getListOptions: () => { return this.props.store.getValue.call(this.props.store); } // Binding the store in the function call
         });
     },
     /**
@@ -97,8 +97,8 @@ const listPageMixin = {
      * @return {object} - the list property.
      */
     _buildListProps() {
-        const {props, state} = this;
-        let {dataList, totalCount} = state;
+        const { props, state } = this;
+        let { dataList, totalCount } = state;
         dataList = dataList || [];
         return assign({}, props, state, {
             data: dataList,
@@ -118,8 +118,12 @@ const listPageMixin = {
     /** @inheritdoc */
     render() {
         const listProps = this._buildListProps();
-        return <this.props.ListComponent {...listProps} ref='list'/>;
+        return (
+            <this.props.ListComponent {...listProps} ref='list' />
+        );
     }
 };
 
-module.exports = builder(listPageMixin);
+const { mixin, component } = builder(listPageMixin);
+export { mixin, component };
+export default { mixin, component };

@@ -2,8 +2,7 @@
 import React from 'react';
 import builder from 'focus-core/component/builder';
 import type from 'focus-core/component/types';
-const {uniqueId} = require('lodash/utility');
-
+import { uniqueId } from 'lodash/utility';
 
 const titleMixin = {
 
@@ -17,7 +16,7 @@ const titleMixin = {
             spyId: uniqueId('title_')
         };
     },
-    componentWillMount () {
+    componentWillMount() {
         console.warn('FocusComponents v0.15: the \'Title\' component from FocusComponents.common is deprecated, please use FocusComponents.components.Title');
     },
     /**
@@ -32,10 +31,12 @@ const titleMixin = {
     * @returns {JSX} Htm code.
     */
     render() {
-        const {spyId} = this.state;
-        const {id, label} = this.props;
+        const { spyId } = this.state;
+        const { id, label } = this.props;
         return <h3 data-spy={spyId} id={id}>{label}</h3>;
     }
 };
 
-module.exports = builder(titleMixin);
+const { mixin, component } = builder(titleMixin);
+export { mixn, component };
+export default { mixin, component };

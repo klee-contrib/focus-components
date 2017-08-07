@@ -1,7 +1,7 @@
-const SelectCheckbox = FocusComponents.common.select.checkbox.component;
-const {pull} = _;
+import { component } from 'focus-components/common/select/checkbox';
+import { pull } from 'lodash';
 
-const possibleValues = [{value: 'A', label: 'Value A'},{value: 'B', label: 'Value B'}, {value: 'C', label: 'Value C'}, {value: 'D', label: 'Value D'}];
+const possibleValues = [{ value: 'A', label: 'Value A' }, { value: 'B', label: 'Value B' }, { value: 'C', label: 'Value C' }, { value: 'D', label: 'Value D' }];
 
 const SelectCheckboxSample = React.createClass({
 
@@ -26,12 +26,12 @@ const SelectCheckboxSample = React.createClass({
     */
     handleGetValueClick2(key, newStatus) {
         const selectedValues = this.state.selectedValues;
-        if(newStatus) {
+        if (newStatus) {
             selectedValues.push(key);
         } else {
             pull(selectedValues, key);
         }
-        this.setState({value: selectedValues});
+        this.setState({ value: selectedValues });
         alert('Selected values IDs: ' + this.state.selectedValues);
     },
 

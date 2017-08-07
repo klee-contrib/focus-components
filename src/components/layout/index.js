@@ -1,4 +1,4 @@
-import React, {Component, PropTypes} from 'react';
+import React, { PropTypes } from 'react';
 
 import ConfirmWrapperDefault from '../confirm';
 import ErrorCenter from '../../application/error-center';
@@ -35,8 +35,11 @@ const propTypes = {
 /**
 * Layout component.
 */
-const Layout  =  ({AppHeader, children, ConfirmWrapper, ErrorCenter, Footer, LoadingBar, MenuLeft, MessageCenter, LoadingStatusBar, DevTools, OtherRootComponent, ...otherProps}) => {
+const Layout = ({ AppHeader, children, ConfirmWrapper, ErrorCenter, Footer, LoadingBar, MenuLeft,
+    MessageCenter, LoadingStatusBar, DevTools, OtherRootComponent, ...otherProps }) => {
+
     const menuType = MenuLeft ? 'left' : 'other';
+
     return (
         <div data-focus='layout' data-menu={menuType} {...otherProps}>
             <LoadingBar />
@@ -57,12 +60,11 @@ const Layout  =  ({AppHeader, children, ConfirmWrapper, ErrorCenter, Footer, Loa
                     <Footer />
                 </footer>
             }
-            { DevTools && <DevTools />}
-            { OtherRootComponent && <OtherRootComponent /> }
+            {DevTools && <DevTools />}
+            {OtherRootComponent && <OtherRootComponent />}
         </div>
     );
 }
-
 
 //Static props.
 Layout.displayName = 'Layout';

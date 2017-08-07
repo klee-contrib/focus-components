@@ -1,7 +1,7 @@
-const React = require('react');
+import React from 'react';
 import builder from 'focus-core/component/builder';
 import types from 'focus-core/component/types';
-const i18nBehaviour = require('../common/i18n/mixin');
+import i18nBehaviour from '../common/i18n/mixin';
 import Button from '../components/button';
 
 const messageMixin = {
@@ -9,7 +9,7 @@ const messageMixin = {
     getDefaultProps() {
         return {
             type: 'info',
-            style: {}
+            style: {}
         };
     },
 
@@ -24,7 +24,7 @@ const messageMixin = {
 
     /** @inheritedDoc */
     componentDidMount() {
-        if(this.props.ttl) {
+        if (this.props.ttl) {
             setTimeout(() => {
                 this._handleTimeToLeave();
             }, this.props.ttl);
@@ -38,8 +38,8 @@ const messageMixin = {
     * Time to leave handler.
     */
     _handleTimeToLeave() {
-        let {handleTimeToLeave, id} = this.props;
-        if(handleTimeToLeave) {
+        let { handleTimeToLeave, id } = this.props;
+        if (handleTimeToLeave) {
             handleTimeToLeave(id);
         }
     },
@@ -49,8 +49,8 @@ const messageMixin = {
     * @param {Event} event - Sanitize event.
     */
     _handleOnClick(event) {
-        let {handleOnClick, id} = this.props;
-        if(handleOnClick) {
+        let { handleOnClick, id } = this.props;
+        if (handleOnClick) {
             handleOnClick(id);
         }
     },
@@ -60,14 +60,17 @@ const messageMixin = {
     * @return {JSX} The jsx.
     */
     render() {
-        const {type, id, content, title} = this.props;
+        const { type, id, content, title } = this.props;
         return (
             <div data-focus='message' data-id={id} data-message-type={type}>
-                <Button handleOnClick={this._handleOnClick} icon='clear' shape='icon' type='button'/>
+                <Button handleOnClick={this._handleOnClick} icon='clear' shape='icon' type='button' />
                 {title && <h4>{title}</h4>}
                 <p>{this.i18n(content)}</p>
             </div>
         );
     }
 };
-module.exports = builder(messageMixin);
+
+const { mixin, component } = builder(messageMixin);
+export { mixin, component };
+export default { mixin, component };

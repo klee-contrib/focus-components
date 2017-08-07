@@ -1,10 +1,10 @@
 
 import validate from 'focus-core/definition/validator/validate';
-import {isNull, isUndefined, isFunction, isEmpty, isArray, isObject, isString} from 'lodash/lang';
+import { isNull, isUndefined, isFunction, isEmpty, isArray, isObject, isString } from 'lodash/lang';
 
-import {mixin as i18nMixin} from '../../i18n';
+import { mixin as i18nMixin } from '../../i18n';
 
-let validationMixin ={
+let validationMixin = {
     mixins: [i18nMixin],
     /** @inheritdoc */
     getDefaultProps: function getDefaultProps() {
@@ -28,20 +28,20 @@ let validationMixin ={
     * Validate the input.
     * @return {object}
     */
-    validateInput: function validateInputText() {
+    validateInput() {
         const shouldComponentHandleValidation = this.refs && this.refs.input && isFunction(this.refs.input.validate);
         let value = this.getValue();
-        let {isRequired, validator, label} = this.props;
+        let { isRequired, validator, label } = this.props;
         let isEmptyValue = isUndefined(value) || isNull(value) || ((isArray(value) || isObject(value) || isString(value)) && isEmpty(value));
 
         if (isRequired && isEmptyValue) {
-            return this.i18n('field.required', {name: this.i18n(label)});
+            return this.i18n('field.required', { name: this.i18n(label) });
         }
         //The validation is performed only when the field has a value, otherwise, only the required validation is performed.
         if (validator && !isEmptyValue) {
             let validStat = this._computeValidationStatus(
                 validate(
-                    {value: value, name: this.i18n(label)},
+                    { value: value, name: this.i18n(label) },
                     validator
                 )
             );
@@ -52,8 +52,8 @@ let validationMixin ={
         }
         return shouldComponentHandleValidation ? this._customValidate(this.refs.input) : true;
     },
-    _customValidate({validate: componentValidation}) {
-        const {isValid, message} = componentValidation();
+    _customValidate({ validate: componentValidation }) {
+        const { isValid, message } = componentValidation();
         return isValid ? true : this.i18n(message);
     },
     /**
@@ -71,8 +71,9 @@ let validationMixin ={
     * Set the error on the field.
     * @param error Error to set.
     */
-    setError: function setErrorOnField(error) {
+    setError(error) {
         this.setState({ error: error });
     }
 };
-module.exports = validationMixin;
+
+export default validationMixin;

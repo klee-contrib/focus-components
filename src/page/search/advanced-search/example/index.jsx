@@ -1,6 +1,6 @@
-const AdvancedSearch = FocusComponents.page.search.advancedSearch.component;
-const i18nInitializer = FocusCore.translation.init;
-const linePreset = [FocusComponents.list.selection.line.mixin];
+import { component as AdvancedSearch } from 'focus-components/page/search/advanced-search';
+import { init as i18nInitializer } from 'focus-core/translation';
+import { mixin as linePreset } from 'focus-components/list/selection/line';
 
 const resources = {
     dev: {
@@ -33,41 +33,40 @@ const resources = {
     }
 };
 
-i18nInitializer({resStore: resources});
+i18nInitializer({ resStore: resources });
 
 const _facets = {
     Contries: {
         FCT_PAYS: {
-            FRA: {'France': 10},
-            GER: {'Germany': 7}
+            FRA: { France: 10 },
+            GER: { Germany: 7 }
         }
     },
     Regions: {
         FCT_REGIONS: {
-            IDF: {'Ile de France': 7},
-            GRD: {'Gironde': 3}
+            IDF: { 'Ile de France': 7 },
+            GRD: { Gironde: 3 }
         }
     }
 };
 
-
 const AdvancedSearchExample = React.createClass({
     render() {
-        return(
+        return (
             <div>
                 <center>
                     <h3>Advanced Search</h3>
                 </center>
-                <MyAdvancedSearch ref='SearchExample'/>
+                <MyAdvancedSearch ref='SearchExample' />
             </div>
         );
     }
 });
 
 const scopes = [
-    {icon: 'face',code: 'USERS',label: 'Users'},
-    {icon: 'extension',code: 'EXTENSIONS',label: 'Extensions'},
-    {icon: 'contact_phone',code: 'CONTACTS',label: 'Contacts'}
+    { icon: 'face', code: 'USERS', label: 'Users' },
+    { icon: 'extension', code: 'EXTENSIONS', label: 'Extensions' },
+    { icon: 'contact_phone', code: 'CONTACTS', label: 'Contacts' }
 ];
 
 Focus.reference.config.set({
@@ -99,9 +98,8 @@ Focus.definition.entity.container.setEntityConfiguration({
     }
 });
 
-let countId = 0;
 let crit = null;
-const indexPopulate = gpName => (el, idx) => ({name: el, id: `${gpName}_${idx}`})
+const indexPopulate = gpName => (el, idx) => ({ name: el, id: `${gpName}_${idx}` })
 const groups = {
     France:
     ['Paris', 'Lyon', 'Limeil', 'Le Plessis-Robinson', 'Bordeaux', 'Mérignac', 'Langon', 'Bercy', 'Marne la Vallée', 'Antony'].map(indexPopulate('FRA')),
@@ -121,11 +119,11 @@ const getSearchService = (scoped) => {
             setTimeout(() => {
                 let list = [];
 
-                for(let i = 0; i< groups.France.length; i++) {
+                for (let i = 0; i < groups.France.length; i++) {
                     list.push(groups.France[i]);
                 }
 
-                for(let i = 0; i< groups.Germany.length; i++) {
+                for (let i = 0; i < groups.Germany.length; i++) {
                     list.push(groups.Germany[i]);
                 }
 
@@ -133,7 +131,7 @@ const getSearchService = (scoped) => {
                 let facets = crit.data.facets;
                 let facetArray = [];
 
-                var count = 0;
+                let count = 0;
                 for (let facet in facets) {
                     if (facets.hasOwnProperty(facet)) {
                         ++count;
@@ -145,43 +143,40 @@ const getSearchService = (scoped) => {
                 let group = [];
                 let facetsCount = facetArray.length;
 
-                if(showGroup) {
+                if (showGroup) {
 
-                    if(facetsCount < 2) {
+                    if (facetsCount < 2) {
                         name = facetArray[0];
-                        if(name === 'Ile de France') {
+                        if (name === 'Ile de France') {
                             name = 'IDF';
-                            for(let j = 0; j < groups[name].length; j++) {
+                            for (let j = 0; j < groups[name].length; j++) {
                                 group.push(groups[name][j]);
                             }
-                        }
-                        else {
-                            for(let i =0; i < facetsCount; i ++) {
+                        } else {
+                            for (let i = 0; i < facetsCount; i++) {
                                 name = facetArray[i];
-                                for(let j = 0; j < groups[name].length; j++) {
+                                for (let j = 0; j < groups[name].length; j++) {
                                     group.push(groups[name][j]);
                                 }
                             }
                         }
-                    }
-                    else if (facetsCount > 1) {
+                    } else if (facetsCount > 1) {
                         console.log('MORE THAN ONE', facetsCount);
                         name = facetArray[1];
-                        if(name === 'Ile de France') {
+                        if (name === 'Ile de France') {
                             name = 'IDF';
                         }
-                        for(let j = 0; j < groups[name].length; j++) {
+                        for (let j = 0; j < groups[name].length; j++) {
                             group.push(groups[name][j]);
                         }
                     }
-                }
-                else {
+                } else {
                     group = list;
                 }
 
                 const data = {
                     facets: _facets,
-                    'list': group,
+                    list: group,
                     totalCount: group.length
                 };
                 success(data);
@@ -196,8 +191,8 @@ const service = {
 };
 
 const Line = React.createClass({
-    mixins: linePreset,
     displayName: 'ResultLine',
+    mixins: [linePreset],
     definitionPath: 'contact',
     renderLineContent(data) {
         return (
@@ -212,8 +207,11 @@ const Group = React.createClass({
     displayName: 'ResultGroup',
     showName() {
         let scopeName = 'test';
-        this.props.groupKey != 'undefined' ? scopeName = this.props.groupKey : scopeName = 'Your search';
-        return(scopeName);
+        scopeName = this.props.groupKey != 'undefined'
+            ? this.props.groupKey
+            : 'Your search';
+
+        return (scopeName);
     },
     render() {
         return (
@@ -237,16 +235,16 @@ const MyAdvancedSearch = React.createClass({
                 const name = line.name;
                 switch (name) {
                     case 'Paris':
-                    alert('Achetez votre baguette et vos croissants à ' + name + '.');
-                    break;
+                        alert('Achetez votre baguette et vos croissants à ' + name + '.');
+                        break;
                     case 'Marne la Vallée':
-                    alert('Have you ever been to ' + name + '\'s Disneyland® Resort Paris ?');
-                    break;
+                        alert('Have you ever been to ' + name + '\'s Disneyland® Resort Paris ?');
+                        break;
                     default:
-                    alert('You clicked on ' + name + '.');
+                        alert('You clicked on ' + name + '.');
                 }
             },
-            placeholder:'Enter your search here...',
+            placeholder: 'Enter your search here...',
             groupMaxRows: 3,
             lineComponentMapper(list) {
                 return Line;
@@ -254,10 +252,10 @@ const MyAdvancedSearch = React.createClass({
             service,
             groupComponent: Group
         };
-        return(
-            <AdvancedSearch {...advancedSearchProps} ref='AdvSearch'/>
+        return (
+            <AdvancedSearch {...advancedSearchProps} ref='AdvSearch' />
         );
     }
 });
 
-module.exports = AdvancedSearchExample;
+export default AdvancedSearchExample;

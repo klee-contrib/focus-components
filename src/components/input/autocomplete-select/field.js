@@ -1,9 +1,10 @@
-import React, {Component, PropTypes} from 'react';
+import React, { Component, PropTypes } from 'react';
 import AutocompleteSelectEdit from './edit';
 import AutocompleteSelectConsult from './consult';
 import translation from 'focus-core/translation';
 
 class AutocompleteSelectField extends Component {
+
     state = {};
 
     static propTypes = {
@@ -13,12 +14,12 @@ class AutocompleteSelectField extends Component {
         querySearcher: PropTypes.func.isRequired
     };
 
-    componentWillReceiveProps({error}) {
-        this.setState({customError: error});
+    componentWillReceiveProps({ error }) {
+        this.setState({ customError: error });
     }
 
     getValue = () => {
-        const {isEdit, value} = this.props;
+        const { isEdit, value } = this.props;
         if (isEdit) {
             return this.refs.autocomplete.getValue();
         } else {
@@ -27,18 +28,18 @@ class AutocompleteSelectField extends Component {
     };
 
     _handleAutocompleteBadInput = value => {
-        this.setState({customError: translation.translate('autocomplete.error.badInput', {value})})
+        this.setState({ customError: translation.translate('autocomplete.error.badInput', { value }) })
     };
 
     _handleAutocompleteChange = value => {
-        const {onChange} = this.props;
-        this.setState({customError: null}, () => {
+        const { onChange } = this.props;
+        this.setState({ customError: null }, () => {
             if (onChange) onChange(value);
         });
     };
 
     _renderEdit = () => {
-        const {customError} = this.state;
+        const { customError } = this.state;
         return (
             <AutocompleteSelectEdit
                 customError={customError}
@@ -59,7 +60,7 @@ class AutocompleteSelectField extends Component {
     };
 
     render() {
-        const {isEdit} = this.props;
+        const { isEdit } = this.props;
         return isEdit ? this._renderEdit() : this._renderConsult();
     }
 }

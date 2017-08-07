@@ -1,5 +1,5 @@
 import builder from 'focus-core/component/builder';
-const React = require('react');
+import React from 'react';
 import applicationStore from 'focus-core/application/built-in-store';
 
 const barMixin = {
@@ -48,27 +48,29 @@ const barMixin = {
     * @return {HTML} Rendered component
     */
     render() {
-        const {barContentLeftComponent, barContentRightComponent, summaryComponent} = this.state;
+        const { barContentLeftComponent, barContentRightComponent, summaryComponent } = this.state;
         return (
             <div data-focus='bar'>
                 <div data-focus='bar-content-left'>
-                    {barContentLeftComponent &&
-                        <barContentLeftComponent.component {...barContentLeftComponent.props}/>
-                    }
+                    {barContentLeftComponent && (
+                        <barContentLeftComponent.component {...barContentLeftComponent.props} />
+                    )}
                 </div>
                 <div data-focus='bar-content-right'>
-                    {barContentRightComponent &&
-                        <barContentRightComponent.component {...barContentRightComponent.props}/>
-                    }
+                    {barContentRightComponent && (
+                        <barContentRightComponent.component {...barContentRightComponent.props} />
+                    )}
                 </div>
                 <div data-focus='bar-content-middle'>
-                    {summaryComponent &&
-                        <summaryComponent.component {...summaryComponent.props}/>
-                    }
+                    {summaryComponent && (
+                        <summaryComponent.component {...summaryComponent.props} />
+                    )}
                 </div>
             </div>
         );
     }
 };
 
-module.exports = builder(barMixin);
+const { mixin, component } = builder(barMixin);
+export { mixin, component };
+export default { mixin, component };

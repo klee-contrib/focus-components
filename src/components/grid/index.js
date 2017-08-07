@@ -1,22 +1,27 @@
 // see http://www.getmdl.io/components/index.html#layout-section/grid
-//dependencies
-import React, {Component, PropTypes} from 'react';
+import React, { PropTypes } from 'react';
 import filterProps from '../../utils/filter-html-attributes';
 
 /**
  * Grid component.
  */
+function Grid({ children, className, ...otherProps }) {
+    return (
+        <div className={`mdl-grid ${className}`} {...filterProps(otherProps)}>
+            {children}
+        </div>
+    );
+}
 
- function Grid({children, className, ...otherProps}) {
-     return (
-         <div className={`mdl-grid ${className ? className : ''}`} {...filterProps(otherProps)}>
-             {children}
-         </div>
-     );
- }
+Grid.propTypes = {
+    children: PropTypes.element,
+    className: PropTypes.string
+};
 
-Grid.propTypes = {};
-//Static props.
+Grid.defaultProps = {
+    className: ''
+};
+
 Grid.displayName = 'Grid';
 
-module.exports = Grid;
+export default Grid;

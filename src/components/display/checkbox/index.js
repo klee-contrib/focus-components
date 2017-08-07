@@ -1,16 +1,16 @@
-import React, {PropTypes} from 'react';
-import {translate} from 'focus-core/translation';
+import React, { PropTypes } from 'react';
+import { translate } from 'focus-core/translation';
 
 /**
 * Render the boolean value.
 */
 function renderValue(value) {
-    var stringValue = value ? 'true' : 'false';
+    const stringValue = value ? 'true' : 'false';
     return translate(`display.checkbox.${stringValue}`);
 }
 
-function displayCheckbox({name, value}) {
-    return(
+function displayCheckbox({ name, value }) {
+    return (
         <div id={name} name={name}>
             {renderValue(value)}
         </div>
@@ -32,4 +32,4 @@ displayCheckbox.propTypes = {
 
 displayCheckbox.displayName = 'DisplayCheckbox';
 
-module.exports = displayCheckbox;
+export default displayCheckbox;

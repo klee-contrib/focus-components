@@ -1,15 +1,14 @@
-const React = require('react');
+import React from 'react';
 import builder from 'focus-core/component/builder';
-//var i18nMixin = require('../i18n').mixin;
-const Scrollspy = require('../scrollspy').component;
+import { component as Scrollspy } from '../../common/scrollspy';
 import type from 'focus-core/component/types';
-const stylable = require('../../mixin/stylable');
-const DefaultBackToTopComponent = require('../button/back-to-top').component;
+import stylable from '../../mixin/stylable';
+import { component as DefaultBackToTopComponent } from '../../components/button-back-to-top';
 /**
 * Mixin used in order to create a Detail.
 * @type {Object}
 */
-var detailMixin = {
+const detailMixin = {
     mixins: [stylable],
     /** @inheritedDoc */
     getDefaultProps() {
@@ -38,7 +37,7 @@ var detailMixin = {
     _detailContent() {
         return (
             <div data-focus='detail-content'>
-            {this.props.children}
+                {this.props.children}
             </div>
         );
     },
@@ -47,14 +46,14 @@ var detailMixin = {
     },
     /** @inheritedDoc */
     render() {
-        const {hasNavigation, hasBackToTop, BackToTopComponent, navigationAffixOffset} = this.props;
+        const { hasNavigation, hasBackToTop, BackToTopComponent, navigationAffixOffset } = this.props;
         return (
             <div className={`${this._getStyleClassName()}`} data-focus='detail'>
-            {hasNavigation ? <Scrollspy affixOffset={navigationAffixOffset}>{this._detailContent()}</Scrollspy> : this._detailContent()}
-            {hasBackToTop && <BackToTopComponent/>}
+                {hasNavigation ? <Scrollspy affixOffset={navigationAffixOffset}>{this._detailContent()}</Scrollspy> : this._detailContent()}
+                {hasBackToTop && <BackToTopComponent />}
             </div>
         );
     }
 };
 
-module.exports = builder(detailMixin);
+export default builder(detailMixin);

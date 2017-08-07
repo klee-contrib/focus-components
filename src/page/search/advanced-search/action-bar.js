@@ -1,16 +1,12 @@
 // Dependencies
-const React = require('react');
+import React from 'react';
 import builder from 'focus-core/component/builder';
-const {reduce} = require('lodash/collection');
-const {omit} = require('lodash/object');
-
+import { reduce } from 'lodash/collection';
+import { omit } from 'lodash/object';
 // Components
-
-const ListActionBar = require('../../../list/action-bar/index').component;
-
+import { component as ListActionBar } from '../../../list/action-bar/index';
 //Mixins
-
-const i18nMixin = require('../../../common/i18n/mixin');
+import i18nMixin from '../../../common/i18n/mixin';
 
 const Bar = {
     mixins: [i18nMixin],
@@ -37,7 +33,7 @@ const Bar = {
      * @return {object} The filtered facet list
      */
     _filterFacetList() {
-        const {selectedFacets} = this.props;
+        const { selectedFacets } = this.props;
         return reduce(selectedFacets, (result, facet, facetKey) => {
             result[facetKey] = {
                 label: this.i18n(`live.filter.facets.${facetKey}`),
@@ -51,8 +47,8 @@ const Bar = {
      * @param  {string} key The facet key to remove
      */
     _onFacetClick(key) {
-        const {selectedFacets, action: {updateProperties}} = this.props;
-        updateProperties({selectedFacets: omit(selectedFacets, key)});
+        const { selectedFacets, action: { updateProperties } } = this.props;
+        updateProperties({ selectedFacets: omit(selectedFacets, key) });
     },
     /**
      * Update the store to ask for a new results order
@@ -79,7 +75,7 @@ const Bar = {
      * @return {HTML} the rendered component
      */
     render() {
-        const {groupableColumnList, groupingKey, hasGrouping, isSelection, operationList, orderableColumnList, selectionAction, selectionStatus, sortBy} = this.props;
+        const { groupableColumnList, groupingKey, hasGrouping, isSelection, operationList, orderableColumnList, selectionAction, selectionStatus, sortBy } = this.props;
         return (
             <ListActionBar
                 data-focus='advanced-search-action-bar'
@@ -102,4 +98,6 @@ const Bar = {
     }
 };
 
-module.exports = builder(Bar);
+const { mixin, component } = builder(Bar);
+export { mixin, component };
+export default { mixin, component };

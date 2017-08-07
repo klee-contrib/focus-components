@@ -1,5 +1,5 @@
-const ScrollspyContainer = FocusComponents.components.ScrollspyContainer;
-const Panel = FocusComponents.components.Panel;
+import ScrollspyContainer from 'focus-components/components/scrollspy-container';
+import Panel from 'focus-components/components/panel';
 
 const ScrollspyContainerSample = React.createClass({
 
@@ -11,7 +11,7 @@ const ScrollspyContainerSample = React.createClass({
 
     componentDidMount() {
         setTimeout(() => {
-                this.setState({isConditionalBlock: true});
+            this.setState({ isConditionalBlock: true });
         }, 3 * 1000);
     },
     /**
@@ -19,7 +19,7 @@ const ScrollspyContainerSample = React.createClass({
     * @return {object} React node
     */
     render() {
-        const {isConditionalBlock} = this.state;
+        const { isConditionalBlock } = this.state;
 
         return (
             <div>
@@ -87,4 +87,4 @@ const ScrollspyContainerSample = React.createClass({
     }
 });
 
-module.exports = ScrollspyContainerSample;
+export default ScrollspyContainerSample;

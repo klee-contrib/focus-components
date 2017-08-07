@@ -1,12 +1,12 @@
-const {SelectCheckbox} = FocusComponents.components.input;
-const {Button} = FocusComponents.components;
-const {pull} = _;
+import SelectCheckbox from 'focus-components/components/input/select-checkbox';
+import Button from 'focus-components/components/button';
+import { pull } from 'lodash';
 
 const possibleValues = [
-    {value: 'A', label: 'Value A'},
-    {value: 'B', label: 'Value B'},
-    {value: 'C', label: 'Value C'},
-    {value: 'D', label: 'Value D'}
+    { value: 'A', label: 'Value A' },
+    { value: 'B', label: 'Value B' },
+    { value: 'C', label: 'Value C' },
+    { value: 'D', label: 'Value D' }
 ];
 
 const SelectCheckboxSample = React.createClass({
@@ -14,7 +14,7 @@ const SelectCheckboxSample = React.createClass({
     /** @inheritdoc */
     getInitialState() {
         return {
-            selectedValues: ['A','B','D']
+            selectedValues: ['A', 'B', 'D']
         };
     },
 
@@ -31,12 +31,12 @@ const SelectCheckboxSample = React.createClass({
     */
     customGetValueClick(key, newStatus) {
         const selectedValues = this.state.selectedValues;
-        if(newStatus) {
+        if (newStatus) {
             selectedValues.push(key);
         } else {
             pull(selectedValues, key);
         }
-        this.setState({value: selectedValues});
+        this.setState({ value: selectedValues });
         console.log('Selected values IDs: ' + this.state.selectedValues);
     },
 
@@ -48,22 +48,22 @@ const SelectCheckboxSample = React.createClass({
         return (
             <div>
                 <h3>List of checkboxes</h3>
-                <SelectCheckbox values={possibleValues} ref="mySelectCheckbox" />
+                <SelectCheckbox values={possibleValues} ref='mySelectCheckbox' />
                 <h3>List of checkboxes with preselected values</h3>
                 <SelectCheckbox
-                    value={['B','C']}
-                    values={possibleValues} ref="mySelectCheckbox"
-                    />
+                    value={['B', 'C']}
+                    values={possibleValues} ref='mySelectCheckbox'
+                />
                 <br />
-                <Button onClick={this.getValueClick} hasRipple={true} label='Selected values' color='primary' />
+                <Button onClick={this.getValueClick} hasRipple label='Selected values' color='primary' />
                 <h3>Add OnChange event</h3>
                 <SelectCheckbox
                     value={this.state.selectedValues}
-                    values={possibleValues} ref="mySelectCheckbox2" onChange={this.customGetValueClick}
-                    />
+                    values={possibleValues} ref='mySelectCheckbox2' onChange={this.customGetValueClick}
+                />
             </div>
         );
     }
 });
 
-module.exports = SelectCheckboxSample;
+export default SelectCheckboxSample;

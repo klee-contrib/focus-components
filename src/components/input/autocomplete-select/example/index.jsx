@@ -1,4 +1,6 @@
-const {AutocompleteSelect} = FocusComponents.components.input;
+import React, { Component } from 'react';
+import AutocompleteSelect from 'focus-components/components/input/autocomplete-select';
+import { init } from 'focus-core/translation';
 
 const data = [
     {
@@ -28,7 +30,7 @@ const data = [
 ];
 
 const querySearcher = query => {
-    const value = data.filter(({key, label}) => label.toLowerCase().indexOf(query.toLowerCase()) !== -1);
+    const value = data.filter(({ key, label }) => label.toLowerCase().indexOf(query.toLowerCase()) !== -1);
     return new Promise((resolve, reject) => {
         setTimeout(() => {
             resolve({
@@ -42,7 +44,7 @@ const querySearcher = query => {
 const keyResolver = key => {
     return new Promise((resolve, reject) => {
         data.forEach(element => {
-            if(element.key === key) {
+            if (element.key === key) {
                 setTimeout(resolve.bind(this, element.label), 10);
             }
         });
@@ -50,12 +52,13 @@ const keyResolver = key => {
 }
 
 const AutoComplete = (props) => {
-    return(
+    return (
         <AutocompleteSelect
             {...props}
-            />
+        />
     )
 }
+
 const resources = {
     dev: {
         translation: {
@@ -68,21 +71,21 @@ const resources = {
     }
 };
 
-i18n.init({resStore: resources});
+init({ resStore: resources });
 
-class Sample extends React.Component {
-    state = {isEdit: true};
+class Sample extends Component {
+
+    state = { isEdit: true };
 
     componentDidMount() {
         setTimeout(() => {
-            this.setState({delayedValue: 'test'}, this.forceUpdate);
+            this.setState({ delayedValue: 'test' }, this.forceUpdate);
         }, 3000);
     }
 
-
-
     render() {
-        const {delayedValue, isEdit} = this.state;
+        const { delayedValue, isEdit } = this.state;
+
         return (
             <div>
                 <AutocompleteSelect
@@ -91,7 +94,7 @@ class Sample extends React.Component {
                     querySearcher={querySearcher}
                     ref='first'
                     value='lol'
-                    />
+                />
                 <br />
                 <AutocompleteSelect
                     isEdit={isEdit}
@@ -99,11 +102,11 @@ class Sample extends React.Component {
                     querySearcher={querySearcher}
                     value={delayedValue}
                 /> <br />
-                <button className='mdl-button mdl-js-button mdl-button--raised mdl-button--colored' onClick={() => {this.setState({isEdit: !this.state.isEdit})}}>Toggle edit</button>
-                <button className='mdl-button mdl-js-button mdl-button--raised mdl-button--colored' onClick={() => {alert(this.refs.first.getValue())}}>Get value of first one</button>
+                <button className='mdl-button mdl-js-button mdl-button--raised mdl-button--colored' onClick={() => { this.setState({ isEdit: !this.state.isEdit }) }}>Toggle edit</button>
+                <button className='mdl-button mdl-js-button mdl-button--raised mdl-button--colored' onClick={() => { alert(this.refs.first.getValue()) }}>Get value of first one</button>
             </div>
         );
     }
 }
 
-module.exports = Sample;
+export default Sample;

@@ -1,13 +1,13 @@
 /**@jsx*/
-var React = require('react');
+import React from 'react';
 import builder from 'focus-core/component/builder';
 import type from 'focus-core/component/types';
-var translationMixin = require('../../common/i18n').mixin;
-var referenceMixin = require('../../common/mixin/reference-property');
-var definitionMixin = require('../../common/mixin/definition');
-var builtInComponentsMixin = require('../mixin/built-in-components');
+import { mixin as translationMixin } from '../../common/i18n';
+import referenceMixin from '../../common/mixin/reference-property';
+import definitionMixin from '../../common/mixin/definition';
+import builtInComponentsMixin from '../mixin/built-in-components';
 
-var lineMixin = {
+const lineMixin = {
     /**
      * React component name.
      */
@@ -37,7 +37,7 @@ var lineMixin = {
      * Get the line value.
      * @returns {object} - the data od the line.
      */
-    getValue: function getLineValue() {
+    getValue() {
         return {
             item: this.props.data
         };
@@ -47,8 +47,8 @@ var lineMixin = {
      * Line Click handler.
      * @param {object} event - the event
      */
-    _handleLineClick: function handleLineClick(event) {
-        if(this.props.onLineClick) {
+    _handleLineClick(event) {
+        if (this.props.onLineClick) {
             this.props.onLineClick(this.props.data);
         }
     },
@@ -57,16 +57,16 @@ var lineMixin = {
      * render content for a line.
      * @returns {XML} the line content
      */
-    _renderLineContent: function renderLineContent() {
-        if(this.renderLineContent) {
+    _renderLineContent() {
+        if (this.renderLineContent) {
             return this.renderLineContent(this.props.data);
-        }else{
+        } else {
             return (
                 <div>
-                    <div className="timeline-heading">
-                        <h4 className="timeline-title">{this.props.data.title}</h4>
+                    <div className='timeline-heading'>
+                        <h4 className='timeline-title'>{this.props.data.title}</h4>
                     </div>
-                    <div className="timeline-body">
+                    <div className='timeline-body'>
                         <p>{this.props.data.body}</p>
                     </div>
                 </div>
@@ -79,15 +79,15 @@ var lineMixin = {
      * Render line in list.
      * @returns {XML} - the render of the line
      */
-    render: function renderLine() {
-        if(this.renderLine) {
+    render() {
+        if (this.renderLine) {
             return this.renderLine();
-        }else{
+        } else {
             return (
                 <li>
-                    <div className="timeline-date">{this.textFor(this.props.dateField, {})}</div>
-                    <div className="timeline-badge"></div>
-                    <div className="timeline-panel" onClick={this._handleLineClick}>
+                    <div className='timeline-date'>{this.textFor(this.props.dateField, {})}</div>
+                    <div className='timeline-badge' />
+                    <div className='timeline-panel' onClick={this._handleLineClick}>
                         {this._renderLineContent()}
                     </div>
                 </li>
@@ -96,4 +96,5 @@ var lineMixin = {
     }
 };
 
-module.exports = {mixin : lineMixin};
+export { lineMixin as mixin };
+export default { mixin: lineMixin };

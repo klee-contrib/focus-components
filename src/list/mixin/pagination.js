@@ -1,10 +1,10 @@
 import type from 'focus-core/component/types';
 
-var paginationMixin = {
+const paginationMixin = {
     /**
      * @inheritDoc
      */
-    getDefaultProps: function getPaginationDefaultProps() {
+    getDefaultProps() {
         return {
             hasMoreData: false,
             isManualFetch: false
@@ -22,11 +22,11 @@ var paginationMixin = {
      * @param {number} page the page to fetch
      * @return {*} the next page
      */
-    fetchNextPage: function fetchNextPage(page) {
-        if(!this.props.hasMoreData) {
+    fetchNextPage(page) {
+        if (!this.props.hasMoreData) {
             return;
         }
-        if(this.props.fetchNextPage) {
+        if (this.props.fetchNextPage) {
             return this.props.fetchNextPage(page);
         }
     },
@@ -35,10 +35,11 @@ var paginationMixin = {
      * handle manual fetch.
      * @param {object} event event received
      */
-    handleShowMore: function handleShowMore(event) {
+    handleShowMore(event) {
         this.nextPage++;
         this.fetchNextPage(this.nextPage);
     }
 };
 
-module.exports = {mixin: paginationMixin};
+export { paginationMixin as mixin };
+export default { mixin: paginationMixin };

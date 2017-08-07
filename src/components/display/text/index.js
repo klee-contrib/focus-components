@@ -1,4 +1,4 @@
-import React, {PropTypes} from 'react';
+import React, { PropTypes } from 'react';
 
 const defaultProps = {
     formatter: (data) => data
@@ -12,8 +12,8 @@ const propTypes = {
 };
 
 //v2 : replace div by span
-function DisplayText({formatter, style, value}) {
-    return(
+function DisplayText({ formatter, style, value }) {
+    return (
         <div className={style}>{formatter(value)}</div>
     );
 }

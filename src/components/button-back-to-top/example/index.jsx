@@ -1,21 +1,23 @@
-const {ButtonBackToTop} = FocusComponents.components;
+import React from 'react';
+import ButtonBackToTop from 'focus-components/components/button-back-to-top';
 
-const ButtonExample = React.createClass({
-    render() {
-        return (
-            <div className='button-bt-example'>
-                <img src="http://lorempixel.com/800/600/sports/"/>
-                <img src="http://lorempixel.com/800/600/abstract/"/>
-                <img src="http://lorempixel.com/800/600/city/"/>
-                <img src="http://lorempixel.com/800/600/technics/"/>
-                <img src="http://lorempixel.com/800/600/sports/"/>
-                <img src="http://lorempixel.com/800/600/abstract/"/>
-                <img src="http://lorempixel.com/800/600/city/"/>
-                <img src="http://lorempixel.com/800/600/technics/"/>
-                <ButtonBackToTop />
-            </div>
-        );
-    }
-});
+/**
+ * Example button.
+ */
+const ButtonExample = () => {
+    return (
+        <div className='button-bt-example'>
+            <img src='http://lorempixel.com/800/600/sports/' />
+            <img src='http://lorempixel.com/800/600/abstract/' />
+            <img src='http://lorempixel.com/800/600/city/' />
+            <img src='http://lorempixel.com/800/600/technics/' />
+            <img src='http://lorempixel.com/800/600/sports/' />
+            <img src='http://lorempixel.com/800/600/abstract/' />
+            <img src='http://lorempixel.com/800/600/city/' />
+            <img src='http://lorempixel.com/800/600/technics/' />
+            <ButtonBackToTop />
+        </div>
+    );
+}
 
-module.exports = ButtonExample;
+export default ButtonExample;

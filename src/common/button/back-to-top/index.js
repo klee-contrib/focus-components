@@ -1,10 +1,10 @@
-const React = require('react');
+import React from 'react';
 import builder from 'focus-core/component/builder';
 import types from 'focus-core/component/types';
-const Button = require('../../button/action').component;
-const i18nMixin = require('../../i18n/mixin');
-const stylableMixin = require('../../../mixin/stylable');
-const {scrollTo, scrollPosition} = require('../../mixin/scroll');
+import { component as Button } from '../action';
+import i18nMixin from '../../i18n/mixin';
+import stylableMixin from '../../../mixin/stylable';
+import { scrollTo, scrollPosition } from '../../mixin/scroll';
 
 /**
 * Mixin button.
@@ -37,7 +37,7 @@ const backToTopMixin = {
             isVisible: false
         };
     },
-    componentWillMount () {
+    componentWillMount() {
         console.warn('FocusComponents v0.15: the \'ButtonBackToTop\' component from FocusComponents.common is deprecated, please use FocusComponents.components.ButtonBackToTop');
     },
     /**
@@ -61,11 +61,11 @@ const backToTopMixin = {
         const currentScrollPosition = scrollPosition();
         if (currentScrollPosition.top > this.props.scrollStart) {
             if (!this.state.isVisible) {
-                this.setState({isVisible: true});
+                this.setState({ isVisible: true });
             }
         } else {
             if (this.state.isVisible) {
-                this.setState({isVisible: false});
+                this.setState({ isVisible: false });
             }
         }
     },
@@ -78,9 +78,13 @@ const backToTopMixin = {
     },
     /** inheritedDoc */
     render() {
-        const {isVisible} = this.state;
-        return isVisible ? <div data-focus='back-to-top'><Button color='colored' handleOnClick={this.goBackToTop} icon='expand_less' shape='fab' /></div> : null;
+        const { isVisible } = this.state;
+        return isVisible ? (
+            <div data-focus='back-to-top'><Button color='colored' handleOnClick={this.goBackToTop} icon='expand_less' shape='fab' /></div>
+        ) : null;
     }
 };
 
-module.exports = builder(backToTopMixin);
+const { mixin, component } = builder(backToTopMixin);
+export { mixin, component };
+export default { mixin, component };

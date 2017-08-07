@@ -1,16 +1,14 @@
 // Dependencies
 import React from 'react';
-import {translate} from 'focus-core/translation';
+import { translate } from 'focus-core/translation';
 import builder from 'focus-core/component/builder';
-
-import {assign, mapValues, keys, omit} from 'lodash/object';
-import {clone, isArray} from 'lodash/lang';
-import {filter, find, map, groupBy} from 'lodash/collection';
-
+import { assign, mapValues, keys, omit } from 'lodash/object';
+import { clone, isArray } from 'lodash/lang';
+import { filter, map, groupBy } from 'lodash/collection';
 // Components
 import DefaultEmpty from './default-empty-component';
-import {component as ListSelection} from '../../../../list/selection/list';
-import {component as GroupWrapper} from './group-wrapper';
+import { component as ListSelection } from '../../../../list/selection/list';
+import { component as GroupWrapper } from './group-wrapper';
 
 /**
 * Results component, used to render the results, grouped or ungrouped
@@ -77,8 +75,8 @@ const Results = {
     * @return {HMTL}      the rendered group
     */
     _renderSingleGroup(list, key, count, isUnique) {
-        const {initialRowsCount} = this.props;
-        if(this.props.renderSingleGroupDecoration && !this.props.groupComponent) {
+        const { initialRowsCount } = this.props;
+        if (this.props.renderSingleGroupDecoration && !this.props.groupComponent) {
             console.warn('You are trying to wrap your list in a group without a groupComponent. Please give one or set "renderSingleGroupDecoration" to false.');
         }
 
@@ -86,15 +84,15 @@ const Results = {
             if (this.props.renderSingleGroupDecoration) {
                 return (
                     <GroupWrapper
-                    count={count}
-                    groupComponent={this.props.groupComponent}
-                    groupKey={key}
-                    initialRowsCount={initialRowsCount}
-                    isUnique
-                    list={list}
-                    ref={`group-${key}`}
-                    renderResultsList={this._renderResultsList}
-                    showAllHandler={this._showAllHandler}
+                        count={count}
+                        groupComponent={this.props.groupComponent}
+                        groupKey={key}
+                        initialRowsCount={initialRowsCount}
+                        isUnique
+                        list={list}
+                        ref={`group-${key}`}
+                        renderResultsList={this._renderResultsList}
+                        showAllHandler={this._showAllHandler}
                     />
                 );
             } else {
@@ -103,15 +101,15 @@ const Results = {
         } else {
             return (
                 <GroupWrapper
-                count={count}
-                groupComponent={this.props.groupComponent}
-                groupKey={key}
-                initialRowsCount={initialRowsCount}
-                key={key}
-                list={list}
-                ref={`group-${key}`}
-                renderResultsList={this._renderResultsList}
-                showAllHandler={this._showAllHandler}
+                    count={count}
+                    groupComponent={this.props.groupComponent}
+                    groupKey={key}
+                    initialRowsCount={initialRowsCount}
+                    key={key}
+                    list={list}
+                    ref={`group-${key}`}
+                    renderResultsList={this._renderResultsList}
+                    showAllHandler={this._showAllHandler}
                 />
             );
         }
@@ -121,7 +119,9 @@ const Results = {
     * @return {HMTL}      the rendered component
     */
     _renderEmptyResults() {
-        return <this.props.emptyComponent/>;
+        return (
+            <this.props.emptyComponent />
+        );
     },
     /**
     * Render the results list
@@ -151,28 +151,28 @@ const Results = {
         const hasMoreData = isUnique !== undefined && isUnique && list.length < count;
         return (
             <div>
-            <ListSelection
-            data={list}
-            data-focus='results-list'
-            fetchNextPage={this._onScrollReachedBottom}
-            hasMoreData={hasMoreData}
-            idField={idField}
-            isSelection={isSelection}
-            LineComponent={LineComponent}
-            onLineClick={lineClickHandler}
-            onSelection={lineSelectionHandler}
-            operationList={lineOperationList}
-            parentSelector={scrollParentSelector}
-            ref={`list-${key}`}
-            selectionData={selectionData}
-            selectionStatus={selectionStatus}
-            {...otherProps}
-            />
-            {this.state.loading &&
-                <div data-focus='loading-more-results'>
-                {translate('search.loadingMore')}
-                </div>
-            }
+                <ListSelection
+                    data={list}
+                    data-focus='results-list'
+                    fetchNextPage={this._onScrollReachedBottom}
+                    hasMoreData={hasMoreData}
+                    idField={idField}
+                    isSelection={isSelection}
+                    LineComponent={LineComponent}
+                    onLineClick={lineClickHandler}
+                    onSelection={lineSelectionHandler}
+                    operationList={lineOperationList}
+                    parentSelector={scrollParentSelector}
+                    ref={`list-${key}`}
+                    selectionData={selectionData}
+                    selectionStatus={selectionStatus}
+                    {...otherProps}
+                />
+                {this.state.loading && (
+                    <div data-focus='loading-more-results'>
+                        {translate('search.loadingMore')}
+                    </div>
+                )}
             </div>
         );
     },
@@ -182,7 +182,7 @@ const Results = {
     * @param  {string} key the group key where the show all has been clicked
     */
     _showAllHandler(key) {
-        const {showAllHandler, resultsFacets, scopeFacetKey, groupingKey, scopesConfig} = this.props;
+        const { showAllHandler, resultsFacets, scopeFacetKey, groupingKey, scopesConfig } = this.props;
         let selectedScope = key;
         if (scopesConfig && key && scopesConfig[key]) {
             selectedScope = scopesConfig[key];
@@ -195,7 +195,7 @@ const Results = {
             this._facetSelectionHandler(facetKey, facetValue);
         }
         // Called if defined (may be used in the quick search to close the popin.)
-        if(showAllHandler) {
+        if (showAllHandler) {
             showAllHandler();
         }
 
@@ -209,7 +209,7 @@ const Results = {
         return () => {
             let groupsRowsCounts = clone(this.state.groupsRowsCounts);
             groupsRowsCounts[key] = groupsRowsCounts[key] ? groupsRowsCounts[key] + this.props.showMoreAdditionalRows : this.props.initialRowsCount;
-            this.setState({groupsRowsCounts});
+            this.setState({ groupsRowsCounts });
         };
     },
 
@@ -267,12 +267,12 @@ const Results = {
         if (resultsMap && isArray(resultsMap) && 1 === resultsMap.length) {
             //Check if the resultMap contains an entry which is an array.
             const isResultMapEntryAnArray = isArray(resultsMap[0]);
-            if(isResultMapEntryAnArray) {
-              return {
-                  [resultsMap[0][0]]: {
-                      count: this.props.totalCount
-                  }
-              };
+            if (isResultMapEntryAnArray) {
+                return {
+                    [resultsMap[0][0]]: {
+                        count: this.props.totalCount
+                    }
+                };
             }
             //this case occurs when the server response contains only one group with results.
             return {
@@ -289,10 +289,9 @@ const Results = {
         }
 
         // here : grouped list
-        let targetFacetData;
-        const {resultsFacets} = this.props;
-        if(resultsFacets) {
-            const {scopeFacetKey, groupingKey} = this.props;
+        const { resultsFacets } = this.props;
+        if (resultsFacets) {
+            const { scopeFacetKey, groupingKey } = this.props;
             const key = groupingKey === undefined ? scopeFacetKey : groupingKey;
             const scopeFacet = resultsFacets[key];
             return mapValues(groupBy(scopeFacet, 'label'), (facetData) => {
@@ -316,13 +315,13 @@ const Results = {
 
         // resultsMap can be an Array or an Object.
         if (isArray(this.props.resultsMap)) {
-            resultsMap = filter(this.props.resultsMap, function (resultGroup) {
+            resultsMap = filter(this.props.resultsMap, (resultGroup) => {
                 const propertyGroupName = keys(resultGroup)[0]; //group property name
                 const list = resultGroup[propertyGroupName];
                 return 0 !== list.length;
             });
         } else {
-            resultsMap = omit(this.props.resultsMap, function (resultGroup) {
+            resultsMap = omit(this.props.resultsMap, (resultGroup) => {
                 const propertyGroupName = keys(resultGroup)[0]; //group property name
                 const list = resultGroup[propertyGroupName];
                 return 0 === list.length;
@@ -346,19 +345,21 @@ const Results = {
         } else {
             return (
                 <div data-focus='search-results'>
-                {
-                    map(resultsMap, (resultGroup) => {
-                        const key = keys(resultGroup)[0]; //group property name
-                        const list = resultGroup[key];
-                        const count = groupCounts[key];
-                        return this._renderSingleGroup(list, key, count);
-                    })
-                }
+                    {
+                        map(resultsMap, (resultGroup) => {
+                            const key = keys(resultGroup)[0]; //group property name
+                            const list = resultGroup[key];
+                            const count = groupCounts[key];
+                            return this._renderSingleGroup(list, key, count);
+                        })
+                    }
                 </div>
             );
         }
-    },
+    }
 
 };
 
-module.exports = builder(Results);
+const { mixin, component } = builder(Results);
+export { mixin, component };
+export default { mixin, component };

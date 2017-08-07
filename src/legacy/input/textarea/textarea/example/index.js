@@ -1,5 +1,4 @@
-
-const TextArea = FocusComponents.common.input.textarea.component;
+import { component as TextArea } from 'focus-components/common/input/textarea';
 
 const InputTextAreaSample = React.createClass({
     render() {
@@ -7,11 +6,12 @@ const InputTextAreaSample = React.createClass({
         return (
             <TextArea
                 value={value}
-                label="My awsome textarea"
+                label='My awsome textarea'
                 cols={5}
                 rows={5}
                 maxLength={1000}
-                maxLength={3} />
+                maxLength={3}
+            />
         );
     }
 });

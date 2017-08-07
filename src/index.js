@@ -32,7 +32,8 @@ const infosFn = function infos() {
         `
     );
 };
-module.exports = {
+
+export default {
     VERSION: infos.version,
     AUTHORS: infos.author,
     NAME: infos.name,
@@ -40,7 +41,7 @@ module.exports = {
     /**
     * Display documentation data
     */
-    DOCUMENTATION: function() {
+    DOCUMENTATION() {
         console.log('documentation: http://kleegroup.github.io/focus-components');
         console.log('components available');
         console.table(infos.components);

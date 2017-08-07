@@ -5,6 +5,7 @@ import Translation from '../../../behaviours/translation';
 
 @Translation
 class SelectRadio extends Component {
+
     static defaultProps = {
         values: [],
         valueKey: 'code',
@@ -69,19 +70,29 @@ class SelectRadio extends Component {
     */
     renderSelectRadios() {
         const { uniqueName } = this.state;
+
         return this.props.values.map((val, idx) => {
             const value = val[this.props.valueKey];
             const label = val[this.props.labelKey];
             const disabled = this.props.disabled;
             const isChecked = value === this.state.value;
+
             return (
-                <Radio key={idx} label={this.i18n(label)} name={uniqueName} onChange={this._getRadioChangeHandler(value)} value={isChecked} disabled={disabled} />
+                <Radio
+                    key={idx}
+                    label={this.i18n(label)}
+                    name={uniqueName}
+                    onChange={this._getRadioChangeHandler(value)}
+                    value={isChecked}
+                    disabled={disabled}
+                />
             );
         });
     }
 
     render() {
         const { error, style } = this.props;
+
         return (
             <div data-focus='select-radio' data-valid={!error} style={style} >
                 {this.renderSelectRadios()}

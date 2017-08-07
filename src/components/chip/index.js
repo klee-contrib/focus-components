@@ -15,7 +15,16 @@ const Chip = ({ label, deleteElement, readonly }) => {
     return (
         <div data-focus='chip' className={className}>
             <span data-focus='chip-text' className='mdl-chip__text'>{label}</span>
-            {!readonly && <button type='button' data-focus='chip-button' className='mdl-chip__action' onClick={deleteElement}><i className='material-icons'>{'cancel'}</i></button>}
+            {!readonly && (
+                <button
+                    type='button'
+                    data-focus='chip-button'
+                    className='mdl-chip__action'
+                    onClick={deleteElement}
+                >
+                    <i className='material-icons'>{'cancel'}</i>
+                </button>
+            )}
         </div>
     );
 };

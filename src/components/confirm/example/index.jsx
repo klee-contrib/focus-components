@@ -1,10 +1,9 @@
 // Dependencies
-const {Component} = React;
-const FirstWrapper = FocusComponents.components.Confirm;
-const SecondWrapper = FocusComponents.components.Confirm;
-const confirm = FocusCore.application.confirm;
-const Input = FocusComponents.components.input.Text;
-const {AutocompleteSelect} = FocusComponents.components.input;
+import React from 'react';
+import FirstWrapper from 'focus-components/components/confirm';
+import confirm from 'focus-core/application/confirm';
+import Input from 'focus-components/components/input/text';
+import AutocompleteSelect from 'focus-components/components/input/autocomplete-select';
 
 const ConfirmExample = React.createClass({
     // This code is for the first confirm example
@@ -35,7 +34,7 @@ const ConfirmExample = React.createClass({
         console.log('Save has failed');
     },
     render() {
-        return(
+        return (
             <div>
                 <FirstWrapper />
                 <h1>Confirm example</h1>
@@ -75,7 +74,7 @@ const querySearcher = query => {
             key: 'LON',
             label: 'Londres'
         }
-    ].filter(({key, label}) => label.toLowerCase().indexOf(query.toLowerCase()) !== -1);
+    ].filter(({ key, label }) => label.toLowerCase().indexOf(query.toLowerCase()) !== -1);
     return new Promise((resolve, reject) => {
         setTimeout(() => {
             resolve({
@@ -88,20 +87,20 @@ const querySearcher = query => {
 
 const MyAutocomplete = React.createClass({
     getInitialState() {
-        return {isEdit: true};
+        return { isEdit: true };
     },
     componentDidMount() {
         setTimeout(() => {
-            this.setState({delayedValue: 'test'}, this.forceUpdate);
+            this.setState({ delayedValue: 'test' }, this.forceUpdate);
         }, 3000);
     },
     render() {
-        const {delayedValue, isEdit} = this.state;
-        return(
+        const { delayedValue, isEdit } = this.state;
+        return (
             <div>
                 <h1> Enter your city name</h1>
                 <h5>Here is the AutocompleteSelect imported to give a customized confirm popin. You'll have the posibility to get the data you want from it.</h5>
-                <AutocompleteSelect ref='autocomp' isEdit={isEdit} keyResolver={keyResolver} querySearcher={querySearcher} onChange={ () => console.log('Autocomplete text is changing')} />
+                <AutocompleteSelect ref='autocomp' isEdit={isEdit} keyResolver={keyResolver} querySearcher={querySearcher} onChange={() => console.log('Autocomplete text is changing')} />
             </div>
         );
     }
@@ -112,10 +111,10 @@ const NameText = React.createClass({
         return this.refs.textName.getValue();
     },
     render() {
-        return(
+        return (
             <Input name='myInput' onChange={() => console.log('Changing the input')} ref='textName' />
         );
     }
 });
 
-module.exports = ConfirmExample;
+export default ConfirmExample;

@@ -1,4 +1,4 @@
-const Dropdown = FocusComponents.common.selectAction.component;
+import { component as Dropdown } from 'focus-components/common/select-action';
 
 const operationList = [
     {
@@ -22,57 +22,57 @@ const operationList = [
 ];
 
 const DropdownExample = React.createClass({
-  render() {
-    return(
-      <div>
-        <Dropdown top={true} position='left' operationList={operationList}/>
-        <Dropdown top={true} position='left' operationList={operationList}/>
-        <Dropdown top={true} position='left' operationList={operationList}/>
-        <Dropdown top={true} position='left' operationList={operationList}/>
-        <Dropdown top={true} position='left' operationList={operationList}/>
-        <Dropdown top={true} position='left' operationList={operationList}/>
-        <Dropdown top={true} position='left' operationList={operationList}/>
-        <Dropdown top={true} position='left' operationList={operationList}/>
-        <Dropdown top={true} position='left' operationList={operationList}/>
-        <Dropdown top={true} position='left' operationList={operationList}/>
-        <Dropdown top={true} position='left' operationList={operationList}/>
-        <Dropdown top={true} position='left' operationList={operationList}/>
-        <Dropdown top={true} position='left' operationList={operationList}/>
-        <Dropdown top={true} position='left' operationList={operationList}/>
-        <Dropdown top={true} position='left' operationList={operationList}/>
-        <Dropdown top={true} position='left' operationList={operationList}/>
-        <Dropdown top={true} position='left' operationList={operationList}/>
-        <Dropdown top={true} position='left' operationList={operationList}/>
-        <Dropdown top={true} position='left' operationList={operationList}/>
-        <Dropdown top={true} position='left' operationList={operationList}/>
-        <Dropdown top={true} position='left' operationList={operationList}/>
-        <Dropdown top={true} position='left' operationList={operationList}/>
-        <Dropdown top={true} position='left' operationList={operationList}/>
-        <Dropdown top={true} position='left' operationList={operationList}/>
-        <Dropdown top={true} position='left' operationList={operationList}/>
-        <Dropdown top={true} position='left' operationList={operationList}/>
-        <Dropdown top={true} position='left' operationList={operationList}/>
-        <Dropdown top={true} position='left' operationList={operationList}/>
-        <Dropdown top={true} position='left' operationList={operationList}/>
-        <Dropdown top={true} position='left' operationList={operationList}/>
-        <Dropdown top={true} position='left' operationList={operationList}/>
-        <Dropdown top={true} position='left' operationList={operationList}/>
-        <Dropdown top={true} position='left' operationList={operationList}/>
-        <Dropdown top={true} position='left' operationList={operationList}/>
-        <Dropdown top={true} position='left' operationList={operationList}/>
-        <Dropdown top={true} position='left' operationList={operationList}/>
-        <Dropdown top={true} position='left' operationList={operationList}/>
-        <Dropdown top={true} position='left' operationList={operationList}/>
-        <Dropdown top={true} position='left' operationList={operationList}/>
-        <Dropdown top={true} position='left' operationList={operationList}/>
-        <Dropdown top={true} position='left' operationList={operationList}/>
-        <Dropdown top={true} position='left' operationList={operationList}/>
-        <Dropdown top={true} position='left' operationList={operationList}/>
-        <Dropdown top={true} position='left' operationList={operationList}/>
-        <Dropdown top={true} position='left' operationList={operationList}/>
-      </div>
-    )
-  }
+    render() {
+        return (
+            <div>
+                <Dropdown top position='left' operationList={operationList} />
+                <Dropdown top position='left' operationList={operationList} />
+                <Dropdown top position='left' operationList={operationList} />
+                <Dropdown top position='left' operationList={operationList} />
+                <Dropdown top position='left' operationList={operationList} />
+                <Dropdown top position='left' operationList={operationList} />
+                <Dropdown top position='left' operationList={operationList} />
+                <Dropdown top position='left' operationList={operationList} />
+                <Dropdown top position='left' operationList={operationList} />
+                <Dropdown top position='left' operationList={operationList} />
+                <Dropdown top position='left' operationList={operationList} />
+                <Dropdown top position='left' operationList={operationList} />
+                <Dropdown top position='left' operationList={operationList} />
+                <Dropdown top position='left' operationList={operationList} />
+                <Dropdown top position='left' operationList={operationList} />
+                <Dropdown top position='left' operationList={operationList} />
+                <Dropdown top position='left' operationList={operationList} />
+                <Dropdown top position='left' operationList={operationList} />
+                <Dropdown top position='left' operationList={operationList} />
+                <Dropdown top position='left' operationList={operationList} />
+                <Dropdown top position='left' operationList={operationList} />
+                <Dropdown top position='left' operationList={operationList} />
+                <Dropdown top position='left' operationList={operationList} />
+                <Dropdown top position='left' operationList={operationList} />
+                <Dropdown top position='left' operationList={operationList} />
+                <Dropdown top position='left' operationList={operationList} />
+                <Dropdown top position='left' operationList={operationList} />
+                <Dropdown top position='left' operationList={operationList} />
+                <Dropdown top position='left' operationList={operationList} />
+                <Dropdown top position='left' operationList={operationList} />
+                <Dropdown top position='left' operationList={operationList} />
+                <Dropdown top position='left' operationList={operationList} />
+                <Dropdown top position='left' operationList={operationList} />
+                <Dropdown top position='left' operationList={operationList} />
+                <Dropdown top position='left' operationList={operationList} />
+                <Dropdown top position='left' operationList={operationList} />
+                <Dropdown top position='left' operationList={operationList} />
+                <Dropdown top position='left' operationList={operationList} />
+                <Dropdown top position='left' operationList={operationList} />
+                <Dropdown top position='left' operationList={operationList} />
+                <Dropdown top position='left' operationList={operationList} />
+                <Dropdown top position='left' operationList={operationList} />
+                <Dropdown top position='left' operationList={operationList} />
+                <Dropdown top position='left' operationList={operationList} />
+                <Dropdown top position='left' operationList={operationList} />
+            </div>
+        )
+    }
 })
 
-module.exports = DropdownExample;
+export default DropdownExample;

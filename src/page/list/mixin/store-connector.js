@@ -1,6 +1,7 @@
-let React = require('react');
-let isEqual = require('lodash/lang/isEqual');
-module.exports = function connectToStores(Component, stores, pickProps, getState) {
+import React from 'react';
+import { isEqual } from 'lodash/lang';
+
+export default function connectToStores(Component, stores, pickProps, getState) {
     return class StoreConnector extends React.Component {
         constructor(props) {
             super(props);
@@ -14,8 +15,8 @@ module.exports = function connectToStores(Component, stores, pickProps, getState
 
         componentDidMount() {
             stores.forEach(store =>
-        store.addChangeListener(this.handleStoresChanged)
-      );
+                store.addChangeListener(this.handleStoresChanged)
+            );
         }
 
         componentWillReceiveProps(nextProps) {
@@ -26,8 +27,8 @@ module.exports = function connectToStores(Component, stores, pickProps, getState
 
         componentWillUnmount() {
             stores.forEach(store =>
-        store.removeChangeListener(this.handleStoresChanged)
-      );
+                store.removeChangeListener(this.handleStoresChanged)
+            );
         }
 
         handleStoresChanged() {
@@ -35,7 +36,9 @@ module.exports = function connectToStores(Component, stores, pickProps, getState
         }
 
         render() {
-            return <Component {...this.props} {...this.state} />;
+            return (
+                <Component {...this.props} {...this.state} />
+            );
         }
-  };
+    };
 }
