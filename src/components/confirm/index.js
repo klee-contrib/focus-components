@@ -10,15 +10,15 @@ import connect from '../../behaviours/store/connect';
 const propTypes = {
     isVisible: PropTypes.bool,
     ConfirmContentComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.string]),
-    handleCancel: PropTypes.func,
-    handleConfirm: PropTypes.func
+    cancelHandler: PropTypes.func,
+    confirmHandler: PropTypes.func
 };
 
 const defaultProps = {
     isVisible: false,
     ConfirmContentComponent: null,
-    handleCancel: null,
-    handleConfirm: null
+    cancelHandler: null,
+    confirmHandler: null
 };
 
 const connector = connect(
@@ -40,7 +40,7 @@ const connector = connect(
 )
 
 const ConfirmWrapper = (props) => {
-    const { isVisible, ConfirmContentComponent, handleCancel, handleConfirm, contentProps } = props;
+    const { isVisible, ConfirmContentComponent, cancelHandler, confirmHandler, contentProps } = props;
     const ConfirmContent = isString(ConfirmContentComponent)
         ? () => (<span>{ConfirmContentComponent}</span>)
         : ConfirmContentComponent;
@@ -48,8 +48,8 @@ const ConfirmWrapper = (props) => {
     return isVisible ? (
         <ConfirmationModal
             open
-            cancelHandler={handleCancel}
-            confirmHandler={handleConfirm}
+            cancelHandler={cancelHandler}
+            confirmHandler={confirmHandler}
             {...contentProps}
         >
             {ConfirmContent ? (<ConfirmContent />) : null}
