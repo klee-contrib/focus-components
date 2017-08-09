@@ -1,9 +1,11 @@
-import React, { Component, PropTypes } from 'react';
-import ReactDOM from 'react-dom';
+import React, { PropTypes } from 'react';
 import { isString } from 'lodash/lang';
+
+import { builtInStore as applicationStore } from 'focus-core/application';
+
 import { component as ConfirmationModal } from '../../application/confirmation-popin';
 import connect from '../../behaviours/store/connect';
-import { builtInStore as applicationStore } from 'focus-core/application';
+
 
 const propTypes = {
     isVisible: PropTypes.bool,
@@ -14,7 +16,9 @@ const propTypes = {
 
 const defaultProps = {
     isVisible: false,
-    ConfirmContentComponent: null
+    ConfirmContentComponent: null,
+    handleCancel: null,
+    handleConfirm: null
 };
 
 const connector = connect(
@@ -35,8 +39,8 @@ const connector = connect(
     }
 )
 
-const ConfirmWrapper = () => {
-    const { isVisible, ConfirmContentComponent, cancelHandler, confirmHandler, contentProps } = this.props;
+const ConfirmWrapper = (props) => {
+    const { isVisible, ConfirmContentComponent, handleCancel, handleConfirm, contentProps } = props;
     const ConfirmContent = isString(ConfirmContentComponent)
         ? () => (<span>{ConfirmContentComponent}</span>)
         : ConfirmContentComponent;
@@ -44,8 +48,8 @@ const ConfirmWrapper = () => {
     return isVisible ? (
         <ConfirmationModal
             open
-            cancelHandler={cancelHandler}
-            confirmHandler={confirmHandler}
+            cancelHandler={handleCancel}
+            confirmHandler={handleConfirm}
             {...contentProps}
         >
             {ConfirmContent ? (<ConfirmContent />) : null}
