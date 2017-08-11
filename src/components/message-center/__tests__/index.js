@@ -1,177 +1,192 @@
-import MessageCenter from '../';
-import {findDOMNode, unmountComponentAtNode} from 'react-dom';
-import {addErrorMessage, addWarningMessage, addInformationMessage, addSuccessMessage} from 'focus-core/message';
 
-const {findRenderedDOMComponentWithClass, renderIntoDocument, Simulate} = TestUtils;
+import TestUtils from 'react-addons-test-utils';
+import { init } from 'focus-core/translation';
+import React from 'react';
+
+import MessageCenter from '../index';
+import ReactDOM, { findDOMNode, unmountComponentAtNode } from 'react-dom';
+import { addErrorMessage, addWarningMessage, addInformationMessage, addSuccessMessage } from 'focus-core/message';
+
+const { findRenderedDOMComponentWithClass, renderIntoDocument, Simulate } = TestUtils;
+
+const i18nConfig = {
+    resStore: {},
+    lng: 'fr-FR'///langOpts.i18nCulture
+};
+
 
 describe('The MessageCenter', () => {
+    beforeEach(() => {
+        init(i18nConfig);
+    });
+
     describe('when mounted', () => {
         let reactComponent, domNode;
-        after(() => {
+        afterEach(() => {
             unmountComponentAtNode(findDOMNode(reactComponent).parentNode);
         });
-        before(() => {
+        beforeEach(() => {
             const MessageCenterComponent = <MessageCenter />;
             reactComponent = renderIntoDocument(MessageCenterComponent);
             domNode = findDOMNode(reactComponent);
         });
         it('should be rendered in the DOM', () => {
-            expect(reactComponent).to.exist;
-            expect(reactComponent).to.be.an('object');
-            expect(domNode.tagName).to.equal('DIV');
+            expect(reactComponent).toBeDefined();
+            expect(reactComponent).toBeInstanceOf(Object);
+            expect(domNode.tagName).toBe('DIV');
         });
         it('should render data-focus attribute', () => {
-            expect(domNode.getAttribute('data-focus')).to.equal('snackbar-message-center');
+            expect(domNode.getAttribute('data-focus')).toBe('snackbar-message-center');
         });
         it('should render mdl classes', () => {
-            expect(domNode.getAttribute('class')).to.contain('mdl-snackbar');
-            expect(domNode.getAttribute('class')).not.to.contain('mdl-snackbar--active');
+            expect(domNode.getAttribute('class')).toMatch('mdl-snackbar');
+            expect(domNode.getAttribute('class')).not.toMatch('mdl-snackbar--active');
         });
         it('should render aria attributes', () => {
-            expect(domNode.getAttribute('aria-hidden')).to.equal('false');
-            expect(domNode.getAttribute('aria-live')).to.equal('assertive');
-            expect(domNode.getAttribute('aria-atomic')).to.equal('true');
-            expect(domNode.getAttribute('aria-relevant')).to.equal('text');
+            expect(domNode.getAttribute('aria-hidden')).toBe('false');
+            expect(domNode.getAttribute('aria-live')).toBe('assertive');
+            expect(domNode.getAttribute('aria-atomic')).toBe('true');
+            expect(domNode.getAttribute('aria-relevant')).toBe('text');
         });
         it('should not be visible', () => {
-            expect(domNode.getAttribute('class')).not.to.contain('mdl-snackbar--active');
-            expect(domNode.getAttribute('aria-hidden')).to.equal('false');
+            expect(domNode.getAttribute('class')).not.toMatch('mdl-snackbar--active');
+            expect(domNode.getAttribute('aria-hidden')).toBe('false');
         });
     });
     describe('when the system receive', () => {
         describe('an informative message', () => {
             const message = 'this is a test';
             let reactComponent, domNode;
-            after(() => {
+            afterEach(() => {
                 unmountComponentAtNode(findDOMNode(reactComponent).parentNode);
             });
-            before(() => {
+            beforeEach(() => {
                 const MessageCenterComponent = <MessageCenter />;
                 reactComponent = renderIntoDocument(MessageCenterComponent);
                 domNode = findDOMNode(reactComponent);
             });
-            before(() => {
+            beforeEach(() => {
                 addInformationMessage(message);
             });
             it('should be visible', () => {
-                expect(reactComponent).to.exist;
-                expect(domNode.getAttribute('class')).to.contain('mdl-snackbar--active');
-                expect(domNode.getAttribute('aria-hidden')).to.equal('true');
+                expect(reactComponent).toBeDefined();
+                expect(domNode.getAttribute('class')).toMatch('mdl-snackbar--active');
+                expect(domNode.getAttribute('aria-hidden')).toBe('true');
             });
             it('should display the sent message', () => {
                 const messageContent = domNode.querySelector('.mdl-snackbar__text');
-                expect(messageContent).to.exist;
-                expect(messageContent.tagName).to.equal('DIV');
-                expect(messageContent.innerHTML).to.equal(message);
+                expect(messageContent).toBeDefined();
+                expect(messageContent.tagName).toBe('DIV');
+                expect(messageContent.innerHTML).toBe(message);
             });
-            it('should should not display action', () => {
+            it('should not display action', () => {
                 const actionContent = domNode.querySelector('.mdl-snackbar__action');
-                expect(actionContent).not.to.exist;
+                expect(actionContent).toBeNull();
             });
         });
         describe('an error message', () => {
             const message = 'this is an error';
             let reactComponent, domNode;
-            after(() => {
+            afterEach(() => {
                 unmountComponentAtNode(findDOMNode(reactComponent).parentNode);
             });
-            before(() => {
+            beforeEach(() => {
                 const MessageCenterComponent = <MessageCenter />;
                 reactComponent = renderIntoDocument(MessageCenterComponent);
                 domNode = findDOMNode(reactComponent);
             });
-            before(() => {
+            beforeEach(() => {
                 addErrorMessage(message);
             });
             it('should be visible', () => {
-                expect(reactComponent).to.exist;
-                expect(domNode.getAttribute('class')).to.contain('mdl-snackbar--active');
-                expect(domNode.getAttribute('aria-hidden')).to.equal('true');
+                expect(reactComponent).toBeDefined();
+                expect(domNode.getAttribute('class')).toMatch('mdl-snackbar--active');
+                expect(domNode.getAttribute('aria-hidden')).toBe('true');
             });
             it('should display the sent message', () => {
                 const messageContent = domNode.querySelector('.mdl-snackbar__text');
-                expect(messageContent).to.exist;
-                expect(messageContent.tagName).to.equal('DIV');
-                expect(messageContent.innerHTML).to.equal(message);
+                expect(messageContent).toBeDefined();
+                expect(messageContent.tagName).toBe('DIV');
+                expect(messageContent.innerHTML).toBe(message);
             });
             it('should should not display action', () => {
                 const actionContent = domNode.querySelector('.mdl-snackbar__action');
-                expect(actionContent).not.to.exist;
+                expect(actionContent).toBeNull();
             });
         });
         describe('a success message', () => {
             const message = 'this is a success';
             let reactComponent, domNode;
-            after(() => {
+            afterEach(() => {
                 unmountComponentAtNode(findDOMNode(reactComponent).parentNode);
             });
-            before(() => {
+            beforeEach(() => {
                 const MessageCenterComponent = <MessageCenter />;
                 reactComponent = renderIntoDocument(MessageCenterComponent);
                 domNode = findDOMNode(reactComponent);
             });
-            before(() => {
+            beforeEach(() => {
                 addSuccessMessage(message);
             });
             it('should be visible', () => {
-                expect(reactComponent).to.exist;
-                expect(domNode.getAttribute('class')).to.contain('mdl-snackbar--active');
-                expect(domNode.getAttribute('aria-hidden')).to.equal('true');
+                expect(reactComponent).toBeDefined();
+                expect(domNode.getAttribute('class')).toMatch('mdl-snackbar--active');
+                expect(domNode.getAttribute('aria-hidden')).toBe('true');
             });
             it('should display the sent message', () => {
                 const messageContent = domNode.querySelector('.mdl-snackbar__text');
-                expect(messageContent).to.exist;
-                expect(messageContent.tagName).to.equal('DIV');
-                expect(messageContent.innerHTML).to.equal(message);
+                expect(messageContent).toBeDefined();
+                expect(messageContent.tagName).toBe('DIV');
+                expect(messageContent.innerHTML).toBe(message);
             });
             it('should should not display action', () => {
                 const actionContent = domNode.querySelector('.mdl-snackbar__action');
-                expect(actionContent).not.to.exist;
+                expect(actionContent).toBeNull();
             });
         });
         describe('a warning message', () => {
             const message = 'this is a warning';
             let reactComponent, domNode;
-            after(() => {
+            afterEach(() => {
                 unmountComponentAtNode(findDOMNode(reactComponent).parentNode);
             });
-            before(() => {
+            beforeEach(() => {
                 const MessageCenterComponent = <MessageCenter />;
                 reactComponent = renderIntoDocument(MessageCenterComponent);
                 domNode = findDOMNode(reactComponent);
             });
-            before(() => {
+            beforeEach(() => {
                 addWarningMessage(message);
             });
             it('should be visible', () => {
-                expect(reactComponent).to.exist;
-                expect(domNode.getAttribute('class')).to.contain('mdl-snackbar--active');
-                expect(domNode.getAttribute('aria-hidden')).to.equal('true');
+                expect(reactComponent).toBeDefined();
+                expect(domNode.getAttribute('class')).toMatch('mdl-snackbar--active');
+                expect(domNode.getAttribute('aria-hidden')).toBe('true');
             });
             it('should display the sent message', () => {
                 const messageContent = domNode.querySelector('.mdl-snackbar__text');
-                expect(messageContent).to.exist;
-                expect(messageContent.tagName).to.equal('DIV');
-                expect(messageContent.innerHTML).to.equal(message);
+                expect(messageContent).toBeDefined();
+                expect(messageContent.tagName).toBe('DIV');
+                expect(messageContent.innerHTML).toBe(message);
             });
             it('should should not display action', () => {
                 const actionContent = domNode.querySelector('.mdl-snackbar__action');
-                expect(actionContent).not.to.exist;
+                expect(actionContent).toBeNull();
             });
         });
         describe('a message with an action', () => {
             const message = 'This is a message with action';
             const actionText = 'Action';
             let reactComponent, domNode;
-            after(() => {
+            afterEach(() => {
                 unmountComponentAtNode(findDOMNode(reactComponent).parentNode);
             });
-            before(() => {
+            beforeEach(() => {
                 const MessageCenterComponent = <MessageCenter />;
                 reactComponent = renderIntoDocument(MessageCenterComponent);
                 domNode = findDOMNode(reactComponent);
             });
-            before(() => {
+            beforeEach(() => {
                 const messageWithAction = {
                     content: message,
                     action: {
@@ -182,26 +197,26 @@ describe('The MessageCenter', () => {
                 addInformationMessage(messageWithAction);
             });
             it('should be visible', () => {
-                expect(reactComponent).to.exist;
-                expect(domNode.getAttribute('class')).to.contain('mdl-snackbar--active');
-                expect(domNode.getAttribute('aria-hidden')).to.equal('true');
+                expect(reactComponent).toBeDefined();
+                expect(domNode.getAttribute('class')).toMatch('mdl-snackbar--active');
+                expect(domNode.getAttribute('aria-hidden')).toBe('true');
             });
             it('should display the sent message', () => {
                 const messageContent = domNode.querySelector('.mdl-snackbar__text');
-                expect(messageContent).to.exist;
-                expect(messageContent.tagName).to.equal('DIV');
-                expect(messageContent.innerHTML).to.equal(message);
+                expect(messageContent).toBeDefined();
+                expect(messageContent.tagName).toBe('DIV');
+                expect(messageContent.innerHTML).toBe(message);
             });
             it('should should display the action', () => {
                 const actionContent = domNode.querySelector('.mdl-snackbar__action');
-                expect(actionContent).to.exist;
-                expect(actionContent.tagName).to.equal('BUTTON');
-                expect(actionContent.getAttribute('type')).to.equal('button');
-                //expect(actionContent.getAttribute('onClick')).not.to.be.null;
+                expect(actionContent).toBeDefined();
+                expect(actionContent.tagName).toBe('BUTTON');
+                expect(actionContent.getAttribute('type')).toBe('button');
+                //expect(actionContent.getAttribute('onClick')).not.toBeNull();
                 //expect(actionContent.getAttribute('onclick')).to.be.a('function');
-                expect(actionContent.innerHTML).to.equal(actionText);
+                expect(actionContent.innerHTML).toBe(actionText);
             });
-            it.skip('should trigger function on click on action');
+            // it('should trigger function on click on action');
         });
     });
 });

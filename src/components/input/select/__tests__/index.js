@@ -1,29 +1,35 @@
+
+import TestUtils from 'react-addons-test-utils';
+import React from 'react';
+import ReactDOM from 'react-dom';
+
 import Select from '../';
-const {renderIntoDocument, Simulate} = TestUtils;
-import {identity} from 'lodash/lang';
+
+const { renderIntoDocument, Simulate } = TestUtils;
+import { identity } from 'lodash/lang';
 import fixture from './fixture';
-//onChangeSpy = sinon.spy();
+//onChangeSpy = jest.fn();
 
 describe('The select ', () => {
     describe('when called with no props', () => {
         let component;
-        before(
+        beforeEach(
             () => {
                 const shallowRenderer = TestUtils.createRenderer();
-                shallowRenderer.render(<Select/>);
+                shallowRenderer.render(<Select />);
                 component = shallowRenderer.getRenderOutput();
             }
         );
-        it.skip('should render an empty select', () => {
+        it('should render an empty select', () => {
 
         });
     });
     describe('when called with minimal props', () => {
         let component, domNode;
         const mockValues = fixture.VALUES;
-        before(
+        beforeEach(
             () => {
-                component = renderIntoDocument(<Select name='selectName' values={mockValues} onChange={identity}/>);
+                component = renderIntoDocument(<Select name='selectName' values={mockValues} onChange={identity} />);
                 domNode = ReactDOM.findDOMNode(component);
             }
         );
@@ -38,104 +44,104 @@ describe('The select ', () => {
             //         }
             //     }
             // }, () => {
-            expect(domNode.tagName).to.equal('DIV');
-            expect(domNode.getAttribute('data-focus')).to.equal('select');
+            expect(domNode.tagName).toBe('DIV');
+            expect(domNode.getAttribute('data-focus')).toBe('select');
             const domSelect = ReactDOM.findDOMNode(component.refs.htmlSelect);
-            expect(domSelect.tagName).to.equal('SELECT');
-            expect(domSelect.options.length).to.equal(mockValues.length + 1);
-            expect(domSelect.options[0].value).to.equal('UNSELECTED_KEY');
-            //expect(domSelect.options[0].innerHTML).to.equal('select.unSelected');
-            expect(+domSelect.options[1].value).to.equal(mockValues[0].code);
-            expect(domSelect.options[1].innerHTML).to.equal(mockValues[0].label);
+            expect(domSelect.tagName).toBe('SELECT');
+            expect(domSelect.options.length).toBe(mockValues.length + 1);
+            expect(domSelect.options[0].value).toBe('UNSELECTED_KEY');
+            //expect(domSelect.options[0].innerHTML).toBe('select.unSelected');
+            expect(+domSelect.options[1].value).toBe(mockValues[0].code);
+            expect(domSelect.options[1].innerHTML).toBe(mockValues[0].label);
             // });
         });
         it('should not have a value', () => {
-            expect(component.getValue()).to.equal(null);
+            expect(component.getValue()).toBe(null);
         });
     });
     describe('when a value is provided', () => {
-        const {VALUE, VALUES} = fixture;
+        const { VALUE, VALUES } = fixture;
         let component, domNode;
-        before(() => {
+        beforeEach(() => {
             component = renderIntoDocument(<Select name='selectName' onChange={identity} value={VALUE} values={VALUES} />);
         });
         it('should return the value when provided as a props', () => {
-            expect(component.getValue()).to.equal(VALUE);
+            expect(component.getValue()).toBe(VALUE);
         });
         it('should render the value in the DOM', () => {
-            expect(ReactDOM.findDOMNode(component.refs.htmlSelect).value).to.equal(`${VALUE}`);
+            expect(ReactDOM.findDOMNode(component.refs.htmlSelect).value).toBe(`${VALUE}`);
         });
     });
     describe('when there is a isActive in the select list', () => {
-        const {VALUES, VALUE} = fixture;
+        const { VALUES, VALUE } = fixture;
         let component;
-        before(() => {
+        beforeEach(() => {
             component = renderIntoDocument(<Select isRequired hasUndefined={false} name='selectName' onChange={identity} value={VALUE} values={VALUES} />);
         });
         describe('when there is list without isActive present', () => {
             it('shoud not filter the select list', () => {
-                expect(ReactDOM.findDOMNode(component.refs.htmlSelect).options.length).to.equal(VALUES.length);
+                expect(ReactDOM.findDOMNode(component.refs.htmlSelect).options.length).toBe(VALUES.length);
             });
         });
         describe('when there is list with isActive present', () => {
-            const {VALUES_ACTIVE, VALUE} = fixture;
+            const { VALUES_ACTIVE, VALUE } = fixture;
             let component;
-            before(() => {
+            beforeEach(() => {
                 component = renderIntoDocument(<Select isRequired hasUndefined={false} name='selectName' onChange={identity} value={VALUE} values={VALUES_ACTIVE} />);
             });
             it('shoud filter the select list', () => {
-                expect(ReactDOM.findDOMNode(component.refs.htmlSelect).options.length).to.equal(2);
+                expect(ReactDOM.findDOMNode(component.refs.htmlSelect).options.length).toBe(2);
             });
         });
         describe('when there is list with a custom isActive present', () => {
-            const {VALUES_CUSTOM_ACTIVE, VALUE} = fixture;
+            const { VALUES_CUSTOM_ACTIVE, VALUE } = fixture;
             let component;
-            before(() => {
+            beforeEach(() => {
                 component = renderIntoDocument(<Select isRequired hasUndefined={false} isActiveProperty='isActiveCustom' name='selectName' onChange={identity} value={VALUE} values={VALUES_CUSTOM_ACTIVE} />);
             });
             it('shoud filter the select list according to the custom value', () => {
-                expect(ReactDOM.findDOMNode(component.refs.htmlSelect).options.length).to.equal(2);
+                expect(ReactDOM.findDOMNode(component.refs.htmlSelect).options.length).toBe(2);
             });
         });
         describe('when there is list with a wrong custom isActive present', () => {
-            const {VALUES_CUSTOM_ACTIVE, VALUE} = fixture;
+            const { VALUES_CUSTOM_ACTIVE, VALUE } = fixture;
             let component;
-            before(() => {
+            beforeEach(() => {
                 component = renderIntoDocument(<Select isActiveProperty='isActiveCustomPAPA' isRequired hasUndefined={false} name='selectName' onChange={identity} value={VALUE} values={VALUES_CUSTOM_ACTIVE} />);
             });
             it('shoud not filter the select list', () => {
-                expect(ReactDOM.findDOMNode(component.refs.htmlSelect).options.length).to.equal(VALUES_CUSTOM_ACTIVE.length);
+                expect(ReactDOM.findDOMNode(component.refs.htmlSelect).options.length).toBe(VALUES_CUSTOM_ACTIVE.length);
             });
         });
     });
     describe('when the user select a new value', () => {
-        const {VALUE, VALUES} = fixture;
+        const { VALUE, VALUES } = fixture;
         let onChangeSpy, component;
-        before(
+        beforeEach(
             () => {
-                onChangeSpy = sinon.spy();
+                onChangeSpy = jest.fn();
                 component = renderIntoDocument(<Select name='selectName' onChange={onChangeSpy} value={VALUE} values={VALUES} />);
             }
         );
         it('should call onChange with the new value', () => {
-            Simulate.change(ReactDOM.findDOMNode(component.refs.htmlSelect), {target: {value: VALUE}});
-            expect(onChangeSpy).to.have.been.called.once;
-            expect(onChangeSpy).to.have.been.calledWith(VALUE);
+            Simulate.change(ReactDOM.findDOMNode(component.refs.htmlSelect), { target: { value: VALUE } });
+            expect(onChangeSpy).toHaveBeenCalledTimes(1);
+            expect(onChangeSpy).toHaveBeenCalledWith(VALUE);
         });
     });
     describe('when there is an error', () => {
-        const {VALUE, VALUES} = fixture;
+        const { VALUE, VALUES } = fixture;
         const error = 'MY ERROR';
         let component;
-        before(
+        beforeEach(
             () => {
                 component = renderIntoDocument(<Select error={error} name='selectName' onChange={identity} value={VALUE} values={VALUES} />);
             }
         );
         it('it should be displayed', () => {
             const errorDOMNode = ReactDOM.findDOMNode(component.refs.error);
-            expect(errorDOMNode).to.exist;
-            expect(errorDOMNode.innerHTML).to.equal(error);
+            expect(errorDOMNode).toBeDefined();
+            expect(errorDOMNode.innerHTML).toBe(error);
         });
     })
 });

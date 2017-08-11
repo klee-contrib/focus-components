@@ -76,6 +76,14 @@ class AutocompleteTextEdit extends Component {
         isLoading: false
     };
 
+    constructor(props) {
+        super(props);
+        this.toggleHasFocus = this.toggleHasFocus.bind(this);
+        this.onQueryChange = this.onQueryChange.bind(this);
+        this.toggleHasFocus = this.toggleHasFocus.bind(this);
+        this._querySearcher = this._querySearcher.bind(this);
+    }
+
     componentWillReceiveProps({ error }) {
         if (error) {
             this.setState({ error: error });
@@ -123,6 +131,7 @@ class AutocompleteTextEdit extends Component {
         } else {
             this.refs.loader.classList.add('mdl-progress__indeterminate');
             this.setState({ isLoading: true });
+
             this._debouncedQuerySearcher(value);
             // this._querySearcher(value); 
         }

@@ -1,50 +1,61 @@
+
+import TestUtils from 'react-addons-test-utils';
+import React from 'react';
+import ReactDOM from 'react-dom';
+
 import storeConnectBehaviour from '../connect';
-const {renderIntoDocument, Simulate} = TestUtils;
+const { renderIntoDocument, Simulate } = TestUtils;
+
 import store from 'focus-core/store';
 import dispatcher from 'focus-core/dispatcher';
-const {CoreStore} = store;
+const { CoreStore } = store;
 
 
 describe('The store connect behaviour', () => {
     describe('when called without storeConf', () => {
         it('should throw an error', () => {
-            expect(() => storeConnectBehaviour()).to.throw('connectToStores: you need to provide an array of store config.');
+            expect(() => storeConnectBehaviour()).toThrow('connectToStores: you need to provide an array of store config.');
         });
     });
     describe('when called without getState', () => {
         it('should throw an error', () => {
-            expect(() => storeConnectBehaviour([])).to.throw('connectToStores: you need to provide function to read state from store.');
+            expect(() => storeConnectBehaviour([])).toThrow('connectToStores: you need to provide function to read state from store.');
         });
     });
     describe('when called with correct argument', () => {
         it('should return a function', () => {
-            expect(() => storeConnectBehaviour([], () => {})).to.be.a.function;
+            expect(() => storeConnectBehaviour([], () => { })).toBeInstanceOf(Function);
         });
     });
     describe('when called with a store', () => {
         let renderComponent;
-        const storeChangeSpy = sinon.spy();
-        const conectedComponentRenderSpy = sinon.spy();
-        const newStore = new CoreStore({definition: {papa: 'papa', lopez: 'lopez'}});
-        const connector = storeConnectBehaviour(
-            [{store: newStore, properties: ['papa', 'lopez']}],
-            (props) => {const storeValue = newStore.getValue(); storeChangeSpy(storeValue); return storeValue; }
-        );
-        const Component = (props) => { conectedComponentRenderSpy(props); return <div>{JSON.stringify(props)}</div>;};
-        const ConnectedComponent = connector(Component);
-        before(
+        let storeChangeSpy;
+        let conectedComponentRenderSpy;
+        beforeEach(
             () => {
-                renderComponent = renderIntoDocument(<ConnectedComponent testProps='testPropsValue'/>);
+                storeChangeSpy = jest.fn();
+                conectedComponentRenderSpy = jest.fn();
+                const newStore = new CoreStore({ definition: { papa: 'papa', lopez: 'lopez' } });
+                const connector = storeConnectBehaviour(
+                    [{ store: newStore, properties: ['papa', 'lopez'] }],
+                    (props) => { const storeValue = newStore.getValue(); storeChangeSpy(storeValue); return storeValue; }
+                );
+                const Component = (props) => { conectedComponentRenderSpy(props); return <div>{JSON.stringify(props)}</div>; };
+                const ConnectedComponent = connector(Component);
+
+                renderComponent = renderIntoDocument(<ConnectedComponent testProps='testPropsValue' />);
             }
         );
         it('should call the getState method on mounting', () => {
-            expect(storeChangeSpy).to.have.been.called.once;
-            expect(storeChangeSpy).to.have.been.calledWith({});
-            expect(conectedComponentRenderSpy).to.have.been.called.once;
-            expect(conectedComponentRenderSpy).to.have.been.calledWith({testProps: 'testPropsValue'});
+            expect(storeChangeSpy).toHaveBeenCalledTimes(1);
+            expect(storeChangeSpy).toHaveBeenCalledWith({});
+            expect(conectedComponentRenderSpy).toHaveBeenCalledTimes(1);
+            expect(conectedComponentRenderSpy).toHaveBeenCalledWith({ testProps: 'testPropsValue' });
         });
-        describe.skip('when a value with two nodes is dispatched' , () => {
-            before(() => {
+        describe('when a value with two nodes is dispatched', () => {
+            beforeEach(() => {
+                jest.useFakeTimers();
+
                 dispatcher.handleViewAction({
                     data: {
                         lopez: 'joe',
@@ -52,16 +63,18 @@ describe('The store connect behaviour', () => {
                     },
                     type: 'update'
                 });
+                jest.runAllTimers();
+
             });
-            it('the store change spy should have been called twice', () => {
-                expect(storeChangeSpy).to.have.been.called.thrice; //Mounting, joe, singe
+            it.skip('the store change spy should have been called twice', () => {
+                expect(storeChangeSpy).toHaveBeenCalledTimes(4); //Initial, DidMount, joe, singe
             });
-            it('the component shoud have been rendered twice', () => {
-                expect(conectedComponentRenderSpy).to.have.been.called.twice;
+            it.skip('the component shoud have been rendered twice', () => {
+                expect(conectedComponentRenderSpy).toHaveBeenCalledTimes(4);
             });
             it('the html generated by the component should contains props and state', () => {
                 const domNode = ReactDOM.findDOMNode(renderComponent);
-                expect(JSON.parse(domNode.innerHTML)).to.deep.equal({lopez: 'joe', papa: 'singe', testProps: 'testPropsValue'});
+                expect(JSON.parse(domNode.innerHTML)).toEqual({ lopez: 'joe', papa: 'singe', testProps: 'testPropsValue' });
             });
         });
 
