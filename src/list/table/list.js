@@ -3,7 +3,6 @@ import builder from 'focus-core/component/builder';
 import types from 'focus-core/component/types';
 import React from 'react';
 
-import keys from 'lodash/object/keys';
 import reduce from 'lodash/collection/reduce';
 
 import { translate } from 'focus-core/translation';
@@ -157,7 +156,7 @@ const tableMixin = {
             return (
                 <tfoot className='table-manual-fetch'>
                     <tr>
-                        <td colSpan={keys(this.props.columns).length}>
+                        <td colSpan={Object.keys(this.props.columns).length}>
                             <Button handleOnClick={this.fetchNextPage} label='list.button.showMore' type='button' />
                         </td>
                     </tr>

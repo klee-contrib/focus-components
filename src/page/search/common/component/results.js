@@ -5,7 +5,6 @@ import builder from 'focus-core/component/builder';
 
 import assign from 'lodash/object/assign';
 import mapValues from 'lodash/object/mapValues';
-import keys from 'lodash/object/keys';
 import omit from 'lodash/object/omit';
 
 import clone from 'lodash/lang/clone';
@@ -286,13 +285,13 @@ const Results = {
             }
             //this case occurs when the server response contains only one group with results.
             return {
-                [keys(resultsMap[0])]: {
+                [Object.keys(resultsMap[0])]: {
                     count: this.props.totalCount
                 }
             };
         } else if (1 === keys(resultsMap).length) {
             return {
-                [keys(resultsMap)[0]]: {
+                [Object.keys(resultsMap)[0]]: {
                     count: this.props.totalCount
                 }
             };

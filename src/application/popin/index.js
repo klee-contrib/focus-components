@@ -4,7 +4,6 @@ import ReactDOM from 'react-dom';
 import builder from 'focus-core/component/builder';
 import types from 'focus-core/component/types';
 import { ArgumentInvalidException } from 'focus-core/exception';
-import find from 'lodash/collection/find';
 
 /**
 * Small overlay component used to listen to scroll and prevent it to leave the Popin component
@@ -158,7 +157,7 @@ const popin = {
             <div data-focus='popin' data-level={level} data-size={this._validateSize()} data-type={type} >
                 {this.state.opened &&
                     <Overlay clickHandler={modal && this.toggleOpen} ref='popin-overlay' resize={'full' === type} show={overlay}>
-                        <div {...this._getAnimationProps() } data-focus='popin-window' onClick={this._preventPopinClose} ref='popin-window'>
+                        <div {...this._getAnimationProps()} data-focus='popin-window' onClick={this._preventPopinClose} ref='popin-window'>
                             <i className='material-icons' data-focus='popin-window-close' onClick={this.toggleOpen}>close</i>
                             <div onWheel={this._onWheel}>
                                 {children}
@@ -203,7 +202,7 @@ const popin = {
     * @private
     */
     _validateSize() {
-        if (!find(['small', 'medium', 'large'], arg => arg === this.props.size)) {
+        if (!['small', 'medium', 'large'].includes(this.props.size)) {
             throw new ArgumentInvalidException('Please provide a valid popin size among small, medium and large. Provided ' + this.props.size);
         }
         return this.props.size;

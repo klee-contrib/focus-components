@@ -4,7 +4,6 @@ import types from 'focus-core/component/types';
 import i18nBehaviour from '../../common/i18n/mixin';
 import styleBehaviour from '../../mixin/stylable';
 import { component as Title } from '../title';
-import includes from 'lodash/collection/includes';
 
 /**
 * Mixin used in order to create a block.
@@ -44,8 +43,8 @@ const blockMixin = {
     */
     render() {
         const { actions, actionsPosition, children } = this.props;
-        const shouldDisplayActionsTop = actions && includes(['both', 'top'], actionsPosition);
-        const shouldDisplayActionsBottom = actions && includes(['both', 'bottom'], actionsPosition);
+        const shouldDisplayActionsTop = actions && ['both', 'top'].includes(actionsPosition);
+        const shouldDisplayActionsBottom = actions && ['both', 'bottom'].includes(actionsPosition);
         return (
             <div className='mdl-card mdl-card--border mdl-shadow--4dp' data-focus='block'>
                 <div className='mdl-card__title mdl-card--border' data-focus='block-title'>
