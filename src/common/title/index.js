@@ -2,7 +2,7 @@
 import React from 'react';
 import builder from 'focus-core/component/builder';
 import type from 'focus-core/component/types';
-import { uniqueId } from 'lodash/utility';
+import uniqueId from 'lodash/utility/uniqueId';
 
 const titleMixin = {
 
@@ -38,5 +38,5 @@ const titleMixin = {
 };
 
 const { mixin, component } = builder(titleMixin);
-export { mixn, component };
+export { mixin, component };
 export default { mixin, component };

@@ -4,7 +4,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 
 const { renderIntoDocument, Simulate } = TestUtils;
-import { identity } from 'lodash/utility';
+import identity from 'lodash/utility/identity';
 import { component as SearchBar } from '../../search-bar';
 import { quickSearchStore } from 'focus-core/search/built-in-store';
 import actionBuilder from 'focus-core/search/action-builder';
@@ -94,7 +94,7 @@ describe('SearchBar with no scope', () => {
                 secondComponent = renderIntoDocument(<SearchBar hasScopes={false} store={quickSearchStore} action={searchAction} />);
                 input = secondComponent.refs.query.refs.htmlInput;
                 initialValue = secondComponent.state.query;
-                input.value = "test";
+                input.value = 'test';
                 Simulate.keyPress(input, pressure);
             });
             it('should change the query state', () => {

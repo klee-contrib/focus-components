@@ -4,7 +4,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 
 const { renderIntoDocument, Simulate } = TestUtils;
-import { identity } from 'lodash/utility';
+import identity from 'lodash/utility/identity';
 
 import { init } from 'focus-core/translation';
 

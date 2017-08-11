@@ -1,7 +1,7 @@
 // Dependencies
 import React from 'react';
 import builder from 'focus-core/component/builder';
-import { keys } from 'lodash/object';
+import keys from 'lodash/object/keys';
 // Components
 import { component as FacetBox } from '../../../search/facet-box';
 

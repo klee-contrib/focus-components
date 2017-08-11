@@ -2,7 +2,7 @@ import builder from 'focus-core/component/builder';
 import React from 'react';
 import ReactDOM from 'react-dom'
 import type from 'focus-core/component/types';
-import { pluck, sortBy } from 'lodash/collection';
+
 import applicationStateBehaviour from './mixin/application-state';
 
 const headerMixin = {
@@ -91,7 +91,7 @@ const headerMixin = {
         for (let sz in this.props.sizeMap) {
             sizes.push({ name: sz, sizeBorder: this.props.sizeMap[sz].sizeBorder });
         }
-        this.sizes = pluck(sortBy(sizes, 'sizeBorder'), 'name');
+        this.sizes = sizes.sort((a, b) => a.sizeBorder - b.sizeBorder).map(elt => elt.name);
     },
     /**
     * Get the current element size.

@@ -6,7 +6,12 @@ import Scroll from '../../behaviours/scroll';
 import Grid from '../grid';
 import Column from '../column';
 
-import { debounce, filter, first, last, xor } from 'lodash';
+import debounce from 'lodash/function/debounce';
+import filter from 'lodash/collection/filter';
+import first from 'lodash/array/first';
+import last from 'lodash/array/last';
+import xor from 'lodash/array/xor';
+
 
 const BackToTopComponent = BackToTop;
 

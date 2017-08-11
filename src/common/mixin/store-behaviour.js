@@ -1,5 +1,12 @@
 import assign from 'object-assign';
-import { isObject, isArray, capitalize, defaultsDeep, findIndex, pick } from 'lodash';
+
+import capitalize from 'lodash/string/capitalize';
+import isArray from 'lodash/lang/isArray';
+import isObject from 'lodash/lang/isObject';
+import defaultsDeep from 'lodash/object/defaultsDeep';
+import findIndex from 'lodash/array/findIndex';
+import pick from 'lodash/object/pick';
+
 import storeChangeBehaviour from './store-change-behaviour';
 
 /**

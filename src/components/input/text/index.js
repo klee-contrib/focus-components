@@ -1,7 +1,7 @@
 //dependencies
 import React, { Component, PropTypes } from 'react';
 import ReactDOM from 'react-dom';
-import { identity } from 'lodash/utility';
+import identity from 'lodash/utility/identity';
 import ComponentBaseBehaviour from '../../../behaviours/component-base';
 import MDBehaviour from '../../../behaviours/material';
 import filterProps from '../../../utils/filter-html-attributes';

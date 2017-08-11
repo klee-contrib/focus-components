@@ -2,9 +2,19 @@
 import React from 'react';
 import { translate } from 'focus-core/translation';
 import builder from 'focus-core/component/builder';
-import { assign, mapValues, keys, omit } from 'lodash/object';
-import { clone, isArray } from 'lodash/lang';
-import { filter, map, groupBy } from 'lodash/collection';
+
+import assign from 'lodash/object/assign';
+import mapValues from 'lodash/object/mapValues';
+import keys from 'lodash/object/keys';
+import omit from 'lodash/object/omit';
+
+import clone from 'lodash/lang/clone';
+import isArray from 'lodash/lang/isArray';
+
+import filter from 'lodash/collection/filter';
+import map from 'lodash/collection/map';
+import groupBy from 'lodash/collection/groupBy';
+
 // Components
 import DefaultEmpty from './default-empty-component';
 import { component as ListSelection } from '../../../../list/selection/list';

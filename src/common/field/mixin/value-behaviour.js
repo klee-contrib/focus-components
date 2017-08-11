@@ -1,4 +1,6 @@
-import { isObject, isFunction, isUndefined } from 'lodash/lang';
+import isUndefined from 'lodash/lang/isUndefined';
+import isObject from 'lodash/lang/isObject';
+import isFunction from 'lodash/lang/isFunction';
 
 const EMPTY = '';
 

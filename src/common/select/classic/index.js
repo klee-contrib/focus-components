@@ -5,8 +5,11 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import i18nMixin from '../../i18n/mixin';
 import stylableMixin from '../../../mixin/stylable';
-import { union } from 'lodash/array';
-import { isUndefined, isNull, isNumber } from 'lodash/lang';
+import union from 'lodash/array/union';
+
+import isUndefined from 'lodash/lang/isUndefined';
+import isNull from 'lodash/lang/isNull';
+import isNumber from 'lodash/lang/isNumber';
 
 const UNSELECTED_KEY = 'UNSELECTED_KEY';
 

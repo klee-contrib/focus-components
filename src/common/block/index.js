@@ -4,7 +4,7 @@ import types from 'focus-core/component/types';
 import i18nBehaviour from '../../common/i18n/mixin';
 import styleBehaviour from '../../mixin/stylable';
 import { component as Title } from '../title';
-import { includes } from 'lodash/collection';
+import includes from 'lodash/collection/includes';
 
 /**
 * Mixin used in order to create a block.

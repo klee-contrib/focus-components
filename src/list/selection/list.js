@@ -2,7 +2,11 @@
 import React from 'react';
 import builder from 'focus-core/component/builder';
 import types from 'focus-core/component/types';
-import { reduce, isArray, find } from 'lodash';
+
+import reduce from 'lodash/collection/reduce';
+import isArray from 'lodash/lang/isArray';
+import find from 'lodash/collection/find';
+
 //Add a ref to the props if the component is not pure add nothing in the other case.
 import { addRefToPropsIfNotPure, LINE } from '../../utils/is-react-class-component';
 import { translate } from 'focus-core/translation';

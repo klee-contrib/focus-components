@@ -1,6 +1,9 @@
-import { isArray, isFunction } from 'lodash/lang';
-import { capitalize } from 'lodash/string'
-import { keys } from 'lodash/object';
+import isFunction from 'lodash/lang/isFunction';
+import isArray from 'lodash/lang/isArray';
+
+import capitalize from 'lodash/string/capitalize'
+import keys from 'lodash/object/keys';
+
 import React, { Component } from 'react';
 
 // - Provide the component

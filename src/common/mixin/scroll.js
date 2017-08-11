@@ -1,4 +1,4 @@
-import { isUndefined } from 'lodash/lang';
+import isUndefined from 'lodash/lang/isUndefined';
 
 /**
 * Get the scroll position from the top of the screen.

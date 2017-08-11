@@ -1,7 +1,7 @@
 import builder from 'focus-core/component/builder';
 import React from 'react';
 import type from 'focus-core/component/types';
-import { omit } from 'lodash';
+import omit from 'lodash/object/omit';
 import memoryMixin from '../../list/mixin/memory-scroll';
 
 let MemoryListMixin = {

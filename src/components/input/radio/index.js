@@ -3,7 +3,7 @@ import Translation from '../../../behaviours/translation';
 import GridBehaviour from '../../../behaviours/grid';
 import MaterialBehaviour from '../../../behaviours/material';
 import filterProps from '../../../utils/filter-html-attributes';
-import { isUndefined } from 'lodash/lang';
+import isUndefined from 'lodash/lang/isUndefined';
 
 @Translation
 @MaterialBehaviour('inputMdl')

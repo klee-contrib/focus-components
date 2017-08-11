@@ -1,6 +1,5 @@
-import { component } from 'focus-components/common/select/checkbox';
-import { pull } from 'lodash';
 
+import pull from 'lodash/array/pull';
 const possibleValues = [{ value: 'A', label: 'Value A' }, { value: 'B', label: 'Value B' }, { value: 'C', label: 'Value C' }, { value: 'D', label: 'Value D' }];
 
 const SelectCheckboxSample = React.createClass({
@@ -45,17 +44,20 @@ const SelectCheckboxSample = React.createClass({
             <div>
                 <h3>List of checkboxes</h3>
                 <SelectCheckbox
-                    values={possibleValues} ref="mySelectCheckbox" />
+                    values={possibleValues} ref='mySelectCheckbox'
+                />
                 <h3>List of checkboxes with preselected values</h3>
                 <SelectCheckbox
                     value={['B']}
-                    values={possibleValues} ref="mySelectCheckbox" />
+                    values={possibleValues} ref='mySelectCheckbox'
+                />
                 <br />
                 <button onClick={this.handleGetValueClick}>Get the selected values</button>
                 <h3>Add OnChange event</h3>
                 <SelectCheckbox
                     value={this.state.selectedValues}
-                    values={possibleValues} ref="mySelectCheckbox2" onChange={this.handleGetValueClick2} />
+                    values={possibleValues} ref='mySelectCheckbox2' onChange={this.handleGetValueClick2}
+                />
             </div>
         );
     }

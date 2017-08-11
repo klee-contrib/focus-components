@@ -6,7 +6,7 @@ import ReactDOM from 'react-dom';
 import Select from '../';
 
 const { renderIntoDocument, Simulate } = TestUtils;
-import { identity } from 'lodash/lang';
+import identity from 'lodash/lang/identity';
 import fixture from './fixture';
 //onChangeSpy = jest.fn();
 

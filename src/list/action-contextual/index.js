@@ -1,7 +1,7 @@
 // Dependencies
 import React from 'react';
 import builder from 'focus-core/component/builder';
-import { reduce } from 'lodash/collection';
+import reduce from 'lodash/collection/reduce';
 // Components
 import Button from '../../components/button';
 import { component as SelectAction } from '../../common/select-action';

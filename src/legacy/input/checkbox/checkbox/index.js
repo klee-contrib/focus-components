@@ -4,7 +4,7 @@ import React from 'react';
 import i18nBehaviour from '../../../../common/i18n/mixin';
 import fieldGridBehaviour from '../../../../common/mixin/field-grid-behaviour';
 import mdlBehaviour from '../../../../common/mixin/mdl-behaviour';
-import { isUndefined } from 'lodash/lang';
+import isUndefined from 'lodash/lang/isUndefined';
 
 const checkBoxMixin = {
     mixins: [i18nBehaviour, fieldGridBehaviour, mdlBehaviour],

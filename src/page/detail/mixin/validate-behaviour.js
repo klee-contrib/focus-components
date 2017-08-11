@@ -1,4 +1,6 @@
-import { isFunction, isEmpty } from 'lodash/lang';
+import isFunction from 'lodash/lang/isFunction';
+import isEmpty from 'lodash/lang/isEmpty';
+
 import assign from 'object-assign';
 
 export default {
