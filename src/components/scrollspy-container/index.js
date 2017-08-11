@@ -2,9 +2,6 @@ import React, { Component, PropTypes } from 'react';
 import ReactDOM from 'react-dom';
 import BackToTop from '../button-back-to-top'
 import StickyMenu from './sticky-menu';
-import Scroll from '../../behaviours/scroll';
-import Grid from '../grid';
-import Column from '../column';
 
 import debounce from 'lodash/function/debounce';
 import filter from 'lodash/collection/filter';
@@ -67,22 +64,22 @@ class ScrollspyContainer extends Component {
     * Refresh screen X times.
     * @param  {number} time number of execution
     */
-    _executeRefreshMenu = (time) => {
+    _executeRefreshMenu(time) {
         this._timeouts = [];
         for (let i = 0; i < time; i++) {
             this._timeouts.push(setTimeout(this._refreshMenu.bind(this), i * 1000));
         }
-    };
+    }
 
-    _debounceRefreshMenu = () => {
+    _debounceRefreshMenu() {
         this._debouncedRefresh();
-    };
+    }
 
     /**
     * The scroll event handler
     * @private
     */
-    _refreshMenu = () => {
+    _refreshMenu() {
         if (!this.props.hasMenu) {
             return;
         }
@@ -107,14 +104,14 @@ class ScrollspyContainer extends Component {
             clickedId: isAtClickedItem ? undefined : clickedId,
             affix
         });
-    };
+    }
 
     /**
     * Build the list of menus.
     * @private
     * @return {array} the list of menus.
     */
-    _buildMenuList = () => {
+    _buildMenuList() {
         const { hasMenu } = this.props;
         if (!hasMenu) {
             return [];
@@ -178,7 +175,7 @@ class ScrollspyContainer extends Component {
             menuList[currentIndex].isActive = true;
         }
         return menuList;
-    };
+    }
 
     /**
     * Calculate the real position of an element, depending on declared offset in props.
@@ -186,18 +183,18 @@ class ScrollspyContainer extends Component {
     * @param  {number} position position
     * @return {number} the real position
     */
-    _getElementRealPosition = (position) => {
+    _getElementRealPosition(position) {
         const sscDomNode = ReactDOM.findDOMNode(this);
         const sscPosition = this.scrollPosition(sscDomNode);
         return position - sscPosition.top;
-    };
+    }
 
     /**
     * Calculate menu position (affix or not)
     * @private
     * @return {Boolean} true is menu must be affix, else false
     */
-    _isMenuAffix = () => {
+    _isMenuAffix() {
         let { offset } = this.props;
         const { hasMenu } = this.props;
         if (!hasMenu) {
@@ -208,14 +205,14 @@ class ScrollspyContainer extends Component {
         const containerPaddingTop = this._getPaddingTopValue();
         offset -= containerPaddingTop;
         return currentViewPosition.top <= offset;
-    };
+    }
 
-    _getPaddingTopValue = () => {
+    _getPaddingTopValue() {
         const sscDomNode = ReactDOM.findDOMNode(this);
         const computedStyles = window.getComputedStyle(sscDomNode, null);
         const paddingTop = computedStyles.getPropertyValue('padding-top');
         return paddingTop ? parseInt(paddingTop, 0) : 0;
-    };
+    }
 
     /**
     * Handle click on item menu function.

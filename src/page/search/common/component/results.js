@@ -289,7 +289,7 @@ const Results = {
                     count: this.props.totalCount
                 }
             };
-        } else if (1 === keys(resultsMap).length) {
+        } else if (1 === Object.keys(resultsMap).length) {
             return {
                 [Object.keys(resultsMap)[0]]: {
                     count: this.props.totalCount
@@ -325,13 +325,13 @@ const Results = {
         // resultsMap can be an Array or an Object.
         if (isArray(this.props.resultsMap)) {
             resultsMap = filter(this.props.resultsMap, (resultGroup) => {
-                const propertyGroupName = keys(resultGroup)[0]; //group property name
+                const propertyGroupName = Object.keys(resultGroup)[0]; //group property name
                 const list = resultGroup[propertyGroupName];
                 return 0 !== list.length;
             });
         } else {
             resultsMap = omit(this.props.resultsMap, (resultGroup) => {
-                const propertyGroupName = keys(resultGroup)[0]; //group property name
+                const propertyGroupName = Object.keys(resultGroup)[0]; //group property name
                 const list = resultGroup[propertyGroupName];
                 return 0 === list.length;
             });
@@ -342,12 +342,12 @@ const Results = {
         // Check if there is only one group left
 
         if (isArray(resultsMap) && 1 === resultsMap.length) {
-            const key = keys(resultsMap[0])[0];
+            const key = Object.keys(resultsMap[0])[0];
             const list = resultsMap[0][key];
             const count = groupCounts[key].count;
             return this._renderSingleGroup(list, key, count, true);
-        } else if (1 === keys(resultsMap).length) {
-            const key = keys(resultsMap)[0];
+        } else if (1 === Object.keys(resultsMap).length) {
+            const key = Object.keys(resultsMap)[0];
             const list = resultsMap[key];
             const count = groupCounts[key].count;
             return this._renderSingleGroup(list, key, count, true);
@@ -356,7 +356,7 @@ const Results = {
                 <div data-focus='search-results'>
                     {
                         map(resultsMap, (resultGroup) => {
-                            const key = keys(resultGroup)[0]; //group property name
+                            const key = Object.keys(resultGroup)[0]; //group property name
                             const list = resultGroup[key];
                             const count = groupCounts[key];
                             return this._renderSingleGroup(list, key, count);
