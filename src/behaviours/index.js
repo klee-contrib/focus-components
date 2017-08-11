@@ -13,3 +13,12 @@ export default {
     material,
     grid
 }
+
+export {
+    translation,
+    componentBase,
+    scroll,
+    connect,
+    material,
+    grid
+}
