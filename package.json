@@ -66,6 +66,7 @@
     "object-assign": "^2.0.0",
     "react-addons-css-transition-group": "^15.2.1",
     "react-date-picker": "^3.1.6",
+    "react-lazyload": "2.2.7",
     "uuid": "^2.0.1"
   },
   "devDependencies": {
