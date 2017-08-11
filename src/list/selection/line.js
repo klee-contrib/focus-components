@@ -1,7 +1,7 @@
 // Dependencies
 import types from 'focus-core/component/types';
 import React from 'react';
-import isEqual from 'lodash';
+import isEqual from 'lodash/lang/isEqual';
 // Components
 import { component as ContextualActions } from '../action-contextual';
 import { Checkbox } from '../../components/input';
