@@ -54,6 +54,12 @@ class ScrollspyContainer extends Component {
     }
 
     /** @inheritDoc */
+    componentWillMount() {
+        this._refreshMenu = this._refreshMenu.bind(this);
+        this._debounceRefreshMenu = this._debounceRefreshMenu.bind(this);
+    }
+    
+    /** @inheritDoc */
     componentWillUnmount() {
         this._timeouts.map(clearTimeout);
         this._scrollCarrier.removeEventListener('scroll', this._debounceRefreshMenu);
