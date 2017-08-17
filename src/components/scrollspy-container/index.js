@@ -2,6 +2,7 @@ import React, { Component, PropTypes } from 'react';
 import ReactDOM from 'react-dom';
 import BackToTop from '../button-back-to-top'
 import StickyMenu from './sticky-menu';
+import Scroll from '../../behaviours/scroll';
 
 import debounce from 'lodash/function/debounce';
 import filter from 'lodash/collection/filter';
