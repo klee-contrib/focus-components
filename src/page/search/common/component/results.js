@@ -3,14 +3,12 @@ import React from 'react';
 import { translate } from 'focus-core/translation';
 import builder from 'focus-core/component/builder';
 
-import assign from 'lodash/object/assign';
 import mapValues from 'lodash/object/mapValues';
 import omit from 'lodash/object/omit';
 
 import clone from 'lodash/lang/clone';
 import isArray from 'lodash/lang/isArray';
 
-import filter from 'lodash/collection/filter';
 import map from 'lodash/collection/map';
 import groupBy from 'lodash/collection/groupBy';
 
@@ -237,7 +235,7 @@ const Results = {
     * @param  {string} value the facet value
     */
     _facetSelectionHandler(key, value) {
-        let selectedFacets = assign({}, this.props.store.getSelectedFacets(), {
+        let selectedFacets = Object.assign({}, this.props.store.getSelectedFacets(), {
             [key]: {
                 key: value,
                 data: {
@@ -324,7 +322,7 @@ const Results = {
 
         // resultsMap can be an Array or an Object.
         if (isArray(this.props.resultsMap)) {
-            resultsMap = filter(this.props.resultsMap, (resultGroup) => {
+            resultsMap = this.props.resultsMap.filter((resultGroup) => {
                 const propertyGroupName = Object.keys(resultGroup)[0]; //group property name
                 const list = resultGroup[propertyGroupName];
                 return 0 !== list.length;
