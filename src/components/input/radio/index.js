@@ -29,7 +29,15 @@ class Radio extends Component {
         this.setState({ isChecked: newProps.value });
     }
 
+    componentDidMount() {
+        this.updateCheckedClass();
+    }
+
     componentDidUpdate() {
+        this.updateCheckedClass();
+    }
+
+    updateCheckedClass(){
         const { inputMdl } = this.refs;
         const { isChecked } = this.state;
         if (inputMdl) {
