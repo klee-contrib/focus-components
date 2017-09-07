@@ -1,7 +1,7 @@
 import React from 'react';
 import builder from 'focus-core/component/builder';
 import { translate } from 'focus-core/translation';
-import { map } from 'lodash/collection';
+import map from 'lodash/collection/map';
 // Components
 import { component as Button } from '../button/action';
 

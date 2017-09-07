@@ -3,7 +3,7 @@ import React from 'react';
 import types from 'focus-core/component/types';
 import i18nBehaviour from '../../i18n/mixin';
 import mdlBehaviour from '../../mixin/mdl-behaviour';
-import { uniqueId } from 'lodash/utility';
+import uniqueId from 'lodash/utility/uniqueId';
 import { component as InputRadio } from '../../input/radio';
 
 const selectRadioMixin = {

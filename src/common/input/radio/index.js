@@ -4,7 +4,7 @@ import types from 'focus-core/component/types';
 import i18nBehaviour from '../../i18n/mixin';
 import fieldGridBehaviourMixin from '../../mixin/field-grid-behaviour';
 import mdlBehaviour from '../../mixin/mdl-behaviour';
-import { isUndefined } from 'lodash/lang';
+import isUndefined from 'lodash/lang/isUndefined';
 
 const radioMixin = {
     mixins: [i18nBehaviour, fieldGridBehaviourMixin, mdlBehaviour],

@@ -1,6 +1,6 @@
 import React from 'react';
 import { translate } from 'focus-core/translation';
-import { map } from 'lodash/collection';
+import map from 'lodash/collection/map';
 import Button from '../button';
 
 /**

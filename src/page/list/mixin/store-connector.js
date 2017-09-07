@@ -1,5 +1,5 @@
 import React from 'react';
-import { isEqual } from 'lodash/lang';
+import isEqual from 'lodash/lang/isEqual';
 
 export default function connectToStores(Component, stores, pickProps, getState) {
     return class StoreConnector extends React.Component {

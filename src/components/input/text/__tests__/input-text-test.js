@@ -5,7 +5,7 @@ import ReactDOM from 'react-dom';
 
 import Input from '../';
 const { renderIntoDocument, Simulate } = TestUtils;
-import { identity } from 'lodash/utility';
+import identity from 'lodash/utility/identity';
 
 import { init } from 'focus-core/translation';
 
@@ -23,7 +23,7 @@ describe('The input text', () => {
         let component, domNode;
         beforeEach(
             () => {
-                component = renderIntoDocument(<Input name='inputName' onChange={(value) => { /* */ }} />);
+                component = renderIntoDocument(<Input name='inputName' onChange={(value) => { return; }} />);
                 domNode = ReactDOM.findDOMNode(component);
             }
         );

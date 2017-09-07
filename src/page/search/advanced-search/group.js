@@ -3,8 +3,6 @@ import Translation from '../../../behaviours/translation';
 import formatter from 'focus-core/definition/formatter/number';
 //web components
 import Button from '../../../components/button';
-import Column from '../../../components/column';
-import Grid from '../../../components/grid';
 
 const propTypes = {
     canShowMore: PropTypes.bool.isRequired,

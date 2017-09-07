@@ -1,8 +1,8 @@
 // Dependencies
 import React from 'react';
 import builder from 'focus-core/component/builder';
-import { reduce } from 'lodash/collection';
-import { omit } from 'lodash/object';
+import reduce from 'lodash/collection/reduce';
+import omit from 'lodash/object/omit';
 // Components
 import { component as ListActionBar } from '../../../list/action-bar/index';
 //Mixins

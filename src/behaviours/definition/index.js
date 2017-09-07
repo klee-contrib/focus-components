@@ -1,12 +1,15 @@
 //Dependencies
-import React, {Component, PropTypes} from 'react';
-import {isNull, isUndefined, isArray, isString} from 'lodash/lang';
+import React, { Component, PropTypes } from 'react';
+import isNull from 'lodash/lang/isNull';
+import isUndefined from 'lodash/lang/isUndefined';
+import isArray from 'lodash/lang/isArray';
+import isString from 'lodash/lang/isString';
+import isObject from 'lodash/lang/isObject';
 
-// Import from focus-core
+// Import from focus-core 
 // We need to investigate why import {getEntityInformations} from 'focus-core/entity/builder' didn't work, maybe an ES2015 related issue with babel.
 // Maybe because the node modules reads from the builded lib  instead of src.
-import definition from 'focus-core/definition';
-const getEntityInformations = definition.entity.builder.getEntityInformations;
+import { getEntityInformations } from 'focus-core/definition/entity/builder';
 
 
 /**
@@ -22,16 +25,16 @@ const getEntityInformations = definition.entity.builder.getEntityInformations;
 export default function definitionBehaviour(definitionPath, additionalDefinition) {
 
     // Arguments validation
-    if(isUndefined(definitionPath) || isNull(definitionPath)|| (!isString(definitionPath) && !isArray(definitionPath))) {
+    if (isUndefined(definitionPath) || isNull(definitionPath) || (!isString(definitionPath) && !isArray(definitionPath))) {
         throw new Error('the definition path should be givent in order to to know the domain of your entity property.');
     }
-    if(!isUndefined(additionalDefinition) && !isNull(additionalDefinition) && !isObject(additionalDefinition)) {
+    if (!isUndefined(additionalDefinition) && !isNull(additionalDefinition) && !isObject(additionalDefinition)) {
         throw new Error('The additional definition if is defined should be an object');
     }
 
     // Definition Construction
     const definitionConf = isArray(definitionPath) ? definitionPath : [definitionPath];
-    const definition = definitionConf.reduce((valeurPrecedente, valeurCourante) => ({...valeurPrecedente, ...getEntityInformations(definitionPath, additionalDefinition)}), {});
+    const definition = definitionConf.reduce((valeurPrecedente, valeurCourante) => ({ ...valeurPrecedente, ...getEntityInformations(definitionPath, additionalDefinition) }), {});
 
     // annotation
     // The wrapped component should have a props containing the definition object.
@@ -58,7 +61,7 @@ export default function definitionBehaviour(definitionPath, additionalDefinition
          */
         class DefinitionWrappedComponent extends Component {
             render() {
-                return <ComponentToWrap ref='wrappedComponent' definition={definition} {...this.props}/>;
+                return <ComponentToWrap ref='wrappedComponent' definition={definition} {...this.props} />;
             }
         }
 

@@ -3,7 +3,7 @@ import types from 'focus-core/component/types';
 import React from 'react';
 import Checkbox from '../../../components/input/checkbox';
 import i18nBehaviour from '../../i18n/mixin';
-import { pull } from 'lodash/array'
+import pull from 'lodash/array/pull'
 
 const selectCheckboxMixin = {
     mixins: [i18nBehaviour],

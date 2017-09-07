@@ -6,8 +6,10 @@ import types from 'focus-core/component/types';
 // Mixins
 import Stylabe from '../../mixin/stylable';
 import { scrollTo, scrollPosition } from '../mixin/scroll';
-import { filter } from 'lodash/collection';
-import { first, last } from 'lodash/array';
+
+import filter from 'lodash/collection/filter';
+import first from 'lodash/array/first';
+import last from 'lodash/array/last';
 
 /**
 * Scrollspy component.

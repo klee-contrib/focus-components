@@ -2,9 +2,10 @@
 import React, { Component, PropTypes } from 'react';
 import ComponentBaseBehaviour from '../../../behaviours/component-base';
 import filterProps from '../../../utils/filter-html-attributes';
-import { isUndefined, isNull } from 'lodash/lang';
-import { union } from 'lodash/array';
+import isUndefined from 'lodash/lang/isUndefined';
+import isNull from 'lodash/lang/isNull';
 
+import union from 'lodash/array/union';
 const UNSELECTED_KEY = 'UNSELECTED_KEY';
 
 /**

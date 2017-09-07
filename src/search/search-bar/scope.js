@@ -5,7 +5,7 @@ import ReactDOM from 'react-dom';
 
 import builder from 'focus-core/component/builder';
 import find from 'lodash/collection/find';
-import { uniqueId } from 'lodash/utility';
+import uniqueId from 'lodash/utility/uniqueId';
 import 'material-design-lite/material';
 
 // Components

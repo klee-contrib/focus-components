@@ -2,9 +2,16 @@
 import React from 'react';
 import { translate } from 'focus-core/translation';
 import builder from 'focus-core/component/builder';
-import { assign, mapValues, keys, omit } from 'lodash/object';
-import { clone, isArray } from 'lodash/lang';
-import { filter, map, groupBy } from 'lodash/collection';
+
+import mapValues from 'lodash/object/mapValues';
+import omit from 'lodash/object/omit';
+
+import clone from 'lodash/lang/clone';
+import isArray from 'lodash/lang/isArray';
+
+import map from 'lodash/collection/map';
+import groupBy from 'lodash/collection/groupBy';
+
 // Components
 import DefaultEmpty from './default-empty-component';
 import { component as ListSelection } from '../../../../list/selection/list';
@@ -228,7 +235,7 @@ const Results = {
     * @param  {string} value the facet value
     */
     _facetSelectionHandler(key, value) {
-        let selectedFacets = assign({}, this.props.store.getSelectedFacets(), {
+        let selectedFacets = Object.assign({}, this.props.store.getSelectedFacets(), {
             [key]: {
                 key: value,
                 data: {
@@ -276,13 +283,13 @@ const Results = {
             }
             //this case occurs when the server response contains only one group with results.
             return {
-                [keys(resultsMap[0])]: {
+                [Object.keys(resultsMap[0])]: {
                     count: this.props.totalCount
                 }
             };
-        } else if (1 === keys(resultsMap).length) {
+        } else if (1 === Object.keys(resultsMap).length) {
             return {
-                [keys(resultsMap)[0]]: {
+                [Object.keys(resultsMap)[0]]: {
                     count: this.props.totalCount
                 }
             };
@@ -315,14 +322,14 @@ const Results = {
 
         // resultsMap can be an Array or an Object.
         if (isArray(this.props.resultsMap)) {
-            resultsMap = filter(this.props.resultsMap, (resultGroup) => {
-                const propertyGroupName = keys(resultGroup)[0]; //group property name
+            resultsMap = this.props.resultsMap.filter((resultGroup) => {
+                const propertyGroupName = Object.keys(resultGroup)[0]; //group property name
                 const list = resultGroup[propertyGroupName];
                 return 0 !== list.length;
             });
         } else {
             resultsMap = omit(this.props.resultsMap, (resultGroup) => {
-                const propertyGroupName = keys(resultGroup)[0]; //group property name
+                const propertyGroupName = Object.keys(resultGroup)[0]; //group property name
                 const list = resultGroup[propertyGroupName];
                 return 0 === list.length;
             });
@@ -333,12 +340,12 @@ const Results = {
         // Check if there is only one group left
 
         if (isArray(resultsMap) && 1 === resultsMap.length) {
-            const key = keys(resultsMap[0])[0];
+            const key = Object.keys(resultsMap[0])[0];
             const list = resultsMap[0][key];
             const count = groupCounts[key].count;
             return this._renderSingleGroup(list, key, count, true);
-        } else if (1 === keys(resultsMap).length) {
-            const key = keys(resultsMap)[0];
+        } else if (1 === Object.keys(resultsMap).length) {
+            const key = Object.keys(resultsMap)[0];
             const list = resultsMap[key];
             const count = groupCounts[key].count;
             return this._renderSingleGroup(list, key, count, true);
@@ -347,7 +354,7 @@ const Results = {
                 <div data-focus='search-results'>
                     {
                         map(resultsMap, (resultGroup) => {
-                            const key = keys(resultGroup)[0]; //group property name
+                            const key = Object.keys(resultGroup)[0]; //group property name
                             const list = resultGroup[key];
                             const count = groupCounts[key];
                             return this._renderSingleGroup(list, key, count);

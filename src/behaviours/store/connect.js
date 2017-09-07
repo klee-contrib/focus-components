@@ -1,6 +1,8 @@
-import { isArray, isFunction } from 'lodash/lang';
-import { capitalize } from 'lodash/string'
-import { keys } from 'lodash/object';
+import isFunction from 'lodash/lang/isFunction';
+import isArray from 'lodash/lang/isArray';
+
+import capitalize from 'lodash/string/capitalize'
+
 import React, { Component } from 'react';
 
 // - Provide the component
@@ -39,7 +41,7 @@ export default function connectToStores(storesConfiguration, getState) {
                         if (!store || !store.definition || !store.definition[property]) {
                             console.warn(`
                                 StoreConnector ${displayName}:
-                                    You add a property : ${property} in your store configuration which is not in your definition : ${keys(store.definition)}
+                                    You add a property : ${property} in your store configuration which is not in your definition : ${Object.keys(store.definition)}
                             `);
                         }
                         const capitalizedProperty = capitalize(property);

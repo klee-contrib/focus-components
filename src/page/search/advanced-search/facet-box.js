@@ -1,7 +1,6 @@
 // Dependencies
 import React from 'react';
 import builder from 'focus-core/component/builder';
-import { keys } from 'lodash/object';
 // Components
 import { component as FacetBox } from '../../../search/facet-box';
 
@@ -27,7 +26,7 @@ const Box = {
      * @param  {Boolean} isDisableGroup     override the groupinKey ?
      */
     _onFacetSelection(facetComponentData, isDisableGroup) {
-        if (keys(facetComponentData.selectedFacetList).length === 1 && facetComponentData.selectedFacetList[scopeFacetKey]) {
+        if (Object.keys(facetComponentData.selectedFacetList).length === 1 && facetComponentData.selectedFacetList[scopeFacetKey]) {
             this.props.action.updateProperties({
                 scope: this.props.scopesConfig[facetComponentData.selectedFacetList[scopeFacetKey].key],
                 sortBy: undefined,

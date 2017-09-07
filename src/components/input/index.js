@@ -27,3 +27,19 @@ export default {
     SelectRadio,
     Radio
 };
+
+export {
+    AutocompleteSelect,
+    AutocompleteText,
+    Checkbox,
+    CheckboxWithError,
+    Date,
+    Select,
+    Text,
+    Toggle,
+    Textarea,
+    DisplayTextArea,
+    SelectCheckbox,
+    SelectRadio,
+    Radio
+};

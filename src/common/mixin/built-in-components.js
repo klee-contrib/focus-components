@@ -2,7 +2,11 @@
 import React from 'react';
 import { changeMode } from 'focus-core/application';
 import assign from 'object-assign';
-import { result, find, defaultsDeep } from 'lodash';
+
+import result from 'lodash/object/result';
+import find from 'lodash/collection/find';
+import defaultsDeep from 'lodash/object/defaultsDeep';
+
 // Components
 import { component as Field } from '../field';
 import Text from '../../components/display/text';
