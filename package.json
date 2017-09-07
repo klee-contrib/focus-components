@@ -79,7 +79,7 @@
         "enzyme": "2.9.1",
         "eslint-config-focus": "git://github.com/KleeGroup/eslint-config-focus#master",
         "focus-core": "2.1.1",
-        "i18next-client": "1.11.4",
+        "i18next": "8.4.3",
         "in-publish": "2.0.0",
         "jest-cli": "20.0.4",
         "jsdom": "11.1.0",
