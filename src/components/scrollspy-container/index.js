@@ -58,7 +58,7 @@ class ScrollspyContainer extends Component {
         this._refreshMenu = this._refreshMenu.bind(this);
         this._debounceRefreshMenu = this._debounceRefreshMenu.bind(this);
     }
-    
+
     /** @inheritDoc */
     componentWillUnmount() {
         this._timeouts.map(clearTimeout);
@@ -74,7 +74,7 @@ class ScrollspyContainer extends Component {
     _executeRefreshMenu(time) {
         this._timeouts = [];
         for (let i = 0; i < time; i++) {
-            this._timeouts.push(setTimeout(this._refreshMenu.bind(this), i * 1000));
+            this._timeouts.push(setTimeout(this._refreshMenu, i * 1000));
         }
     }
 
