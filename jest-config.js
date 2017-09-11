@@ -12,5 +12,6 @@ module.exports = {
         '<rootDir>/node_modules/i18next-client',
         '<rootDir>/node_modules/focus-core'
     ],
-    testPathIgnorePatterns: ['/node_modules/', 'fixture.js', '.history', '.localhistory', 'test-focus.jsx']
+    testPathIgnorePatterns: ['/node_modules/', 'fixture.js', '.history', '.localhistory', 'test-focus.jsx'],
+    transformIgnorePatterns: ['/node_modules(?!\/focus-core)/']
 } 

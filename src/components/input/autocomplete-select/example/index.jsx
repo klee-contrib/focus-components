@@ -71,7 +71,7 @@ const resources = {
     }
 };
 
-init({ resStore: resources });
+init({ resources: resources });
 
 class Sample extends Component {
 

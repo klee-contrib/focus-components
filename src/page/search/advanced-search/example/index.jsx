@@ -33,7 +33,7 @@ const resources = {
     }
 };
 
-i18nInitializer({ resStore: resources });
+i18nInitializer({ resources: resources });
 
 const _facets = {
     Contries: {

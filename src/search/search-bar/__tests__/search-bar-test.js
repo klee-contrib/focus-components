@@ -12,7 +12,7 @@ import actionBuilder from 'focus-core/search/action-builder';
 import { init } from 'focus-core/translation';
 
 const i18nConfig = {
-    resStore: {},
+    resources: {},
     lng: 'fr-FR'///langOpts.i18nCulture
 };
 

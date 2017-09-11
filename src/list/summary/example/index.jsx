@@ -11,7 +11,7 @@ const resources = {
         }
     }
 };
-init({ resStore: resources });
+init({ resources: resources });
 
 const scopes = {
     ani: 'Animation',

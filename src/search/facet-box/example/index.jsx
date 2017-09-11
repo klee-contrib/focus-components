@@ -18,7 +18,7 @@ const resources = {
     }
 };
 
-i18nInitializer({ resStore: resources });
+i18nInitializer({ resources: resources });
 
 const FacetsExample = React.createClass({
     render() {

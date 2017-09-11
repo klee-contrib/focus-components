@@ -10,7 +10,7 @@ import { addErrorMessage, addWarningMessage, addInformationMessage, addSuccessMe
 const { findRenderedDOMComponentWithClass, renderIntoDocument, Simulate } = TestUtils;
 
 const i18nConfig = {
-    resStore: {},
+    resources: {},
     lng: 'fr-FR'///langOpts.i18nCulture
 };
 
