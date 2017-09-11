@@ -11,7 +11,7 @@ const resources = {
         }
     }
 };
-init({ resStore: resources });
+init({ resources: resources });
 
 /**
  * Custom button.

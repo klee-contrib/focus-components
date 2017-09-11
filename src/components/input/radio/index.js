@@ -37,7 +37,7 @@ class Radio extends Component {
         this.updateCheckedClass();
     }
 
-    updateCheckedClass(){
+    updateCheckedClass() {
         const { inputMdl } = this.refs;
         const { isChecked } = this.state;
         if (inputMdl) {

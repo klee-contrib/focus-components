@@ -7,7 +7,7 @@ import Panel from '../';
 import { init, translate } from 'focus-core/translation';
 
 const i18nConfig = {
-    resStore: {},
+    resources: {},
     lng: 'fr-FR'///langOpts.i18nCulture
 };
 
@@ -58,7 +58,7 @@ describe('The Panel', () => {
         });
     });
     describe('when mounted with title props', () => {
-        init({ resStore: { dev: { translation: { panel: { title: 'This is a title' } } } } }, () => {
+        init({ resources: { dev: { translation: { panel: { title: 'This is a title' } } } } }, () => {
             let reactComponent, domNode;
             const title = 'panel.title';
             beforeEach(() => {

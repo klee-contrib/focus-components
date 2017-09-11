@@ -6,7 +6,7 @@ import ReactDOM from 'react-dom';
 import { init } from 'focus-core/translation';
 
 const i18nConfig = {
-    resStore: {},
+    resources: {},
     lng: 'fr-FR'///langOpts.i18nCulture
 };
 

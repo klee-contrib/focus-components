@@ -10,7 +10,7 @@ import identity from 'lodash/utility/identity';
 import { init } from 'focus-core/translation';
 
 const i18nConfig = {
-    resStore: {},
+    resources: {},
     lng: 'fr-FR'///langOpts.i18nCulture
 };
 

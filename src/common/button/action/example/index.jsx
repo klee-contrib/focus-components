@@ -10,7 +10,7 @@ let resources = {
         }
     }
 };
-init({ resStore: resources });
+init({ resources: resources });
 
 const ButtonExample = React.createClass({
     flexContainer: {

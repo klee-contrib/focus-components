@@ -12,7 +12,7 @@ let resources = {
         }
     }
 };
-init({ resStore: resources });
+init({ resources: resources });
 /***********************************************************************************************************************/
 
 const ButtonSample = React.createClass({

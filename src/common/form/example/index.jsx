@@ -41,7 +41,7 @@ const resources = {
     }
 };
 
-init({ resStore: resources });
+init({ resources: resources });
 
 const domain = {
     DO_TEXT: {

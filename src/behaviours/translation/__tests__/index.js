@@ -9,21 +9,21 @@ import { init } from 'focus-core/translation';
 
 describe('The translation behaviour', () => {
     let renderedComponent;
-    beforeEach((done) => {
-        init({ resStore: {} }, () => {
-            @TranslationBehaviour
-            class TestComponent extends React.Component {
-                render() {
-                    return (
-                        <div>
-                            {this.i18n('my.translation.path')}
-                        </div>
-                    );
-                }
+    beforeEach(() => {
+        init({ resources: {} });// () => {
+        @TranslationBehaviour
+        class TestComponent extends React.Component {
+            render() {
+                return (
+                    <div>
+                        {this.i18n('my.translation.path')}
+                    </div>
+                );
             }
-            renderedComponent = TestUtils.renderIntoDocument(<TestComponent />);
-            done();
-        });
+        }
+        renderedComponent = TestUtils.renderIntoDocument(<TestComponent />);
+        //     done();
+        // });
     });
     it('should add the translation function to the provided component', () => {
         const child = TestUtils.findRenderedDOMComponentWithTag(renderedComponent, 'div');
