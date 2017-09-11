@@ -18,7 +18,7 @@ class AutocompleteSelectConsult extends Component {
 
     _callKeyResolver(value) {
         const { keyResolver } = this.props;
-        if (keyResolver) {
+        if (keyResolver && value !== undefined && value !== null) {
             keyResolver(value).then(label => {
                 this.setState({ resolvedLabel: label });
             }).catch(err => { console.error(err.message); });
