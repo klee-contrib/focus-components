@@ -1,0 +1,16 @@
+[data-focus='chip'].mdl-chip{
+    background-color: #9A198F;
+    flex: 0 0 auto;
+}
+
+[data-focus='chip-text']{
+    white-space:nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    color: #FFF;    
+    max-width: 250px;
+}
+
+[data-focus='chip-button']{
+    color: #FFF;
+}

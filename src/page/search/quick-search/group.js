@@ -1,5 +1,5 @@
 // libraires
-import React, {PropTypes, Component} from 'react';
+import React, { PropTypes, Component } from 'react';
 import Translation from '../../../behaviours/translation';
 import formatter from 'focus-core/definition/formatter/number';
 
@@ -17,15 +17,15 @@ const defaultProps = {
 @Translation
 class QuickSearchGroup extends Component {
     render() {
-        const {children, count, groupKey, showAllHandler} = this.props
+        const { children, count, groupKey, showAllHandler } = this.props
         return (
-            <div data-focus="group-container">
+            <div data-focus='group-container'>
                 <h3>
                     <span>{groupKey}</span>
                     <span>{formatter.format(count)}</span>
                 </h3>
                 <p>{this.i18n('search.mostRelevant')}</p>
-                <div data-focus="group-container-results">
+                <div data-focus='group-container-results'>
                     {children}
                 </div>
             </div>

@@ -23,7 +23,7 @@ import Icon from './icon';
 import Title from './title';
 import ProgressBar from './progress-bar';
 import Label from './label';
-import Emtpy from './empty';
+import Empty from './empty';
 import TopicDisplayer from './topic-displayer';
 import Animation from './animation';
 import DraggableIframe from './draggable-iframe';
@@ -56,6 +56,40 @@ export default {
     Tooltip,
     ProgressBar,
     Label,
+    Empty,
+    TopicDisplayer,
+    Animation,
+    DraggableIframe
+}
+
+export {
+    Confirm,
+    Dropdown,
+    HeaderActions,
+    HeaderContent,
+    HeaderDefaultTemplate,
+    HeaderScrolling,
+    HeaderTopRow,
+    IconDropdown,
+    input,
+    Layout,
+    MenuLeft,
+    MessageCenter,
+    Panel,
+    Role,
+    ScrollspyContainer,
+    Button,
+    ButtonBackToTop,
+    ButtonBack,
+    ButtonHelp,
+    Grid,
+    Column,
+    Icon,
+    Title,
+    Tooltip,
+    ProgressBar,
+    Label,
+    Empty,
     TopicDisplayer,
     Animation,
     DraggableIframe

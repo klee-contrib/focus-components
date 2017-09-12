@@ -1,20 +1,20 @@
 // Dependencies
-
 import React from 'react';
-import {changeMode} from 'focus-core/application';
+import { changeMode } from 'focus-core/application';
 import assign from 'object-assign';
-import {result, find, defaultsDeep} from 'lodash';
-// Components
 
-import {component as Field} from '../field';
+import result from 'lodash/object/result';
+import find from 'lodash/collection/find';
+import defaultsDeep from 'lodash/object/defaultsDeep';
+
+// Components
+import { component as Field } from '../field';
 import Text from '../../components/display/text';
 import Button from '../../components/button';
-import {component as MemoryList} from '../list';
-import {component as Table} from '../../list/table/list';
-import {component as List} from '../../list/selection/list';
-
+import { component as MemoryList } from '../list';
+import { component as Table } from '../../list/table/list';
+import { component as List } from '../../list/selection/list';
 // Mixins
-
 import fieldComponentBehaviour from './field-component-behaviour';
 
 export default {
@@ -30,14 +30,14 @@ export default {
         const fieldProps = this._buildFieldProps(name, options, this);
         return this._renderField(fieldProps);
     },
-    autocompleteSelectFor(name, {keyResolver, querySearcher}, options = {}) {
+    autocompleteSelectFor(name, { keyResolver, querySearcher }, options = {}) {
         options = assign({}, options);
         options.keyResolver = keyResolver;
         options.querySearcher = querySearcher;
         const fieldProps = this._buildFieldProps(name, options, this);
         return this._renderField(fieldProps);
     },
-    autocompleteTextFor(name, {querySearcher}, options = {}) {
+    autocompleteTextFor(name, { querySearcher }, options = {}) {
         options = assign({}, options);
         options.querySearcher = querySearcher;
         const fieldProps = this._buildFieldProps(name, options, this);
@@ -48,7 +48,7 @@ export default {
     * @param  {Object} config the configuration, with the structure {consultField: ..., editField: ...}
     * @return {Object} the rendered resulting field
     */
-    dualFieldFor({consultField, editField}) {
+    dualFieldFor({ consultField, editField }) {
         return this.state.isEdit ? editField : consultField;
     },
     /**
@@ -87,8 +87,8 @@ export default {
         const def = (this.definition && this.definition[name]) ? this.definition[name] : {};
         const fieldProps = this._buildFieldProps(name, options, this);
         const value = this.state[name];
-        const {valueKey, labelKey, values} = fieldProps;
-        const _processValue = values ? result(find(values, {[valueKey || 'code']: value}), labelKey || 'label') : value;
+        const { valueKey, labelKey, values } = fieldProps;
+        const _processValue = values ? result(find(values, { [valueKey || 'code']: value }), labelKey || 'label') : value;
         return (
             <Text
                 formatter={options.formatter || def.formatter}
@@ -116,7 +116,7 @@ export default {
             isEdit: options.isEdit !== undefined ? options.isEdit : false
         });
         return (
-            <MemoryList ref='list' {...listForProps}/>
+            <MemoryList ref='list' {...listForProps} />
         );
     },
 
@@ -154,7 +154,7 @@ export default {
     */
     buttonEdit() {
         const handleOnClick = () => {
-            this.setState({isEdit: !this.state.isEdit}, () => {
+            this.setState({ isEdit: !this.state.isEdit }, () => {
                 changeMode('edit', 'consult');
                 this.clearError();
             });
@@ -178,7 +178,7 @@ export default {
             this.clearError();
             // Change the mode.
             // Read the state from the stores, it should contain the last data from the server.
-            this.setState(defaultsDeep({isEdit: false},this._getStateFromStores(), this._buildResetState()), () => {
+            this.setState(defaultsDeep({ isEdit: false }, this._getStateFromStores(), this._buildResetState()), () => {
                 changeMode('consult', 'edit');
             });
         };
@@ -191,7 +191,7 @@ export default {
     * @returns {object} - A React  save button.
     */
     buttonSave() {
-        const {isLoading} = this.state;
+        const { isLoading } = this.state;
         const handleOnClick = () => {
             if (this._validate()) {
                 this.action.save.call(this, this._getEntity());
@@ -216,7 +216,7 @@ export default {
     */
     _renderField(fieldProps) {
         return (
-            <Field {...fieldProps}/>
+            <Field {...fieldProps} />
         );
     }
 };

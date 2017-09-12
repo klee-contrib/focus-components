@@ -1,21 +1,17 @@
 // Dependencies
-import React, {PropTypes} from 'react';
+import React, { PropTypes } from 'react';
 import builder from 'focus-core/component/builder';
-
 // Components
-const DefaultSearchBar = require('../../../search/search-bar').component;
-const Results = require('../common/component/results').component;
+import { component as DefaultSearchBar } from '../../../search/search-bar';
+import { component as Results } from '../common/component/results';
 import DefaultGroupComponent from './group';
-
 // Mixins
-const referenceBehaviour = require('../../../common/form/mixin/reference-behaviour');
-const storeBehaviour = require('../../../common/mixin/store-behaviour');
-
+import referenceBehaviour from '../../../common/form/mixin/reference-behaviour';
+import storeBehaviour from '../../../common/mixin/store-behaviour';
 // Actions
 import actionBuilder from 'focus-core/search/action-builder';
-
 // Stores
-import {quickSearchStore} from 'focus-core/search/built-in-store';
+import { quickSearchStore } from 'focus-core/search/built-in-store';
 
 /**
 * General search mixin.
@@ -79,13 +75,12 @@ const QuickSearchComponent = {
     * Register the store listeners
     */
     componentWillMount() {
-        const {action, service, store} = this.props;
+        const { action, service, store } = this.props;
         this._action = action || actionBuilder({
             service: service,
             identifier: store.identifier,
-            getSearchOptions: () => {return store.getValue.call(store); } // Binding the store in the function call
+            getSearchOptions: () => { return store.getValue.call(store); } // Binding the store in the function call
         });
-        this._loadReference();
 
         store.on('quick-search-criterias:change', this._triggerSearch);
         // store.addQueryChangeListener(this._triggerSearch);
@@ -96,7 +91,7 @@ const QuickSearchComponent = {
     * Unregister the store listeners
     */
     componentWillUnmount() {
-        const {store} = this.props;
+        const { store } = this.props;
         store.removeListener('quick-search-criterias:change', this._triggerSearch);
         // store.removeQueryChangeListener(this._triggerSearch);
         // store.removeScopeChangeListener(this._triggerSearch);
@@ -112,11 +107,11 @@ const QuickSearchComponent = {
     * Results change handler
     */
     _onResultsChange() {
-        const {store} = this.props;
+        const { store } = this.props;
         const resultsMap = store.getResults();
         const facets = store.getFacets();
         const totalCount = store.getTotalCount();
-        this.setState({resultsMap, facets, totalCount});
+        this.setState({ resultsMap, facets, totalCount });
     },
     /**
     * Action on line click.
@@ -132,8 +127,8 @@ const QuickSearchComponent = {
     * @returns {HTML} the rendered component
     */
     _renderSearchBar() {
-        const {placeholder, SearchBar, store} = this.props;
-        const {isLoading, reference: {scopes}} = this.state;
+        const { placeholder, SearchBar, store } = this.props;
+        const { isLoading, reference: { scopes } } = this.state;
         return (
             <SearchBar
                 action={this._action}
@@ -153,8 +148,8 @@ const QuickSearchComponent = {
     _renderResults() {
         // Adding 'action' in this.props destructuring here prevent the fact that '...otherProps' consider the props 'action' in otherProps.
         // It didn't give 'this._action' to the 'action' props without doing it
-        const {action, groupComponent, groupMaxRows, lineComponentMapper, lineOperationList, scrollParentSelector, scopeFacetKey, store, scopesConfig, ...otherProps} = this.props;
-        const {facets, resultsMap, totalCount} = this.state;
+        const { action, groupComponent, groupMaxRows, lineComponentMapper, lineOperationList, scrollParentSelector, scopeFacetKey, store, scopesConfig, ...otherProps } = this.props;
+        const { facets, resultsMap, totalCount } = this.state;
         return (
             <Results
                 action={this._action}
@@ -194,4 +189,6 @@ const QuickSearchComponent = {
     }
 };
 
-module.exports = builder(QuickSearchComponent);
+const { mixin, component } = builder(QuickSearchComponent);
+export { mixin, component };
+export default { mixin, component };

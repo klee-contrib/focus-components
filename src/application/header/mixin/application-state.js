@@ -1,15 +1,16 @@
 import applicationStore from 'focus-core/application/built-in-store';
-var applicationStateMixin = {
-  /** @inheriteddoc */
+
+let applicationStateMixin = {
+    /** @inheriteddoc */
     getInitialState: function getCartridgeInitialState() {
         return this._getStateFromStore();
     },
-  /** @inheriteddoc */
+    /** @inheriteddoc */
     componentWillMount: function cartridgeWillMount() {
         applicationStore.addModeChangeListener(this._handleChangeApplicationStatus);
         applicationStore.addRouteChangeListener(this._handleChangeApplicationStatus);
     },
-  /** @inheriteddoc */
+    /** @inheriteddoc */
     appStateWillUnMount: function cartridgeWillUnMount() {
         applicationStore.removeModeChangeListener(this._handleChangeApplicationStatus);
         applicationStore.removeRouteChangeListener(this._handleChangeApplicationStatus);
@@ -18,13 +19,13 @@ var applicationStateMixin = {
         this.setState(this._getStateFromStore());
     },
     _getStateFromStore: function getCartridgeStateFromStore() {
-        var processMode = applicationStore.getMode();
-        var mode = 'consult';
-        if(processMode && processMode.edit && processMode.edit > 0) {
+        let processMode = applicationStore.getMode();
+        let mode = 'consult';
+        if (processMode && processMode.edit && processMode.edit > 0) {
             mode = 'edit';
         }
-        return {mode: mode, route: applicationStore.getRoute()};
+        return { mode: mode, route: applicationStore.getRoute() };
     }
 };
 
-module.exports = applicationStateMixin;
+export default applicationStateMixin;

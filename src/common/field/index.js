@@ -42,7 +42,7 @@ const FieldMixin = {
     },
     /** @inheritdoc */
     componentWillReceiveProps(newProps) {
-        const {value, values} = this.state;
+        const { value, values } = this.state;
         const newState = { value: newProps.value, values: newProps.values };
         if (value !== newProps.value || values !== newProps.values) {
             newState.error = null;
@@ -61,25 +61,25 @@ const FieldMixin = {
     },
     /** @inheritdoc */
     render() {
-        const {error} = this.state;
-        const {FieldComponent, InputLabelComponent, domain, codeResolver, searcher, keyResolver, querySearcher, isRequired, values, hasLabel, isEdit} = this.props;
+        const { error } = this.state;
+        const { FieldComponent, InputLabelComponent, domain, codeResolver, searcher, keyResolver, querySearcher, isRequired, values, hasLabel, isEdit } = this.props;
         const isCustomComponent = FieldComponent || InputLabelComponent;
-        const {autocomplete, autocompleteSelect, autocompleteText, label, input, select, display} = this;
+        const { autocomplete, autocompleteSelect, autocompleteText, label, input, select, display } = this;
         return (
             <div className='mdl-grid' data-domain={domain} data-focus='field' data-mode={isEdit ? 'edit' : 'consult'} data-required={isRequired} data-valid={!error}>
                 {isCustomComponent && this._renderFieldComponent()}
                 {!isCustomComponent && hasLabel && label()}
-                {!isCustomComponent &&
+                {!isCustomComponent && (
                     <div className={`${this._getContentGridClassName()}`} data-focus='field-value-container'>
                         {codeResolver && searcher ? autocomplete() : keyResolver && querySearcher ? autocompleteSelect() : querySearcher ? autocompleteText() : isEdit ? (values ? select() : input()) : display()}
                     </div>
-                }
+                )}
             </div>
         );
     }
 };
 const builtComp = builder(FieldMixin);
-const {component, mixin} = builtComp;
+const { component, mixin } = builtComp;
 
 export {
     component,

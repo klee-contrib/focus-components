@@ -1,5 +1,5 @@
 //dependencies
-import React, {PropTypes} from 'react';
+import React, { PropTypes } from 'react';
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 
 const propTypes = {
@@ -23,7 +23,7 @@ const propTypes = {
     enterActiveName: PropTypes.string,
     leaveName: PropTypes.string,
     leaveActiveName: PropTypes.string,
-    transitionName: PropTypes.string
+    transitionName: PropTypes.string.isRequired
 };
 
 const defaultProps = {
@@ -45,12 +45,16 @@ const defaultProps = {
     leaveActiveName: 'bounceOut'
 };
 
-
-function Animation({customClasses, appear, enter, leave, appearName,
-  appearActiveName, enterName, enterActiveName,leaveName, leaveActiveName,
-  appearTimeout, enterTimeout, leaveTimeout, transitionName, ...otherProps}) {
+/**
+ * Animation component.
+ * @param {object} props Props.
+ * @returns {JsxElement} Component.
+ */
+function Animation({ customClasses, appear, enter, leave, appearName,
+    appearActiveName, enterName, enterActiveName, leaveName, leaveActiveName,
+    appearTimeout, enterTimeout, leaveTimeout, transitionName, ...otherProps }) {
     let transitionClassName = transitionName;
-    if(true === customClasses) {
+    if (true === customClasses) {
         transitionClassName = {
             appear: appearName,
             appearActive: appearActiveName,
@@ -61,19 +65,19 @@ function Animation({customClasses, appear, enter, leave, appearName,
         }
     }
     return (
-      <ReactCSSTransitionGroup
-          transitionAppear={appear}
-          transitionAppearTimeout={enter}
-          transitionEnter={leave}
-          transitionEnterTimeout={appearTimeout}
-          transitionLeave={enterTimeout}
-          transitionLeaveTimeout={leaveTimeout}
-          transitionName={transitionClassName}
-      >
-          <div className='animated'>
-            {otherProps.children}
-          </div>
-      </ReactCSSTransitionGroup>
+        <ReactCSSTransitionGroup
+            transitionAppear={appear}
+            transitionAppearTimeout={enter}
+            transitionEnter={leave}
+            transitionEnterTimeout={appearTimeout}
+            transitionLeave={enterTimeout}
+            transitionLeaveTimeout={leaveTimeout}
+            transitionName={transitionClassName}
+        >
+            <div className='animated'>
+                {otherProps.children}
+            </div>
+        </ReactCSSTransitionGroup>
     );
 }
 

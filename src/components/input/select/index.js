@@ -1,10 +1,13 @@
 //dependencies
-import React, {Component, PropTypes} from 'react';
+import React, { Component, PropTypes } from 'react';
 import ComponentBaseBehaviour from '../../../behaviours/component-base';
 import filterProps from '../../../utils/filter-html-attributes';
-import {isUndefined, isNull} from 'lodash/lang';
-import {union} from 'lodash/array';
+import isUndefined from 'lodash/lang/isUndefined';
+import isNull from 'lodash/lang/isNull';
+
+import union from 'lodash/array/union';
 const UNSELECTED_KEY = 'UNSELECTED_KEY';
+
 /**
 * Parse the value.
 * @param  {string | number} propsValue - The value given as props to read the type.
@@ -15,9 +18,10 @@ function _valueParser(propsValue, rawValue) {
     if (UNSELECTED_KEY === rawValue) {
         return undefined;
     }
-    const {type} = this.props;
+    const { type } = this.props;
     return type === 'number' ? +rawValue : rawValue;
 }
+
 const propTypes = {
     disabled: PropTypes.bool,
     error: PropTypes.string,
@@ -62,7 +66,7 @@ class Select extends Component {
     * @return {object} - The unformated dom value.
     */
     getValue = () => {
-        const {type, value} = this.props;
+        const { type, value } = this.props;
         if (isNull(value) || isUndefined(value) || UNSELECTED_KEY === value) return null;
         return type === 'number' ? +value : value;
     };
@@ -73,28 +77,31 @@ class Select extends Component {
     * @return {object} - The function onChange from the props, called.
     */
     _handleSelectChange = (evt) => {
-        const {onChange, valueParser, value: propsValue} = this.props;
-        const {value} = evt.target;
+        const { onChange, valueParser, value: propsValue } = this.props;
+        const { value } = evt.target;
         return onChange(valueParser.call(this, propsValue, value));
     };
 
     /** inheritdoc */
-    _renderOptions({hasUndefined, labelKey, isRequired, value, values = [], valueKey, isActiveProperty, unSelectedLabel}) {
+    _renderOptions({ hasUndefined, labelKey, isRequired, value, values = [], valueKey, isActiveProperty, unSelectedLabel }) {
         const isRequiredAndNoValue = isRequired && (isUndefined(value) || isNull(value));
         if (hasUndefined || isRequiredAndNoValue) {
             values = union(
-                [{[labelKey]: this.i18n(unSelectedLabel), [valueKey]: UNSELECTED_KEY}],
+                [{ [labelKey]: this.i18n(unSelectedLabel), [valueKey]: UNSELECTED_KEY }],
                 values
             );
         }
         return values
-        .filter(v => isUndefined(v[isActiveProperty]) || v[isActiveProperty] === true) // Filter on the
-        .map((val, idx) => {
-            const optVal = `${val[valueKey]}`;
-            const elementValue = val[labelKey];
-            const optLabel = isUndefined(elementValue) || isNull(elementValue) ? this.i18n('select.noLabel') : elementValue;
-            return (<option key={idx} value={optVal}>{optLabel}</option>);
-        });
+            .filter(v => isUndefined(v[isActiveProperty]) || v[isActiveProperty] === true) // Filter on the
+            .map((val, idx) => {
+                const optVal = `${val[valueKey]}`;
+                const elementValue = val[labelKey];
+                const optLabel = isUndefined(elementValue) || isNull(elementValue) ? this.i18n('select.noLabel') : elementValue;
+
+                return (
+                    <option key={idx} value={optVal}>{optLabel}</option>
+                );
+            });
     }
 
     /**
@@ -102,11 +109,11 @@ class Select extends Component {
     * @override
     */
     render() {
-        const {error, style} = this.props;
+        const { error, style } = this.props;
         const validInputProps = filterProps(this.props);
 
         validInputProps.onChange = this._handleSelectChange;
-        const inputProps = {...validInputProps};
+        const inputProps = { ...validInputProps };
 
         return (
             <div data-focus='select' ref='select' data-valid={!error} style={style}>

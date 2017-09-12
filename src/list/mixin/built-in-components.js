@@ -1,19 +1,19 @@
-var React = require('react');
-var fielBehaviourMixin = require('../../common/mixin/field-component-behaviour');
-var assign = require('object-assign');
-var Field = require('../../common/field').component;
-var DisplayText = require('../../components/display/text');
+import React from 'react';
+import fieldBehaviourMixin from '../../common/mixin/field-component-behaviour';
+import assign from 'object-assign';
+import { component as Field } from '../../common/field';
+import DisplayText from '../../components/display/text';
 
-var builtInComponentsMixin = {
+const builtInComponentsMixin = {
     /**
      * inherited minxins
      */
-    mixins: [fielBehaviourMixin],
+    mixins: [fieldBehaviourMixin],
 
     /**
      * @inheritDoc
      */
-    getDefaultProps: function getbuiltInComponentsMixinDefaultProps() {
+    getDefaultProps() {
         return {
             isEdit: false
         };
@@ -25,16 +25,16 @@ var builtInComponentsMixin = {
      * @param {object} options - An object which contains all options for the built of the field.
      * @returns {object} - A React Field.
      */
-    fieldFor: function fieldForInLine(name, options) {
+    fieldFor(name, options) {
         options = assign({}, {
             isEdit: this.props.isEdit,
             hasLabel: false,
             value: this.props.data[name],
             refContainer: this.props.reference,
-            style: {className: 'form-list'}
+            style: { className: 'form-list' }
         }, options);
 
-        var fieldProps = this._buildFieldProps(name, options, this);
+        let fieldProps = this._buildFieldProps(name, options, this);
         return React.createElement(Field, fieldProps);
     },
     /**
@@ -44,7 +44,7 @@ var builtInComponentsMixin = {
      * @param {object} options - An object which contains all options for the built of the field.
      * @returns {object} - A React Field.
      */
-    selectFor: function selectForInLine(name, referenceKey, options) {
+    selectFor(name, referenceKey, options) {
         options = options || {};
         options.listName = referenceKey;
         return this.fieldFor(name, options);
@@ -55,16 +55,16 @@ var builtInComponentsMixin = {
      * @param {object} options - options object.
      * @returns {object} - A React Field in display mode.
      */
-    displayFor: function displayForInLine(name, options) {
+    displayFor(name, options) {
         options = assign({}, {
             isEdit: false,
             hasLabel: false,
             value: this.props.data[name],
             refContainer: this.props.reference,
-            style: {className: 'form-list'}
+            style: { className: 'form-list' }
         }, options);
 
-        var fieldProps = this._buildFieldProps(name, options, this);
+        let fieldProps = this._buildFieldProps(name, options, this);
         return React.createElement(Field, fieldProps);
     },
 
@@ -74,9 +74,9 @@ var builtInComponentsMixin = {
      * @param {object} options - Option object
      * @returns {object} - A React component.
      */
-    textFor: function textFor(name, options) {
+    textFor(name, options) {
         options = options || {};
-        var def = (this.definition && this.definition[name]) ? this.definition[name] : {};
+        let def = (this.definition && this.definition[name]) ? this.definition[name] : {};
         return React.createElement(DisplayText, {
             name: options.name || `${this.definitionPath}.${name}`,
             style: options.style,
@@ -87,4 +87,4 @@ var builtInComponentsMixin = {
     }
 };
 
-module.exports = builtInComponentsMixin;
+export default builtInComponentsMixin;

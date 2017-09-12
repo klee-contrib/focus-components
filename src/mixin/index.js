@@ -1,3 +1,4 @@
-module.exports = {
-    style: require('./style')
-};
+import style from './stylable';
+
+export { style };
+export default { style };

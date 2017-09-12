@@ -1,10 +1,8 @@
 // Dependencies
-import React, {PropTypes} from 'react';
+import React, { PropTypes } from 'react';
 import builder from 'focus-core/component/builder';
-import types from 'focus-core/component/types';
-import {translate} from 'focus-core/translation';
-
-const styleBehaviour = require('../../mixin/stylable');
+import { translate } from 'focus-core/translation';
+import styleBehaviour from '../../mixin/stylable';
 
 /**
 * Label mixin for form.
@@ -23,7 +21,7 @@ const labelMixin = {
     },
     /** @inheritdoc */
     render() {
-        const {name, text, style} = this.props;
+        const { name, text, style } = this.props;
         const content = text || name;
         return (
             <label className={style.className} data-focus="label" htmlFor={name}>
@@ -33,4 +31,6 @@ const labelMixin = {
     }
 };
 
-module.exports = builder(labelMixin);
+const { mixin, component } = builder(labelMixin);
+export { mixin, component };
+export default { mixin, component };

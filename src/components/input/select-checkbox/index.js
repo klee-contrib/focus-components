@@ -1,32 +1,56 @@
-import React, {Component, PropTypes} from 'react';
+import React, { Component, PropTypes } from 'react';
 import Checkbox from '../checkbox';
 import Translation from '../../../behaviours/translation';
-import {pull} from 'lodash/array';
 
+/**
+ * SelectCheckbox component.
+ */
 @Translation
 class SelectCheckbox extends Component {
-    static defaultProps = {
-        values: [], // all values
-        value: [], // selected values list
-        valueKey: 'value', // key for the displayed value
-        labelKey: 'label' // key for the displayed label
-    };
 
+    /**
+     * Display name.
+     */
+    static displayName = 'SelectCheckbox';
+
+    /**
+     * PropTypes.
+     */
     static propTypes = {
         values: PropTypes.array,
         value: PropTypes.array,
         valueKey: PropTypes.string,
         labelKey: PropTypes.string,
-        onChange: PropTypes.func
+        onChange: PropTypes.func,
+        legacyOnChange: PropTypes.bool
     };
 
+    /**
+     * Default props.
+     */
+    static defaultProps = {
+        values: [], // all values
+        value: [], // selected values list
+        valueKey: 'value', // key for the displayed value
+        labelKey: 'label', // key for the displayed label
+        onChange: undefined,
+        legacyOnChange: false
+    };
+
+    /**
+     * Initial state.
+     */
     state = {
         selectedValues: this.props.value
     };
 
+    /**
+     * React componentWillReceiveProps hook.
+     * @param {object} newProps new props.
+     */
     componentWillReceiveProps(newProps) {
         if (newProps) {
-            this.setState({selectedValues: newProps.value});
+            this.setState({ selectedValues: newProps.value });
         }
     }
 
@@ -44,17 +68,17 @@ class SelectCheckbox extends Component {
      * @param  {[type]} newStatus the new status
      */
     _handleCheckboxChange(key, newStatus) {
-        if (this.props.onChange) {
+        const selectedValues = newStatus
+            ? this.state.selectedValues.concat([key])
+            : this.state.selectedValues.filter(elt => elt !== key);
+
+        if (this.props.onChange && this.props.legacyOnChange) {
             this.props.onChange(key, newStatus);
-            return;
-        }
-        const selectedValues = this.state.selectedValues;
-        if (newStatus) {
-            selectedValues.push(key);
+        } else if (this.props.onChange) {
+            this.props.onChange(selectedValues);
         } else {
-            pull(selectedValues, key);
+            this.setState({ value: selectedValues });
         }
-        this.setState({value: selectedValues});
     }
 
     /**
@@ -83,6 +107,10 @@ class SelectCheckbox extends Component {
         });
     }
 
+    /**
+     * Render.
+     * @return {ReactElement} markup.
+     */
     render() {
         return (
             <div data-focus='select-checkbox'>
@@ -91,7 +119,5 @@ class SelectCheckbox extends Component {
         );
     }
 }
-
-SelectCheckbox.displayName = 'SelectCheckbox';
 
 export default SelectCheckbox;

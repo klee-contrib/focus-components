@@ -1,27 +1,29 @@
 import type from 'focus-core/component/types';
+
 /**
  * Mixin used in order to create a popin or a menu.
  * @type {Object} - popin behavour mixin
  */
-var PopinProperties = {
-  /** @inheritdoc */
-    getDefaultProps: function getMenuDefaultProps() {
+let PopinProperties = {
+    /** @inheritdoc */
+    getDefaultProps() {
         return {
             direction: 'vertical',//horizontal
             position: 'left', // top, bottom, right, left
             open: false
         };
     },
-  /** @inheritdoc */
+    /** @inheritdoc */
     propTypes: {
         open: type('bool')
     },
-  /** @inheritdoc */
-    getInitialState: function getDefaultState() {
+    /** @inheritdoc */
+    getInitialState() {
         return {
             open: this.props.open
         };
     }
 };
 
-module.exports = {mixin: PopinProperties};
+export { PopinProperties as mixin };
+export default { mixin: PopinProperties };

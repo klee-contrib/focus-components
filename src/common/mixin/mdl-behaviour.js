@@ -1,6 +1,7 @@
 //https://github.com/google/material-design-lite/blob/master/src/mdlComponentHandler.js#L333
-const React = require('react');
-const ReactDOM = require('react-dom');
+import React from 'react';
+import ReactDOM from 'react-dom';
+import 'material-design-lite/material';
 
 const mdlBehaviourMixin = {
 
@@ -24,4 +25,4 @@ const mdlBehaviourMixin = {
 
 };
 
-module.exports = mdlBehaviourMixin;
+export default mdlBehaviourMixin;

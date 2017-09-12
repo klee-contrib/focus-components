@@ -57,19 +57,23 @@ const defaultProps = {
  */
 @Base
 class InputDate extends Component {
+
     /**
      * Create a new component.
      * @param {*} props Props.
      */
     constructor(props) {
         super(props);
+
         const { value } = props;
+
         const state = {
             dropDownDate: isISOString(value) ? moment.utc(value, moment.ISO_8601) : moment.utc(),
             inputDate: this._formatDate(value),
             displayPicker: false
         };
         this.state = state;
+
         this._inputDateId = uniqueId('input-date-');
     }
 
@@ -145,13 +149,13 @@ class InputDate extends Component {
         const dropDownDate = isCorrect ? this._parseInputDate(inputDate) : null;
         const shouldTriggerChange = isCorrect || (triggerOnChangeIfEmpty && (inputDate || '').trim() === ''); // Fire onChange event, only if date if correct, or empty, if the option is activated
         const newData = isCorrect ? dropDownDate.toISOString() : null; // if date is not correct, it is empty, so send null (or empty string ?)
-      
+
         if (isCorrect) {
             this.setState({ dropDownDate, inputDate });
         } else {
             this.setState({ inputDate });
         }
-        
+
         // When checkOnlyOnBlur is true skip all checks.
         if (checkOnlyOnBlur === true) {
             if (shouldTriggerChange) {
@@ -178,7 +182,7 @@ class InputDate extends Component {
      * Handle calendar changes.
      * @memberOf InputDate
      */
-    _onDropDownChange = (text, date) => {
+    _onDropDownChange = (text, { dateMoment: date }) => {
         if (date._isValid) {
             this.setState({ displayPicker: false }, () => {
                 const correctedDate = moment.utc(date).add(moment(date).utcOffset(), 'minutes').toISOString(); // Add UTC offset to get right ISO string
@@ -225,6 +229,7 @@ class InputDate extends Component {
     getValue = () => {
         const { inputDate } = this.state;
         const rawValue = this._isInputFormatCorrect(inputDate) ? this._parseInputDate(inputDate).toISOString() : null;
+
         return this.props.beforeValueGetter(rawValue);
     };
 
@@ -255,6 +260,7 @@ class InputDate extends Component {
         const { dropDownDate, inputDate, displayPicker } = this.state;
         const { _onInputBlur, _onInputChange, _onInputFocus, _onDropDownChange, _onPickerCloserClick, _handleKeyDown } = this;
         const inputProps = { disabled };
+
         return (
             <div data-focus='input-date' data-id={this._inputDateId}>
                 <InputText error={error} name={name} onChange={_onInputChange} onKeyDown={_handleKeyDown} onFocus={_onInputFocus} placeholder={placeholder} ref='input' value={inputDate} {...inputProps} />

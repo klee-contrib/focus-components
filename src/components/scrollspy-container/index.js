@@ -3,10 +3,13 @@ import ReactDOM from 'react-dom';
 import BackToTop from '../button-back-to-top'
 import StickyMenu from './sticky-menu';
 import Scroll from '../../behaviours/scroll';
-import Grid from '../grid';
-import Column from '../column';
 
-import { debounce, filter, first, last, xor } from 'lodash';
+import debounce from 'lodash/function/debounce';
+import filter from 'lodash/collection/filter';
+import first from 'lodash/array/first';
+import last from 'lodash/array/last';
+import xor from 'lodash/array/xor';
+
 
 const BackToTopComponent = BackToTop;
 
@@ -31,6 +34,7 @@ const propTypes = {
 */
 @Scroll
 class ScrollspyContainer extends Component {
+
     constructor(props) {
         super(props);
         const state = {
@@ -50,6 +54,12 @@ class ScrollspyContainer extends Component {
     }
 
     /** @inheritDoc */
+    componentWillMount() {
+        this._refreshMenu = this._refreshMenu.bind(this);
+        this._debounceRefreshMenu = this._debounceRefreshMenu.bind(this);
+    }
+
+    /** @inheritDoc */
     componentWillUnmount() {
         this._timeouts.map(clearTimeout);
         this._scrollCarrier.removeEventListener('scroll', this._debounceRefreshMenu);
@@ -61,22 +71,22 @@ class ScrollspyContainer extends Component {
     * Refresh screen X times.
     * @param  {number} time number of execution
     */
-    _executeRefreshMenu = (time) => {
+    _executeRefreshMenu(time) {
         this._timeouts = [];
         for (let i = 0; i < time; i++) {
-            this._timeouts.push(setTimeout(this._refreshMenu.bind(this), i * 1000));
+            this._timeouts.push(setTimeout(this._refreshMenu, i * 1000));
         }
-    };
+    }
 
-    _debounceRefreshMenu = () => {
+    _debounceRefreshMenu() {
         this._debouncedRefresh();
-    };
+    }
 
     /**
     * The scroll event handler
     * @private
     */
-    _refreshMenu = () => {
+    _refreshMenu() {
         if (!this.props.hasMenu) {
             return;
         }
@@ -101,14 +111,14 @@ class ScrollspyContainer extends Component {
             clickedId: isAtClickedItem ? undefined : clickedId,
             affix
         });
-    };
+    }
 
     /**
     * Build the list of menus.
     * @private
     * @return {array} the list of menus.
     */
-    _buildMenuList = () => {
+    _buildMenuList() {
         const { hasMenu } = this.props;
         if (!hasMenu) {
             return [];
@@ -172,7 +182,7 @@ class ScrollspyContainer extends Component {
             menuList[currentIndex].isActive = true;
         }
         return menuList;
-    };
+    }
 
     /**
     * Calculate the real position of an element, depending on declared offset in props.
@@ -180,18 +190,18 @@ class ScrollspyContainer extends Component {
     * @param  {number} position position
     * @return {number} the real position
     */
-    _getElementRealPosition = (position) => {
+    _getElementRealPosition(position) {
         const sscDomNode = ReactDOM.findDOMNode(this);
         const sscPosition = this.scrollPosition(sscDomNode);
         return position - sscPosition.top;
-    };
+    }
 
     /**
     * Calculate menu position (affix or not)
     * @private
     * @return {Boolean} true is menu must be affix, else false
     */
-    _isMenuAffix = () => {
+    _isMenuAffix() {
         let { offset } = this.props;
         const { hasMenu } = this.props;
         if (!hasMenu) {
@@ -202,14 +212,14 @@ class ScrollspyContainer extends Component {
         const containerPaddingTop = this._getPaddingTopValue();
         offset -= containerPaddingTop;
         return currentViewPosition.top <= offset;
-    };
+    }
 
-    _getPaddingTopValue = () => {
+    _getPaddingTopValue() {
         const sscDomNode = ReactDOM.findDOMNode(this);
         const computedStyles = window.getComputedStyle(sscDomNode, null);
         const paddingTop = computedStyles.getPropertyValue('padding-top');
         return paddingTop ? parseInt(paddingTop, 0) : 0;
-    };
+    }
 
     /**
     * Handle click on item menu function.
@@ -245,6 +255,7 @@ class ScrollspyContainer extends Component {
     render() {
         const { children, hasMenu, hasBackToTop, offset, scrollDelay, ...otherProps } = this.props;
         const { affix, menuList } = this.state;
+
         return (
             <div data-focus='scrollspy-container' {...otherProps}>
                 {hasMenu &&

@@ -1,17 +1,15 @@
-import {translate} from 'focus-core/translation';
+import { translate } from 'focus-core/translation';
 
-import React, {PropTypes} from 'react';
-const ReactDOM = require('react-dom');
+import React, { PropTypes } from 'react';
+import ReactDOM from 'react-dom';
 
 import builder from 'focus-core/component/builder';
-import type from 'focus-core/component/types';
-const uuid = require('uuid');
-const find = require('lodash/collection/find');
-const {uniqueId} = require('lodash/utility');
+import find from 'lodash/collection/find';
+import uniqueId from 'lodash/utility/uniqueId';
+import 'material-design-lite/material';
 
 // Components
 import Icon from '../../components/icon';
-const Dropdown = require('../../common/select-action').component;
 
 const scopeMixin = {
     /**
@@ -72,8 +70,8 @@ const scopeMixin = {
     * @param  {String} code   the clicked scope's code
     * @return {Function}  the scope click handler
     */
-    _getScopeClickHandler({code}) {
-        const {onScopeSelection} = this.props;
+    _getScopeClickHandler({ code }) {
+        const { onScopeSelection } = this.props;
         return () => {
             if (onScopeSelection) {
                 onScopeSelection(code);
@@ -87,8 +85,8 @@ const scopeMixin = {
         };
     },
     _getActiveScope() {
-        const {list, value} = this.props;
-        const activeScope = find(list, {code: value});
+        const { list, value } = this.props;
+        const activeScope = find(list, { code: value });
         return activeScope || {};
     },
     /**
@@ -96,18 +94,18 @@ const scopeMixin = {
     * @return {HTML} the rendered scope list
     */
     _renderScopeList() {
-        const {scopesId} = this;
-        const {list: scopeList, value} = this.props;
+        const { scopesId } = this;
+        const { list: scopeList, value } = this.props;
         return (
             <ul className={'mdl-menu mdl-menu--bottom-left mdl-js-menu mdl-js-ripple-effect'} data-focus='search-bar-scopes' htmlFor={scopesId} ref='scopeDropdown'>
                 {0 < scopeList.length && scopeList.map(scope => {
-                    const {code, icon, label, ...otherScopeProps} = scope;
+                    const { code, icon, label, ...otherScopeProps } = scope;
                     const scopeId = uniqueId('scopes_');
                     const isActive = value === code;
                     return (
                         <li className='mdl-menu__item' data-active={isActive} key={scope.code || scopeId} data-scope={scope.code || scopeId} onClick={this._getScopeClickHandler(scope)}>
                             {scope.code &&
-                                <Icon name={icon || code} {...otherScopeProps}/>
+                                <Icon name={icon || code} {...otherScopeProps} />
                             }
                             <span>{translate(label)}</span>
                         </li>
@@ -126,13 +124,13 @@ const scopeMixin = {
     * @return {object} - The jsx element.
     */
     render() {
-        const {scopesId} = this;
+        const { scopesId } = this;
         const activeScope = this._getActiveScope();
-        const {code, icon, label, ...otherScopeProps} = activeScope;
+        const { code, icon, label, ...otherScopeProps } = activeScope;
         return (
             <div data-focus='search-bar-scope' ref='parent'>
                 <button className='mdl-button mdl-js-button' id={scopesId} data-scope={code}>
-                    <Icon name={icon || code} {...otherScopeProps}/>
+                    <Icon name={icon || code} {...otherScopeProps} />
                     <span>{translate(label)}</span>
                 </button>
                 {this._renderScopeList()}
@@ -140,4 +138,11 @@ const scopeMixin = {
         );
     }
 };
-module.exports = builder(scopeMixin);
+const { mixin, component } = builder(scopeMixin);
+export default {
+    mixin, component
+}
+export {
+    mixin,
+    component
+}

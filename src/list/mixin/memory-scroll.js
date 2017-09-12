@@ -1,4 +1,5 @@
-let memoryMixin = {
+const memoryMixin = {
+
     /** @inheritdoc */
     getDefaultProps() {
         return {
@@ -15,9 +16,9 @@ let memoryMixin = {
             maxElements: this.props.perPage
         };
     },
-    
+
     componentWillReceiveProps(nextProps) {
-        if(nextProps.perPage && nextProps.perPage !== this.props.perPage) {
+        if (nextProps.perPage && nextProps.perPage !== this.props.perPage) {
             this.setState({
                 maxElements: nextProps.perPage
             });
@@ -41,7 +42,7 @@ let memoryMixin = {
      * @return data list
      */
     getDataToUse() {
-        if(!this.props.data) {
+        if (!this.props.data) {
             return [];
         }
         return this.props.data.slice(0, this.state.maxElements);
@@ -56,4 +57,4 @@ let memoryMixin = {
     }
 };
 
-module.exports = memoryMixin;
+export default memoryMixin;

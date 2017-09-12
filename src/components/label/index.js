@@ -1,11 +1,11 @@
 // Dependencies
-import React, {Component, PropTypes} from 'react';
-import {translate} from 'focus-core/translation';
+import React, { Component, PropTypes } from 'react';
+import { translate } from 'focus-core/translation';
 
-function Label({name, text}) {
+function Label({ name, text }) {
     const content = text || name;
     return (
-        <label data-focus="label" htmlFor={name}>
+        <label data-focus='label' htmlFor={name}>
             {translate(content)}
         </label>
     );
@@ -13,7 +13,7 @@ function Label({name, text}) {
 
 Label.propTypes = {
     name: PropTypes.string.isRequired,
-    text: PropTypes.string,
+    text: PropTypes.string
 }
 
-module.exports = Label;
+export default Label;

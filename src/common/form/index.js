@@ -1,14 +1,12 @@
 import builder from 'focus-core/component/builder';
-let React = require('react');
-
+import React from 'react';
 // Common mixins.
-let definitionMixin = require('../mixin/definition');
-//let fieldComponentBehaviour = require('../mixin/field-component-behaviour');
-let builtInComponents = require('../mixin/built-in-components');
-let storeBehaviour = require('../mixin/store-behaviour');
-let ownIdentifierBehaviour = require('../mixin/own-identifier');
+import definitionMixin from '../mixin/definition';
+import builtInComponents from '../mixin/built-in-components';
+import storeBehaviour from '../mixin/store-behaviour';
+import ownIdentifierBehaviour from '../mixin/own-identifier';
 //Form mixins.
-let { actionBehaviour, referenceBehaviour, validationBehaviour} = require('./mixin');
+import { actionBehaviour, referenceBehaviour, validationBehaviour } from './mixin';
 
 /**
 * Mixin to create a block for the rendering.
@@ -48,7 +46,7 @@ let formMixin = {
         };
     },
     /** @inheritdoc */
-    getInitialState: function getFormInitialState() {
+    getInitialState() {
         return {
             /**
             * Identifier of the entity.
@@ -59,20 +57,19 @@ let formMixin = {
         };
     },
     componentWillReceiveProps(newProps = {}) {
-        let {isEdit} = newProps;
-        if(isEdit !== undefined) {
-            this.setState({isEdit: isEdit})
+        let { isEdit } = newProps;
+        if (isEdit !== undefined) {
+            this.setState({ isEdit: isEdit })
         }
     },
     /** @inheritdoc */
-    callMountedActions: function formCallMountedActions() {
-        if(this.props.hasLoad) {
+    callMountedActions() {
+        if (this.props.hasLoad) {
             this._loadData();
         }
-        this._loadReference();
     },
     /** @inheritdoc */
-    componentDidMount: function formDidMount() {
+    componentDidMount() {
         //Build the definitions.
         if (this.registerListeners) {
             this.registerListeners();
@@ -82,36 +79,36 @@ let formMixin = {
         }
     },
     /** @inheritdoc */
-    componentWillUnmount: function formWillMount() {
+    componentWillUnmount() {
         if (this.unregisterListeners) {
             this.unregisterListeners();
         }
     },
-    _mode: function() {
+    _mode() {
         return `${this.state.isEdit ? 'edit' : 'consult'}`;
     },
-    _className: function formClassName() {
+    _className() {
         return `form-horizontal ${this.props.style.className}`;
     },
-    _renderActions: function renderActions() {
+    _renderActions() {
         if (this.renderActions) {
             return this.renderActions();
         }
         return this.state.isEdit ? this._renderEditActions() : this._renderConsultActions();
     },
-    _renderEditActions: function _renderEditActions() {
+    _renderEditActions() {
         return this.renderEditActions ? this.renderEditActions() : (
             <span>
-            {this.buttonSave()}
-            {this.buttonCancel()}
+                {this.buttonSave()}
+                {this.buttonCancel()}
             </span>
         );
     },
-    _renderConsultActions: function _renderConsultActions() {
+    _renderConsultActions() {
         return this.renderConsultActions ? this.renderConsultActions() : (
             <div>
-            {this.props.hasEdit && this.buttonEdit()}
-            {this.props.hasDelete && this.buttonDelete()}
+                {this.props.hasEdit && this.buttonEdit()}
+                {this.props.hasDelete && this.buttonDelete()}
             </div>
         );
     },
@@ -121,7 +118,7 @@ let formMixin = {
     */
     _handleSubmitForm(e) {
         e.preventDefault();
-        if(this._validate()) {
+        if (this._validate()) {
             this.action.save.call(this, this._getEntity());
         }
         //return false;
@@ -129,7 +126,7 @@ let formMixin = {
     /** @inheritdoc */
     render() {
         //console.log('state form', this.state);
-        if(this.props.hasForm) {
+        if (this.props.hasForm) {
             return (
                 <form className={this._className()} data-loading={this.state.isLoading} data-mode={this._mode()} noValidate onSubmit={this._handleSubmitForm} >
                     <fieldset>{this.renderContent()}</fieldset>
@@ -140,4 +137,6 @@ let formMixin = {
     }
 };
 
-module.exports = builder(formMixin);
+const { mixin, component } = builder(formMixin);
+export { mixin, component };
+export default { mixin, component };

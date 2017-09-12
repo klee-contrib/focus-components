@@ -1,14 +1,14 @@
-const React = require('react');
-const ReactDOM = require('react-dom');
+import React from 'react';
+import ReactDOM from 'react-dom';
+import { mixin as paginationMixin } from '../mixin/pagination';
 
-const topOfElement = function(element) {
+const topOfElement = function topOfElement(element) {
     if (!element) {
         return 0;
     }
     return element.offsetTop + topOfElement(element.offsetParent);
 };
 
-const paginationMixin = require('../mixin/pagination').mixin;
 /**
  *
  * Mixin which add infinite scroll behavior.
@@ -20,7 +20,7 @@ const InfiniteScrollMixin = {
      * defaults props for the mixin.
      * @returns {object} - the default props
      */
-    getDefaultProps: function() {
+    getDefaultProps() {
         return {
             isInfiniteScroll: true,
             initialPage: 1,
@@ -31,15 +31,15 @@ const InfiniteScrollMixin = {
     /**
      * Before component mount
      */
-    componentWillMount: function() {
+    componentWillMount() {
         this.nextPage = this.props.initialPage;
     },
 
     /**
      * Before component unmount.
      */
-    componentWillUnmount: function() {
-        if(!this.props.isManualFetch) {
+    componentWillUnmount() {
+        if (!this.props.isManualFetch) {
             this.detachScrollListener();
         }
     },
@@ -47,9 +47,9 @@ const InfiniteScrollMixin = {
     /**
      * After component Mount.
      */
-    componentDidMount: function() {
+    componentDidMount() {
         this.parentNode = this.props.parentSelector ? document.querySelector(this.props.parentSelector) : window;
-        if(!this.props.isManualFetch) {
+        if (!this.props.isManualFetch) {
             this.attachScrollListener();
         }
     },
@@ -57,8 +57,8 @@ const InfiniteScrollMixin = {
     /**
      * after component update.
      */
-    componentDidUpdate: function() {
-        if(!this.props.isLoading && !this.props.isManualFetch) {
+    componentDidUpdate() {
+        if (!this.props.isLoading && !this.props.isManualFetch) {
             this.attachScrollListener();
         }
     },
@@ -66,28 +66,20 @@ const InfiniteScrollMixin = {
     /**
      * Handler for the scroll event.
      */
-    scrollListener: function () {
+    scrollListener() {
         const el = ReactDOM.findDOMNode(this);
         const scrollTop = (this.parentNode.pageYOffset !== undefined) ? this.parentNode.pageYOffset : this.parentNode.scrollTop;
         if (topOfElement(el) + el.offsetHeight - scrollTop - (window.innerHeight || this.parentNode.offsetHeight) < this.props.offset) {
             this.detachScrollListener();
             this.fetchNextPage(this.nextPage++);
         }
-
-        //calculate visible index in the list
-        /*const topHeader = topOfElement(el);
-        const pageHeight = topHeader+el.offsetHeight;
-        const scrollHeader = (topHeader / pageHeight)*window.innerHeight;
-        //console.log((scrollTop - (topHeader / pageHeight) / (el.offsetHeight - topHeader) * this.state.data.length);
-        const visibleIndex = (scrollTop - topHeader) / (el.offsetHeight) * this.state.data.length;
-        console.log(visibleIndex);*/
     },
 
     /**
      * Attach scroll listener on the component.
      */
-    attachScrollListener: function () {
-        if(!this.props.hasMoreData) {
+    attachScrollListener() {
+        if (!this.props.hasMoreData) {
             return;
         }
         this.parentNode.addEventListener('scroll', this.scrollListener);
@@ -98,10 +90,11 @@ const InfiniteScrollMixin = {
     /**
      * detach scroll listener on the component
      */
-    detachScrollListener: function () {
+    detachScrollListener() {
         this.parentNode.removeEventListener('scroll', this.scrollListener);
         this.parentNode.removeEventListener('resize', this.scrollListener);
     }
 };
 
-module.exports = {mixin: InfiniteScrollMixin};
+export { InfiniteScrollMixin as mixin }
+export default { mixin: InfiniteScrollMixin };

@@ -1,9 +1,9 @@
 import builder from 'focus-core/component/builder';
 import types from 'focus-core/component/types';
-const React = require('react');
-const Checkbox = require('../../../components/input/checkbox');
-const i18nBehaviour = require('../../i18n/mixin');
-const {pull} = require('lodash/array');
+import React from 'react';
+import Checkbox from '../../../components/input/checkbox';
+import i18nBehaviour from '../../i18n/mixin';
+import pull from 'lodash/array/pull'
 
 const selectCheckboxMixin = {
     mixins: [i18nBehaviour],
@@ -45,8 +45,8 @@ const selectCheckboxMixin = {
 
     /** @inheritdoc */
     componentWillReceiveProps(newProps) {
-        if(newProps) {
-            this.setState({selectedValues: newProps.value});
+        if (newProps) {
+            this.setState({ selectedValues: newProps.value });
         }
     },
 
@@ -64,17 +64,17 @@ const selectCheckboxMixin = {
      * @param  {[type]} newStatus the new status
      */
     _handleCheckboxChange(key, newStatus) {
-        if(this.props.onChange) {
+        if (this.props.onChange) {
             this.props.onChange(key, newStatus);
             return;
         }
         const selectedValues = this.state.selectedValues;
-        if(newStatus) {
+        if (newStatus) {
             selectedValues.push(key);
         } else {
             pull(selectedValues, key);
         }
-        this.setState({value: selectedValues});
+        this.setState({ value: selectedValues });
     },
     /**
      * Closure to capture key and checbox status.
@@ -111,4 +111,6 @@ const selectCheckboxMixin = {
     }
 };
 
-module.exports = builder(selectCheckboxMixin);
+const { mixin, component } = builder(selectCheckboxMixin);
+export { mixin, component };
+export default { mixin, component };

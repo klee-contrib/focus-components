@@ -3,19 +3,16 @@ import React from 'react';
 import builder from 'focus-core/component/builder';
 import types from 'focus-core/component/types';
 
-import { reduce, isArray, find } from 'lodash';
+import reduce from 'lodash/collection/reduce';
+import isArray from 'lodash/lang/isArray';
 
 //Add a ref to the props if the component is not pure add nothing in the other case.
 import { addRefToPropsIfNotPure, LINE } from '../../utils/is-react-class-component';
-
-import {translate} from 'focus-core/translation';
+import { translate } from 'focus-core/translation';
 // Mixins
-
-import {mixin as infiniteScrollMixin} from '../mixin/infinite-scroll';
+import { mixin as infiniteScrollMixin } from '../mixin/infinite-scroll';
 import referenceMixin from '../../common/mixin/reference-property';
-
 // Components
-
 import Button from '../../components/button';
 
 const listMixin = {
@@ -70,7 +67,7 @@ const listMixin = {
         }
     },
 
-    componentWillReceiveProps({selectionStatus, data}) {
+    componentWillReceiveProps({ selectionStatus, data }) {
         switch (selectionStatus) {
             case 'none':
                 this.setState({ selectedItems: new Map() });
@@ -88,7 +85,7 @@ const listMixin = {
     * @return {Array} selected items
     */
     getSelectedItems() {
-        const {selectedItems} = this.state;
+        const { selectedItems } = this.state;
         if (selectedItems !== null) {
             const selectedItems = [];
             for (let [item, isSelected] of this.state.selectedItems) {
@@ -98,7 +95,7 @@ const listMixin = {
         } else {
             return reduce(this.refs, (acc, ref) => {
                 if (ref.getValue) {
-                    const {item, isSelected} = ref.getValue();
+                    const { item, isSelected } = ref.getValue();
                     if (isSelected) acc.push(item);
                 }
                 return acc;
@@ -107,7 +104,7 @@ const listMixin = {
     },
 
     _handleLineSelection(data, isSelected) {
-        const {selectedItems} = this.state;
+        const { selectedItems } = this.state;
         const newSelectedItems = new Map();
         if (selectedItems !== null) {
             for (let [key, value] of selectedItems) {
@@ -130,7 +127,7 @@ const listMixin = {
     * @returns {*} DOM for lines
     */
     _renderLines() {
-        const {data, LineComponent: Line, selectionData, idField, selectionStatus, ...otherProps} = this.props;
+        const { data, LineComponent: Line, selectionData, idField, selectionStatus, ...otherProps } = this.props;
         if (selectionData && selectionData.length > 0) {
             console.warn('[DEPRECATED] You are using \'selectionData\' prop which is now DEPRECATED. Please use \'selectionnableInitializer\' on line component.');
         }
@@ -148,7 +145,7 @@ const listMixin = {
         }
         return data.map((line, idx) => {
             let isSelected;
-            const selection = find(selectionData, { [idField]: line[idField] });
+            const selection = selectionData.find(item => item && item[idField] === line[idField]);
             if (selection) {
                 isSelected = selection.isSelected;
             } else {
@@ -175,7 +172,9 @@ const listMixin = {
                     onSelection: this._handleLineSelection,
                     reference: this._getReference()
                 }, `${LINE}${idx}`);
-            return <FinalLineComponent {...listFinalProps} />;
+            return (
+                <FinalLineComponent {...listFinalProps} />
+            );
         });
     },
     /**
@@ -183,7 +182,7 @@ const listMixin = {
     * @return {HTML} the loading state
     */
     _renderLoading() {
-        const {isLoading, loader} = this.props;
+        const { isLoading, loader } = this.props;
         if (isLoading) {
             if (loader) {
                 return loader();
@@ -198,7 +197,7 @@ const listMixin = {
     * @return {HTML} the rendered manual fetch state
     */
     _renderManualFetch() {
-        const {isManualFetch, hasMoreData} = this.props;
+        const { isManualFetch, hasMoreData } = this.props;
         if (isManualFetch && hasMoreData) {
             const style = { className: 'primary' };
             return (
@@ -214,7 +213,7 @@ const listMixin = {
         }
     },
 
-    shouldComponentUpdate({selectionStatus}, {selectedItems}) {
+    shouldComponentUpdate({ selectionStatus }, { selectedItems }) {
         return selectedItems === this.state.selectedItems || selectedItems.size === 0 || selectionStatus !== this.props.selectionStatus;
     },
 
@@ -223,7 +222,7 @@ const listMixin = {
     * @returns {XML} DOM of the component
     */
     render() {
-        const {isSelection} = this.props;
+        const { isSelection } = this.props;
         return (
             <ul data-focus='selection-list' data-selection={isSelection}>
                 {this._renderLines()}
@@ -235,7 +234,7 @@ const listMixin = {
 };
 
 const builtComp = builder(listMixin);
-const {component, mixin} = builtComp;
+const { component, mixin } = builtComp;
 
 export {
     component,

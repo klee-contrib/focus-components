@@ -1,25 +1,19 @@
 sudo: false
 language: node_js
 node_js:
-- '4.2'
-before_deploy: 'npm run build'
-deploy:
-  provider: npm
-  email: pierre.besson7+npm@gmail.com
-  api_key:
-    secure: hUSwbyOa1f2COJbiH0CzvywG/SkS+jlB9RoMeLiwalG0BKWddq1AAVkAyXX59Qrnuo1mf+H+9svH4nJEUbTOOHksRpGrNn3xX8759GW43KNBEBsA0Z0swLl4bFeT3cQUmI0nSCSrf2qbwxJOQLknSHx3FwrmLGfOSApgYCV3U+A=
-  skip_cleanup: true
-  on:
-    branch: develop
-notifications:
-  slack:
-    secure: H7kOv9XJ70UUMd+j2V/DgmFV4bjBmOanFkHu8bloBrAcSOex0kE/mFQI4ysNRMORBTuWETFs9L+ilVLMHakFmF29043MIu/XGdK0hUNZypwNDsZyIPYQwQn6qbQ+Lyw4VFJLW7/myNwSJzTxUDUSgCI4dwCWz34CljVSLS/Yw30=
+- 6
+- node
 branches:
   only:
-    - v2.x.x
-    - master
-    - develop
-    - /^hotfix-.*$/
+  - v2.x.x
+  - master
+  - develop
 cache:
   directories:
-    - node_modules
+  - node_modules
+notifications:
+  slack:
+    rooms:
+      secure: CHTfFWvztD+BI8A1tBIdPtsTBdO6w1L1gTE1dXsbYpmBHDvUG8yjBm5hihuiRjSGUUpdE138/iq8SSASQo/2770mGAvRCrYkT3DYQXFUb3ZK5gAWNiwWuja4ZXW4hmaeCt76NOu9876ntpMRJHATKsjNFM3ryk3fwp5xD20CWH0=
+    on_success: change # default: always
+    on_failure: always # default: always

@@ -1,10 +1,7 @@
-import React, {Component, PropTypes} from 'react';
+import React, { Component, PropTypes } from 'react';
 import ReactDOM from 'react-dom';
-import {uniqueId} from 'lodash/utility';
-
 import Button from '../../components/button';
 import Translation from '../../behaviours/translation';
-
 
 function isDescendant(parent, child) {
     let node = child.parentNode;
@@ -16,10 +13,12 @@ function isDescendant(parent, child) {
     }
     return false;
 }
+
 @Translation
 class Dropdown extends Component {
+
     static propTypes = {
-        openDirection: PropTypes.oneOf(['bottom-left', 'bottom-right', 'top-left', 'top-right']),
+        openDirection: PropTypes.oneOf(['bottom-left', 'bottom-right', 'top-left', 'top-right'])
     };
 
     static defaultProps = {
@@ -37,10 +36,6 @@ class Dropdown extends Component {
         visible: false
     };
 
-    componentWillMount() {
-        this._htmlId = uniqueId('focus-dropdown');
-    }
-
     componentDidMount() {
         document.addEventListener('click', this._handleDocumentClick.bind(this));
     }
@@ -49,44 +44,42 @@ class Dropdown extends Component {
         document.removeEventListener('click', this._handleDocumentClick);
     }
 
-    _handleDocumentClick({target}) {
-        const {visible} = this.state;
+    _handleDocumentClick({ target }) {
+        const { visible } = this.state;
         if (visible) {
             const dropdownElement = ReactDOM.findDOMNode(this.refs.parent);
             if (!isDescendant(dropdownElement, target)) {
-                this.setState({visible: false});
+                this.setState({ visible: false });
             }
         }
     }
 
     _handleIconClick() {
-        this.setState({visible: !this.state.visible});
+        this.setState({ visible: !this.state.visible });
     }
 
     _operationActionWrapper(action) {
         return () => {
             action();
-            this.setState({visible: false});
+            this.setState({ visible: false });
         }
     }
 
     render() {
-        const {iconProps: {name, iconLibrary}, operationList, shape, openDirection, buttonType} = this.props;
-        const {visible} = this.state;
-        const id = this._htmlId;
+        const { iconProps: { name, iconLibrary }, operationList, shape, openDirection, buttonType } = this.props;
+        const { visible } = this.state;
         return (
             <div data-focus='icon-dropdown' ref='parent'>
                 <Button
-                    id={id}
                     shape={shape}
                     icon={name}
                     iconLibrary={iconLibrary}
                     handleOnClick={this._handleIconClick.bind(this)}
                     type={buttonType}
-                    />
+                />
                 {visible &&
                     <div data-focus='dropdown-menu' data-position={openDirection} ref='dropdown'>
-                        {operationList.map(({label, action}, idx) => (<div key={idx} data-role='dropdown-item' onClick={this._operationActionWrapper(action)}>{this.i18n(label)}</div>))}
+                        {operationList.map(({ label, action }, idx) => (<div key={idx} data-role='dropdown-item' onClick={this._operationActionWrapper(action)}>{this.i18n(label)}</div>))}
                     </div>
                 }
             </div>

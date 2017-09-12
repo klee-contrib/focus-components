@@ -1,6 +1,6 @@
 import React from 'react';
 import builder from 'focus-core/component/builder';
-import {ArgumentInvalidException} from 'focus-core/exception';
+import { ArgumentInvalidException } from 'focus-core/exception';
 import numberFormatter from 'focus-core/definition/formatter/number';
 
 const FacetData = {
@@ -18,7 +18,7 @@ const FacetData = {
      * @returns {XML} Html code of the component.
      */
     render() {
-        return(
+        return (
             <div data-focus='facet-data' onClick={this._selectFacetData}>
                 {this._renderData()}
             </div>
@@ -29,7 +29,7 @@ const FacetData = {
      * @returns {string} Html generated code.
      */
     _renderData() {
-        if(this.props.type == 'text') {
+        if (this.props.type == 'text') {
             return `${this.props.data.label} (${numberFormatter.format(this.props.data.count)})`;
         }
         throw new ArgumentInvalidException('Unknown property type : ' + this.props.type);
@@ -43,4 +43,6 @@ const FacetData = {
     }
 };
 
-module.exports = builder(FacetData);
+const { mixin, component } = builder(FacetData);
+export { mixin, component };
+export default { mixin, component };

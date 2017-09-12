@@ -1,5 +1,5 @@
 // Components
-const Checkbox = FocusComponents.common.input.checkbox.component;
+import { component as Checkbox } from 'focus-components/common/input/checkbox';
 
 const InputCheckboxSample = React.createClass({
     /**
@@ -18,22 +18,22 @@ const InputCheckboxSample = React.createClass({
         return (
             <div>
                 <h3>Input checkbox</h3>
-                <Checkbox value label="My awsome checkbox"/>
+                <Checkbox value label='My awsome checkbox' />
 
                 <h3>Unselected checkbox</h3>
-                <Checkbox value={false} label="My awsome checkbox"/>
+                <Checkbox value={false} label='My awsome checkbox' />
 
                 <h3>Without label</h3>
                 <Checkbox value />
 
                 <h3>Get Checkbox value</h3>
-                <div style={{float:'left', width: '300px'}}>
-                    <Checkbox value label="My awsome checkbox" ref="cbTestGetValue"/>
+                <div style={{ float: 'left', width: '300px' }}>
+                    <Checkbox value label='My awsome checkbox' ref='cbTestGetValue' />
                 </div>
-                <div style={{marginLeft:'300px'}}>
+                <div style={{ marginLeft: '300px' }}>
                     <button onClick={this.handleGetValueClick}>Get the checkbox value</button>
                 </div>
-        </div>);
+            </div>);
     }
 });
 

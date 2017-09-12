@@ -1,11 +1,11 @@
-const Title = FocusComponents.components.Title;
+import Title from 'focus-components/components/title';
 
 function TitleExample() {
-    return(
+    return (
         <div>
-            <Title label='hello'/>
+            <Title label='hello' />
         </div>
     );
 }
 
-module.exports = TitleExample;
+export default TitleExample;

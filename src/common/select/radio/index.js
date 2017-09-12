@@ -1,10 +1,10 @@
 import builder from 'focus-core/component/builder';
-const React = require('react');
+import React from 'react';
 import types from 'focus-core/component/types';
-const i18nBehaviour = require('../../i18n/mixin');
-const mdlBehaviour = require('../../mixin/mdl-behaviour');
-const {uniqueId} = require('lodash/utility');
-const InputRadio = require('../../input/radio').component;
+import i18nBehaviour from '../../i18n/mixin';
+import mdlBehaviour from '../../mixin/mdl-behaviour';
+import uniqueId from 'lodash/utility/uniqueId';
+import { component as InputRadio } from '../../input/radio';
 
 const selectRadioMixin = {
     mixins: [i18nBehaviour, mdlBehaviour],
@@ -46,7 +46,7 @@ const selectRadioMixin = {
     },
 
     /** @inheritdoc */
-    componentWillReceiveProps (newProps) {
+    componentWillReceiveProps(newProps) {
         this.setState({
             value: newProps.value
         });
@@ -56,7 +56,7 @@ const selectRadioMixin = {
      * Get the value from the select in the DOM.
      * @return {string, number} selected value
      */
-    getValue () {
+    getValue() {
         return this.state.value;
     },
 
@@ -65,13 +65,13 @@ const selectRadioMixin = {
     * @param {object} event - the click event
     */
     _handleRadioChange(newValue) {
-        const {onChange} = this.props;
-        if(onChange) {
+        const { onChange } = this.props;
+        if (onChange) {
             onChange(newValue);
             return;
         }
         //Set the state then call the change handler.
-        this.setState({value: newValue});
+        this.setState({ value: newValue });
     },
     /**
      * Closure to capture key and radio status.
@@ -88,7 +88,7 @@ const selectRadioMixin = {
     * @return {XML} the different radio values
     */
     renderSelectRadios() {
-        const {uniqueName} = this.state;
+        const { uniqueName } = this.state;
         return this.props.values.map((val, idx) => {
             const value = val[this.props.valueKey];
             const label = val[this.props.labelKey];
@@ -101,7 +101,7 @@ const selectRadioMixin = {
     },
     /** @inheritdoc */
     render() {
-        const {error} = this.props;
+        const { error } = this.props;
         return (
             <div data-focus='select-radio' data-valid={!error}>
                 {this.renderSelectRadios()}
@@ -111,4 +111,6 @@ const selectRadioMixin = {
     }
 };
 
-module.exports = builder(selectRadioMixin);
+const { mixin, component } = builder(selectRadioMixin);
+export { mixin, component };
+export default { mixin, component };

@@ -1,4 +1,5 @@
-module.exports = {
-    awesomplete: require('./awesomplete'),
-    field: require('./field')
-};
+import awesomplete from './awesomplete';
+import field from './field';
+
+export { field, awesomplete };
+export default { field, awesomplete };

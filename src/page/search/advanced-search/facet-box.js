@@ -1,11 +1,8 @@
 // Dependencies
-const React = require('react');
+import React from 'react';
 import builder from 'focus-core/component/builder';
-const keys = require('lodash/object/keys');
-
 // Components
-
-const FacetBox = require('../../../search/facet-box').component;
+import { component as FacetBox } from '../../../search/facet-box';
 
 const scopeFacetKey = 'FCT_SCOPE';
 
@@ -29,7 +26,7 @@ const Box = {
      * @param  {Boolean} isDisableGroup     override the groupinKey ?
      */
     _onFacetSelection(facetComponentData, isDisableGroup) {
-        if (keys(facetComponentData.selectedFacetList).length === 1 && facetComponentData.selectedFacetList[scopeFacetKey]) {
+        if (Object.keys(facetComponentData.selectedFacetList).length === 1 && facetComponentData.selectedFacetList[scopeFacetKey]) {
             this.props.action.updateProperties({
                 scope: this.props.scopesConfig[facetComponentData.selectedFacetList[scopeFacetKey].key],
                 sortBy: undefined,
@@ -65,4 +62,6 @@ const Box = {
     }
 };
 
-module.exports = builder(Box);
+const { mixin, component } = builder(Box);
+export { mixin, component };
+export default { mixin, component };

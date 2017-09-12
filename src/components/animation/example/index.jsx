@@ -1,4 +1,4 @@
-const Animation = FocusComponents.components.Animation;
+import Animation from 'focus-components/components/animation';
 
 const AnimationExample = React.createClass({
     styleContainer: {
@@ -7,7 +7,7 @@ const AnimationExample = React.createClass({
         backgroundColor: '#D6E2E4'
     },
     render() {
-        return(
+        return (
             <Animation>
                 <div style={this.styleContainer}>
                     <h3>{'Test Animation'}</h3>
@@ -17,4 +17,4 @@ const AnimationExample = React.createClass({
     }
 });
 
-module.exports = AnimationExample;
+export default AnimationExample;

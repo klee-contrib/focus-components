@@ -1,14 +1,15 @@
-import React, {Component, PropTypes} from 'react';
+import React, { Component, PropTypes } from 'react';
 import Translation from '../../../behaviours/translation';
 import GridBehaviour from '../../../behaviours/grid';
 import MaterialBehaviour from '../../../behaviours/material';
 import filterProps from '../../../utils/filter-html-attributes';
-import {isUndefined} from 'lodash/lang';
+import isUndefined from 'lodash/lang/isUndefined';
 
 @Translation
 @MaterialBehaviour('inputMdl')
 @GridBehaviour
 class Radio extends Component {
+
     static defaultProps = {
         value: false
     };
@@ -25,14 +26,22 @@ class Radio extends Component {
     };
 
     componentWillReceiveProps(newProps) {
-        this.setState({isChecked: newProps.value});
+        this.setState({ isChecked: newProps.value });
+    }
+
+    componentDidMount() {
+        this.updateCheckedClass();
     }
 
     componentDidUpdate() {
-        const {inputMdl} = this.refs;
-        const {isChecked} = this.state;
+        this.updateCheckedClass();
+    }
+
+    updateCheckedClass() {
+        const { inputMdl } = this.refs;
+        const { isChecked } = this.state;
         if (inputMdl) {
-            const {classList} = inputMdl;
+            const { classList } = inputMdl;
             if (isChecked === true) classList.add('is-checked');
             if (isChecked === false) classList.remove('is-checked');
         }
@@ -43,7 +52,7 @@ class Radio extends Component {
     * @param  {event} event
     */
     _onChange = () => {
-        this.setState({isChecked: !this.state.isChecked}, () => {
+        this.setState({ isChecked: !this.state.isChecked }, () => {
             if (this.props.onChange) {
                 this.props.onChange(this.state.isChecked);
             }
@@ -63,17 +72,17 @@ class Radio extends Component {
     * @return {VirtualDOM} - The virtual DOM of the checkbox.
     */
     render() {
-        const {isChecked} = this.state;
-        const {label} = this.props;
+        const { isChecked } = this.state;
+        const { label } = this.props;
         const validInputProps = filterProps(this.props);
 
         validInputProps.onChange = this._onChange;
         validInputProps.checked = isChecked ? 'checked' : undefined;
-        const inputProps = {...validInputProps};
+        const inputProps = { ...validInputProps };
 
         return (
             <label className='mdl-radio mdl-js-radio mdl-js-ripple-effect' data-focus='input-radio' ref='inputMdl'>
-                <input className='mdl-radio__button' type='radio' ref='inputRadio' {...inputProps}/>
+                <input className='mdl-radio__button' type='radio' ref='inputRadio' {...inputProps} />
                 <span className='mdl-radio__label'>{this.i18n(label)}</span>
             </label>
         );

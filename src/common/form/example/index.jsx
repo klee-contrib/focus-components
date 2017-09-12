@@ -1,7 +1,8 @@
-const actionBuilder = Focus.application.actionBuilder;
-const Panel = FocusComponents.components.Panel;
-const formMixin = FocusComponents.common.form.mixin;
-const MessageCenter = FocusComponents.application.messageCenter.component;
+import { actionBuilder } from 'focus-core/application';
+import { component as Panel } from 'focus-components/components/panel';
+import { mixin as formMixin } from 'focus-components/common/form';
+import { component as MessageCenter } from 'focus-components/application/message-center';
+import { init } from 'focus-core/translation';
 
 const resources = {
     dev: {
@@ -40,7 +41,7 @@ const resources = {
     }
 };
 
-i18n.init({resStore: resources});
+init({ resources: resources });
 
 const domain = {
     DO_TEXT: {
@@ -75,7 +76,7 @@ const domain = {
     },
     DO_OUI_NON: {
         SelectComponent: FocusComponents.common.select.radio.component,
-        refContainer: {yesNoList: [{code: true, label: 'select.yes'}, {code: false, label: 'select.no'}]},
+        refContainer: { yesNoList: [{ code: true, label: 'select.yes' }, { code: false, label: 'select.no' }] },
         listName: 'yesNoList',
         formatter: i18n.t
     }
@@ -87,9 +88,11 @@ const entities = {
         firstName: {
             domain: 'DO_TEXT',
             required: false,
-            validator: [{options: {translationKey: 'entityContactValidation.test'}, type: 'function', value: data => {
-                return data.length <= 3 ? false : true;
-            }}]
+            validator: [{
+                options: { translationKey: 'entityContactValidation.test' }, type: 'function', value: data => {
+                    return data.length <= 3 ? false : true;
+                }
+            }]
         },
         lastName: {
             domain: 'DO_TEXT',
@@ -154,7 +157,7 @@ function loadRefList(name) {
     return function loadRef() {
         const refLst = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9].map(cd => {
             return {
-                code: ''+cd,
+                code: '' + cd,
                 label: ('' + cd + ' ' + name)
             };
         });
@@ -164,25 +167,15 @@ function loadRefList(name) {
 function loadMonkeyList() {
     return loadRefList('monkey')().then(data => {
         return data.map(element => {
-            return {myCustomCode: element.code, myCustomLabel: element.label};
+            return { myCustomCode: element.code, myCustomLabel: element.label };
         });
     });
 }
 
 
-Focus.reference.config.set({papas: loadEmptyList, singe: loadRefList('singe'), monkeys: loadMonkeyList});
+Focus.reference.config.set({ papas: loadEmptyList, singe: loadRefList('singe'), monkeys: loadMonkeyList });
 Focus.definition.entity.container.setEntityConfiguration(entities);
 /***********************************************************************************************************************/
-
-const ListLine = React.createClass({
-    mixins: [FocusComponents.list.selection.line.mixin],
-    definitionPath: 'commande',
-    renderLineContent(data) {
-        const firstName = this.displayFor('name', {});
-        const lastName = this.displayFor('number', {});
-        return (<div>{firstName} {lastName}</div>);
-    }
-});
 
 const contactStore = new Focus.store.CoreStore({
     definition: {
@@ -191,7 +184,7 @@ const contactStore = new Focus.store.CoreStore({
     }
 });
 
-const jsonContact= {
+const jsonContact = {
     firstName: 'Zeus',
     lastName: 'God',
     isCool: true,
@@ -223,7 +216,7 @@ const action = {
         status: 'loaded',
         node: 'contact',
         service() {
-            return new Promise((s,e) => {
+            return new Promise((s, e) => {
                 _.delay(() => {
                     s(jsonContact);
                 }, 1);
@@ -267,7 +260,7 @@ const _querySearcher = query => {
             key: 'BER',
             label: 'Berlin'
         }
-    ].filter(({key, label}) => label.toLowerCase().indexOf(query.toLowerCase()) !== -1);
+    ].filter(({ key, label }) => label.toLowerCase().indexOf(query.toLowerCase()) !== -1);
     return new Promise((resolve, reject) => {
         setTimeout(() => {
             resolve({
@@ -281,13 +274,13 @@ const _querySearcher = query => {
 const FormExample = React.createClass({
     displayName: 'FormExample',
     mixins: [formMixin],
+    referenceNames: ['papas', 'monkeys'],
     stores: [{
         store: contactStore,
         properties: ['contact', 'commandes']
     }],
     definitionPath: 'contact',
     action: action,
-    referenceNames: ['papas', 'monkeys'],
 
     /**
     * Render content form.
@@ -298,10 +291,10 @@ const FormExample = React.createClass({
             <Panel actions={this._renderActions} title="Fiche de l'utilisateur">
                 {this.fieldFor('firstName')}
                 {this.fieldFor('lastName')}
-                {this.fieldFor('place', {querySearcher: _querySearcher})}
-                {this.fieldFor('papaCode', {listName: 'papas'})}
-                {this.fieldFor('monkeyCode', {listName: 'monkeys', valueKey: 'myCustomCode', labelKey: 'myCustomLabel' })}
-                {this.fieldFor('lopezCode', {values: [{code: 'JOE', label: 'Joe Lopez'}, {code: 'DAVE', label: 'David Lopez'}]})}
+                {this.fieldFor('place', { querySearcher: _querySearcher })}
+                {this.fieldFor('papaCode', { listName: 'papas' })}
+                {this.fieldFor('monkeyCode', { listName: 'monkeys', valueKey: 'myCustomCode', labelKey: 'myCustomLabel' })}
+                {this.fieldFor('lopezCode', { values: [{ code: 'JOE', label: 'Joe Lopez' }, { code: 'DAVE', label: 'David Lopez' }] })}
                 {this.fieldFor('bio')}
                 {this.fieldFor('isCool')}
                 {this.fieldFor('isNice')}
@@ -316,9 +309,9 @@ const FormExample = React.createClass({
     }
 });
 
-module.exports = () => (
+export default () => (
     <div>
         <MessageCenter />
-        <FormExample isEdit={false}/>
+        <FormExample isEdit={false} />
     </div>
 );

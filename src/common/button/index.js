@@ -1,5 +1,10 @@
-module.exports = {
-	action: require('./action'),
-	backToTop: require('./back-to-top'),
-	back: require('./back')
+import action from './action';
+import backToTop from './back-to-top';
+import back from './back';
+
+export {
+    action, backToTop, back
+};
+export default {
+    action, backToTop, back
 };

@@ -1,6 +1,6 @@
-const {Layout, MenuLeft} = FocusComponents.components;
-const {dispatcher} = Focus;
-const setHeader = Focus.application.setHeader;
+import React from 'react';
+import { Layout, MenuLeft } from 'focus-components/components';
+import setHeader from 'focsu-core/application/setHeader';
 
 const CartridgeContent = React.createClass({
     render() {
@@ -26,12 +26,6 @@ const BarContentLeft = React.createClass({
     }
 });
 
-const Test = React.createClass({
-    render() {
-        return (<div>test</div>);
-    }
-});
-
 const Footer = React.createClass({
     render() {
         return (<div ref='Footer'>&copy;KLEEGROUP 2015 - FOCUS Showcase - Layout</div>);
@@ -39,14 +33,14 @@ const Footer = React.createClass({
 });
 
 const cartridgeConf = {
-    cartridge: {component: CartridgeContent, props: {}},
-    summary: {component: Summary, props: {}},
+    cartridge: { component: CartridgeContent, props: {} },
+    summary: { component: Summary, props: {} },
     actions: {
-        primary: [{label: 'Email', icon: 'email', action: () => {console.log('Email us')}}, {label: 'Settings', icon: 'settings', action: () => {console.log('This is the settings button')}}],
-        secondary: [{label: 'Elaborate', icon: 'print', action: () => {console.log('Now you got a plan !')}}, {label: 'Get ready', icon: 'print', action: () => {console.log('You are now ready')}}, {label: 'Get focus', icon: 'print', action: () => {console.log('You are now focused')}}]
+        primary: [{ label: 'Email', icon: 'email', action: () => { console.log('Email us') } }, { label: 'Settings', icon: 'settings', action: () => { console.log('This is the settings button') } }],
+        secondary: [{ label: 'Elaborate', icon: 'print', action: () => { console.log('Now you got a plan !') } }, { label: 'Get ready', icon: 'print', action: () => { console.log('You are now ready') } }, { label: 'Get focus', icon: 'print', action: () => { console.log('You are now focused') } }]
     },
-    barLeft: {component: BarContentLeft, props: {}},
-    barRight: {component: BarContentRight, props: {}}
+    barLeft: { component: BarContentLeft, props: {} },
+    barRight: { component: BarContentRight, props: {} }
 };
 
 //Add a defer in order to inject the props after the component is mounted
@@ -109,4 +103,4 @@ const LayoutExample = React.createClass({
     }
 });
 
-module.exports = LayoutExample;
+export default LayoutExample;

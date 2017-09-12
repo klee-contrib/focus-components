@@ -1,13 +1,13 @@
-const QuickSearch = FocusComponents.page.search.quickSearch.component;
+import { component as QuickSearch } from 'focus-components/page/search/quick-search';
 
 const QuickSearchExample = React.createClass({
     render() {
-        return(
+        return (
             <div>
                 <center>
                     <h3>Quicksearch</h3>
                 </center>
-                <MyQuickSearch ref='QuickSearch'/>
+                <MyQuickSearch ref='QuickSearch' />
             </div>
         );
     }
@@ -62,7 +62,7 @@ const listUsers = [
         id: countId++,
         firstName: 'Guénolé',
         lastName: 'Kikabou'
-    },
+    }
 ];
 
 const listDevices = [
@@ -120,9 +120,9 @@ Focus.definition.entity.container.setEntityConfiguration({
 let crit = null;
 const MyQuickSearch = React.createClass({
     componentDidMount() {
-        this.refs.QuickSearch.refs.searchBar.setState({scope: 'FAVORITES'});
+        this.refs.QuickSearch.refs.searchBar.setState({ scope: 'FAVORITES' });
         const allArray = listUsers.concat(listDevices);
-        this.refs.QuickSearch.setState({resultsMap: {'All': allArray}});
+        this.refs.QuickSearch.setState({ resultsMap: { All: allArray } });
     },
     getSearchService(scoped) {
         return (criteria) => {
@@ -130,24 +130,20 @@ const MyQuickSearch = React.createClass({
             crit = criteria;
             return new Promise(success => {
                 setTimeout(() => {
-                    let chosenScope = '';
                     let payload;
-                    if(criteria.data.criteria.scope === 'FAVORITES') {
+                    if (criteria.data.criteria.scope === 'FAVORITES') {
                         payload = listUsers.concat(listDevices);
-                    }
-                    else if (criteria.data.criteria.scope == 'DEVICES') {
+                    } else if (criteria.data.criteria.scope == 'DEVICES') {
                         payload = listDevices;
-                    }
-                    else if(criteria.data.criteria.scope == 'USERS') {
+                    } else if (criteria.data.criteria.scope == 'USERS') {
                         payload = listUsers;
-                    }
-                    else {
+                    } else {
                         console.warn('ERROR IN THE SCOPE SECTION');
                     }
 
                     const data = {
                         facets: {},
-                        'list': payload,
+                        list: payload,
                         totalCount: payload.length
                     };
                     success(data);
@@ -162,8 +158,8 @@ const MyQuickSearch = React.createClass({
         };
 
         const Line = React.createClass({
-            mixins: [FocusComponents.list.selection.line.mixin],
             displayName: 'ResultLine',
+            mixins: [FocusComponents.list.selection.line.mixin],
             definitionPath: 'contact',
             renderLineContent(data) {
                 return (
@@ -179,7 +175,7 @@ const MyQuickSearch = React.createClass({
             showName() {
                 let scopeName = 'test';
                 this.props.groupKey != 'undefined' ? scopeName = this.props.groupKey : scopeName = 'Your search';
-                return(scopeName);
+                return (scopeName);
             },
             render() {
                 return (
@@ -196,19 +192,19 @@ const MyQuickSearch = React.createClass({
                 const name = line.firstName + ' ' + line.lastName;
                 switch (name) {
                     case 'Ali Gator':
-                    alert('Grrr grrr, does the ' + name + '.');
-                    break;
+                        alert('Grrr grrr, does the ' + name + '.');
+                        break;
                     case 'Perry Scope':
-                    alert(name + ' now everybody know you.');
-                    break;
+                        alert(name + ' now everybody know you.');
+                        break;
                     case 'Cho Case':
-                    alert('You are actualy on the ' + name + '... Showcase => Cho Kaze... Ok, I\'m done for tonight.');
-                    break;
+                        alert('You are actualy on the ' + name + '... Showcase => Cho Kaze... Ok, I\'m done for tonight.');
+                        break;
                     default:
-                    alert('It\'s ' + name + '.');
+                        alert('It\'s ' + name + '.');
                 }
             },
-            placeholder:'Enter your search here...',
+            placeholder: 'Enter your search here...',
             groupMaxRows: 3,
             lineComponentMapper(list) {
                 return Line;
@@ -217,10 +213,10 @@ const MyQuickSearch = React.createClass({
             groupComponent: Group
         };
 
-        return(
-            <QuickSearch {...quickSearchProps} ref='QuickSearch'/>
+        return (
+            <QuickSearch {...quickSearchProps} ref='QuickSearch' />
         );
     }
 });
 
-module.exports = QuickSearchExample;
+export default QuickSearchExample;

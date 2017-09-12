@@ -1,8 +1,8 @@
 // see http://www.getmdl.io/components/index.html#layout-section/grid
 //dependencies
-const React = require('react');
-const {Component} = React;
+import React, { Component } from 'react';
 import types from 'focus-core/component/types';
+
 /**
  * Column component.
  */
@@ -11,18 +11,18 @@ class Column extends Component {
         super(props);
         this._className = this._className.bind(this);
     }
-    componentWillMount () {
+    componentWillMount() {
         console.warn('FocusComponents v0.15: the \'Column\' component from FocusComponents.common is deprecated, please use FocusComponents.components.Column');
     }
     _className() {
-        const {size, className} = this.props;
-        if(className) { return className; }
+        const { size, className } = this.props;
+        if (className) { return className; }
         const SIZE_CSS = size ? `mdl-cell--${size}-col` : '';
         return `mdl-cell ${SIZE_CSS} `;
     }
     /** @inheriteDoc */
     render() {
-        const {children, ...otherProps} = this.props;
+        const { children, ...otherProps } = this.props;
         const className = this._className();
         return (
             <div className={className} {...otherProps}>
@@ -42,4 +42,4 @@ Column.propTypes = {
     className: types('string')
 };
 
-module.exports = Column;
+export default Column;

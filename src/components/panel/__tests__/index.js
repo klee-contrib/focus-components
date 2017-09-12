@@ -1,60 +1,76 @@
+
+import TestUtils from 'react-addons-test-utils';
+import React from 'react';
+import ReactDOM from 'react-dom';
+
 import Panel from '../';
 import { init, translate } from 'focus-core/translation';
+
+const i18nConfig = {
+    resources: {},
+    lng: 'fr-FR'///langOpts.i18nCulture
+};
+
+
 const { findRenderedDOMComponentWithClass, renderIntoDocument, Simulate } = TestUtils;
 
 describe('The Panel', () => {
+    beforeEach(() => {
+        init(i18nConfig);
+    });
+
     describe('when mounted with no props', () => {
         let reactComponent, domNode;
-        before(() => {
+        beforeEach(() => {
             reactComponent = renderIntoDocument(<Panel />);
             domNode = ReactDOM.findDOMNode(reactComponent);
         });
         it('should render data-focus attribute', () => {
-            expect(reactComponent).to.exist;
-            expect(reactComponent).to.be.an('object');
-            expect(domNode.tagName).to.equal('DIV');
-            expect(domNode.getAttribute('data-focus')).to.equal('panel');
-            expect(domNode.getAttribute('data-spy')).not.to.be.null;
-            expect(domNode.getAttribute('data-spy')).not.to.be.undefined;
+            expect(reactComponent).toBeDefined();
+            expect(reactComponent).toBeInstanceOf(Object);
+            expect(domNode.tagName).toBe('DIV');
+            expect(domNode.getAttribute('data-focus')).toBe('panel');
+            expect(domNode.getAttribute('data-spy')).not.toBeNull();
+            expect(domNode.getAttribute('data-spy')).not.toBeUndefined();
         });
         it('should have a data-spy attribute', () => {
-            expect(domNode.getAttribute('data-spy')).not.to.be.null;
-            expect(domNode.getAttribute('data-spy')).not.to.be.undefined;
+            expect(domNode.getAttribute('data-spy')).not.toBeNull();
+            expect(domNode.getAttribute('data-spy')).not.toBeUndefined();
         });
         it('should be material designed', () => {
-            expect(domNode.getAttribute('class')).to.equal('mdl-card mdl-card--border mdl-shadow--4dp');
+            expect(domNode.getAttribute('class')).toBe('mdl-card mdl-card--border mdl-shadow--4dp');
         });
         it('should not have a title section', () => {
             const titleSection = domNode.querySelector('[data-focus="panel-title"]');
-            expect(titleSection).not.to.exist;
+            expect(titleSection).toBeNull();
         });
         it('should have a content section', () => {
             const contentSection = domNode.querySelector('[data-focus="panel-content"]');
-            expect(contentSection).to.exist;
+            expect(contentSection).toBeDefined();
         });
         it('should not have a top actions', () => {
             const topActions = domNode.querySelector('[data-focus="panel-title"] .actions');
-            expect(topActions).not.to.exist;
+            expect(topActions).toBeNull();
         });
         it('should not have a bottom actions section', () => {
             const bottomSection = domNode.querySelector('[data-focus="panel-actions"]');
-            expect(bottomSection).not.to.exist;
+            expect(bottomSection).toBeNull();
         });
     });
     describe('when mounted with title props', () => {
-        init({ resStore: { dev: { translation: { panel: { title: 'This is a title' } } } } }, () => {
+        init({ resources: { dev: { translation: { panel: { title: 'This is a title' } } } } }, () => {
             let reactComponent, domNode;
             const title = 'panel.title';
-            before(() => {
+            beforeEach(() => {
                 reactComponent = renderIntoDocument(<Panel title={title} />);
                 domNode = ReactDOM.findDOMNode(reactComponent);
             });
             it('should display a title', () => {
                 const titleContent = domNode.querySelector('[data-focus="panel-title"] h3');
-                expect(titleContent).to.exist;
-                expect(titleContent.tagName).to.equal('H3');
-                expect(titleContent.getAttribute('data-spy-title')).to.exist;
-                expect(titleContent.innerHTML).to.equal(translate(title));
+                expect(titleContent).toBeDefined();
+                expect(titleContent.tagName).toBe('H3');
+                expect(titleContent.getAttribute('data-spy-title')).toBeDefined();
+                expect(titleContent.innerHTML).toBe(translate(title));
             });
         });
     });
@@ -62,59 +78,59 @@ describe('The Panel', () => {
         let domNode, reactComponent;
         const actions = () => <span>{'actions'}</span>;
         describe('by default', () => {
-            before(() => {
+            beforeEach(() => {
                 reactComponent = renderIntoDocument(<Panel actions={actions} />);
                 domNode = ReactDOM.findDOMNode(reactComponent);
             });
             it('should display actions top by default', () => {
                 const topActions = domNode.querySelector('[data-focus="panel-title"] .actions');
-                expect(topActions).to.exist;
+                expect(topActions).toBeDefined();
             });
             it('should not have a bottom actions section', () => {
                 const bottomSection = domNode.querySelector('[data-focus="panel-actions"]');
-                expect(bottomSection).not.to.exist;
+                expect(bottomSection).toBeNull();
             });
         });
         describe('with actionsPosition top', () => {
-            before(() => {
+            beforeEach(() => {
                 reactComponent = renderIntoDocument(<Panel actions={actions} actionsPosition='top' />);
                 domNode = ReactDOM.findDOMNode(reactComponent);
             });
             it('should display actions at the top', () => {
                 const topActions = domNode.querySelector('[data-focus="panel-title"] .actions');
-                expect(topActions).to.exist;
+                expect(topActions).toBeDefined();
             });
             it('should not display action at the bottom', () => {
                 const bottomSection = domNode.querySelector('[data-focus="panel-actions"]');
-                expect(bottomSection).not.to.exist;
+                expect(bottomSection).toBeNull();
             });
         });
         describe('with actionsPosition bottom', () => {
-            before(() => {
+            beforeEach(() => {
                 reactComponent = renderIntoDocument(<Panel actions={actions} actionsPosition='bottom' />);
                 domNode = ReactDOM.findDOMNode(reactComponent);
             });
             it('should not display actions at the top', () => {
                 const topActions = domNode.querySelector('[data-focus="panel-title"] .actions');
-                expect(topActions).not.to.exist;
+                expect(topActions).toBeNull();
             });
             it('should display action at the bottom', () => {
                 const bottomSection = domNode.querySelector('[data-focus="panel-actions"]');
-                expect(bottomSection).to.exist;
+                expect(bottomSection).toBeDefined();
             });
         });
         describe('with actionsPosition both', () => {
-            before(() => {
+            beforeEach(() => {
                 reactComponent = renderIntoDocument(<Panel actions={actions} actionsPosition='both' />);
                 domNode = ReactDOM.findDOMNode(reactComponent);
             });
             it('should display actions at the top', () => {
                 const topActions = domNode.querySelector('[data-focus="panel-title"] .actions');
-                expect(topActions).to.exist;
+                expect(topActions).toBeDefined();
             });
             it('should display action at the bottom', () => {
                 const bottomSection = domNode.querySelector('[data-focus="panel-actions"]');
-                expect(bottomSection).to.exist;
+                expect(bottomSection).toBeDefined();
             });
         });
     });

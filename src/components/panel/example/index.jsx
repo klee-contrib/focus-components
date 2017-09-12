@@ -1,5 +1,6 @@
-const {Panel} = FocusComponents.components;
-const formMixin = FocusComponents.common.form.mixin;
+import React from 'react';
+import Panel from 'focus-components/components/panel';
+import { mixin as formMixin } from 'focus-components/common/form';
 
 const domain = {
     DO_TEXT: {
@@ -40,11 +41,11 @@ const PanelSample1 = React.createClass({
             <div>
                 <h3>Panel without actions</h3>
                 <Panel title='Here is the title'>
-                    <br/>
-                    <br/>
+                    <br />
+                    <br />
                     <p>Here is the content.</p>
-                    <br/>
-                    <br/>
+                    <br />
+                    <br />
                 </Panel>
             </div>
         );
@@ -63,11 +64,11 @@ const PanelSample2 = React.createClass({
             <div>
                 <h3>Panel with actions (default)</h3>
                 <Panel title='Here is the title' actions={this._renderActions}>
-                    <br/>
-                    <br/>
+                    <br />
+                    <br />
                     <p>Here is the content.</p>
-                    <br/>
-                    <br/>
+                    <br />
+                    <br />
                 </Panel>
             </div>
         );
@@ -86,11 +87,11 @@ const PanelSample3 = React.createClass({
             <div>
                 <h3>Panel with actions (bottom)</h3>
                 <Panel title='Here is the title' actions={this._renderActions} actionsPosition='bottom'>
-                    <br/>
-                    <br/>
+                    <br />
+                    <br />
                     <p>Here is the content.</p>
-                    <br/>
-                    <br/>
+                    <br />
+                    <br />
                 </Panel>
             </div>
         );
@@ -109,25 +110,25 @@ const PanelSample4 = React.createClass({
             <div>
                 <h3>Panel with actions (both)</h3>
                 <Panel title='Here is the title' actions={this._renderActions} actionsPosition='both'>
-                    <br/>
-                    <br/>
+                    <br />
+                    <br />
                     <p>Here is the content.</p>
-                    <br/>
-                    <br/>
+                    <br />
+                    <br />
                 </Panel>
             </div>
         );
     }
 });
 
-module.exports = () => (
+export default () => (
     <div>
         <PanelSample1 hasLoad={false} />
-        <br/>
+        <br />
         <PanelSample2 hasLoad={false} />
-        <br/>
+        <br />
         <PanelSample3 hasLoad={false} />
-        <br/>
+        <br />
         <PanelSample4 hasLoad={false} />
     </div>
 );

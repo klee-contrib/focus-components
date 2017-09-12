@@ -1,3 +1,6 @@
+import TestUtils from 'react-addons-test-utils';
+import React from 'react';
+import ReactDOM from 'react-dom';
 const {renderIntoDocument,findRenderedDOMComponentWithClass,findAllInRenderedTree,isDOMComponent,isCompositeComponent} = TestUtils;
 
 const {forEach} = require('lodash/collection');

@@ -1,11 +1,11 @@
 //Needed components
-const React = require('react');
-const {Component} = React;
-const Header = require('../header').component;
-const Cartridge = require('../cartridge').component;
-const ContentBar = require('../content-bar').component;
-const Bar = require('../bar').component;
-const ContentActions = require('../content-actions').component;
+import React, { Component } from 'react';
+import { component as Header } from '../header';
+import { component as Cartridge } from '../cartridge';
+import { component as ContentBar } from '../content-bar';
+import { component as Bar } from '../bar';
+import { component as ContentActions } from '../content-actions';
+
 /**
  * Application header
  */
@@ -25,4 +25,4 @@ class AppHeader extends Component {
 // static props
 AppHeader.displayName = 'AppHeader';
 
-module.exports = AppHeader;
+export default AppHeader;

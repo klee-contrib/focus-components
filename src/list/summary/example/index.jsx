@@ -1,17 +1,17 @@
-const ListSummary = FocusComponents.list.summary.component;
-const i18nInitializer = FocusCore.translation.init;
+import { component as ListSummary } from 'focus-components/list/summary';
+import { init } from 'focus-core/translation';
 
-var resources = {
+const resources = {
     dev: {
         translation: {
-            'result': {
-                'for': 'results have been found for ',
-                'export': 'Export'
+            result: {
+                for: 'results have been found for ',
+                export: 'Export'
             }
         }
     }
 };
-i18n.init({resStore: resources});
+init({ resources: resources });
 
 const scopes = {
     ani: 'Animation',
@@ -20,18 +20,18 @@ const scopes = {
 
 const ListSummaryExample = React.createClass({
     render() {
-        return(
+        return (
             <div>
                 <ListSummary
                     nb={8}
-                    queryText="Superman"
+                    queryText='Superman'
                     scopeList={scopes}
-                    scopeClickAction={(scopeKey) => {console.log("Removed scope : " + scopeKey); }}
-                    exportAction={() => {console.log("Export action"); }}
-                    />
+                    scopeClickAction={(scopeKey) => { console.log('Removed scope : ' + scopeKey); }}
+                    exportAction={() => { console.log('Export action'); }}
+                />
             </div>
         );
     }
 });
 
-module.exports = ListSummaryExample;
+export default ListSummaryExample;

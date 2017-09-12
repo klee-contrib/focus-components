@@ -1,12 +1,15 @@
 //Dependencies.
 import builder from 'focus-core/component/builder';
 import types from 'focus-core/component/types';
-const React = require('react');
-const ReactDOM = require('react-dom');
-const i18nMixin = require('../../i18n/mixin');
-const stylableMixin = require('../../../mixin/stylable');
-const union = require('lodash/array/union');
-const {isUndefined, isNull, isNumber} = require('lodash/lang');
+import React from 'react';
+import ReactDOM from 'react-dom';
+import i18nMixin from '../../i18n/mixin';
+import stylableMixin from '../../../mixin/stylable';
+import union from 'lodash/array/union';
+
+import isUndefined from 'lodash/lang/isUndefined';
+import isNull from 'lodash/lang/isNull';
+import isNumber from 'lodash/lang/isNumber';
 
 const UNSELECTED_KEY = 'UNSELECTED_KEY';
 
@@ -47,7 +50,7 @@ const selectMixin = {
     },
     /** @inheritdoc */
     getInitialState() {
-        const {hasUndefined, value, values, valueKey, isRequired} = this.props;
+        const { hasUndefined, value, values, valueKey, isRequired } = this.props;
         const hasValue = !isUndefined(value) && !isNull(value);
         const isRequiredAndHasValue = true === isRequired && hasValue;
         return {
@@ -58,16 +61,18 @@ const selectMixin = {
     },
     /** @inheritdoc */
     componentWillReceiveProps(newProps) {
-        this.setState({value: newProps.value});
+        this.setState({ value: newProps.value });
     },
     /**
     * Get the value of the component.
     * @return {object} - Return the value of the component.
     */
     getValue() {
-        const {select} = this.refs;
+        const { select } = this.refs;
         const domValue = ReactDOM.findDOMNode(select).value;
-        if(domValue === UNSELECTED_KEY) { return null; }
+        if (domValue === UNSELECTED_KEY) {
+            return null;
+        }
         return this.state.isNumber ? +domValue : domValue;
     },
     /**
@@ -76,32 +81,32 @@ const selectMixin = {
     */
     _handleOnChange(event) {
         //On change handler.
-        const {onChange, multiple} = this.props;
-        if(onChange) {
+        const { onChange, multiple } = this.props;
+        if (onChange) {
             onChange(event);
-        }else {
+        } else {
             const domValue = event.target.value;
             const value = this.state.isNumber ? +domValue : domValue;
             //Set the state then call the change handler.
-            if(multiple) {
+            if (multiple) {
                 let vals = this.state.value;
                 vals.push(value);
-                return this.setState({value: vals});
+                return this.setState({ value: vals });
             }
-            return this.setState({value: value});
+            return this.setState({ value: value });
         }
     },
     /** @inheritdoc */
     renderOptions() {
         let processValues;
-        const {labelKey, valueKey, values} = this.props;
-        const {hasUndefined} = this.state;
-        if(hasUndefined) {
+        const { labelKey, valueKey, values } = this.props;
+        const { hasUndefined } = this.state;
+        if (hasUndefined) {
             processValues = union(
-                [{[labelKey]: 'select.unSelected', [valueKey]: UNSELECTED_KEY}],
+                [{ [labelKey]: 'select.unSelected', [valueKey]: UNSELECTED_KEY }],
                 values
             );
-        }else{
+        } else {
             processValues = values;
         }
         return processValues.map((val, idx) => {
@@ -115,20 +120,22 @@ const selectMixin = {
     * @return {DOM} - The dom of an input.
     */
     render() {
-        const {props, state, _getStyleClassName, _handleOnChange} = this;
-        const {disabled, error, multiple, name} = props;
-        const {value} = state;
-        const disabledProps = disabled ? {disabled: 'disabled'} : {};
-        const selectProps = {...{multiple, value: `${value}`, name, onChange: _handleOnChange, className: _getStyleClassName(), ref: 'select'}, ...disabledProps};
+        const { props, state, _getStyleClassName, _handleOnChange } = this;
+        const { disabled, error, multiple, name } = props;
+        const { value } = state;
+        const disabledProps = disabled ? { disabled: 'disabled' } : {};
+        const selectProps = { ...{ multiple, value: `${value}`, name, onChange: _handleOnChange, className: _getStyleClassName(), ref: 'select' }, ...disabledProps };
         return (
             <div data-focus='select' data-valid={!error}>
-            <select {...selectProps}>
-            {this.renderOptions()}
-            </select>
-            {error && <div className='label-error' ref='error'>{error}</div>}
+                <select {...selectProps}>
+                    {this.renderOptions()}
+                </select>
+                {error && <div className='label-error' ref='error'>{error}</div>}
             </div>
         );
     }
 };
 
-module.exports = builder(selectMixin);
+const { mixin, component } = builder(selectMixin);
+export { mixin, component };
+export default { mixin, component };

@@ -1,7 +1,9 @@
-import {isArray, isFunction} from 'lodash/lang';
-import {capitalize} from 'lodash/string'
-import {keys} from 'lodash/object';
-import React, {Component} from 'react';
+import isFunction from 'lodash/lang/isFunction';
+import isArray from 'lodash/lang/isArray';
+
+import capitalize from 'lodash/string/capitalize'
+
+import React, { Component } from 'react';
 
 // - Provide the component
 // - Provide the store configuration `[{store: yourStore, properties: ['property1', 'property2']}]`
@@ -15,7 +17,7 @@ export default function connectToStores(storesConfiguration, getState) {
     // Validate .
     if (!isFunction(getState)) {
         throw new Error('connectToStores: you need to provide function to read state from store.');
-    } 
+    }
     // Return a wrapper function around the component
     return function connectComponent(DecoratedComponent) {
 
@@ -27,21 +29,19 @@ export default function connectToStores(storesConfiguration, getState) {
 
             constructor(props) {
                 super(props);
-                //Build the initial state from props.
-                this.state = getState(props);
-                this._isMounted = false;
+                this.handleStoresChanged = this.handleStoresChanged.bind(this);
             }
 
             // When the component will mount, we listen to all stores changes.
             // When a change occurs the state is read again from the state.
             componentWillMount() {
                 storesConfiguration.forEach(storeConf => {
-                    const {properties, store} = storeConf;
+                    const { properties, store } = storeConf;
                     properties.forEach((property) => {
                         if (!store || !store.definition || !store.definition[property]) {
                             console.warn(`
                                 StoreConnector ${displayName}:
-                                    You add a property : ${property} in your store configuration which is not in your definition : ${keys(store.definition)}
+                                    You add a property : ${property} in your store configuration which is not in your definition : ${Object.keys(store.definition)}
                             `);
                         }
                         const capitalizedProperty = capitalize(property);
@@ -51,16 +51,11 @@ export default function connectToStores(storesConfiguration, getState) {
                 });
             }
 
-            // When a component will receive a new props.
-            componentWillReceiveProps(nextProps) {
-                this.updateState(nextProps);
-            }
-
             // Component unmount.
             componentWillUnmount() {
                 this._isMounted = false;
                 storesConfiguration.forEach(storeConf => {
-                    const {properties, store} = storeConf;
+                    const { properties, store } = storeConf;
                     properties.forEach((property) => {
                         const capitalizedProperty = capitalize(property);
                         store[`remove${capitalizedProperty}ChangeListener`](this.handleStoresChanged);
@@ -69,29 +64,17 @@ export default function connectToStores(storesConfiguration, getState) {
                 });
             }
 
-            componentDidMount() {
-                this._isMounted = true;
-                this.updateState(this.props);
-            }
-
-            updateState(props) { 
-                if (this._isMounted) {
-                    this.setState(getState(props));
-                }
-            }
-
             //Handle the store changes
-            handleStoresChanged = () => {
-                this.updateState(this.props);
+            handleStoresChanged() {
+                this.forceUpdate();
             };
 
             // Render the component with only props, some from the real props some from the state
             render() {
-                const {props, state} = this;
                 return (
                     <DecoratedComponent
-                        {...props}
-                        {...state}
+                        {...this.props}
+                        {...getState(this.props) }
                     />
                 );
             }

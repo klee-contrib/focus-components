@@ -1,9 +1,7 @@
-import types from 'focus-core/component/types';
-const React = require('react');
-const {PropTypes} = React;
-
+import React, { PropTypes } from 'react';
 
 const GRID_SIZE = 12, CELL = 'mdl-cell';
+
 /**
  * An example of the label and content size, and of label and content offset, with function fieldFor
  * 
@@ -15,7 +13,7 @@ const GRID_SIZE = 12, CELL = 'mdl-cell';
  * {this.fieldFor('nom', fieldOptions)}
  * 
  **/
- 
+
 const fieldGridBehaviourMixin = {
     /** @inheritdoc */
     getDefaultProps() {
@@ -48,13 +46,13 @@ const fieldGridBehaviourMixin = {
         labelOffset: PropTypes.number,
         contentOffset: PropTypes.number
     },
-    _buildGridClassName : function _buildGridClassName (prop, suffix) {
-		                                return prop?(' mdl-cell--' + prop + (suffix ? suffix : '')):'';
+    _buildGridClassName(prop, suffix) {
+        return prop ? (' mdl-cell--' + prop + (suffix ? suffix : '')) : '';
     },
-    _getCellGridClassName: function _getCellGridClassName(position,size, offset) {
-		                                const cellPosition = this._buildGridClassName(position);
-		                                const cellSize = this._buildGridClassName(size, '-col');
-		                                const cellOffset = this._buildGridClassName(offset, '-offset');
+    _getCellGridClassName(position, size, offset) {
+        const cellPosition = this._buildGridClassName(position);
+        const cellSize = this._buildGridClassName(size, '-col');
+        const cellOffset = this._buildGridClassName(offset, '-offset');
 
         return CELL + cellPosition + cellSize + cellOffset;
     },
@@ -62,15 +60,15 @@ const fieldGridBehaviourMixin = {
     * Get the label gridClass.
     * @returns {string} - The label gridSize.
     */
-    _getLabelGridClassName: function _getLabelGridClassName() {
-		                                return this._getCellGridClassName(this.props.labelCellPosition, this.props.labelSize, this.props.labelOffset);
-	                },
+    _getLabelGridClassName() {
+        return this._getCellGridClassName(this.props.labelCellPosition, this.props.labelSize, this.props.labelOffset);
+    },
     /**
     * Get the content class Name.
     * @returns {string} - The content gridSize.
     */
-    _getContentGridClassName: function _getContentGridClassName() {
-		                                return this._getCellGridClassName(this.props.contentCellPosition, (this.props.contentSize || (GRID_SIZE - this.props.labelSize)), this.props.contentOffset);
+    _getContentGridClassName() {
+        return this._getCellGridClassName(this.props.contentCellPosition, (this.props.contentSize || (GRID_SIZE - this.props.labelSize)), this.props.contentOffset);
     },
     /**
     * Get the content offset className.
@@ -80,4 +78,5 @@ const fieldGridBehaviourMixin = {
         return `${CELL} mdl-cell--${this.props.labelSize}-offset`;
     }
 };
-module.exports = fieldGridBehaviourMixin;
+
+export default fieldGridBehaviourMixin;

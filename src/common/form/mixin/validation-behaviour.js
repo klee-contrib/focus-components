@@ -1,6 +1,5 @@
 //Dependencies.
-let {isEmpty, isFunction} = require('lodash/lang');
-let assign = require('object-assign');
+import isFunction from 'lodash/lang/isFunction';
 
 /**
 * Validate each field of the form.
@@ -40,7 +39,12 @@ function _validate() {
     return this._fieldsValidation() && this._customValidation();
 }
 
-module.exports = {
+export {
+    _fieldsValidation,
+    _customValidation,
+    _validate
+}
+export default {
     _fieldsValidation,
     _customValidation,
     _validate

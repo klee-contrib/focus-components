@@ -1,15 +1,11 @@
 // Dependencies
-const React = require('react');
+import React from 'react';
 import builder from 'focus-core/component/builder';
-
 // Components
-
-const ListSummary = require('../../../list/summary/index').component;
-
+import { component as ListSummary } from '../../../list/summary';
 // Mixins
-
-const referenceBehaviour = require('../../../common/form/mixin/reference-behaviour');
-const storeBehaviour = require('../../../common/mixin/store-behaviour');
+import referenceBehaviour from '../../../common/form/mixin/reference-behaviour';
+import storeBehaviour from '../../../common/mixin/store-behaviour';
 
 const scopeAll = 'ALL';
 
@@ -38,10 +34,6 @@ const Summary = {
             scope: undefined
         });
     },
-    /** @inheritdoc */
-    componentDidMount () {
-        this._loadReference();
-    },
     /**
      * Scope click handler
      * Set the scope to ALL.
@@ -54,7 +46,7 @@ const Summary = {
         });
     },
     _getScopeLabel() {
-        if(this.state && this.state.reference.scopes) {
+        if (this.state && this.state.reference.scopes) {
             const selectedScope = this.state.reference.scopes.find(scope =>
                 scope.code === this.props.scope
             )
@@ -67,11 +59,13 @@ const Summary = {
      * @return {HTML} the rendered component
      */
     render() {
-        const scope = this.props.scope && this.props.scope !== scopeAll ? {scope: {
-            code: this.props.scope,
-            label: 'Scope',
-            value: this._getScopeLabel()
-        }} : undefined;
+        const scope = this.props.scope && this.props.scope !== scopeAll ? {
+            scope: {
+                code: this.props.scope,
+                label: 'Scope',
+                value: this._getScopeLabel()
+            }
+        } : undefined;
         return (
             <ListSummary
                 data-focus='advanced-search-list-summary'
@@ -84,4 +78,6 @@ const Summary = {
     }
 };
 
-module.exports = builder(Summary);
+const { mixin, component } = builder(Summary);
+export { mixin, component };
+export default { mixin, component };
