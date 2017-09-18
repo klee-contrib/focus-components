@@ -2,7 +2,7 @@
 import React, { Component, PropTypes } from 'react';
 import ReactDOM from 'react-dom';
 import moment from 'moment';
-import DatePicker from 'react-date-picker';
+import DatePicker from 'react-date-picker/lib/MonthView';
 import isArray from 'lodash/lang/isArray';
 import uniqueId from 'lodash/utility/uniqueId';
 import closest from 'closest';
