@@ -1,3 +1,4 @@
+import React from 'react';
 // Dependencies
 import builder from 'focus-core/component/builder';
 import historic from 'focus-core/history';
