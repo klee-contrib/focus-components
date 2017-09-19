@@ -2,7 +2,7 @@
 import React, { Component, PropTypes } from 'react';
 import ReactDOM from 'react-dom';
 import moment from 'moment';
-import DatePicker from 'react-date-picker/lib/MonthView';
+import DatePicker from 'react-date-picker';
 import isArray from 'lodash/lang/isArray';
 import uniqueId from 'lodash/utility/uniqueId';
 import closest from 'closest';
@@ -182,7 +182,7 @@ class InputDate extends Component {
      * Handle calendar changes.
      * @memberOf InputDate
      */
-    _onDropDownChange = (text, { dateMoment: date }) => {
+    _onDropDownChange = (text, date) => {
         if (date._isValid) {
             this.setState({ displayPicker: false }, () => {
                 const correctedDate = moment.utc(date).add(moment(date).utcOffset(), 'minutes').toISOString(); // Add UTC offset to get right ISO string
