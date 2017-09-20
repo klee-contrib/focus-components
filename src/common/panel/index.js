@@ -1,4 +1,4 @@
-export React from 'react';
+import React from 'react';
 import builder from 'focus-core/component/builder';
 /**
  * Mixin used in order to create a block.
