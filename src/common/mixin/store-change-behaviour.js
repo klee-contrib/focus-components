@@ -12,6 +12,14 @@ const changeBehaviourMixin = {
     },
 
     /** @inheritdoc */
+    getDefaultProps() {
+        return {
+            // Smart state update push into state only the updated node
+            useSmartStateUpdate: false
+        };
+    },
+
+    /** @inheritdoc */
     componentWillMount() {
         this._isMountedChangeBehaviourMixin = false;
         this._pendingActionsChangeBehaviourMixin = [];
@@ -115,7 +123,12 @@ const changeBehaviourMixin = {
             onStoreChange.call(this, changeInfos);
         }
 
-        this.setState(this._getStateFromStores([changeInfos.property]), () => this._afterStoreChange(changeInfos));
+        let filterNodes = [];
+        if (this.props.useSmartStateUpdate) {
+            filterNodes = filterNodes.concat([changeInfos.property]);
+        }
+
+        this.setState(this._getStateFromStores(filterNodes), () => this._afterStoreChange(changeInfos));
     },
 
     /**

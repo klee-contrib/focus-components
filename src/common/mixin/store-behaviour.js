@@ -1,5 +1,4 @@
 import assign from 'object-assign';
-
 import capitalize from 'lodash/string/capitalize';
 import isArray from 'lodash/lang/isArray';
 import isObject from 'lodash/lang/isObject';
@@ -15,6 +14,13 @@ import storeChangeBehaviour from './store-change-behaviour';
 const storeMixin = {
 
     mixins: [storeChangeBehaviour],
+
+    /** @inheritdoc */
+    getDefaultProps() {
+        return {
+            useDefaultStoreData: false
+        };
+    },
 
     /** @inheritdoc */
     componentWillMount() {
