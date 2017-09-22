@@ -26,6 +26,13 @@ const storeMixin = {
     componentWillMount() {
         //These listeners are registered before the mounting because they are not correlated to the DOM.
         this._registerListeners();
+
+        if (this.stores === undefined) {
+            this.stores = [];
+        }
+
+        const newState = this._getStateFromStores();
+        this.setState(newState);
     },
 
     /** @inheritdoc */
