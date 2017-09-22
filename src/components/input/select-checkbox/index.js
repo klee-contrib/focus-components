@@ -77,7 +77,7 @@ class SelectCheckbox extends Component {
         } else if (this.props.onChange) {
             this.props.onChange(selectedValues);
         } else {
-            this.setState({ value: selectedValues });
+            this.setState({ selectedValues });
         }
     }
 
