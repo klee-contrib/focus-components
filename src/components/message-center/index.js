@@ -50,6 +50,8 @@ class MessageCenter extends Component {
     _checkQueue = () => {
         if (this.queuedNotifications.length > 0) {
             this.showSnackbar(this.queuedNotifications.shift());
+        } else {
+            this.showSnackbar({ message: '' });
         }
     };
 

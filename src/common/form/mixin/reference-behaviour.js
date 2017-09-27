@@ -4,20 +4,12 @@ import builtInActionReferenceLoader from 'focus-core/reference/built-in-action';
 import difference from 'lodash/array/difference';
 
 const referenceMixin = {
+
     /** @inheritdoc */
-    /*  getDefaultProps: function getReferenceDefaultProps(){
-    return {*/
-    /**
-    * Array which contains all the reference lists.
-    * If the referenceNames are set into the object, they are set into the default props.
-    * @type {Array}
-    */
-    /*  referenceNames: this.referenceNames || []
-    };
-    },*/
     getInitialState() {
         return { reference: {} };
     },
+
     /**
     * Build actions associated to the reference.
     */
@@ -27,9 +19,11 @@ const referenceMixin = {
         }
         this.action.loadReference = builtInActionReferenceLoader(referenceNames);
     },
+
     _loadReference() {
         return this.action.loadReference();
     },
+
     /**
     * Build the reference names and set the store into the application.
     */
@@ -56,12 +50,14 @@ const referenceMixin = {
             });
         }
     },
+
     componentWillReceiveProps({ referenceNames }) {
         if (referenceNames) {
             this._buildReference(referenceNames, this.referenceNames);
             this._loadReference();
         }
     },
+
     /**
     * Build store and actions related to the reference.
     */
@@ -70,10 +66,12 @@ const referenceMixin = {
         this._buildReferenceActions(referenceNames);
         this.referenceNames = referenceNames;
     },
+
     componentDidMount() {
         // Calling at didMount and not willMount to be coherent with old loadReference from form
         this._loadReference();
     },
+
     /** @inheritdoc */
     componentWillMount() {
         const referenceNames = this.props.referenceNames || this.referenceNames;

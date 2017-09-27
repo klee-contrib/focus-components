@@ -36,7 +36,8 @@ export default function connectToStores(storesConfiguration, getState) {
             // When a change occurs the state is read again from the state.
             componentWillMount() {
                 storesConfiguration.forEach(storeConf => {
-                    const { properties, store } = storeConf;
+                    const { properties, store: storeArg } = storeConf;
+                    const store = typeof storeArg === 'function' ? storeArg() : storeArg;
                     properties.forEach((property) => {
                         if (!store || !store.definition || !store.definition[property]) {
                             console.warn(`
@@ -67,14 +68,14 @@ export default function connectToStores(storesConfiguration, getState) {
             //Handle the store changes
             handleStoresChanged() {
                 this.forceUpdate();
-            };
+            }
 
             // Render the component with only props, some from the real props some from the state
             render() {
                 return (
                     <DecoratedComponent
                         {...this.props}
-                        {...getState(this.props) }
+                        {...getState(this.props)}
                     />
                 );
             }

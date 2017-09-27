@@ -39,11 +39,6 @@ function _validate() {
     return this._fieldsValidation() && this._customValidation();
 }
 
-export {
-    _fieldsValidation,
-    _customValidation,
-    _validate
-}
 export default {
     _fieldsValidation,
     _customValidation,
