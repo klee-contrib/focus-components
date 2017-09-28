@@ -11,54 +11,73 @@ const TAB_KEY_CODE = 27;
 const UP_ARROW_KEY_CODE = 38;
 const DOWN_ARROW_KEY_CODE = 40;
 
-const propTypes = {
-    customError: PropTypes.string,
-    inputTimeout: PropTypes.number.isRequired,
-    keyName: PropTypes.string.isRequired,
-    keyResolver: PropTypes.func.isRequired,
-    labelName: PropTypes.string.isRequired,
-    onBadInput: PropTypes.func,
-    onChange: PropTypes.func.isRequired,
-    placeholder: PropTypes.string,
-    querySearcher: PropTypes.func.isRequired,
-    renderOptions: PropTypes.func,
-    value: PropTypes.string,
-    onSelectClear: PropTypes.bool,
-    clearOnNullValue: PropTypes.bool
-};
-
-const defaultProps = {
-    keyName: 'key',
-    labelName: 'label',
-    inputTimeout: 200,
-    onSelectClear: false,
-    clearOnNullValue: true
-};
-
+/**
+ * Autcomplete select component edition view.
+ */
 @MDBehaviour('loader')
 @MDBehaviour('inputText')
 @ComponentBaseBehaviour
-class Autocomplete extends Component {
+class AutocompleteSelectEdit extends Component {
 
+    /** DisplayName. */
+    static displayName = 'AutocompleteSelectEdit';
+
+    /** PropTypes. */
+    static propTypes = {
+        customError: PropTypes.string,
+        inputTimeout: PropTypes.number.isRequired,
+        keyName: PropTypes.string.isRequired,
+        keyResolver: PropTypes.func.isRequired,
+        labelName: PropTypes.string.isRequired,
+        onBadInput: PropTypes.func,
+        onChange: PropTypes.func.isRequired,
+        placeholder: PropTypes.string,
+        querySearcher: PropTypes.func.isRequired,
+        renderOptions: PropTypes.func,
+        value: PropTypes.string,
+        onSelectClear: PropTypes.bool,
+        clearOnNullValue: PropTypes.bool
+    };
+
+    /** DefaultProps. */
+    static defaultProps = {
+        keyName: 'key',
+        labelName: 'label',
+        inputTimeout: 200,
+        onSelectClear: false,
+        clearOnNullValue: true
+    };
+
+    /** Initial state. */
+    state = {
+        focus: false,
+        inputValue: this.props.value,
+        options: new Map(),
+        active: null,
+        selected: this.props.value,
+        fromKeyResolver: false,
+        isLoading: false,
+        customError: this.props.customError,
+        totalCount: 0
+    };
+
+    /** 
+     * AutocompleteSelectEdit constructor.
+     * @param {object} props props.
+     */
     constructor(props) {
         super(props);
 
-        const state = {
-            focus: false,
-            inputValue: this.props.value,
-            options: new Map(),
-            active: null,
-            selected: this.props.value,
-            fromKeyResolver: false,
-            isLoading: false,
-            customError: this.props.customError,
-            totalCount: 0
-        };
-
-        this.state = state;
         this.autocompleteId = uniqueId('autocomplete-text-');
+
+        this._handleQueryChange = this._handleQueryChange.bind(this);
+        this._handleQueryFocus = this._handleQueryFocus.bind(this);
+        this._handleQueryKeyDown = this._handleQueryKeyDown.bind(this);
+        this._querySearcher = this._querySearcher.bind(this);
+        this._handleDocumentClick = this._handleDocumentClick.bind(this);
     }
 
+    /** @inheritdoc */
     componentDidMount() {
         const { value, keyResolver, inputTimeout } = this.props;
 
@@ -72,6 +91,7 @@ class Autocomplete extends Component {
         this._debouncedQuerySearcher = debounce(this._querySearcher, inputTimeout);
     }
 
+    /** @inheritdoc */
     componentWillReceiveProps({ value, customError, error, keyResolver }) {
         if (value !== this.props.value && value !== undefined && value !== null) { // value is defined, call the keyResolver to get the associated label
             this.setState({ inputValue: value, customError }, () => keyResolver(value).then(inputValue => {
@@ -90,6 +110,7 @@ class Autocomplete extends Component {
         }
     }
 
+    /** @inheritdoc */
     componentDidUpdate() {
         if (this.props.customError) {
             this.refs.inputText.classList.add('is-invalid');
@@ -98,10 +119,15 @@ class Autocomplete extends Component {
         }
     }
 
+    /** @inheritdoc */
     componentWillUnmount() {
         document.removeEventListener('click', this._handleDocumentClick);
     }
 
+    /**
+     * Get value.
+     * @returns {string} value.
+     */
     getValue() {
         const { labelName, keyName, value } = this.props;
         const { inputValue, selected, options, fromKeyResolver } = this.state;
@@ -117,7 +143,11 @@ class Autocomplete extends Component {
         }
     }
 
-    _handleDocumentClick = ({ target }) => {
+    /**
+     * Handle document click.
+     * @param {object} event event.
+     */
+    _handleDocumentClick({ target }) {
         const { focus, inputValue } = this.state;
         const { onBadInput } = this.props;
         if (focus) {
@@ -132,7 +162,11 @@ class Autocomplete extends Component {
         }
     };
 
-    _handleQueryChange = ({ target: { value } }) => {
+    /**
+     * Handle query change.
+     * @param {object} event event.
+     */
+    _handleQueryChange({ target: { value } }) {
         if (value === '') { // the user cleared the input, don't call the querySearcher
             const { onChange } = this.props;
             this.setState({ inputValue: value, fromKeyResolver: false });
@@ -143,7 +177,11 @@ class Autocomplete extends Component {
         }
     };
 
-    _querySearcher = value => {
+    /**
+     * Query searcher.
+     * @param {string} value value.
+     */
+    _querySearcher(value) {
         const { querySearcher, keyName, labelName } = this.props;
         querySearcher(value).then(({ data, totalCount }) => {
             // TODO handle the incomplete option list case
@@ -155,7 +193,10 @@ class Autocomplete extends Component {
         }).catch(error => this.setState({ customError: error.message }));
     };
 
-    _handleQueryFocus = () => {
+    /**
+     * Handle query field focus.
+     */
+    _handleQueryFocus() {
         this.refs.options.scrollTop = 0;
         if (this.props.onFocus) {
             this.props.onFocus.call(this);
@@ -163,7 +204,11 @@ class Autocomplete extends Component {
         this.setState({ active: '', focus: true });
     };
 
-    _handleQueryKeyDown = (event) => {
+    /**
+     * Handle query field key down.
+     * @param {object} event event.
+     */
+    _handleQueryKeyDown(event) {
         event.stopPropagation();
         const { which } = event;
         const { active, options } = this.state;
@@ -190,10 +235,18 @@ class Autocomplete extends Component {
         }
     };
 
-    _handleSuggestionHover = key => {
+    /**
+     * Handle suggestion hover.
+     * @param {number} key key.
+     */
+    _handleSuggestionHover(key) {
         this.setState({ active: key });
     };
 
+    /**
+     * Handle selection of result.
+     * @param {number} key key.
+     */
     _select(key) {
         const { options } = this.state;
         const { onChange } = this.props;
@@ -210,7 +263,11 @@ class Autocomplete extends Component {
         });
     }
 
-    _renderOptions = () => {
+    /**
+     * Render options.
+     * @returns {JSXElement} options.
+     */
+    _renderOptions() {
         const { active, options, focus } = this.state;
         const renderedOptions = [];
         for (let [key, value] of options) {
@@ -220,8 +277,8 @@ class Autocomplete extends Component {
                     data-active={isActive}
                     data-focus='option'
                     key={key}
-                    onClick={this._select.bind(this, key)}
-                    onMouseOver={this._handleSuggestionHover.bind(this, key)}
+                    onClick={() => this._select(key)}
+                    onMouseOver={() => this._handleSuggestionHover(key)}
                 >
                     {this.i18n(value)}
                 </li>
@@ -235,6 +292,7 @@ class Autocomplete extends Component {
         );
     };
 
+    /** @inheritdoc */
     render() {
         const { inputValue, isLoading } = this.state;
         const { customError, renderOptions } = this.props;
@@ -270,8 +328,4 @@ class Autocomplete extends Component {
     }
 }
 
-Autocomplete.displayName = 'Autocomplete';
-Autocomplete.defaultProps = defaultProps;
-Autocomplete.propTypes = propTypes;
-
-export default Autocomplete;
+export default AutocompleteSelectEdit;

@@ -3,10 +3,14 @@ import AutocompleteSelectEdit from './edit';
 import AutocompleteSelectConsult from './consult';
 import translation from 'focus-core/translation';
 
+/**
+ * Autocomplete select component.
+ */
 class AutocompleteSelectField extends Component {
 
-    state = {};
+    static displayName = 'AutocompleteSelectField';
 
+    /** Proptypes. */
     static propTypes = {
         isEdit: PropTypes.bool.isRequired,
         keyResolver: PropTypes.func.isRequired,
@@ -14,11 +18,30 @@ class AutocompleteSelectField extends Component {
         querySearcher: PropTypes.func.isRequired
     };
 
+    /** Initial state. */
+    state = {};
+
+    /**
+     * AutocompleteSelectField constructor.
+     * @param {object} props props.
+     */
+    constructor(props) {
+        super(props);
+
+        this._handleAutocompleteBadInput = this._handleAutocompleteBadInput.bind(this);
+        this._handleAutocompleteChange = this._handleAutocompleteChange.bind(this);
+    }
+
+    /** @inheritdoc */
     componentWillReceiveProps({ error }) {
         this.setState({ customError: error });
     }
 
-    getValue = () => {
+    /**
+     * Get value.
+     * @returns {string} value.
+     */
+    getValue() {
         const { isEdit, value } = this.props;
         if (isEdit) {
             return this.refs.autocomplete.getValue();
@@ -27,18 +50,31 @@ class AutocompleteSelectField extends Component {
         }
     };
 
-    _handleAutocompleteBadInput = value => {
+    /**
+     * Handle bad input and display error message.
+     * @param {string} value value.
+     */
+    _handleAutocompleteBadInput(value) {
         this.setState({ customError: translation.translate('autocomplete.error.badInput', { value }) })
     };
 
-    _handleAutocompleteChange = value => {
+    /**
+     * Handle for value selection.
+     * @param {object} value value.
+     */
+    _handleAutocompleteChange(value) {
         const { onChange } = this.props;
         this.setState({ customError: null }, () => {
-            if (onChange) onChange(value);
+            if (onChange) {
+                onChange(value);
+            }
         });
     };
 
-    _renderEdit = () => {
+    /**
+     * Renders component in edition mode.
+     */
+    _renderEdit() {
         const { customError } = this.state;
         return (
             <AutocompleteSelectEdit
@@ -51,7 +87,10 @@ class AutocompleteSelectField extends Component {
         );
     };
 
-    _renderConsult = () => {
+    /**
+     * Renders component in consultation mode.
+     */
+    _renderConsult() {
         return (
             <AutocompleteSelectConsult
                 {...this.props}
@@ -59,6 +98,7 @@ class AutocompleteSelectField extends Component {
         );
     };
 
+    /** @inheritdoc */
     render() {
         const { isEdit } = this.props;
         return isEdit ? this._renderEdit() : this._renderConsult();
