@@ -1,7 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import AutocompleteSelectEdit from './edit';
 import AutocompleteSelectConsult from './consult';
-import translation from 'focus-core/translation';
+import { translate } from 'focus-core/translation';
 
 /**
  * Autocomplete select component.
@@ -15,6 +15,7 @@ class AutocompleteSelectField extends Component {
         isEdit: PropTypes.bool.isRequired,
         keyResolver: PropTypes.func.isRequired,
         onChange: PropTypes.func.isRequired,
+        value: PropTypes.oneOfType([PropTypes.string, PropTypes.object]).isRequired,
         querySearcher: PropTypes.func.isRequired
     };
 
@@ -48,15 +49,15 @@ class AutocompleteSelectField extends Component {
         } else {
             return value;
         }
-    };
+    }
 
     /**
      * Handle bad input and display error message.
      * @param {string} value value.
      */
     _handleAutocompleteBadInput(value) {
-        this.setState({ customError: translation.translate('autocomplete.error.badInput', { value }) })
-    };
+        this.setState({ customError: translate('autocomplete.error.badInput', { value }) })
+    }
 
     /**
      * Handle for value selection.
@@ -69,10 +70,11 @@ class AutocompleteSelectField extends Component {
                 onChange(value);
             }
         });
-    };
+    }
 
     /**
      * Renders component in edition mode.
+     * @returns {JSXElement} Edit component.
      */
     _renderEdit() {
         const { customError } = this.state;
@@ -85,10 +87,11 @@ class AutocompleteSelectField extends Component {
                 {...this.props}
             />
         );
-    };
+    }
 
     /**
      * Renders component in consultation mode.
+     * @returns {JSXElement} Consult component.
      */
     _renderConsult() {
         return (
@@ -96,7 +99,7 @@ class AutocompleteSelectField extends Component {
                 {...this.props}
             />
         );
-    };
+    }
 
     /** @inheritdoc */
     render() {

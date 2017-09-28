@@ -11,12 +11,12 @@ const TAB_KEY_CODE = 27;
 const UP_ARROW_KEY_CODE = 38;
 const DOWN_ARROW_KEY_CODE = 40;
 
-/**
- * Autcomplete select component edition view.
- */
 @MDBehaviour('loader')
 @MDBehaviour('inputText')
 @ComponentBaseBehaviour
+/**
+ * Autcomplete select component edition view.
+ */
 class AutocompleteSelectEdit extends Component {
 
     /** DisplayName. */
@@ -26,35 +26,43 @@ class AutocompleteSelectEdit extends Component {
     static propTypes = {
         customError: PropTypes.string,
         inputTimeout: PropTypes.number.isRequired,
-        keyName: PropTypes.string.isRequired,
+        keyName: PropTypes.string,
         keyResolver: PropTypes.func.isRequired,
-        labelName: PropTypes.string.isRequired,
-        onBadInput: PropTypes.func,
+        labelName: PropTypes.string,
+        onBadInput: PropTypes.func.isRequired,
         onChange: PropTypes.func.isRequired,
+        onFocus: PropTypes.func,
         placeholder: PropTypes.string,
         querySearcher: PropTypes.func.isRequired,
         renderOptions: PropTypes.func,
-        value: PropTypes.string,
+        value: PropTypes.oneOfType([PropTypes.string, PropTypes.object]),
         onSelectClear: PropTypes.bool,
-        clearOnNullValue: PropTypes.bool
+        clearOnNullValue: PropTypes.bool,
+        wholeItem: PropTypes.bool
     };
 
     /** DefaultProps. */
     static defaultProps = {
+        customError: null,
+        inputTimeout: 200,
         keyName: 'key',
         labelName: 'label',
-        inputTimeout: 200,
+        onFocus: undefined,
+        placeholder: '',
+        renderOptions: undefined,
+        value: null,
         onSelectClear: false,
-        clearOnNullValue: true
+        clearOnNullValue: true,
+        wholeItem: false
     };
 
     /** Initial state. */
     state = {
         focus: false,
-        inputValue: this.props.value,
+        inputValue: this.props.wholeItem ? this.props.value[this.props.labelName] : this.props.value,
         options: new Map(),
         active: null,
-        selected: this.props.value,
+        selected: this.props.wholeItem ? this.props.value[this.props.keyName] : this.props.value,
         fromKeyResolver: false,
         isLoading: false,
         customError: this.props.customError,
@@ -79,12 +87,10 @@ class AutocompleteSelectEdit extends Component {
 
     /** @inheritdoc */
     componentDidMount() {
-        const { value, keyResolver, inputTimeout } = this.props;
+        const { value, inputTimeout } = this.props;
 
-        if (value !== undefined && value !== null) { // value is defined, call the keyResolver to get the associated label
-            keyResolver(value).then(inputValue => {
-                this.setState({ inputValue, fromKeyResolver: true });
-            }).catch(error => this.setState({ customError: error.message }));
+        if (value !== undefined && value !== null) {
+            this._setValue(value);
         }
 
         document.addEventListener('click', this._handleDocumentClick);
@@ -94,9 +100,8 @@ class AutocompleteSelectEdit extends Component {
     /** @inheritdoc */
     componentWillReceiveProps({ value, customError, error, keyResolver }) {
         if (value !== this.props.value && value !== undefined && value !== null) { // value is defined, call the keyResolver to get the associated label
-            this.setState({ inputValue: value, customError }, () => keyResolver(value).then(inputValue => {
-                this.setState({ inputValue, fromKeyResolver: true });
-            }).catch(error => this.setState({ customError: error.message })));
+            const inputValue = wholeItem ? value[labelName] : value;
+            this.setState({ inputValue, customError }, () => this._setValue(value));
         } else if (customError !== this.props.customError) {
             this.setState({ customError });
         }
@@ -125,21 +130,38 @@ class AutocompleteSelectEdit extends Component {
     }
 
     /**
+     * Set value.
+     * @param {object|string} value Value.
+     */
+    _setValue(value) {
+        const { keyResolver, labelName, wholeItem } = this.props;
+
+        if (wholeItem) {
+            this.setState({ inputValue: value[labelName], fromKeyResolver: true });
+        } else {
+            keyResolver(value).then(inputValue => {
+                this.setState({ inputValue, fromKeyResolver: true });
+            }).catch(error => this.setState({ customError: error.message }));
+        }
+    }
+
+    /**
      * Get value.
      * @returns {string} value.
      */
     getValue() {
-        const { labelName, keyName, value } = this.props;
+        const { labelName, value, wholeItem } = this.props;
         const { inputValue, selected, options, fromKeyResolver } = this.state;
-        const resolvedLabel = options.get(selected);
+        const item = options.get(selected) || {};
+        const resolvedLabel = item[labelName];
         if (inputValue === '') { // The user cleared the field, return a null
             return null;
-        } else if (fromKeyResolver) { // Value was received from the keyResolver, give it firectly
+        } else if (fromKeyResolver) { // Value was received from the keyResolver, give it directly
             return value;
         } else if (resolvedLabel !== inputValue && selected !== inputValue) { // The user typed something without selecting any option, return a null
             return null;
         } else { // The user selected an option (or no value was provided), return it
-            return selected || null;
+            return wholeItem ? item : selected || null;
         }
     }
 
@@ -160,7 +182,7 @@ class AutocompleteSelectEdit extends Component {
                 });
             }
         }
-    };
+    }
 
     /**
      * Handle query change.
@@ -170,28 +192,29 @@ class AutocompleteSelectEdit extends Component {
         if (value === '') { // the user cleared the input, don't call the querySearcher
             const { onChange } = this.props;
             this.setState({ inputValue: value, fromKeyResolver: false });
-            if (onChange) onChange(null);
+            if (onChange) {
+                onChange(null);
+            }
         } else {
             this.setState({ inputValue: value, fromKeyResolver: false, isLoading: true });
             this._debouncedQuerySearcher(value);
         }
-    };
+    }
 
     /**
      * Query searcher.
      * @param {string} value value.
      */
     _querySearcher(value) {
-        const { querySearcher, keyName, labelName } = this.props;
+        const { querySearcher, keyName } = this.props;
         querySearcher(value).then(({ data, totalCount }) => {
-            // TODO handle the incomplete option list case
             const options = new Map();
             data.forEach(item => {
-                options.set(item[keyName], item[labelName]);
+                options.set(item[keyName], item);
             });
             this.setState({ options, isLoading: false, totalCount });
         }).catch(error => this.setState({ customError: error.message }));
-    };
+    }
 
     /**
      * Handle query field focus.
@@ -202,7 +225,7 @@ class AutocompleteSelectEdit extends Component {
             this.props.onFocus.call(this);
         }
         this.setState({ active: '', focus: true });
-    };
+    }
 
     /**
      * Handle query field key down.
@@ -233,7 +256,7 @@ class AutocompleteSelectEdit extends Component {
             }
             this.setState({ active: optionKeys[newIndex] });
         }
-    };
+    }
 
     /**
      * Handle suggestion hover.
@@ -241,7 +264,7 @@ class AutocompleteSelectEdit extends Component {
      */
     _handleSuggestionHover(key) {
         this.setState({ active: key });
-    };
+    }
 
     /**
      * Handle selection of result.
@@ -249,8 +272,9 @@ class AutocompleteSelectEdit extends Component {
      */
     _select(key) {
         const { options } = this.state;
-        const { onChange } = this.props;
-        const resolvedLabel = options.get(key) || '';
+        const { onChange, labelName, wholeItem } = this.props;
+        const item = options.get(key) || {};
+        const resolvedLabel = item[labelName] || '';
         this.refs.htmlInput.blur();
         let newState = { inputValue: this.i18n(resolvedLabel), selected: key, focus: false };
         if (this.props.onSelectClear === true) {
@@ -258,7 +282,7 @@ class AutocompleteSelectEdit extends Component {
         }
         this.setState(newState, () => {
             if (onChange) {
-                onChange(key);
+                onChange(wholeItem ? item : key);
             }
         });
     }
@@ -268,9 +292,10 @@ class AutocompleteSelectEdit extends Component {
      * @returns {JSXElement} options.
      */
     _renderOptions() {
+        const { labelName } = this.props;
         const { active, options, focus } = this.state;
         const renderedOptions = [];
-        for (let [key, value] of options) {
+        for (let [key, item] of options) {
             const isActive = active === key;
             renderedOptions.push(
                 <li
@@ -280,7 +305,7 @@ class AutocompleteSelectEdit extends Component {
                     onClick={() => this._select(key)}
                     onMouseOver={() => this._handleSuggestionHover(key)}
                 >
-                    {this.i18n(value)}
+                    {this.i18n(item[labelName])}
                 </li>
             );
         }
@@ -290,7 +315,7 @@ class AutocompleteSelectEdit extends Component {
                 {renderedOptions}
             </ul>
         );
-    };
+    }
 
     /** @inheritdoc */
     render() {
