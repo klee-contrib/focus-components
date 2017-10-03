@@ -51,7 +51,7 @@ class MessageCenter extends Component {
         if (this.queuedNotifications.length > 0) {
             this.showSnackbar(this.queuedNotifications.shift());
         } else {
-            this.showSnackbar({ message: '' });
+            this.showSnackbar({ message: null });
         }
     };
 
@@ -72,9 +72,11 @@ class MessageCenter extends Component {
     _cleanup = () => {
         this.cleanupTimeout = null;
         this.setState({ active: false });
-        setTimeout(() => {
-            this._checkQueue();
-        }, CONSTANT.ANIMATION_LENGTH);
+        if (this.currentNotification.message !== null) {
+            setTimeout(() => {
+                this._checkQueue();
+            }, CONSTANT.ANIMATION_LENGTH);
+        }
     };
 
     /**
@@ -137,7 +139,9 @@ class MessageCenter extends Component {
             this.queuedNotifications.push(data);
         } else {
             this.currentNotification = data;
-            this.setState({ active: true });
+            if (data.message !== null) {
+                this.setState({ active: true });
+            }
             this.cleanupTimeout = setTimeout(this._cleanup, data.timeout);
         }
     };
