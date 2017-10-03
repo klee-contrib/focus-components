@@ -51,7 +51,7 @@ class MessageCenter extends Component {
         if (this.queuedNotifications.length > 0) {
             this.showSnackbar(this.queuedNotifications.shift());
         } else {
-            this.showSnackbar({ message: '' });
+            this.showSnackbar({ message: null });
         }
     };
 
@@ -137,7 +137,9 @@ class MessageCenter extends Component {
             this.queuedNotifications.push(data);
         } else {
             this.currentNotification = data;
-            this.setState({ active: true });
+            if (data.message !== null) {
+                this.setState({ active: true });
+            }
             this.cleanupTimeout = setTimeout(this._cleanup, data.timeout);
         }
     };
