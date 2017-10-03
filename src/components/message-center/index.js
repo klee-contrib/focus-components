@@ -72,9 +72,11 @@ class MessageCenter extends Component {
     _cleanup = () => {
         this.cleanupTimeout = null;
         this.setState({ active: false });
-        setTimeout(() => {
-            this._checkQueue();
-        }, CONSTANT.ANIMATION_LENGTH);
+        if (this.currentNotification.message !== null) {
+            setTimeout(() => {
+                this._checkQueue();
+            }, CONSTANT.ANIMATION_LENGTH);
+        }
     };
 
     /**
