@@ -1,44 +1,75 @@
-import isFunction from 'lodash/lang/isFunction';
-import isArray from 'lodash/lang/isArray';
-
-import capitalize from 'lodash/string/capitalize'
-
 import React, { Component } from 'react';
 
-// - Provide the component
-// - Provide the store configuration `[{store: yourStore, properties: ['property1', 'property2']}]`
-// - Provide a function to read state from your store
+import isFunction from 'lodash/lang/isFunction';
+import isArray from 'lodash/lang/isArray';
+import capitalize from 'lodash/string/capitalize'
+
+/**
+ * Behavior for store connection.
+ * @param {array} storesConfiguration Provide the store configuration `[{store: yourStore, properties: ['property1', 'property2']}]`.
+ * @param {func} getState Provide a function to read state from your store.
+ * @returns {func} Wrapper function.
+ */
 export default function connectToStores(storesConfiguration, getState) {
     // Validate the stores object
     if (!isArray(storesConfiguration)) {
         throw new Error('connectToStores: you need to provide an array of store config.');
     }
 
-    // Validate .
+    // Validate getState function
     if (!isFunction(getState)) {
         throw new Error('connectToStores: you need to provide function to read state from store.');
     }
-    // Return a wrapper function around the component
+
+    /**
+     * Wrapping store behavior.
+     * @param {JSXElement} DecoratedComponent Component to be wrapped.
+     * @returns {JSXElement} Wrapped component.
+     */
     return function connectComponent(DecoratedComponent) {
 
         // Save the display name for later
         const displayName = DecoratedComponent.displayName || 'Component';
 
-        // The goal of this class is to connect a component to a list of stores with properties.
+        /**
+         * The goal of this class is to connect a component to a list of stores with properties.
+         */
         class StoreConnector extends Component {
 
+            /** Display name. */
+            static displayName = `${displayName}Connected`;
+
+            /**
+             * Constructor.
+             * @param {object} props Props.
+             */
             constructor(props) {
                 super(props);
+                
                 this.handleStoresChanged = this.handleStoresChanged.bind(this);
             }
 
-            // When the component will mount, we listen to all stores changes.
-            // When a change occurs the state is read again from the state.
+            /** @inheritdoc */
             componentWillMount() {
+                // When the component will mount, we listen to all stores changes.
+                // When a change occurs the state is read again from the state.
+                this.handleStoreListenerChange('add');
+            }
+
+            /** @inheritdoc */
+            componentWillUnmount() {
+                this.handleStoreListenerChange('remove');
+            }
+
+            /**
+             * Handle adding or removing listeners.
+             * @param {string} type Add or remove listeners.
+             */
+            handleStoreListenerChange(type) {
                 storesConfiguration.forEach(storeConf => {
                     const { properties, store: storeArg } = storeConf;
                     const store = typeof storeArg === 'function' ? storeArg() : storeArg;
-                    properties.forEach((property) => {
+                    properties.forEach(property => {
                         if (!store || !store.definition || !store.definition[property]) {
                             console.warn(`
                                 StoreConnector ${displayName}:
@@ -46,41 +77,54 @@ export default function connectToStores(storesConfiguration, getState) {
                             `);
                         }
                         const capitalizedProperty = capitalize(property);
-                        storeConf.store[`add${capitalizedProperty}ChangeListener`](this.handleStoresChanged);
-                        storeConf.store[`add${capitalizedProperty}ErrorListener`](this.handleStoresChanged);
+                        store[`${type}${capitalizedProperty}ChangeListener`](this.handleStoresChanged);
+                        store[`${type}${capitalizedProperty}ErrorListener`](this.handleStoresChanged);
                     });
                 });
             }
 
-            // Component unmount.
-            componentWillUnmount() {
-                this._isMounted = false;
-                storesConfiguration.forEach(storeConf => {
-                    const { properties, store } = storeConf;
-                    properties.forEach((property) => {
-                        const capitalizedProperty = capitalize(property);
-                        store[`remove${capitalizedProperty}ChangeListener`](this.handleStoresChanged);
-                        store[`remove${capitalizedProperty}ErrorListener`](this.handleStoresChanged);
-                    });
-                });
-            }
-
-            //Handle the store changes
+            /**
+             * Handle the store changes
+             */
             handleStoresChanged() {
                 this.forceUpdate();
             }
 
-            // Render the component with only props, some from the real props some from the state
+            /**
+             * Get the isLoading state from  all the store.
+             * @returns {object} The object with isLoading key set.
+             */
+            _getLoadingStateFromStores() {
+                let isLoading = false;
+
+                storesConfiguration.forEach(storeConf => {
+                    const { properties, store: storeArg } = storeConf;
+                    const store = typeof storeArg === 'function' ? storeArg() : storeArg;
+                    if (!isLoading) {
+                        properties.forEach(property => {
+                            if (!isLoading) {
+                                const propStatus = store.getStatus(property) || {};
+                                isLoading = propStatus.isLoading || false;
+                            }
+                        });
+                    }
+                });
+
+                return { isLoading };
+            }
+
+            /** @inheritdoc */
             render() {
                 return (
                     <DecoratedComponent
+                        {...this._getLoadingStateFromStores()}
                         {...this.props}
                         {...getState(this.props)}
                     />
                 );
             }
         }
-        StoreConnector.displayName = `${displayName}Connected`;
+
         return StoreConnector;
     };
 }
@@ -88,7 +132,6 @@ export default function connectToStores(storesConfiguration, getState) {
 // Add a function to connect a store to a component .
 // All the store properties values will be provided to the component as props.
 // This could be use as an ES7 annotation or as a function.
-
 
 // ### ES6 version
 // ```jsx
