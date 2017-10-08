@@ -47,48 +47,43 @@ const ContentActions = {
         this.setState(this._getStateFromStore());
     },
 
+    /**
+     * Render a fab component.
+     * @param {object} fab Fab.
+     * @returns {JSXElement} Component.
+     */
+    renderFabAction(fab) {
+        if (isArray(fab.action)) {
+            return (
+                <Dropdown
+                    iconProps={{ name: fab.icon, iconLibrary: fab.iconLibrary }}
+                    operationList={fab.action}
+                    shape='fab'
+                />
+            );
+        } else {
+            return (
+                <Button
+                    handleOnClick={fab.action}
+                    icon={fab.icon}
+                    iconLibrary={fab.iconLibrary}
+                    label={fab.label}
+                    style={{ className: fab.className }}
+                    shape='fab'
+                    type='button'
+                />
+            );
+        }
+    },
+
     /** @inheritdoc */
     render() {
         const { actions: { primary, secondary } } = this.state;
         return (
             <div className={this._getStyleClassName()} data-focus='content-actions'>
-                {primary.map((primary) => {
-                    if (Array.isArray(primary.action)) {
-                        return (
-                            <Dropdown
-                                iconProps={{ name: primary.icon, iconLibrary: primary.iconLibrary }}
-                                operationList={primary.action}
-                                shape='fab'
-                            />
-                        );
-                    } else {
-                        return (
-                            <Button
-                                handleOnClick={primary.action}
-                                icon={primary.icon}
-                                iconLibrary={primary.iconLibrary}
-                                label={primary.label}
-                                shape='fab'
-                                style={{ className: primary.className }}
-                                type='button'
-                            />
-                        );
-                    }
-                })}
-                {isArray(secondary) && (
-                    <Dropdown
-                        iconProps={{ name: 'more_vert' }}
-                        operationList={secondary}
-                        shape='fab'
-                    />
-                )}
-                {isObject(secondary) && (
-                    <Dropdown
-                        iconProps={{ name: secondary.icon || 'more_vert', iconLibrary: secondary.iconLibrary }}
-                        operationList={secondary.action}
-                        shape='fab'
-                    />
-                )}
+                {primary.map((action) => this.renderFabAction(action))}
+                {isArray(secondary) && this.renderFabAction({ action: secondary })}
+                {isObject(secondary) && this.renderFabAction(secondary)}
             </div>
         );
     }
