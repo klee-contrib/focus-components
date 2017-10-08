@@ -90,7 +90,7 @@ class AutocompleteSelectEdit extends Component {
         const { value, inputTimeout } = this.props;
 
         if (value !== undefined && value !== null) {
-            this._setValue(value);
+            this._setValue(this.props);
         }
 
         document.addEventListener('click', this._handleDocumentClick);
@@ -98,10 +98,11 @@ class AutocompleteSelectEdit extends Component {
     }
 
     /** @inheritdoc */
-    componentWillReceiveProps({ value, customError, error, keyResolver }) {
+    componentWillReceiveProps(nextProps) {
+        const { value, customError, error, labelName, wholeItem } = nextProps;
         if (value !== this.props.value && value !== undefined && value !== null) { // value is defined, call the keyResolver to get the associated label
             const inputValue = wholeItem ? value[labelName] : value;
-            this.setState({ inputValue, customError }, () => this._setValue(value));
+            this.setState({ inputValue, customError }, () => this._setValue(nextProps));
         } else if (customError !== this.props.customError) {
             this.setState({ customError });
         }
@@ -129,12 +130,14 @@ class AutocompleteSelectEdit extends Component {
         document.removeEventListener('click', this._handleDocumentClick);
     }
 
+
     /**
      * Set value.
-     * @param {object|string} value Value.
+     * 
+     * @param {object} object containing props
+     * @memberof AutocompleteSelectEdit
      */
-    _setValue(value) {
-        const { keyResolver, labelName, wholeItem } = this.props;
+    _setValue({ value, keyResolver, labelName, wholeItem }) {
 
         if (wholeItem) {
             this.setState({ inputValue: value[labelName], fromKeyResolver: true });
