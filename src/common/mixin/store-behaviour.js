@@ -45,11 +45,11 @@ const storeMixin = {
      * @param  {array} filterNodes - An object containing nodes key to update.
      * @returns {object} - The js object constructed from store data.
      */
-    _getStateFromStores(filterNodes = []) {
+    _getStateFromStores(filterNodesArg = []) {
         if (this.getStateFromStore) {
             return this.getStateFromStore();
         }
-
+        let filterNodes = filterNodesArg || [];
         let newState = {};
         this.stores.forEach((storeConf) => {
             storeConf.properties.forEach((property) => {
@@ -68,13 +68,12 @@ const storeMixin = {
         if (filterNodes.length > 0) {
             filterNodes = filterNodes.concat(this.referenceNames || []);
             newState = pick(newState, filterNodes);
-            defaultData = pick(defaultData, filterNodes);
         }
 
         const computedState = assign(this._computeEntityFromStoresData(newState), this._getLoadingStateFromStores());
 
         // First encountered key wins 
-        return defaultsDeep({}, computedState, defaultData);
+        return defaultsDeep({}, computedState, this.state, defaultData);
     },
 
     /**
