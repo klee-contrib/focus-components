@@ -259,6 +259,7 @@ class Autocomplete extends Component {
                         {...inputProps}
                         ref='htmlInput'
                         type='text'
+                        autoComplete='off'
                     />
                     <label className='mdl-textfield__label'>{this.i18n(placeholder)}</label>
                     <span className='mdl-textfield__error'>{this.i18n(customError)}</span>
