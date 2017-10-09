@@ -29,9 +29,9 @@ class RichTextField extends Component {
      */
     constructor(props) {
         super(props);
-
+        const { value, language } = this.props;
         this.state = {
-            value: this.props.value ? RichTextEditor.createValueFromString(this.props.value, this.props.language) : RichTextEditor.createEmptyValue()
+            value: this.buildValue(value, language)
         };
 
         this.onChange = this.onChange.bind(this);
@@ -39,22 +39,35 @@ class RichTextField extends Component {
     }
 
     /** @inheritdoc */
-    componentWillReceiveProps(nextProps) {
+    componentWillReceiveProps({ value, language }) {
         // We are only listening to first value, else we have cursor issue in edit mode
-        if (nextProps.value && !this.props.value) {
-            this.forceChange(nextProps.value);
+        if (value && !this.props.value) {
+            this.forceChange(value, language);
         }
+    }
+
+    /**
+     * Build Value for the editor from a string value and the markup type.
+     * 
+     * @param {string} strValue the value
+     * @param {string} language the markup
+     * @returns {object} a value for the editor
+     * @memberof RichTextField
+     */
+    buildValue(strValue, language) {
+        return strValue ? RichTextEditor.createValueFromString(strValue, language) : RichTextEditor.createEmptyValue()
     }
 
     /**
      * Method to forcibly change content of editor, if it already have value.
      * 
      * @param {string} value new value for editor content
+     * @param {string} language the markuo to use (html, markdown)
      * @memberof RichTextField
      */
-    forceChange(value) {
+    forceChange(value, language) {
         this.setState({
-            value: value ? RichTextEditor.createValueFromString(value, this.props.language) : RichTextEditor.createEmptyValue()
+            value: this.buildValue(value, language)
         })
     }
 
