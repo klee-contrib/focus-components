@@ -47,7 +47,7 @@ const storeMixin = {
      */
     _getStateFromStores(filterNodesArg) {
         if (this.getStateFromStore) {
-            return this.getStateFromStore();
+            return this.getStateFromStore(filterNodesArg);
         }
         // Build state from store.
         let newState = {};
