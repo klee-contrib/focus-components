@@ -42,20 +42,31 @@ const storeMixin = {
 
     /**
      * Get the state informations from the store.
-     * @param  {array} filterNodes - An object containing nodes key to update.
+     * @param  {array} filterNodesArg - An object containing nodes key to update.
      * @returns {object} - The js object constructed from store data.
      */
-    _getStateFromStores(filterNodesArg = []) {
+    _getStateFromStores(filterNodesArg) {
         if (this.getStateFromStore) {
             return this.getStateFromStore();
         }
-        let filterNodes = filterNodesArg || [];
+        // Build state from store.
         let newState = {};
         this.stores.forEach((storeConf) => {
             storeConf.properties.forEach((property) => {
                 newState[property] = storeConf.store[`get${capitalize(property)}`]();
             });
         });
+
+        // We want to pick only some nodes & reference nodes
+        // If filter is given, we need to filter, even if the array is empty.
+        let hasFilter = filterNodesArg !== undefined || filterNodesArg !== null;
+        // We take all references
+        let filterNodes = (filterNodesArg || []).concat(this.referenceNames || []);
+        if (hasFilter) {
+            newState = pick(newState, filterNodes);
+        }
+
+        const computedState = assign(this._computeEntityFromStoresData(newState), this._getLoadingStateFromStores());
 
         let defaultData = {};
         if (this.props.useDefaultStoreData && this.getDefaultStoreData) {
@@ -64,15 +75,7 @@ const storeMixin = {
             defaultData = Object.keys(this.definition).reduce((acc, key) => ({ ...acc, [key]: null }), {});
         }
 
-        // We want to pick only some nodes & reference nodes
-        if (filterNodes.length > 0) {
-            filterNodes = filterNodes.concat(this.referenceNames || []);
-            newState = pick(newState, filterNodes);
-        }
-
-        const computedState = assign(this._computeEntityFromStoresData(newState), this._getLoadingStateFromStores());
-
-        // First encountered key wins 
+        // First encountered key wins
         return defaultsDeep({}, computedState, this.state, defaultData);
     },
 
