@@ -17,9 +17,7 @@ const storeMixin = {
 
     /** @inheritdoc */
     getDefaultProps() {
-        return {
-            useDefaultStoreData: false
-        };
+        return {};
     },
 
     /** @inheritdoc */
@@ -56,25 +54,38 @@ const storeMixin = {
                 newState[property] = storeConf.store[`get${capitalize(property)}`]();
             });
         });
-
-        // We want to pick only some nodes & reference nodes
         // If filter is given, we need to filter, even if the array is empty.
         let hasFilter = filterNodesArg !== undefined || filterNodesArg !== null;
-        // We take all references
-        let filterNodes = (filterNodesArg || []).concat(this.referenceNames || []);
-        let defaultData = {};
 
-        if (hasFilter) {
-            newState = pick(newState, filterNodes);
-        } else if (!hasFilter && this.props.useDefaultStoreData && this.getDefaultStoreData) {
-            defaultData = this.getDefaultStoreData(this.definition);
-        } else if (!hasFilter && this.props.useDefaultStoreData && this.definition) {
-            defaultData = Object.keys(this.definition).reduce((acc, key) => ({ ...acc, [key]: null }), {});
+        let defaultStateData = {};
+        // If there is a custom function, use it. It should return store-level data, with node.
+        if (this.getDefaultStoreData) {
+            defaultStateData = this.getDefaultStoreData(this.definition);
+        } else if ((!hasFilter || this.definitionInNode) && this.definition) {
+            // If the information about store node is known, or we load all data from store
+            // We build the default data
+            defaultStateData = Object.keys(this.definition).reduce((acc, key) => ({ ...acc, [key]: null }), {});
+            // If the information about store node is known, we wrapped the object
+            if (this.definitionInNode) {
+                defaultStateData = { [this.definitionInNode]: defaultStateData }
+            }
         }
+
+        // We handle store-level default data (object with key, for node name)
+        if (this.definitionInNode || this.getDefaultStoreData) {
+            newState = defaultsDeep({}, newState, defaultStateData);
+        }
+
+        // We want to pick only some nodes & reference nodes
+        if (hasFilter) {
+            // We take all references in addition to given node
+            newState = pick(newState, (filterNodesArg || []).concat(this.referenceNames || []));
+        }
+
         const computedState = assign(this._computeEntityFromStoresData(newState), this._getLoadingStateFromStores());
 
         // First encountered key wins
-        return defaultsDeep({}, computedState, defaultData);
+        return !hasFilter && !this.definitionInNode && !this.getDefaultStoreData ? defaultsDeep({}, computedState, defaultStateData) : computedState;
     },
 
     /**
