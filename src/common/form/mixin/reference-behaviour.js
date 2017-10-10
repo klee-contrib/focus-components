@@ -53,8 +53,11 @@ const referenceMixin = {
 
     componentWillReceiveProps({ referenceNames }) {
         if (referenceNames) {
+            const shouldReload = difference(referenceNames, this.referenceNames).length > 0;
             this._buildReference(referenceNames, this.referenceNames);
-            this._loadReference();
+            if(shouldReload) {
+                this._loadReference();
+            }
         }
     },
 
