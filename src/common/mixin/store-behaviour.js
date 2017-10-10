@@ -62,21 +62,19 @@ const storeMixin = {
         let hasFilter = filterNodesArg !== undefined || filterNodesArg !== null;
         // We take all references
         let filterNodes = (filterNodesArg || []).concat(this.referenceNames || []);
+        let defaultData = {};
+
         if (hasFilter) {
             newState = pick(newState, filterNodes);
-        }
-
-        const computedState = assign(this._computeEntityFromStoresData(newState), this._getLoadingStateFromStores());
-
-        let defaultData = {};
-        if (this.props.useDefaultStoreData && this.getDefaultStoreData) {
+        } else if (!hasFilter && this.props.useDefaultStoreData && this.getDefaultStoreData) {
             defaultData = this.getDefaultStoreData(this.definition);
-        } else if (this.props.useDefaultStoreData && this.definition) {
+        } else if (!hasFilter && this.props.useDefaultStoreData && this.definition) {
             defaultData = Object.keys(this.definition).reduce((acc, key) => ({ ...acc, [key]: null }), {});
         }
+        const computedState = assign(this._computeEntityFromStoresData(newState), this._getLoadingStateFromStores());
 
         // First encountered key wins
-        return defaultsDeep({}, computedState, this.state, defaultData);
+        return defaultsDeep({}, computedState, defaultData);
     },
 
     /**
