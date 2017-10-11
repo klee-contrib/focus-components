@@ -55,7 +55,7 @@ const storeMixin = {
             });
         });
         // If filter is given, we need to filter, even if the array is empty.
-        let hasFilter = filterNodesArg !== undefined || filterNodesArg !== null;
+        let hasFilter = filterNodesArg !== undefined && filterNodesArg !== null;
 
         let defaultStateData = {};
         // If there is a custom function, use it. It should return store-level data, with node.
@@ -64,10 +64,15 @@ const storeMixin = {
         } else if ((!hasFilter || this.definitionInNode) && this.definition) {
             // If the information about store node is known, or we load all data from store
             // We build the default data
-            defaultStateData = Object.keys(this.definition).reduce((acc, key) => ({ ...acc, [key]: null }), {});
+            defaultStateData = this._buildEmptyFromDefinition();
             // If the information about store node is known, we wrapped the object
             if (this.definitionInNode) {
                 defaultStateData = { [this.definitionInNode]: defaultStateData }
+
+                // Merge deep consider 'null' as value and therefore wins over defaultStateData below
+                if (newState[this.definitionInNode] === null) {
+                    newState[this.definitionInNode] = undefined;
+                }
             }
         }
 
@@ -85,7 +90,9 @@ const storeMixin = {
         const computedState = assign(this._computeEntityFromStoresData(newState), this._getLoadingStateFromStores());
 
         // First encountered key wins
-        return !hasFilter && !this.definitionInNode && !this.getDefaultStoreData ? defaultsDeep({}, computedState, defaultStateData) : computedState;
+        return !hasFilter && !this.definitionInNode && !this.getDefaultStoreData
+            ? defaultsDeep({}, computedState, defaultStateData)
+            : computedState;
     },
 
     /**
@@ -108,6 +115,18 @@ const storeMixin = {
         });
 
         return newState;
+    },
+
+    /**
+     * Build object with null values for each key of definition.
+     * @returns {object} Empty object.
+     */
+    _buildEmptyFromDefinition() {
+        if (this.buildEmptyFromDefinition) {
+            return this.buildEmptyFromDefinition();
+        }
+
+        return Object.keys(this.definition).reduce((acc, key) => ({ ...acc, [key]: null }), {});
     },
 
     /**
