@@ -45,7 +45,7 @@ export default function connectToStores(storesConfiguration, getState) {
              */
             constructor(props) {
                 super(props);
-                
+
                 this.handleStoresChanged = this.handleStoresChanged.bind(this);
             }
 
@@ -91,6 +91,14 @@ export default function connectToStores(storesConfiguration, getState) {
             }
 
             /**
+             * Get the decorated component.
+             * @returns {JSXElement} Component.
+             */
+            getDecoratedComponent() {
+                return this.refs.decoratedComponent;
+            }
+
+            /**
              * Get the isLoading state from  all the store.
              * @returns {object} The object with isLoading key set.
              */
@@ -110,16 +118,17 @@ export default function connectToStores(storesConfiguration, getState) {
                     }
                 });
 
-                return { isLoading };
+                return isLoading;
             }
 
             /** @inheritdoc */
             render() {
                 return (
                     <DecoratedComponent
-                        {...this._getLoadingStateFromStores()}
+                        isLoading={this._getLoadingStateFromStores()}
                         {...this.props}
                         {...getState(this.props)}
+                        ref='decoratedComponent'
                     />
                 );
             }
