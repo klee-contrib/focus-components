@@ -29,6 +29,7 @@ export default function connectToStores(storesConfiguration, getState) {
 
             constructor(props) {
                 super(props);
+                this._isMounted = false;
                 this.handleStoresChanged = this.handleStoresChanged.bind(this);
             }
 
@@ -51,7 +52,11 @@ export default function connectToStores(storesConfiguration, getState) {
                     });
                 });
             }
-
+            
+            componentDidMount() {
+                this._isMounted = true;
+            }
+            
             // Component unmount.
             componentWillUnmount() {
                 this._isMounted = false;
@@ -67,7 +72,9 @@ export default function connectToStores(storesConfiguration, getState) {
 
             //Handle the store changes
             handleStoresChanged() {
-                this.forceUpdate();
+                if(this._isMounted){
+                    this.forceUpdate();
+                }
             }
 
             // Render the component with only props, some from the real props some from the state
