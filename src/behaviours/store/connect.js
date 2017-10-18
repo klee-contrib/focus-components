@@ -45,7 +45,7 @@ export default function connectToStores(storesConfiguration, getState) {
              */
             constructor(props) {
                 super(props);
-
+                this._isMounted = false;
                 this.handleStoresChanged = this.handleStoresChanged.bind(this);
             }
 
@@ -57,7 +57,13 @@ export default function connectToStores(storesConfiguration, getState) {
             }
 
             /** @inheritdoc */
+            componentDidMount() {
+                this._isMounted = true;
+            }
+
+            /** @inheritdoc */
             componentWillUnmount() {
+                this._isMounted = false;
                 this.handleStoreListenerChange('remove');
             }
 
@@ -66,8 +72,7 @@ export default function connectToStores(storesConfiguration, getState) {
              * @param {string} type Add or remove listeners.
              */
             handleStoreListenerChange(type) {
-                storesConfiguration.forEach(storeConf => {
-                    const { properties, store: storeArg } = storeConf;
+                storesConfiguration.forEach(({ properties, store: storeArg }) => {
                     const store = typeof storeArg === 'function' ? storeArg() : storeArg;
                     properties.forEach(property => {
                         if (!store || !store.definition || !store.definition[property]) {
@@ -87,7 +92,9 @@ export default function connectToStores(storesConfiguration, getState) {
              * Handle the store changes
              */
             handleStoresChanged() {
-                this.forceUpdate();
+                if (this._isMounted) {
+                    this.forceUpdate();
+                }
             }
 
             /**
