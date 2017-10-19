@@ -1,5 +1,4 @@
 // Libs
-import isArray from 'lodash/lang/isArray';
 import isObject from 'lodash/lang/isObject';
 // Dependencies
 import builder from 'focus-core/component/builder';
@@ -48,42 +47,55 @@ const ContentActions = {
     },
 
     /**
-     * Render a fab component.
+     * Render a list fab component.
      * @param {object} fab Fab.
      * @returns {JSXElement} Component.
      */
-    renderFabAction(fab) {
-        if (isArray(fab.action)) {
+    renderFabListAction(fab) {
+        if (Array.isArray(fab.action) && fab.action.length > 0) {
+            const { icon, iconLibrary, action, ...otherProps } = fab;
             return (
                 <Dropdown
-                    iconProps={{ name: fab.icon, iconLibrary: fab.iconLibrary }}
-                    operationList={fab.action}
+                    iconProps={{ name: icon, iconLibrary }}
+                    operationList={action}
                     shape='fab'
-                />
-            );
-        } else {
-            return (
-                <Button
-                    handleOnClick={fab.action}
-                    icon={fab.icon}
-                    iconLibrary={fab.iconLibrary}
-                    label={fab.label}
-                    style={{ className: fab.className }}
-                    shape='fab'
-                    type='button'
+                    {...otherProps}
                 />
             );
         }
     },
 
+    /**
+     * Render a fab component.
+     * @param {object} fab Fab.
+     * @returns {JSXElement} Component.
+     */
+    renderFabAction(fab) {
+        const { action, className, icon, iconLibrary, label, ...otherProps } = fab;
+        return (
+            <Button
+                key={`header-action-${label}`}
+                className={className}
+                handleOnClick={action}
+                icon={icon}
+                iconLibrary={iconLibrary}
+                label={label}
+                shape='fab'
+                type='button'
+                {...otherProps}
+            />
+        );
+    },
+
     /** @inheritdoc */
     render() {
         const { actions: { primary, secondary } } = this.state;
+
         return (
             <div className={this._getStyleClassName()} data-focus='content-actions'>
                 {primary.map((action) => this.renderFabAction(action))}
-                {isArray(secondary) && this.renderFabAction({ action: secondary })}
-                {isObject(secondary) && this.renderFabAction(secondary)}
+                {Array.isArray(secondary) && this.renderFabListAction({ action: secondary })}
+                {isObject(secondary) && this.renderFabListAction(secondary)}
             </div>
         );
     }

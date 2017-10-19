@@ -6,9 +6,19 @@ import applicationStore from 'focus-core/application/built-in-store';
 */
 class HeaderContent extends Component {
 
+    /** Display name. */
+    static displayName = 'HeaderContent';
+
+    /**
+     * Constructor.
+     * @param {object} props Props.
+     */
     constructor(props) {
         super(props);
+
         this.state = this._getStateFromStore();
+
+        this._handleComponentChange = this._handleComponentChange.bind(this);
     }
 
     /** @inheriteddoc */
@@ -25,21 +35,23 @@ class HeaderContent extends Component {
     * Read the component state from the connected stores.
     * @return {object} - The new state.
     */
-    _getStateFromStore = () => {
-        return { cartridgeComponent: applicationStore.getCartridgeComponent() || { component: 'div', props: {} } };
-    };
+    _getStateFromStore() {
+        return {
+            cartridgeComponent: applicationStore.getCartridgeComponent() || { component: 'div', props: {} }
+        };
+    }
 
     /**
     * Handle the component change cb.
     */
-    _handleComponentChange = () => {
+    _handleComponentChange() {
         this.setState(this._getStateFromStore());
-    };
+    }
 
-    /** @inheriteddoc */
+    /** @inheritdoc */
     render() {
-        const { cartridgeComponent } = this.state;
-        const { component: Component, props } = cartridgeComponent;
+        const { cartridgeComponent: { component: Component, props } } = this.state;
+
         return (
             <div data-focus='header-content'>
                 <Component {...props} />
@@ -47,7 +59,5 @@ class HeaderContent extends Component {
         );
     }
 }
-
-HeaderContent.displayName = 'HeaderContent';
 
 export default HeaderContent;
