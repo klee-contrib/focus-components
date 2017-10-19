@@ -16,19 +16,17 @@ const storeMixin = {
     mixins: [storeChangeBehaviour],
 
     /** @inheritdoc */
-    getDefaultProps() {
-        return {};
-    },
-
-    /** @inheritdoc */
     componentWillMount() {
-        //These listeners are registered before the mounting because they are not correlated to the DOM.
-        this._registerListeners();
-
-        if (this.stores === undefined) {
+        if (!this.stores) {
             this.stores = [];
         }
 
+        //These listeners are registered before the mounting because they are not correlated to the DOM.
+        this._registerListeners();
+    },
+
+    /** @inheritdoc */
+    componentDidMount() {
         const newState = this._getStateFromStores();
         this.setState(newState);
     },
