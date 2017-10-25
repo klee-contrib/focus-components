@@ -36,7 +36,10 @@ function _customValidation() {
  * @return {boolean} - True if the validation is ok.
  */
 function _validate() {
-    return this._fieldsValidation() && this._customValidation();
+    const fieldsValidation = this._fieldsValidation();
+    const customValidation = this._customValidation();
+    
+    return fieldsValidation && customValidation;
 }
 
 export default {
