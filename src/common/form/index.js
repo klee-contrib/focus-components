@@ -69,7 +69,7 @@ let formMixin = {
         }
     },
     /** @inheritdoc */
-    componentDidMount() {
+    componentWillMount() {
         //Build the definitions.
         if (this.registerListeners) {
             this.registerListeners();
