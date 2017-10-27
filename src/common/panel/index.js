@@ -10,6 +10,9 @@ let panelMixin = {
             style: {}
         }
     },
+    componentWillMount() {
+        console.warn('FocusComponents 2.2.0: this component is deprecated, please use focus-components/components/panel instead');
+    },
     /**
      * Header of theblock function.
      * @return {[type]} [description]

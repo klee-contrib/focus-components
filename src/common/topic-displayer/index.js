@@ -20,7 +20,9 @@ const TopicDisplayer = {
             displayLabels: false
         };
     },
-
+    componentWillMount() {
+        console.warn('FocusComponents 2.2.0: this component is deprecated, please use focus-components/components/topic-displayer instead');
+    },
     /**
      * Render the component.
      * @returns {JSX} Htm code.

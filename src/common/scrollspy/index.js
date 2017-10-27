@@ -44,6 +44,9 @@ const Scrollspy = {
             titleList: []
         };
     },
+    componentWillMount() {
+        console.warn('FocusComponents 2.2.0: this component is deprecated, please use focus-components/components/scrollspy-container instead');
+    },
     /** @inheritDoc */
     componentDidMount() {
         this.setState({

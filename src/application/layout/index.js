@@ -21,6 +21,9 @@ const contentActionsMixin = {
             footerText: 'Please override the footer text by giving a "footerText" property to the Layout component.'
         };
     },
+    componentWillMount() {
+        console.warn('FocusComponents 2.2.0: this component is deprecated, please use components from focus-components/components/layout folder');
+    },
     /** inheriteddoc */
     render() {
         const { LoadingBar, MessageCenter, ErrorCenter, AppHeader, MenuLeft, footerText, displayDevBar, children } = this.props;

@@ -5,6 +5,9 @@ import type from 'focus-core/component/types';
  * @type {Object} - popin behavour mixin
  */
 let PopinProperties = {
+    componentWillMount() {
+        console.warn('FocusComponents 2.2.0: this component is deprecated, please wrap content inside a popin instead');
+    },
     /** @inheritdoc */
     getDefaultProps() {
         return {

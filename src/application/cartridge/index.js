@@ -9,6 +9,7 @@ const cartridgeMixin = {
     },
     /** @inheriteddoc */
     componentWillMount() {
+        console.warn('FocusComponents 2.2.0: this component is deprecated, please use components from focus-components/components/layout folder');
         applicationStore.addCartridgeComponentChangeListener(this._handleComponentChange);
     },
     /** @inheriteddoc */

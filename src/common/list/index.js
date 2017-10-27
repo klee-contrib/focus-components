@@ -10,7 +10,9 @@ let MemoryListMixin = {
     propTypes: {
         listComponent: type(['func', 'object'])
     },
-
+    componentWillMount() {
+        console.warn('FocusComponents 2.2.0: this component is deprecated, please use focus-components/list instead');
+    },
     /** @inheritdoc */
     render() {
         let data = this.props.data || [];

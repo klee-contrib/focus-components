@@ -7,6 +7,7 @@ let applicationStateMixin = {
     },
     /** @inheriteddoc */
     componentWillMount: function cartridgeWillMount() {
+        console.warn('FocusComponents 2.2.0: this component is deprecated, please use components from focus-components/components/layout folder');
         applicationStore.addModeChangeListener(this._handleChangeApplicationStatus);
         applicationStore.addRouteChangeListener(this._handleChangeApplicationStatus);
     },
