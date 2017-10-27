@@ -4,7 +4,6 @@ import ConfirmWrapperDefault from '../confirm';
 import ErrorCenter from '../../application/error-center';
 import HeaderDefaultTemplate from './header-default-template';
 import LoadingBar from '../../application/loading-bar';
-import LoadingStatusBarDefault from '../../dev-tools/loading-status-bar';
 import MessageCenterDefault from '../message-center';
 
 const ErrorCenterDefault = ErrorCenter.component;
@@ -15,7 +14,6 @@ const defaultProps = {
     AppHeader: HeaderDefaultTemplate, //default app header.
     ErrorCenter: ErrorCenterDefault, // default error center
     LoadingBar: LoadingBarDefault, // default loading bar
-    LoadingStatusBar: LoadingStatusBarDefault,
     MessageCenter: MessageCenterDefault, // default message center
     ConfirmWrapper: ConfirmWrapperDefault // default confirm wrapper,
 };
@@ -36,7 +34,7 @@ const propTypes = {
 * Layout component.
 */
 const Layout = ({ AppHeader, children, ConfirmWrapper, ErrorCenter, Footer, LoadingBar, MenuLeft,
-    MessageCenter, LoadingStatusBar, DevTools, OtherRootComponent, ...otherProps }) => {
+    MessageCenter, DevTools, OtherRootComponent, ...otherProps }) => {
 
     const menuType = MenuLeft ? 'left' : 'other';
 
