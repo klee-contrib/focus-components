@@ -40,18 +40,10 @@ const valueBehaviourMixin = {
     },
     /**
     * Handler called when the input Change its value.
-    * @param {event} event - The event to set.
-    * @deprecated
+    * @param {any} newValue - The value to set.
     */
     onInputChange(newValue) {
         if (this.props.onChange) {
-            console.warn(`
-                FOCUS 0.7.0
-                The onChange props signature has changed, instead of providing the DOM event with an object event: {target: 'The new value'},
-                the new value is directly passed to the onChange function 'The new Value'.
-                Don't forget that in your code you have to change the way you read the new value and you have to update the state of the component with
-                this.setState({error: null, value: newValue});
-            `);
             return this.props.onChange(newValue);
         }
         this.setState({ error: null, value: newValue });
