@@ -93,7 +93,7 @@ const ContentActions = {
 
         return (
             <div className={this._getStyleClassName()} data-focus='content-actions'>
-                {primary.map((action) => this.renderFabAction(action))}
+                {primary.map((action) => action && Array.isArray(action.action) ? this.renderFabListAction(action) : this.renderFabAction(action))}
                 {Array.isArray(secondary) && this.renderFabListAction({ action: secondary })}
                 {isObject(secondary) && this.renderFabListAction(secondary)}
             </div>
