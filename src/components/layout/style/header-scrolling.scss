@@ -41,10 +41,6 @@ to { height: auto; }
         background-color: rgba(255, 255, 255, 1);
     }
 
-    [data-focus="header-actions"] {
-        display: inline;
-    }
-
     // When the header is deployed, don't show the summary.
     &[data-deployed="true"] {
         div[data-focus="header-top-row"] {
