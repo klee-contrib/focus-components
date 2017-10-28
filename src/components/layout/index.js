@@ -1,13 +1,10 @@
 import React, { PropTypes } from 'react';
 
 import ConfirmWrapperDefault from '../confirm';
-import ErrorCenter from '../../application/error-center';
+import { component as ErrorCenterDefault } from '../../application/error-center';
 import HeaderDefaultTemplate from './header-default-template';
-import LoadingBar from '../../application/loading-bar';
+import LoadingBarDefault from './header-loading-bar';
 import MessageCenterDefault from '../message-center';
-
-const ErrorCenterDefault = ErrorCenter.component;
-const LoadingBarDefault = LoadingBar.component;
 
 // component default props.
 const defaultProps = {
