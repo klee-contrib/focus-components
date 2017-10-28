@@ -25,18 +25,18 @@ const subActionType = PropTypes.arrayOf(PropTypes.shape({
 
 /** Action type. */
 const actionType = PropTypes.oneOfType([
-    { // Icon action
+    PropTypes.shape({ // Icon action
         label: PropTypes.string.isRequired,
         action: PropTypes.func.isRequired,
         icon: PropTypes.string.isRequired,
         iconLibrary: PropTypes.string,
         className: PropTypes.string
-    },
-    { // Dropdown action
+    }),
+    PropTypes.shape({ // Dropdown action
         icon: PropTypes.string,
         iconLibrary: PropTypes.string,
         action: subActionType.isRequired
-    }
+    })
 ]);
 
 /** Proptypes validation for HeaderActions. */
@@ -53,13 +53,15 @@ const propTypes = {
 /**
  * Render a list fab component.
  * @param {object} fab Fab.
+ * @param {number} idx Index. 
  * @returns {JSXElement} Component.
  */
-function renderFabListAction(fab) {
+function renderFabListAction(fab, idx) {
     if (Array.isArray(fab.action) && fab.action.length > 0) {
         const { icon, iconLibrary, action, ...otherProps } = fab;
         return (
             <Dropdown
+                key={`header-action-${idx}`}
                 iconProps={{ name: icon, iconLibrary }}
                 operationList={action}
                 shape='fab'
@@ -98,11 +100,11 @@ function renderFabAction(fab) {
 const HeaderActions = ({ actions: { primary, secondary }, ...otherProps }) => {
     return (
         <div data-focus='header-actions' {...filterProps(otherProps)}>
-            {primary.map((action) => {
-                return action && Array.isArray(action.action) ? renderFabListAction(action) : renderFabAction(action)
+            {primary.map((action, idx) => {
+                return action && Array.isArray(action.action) ? renderFabListAction(action, idx) : renderFabAction(action)
             })}
-            {Array.isArray(secondary) && renderFabListAction({ action: secondary })}
-            {isObject(secondary) && renderFabListAction(secondary)}
+            {Array.isArray(secondary) && renderFabListAction({ action: secondary }, 0)}
+            {isObject(secondary) && renderFabListAction(secondary, 0)}
         </div>
     );
 };
