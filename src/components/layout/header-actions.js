@@ -1,58 +1,24 @@
 // Libs
 import React, { Component } from 'react';
 import isObject from 'lodash/lang/isObject';
+
 // Stores
 import applicationStore from 'focus-core/application/built-in-store';
 // Components
 import Button from '../../components/button';
 import Dropdown from '../../components/icon-dropdown';
+import storeConnect from '../../behaviours/store/connect';
 
 /**
 * HeaderActions component.
 */
+@storeConnect([
+    { store: applicationStore, properties: ['actions'] }
+], () => ({ actions: applicationStore.getActions() || { primary: [], secondary: [] } }))
 class HeaderActions extends Component {
 
     /** Display name. */
     static displayName = 'HeaderActions';
-
-    /**
-     * Constructor.
-     * @param {object} props Props.
-     */
-    constructor(props) {
-        super(props);
-
-        this.state = this._getStateFromStore();
-
-        this._handleComponentChange = this._handleComponentChange.bind(this);
-    }
-
-    /** @inheriteddoc */
-    componentWillMount() {
-        applicationStore.addActionsChangeListener(this._handleComponentChange);
-    }
-
-    /** @inheriteddoc */
-    componentWillUnmount() {
-        applicationStore.removeActionsChangeListener(this._handleComponentChange);
-    }
-
-    /**
-    * Get state from store
-    * @return {Object} actions extracted from the store
-    */
-    _getStateFromStore() {
-        return {
-            actions: applicationStore.getActions() || { primary: [], secondary: [] }
-        };
-    }
-
-    /**
-    * Component change handler
-    */
-    _handleComponentChange() {
-        this.setState(this._getStateFromStore());
-    }
 
     /**
      * Render a list fab component.
@@ -97,12 +63,11 @@ class HeaderActions extends Component {
 
     /** @inheritdoc */
     render() {
-        const props = this.props;
-        const { actions: { primary, secondary } } = this.state;
+        const { actions: { primary, secondary }, others } = this.props;
 
         return (
-            <div data-focus='header-actions' {...props}>
-                {primary.map((action) => this.renderFabAction(action))}
+            <div data-focus='header-actions' {...others}>
+                {primary.map((action) => action && Array.isArray(action.action) ? this.renderFabListAction(action) : this.renderFabAction(action))}
                 {Array.isArray(secondary) && this.renderFabListAction({ action: secondary })}
                 {isObject(secondary) && this.renderFabListAction(secondary)}
             </div>
