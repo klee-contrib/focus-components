@@ -1,5 +1,6 @@
 import React, { PropTypes } from 'react';
 import AutocompleteSelect from '../autocomplete-select/field';
+import AutocompleteSelectMultiple from '../autocomplete-select-multiple/field';
 
 import referenceMixin from '../../../common/form/mixin/reference-behaviour';
 import storeMixin from '../../../common/mixin/store-behaviour';
@@ -10,12 +11,14 @@ const displayName = 'AutocompleteReference';
 const propTypes = {
     referenceName: PropTypes.string.isRequired,
     keyName: PropTypes.string,
-    labelName: PropTypes.string
+    labelName: PropTypes.string,
+    multiple: PropTypes.bool
 }
 
 const defaultProps = {
-    keyName: 'code',
-    labelName: 'label'
+    keyName: 'key',
+    labelName: 'label',
+    multiple: false
 }
 
 const AutocompleteReference = React.createClass({
@@ -57,11 +60,15 @@ const AutocompleteReference = React.createClass({
         return this.refs.input._validate();
     },
     render() {
+        const ToRenderComp = this.props.multiple ? AutocompleteSelectMultiple : AutocompleteSelect;
+        const hasListLoaded = this.state.reference[this.props.referenceName] && this.state.reference[this.props.referenceName].length > 0;
+        // We must not render the component with value before the reference list is loaded
+        const value = hasListLoaded ? this.props.value : this.props.multiple ? [] : '';
         return (
-            <AutocompleteSelect
+            <ToRenderComp
                 ref='input'
                 {...this.props}
-                value={this.state.reference[this.props.referenceName] && this.state.reference[this.props.referenceName].length > 0 ? this.props.value : ''}
+                value={value}
                 querySearcher={this.querySearcher}
                 keyResolver={this.keyResolver}
                 keyName={this.props.keyName}
