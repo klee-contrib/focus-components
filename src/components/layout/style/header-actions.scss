@@ -1,6 +1,8 @@
 
 [data-focus="header-actions"] {
     text-align: right;
+    display: flex;
+    
     button {
         margin: 0 5px;
         &.mdl-button--fab {
@@ -9,8 +11,5 @@
         &:hover {
             background-color: #F9F9F9 !important;
         }
-    }
-    div {
-        float: right;
     }
 }

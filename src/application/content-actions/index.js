@@ -1,3 +1,5 @@
+// Libs
+import isObject from 'lodash/lang/isObject';
 // Dependencies
 import builder from 'focus-core/component/builder';
 // Stores
@@ -9,19 +11,24 @@ import Button from '../../components/button';
 import { component as Dropdown } from '../../common/select-action';
 
 const ContentActions = {
+
     mixins: [stylableBehaviour],
-    /** @inheriteddoc */
+
+    /** @inheritdoc */
     getInitialState() {
         return this._getStateFromStore();
     },
-    /** @inheriteddoc */
+
+    /** @inheritdoc */
     componentWillMount() {
         applicationStore.addActionsChangeListener(this._handleComponentChange);
     },
-    /** @inheriteddoc */
+
+    /** @inheritdoc */
     componentWillUnmount() {
         applicationStore.removeActionsChangeListener(this._handleComponentChange);
     },
+
     /**
      * Get state from store
      * @return {Object} actions extracted from the store
@@ -31,29 +38,64 @@ const ContentActions = {
             actions: applicationStore.getActions() || { primary: [], secondary: [] }
         };
     },
+
     /**
      * Component change handler
      */
     _handleComponentChange() {
         this.setState(this._getStateFromStore());
     },
-    /** @inheriteddoc */
+
+    /**
+     * Render a list fab component.
+     * @param {object} fab Fab.
+     * @returns {JSXElement} Component.
+     */
+    renderFabListAction(fab) {
+        if (Array.isArray(fab.action) && fab.action.length > 0) {
+            const { icon, iconLibrary, action, ...otherProps } = fab;
+            return (
+                <Dropdown
+                    iconProps={{ name: icon, iconLibrary }}
+                    operationList={action}
+                    shape='fab'
+                    {...otherProps}
+                />
+            );
+        }
+    },
+
+    /**
+     * Render a fab component.
+     * @param {object} fab Fab.
+     * @returns {JSXElement} Component.
+     */
+    renderFabAction(fab) {
+        const { action, className, icon, iconLibrary, label, ...otherProps } = fab;
+        return (
+            <Button
+                key={`header-action-${label}`}
+                className={className}
+                handleOnClick={action}
+                icon={icon}
+                iconLibrary={iconLibrary}
+                label={label}
+                shape='fab'
+                type='button'
+                {...otherProps}
+            />
+        );
+    },
+
+    /** @inheritdoc */
     render() {
-        const { actions } = this.state;
+        const { actions: { primary, secondary } } = this.state;
+
         return (
             <div className={this._getStyleClassName()} data-focus='content-actions'>
-                {actions.primary.map((primary) => {
-                    if (Array.isArray(primary.action)) {
-                        return (
-                            <Dropdown iconProps={{ name: primary.icon }} operationList={primary.action} shape='fab' />
-                        );
-                    } else {
-                        return (
-                            <Button handleOnClick={primary.action} icon={primary.icon} label={primary.label} shape='fab' style={{ className: primary.className }} type='button' />
-                        );
-                    }
-                })}
-                <Dropdown iconProps={{ name: 'more_vert' }} operationList={actions.secondary} shape='fab' />
+                {primary.map((action) => action && Array.isArray(action.action) ? this.renderFabListAction(action) : this.renderFabAction(action))}
+                {Array.isArray(secondary) && this.renderFabListAction({ action: secondary })}
+                {isObject(secondary) && this.renderFabListAction(secondary)}
             </div>
         );
     }

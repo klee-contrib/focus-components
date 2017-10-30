@@ -1,72 +1,70 @@
+// Libs
 import React, { PropTypes } from 'react';
 import ReactDOM from 'react-dom';
+import uuid from 'uuid';
+import 'material-design-lite/material';
+// Dependencies
 import builder from 'focus-core/component/builder';
 import { translate } from 'focus-core/translation';
-import uuid from 'uuid';
+// Components
 import Button from '../../components/button';
-import 'material-design-lite/material';
 
 const Dropdown = {
 
-    /**
-    * Display name.
-    */
+    /** DisplayName. */
     displayName: 'Dropdown',
-    /**
-    * Default props.
-    * @returns {object} Defauilt props.
-    */
-    getDefaultProps() {
-        return {
-            position: 'right',
-            iconProps: {
-                name: 'more_vert'
-            },
-            shape: 'icon',
-            operationList: []
-        };
-    },
-    /**
-    * Scope property validation.
-    * @type {Object}
-    */
+
+    /** @inheritdoc */
     propTypes: {
-        position: PropTypes.string,
-        iconProps: PropTypes.object,
+        iconLibrary: PropTypes.string,
+        iconProps: PropTypes.shape({
+            name: PropTypes.string,
+            iconLibrary: PropTypes.string
+        }),
         operationList: PropTypes.array,
+        position: PropTypes.string,
         shape: PropTypes.string
     },
-    /**
-     * Component will mount
-     */
+
+    /** @inheritdoc */
+    getDefaultProps() {
+        return {
+            iconProps: {
+                name: 'more_vert',
+                iconLibrary: undefined
+            },
+            operationList: [],
+            position: 'right',
+            shape: 'icon'
+        };
+    },
+
+    /** @inheritdoc */
     componentWillMount() {
         this._htmlId = uuid.v4();
     },
-    /**
-    * Called when component is mounted.
-    */
+
+    /** @inheritdoc */
     componentDidMount() {
         if (0 !== this.props.operationList.length && ReactDOM.findDOMNode(this.refs.dropdown)) {
             componentHandler.upgradeElement(ReactDOM.findDOMNode(this.refs.dropdown));
         }
     },
-    /**
-     * Component will receive props.
-     * @param {Object} nextProps the next props
-     */
+
+    /** @inheritdoc */
     componentWillReceiveProps(nextProps) {
         if (0 !== nextProps.operationList.length && ReactDOM.findDOMNode(this.refs.dropdown)) {
             componentHandler.upgradeElement(ReactDOM.findDOMNode(this.refs.dropdown));
         }
     },
-    /**
-    * Called before component is unmounted.
-    */
+
+    /** @inheritdoc */
     componentWillUnmount() {
         if (0 !== this.props.operationList.length && ReactDOM.findDOMNode(this.refs.dropdown)) {
             componentHandler.downgradeElements(ReactDOM.findDOMNode(this.refs.dropdown));
         }
     },
+
     /**
     * Handle action on selected item.
     * @param {function} action Action to call
@@ -82,19 +80,19 @@ const Dropdown = {
             }
         };
     },
-    /**
-    * Render the component.
-    * @returns  {XML} Htm code.
-    */
+
+    /** @inheritdoc */
     render() {
         const { iconProps, operationList, position, shape } = this.props;
         const id = this._htmlId;
+
         if (0 === operationList.length) {
             return null;
         }
+
         return (
             <div>
-                <Button icon={iconProps.name} id={id} isJs shape={shape} />
+                <Button icon={iconProps.name} iconLibrary={iconProps.iconLibrary} id={id} isJs shape={shape} />
                 <ul className={`mdl-menu mdl-menu--bottom-${position} mdl-js-menu mdl-js-ripple-effect`} htmlFor={id} ref='dropdown'>
                     {operationList.map((operation, idx) => {
                         return (
@@ -110,10 +108,5 @@ const Dropdown = {
 };
 
 const { mixin, component } = builder(Dropdown);
-export default {
-    mixin, component
-}
-export {
-    mixin,
-    component
-}
+export default { mixin, component };
+export { mixin, component };
