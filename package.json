@@ -6,10 +6,9 @@
     "scripts": {
         "babelify": "better-npm-run babelify",
         "copy-sass": "better-npm-run copy-sass",
-        "build": "node scripts/mdl-variables-copy.js && better-npm-run babelify && better-npm-run copy-sass",
+        "build": "better-npm-run babelify && better-npm-run copy-sass",
         "test": "better-npm-run test",
         "test:watch": "better-npm-run test-watch",
-        "postinstall": "node scripts/mdl-variables-copy.js",
         "prepublishOnly": "npm run build",
         "lint": "eslint src --ext .js,.jsx --ignore-pattern __tests__ --ignore-pattern example --ignore-pattern awesomplete",
         "lint:error": "eslint src --ext .js,.jsx --ignore-pattern __tests__ --ignore-pattern example --ignore-pattern awesomplete --quiet",
