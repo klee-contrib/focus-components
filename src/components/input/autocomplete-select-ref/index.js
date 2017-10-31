@@ -49,7 +49,7 @@ const AutocompleteReference = React.createClass({
     },
 
     keyResolver(key) {
-        const data = (this.state.reference[this.props.referenceName] || []).filter(x => x[this.props.keyName] === key)[0];
+        const data = (this.state.reference[this.props.referenceName] || []).find(x => x[this.props.keyName] === key);
         return Promise.resolve((data || {})[this.props.labelName] || key)
     },
 
