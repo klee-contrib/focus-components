@@ -156,7 +156,6 @@ export default {
         const handleOnClick = () => {
             this.setState({ isEdit: !this.state.isEdit }, () => {
                 changeMode('edit', 'consult');
-                this.clearError();
             });
         };
         return (
@@ -193,6 +192,7 @@ export default {
     buttonSave() {
         const { isLoading } = this.state;
         const handleOnClick = () => {
+            this.clearError();
             if (this._validate()) {
                 this.action.save.call(this, this._getEntity());
             }

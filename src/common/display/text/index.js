@@ -1,7 +1,6 @@
 //Dependencies.
 import builder from 'focus-core/component/builder';
-import types from 'focus-core/component/types';
-import React from 'react';
+import React, { PropTypes } from 'react';
 import i18nBehaviour from '../../i18n/mixin';
 
 /**
@@ -19,10 +18,13 @@ const displayTextMixin = {
     },
     /** @inheritdoc */
     propTypes: {
-        type: types('string'),
-        value: types(['string', 'number']),
-        name: types('string'),
-        style: types('object')
+        type: PropTypes.string,
+        value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+        name: PropTypes.string,
+        style: PropTypes.object
+    },
+    componentWillMount() {
+        console.warn('FocusComponents 2.2.0: this component is deprecated, please use focus-components/components/display/text instead');
     },
     /**
     * Render the value.

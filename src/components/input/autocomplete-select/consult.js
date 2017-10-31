@@ -22,6 +22,8 @@ class AutocompleteSelectConsult extends Component {
             keyResolver(value).then(label => {
                 this.setState({ resolvedLabel: label });
             }).catch(err => { console.error(err.message); });
+        } else {
+            this.setState({ resolvedLabel: '' });
         }
     }
 
