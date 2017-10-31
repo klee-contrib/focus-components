@@ -6,6 +6,7 @@ import Date from './date';
 import Select from './select';
 import SelectCheckbox from './select-checkbox';
 import SelectRadio from './select-radio';
+import RichText from './rich-text';
 import Text from './text';
 import Textarea from './textarea';
 import DisplayTextArea from './textarea/consult';
@@ -19,6 +20,7 @@ export default {
     CheckboxWithError,
     Date,
     Select,
+    RichText,
     Text,
     Toggle,
     Textarea,
@@ -35,6 +37,7 @@ export {
     CheckboxWithError,
     Date,
     Select,
+    RichText,
     Text,
     Toggle,
     Textarea,
