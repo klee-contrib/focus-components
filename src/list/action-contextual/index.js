@@ -3,7 +3,7 @@ import React from 'react';
 import builder from 'focus-core/component/builder';
 // Components
 import Button from '../../components/button';
-import { component as SelectAction } from '../../common/select-action';
+import SelectAction from '../../components/dropdown';
 
 const actionContextualMixin = {
 

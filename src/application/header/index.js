@@ -69,6 +69,7 @@ const headerMixin = {
 
     /** @inheriteddoc */
     componentWillMount() {
+        console.warn('FocusComponents 2.2.0: this component is deprecated, please use components from focus-components/components/layout folder');
         this._processSizes();
         this.scrollTargetNode = (this.props.scrollTargetSelector && this.props.scrollTargetSelector !== '')
             ? document.querySelector(this.props.scrollTargetSelector)

@@ -29,6 +29,9 @@ const radioMixin = {
         value: types('bool'),
         onChange: types('func')
     },
+    componentWillMount() {
+        console.warn('FocusComponents 2.2.0: this component is deprecated, please use focus-components/components/input/select-radio instead');
+    },
     /** @inheritdoc */
     componentWillReceiveProps(newProps) {
         this.setState({ isChecked: newProps.value });

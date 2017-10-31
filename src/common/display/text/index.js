@@ -23,6 +23,9 @@ const displayTextMixin = {
         name: PropTypes.string,
         style: PropTypes.object
     },
+    componentWillMount() {
+        console.warn('FocusComponents 2.2.0: this component is deprecated, please use focus-components/components/display/text instead');
+    },
     /**
     * Render the value.
     * @return {string} The formated value.

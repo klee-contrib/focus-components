@@ -16,6 +16,9 @@ let roleMixin = {
         hasOne: type('array'),
         hasAll: type('array')
     },
+    componentWillMount() {
+        console.warn('FocusComponents 2.2.0: this component is deprecated, please use focus-components/components/role instead');
+    },
     render() {
         let userRoles = user.getRoles();
         if (isArray(this.props.hasAll) && intersection(userRoles, this.props.hasAll).length === this.props.hasAll.length) {

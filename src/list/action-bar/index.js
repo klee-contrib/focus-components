@@ -3,7 +3,7 @@ import React, { PropTypes } from 'react';
 import builder from 'focus-core/component/builder';
 import reduce from 'lodash/collection/reduce';
 // Components
-import { component as Dropdown } from '../../common/select-action';
+import Dropdown from '../../components/dropdown';
 import { component as ActionContextual } from '../action-contextual';
 import TopicDisplayer from '../../components/topic-displayer';
 import Button from '../../components/button';

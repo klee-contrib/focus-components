@@ -48,6 +48,7 @@ const AutocompleteFor = {
      * Component will mount, load the list
      */
     componentWillMount() {
+        console.warn('FocusComponents 2.2.0: this component is deprecated, please use focus-components/components/input/autocomplete-select');
         const { isEdit, value, codeResolver } = this.props;
         if (!isEdit && value && codeResolver) { // Resolve the code if in consult
             codeResolver(value).then(resolvedCode => this.setState({ value: resolvedCode }));
