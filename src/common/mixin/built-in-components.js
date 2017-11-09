@@ -11,9 +11,7 @@ import defaultsDeep from 'lodash/object/defaultsDeep';
 import { component as Field } from '../field';
 import Text from '../../components/display/text';
 import Button from '../../components/button';
-import { component as MemoryList } from '../list';
-import { component as Table } from '../../list/table/list';
-import { component as List } from '../../list/selection/list';
+
 // Mixins
 import fieldComponentBehaviour from './field-component-behaviour';
 
@@ -97,38 +95,6 @@ export default {
                 value={_processValue}
             />
         );
-    },
-    /**
-    * Display a list component.
-    * @param {string} name - Property name.
-    * @param {object} options - Options object.
-    * @returns {object} - The react component for the list.
-    */
-    listFor(name, options) {
-        options = options || {};
-        options.reference = options.reference || this.state.reference;
-        options.listComponent = options.listComponent || List;
-        const listForProps = assign({}, options, {
-            data: this.state[name],
-            LineComponent: options.lineComponent || options.LineComponent || this.props.LineComponent || this.LineComponent || this.lineComponent,
-            perPage: options.perPage || 5,
-            reference: options.reference,
-            isEdit: options.isEdit !== undefined ? options.isEdit : false
-        });
-        return (
-            <MemoryList ref='list' {...listForProps} />
-        );
-    },
-
-    /**
-    * Display a table component.
-    * @param {string} name - Property name.
-    * @param {object} options - Options object.
-    * @returns {object} - The react component for the list.
-    */
-    tableFor(name, options) {
-        options.listComponent = options.listComponent || Table;
-        return this.listFor(name, options);
     },
     /**
     * Button delete generation.
