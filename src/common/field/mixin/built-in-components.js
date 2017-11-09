@@ -10,7 +10,6 @@ import InputText from '../../../components/input/text';
 import DisplayText from '../../../components/display/text';
 import SelectClassic from '../../../components/input/select';
 import Label from '../../../components/label';
-import { component as Autocomplete } from '../../autocomplete/field';
 // Mixins
 import fieldGridBehaviourMixin from '../../mixin/field-grid-behaviour';
 
@@ -42,7 +41,6 @@ const fieldBuiltInComponentsMixin = {
              * Autocomplete component
              * @type {Object}
              */
-            AutocompleteComponent: Autocomplete,
             AutocompleteSelectComponent,
             AutocompleteTextComponent,
             /**
