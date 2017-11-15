@@ -68,7 +68,12 @@ class MultiAutocomplete extends Component {
      */
     validate() {
         // do nothing, validation is done at each selection
-        return true;
+        const { isRequired } = this.props;
+        return ({
+            isValid: !isRequired || (this.props.value && this.props.value.length > 0),
+            message: 'field.required'
+        });
+
     }
 
     /**
