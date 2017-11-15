@@ -1,5 +1,3 @@
-import assign from 'object-assign';
-
 import isFunction from 'lodash/lang/isFunction';
 import omit from 'lodash/object/omit';
 
@@ -25,35 +23,11 @@ let actionMixin = {
         return omit(this.state, ['reference', 'isLoading', 'isEdit']);
     },
     /**
-     * Compute the entity read from the html givent the keys and the definition Path, this operation is reversed from the _computeEntityFromStore operation.
-     * @param {object} htmlData - Data read from the html form.
-     * @returns {object} - The computed entity from html.
-     */
-    _computeEntityFromHtml(htmlData) {
-        const DEF = `${this.definitionPath}.`;
-        const EMPTY = '';
-        let computedEntity = {};
-        for (let prop in htmlData) {
-            computedEntity[prop.replace(DEF, EMPTY)] = htmlData[prop];
-        }
-        return computedEntity;
-    },
-    /**
-     * Get entity from the state, and the HTML.
-     * @return {object} - Combinaison of state and HTML builded entity.
+     * Get entity from the state.
+     * @return {object} - Clean state.
      */
     _getEntityFromHTMLAndState() {
-        //Build the entity value from the ref getVaue.
-        let htmlData = {};
-        let { refs } = this;
-        for (let r in refs) {
-            //If the reference has a getValue function if is read.
-            if (refs[r] && isFunction(refs[r].getValue)) {
-                htmlData[r] = refs[r].getValue();
-            }
-        }
-        //Maybe a merge cold be done if we need a deeper property merge.
-        return assign({}, this._getCleanState(), this._computeEntityFromHtml(htmlData));
+        return this._getCleanState();
     },
     /**
      * Get the constructed entity from the state.
