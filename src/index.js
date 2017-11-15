@@ -1,5 +1,5 @@
 //Generator http://patorjk.com/software/taag/#p=display&h=1&f=Banner4&t=Focus-COMPONENTS
-import './style';
+// import './style';
 import translation from 'focus-core/translation';
 import history from 'focus-core/history';
 
