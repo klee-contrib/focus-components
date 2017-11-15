@@ -1,8 +1,11 @@
 import React, { Component } from 'react';
-import Button from '../../components/button';
 import { translate } from 'focus-core/translation';
 import noop from 'lodash/utility/noop'
 
+import Button from '../../components/button';
+import MDBehaviour from '../../behaviours/material';
+
+@MDBehaviour('dropdown')
 /**
  * Action menu component
  * 
