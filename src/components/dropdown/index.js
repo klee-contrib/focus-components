@@ -1,8 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import ReactDOM from 'react-dom';
-
 import uuid from 'uuid';
-import 'material-design-lite/material';
 
 import ActionMenu from './action-menu';
 
@@ -26,27 +24,6 @@ class Dropdown extends Component {
     /** @inheritdoc */
     componentWillMount() {
         this._htmlId = uuid.v4();
-    }
-
-    /** @inheritdoc */
-    componentDidMount() {
-        if (0 !== this.props.operationList.length && ReactDOM.findDOMNode(this.refs.dropdown)) {
-            componentHandler.upgradeElement(ReactDOM.findDOMNode(this.refs.dropdown));
-        }
-    }
-
-    /** @inheritdoc */
-    componentWillReceiveProps(nextProps) {
-        if (0 !== nextProps.operationList.length && ReactDOM.findDOMNode(this.refs.dropdown)) {
-            componentHandler.upgradeElement(ReactDOM.findDOMNode(this.refs.dropdown));
-        }
-    }
-
-    /** @inheritdoc */
-    componentWillUnmount() {
-        if (0 !== this.props.operationList.length && ReactDOM.findDOMNode(this.refs.dropdown)) {
-            componentHandler.downgradeElements(ReactDOM.findDOMNode(this.refs.dropdown));
-        }
     }
 
     /** @inheritdoc */
