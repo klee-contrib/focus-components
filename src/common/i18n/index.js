@@ -1,8 +1,6 @@
-import mixin from './mixin';
+import whole, { mixin } from '../mixin/i18n';
 
+export default whole;
 export {
     mixin
-};
-export default {
-    mixin
-};
+}
