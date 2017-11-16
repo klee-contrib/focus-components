@@ -16,21 +16,17 @@ const storeMixin = {
     mixins: [storeChangeBehaviour],
 
     /** @inheritdoc */
-    getDefaultProps() {
-        return {
-            useDefaultStoreData: false
-        };
-    },
-
-    /** @inheritdoc */
     componentWillMount() {
-        //These listeners are registered before the mounting because they are not correlated to the DOM.
-        this._registerListeners();
-
-        if (this.stores === undefined) {
+        if (!this.stores) {
             this.stores = [];
         }
 
+        //These listeners are registered before the mounting because they are not correlated to the DOM.
+        this._registerListeners();
+    },
+
+    /** @inheritdoc */
+    componentDidMount() {
         const newState = this._getStateFromStores();
         this.setState(newState);
     },
@@ -42,39 +38,59 @@ const storeMixin = {
 
     /**
      * Get the state informations from the store.
-     * @param  {array} filterNodes - An object containing nodes key to update.
+     * @param  {array} filterNodesArg - An object containing nodes key to update.
      * @returns {object} - The js object constructed from store data.
      */
-    _getStateFromStores(filterNodes = []) {
+    _getStateFromStores(filterNodesArg) {
         if (this.getStateFromStore) {
-            return this.getStateFromStore();
+            return this.getStateFromStore(filterNodesArg);
         }
-
+        // Build state from store.
         let newState = {};
         this.stores.forEach((storeConf) => {
             storeConf.properties.forEach((property) => {
                 newState[property] = storeConf.store[`get${capitalize(property)}`]();
             });
         });
+        // If filter is given, we need to filter, even if the array is empty.
+        let hasFilter = filterNodesArg !== undefined && filterNodesArg !== null;
 
-        let defaultData = {};
-        if (this.props.useDefaultStoreData && this.getDefaultStoreData) {
-            defaultData = this.getDefaultStoreData(this.definition);
-        } else if (this.props.useDefaultStoreData && this.definition) {
-            defaultData = Object.keys(this.definition).reduce((acc, key) => ({ ...acc, [key]: null }), {});
+        let defaultStateData = {};
+        // If there is a custom function, use it. It should return store-level data, with node.
+        if (this.getDefaultStoreData) {
+            defaultStateData = this.getDefaultStoreData(this.definition);
+        } else if ((!hasFilter || this.definitionInNode) && this.definition) {
+            // If the information about store node is known, or we load all data from store
+            // We build the default data
+            defaultStateData = this._buildEmptyFromDefinition();
+            // If the information about store node is known, we wrapped the object
+            if (this.definitionInNode) {
+                defaultStateData = { [this.definitionInNode]: defaultStateData }
+
+                // Merge deep consider 'null' as value and therefore wins over defaultStateData below
+                if (newState[this.definitionInNode] === null) {
+                    newState[this.definitionInNode] = undefined;
+                }
+            }
+        }
+
+        // We handle store-level default data (object with key, for node name)
+        if (this.definitionInNode || this.getDefaultStoreData) {
+            newState = defaultsDeep({}, newState, defaultStateData);
         }
 
         // We want to pick only some nodes & reference nodes
-        if (filterNodes.length > 0) {
-            filterNodes = filterNodes.concat(this.referenceNames || []);
-            newState = pick(newState, filterNodes);
-            defaultData = pick(defaultData, filterNodes);
+        if (hasFilter) {
+            // We take all references in addition to given node
+            newState = pick(newState, (filterNodesArg || []).concat(this.referenceNames || []));
         }
 
         const computedState = assign(this._computeEntityFromStoresData(newState), this._getLoadingStateFromStores());
 
-        // First encountered key wins 
-        return defaultsDeep({}, computedState, defaultData);
+        // First encountered key wins
+        return !hasFilter && !this.definitionInNode && !this.getDefaultStoreData
+            ? defaultsDeep({}, computedState, defaultStateData)
+            : computedState;
     },
 
     /**
@@ -97,6 +113,18 @@ const storeMixin = {
         });
 
         return newState;
+    },
+
+    /**
+     * Build object with null values for each key of definition.
+     * @returns {object} Empty object.
+     */
+    _buildEmptyFromDefinition() {
+        if (this.buildEmptyFromDefinition) {
+            return this.buildEmptyFromDefinition();
+        }
+
+        return Object.keys(this.definition).reduce((acc, key) => ({ ...acc, [key]: null }), {});
     },
 
     /**
