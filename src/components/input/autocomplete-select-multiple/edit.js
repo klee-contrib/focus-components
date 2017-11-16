@@ -86,13 +86,16 @@ class AutocompleteMutipleEdit extends Component {
      * @return {ReactElement} markup.
      */
     render() {
+        const { keyResolver, querySearcher, error, keyName, labelName } = this.props;
         return (
             <div data-focus='autocomplete-select-multiple'>
                 {this.props.position === 'top' && this.renderConsult()}
                 <AutocompleteSelectEdit
-                    customError={this.state.customError || this.props.error}
-                    keyResolver={this.props.keyResolver}
-                    querySearcher={this.props.querySearcher}
+                    customError={this.state.customError || error}
+                    keyResolver={keyResolver}
+                    keyName={keyName}
+                    labelName={labelName}
+                    querySearcher={querySearcher}
                     onChange={this.handleOnChange}
                     onSelectClear
                 />

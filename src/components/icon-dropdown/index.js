@@ -66,8 +66,10 @@ class Dropdown extends Component {
     }
 
     render() {
-        const { iconProps: { name, iconLibrary }, operationList, shape, openDirection, buttonType } = this.props;
+        const { name: defaultName, iconLibrary: defaultIconLibrary } = Dropdown.defaultProps.iconProps;
+        const { iconProps: { name = defaultName, iconLibrary = defaultIconLibrary }, operationList, shape, openDirection, buttonType } = this.props;
         const { visible } = this.state;
+
         return (
             <div data-focus='icon-dropdown' ref='parent'>
                 <Button

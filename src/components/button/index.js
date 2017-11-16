@@ -11,12 +11,20 @@ const RIPPLE_EFFECT = 'mdl-js-ripple-effect';
 
 @MDBehaviour('materialButton', 'MaterialButton')
 @Translation
+/**
+ * Button component.
+ */
 class Button extends Component {
 
+    /** DisplayName. */
     static displayName = 'Button';
 
+    /** PropTypes. */
     static propTypes = {
+        className: PropTypes.string,
         color: PropTypes.oneOf([undefined, 'colored', 'primary', 'accent']),
+        disabled: PropTypes.bool,
+        formNoValidate: PropTypes.bool,
         handleOnClick: PropTypes.func, //to remove in V2
         hasRipple: PropTypes.bool,
         id: PropTypes.string,
@@ -26,17 +34,27 @@ class Button extends Component {
         isLoading: PropTypes.bool,
         label: PropTypes.string,
         onClick: PropTypes.func,
+        processLabel: PropTypes.string,
         shape: PropTypes.oneOf([undefined, 'raised', 'fab', 'icon', 'mini-fab']),
         type: PropTypes.oneOf(['submit', 'button'])
     };
 
+    /** DefaultProps. */
     static defaultProps = {
+        className: '',
+        color: undefined,
+        disabled: false,
+        formNoValidate: false,
+        handleOnClick: undefined,
         hasRipple: false,
         icon: null,
         iconLibrary: 'material',
         id: '',
         isJs: false,
+        isLoading: false,
         label: '',
+        onClick: undefined,
+        processLabel: '',
         shape: 'raised',
         type: 'submit'
     };
@@ -98,7 +116,7 @@ class Button extends Component {
      * @return {Component} - Component button.
      */
     renderPressedButton() {
-        return (<button>Loading...</button>);
+        return (<button>{'Loading...'}</button>);
     }
 
     /**
@@ -109,11 +127,11 @@ class Button extends Component {
         const { icon, iconLibrary } = this.props;
         switch (iconLibrary) {
             case 'material':
-                return <i className='material-icons'>{icon}</i>;
+                return (<i className='material-icons'>{icon}</i>);
             case 'font-awesome':
-                return <i className={`fa fa-${icon}`} />;
+                return (<i className={`fa fa-${icon}`} />);
             case 'font-custom':
-                return <span className={`icon-${icon}`} />;
+                return (<span className={`icon-${icon}`} />);
             default:
                 return null;
         }
@@ -127,9 +145,13 @@ class Button extends Component {
         const { isLoading, label, processLabel, shape } = this.props;
 
         if (label && 'fab' !== shape && 'icon' !== shape && 'mini-fab' !== shape && (!isLoading || !processLabel)) {
-            return <span data-focus='button-label'>{this.i18n(label)}</span>;
+            return (
+                <span data-focus='button-label'>{this.i18n(label)}</span>
+            );
         } else if (processLabel && 'fab' !== shape && 'icon' !== shape && 'mini-fab' !== shape && isLoading) {
-            return <span data-focus='button-label'>{this.i18n(processLabel)}</span>
+            return (
+                <span data-focus='button-label'>{this.i18n(processLabel)}</span>
+            );
         }
         return null;
     }
@@ -155,20 +177,36 @@ class Button extends Component {
     render() {
         // attribute doc : https://developer.mozilla.org/fr/docs/Web/HTML/Element/Button
         // be careful the way you declare your attribute names : https://developer.mozilla.org/fr/docs/Web/HTML/Element/Button
-        const { className, disabled, formNoValidate, handleOnClick, icon, id, onClick, type, label, style, hasRipple, isJs, iconLibrary, isLoading, ...rest } = this.props;
+        const { className, disabled, formNoValidate, handleOnClick, icon, id, onClick, type, label, style, isLoading, ...rest } = this.props;
         const onClickFunc = handleOnClick ? handleOnClick : onClick;
         const otherInputProps = filterProps({ disabled, formNoValidate, style, type, ...rest }); //on click for legacy. Remove handleOnClick in v2
 
         if (onClickFunc) {
             otherInputProps.onClick = event => this._wrappedOnClick(event, onClickFunc);
         }
-        const renderedClassName = `${className ? className : ''} ${::this._getComponentClassName()}`.trim();
-        
+        const renderedClassName = `${className} ${this._getComponentClassName()}`.trim();
+
         return (
-            <button alt={this.i18n(label)} className={renderedClassName} data-focus='button-action' data-saving={isLoading} id={id} disabled={isLoading} title={this.i18n(label)} {...otherInputProps} ref='materialButton'>
-                {icon && ::this._renderIcon()}
-                {::this._renderLabel()}
-                {isLoading && <div className='mdl-spinner mdl-spinner--single-color mdl-js-spinner is-active' data-focus='double-action-button-spinner' ref='double-action-button-spinner' />}
+            <button
+                alt={this.i18n(label)}
+                className={renderedClassName}
+                data-focus='button-action'
+                data-saving={isLoading}
+                disabled={isLoading}
+                id={id}
+                ref='materialButton'
+                title={this.i18n(label)}
+                {...otherInputProps}
+            >
+                {icon && this._renderIcon()}
+                {this._renderLabel()}
+                {isLoading && (
+                    <div
+                        className='mdl-spinner mdl-spinner--single-color mdl-js-spinner is-active'
+                        data-focus='double-action-button-spinner'
+                        ref='double-action-button-spinner'
+                    />
+                )}
             </button>
         );
     }

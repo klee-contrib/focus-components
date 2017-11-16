@@ -21,7 +21,9 @@ const messageMixin = {
         ttl: types('number'),
         type: types('string')
     },
-
+    componentWillMount() {
+        console.warn('FocusComponents 2.2.0: this component is deprecated, please use the message center instead instead');
+    },
     /** @inheritedDoc */
     componentDidMount() {
         if (this.props.ttl) {

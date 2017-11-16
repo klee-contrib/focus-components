@@ -1,55 +1,32 @@
 import React, { Component, PropTypes } from 'react';
 import ReactDOM from 'react-dom';
-import Button from '../../components/button';
-import { translate } from 'focus-core/translation';
 import uuid from 'uuid';
-import 'material-design-lite/material';
 
+import ActionMenu from './action-menu';
+
+/**
+ * Dropdown component
+ * 
+ * @class Dropdown
+ * @extends {Component}
+ */
 class Dropdown extends Component {
 
+    /**
+     * Creates an instance of Dropdown.
+     * @param {any} props component props
+     * @memberof Dropdown
+     */
     constructor(props) {
         super(props);
     }
 
-    /**
-     * Component will mount
-     */
+    /** @inheritdoc */
     componentWillMount() {
         this._htmlId = uuid.v4();
     }
 
-    /**
-     * Called when component is mounted.
-     */
-    componentDidMount() {
-        if (0 !== this.props.operationList.length && ReactDOM.findDOMNode(this.refs.dropdown)) {
-            componentHandler.upgradeElement(ReactDOM.findDOMNode(this.refs.dropdown));
-        }
-    }
-
-    /**
-     * Component will receive props.
-     * @param {Object} nextProps the next props
-     */
-    componentWillReceiveProps(nextProps) {
-        if (0 !== nextProps.operationList.length && ReactDOM.findDOMNode(this.refs.dropdown)) {
-            componentHandler.upgradeElement(ReactDOM.findDOMNode(this.refs.dropdown));
-        }
-    }
-
-    /**
-     * Called before component is unmounted.
-     */
-    componentWillUnmount() {
-        if (0 !== this.props.operationList.length && ReactDOM.findDOMNode(this.refs.dropdown)) {
-            componentHandler.downgradeElements(ReactDOM.findDOMNode(this.refs.dropdown));
-        }
-    }
-
-    /**
-     * Render the component.
-     * @returns  {XML} Htm code.
-     */
+    /** @inheritdoc */
     render() {
         const { iconProps, operationList, position, shape } = this.props;
         const id = this._htmlId;
@@ -63,77 +40,6 @@ class Dropdown extends Component {
 
 }
 
-
-class ActionMenu extends Component {
-
-    /**
-     * Handle action on selected item.
-     * @param {function} action Action to call
-     * @returns {function} Function called when item is selected.
-     * @private
-     */
-    constructor(props) {
-        super(props);
-        this.state = {
-            menuVisible: false
-        };
-    }
-
-    _handleAction(action) {
-        return () => {
-            if (this.props.operationParam) {
-                action(this.props.operationParam);
-            } else {
-                action();
-            }
-        };
-    }
-
-    _handleButtonClick() {
-        this.setState({ menuVisible: !this.state.menuVisible });
-    }
-
-    renderMenuItems(menuVisible, operationList) {
-        operationList.map((operation, idx) => {
-            return (
-                <li className={`mdl-menu__item ${operation.style}`} key={idx}
-                    onClick={this._handleAction(operation.action)}
-                >
-                    {translate(operation.label)}
-                </li>
-            )
-        })
-    }
-
-    render() {
-        const { menuVisible } = this.state;
-        const { id, iconProps, operationList, position, shape } = this.props;
-
-        return (
-            <div>
-                <Button type='button' icon={iconProps.name} id={id} isJs shape={shape}
-                    handleOnClick={this._handleButtonClick.bind(this)}
-                />
-                <div>
-                    <ul className={`mdl-menu mdl-menu--bottom-${position} mdl-js-menu mdl-js-ripple-effect`}
-                        htmlFor={id}
-                        ref='dropdown'
-                    >
-                        {operationList.map((operation, idx) => {
-                            return (
-                                <li className={`mdl-menu__item ${operation.style}`} key={idx}
-                                    onClick={this._handleAction(operation.action)}
-                                >
-                                    {translate(operation.label)}
-                                </li>
-                            )
-                        })}
-                    </ul>
-                </div>
-            </div>
-        );
-    }
-}
 
 Dropdown.displayName = 'Dropdown';
 

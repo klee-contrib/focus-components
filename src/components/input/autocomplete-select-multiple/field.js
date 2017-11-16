@@ -68,7 +68,12 @@ class MultiAutocomplete extends Component {
      */
     validate() {
         // do nothing, validation is done at each selection
-        return true;
+        const { isRequired } = this.props;
+        return ({
+            isValid: !isRequired || (this.props.value && this.props.value.length > 0),
+            message: 'field.required'
+        });
+
     }
 
     /**
@@ -76,10 +81,14 @@ class MultiAutocomplete extends Component {
      * @return {ReactElement} markup.
      */
     renderConsult() {
+        const { value, keyResolver, keyName, labelName } = this.props;
+
         return (
             <Consult
-                value={this.props.value}
-                keyResolver={this.props.keyResolver}
+                value={value}
+                keyResolver={keyResolver}
+                keyName={keyName}
+                labelName={labelName}
                 readonly
             />
         );
@@ -90,16 +99,20 @@ class MultiAutocomplete extends Component {
      * @return {ReactElement} markup.
      */
     renderEdit() {
+        const { keyResolver, querySearcher, onChange, checkDuplicate, position, ChipElement, keyName, labelName } = this.props;
+
         return (
             <Edit
                 value={this.props.value}
                 readonly={false}
-                keyResolver={this.props.keyResolver}
-                querySearcher={this.props.querySearcher}
-                onChange={this.props.onChange}
-                checkDuplicate={this.props.checkDuplicate}
-                position={this.props.position}
-                ChipElement={this.props.ChipElement}
+                keyResolver={keyResolver}
+                querySearcher={querySearcher}
+                onChange={onChange}
+                checkDuplicate={checkDuplicate}
+                position={position}
+                ChipElement={ChipElement}
+                keyName={keyName}
+                labelName={labelName}
             />
         );
     }
