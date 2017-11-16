@@ -1,5 +1,6 @@
 //dependencies
 import React, { Component, PropTypes } from 'react';
+import { translate } from 'focus-core/translation';
 import ComponentBaseBehaviour from '../../../behaviours/component-base';
 import filterProps from '../../../utils/filter-html-attributes';
 import isUndefined from 'lodash/lang/isUndefined';
@@ -120,7 +121,7 @@ class Select extends Component {
                 <select ref='htmlSelect' {...inputProps}>
                     {this._renderOptions(this.props)}
                 </select>
-                {error && <div className='label-error' ref='error'>{error}</div>}
+                {error && <div className='label-error' ref='error'>{translate(error)}</div>}
             </div>
         );
     }
