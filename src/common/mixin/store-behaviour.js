@@ -60,7 +60,7 @@ const storeMixin = {
         let defaultStateData = {};
         // If there is a custom function, use it. It should return store-level data, with node.
         if (this.getDefaultStoreData) {
-            defaultStateData = this.getDefaultStoreData(this.definition);
+            defaultStateData = this.getDefaultStoreData(this.definition, filterNodesArg);
         } else if ((!hasFilter || this.definitionInNode) && this.definition) {
             // If the information about store node is known, or we load all data from store
             // We build the default data
