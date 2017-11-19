@@ -4,10 +4,9 @@
 @import 'material-design-lite/src/material-design-lite.scss';
 
 //APPLICATION FOLDER
-@import '../application/confirmation-popin/style/confirmation-popin.scss';
-@import '../application/error-center/style/error-center.scss';
-@import '../application/loading-bar/style/loading-bar.scss';
-@import '../application/popin/style/popin.scss';
+@import '../component/confirm/style/confirmation-popin.scss';
+@import '../components/layout/error-center/style/error-center.scss';
+@import '../components/popin/style/popin.scss';
 
 //MIXIN FOLDER
 @import '../mixin/field/style/field.scss';
