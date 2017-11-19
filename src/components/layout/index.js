@@ -12,7 +12,12 @@ const defaultProps = {
     ErrorCenter: ErrorCenterDefault, // default error center
     LoadingBar: LoadingBarDefault, // default loading bar
     MessageCenter: MessageCenterDefault, // default message center
-    ConfirmWrapper: ConfirmWrapperDefault // default confirm wrapper,
+    ConfirmWrapper: ConfirmWrapperDefault, // default confirm wrapper,
+    MenuLeft: null,
+    Footer: null,
+    DevTools: null,
+    OtherRootComponent: null,
+    children: null
 };
 
 // component props definition.
@@ -22,9 +27,11 @@ const propTypes = {
     ErrorCenter: PropTypes.func,
     Footer: PropTypes.func,
     LoadingBar: PropTypes.func,
-    LoadingStatusBar: PropTypes.func,
     MenuLeft: PropTypes.func,
-    MessageCenter: PropTypes.func
+    MessageCenter: PropTypes.func,
+    DevTools: PropTypes.func,
+    OtherRootComponent: PropTypes.func,
+    children: PropTypes.func
 };
 
 /**
