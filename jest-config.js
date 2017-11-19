@@ -1,6 +1,7 @@
 module.exports = {
     globals: {
-        __DEV__: true
+        __DEV__: true,
+        __IS_VERTIGO__: false
     },
     automock: false,
     unmockedModulePathPatterns: [
