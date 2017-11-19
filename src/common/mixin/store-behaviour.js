@@ -27,8 +27,10 @@ const storeMixin = {
 
     /** @inheritdoc */
     componentDidMount() {
-        const newState = this._getStateFromStores();
-        this.setState(newState);
+        if (this.stores && this.stores.length > 0) {
+            const newState = this._getStateFromStores();
+            this.setState(newState);
+        }
     },
 
     /** @inheritdoc */
