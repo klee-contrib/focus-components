@@ -3,6 +3,8 @@ import TestUtils from 'react-addons-test-utils';
 import React from 'react';
 import ReactDOM from 'react-dom';
 
+import { init } from 'focus-core/translation';
+
 import Select from '../';
 
 const { renderIntoDocument, Simulate } = TestUtils;
@@ -10,7 +12,15 @@ import identity from 'lodash/utility/identity';
 import fixture from './fixture';
 //onChangeSpy = jest.fn();
 
+const i18nConfig = {
+    resources: {},
+    lng: 'fr-FR'///langOpts.i18nCulture
+};
+
 describe('The select ', () => {
+    beforeEach(() => {
+        init(i18nConfig);
+    });
     describe('when called with no props', () => {
         let component;
         beforeEach(
