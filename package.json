@@ -1,6 +1,6 @@
 {
     "name": "focus-components",
-    "version": "2.2.1",
+    "version": "2.2.2",
     "description": "Focus component repository.",
     "main": "index.js",
     "scripts": {
@@ -60,12 +60,12 @@
     },
     "homepage": "https://github.com/KleeGroup/focus-components",
     "peerDependencies": {
-        "focus-core": "2.2.0",
+        "focus-core": ">= 2.2.0 < 2.3",
         "material-design-lite": "1.3.0",
         "moment": "2.18.1",
-        "react": "15.4.2",
-        "react-dom": "15.4.2",
-        "react-addons-css-transition-group": "15.4.2"
+        "react": ">= 15.4.2 < 16.0.0",
+        "react-dom": ">= 15.4.2 < 16.0.0",
+        "react-addons-css-transition-group": ">= 15.4.2 < 16.0.0"
     },
     "dependencies": {
         "closest": "0.0.1",
