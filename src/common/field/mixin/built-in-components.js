@@ -2,6 +2,7 @@
 import React, { PropTypes } from 'react';
 import find from 'lodash/collection/find';
 import result from 'lodash/object/result';
+import union from 'lodash/array/union';
 import { addRefToPropsIfNotPure, INPUT, DISPLAY } from '../../../utils/is-react-class-component';
 // Components
 import AutocompleteSelectComponent from '../../../components/input/autocomplete-select/field';
@@ -13,6 +14,8 @@ import Label from '../../../components/label';
 import { component as Autocomplete } from '../../autocomplete/field';
 // Mixins
 import fieldGridBehaviourMixin from '../../mixin/field-grid-behaviour';
+
+const UNSELECTED_KEY = 'UNSELECTED_KEY';
 
 const fieldBuiltInComponentsMixin = {
     mixins: [fieldGridBehaviourMixin],
@@ -201,8 +204,12 @@ const fieldBuiltInComponentsMixin = {
     */
     display() {
         const { value } = this.state;
-        const { name, valueKey, labelKey, values } = this.props;
-        const _processValue = values ? result(find(values, { [valueKey || 'code']: value }), labelKey || 'label') : value;
+        const { name, valueKey, labelKey, values, displayUnselected, unSelectedLabel } = this.props;
+        const _effectiveValues = displayUnselected && values ? union(
+            [{ [labelKey || 'label']: this.i18n(unSelectedLabel), [valueKey || 'code']: UNSELECTED_KEY }],
+            values
+        ) : values;
+        const _processValue = _effectiveValues ? result(find(_effectiveValues, { [valueKey || 'code']: value }), labelKey || 'label') : value;
         const buildedDislplayProps = {
             ...this.props,
             id: name,
