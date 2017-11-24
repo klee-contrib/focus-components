@@ -3,7 +3,7 @@ import isString from 'lodash/lang/isString';
 
 import { builtInStore as applicationStore } from 'focus-core/application';
 
-import { component as ConfirmationModal } from '../../application/confirmation-popin';
+import { component as ConfirmationModal } from './popin';
 import connect from '../../behaviours/store/connect';
 
 

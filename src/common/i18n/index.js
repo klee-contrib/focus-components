@@ -1,4 +1,4 @@
-import whole, { mixin } from '../mixin/i18n';
+import whole, { mixin } from '../../mixin/i18n';
 
 export default whole;
 export {

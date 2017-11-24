@@ -1,4 +1,4 @@
-import whole, { mixin, component } from '../mixin/form';
+import whole, { mixin, component } from '../../mixin/form';
 
 export default whole;
 export {

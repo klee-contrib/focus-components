@@ -1,4 +1,4 @@
-import whole, { mixin, component } from '../mixin/field';
+import whole, { mixin, component } from '../../mixin/field';
 
 export default whole;
 export {
