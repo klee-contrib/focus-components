@@ -116,6 +116,10 @@ class Select extends Component {
         validInputProps.onChange = this._handleSelectChange;
         const inputProps = { ...validInputProps };
 
+        // Label and type not allowed on element select
+        delete inputProps.label;
+        delete inputProps.type;
+
         return (
             <div data-focus='select' ref='select' data-valid={!error} style={style}>
                 <select ref='htmlSelect' {...inputProps}>
