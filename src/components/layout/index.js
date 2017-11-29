@@ -47,17 +47,21 @@ const Layout = ({ AppHeader, children, ConfirmWrapper, ErrorCenter, Footer, Load
             {MenuLeft &&
                 <MenuLeft />
             }
-            <div data-focus='page-content'>
+            <main id='main-content-app' role='main'>
                 {children}
-            </div>
-            {Footer &&
+                <div data-focus='page-content'>
+                    {children}
+                </div>
+            </main>
+            {
+                Footer &&
                 <footer data-focus='footer'>
                     <Footer />
                 </footer>
             }
             {DevTools && <DevTools />}
             {OtherRootComponent && <OtherRootComponent />}
-        </div>
+        </div >
     );
 }
 
