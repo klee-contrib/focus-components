@@ -92,6 +92,9 @@ class InputText extends Component {
         const pattern = error ? 'hasError' : null; //add pattern to overide mdl error style when displaying an focus error.
 
         const inputProps = { ...validInputProps, pattern };
+        // Label is not valid on input
+        delete inputProps.label;
+
         const cssClass = `mdl-textfield mdl-js-textfield${error ? ' is-invalid' : ''}`;
 
         return (
