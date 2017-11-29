@@ -31,7 +31,7 @@ describe('Button Component', () => {
                 expect(shape).toBe('raised');
                 expect(label).toBe('');
                 expect(icon).toBeNull();
-                expect(id).toBe('');
+                expect(id).toBeUndefined();
                 expect(hasRipple).toBe(false);
                 expect(type).toBe('submit');
                 expect(iconLibrary).toBe('material');
