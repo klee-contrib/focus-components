@@ -17,7 +17,6 @@ const propTypes = {
     placeholder: PropTypes.string,
     //required: PropTypes.bool,
     rows: PropTypes.number,
-    type: PropTypes.string,
     unformatter: PropTypes.func,
     value: PropTypes.oneOfType([
         PropTypes.string,
@@ -27,7 +26,6 @@ const propTypes = {
 };
 
 const defaultProps = {
-    type: 'text',
     formatter: identity,
     unformatter: identity,
     minLength: 0,
@@ -82,6 +80,9 @@ class InputTextarea extends Component {
         validInputProps.value = formatter(value) === undefined || formatter(value) === null ? '' : formatter(value);
         validInputProps.onChange = this._handleInputChange
         const inputProps = { ...validInputProps, pattern };
+        // Label and type not allowed on element textarea
+        delete inputProps.label;
+        delete inputProps.type;
 
         return (
             <div data-error={!!error} data-focus='input-textarea'>
