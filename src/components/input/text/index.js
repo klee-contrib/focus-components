@@ -2,6 +2,8 @@
 import React, { Component, PropTypes } from 'react';
 import ReactDOM from 'react-dom';
 import identity from 'lodash/utility/identity';
+import { v4 as uuid } from 'uuid';
+
 import ComponentBaseBehaviour from '../../../behaviours/component-base';
 import MDBehaviour from '../../../behaviours/material';
 import filterProps from '../../../utils/filter-html-attributes';
@@ -95,13 +97,19 @@ class InputText extends Component {
         // Label is not valid on input
         delete inputProps.label;
 
+        let errorId = null;
+        if (error) {
+            inputProps['aria-invalid'] = true;
+            errorId = uuid();
+            inputProps['aria-describedby'] = errorId;
+        }
         const cssClass = `mdl-textfield mdl-js-textfield${error ? ' is-invalid' : ''}`;
 
         return (
             <div className={cssClass} data-focus='input-text' ref='inputText' style={style}>
                 <input className='mdl-textfield__input' ref='htmlInput' {...inputProps} />
                 <label className='mdl-textfield__label' htmlFor={name}>{this.i18n(placeholder)}</label>
-                {error && (<span className='mdl-textfield__error'>{this.i18n(error)}</span>)}
+                {error && (<span className='mdl-textfield__error' id={errorId}>{this.i18n(error)}</span>)}
             </div>
         );
     }
