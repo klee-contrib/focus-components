@@ -1,6 +1,8 @@
 import React, { Component, PropTypes } from 'react';
 import ReactDOM from 'react-dom';
 import identity from 'lodash/utility/identity';
+import { v4 as uuid } from 'uuid';
+
 import ComponentBaseBehaviour from '../../../behaviours/component-base';
 import MDBehaviour from '../../../behaviours/material';
 import filterProps from '../../../utils/filter-html-attributes';
@@ -78,11 +80,22 @@ class InputTextarea extends Component {
         const mdlClasses = `mdl-textfield mdl-js-textfield${error ? ' is-invalid' : ''}`;
 
         validInputProps.value = formatter(value) === undefined || formatter(value) === null ? '' : formatter(value);
-        validInputProps.onChange = this._handleInputChange
+        validInputProps.onChange = this._handleInputChange;
+        // To prevent regression
+        if (validInputProps.name) {
+            validInputProps.id = validInputProps.name;
+        }
+
         const inputProps = { ...validInputProps, pattern };
         // Label and type not allowed on element textarea
         delete inputProps.label;
         delete inputProps.type;
+        let errorId = null;
+        if (error) {
+            inputProps['aria-invalid'] = true;
+            errorId = uuid();
+            inputProps['aria-describedby'] = errorId;
+        }
 
         return (
             <div data-error={!!error} data-focus='input-textarea'>
@@ -90,7 +103,7 @@ class InputTextarea extends Component {
                     <textarea className='mdl-textfield__input' ref='htmlInput' {...inputProps} />
                     <label className='mdl-textfield__label' htmlFor={name}>{this.i18n(placeholder)}</label>
                 </div>
-                {error && <div className='label-error' ref='error'>{error}</div>}
+                {error && <div className='label-error' ref='error' id={errorId}>{error}</div>}
             </div>
         );
     }
