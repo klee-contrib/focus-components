@@ -48,10 +48,8 @@ class SelectCheckbox extends Component {
      * React componentWillReceiveProps hook.
      * @param {object} newProps new props.
      */
-    componentWillReceiveProps(newProps) {
-        if (newProps) {
-            this.setState({ selectedValues: newProps.value });
-        }
+    componentWillReceiveProps({value}) {
+        this.setState({ selectedValues: value || [] });
     }
 
     /**
