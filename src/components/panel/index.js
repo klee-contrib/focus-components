@@ -35,15 +35,21 @@ class Panel extends Component {
     * @return {DOM} React DOM element
     */
     render() {
-        const { actions, actionsPosition, children, title, showHelp, blockName, ...otherProps } = this.props;
+        const { actions, actionsPosition, children, title, showHelp, blockName, modalTitleId, ...otherProps } = this.props;
         const { spyId } = this.state;
         const shouldDisplayActionsTop = actions && ['both', 'top'].includes(actionsPosition);
         const shouldDisplayActionsBottom = actions && ['both', 'bottom'].includes(actionsPosition);
+
+        const optionalModalProps = {};
+        if (modalTitleId) {
+            optionalModalProps.id = modalTitleId;
+        }
+
         return (
             <div className='mdl-card mdl-card--border mdl-shadow--4dp' data-spy={spyId} data-focus='panel' {...otherProps}>
                 {(title || shouldDisplayActionsTop || showHelp) && <div className='mdl-card__title mdl-card--border' data-focus='panel-title'>
                     {title &&
-                        <h3 data-spy-title>{this.i18n(title)}</h3>
+                        <h3 data-spy-title {...optionalModalProps}>{this.i18n(title)}</h3>
                     }
                     {shouldDisplayActionsTop &&
                         <div className='actions'>{actions()}</div>
