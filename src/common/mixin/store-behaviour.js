@@ -127,7 +127,7 @@ const storeMixin = {
         }
 
         return Object.keys(this.definition)
-            .reduce((acc, key) => ((__IS_VERTIGO__ || this.partialObject) && !this.refs[`${this.definitionPath}.${key}`] ? acc : { ...acc, [key]: null }), {});
+            .reduce((acc, key) => ((__IS_VERTIGO__ || this.partialObject) && !this.refs[`${this.definitionPath}.${key}`] ? acc : { ...acc, [key]: this.definition[key].defaultValue || null }), {});
     },
 
     /**
