@@ -49,7 +49,7 @@ class Button extends Component {
         hasRipple: false,
         icon: null,
         iconLibrary: 'material',
-        id: '',
+        id: undefined,
         isJs: false,
         isLoading: false,
         label: '',

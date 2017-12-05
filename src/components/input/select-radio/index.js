@@ -1,7 +1,10 @@
 import React, { Component, PropTypes } from 'react';
 import Radio from '../radio';
 import uniqueId from 'lodash/utility/uniqueId';
+import { v4 as uuid } from 'uuid';
+
 import Translation from '../../../behaviours/translation';
+import filterProps from '../../../utils/filter-html-attributes';
 
 @Translation
 class SelectRadio extends Component {
@@ -92,11 +95,27 @@ class SelectRadio extends Component {
 
     render() {
         const { error, style } = this.props;
+        const validInputProps = filterProps(this.props);
+
+        // To prevent regression
+        if (validInputProps.name) {
+            validInputProps.id = validInputProps.name;
+        }
+
+        const inputProps = { ...validInputProps, ['data-focus']: 'select-radio', ['data-valid']: !error, style: style };
+
+        let errorId = null;
+        if (error) {
+            inputProps['aria-invalid'] = true;
+            errorId = uuid();
+            inputProps['aria-describedby'] = errorId;
+        }
+
 
         return (
-            <div data-focus='select-radio' data-valid={!error} style={style} >
+            <div {...inputProps}>
                 {this.renderSelectRadios()}
-                {error && <div className='label-error'>{error}</div>}
+                {error && <div className='label-error' id={errorId}>{error}</div>}
             </div>
         );
     }

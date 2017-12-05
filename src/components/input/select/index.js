@@ -1,12 +1,14 @@
 //dependencies
 import React, { Component, PropTypes } from 'react';
 import { translate } from 'focus-core/translation';
-import ComponentBaseBehaviour from '../../../behaviours/component-base';
-import filterProps from '../../../utils/filter-html-attributes';
+import { v4 as uuid } from 'uuid';
 import isUndefined from 'lodash/lang/isUndefined';
 import isNull from 'lodash/lang/isNull';
-
 import union from 'lodash/array/union';
+
+import ComponentBaseBehaviour from '../../../behaviours/component-base';
+import filterProps from '../../../utils/filter-html-attributes';
+
 const UNSELECTED_KEY = 'UNSELECTED_KEY';
 
 /**
@@ -114,14 +116,29 @@ class Select extends Component {
         const validInputProps = filterProps(this.props);
 
         validInputProps.onChange = this._handleSelectChange;
+        // To prevent regression
+        if (validInputProps.name) {
+            validInputProps.id = validInputProps.name;
+        }
+
         const inputProps = { ...validInputProps };
+
+        // Label and type not allowed on element select
+        delete inputProps.label;
+        delete inputProps.type;
+        let errorId = null;
+        if (error) {
+            inputProps['aria-invalid'] = true;
+            errorId = uuid();
+            inputProps['aria-describedby'] = errorId;
+        }
 
         return (
             <div data-focus='select' ref='select' data-valid={!error} style={style}>
                 <select ref='htmlSelect' {...inputProps}>
                     {this._renderOptions(this.props)}
                 </select>
-                {error && <div className='label-error' ref='error'>{translate(error)}</div>}
+                {error && <div className='label-error' ref='error' id={errorId}>{translate(error)}</div>}
             </div>
         );
     }
