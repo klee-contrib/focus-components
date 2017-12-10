@@ -74,8 +74,8 @@ class ButtonBackToTop extends Component {
                     color='colored'
                     handleOnClick={this.goBackToTop}
                     icon='expand_less'
-                    shape='fab' t
-                    ype='button'
+                    shape='fab'
+                    type='button'
                 />
             </div>
         ) : null;
