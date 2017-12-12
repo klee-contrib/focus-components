@@ -144,8 +144,23 @@ const popin = {
             });
         }, timeout);
     },
+    componentDidMount() {
+        document.addEventListener('keydown', this.closeOnEscape);
+    },
     componentWillUnmount() {
         window.clearTimeout(this._openTimeoutID);
+        document.removeEventListener('keydown', this.closeOnEscape);
+    },
+    /**
+     * Close the popin on Esc press.
+     * @param e The trigger event
+     */
+    closeOnEscape(e) {
+        if (this.state.opened && e.keyCode === 27) {
+            e.preventDefault();
+            e.stopPropagation();
+            this.toggleOpen();
+        }
     },
     /**
     * Render the component
