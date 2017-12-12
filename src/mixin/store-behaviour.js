@@ -124,9 +124,9 @@ const storeMixin = {
             return this.buildEmptyFromDefinition();
         }
 
-        return Object.keys(this.definition).reduce((acc, key) => ({ ...acc, [key]: null }), {});
+        return Object.keys(this.definition)
+            .reduce((acc, key) => ((__IS_VERTIGO__ || this.partialObject) && !this.refs[`${this.definitionPath}.${key}`] ? acc : { ...acc, [key]: this.definition[key].defaultValue || null }), {});
     },
-
     /**
      * Get the isLoading state from  all the store.
      * @returns {object} The object with isLoading key set.
