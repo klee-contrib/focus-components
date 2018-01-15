@@ -1,4 +1,5 @@
-import React, { PropTypes } from 'react';
+import PropTypes from 'prop-types';
+import React from 'react';
 
 /**
 * Small overlay component used to listen to scroll and prevent it to leave the Popin component

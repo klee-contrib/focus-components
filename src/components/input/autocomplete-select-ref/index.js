@@ -1,4 +1,5 @@
-import React, { PropTypes } from 'react';
+import PropTypes from 'prop-types';
+import React from 'react';
 import AutocompleteSelect from '../autocomplete-select/field';
 import AutocompleteSelectMultiple from '../autocomplete-select-multiple/field';
 

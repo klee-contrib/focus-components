@@ -1,4 +1,5 @@
-import React, { Component, PropTypes } from 'react';
+import PropTypes from 'prop-types';
+import React, { Component } from 'react';
 import RichTextEditor from 'react-rte';
 // FIX ME cannot import RichTextEditor from 'react-rte/lib/RichTextEditor';
 // Due to use of CSS modules

@@ -1,5 +1,7 @@
 // Dependencies
-import React, { PropTypes } from 'react';
+import PropTypes from 'prop-types';
+
+import React from 'react';
 import find from 'lodash/collection/find';
 import result from 'lodash/object/result';
 import { addRefToPropsIfNotPure, INPUT, DISPLAY } from '../../../utils/is-react-class-component';
