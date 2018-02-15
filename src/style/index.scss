@@ -1,5 +1,4 @@
 @import '_variables.scss';
-@import 'react-date-picker/index.css';
 
 @import 'material-design-lite/src/material-design-lite.scss';
 
@@ -22,6 +21,7 @@
 @import '../components/input/autocomplete-select/style.scss';
 @import '../components/input/autocomplete-text/style.scss';
 @import '../components/input/checkbox/style/checkbox.scss';
+@import '../components/input/date/style/react-date-picker.css';
 @import '../components/input/date/style/index.scss';
 @import '../components/input/textarea/style/textarea.scss';
 @import '../components/input/radio/style/radio.scss';

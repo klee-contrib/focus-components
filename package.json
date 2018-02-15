@@ -71,7 +71,6 @@
     "dependencies": {
         "closest": "0.0.1",
         "lodash": "3.10.1",
-        "react-date-picker": "3.1.10",
         "react-lazyload": "2.3.0",
         "react-rte": "0.16.0",
         "unorm": "1.4.1",
