@@ -1,4 +1,5 @@
-import React, { Component, PropTypes } from 'react';
+import PropTypes from 'prop-types';
+import React, { Component } from 'react';
 import Translation from '../../behaviours/translation';
 import uniqueId from 'lodash/utility/uniqueId';
 import snakeCase from 'lodash/string/snakeCase';

@@ -1,4 +1,5 @@
-import React, { Component, PropTypes } from 'react';
+import PropTypes from 'prop-types';
+import React, { Component } from 'react';
 import Radio from '../radio';
 import uniqueId from 'lodash/utility/uniqueId';
 import { v4 as uuid } from 'uuid';

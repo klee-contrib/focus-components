@@ -1,4 +1,5 @@
-import React, { Component, PropTypes } from 'react';
+import PropTypes from 'prop-types';
+import React, { Component } from 'react';
 import Translation from '../../../behaviours/translation';
 import formatter from 'focus-core/definition/formatter/number';
 //web components

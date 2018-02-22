@@ -1,4 +1,5 @@
-import React, { Component, PropTypes } from 'react';
+import PropTypes from 'prop-types';
+import React, { Component } from 'react';
 import capitalize from 'lodash/string/capitalize';
 import messageStore from 'focus-core/message/built-in-store';
 import { translate } from 'focus-core/translation';

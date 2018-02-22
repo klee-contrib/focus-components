@@ -1,9 +1,12 @@
 
-import TestUtils from 'react-addons-test-utils';
+import TestUtils from 'react-dom/test-utils';
 import React from 'react';
 import ReactDOM from 'react-dom';
 
-import { mount, render, shallow } from 'enzyme';
+import { configure, mount, render, shallow } from 'enzyme';
+import Adapter from 'enzyme-adapter-react-16';
+configure({ adapter: new Adapter() });
+
 import Tooltip from '../';
 
 describe('Tooltip Component', () => {

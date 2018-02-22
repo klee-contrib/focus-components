@@ -1,4 +1,5 @@
-import React, { PropTypes } from 'react';
+import PropTypes from 'prop-types';
+import React from 'react';
 
 import user from 'focus-core/user';
 import intersection from 'lodash/array/intersection';

@@ -5,13 +5,13 @@ import noop from 'lodash/utility/noop'
 import Button from '../../components/button';
 import MDBehaviour from '../../behaviours/material';
 
-@MDBehaviour('dropdown')
 /**
  * Action menu component
  * 
  * @class ActionMenu
  * @extends {Component}
  */
+@MDBehaviour('dropdown')
 class ActionMenu extends Component {
 
 

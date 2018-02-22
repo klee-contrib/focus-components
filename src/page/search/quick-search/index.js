@@ -1,5 +1,7 @@
 // Dependencies
-import React, { PropTypes } from 'react';
+import PropTypes from 'prop-types';
+
+import React from 'react';
 import builder from 'focus-core/component/builder';
 // Components
 import { component as DefaultSearchBar } from '../../../search/search-bar';

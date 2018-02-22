@@ -1,5 +1,5 @@
 
-import TestUtils from 'react-addons-test-utils';
+import TestUtils from 'react-dom/test-utils';
 import { init } from 'focus-core/translation';
 import React from 'react';
 

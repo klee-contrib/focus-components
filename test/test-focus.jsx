@@ -1,13 +1,13 @@
-import TestUtils from 'react-addons-test-utils';
+import TestUtils from 'react-dom/test-utils';
 import React from 'react';
 import ReactDOM from 'react-dom';
-const {renderIntoDocument,findRenderedDOMComponentWithClass,findAllInRenderedTree,isDOMComponent,isCompositeComponent} = TestUtils;
+const { renderIntoDocument, findRenderedDOMComponentWithClass, findAllInRenderedTree, isDOMComponent, isCompositeComponent } = TestUtils;
 
-const {forEach} = require('lodash/collection');
+const { forEach } = require('lodash/collection');
 
 //DOM elements
-export const TAG_DIV='DIV';
-export const TAG_INPUT='INPUT';
+export const TAG_DIV = 'DIV';
+export const TAG_INPUT = 'INPUT';
 
 //DOM attributes
 export const ATTR_ID = 'id';
@@ -136,15 +136,15 @@ export function findElementWithValue(reactComponent) {
 function logAttributes(domComponent) {
     console.log();
     if (Array.isArray(domComponent)) {
-        console.log("Array: cannot be inspected !!!");
+        console.log('Array: cannot be inspected !!!');
     } else {
-        console.log("tagName", domComponent.tagName);
+        console.log('tagName', domComponent.tagName);
         const arrAttr = domComponent.attributes;
-        forEach(arrAttr, ( attr => {
-                console.log("attr " + attr.name, attr.value);
-            }
+        forEach(arrAttr, (attr => {
+            console.log('attr ' + attr.name, attr.value);
+        }
         ));
-        console.log("textContent", domComponent.textContent);
+        console.log('textContent', domComponent.textContent);
     }
     console.log();
 }

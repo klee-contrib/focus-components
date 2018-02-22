@@ -5,6 +5,8 @@ module.exports = {
     },
     automock: false,
     unmockedModulePathPatterns: [
+        '<rootDir>/node_modules/prop-types',
+        '<rootDir>/node_modules/create-react-class',
         '<rootDir>/node_modules/react',
         '<rootDir>/node_modules/react-dom',
         '<rootDir>/node_modules/react-addons-test-utils',

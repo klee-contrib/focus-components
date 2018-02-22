@@ -1,5 +1,6 @@
 //dependencies
-import React, { Component, PropTypes } from 'react';
+import PropTypes from 'prop-types';
+import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import identity from 'lodash/utility/identity';
 import { v4 as uuid } from 'uuid';

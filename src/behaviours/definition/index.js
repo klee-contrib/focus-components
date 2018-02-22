@@ -1,5 +1,7 @@
 //Dependencies
-import React, { Component, PropTypes } from 'react';
+import PropTypes from 'prop-types';
+
+import React, { Component } from 'react';
 import isNull from 'lodash/lang/isNull';
 import isUndefined from 'lodash/lang/isUndefined';
 import isArray from 'lodash/lang/isArray';
