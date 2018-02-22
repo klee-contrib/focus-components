@@ -1,4 +1,5 @@
-import React, { Component, PropTypes } from 'react';
+import PropTypes from 'prop-types';
+import React, { Component } from 'react';
 import Button from '../button';
 import { scrollTo, scrollPosition } from '../../common/mixin/scroll';
 
@@ -74,8 +75,8 @@ class ButtonBackToTop extends Component {
                     color='colored'
                     handleOnClick={this.goBackToTop}
                     icon='expand_less'
-                    shape='fab' t
-                    ype='button'
+                    shape='fab'
+                    type='button'
                 />
             </div>
         ) : null;

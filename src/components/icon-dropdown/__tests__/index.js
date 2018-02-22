@@ -1,5 +1,5 @@
 
-import TestUtils from 'react-addons-test-utils';
+import TestUtils from 'react-dom/test-utils';
 import React from 'react';
 import { findFocusElementsWithDataFocus, findElementWithInnerHTML, TAG_DIV, VAL_DATA_FOCUS_BUTTON, VAL_DATA_FOCUS_MENU, findDataRoleElements, findFocusElementsWithDataRole, VAL_DATA_ROLE_DROPDOWN_ITEM } from '../../../../test/test-focus';
 

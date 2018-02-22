@@ -1,4 +1,5 @@
-import React, { Component, PropTypes } from 'react';
+import PropTypes from 'prop-types';
+import React, { Component } from 'react';
 import Checkbox from '../checkbox';
 import Translation from '../../../behaviours/translation';
 
@@ -48,10 +49,8 @@ class SelectCheckbox extends Component {
      * React componentWillReceiveProps hook.
      * @param {object} newProps new props.
      */
-    componentWillReceiveProps(newProps) {
-        if (newProps) {
-            this.setState({ selectedValues: newProps.value });
-        }
+    componentWillReceiveProps({ value }) {
+        this.setState({ selectedValues: value || [] });
     }
 
     /**

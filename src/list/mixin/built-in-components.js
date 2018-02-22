@@ -26,11 +26,13 @@ const builtInComponentsMixin = {
      * @returns {object} - A React Field.
      */
     fieldFor(name, options) {
+        const def = (this.definition && this.definition[name]) ? this.definition[name] : {};
+
         options = assign({}, {
             isEdit: this.props.isEdit,
             hasLabel: false,
-            value: this.props.data[name],
-            refContainer: this.props.reference,
+            value: options && options.value !== undefined ? options.value : this.props.data[name],
+            refContainer: options && options.refContainer || def.refContainer || this.props.reference,
             style: { className: 'form-list' }
         }, options);
 

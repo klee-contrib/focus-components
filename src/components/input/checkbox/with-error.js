@@ -1,5 +1,8 @@
-import React, { Component, PropTypes } from 'react';
+import PropTypes from 'prop-types';
+import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
+import { v4 as uuid } from 'uuid';
+
 import Translation from '../../../behaviours/translation';
 import Material from '../../../behaviours/material';
 import filterProps from '../../../utils/filter-html-attributes';
@@ -8,11 +11,13 @@ const propTypes = {
     label: PropTypes.string,
     onChange: PropTypes.func.isRequired,
     value: PropTypes.bool.isRequired,
+    disabled: PropTypes.bool,
     error: PropTypes.string
 };
 
 const defaultProps = {
-    value: false
+    value: false,
+    disabled: false
 };
 
 @Translation
@@ -49,15 +54,26 @@ class InputCheckBoxWithError extends Component {
         const { label, value, disabled, error } = this.props;
 
         validInputProps.onChange = this.handleOnChange;
+        // To prevent regression
+        if (validInputProps.name) {
+            validInputProps.id = validInputProps.name;
+        }
+
         const inputProps = { ...validInputProps, type: 'checkbox', disabled, checked: value, className: 'mdl-checkbox__input' };
         delete inputProps.value;
+        let errorId = null;
+        if (error) {
+            inputProps['aria-invalid'] = true;
+            errorId = uuid();
+            inputProps['aria-describedby'] = errorId;
+        }
 
         return (
             <div data-error={!!error} data-focus='input-checkbox-with-error-container'>
                 <label className={'mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect'} data-focus='input-checkbox' ref='mdlHolder'>
                     <input ref='checkbox' {...inputProps} />
                     {label && <span className='mdl-checkbox__label'>{this.i18n(label)}</span>}
-                    {error && <span className='input-checkbox__error'>{this.i18n(error)}</span>}
+                    {error && <span className='input-checkbox__error' id={errorId}>{this.i18n(error)}</span>}
                 </label>
             </div>
         );

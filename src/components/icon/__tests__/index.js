@@ -1,18 +1,18 @@
 
-import TestUtils from 'react-addons-test-utils';
+import TestUtils from 'react-dom/test-utils';
 import React from 'react';
 import ReactDOM from 'react-dom';
 
 import Icon from '../';
 const { renderIntoDocument, scryRenderedDOMComponentsWithTag, Simulate } = TestUtils;
 
-const Wrapper = React.createClass({
-    render: function () {
+class Wrapper extends React.Component {
+    render() {
         return (
             <div>{this.props.children}</div>
         );
     }
-});
+}
 
 describe('Select Icon Component', () => {
     describe('Rendering', () => {

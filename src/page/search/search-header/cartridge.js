@@ -1,9 +1,12 @@
 import { translate } from 'focus-core/translation';
 import React from 'react';
+import createReactClass from 'create-react-class';
 import searchHeaderMixin from './mixin';
 
-export default React.createClass({
+export default createReactClass({
+    displayName: 'cartridge',
     mixins: [searchHeaderMixin],
+
     render() {
         return (
             <div className='cartridge-search' data-focus='cartridge-search'>
@@ -11,5 +14,5 @@ export default React.createClass({
                 {this._SearchBarComponent()}
             </div>
         );
-    }
+    },
 });

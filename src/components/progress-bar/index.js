@@ -1,5 +1,6 @@
 // Dependencies
-import React, { Component, PropTypes } from 'react';
+import PropTypes from 'prop-types';
+import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import mdlBehaviour from '../../behaviours/material';
 
@@ -44,8 +45,7 @@ class ProgressBar extends Component {
 
         if (indeterminated) {
             return 'mdl-progress mdl-js-progress mdl-progress__indeterminate'
-        }
-        else {
+        } else {
             return 'mdl-progress mdl-js-progress'
         }
     }

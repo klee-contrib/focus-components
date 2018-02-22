@@ -1,9 +1,12 @@
-import React, { Component, PropTypes } from 'react';
+import PropTypes from 'prop-types';
+import React, { Component } from 'react';
+import { v4 as uuid } from 'uuid';
+import debounce from 'lodash/function/debounce';
+
 import ComponentBaseBehaviour from '../../../behaviours/component-base';
 import MDBehaviour from '../../../behaviours/material';
 import filterProps from '../../../utils/filter-html-attributes';
 
-import debounce from 'lodash/function/debounce';
 
 @MDBehaviour('materialInput')
 @MDBehaviour('loader')
@@ -175,6 +178,11 @@ class AutocompleteTextEdit extends Component {
         const { inputValue, hasSuggestions, hasFocus, isLoading } = this.state;
 
         const validInputProps = filterProps(this.props);
+        // To prevent regression
+        if (validInputProps.name) {
+            validInputProps.id = validInputProps.name;
+        }
+
         const { placeholder, error } = this.props;
 
         validInputProps.value = inputValue === undefined || inputValue === null ? '' : inputValue;
@@ -182,14 +190,20 @@ class AutocompleteTextEdit extends Component {
         validInputProps.onChange = this.onQueryChange;
         validInputProps.onBlur = this.toggleHasFocus;
         const inputProps = { ...validInputProps };
+        let errorId = null;
+        if (error) {
+            inputProps['aria-invalid'] = true;
+            errorId = uuid();
+            inputProps['aria-describedby'] = errorId;
+        }
 
         return (
             <div data-focus='autocompleteText'>
                 <div className={`mdl-textfield mdl-js-textfield${error ? ' is-invalid' : ''}`} ref='materialInput'>
                     <div data-focus='loading' data-loading={isLoading} className='mdl-progress mdl-js-progress' ref='loader' />
                     <input className='mdl-textfield__input' type='text' ref='inputText' {...inputProps} autoComplete='off' />
-                    <label className='mdl-textfield__label'>{this.i18n(placeholder)}</label>
-                    <span className='mdl-textfield__error' ref='errorMessage'>{this.i18n(error)}</span>
+                    {placeholder && <label className='mdl-textfield__label'>{this.i18n(placeholder)}</label>}
+                    {error && <span className='mdl-textfield__error' ref='errorMessage' id={errorId}>{this.i18n(error)}</span>}
                 </div>
                 {hasSuggestions && hasFocus &&
                     this.renderSuggestions()
