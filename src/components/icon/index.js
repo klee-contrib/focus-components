@@ -6,15 +6,15 @@ function Icon({ name, library, onClick, style }) {
     switch (library) {
         case 'material':
             return (
-                <i className='material-icons' onClick={onClick} {...filterProps(style) }>{name}</i>
+                <i className='material-icons' onClick={onClick} {...filterProps(style)}>{name}</i>
             );
         case 'font-awesome':
             return (
-                <i className={`fa fa-${name}`} onClick={onClick} {...filterProps(style) } />
+                <i className={`fa fa-${name}`} onClick={onClick} {...filterProps(style)} />
             );
         case 'font-custom':
             return (
-                <span className={`icon-${name}`} {...filterProps(style) } />
+                <span className={`icon-${name}`} {...filterProps(style)} />
             );
         default:
             return null;

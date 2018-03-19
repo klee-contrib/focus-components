@@ -8,5 +8,5 @@ export default createReactClass({
 
     render() {
         return this._SearchBarComponent();
-    },
+    }
 });

@@ -2,11 +2,11 @@
 
 // is a component a react class.
 export const isReactClassComponent = ComponentToTest => {
- const prototype = ComponentToTest.prototype;
-  if (!prototype) {
-    return false;
-  }
-  return typeof prototype.render === 'function';
+    const prototype = ComponentToTest.prototype;
+    if (!prototype) {
+        return false;
+    }
+    return typeof prototype.render === 'function';
 };
 
 export const addRefToPropsIfNotPure = (Component, props, ref) => (isReactClassComponent(Component) ? {...props, ref} : props);

@@ -161,7 +161,7 @@ const changeBehaviourMixin = {
         }
     },
 
-	/**
+    /**
     * Read
     * @param  {[type]} changeInfos [description]
     */
@@ -173,7 +173,7 @@ const changeBehaviourMixin = {
         }
     },
 
-	/**
+    /**
     * Read
     * @param  {[type]} changeInfos [description]
     */

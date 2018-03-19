@@ -23,7 +23,7 @@ function actionWrapper(searchAction, context, timeout) {
                 currentCall = {};
             }
         },
-            timeout !== undefined ? timeout : DEFAULT_TIMEOUT
+        timeout !== undefined ? timeout : DEFAULT_TIMEOUT
         );
         return currentCall.timeout;
     };

@@ -14,5 +14,5 @@ export default createReactClass({
                 {this._SearchBarComponent()}
             </div>
         );
-    },
+    }
 });

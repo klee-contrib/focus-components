@@ -9,7 +9,7 @@ const propTypes = {
     formatter: PropTypes.func,
     name: PropTypes.string,
     style: PropTypes.object,
-    value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+    value: PropTypes.oneOfType([PropTypes.string, PropTypes.number])
 };
 
 //v2 : replace div by span
