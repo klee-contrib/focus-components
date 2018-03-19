@@ -2,7 +2,7 @@
 import PropTypes from 'prop-types';
 
 import React from 'react';
-import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
+import { CSSTransitionGroup as ReactCSSTransitionGroup } from 'react-transition-group';
 
 const propTypes = {
     //If you want to use a custom css class
