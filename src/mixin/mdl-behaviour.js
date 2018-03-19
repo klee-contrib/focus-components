@@ -1,5 +1,3 @@
-//https://github.com/google/material-design-lite/blob/master/src/mdlComponentHandler.js#L333
-import React from 'react';
 import ReactDOM from 'react-dom';
 import 'material-design-lite/material';
 

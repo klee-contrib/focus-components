@@ -150,7 +150,7 @@ const changeBehaviourMixin = {
                 if (this.refs) {
                     const refKey = Object.keys(this.refs).find(candidateRef => {
                         const candidate = candidateRef.replace(`${this.definitionPath}.`, ''); // Remove the 'definitionPath.'
-                        return candidate === key.match(/([^\.]*)$/)[0] // Look for the 'fieldName' part of 'storeNode.fieldName'
+                        return candidate === key.match(/([^\.]*)$/)[0]; // Look for the 'fieldName' part of 'storeNode.fieldName'
                     });
 
                     if (refKey) { // If we found it, then bingo

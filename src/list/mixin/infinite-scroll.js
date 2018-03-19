@@ -1,4 +1,3 @@
-import React from 'react';
 import ReactDOM from 'react-dom';
 import { mixin as paginationMixin } from '../mixin/pagination';
 
