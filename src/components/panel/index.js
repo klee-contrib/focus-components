@@ -6,13 +6,15 @@ import snakeCase from 'lodash/string/snakeCase';
 import ButtonHelp from '../button-help';
 
 const defaultProps = {
-    actionsPosition: 'top'
+    actionsPosition: 'top',
+    titleTranslated: true
 };
 
 const propTypes = {
     actions: PropTypes.func,
     actionsPosition: PropTypes.oneOf(['both', 'bottom', 'top']).isRequired,
     title: PropTypes.string,
+    titleTranslated: PropTypes.bool,
     showHelp: PropTypes.bool,
     blockName: PropTypes.string
 };
@@ -36,7 +38,7 @@ class Panel extends Component {
     * @return {DOM} React DOM element
     */
     render() {
-        const { actions, actionsPosition, children, title, showHelp, blockName, modalTitleId, ...otherProps } = this.props;
+        const { actions, actionsPosition, children, title, titleTranslated, showHelp, blockName, modalTitleId, ...otherProps } = this.props;
         const { spyId } = this.state;
         const shouldDisplayActionsTop = actions && ['both', 'top'].includes(actionsPosition);
         const shouldDisplayActionsBottom = actions && ['both', 'bottom'].includes(actionsPosition);
@@ -50,12 +52,12 @@ class Panel extends Component {
             <div className='mdl-card mdl-card--border mdl-shadow--4dp' data-spy={spyId} data-focus='panel' {...otherProps}>
                 {(title || shouldDisplayActionsTop || showHelp) && <div className='mdl-card__title mdl-card--border' data-focus='panel-title'>
                     {title &&
-                        <h3 data-spy-title {...optionalModalProps}>{this.i18n(title)}</h3>
+                        <h3 data-spy-title {...optionalModalProps}>{titleTranslated ? this.i18n(title) : title}</h3>
                     }
                     {shouldDisplayActionsTop &&
                         <div className='actions'>{actions()}</div>
                     }
-                    {showHelp && <ButtonHelp blockName={blockName || snakeCase(this.i18n(title)).split('_')[0]} />}
+                    {showHelp && <ButtonHelp blockName={blockName || snakeCase(titleTranslated ? this.i18n(title) : title).split('_')[0]} />}
                 </div>}
                 <div className='mdl-card__supporting-text' data-focus='panel-content'>
                     {children}
