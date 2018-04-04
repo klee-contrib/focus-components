@@ -78,7 +78,7 @@ class Radio extends Component {
         const validInputProps = filterProps(this.props);
 
         validInputProps.onChange = this._onChange;
-        validInputProps.checked = isChecked ? 'checked' : undefined;
+        validInputProps.checked = isChecked ? 'checked' : '';
         const inputProps = { ...validInputProps };
 
         return (
