@@ -1,11 +1,10 @@
 
 import TestUtils from 'react-dom/test-utils';
 import React from 'react';
-import ReactDOM from 'react-dom';
 
 import Radio from '../';
 
-const { renderIntoDocument, scryRenderedDOMComponentsWithTag, findRenderedDOMComponentWithTag, Simulate } = TestUtils;
+const { renderIntoDocument, Simulate } = TestUtils;
 
 describe('Input Radio Component', () => {
     describe('Rendering', () => {

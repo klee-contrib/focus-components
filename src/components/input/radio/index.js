@@ -1,4 +1,5 @@
-import React, { Component, PropTypes } from 'react';
+import PropTypes from 'prop-types';
+import React, { Component } from 'react';
 import Translation from '../../../behaviours/translation';
 import GridBehaviour from '../../../behaviours/grid';
 import MaterialBehaviour from '../../../behaviours/material';
