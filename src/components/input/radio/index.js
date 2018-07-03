@@ -22,14 +22,6 @@ class Radio extends Component {
         onChange: PropTypes.func
     };
 
-    state = {
-        isChecked: isUndefined(this.props.value) ? false : this.props.value
-    };
-
-    componentWillReceiveProps(newProps) {
-        this.setState({ isChecked: newProps.value });
-    }
-
     componentDidMount() {
         this.updateCheckedClass();
     }
@@ -40,7 +32,7 @@ class Radio extends Component {
 
     updateCheckedClass() {
         const { inputMdl } = this.refs;
-        const { isChecked } = this.state;
+        const isChecked = this.getValue();
         if (inputMdl) {
             const { classList } = inputMdl;
             if (isChecked === true) classList.add('is-checked');
@@ -53,11 +45,9 @@ class Radio extends Component {
     * @param  {event} event
     */
     _onChange = () => {
-        this.setState({ isChecked: !this.state.isChecked }, () => {
-            if (this.props.onChange) {
-                this.props.onChange(this.state.isChecked);
-            }
-        });
+        if (this.props.onChange) {
+            this.props.onChange();
+        }
     }
 
     /**
@@ -65,7 +55,7 @@ class Radio extends Component {
     * @returns The DOM node value.
     */
     getValue() {
-        return this.state.isChecked;
+        return isUndefined(this.props.value) ? false : this.props.value
     }
 
     /**
@@ -73,7 +63,7 @@ class Radio extends Component {
     * @return {VirtualDOM} - The virtual DOM of the checkbox.
     */
     render() {
-        const { isChecked } = this.state;
+        const isChecked = this.getValue();
         const { label } = this.props;
         const validInputProps = filterProps(this.props);
 

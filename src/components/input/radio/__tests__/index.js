@@ -5,7 +5,7 @@ import ReactDOM from 'react-dom';
 
 import Radio from '../';
 
-const { renderIntoDocument, scryRenderedDOMComponentsWithTag, findRenderedDOMComponentWithTag, Simulate } = TestUtils;
+const { renderIntoDocument, Simulate } = TestUtils;
 
 describe('Input Radio Component', () => {
     describe('Rendering', () => {
@@ -16,9 +16,6 @@ describe('Input Radio Component', () => {
             });
             it.skip('should have its default props', () => { //FIXME problem outside the component, inside render props are good
                 expect(renderedRadio.props.value).toBe(false);
-            });
-            it('should have its default state', () => {
-                expect(renderedRadio.state.isChecked).toBe(false);
             });
             describe('The function getValue', () => {
                 let renderedRadio;
@@ -35,12 +32,24 @@ describe('Input Radio Component', () => {
         });
         describe('When the radio is selected', () => {
             let renderedRadio;
+            let radio;
+            const onChangeSpy = jest.fn();
             beforeEach(() => {
-                renderedRadio = renderIntoDocument(<Radio label='My value' />);
-                Simulate.change(renderedRadio.refs.inputRadio);
+                renderedRadio = renderIntoDocument(
+                    <Radio
+                        label='My value'
+                        onChange={onChangeSpy}
+                        value={true}
+                    />);
             });
-            it('should change the state', () => {
-                expect(renderedRadio.state.isChecked).toBe(true);
+            it('should call the _onChange prop', () => {
+                radio = ReactDOM.findDOMNode(renderedRadio.refs.inputRadio);
+                Simulate.change(radio, { target: { checked: true } });
+                expect(onChangeSpy).toHaveBeenCalledTimes(1);
+            });
+
+            it('the returned value should be equals to this.props.value', () => {
+                expect(renderedRadio.getValue()).toBe(true);
             });
         })
     });

@@ -14,13 +14,15 @@ const propTypes = {
     referenceName: PropTypes.string.isRequired,
     keyName: PropTypes.string,
     labelName: PropTypes.string,
-    multiple: PropTypes.bool
+    multiple: PropTypes.bool,
+    predicate: PropTypes.func
 }
 
 const defaultProps = {
     keyName: 'key',
     labelName: 'label',
-    multiple: false
+    multiple: false,
+    predicate: (x) => true
 }
 
 const AutocompleteReference = createReactClass({
@@ -33,7 +35,9 @@ const AutocompleteReference = createReactClass({
         const { referenceName, labelName, keyName } = this.props;
         //We use this normalizedList in order not to normalize the list for every query
         if (!this.normalizedList && this.state.reference[referenceName]) {
-            this.normalizedList = this.state.reference[referenceName].map(x => ({ [keyName]: x[keyName], [labelName]: toNormalizedLowerString(x[labelName]) }));
+            this.normalizedList = this.state.reference[referenceName]
+                .filter(predicate)
+                .map(x => ({ [keyName]: x[keyName], [labelName]: toNormalizedLowerString(x[labelName]) }));
         }
 
         let data = (this.normalizedList || []).filter(x => x[labelName].indexOf(normalizedQuery) !== -1);
