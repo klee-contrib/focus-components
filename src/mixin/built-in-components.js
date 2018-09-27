@@ -1,11 +1,13 @@
 // Dependencies
 import React from 'react';
+import ReactDOM from 'react-dom';
 import { changeMode } from 'focus-core/application';
 import assign from 'object-assign';
 
 import result from 'lodash/object/result';
 import find from 'lodash/collection/find';
 import defaultsDeep from 'lodash/object/defaultsDeep';
+import isFunction from 'lodash/lang/isFunction';
 
 // Components
 import { component as Field } from './field';
@@ -161,7 +163,19 @@ export default {
             this.clearError();
             if (this._validate()) {
                 this.action.save.call(this, this._getEntity());
-            }
+            } else if (this.preventFocusOnValidationFailed !== true) {
+                for (let inptKey in this.refs) {
+                    const refElt = this.refs[inptKey];
+                    if (isFunction(refElt.validate) || isFunction(refElt._validate)) {
+                        const validationRes = isFunction(refElt.validate) ? refElt.validate() : refElt._validate();
+                        if (validationRes !== undefined && validationRes !== true) {
+                            const elementPosition = ReactDOM.findDOMNode(refElt).getBoundingClientRect().top;
+                            window.scrollTo(0, elementPosition + window.scrollY - window.innerHeight/2);
+                            break;
+                        }
+                    }
+                }
+			}
         };
         return (
             <Button
