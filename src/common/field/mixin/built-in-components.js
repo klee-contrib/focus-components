@@ -1,42 +1,47 @@
 // Dependencies
-import React, { PropTypes } from 'react';
-import find from 'lodash/collection/find';
-import result from 'lodash/object/result';
-import { addRefToPropsIfNotPure, INPUT, DISPLAY } from '../../../utils/is-react-class-component';
+import React, { PropTypes } from "react";
+import find from "lodash/collection/find";
+import result from "lodash/object/result";
+import { isArray, isObject } from "lodash";
+import {
+    addRefToPropsIfNotPure,
+    INPUT,
+    DISPLAY
+} from "../../../utils/is-react-class-component";
 // Components
-import AutocompleteSelectComponent from '../../../components/input/autocomplete-select/field';
-import AutocompleteTextComponent from '../../../components/input/autocomplete-text/field';
-import InputText from '../../../components/input/text';
-import DisplayText from '../../../components/display/text';
-import SelectClassic from '../../../components/input/select';
-import Label from '../../../components/label';
-import { component as Autocomplete } from '../../autocomplete/field';
+import AutocompleteSelectComponent from "../../../components/input/autocomplete-select/field";
+import AutocompleteTextComponent from "../../../components/input/autocomplete-text/field";
+import InputText from "../../../components/input/text";
+import DisplayText from "../../../components/display/text";
+import SelectClassic from "../../../components/input/select";
+import Label from "../../../components/label";
+import { component as Autocomplete } from "../../autocomplete/field";
 // Mixins
-import fieldGridBehaviourMixin from '../../mixin/field-grid-behaviour';
+import fieldGridBehaviourMixin from "../../mixin/field-grid-behaviour";
 
 const fieldBuiltInComponentsMixin = {
     mixins: [fieldGridBehaviourMixin],
     getDefaultProps() {
         return {
             /**
-            * Does the component has a Label.
-            * @type {Boolean}
-            */
+             * Does the component has a Label.
+             * @type {Boolean}
+             */
             hasLabel: true,
             /**
-            * Redefine complety the component.
-            * @type {Object}
-            */
+             * Redefine complety the component.
+             * @type {Object}
+             */
             FieldComponent: undefined,
             /**
-            * Redefine only the input and label component.
-            * @type {Object}
-            */
+             * Redefine only the input and label component.
+             * @type {Object}
+             */
             InputLabelComponent: undefined,
             /**
-            * Component for the input.
-            * @type {Object}
-            */
+             * Component for the input.
+             * @type {Object}
+             */
             InputComponent: InputText,
             /**
              * Autocomplete component
@@ -46,19 +51,19 @@ const fieldBuiltInComponentsMixin = {
             AutocompleteSelectComponent,
             AutocompleteTextComponent,
             /**
-            * Component for the select.
-            * @type {Object}
-            */
+             * Component for the select.
+             * @type {Object}
+             */
             SelectComponent: SelectClassic,
             /**
-            * Component for the display.
-            * @type {Object}
-            */
+             * Component for the display.
+             * @type {Object}
+             */
             DisplayComponent: DisplayText,
             /**
-            * Component for the label.
-            * @type {Object}
-            */
+             * Component for the label.
+             * @type {Object}
+             */
             LabelComponent: Label
         };
     },
@@ -78,19 +83,19 @@ const fieldBuiltInComponentsMixin = {
     _buildStyle() {
         let { style } = this.props;
         style = style || {};
-        style.className = style && style.className ? style.className : '';
+        style.className = style && style.className ? style.className : "";
         return style;
     },
     /**
-    * Render the label part of the component.
-    * @returns {Component} - The builded label component.
-    */
+     * Render the label part of the component.
+     * @returns {Component} - The builded label component.
+     */
     label() {
         const { name, label, LabelComponent, domain, isEdit } = this.props;
         return (
             <div
                 className={`${this._getLabelGridClassName()}`}
-                data-focus='field-label-container'
+                data-focus="field-label-container"
             >
                 <LabelComponent
                     domain={domain}
@@ -102,9 +107,9 @@ const fieldBuiltInComponentsMixin = {
         );
     },
     /**
-    * Rendet the input part of the component.
-    * @return {Component} - The constructed input component.
-    */
+     * Rendet the input part of the component.
+     * @return {Component} - The constructed input component.
+     */
     input() {
         const { name: id, placeholder } = this.props;
         const { value, error } = this.state;
@@ -117,10 +122,12 @@ const fieldBuiltInComponentsMixin = {
             error,
             placeholder
         };
-        const finalInputProps = addRefToPropsIfNotPure(this.props.InputComponent, inputBuildedProps, INPUT)
-        return (
-            <this.props.InputComponent {...finalInputProps} />
+        const finalInputProps = addRefToPropsIfNotPure(
+            this.props.InputComponent,
+            inputBuildedProps,
+            INPUT
         );
+        return <this.props.InputComponent {...finalInputProps} />;
     },
     /**
      * Autocomplete render
@@ -138,10 +145,12 @@ const fieldBuiltInComponentsMixin = {
             error,
             placeholder
         };
-        const finalInputProps = addRefToPropsIfNotPure(this.props.AutocompleteComponent, inputBuildedProps, INPUT);
-        return (
-            <this.props.AutocompleteComponent {...finalInputProps} />
+        const finalInputProps = addRefToPropsIfNotPure(
+            this.props.AutocompleteComponent,
+            inputBuildedProps,
+            INPUT
         );
+        return <this.props.AutocompleteComponent {...finalInputProps} />;
     },
     autocompleteSelect() {
         const { name: id, label: placeHolder } = this.props;
@@ -155,10 +164,12 @@ const fieldBuiltInComponentsMixin = {
             error,
             placeHolder
         };
-        const finalInputProps = addRefToPropsIfNotPure(this.props.AutocompleteSelectComponent, inputBuildedProps, INPUT)
-        return (
-            <this.props.AutocompleteSelectComponent {...finalInputProps} />
+        const finalInputProps = addRefToPropsIfNotPure(
+            this.props.AutocompleteSelectComponent,
+            inputBuildedProps,
+            INPUT
         );
+        return <this.props.AutocompleteSelectComponent {...finalInputProps} />;
     },
     autocompleteText() {
         const { name: id, label: placeHolder } = this.props;
@@ -172,10 +183,12 @@ const fieldBuiltInComponentsMixin = {
             error,
             placeHolder
         };
-        const finalInputProps = addRefToPropsIfNotPure(this.props.AutocompleteTextComponent, inputBuildedProps, INPUT);
-        return (
-            <this.props.AutocompleteTextComponent {...finalInputProps} />
+        const finalInputProps = addRefToPropsIfNotPure(
+            this.props.AutocompleteTextComponent,
+            inputBuildedProps,
+            INPUT
         );
+        return <this.props.AutocompleteTextComponent {...finalInputProps} />;
     },
     /**
      * Build a select component depending on the domain, definition and props.
@@ -190,56 +203,59 @@ const fieldBuiltInComponentsMixin = {
             onChange: this.onInputChange,
             error
         };
-        const finalSelectProps = addRefToPropsIfNotPure(this.props.SelectComponent, buildedSelectProps, INPUT);
-        return (
-            <this.props.SelectComponent {...finalSelectProps} />
+        const finalSelectProps = addRefToPropsIfNotPure(
+            this.props.SelectComponent,
+            buildedSelectProps,
+            INPUT
         );
+        return <this.props.SelectComponent {...finalSelectProps} />;
     },
     /**
-    * Render the display part of the component.
-    * @return {object} - The display part of the compoennt if the mode is not edit.
-    */
+     * Render the display part of the component.
+     * @return {object} - The display part of the compoennt if the mode is not edit.
+     */
     display() {
         const { value } = this.state;
         const { name, valueKey, labelKey, values } = this.props;
-        const _processValue = values ? result(find(values, { [valueKey || 'code']: value }), labelKey || 'label') : value;
+        const _processValue =
+            values && !isArray(value) && !isObject(value)
+                ? result(
+                      find(values, { [valueKey || "code"]: value }),
+                      labelKey || "label"
+                  )
+                : value;
         const buildedDislplayProps = {
             ...this.props,
             id: name,
             style: this._buildStyle(),
             value: _processValue
         };
-        const finalDisplayProps = addRefToPropsIfNotPure(this.props.DisplayComponent, buildedDislplayProps, DISPLAY);
-        return (
-            <this.props.DisplayComponent {...finalDisplayProps} />
+        const finalDisplayProps = addRefToPropsIfNotPure(
+            this.props.DisplayComponent,
+            buildedDislplayProps,
+            DISPLAY
         );
+        return <this.props.DisplayComponent {...finalDisplayProps} />;
     },
     /**
-    * Render the error part of the component.
-    * @return {object} - The error part of the component.
-    */
+     * Render the error part of the component.
+     * @return {object} - The error part of the component.
+     */
     error() {
         let { error } = this.state;
         if (error) {
-            return (
-                <span className='mdl-textfield__error'>
-                    {error}
-                </span>
-            );
+            return <span className="mdl-textfield__error">{error}</span>;
         }
     },
     /**
-    * Render the help component.
-    * @return {object} - The help part of the component.
-    */
+     * Render the help component.
+     * @return {object} - The help part of the component.
+     */
     help() {
         let { help, name } = this.props;
         if (help) {
             return (
-                <label
-                    className='mdl-textfield__label'
-                    htmFor={`${name}`}
-                >
+                <label className="mdl-textfield__label" htmFor={`${name}`}>
                     {help}
                 </label>
             );
@@ -250,7 +266,8 @@ const fieldBuiltInComponentsMixin = {
      * @return {Component} - The builded field component.
      */
     _renderFieldComponent() {
-        const FieldComponent = this.props.FieldComponent || this.props.InputLabelComponent;
+        const FieldComponent =
+            this.props.FieldComponent || this.props.InputLabelComponent;
         const { value, error } = this.state;
         const buildedProps = {
             ...this.props,
@@ -259,10 +276,12 @@ const fieldBuiltInComponentsMixin = {
             error: error,
             onChange: this.onInputChange
         };
-        const finalBuildedProps = addRefToPropsIfNotPure(FieldComponent, buildedProps, INPUT);
-        return (
-            <FieldComponent {...finalBuildedProps} />
+        const finalBuildedProps = addRefToPropsIfNotPure(
+            FieldComponent,
+            buildedProps,
+            INPUT
         );
+        return <FieldComponent {...finalBuildedProps} />;
     }
 };
 
